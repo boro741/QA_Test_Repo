@@ -23,7 +23,7 @@ public class ExtendedLocalDesiredCapability extends LocalExecutionDesiredCapabil
 	public void additionalDesiredCapabilities() {
 		try {
 			desiredCapabilities = getDesiredCapabilities();
-			desiredCapabilities.setCapability("noReset", true);
+			//desiredCapabilities.setCapability("noReset", true);
 			if (inputs.getInputValue(TestCaseInputs.OS_NAME).equalsIgnoreCase(Mobile.IOS)) {
 				if (inputs.isRealDevice()) {
 					//desiredCapabilities.setCapability("showIOSLog", true);
