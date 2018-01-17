@@ -297,32 +297,32 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						int counter = 0;
-						while (MobileUtils.isMobElementExists("name", "Allow", testCase, 2, false) && counter < 3) {
+						while (MobileUtils.isMobElementExists("name", "Allow", testCase, 1, false) && counter < 3) {
 							MobileUtils.clickOnElement(testCase, "name", "Allow");
 							counter++;
 						}
-						if (MobileUtils.isMobElementExists("name", "Not Now", testCase, 3, false)) {
+						if (MobileUtils.isMobElementExists("name", "Not Now", testCase, 1, false)) {
 							MobileUtils.clickOnElement(testCase, "name", "Not Now");
 							return false;
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("id", "btn_close", testCase, 3, false)) {
+						if (MobileUtils.isMobElementExists("id", "btn_close", testCase, 1, false)) {
 							MobileUtils.clickOnElement(testCase, "id", "btn_close");
 							return false;
 						}
 					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AlertsIcon", 2, false)) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AlertsIcon", 1, false)) {
 						return true;
 					} 
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DontUseButton", 2, false)) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DontUseButton", 1, false)) {
 						MobileUtils.clickOnElement(fieldObjects, testCase, "DontUseButton");
 						return false;
 					} 
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateAPasscodeTitle", 3)) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateAPasscodeTitle", 1)) {
 						createPasscode(testCase, inputs.getInputValue("PASSCODE"));
 						return false;
 					} 
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PasscodePopUpTitle", 2)) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PasscodePopUpTitle", 1)) {
 						MobileUtils.clickOnElement(fieldObjects, testCase, "CreatePasscodeButton");
 						LyricUtils.createPasscode(testCase, inputs.getInputValue("PASSCODE"));
 						return false;
