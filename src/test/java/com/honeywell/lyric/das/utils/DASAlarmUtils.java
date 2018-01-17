@@ -9,10 +9,10 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
-public class DAS_AlarmUtils {
+public class DASAlarmUtils {
 	private static HashMap<String, MobileObject> fieldObjects;
 
-	public static boolean confirmDismissAlarm(TestCases testCase,TestCaseInputs inputs){
+	public static boolean confirmDismissAlarm(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
 		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AlarmDismissButton")) {
@@ -22,7 +22,7 @@ public class DAS_AlarmUtils {
 			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "AlarmDismissButton");
 		}
 		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DismissAlarmPopupOk");
-		DAS_Utils.waitForDismissProcessRequest(testCase);
+		DASSolutionCardUtils.waitForDismissProcessRequest(testCase);
 		inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 		Keyword.ReportStep_Pass(testCase, "ALARM_DISMISSED_TIME " + inputs.getInputValue("ALARM_DISMISSED_TIME"));
 		inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));

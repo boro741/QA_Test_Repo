@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.common;
+package com.honeywell.keywords.lyric.das.chil;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 
-public class EntryExitDelayTimer_Precondition extends Keyword {
+public class SetDASPanelEntryExitTimerThroughCHIL extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	public ArrayList<String> parameters;
 	public boolean flag = true;
 
-	public EntryExitDelayTimer_Precondition(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
+	public SetDASPanelEntryExitTimerThroughCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.parameters = parameters;

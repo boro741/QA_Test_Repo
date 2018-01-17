@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.common;
+package com.honeywell.keywords.lyric.das.chil;
 
 import java.util.ArrayList;
 
@@ -14,13 +14,13 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 
-public class Modes_Precondition extends Keyword {
+public class SetDASUserModeThroughCHIL extends Keyword {
 
 	private TestCases testCase;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 	private TestCaseInputs inputs;
-	public Modes_Precondition(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
+	public SetDASUserModeThroughCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.inputs=inputs;
 		this.parameters=parameters;
@@ -33,7 +33,7 @@ public class Modes_Precondition extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^(.*) mode as precondition$")
+	@KeywordStep(gherkins = "^user is set to (.*) mode through CHIL$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			@SuppressWarnings("resource")

@@ -1,9 +1,9 @@
-package com.honeywell.keywords.lyric.dasAlarms;
+package com.honeywell.keywords.lyric.common;
 
 import com.honeywell.commons.coreframework.*;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DAS_AlarmUtils;
-import com.honeywell.lyric.das.utils.DAS_CameraUtils;
+import com.honeywell.lyric.das.utils.DASAlarmUtils;
+import com.honeywell.lyric.das.utils.DASCameraUtils;
 
 import java.util.ArrayList;
 
@@ -35,11 +35,11 @@ public class TaponElement extends Keyword {
 		//	if (testCase.isTestSuccessful()) {
 		switch (expectedLocator.get(0).toUpperCase()) {
 		case "ATTENTION FROM CAMERA SOLUTION CARD": {     
-			DAS_CameraUtils.CreateAttention(testCase, inputs);
+			DASCameraUtils.CreateAttention(testCase, inputs);
 			break;
 		}
 		case "DISMISS ALARM POPUP":{
-			DAS_AlarmUtils.confirmDismissAlarm(testCase, inputs);
+			DASAlarmUtils.confirmDismissAlarm(testCase, inputs);
 			break;
 		}
 		default: {
