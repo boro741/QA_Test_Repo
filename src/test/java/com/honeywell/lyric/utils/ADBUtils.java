@@ -224,4 +224,14 @@ public class ADBUtils {
 		}
 		return fileNames;
 	}
+	
+	public static String getAndroidMobileDeviceTimeZone(String... deviceUDID) throws Exception {
+		String cmd = "";
+		if (deviceUDID.length > 0) {
+			cmd = "adb -s " + deviceUDID[0] + " shell getprop persist.sys.timezone";
+		} else {
+			cmd = "adb shell getprop persist.sys.timezone";
+		}
+		return executeADBCommand(cmd);
+	}
 }

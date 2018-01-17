@@ -25,4 +25,19 @@ public class DeviceInformation {
 			System.out.println("Device information is null");
 		}
 	}
+	
+	public Boolean isOnline(){
+		if (deviceInformation != null) {
+			return  (Boolean) deviceInformation.getJSONObject("deviceDetails").getJSONArray("onboardDevices").getJSONObject(0).get("isAlive");
+		} else {
+			return false;
+		}
+	}
+	public String getDeviceID() {
+		if (deviceInformation != null) {
+			return deviceInformation.getString("deviceID");
+		} else {
+			return " ";
+		}
+	}
 }

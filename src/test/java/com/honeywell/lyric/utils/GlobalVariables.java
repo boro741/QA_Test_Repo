@@ -9,5 +9,7 @@ public class GlobalVariables {
     public static String FAHRENHEIT="Fahrenheit";
     
     public static final String CELSIUS = "Celsius"; 
+    
+    public static final String RelayURL="192.168.1.4/30000/";
   
 }

@@ -24,5 +24,12 @@ public class LocationInformation {
 			System.out.println("Location Information is null");
 		}
 	}
+	public long getLocationID() {
+		if (locationInformation != null) {
+			return locationInformation.getLong("locationID");
+		} else {
+			return -1;
+		}
+	}
 
 }
