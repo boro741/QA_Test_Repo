@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -15,9 +16,9 @@ import org.json.JSONObject;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
-import com.honeywell.commons.report.FailType;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 
 public class CHILUtil implements AutoCloseable {
 
@@ -38,39 +39,22 @@ public class CHILUtil implements AutoCloseable {
 
 	public CHILUtil(TestCaseInputs inputs) {
 		try {
-			if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals(
-					"Production")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC,
-						"CHIL_URL_PRODUCTION");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT)
-					.equals("CHIL Int (Azure)")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC,
-						"CHIL_INT");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT)
-					.equals("CHIL Dev(Dev2)")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC,
-						"CHIL_DEV2");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT)
-					.equals("CHIL Stage (Azure)")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC,
-						"CHIL_URL_STAGING");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT)
-					.equals("Load Testing")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_LOAD_TESTING");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT)
-					.equals("Chil Das(QA)")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC,
-						"CHIL_DAS_QA");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT)
-					.equals("Chil Das(Test)")) {
-				chilURL = SuiteConstants.getConstantValue(
-						SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DAS_TEST");
+			String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
+			environment = environment.replaceAll("\\s", "");
+			if (environment.equalsIgnoreCase("Production")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_URL_PRODUCTION");
+			} else if (environment.equalsIgnoreCase("CHILInt(Azure)")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_INT");
+			} else if (environment.equalsIgnoreCase("ChilDev(Dev2)")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DEV2");
+			} else if (environment.equalsIgnoreCase("CHILStage(Azure)")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_URL_STAGING");
+			} else if (environment.equalsIgnoreCase("LoadTesting")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_LOAD_TESTING");
+			} else if (environment.equalsIgnoreCase("ChilDas(QA)")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DAS_QA");
+			} else if (environment.equalsIgnoreCase("ChilDas(Test)")) {
+				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DAS_TEST");
 			}
 
 		} catch (Exception e) {
@@ -335,6 +319,7 @@ public class CHILUtil implements AutoCloseable {
 			return -1;
 		}
 	}
+
 	public int clearAlarm(long locationID, String deviceID, TestCases testCase) {
 
 		int result = -1;
@@ -347,7 +332,8 @@ public class CHILUtil implements AutoCloseable {
 				if (chUtil.isConnected()) {
 					try {
 						String headerData = " ";
-						String url = this.chilURL+ "api/v3/locations/" + locationID+"/devices/"+deviceID+"/partitions/1/dismiss";
+						String url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID
+								+ "/partitions/1/dismiss";
 						try {
 							result = doPutRequest(url, headerData).getResponseCode();
 						} catch (IOException e) {
@@ -358,13 +344,14 @@ public class CHILUtil implements AutoCloseable {
 					}
 				}
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 
 	}
-	public int setBaseStationMode(long locationID, String deviceID, String modeToSet,TestCases testCase) {
+
+	public int setBaseStationMode(long locationID, String deviceID, String modeToSet, TestCases testCase) {
 		int result = -1;
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
 			if (chUtil.getConnection()) {
@@ -377,15 +364,18 @@ public class CHILUtil implements AutoCloseable {
 					String headerData = " ";
 					// api/v3/locations/{0}/devices/{1}/partitions/{2}/Disarm
 					if (modeToSet.toUpperCase().contains("HOME")) {
-						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/partitions/1/Disarm";
-						headerData = "{\"EnableSilentMode\":\"false\"," + "\"CorrelationId\":\"CorrId\"" + ",\"ChannelId\":\"ChannId\""
-								+ "}";
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID
+								+ "/partitions/1/Disarm";
+						headerData = "{\"EnableSilentMode\":\"false\"," + "\"CorrelationId\":\"CorrId\""
+								+ ",\"ChannelId\":\"ChannId\"" + "}";
 					} else if (modeToSet.toUpperCase().contains("AWAY")) {
-						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/partitions/1/Arm";
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID
+								+ "/partitions/1/Arm";
 						headerData = "{\"ArmType\":\"0\"," + "\"InstantArm\":\"true\"" + ",\"SilenceBeep\":\"false\""
 								+ ",\"QuickArm\":\"false\"" + ",\"BypassSensors\": []}";
 					} else if (modeToSet.toUpperCase().contains("NIGHT")) {
-						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/partitions/1/Arm";
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID
+								+ "/partitions/1/Arm";
 						headerData = "{\"ArmType\":\"1\"," + "\"InstantArm\":\"true\"" + ",\"SilenceBeep\":\"false\""
 								+ ",\"QuickArm\":\"false\"" + ",\"BypassSensors\": []}";
 
@@ -404,20 +394,23 @@ public class CHILUtil implements AutoCloseable {
 		} catch (Exception e) {
 
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Get Camera Configuration Information  : Unable to get location. Error occured - " + e.getMessage());
+					"Get Camera Configuration Information  : Unable to get location. Error occured - "
+							+ e.getMessage());
 			result = -1;
 		}
 		return result;
 	}
-	
+
 	public int putEntryExitTimer(long locationID, String deviceID, String entryExitTime) throws Exception {
 		int result = -1;
 		if (isConnected) {
 			String url = "";
-			String headerData="";
-			url = this.chilURL + "/api/v3/locations/" + locationID +"/devices/"+ deviceID +"/partition/1/EntryExitDelay";
+			String headerData = "";
+			url = this.chilURL + "/api/v3/locations/" + locationID + "/devices/" + deviceID
+					+ "/partition/1/EntryExitDelay";
 			try {
-				headerData = String.format("{\"entryDelayInSeconds\":%s,\"exitDelayInSeconds\":%s}",entryExitTime,entryExitTime);
+				headerData = String.format("{\"entryDelayInSeconds\":%s,\"exitDelayInSeconds\":%s}", entryExitTime,
+						entryExitTime);
 				result = doPutRequest(url, headerData).getResponseCode();
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
@@ -427,4 +420,18 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 
+	public int dismissAllAlerts(List<Long> notificationIDS) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + "/api/v2/NotificationMessages";
+			String headerData = "{\"NotificationIDS\" : " + notificationIDS.toString()
+					+ ",\"NotificationStatus\" : \"Dismiss\"}";
+			try {
+				result = doPutRequest(url, headerData).getResponseCode();
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+		}
+		return result;
+	}
 }

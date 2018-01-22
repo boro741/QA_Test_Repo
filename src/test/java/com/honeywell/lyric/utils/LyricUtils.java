@@ -5,13 +5,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
@@ -26,12 +29,13 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
 import com.honeywell.CHIL.CHILUtil;
+import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
-import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -76,8 +80,8 @@ public class LyricUtils {
 				}
 
 				if (chUtil.isConnected()) {
-					String chapiURL = getCHILURL(testCase, inputs);
-					String url = chapiURL + "api/v3/locations/" + locationID;
+					String chilURL = getCHILURL(testCase, inputs);
+					String url = chilURL + "api/v3/locations/" + locationID;
 					HttpURLConnection connection = chUtil.doGetRequest(url);
 
 					try {
@@ -115,7 +119,7 @@ public class LyricUtils {
 
 			} else {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Get Location Information  : Unable to connect to CHAPI.");
+						"Get Location Information  : Unable to connect to CHIL.");
 			}
 
 		} catch (Exception e) {
@@ -141,8 +145,8 @@ public class LyricUtils {
 				}
 
 				if (chUtil.isConnected()) {
-					String chapiURL = getCHILURL(testCase, inputs);
-					String url = chapiURL + "api/v3/locations/" + locationID;
+					String chilURL = getCHILURL(testCase, inputs);
+					String url = chilURL + "api/v3/locations/" + locationID;
 
 					HttpURLConnection connection = chUtil.doGetRequest(url);
 
@@ -204,7 +208,7 @@ public class LyricUtils {
 
 				} else {
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Get Stat Information  : Unable to connect to CHAPI.");
+							"Get Stat Information  : Unable to connect to CHIL.");
 				}
 			}
 		} catch (Exception e) {
@@ -222,19 +226,21 @@ public class LyricUtils {
 	public static String getCHILURL(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		String chilURL = " ";
 		try {
-			if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("Production")) {
+			String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
+			environment = environment.replaceAll("\\s", "");
+			if (environment.equalsIgnoreCase("Production")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_URL_PRODUCTION");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("CHIL Int (Azure)")) {
+			} else if (environment.equalsIgnoreCase("CHILInt(Azure)")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_INT");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("CHIL Dev(Dev2)")) {
+			} else if (environment.equalsIgnoreCase("ChilDev(Dev2)")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DEV2");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("CHIL Stage (Azure)")) {
+			} else if (environment.equalsIgnoreCase("CHILStage(Azure)")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_URL_STAGING");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("Load Testing")) {
+			} else if (environment.equalsIgnoreCase("LoadTesting")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_LOAD_TESTING");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("Chil Das(QA)")) {
+			} else if (environment.equalsIgnoreCase("ChilDas(QA)")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DAS_QA");
-			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equals("Chil Das(Test)")) {
+			} else if (environment.equalsIgnoreCase("ChilDas(Test)")) {
 				chilURL = SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "CHIL_DAS_TEST");
 			} else {
 				throw new Exception("Invalid URL");
@@ -313,15 +319,15 @@ public class LyricUtils {
 					}
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AlertsIcon", 1, false)) {
 						return true;
-					} 
+					}
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DontUseButton", 1, false)) {
 						MobileUtils.clickOnElement(fieldObjects, testCase, "DontUseButton");
 						return false;
-					} 
+					}
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateAPasscodeTitle", 1)) {
 						createPasscode(testCase, inputs.getInputValue("PASSCODE"));
 						return false;
-					} 
+					}
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PasscodePopUpTitle", 1)) {
 						MobileUtils.clickOnElement(fieldObjects, testCase, "CreatePasscodeButton");
 						LyricUtils.createPasscode(testCase, inputs.getInputValue("PASSCODE"));
@@ -495,20 +501,17 @@ public class LyricUtils {
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "LoginScreen");
 		WebElement element = null;
 		try {
-			if(testCase.getPlatform().toUpperCase().contains("ANDROID"))
-			{
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				element = MobileUtils.getMobElement(fieldObjects, testCase, "HoneywellRosette");
 				flag = flag & MobileUtils.longPress(testCase, element, 8000);
-			}
-			else
-			{
+			} else {
 				element = MobileUtils.getMobElement(fieldObjects, testCase, "LyricLogo");
 				if (!MobileUtils.isMobElementExists("xpath", "//XCUIElementTypeTextField[contains(@value,'https')]",
 						testCase, 3, false)) {
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					int x = element.getSize().getWidth()/2 + element.getLocation().getX();
+					int x = element.getSize().getWidth() / 2 + element.getLocation().getX();
 					int y = (int) (element.getLocation().getY() - (element.getSize().getHeight() * 2));
-					action.press(x,y).waitAction(MobileUtils.getDuration(8000)).release().perform();
+					action.press(x, y).waitAction(MobileUtils.getDuration(8000)).release().perform();
 				}
 			}
 		} catch (Exception e) {
@@ -638,31 +641,24 @@ public class LyricUtils {
 
 		return flag;
 	}
-	public static TimeZone getDeviceTimeZone(TestCases testCase,
-			TestCaseInputs inputs) throws Exception {
+
+	public static TimeZone getDeviceTimeZone(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		TimeZone timeZone = null;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			String zone = new String();
 			try {
 				if (inputs.isRunningOn("Local")) {
 					if (inputs.isInputAvailable("ANDROID_UDID")) {
-						zone = ADBUtils.getAndroidMobileDeviceTimeZone(inputs
-								.getInputValue("ANDROID_UDID"));
+						zone = ADBUtils.getAndroidMobileDeviceTimeZone(inputs.getInputValue("ANDROID_UDID"));
 					} else {
 						zone = ADBUtils.getAndroidMobileDeviceTimeZone();
 					}
 				} else if (inputs.isRunningOn("Perfecto")) {
-					zone = PerfectoLabUtils.getTimeZoneAndroidOnly(testCase
-							.getMobileDriver());
+					zone = PerfectoLabUtils.getTimeZoneAndroidOnly(testCase.getMobileDriver());
 				} else if (inputs.isRunningOn("pCloudy")) {
-					PCloudyDeviceInformation deviceInfo = testCase
-							.getPcloudyDeviceInformation();
-					zone = deviceInfo
-							.getpCloudySession()
-							.getConnector()
-							.executeAdbCommand(deviceInfo.getAuthToken(),
-									deviceInfo.getBookingDtoDevice(),
-									"adb shell getprop persist.sys.timezone");
+					PCloudyDeviceInformation deviceInfo = testCase.getPcloudyDeviceInformation();
+					zone = deviceInfo.getpCloudySession().getConnector().executeAdbCommand(deviceInfo.getAuthToken(),
+							deviceInfo.getBookingDtoDevice(), "adb shell getprop persist.sys.timezone");
 				} else if (inputs.isRunningOn("TestObject")) {
 					zone = "CET";
 				} else if (inputs.isRunningOn("Saucelabs")) {
@@ -690,11 +686,11 @@ public class LyricUtils {
 		}
 		return timeZone;
 	}
+
 	public static String getDeviceTime(TestCases testCase, TestCaseInputs inputs) {
 		String time = " ";
 		try {
-			Calendar date = Calendar.getInstance(LyricUtils.getDeviceTimeZone(
-					testCase, inputs));
+			Calendar date = Calendar.getInstance(LyricUtils.getDeviceTimeZone(testCase, inputs));
 			String ampm;
 			if (date.get(Calendar.AM_PM) == Calendar.AM) {
 				ampm = "AM";
@@ -714,18 +710,115 @@ public class LyricUtils {
 				minute = String.valueOf(date.get(Calendar.MINUTE));
 			}
 			int month = date.get(Calendar.MONTH) + 1;
-			time = String.valueOf(date.get(Calendar.YEAR) + "-" + month + "-"
-					+ date.get(Calendar.DAY_OF_MONTH) + "T" + hour + ":"
-					+ minute + " " + ampm);
+			time = String.valueOf(date.get(Calendar.YEAR) + "-" + month + "-" + date.get(Calendar.DAY_OF_MONTH) + "T"
+					+ hour + ":" + minute + " " + ampm);
 		} catch (Exception e) {
 			time = "";
-			Keyword.ReportStep_Fail(
-					testCase,
-					FailType.FUNCTIONAL_FAILURE,
-					"Get Android Device Time : Error Occured : "
-							+ e.getMessage());
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Android Device Time : Error Occured : " + e.getMessage());
 		}
 
 		return time;
+	}
+
+	public static JSONObject getAllAlertsThroughCHIL(TestCases testCase, TestCaseInputs inputs) {
+		JSONObject jsonObject = null;
+		try (CHILUtil chUtil = new CHILUtil(inputs)) {
+
+			if (chUtil.getConnection()) {
+				if (chUtil.isConnected()) {
+					LocationInformation locInfo = new LocationInformation(testCase, inputs);
+					String chapiURL = getCHILURL(testCase, inputs);
+					String url = chapiURL + "api/v2/users/" + locInfo.getUserID() + "/Alerts";
+					HttpURLConnection connection = chUtil.doGetRequest(url);
+
+					try {
+
+						if (connection != null) {
+
+							BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+							String inputLine;
+							StringBuffer html = new StringBuffer();
+
+							while (!in.ready()) {
+							}
+
+							while ((inputLine = in.readLine()) != null) {
+								html.append(inputLine);
+							}
+
+							in.close();
+
+							jsonObject = new JSONObject(html.toString().trim());
+
+						} else {
+							Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Get All Alerts : Failed to get all Alerts");
+						}
+
+					} catch (IOException e) {
+						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Get All Alerts : Failed to get all Alerts. Error occured - " + e.getMessage());
+						jsonObject = null;
+					}
+				}
+
+			} else {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get All Alerts  : Unable to connect to CHAPI.");
+			}
+
+		} catch (Exception e) {
+
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get All Alerts : Unable to get alerts. Error occured - " + e.getMessage());
+			jsonObject = null;
+		}
+		return jsonObject;
+	}
+
+	public static List<Long> getAllAlertIDS(TestCases testCase, TestCaseInputs inputs) {
+		List<Long> alertIDS = new ArrayList<Long>();
+		try {
+			JSONObject jsonObj = getAllAlertsThroughCHIL(testCase, inputs);
+			JSONArray jsonArray = jsonObj.getJSONArray("userAlerts");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				alertIDS.add(jsonArray.getJSONObject(i).getLong("id"));
+			}
+		} catch (JSONException e) {
+			System.out.println("No Alerts found");
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return alertIDS;
+	}
+
+	public static boolean dismissAllAlerts(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			@SuppressWarnings("resource")
+			CHILUtil chUtil = new CHILUtil(inputs);
+			if (chUtil.getConnection()) {
+				if (chUtil.isConnected()) {
+					List<Long> alertIDS = LyricUtils.getAllAlertIDS(testCase, inputs);
+					int result = chUtil.dismissAllAlerts(alertIDS);
+					if (result == 200) {
+						Keyword.ReportStep_Pass(testCase, "Successfully dismissed alerts with ids : " + alertIDS);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to dismiss alerts with ids : " + alertIDS);
+					}
+				}
+			} else {
+				flag = false;
+				throw new Exception("Failed to connect to CHIL");
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
 	}
 }
