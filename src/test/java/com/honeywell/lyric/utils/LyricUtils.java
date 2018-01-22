@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -27,11 +29,13 @@ import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
+import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
 
 import io.appium.java_client.TouchAction;
@@ -633,5 +637,95 @@ public class LyricUtils {
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 
 		return flag;
+	}
+	public static TimeZone getDeviceTimeZone(TestCases testCase,
+			TestCaseInputs inputs) throws Exception {
+		TimeZone timeZone = null;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			String zone = new String();
+			try {
+				if (inputs.isRunningOn("Local")) {
+					if (inputs.isInputAvailable("ANDROID_UDID")) {
+						zone = ADBUtils.getAndroidMobileDeviceTimeZone(inputs
+								.getInputValue("ANDROID_UDID"));
+					} else {
+						zone = ADBUtils.getAndroidMobileDeviceTimeZone();
+					}
+				} else if (inputs.isRunningOn("Perfecto")) {
+					zone = PerfectoLabUtils.getTimeZoneAndroidOnly(testCase
+							.getMobileDriver());
+				} else if (inputs.isRunningOn("pCloudy")) {
+					PCloudyDeviceInformation deviceInfo = testCase
+							.getPcloudyDeviceInformation();
+					zone = deviceInfo
+							.getpCloudySession()
+							.getConnector()
+							.executeAdbCommand(deviceInfo.getAuthToken(),
+									deviceInfo.getBookingDtoDevice(),
+									"adb shell getprop persist.sys.timezone");
+				} else if (inputs.isRunningOn("TestObject")) {
+					zone = "CET";
+				} else if (inputs.isRunningOn("Saucelabs")) {
+					zone = "CET";
+				}
+				zone = zone.trim();
+				timeZone = TimeZone.getTimeZone(zone);
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+		} else {
+			try {
+				if (inputs.isRunningOn("Local")) {
+					timeZone = TimeZone.getDefault();
+				} else if (inputs.isRunningOn("Perfecto")) {
+					timeZone = TimeZone.getTimeZone("US/Eastern");
+				} else if (inputs.isRunningOn("Saucelabs")) {
+					timeZone = TimeZone.getTimeZone("US/Pacific");
+				} else if (inputs.isRunningOn("TestObject")) {
+					timeZone = TimeZone.getTimeZone("CET");
+				}
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+		}
+		return timeZone;
+	}
+	public static String getDeviceTime(TestCases testCase, TestCaseInputs inputs) {
+		String time = " ";
+		try {
+			Calendar date = Calendar.getInstance(LyricUtils.getDeviceTimeZone(
+					testCase, inputs));
+			String ampm;
+			if (date.get(Calendar.AM_PM) == Calendar.AM) {
+				ampm = "AM";
+			} else {
+				ampm = "PM";
+			}
+			String hour;
+			if (date.get(Calendar.HOUR) == 0) {
+				hour = "12";
+			} else {
+				hour = String.valueOf(date.get(Calendar.HOUR));
+			}
+			String minute;
+			if (date.get(Calendar.MINUTE) < 10) {
+				minute = "0" + date.get(Calendar.MINUTE);
+			} else {
+				minute = String.valueOf(date.get(Calendar.MINUTE));
+			}
+			int month = date.get(Calendar.MONTH) + 1;
+			time = String.valueOf(date.get(Calendar.YEAR) + "-" + month + "-"
+					+ date.get(Calendar.DAY_OF_MONTH) + "T" + hour + ":"
+					+ minute + " " + ampm);
+		} catch (Exception e) {
+			time = "";
+			Keyword.ReportStep_Fail(
+					testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Get Android Device Time : Error Occured : "
+							+ e.getMessage());
+		}
+
+		return time;
 	}
 }

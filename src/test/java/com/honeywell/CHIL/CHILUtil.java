@@ -12,9 +12,12 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.commons.coreframework.TestCaseInputs;
+import com.honeywell.commons.coreframework.TestCases;
 
 public class CHILUtil implements AutoCloseable {
 
@@ -71,7 +74,6 @@ public class CHILUtil implements AutoCloseable {
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.inputs = inputs;
@@ -332,6 +334,97 @@ public class CHILUtil implements AutoCloseable {
 		} else {
 			return -1;
 		}
+	}
+	public int clearAlarm(long locationID, String deviceID, TestCases testCase) {
+
+		int result = -1;
+		try (CHILUtil chUtil = new CHILUtil(inputs)) {
+			if (chUtil.getConnection()) {
+				locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				if (locationID == -1) {
+					return -1;
+				}
+				if (chUtil.isConnected()) {
+					try {
+						String headerData = " ";
+						String url = this.chilURL+ "api/v3/locations/" + locationID+"/devices/"+deviceID+"/partitions/1/dismiss";
+						try {
+							result = doPutRequest(url, headerData).getResponseCode();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+	public int setBaseStationMode(long locationID, String deviceID, String modeToSet,TestCases testCase) {
+		int result = -1;
+		try (CHILUtil chUtil = new CHILUtil(inputs)) {
+			if (chUtil.getConnection()) {
+				locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				if (locationID == -1) {
+					return -1;
+				}
+				if (chUtil.isConnected()) {
+					String url = " ";
+					String headerData = " ";
+					// api/v3/locations/{0}/devices/{1}/partitions/{2}/Disarm
+					if (modeToSet.toUpperCase().contains("HOME")) {
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/partitions/1/Disarm";
+						headerData = "{\"EnableSilentMode\":\"false\"," + "\"CorrelationId\":\"CorrId\"" + ",\"ChannelId\":\"ChannId\""
+								+ "}";
+					} else if (modeToSet.toUpperCase().contains("AWAY")) {
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/partitions/1/Arm";
+						headerData = "{\"ArmType\":\"0\"," + "\"InstantArm\":\"true\"" + ",\"SilenceBeep\":\"false\""
+								+ ",\"QuickArm\":\"false\"" + ",\"BypassSensors\": []}";
+					} else if (modeToSet.toUpperCase().contains("NIGHT")) {
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/partitions/1/Arm";
+						headerData = "{\"ArmType\":\"1\"," + "\"InstantArm\":\"true\"" + ",\"SilenceBeep\":\"false\""
+								+ ",\"QuickArm\":\"false\"" + ",\"BypassSensors\": []}";
+
+					}
+					try {
+						result = doPutRequest(url, headerData).getResponseCode();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+				}
+			} else {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Camera Configuration Information  : Unable to connect to CHAPI.");
+			}
+		} catch (Exception e) {
+
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Camera Configuration Information  : Unable to get location. Error occured - " + e.getMessage());
+			result = -1;
+		}
+		return result;
+	}
+	
+	public int putEntryExitTimer(long locationID, String deviceID, String entryExitTime) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = "";
+			String headerData="";
+			url = this.chilURL + "/api/v3/locations/" + locationID +"/devices/"+ deviceID +"/partition/1/EntryExitDelay";
+			try {
+				headerData = String.format("{\"entryDelayInSeconds\":%s,\"exitDelayInSeconds\":%s}",entryExitTime,entryExitTime);
+				result = doPutRequest(url, headerData).getResponseCode();
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+
+		}
+		return result;
 	}
 
 }
