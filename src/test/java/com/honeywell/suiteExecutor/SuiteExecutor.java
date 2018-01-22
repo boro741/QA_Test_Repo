@@ -13,9 +13,9 @@ public class SuiteExecutor {
 				"--useXCUITest",
 				"true",
 				"--deviceCloudProviderCredentials",
-				"PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.khan@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
+				"PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.lalseta@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
 				"--appToInstall", "Android:308000017,IOS:10", "--groups",
-				"LoginToApplication" };
+				"AttentionFromCamera" };
 
 		// ============= Executes the Suite created from the Suite Configuration
 		// JSON file =============
