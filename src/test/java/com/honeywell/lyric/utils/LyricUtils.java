@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -42,6 +44,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 
 public class LyricUtils {
@@ -634,9 +637,9 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 
 		return flag;
@@ -820,5 +823,68 @@ public class LyricUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
+	}
+
+	public static boolean scrollToElementUsingExactAttributeValue(TestCases testCase, String attribute, String value)
+			throws Exception {
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (testCase.getMobileDriver()
+						.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+								+ "new UiSelector()." + attribute + "(\"" + value + "\"));")) != null) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
+				HashMap<Object, Object> scrollObject = new HashMap<>();
+		        scrollObject.put("predicateString", attribute + " == '" + value + "'");
+		        js.executeScript("mobile: scroll", scrollObject);
+		        WebElement element = testCase.getMobileDriver().findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
+				if (element.getAttribute(attribute).equals(value)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+		} catch (NoSuchElementException e) {
+			throw new Exception("Element with text : '" + value + "' not found");
+		} catch (Exception e) {
+			throw new Exception("Error Occured: " + e.getMessage());
+		}
+	}
+	
+	public static boolean scrollToElementUsingAttributeSubStringValue(TestCases testCase, String attribute, String value)
+			throws Exception {
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (testCase.getMobileDriver()
+						.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+								+ "new UiSelector().textContains(\"" + value + "\"));")) != null) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
+				HashMap<Object, Object> scrollObject = new HashMap<>();
+				scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
+		        js.executeScript("mobile: scroll", scrollObject);
+		        WebElement element = testCase.getMobileDriver().findElement(MobileBy.iOSNsPredicateString(attribute +" CONTAINS '" + value + "'"));
+				if (element.getAttribute(attribute).contains(value)) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+
+		} catch (NoSuchElementException e) {
+			throw new Exception("Element with text : '" + value + "' not found");
+		} catch (Exception e) {
+			throw new Exception("Error Occured: " + e.getMessage());
+		}
 	}
 }

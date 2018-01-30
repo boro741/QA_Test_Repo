@@ -20,10 +20,11 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 	private TestCaseInputs inputs;
+
 	public SetDASUserModeThroughCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
-		this.inputs=inputs;
-		this.parameters=parameters;
+		this.inputs = inputs;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -40,19 +41,20 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 			CHILUtil chUtil = new CHILUtil(inputs);
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
-			if(deviceInfo.isOnline()){   
+			if (deviceInfo.isOnline()) {
 
 				if (chUtil.getConnection()) {
 					switch (parameters.get(0).toUpperCase()) {
-					case "HOME":{
-						if(chUtil.clearAlarm(locInfo.getLocationID(), deviceInfo.getDeviceID(), testCase)==202){
-							Keyword.ReportStep_Pass(testCase, "Precondition using Chapi -"+parameters.get(0)+" executed");
+					case "HOME": {
+						if (chUtil.clearAlarm(locInfo.getLocationID(), deviceInfo.getDeviceID(), testCase) == 202) {
+							Keyword.ReportStep_Pass(testCase, "Clearing alarm(if exists) before setting panel mode");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not set"+parameters.get(0) );
-						} 
-						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"Home",testCase);
+									"Failed to clear alarm through CHIL");
+						}
+						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+								"Home", testCase);
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to home");
 						} else {
@@ -60,19 +62,13 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not set base station in home : " + result);
 						}
-						/*if(chUtil.switchToHome(locInfo.getLocationID(), deviceInfo.getDeviceID(), testCase)==202){
-							Keyword.ReportStep_Pass(testCase, "Precondition using Chapi -"+parameters.get(0)+" executed");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not set"+parameters.get(0) );
-						}*/
 						break;
 					}
-					case "AWAY":{
-						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"AWAY",testCase);
+					case "AWAY": {
+						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+								"Away", testCase);
 						if (result == 202) {
-							Keyword.ReportStep_Pass(testCase, "Base station is set to AWAY MODE");
+							Keyword.ReportStep_Pass(testCase, "Base station is set to Away Mode");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -80,10 +76,11 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						}
 						break;
 					}
-					case "NIGHT":{
-						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"NIGHT",testCase);
+					case "NIGHT": {
+						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+								"Night", testCase);
 						if (result == 202) {
-							Keyword.ReportStep_Pass(testCase, "Base station is set to NIGHT MODE");
+							Keyword.ReportStep_Pass(testCase, "Base station is set to Night Mode");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -91,7 +88,7 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						}
 						break;
 					}
-					default:{
+					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Input not handled " + parameters.get(0).toUpperCase());

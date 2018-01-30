@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.lyric.das.utils.JasperSchedulingUtils;
+import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
 public class DeviceInformation {
