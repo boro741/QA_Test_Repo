@@ -637,9 +637,9 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 
 		return flag;

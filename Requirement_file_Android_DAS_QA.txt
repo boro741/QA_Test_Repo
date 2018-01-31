@@ -1,4 +1,4 @@
 Include Group	Group Name	Combine	Platform-Type-OS-Version	Name	Location	Environment	Test Data
-	DeleteBaseStation		Android-Device-Android-6.*	.*	Perfecto	CHIL DAS (QA)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_QA,DAS'"
-	VerifyDASSettings		Android-Device-Android-6.*	.*	Perfecto	CHIL DAS (QA)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_QA,DAS'"
-	DASEntryExitDelaySettings		Android-Device-Android-6.*	.*	Perfecto	CHIL DAS (QA)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_QA,DAS'"
+	DeleteBaseStation		Android-Device-Android-.*	.*	Perfecto	CHIL DAS (QA)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_QA,DAS'"
+	VerifyDASSettings		Android-Device-Android-.*	.*	Perfecto	CHIL DAS (QA)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_QA,DAS'"
+	DASEntryExitDelaySettings		Android-Device-Android-.*	.*	Perfecto	CHIL DAS (QA)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_QA,DAS'"
