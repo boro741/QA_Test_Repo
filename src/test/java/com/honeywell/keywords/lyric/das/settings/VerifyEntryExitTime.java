@@ -236,7 +236,7 @@ public class VerifyEntryExitTime extends Keyword {
 						String expected;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							displayed = MobileUtils.getMobElement(fieldObjects, testCase, "EntryExitTimerValue")
-									.getAttribute("value");
+									.getAttribute("text");
 							// displayed = MobileUtils.getMobElement(testCase, "name",
 							// "Security_Settings_0_3_cell")
 							// .findElement(By.name("Security_Settings_0_3_value")).getAttribute("value");
@@ -262,7 +262,7 @@ public class VerifyEntryExitTime extends Keyword {
 						String expected;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							displayed = MobileUtils.getMobElement(fieldObjects, testCase, "EntryExitTimerValue")
-									.getAttribute("value");
+									.getAttribute("text");
 							// displayed = MobileUtils.getMobElement(testCase, "name",
 							// "Security_Settings_0_3_cell")
 							// .findElement(By.name("Security_Settings_0_3_value")).getAttribute("value");
