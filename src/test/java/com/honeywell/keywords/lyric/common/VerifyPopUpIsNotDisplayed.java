@@ -38,6 +38,7 @@ public class VerifyPopUpIsNotDisplayed extends Keyword {
 		switch (expectedPopUp.get(0).toUpperCase()) {
 		case "DELETE DAS CONFIRMATION": {
 			flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+			
 			break;
 		}
 		default: {
