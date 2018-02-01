@@ -887,4 +887,37 @@ public class LyricUtils {
 			throw new Exception("Error Occured: " + e.getMessage());
 		}
 	}
+
+	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String expectedDevice) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 30)) {
+			List<WebElement> dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase,
+					"DashboardIconText");
+			boolean f = false;
+			for (WebElement e : dashboardIconText) {
+				String displayedText;
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					displayedText = e.getText();
+				} else {
+					displayedText = e.getAttribute("value");
+				}
+				if (displayedText.equals(expectedDevice)) {
+					f = true;
+					break;
+				}
+			}
+			if (f) {
+				Keyword.ReportStep_Pass(testCase, "Device : " + expectedDevice + " is present on the dashboard.");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Device : " + expectedDevice + " is not present on the dashboard.");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard Icons not found");
+		}
+		return flag;
+	}
 }

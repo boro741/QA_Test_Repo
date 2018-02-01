@@ -4,7 +4,7 @@ Feature: DAS Settings
 
 @DeleteBaseStation
 Scenario: As a user I should be able to delete my DAS panel from my account through the Lyric application 
-	#Given user is set to "Home" mode through CHIL 
+	Given user is set to "Home" mode through CHIL 
 	And user launches and logs in to the Lyric application 
 	When user navigates to "Base Station Settings" screen from the "Dashboard" screen 
 	And user "deletes DAS device" by clicking on "delete" button 
@@ -31,7 +31,7 @@ Scenario: As a user I want to verify that all DAS Settings options are available
 		
 @DASEntryExitDelaySettings @UIAutomated 
 Scenario: As user I want to verify if entry exit delay time displayed on settings and user can update the value 
-	#Given user is set to "Home" mode through CHIL 
+	Given user is set to "Home" mode through CHIL 
 	And user launches and logs in to the Lyric application 
 	When user navigates to "Entry-Exit Delay" screen from the "Dashboard" screen 
 	Then user should be displayed with the following "Entry-Exit Delay" options: 
@@ -78,12 +78,14 @@ Scenario: As user I want to verify if entry exit delay time displayed on setting
 	When user navigates to "Base Station Settings" screen from the "Entry-Exit Delay" screen 
 	Then "Entry-Exit Delay" value should be updated to "60" on "DAS Panel Settings" screen 
 	
-@dasBasestationRename @UIAutomated 
-Scenario: As a user i want to rename my Base station 
-	When user clicks on "Hamburger menu" button 
-	And user clicks on "DAS Device" menu 
-	When user clicks on "Base station settings" menu 
-	Then verify changed "NAME" is updated for "BASESTATION" 
+@RenameDASBaseStation @UIAutomated 
+Scenario: As a user I want to rename my Base station through th application 
+	Given user launches and logs in to the Lyric application 
+	And user navigates to "Base Station Settings" screen from the "Dashboard" screen
+	When user edits the "DAS Panel" name to "Test Panel Name"
+	And user navigates to "Dashboard" screen from the "Base Station Settings" screen
+	Then user should be displayed with "Test Panel Name" device on dashboard
+	And user reverts back the DAS device name through CHIL
 	
 @dasBasestationModelandFirmware @UIAutomated 
 Scenario: 

@@ -87,9 +87,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
+			} else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "BASE STATION SETTINGS": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
@@ -112,6 +110,21 @@ public class NavigateToScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not find Entry/Exit Delay option on DAS Panel Settings screen");
+					}
+					break;
+				}
+				}
+			}
+
+			else if (screen.get(1).equalsIgnoreCase("Base Station Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
+					int i=0;
+					while(MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton",5) && i<4)
+					{
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+						i++;
 					}
 					break;
 				}
