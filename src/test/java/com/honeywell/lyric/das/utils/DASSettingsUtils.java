@@ -34,7 +34,7 @@ public class DASSettingsUtils {
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Delete DAS Confirmation Pop Up message not correctly displayed");
+						"Delete DAS Confirmation Pop Up message not correctly displayed. Expected: '" + message + "'. Displayed : (Refer Image)");
 			}
 		} else {
 			flag = false;
