@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -637,9 +638,9 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 
 		return flag;
@@ -839,9 +840,10 @@ public class LyricUtils {
 			} else {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
-		        scrollObject.put("predicateString", attribute + " == '" + value + "'");
-		        js.executeScript("mobile: scroll", scrollObject);
-		        WebElement element = testCase.getMobileDriver().findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
+				scrollObject.put("predicateString", attribute + " == '" + value + "'");
+				js.executeScript("mobile: scroll", scrollObject);
+				WebElement element = testCase.getMobileDriver()
+						.findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
 				if (element.getAttribute(attribute).equals(value)) {
 					return true;
 				} else {
@@ -855,9 +857,9 @@ public class LyricUtils {
 			throw new Exception("Error Occured: " + e.getMessage());
 		}
 	}
-	
-	public static boolean scrollToElementUsingAttributeSubStringValue(TestCases testCase, String attribute, String value)
-			throws Exception {
+
+	public static boolean scrollToElementUsingAttributeSubStringValue(TestCases testCase, String attribute,
+			String value) throws Exception {
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (testCase.getMobileDriver()
@@ -871,8 +873,9 @@ public class LyricUtils {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
-		        js.executeScript("mobile: scroll", scrollObject);
-		        WebElement element = testCase.getMobileDriver().findElement(MobileBy.iOSNsPredicateString(attribute +" CONTAINS '" + value + "'"));
+				js.executeScript("mobile: scroll", scrollObject);
+				WebElement element = testCase.getMobileDriver()
+						.findElement(MobileBy.iOSNsPredicateString(attribute + " CONTAINS '" + value + "'"));
 				if (element.getAttribute(attribute).contains(value)) {
 					return true;
 				} else {
@@ -896,11 +899,15 @@ public class LyricUtils {
 					"DashboardIconText");
 			boolean f = false;
 			for (WebElement e : dashboardIconText) {
-				String displayedText;
+				String displayedText = "";
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					displayedText = e.getText();
 				} else {
-					displayedText = e.getAttribute("value");
+					try {
+						displayedText = e.findElement(By.xpath("//XCUIElementTypeStaticText")).getAttribute("value");
+					} catch (Exception e1) {
+					}
+					System.out.println(displayedText);
 				}
 				if (displayedText.equals(expectedDevice)) {
 					f = true;

@@ -41,9 +41,16 @@ public class EditDeviceName extends Keyword {
 			if (parameters.get(0).equalsIgnoreCase("DAS Panel")) {
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DASNameTextbox", 5)) {
-					flag = flag & MobileUtils.clearTextField(fieldObjects, testCase, "DASNameTextbox");
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						flag = flag & MobileUtils.clearTextField(fieldObjects, testCase, "DASNameTextbox");
+					} else {
+						MobileUtils.getMobElement(fieldObjects, testCase, "DASNameTextbox").clear();
+					}
 					flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "DASNameTextbox",
 							parameters.get(1));
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						flag = flag & MobileUtils.clickOnElement(testCase, "name", "Done");
+					}
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");

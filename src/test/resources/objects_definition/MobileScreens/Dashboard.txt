@@ -1,5 +1,4 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-DashboardIconText	id	icon_text	id	icon_text	id	icon_text						
 GlobalDrawerButton	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	name	menu	name	menu	name	menu
 GlobalDrawerIconList	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text						
-DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	name	titleName	name	titleName	name	titleName
+DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	xpath	//XCUIElementTypeCell	xpath	//XCUIElementTypeCell	xpath	//XCUIElementTypeCell
