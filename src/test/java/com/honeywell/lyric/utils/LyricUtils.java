@@ -21,7 +21,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -321,7 +320,7 @@ public class LyricUtils {
 							return false;
 						}
 					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AlertsIcon", 1, false)) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeatherIcon", 1, false)) {
 						return true;
 					}
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DontUseButton", 1, false)) {
@@ -509,13 +508,10 @@ public class LyricUtils {
 				element = MobileUtils.getMobElement(fieldObjects, testCase, "HoneywellRosette");
 				flag = flag & MobileUtils.longPress(testCase, element, 8000);
 			} else {
-				element = MobileUtils.getMobElement(fieldObjects, testCase, "LyricLogo");
-				if (!MobileUtils.isMobElementExists("xpath", "//XCUIElementTypeTextField[contains(@value,'https')]",
-						testCase, 3, false)) {
-					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					int x = element.getSize().getWidth() / 2 + element.getLocation().getX();
-					int y = (int) (element.getLocation().getY() - (element.getSize().getHeight() * 2));
-					action.press(x, y).waitAction(MobileUtils.getDuration(8000)).release().perform();
+				element = MobileUtils.getMobElement(fieldObjects, testCase, "SecretMenuImage");
+				flag = flag & MobileUtils.longPress(testCase, element, 8000);
+				if (!MobileUtils.isMobElementExists(fieldObjects,testCase,"WebServerURL",3,false)) {
+					flag = flag & MobileUtils.longPress(testCase, element, 8000);
 				}
 			}
 		} catch (Exception e) {
@@ -537,7 +533,7 @@ public class LyricUtils {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				buttonToClick = "CHIL Int (Azure)";
 			} else {
-				buttonToClick = "Camera DEV - CHIL INT";
+				buttonToClick = "DEV - CHIL INT";
 			}
 		} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -559,36 +555,20 @@ public class LyricUtils {
 		}
 		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 			try {
-				if (MobileUtils.isMobElementExists("xpath", "//XCUIElementTypeTextField[contains(@value,'https')]",
-						testCase, 5, false)) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
-							"//XCUIElementTypeTextField[contains(@value,'https')]");
+				if (MobileUtils.isMobElementExists(fieldObjects,testCase,"WebServerURL",3,false)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects,testCase,"WebServerURL");
 				}
 
 				if (MobileUtils.isMobElementExists("name", buttonToClick, testCase, 2)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "name", buttonToClick);
 				} else {
-					element = MobileUtils.getMobElement(testCase, "xpath", "//XCUIElementTypeTable");
-					Dimension d1 = element.getSize();
-					Point p1 = element.getLocation();
-					testCase.getMobileDriver().swipe(p1.getX(), p1.getY(), p1.getX(), d1.getHeight(), 1);
-					if (MobileUtils.isMobElementExists("name", buttonToClick, testCase, 2)) {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value", buttonToClick);
+					if(flag)
+					{
 						flag = flag & MobileUtils.clickOnElement(testCase, "name", buttonToClick);
-					} else {
-						testCase.getMobileDriver().swipe(p1.getX(), p1.getY(), p1.getX(), -d1.getHeight(), 1);
-						if (MobileUtils.isMobElementExists("name", buttonToClick, testCase, 2)) {
-							flag = flag & MobileUtils.clickOnElement(testCase, "name", buttonToClick);
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not find environment : " + environmentToSelect);
-							return flag;
-						}
 					}
 				}
-				flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
-						"//XCUIElementTypeTextField[contains(@value,'https')]");
-				flag = flag & MobileUtils.clickOnElement(testCase, "name", "Done");
+				flag = flag & MobileUtils.clickOnElement(fieldObjects,testCase,"DoneButton");
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Set App Environment :  Error Occured - " + e.getMessage());
@@ -638,11 +618,10 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+	    flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+	    flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
-
 		return flag;
 	}
 
@@ -907,7 +886,6 @@ public class LyricUtils {
 						displayedText = e.findElement(By.xpath("//XCUIElementTypeStaticText")).getAttribute("value");
 					} catch (Exception e1) {
 					}
-					System.out.println(displayedText);
 				}
 				if (displayedText.equals(expectedDevice)) {
 					f = true;

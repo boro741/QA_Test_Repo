@@ -120,11 +120,14 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					int i=0;
-					while(MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton",5) && i<4)
-					{
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
-						i++;
+					}
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 10)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					}
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
 					}
 					break;
 				}
