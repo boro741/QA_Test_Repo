@@ -43,7 +43,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the following (.*) options:$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
-		case "DAS SETTINGS": {
+		case "SECURITY SETTINGS": {
 			fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 			for (int i = 0; i < data.getSize(); i++) {
 				String attribute = "";

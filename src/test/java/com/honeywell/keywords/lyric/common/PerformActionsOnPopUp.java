@@ -12,18 +12,19 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 
 public class PerformActionsOnPopUp extends Keyword {
 
 	private TestCases testCase;
 	private ArrayList<String> expectedPopUp;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	private HashMap<String, MobileObject> fieldObjects;
 
 	public boolean flag = true;
 
 	public PerformActionsOnPopUp(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedPopUp) {
-		// this.inputs = inputs;
+		this.inputs = inputs;
 		this.testCase = testCase;
 		this.expectedPopUp = expectedPopUp;
 	}
@@ -42,6 +43,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NoButton");
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
 				break;
 			}
 			default: {

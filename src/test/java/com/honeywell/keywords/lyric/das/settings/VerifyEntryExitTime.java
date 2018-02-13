@@ -175,7 +175,7 @@ public class VerifyEntryExitTime extends Keyword {
 			}
 
 			else if (parameters.get(0).equalsIgnoreCase("Entry-Exit Delay")
-					&& parameters.get(2).equalsIgnoreCase("DAS Panel Settings")) {
+					&& parameters.get(2).equalsIgnoreCase("Security Settings")) {
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 15)) {
 					switch (parameters.get(1)) {

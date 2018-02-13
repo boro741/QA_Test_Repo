@@ -45,15 +45,15 @@ public class NavigateToScreen extends Keyword {
 			HashMap<String, MobileObject> fieldObjects;
 			if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "DAS PANEL SETTINGS": {
+				case "SECURITY SETTINGS": {
 					flag = flag
-							& NavigateToScreen.navigateFromDashboardScreenToDASPanelSettingsScreen(testCase, inputs);
+							& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					break;
 				}
 				case "BASE STATION SETTINGS": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 					flag = flag
-							& NavigateToScreen.navigateFromDashboardScreenToDASPanelSettingsScreen(testCase, inputs);
+							& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BaseStationSettingsOption", 3)) {
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BaseStationSettingsOption");
 					} else {
@@ -74,7 +74,7 @@ public class NavigateToScreen extends Keyword {
 				case "ENTRY-EXIT DELAY":
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 					flag = flag
-							& NavigateToScreen.navigateFromDashboardScreenToDASPanelSettingsScreen(testCase, inputs);
+							& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EntryExitDelayOption");
 						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
@@ -89,7 +89,7 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "BASE STATION SETTINGS": {
+				case "SECURITY SETTINGS": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
@@ -100,7 +100,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("DAS Panel Settings")) {
+			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENTRY-EXIT DELAY": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
@@ -150,7 +150,7 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardScreenToDASPanelSettingsScreen(TestCases testCase,
+	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
