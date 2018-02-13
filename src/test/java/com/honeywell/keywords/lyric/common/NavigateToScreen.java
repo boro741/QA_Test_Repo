@@ -45,6 +45,42 @@ public class NavigateToScreen extends Keyword {
 			HashMap<String, MobileObject> fieldObjects;
 			if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "Z-WAVE DEVICE ADD NEW DEVICE":{
+					if(LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
+					if(LyricUtils.clickOnAddNewDeviceMenu(testCase)){
+						if(!LyricUtils.clickOnZwaveFromAddNewDevice(testCase)){
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on ");
+						}
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device menu from Global drawer");
+					}
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "ADD NEW DEVICE GLOBAL DRAWER":{
+					if(LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
+					if(!LyricUtils.clickOnAddNewDeviceMenu(testCase)){
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device menu from Global drawer");
+					}
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "ADD NEW DEVICE DASHBOARD":{
+					if(!LyricUtils.clickOnAddDeviceIcon(testCase)){
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device icon from dashboard");
+					}
+					break;
+				}
 				case "SECURITY SETTINGS": {
 					flag = flag
 							& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
@@ -132,7 +168,35 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else {
+			}
+			else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ADD NEW DEVICE GLOBAL DRAWER": {
+					if(!LyricUtils.clickOnAddNewDeviceMenu(testCase)){
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device menu from Global drawer");
+					}
+					break;
+				}
+				}
+			}else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "GLOBAL DRAWER": {
+					if(LyricUtils.clickOnCancelButtonOfAddDeviceScreen(testCase)){
+						if(!LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Global drawer menu from dashboard");
+
+						}
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device - cancel");
+						flag = false;
+					}
+					break;
+				}
+			}
+			}else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
