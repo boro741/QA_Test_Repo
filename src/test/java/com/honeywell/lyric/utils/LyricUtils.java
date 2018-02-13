@@ -869,7 +869,63 @@ public class LyricUtils {
 			throw new Exception("Error Occured: " + e.getMessage());
 		}
 	}
-
+	public static boolean clickOnAddDeviceIcon(TestCases testCase) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"AddNewDeviceIcon")) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"AddNewDeviceIcon")) {
+						flag = false;
+					}
+				}
+				
+		return flag;
+	}
+	public static boolean clickOnCancelButtonOfAddDeviceScreen(TestCases testCase) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"CancelButton")) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"CancelButton")) {
+						flag = false;
+					}
+				}
+				
+		return flag;
+	}
+	public static boolean clickOnGlobalButtonOfDashboard(TestCases testCase) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"GlobalDrawerButton")) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"GlobalDrawerButton")) {
+						flag = false;
+					}
+				}
+				
+		return flag;
+	}
+	public static boolean clickOnAddNewDeviceMenu(TestCases testCase) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"AddNewDeviceIcon")) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"AddNewDeviceIcon")) {
+						flag = false;
+					}
+				}
+				
+		return flag;
+	}
+	public static boolean clickOnZwaveFromAddNewDevice(TestCases testCase) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
+		fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
+		try {
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name","Z-Wave Device");
+		} catch (Exception e) {
+			System.out.println("Not able to locate");
+		}
+		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ZwaveList");
+		return flag;
+	}
+	
 	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String expectedDevice) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
