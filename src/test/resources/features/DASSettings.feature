@@ -1,12 +1,9 @@
 @DASSettings 
 Feature: DAS Settings 
-As user I should be able to control my DAS panel settings from the app
-
-
-
-LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in sensor and keyfob settings
-
-#LYDAS-7075,	LYDAS-4088,LYDAS-4058,LYDAS-4011,LYDAS-3294,LYDAS-3271,LYDAS-3116,LYDAS-2982,LYDAS-2808,LYDAS-2610,LYDAS-2563,LYDAS-2497,LYDAS-2408,LYDAS-2404,LYDAS-2231,LYDAS-2167		
+  As user I should be able to control my DAS panel settings from the app
+  
+  #LYDAS-7075,LYDAS-4088,LYDAS-4058,LYDAS-4011,LYDAS-3294,LYDAS-3271,LYDAS-3116,LYDAS-2982,LYDAS-2808,LYDAS-2610,LYDAS-2563,LYDAS-2497,LYDAS-2408,LYDAS-2404,LYDAS-2231,LYDAS-2167
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @DeleteBaseStation @UIAutomated
   Scenario: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
@@ -17,6 +14,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user "dismisses" the "Delete DAS Confirmation" popup 
   
   #LYDAS-3398,LYDAS-3270,LYDAS-2770
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyDASSettings @UIAutomated
   Scenario: As a user I want to verify that all DAS Settings options are available to me 
     Given user launches and logs in to the Lyric application 
@@ -35,6 +33,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Know your Security Modes   | 
   
   #LYDAS-4216,LYDAS-3376,LYDAS-3244,LYDAS-2660,LYDAS-2403,LYDAS-2380,LYDAS-2360,LYDAS-2149,LYDAS-3440
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @DASEntryExitDelaySettings @UIAutomated 
   Scenario: As user I want to verify if entry exit delay time displayed on settings and user can update the value 
     Given user is set to "Home" mode through CHIL 
@@ -85,7 +84,8 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      Then "Entry-Exit Delay" value should be updated to "60" on "Security Settings" screen 
   
   #LYDAS-7040,LYDAS-2508,LYDAS-2337
-  @RenameDASBaseStation @UIAutomated 
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  @RenameDASBaseStation @UIAutomated
   Scenario: As a user I want to rename my Base station through th application 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station Settings" screen from the "Dashboard" screen 
@@ -95,8 +95,9 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user reverts back the "DAS device name" through CHIL 
   
   #LYDAS-6941
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @ResetWiFi
-  Scenario: As a user I want to reset my DAS Panel WiFi 
+  Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
      When user "resets WiFi" by clicking on "Reset WiFi" button  
@@ -104,10 +105,55 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      When user presses the context button for 5 seconds on the DAS Panel
      Then the DAS panel should start flashing blue
      When user navigates to the "Select WiFi" screen from the "Reset WiFi Instruction" screen
-  # Put in DIY steps here
-     Then user "wifi name" should be updated to "<WiFi Name>" in the "Base Station WiFi" screen.
+      And user adds a <Network Type> WiFi network with WiFi SSID as <WiFi SSID> and WiFi Password as <WiFi Password>
+     Then user "wifi name" should be updated to <WiFi SSID> in the "Base Station WiFi" screen.
+    Examples: 
+      | Network Type        | WiFi SSID | WiFi Password | 
+      | open                | abcd      | none          | 
+      | WEP_SHARED          | abcd      | abcd          | 
+      | WPA_PERSONAL_TKIP   | abcd      | abcd          | 
+      | WPA_PERSONAL_AES    | abcd      | abcd          | 
+      | WPA2_PERSONAL_AES   | abcd      | abcd          | 
+      | WPA2_PERSONAL_TKIP  | abcd      | abcd          | 
+      | WPA2_PERSONAL_MIXED | abcd      | abcd          | 
+      | WPA2                | abcd      | abcd          | 
+  
+  @ResetWiFiByAddingNetwork
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  Scenario Outline: As a user I want to reset my DAS Panel WiFi 
+    Given user launches and logs in to the Lyric application 
+      And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
+     When user "resets WiFi" by clicking on "Reset WiFi" button  
+     Then user should be displayed with the "Reset WiFi Instructions" screen
+     When user presses the context button for 5 seconds on the DAS Panel
+     Then the DAS panel should start flashing blue
+     When user navigates to the "Select WiFi" screen from the "Reset WiFi Instruction" screen
+      And user selects <WiFi SSID> from the available WiFi list
+      And user inputs <WiFi Password> as the WiFi Password
+     Then user "wifi name" should be updated to <WiFi SSID> in the "Base Station WiFi" screen.
+    Examples: 
+      | WiFi SSID | WiFi Password | 
+      | abcd      | abcd          | 
+  
+  @ResetWiFiIncorrectPassword
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  Scenario Outline: As a user I want to reset my DAS Panel WiFi 
+    Given user launches and logs in to the Lyric application 
+      And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
+     When user "resets WiFi" by clicking on "Reset WiFi" button  
+     Then user should be displayed with the "Reset WiFi Instructions" screen
+     When user presses the context button for 5 seconds on the DAS Panel
+     Then the DAS panel should start flashing blue
+     When user navigates to the "Select WiFi" screen from the "Reset WiFi Instruction" screen
+      And user selects <WiFi SSID> from the available WiFi list
+      And user inputs <Incorrect WiFi Password> as the WiFi Password
+     Then user should receive a "Incorrect WiFi Password" pop up
+    Examples: 
+      | WiFi SSID | Incorrect WiFi Password | 
+      | abcd      | abcd                    | 
   
   #LYDAS-4099,LYDAS-3633,LYDAS-3469,LYDAS-3419,LYDAS-2411
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyDASPanelModelAndFirmwareDetails
   Scenario: As a user I want to view that all model, firmware and panel details 
     Given user launches and logs in to the Lyric application 
@@ -122,6 +168,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Model Details    | 
       | Firmware Details | 
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @DASSettingsDisabled 
   Scenario: As a user I should not be allowed to change DAS settings when I am not home 
     Given user sets the entry/exit timer to "15" seconds 
@@ -138,6 +185,17 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Options            | 
       | Base Station Wi-Fi | 
   
+  #LYDAS-3196
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  @VerifyNoKeyfobsAndSensors
+  Scenario: As a user I should not be displayed with Keyfobs or Sensors if I have not configured any keyfobs to my account
+    Given user launches and logs in to the Lyric application
+     When user navigates to "keyfob" screen from the "Dashboard" screen
+     Then user should "not be displayed" with "keyfobs" on the "keyfobs" screen 
+     When user navigates to "Sensor" screen from the "Keyfob" screen
+     Then user should "not be displayed" with "sensors" on the "sensors" screen
+  
+  #Requirements: Single Location Single DAS Device, 1 Sensor &1 Keyfob Required
   @VerifyDisplayedSensors
   Scenario: As a user I should be displayed with all my sensors and keyfobs
     Given user launches and logs in to the Lyric application
@@ -159,7 +217,8 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Battery                    | 
       | Model and Firmware Details | 
       | Delete                     | 
- 
+  
+  #Requirements: Single Location Single DAS Device, 1 Sensor Required
   @RenameSensors
   Scenario: As a user I should be able to rename the sensors configured on my account
     Given user launches and logs in to the Lyric application
@@ -169,24 +228,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      Then user should be displayed with "Test Sensor Name" device on the "Sensor Settings" screen
       And user reverts back the "Sensor Name" through CHIL
   
-  @RenameKeyfob
-  Scenario: As a user I should be able to rename the keyfobs configured on my account
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
-     When user edits the "keyfob" name to "Test Keyfob Name"  
-      And user navigates to "Keyfob" screen from the "Keyfob Settings" screen
-     Then user should be displayed with "Test Keyfob Name" device on the "Keyfob Settings" screen
-      And user reverts back the "Keyfob Name" through CHIL
-  
-  @VerifyKeyfobModelAndFirmwareDetails
-  Scenario: As a user I should be able to verify keyfob model and firmware details
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Keyfob Model and Firmware Settings" screen from the "Dashboard" screen
-     Then user should be displayed with the following "Keyfob Model and Firmware Details" options: 
-      | Details          | 
-      | Model Details    | 
-      | Firmware Details | 
-  
+  #Requirements: Single Location Single DAS Device, 1 Sensor Required    
   @VerifySensorModelAndFirmwareDetails
   Scenario: As a user I should be able to verify keyfob model and firmware details
     Given user launches and logs in to the Lyric application
@@ -196,6 +238,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Model Details    | 
       | Firmware Details | 
   
+  #Requirements: Single Location Single DAS Device, 1 Sensor Required
   @DeleteSensor
   Scenario: As a user I should be able to delete sensors configured to my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
@@ -206,6 +249,27 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      When user "accepts" the "Delete Sensor Confirmation" popup
      Then user should not be displayed with the deleted "sensor" on the "Sensor Settings" screen 
   
+  #Requirements: Single Location Single DAS Device, 1 Keyfob Required
+  @RenameKeyfob
+  Scenario: As a user I should be able to rename the keyfobs configured on my account
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
+     When user edits the "keyfob" name to "Test Keyfob Name"  
+      And user navigates to "Keyfob" screen from the "Keyfob Settings" screen
+     Then user should be displayed with "Test Keyfob Name" device on the "Keyfob Settings" screen
+      And user reverts back the "Keyfob Name" through CHIL
+  
+  #Requirements: Single Location Single DAS Device, 1 Keyfob Required
+  @VerifyKeyfobModelAndFirmwareDetails
+  Scenario: As a user I should be able to verify keyfob model and firmware details
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Keyfob Model and Firmware Settings" screen from the "Dashboard" screen
+     Then user should be displayed with the following "Keyfob Model and Firmware Details" options: 
+      | Details          | 
+      | Model Details    | 
+      | Firmware Details | 
+  
+  #Requirements: Single Location Single DAS Device, 1 Keyfob Required
   @DeleteKeyfob
   Scenario: As a user I should be able to delete Keyfob configured to my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
@@ -216,6 +280,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      When user "accepts" the "Delete Keyfob Confirmation" popup
      Then user should not be displayed with the deleted "keyfob" on the "Keyfob Settings" screen
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @ChangeBaseStationVolume
   Scenario: As a user I should be able to change the base station volume
     Given user launches and logs in to the Lyric application
@@ -227,6 +292,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      When user changes the "Base Station Volume" to "99%"
      Then "Base Station Volume" value should be updated to "99" on "Security Settings" screen
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @ConfigureAmazonAlexa
   Scenario: As a user I should be able to configure Amazon Alexa to my DAS Panel
     Given user launches and logs in to the Lyric application
@@ -234,11 +300,34 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user "sets up Amazon Alexa" by clicking on "set up" button
      Then user should be displayed with the "Amazon Sign-in" screen
      When user signs in to "Amazon" using "<amazon emailID>" and "amazon password"
-     Then .....
+     Then user should be displayed with "Alexa Voice Service T&C" screen
+     When user "allows Alexa T&C" by clicking on "Allow" button
+     Then user should be displayed with the "Feature Setup Complete" screen
+     When user completes "Alexa Configuration" by clicking on "Done" button
+     Then user verifies that the DAS Panel "reponds" to "Amazon Alexa Voice Commands"
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  @AmazonAlexaLogoff
+  Scenario: As a user I should be able to log off Amazon Alexa from my DAS account
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+      And user "signs out of Amazon Alexa" by clicking on "sign out" button
+     Then user should receive a "Confirm Amazon Alexa Logout" pop up
+     When user "accepts" the "Confirm Amazon Alexa Logout" popup 
+     Then user verifies that the DAS Panel "does not repond" to "Amazon Alexa Voice Commands"
+  
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  @AmazonAlexaAppDownload
+  Scenario: As a user I should be able to download the Amazon Alexa App
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+      And user "downloads the Alexa app" by clicking on "Alexa app" button
+     Then user should be navigated to the "Alexa app" download page
+  
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @EnableDisableGeofencing
   Scenario: As a user I should be able to enable/disable geofencing on my DAS Panel account   
-    Given Geofencing is "disabled" on the user account
+    Given geofencing is "enabled" on the user account through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
       And user changes the "Geofencing" to "ON"
@@ -247,6 +336,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      Then "Geofencing" value should be updated to "OFF" on "Security Settings" screen
   
   #LYDAS-6820,LYDAS-6890,LYDAS-3596
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VideoSettingsDisabled
   Scenario: As a user I should be able to access DAS camera settings
     Given user DAS camera is set to "off" through CHIL
@@ -256,15 +346,15 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Options          | 
       | Motion Detection | 
       | Night Vision     | 
-      | Video Quality    |
-      When user selects the "Motion Detection" option 
+      | Video Quality    | 
+     When user selects the "Motion Detection" option 
      Then user receives a "Ensure camera is turned on" toast message
      When user selects the "Night Vision" option 
      Then user receives a "Ensure camera is turned on" toast message
      When user selects the "Video Quality" option 
      Then user receives a "Ensure camera is turned on" toast message
   
-  #
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyVideoSettings
   Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off
     Given user DAS camera is set to "on" through CHIL
@@ -276,9 +366,10 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Camera On in Home Mode  | 
       | Camera On in Night Mode | 
       | Night Vision            | 
-      | Video Quality           |
+      | Video Quality           | 
   
   #LYDAS-6643
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyOKSecurityVoiceCommands
   Scenario: As a user I should be able to enable/disable OK Security Voice Commands
     Given user launches and logs in to the Lyric application
@@ -295,6 +386,7 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Security Commands | 
       | Camera Commands   | 
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOnInHomeMode
   Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
@@ -303,10 +395,10 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user changes the "Camera ON in Home Mode" to "ON"
      Then "Camera ON in Home Mode" value should be updated to "ON" on "Video Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Video Settings" screen
-  #Change the below statement
-     Then user camera should be "on"
+     Then user camera is "live streaming"
   
   #LYDAS-3148,LYDAS-2634
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOffInHomeMode
   Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
@@ -315,9 +407,9 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user changes the "Camera ON in Home Mode" to "Off"
      Then "Camera ON in Home Mode" value should be updated to "Off" on "Video Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Video Settings" screen
-  #Change the below statement
-     Then user camera should be "off"
+     Then user camera is "not live streaming"
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOnInNightMode
   Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
@@ -326,11 +418,11 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user changes the "Camera ON in Night Mode" to "ON"
      Then "Camera ON in Night Mode" value should be updated to "ON" on "Video Settings" screen
      When user navigates to "Security Solution Card" screen from the "Video Settings" screen
-  #Put Command Control steps to switch to NIght
+      And user switches to "Night" mode
      When user navigates to "Camera Solution Card" screen from the "Security Solution Card" screen
-  #Change the below statement
-     Then user camera should be "on"
+     Then user camera is "live streaming"
   
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOffInNightMode
   Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
@@ -339,20 +431,21 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       And user changes the "Camera ON in Night Mode" to "OFF"
      Then "Camera ON in Night Mode" value should be updated to "OFF" on "Video Settings" screen
      When user navigates to "Security Solution Card" screen from the "Video Settings" screen
-  #Put Command Control steps to switch to NIght
-     When user navigates to "Camera Solution Card" screen from the "Security Solution Card" screen
-  #Change the below statement
-     Then user camera should be "off"
+      And user switches to "Night" mode
+      And user navigates to "Camera Solution Card" screen from the "Security Solution Card" screen
+     Then user camera is "not live streaming"
   
   #LYDAS-2584
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOnInAwayMode
   Scenario: As a user I want verify that my camera is streaming when I am Away
     Given user is set to "Away" mode through CHIL
-     And user launches and logs in to the Lyric application
-    When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
-    Then user camera should be "on"  
+      And user launches and logs in to the Lyric application
+     When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+     Then user camera is "live streaming"  
   
   #LYDAS-6939
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyNightVisionSettings
   Scenario: As a user I should be able to update my Night Vision Settings
     Given user launches and logs in to the Lyric application 
@@ -386,7 +479,8 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
      Then "Night Vision" value should be updated to "Off" on "Night Vision Settings" screen 
      When user navigates to "Video Settings" screen from the "Night Vision Settings" screen 
      Then "Night Vision" value should be updated to "Off" on "Video Settings" screen
-     
+  
+  #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyVideoQualitySettings
   Scenario: As a user I should be able to update my Video Quality Settings
     Given user launches and logs in to the Lyric application 
@@ -415,11 +509,9 @@ LYDAS-3196 - No Sensors or No Keyfobs should come instead of empty list in senso
       | Settings | 
       | Auto     | 
       | Low      | 
-      | High     |  
+      | High     | 
      When user selects "High" from "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "High" on "Video Quality Settings" screen 
      When user navigates to "Video Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "High" on "Video Settings" screen
-    
-     
- 
+  
