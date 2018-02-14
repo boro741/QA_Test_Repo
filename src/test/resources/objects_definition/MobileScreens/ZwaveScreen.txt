@@ -1,13 +1,40 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-ActivateTheDeviceHeader							Value	Activate the Device	Name	Z-Wave Devices	Name	Z-Wave Devices
-ActivateTheDeviceTitle							NAME	Activate Z-Wave device now				
-CheckingForDevice							NAME	Checking for device	Name	Z-Wave Device	Name	Z-Wave Device
-CancelButton							NAME	Cancel	Name	Cancel	Name	Cancel
-DeviceNotFoundPopup							NAME	Device not found!				
-TryExcludeOption							NAME	Try Exclude				
-RetryOption							NAME	Retry				
-CancelOption							NAME	Cancel				
-ExcludeModeScreenHeader							Value	Exclusion Mode Active				
-ExcludeModeTitle							NAME	Exclude Z-Wave device now				
-NoDeviceToExcludePopupMessage							NAME	No Z-Wave device was found to exclude. Please Retry.				
-NoDeviceToExcludePopupDismiss							NAME	OK				
+ZwaveMenu							NAME	Z-Wave Devices	Name	Z-Wave Devices	Name	Z-Wave Devices
+EnteringInclusionModeOverlay							NAME	Entering Inclusion Mode. Please wait.	NAME	Entering Inclusion Mode. Please wait.	NAME	Entering Inclusion Mode. Please wait.
+ActivateTheDeviceHeader							Xpath	//*[@value='Activate the Device']	Xpath	//*[@value='Activate the Device']	Xpath	//*[@value='Activate the Device']
+ActivateTheDeviceTitle							NAME	Activate Z-Wave device now	NAME	Activate Z-Wave device now	NAME	Activate Z-Wave device now
+CheckingForDevice							NAME	Checking for device	NAME	Checking for device	NAME	Checking for device
+CancelButton							NAME	Cancel	NAME	Cancel	NAME	Cancel
+DeviceNotFoundPopup							NAME	Device not found!	NAME	Device not found!	NAME	Device not found!
+TryExcludeOption							NAME	Try Exclude	NAME	Try Exclude	NAME	Try Exclude
+RetryOption							NAME	Retry	NAME	Retry	NAME	Retry
+CancelOption							NAME	Cancel	NAME	Cancel	NAME	Cancel
+ExcludeModeScreenHeader							Xpath	//*[@value='Exclusion Mode Active']	Xpath	//*[@value='Exclusion Mode Active']	Xpath	//*[@value='Exclusion Mode Active']
+ExcludeModeTitle							NAME	Exclude Z-Wave device now	NAME	Exclude Z-Wave device now	NAME	Exclude Z-Wave device now
+NoDeviceToExcludePopupMessage							NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.
+NoDeviceToExcludePopupDismiss							NAME	OK	NAME	OK	NAME	OK
+ExcludedPopupHeader							NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion
+CancelFurtherExcludeButton							NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
+ConfirmFurtherExcludeButton							NAME	OK	NAME	OK	NAME	OK
+NameTheDeviceTitle							NAME	Name the Device	NAME	Name the Device	NAME	Name the Device
+NameEditField							Xpath	//XCUIElementTypeTextField	Xpath	//XCUIElementTypeTextField	Xpath	//XCUIElementTypeTextField
+DoneButtonAfterNaming							NAME	Done	NAME	Done	NAME	Done
+ReturnKeypad							NAME	Return	NAME	Return	NAME	Return
+ZwaveUtilitiesMenu							NAME	Z-Wave Utilities				
+SwitchSettingsMenu							NAME	Switch1_cell				
+AllONButton							NAME	All On				
+AllOffButton							NAME	All Off				
+FixAllButton							NAME	Fix All				
+SwitchRenameField							Xpath	//*[@value='Switch1']				
+SwitchStatusToggle							NAME	Status_toggle				
+ModelFirmwareTitle							NAME	Model and Firmware Details				
+ModelFirmwareSubTitle							NAME	Model and Firmware Details_subTitle				
+ReplaceButton							NAME	Replace				
+DeleteButton							NAME	Delete				
+RemoveDevicePopupTitle							xpath	"//*[contains(@value,'Remove')]"				
+RemoveDevicePopupMessage							NAME	This device will be permanently removed. Are you sure?				
+CancelDeviceRemovalButton							NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
+ConfirmDeviceRemovalButton							NAME	OK	NAME	OK	NAME	OK
+NavigateBack							NAME	Back				
+ExcludedSuccessPopupTitle							NAME	Z-Wave Exclusion				
+ExcludedSuccessPopupMessage							Xpath	"//*[contains(@value,'is excluded successfully')]"				

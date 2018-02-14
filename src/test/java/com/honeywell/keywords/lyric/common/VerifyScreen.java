@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
 public class VerifyScreen extends Keyword {
@@ -25,12 +26,10 @@ public class VerifyScreen extends Keyword {
 	public DataTable data;
 	public HashMap<String, MobileObject> fieldObjects;
 
-	public VerifyScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen,
-			DataTable data) {
+	public VerifyScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
 		// this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
-		this.data = data;
 	}
 
 	@Override
@@ -43,9 +42,31 @@ public class VerifyScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
-		case "Activate Z-Wave Device": {
+		case "ACTIVATE Z-WAVE DEVICE": {
 			fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ActivateTheDeviceHeader") && MobileUtils.isMobElementExists(fieldObjects, testCase, "ActivateTheDeviceTitle")){
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			}else{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
+		case "EXCLUSION MODE ACTIVE":{
+			fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
+			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludeModeScreenHeader") && MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludeModeTitle")){
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			}else{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
+		case "ADD NEW DEVICE":{
+			fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
+			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "AddNewDeviceHeader")){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
 			}else{
 				flag=false;

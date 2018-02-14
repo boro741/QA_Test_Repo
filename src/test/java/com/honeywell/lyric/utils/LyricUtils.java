@@ -618,10 +618,10 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-	    flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-	    flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+	//	flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+	//    flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+	//    flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+	//	flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 
@@ -820,7 +820,7 @@ public class LyricUtils {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				scrollObject.put("predicateString", attribute + " == '" + value + "'");
-				js.executeScript("mobile: scroll", scrollObject);
+				js.executeScript("mobile:scroll", scrollObject);
 				WebElement element = testCase.getMobileDriver()
 						.findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
 				if (element.getAttribute(attribute).equals(value)) {
@@ -905,8 +905,8 @@ public class LyricUtils {
 	public static boolean clickOnAddNewDeviceMenu(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"AddNewDeviceIcon")) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"AddNewDeviceIcon")) {
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"AddNewDeviceMenu")) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"AddNewDeviceMenu")) {
 						flag = false;
 					}
 				}
@@ -918,7 +918,7 @@ public class LyricUtils {
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
 		try {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name","Z-Wave Device");
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"value","Z-Wave Device");
 		} catch (Exception e) {
 			System.out.println("Not able to locate");
 		}
@@ -939,11 +939,11 @@ public class LyricUtils {
 					displayedText = e.getText();
 				} else {
 					try {
-						displayedText = e.findElement(By.xpath("//XCUIElementTypeStaticText")).getAttribute("value");
+						displayedText = e.getAttribute("value");
 					} catch (Exception e1) {
 					}
 				}
-				if (displayedText.equals(expectedDevice)) {
+				if (displayedText.equalsIgnoreCase(expectedDevice)) {
 					f = true;
 					break;
 				}

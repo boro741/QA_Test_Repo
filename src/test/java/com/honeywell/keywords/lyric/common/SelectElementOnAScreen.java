@@ -13,6 +13,8 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -38,6 +40,24 @@ public class SelectElementOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.*)\" from \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
+			if (parameters.get(1).equalsIgnoreCase("install device")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "Z-WAVE DEVICE": {
+					LyricUtils.clickOnZwaveFromAddNewDevice(testCase);
+					break;
+				}
+				}
+			}
+			else
+				if(parameters.get(1).equalsIgnoreCase("Switch Settings")){
+					switch (parameters.get(0).toUpperCase()) {
+					case "DELETE": {
+						DASZwaveUtils.ClickDeleteFromSettings(testCase);
+						break;
+					}
+					}
+				}
+			else
 			if (parameters.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "15": {

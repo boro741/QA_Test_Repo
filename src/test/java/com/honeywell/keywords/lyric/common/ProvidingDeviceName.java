@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -9,20 +10,22 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileObject;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 
-public class ActionOnFunctionKeyRelay extends Keyword {
+public class ProvidingDeviceName extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
 	public boolean flag = true;
-	public ArrayList<String> deviceType;
+	public ArrayList<String> parameters;
+	public HashMap<String, MobileObject> fieldObjects;
 
-	public ActionOnFunctionKeyRelay(TestCases testCase, TestCaseInputs inputs, ArrayList<String> deviceType) {
+	public ProvidingDeviceName(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
-		this.deviceType = deviceType;
+		this.parameters = parameters;
 		// this.inputs = inputs;
 	}
 
@@ -33,26 +36,13 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user (.*) the (.*) function key$")
+	@KeywordStep(gherkins = "^user names the (.*) to (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if(deviceType.get(0).equalsIgnoreCase("activates")){
-				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
-					Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
-					ZWaveRelayUtils.enrollZwaveSwitch1();
-					Thread.sleep(2000);
-					ZWaveRelayUtils.pressButtonOnSwitch1();
-				}
-				else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
-					Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
-					ZWaveRelayUtils.enrollZwaveDimmer1();
-					Thread.sleep(2000);
-					ZWaveRelayUtils.pressButtonOnDimmer1();
-				}
-			}else if(deviceType.get(0).equalsIgnoreCase("does not activate")){
-				DASZwaveUtils.TimeOutForNoActivatedDevice(testCase);
+			if (parameters.get(0).equalsIgnoreCase("Switch")) {
+				DASZwaveUtils.WaitForNamingScreen(testCase);
+				DASZwaveUtils.NamingSwitch(testCase, parameters.get(1));
 			}
-			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
