@@ -16,6 +16,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
 public class NavigateToScreen extends Keyword {
@@ -43,19 +44,44 @@ public class NavigateToScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			HashMap<String, MobileObject> fieldObjects;
+			if(screen.get(1).equalsIgnoreCase("Z-Wave Utilities")){
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD":{
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+				}
+				}
+			}else
 			if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "Z-WAVE DEVICE ADD NEW DEVICE":{
+				case "SWITCH SETTINGS":{
 					if(LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
-					if(LyricUtils.clickOnAddNewDeviceMenu(testCase)){
-						if(!LyricUtils.clickOnZwaveFromAddNewDevice(testCase)){
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on ");
+						if(DASZwaveUtils.ClickZwaveMenuFromGlobalDrawer(testCase, inputs)){
+							if(!DASZwaveUtils.ClickSwitchSettingFromZwaveUtilities(testCase, inputs)){
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on ");
+							}
+						}else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
 						}
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Add new device menu from Global drawer");
+								"Could not click on Global drawer menu from dashboard");
 					}
+					break;
+				}
+				case "Z-WAVE DEVICE ADD NEW DEVICE":{
+					if(LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
+						if(LyricUtils.clickOnAddNewDeviceMenu(testCase)){
+							if(!LyricUtils.clickOnZwaveFromAddNewDevice(testCase)){
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on ");
+							}
+						}else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
@@ -64,10 +90,10 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE GLOBAL DRAWER":{
 					if(LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
-					if(!LyricUtils.clickOnAddNewDeviceMenu(testCase)){
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Add new device menu from Global drawer");
-					}
+						if(!LyricUtils.clickOnAddNewDeviceMenu(testCase)){
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");

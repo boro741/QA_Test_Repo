@@ -13,6 +13,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 
 public class PerformActionsOnPopUp extends Keyword {
 
@@ -38,6 +39,7 @@ public class PerformActionsOnPopUp extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user (.*) the (.*) popup$")
 	public boolean keywordSteps() {
+		
 		if (expectedPopUp.get(1).equalsIgnoreCase("Delete DAS Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
@@ -53,6 +55,57 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("Device Excluded")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+				DASZwaveUtils.ClickOKOnDeviceExcludedPopUp(testCase, inputs);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("DELETION ON REMOVE DEVICE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+				DASZwaveUtils.ClickOkOnRemoveDevicePopUp(testCase, inputs);
+				break;
+			}
+			case "CANCELS": {
+				DASZwaveUtils.ClickCancelOnRemoveDevicePopUp(testCase, inputs);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("INCLUSION DEVICE NOT FOUND")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASZwaveUtils.ClickCancelOnDeviceNotFoundPopUp(testCase, inputs);
+				break;
+			}
+			case "RETRIES THE INCLUSION ON": {
+				DASZwaveUtils.ClickRetryOnDeviceNotFoundPopUp(testCase, inputs);
+				break;
+			}
+			case "TRIES EXCLUSION ON": {
+				DASZwaveUtils.ClickTryExcludeOnDeviceNotFoundPopUp(testCase, inputs);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		}
 		return flag;
 	}
