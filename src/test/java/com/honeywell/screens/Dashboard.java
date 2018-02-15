@@ -21,4 +21,14 @@ public class Dashboard extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon",timeOut,false);
 	}
+	
+	public boolean isAddDeviceIconVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon");
+		
+	}
+	
+	public boolean clickOnAddNewDeviceButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
+	}
 }

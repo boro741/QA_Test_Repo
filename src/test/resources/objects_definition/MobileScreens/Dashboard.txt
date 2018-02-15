@@ -2,7 +2,7 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 GlobalDrawerButton	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	name	menu	name	menu	name	menu
 GlobalDrawerIconList	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text						
 DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	name	titleName	name	titleName	name	titleName
-AddNewDeviceIcon							name	icon add device white	name	icon add device white	name	icon add device white
+AddNewDeviceIcon	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	name	icon add device white	name	icon add device white	name	icon add device white
 AddNewDeviceMenu							name	Add New Device	name	Add New Device	name	Add New Device
 ZwaveSwitchSelectedState							name	Selected_State	name	Selected_State	name	Selected_State
 WeatherIcon	id	action_weather	id	action_weather	id	action_weather	name	icon showers small	name	icon showers small	name	icon showers small
