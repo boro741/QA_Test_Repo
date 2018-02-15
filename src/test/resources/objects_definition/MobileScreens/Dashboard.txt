@@ -5,3 +5,4 @@ DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard
 AddNewDeviceIcon							name	icon add device white	name	icon add device white	name	icon add device white
 AddNewDeviceMenu							name	Add New Device	name	Add New Device	name	Add New Device
 ZwaveSwitchSelectedState							name	Selected_State	name	Selected_State	name	Selected_State
+WeatherIcon	id	action_weather	id	action_weather	id	action_weather	name	icon showers small	name	icon showers small	name	icon showers small

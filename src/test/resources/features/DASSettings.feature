@@ -8,7 +8,7 @@ Feature: DAS Settings
   Scenario: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
       And user launches and logs in to the Lyric application 
-     When user navigates to "Base Station Settings" screen from the "Dashboard" screen 
+     When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
       And user "deletes DAS device" by clicking on "delete" button 
      Then user should receive a "Delete DAS Confirmation" pop up 
       And user "dismisses" the "Delete DAS Confirmation" popup 
@@ -21,7 +21,7 @@ Feature: DAS Settings
      When user navigates to "Security Settings" screen from the "Dashboard" screen 
      Then user should be displayed with the following "Security Settings" options: 
       | Settings                   | 
-      | Camera Settings            | 
+      | Camera Settings            |
       | Amazon Alexa               | 
       | OK Security Voice Commands | 
       | Entry/Exit Delay           | 
@@ -490,7 +490,7 @@ Feature: DAS Settings
       | Auto     | 
       | Low      | 
       | High     | 
-     When user selects "Auto" from "Video Quality Settings" screen 
+     When user selects "Auto" from "Video Quality Settings" screen
      Then "Video Quality" value should be updated to "Auto" on "Video Quality Settings" screen 
      When user navigates to "Video Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "Auto" on "Video Settings" screen

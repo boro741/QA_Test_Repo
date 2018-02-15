@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -42,10 +41,12 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.LoginScreen;
+import com.honeywell.screens.OSPopUps;
+import com.honeywell.screens.SecretMenu;
 
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.TouchAction;
 
 public class LyricUtils {
 	public static String takeScreenShot(String path, WebDriver driv) {
@@ -288,8 +289,9 @@ public class LyricUtils {
 	}
 
 	public static boolean verifyLoginSuccessful(TestCases testCase, TestCaseInputs inputs) {
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "LoginScreen");
 		boolean flag = true;
+		OSPopUps os = new OSPopUps(testCase);
+		Dashboard d = new Dashboard(testCase);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
 		fWait.withTimeout(3, TimeUnit.MINUTES);
@@ -299,38 +301,26 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						int counter = 0;
-						while (MobileUtils.isMobElementExists("name", "Allow", testCase, 1, false) && counter < 3) {
-							MobileUtils.clickOnElement(testCase, "name", "Allow");
+						while (os.isAllowButtonVisible(1) && counter < 3) {
+							os.clickOnAllowButton();
 							counter++;
 						}
-						if (MobileUtils.isMobElementExists("name", "Not Now", testCase, 1, false)) {
-							MobileUtils.clickOnElement(testCase, "name", "Not Now");
+						if (os.isNotNowButtonVisible(1)) {
+							os.clickOnNotNowButton();
 							return false;
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("id", "btn_close", testCase, 1, false)) {
-							MobileUtils.clickOnElement(testCase, "id", "btn_close");
+						if (os.isCloseButtonVisible(1)) {
+							os.clickOnCloseButton();
 							return false;
 						}
 					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeatherIcon", 1, false)) {
+					if (d.isWeatherIconVisible(1)) {
 						return true;
-					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DontUseButton", 1, false)) {
-						MobileUtils.clickOnElement(fieldObjects, testCase, "DontUseButton");
-						return false;
-					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateAPasscodeTitle", 1)) {
-						createPasscode(testCase, inputs.getInputValue("PASSCODE"));
-						return false;
-					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PasscodePopUpTitle", 1)) {
-						MobileUtils.clickOnElement(fieldObjects, testCase, "CreatePasscodeButton");
-						LyricUtils.createPasscode(testCase, inputs.getInputValue("PASSCODE"));
-						return false;
 					} else {
 						return false;
 					}
+
 				}
 			});
 			if (isEventReceived) {
@@ -354,32 +344,24 @@ public class LyricUtils {
 
 	public static boolean closeAppLaunchPopups(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "LoginScreen");
+		OSPopUps os = new OSPopUps(testCase);
+		LoginScreen ls = new LoginScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("ID", "com.android.packageinstaller:id/permission_allow_button",
-					testCase, 10)) {
-				if (!MobileUtils.clickOnElement(testCase, "ID",
-						"com.android.packageinstaller:id/permission_allow_button")) {
-					flag = false;
-				}
+			if (os.isAllowButtonVisible(5)) {
+				flag = flag & os.clickOnAllowButton();
 			}
 		} else {
 			int counter = 0;
-			while (!MobileUtils.isMobElementExists(fieldObjects, testCase, "LyricLogo", 2) && counter < 5) {
-				if (MobileUtils.isMobElementExists("name", "Allow", testCase, 3)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "Allow")) {
-						flag = false;
-					}
+			while (!ls.isLyricLogoVisible() && counter < 5) {
+				if (os.isAllowButtonVisible()) {
+					flag = flag & os.clickOnAllowButton();
 				}
-				if (MobileUtils.isMobElementExists("name", "OK", testCase, 3)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "OK")) {
-						flag = false;
-					}
+				if (os.isOkButtonVisible()) {
+					flag = flag & os.clickOnOkButton();
 				}
-				if (MobileUtils.isMobElementExists("name", "Cancel", testCase, 3)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "Cancel")) {
-						flag = false;
-					}
+
+				if (os.isCancelButtonVisible()) {
+					flag = flag & os.clickOnCancelButton();
 				}
 				counter++;
 			}
@@ -387,234 +369,61 @@ public class LyricUtils {
 		return flag;
 	}
 
-	public static boolean createPasscode(TestCases testCase, String passcode) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "LoginScreen");
-
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateAPasscodeTitle", 5, false)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(fieldObjects, testCase, "CreateAPasscodeTitle").getAttribute("text")
-						.equalsIgnoreCase("Create a Passcode")) {
-					Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Create a Passcode Screen'");
-					flag = flag & enterPasscode(testCase, passcode);
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to set the passcode to: " + passcode);
-					}
-					if (MobileUtils.getMobElement(fieldObjects, testCase, "CreateAPasscodeTitle").getAttribute("text")
-							.equalsIgnoreCase("Verify Passcode")) {
-						Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Verify Passcode Screen'");
-						flag = flag & enterPasscode(testCase, passcode);
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to set the passcode to: " + passcode);
-						}
-					}
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Add Fingerprint Unlock']", testCase, 5)) {
-						flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='No' or @text='NO']");
-					}
-				}
-			} else {
-				Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Create a Passcode Screen'");
-				flag = flag & enterPasscode(testCase, passcode);
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to set the passcode to: " + passcode);
-				}
-
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "VerifyPasscodeTitle", 5, false)) {
-					Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Verify Passcode Screen'");
-					flag = flag & enterPasscode(testCase, passcode);
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to set the passcode to: " + passcode);
-					}
-				}
-				if (MobileUtils.isMobElementExists("name", "Add Touch ID", testCase, 5)) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", "No");
-				}
-			}
-		} else {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Create Passcode Screen not visible");
-		}
-		return flag;
-	}
-
-	public static boolean enterPasscode(TestCases testCase, String passcode) {
-		boolean flag = true;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			WebElement ele = MobileUtils.getMobElement(testCase, "id", "activity_detail_container");
-			Dimension d1 = ele.getSize();
-			HashMap<Integer, Integer> xValues = new HashMap<Integer, Integer>();
-			xValues.put(1, (int) (d1.getWidth() * 0.15));
-			xValues.put(4, (int) (d1.getWidth() * 0.15));
-			xValues.put(7, (int) (d1.getWidth() * 0.15));
-			xValues.put(2, (int) (d1.getWidth() * 0.40));
-			xValues.put(5, (int) (d1.getWidth() * 0.40));
-			xValues.put(8, (int) (d1.getWidth() * 0.40));
-			xValues.put(0, (int) (d1.getWidth() * 0.40));
-			xValues.put(3, (int) (d1.getWidth() * 0.65));
-			xValues.put(6, (int) (d1.getWidth() * 0.65));
-			xValues.put(9, (int) (d1.getWidth() * 0.65));
-			HashMap<Integer, Integer> yValues = new HashMap<Integer, Integer>();
-			yValues.put(1, (int) (d1.getHeight() * 0.7));
-			yValues.put(2, (int) (d1.getHeight() * 0.7));
-			yValues.put(3, (int) (d1.getHeight() * 0.7));
-			yValues.put(4, (int) (d1.getHeight() * 0.8));
-			yValues.put(5, (int) (d1.getHeight() * 0.8));
-			yValues.put(6, (int) (d1.getHeight() * 0.8));
-			yValues.put(7, (int) (d1.getHeight() * 0.9));
-			yValues.put(8, (int) (d1.getHeight() * 0.9));
-			yValues.put(9, (int) (d1.getHeight() * 0.9));
-			yValues.put(0, (int) (d1.getHeight() * 0.95));
-			TouchAction t1 = new TouchAction(testCase.getMobileDriver());
-			for (int i = 0; i < passcode.length(); i++) {
-				char c = passcode.charAt(i);
-				int value = Integer.parseInt(String.valueOf(c));// Character.getNumericValue(c);
-				t1.tap(xValues.get(value), yValues.get(value)).perform();
-			}
-		} else {
-			for (int i = 0; i < passcode.length(); i++) {
-				char c = passcode.charAt(i);
-				flag = flag & MobileUtils.clickOnElement(testCase, "name", String.valueOf(c));
-			}
-		}
-		return flag;
-	}
-
 	public static boolean setAppEnvironment(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		String environmentToSelect = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "LoginScreen");
-		WebElement element = null;
 		try {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				element = MobileUtils.getMobElement(fieldObjects, testCase, "HoneywellRosette");
-				flag = flag & MobileUtils.longPress(testCase, element, 8000);
-			} else {
-				element = MobileUtils.getMobElement(fieldObjects, testCase, "SecretMenuImage");
-				flag = flag & MobileUtils.longPress(testCase, element, 8000);
-				if (!MobileUtils.isMobElementExists(fieldObjects,testCase,"WebServerURL",3,false)) {
-					flag = flag & MobileUtils.longPress(testCase, element, 8000);
-				}
+			String environmentToSelect = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
+			LoginScreen ls = new LoginScreen(testCase);
+			SecretMenu sm = new SecretMenu(testCase);
+			flag = flag & ls.longPressOnSecretMenuImage();
+
+			if (sm.isWebServerURLVisible()) {
+				flag = flag & sm.clickOnWebServerURL();
+				// Keeping this explicit wait because sometimes the environment selection fails
+				// on ANDROID
+				Thread.sleep(1000);
 			}
+			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
+			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
+				flag = flag & sm.clickOnCHILDASQAOption();
+			} else if (environmentToSelect.equalsIgnoreCase("Production")) {
+				flag = flag & sm.clickOnProductionOption();
+			} else if (environmentToSelect.equalsIgnoreCase("CHILStage(Azure)")) {
+				flag = flag & sm.clickOnCHILStageAzureOption();
+			} else if (environmentToSelect.equalsIgnoreCase("CHILInt(Azure)")) {
+				flag = flag & sm.clickOnCHILIntAzureOption();
+			} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
+				flag = flag & sm.clickOnCHILDevDev2Option();
+			} else if (environmentToSelect.equalsIgnoreCase("LoadTesting")) {
+				flag = flag & sm.clickOnCHILLoadTestingOption();
+			} else if (environmentToSelect.equalsIgnoreCase("ChilDas(Test)")) {
+				flag = flag & sm.clickOnCHILDASTestOption();
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
+				return false;
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				flag = flag & MobileUtils.pressBackButton(testCase);
+			} else {
+				flag = flag & sm.clickOnDoneButton();
+			}
+			flag = flag & ls.isLyricLogoVisible();
 		} catch (Exception e) {
-			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Set App Environment : Failed to open secret menu");
-			return flag;
+					"Set App Environment :  Error Occured - " + e.getMessage());
+			flag = false;
 		}
 
-		String buttonToClick = "";
-		environmentToSelect = environmentToSelect.replaceAll("\\s", "");
-		if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
-			buttonToClick = "Chil Das(QA)";
-		} else if (environmentToSelect.equalsIgnoreCase("Production")) {
-			buttonToClick = "Production";
-		} else if (environmentToSelect.equalsIgnoreCase("CHILStage(Azure)")) {
-			buttonToClick = "CHIL Stage (Azure)";
-		} else if (environmentToSelect.equalsIgnoreCase("CHILInt(Azure)")) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				buttonToClick = "CHIL Int (Azure)";
-			} else {
-				buttonToClick = "DEV - CHIL INT";
-			}
-		} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				buttonToClick = "Chil Dev(Dev2)";
-			} else {
-				buttonToClick = "Chil Das(DEV2)";
-			}
-		} else if (environmentToSelect.equalsIgnoreCase("LoadTesting")) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				buttonToClick = "Load Testing";
-			} else {
-				buttonToClick = "Chil Load(Test)";
-			}
-		} else if (environmentToSelect.equalsIgnoreCase("ChilDas(Test)")) {
-			buttonToClick = "Chil Das(Test)";
-		} else {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
-			return false;
-		}
-		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-			try {
-				if (MobileUtils.isMobElementExists(fieldObjects,testCase,"WebServerURL",3,false)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects,testCase,"WebServerURL");
-				}
-
-				if (MobileUtils.isMobElementExists("name", buttonToClick, testCase, 2)) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", buttonToClick);
-				} else {
-					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value", buttonToClick);
-					if(flag)
-					{
-						flag = flag & MobileUtils.clickOnElement(testCase, "name", buttonToClick);
-					}
-				}
-				flag = flag & MobileUtils.clickOnElement(fieldObjects,testCase,"DoneButton");
-			} catch (Exception e) {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Set App Environment :  Error Occured - " + e.getMessage());
-				flag = false;
-			}
-		} else {
-			try {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WebServerURL")) {
-					flag = MobileUtils.clickOnElement(fieldObjects, testCase, "WebServerURL");
-					Thread.sleep(1000);
-				}
-				String xpath = "//*[@text='" + buttonToClick + "']";
-
-				if (MobileUtils.clickOnElement(testCase, "XPATH", xpath)) {
-					Keyword.ReportStep_Pass(testCase,
-							"Set App Environment :  App environment set to " + environmentToSelect);
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION,
-							"Set App Environment : Not able to Select the required environment - "
-									+ environmentToSelect);
-					flag = false;
-				}
-				if (!MobileUtils.getMobElement(testCase, "id", "url_selection_header").getAttribute("text")
-						.equalsIgnoreCase(buttonToClick)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "WebServerURL");
-					Thread.sleep(1000);
-					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", xpath);
-				}
-				if (MobileUtils.pressBackButton(testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Set App Environment : Navigating back to Login screen");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Set App Environment : Navigating back to Login screen failed");
-					flag = false;
-				}
-			} catch (Exception e) {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Set App Environment : [Set App Environment ] : Error occured - " + e.getMessage());
-				flag = false;
-			}
-		}
-
-		flag = flag & (MobileUtils.getMobElement(fieldObjects, testCase, "LyricLogo") == null) ? false : true;
 		return flag;
 	}
 
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-	//	flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-	//    flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-	//    flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-	//	flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 
@@ -862,63 +671,68 @@ public class LyricUtils {
 			throw new Exception("Error Occured: " + e.getMessage());
 		}
 	}
+
 	public static boolean clickOnAddDeviceIcon(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"AddNewDeviceIcon")) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"AddNewDeviceIcon")) {
-						flag = false;
-					}
-				}
-				
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AddNewDeviceIcon")) {
+			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "AddNewDeviceIcon")) {
+				flag = false;
+			}
+		}
+
 		return flag;
 	}
+
 	public static boolean clickOnCancelButtonOfAddDeviceScreen(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"CancelButton")) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"CancelButton")) {
-						flag = false;
-					}
-				}
-				
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CancelButton")) {
+			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "CancelButton")) {
+				flag = false;
+			}
+		}
+
 		return flag;
 	}
+
 	public static boolean clickOnGlobalButtonOfDashboard(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"GlobalDrawerButton")) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"GlobalDrawerButton")) {
-						flag = false;
-					}
-				}
-				
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) {
+			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GlobalDrawerButton")) {
+				flag = false;
+			}
+		}
+
 		return flag;
 	}
+
 	public static boolean clickOnAddNewDeviceMenu(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase,"AddNewDeviceMenu")) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase,"AddNewDeviceMenu")) {
-						flag = false;
-					}
-				}
-				
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AddNewDeviceMenu")) {
+			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "AddNewDeviceMenu")) {
+				flag = false;
+			}
+		}
+
 		return flag;
 	}
+
 	public static boolean clickOnZwaveFromAddNewDevice(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
 		try {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"value","Z-Wave Device");
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value", "Z-Wave Device");
 		} catch (Exception e) {
 			System.out.println("Not able to locate");
 		}
 		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ZwaveList");
 		return flag;
 	}
-	
+
 	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String expectedDevice) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
