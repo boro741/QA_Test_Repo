@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -43,6 +42,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.LoginScreen;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
@@ -256,13 +256,11 @@ public class LyricUtils {
 
 	public static boolean loginToLyricApp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "LoginScreen");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LoginButton", 3)
-				&& !MobileUtils.isMobElementExists(fieldObjects, testCase, "EmailAddress", 3)) {
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LoginButton");
+		LoginScreen ls = new LoginScreen(testCase);
+		if (ls.isLoginButtonVisible() && !ls.isEmailAddressTextFieldVisible()) {
+			flag = flag & ls.clickOnLoginButton();
 		}
-		if (MobileUtils.setValueToElement(fieldObjects, testCase, "EmailAddress",
-				inputs.getInputValue("USERID").toString())) {
+		if (ls.setEmailAddressValue(inputs.getInputValue("USERID").toString())) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
@@ -273,8 +271,7 @@ public class LyricUtils {
 					"Login To Lyric : Not able to set Email Address.");
 			flag = false;
 		}
-		if (MobileUtils.setValueToElement(fieldObjects, testCase, "Password",
-				inputs.getInputValue("PASSWORD").toString())) {
+		if (ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString())) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
@@ -284,12 +281,8 @@ public class LyricUtils {
 					"Login To Lyric : Not able to set Password.");
 			flag = false;
 		}
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LoginButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LoginButton");
-			}
-		} else {
-			flag = flag & MobileUtils.clickOnElement(testCase, "NAME", "Login_Button");
+		if (ls.isLoginButtonVisible()) {
+			flag = flag & ls.clickOnLoginButton();
 		}
 		return flag;
 	}
