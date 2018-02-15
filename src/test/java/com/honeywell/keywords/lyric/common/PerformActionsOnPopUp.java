@@ -62,6 +62,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASZwaveUtils.ClickOKOnDeviceExcludedPopUp(testCase, inputs);
 				break;
 			}
+			case "ADDS DEVICE NOW":{
+				DASZwaveUtils.ClickAddNowOnDeviceExcludedPopUp(testCase, inputs);
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
