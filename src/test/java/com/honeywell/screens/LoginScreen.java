@@ -1,5 +1,7 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -37,5 +39,27 @@ public class LoginScreen extends MobileScreens{
 		{
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailAddress",3);
 		}
+		
+		public boolean longPressOnSecretMenuImage()
+		{
+			boolean flag = true;
+			WebElement element = null;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				element = MobileUtils.getMobElement(objectDefinition, testCase, "HoneywellRosette");
+				flag = flag & MobileUtils.longPress(testCase, element, 8000);
+			} else {
+				element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
+				flag = flag & MobileUtils.longPress(testCase, element, 8000);
+				if (!MobileUtils.isMobElementExists(objectDefinition,testCase,"WebServerURL",3,false)) {
+					flag = flag & MobileUtils.longPress(testCase, element, 8000);
+				}
+			}
+			return flag;
+		}
 
+		public boolean isLyricLogoVisible()
+		{
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LyricLogo",3);
+		}
+		
 }

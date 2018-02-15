@@ -1,16 +1,7 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-DoneButton							NAME	Done	NAME	Done	NAME	Done
 EmailAddress	ID	fragment_login_user_name	ID	fragment_login_user_name	ID	fragment_login_user_name	NAME	Login_Email	NAME	Login_Email	NAME	Login_Email
 LyricLogo	ID	fragment_login_logo	ID	fragment_login_logo	ID	fragment_login_logo	NAME	Login_LyricLogo	NAME	Login_LyricLogo	NAME	Login_LyricLogo
 HoneywellRosette	ID	login_rosette_new	ID	login_rosette_new	ID	login_rosette_new						
-WebServerURL	ID	url	ID	url	ID	url	xpath	"//XCUIElementTypeTextField[contains(@value,'https')]"	xpath	"//XCUIElementTypeTextField[contains(@value,'https')]"	xpath	"//XCUIElementTypeTextField[contains(@value,'https')]"
 LoginButton	ID	fragment_login_login_button	ID	fragment_login_login_button	ID	fragment_login_login_button	NAME	Login	NAME	Login	NAME	Login
 Password	ID	fragment_login_password	ID	fragment_login_password	ID	fragment_login_password	NAME	Login_Password	NAME	Login_Password	NAME	Login_Password
-AlertsIcon	ID	actionbar_activity_log_image	ID	actionbar_activity_log_image	ID	actionbar_activity_log_image	NAME	icon notifications default	NAME	icon notifications default	NAME	icon notifications default
-DontUseButton	id	dont_use_txt	id	dont_use_txt	id	dont_use_txt	name	Don't Use	name	Don't Use	name	Don't Use
-CreateAPasscodeTitle	id	security_pin_title_tv	id	security_pin_title_tv	id	security_pin_title_tv	name	Create a Passcode	name	Create a Passcode	name	Create a Passcode
-PasscodePopUpTitle	id	title_security_txt	id	title_security_txt	id	title_security_txt	xpath	"//*[contains(@name,'Before you can continue using Lyric')]"	xpath	"//*[contains(@name,'Before you can continue using Lyric')]"	xpath	"//*[contains(@name,'Before you can continue using Lyric')]"
-CreatePasscodeButton	id	add_security_txt	id	add_security_txt	id	add_security_txt	name	Create Passcode	name	Create Passcode	name	Create Passcode
-VerifyPasscodeTitle							name	Verify Passcode	name	Verify Passcode	name	Verify Passcode
 SecretMenuImage							name	Secret_Menu	name	Secret_Menu	name	Secret_Menu
-WeatherIcon							name	icon showers small	name	icon showers small	name	icon showers small
