@@ -21,6 +21,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
 
@@ -64,6 +65,12 @@ public class NavigateToScreen extends Keyword {
 					NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
 					break;
 				}
+				case "DASHBOARD":{
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					break;
+				}
 				}
 			}
 			else
@@ -82,10 +89,11 @@ public class NavigateToScreen extends Keyword {
 					}
 					case "SWITCH SETTINGS": {
 						Dashboard ds = new Dashboard(testCase);
-						if (!ds.clickOnGlobalButtonOfDashboard()) {
+						if (ds.clickOnGlobalButtonOfDashboard()) {
 							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 							if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-								if (!DASZwaveUtils.ClickSwitchSettingFromZwaveUtilities(testCase, inputs)) {
+								ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+								if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on ");
 								}
 							} else {
@@ -102,7 +110,7 @@ public class NavigateToScreen extends Keyword {
 						Dashboard ds= new Dashboard(testCase);
 						if (ds.clickOnGlobalButtonOfDashboard()) {
 							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-							if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
+							if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
 								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 								ads.clickOnZwaveFromAddNewDevice();
 							} else {

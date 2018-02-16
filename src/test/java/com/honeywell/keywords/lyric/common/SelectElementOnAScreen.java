@@ -13,8 +13,8 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -53,7 +53,8 @@ public class SelectElementOnAScreen extends Keyword {
 				if(parameters.get(1).equalsIgnoreCase("Switch Settings")){
 					switch (parameters.get(0).toUpperCase()) {
 					case "DELETE": {
-						DASZwaveUtils.ClickDeleteFromSettings(testCase);
+						ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+						zwaveScreen.ClickDeleteFromSettings();
 						break;
 					}
 					}

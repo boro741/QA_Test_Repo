@@ -13,6 +13,8 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.ZwaveScreen;
 
 public class EditDeviceName extends Keyword {
 
@@ -54,6 +56,13 @@ public class EditDeviceName extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");
+				}
+			}
+			else if(parameters.get(0).equalsIgnoreCase("Switch")){
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				if(zwaveScreen.isNamingFieldDisplayed()){
+					zwaveScreen.setNameToSwitch(parameters.get(1));
+					zwaveScreen.saveEditedNameToSwitch();
 				}
 			}
 		} catch (Exception e) {

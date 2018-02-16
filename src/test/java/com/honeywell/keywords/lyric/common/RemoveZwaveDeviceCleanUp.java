@@ -20,6 +20,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.ZwaveScreen;
 
 public class RemoveZwaveDeviceCleanUp extends Keyword {
 
@@ -70,13 +71,14 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 				}
 				if(f){
 					Dashboard ds = new Dashboard(testCase);
-					if(ds.clickOnGlobalButtonOfDashboard()){
+					if(ds.clickOnGlobalButtonOfDashboard()){         
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if(sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)){
-							if(DASZwaveUtils.ClickSwitchSettingFromZwaveUtilities(testCase, inputs)){
-								DASZwaveUtils.ClickDeleteFromSettings(testCase);
-								DASZwaveUtils.verifyRemoveDevicePopUp(testCase, inputs);
-								DASZwaveUtils.ClickOKOnDeviceExcludedPopUp(testCase, inputs);
+							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+							if(zwaveScreen.ClickSwitchSettingFromZwaveUtilities()){
+								zwaveScreen.ClickDeleteFromSettings();
+								zwaveScreen.isRemoveDevicePopUpDisplayed();
+								zwaveScreen.ClickOKOnDeviceExcludedPopUp();
 								fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 								DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 								if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludeModeScreenHeader") && MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludeModeTitle")){
@@ -88,7 +90,7 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 								ZWaveRelayUtils.enrollZwaveSwitch1();
 								Thread.sleep(2000);
 								ZWaveRelayUtils.pressButtonOnSwitch1();
-								DASZwaveUtils.ClickOKOnDeviceExcludedPopUp(testCase, inputs);
+								zwaveScreen.ClickOKOnDeviceExcludedPopUp();
 								DASZwaveUtils.ClickNavigateUp(testCase, inputs);
 								DASZwaveUtils.ClickNavigateUp(testCase, inputs);
 							}else{

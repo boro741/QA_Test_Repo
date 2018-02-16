@@ -14,6 +14,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
 
@@ -59,11 +60,13 @@ public class PerformActionsOnPopUp extends Keyword {
 		else if (expectedPopUp.get(1).equalsIgnoreCase("Device Excluded")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
-				DASZwaveUtils.ClickOKOnDeviceExcludedPopUp(testCase, inputs);
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				zwaveScreen.ClickOKOnDeviceExcludedPopUp();
 				break;
 			}
 			case "ADDS DEVICE NOW":{
-				DASZwaveUtils.ClickAddNowOnDeviceExcludedPopUp(testCase, inputs);
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				zwaveScreen.ClickAddNowOnDeviceExcludedPopUp();
 				break;
 			}
 			default: {
@@ -93,11 +96,13 @@ public class PerformActionsOnPopUp extends Keyword {
 		else if (expectedPopUp.get(1).equalsIgnoreCase("INCLUSION DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
-				DASZwaveUtils.ClickCancelOnDeviceNotFoundPopUp(testCase, inputs);
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				zwaveScreen.ClickCancelOnDeviceNotFoundPopUp();
 				break;
 			}
 			case "RETRIES THE INCLUSION ON": {
-				DASZwaveUtils.ClickRetryOnDeviceNotFoundPopUp(testCase, inputs);
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				zwaveScreen.ClickRetryOnDeviceNotFoundPopUp();
 				break;
 			}
 			case "TRIES EXCLUSION ON": {

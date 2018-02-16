@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.ZwaveScreen;
 
 public class ProvidingDeviceName extends Keyword {
 
@@ -40,7 +41,11 @@ public class ProvidingDeviceName extends Keyword {
 		try {
 			if (parameters.get(0).equalsIgnoreCase("Switch")) {
 				DASZwaveUtils.WaitForNamingScreen(testCase);
-				DASZwaveUtils.NamingSwitch(testCase, parameters.get(1));
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				if(zwaveScreen.isNamingFieldDisplayed()){
+					zwaveScreen.setNameToSwitch(parameters.get(1));
+					zwaveScreen.saveNameToSwitch();
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
