@@ -28,7 +28,11 @@ public class Dashboard extends MobileScreens {
 		
 	}
 	
-	public boolean clickOnAddNewDeviceButton() {
+	public boolean clickOnAddNewDeviceIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
+	}
+	
+	public boolean clickOnGlobalButtonOfDashboard() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
 }

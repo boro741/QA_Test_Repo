@@ -222,13 +222,6 @@ public class DASZwaveUtils {
 		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeviceRemovalButton");
 		return flag;
 	}
-	public static boolean ClickZwaveMenuFromGlobalDrawer(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "ZwaveMenu");
-		return flag;
-	}
-
 	public static boolean ClickSwitchSettingFromZwaveUtilities(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");

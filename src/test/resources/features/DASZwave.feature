@@ -146,7 +146,6 @@ As a user I want to control all devices using ZWave technology
   @ReIncludeZwaveSwitch @Corrected @LYDAS-5209 @LYDAS-6587
   Scenario: (ZwaveTC9) As a user my I want to include a zwave switch through the Add new device in application
     Given user launches and logs in to the Lyric application 
-    Given user has no "switch1"
      When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
