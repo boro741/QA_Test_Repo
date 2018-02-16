@@ -18,7 +18,8 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
-import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SecondaryCardSettings;
 
 public class RemoveZwaveDeviceCleanUp extends Keyword {
 
@@ -68,8 +69,10 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 					}
 				}
 				if(f){
-					if(LyricUtils.clickOnGlobalButtonOfDashboard(testCase)){
-						if(DASZwaveUtils.ClickZwaveMenuFromGlobalDrawer(testCase, inputs)){
+					Dashboard ds = new Dashboard(testCase);
+					if(ds.clickOnGlobalButtonOfDashboard()){
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if(sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)){
 							if(DASZwaveUtils.ClickSwitchSettingFromZwaveUtilities(testCase, inputs)){
 								DASZwaveUtils.ClickDeleteFromSettings(testCase);
 								DASZwaveUtils.verifyRemoveDevicePopUp(testCase, inputs);

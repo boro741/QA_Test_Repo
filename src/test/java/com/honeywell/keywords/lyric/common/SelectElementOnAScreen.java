@@ -14,7 +14,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AddNewDeviceScreen;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -43,7 +43,8 @@ public class SelectElementOnAScreen extends Keyword {
 			if (parameters.get(1).equalsIgnoreCase("install device")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "Z-WAVE DEVICE": {
-					LyricUtils.clickOnZwaveFromAddNewDevice(testCase);
+					AddNewDeviceScreen ads= new AddNewDeviceScreen(testCase);
+					ads.clickOnZwaveFromAddNewDevice();
 					break;
 				}
 				}

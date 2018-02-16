@@ -2,7 +2,6 @@ package com.honeywell.screens;
 
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
-import com.honeywell.commons.mobile.MobileUtils;
 
 public class DASDIYRegistrationScreens extends MobileScreens {
 
