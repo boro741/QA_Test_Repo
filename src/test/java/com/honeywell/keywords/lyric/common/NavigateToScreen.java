@@ -102,7 +102,7 @@ public class NavigateToScreen extends Keyword {
 						Dashboard ds= new Dashboard(testCase);
 						if (ds.clickOnGlobalButtonOfDashboard()) {
 							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-							if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
+							if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
 								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 								ads.clickOnZwaveFromAddNewDevice();
 							} else {

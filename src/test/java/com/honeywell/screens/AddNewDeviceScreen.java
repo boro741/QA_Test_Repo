@@ -22,6 +22,9 @@ public class AddNewDeviceScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveList");
 	}
 	
+	public boolean isAddNewDeviceHeaderDisplayed(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader");
+	}
 
 	public boolean clickOnCancelButtonOfAddDeviceScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");

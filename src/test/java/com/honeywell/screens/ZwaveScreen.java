@@ -3,6 +3,7 @@ package com.honeywell.screens;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 
 public class ZwaveScreen extends MobileScreens{
 
@@ -45,5 +46,14 @@ public class ZwaveScreen extends MobileScreens{
 				return clickOffStatus();
 			}
 		}
-
+		
+		public boolean isActivateZwaveScreenDisplayed(){
+			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivateTheDeviceHeader") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivateTheDeviceTitle");
+		}
+		
+		public boolean isExcludeZwaveScreenDisplayed(){
+			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ExcludeModeScreenHeader") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ExcludeModeTitle");
+		}
 }
