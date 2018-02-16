@@ -14,6 +14,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -43,24 +44,20 @@ public class SelectElementOnAScreen extends Keyword {
 			if (parameters.get(1).equalsIgnoreCase("install device")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "Z-WAVE DEVICE": {
-					AddNewDeviceScreen ads= new AddNewDeviceScreen(testCase);
+					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 					ads.clickOnZwaveFromAddNewDevice();
 					break;
 				}
 				}
-			}
-			else
-				if(parameters.get(1).equalsIgnoreCase("Switch Settings")){
-					switch (parameters.get(0).toUpperCase()) {
-					case "DELETE": {
-						ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-						zwaveScreen.ClickDeleteFromSettings();
-						break;
-					}
-					}
+			} else if (parameters.get(1).equalsIgnoreCase("Switch Settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "DELETE": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.ClickDeleteFromSettings();
+					break;
 				}
-			else
-			if (parameters.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "15": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
@@ -105,6 +102,43 @@ public class SelectElementOnAScreen extends Keyword {
 								"60 seconds Entry/Exit Delay Option not found");
 					}
 					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Choose Location")) {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "HOME": {
+					boolean flag = true;
+					System.out.println("#######Location name: " + parameters.get(0));
+					if (dasDIY.verifyChooseLocationHeaderTitle() && dasDIY.isHomeLocationDisplayed()) {
+						flag = flag & dasDIY.clickOnHomeLocation();
+					}
+					return flag;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Name Your Base Station")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "LIVING ROOM": {
+					boolean flag = true;
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					System.out.println("#######Device name: " + parameters.get(0));
+					if (dasDIY.verifyNameYourBaseStationHeaderTitle() && dasDIY.isLivingRoomBaseStationDisplayed()) {
+						flag = flag & dasDIY.clickOnLivingRoomBaseStation();
+					}
+					return flag;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "LENOVO VIBE X3": {
+					boolean flag = true;
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					System.out.println("#######Wi-fi name: " + parameters.get(0));
+					if (dasDIY.verifyConnectToNetworkHeaderDesc() && dasDIY.isAddANetworkButtonVisible()) {
+						flag = flag & dasDIY.clickOnAvailableNetwork();
+					}
+					dasDIY.isWiFiPasswordTextFieldVisibile();
+					return flag;
 				}
 				}
 			}
