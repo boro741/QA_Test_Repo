@@ -49,15 +49,29 @@ import com.honeywell.screens.SecretMenu;
 import io.appium.java_client.MobileBy;
 
 public class LyricUtils {
-	public static String takeScreenShot(String path, WebDriver driv) {
-
+	/**
+	 * <h1>Take Screenshot</h1>
+	 * <p>
+	 * The takeScreenShot method takes a screen shot on the device and stores it in
+	 * the path given through the the parameter
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param path
+	 *            Path to where the screen shot has to be saved
+	 * @param driver
+	 *            The driver instantiated to run the test case
+	 * @return String File name of the screen shot
+	 */
+	public static String takeScreenShot(String path, WebDriver driver) {
 		String scrName = "#";
-
-		if (driv == null) {
+		if (driver == null) {
 			return scrName;
 		} else {
 			try {
-				File scrSht = ((TakesScreenshot) new Augmenter().augment((RemoteWebDriver) driv))
+				File scrSht = ((TakesScreenshot) new Augmenter().augment((RemoteWebDriver) driver))
 						.getScreenshotAs(OutputType.FILE);
 				String temp = scrSht.getName();
 
@@ -72,6 +86,23 @@ public class LyricUtils {
 		return scrName;
 	}
 
+	/**
+	 * <h1>Get Location Information</h1>
+	 * <p>
+	 * The getLocationInformation method gets location details stored in CHIL of the
+	 * location name provided to the test case.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return JSONObject Location details of the location name
+	 */
 	public static JSONObject getLocationInformation(TestCases testCase, TestCaseInputs inputs) {
 		JSONObject jsonObject = null;
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
@@ -136,6 +167,23 @@ public class LyricUtils {
 		return jsonObject;
 	}
 
+	/**
+	 * <h1>Get Device Information</h1>
+	 * <p>
+	 * The getDeviceInformation method gets device details stored in CHIL of the
+	 * device name and location name provided to the test case.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return JSONObject Device details of the device name and location name
+	 */
 	public static JSONObject getDeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		JSONObject jsonObject = null;
 
@@ -227,6 +275,23 @@ public class LyricUtils {
 		return jsonObject;
 	}
 
+	/**
+	 * <h1>Get CHIL Url</h1>
+	 * <p>
+	 * The getCHILURL method returns the url of the environment provided to the test
+	 * case
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return String URL of the environment provided to the test case
+	 */
 	public static String getCHILURL(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		String chilURL = " ";
 		try {
@@ -255,6 +320,26 @@ public class LyricUtils {
 		return chilURL;
 	}
 
+	/**
+	 * <h1>Login in to the Lyric Application</h1>
+	 * <p>
+	 * The loginToLyricApp method click on the login button post launch/Application
+	 * Environment Setup, inputs the email ID and password, and taps on the login
+	 * button
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if all the button clicks and values were set
+	 *         properly. Returns 'false' if there was an error on clicking any
+	 *         buttons or setting any values
+	 */
 	public static boolean loginToLyricApp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		LoginScreen ls = new LoginScreen(testCase);
@@ -288,6 +373,25 @@ public class LyricUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Verify If Login Is Successful</h1>
+	 * <p>
+	 * The verifyLoginSuccessful method verifies the if the user has successfully
+	 * logged in by checking the presence of the weather icon on the dash board.
+	 * Timeout of locating the weather icon is 2 minutes
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if weather icon is found. Returns 'false' if
+	 *         weather icon is not located.
+	 */
 	public static boolean verifyLoginSuccessful(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		OSPopUps os = new OSPopUps(testCase);
@@ -342,6 +446,19 @@ public class LyricUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Close Application Launch Pop Ups</h1>
+	 * <p>
+	 * The closeAppLaunchPopups method closes all the application pop ups displayed on the device post the application launch.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @return boolean	Returns 'true' if all the pop ups have been closed successfully. Returns 'false' if any of the pop up fails to close
+	 */
 	public static boolean closeAppLaunchPopups(TestCases testCase) {
 		boolean flag = true;
 		OSPopUps os = new OSPopUps(testCase);
@@ -369,6 +486,22 @@ public class LyricUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Set Application Environment</h1>
+	 * <p>
+	 * The set application environment method navigates to the secret menu from the login screen, set the application environment provided to the test case, and navigates back to the login screen
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return	boolean	Returns 'true' if the environment is successfully set. Returns 'false' if the environment is not set successfully
+	 */
 	public static boolean setAppEnvironment(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
