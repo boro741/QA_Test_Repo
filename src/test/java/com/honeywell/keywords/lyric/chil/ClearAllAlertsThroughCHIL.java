@@ -42,7 +42,7 @@ public class ClearAllAlertsThroughCHIL extends Keyword {
 				} else {
 					System.out.println("Clearing alerts with the IDS: "
 							+ alertIDS);
-					LyricUtils.dismissAllAlerts(testCase, inputs);
+					LyricUtils.dismissAllAlertsThroughCHIL(testCase, inputs);
 				}
 			} catch (Exception e) {
 				break;

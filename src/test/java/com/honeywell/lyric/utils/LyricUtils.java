@@ -449,7 +449,8 @@ public class LyricUtils {
 	/**
 	 * <h1>Close Application Launch Pop Ups</h1>
 	 * <p>
-	 * The closeAppLaunchPopups method closes all the application pop ups displayed on the device post the application launch.
+	 * The closeAppLaunchPopups method closes all the application pop ups displayed
+	 * on the device post the application launch.
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -457,7 +458,8 @@ public class LyricUtils {
 	 * @since 2018-02-15
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase
-	 * @return boolean	Returns 'true' if all the pop ups have been closed successfully. Returns 'false' if any of the pop up fails to close
+	 * @return boolean Returns 'true' if all the pop ups have been closed
+	 *         successfully. Returns 'false' if any of the pop up fails to close
 	 */
 	public static boolean closeAppLaunchPopups(TestCases testCase) {
 		boolean flag = true;
@@ -489,7 +491,9 @@ public class LyricUtils {
 	/**
 	 * <h1>Set Application Environment</h1>
 	 * <p>
-	 * The set application environment method navigates to the secret menu from the login screen, set the application environment provided to the test case, and navigates back to the login screen
+	 * The set application environment method navigates to the secret menu from the
+	 * login screen, set the application environment provided to the test case, and
+	 * navigates back to the login screen
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -500,7 +504,8 @@ public class LyricUtils {
 	 * @param inputs
 	 *            Instance of the TestCaseInputs class used to pass inputs to the
 	 *            testCase instance
-	 * @return	boolean	Returns 'true' if the environment is successfully set. Returns 'false' if the environment is not set successfully
+	 * @return boolean Returns 'true' if the environment is successfully set.
+	 *         Returns 'false' if the environment is not set successfully
 	 */
 	public static boolean setAppEnvironment(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -550,6 +555,27 @@ public class LyricUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Launch And Login to Lyric Application</h1>
+	 * <p>
+	 * The launchAndLoginToApplication method launches the lyric application, closes
+	 * all pop ups post application launch, sets the application environment, logs
+	 * in the the application, and verifies whether the user has successfully logged
+	 * in or not.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if all the operations mentioned in the
+	 *         description have been performed successfully. Returns 'false' if any
+	 *         of the operations mentioned in the description fails.
+	 */
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
@@ -560,6 +586,23 @@ public class LyricUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Get Device Time zone</h1>
+	 * <p>
+	 * The getDeviceTimeZone method returns the TimeZone the device is configured
+	 * to.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return TimeZone Returns the timezone of the device
+	 */
 	public static TimeZone getDeviceTimeZone(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		TimeZone timeZone = null;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -605,6 +648,22 @@ public class LyricUtils {
 		return timeZone;
 	}
 
+	/**
+	 * <h1>Get Device Time</h1>
+	 * <p>
+	 * The getDeviceTime method gets the time on the device
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return String Device time in the format 'yyyymmddThh:mm:a'
+	 */
 	public static String getDeviceTime(TestCases testCase, TestCaseInputs inputs) {
 		String time = " ";
 		try {
@@ -639,10 +698,27 @@ public class LyricUtils {
 		return time;
 	}
 
+	/**
+	 * <h1>Get All Alerts through CHIL</h1>
+	 * <p>
+	 * The getAllAlertsThroughCHIL method gets all the alerts of the location name
+	 * provided to the test case through CHIL.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return JSONObject Alert details of the location name provided to the test
+	 *         case.
+	 */
 	public static JSONObject getAllAlertsThroughCHIL(TestCases testCase, TestCaseInputs inputs) {
 		JSONObject jsonObject = null;
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
-
 			if (chUtil.getConnection()) {
 				if (chUtil.isConnected()) {
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
@@ -651,25 +727,17 @@ public class LyricUtils {
 					HttpURLConnection connection = chUtil.doGetRequest(url);
 
 					try {
-
 						if (connection != null) {
-
 							BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
 							String inputLine;
 							StringBuffer html = new StringBuffer();
-
 							while (!in.ready()) {
 							}
-
 							while ((inputLine = in.readLine()) != null) {
 								html.append(inputLine);
 							}
-
 							in.close();
-
 							jsonObject = new JSONObject(html.toString().trim());
-
 						} else {
 							Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Get All Alerts : Failed to get all Alerts");
@@ -681,21 +749,34 @@ public class LyricUtils {
 						jsonObject = null;
 					}
 				}
-
 			} else {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Get All Alerts  : Unable to connect to CHAPI.");
 			}
-
 		} catch (Exception e) {
-
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get All Alerts : Unable to get alerts. Error occured - " + e.getMessage());
 			jsonObject = null;
 		}
 		return jsonObject;
 	}
-
+	
+	/**
+	 * <h1>Get All Alert IDs</h1>
+	 * <p>
+	 * The getAllAlertIDS method gets all the alerts through CHIL, extracts the IDS for each alert from the JSONObject, and stores the ids in a list
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return List<Long> List of all alert IDS
+	 */
 	public static List<Long> getAllAlertIDS(TestCases testCase, TestCaseInputs inputs) {
 		List<Long> alertIDS = new ArrayList<Long>();
 		try {
@@ -712,7 +793,24 @@ public class LyricUtils {
 		return alertIDS;
 	}
 
-	public static boolean dismissAllAlerts(TestCases testCase, TestCaseInputs inputs) {
+	/**
+	 * <h1>Dismiss All Alerts through CHIL</h1>
+	 * <p>
+	 * The dismissesAllAlertsThroughCHIL method dismisses all the alerts of the location name
+	 * provided to the test case through CHIL.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean	Returns 'true' if all the alerts have been dismissed successfully. Returns 'false' if error occurs while dismissing alerts.
+	 */
+	public static boolean dismissAllAlertsThroughCHIL(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
 			@SuppressWarnings("resource")
@@ -740,6 +838,22 @@ public class LyricUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
+	 * <p>
+	 * The scrollToElementUsingExactAttributeValue method scrolls to an element using the attribute and exact value passed to the method in the parameters.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute	Attribute of the value used to locate the element
+	 * @param value	Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if the element is not found.
+	 */
 	public static boolean scrollToElementUsingExactAttributeValue(TestCases testCase, String attribute, String value)
 			throws Exception {
 		try {
@@ -772,6 +886,22 @@ public class LyricUtils {
 		}
 	}
 
+	/**
+	 * <h1>Scroll To Element Using Attribute Sub String Value</h1>
+	 * <p>
+	 * The scrollToElementUsingAttributeSubStringValue method scrolls to an element using the attribute and attribute substring value passed to the method in the parameters.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute	Attribute of the value used to locate the element
+	 * @param value	Substring value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if the element is not found.
+	 */
 	public static boolean scrollToElementUsingAttributeSubStringValue(TestCases testCase, String attribute,
 			String value) throws Exception {
 		try {
