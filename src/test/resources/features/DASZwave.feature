@@ -184,8 +184,7 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Z-Wave device through General inclusion" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
-     Then user should be displayed with "default name" on "device naming" screen
-     When user names the "switch" as "Switch1"
+     When user names the "switch" to "Switch1"
      Then user should be displayed with "Switch1" device on dashboard
   
   @GeneralExcludeZwaveSwitch @Reviewed

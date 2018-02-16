@@ -113,4 +113,24 @@ public class ZwaveScreen extends MobileScreens{
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "TryExcludeOption");
 		}
 
+		public boolean clickZwaveUtilitiesMenu() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveUtilitiesMenu");
+		}
+		
+		public boolean clickGeneralDeviceInclusionMenu() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceInclusion");
+		}
+		
+		public boolean clickGeneralDeviceExclusionMenu() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceExclusion");
+		}
+		
+		public boolean clickControllerFactoryResetMenu() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ControllerFactoryReset");
+		}
+		
+		public boolean clickModelandFirmwareDetailsMenu() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelandFirmwareDetails");
+		}
+		
 }
