@@ -37,7 +37,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.mobile.CustomDriver;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
@@ -760,11 +759,12 @@ public class LyricUtils {
 		}
 		return jsonObject;
 	}
-	
+
 	/**
 	 * <h1>Get All Alert IDs</h1>
 	 * <p>
-	 * The getAllAlertIDS method gets all the alerts through CHIL, extracts the IDS for each alert from the JSONObject, and stores the ids in a list
+	 * The getAllAlertIDS method gets all the alerts through CHIL, extracts the IDS
+	 * for each alert from the JSONObject, and stores the ids in a list
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -796,8 +796,8 @@ public class LyricUtils {
 	/**
 	 * <h1>Dismiss All Alerts through CHIL</h1>
 	 * <p>
-	 * The dismissesAllAlertsThroughCHIL method dismisses all the alerts of the location name
-	 * provided to the test case through CHIL.
+	 * The dismissesAllAlertsThroughCHIL method dismisses all the alerts of the
+	 * location name provided to the test case through CHIL.
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -808,7 +808,9 @@ public class LyricUtils {
 	 * @param inputs
 	 *            Instance of the TestCaseInputs class used to pass inputs to the
 	 *            testCase instance.
-	 * @return boolean	Returns 'true' if all the alerts have been dismissed successfully. Returns 'false' if error occurs while dismissing alerts.
+	 * @return boolean Returns 'true' if all the alerts have been dismissed
+	 *         successfully. Returns 'false' if error occurs while dismissing
+	 *         alerts.
 	 */
 	public static boolean dismissAllAlertsThroughCHIL(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -841,7 +843,8 @@ public class LyricUtils {
 	/**
 	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
 	 * <p>
-	 * The scrollToElementUsingExactAttributeValue method scrolls to an element using the attribute and exact value passed to the method in the parameters.
+	 * The scrollToElementUsingExactAttributeValue method scrolls to an element
+	 * using the attribute and exact value passed to the method in the parameters.
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -850,9 +853,12 @@ public class LyricUtils {
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase.
 	 *            testCase instance.
-	 * @param attribute	Attribute of the value used to locate the element
-	 * @param value	Value of the attribute used to locate the element
-	 * @return boolean Returns 'true' if the element is found. Returns 'false' if the element is not found.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
 	 */
 	public static boolean scrollToElementUsingExactAttributeValue(TestCases testCase, String attribute, String value)
 			throws Exception {
@@ -889,7 +895,9 @@ public class LyricUtils {
 	/**
 	 * <h1>Scroll To Element Using Attribute Sub String Value</h1>
 	 * <p>
-	 * The scrollToElementUsingAttributeSubStringValue method scrolls to an element using the attribute and attribute substring value passed to the method in the parameters.
+	 * The scrollToElementUsingAttributeSubStringValue method scrolls to an element
+	 * using the attribute and attribute substring value passed to the method in the
+	 * parameters.
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -898,9 +906,12 @@ public class LyricUtils {
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase.
 	 *            testCase instance.
-	 * @param attribute	Attribute of the value used to locate the element
-	 * @param value	Substring value of the attribute used to locate the element
-	 * @return boolean Returns 'true' if the element is found. Returns 'false' if the element is not found.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Substring value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
 	 */
 	public static boolean scrollToElementUsingAttributeSubStringValue(TestCases testCase, String attribute,
 			String value) throws Exception {
@@ -935,38 +946,33 @@ public class LyricUtils {
 		}
 	}
 
-	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String expectedDevice) {
+	/**
+	 * <h1>Verify Device Displayed On Dashboard</h1>
+	 * <p>
+	 * The verifyDeviceDisplayedOnDashboard method verifies the device name passed
+	 * in the parameters is present on the Dashboard.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param deviceName
+	 *            Device name whose presence has to be verified on the dash board
+	 * @return boolean Returns 'true' if the device is present on the dash board.
+	 *         Returns 'false' if the device is not present on the dash board.
+	 */
+	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String deviceName) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 30)) {
-			List<WebElement> dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase,
-					"DashboardIconText");
-			boolean f = false;
-			for (WebElement e : dashboardIconText) {
-				String displayedText = "";
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					displayedText = e.getText();
-				} else {
-					try {
-						displayedText = e.getAttribute("value");
-					} catch (Exception e1) {
-					}
-				}
-				if (displayedText.equalsIgnoreCase(expectedDevice)) {
-					f = true;
-					break;
-				}
-			}
-			if (f) {
-				Keyword.ReportStep_Pass(testCase, "Device : " + expectedDevice + " is present on the dashboard.");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Device : " + expectedDevice + " is not present on the dashboard.");
-			}
+		Dashboard d = new Dashboard(testCase);
+		if (d.isDevicePresentOnDashboard(deviceName)) {
+			Keyword.ReportStep_Pass(testCase, "Device : " + deviceName + " is present on the dashboard.");
 		} else {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard Icons not found");
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Device : " + deviceName + " is not present on the dashboard.");
 		}
 		return flag;
 	}
