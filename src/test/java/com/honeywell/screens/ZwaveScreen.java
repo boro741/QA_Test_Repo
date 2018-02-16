@@ -56,4 +56,48 @@ public class ZwaveScreen extends MobileScreens{
 			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ExcludeModeScreenHeader") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ExcludeModeTitle");
 		}
+		
+		public boolean ClickSwitchSettingFromZwaveUtilities() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchSettingsMenu");
+		}
+
+		public  boolean ClickDeleteFromSettings() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
+		}
+		
+		public boolean isRemoveDevicePopUpDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RemoveDevicePopupTitle");
+		}
+
+		
+		public boolean setNameToSwitch(String value){
+			MobileUtils.getMobElement(objectDefinition, testCase, "NameEditField").clear();
+			return MobileUtils.setValueToElement(objectDefinition, testCase, "NameEditField",
+					value);
+		}
+		
+		public boolean saveNameToSwitch(){
+			return MobileUtils.clickOnElement(objectDefinition,testCase, "ReturnKeypad")
+			 && MobileUtils.clickOnElement(objectDefinition,testCase, "DoneButtonAfterNaming");
+		}
+		public boolean saveEditedNameToSwitch(){
+			return MobileUtils.clickOnElement(objectDefinition,testCase, "ReturnKeypad");
+		}
+		
+		public  boolean isNamingFieldDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameEditField");
+		}
+		
+		public boolean ClickRetryOnDeviceNotFoundPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryOption");
+		}
+		public boolean ClickOKOnDeviceExcludedPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
+		}
+		public boolean ClickAddNowOnDeviceExcludedPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNowOption");
+		}
+		public boolean ClickCancelOnDeviceNotFoundPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelOption");
+		}
 }

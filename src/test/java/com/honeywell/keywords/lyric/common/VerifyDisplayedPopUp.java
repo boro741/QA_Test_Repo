@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
 
@@ -43,7 +44,8 @@ public class VerifyDisplayedPopUp extends Keyword {
 				break;
 			}
 			case "REMOVE DEVICE":{
-				flag = flag & DASZwaveUtils.verifyRemoveDevicePopUp(testCase, inputs);
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				flag = zwaveScreen.isRemoveDevicePopUpDisplayed();
 				break;
 			}
 			case "DELETE DAS CONFIRMATION":

@@ -21,7 +21,7 @@ NameEditField							Xpath	//XCUIElementTypeTextField	Xpath	//XCUIElementTypeText
 DoneButtonAfterNaming							NAME	Done	NAME	Done	NAME	Done
 ReturnKeypad							NAME	Return	NAME	Return	NAME	Return
 ZwaveUtilitiesMenu							NAME	Z-Wave Utilities				
-SwitchSettingsMenu							NAME	Switch1_cell				
+SwitchSettingsMenu							Xpath	"//*[contains(@value,'Switch')]"				
 AllONButton							NAME	All On				
 AllOffButton							NAME	All Off				
 FixAllButton							NAME	Fix All				

@@ -153,6 +153,16 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with "Switch2" device on dashboard
   # Then user receives a "Zwave device added" activity log
   
+  @ZwaveSwitchRename @Reviewed @LYDAS-5395
+  Scenario: (ZwaveTC17) As a user my I want to rename my zwave switch
+      And user launches and logs in to the Lyric application
+     When user navigates to "Switch settings" screen from the "Dashboard" screen
+     When user edits the "Switch" name to "Switch2"
+     When user navigates to "Dashboard" screen from the "Switch settings" screen
+     Then user should be displayed with "Switch2" device on dashboard
+    #  And user reverts back the "Switch" name through CHIL
+  
+  
   @DeleteZwaveSwitchFromSettings 
   Scenario: (ZwaveTC7) As a user my I want to delete my zwave switch
   #switch configured and online
@@ -167,26 +177,6 @@ As a user I want to control all devices using ZWave technology
      When user "confirms" the "Device Excluded" popup
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should not be displayed with "Dimmer" device on dashboard
-  
-  @AddNewDeviceIncludeZwaveLock @LYDAS-5002
-  Scenario: (ZwaveTC7) As a user my I want to include a zwave lock through the Add new device in application
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "activates" the "lock" function key
-     When user names the "lock" as "Lock1"
-     When user navigates to "Lock settings" screen from the "Z-wave utilies" screen
-     Then user should be displayed with the "Lock details" screen #check details
-  
-  @AddNewDeviceIncludeZwaveDimmer @Corrected
-  Scenario: (ZwaveTC8 As a user my I want to include a zwave dimmer through the the Add new device in application
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "activates" the "dimmer" function key
-     When user names the "dimmer" as "Dimmer1"
-     Then user should be displayed with "Dimmer1" device on dashboard	
-     Then user receives a "Zwave device added" activity log
   
   @GeneralIncludeZwaveSwitch @Reviewed @LYDAS-5507
   Scenario: (ZwaveTC9) As a user my I want to exclude a zwave switch through General Inclusion in the application
@@ -228,6 +218,26 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should not be displayed with "Switch" device on dashboard
   
+  @AddNewDeviceIncludeZwaveLock @LYDAS-5002
+  Scenario: (ZwaveTC7) As a user my I want to include a zwave lock through the Add new device in application
+      And user launches and logs in to the Lyric application 
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates" the "lock" function key
+     When user names the "lock" as "Lock1"
+     When user navigates to "Lock settings" screen from the "Z-wave utilies" screen
+     Then user should be displayed with the "Lock details" screen #check details
+  
+  @AddNewDeviceIncludeZwaveDimmer @Corrected
+  Scenario: (ZwaveTC8 As a user my I want to include a zwave dimmer through the the Add new device in application
+      And user launches and logs in to the Lyric application 
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates" the "dimmer" function key
+     When user names the "dimmer" as "Dimmer1"
+     Then user should be displayed with "Dimmer1" device on dashboard	
+     Then user receives a "Zwave device added" activity log
+     
   @GeneralExcludeZwaveDimmer @corrected
   Scenario: (ZwaveTC12) As a user my I want to exclude a zwave dimmer through the General exclusion in application
       And user launches and logs in to the Lyric application 
@@ -265,15 +275,6 @@ As a user I want to control all devices using ZWave technology
      When user turns "off" the "Unknown" through the "Unknown settings"
      When user navigates to "Z-Wave Utilities" screen from the "Unknown settings" screen
      Then user should see the "Unknown" status as "off" on the "Z-Wave Utilities"
-  
-  @ZwaveSwitchRename @Reviewed @LYDAS-5395
-  Scenario: (ZwaveTC17) As a user my I want to rename my zwave switch
-      And user launches and logs in to the Lyric application
-     When user navigates to "Switch settings" screen from the "Dashboard" screen
-     When user edits the "Switch" name to "Switch2"
-     When user navigates to "Dashboard" screen from the "Switch settings" screen
-     Then user should be displayed with "Switch2" device on dashboard
-      And user reverts back the "Switch" name through CHIL
   
   @ZwaveDimmerRename @Reviewed
   Scenario: (ZwaveTC18) As a user my I want to rename my zwave dimmer
