@@ -81,4 +81,14 @@ public class Dashboard extends MobileScreens {
 		}
 		return flag;
 	}
+
+	public boolean isGlobalDrawerButtonVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", 3);
+	}
+	
+	public boolean isGlobalDrawerButtonVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
+	}
 }
