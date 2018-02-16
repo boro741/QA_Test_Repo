@@ -15,6 +15,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.OSPopUps;
 
 public class SelectDeviceFromDashboard extends Keyword {
 
@@ -39,6 +40,7 @@ public class SelectDeviceFromDashboard extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user selects (.*) from the dashboard$")
 	public boolean keywordSteps() {
+		OSPopUps os = new OSPopUps(testCase);
 		String deviceToBeSelected = "";
 		if(deviceType.get(0).equalsIgnoreCase("DAS Device"))
 		{
@@ -52,7 +54,11 @@ public class SelectDeviceFromDashboard extends Keyword {
 		{
 			deviceToBeSelected = inputs.getInputValue("LOCATION1_SWITCH1_NAME");
 		}
-		
+		else if(deviceType.get(0).equalsIgnoreCase("Jasper device"))
+		{
+			deviceToBeSelected = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+		}
+
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
 		List<WebElement> dashboardIconText = null;
 		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 5)) {
@@ -80,6 +86,11 @@ public class SelectDeviceFromDashboard extends Keyword {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Device : " + deviceToBeSelected + " is not present on the dashboard. Available Devices: " + availableDevices);
+		}
+		int counter = 0;
+		while (os.isGotitButton(5) && counter < 5) {
+			os.clickOnGotitButton();
+			counter++;
 		}
 		return flag;
 	}
