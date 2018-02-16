@@ -8,7 +8,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 
 public class LoginScreen extends MobileScreens{
 
-		private static final String screenName = "LoginScreen";		
+		private static final String screenName = "LoginScreen";
 		
 		public LoginScreen(TestCases testCase) {
 			super(testCase,screenName);
