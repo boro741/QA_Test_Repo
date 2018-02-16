@@ -176,12 +176,12 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Switch Excluded Successfully" popup
      When user "confirms" the "Device Excluded" popup
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should not be displayed with "Dimmer" device on dashboard
+     Then user should not be displayed with "Switch" device on dashboard
   
   @GeneralIncludeZwaveSwitch @Reviewed @LYDAS-5507
   Scenario: (ZwaveTC9) As a user my I want to exclude a zwave switch through General Inclusion in the application
       And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device(General inclusion)" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave device through General inclusion" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
      Then user should be displayed with "default name" on "device naming" screen

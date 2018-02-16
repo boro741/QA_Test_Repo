@@ -50,7 +50,7 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 					ZWaveRelayUtils.pressButtonOnDimmer1();
 				}
 			}else if(deviceType.get(0).equalsIgnoreCase("does not activate")){
-				DASZwaveUtils.TimeOutForNoActivatedDevice(testCase);
+				DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
 			}
 			
 		} catch (Exception e) {

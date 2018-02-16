@@ -61,12 +61,12 @@ public class PerformActionsOnPopUp extends Keyword {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				zwaveScreen.ClickOKOnDeviceExcludedPopUp();
+				zwaveScreen.clickOKOnDeviceExcludedPopUp();
 				break;
 			}
 			case "ADDS DEVICE NOW":{
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				zwaveScreen.ClickAddNowOnDeviceExcludedPopUp();
+				zwaveScreen.clickAddNowOnDeviceExcludedPopUp();
 				break;
 			}
 			default: {
@@ -79,11 +79,11 @@ public class PerformActionsOnPopUp extends Keyword {
 		else if (expectedPopUp.get(1).equalsIgnoreCase("DELETION ON REMOVE DEVICE")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
-				DASZwaveUtils.ClickOkOnRemoveDevicePopUp(testCase, inputs);
+				DASZwaveUtils.clickOkOnRemoveDevicePopUp(testCase, inputs);
 				break;
 			}
 			case "CANCELS": {
-				DASZwaveUtils.ClickCancelOnRemoveDevicePopUp(testCase, inputs);
+				DASZwaveUtils.clickCancelOnRemoveDevicePopUp(testCase, inputs);
 				break;
 			}
 			default: {
@@ -96,17 +96,15 @@ public class PerformActionsOnPopUp extends Keyword {
 		else if (expectedPopUp.get(1).equalsIgnoreCase("INCLUSION DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
-				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				zwaveScreen.ClickCancelOnDeviceNotFoundPopUp();
+				DASZwaveUtils.clickCancelOnDeviceNotFoundPopUp(testCase);
 				break;
 			}
 			case "RETRIES THE INCLUSION ON": {
-				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				zwaveScreen.ClickRetryOnDeviceNotFoundPopUp();
+				DASZwaveUtils.clickRetryOnDeviceNotFoundPopUp(testCase);
 				break;
 			}
 			case "TRIES EXCLUSION ON": {
-				DASZwaveUtils.ClickTryExcludeOnDeviceNotFoundPopUp(testCase, inputs);
+				DASZwaveUtils.clickTryExcludeOnDeviceNotFoundPopUp(testCase, inputs);
 				break;
 			}
 			default: {

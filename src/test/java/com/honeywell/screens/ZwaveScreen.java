@@ -88,16 +88,29 @@ public class ZwaveScreen extends MobileScreens{
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameEditField");
 		}
 		
-		public boolean ClickRetryOnDeviceNotFoundPopUp() {
+		public boolean clickRetryOnDeviceNotFoundPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryOption");
 		}
-		public boolean ClickOKOnDeviceExcludedPopUp() {
+		public boolean clickOKOnDeviceExcludedPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
 		}
-		public boolean ClickAddNowOnDeviceExcludedPopUp() {
+		public boolean clickAddNowOnDeviceExcludedPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNowOption");
 		}
-		public boolean ClickCancelOnDeviceNotFoundPopUp() {
+		public boolean clickCancelOnDeviceNotFoundPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelOption");
 		}
+
+		public boolean clickCancelOnRemoveDevicePopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelDeviceRemovalButton");
+		}
+
+		public boolean clickOkOnRemoveDevicePopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
+		}
+
+		public boolean clickTryExcludeOnDeviceNotFoundPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "TryExcludeOption");
+		}
+
 }

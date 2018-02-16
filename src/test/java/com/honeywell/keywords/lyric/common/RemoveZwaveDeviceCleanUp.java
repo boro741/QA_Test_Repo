@@ -78,7 +78,7 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 							if(zwaveScreen.ClickSwitchSettingFromZwaveUtilities()){
 								zwaveScreen.ClickDeleteFromSettings();
 								zwaveScreen.isRemoveDevicePopUpDisplayed();
-								zwaveScreen.ClickOKOnDeviceExcludedPopUp();
+								DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
 								fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 								DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 								if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludeModeScreenHeader") && MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludeModeTitle")){
@@ -90,9 +90,9 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 								ZWaveRelayUtils.enrollZwaveSwitch1();
 								Thread.sleep(2000);
 								ZWaveRelayUtils.pressButtonOnSwitch1();
-								zwaveScreen.ClickOKOnDeviceExcludedPopUp();
-								DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-								DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+								zwaveScreen.clickOKOnDeviceExcludedPopUp();
+								DASZwaveUtils.clickNavigateUp(testCase, inputs);
+								DASZwaveUtils.clickNavigateUp(testCase, inputs);
 							}else{
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Could not click on "+parameters.get(0));
