@@ -13,6 +13,8 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.ZwaveScreen;
 
 public class DASZwaveUtils {
@@ -166,8 +168,15 @@ public class DASZwaveUtils {
 	}
 
 	
-	public static boolean navigateToGeneralInclusionFromDashboard(){
+	public static boolean navigateToGeneralInclusionFromDashboard(TestCases testCase){
 		boolean flag = true;
+		Dashboard dashboardScreen = new Dashboard(testCase);
+		flag=dashboardScreen.clickOnGlobalButtonOfDashboard();
+		SecondaryCardSettings secScreen = new SecondaryCardSettings(testCase);
+		flag= flag & secScreen.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES);
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		flag= flag & zwaveScreen.clickZwaveUtilitiesMenu();  
+		flag= flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 		return flag;
 	}
 	public static boolean waitForNamingScreen(TestCases testCase) {

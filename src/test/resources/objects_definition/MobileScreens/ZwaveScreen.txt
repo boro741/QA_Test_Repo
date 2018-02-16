@@ -42,3 +42,7 @@ AddNowOption							NAME	Add Now
 SwitchPrimaryCardStatus							NAME	ZwaveSwitchStateLabel				
 SwitchPrimaryCardOff							NAME	States_0				
 SwitchPrimaryCardOn							NAME	States_1				
+GeneralDeviceInclusion							NAME	General Device Inclusion				
+GeneralDeviceExclusion							NAME	General Device Exclusion				
+ControllerFactoryReset							NAME	Controller Factory Reset				
+ModelandFirmwareDetails							NAME	Model and Firmware Details				

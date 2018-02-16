@@ -83,6 +83,10 @@ public class NavigateToScreen extends Keyword {
 					}
 				} else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 					switch (screen.get(0).toUpperCase()) {
+					case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION":{
+						DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
+						break;
+					}
 					case "SWITCH PRIMARY CARD":{
 						NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
 						break;
