@@ -40,7 +40,7 @@ public class ProvidingDeviceName extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (parameters.get(0).equalsIgnoreCase("Switch")) {
-				DASZwaveUtils.WaitForNamingScreen(testCase);
+				DASZwaveUtils.waitForNamingScreen(testCase);
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if(zwaveScreen.isNamingFieldDisplayed()){
 					zwaveScreen.setNameToSwitch(parameters.get(1));

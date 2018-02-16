@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.ZwaveScreen;
 
 public class DASZwaveUtils {
 
@@ -149,34 +150,34 @@ public class DASZwaveUtils {
 		return flag;
 	}
 	
-	public static boolean ClickNavigateUp(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean clickNavigateUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "NavigateBack");
 		return flag;
 	}
-	public static boolean ClickCancelOnRemoveDevicePopUp(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "CancelDeviceRemovalButton");
-		return flag;
+	public static boolean clickCancelOnRemoveDevicePopUp(TestCases testCase, TestCaseInputs inputs) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickCancelOnRemoveDevicePopUp();
 	}
-	public static boolean ClickOkOnRemoveDevicePopUp(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeviceRemovalButton");
-		return flag;
+	public static boolean clickOkOnRemoveDevicePopUp(TestCases testCase, TestCaseInputs inputs) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickOkOnRemoveDevicePopUp();
 	}
 
 	
-	public static boolean WaitForNamingScreen(TestCases testCase) {
+	public static boolean navigateToGeneralInclusionFromDashboard(){
+		boolean flag = true;
+		return flag;
+	}
+	public static boolean waitForNamingScreen(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 		MobileUtils.isMobElementExists(fieldObjects, testCase, "NameTheDeviceTitle");
 		MobileUtils.isMobElementExists(fieldObjects, testCase, "NameTheDeviceTitle");
 		return flag;
 	}
-	public static boolean TimeOutForNoActivatedDevice(TestCases testCase) {
+	public static boolean timeOutForNoActivatedDevice(TestCases testCase) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 		flag = MobileUtils.isMobElementExists(fieldObjects, testCase, "RetryOption");
@@ -186,11 +187,24 @@ public class DASZwaveUtils {
 		flag = MobileUtils.isMobElementExists(fieldObjects, testCase, "RetryOption");
 		return flag;
 	}
-	public static boolean ClickTryExcludeOnDeviceNotFoundPopUp(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "TryExcludeOption");
-		return flag;
+	public static boolean clickTryExcludeOnDeviceNotFoundPopUp(TestCases testCase, TestCaseInputs inputs) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickTryExcludeOnDeviceNotFoundPopUp();
+	}
+
+	public static boolean clickRetryOnDeviceNotFoundPopUp(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickRetryOnDeviceNotFoundPopUp();
+	}
+
+	public static boolean clickCancelOnDeviceNotFoundPopUp(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
+	}
+
+	public static boolean clickOKOnDeviceExcludedPopUp(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickOKOnDeviceExcludedPopUp();
 	}
 
 }

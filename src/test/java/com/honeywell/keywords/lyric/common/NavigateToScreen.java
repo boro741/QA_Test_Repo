@@ -51,48 +51,54 @@ public class NavigateToScreen extends Keyword {
 			HashMap<String, MobileObject> fieldObjects;
 			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+				case "DASHBOARD":{
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "SWITCH PRIMARY CARD": {
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+				case "SWITCH PRIMARY CARD":{
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
 					break;
 				}
-				case "DASHBOARD": {
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+				case "DASHBOARD":{
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "SWITCH PRIMARY CARD": {
-					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
-					break;
-				}
-				case "SWITCH SETTINGS": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalButtonOfDashboard()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on ");
+			}
+			else
+				if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "DASHBOARD": {
+						DASZwaveUtils.clickNavigateUp(testCase, inputs);
+						DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "SWITCH PRIMARY CARD":{
+						NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
+						break;
+					}
+					case "SWITCH SETTINGS": {
+						Dashboard ds = new Dashboard(testCase);
+						if (ds.clickOnGlobalButtonOfDashboard()) {
+							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+							if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
+								ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+								if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on ");
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Add new device menu from Global drawer");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
