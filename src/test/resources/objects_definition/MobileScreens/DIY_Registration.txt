@@ -1,7 +1,18 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-AddNewDeviceIcon	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	name	icon add device white	name	icon add device white	name	icon add device white
-SelectALocation	ID	button	ID	button	ID	button						
+AddNewDeviceHeader	xpath	//*[@value='Add New Device']	xpath	//*[@value='Add New Device']	xpath	//*[@value='Add New Device']				//*[@value='Add New Device']	name	icon add device white
+SmartHomeSecurity	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']						
+ChooseLocationHeaderTitle	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']						
+SelectHomeLocation	XPATH	//android.widget.Button[@text='Home']	XPATH	//android.widget.Button[@text='Home']	XPATH	//android.widget.Button[@text='Home']						
 NameYourBaseStationHeaderTitle	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']						
-SelectABaseStationName	ID	button	ID	button	ID	button						
+SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']						
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']						
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next						
+LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar						
+RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']						
+QRCode	ID	qrcode_icon	ID	qrcode_icon	ID	qrcode_icon						
+LookingForNetworkConnectionLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar						
+ConnectoNetworkHeaderTitle	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']						
+ConnectoNetworkHeaderDesc	ID	header_view_description	ID	header_view_description	ID	header_view_description						
+AddANetworkButton	ID	add_wifi_network	ID	add_wifi_network	ID	add_wifi_network						
+AvailableNetworkNameInTheWiFiList	XPATH	//*[@text='Lenovo VIBE X3']	XPATH	//*[@text='Lenovo VIBE X3']	XPATH	//*[@text='Lenovo VIBE X3']						
+WiFiPasswordTextField	ID	wifi_password	ID	wifi_password	ID	wifi_password						

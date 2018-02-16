@@ -139,7 +139,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					case "ADD NEW DEVICE DASHBOARD": {
 						Dashboard db = new Dashboard(testCase);
-						if (db.isAddDeviceIconVisible()) {
+						if (db.isAddDeviceIconVisible(5)) {
 							flag = flag & db.clickOnAddNewDeviceIcon();
 						}
 						break;

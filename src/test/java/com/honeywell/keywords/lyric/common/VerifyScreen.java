@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyScreen extends Keyword {
@@ -66,6 +67,26 @@ public class VerifyScreen extends Keyword {
 			if(addDeviceSrceen.isAddNewDeviceHeaderDisplayed()){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
 			}else{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
+		case "NAME YOUR BASE STATION": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			if(dasDIY.verifyNameYourBaseStationHeaderTitle()) {
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
+		case "POWER BASE STATION": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			if(dasDIY.verifyPowerYourBaseStationHeaderTitle() && dasDIY.isNextButtonVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
 				flag=false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
 			}
