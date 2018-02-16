@@ -947,7 +947,7 @@ public class LyricUtils {
 	}
 
 	/**
-	 * <h1>Verify Device Displayed On Dash board</h1>
+	 * <h1>Verify Device Displayed On Dashboard</h1>
 	 * <p>
 	 * The verifyDeviceDisplayedOnDashboard method verifies the device name passed
 	 * in the parameters is present on the Dashboard.
