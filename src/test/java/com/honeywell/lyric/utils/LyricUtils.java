@@ -16,9 +16,11 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -838,6 +840,30 @@ public class LyricUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
+	}
+	
+	
+	public static void scrollList(TestCases testCase, String locatorType, String locatorValue) {
+		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);
+		Dimension d1;
+		Point p1;
+		int startx;
+		int starty;
+		int endy;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			d1 = ele.getSize();
+			p1 = ele.getLocation();
+			startx = p1.getX();
+			starty = d1.getHeight();
+			endy = -p1.getY()/10;
+		} else {
+			d1 = ele.getSize();
+			p1 = ele.getLocation();
+			starty = (int) (d1.height * 0.80);
+			endy = (int) -((d1.height * 0.50) + p1.getY());
+			startx = d1.width / 2;
+		}
+		testCase.getMobileDriver().swipe(startx, starty, startx, endy, 500);
 	}
 
 	/**

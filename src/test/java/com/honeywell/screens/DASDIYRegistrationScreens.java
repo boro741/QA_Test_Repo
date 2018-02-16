@@ -2,7 +2,10 @@ package com.honeywell.screens;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
@@ -173,21 +176,62 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AvailableNetworkNameInTheWiFiList");
 	}
 
-	public boolean clickOnAvailableNetwork() {
-
-		if (this.isAvailableNetworkVisible()) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "AvailableNetworkNameInTheWiFiList");
-		} else {
-			try {
-				if (LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value", "Lenovo VIBE X3")) {
-					return MobileUtils.clickOnElement(objectDefinition, testCase, "AvailableNetworkNameInTheWiFiList");
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public static boolean scrollWifiList(TestCases testCase) {
+		boolean flag = true;
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				LyricUtils.scrollList(testCase, "id", "diy_wld_list");
+			} else {
+				LyricUtils.scrollList(testCase, "xpath", "//XCUIElementTypeCollectionView");
 			}
-			return false;
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
+		return flag;
+	}
+
+	public boolean selectWifi(String wifiName) {
+
+		boolean flag = true;
+		String locatorType, locatorValue;
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				locatorType = "xpath";
+				locatorValue = "//android.widget.TextView[@text='" + wifiName + "']";
+			} else {
+				locatorType = "name";
+				locatorValue = wifiName;
+			}
+			if (MobileUtils.isMobElementExists(locatorType, locatorValue, testCase, 2, false)) {
+				flag = flag & MobileUtils.clickOnElement(testCase, locatorType, locatorValue);
+			} else {
+				flag = flag & scrollWifiList(testCase);
+				if (MobileUtils.isMobElementExists(locatorType, locatorValue, testCase, 2, false)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, locatorType, locatorValue);
+				} else {
+					flag = flag & scrollWifiList(testCase);
+					if (MobileUtils.isMobElementExists(locatorType, locatorValue, testCase, 2, false)) {
+						flag = flag & MobileUtils.clickOnElement(testCase, locatorType, locatorValue);
+					} else {
+						flag = flag & scrollWifiList(testCase);
+						if (MobileUtils.isMobElementExists(locatorType, locatorValue, testCase, 2, false)) {
+							flag = flag & MobileUtils.clickOnElement(testCase, locatorType, locatorValue);
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not find WiFi from the list");
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+
 	}
 
 	public boolean isWiFiPasswordTextFieldVisibile() {
