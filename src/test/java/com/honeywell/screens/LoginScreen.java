@@ -9,7 +9,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 public class LoginScreen extends MobileScreens{
 
 		private static final String screenName = "LoginScreen";		
-		//private OSPopUps osPopUps;
 		
 		public LoginScreen(TestCases testCase) {
 			super(testCase,screenName);
