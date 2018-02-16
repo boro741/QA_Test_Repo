@@ -14,5 +14,4 @@ LookingForNetworkConnectionLoadingSpinner	ID	progressBar	ID	progressBar	ID	progr
 ConnectoNetworkHeaderTitle	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']						
 ConnectoNetworkHeaderDesc	ID	header_view_description	ID	header_view_description	ID	header_view_description						
 AddANetworkButton	ID	add_wifi_network	ID	add_wifi_network	ID	add_wifi_network						
-AvailableNetworkNameInTheWiFiList	XPATH	//*[@text='Lenovo VIBE X3']	XPATH	//*[@text='Lenovo VIBE X3']	XPATH	//*[@text='Lenovo VIBE X3']						
 WiFiPasswordTextField	ID	wifi_password	ID	wifi_password	ID	wifi_password						

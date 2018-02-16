@@ -129,18 +129,14 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "LENOVO VIBE X3": {
+				
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					System.out.println("#######Wi-fi name: " + parameters.get(0));
 					if (dasDIY.verifyConnectToNetworkHeaderDesc() && dasDIY.isAddANetworkButtonVisible()) {
-						flag = flag & dasDIY.clickOnAvailableNetwork();
+						flag = flag & dasDIY.selectWifi(parameters.get(0));
 					}
 					dasDIY.isWiFiPasswordTextFieldVisibile();
-					return flag;
-				}
-				}
+				
 			}
 
 		} catch (Exception e) {
