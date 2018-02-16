@@ -38,3 +38,7 @@ ConfirmDeviceRemovalButton							NAME	OK	NAME	OK	NAME	OK
 NavigateBack							NAME	Back				
 ExcludedSuccessPopupTitle							NAME	Z-Wave Exclusion				
 ExcludedSuccessPopupMessage							Xpath	"//*[contains(@value,'is excluded successfully')]"				
+AddNowOption							NAME	Add Now				
+SwitchPrimaryCardStatus							NAME	ZwaveSwitchStateLabel				
+SwitchPrimaryCardOff							NAME	States_0				
+SwitchPrimaryCardOn							NAME	States_1				

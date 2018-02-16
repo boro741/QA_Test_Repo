@@ -15,7 +15,6 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 
 public class VerifyScreen extends Keyword {
 

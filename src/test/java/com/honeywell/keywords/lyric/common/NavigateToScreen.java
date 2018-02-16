@@ -45,6 +45,26 @@ public class NavigateToScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			HashMap<String, MobileObject> fieldObjects;
+			if(screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")){
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD":{
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					break;
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")){
+				switch (screen.get(0).toUpperCase()) {
+				case "SWITCH PRIMARY CARD":{
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					DASZwaveUtils.ClickNavigateUp(testCase, inputs);
+					NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
+					break;
+				}
+				}
+			}
+			else
 			if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
@@ -54,6 +74,10 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "SWITCH PRIMARY CARD":{
+					NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
+					break;
+				}
 				case "SWITCH SETTINGS": {
 					if (LyricUtils.clickOnGlobalButtonOfDashboard(testCase)) {
 						if (DASZwaveUtils.ClickZwaveMenuFromGlobalDrawer(testCase, inputs)) {
@@ -237,6 +261,34 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 
+	public static boolean NavigateToPrimaryCardFromDashboard(TestCases testCase, String expectedDevice) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 30)) {
+			List<WebElement> dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase,
+					"DashboardIconText");
+			for (WebElement e : dashboardIconText) {
+				String displayedText = "";
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					displayedText = e.getText();
+				} else {
+					try {
+						displayedText = e.getAttribute("value");
+					} catch (Exception e1) {
+					}
+				}
+				if (displayedText.equalsIgnoreCase(expectedDevice)) {
+					e.click();
+					Keyword.ReportStep_Pass(testCase, "Clicked on device: " +expectedDevice);
+					break;
+				}
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard Icons not found");
+		}
+		return flag;
+	}
 	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;

@@ -14,6 +14,7 @@ As a user I want to control all devices using ZWave technology
   
   @ZwaveOptionfromultipleDAS
   Scenario: (ZwaveTC2) As a user i should be listed with available DAS panel(more than 1) in that location to add Zwave devices
+  #DAS1 panel online and DAS2 panel offline 
     Given user launches and logs in to the Lyric application 
      When user navigates to "Add new device(dashboard)" screen from the "Dashboard" screen
      Then user should be able to configure "Z-Wave Device" 
@@ -21,9 +22,11 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Z-Wave Device" option
      When user navigates to "Add new device(global drawer)" screen from the "Global drawer" screen
      Then user should be able to configure "Z-Wave Device"
-     And user selects "Z-Wave Device" from "install device" screen
+      And user selects "Z-Wave Device" from "install device" screen
      Then user should be displayed with the "DAS panel list on Zwave" screen
-     
+     Then user should be displayed with the "DAS1 online on Zwave" screen
+     Then user should be displayed with the "DAS1 offline on Zwave" screen
+  
   @AddNewDeviceInclusionNoDeviceFound @Reviewed
   Scenario: (ZwaveTC3) As a user I should be displayed no device popup when there is no zwave device available to add 
   #atleast 1 das
@@ -48,30 +51,115 @@ As a user I want to control all devices using ZWave technology
   #timeout
      When user "does not activate" the "switch" function key
      Then user should be displayed with the "Add new device" screen
-     
-     
-   #  @DeleteZwaveDimmerFromSettings 
-  #Scenario: (ZwaveTC31) As a user my I want to delete my zwave switch
-  # switch configured and online
-   #   And user launches and logs in to the Lyric application
-    
-     
   
   @DeviceIncludedOnRetry @Reviewed @LYDAS-6172
-  Scenario: (ZwaveTC4 and ZwaveTC31) As a user I should be able to retry the zwave inclusion from No device found popup
-      Given user launches and logs in to the Lyric application 
+  Scenario: (ZwaveTC4) As a user I should be able to retry the zwave inclusion from No device found popup
+    Given user launches and logs in to the Lyric application 
+    Given user has no "Switch1"
      When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
-  #timeout
-     When user "does not activate" the "switch" function key
+     When user "does not activate" the "switch" function key  #timeout
      Then user should receive a "Inclusion Device not found" popup
      When user "Retries the inclusion on" the "Inclusion Device not found" popup
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
      When user names the "switch" to "Switch1"
+  #null, string length with 14, only alpha numeric char}
      Then user should be displayed with "Switch1" device on dashboard
+  
+  @DeviceFoundAfterExclude @Reviewed 
+  Scenario: (ZwaveTC5) As a user I can exclude my zwave device from No device found popup and can include
+  #switch already configured
+      And user launches and logs in to the Lyric application 
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+  #timeout
+     When user "does not activate" the "switch" function key
+     Then user should receive a "Inclusion Device not found" popup
+     When user "Tries Exclusion on" the "Inclusion Device not found" popup 
+  #timeout
+     When user "activates" the "switch" function key
+     Then user should receive a "Switch Excluded Successfully" popup
+     When user "Adds device NOW" the "Device Excluded" popup 
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates" the "switch" function key
+     When user names the "switch" to "Switch1"
+     Then user should be displayed with "Switch1" device on dashboard
+  
+  @AddNewDeviceIncludeZwaveSwitch @Corrected @LYDAS-5209 @LYDAS-6587
+  Scenario: (ZwaveTC6) As a user my I want to include a zwave switch through the Add new device in application
+    Given user launches and logs in to the Lyric application 
+    Given user has no "switch1"
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates" the "switch" function key
+     When user names the "switch" to "Switch1"
+     Then user should be displayed with "Switch1" device on dashboard
+  # Then user receives a "Zwave device added" activity log
+  
+  @ToggleZwaveSwitchThroughPrimaryCard @corrected @LYDAS-4594
+  Scenario: (ZwaveTC7) As a user my I want to toggle my zwave switch to different states through the primary card
+      And user launches and logs in to the Lyric application
+    Given user turns "off" the "Switch" through the "Z-Wave device function key"
+     When user navigates to "Switch Primary card" screen from the "Dashboard" screen
+     Then user should see the "Switch" status as "off" on the "Switch Primary card"
+     When user navigates to "Dashboard" screen from the "Switch Primary card" screen
+     Then user should see the "Switch" status as "off" on the "Dashboard"
+  #action on Primary card - verify pc, dashboard and device
+  When user navigates to "Switch Primary card" screen from the "Dashboard" screen
+     When user turns "on" the "Switch" through the "Switch Primary card"
+     Then user should see the "Switch" status as "on" on the "Switch Primary card"
+  #  Then user should see the "Timer" status as "Current time" on the "Switch Primary card"
+     When user navigates to "Dashboard" screen from the "Switch Primary card" screen
+  #  Then user should see the "Switch" status as "on" on the "Dashboard"
+      And user should see the "Switch" status as "on" on the "Z-Wave device"
+  #action on Primary card - verify pc, dashboard and device
+   When user navigates to "Switch Primary card" screen from the "Dashboard" screen
+     When user turns "off" the "Switch" through the "Switch Primary card"
+     Then user should see the "Switch" status as "off" on the "Switch Primary card"
+     When user navigates to "Dashboard" screen from the "Switch Primary card" screen
+  #    Then user should see the "Switch" status as "Off" on the "Dashboard"
+      And user should see the "Switch" status as "off" on the "Z-Wave device"
+  #action on device - verify pc and device
+     When user turns "on" the "Switch" through the "Z-Wave device function key"
+     Then user should see the "Switch" status as "on" on the "Z-Wave device"
+     When user navigates to "Switch Primary card" screen from the "Dashboard" screen
+     Then user should see the "Switch" status as "on" on the "Switch Primary card"
+  #action on device - verify pc and device
+     When user turns "off" the "Switch" through the "Z-Wave device function key"
+     Then user should see the "Switch" status as "off" on the "Z-Wave device"
+     Then user should see the "Switch" status as "off" on the "Switch Primary card"
+  
+  @StatusChangeOfSwitchFromSettings
+  Scenario: (ZwaveTC8) As a user my I want to toggle my zwave switch to different states through the settings
+      And user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
-     And user selects "Delete" from "Switch settings" screen
+     When user turns "on" the "Switch" through the "Switch settings"
+     When user navigates to "Switch Primary card" screen from the "Switch settings" screen 
+     Then user should see the "Switch" status as "on" on the "Switch Primary card"
+     When user navigates to "Dashboard" screen from the "Switch Primary card" screen 
+     When user navigates to "Switch settings" screen from the "Dashboard" screen
+     When user turns "off" the "Switch" through the "Switch settings"
+     When user navigates to "Switch Primary card" screen from the "Switch settings" screen 
+     Then user should see the "Switch" status as "off" on the "Switch Primary card"
+  
+  @ReIncludeZwaveSwitch @Corrected @LYDAS-5209 @LYDAS-6587
+  Scenario: (ZwaveTC9) As a user my I want to include a zwave switch through the Add new device in application
+    Given user launches and logs in to the Lyric application 
+    Given user has no "switch1"
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates" the "switch" function key
+     When user names the "switch" to "Switch2"
+     Then user should be displayed with "Switch2" device on dashboard
+  # Then user receives a "Zwave device added" activity log
+  
+  @DeleteZwaveSwitchFromSettings 
+  Scenario: (ZwaveTC7) As a user my I want to delete my zwave switch
+  #switch configured and online
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Switch settings" screen from the "Dashboard" screen
+      And user selects "Delete" from "Switch settings" screen
      Then user should receive a "Remove Device" popup
      When user "confirms" the "Deletion on Remove Device" popup
      Then user should be displayed with the "Exclusion Mode Active" screen
@@ -80,34 +168,6 @@ As a user I want to control all devices using ZWave technology
      When user "confirms" the "Device Excluded" popup
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should not be displayed with "Dimmer" device on dashboard
-  
-  @DeviceFoundAfterExclude @Reviewed @LYDAS-6587
-  Scenario: (ZwaveTC5) As a user I can exclude my zwave device from No device found popup and can include
-  #switch already configured
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-  #timeout
-     When user "does not activate" the "switch" function key
-     Then user should receive a "Device not found" popup
-     When user "Tries Exclusion on" the "Inclusion Device not found" popup 
-  #timeout
-     When user "activates" the "switch" function key
-     Then user should receive a "Switch Excluded Successfully" popup
-     When user "Adds device from" the "Switch Excluded Successfully" popup 
-     When user "activates" the "switch" function key
-     When user names the "switch" as "Switch1"
-     Then user should be displayed with "Switch1" device on dashboard
-  
-  @AddNewDeviceIncludeZwaveSwitch @Corrected @LYDAS-5209
-  Scenario: (ZwaveTC6) As a user my I want to include a zwave switch through the Add new device in application
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "activates" the "switch" function key
-     When user names the "switch" as "Switch1"
-     Then user should be displayed with "Switch1" device on dashboard
-     Then user receives a "Zwave device added" activity log
   
   @AddNewDeviceIncludeZwaveLock @LYDAS-5002
   Scenario: (ZwaveTC7) As a user my I want to include a zwave lock through the Add new device in application
@@ -181,51 +241,6 @@ As a user I want to control all devices using ZWave technology
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should not be displayed with "Dimmer" device on dashboard
-  
-  @ToggleZwaveSwitchThroughPrimaryCard @corrected @LYDAS-4594
-  Scenario: (ZwaveTC13) As a user my I want to toggle my zwave switch to different states through the primary card
-      And user launches and logs in to the Lyric application
-    Given user turns "off" the "Switch" through the "Z-Wave device function key"
-     When user navigates to "Switch Primary card" screen from the "Dashboard" screen
-     Then user should see the "Switch" status as "off" on the "Switch Primary card"
-     When user navigates to "Dashboard" screen from the "Switch Primary card" screen
-     Then user should see the "Switch" status as "off" on the "Dashboard"
-  #action on Primary card - verify pc, dashboard and device
-     When user turns "on" the "Switch" through the "Switch Primary card"
-     Then user should see the "Switch" status as "on" on the "Switch Primary card"
-     Then user should see the "Timer" status as "Current time" on the "Switch Primary card"
-     When user navigates to "Dashboard" screen from the "Switch Primary card" screen
-     Then user should see the "Switch" status as "on" on the "Dashboard"
-      And user should see the "Switch" status as "on" on the "Z-Wave device"
-  #action on Primary card - verify pc, dashboard and device
-     When user turns "off" the "Switch" through the "Switch Primary card"
-     Then user should see the "Switch" status as "off" on the "Switch Primary card"
-     When user navigates to "Dashboard" screen from the "Switch Primary card" screen
-     Then user should see the "Switch" status as "Off" on the "Dashboard"
-      And user should see the "Switch" status as "off" on the "Z-Wave device"
-  #action on device - verify pc and device
-     When user turns "on" the "Switch" through the "Z-Wave device function key"
-     Then user should see the "Switch" status as "on" on the "Z-Wave device"
-     When user navigates to "Switch Primary card" screen from the "Dashboard" screen
-     Then user should see the "Switch" status as "on" on the "Switch Primary card"
-  #action on device - verify pc and device
-     When user turns "off" the "Switch" through the "Z-Wave device function key"
-     Then user should see the "Switch" status as "off" on the "Z-Wave device"
-     When user navigates to "Switch Primary card" screen from the "Dashboard" screen
-     Then user should see the "Switch" status as "off" on the "Switch Primary card"
-  
-  @StatusChangeOfSwitchFromSettings
-  Scenario: (ZwaveTC14) As a user my I want to toggle my zwave switch to different states through the settings
-      And user launches and logs in to the Lyric application
-     When user navigates to "Switch settings" screen from the "Dashboard" screen
-     When user turns "on" the "Switch" through the "Switch settings"
-     When user navigates to "Switch Primary card" screen from the "Switch settings" screen 
-     Then user should see the "Switch" status as "on" on the "Switch Primary card"
-     When user navigates to "Dashboard" screen from the "Switch Primary card" screen 
-     When user navigates to "Switch settings" screen from the "Dashboard" screen
-     When user turns "off" the "Switch" through the "Switch settings"
-     When user navigates to "Switch Primary card" screen from the "Switch settings" screen 
-     Then user should see the "Switch" status as "off" on the "Switch Primary card"
   
   @StatusChangeOfDimmerFromSettings
   Scenario: (ZwaveTC15) As a user my I want to toggle my zwave dimmer to different states through the settings
@@ -331,6 +346,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should be displayed with "Dimmer" device on dashboard
+  # check in settings that its a switch
   
   @ReplaceZwaveDimmerWithDimmer
   Scenario: (ZwaveTC24)  As a user when my dimmer goes offline I can replace with another zwave dimmer
@@ -357,6 +373,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should be displayed with "Switch" device on dashboard
+  # check in settings that its a dimmer
   
   @ReplaceZwaveSwitchWithSwitch
   Scenario: (ZwaveTC26) As a user when my switch goes offline I can replace with another zwave switch
@@ -429,7 +446,20 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Switch Primary Card" screen from the "Dashboard" screen 
      Then user should see the "Dimmer" status as "Off" on the ""Switch Primary Card"
   
-  
+  @DeleteZwaveDimmerFromSettings 
+  Scenario: (ZwaveTC31) As a user my I want to delete my zwave switch
+  switch configured and online
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Switch settings" screen from the "Dashboard" screen
+      And user selects "Delete" from "Switch settings" screen
+     Then user should receive a "Remove Device" popup
+     When user "confirms" the "Deletion on Remove Device" popup
+     Then user should be displayed with the "Exclusion Mode Active" screen
+     When user "activates" the "switch" function key
+     Then user should receive a "Switch Excluded Successfully" popup
+     When user "confirms" the "Device Excluded" popup
+     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
+     Then user should not be displayed with "Dimmer" device on dashboard
   
   @DeleteZwaveTimeout @LYDAS-6763
   Scenario: (ZwaveTC32) As a user my I want to delete my zwave switch
@@ -496,9 +526,9 @@ As a user I want to control all devices using ZWave technology
       | On           | Off          | Off           | 
       | On           | On           | Off           | 
   
-  @FixAllZwaveDevices
+  @FixAllZwaveDevicesWhenAvailable
   Scenario: (ZwaveTC36) As a user my I can fiz all my zwave devices at once so that active devices will remain in app
-  # switch configured but was offline, dimmer configured remains offline 
+  # switch was offline and available, dimmer was offline and unavailable
      When user "disconnects" the "Dimmer" function key
      When user "connects" the "Switch" function key
      When user "disconnects" the "Switch" function key
@@ -506,6 +536,17 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Z-Wave Utilities" screen from the "Dashboard" screen
      When user selects "Fix all" from "Z-Wave Utilities" screen
      Then user should see the "Switch" status as "On" on the "Z-Wave Utilities"
+     Then user should not see the "Dimmer" on the "Z-Wave Utilities"
+  
+  @FixAllZwaveDevicesWhenUnAvailable
+  Scenario: (ZwaveTC36) As a user my I can fiz all my zwave devices at once so that active devices will remain in app
+  # switch was online and unavailable, dimmer was offline and unavailable
+     When user "disconnects" the "Dimmer" function key
+     When user "disconnects" the "Switch" function key
+      And user launches and logs in to the Lyric application
+     When user navigates to "Z-Wave Utilities" screen from the "Dashboard" screen
+     When user selects "Fix all" from "Z-Wave Utilities" screen
+     Then user should not see the "Switch" on the "Z-Wave Utilities"
      Then user should not see the "Dimmer" on the "Z-Wave Utilities"
   
   @ChangeDimmerIntensity @LYDAS-5377
@@ -527,6 +568,7 @@ As a user I want to control all devices using ZWave technology
     Given user launches and logs in to the Lyric application
      When user navigates to "Z-Wave Contoller details" screen from the "Dashboard" screen
      Then user should be displayed with the "Z-Wave Controller info" screen
+  #details of controller with Type, Version, Home ID, Product ID, Product Type, Manufacturer, Security
   
   @FactoryResetZWaveController  @LYDAS-5378
   Scenario: (ZwaveTC39) As a user my I can reset my zwave controller through factory reset zwave controller
@@ -536,6 +578,9 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Z-Wave Utilities" screen from the "Dashboard" screen
      When user selects "Controller Factory Reset" from "Z-Wave Utilities" screen
      Then user should receive a "controller reset confirmation" popup
+     When user "cancels" the "controller reset" popup
+     Then user should be displayed with the "Z-Wave utilities" screen
+     When user selects "Controller Factory Reset" from "Z-Wave Utilities" screen
      When user "confirms" the "controller reset" popup
      Then user should receive a "factory reset successful" popup
       And user "confirms" the "factory reset successful" popup
@@ -551,9 +596,12 @@ As a user I want to control all devices using ZWave technology
      When user selects "Controller Factory Reset" from "Z-Wave Utilities" screen
      Then user should receive a "controller reset error" popup
     Examples: 
-      | Command | 
-      | Away    | 
-      | Night   | 
+      | Command           | 
+      | Away              | 
+      | Night             | 
+      | Off               | 
+      | Alarm             | 
+      | Sensor Enrollment | 
   
   @PanelOfflineWithNoZwaveDevices
   Scenario: (ZwaveTC41) As a user my I can not configure my zwave devices when das panel is offline or in programming mode
@@ -570,6 +618,34 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Dimmer offline" on the "Dashboard"
      When user navigates to "Global drawer" screen from the "Dashboard" screen
      Then user should not be able to configure "Z-Wave Device" 
+  #when das panel is Online
+     Then user should be displayed with the "Switch online" on the "Dashboard"
+     Then user should be displayed with the "Dimmer online" on the "Dashboard"
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+  #when das panel is offline
+     When user selects "Cancel" from "Activate Z-Wave Device" screen
+     Then user should be displayed with the "Add new device" screen
+     When user navigates to "Z-Wave device(General Exclusion)" screen from the "Dashboard" screen
+  #when das panel is Online
+     When user navigates to "Z-Wave device(General Exclusion)" screen from the "Dashboard" screen
+     Then user should be displayed with the "Exclusion Mode Active" screen
+  #when das panel is offline
+     When user selects "Cancel" from "Exclusion Mode Active" screen
+     Then user should be displayed with the "Z-Wave Utilities" screen
+  #when das panel is Online
+     When user navigates to "Switch Settings" screen from the "Dashboard" screen
+      And user edits the "Switch1" name to "Switch2"
+  #when das panel is offline
+  #Able to come out of Naming screen
+  #when das panel is offline
+  #not be allowed to perform Factory reset 
+  #when das panel is Online
+     When user "confirms" the "Factory Reset on Utilities" screen
+  #when das panel is offline
+  #shown with failed or timed out message
+  #when das panel is offline
+  #not shown with firmware controller info
   
   @CancelFunctionOnGeneralUtilities
   Scenario: (ZwaveTC43) As a user my I can cancel at any point of time from any screen
@@ -582,6 +658,10 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Inclusion Mode Active" screen
      When user selects "Cancel" from "Inclusion Mode Active" screen
      Then user should be displayed with the "Z-Wave Utilities" screen
+     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user selects "Cancel" from "Activate Z-Wave Device" screen
+     Then user should be displayed with the "Z-Wave Utilities" screen
   
   @AddSecondary @LYDAS-4882
   Scenario: (ZwaveTC44) As a user my I want to include a zwave switch through General Inclusion in the application
@@ -593,4 +673,5 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with "AIO" device on dashboard
   
   #actionable on any modes
+  
   
