@@ -38,7 +38,7 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
 	}
 	
-	public boolean clickOnGlobalButtonOfDashboard() {
+	public boolean clickOnGlobalDrawerButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
 	
@@ -91,4 +91,5 @@ public class Dashboard extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
 	}
+
 }

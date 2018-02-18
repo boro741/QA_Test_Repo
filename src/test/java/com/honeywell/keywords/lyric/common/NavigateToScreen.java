@@ -17,8 +17,8 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -51,267 +51,254 @@ public class NavigateToScreen extends Keyword {
 			HashMap<String, MobileObject> fieldObjects;
 			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD":{
+				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "SWITCH PRIMARY CARD":{
+				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
+					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
 					break;
 				}
-				case "DASHBOARD":{
+				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 				}
 				}
 			}
-			else
-				if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "DASHBOARD": {
-						DASZwaveUtils.clickNavigateUp(testCase, inputs);
-						DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					}
-					}
-				} else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION":{
-						DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
-						break;
-					}
-					case "SWITCH PRIMARY CARD":{
-						NavigateToPrimaryCardFromDashboard(testCase,"Switch1");
-						break;
-					}
-					case "SWITCH SETTINGS": {
-						Dashboard ds = new Dashboard(testCase);
-						if (ds.clickOnGlobalButtonOfDashboard()) {
-							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-							if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-								ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-								if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on ");
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Could not click on Add new device menu from Global drawer");
-								}
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Add new device menu from Global drawer");
-							}
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Global drawer menu from dashboard");
-						}
-						break;
-					}
-					case "Z-WAVE DEVICE ADD NEW DEVICE": {
-						Dashboard ds = new Dashboard(testCase);
-						if (ds.clickOnGlobalButtonOfDashboard()) {
-							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-							if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
-								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-								ads.clickOnZwaveFromAddNewDevice();
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Add new device menu from Global drawer");
-							}
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Global drawer menu from dashboard");
-						}
-						break;
-					}
-					case "ADD NEW DEVICE GLOBAL DRAWER": {
-						Dashboard ds = new Dashboard(testCase);
-						if (ds.clickOnGlobalButtonOfDashboard()) {
-							SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-							if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Add new device menu from Global drawer");
-							}
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Global drawer menu from dashboard");
-						}
-						break;
-					}
-					case "ADD NEW DEVICE DASHBOARD": {
-						Dashboard db = new Dashboard(testCase);
-						if (db.isAddDeviceIconVisible(5)) {
-							flag = flag & db.clickOnAddNewDeviceIcon();
-						}
-						break;
-					}
-					case "SECURITY SETTINGS": {
-						flag = flag
-								& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-						break;
-					}
-					case "BASE STATION SETTINGS": {
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-						flag = flag
-								& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BaseStationSettingsOption", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BaseStationSettingsOption");
-						} else {
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
-										"Base Station Settings");
-							} else {
-								flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value",
-										"Base Station Settings");
-							}
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BaseStationSettingsOption");
-						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BaseStationSettingsOption", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BaseStationSettingsOption");
-						}
-						break;
-					}
-					case "ENTRY-EXIT DELAY":
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-						flag = flag
-								& NavigateToScreen.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EntryExitDelayOption");
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
-								flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EntryExitDelayOption");
-							}
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Unable to find Entry/Exit Delay option on DAS Panel Settings");
-						}
-						break;
-					}
-				} else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "SECURITY SETTINGS": {
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
-						}
-						break;
-					}
-					}
-				} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "ENTRY-EXIT DELAY": {
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EntryExitDelayOption");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not find Entry/Exit Delay option on DAS Panel Settings screen");
-						}
-						break;
-					}
-					}
+			// Navigation from Dashboard
+			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
+					DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
+					break;
 				}
-
-				else if (screen.get(1).equalsIgnoreCase("Base Station Settings")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "DASHBOARD": {
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+				case "SWITCH PRIMARY CARD": {
+					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+					break;
+				}
+				case "SWITCH SETTINGS": {
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
+							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on ");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Add new device menu from Global drawer");
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 10)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
-						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
-							flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
-						}
-						break;
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
+					break;
+				}
+				case "Z-WAVE DEVICE ADD NEW DEVICE": {
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
+							AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+							ads.clickOnZwaveFromAddNewDevice();
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
-				} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "ADD NEW DEVICE GLOBAL DRAWER": {
+					break;
+				}
+				case "ADD NEW DEVICE GLOBAL DRAWER": {
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not click on Add new device menu from Global drawer");
 						}
-						break;
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
+					break;
+				}
+				case "ADD NEW DEVICE DASHBOARD": {
+					Dashboard db = new Dashboard(testCase);
+					if (db.isAddDeviceIconVisible(5)) {
+						flag = flag & db.clickOnAddNewDeviceIcon();
 					}
-				} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "GLOBAL DRAWER": {
-						AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
-						if (addScreen.clickOnCancelButtonOfAddDeviceScreen()) {
-							Dashboard ds = new Dashboard(testCase);
-							if (!ds.clickOnGlobalButtonOfDashboard()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Global drawer menu from dashboard");
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Security Settings'
+				// Author: Pratik P. Lalseta (H119237)
+				case "SECURITY SETTINGS": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Base Station Settings'
+				// Author: Pratik P. Lalseta (H119237)
+				case "BASE STATION SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONSETTINGS);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
+				// Author: Pratik P. Lalseta (H119237)
+				case "ENTRY-EXIT DELAY":
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isEntryExitDelaySettingsOptionVisible()) {
+						flag = flag & bs
+								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to find Entry/Exit Delay option on DAS Panel Settings");
+					}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SECURITY SETTINGS": {
+					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ENTRY-EXIT DELAY": {
+					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EntryExitDelayOption");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not find Entry/Exit Delay option on DAS Panel Settings screen");
+					}
+					break;
+				}
+				}
+			}
 
-							}
-						} else {
+			else if (screen.get(1).equalsIgnoreCase("Base Station Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					}
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 10)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					}
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ADD NEW DEVICE GLOBAL DRAWER": {
+					SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+					if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device menu from Global drawer");
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "GLOBAL DRAWER": {
+					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
+					if (addScreen.clickOnCancelButtonOfAddDeviceScreen()) {
+						Dashboard ds = new Dashboard(testCase);
+						if (!ds.clickOnGlobalDrawerButton()) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Add new device - cancel");
-							flag = false;
-						}
-						break;
-					}
-					case "SMART HOME SECURITY": {
-						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-						flag = flag & dasDIY.clickOnSmartHomeSecurityButton();
-						break;
-					}
-					}
-				} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "POWER BASE STATION INSTRUCTIONS": {
-						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-						if (dasDIY.isNextButtonVisible()) {
-							flag = flag & dasDIY.clickOnNextButton();
-						}
-						break;
-					}
-					}
-				} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "REGISTER BASE STATION": {
-						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-						if (dasDIY.isNextButtonVisible()) {
-							flag = flag & dasDIY.clickOnNextButton();
-						}
-						dasDIY.waitForLookingForBaseStationProgressBarToComplete();
-						dasDIY.verifyRegisterBaseStationHeaderTitle();
-						dasDIY.isQRCodeDisplayed();
-						dasDIY.scanQRCode();
-						break;
-					}
-					}
-				} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "CONNECT TO NETWORK": {
-						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-						dasDIY.waitForLookingForNetworkConnectionProgressBarToComplete();
-						dasDIY.verifyConnectToNetworkHeaderTitle();
-						break;
-					}
-					}
-				}
+									"Could not click on Global drawer menu from dashboard");
 
-				else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add new device - cancel");
+						flag = false;
+					}
+					break;
 				}
+				case "SMART HOME SECURITY": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.clickOnSmartHomeSecurityButton();
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "POWER BASE STATION INSTRUCTIONS": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "REGISTER BASE STATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+					}
+					dasDIY.waitForLookingForBaseStationProgressBarToComplete();
+					dasDIY.verifyRegisterBaseStationHeaderTitle();
+					dasDIY.isQRCodeDisplayed();
+					dasDIY.scanQRCode();
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CONNECT TO NETWORK": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					dasDIY.waitForLookingForNetworkConnectionProgressBarToComplete();
+					dasDIY.verifyConnectToNetworkHeaderTitle();
+					break;
+				}
+				}
+			}
+
+			else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
+			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
@@ -355,17 +342,35 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase,
-			TestCaseInputs inputs) {
+	/**
+	 * <h1>Navigate from Dashboard to Security Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates from
+	 * the dashboard to the security screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	private boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+		Dashboard d = new Dashboard(testCase);
+		SecondaryCardSettings s = new SecondaryCardSettings(testCase);
 		try {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "GlobalDrawerButton");
+			if (d.isGlobalDrawerButtonVisible(5)) {
+				flag = flag & d.clickOnGlobalDrawerButton();
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerIconList", 3)) {
-						List<WebElement> icons = MobileUtils.getMobElements(fieldObjects, testCase,
-								"GlobalDrawerIconList");
+					if (s.areSecondaryCardSettingsVisible()) {
+						List<WebElement> icons = s.getSecondaryCardSettings();
 						boolean iconFound = false;
 						for (WebElement icon : icons) {
 							if (icon.getAttribute("text")

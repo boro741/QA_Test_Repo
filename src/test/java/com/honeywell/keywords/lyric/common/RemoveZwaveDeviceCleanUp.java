@@ -71,7 +71,7 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 				}
 				if(f){
 					Dashboard ds = new Dashboard(testCase);
-					if(ds.clickOnGlobalButtonOfDashboard()){         
+					if(ds.clickOnGlobalDrawerButton()){         
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if(sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)){
 							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
