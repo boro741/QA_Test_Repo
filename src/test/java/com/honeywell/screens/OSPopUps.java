@@ -21,10 +21,18 @@ public class OSPopUps extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButton",timeOut,false);
 	}
+	public boolean isAlwaysAllowButtonVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlwaysAllowButton",timeOut,false);
+	}
 	
 	public boolean clickOnAllowButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowButton");
+	}
+	public boolean clickOnAlwaysAllowButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlwaysAllowButton");
 	}
 	
 	public boolean isOkButtonVisible()
@@ -65,7 +73,15 @@ public class OSPopUps extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButton",timeOut,false);
 	}
+	public boolean isGotitButton(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GotIT",timeOut,false);
+	}
 	
+	public boolean clickOnGotitButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GotIT");
+	}
 	public boolean clickOnNotNowButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NotNowButton");

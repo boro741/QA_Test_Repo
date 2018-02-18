@@ -10,6 +10,7 @@ so that my home temperature will get set automatically all days based on the tim
   I want to create Everyday schedule with default schedule value with time format 24or12hr
     Given user thermostat is set to <scheduling> schedule  
     And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule with default schedule value
      Then verify "Everyday" schedule gets created successfully
      #And user logs out of the app 
@@ -22,8 +23,9 @@ so that my home temperature will get set automatically all days based on the tim
   Scenario Outline: To create Weekday and Weekend schedule with default schedule value for systems
   As an user
   I want to create Weekday and Weekend schedule with default schedule value 
-    Given user has <scheduling> mode
-    And user logs in to Lyric app  
+    Given user thermostat is set to <scheduling> schedule  
+    And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule with default schedule value
      Then verify "Weekday and Weekend" schedule gets created successfully
      And user logs out of the app 

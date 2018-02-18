@@ -370,6 +370,8 @@ public class LyricUtils {
 		}
 		if (ls.isLoginButtonVisible()) {
 			flag = flag & ls.clickOnLoginButton();
+		} else{
+				MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
 		}
 		return flag;
 	}
@@ -413,6 +415,10 @@ public class LyricUtils {
 						if (os.isNotNowButtonVisible(1)) {
 							os.clickOnNotNowButton();
 							return false;
+						}
+						while (os.isGotitButton(5) && counter < 5) {
+							os.clickOnGotitButton();
+							counter++;
 						}
 					} else {
 						if (os.isCloseButtonVisible(1)) {
@@ -475,6 +481,9 @@ public class LyricUtils {
 			while (!ls.isLyricLogoVisible() && counter < 5) {
 				if (os.isAllowButtonVisible()) {
 					flag = flag & os.clickOnAllowButton();
+				}
+				if (os.isAlwaysAllowButtonVisible(2)) {
+					flag = flag & os.clickOnAlwaysAllowButton();
 				}
 				if (os.isOkButtonVisible()) {
 					flag = flag & os.clickOnOkButton();
@@ -580,10 +589,10 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+//		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+//		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+//		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+//		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 
