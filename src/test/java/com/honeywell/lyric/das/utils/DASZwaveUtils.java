@@ -171,7 +171,7 @@ public class DASZwaveUtils {
 	public static boolean navigateToGeneralInclusionFromDashboard(TestCases testCase){
 		boolean flag = true;
 		Dashboard dashboardScreen = new Dashboard(testCase);
-		flag=dashboardScreen.clickOnGlobalButtonOfDashboard();
+		flag=dashboardScreen.clickOnGlobalDrawerButton();
 		SecondaryCardSettings secScreen = new SecondaryCardSettings(testCase);
 		flag= flag & secScreen.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES);
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);

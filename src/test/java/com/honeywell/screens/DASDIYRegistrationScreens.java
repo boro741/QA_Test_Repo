@@ -2,10 +2,7 @@ package com.honeywell.screens;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
