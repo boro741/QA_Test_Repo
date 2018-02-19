@@ -50,7 +50,7 @@ public class DASSolutionCardUtils {
 							try {
 								if (presentTimerValue > 15 && MobileUtils.isMobElementExists(fieldObjects, testCase,
 										"AlarmWillSoundInSeconds", 2)) {
-									Thread.sleep(2000);
+									TimeUnit.SECONDS.sleep(2);
 									waitingPresentTimerValue = Integer.parseInt(MobileUtils.getFieldValue(fieldObjects,
 											testCase, "AlarmWillSoundInSeconds"));
 									if (waitingPresentTimerValue < presentTimerValue) {

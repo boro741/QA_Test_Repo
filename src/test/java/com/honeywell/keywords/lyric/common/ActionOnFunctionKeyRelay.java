@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -40,13 +41,13 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
 					Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
 					ZWaveRelayUtils.enrollZwaveSwitch1();
-					Thread.sleep(2000);
+					TimeUnit.SECONDS.sleep(2);
 					ZWaveRelayUtils.pressButtonOnSwitch1();
 				}
 				else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
 					Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
 					ZWaveRelayUtils.enrollZwaveDimmer1();
-					Thread.sleep(2000);
+					TimeUnit.SECONDS.sleep(2);
 					ZWaveRelayUtils.pressButtonOnDimmer1();
 				}
 			}else if(deviceType.get(0).equalsIgnoreCase("does not activate")){

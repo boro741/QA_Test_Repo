@@ -529,7 +529,8 @@ public class LyricUtils {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
 				// on ANDROID
-				Thread.sleep(1000);
+				TimeUnit.SECONDS.sleep(1);
+				//Thread.sleep(1000);
 			}
 			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
 			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
@@ -850,7 +851,6 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
 	
 	public static void scrollList(TestCases testCase, String locatorType, String locatorValue) {
 		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -6294,7 +6295,7 @@ public class JasperSchedulingUtils {
 					try {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
 								.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
-						Thread.sleep(3000);
+						TimeUnit.SECONDS.sleep(3);
 					} catch (Exception e1) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -6328,7 +6329,7 @@ public class JasperSchedulingUtils {
 					try {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
 								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-						Thread.sleep(3000);
+						TimeUnit.SECONDS.sleep(3);
 					} catch (Exception e1) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
