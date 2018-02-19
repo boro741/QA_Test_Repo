@@ -157,12 +157,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					break;
 				}
-				// Navigate from 'Dashboard' to 'Base Station Settings'
+				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
-				case "BASE STATION SETTINGS": {
+				case "BASE STATION CONFIGURATION": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONSETTINGS);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
@@ -368,6 +368,9 @@ public class NavigateToScreen extends Keyword {
 		try {
 			if (d.isGlobalDrawerButtonVisible(5)) {
 				flag = flag & d.clickOnGlobalDrawerButton();
+				if (!s.areSecondaryCardSettingsVisible(2)) {
+					flag = flag & d.clickOnGlobalDrawerButton();
+				}
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (s.areSecondaryCardSettingsVisible()) {
 						List<WebElement> icons = s.getSecondaryCardSettings();

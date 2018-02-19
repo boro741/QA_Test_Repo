@@ -65,8 +65,13 @@ public class SecondaryCardSettings extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecondaryCardSettings", 3);
 	}
 	
+	public boolean areSecondaryCardSettingsVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecondaryCardSettings", timeOut);
+	}
+	
 	public List<WebElement> getSecondaryCardSettings()
 	{
-		return MobileUtils.getMobElements(objectDefinition, testCase, "GlobalDrawerIconList");
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SecondaryCardSettings");
 	}
 }

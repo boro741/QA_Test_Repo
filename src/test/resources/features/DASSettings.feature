@@ -6,12 +6,12 @@ Feature: DAS Settings
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @DeleteBaseStation @UIAutomated
   Scenario: As a user I should be able to delete my DAS panel from my account through the Lyric application 
-    Given user is set to "Home" mode through CHIL 
+    Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application 
      When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
-      And user "deletes DAS device" by clicking on "delete" button 
-     Then user should receive a "Delete DAS Confirmation" pop up 
-      And user "dismisses" the "Delete DAS Confirmation" popup 
+      And user "deletes DAS device" by clicking on "delete" button
+     Then user should receive a "Delete DAS Confirmation" popup
+      And user "dismisses" the "Delete DAS Confirmation" popup
   
   #LYDAS-3398,LYDAS-3270,LYDAS-2770
   #Requirements: Single Location Single DAS Device, No Sensors Required
@@ -21,16 +21,18 @@ Feature: DAS Settings
      When user navigates to "Security Settings" screen from the "Dashboard" screen 
      Then user should be displayed with the following "Security Settings" options: 
       | Settings                   | 
-      | Camera Settings            |
+      | Alert Settings             |
       | Amazon Alexa               | 
+      | Geofencing                 |
+      | Video Settings             |
       | OK Security Voice Commands | 
       | Entry/Exit Delay           | 
-      | Volume                     | 
-      | Geofencing                 | 
+      | About Security Modes       | 
       | Key Fob                    | 
-      | Sensors                    | 
-      | Base Station Settings      | 
-      | Know your Security Modes   | 
+      | Sensors                    |
+      | Volume                     |  
+      | Base Station Wi-Fi         | 
+      | Base Station Configuration | 
   
   #LYDAS-4216,LYDAS-3376,LYDAS-3244,LYDAS-2660,LYDAS-2403,LYDAS-2380,LYDAS-2360,LYDAS-2149,LYDAS-3440
   #Requirements: Single Location Single DAS Device, No Sensors Required

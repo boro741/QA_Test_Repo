@@ -66,7 +66,7 @@ public class VerifyEntryExitTime extends Keyword {
 					try {
 						WebElement tickMark = null;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							tickMark = cells.get(0).findElement(By.id("selection_image"));
+							tickMark = cells.get(0).findElement(By.id("list_item_lyric_image_view"));
 						} else {
 							tickMark = cells.get(0).findElement(By.xpath("//XCUIElementTypeImage"));
 						}
@@ -93,7 +93,7 @@ public class VerifyEntryExitTime extends Keyword {
 					try {
 						WebElement tickMark = null;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							tickMark = cells.get(1).findElement(By.id("selection_image"));
+							tickMark = cells.get(1).findElement(By.id("list_item_lyric_image_view"));
 						} else {
 							tickMark = cells.get(1).findElement(By.xpath("//XCUIElementTypeImage"));
 						}
@@ -120,7 +120,7 @@ public class VerifyEntryExitTime extends Keyword {
 					try {
 						WebElement tickMark = null;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							tickMark = cells.get(2).findElement(By.id("selection_image"));
+							tickMark = cells.get(2).findElement(By.id("list_item_lyric_image_view"));
 						} else {
 							tickMark = cells.get(2).findElement(By.xpath("//XCUIElementTypeImage"));
 						}
@@ -147,7 +147,7 @@ public class VerifyEntryExitTime extends Keyword {
 					try {
 						WebElement tickMark = null;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							tickMark = cells.get(3).findElement(By.id("selection_image"));
+							tickMark = cells.get(3).findElement(By.id("list_item_lyric_image_view"));
 						} else {
 							tickMark = cells.get(3).findElement(By.xpath("//XCUIElementTypeImage"));
 						}

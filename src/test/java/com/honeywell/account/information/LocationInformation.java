@@ -26,7 +26,7 @@ public class LocationInformation {
 		}
 	}
 
-	public long getLocationID() {
+	public long getLocationID() throws Exception {
 		if (locationInformation != null) {
 			return locationInformation.getLong("locationID");
 		} else {
