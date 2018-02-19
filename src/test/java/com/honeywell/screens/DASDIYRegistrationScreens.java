@@ -16,6 +16,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 public class DASDIYRegistrationScreens extends MobileScreens {
 
 	private static final String screenName = "DIY_Registration";
+	public boolean flag = true;
 
 	public DASDIYRegistrationScreens(TestCases testCase) {
 		super(testCase, screenName);
@@ -26,15 +27,63 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean clickOnSmartHomeSecurityButton() throws Exception {
+		
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			if (MobileUtils.isMobElementExists("xpath",
+					"//XCUIElementTypeStaticText[contains(@name,'Showing devices for')]", testCase, 5)) {
+				if (!MobileUtils
+						.getMobElement(testCase, "xpath",
+								"//XCUIElementTypeStaticText[contains(@name,'Showing devices for')]")
+						.getAttribute("value").contains("United States")) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", "CHANGE COUNTRY");
+					if (MobileUtils.isMobElementExists("xpath", "//XCUIElementTypeTextField", testCase, 10)) {
+						flag = flag & MobileUtils.setValueToElement(testCase, "xpath",
+								"//XCUIElementTypeTextField", "United States");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Search Text Field not present when selecting country");
+					}
+					flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
+							"//XCUIElementTypeStaticText[@name='United States']");
+					if (MobileUtils.isMobElementExists("xpath",
+							"//XCUIElementTypeStaticText[contains(@name,'Showing devices for')]", testCase,
+							10)) {
+						if (MobileUtils
+								.getMobElement(testCase, "xpath",
+										"//XCUIElementTypeStaticText[contains(@name,'Showing devices for')]")
+								.getAttribute("value").contains("United States")) {
+							Keyword.ReportStep_Pass(testCase, "Successfully changed country to United States");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to change country to United States");
+						}
 
-		if (this.isSmartHomeSecurityButtonVisible()) {
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change country to United States");
+					}
+				}
+			}
+		}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag & LyricUtils.selectDeviceToInstall(testCase, "Smart Home Security System");
+		} else {
+			flag = flag & LyricUtils.selectDeviceToInstall(testCase, "Smart Home Security");
+
+		}
+		return flag;
+
+		/*if (this.isSmartHomeSecurityButtonVisible()) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "SmartHomeSecurity");
 		} else {
 			if (LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value", "Smart Home Security")) {
 				return MobileUtils.clickOnElement(objectDefinition, testCase, "SmartHomeSecurity");
 			}
 			return false;
-		}
+		}*/
 	}
 
 	public boolean verifyChooseLocationHeaderTitle() {

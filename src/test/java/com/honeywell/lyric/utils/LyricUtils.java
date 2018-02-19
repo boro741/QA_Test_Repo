@@ -901,6 +901,58 @@ public class LyricUtils {
 		}
 		testCase.getMobileDriver().swipe(startx, starty, startx, endy, 500);
 	}
+	
+	public static boolean selectDeviceToInstall(TestCases testCase, String deviceToInstall) {
+		boolean flag = true;
+		String xpath;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			xpath = "//android.widget.TextView[@text='" + deviceToInstall + "']";
+			if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
+			} else {
+				// testCase.getMobileDriver().scrollTo(deviceToInstall);
+				WebElement ele = MobileUtils.getMobElement(testCase, "id", "fragment_add_new_device_list");
+				Dimension d1 = ele.getSize();
+				Point p1 = ele.getLocation();
+				testCase.getMobileDriver().swipe(p1.getX(), d1.getHeight(), p1.getX(), -p1.getY(), 500);
+				if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
+				} else {
+					testCase.getMobileDriver().swipe(p1.getX(), d1.getHeight(), p1.getX(), -p1.getY(), 500);
+					if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
+						flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not find device : " + deviceToInstall);
+					}
+				}
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("name", deviceToInstall, testCase, 3)) {
+				flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceToInstall);
+			} else {
+				Dimension d1 = MobileUtils.getMobElement(testCase, "xpath", "//XCUIElementTypeTable").getSize();
+				int startx = (int) (d1.width * 0.70);
+				int starty = (int) (d1.height * 0.80);
+				int endy = (int) (d1.height * 0.50);
+				testCase.getMobileDriver().swipe(startx, starty, startx, -endy, 500);
+				if (MobileUtils.isMobElementExists("name", deviceToInstall, testCase, 3)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceToInstall);
+				} else {
+					testCase.getMobileDriver().swipe(startx, starty, startx, -endy, 500);
+					if (MobileUtils.isMobElementExists("name", deviceToInstall, testCase, 3)) {
+						flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceToInstall);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not find device : " + deviceToInstall);
+					}
+				}
+			}
+		}
+		return flag;
+	}
 
 	/**
 	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
