@@ -349,6 +349,68 @@ public class NavigateToScreen extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return flag;
 	}
+	public static boolean NavigateToDashboardFromAnyScreen(TestCases testCase) {
+
+		boolean flag = true;
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("name", "menu", testCase, 2)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Navigate To Primary Card : User is already on the Primary Card or Dashboard");
+					return flag;
+				} else {
+					int i = 0;
+					while ((!MobileUtils.isMobElementExists("name", "menu", testCase, 2)) && i < 10) {
+						if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 2)) {
+							flag = flag & MobileUtils.clickOnElement(testCase, "name", "btn close normal");
+						} else if (MobileUtils.isMobElementExists("name", "nav bar back", testCase, 2)) {
+							flag = flag & MobileUtils.clickOnElement(testCase, "name", "nav bar back");
+						} else if (MobileUtils.isMobElementExists("name", "Back", testCase, 2)) {
+							flag = flag & MobileUtils.clickOnElement(testCase, "name", "Back");
+						}
+						i++;
+					}
+					if (MobileUtils.isMobElementExists("name", "menu", testCase, 2)
+							|| (MobileUtils.isMobElementExists("name", "dashboard_add_thermostat", testCase, 2))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Navigate To Primary Card : Failed to navigate to Primary card or Dashboard");
+					}
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("xpath",
+						"//android.widget.ImageButton[@content-desc='Global Drawer']", testCase, 2)) {
+					Keyword.ReportStep_Pass(testCase, "Navigate To Primary Card : User is already on the Primary Card");
+					return flag;
+				} else {
+					int i = 0;
+					while (!MobileUtils.isMobElementExists("xpath",
+							"//android.widget.ImageButton[@content-desc='Global Drawer']", testCase, 2) && i < 10) {
+						MobileUtils.clickOnElement(testCase, "xpath",
+								"//android.widget.ImageButton[@content-desc='Navigate Up']");
+						i++;
+					}
+					if (MobileUtils.isMobElementExists("xpath",
+							"//android.widget.ImageButton[@content-desc='Global Drawer']", testCase, 2)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Navigate To Primary Card : Successfully navigated to Primary card");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Navigate To Primary Card : Failed to navigate to Primary Card");
+					}
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Navigate To Primary Card : Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
 
 	public static boolean NavigateToPrimaryCardFromDashboard(TestCases testCase, String expectedDevice) {
 		boolean flag = true;
