@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class ClickOnButton extends Keyword {
 
@@ -44,7 +45,18 @@ public class ClickOnButton extends Keyword {
 				break;
 			}
 			}
+		} else if (expectedButton.get(0).equalsIgnoreCase("cancels the set up")) {
+			switch (expectedButton.get(1).toUpperCase()) {
+			case "CANCEL": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isCancelButtonInChooseLocationScreenVisible()) {
+					dasDIY.clickOnCancelButtonInChooseLocationScreen();
+				}
+				break;
+			}
+			}
 		}
+		
 		return flag;
 	}
 

@@ -40,6 +40,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.CustomIOSDriver;
+import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
@@ -49,8 +50,12 @@ import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SecretMenu;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.TouchAction;
 
 public class LyricUtils {
+	
+	public static String xpathAttribute = "//android.widget.TextView[@text='";
+	public static String listOfDevicesElements= "view_install_device_row_text";
 	/**
 	 * <h1>Take Screenshot</h1>
 	 * <p>
@@ -886,12 +891,39 @@ public class LyricUtils {
 		int startx;
 		int starty;
 		int endy;
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();
 			startx = p1.getX();
 			starty = d1.getHeight();
 			endy = -p1.getY() / 10;
+		} else {
+			d1 = ele.getSize();
+			p1 = ele.getLocation();
+			starty = (int) (d1.height * 0.80);
+			endy = (int) -((d1.height * 0.50) + p1.getY());
+			startx = d1.width / 2;
+		}
+		//testCase.getMobileDriver().swipe(startx, starty, startx, endy, 500);
+		touchAction.press(startx, starty).waitAction(MobileUtils.getDuration(2000)).moveTo(startx, endy)
+		.release();
+		touchAction.perform();
+	}
+	
+	public static void scrollList1(TestCases testCase, String locatorType, String locatorValue) {
+		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);
+		Dimension d1;
+		Point p1;
+		int startx;
+		int starty;
+		int endy;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			d1 = ele.getSize();
+			p1 = ele.getLocation();
+			startx = p1.getX();
+			starty = d1.getHeight();
+			endy = -p1.getY();
 		} else {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();
@@ -906,12 +938,12 @@ public class LyricUtils {
 		boolean flag = true;
 		String xpath;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			xpath = "//android.widget.TextView[@text='" + deviceToInstall + "']";
+			xpath = xpathAttribute + deviceToInstall + "']";
 			if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
 				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
 			} else {
 				// testCase.getMobileDriver().scrollTo(deviceToInstall);
-				WebElement ele = MobileUtils.getMobElement(testCase, "id", "fragment_add_new_device_list");
+				WebElement ele = MobileUtils.getMobElement(testCase, "id", listOfDevicesElements);
 				Dimension d1 = ele.getSize();
 				Point p1 = ele.getLocation();
 				testCase.getMobileDriver().swipe(p1.getX(), d1.getHeight(), p1.getX(), -p1.getY(), 500);
@@ -1081,12 +1113,299 @@ public class LyricUtils {
 	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String deviceName) {
 		boolean flag = true;
 		Dashboard d = new Dashboard(testCase);
+		System.out.println("#########deviceName: " + deviceName);
 		if (d.isDevicePresentOnDashboard(deviceName)) {
 			Keyword.ReportStep_Pass(testCase, "Device : " + deviceName + " is present on the dashboard.");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Device : " + deviceName + " is not present on the dashboard.");
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Verify if Device is still displayed in dashboard after deleting it</h1>
+	 * <p>
+	 * The verifyDeviceNotDisplayedOnDashboard method verifes if device is still displayed in dashboard after deleting it.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H1179225)
+	 * @version 1.0
+	 * @since 2018-02-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if device is not displayed in dashboard screen.
+	 *         Returns 'false' if device is still displayed in dashboard screen.
+	 */
+	public static boolean verifyDeviceNotDisplayedOnDashboard(TestCases testCase, TestCaseInputs inputs,
+			String expectedDevice) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DAS_InstallationScreen");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton", 30, false)) {
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 5)) {
+				List<WebElement> dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase,
+						"DashboardIconText");
+				if (MobileUtils.isMobElementExists("id", "name", testCase, 3, false)) {
+					dashboardIconText.addAll(MobileUtils.getMobElements(testCase, "id", "name"));
+				}
+				boolean f = false;
+				String deviceName = "";
+				for (WebElement e : dashboardIconText) {
+					String displayedText;
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						displayedText = e.getText();
+					} else {
+						displayedText = e.getAttribute("value");
+					}
+					if (expectedDevice.equalsIgnoreCase("Switch")) {
+						deviceName = inputs.getInputValue("LOCATION1_SWITCH1_NAME");
+					} else if (expectedDevice.equalsIgnoreCase("Dimmer")) {
+						deviceName = inputs.getInputValue("LOCATION1_DIMMER1_NAME");
+					}
+					if (displayedText.equals(deviceName)) {
+						f = true;
+						break;
+					}
+				}
+				if (f) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device : " + deviceName + " is present on the dashboard.");
+				} else {
+					Keyword.ReportStep_Pass(testCase, "Device : " + deviceName + " is not present on the dashboard.");
+				}
+			} else {
+				Keyword.ReportStep_Pass(testCase, "No devices found on the dashboard");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "User is not on the dashboard");
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Navigate to DAS Settings screen</h1>
+	 * <p>
+	 * The navigateToDASSettings method navigates user to DAS Settings screen.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H1179225)
+	 * @version 1.0
+	 * @since 2018-02-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if navigation to DAS Settings is
+	 *         successfully. Returns 'false' if navigation to DAS
+	 *         Settings screen fails.
+	 */
+	public static boolean navigateToDASSettings(TestCases testCase,
+			String dasDeviceName) {
+		boolean flag = true;
+		System.out.println("#########dasDeviceName: " + dasDeviceName);
+		HashMap<String, MobileObject> fieldObjects = MobileUtils
+				.loadObjectFile(testCase, "DIYRegistration");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase,
+				"GlobalDrawerButton", 5)) {
+			flag = flag
+					& MobileUtils.clickOnElement(fieldObjects, testCase,
+							"GlobalDrawerButton");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Could not find Global Drawer button");
+		}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase,
+					"GlobalDrawerIconList", 3)) {
+				List<WebElement> icons = MobileUtils.getMobElements(
+						fieldObjects, testCase, "GlobalDrawerIconList");
+				boolean iconFound = false;
+				for (WebElement icon : icons) {
+					if (icon.getAttribute("text").equalsIgnoreCase(
+							dasDeviceName)) {
+						iconFound = true;
+						icon.click();
+						break;
+					}
+				}
+				if (iconFound) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully clicked on '" + dasDeviceName + "'");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase,
+							FailType.FUNCTIONAL_FAILURE, "'" + dasDeviceName
+									+ "' not found in Global Drawer list");
+				}
+
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not find items on Global Drawer list");
+			}
+
+		} else {
+			if (MobileUtils.isMobElementExists("name", dasDeviceName, testCase,
+					3, false)) {
+				flag = flag
+						& MobileUtils.clickOnElement(testCase, "name",
+								dasDeviceName);
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not find " + dasDeviceName
+								+ " Device button in the Global Drawer List");
+			}
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Enter passcode in create passcode popup after DIY Registration</h1>
+	 * <p>
+	 * The enterPasscode method enters desired passcode after DIY Registration.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H1179225)
+	 * @version 1.0
+	 * @since 2018-02-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if passcode is entered successfully
+	 *         successfully. Returns 'false' if error occurs while entering
+	 *         a passcode.
+	 */
+	public static boolean enterPasscode(TestCases testCase, String passcode) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			WebElement ele = MobileUtils.getMobElement(testCase, "id", "activity_detail_container");
+			Dimension d1 = ele.getSize();
+			HashMap<Integer, Integer> xValues = new HashMap<Integer, Integer>();
+			xValues.put(1, (int) (d1.getWidth() * 0.15));
+			xValues.put(4, (int) (d1.getWidth() * 0.15));
+			xValues.put(7, (int) (d1.getWidth() * 0.15));
+			xValues.put(2, (int) (d1.getWidth() * 0.40));
+			xValues.put(5, (int) (d1.getWidth() * 0.40));
+			xValues.put(8, (int) (d1.getWidth() * 0.40));
+			xValues.put(0, (int) (d1.getWidth() * 0.40));
+			xValues.put(3, (int) (d1.getWidth() * 0.65));
+			xValues.put(6, (int) (d1.getWidth() * 0.65));
+			xValues.put(9, (int) (d1.getWidth() * 0.65));
+			HashMap<Integer, Integer> yValues = new HashMap<Integer, Integer>();
+			yValues.put(1, (int) (d1.getHeight() * 0.7));
+			yValues.put(2, (int) (d1.getHeight() * 0.7));
+			yValues.put(3, (int) (d1.getHeight() * 0.7));
+			yValues.put(4, (int) (d1.getHeight() * 0.8));
+			yValues.put(5, (int) (d1.getHeight() * 0.8));
+			yValues.put(6, (int) (d1.getHeight() * 0.8));
+			yValues.put(7, (int) (d1.getHeight() * 0.9));
+			yValues.put(8, (int) (d1.getHeight() * 0.9));
+			yValues.put(9, (int) (d1.getHeight() * 0.9));
+			yValues.put(0, (int) (d1.getHeight() * 0.95));
+			TouchAction t1 = new TouchAction(testCase.getMobileDriver());
+			for (int i = 0; i < passcode.length(); i++) {
+				char c = passcode.charAt(i);
+				int value = Integer.parseInt(String.valueOf(c));// Character.getNumericValue(c);
+				t1.tap(xValues.get(value), yValues.get(value)).perform();
+			}
+		} else {
+			for (int i = 0; i < passcode.length(); i++) {
+				char c = passcode.charAt(i);
+				flag = flag & MobileUtils.clickOnElement(testCase, "name", String.valueOf(c));
+			}
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Create Passcode after DIY Registration</h1>
+	 * <p>
+	 * The createPasscode method creates passcode after DIY Registration.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H1179225)
+	 * @version 1.0
+	 * @since 2018-02-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if passcode is created
+	 *         successfully. Returns 'false' if error occurs while creating
+	 *         a passcode.
+	 */
+	public static boolean createPasscode(TestCases testCase, String passcode) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DIYRegistration");
+
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateAPasscodeTitle", 5, false)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(fieldObjects, testCase, "CreateAPasscodeTitle").getAttribute("text")
+						.equalsIgnoreCase("Create a Passcode")) {
+					Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Create a Passcode Screen'");
+					flag = flag & enterPasscode(testCase, passcode);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to set the passcode to: " + passcode);
+					}
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "CreateAPasscodeTitle").getAttribute("text")
+							.equalsIgnoreCase("Verify Passcode")) {
+						Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Verify Passcode Screen'");
+						flag = flag & enterPasscode(testCase, passcode);
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to set the passcode to: " + passcode);
+						}
+					}
+					if(MobileUtils.isMobElementExists("xpath", "//*[@text='Add Fingerprint Unlock']", testCase,5))
+					{
+						flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='No' or @text='NO']");
+					}
+				}
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Create a Passcode Screen'");
+				flag = flag & enterPasscode(testCase, passcode);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to set the passcode to: " + passcode);
+				}
+
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "VerifyPasscodeTitle", 5, false)) {
+					Keyword.ReportStep_Pass(testCase, "Entering passcode in 'Verify Passcode Screen'");
+					flag = flag & enterPasscode(testCase, passcode);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully set passcode to : " + passcode);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to set the passcode to: " + passcode);
+					}
+				}
+				if(MobileUtils.isMobElementExists("name", "Add Touch ID", testCase,5))
+				{
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", "No");
+				}
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Create Passcode Screen not visible");
 		}
 		return flag;
 	}

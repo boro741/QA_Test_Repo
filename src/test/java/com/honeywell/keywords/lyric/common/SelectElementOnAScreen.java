@@ -135,7 +135,6 @@ public class SelectElementOnAScreen extends Keyword {
 						flag = flag & dasDIY.selectWifi(parameters.get(0));
 					}
 					dasDIY.isWiFiPasswordTextFieldVisibile();
-				
 			}
 
 		} catch (Exception e) {

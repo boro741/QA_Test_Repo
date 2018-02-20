@@ -6,37 +6,29 @@ As a user I want to register a DAS device using the Lyric application
 @DIYSmartHomeSecurityOptionInAddNewDevice
 Scenario: As a user I should be able to see Smart Home Security option in Add New Device screen
 Given user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen form the "Dashboard" screen
-Then user should be able to view "Smart Home Security" option
-And user navigates to "Add new device(global drawer)" screen form the "Global drawer" screen
-Then user should be able to view "Smart Home Security" option
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user should be displayed with the following "Add New Device Dashboard" options:
+ |		Select Device			|
+ |		Smart Home Security		| 
+And user navigates to "Add New Device in Global Drawer" screen from the "Dashboard" screen
+Then user should be displayed with the following "Add New Device Global Drawer" options:
+ |		Select Device			|
+ |		Smart Home Security		| 
 
 @DIYCancelSetUp
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
 Given user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen form the "Dashboard" screen
-And user selects “Smart Home Security” from “Add device” screen
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 Then user should be displayed with the "Choose Location" screen
 When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Choose Location" screen
 When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user navigates to "Add New Device Dashboard" screen from "Choose Location" screen
-Then user selects “Smart Home Security” from “Add device” screen
-Then user should be displayed with the "Choose Location" screen
-When user "selects a Location" by clicking on "Home" button
-Then user should be displayed with the "Name Your Base Station" screen
-And user clicks on "cancel" button
-Then user should receive a "Cancel Setup" pop up
-When user "dismiss" the "Cancel Setup" popup
-Then user should be displayed with the "Choose Location" screen
-And user clicks on "cancel" button
-Then user should receive a "Cancel Setup" pop up
-When user "accepts" the "Cancel Setup" popup
-Then user navigates to "Choose Location" screen from "Name Your Base Station" screen
 
 @DIYConfirmYourAddressZipCode
 Scenario Outline: As a user I should be navigated to zip code screen for the entered custom location when location services are enabled
@@ -410,7 +402,7 @@ Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "Lenovo Vibe X3" from "Connect to Network" screen
+#When user selects "Lenovo Vibe X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
@@ -418,10 +410,6 @@ Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing"
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
-And user should be displayed with <device name> device on dashboard
-When user logs out of the Lyric app and logs into the Lyric app again
-Then user should be displayed with "Security" device on dashboard
-And user should be displayed with <device name> device on dashboard 
 And user deletes <device name> "DAS" from <location name> through the application
 
 Examples: 
@@ -462,42 +450,27 @@ Scenario Outline: As a user I want to register multiple DAS devices for a single
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-And user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
+When user selects a base station with MAC ID "B8:2C:A0:00:07:D8"
+When user navigates to "Connect to Network" screen from the "Register Base Station" screen
+#When user selects "Lenovo Vibe X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
+Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
-And user should be displayed with <device name> device on dashboard
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-And user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
-Then user should be displayed with both "Security" devices on dashboard
-And user should be displayed with <device name> device on dashboard
-When user logs out of the Lyric app and logs into the Lyric app again
-Then user should be displayed with both "Security" devices on dashboard
-And user should be displayed with <device name> device on dashboard
 And user deletes <device name> "DAS" from <location name> through the application
 
 Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 
 @DIYRegistrationByReceivingCallsAndMsgs

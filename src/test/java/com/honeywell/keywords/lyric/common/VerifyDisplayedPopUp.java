@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -65,6 +66,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 			case "DEVICE NOT FOUND":
 			{
 				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+                break;
+            }
+			case "CANCEL SETUP":
+                {
+				
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				dasDIY.isCancelPopupVisible();
 				break;
 			}
 			default:
