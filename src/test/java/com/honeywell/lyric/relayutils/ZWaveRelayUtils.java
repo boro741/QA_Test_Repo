@@ -1,5 +1,7 @@
 package com.honeywell.lyric.relayutils;
 
+import java.util.concurrent.TimeUnit;
+
 public class ZWaveRelayUtils {
 
 	public static void enrollZwaveSwitch1() throws Exception {
@@ -8,7 +10,7 @@ public class ZWaveRelayUtils {
 		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
 		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
 		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		Thread.sleep(10000);
+		TimeUnit.SECONDS.sleep(10);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
@@ -22,12 +24,12 @@ public class ZWaveRelayUtils {
 		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
 		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
 		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		Thread.sleep(1000);
+		TimeUnit.SECONDS.sleep(1);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		Thread.sleep(1000);
+		TimeUnit.SECONDS.sleep(1);
 		SerialDriver.closePort();
 	}
 
@@ -47,7 +49,7 @@ public class ZWaveRelayUtils {
 		SerialDriver.initialize();
 		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
 		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
-		Thread.sleep(10000);
+		TimeUnit.SECONDS.sleep(10);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
 		SerialDriver.closePort();
@@ -57,7 +59,7 @@ public class ZWaveRelayUtils {
 		SerialDriver.initialize();
 		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
 		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
-		Thread.sleep(1000);
+		TimeUnit.SECONDS.sleep(1);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
 		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
 		SerialDriver.closePort();

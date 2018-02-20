@@ -529,7 +529,8 @@ public class LyricUtils {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
 				// on ANDROID
-				Thread.sleep(1000);
+				TimeUnit.SECONDS.sleep(1);
+				//Thread.sleep(1000);
 			}
 			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
 			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
@@ -589,10 +590,10 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-//		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-//		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-//		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-//		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 
@@ -850,7 +851,6 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
 	
 	public static void scrollList(TestCases testCase, String locatorType, String locatorValue) {
 		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);

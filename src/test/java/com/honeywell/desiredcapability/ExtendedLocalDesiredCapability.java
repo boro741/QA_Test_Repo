@@ -3,9 +3,9 @@ package com.honeywell.desiredcapability;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.honeywell.commons.coreframework.SuiteConstants;
+import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.commons.deviceCloudProviders.LocalExecutionDesiredCapability;
 import com.honeywell.commons.mobile.Mobile;
 
@@ -23,7 +23,7 @@ public class ExtendedLocalDesiredCapability extends LocalExecutionDesiredCapabil
 	public void additionalDesiredCapabilities() {
 		try {
 			desiredCapabilities = getDesiredCapabilities();
-			//desiredCapabilities.setCapability("noReset", true);
+			desiredCapabilities.setCapability("noReset", true);
 			if (inputs.getInputValue(TestCaseInputs.OS_NAME).equalsIgnoreCase(Mobile.IOS)) {
 				if (inputs.isRealDevice()) {
 					//desiredCapabilities.setCapability("showIOSLog", true);

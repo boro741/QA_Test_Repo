@@ -14,6 +14,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -58,11 +59,12 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "15": {
 					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "15SecondsOption", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "15SecondsOption");
+					if (bs.is15SecondsEntryExitDelayOptionVisible()) {
+						flag = flag & bs.clickOn15SecondsEntryExitDelayOption();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -71,9 +73,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "30": {
-					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "30SecondsOption", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "30SecondsOption");
+					if (bs.is30SecondsEntryExitDelayOptionVisible()) {
+						flag = flag & bs.clickOn30SecondsEntryExitDelayOption();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -82,9 +83,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "45": {
-					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "45SecondsOption", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "45SecondsOption");
+					if (bs.is45SecondsEntryExitDelayOptionVisible()) {
+						flag = flag & bs.clickOn45SecondsEntryExitDelayOption();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -93,9 +93,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "60": {
-					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "60SecondsOption", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "60SecondsOption");
+					if (bs.is60SecondsEntryExitDelayOptionVisible()) {
+						flag = flag & bs.clickOn60SecondsEntryExitDelayOption();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

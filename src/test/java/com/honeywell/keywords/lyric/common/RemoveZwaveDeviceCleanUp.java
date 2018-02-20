@@ -3,6 +3,7 @@ package com.honeywell.keywords.lyric.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
 
@@ -88,7 +89,7 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: Exclude");
 								}
 								ZWaveRelayUtils.enrollZwaveSwitch1();
-								Thread.sleep(2000);
+								TimeUnit.SECONDS.sleep(2);
 								ZWaveRelayUtils.pressButtonOnSwitch1();
 								zwaveScreen.clickOKOnDeviceExcludedPopUp();
 								DASZwaveUtils.clickNavigateUp(testCase, inputs);

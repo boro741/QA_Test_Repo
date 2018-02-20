@@ -8,6 +8,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class DASSettingsUtils {
 
@@ -23,7 +24,8 @@ public class DASSettingsUtils {
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
 			} else {
 				locator = "name";
-				message = "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \"Living Room\"?";
+				message = "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";
 			}
 
 			// message =" This will delete your Smart Home Security and all the connected
@@ -34,7 +36,8 @@ public class DASSettingsUtils {
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Delete DAS Confirmation Pop Up message not correctly displayed. Expected: '" + message + "'. Displayed : (Refer Image)");
+						"Delete DAS Confirmation Pop Up message not correctly displayed. Expected: '" + message
+								+ "'. Displayed : (Refer Image)");
 			}
 		} else {
 			flag = false;
@@ -46,8 +49,8 @@ public class DASSettingsUtils {
 
 	public static boolean verifyDeleteDASConfirmationPopUpIsNotDisplayed(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DeleteDASPopUpConfirmationTitle", 3)) {
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		if (bs.isDeleteDASPopUpVisible()) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete DAS Confirmation Pop Up displayed");
 		} else {

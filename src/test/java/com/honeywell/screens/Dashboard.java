@@ -42,12 +42,12 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
 	
-	public boolean areDevicesPresentOnDashboard(int timeOut)
+	public boolean areDevicesVisibleOnDashboard(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut); 
 	}
 	
-	public boolean areDevicesPresentOnDashboard()
+	public boolean areDevicesVisibleOnDashboard()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3); 
 	}
@@ -55,7 +55,7 @@ public class Dashboard extends MobileScreens {
 	public boolean isDevicePresentOnDashboard(String deviceName)
 	{
 		boolean flag=true;
-		if (this.areDevicesPresentOnDashboard(10)) {
+		if (this.areDevicesVisibleOnDashboard(10)) {
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
 					"DashboardIconText");
 			boolean f = false;

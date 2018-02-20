@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -9,11 +8,10 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -21,10 +19,8 @@ public class PerformActionsOnPopUp extends Keyword {
 	private TestCases testCase;
 	private ArrayList<String> expectedPopUp;
 	private TestCaseInputs inputs;
-	private HashMap<String, MobileObject> fieldObjects;
 
 	public boolean flag = true;
-
 	public PerformActionsOnPopUp(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedPopUp) {
 		this.inputs = inputs;
 		this.testCase = testCase;
@@ -40,12 +36,12 @@ public class PerformActionsOnPopUp extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user (.*) the (.*) popup$")
 	public boolean keywordSteps() {
-		
+
 		if (expectedPopUp.get(1).equalsIgnoreCase("Delete DAS Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
-				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NoButton");
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnNoButton();
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
 				break;
 			}
@@ -56,15 +52,14 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
-		}
-		else if (expectedPopUp.get(1).equalsIgnoreCase("Device Excluded")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Device Excluded")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				zwaveScreen.clickOKOnDeviceExcludedPopUp();
 				break;
 			}
-			case "ADDS DEVICE NOW":{
+			case "ADDS DEVICE NOW": {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				zwaveScreen.clickAddNowOnDeviceExcludedPopUp();
 				break;
@@ -75,8 +70,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}
-		else if (expectedPopUp.get(1).equalsIgnoreCase("DELETION ON REMOVE DEVICE")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("DELETION ON REMOVE DEVICE")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
 				DASZwaveUtils.clickOkOnRemoveDevicePopUp(testCase, inputs);
@@ -92,8 +86,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}
-		else if (expectedPopUp.get(1).equalsIgnoreCase("INCLUSION DEVICE NOT FOUND")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("INCLUSION DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				DASZwaveUtils.clickCancelOnDeviceNotFoundPopUp(testCase);

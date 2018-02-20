@@ -1,5 +1,7 @@
 package com.honeywell.lyric.relayutils;
 
+import java.util.concurrent.TimeUnit;
+
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -103,14 +105,14 @@ public class SerialDriver {
 		try {
 			buffer = new StringBuilder();
 			serialPort1.writeString("getdmr");
-			Thread.sleep(50);
+			TimeUnit.MILLISECONDS.sleep(50);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(50);
+			TimeUnit.MILLISECONDS.sleep(50);
 			buffer = new StringBuilder();
 			serialPort1.writeString(ch);
-			Thread.sleep(50);
+			TimeUnit.MILLISECONDS.sleep(50);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(50);
+			TimeUnit.MILLISECONDS.sleep(50);
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());
 		}
@@ -150,14 +152,14 @@ public class SerialDriver {
 		try {
 			buffer = new StringBuilder();
 			serialPort1.writeString("getinp");
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			buffer = new StringBuilder();
 			serialPort1.writeString(ch);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());
 		}
@@ -168,14 +170,14 @@ public class SerialDriver {
 		try {
 			buffer = new StringBuilder();
 			serialPort1.writeString("getdmr");
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			buffer = new StringBuilder();
 			serialPort1.writeString(ch);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			String temp = buffer.toString();
 			temp = temp.replace(".", "");
 			char[] array = temp.toCharArray();
@@ -203,14 +205,14 @@ public class SerialDriver {
 			}
 			buffer = new StringBuilder();
 			serialPort1.writeString("getdmr");
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			buffer = new StringBuilder();
 			serialPort1.writeString(ch);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(300);
+			TimeUnit.MILLISECONDS.sleep(300);
 			temp = buffer.toString();
 			temp = temp.replace(".", "");
 			array = temp.toCharArray();
@@ -247,14 +249,14 @@ public class SerialDriver {
 		try {
 			buffer = new StringBuilder();
 			serialPort1.writeString("setrly");
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 			buffer = new StringBuilder();
 			serialPort1.writeString(ch);
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());
 		}
@@ -273,14 +275,14 @@ public class SerialDriver {
 		try {
 			buffer = new StringBuilder();
 			serialPort1.writeString("rstrly");
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 			buffer = new StringBuilder();
 			serialPort1.writeString(ch);
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 			serialPort1.writeByte((byte) 0x0D);
-			Thread.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(1);
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());
 		}

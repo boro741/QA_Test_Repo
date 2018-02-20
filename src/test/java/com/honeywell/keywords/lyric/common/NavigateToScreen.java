@@ -48,7 +48,6 @@ public class NavigateToScreen extends Keyword {
 	@KeywordStep(gherkins = "^user navigates to (.*) screen from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			HashMap<String, MobileObject> fieldObjects;
 			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
@@ -157,17 +156,18 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					break;
 				}
-				// Navigate from 'Dashboard' to 'Base Station Settings'
+				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
-				case "BASE STATION SETTINGS": {
+				case "BASE STATION CONFIGURATION": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONSETTINGS);
+					flag = flag & bs
+							.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
 				// Author: Pratik P. Lalseta (H119237)
-				case "ENTRY-EXIT DELAY":
+				case "ENTRY-EXIT DELAY": {
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isEntryExitDelaySettingsOptionVisible()) {
@@ -180,25 +180,43 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+
+			else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (screen.get(0).toUpperCase()) {
+				// Navigate from 'Entry/Exit Delay Settings' to 'Security Settings'
+				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SETTINGS": {
-					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isBackButtonVisible()) {
+						flag = flag & bs.clickOnBackButton();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
+				}
+			}
+
+			else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
+				// Navigate from 'Security Settings' to 'Entry/Exit Delay Settings'
+				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
-					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EntryExitDelayOption", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EntryExitDelayOption");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isEntryExitDelaySettingsOptionVisible()) {
+						flag = flag & bs
+								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -206,23 +224,42 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			}
 
-			else if (screen.get(1).equalsIgnoreCase("Base Station Settings")) {
+			else if (screen.get(1).equalsIgnoreCase("Base Station Configuration")) {
 				switch (screen.get(0).toUpperCase()) {
+				// Navigate from 'Base Station Configuration' to 'Dashboard'
+				// Author: Pratik P. Lalseta (H119237)
 				case "DASHBOARD": {
-					fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (bs.isBackButtonVisible()) {
+						flag = flag & bs.clickOnBackButton();
 					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 10)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					if (bs.isBackButtonVisible(10)) {
+						flag = flag & bs.clickOnBackButton();
 					}
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 3)) {
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+					if (bs.isBackButtonVisible()) {
+						flag = flag & bs.clickOnBackButton();
+					}
+					if(!d.areDevicesVisibleOnDashboard())
+					{
+						flag = flag & bs.clickOnBackButton();
+						if(!d.areDevicesVisibleOnDashboard())
+						{
+							flag = flag & bs.clickOnBackButton();
+						}
 					}
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
@@ -368,6 +405,9 @@ public class NavigateToScreen extends Keyword {
 		try {
 			if (d.isGlobalDrawerButtonVisible(5)) {
 				flag = flag & d.clickOnGlobalDrawerButton();
+				if (!s.areSecondaryCardSettingsVisible(2)) {
+					flag = flag & d.clickOnGlobalDrawerButton();
+				}
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (s.areSecondaryCardSettingsVisible()) {
 						List<WebElement> icons = s.getSecondaryCardSettings();
