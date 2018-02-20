@@ -1,5 +1,11 @@
 package com.honeywell.screens;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -77,6 +83,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3);
 	}
 
+	public boolean isEntryExitDelaySettingsOptionVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", timeOut);
+	}
+	
 	public boolean clickOnNoButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
 	}
@@ -109,43 +119,104 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return LyricUtils.scrollToElementUsingExactAttributeValue(testCase, attribute, option);
 	}
 
-	public boolean clickOn15SecondsEntryExitDelayOption()
-	{
+	public boolean clickOn15SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "15SecondsOption");
 	}
-	
-	public boolean is15SecondsEntryExitDelayOptionVisible()
-	{
+
+	public boolean is15SecondsEntryExitDelayOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "15SecondsOption", 3);
 	}
-	
-	public boolean clickOn30SecondsEntryExitDelayOption()
-	{
+
+	public boolean clickOn30SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "30SecondsOption");
 	}
-	
-	public boolean is30SecondsEntryExitDelayOptionVisible()
-	{
+
+	public boolean is30SecondsEntryExitDelayOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "30SecondsOption", 3);
 	}
-	
-	public boolean clickOn45SecondsEntryExitDelayOption()
-	{
+
+	public boolean clickOn45SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "45SecondsOption");
 	}
-	
-	public boolean is45SecondsEntryExitDelayOptionVisible()
-	{
+
+	public boolean is45SecondsEntryExitDelayOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "45SecondsOption", 3);
 	}
-	
-	public boolean clickOn60SecondsEntryExitDelayOption()
-	{
+
+	public boolean clickOn60SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "60SecondsOption");
 	}
-	
-	public boolean is60SecondsEntryExitDelayOptionVisible()
-	{
+
+	public boolean is60SecondsEntryExitDelayOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "60SecondsOption", 3);
 	}
+
+	public boolean verifySelectedEntryExitDelaySelectedValue(int delayValue) throws Exception {
+		boolean flag = true;
+		try {
+			WebElement entryExitTable = null;
+			WebElement tickMark = null;
+			int index = -1;
+			if (delayValue == 15) {
+				index = 0;
+			} else if (delayValue == 30) {
+				index = 1;
+			} else if (delayValue == 45) {
+				index = 2;
+			} else if (delayValue == 60) {
+				index = 3;
+			}
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitTable", 10)) {
+				entryExitTable = MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTable");
+			} else {
+				throw new Exception("Could not find entry/exit delay values");
+			}
+			List<WebElement> cells = null;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				cells = entryExitTable.findElements(By.className("android.widget.RelativeLayout"));
+			} else {
+				cells = entryExitTable.findElements(By.xpath("//XCUIElementTypeCell"));
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				tickMark = cells.get(index).findElement(By.id("list_item_lyric_image_view"));
+			} else {
+				tickMark = cells.get(index).findElement(By.xpath("//XCUIElementTypeImage"));
+			}
+			if (tickMark != null) {
+				return flag;
+			} else {
+				throw new Exception(delayValue + " second option not selected on Entry/Exit Delay screen");
+			}
+		} catch (NoSuchElementException e) {
+
+			throw new Exception(delayValue + " second option not selected on Entry/Exit Delay screen");
+		}
+	}
+
+	public String getEntryExitTimerValueFromSecuritySettingsScreen()
+	{
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue")
+					.getAttribute("text");
+		} else {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue")
+					.getAttribute("value");
+		}
+	}
+
+	public boolean isBackButtonVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", 3);
+	}
+	
+	public boolean isBackButtonVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", timeOut);
+	}
+	
+	public boolean clickOnBackButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+	
 }
