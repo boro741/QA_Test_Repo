@@ -13,9 +13,16 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 public class BaseStationSettingsScreen extends MobileScreens {
 
+	// String values used in the methods
 	private static final String screenName = "DASSettings";
 	public static final String BASESTATIONCONFIGURATION = "Base Station Configuration";
 	public static final String ENTRYEXITDELAYSETTINGS = "Entry/Exit Delay";
+
+	// Locator values used in the methods
+	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
+	public static final String IOSENTRYEXITTABLELOCATORVALUE = "//XCUIElementTypeCell";
+	public static final String ANDROIDTICKMARKLOCATORVALUE = "list_item_lyric_image_view";
+	public static final String IOSTICKMARKLOCATORVALUE = "//XCUIElementTypeImage";
 
 	public BaseStationSettingsScreen(TestCases testCase) {
 		super(testCase, screenName);
@@ -151,7 +158,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "60SecondsOption", 3);
 	}
 
-	public boolean verifySelectedEntryExitDelaySelectedValue(int delayValue) throws Exception {
+	public boolean verifyEntryExitDelaySelectedValue(int delayValue) throws Exception {
 		boolean flag = true;
 		try {
 			WebElement entryExitTable = null;
@@ -173,14 +180,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 			List<WebElement> cells = null;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				cells = entryExitTable.findElements(By.className("android.widget.RelativeLayout"));
+				cells = entryExitTable
+						.findElements(By.className(BaseStationSettingsScreen.ANDROIDENTRYEXITTABLELOCATORVALUE));
 			} else {
-				cells = entryExitTable.findElements(By.xpath("//XCUIElementTypeCell"));
+				cells = entryExitTable.findElements(By.xpath(BaseStationSettingsScreen.IOSENTRYEXITTABLELOCATORVALUE));
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				tickMark = cells.get(index).findElement(By.id("list_item_lyric_image_view"));
+				tickMark = cells.get(index).findElement(By.id(BaseStationSettingsScreen.ANDROIDTICKMARKLOCATORVALUE));
 			} else {
-				tickMark = cells.get(index).findElement(By.xpath("//XCUIElementTypeImage"));
+				tickMark = cells.get(index).findElement(By.xpath(BaseStationSettingsScreen.IOSTICKMARKLOCATORVALUE));
 			}
 			if (tickMark != null) {
 				return flag;

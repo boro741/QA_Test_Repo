@@ -32,7 +32,7 @@ public class VerifyEntryExitTime extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^(.*) value should be updated to (.*) on (.*) screen$")
+	@KeywordStep(gherkins = "^(.*) value should be updated to (.*) on (.*) screen$", description = "This keyword verifies the Entry/Exit delay values on the Security Settings screen and Entry/Exit Screen.\n Accepted Parameters: Parameter 1: 'Entry-Exit Delay'\nParameter 2: (15,30,45,60)\nParameter 3: (Entry-Exit Delay/Security Settings)")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (parameters.get(0).equalsIgnoreCase("Entry-Exit Delay")
@@ -40,14 +40,13 @@ public class VerifyEntryExitTime extends Keyword {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				try {
 					int delayValue = Integer.parseInt(parameters.get(1));
-					if(bs.verifySelectedEntryExitDelaySelectedValue(delayValue))
-					{
-						Keyword.ReportStep_Pass(testCase, delayValue + " is correctly displayed on Entry/Exit Delay screen");
-					}
-					else
-					{
+					if (bs.verifyEntryExitDelaySelectedValue(delayValue)) {
+						Keyword.ReportStep_Pass(testCase,
+								delayValue + " is correctly displayed on Entry/Exit Delay screen");
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, delayValue + " is not correctly displayed on Entry/Exit Delay screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								delayValue + " is not correctly displayed on Entry/Exit Delay screen");
 					}
 				} catch (NumberFormatException e) {
 					flag = false;
