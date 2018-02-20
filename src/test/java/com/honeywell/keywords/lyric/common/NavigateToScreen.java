@@ -161,12 +161,13 @@ public class NavigateToScreen extends Keyword {
 				case "BASE STATION CONFIGURATION": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+					flag = flag & bs
+							.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
 				// Author: Pratik P. Lalseta (H119237)
-				case "ENTRY-EXIT DELAY":
+				case "ENTRY-EXIT DELAY": {
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isEntryExitDelaySettingsOptionVisible()) {
@@ -179,7 +180,12 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-			} 
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
 
 			else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -195,9 +201,13 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-			} 
-			
+				}
+			}
+
 			else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
 				// Navigate from 'Security Settings' to 'Entry/Exit Delay Settings'
@@ -205,7 +215,8 @@ public class NavigateToScreen extends Keyword {
 				case "ENTRY-EXIT DELAY": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isEntryExitDelaySettingsOptionVisible()) {
-						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+						flag = flag & bs
+								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -213,13 +224,20 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			}
 
 			else if (screen.get(1).equalsIgnoreCase("Base Station Configuration")) {
 				switch (screen.get(0).toUpperCase()) {
+				// Navigate from 'Base Station Configuration' to 'Dashboard'
+				// Author: Pratik P. Lalseta (H119237)
 				case "DASHBOARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					Dashboard d = new Dashboard(testCase);
 					if (bs.isBackButtonVisible()) {
 						flag = flag & bs.clickOnBackButton();
 					}
@@ -229,7 +247,19 @@ public class NavigateToScreen extends Keyword {
 					if (bs.isBackButtonVisible()) {
 						flag = flag & bs.clickOnBackButton();
 					}
+					if(!d.areDevicesVisibleOnDashboard())
+					{
+						flag = flag & bs.clickOnBackButton();
+						if(!d.areDevicesVisibleOnDashboard())
+						{
+							flag = flag & bs.clickOnBackButton();
+						}
+					}
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {

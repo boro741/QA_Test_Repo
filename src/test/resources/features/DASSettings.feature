@@ -90,11 +90,11 @@ Feature: DAS Settings
   @RenameDASBaseStation @UIAutomated
   Scenario: As a user I want to rename my Base station through th application 
     Given user launches and logs in to the Lyric application 
-      And user navigates to "Base Station Settings" screen from the "Dashboard" screen 
+      And user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
      When user edits the "DAS Panel" name to "Test Panel Name" 
-      And user navigates to "Dashboard" screen from the "Base Station Settings" screen 
+      And user navigates to "Dashboard" screen from the "Base Station Configuration" screen 
      Then user should be displayed with "Test Panel Name" device on dashboard 
-      And user reverts back the "DAS device name" through CHIL 
+      And user reverts back the "DAS device name" through CHIL
   
   #LYDAS-6941
   #Requirements: Single Location Single DAS Device, No Sensors Required

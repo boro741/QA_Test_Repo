@@ -86,7 +86,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isEntryExitDelaySettingsOptionVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", timeOut);
 	}
-	
+
 	public boolean clickOnNoButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
 	}
@@ -193,30 +193,40 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
-	public String getEntryExitTimerValueFromSecuritySettingsScreen()
-	{
+	public String getEntryExitTimerValueFromSecuritySettingsScreen() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue")
-					.getAttribute("text");
+			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue").getAttribute("text");
 		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue")
-					.getAttribute("value");
+			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue").getAttribute("value");
 		}
 	}
 
-	public boolean isBackButtonVisible()
-	{
+	public boolean isBackButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", 3);
 	}
-	
-	public boolean isBackButtonVisible(int timeOut)
-	{
+
+	public boolean isBackButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", timeOut);
 	}
-	
-	public boolean clickOnBackButton()
-	{
+
+	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
-	
+
+	public boolean isDASNameTextBoxVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTextbox", 3);
+	}
+
+	public boolean isDASNameTextBoxVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTextbox", timeOut);
+	}
+
+	public boolean clearDASNameTextBox() {
+		return MobileUtils.clearTextField(objectDefinition, testCase, "DASNameTextbox");
+	}
+
+	public boolean setValueToDASNameTextBox(String value) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "DASNameTextbox", value);
+	}
+
 }
