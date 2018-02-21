@@ -3,3 +3,4 @@ AddNewDeviceHeader	Xpath	//*[@text='Add New Device']					xpath	//*[@value='Add N
 ZwaveMenu							NAME	Z-Wave Devices	Name	Z-Wave Devices	Name	Z-Wave Devices
 ZwaveList	Xpath	//*[@text='Z-Wave Device']					NAME	Z-Wave Device	Name	Z-Wave Device	Name	Z-Wave Device
 CancelButton							NAME	Cancel	Name	Cancel	Name	Cancel
+DevicesList	id	fragment_add_new_device_list										

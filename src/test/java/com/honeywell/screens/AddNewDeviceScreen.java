@@ -14,7 +14,7 @@ public class AddNewDeviceScreen extends MobileScreens{
 	}
 
 	public boolean clickOnZwaveFromAddNewDevice() {
-		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",10)) {
+		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",3)) {
 			int counter = 0;
 			while (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",10) && counter < 4) {
 				try {
