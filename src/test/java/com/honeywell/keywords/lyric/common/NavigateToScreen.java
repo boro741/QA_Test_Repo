@@ -86,6 +86,10 @@ public class NavigateToScreen extends Keyword {
 					DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
 				}
+				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
+					DASZwaveUtils.navigateToGeneralExclusionFromDashboard(testCase);
+					break;
+				}
 				case "SWITCH PRIMARY CARD": {
 					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
 					break;

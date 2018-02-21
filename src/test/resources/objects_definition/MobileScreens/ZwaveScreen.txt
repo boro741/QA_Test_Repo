@@ -44,8 +44,11 @@ RemoveDevicePopupMessage	Xpath	//*[@text='This device will be permanently remove
 CancelDeviceRemovalButton	Xpath	//*[@text='Cancel']					NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
 ConfirmDeviceRemovalButton	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
 NavigateBack	Xpath	"//*[contains(@content-desc,'Navigate Up')]"					NAME	Back				
-ExcludedSuccessPopupTitle	Xpath	"//*[contains(@text,'is excluded successfully!')]"					NAME	Z-Wave Exclusion				
-ExcludedSuccessPopupMessage	Xpath	"//*[contains(@text,'is excluded successfully!')]"					Xpath	"//*[contains(@value,'is excluded successfully')]"				
+ExcludedSuccessPopupTitle	Xpath	"//*[contains(@text,'excluded')]"					NAME	Z-Wave Exclusion				
+ExcludedSuccessPopupMessage	Xpath	"//*[contains(@text,'successfully')]"					Xpath	"//*[contains(@value,'is excluded successfully')]"				
+DeletedSuccessPopupTitle	Xpath	"//*[contains(@text,'Removed')]"					NAME	Z-Wave Exclusion				
+DeletedSuccessPopupMessage	Xpath	"//*[contains(@text,'Removed successfully')]"					Xpath	"//*[contains(@value,'is excluded successfully')]"				
+AckExcludedPopup	Xpath	//*[@text='OK']					Xpath	"//*[contains(@value,'is excluded successfully')]"				
 AddNowOption	Xpath	//*[@text='Add Now']					NAME	Add Now				
 SwitchPrimaryCardStatus	ID	text_status					NAME	ZwaveSwitchStateLabel				
 SwitchPrimaryCardTimeline	ID	text_timestamp										

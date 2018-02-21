@@ -98,7 +98,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with "Switch1" device on dashboard
   # Then user receives a "Zwave device added" activity log
   
-  @ToggleZwaveSwitchThroughPrimaryCard @corrected @LYDAS-4594
+  @ToggleZwaveSwitchThroughPrimaryCard @Automated @LYDAS-4594
   Scenario: (ZwaveTC7) As a user I should be able to control my zwave switch to different states from primary card screen
       And user launches and logs in to the Lyric application
     Given user turns "off" the "Switch" through the "Z-Wave device function key"
@@ -131,7 +131,7 @@ As a user I want to control all devices using ZWave technology
      Then user should see the "Switch" status as "off" on the "Z-Wave device"
       And user should see the "Switch" status as "off" on the "Switch Primary card"
   
-  @StatusChangeOfSwitchFromSettings
+  @StatusChangeOfSwitchFromSettings @Automated
   Scenario: (ZwaveTC8) As a user i should be able to control my zwave switch to different states from the settings screen
       And user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
@@ -154,7 +154,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with "Switch2" device on dashboard
   # Then user receives a "Zwave device added" activity log
   
-  @ZwaveSwitchRename @Reviewed @LYDAS-5395
+  @ZwaveSwitchRename @Automated @LYDAS-5395
   Scenario: (ZwaveTC17) As a user I should be able to rename my zwave switch
       And user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
@@ -164,7 +164,7 @@ As a user I want to control all devices using ZWave technology
     #  And user reverts back the "Switch" name through CHIL
   
   
-  @DeleteZwaveSwitchFromSettings @DeleteZwaveTimeout @LYDAS-6763
+  @DeleteZwaveSwitchFromSettings @DeleteZwaveTimeout @Automated @LYDAS-6763
   Scenario: (ZwaveTC7) As a user I should be able to delete my zwave switch
   #switch configured and online
     Given user launches and logs in to the Lyric application
@@ -173,16 +173,17 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Remove Device" popup
      When user "confirms" the "Deletion on Remove Device" popup
      Then user should be displayed with the "Exclusion Mode Active" screen
-     When user "does not activates" the "dimmer" function key
+     When user "does not activate" the "switch" function key
      Then user should receive a "Device not found" popup
      When user "confirms" the "Device not found" popup
      And user selects "Delete" from "Switch settings" screen
+      When user "confirms" the "Device not found" popup
      Then user should be displayed with the "Exclusion Mode Active" screen
      When user "activates" the "switch" function key
      Then user should receive a "Switch Excluded Successfully" popup
      When user "confirms" the "Device Excluded" popup
       And user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should not be displayed with "Switch" device on dashboard
+     Then user should not be displayed with "Switch1" device on dashboard
   
   @GeneralIncludeZwaveSwitch @Reviewed @LYDAS-5507
   Scenario: (ZwaveTC9) As a user I should be able to exclude a zwave switch through General Inclusion in the application
@@ -196,11 +197,11 @@ As a user I want to control all devices using ZWave technology
   @GeneralExcludeZwaveSwitch @Reviewed
   Scenario: (ZwaveTC10) As a user I should be able to exclude a zwave switch through General exclusion in the application
       And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device(General Exclusion)" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave device through General Exclusion" screen from the "Dashboard" screen
      Then user should be displayed with the "Exclusion Mode Active" screen
      When user "activates" the "switch" function key
      Then user should receive a "Switch Excluded Successfully" popup
-     When user "dismisses" the "Further Exclusion" popup 
+     When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from "Z-Wave Utilities" screen
      Then user should not be displayed with "Switch" device on dashboard

@@ -111,6 +111,9 @@ public class ZwaveScreen extends MobileScreens{
 		public boolean clickOKOnDeviceExcludedPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
 		}
+		public boolean clickOKOnDeviceNotFoundPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "NoDeviceToExcludePopupDismiss");
+		}
 		public boolean clickAddNowOnDeviceExcludedPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNowOption");
 		}
@@ -140,6 +143,14 @@ public class ZwaveScreen extends MobileScreens{
 		
 		public boolean clickGeneralDeviceExclusionMenu() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceExclusion");
+		}
+		
+		public boolean clickCancelFurtherExclusionOnExcludedPopup() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralExcludeCancelFurthur");
+		}
+		
+		public boolean clickConfirmFurtherExclusionOnExcludedPopup() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralExcludeCorfirmFurthur");
 		}
 		
 		public boolean clickControllerFactoryResetMenu() {
