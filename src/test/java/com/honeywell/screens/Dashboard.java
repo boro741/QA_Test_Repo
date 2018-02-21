@@ -8,7 +8,6 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
-import com.honeywell.commons.report.FailType;
 
 public class Dashboard extends MobileScreens {
 

@@ -27,8 +27,12 @@ public class AddNewDeviceScreen extends MobileScreens{
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveList");
 	}
+	
+	public boolean isFetchingDevicesListProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingDevicesLoadingSpinnerMsg", 3);
+	}
 
-	public boolean isAddNewDeviceHeaderDisplayed(){
+    public boolean isAddNewDeviceHeaderDisplayed(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader");
 	}
 

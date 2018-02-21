@@ -12,10 +12,79 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class DIYRegistrationUtils {
-	
+
+	/**
+	 * <h1>Wait for device list progress bar to complete</h1>
+	 * <p>
+	 * The waitForFetchingDeviceListProgressBarToComplete method waits until the
+	 * progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
+	public static boolean waitForFetchingDeviceListProgressBarToComplete(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (addNewDevice.isFetchingDevicesListProgressBarVisible()) {
+							System.out.println("Waiting for Fetching Devices List loading spinner to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Waiting for Fetching Devices List loading spinner diasppeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Fetching Devices List loading spinner did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+
+	/**
+	 * <h1>Wait for progress bar to close</h1>
+	 * <p>
+	 * The waitForLookingForBaseStationProgressBarToComplete method waits until the
+	 * progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
 	public static boolean waitForLookingForBaseStationProgressBarToComplete(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -51,7 +120,27 @@ public class DIYRegistrationUtils {
 
 		return flag;
 	}
-	
+
+	/**
+	 * <h1>Select a base station</h1>
+	 * <p>
+	 * The selectABaseStation method selects a base station from the list of
+	 * stations displayed.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
+	 */
 	public static boolean selectABaseStation(TestCases testCase, TestCaseInputs inputs, String macID) throws Exception {
 		boolean flag = true;
 		String locatorType, locatorValue;
@@ -103,7 +192,23 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
-	
+
+	/**
+	 * <h1>Wait for progress bar to close</h1>
+	 * <p>
+	 * The waitForLookingForNetworkConnectionProgressBarToComplete method waits
+	 * until the progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
 	public static boolean waitForLookingForNetworkConnectionProgressBarToComplete(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -140,6 +245,22 @@ public class DIYRegistrationUtils {
 		return flag;
 	}
 
+	/**
+	 * <h1>Wait for progress bar to close</h1>
+	 * <p>
+	 * The waitForConnectingSmartHomeSecurityProgressBarToComplete method waits
+	 * until the progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
 	public static boolean waitForConnectingSmartHomeSecurityProgressBarToComplete(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -175,7 +296,25 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
-	
+
+	/**
+	 * <h1>Create passcode after DIY Registration</h1>
+	 * <p>
+	 * The createPasscodeAfterDIYRegistration method creates a passcode after DIY
+	 * Registration
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @return boolean Returns 'true' if the passcode is created. Returns 'false' if
+	 *         the passcode is not created.
+	 */
 	public static boolean createPasscodeAfterDIYRegistration(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		DASDIYRegistrationScreens dd = new DASDIYRegistrationScreens(testCase);

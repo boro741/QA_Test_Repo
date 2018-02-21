@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
@@ -65,8 +66,9 @@ public class VerifyScreen extends Keyword {
 			}
 			break;
 		}
-		case "ADD NEW DEVICE":{
+		case "ADD NEW DEVICE DASHBOARD":{
 			AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
+			DIYRegistrationUtils.waitForFetchingDeviceListProgressBarToComplete(testCase);
 			if(addDeviceSrceen.isAddNewDeviceHeaderDisplayed()){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
 			}else{
