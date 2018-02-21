@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class DeleteDeviceFromApp extends Keyword {
 
@@ -36,19 +35,12 @@ public class DeleteDeviceFromApp extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user deletes (.*) (.*) from (.*) through the application$")
 	public boolean keywordSteps() throws KeywordException {
-		/*String dasDeviceUDID = "";
-		if (inputs.isInputAvailable("COLLECT_LOGS")) {
-			dasDeviceUDID = inputs.getInputValue("DAS_DEVICE_UDID");
-			DASRegistrationUtils.collectLogsAfterRegistration(testCase, inputs,
-					dasDeviceUDID);
-		}*/
-		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		try {
 			if (parameters.get(1).equalsIgnoreCase("DAS")) {
 				try
 				{
-					flag = flag & dasDIY.deleteDASDeviceThroughApp(testCase,
-							inputs, parameters.get(0));
+					/*flag = flag & dasDIY.deleteDASDeviceThroughApp(testCase,
+							inputs, parameters.get(0));*/
 				}
 				catch(Exception e)
 				{

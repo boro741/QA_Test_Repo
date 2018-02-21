@@ -1,18 +1,12 @@
 package com.honeywell.keywords.lyric.common;
 
-import java.util.HashMap;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
-import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 
 public class CreatePasscodeAfterRegistration extends Keyword {
 
@@ -34,8 +28,7 @@ public class CreatePasscodeAfterRegistration extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user creates a passcode if required$")
 	public boolean keywordSteps() {
-		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-		dasDIY.createPasscodeAfterDIYRegistration(testCase, inputs);
+		DIYRegistrationUtils.createPasscodeAfterDIYRegistration(testCase, inputs);
 		return flag;
 	}
 

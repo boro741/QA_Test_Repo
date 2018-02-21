@@ -402,15 +402,21 @@ Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-#When user selects "Lenovo Vibe X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
+Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
+When user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+And user should be displayed with <device name> device on dashboard
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name                           | device name                     | 
@@ -434,10 +440,12 @@ Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-When user logs out of the Lyric app and logs into the Lyric app again
-Then user should be displayed with "Security" device on dashboard
-And user should be displayed with <device name> device on dashboard 
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name                           | device name                     | 
@@ -458,20 +466,44 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
 When user selects a base station with MAC ID "B8:2C:A0:00:07:D8"
 When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-#When user selects "Lenovo Vibe X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
+Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
+When user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+And user should be displayed with <device name> device on dashboard
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
+When user selects a base station with MAC ID "B8:2C:A0:00:07:D8"
+When user navigates to "Connect to Network" screen from the "Register Base Station" screen
+Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
+When user inputs "vibex888" as the WiFi Password 
+Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+And user creates a passcode if required
+Then user should be displayed with "Security" device on dashboard
+And user should be displayed with <device name> device on dashboard
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
-      | location name                           | device name                     | 
-      | Home                                    | Living Room                     |
-
+      | location name | device name  | 
+      | Home          | Living Room  |
 
 @DIYRegistrationByReceivingCallsAndMsgs
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
@@ -500,10 +532,12 @@ Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-When user logs out of the Lyric app and logs into the Lyric app again
-Then user should be displayed with "Security" device on dashboard
-And user should be displayed with <device name> device on dashboard 
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name                           | device name                     | 
@@ -542,7 +576,12 @@ And user clicks on "SKIP" button
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name | device name  | 
@@ -571,7 +610,12 @@ And user clicks on "SKIP" button
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name | device name  | 
@@ -603,7 +647,12 @@ And user clicks on "SKIP" button
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name | device name  | 
@@ -640,11 +689,16 @@ When user navigates to other apps and navigates back to Lyric app
 And user clicks on "SKIP" button
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
-When user navigates to other apps and navigates back to Lyric app
 And user should be displayed with <device name> device on dashboard
 When user navigates to other apps and navigates back to Lyric app
-And user deletes <device name> "DAS" from <location name> through the application
-When user navigates to other apps and navigates back to Lyric app
+Then user should be displayed with "Security" device on dashboard
+And user should be displayed with <device name> device on dashboard
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples: 
       | location name | device name  | 
@@ -732,7 +786,7 @@ Examples:
       | Home          | Living Room  |
 
 @DIYTryToReRegisterDASWhenDASIsOffline
-Scenario: As a user I should not see the DAS device in the list of base stations when I try to reregister DAS after turning off the DAS
+Scenario Outline: As a user I should not see the DAS device in the list of base stations when I try to reregister DAS after turning off the DAS
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -759,6 +813,10 @@ Then user navigates to "Power Base Station Instructions" screen from the "Power 
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 Then user should not see the registered DAS device in the list of base stations
 
+Examples: 
+      | location name | device name  | 
+      | Home          | Living Room  |
+
 @DIYDeleteExistingDASAndRegisterIt
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
 Given user launches and logs in to the Lyric application
@@ -777,7 +835,15 @@ Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to other apps and navigates back to Lyric app
+Then user should be displayed with "Security" device on dashboard
+And user should be displayed with <device name> device on dashboard
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 And user navigates to "Choose Location" screen from the "Smart Home Security" screen
@@ -793,7 +859,15 @@ Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
-And user deletes <device name> "DAS" from <location name> through the application
+When user navigates to other apps and navigates back to Lyric app
+Then user should be displayed with "Security" device on dashboard
+And user should be displayed with <device name> device on dashboard
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
 
 Examples:
       | location name | device name  | 

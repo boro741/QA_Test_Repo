@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -316,7 +317,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SMART HOME SECURITY": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					flag = flag & dasDIY.clickOnSmartHomeSecurityButton();
+					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
 					break;
 				}
 				}
@@ -337,8 +338,8 @@ public class NavigateToScreen extends Keyword {
 					if (dasDIY.isNextButtonVisible()) {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
-					dasDIY.waitForLookingForBaseStationProgressBarToComplete();
-					dasDIY.verifyRegisterBaseStationHeaderTitle();
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					dasDIY.isRegisterBaseStationHeaderTitleVisible();
 					dasDIY.isQRCodeDisplayed();
 					dasDIY.scanQRCode();
 					break;
@@ -348,8 +349,8 @@ public class NavigateToScreen extends Keyword {
 					if (dasDIY.isNextButtonVisible()) {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
-					dasDIY.waitForLookingForBaseStationProgressBarToComplete();
-					dasDIY.verifyMultipleBaseStationsSubHeaderTitle();
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 					break;
 				}
 				}
@@ -357,8 +358,8 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "CONNECT TO NETWORK": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.waitForLookingForNetworkConnectionProgressBarToComplete();
-					dasDIY.verifyConnectToNetworkHeaderTitle();
+					DIYRegistrationUtils.waitForLookingForNetworkConnectionProgressBarToComplete(testCase);
+					dasDIY.isConnectToNetworkHeaderTitleVisible();
 					break;
 				}
 				}
@@ -366,7 +367,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "SMART HOME SECURITY SUCCESS": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.verifySmartHomeSecuritySuccessHeaderTitle();
+					dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
 					if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
 						dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
 					}
@@ -377,7 +378,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.verifyGeoFencingHeaderTitle();
+					dasDIY.isGeoFencingHeaderTitleVisible();
 					if (dasDIY.isSkipButtonInGeoFencingScreenVisible()) {
 						dasDIY.clickOnSkipButtonInGeoFencingScreen();
 					}
@@ -388,7 +389,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE AMAZON ALEXA": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.verifyAmazonAlexaHeaderTitle();
+					dasDIY.isAmazonAlexaHeaderTitleVisible();
 					if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
 						dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
 					}

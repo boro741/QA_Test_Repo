@@ -53,9 +53,7 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 
 public class LyricUtils {
-	
-	public static String xpathAttribute = "//android.widget.TextView[@text='";
-	public static String listOfDevicesElements= "view_install_device_row_text";
+
 	/**
 	 * <h1>Take Screenshot</h1>
 	 * <p>
@@ -622,9 +620,9 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
@@ -884,106 +882,60 @@ public class LyricUtils {
 		return flag;
 	}
 
-	public static void scrollList(TestCases testCase, String locatorType, String locatorValue) {
-		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);
+
+	/**
+	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
+	 * <p>
+	 * The scrollToElementUsingExactAttributeValue method scrolls to an element
+	 * using the attribute and exact value passed to the method in the parameters.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
+	 */
+	public static boolean scrollUpAList(TestCases testCase, HashMap<String, MobileObject> objectDefinition,
+			String objectName) throws Exception {
+		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, objectName);
 		Dimension d1;
 		Point p1;
-		int startx;
-		int starty;
-		int endy;
-		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+		int startx = -1;
+		int starty = -1;
+		int endy = -1;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();
 			startx = p1.getX();
-			starty = d1.getHeight();
-			endy = -p1.getY() / 10;
-		} else {
-			d1 = ele.getSize();
-			p1 = ele.getLocation();
-			starty = (int) (d1.height * 0.80);
-			endy = (int) -((d1.height * 0.50) + p1.getY());
-			startx = d1.width / 2;
+			starty = (int) (d1.height * 0.90) + p1.getY();
+			endy = (int) (d1.height * 0.60) + p1.getY();
 		}
-		//testCase.getMobileDriver().swipe(startx, starty, startx, endy, 500);
-		touchAction.press(startx, starty).waitAction(MobileUtils.getDuration(2000)).moveTo(startx, endy)
-		.release();
-		touchAction.perform();
+		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
 	}
-	
-	public static void scrollList1(TestCases testCase, String locatorType, String locatorValue) {
-		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);
+
+	public static boolean scrollUpAList(TestCases testCase, String locatorType, String locatorValue) throws Exception {
+		WebElement ele = MobileUtils.getMobElement(testCase, "id", "fragment_add_new_device_list");
 		Dimension d1;
 		Point p1;
-		int startx;
-		int starty;
-		int endy;
+		int startx = -1;
+		int starty = -1;
+		int endy = -1;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();
 			startx = p1.getX();
-			starty = d1.getHeight();
-			endy = -p1.getY();
-		} else {
-			d1 = ele.getSize();
-			p1 = ele.getLocation();
-			starty = (int) (d1.height * 0.80);
-			endy = (int) -((d1.height * 0.50) + p1.getY());
-			startx = d1.width / 2;
+			starty = (int) (d1.height * 0.90) + p1.getY();
+			endy = (int) (d1.height * 0.60) + p1.getY();
 		}
-		testCase.getMobileDriver().swipe(startx, starty, startx, endy, 500);
-	}
-	
-	public static boolean selectDeviceToInstall(TestCases testCase, String deviceToInstall) {
-		boolean flag = true;
-		String xpath;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			xpath = xpathAttribute + deviceToInstall + "']";
-			if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
-				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
-			} else {
-				// testCase.getMobileDriver().scrollTo(deviceToInstall);
-				WebElement ele = MobileUtils.getMobElement(testCase, "id", listOfDevicesElements);
-				Dimension d1 = ele.getSize();
-				Point p1 = ele.getLocation();
-				testCase.getMobileDriver().swipe(p1.getX(), d1.getHeight(), p1.getX(), -p1.getY(), 500);
-				if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
-				} else {
-					testCase.getMobileDriver().swipe(p1.getX(), d1.getHeight(), p1.getX(), -p1.getY(), 500);
-					if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
-						flag = flag & MobileUtils.clickOnElement(testCase, "xpath", xpath);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find device : " + deviceToInstall);
-					}
-				}
-			}
-		} else {
-			if (MobileUtils.isMobElementExists("name", deviceToInstall, testCase, 3)) {
-				flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceToInstall);
-			} else {
-				Dimension d1 = MobileUtils.getMobElement(testCase, "xpath", "//XCUIElementTypeTable").getSize();
-				int startx = (int) (d1.width * 0.70);
-				int starty = (int) (d1.height * 0.80);
-				int endy = (int) (d1.height * 0.50);
-				testCase.getMobileDriver().swipe(startx, starty, startx, -endy, 500);
-				if (MobileUtils.isMobElementExists("name", deviceToInstall, testCase, 3)) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceToInstall);
-				} else {
-					testCase.getMobileDriver().swipe(startx, starty, startx, -endy, 500);
-					if (MobileUtils.isMobElementExists("name", deviceToInstall, testCase, 3)) {
-						flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceToInstall);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find device : " + deviceToInstall);
-					}
-				}
-			}
-		}
-		return flag;
+		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
 	}
 
 	/**
@@ -1113,7 +1065,6 @@ public class LyricUtils {
 	public static boolean verifyDeviceDisplayedOnDashboard(TestCases testCase, String deviceName) {
 		boolean flag = true;
 		Dashboard d = new Dashboard(testCase);
-		System.out.println("#########deviceName: " + deviceName);
 		if (d.isDevicePresentOnDashboard(deviceName)) {
 			Keyword.ReportStep_Pass(testCase, "Device : " + deviceName + " is present on the dashboard.");
 		} else {
@@ -1123,14 +1074,15 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Verify if Device is still displayed in dashboard after deleting it</h1>
 	 * <p>
-	 * The verifyDeviceNotDisplayedOnDashboard method verifes if device is still displayed in dashboard after deleting it.
+	 * The verifyDeviceNotDisplayedOnDashboard method verifes if device is still
+	 * displayed in dashboard after deleting it.
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H1179225)
+	 * @author Pratik P. Lalseta (H119237)
 	 * @version 1.0
 	 * @since 2018-02-19
 	 * @param testCase
@@ -1138,8 +1090,9 @@ public class LyricUtils {
 	 * @param inputs
 	 *            Instance of the TestCaseInputs class used to pass inputs to the
 	 *            testCase instance.
-	 * @return boolean Returns 'true' if device is not displayed in dashboard screen.
-	 *         Returns 'false' if device is still displayed in dashboard screen.
+	 * @return boolean Returns 'true' if device is not displayed in dashboard
+	 *         screen. Returns 'false' if device is still displayed in dashboard
+	 *         screen.
 	 */
 	public static boolean verifyDeviceNotDisplayedOnDashboard(TestCases testCase, TestCaseInputs inputs,
 			String expectedDevice) {
@@ -1187,14 +1140,14 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Navigate to DAS Settings screen</h1>
 	 * <p>
 	 * The navigateToDASSettings method navigates user to DAS Settings screen.
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H1179225)
+	 * @author Pratik P. Lalseta (H119237)
 	 * @version 1.0
 	 * @since 2018-02-19
 	 * @param testCase
@@ -1202,48 +1155,35 @@ public class LyricUtils {
 	 * @param inputs
 	 *            Instance of the TestCaseInputs class used to pass inputs to the
 	 *            testCase instance.
-	 * @return boolean Returns 'true' if navigation to DAS Settings is
-	 *         successfully. Returns 'false' if navigation to DAS
-	 *         Settings screen fails.
+	 * @return boolean Returns 'true' if navigation to DAS Settings is successfully.
+	 *         Returns 'false' if navigation to DAS Settings screen fails.
 	 */
-	public static boolean navigateToDASSettings(TestCases testCase,
-			String dasDeviceName) {
+	public static boolean navigateToDASSettings(TestCases testCase, String dasDeviceName) {
 		boolean flag = true;
-		System.out.println("#########dasDeviceName: " + dasDeviceName);
-		HashMap<String, MobileObject> fieldObjects = MobileUtils
-				.loadObjectFile(testCase, "DIYRegistration");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase,
-				"GlobalDrawerButton", 5)) {
-			flag = flag
-					& MobileUtils.clickOnElement(fieldObjects, testCase,
-							"GlobalDrawerButton");
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DIYRegistration");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "GlobalDrawerButton");
 		} else {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Could not find Global Drawer button");
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Global Drawer button");
 		}
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase,
-					"GlobalDrawerIconList", 3)) {
-				List<WebElement> icons = MobileUtils.getMobElements(
-						fieldObjects, testCase, "GlobalDrawerIconList");
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerIconList", 3)) {
+				List<WebElement> icons = MobileUtils.getMobElements(fieldObjects, testCase, "GlobalDrawerIconList");
 				boolean iconFound = false;
 				for (WebElement icon : icons) {
-					if (icon.getAttribute("text").equalsIgnoreCase(
-							dasDeviceName)) {
+					if (icon.getAttribute("text").equalsIgnoreCase(dasDeviceName)) {
 						iconFound = true;
 						icon.click();
 						break;
 					}
 				}
 				if (iconFound) {
-					Keyword.ReportStep_Pass(testCase,
-							"Successfully clicked on '" + dasDeviceName + "'");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on '" + dasDeviceName + "'");
 				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase,
-							FailType.FUNCTIONAL_FAILURE, "'" + dasDeviceName
-									+ "' not found in Global Drawer list");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"'" + dasDeviceName + "' not found in Global Drawer list");
 				}
 
 			} else {
@@ -1253,28 +1193,24 @@ public class LyricUtils {
 			}
 
 		} else {
-			if (MobileUtils.isMobElementExists("name", dasDeviceName, testCase,
-					3, false)) {
-				flag = flag
-						& MobileUtils.clickOnElement(testCase, "name",
-								dasDeviceName);
+			if (MobileUtils.isMobElementExists("name", dasDeviceName, testCase, 3, false)) {
+				flag = flag & MobileUtils.clickOnElement(testCase, "name", dasDeviceName);
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Could not find " + dasDeviceName
-								+ " Device button in the Global Drawer List");
+						"Could not find " + dasDeviceName + " Device button in the Global Drawer List");
 			}
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Enter passcode in create passcode popup after DIY Registration</h1>
 	 * <p>
 	 * The enterPasscode method enters desired passcode after DIY Registration.
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H1179225)
+	 * @author Pratik P. Lalseta (H119237)
 	 * @version 1.0
 	 * @since 2018-02-19
 	 * @param testCase
@@ -1283,8 +1219,8 @@ public class LyricUtils {
 	 *            Instance of the TestCaseInputs class used to pass inputs to the
 	 *            testCase instance.
 	 * @return boolean Returns 'true' if passcode is entered successfully
-	 *         successfully. Returns 'false' if error occurs while entering
-	 *         a passcode.
+	 *         successfully. Returns 'false' if error occurs while entering a
+	 *         passcode.
 	 */
 	public static boolean enterPasscode(TestCases testCase, String passcode) {
 		boolean flag = true;
@@ -1327,14 +1263,14 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Create Passcode after DIY Registration</h1>
 	 * <p>
 	 * The createPasscode method creates passcode after DIY Registration.
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H1179225)
+	 * @author Pratik P. Lalseta (H119237)
 	 * @version 1.0
 	 * @since 2018-02-19
 	 * @param testCase
@@ -1342,9 +1278,8 @@ public class LyricUtils {
 	 * @param inputs
 	 *            Instance of the TestCaseInputs class used to pass inputs to the
 	 *            testCase instance.
-	 * @return boolean Returns 'true' if passcode is created
-	 *         successfully. Returns 'false' if error occurs while creating
-	 *         a passcode.
+	 * @return boolean Returns 'true' if passcode is created successfully. Returns
+	 *         'false' if error occurs while creating a passcode.
 	 */
 	public static boolean createPasscode(TestCases testCase, String passcode) {
 		boolean flag = true;
@@ -1373,8 +1308,7 @@ public class LyricUtils {
 									"Failed to set the passcode to: " + passcode);
 						}
 					}
-					if(MobileUtils.isMobElementExists("xpath", "//*[@text='Add Fingerprint Unlock']", testCase,5))
-					{
+					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Add Fingerprint Unlock']", testCase, 5)) {
 						flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='No' or @text='NO']");
 					}
 				}
@@ -1398,8 +1332,7 @@ public class LyricUtils {
 								"Failed to set the passcode to: " + passcode);
 					}
 				}
-				if(MobileUtils.isMobElementExists("name", "Add Touch ID", testCase,5))
-				{
+				if (MobileUtils.isMobElementExists("name", "Add Touch ID", testCase, 5)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "name", "No");
 				}
 			}

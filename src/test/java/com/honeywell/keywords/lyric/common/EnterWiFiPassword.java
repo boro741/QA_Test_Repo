@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -9,9 +8,7 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
-import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class EnterWiFiPassword extends Keyword {
@@ -40,7 +37,7 @@ public class EnterWiFiPassword extends Keyword {
 		dasDIY.enterWiFiPassword(expectedWiFiPassword.get(0));
 		if(dasDIY.isJoinButtonInConnectToNetworkScreenVisible()) {
 			dasDIY.clickOnJoinButtonInConnectToNetworkScreen();
-			dasDIY.waitForConnectingSmartHomeSecurityProgressBarToComplete();
+			DIYRegistrationUtils.waitForConnectingSmartHomeSecurityProgressBarToComplete(testCase);
 		}
 		return flag;
 	}

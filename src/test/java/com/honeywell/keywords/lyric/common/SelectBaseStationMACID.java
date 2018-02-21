@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -9,9 +8,8 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class SelectBaseStationMACID extends Keyword {
@@ -40,9 +38,13 @@ public class SelectBaseStationMACID extends Keyword {
 	public boolean keywordSteps() {
 		if (testCase.isTestSuccessful()) {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.selectABaseStation(testCase, inputs, expectedMACID.get(0));
-			dasDIY.waitForLookingForBaseStationProgressBarToComplete();
-			dasDIY.verifyRegisterBaseStationHeaderTitle();
+			try {
+				DIYRegistrationUtils.selectABaseStation(testCase, inputs, expectedMACID.get(0));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+			dasDIY.isRegisterBaseStationHeaderTitleVisible();
 			dasDIY.isQRCodeDisplayed();
 			dasDIY.scanQRCode();
 		} else {

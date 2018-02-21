@@ -77,7 +77,7 @@ public class VerifyScreen extends Keyword {
 		}
 		case "CHOOSE LOCATION":{
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.verifyChooseLocationHeaderTitle()){
+			if(dasDIY.isChooseLocationHeaderTitleVisible()){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
 			}else{
 				flag=false;
@@ -87,7 +87,7 @@ public class VerifyScreen extends Keyword {
 		}
 		case "NAME YOUR BASE STATION": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.verifyNameYourBaseStationHeaderTitle()) {
+			if(dasDIY.isNameYourBaseStationHeaderTitleVisible()) {
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
 			} else {
 				flag=false;
@@ -97,7 +97,7 @@ public class VerifyScreen extends Keyword {
 		}
 		case "POWER BASE STATION": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.verifyPowerYourBaseStationHeaderTitle() && dasDIY.isNextButtonVisible()) {
+			if(dasDIY.isPowerYourBaseStationHeaderTitleVisible() && dasDIY.isNextButtonVisible()) {
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
 			} else {
 				flag=false;
