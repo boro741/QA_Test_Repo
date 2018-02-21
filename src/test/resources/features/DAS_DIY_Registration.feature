@@ -39,8 +39,8 @@ And user should be displayed with the "Choose Location" screen
 Then user inputs <location name> as the custom location
 Then user should be displayed with the "Confirm your address ZIP Code" screen
 And user inputs "invalid ZIP code" as address ZIP code
-Then user should receive a "ZIP code Validation Error" pop up
-When user "accepts" the "ZIP code Validation Error" pop up
+Then user should receive a "ZIP code Validation Error" popup
+When user "accepts" the "ZIP code Validation Error" popup
 And user inputs  "valid ZIP code" as address ZIP code
 Then user should be displayed with the "Name Your Base Station" screen
 And user clicks on "Back arrow" button
@@ -91,41 +91,43 @@ Then user should be displayed with the "Power Base Station" screen
 And user clicks on "Next" button
 Then user should be displayed with the "Power Base Station Instructions" screen
 And user clicks on "Next" button
-Then user should receive a "Location services" pop up
-And user "denies access" in "Location services" pop up
+Then user should receive a "Location services" popup
+And user "denies access" in "Location services" popup
 Then user should be displayed with the "Power Base Station" screen
 And user clicks on "Next" button
-Then user should receive a "Location services" pop up
-And user "allows access" in "Location services" pop up
+Then user should receive a "Location services" popup
+And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen
 When user turns "off" location services for Lyric app in mobile settings
 And user navigates to "Power Base Station Instructions" screen from "Power Base Station" screen
-Then user should receive a "Location services" pop up
-And user "allows access" in "Location services" pop up
+Then user should receive a "Location services" popup
+And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen 
 
 @DIYWhenNoBaseStationsAreAvailable
-Scenario: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
-Given No base stations are available for pairing
-And user launches and logs in to the Lyric application
+Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user clicks on "Next" button
-Then user should be displayed with the "Looking for Base Station" screen
-Then user should receive a "Base Station Not Found" pop up
-And user "clicks on OK" in "Base Station Not Found" pop up
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-And user clicks on "Next" button
-Then user should be displayed with the "Power Base Station Instructions" screen
-And user clicks on "Next" button
-Then user should be displayed with the "Looking for Base Station" screen
-And user should receive a "Base Station Not Found" pop up
-Then user "retries base station pairing" in "Base Station Not Found" pop up
-And user should be displayed with the "Looking for Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Looking for Base Station" screen from the "Power Base Station Instructions" screen
+Then user should receive a "Base Station Not Found" popup
+And user "clicks on OK in" the "Base Station Not Found" popup
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Looking for Base Station" screen from the "Power Base Station Instructions" screen
+And user should receive a "Base Station Not Found" popup
+Then user "retries base station pairing in" the "Base Station Not Found" popup
+Then user should receive a "Base Station Not Found" popup
+And user "clicks on OK in" the "Base Station Not Found" popup
+
+Examples: 
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYCancelSetUpInRegisterBaseStation
 Scenario: As a user I should be able to cancel set up in Register Base Station screen
@@ -138,11 +140,11 @@ And user navigates to "Power Base Station" screen from the "Name Your Base Stati
 Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user clicks on "Back arrow" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Register Base Station" screen
 When user clicks on "Back arrow" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
 
@@ -157,7 +159,7 @@ And user navigates to "Power Base Station" screen from the "Name Your Base Stati
 Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user does not scan QR code for "2" minutes
-Then user should receive a "scanning failure" pop up
+Then user should receive a "scanning failure" popup
 When user clicks on "RETRY" button
 Then user should be displayed with the "Register Base Station" screen
 And user scans the QR code by showing it to the base station camera
@@ -174,7 +176,7 @@ And user navigates to "Power Base Station" screen from the "Name Your Base Stati
 Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans "invalid" QR code
-Then user should receive a "scanning failure" pop up
+Then user should receive a "scanning failure" popup
 When user clicks on "RETRY" button
 Then user should be displayed with the "Register Base Station" screen
 And user scans "valid" QR code
@@ -200,7 +202,7 @@ And user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 
 @DIYDisconnectDASDevice
-Scenario: As a user I should be prompted with Bluetooth disconnected pop up when DAS device is disconnected
+Scenario: As a user I should be prompted with Bluetooth disconnected popup when DAS device is disconnected
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -209,7 +211,7 @@ Then user navigates to "Name Your Base Station" screen from the "Choose Location
 And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
 Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 When user disconnects the DAS device
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 When user clicks on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 And user clicks on "Next" button
@@ -221,12 +223,12 @@ And user should be displayed with the "Register Base Station" screen
 And user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 When user disconnects the DAS device
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 When user clicks on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
 @DIYTimeoutInDASDevice
-Scenario: As a user I should be prompted with Bluetooth disconnected pop up when timeout happens in DAS device
+Scenario: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in DAS device
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -238,7 +240,7 @@ And user navigates to "Register Base Station" screen from the "Power Base Statio
 When user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 When user waits until timeout happens in DAS device
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 When user clicks on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
@@ -252,16 +254,16 @@ And user navigates to "Choose Location" screen from the "Smart Home Security" sc
 Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
 And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
 And user clicks on "Next" button
-Then user should receive a "Bluetooth is Off" pop up
-And user "clicks on OK" in "Bluetooth is Off" pop up
+Then user should receive a "Bluetooth is Off" popup
+And user "clicks on OK" in "Bluetooth is Off" popup
 Then user should be displayed with the "Power Base Station" screen
 And user turns "on" mobile device Bluetooth
 When user opens the DAS app and cicks on "Next" button
 Then user should be displayed with the "Power Base Station Instructions" screen
 And user turns "off" mobile device Bluetooth
 When user opens the DAS app and cicks on "Next" button
-Then user should receive a "Bluetooth is Off" pop up
-And user "clicks on SETTINGS" in "Bluetooth is Off" pop up
+Then user should receive a "Bluetooth is Off" popup
+And user "clicks on SETTINGS" in "Bluetooth is Off" popup
 Then user should be displaeyd with the "Device Settings" screen
 And user turns "on" mobile device Bluetooth
 When user opens the DAS app and clicks on "Next" button
@@ -271,7 +273,7 @@ Then user should be displayed with the "Looking for Base Station" screen
 When there is one base station available
 Then user should be displayed with "Register Base Station" screen
 When user turns "off" mobile device Bluetooth
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 And user turns "on" mobile device Bluetooth
@@ -284,7 +286,7 @@ Then user should be displayed with "Register Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 When user turns "off" mobile device Bluetooth
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
@@ -303,16 +305,16 @@ Then user should be displayed with the "Connect to Network" screen
 When user clicks on "Add A Network" button
 Then user should be displayed with the "Connect to Network" screen
 When user clicks on "Cancel" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Connect to Network" screen
 When user clicks on "Cancel" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
 
 @DIYMoveAwayFromDASDeviceAfterScanningQRCode
-Scenario: As a user I should be prompted with Bluetooth Disconnected pop up when I move away from DAS device after scanning the QR code
+Scenario: As a user I should be prompted with Bluetooth Disconnected popup when I move away from DAS device after scanning the QR code
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -321,7 +323,7 @@ Then user navigates to "Name Your Base Station" screen from the "Choose Location
 And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
 Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 And user clicks on "Next" button
@@ -333,7 +335,7 @@ And user should be displayed with the "Register Base Station" screen
 And user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 When user moves away from DAS Device
-Then user should receive a "Bluetooth Disconnected" pop up
+Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
@@ -353,9 +355,9 @@ When user clicks on "Add A Network" button
 Then user should be displayed with the "Connect to Network" screen
 And user clicks on "security type" button
 When user enters "invalid" new network credentials and tries to join the network
-Then user should receive a "WiFi Connection timeout" pop up
+Then user should receive a "WiFi Connection timeout" popup
 And user clicks on "RETRY" button
-Then user should receive a "WiFi Connection timeout" pop up
+Then user should receive a "WiFi Connection timeout" popup
 And user clicks on "OK" button
 Then user should be displayed with the "Connect to Network" screen
 When user enters "valid" new network credentials and tries to join the network
@@ -378,15 +380,15 @@ Then user should be displayed with the "Enter your Wi-Fi password" screen
 When user inputs "Invalid password" as the WiFi Password
 And user clicks on "Next" button
 Then user should be displayed with the "Connecting Smart Home Security" screen
-And user should receive a "Wi-Fi Connection Failed" pop up
+And user should receive a "Wi-Fi Connection Failed" popup
 And user clicks on "OK" button
 Then user should be displayed with the "Enter your Wi-Fi password" screen
 When user clicks on "Cancel" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Connect to Network" screen
 When user clicks on "Cancel" button
-Then user should receive a "Cancel Setup" pop up
+Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
 
@@ -558,7 +560,7 @@ And user navigates to "Register Base Station" screen from the "Power Base Statio
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 And user clicks on "security type" button
 When user enters "invalid" new network credentials and tries to join the network
-Then user should receive a "WiFi Connection timeout" pop up
+Then user should receive a "WiFi Connection timeout" popup
 And user clicks on "OK" button
 Then user should be displayed with the "Connect to Network" screen
 When user clicks on "Available Network" button
@@ -705,7 +707,7 @@ Examples:
       | Home          | Living Room  |
 
 @DIYTryToReRegisterDAS
-Scenario Outline: As a user I should be prompted with device already registered pop up when I try to reregister DAS using the Lyric application
+Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -745,7 +747,7 @@ Examples:
       | Home          | Living Room  |
 
 @DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS
-Scenario Outline: As a user I should be prompted with device already registered pop up when I try to reregister DAS after performing factory settings on the registered DAS
+Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS after performing factory settings on the registered DAS
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen

@@ -333,6 +333,14 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "LOOKING FOR BASE STATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+					}
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					break;
+				}
 				case "REGISTER BASE STATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isNextButtonVisible()) {

@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
@@ -147,6 +148,29 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if(dasDIY.isYesButtonInCancelPopupVisible()) {
 					dasDIY.clickOnYesButtonInCancelPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("BASE STATION NOT FOUND")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isOKButtonInBaseStationNotFoundPopupVisible()) {
+					dasDIY.clickOnOKButtonInBaseStationNotFoundPopup();
+				}
+				break;
+			}
+			case "RETRIES BASE STATION PAIRING IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+					dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
 				}
 				break;
 			}

@@ -13,6 +13,9 @@ SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	X
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	"//XCUIElementTypeStaticText[@name=""Location Name""]"	XPATH	"//XCUIElementTypeStaticText[@name=""Location Name""]"	XPATH	"//XCUIElementTypeStaticText[@name=""Location Name""]"
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	XPATH	"//XCUIElementTypeButton[@name=""Next""]"	XPATH	"//XCUIElementTypeButton[@name=""Next""]"	XPATH	"//XCUIElementTypeButton[@name=""Next""]"
 LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	XPATH	"//XCUIElementTypeOther[@name=""Activity_Indicator_View""]"	XPATH	"//XCUIElementTypeOther[@name=""Activity_Indicator_View""]"	XPATH	"//XCUIElementTypeOther[@name=""Activity_Indicator_View""]"
+BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']						
+OKButtonInBaseStationNotFounPopup	ID	button2	ID	button2	ID	button2						
+RetryButtonInBaseStationNotFoundPopup	ID	button1	ID	button1	ID	button1						
 RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	"(//XCUIElementTypeStaticText[@name=""Location Name""])[3]"	XPATH	"(//XCUIElementTypeStaticText[@name=""Location Name""])[3]"	XPATH	"(//XCUIElementTypeStaticText[@name=""Location Name""])[3]"
 MultipleBaseStationsScreenSubHeaderTitle	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']						
 BaseStationMACID	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']						

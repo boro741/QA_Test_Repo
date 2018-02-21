@@ -92,6 +92,26 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isRegisterBaseStationHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RegisterBaseStationHeaderTitle");
 	}
+	
+	public boolean isBaseStationNotFoundPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationNotFounPopupTitle");
+	}
+	
+	public boolean isOKButtonInBaseStationNotFoundPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInBaseStationNotFounPopup");
+	}
+	
+	public boolean clickOnOKButtonInBaseStationNotFoundPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInBaseStationNotFounPopup");
+	}
+	
+	public boolean isRetryButtonInBaseStationNotFoundPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RetryButtonInBaseStationNotFoundPopup");
+	}
+	
+	public boolean clickOnRetryButtonInBaseStationNotFoundPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryButtonInBaseStationNotFoundPopup");
+	}
 
 	public boolean isQRCodeDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "QRCode");
