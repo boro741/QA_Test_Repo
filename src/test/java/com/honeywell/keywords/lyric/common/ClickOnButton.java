@@ -55,6 +55,20 @@ public class ClickOnButton extends Keyword {
 				break;
 			}
 			}
+		} else if (expectedButton.get(0).equalsIgnoreCase("views cancel setup")) {
+			switch (expectedButton.get(1).toUpperCase()) {
+			case "BACK ARROW": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isBackArrowInRegisterBaseStationVisible()) {
+					dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+					if(dasDIY.isCancelPopupVisible()) {
+						return flag;
+					}
+				}
+				
+				break;
+			}
+			}
 		}
 		
 		return flag;

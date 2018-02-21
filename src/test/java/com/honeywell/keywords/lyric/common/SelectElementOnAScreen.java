@@ -108,7 +108,6 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "HOME": {
 					boolean flag = true;
-					System.out.println("#######Location name: " + parameters.get(0));
 					if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isHomeLocationDisplayed()) {
 						flag = flag & dasDIY.clickOnHomeLocation();
 					}

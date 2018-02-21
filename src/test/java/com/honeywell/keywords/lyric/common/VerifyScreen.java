@@ -105,6 +105,16 @@ public class VerifyScreen extends Keyword {
 			}
 			break;
 		}
+		case "REGISTER BASE STATION": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			if(dasDIY.isRegisterBaseStationHeaderTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
 		}
 		return flag;
 	}

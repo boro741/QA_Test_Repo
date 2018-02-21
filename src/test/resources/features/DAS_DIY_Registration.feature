@@ -27,7 +27,7 @@ When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Choose Location" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
-When user "accepts" the "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popupAdd New Device Dashboard
 Then user navigates to "Add New Device Dashboard" screen from "Choose Location" screen
 
 @DIYConfirmYourAddressZipCode
@@ -130,23 +130,26 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYCancelSetUpInRegisterBaseStation
-Scenario: As a user I should be able to cancel set up in Register Base Station screen
+Scenario Outline: As a user I should be able to cancel set up in Register Base Station screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When user clicks on "Back arrow" button
-Then user should receive a "Cancel Setup" popup
-When user "dismisses" the "Cancel Setup" popup
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user "views cancel setup" by clicking on "Back arrow" button
+And user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Register Base Station" screen
-When user clicks on "Back arrow" button
-Then user should receive a "Cancel Setup" popup
+When user "views cancel setup" by clicking on "Back arrow" button
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
+
+Examples: 
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYWhenQRCodeIsNotScanned
 Scenario: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
