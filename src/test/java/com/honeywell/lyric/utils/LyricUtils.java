@@ -917,6 +917,12 @@ public class LyricUtils {
 			startx = p1.getX();
 			starty = (int) (d1.height * 0.90) + p1.getY();
 			endy = (int) (d1.height * 0.60) + p1.getY();
+		} else {
+			d1 = ele.getSize();
+			p1 = ele.getLocation();
+			starty = (int) (d1.height * 0.80);
+			endy = (int) -((d1.height * 0.50) + p1.getY());
+			startx = d1.width / 2;
 		}
 		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
 	}
