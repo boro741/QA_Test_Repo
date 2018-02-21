@@ -21,6 +21,7 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.Schedule;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -350,58 +351,35 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 	public static boolean NavigateToDashboardFromAnyScreen(TestCases testCase) {
-
 		boolean flag = true;
 		try {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				if (MobileUtils.isMobElementExists("name", "menu", testCase, 2)) {
-					Keyword.ReportStep_Pass(testCase,
-							"Navigate To Primary Card : User is already on the Primary Card or Dashboard");
-					return flag;
-				} else {
-					int i = 0;
-					while ((!MobileUtils.isMobElementExists("name", "menu", testCase, 2)) && i < 10) {
-						if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 2)) {
-							flag = flag & MobileUtils.clickOnElement(testCase, "name", "btn close normal");
-						} else if (MobileUtils.isMobElementExists("name", "nav bar back", testCase, 2)) {
-							flag = flag & MobileUtils.clickOnElement(testCase, "name", "nav bar back");
-						} else if (MobileUtils.isMobElementExists("name", "Back", testCase, 2)) {
-							flag = flag & MobileUtils.clickOnElement(testCase, "name", "Back");
-						}
-						i++;
-					}
-					if (MobileUtils.isMobElementExists("name", "menu", testCase, 2)
-							|| (MobileUtils.isMobElementExists("name", "dashboard_add_thermostat", testCase, 2))) {
-						Keyword.ReportStep_Pass(testCase,
-								"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Navigate To Primary Card : Failed to navigate to Primary card or Dashboard");
-					}
-				}
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			Schedule sch = new Schedule(testCase);
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) {
+				Keyword.ReportStep_Pass(testCase,
+						"Navigate To Primary Card : User is already on the Primary Card or Dashboard");
+				return flag;
 			} else {
-				if (MobileUtils.isMobElementExists("xpath",
-						"//android.widget.ImageButton[@content-desc='Global Drawer']", testCase, 2)) {
-					Keyword.ReportStep_Pass(testCase, "Navigate To Primary Card : User is already on the Primary Card");
-					return flag;
+				int i = 0;
+				while ((!MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) && i < 10) {
+					if (sch.isCloseButtonVisible(3)) {
+						flag = flag & sch.clickOnCloseButton();
+					} else if (bs.isBackButtonVisible(2)) {
+						flag = flag & bs.clickOnBackButton();
+					} else if (bs.isBackButtonVisible(2)) {
+						flag = flag & bs.clickOnBackButton();
+					}
+					i++;
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")
+						|| (MobileUtils.isMobElementExists(fieldObjects,testCase, "AddNewDeviceIcon"))) {
+					Keyword.ReportStep_Pass(testCase,
+							"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
 				} else {
-					int i = 0;
-					while (!MobileUtils.isMobElementExists("xpath",
-							"//android.widget.ImageButton[@content-desc='Global Drawer']", testCase, 2) && i < 10) {
-						MobileUtils.clickOnElement(testCase, "xpath",
-								"//android.widget.ImageButton[@content-desc='Navigate Up']");
-						i++;
-					}
-					if (MobileUtils.isMobElementExists("xpath",
-							"//android.widget.ImageButton[@content-desc='Global Drawer']", testCase, 2)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Navigate To Primary Card : Successfully navigated to Primary card");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Navigate To Primary Card : Failed to navigate to Primary Card");
-					}
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Navigate To Primary Card : Failed to navigate to Primary card or Dashboard");
 				}
 			}
 		} catch (Exception e) {
