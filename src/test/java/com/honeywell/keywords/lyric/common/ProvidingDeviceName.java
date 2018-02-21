@@ -44,7 +44,11 @@ public class ProvidingDeviceName extends Keyword {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if(zwaveScreen.isNamingFieldDisplayed()){
 					zwaveScreen.setNameToSwitch(parameters.get(1));
-					zwaveScreen.saveNameToSwitch();
+					if(testCase.getPlatform().toUpperCase().contains("IOS")){
+						zwaveScreen.saveNameToSwitchOnIOS();
+					}else{
+						zwaveScreen.saveNameToSwitchOnAndroid();
+					}
 				}
 			}
 		} catch (Exception e) {

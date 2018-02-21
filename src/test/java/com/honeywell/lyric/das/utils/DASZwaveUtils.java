@@ -93,27 +93,10 @@ public class DASZwaveUtils {
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DeviceNotFoundPopup", 3)) {
 			Keyword.ReportStep_Pass(testCase, "Device Not Found Pop Up Title is correctly displayed");
-			String message, locator = "";
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				locator = "xpath";
-				message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
-			} else {
-				locator = "name";
-				message = "No Z-Wave device was found. Try to Exclude and add again.";
-			}
-
-			if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
-				Keyword.ReportStep_Pass(testCase, "No Z-Wave device Pop Up message correctly displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"No Z-Wave device Pop Up message not correctly displayed. Expected: '" + message + "'. Displayed : (Refer Image)");
-			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"No Z-Wave device Pop Up not displayed");
+					"No Z-Wave device Pop Up not displayed or mispelled");
 		}
 		return flag;
 	}

@@ -58,7 +58,8 @@ As a user I want to control all devices using ZWave technology
     Given user has no "Switch1"
      When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "does not activate" the "switch" function key  #timeout
+     When user "does not activate" the "switch" function key
+     #timeout
      Then user should receive a "Inclusion Device not found" popup
      When user "Retries the inclusion on" the "Inclusion Device not found" popup
      Then user should be displayed with the "Activate Z-Wave Device" screen
