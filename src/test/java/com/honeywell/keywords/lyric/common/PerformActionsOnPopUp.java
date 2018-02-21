@@ -180,6 +180,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		}  else if (expectedPopUp.get(1).equalsIgnoreCase("SCANNING FAILURE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
+					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		}
 		return flag;
 	}

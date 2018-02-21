@@ -47,75 +47,99 @@ public class VerifyScreen extends Keyword {
 		case "ACTIVATE Z-WAVE DEVICE": {
 			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			if(zwaveScreen.isActivateZwaveScreenDisplayed()){
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
-			}else{
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			if (zwaveScreen.isActivateZwaveScreenDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
 		}
 		case "EXCLUSION MODE ACTIVE":{
 			DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			if(zwaveScreen.isExcludeZwaveScreenDisplayed()){
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
-			}else{
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			if (zwaveScreen.isExcludeZwaveScreenDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
 		}
-		case "ADD NEW DEVICE DASHBOARD":{
+		case "ADD NEW DEVICE DASHBOARD": {
 			AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
 			DIYRegistrationUtils.waitForFetchingDeviceListProgressBarToComplete(testCase);
-			if(addDeviceSrceen.isAddNewDeviceHeaderDisplayed()){
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
-			}else{
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
 		}
-		case "CHOOSE LOCATION":{
+		case "CHOOSE LOCATION": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.isChooseLocationHeaderTitleVisible()){
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
-			}else{
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			if (dasDIY.isChooseLocationHeaderTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
 		}
 		case "NAME YOUR BASE STATION": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.isNameYourBaseStationHeaderTitleVisible()) {
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			if (dasDIY.isNameYourBaseStationHeaderTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
 			} else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
 		}
 		case "POWER BASE STATION": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.isPowerYourBaseStationHeaderTitleVisible() && dasDIY.isNextButtonVisible()) {
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			if (dasDIY.isPowerYourBaseStationHeaderTitleVisible() && dasDIY.isNextButtonVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
 			} else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
 		}
 		case "REGISTER BASE STATION": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if(dasDIY.isRegisterBaseStationHeaderTitleVisible()) {
-				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			if (dasDIY.isRegisterBaseStationHeaderTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
 			} else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
 			}
 			break;
+		}
+		case "CONNECT TO NETWORK": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			DIYRegistrationUtils.waitForLookingForNetworkConnectionProgressBarToComplete(testCase);
+			if (dasDIY.isConnectToNetworkHeaderTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
+		default: {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Screen " + expectedScreen.get(0));
+			return flag;
 		}
 		}
 		return flag;

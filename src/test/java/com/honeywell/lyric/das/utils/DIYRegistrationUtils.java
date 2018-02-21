@@ -192,6 +192,58 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
+	
+	/**
+	 * <h1>Wait for QR code scanning failure popup to display</h1>
+	 * <p>
+	 * The waitForQRCodeScanningFailurePopupToDisplay method waits until the
+	 * QR code scanning failure popup displays.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-21
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the QR code scanning failure popup appears. Returns
+	 *         'false' if QR code scanning failure popup does not display.
+	 */
+	public static boolean waitForQRCodeScanningFailurePopupToDisplay(TestCases testCase, int duration) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(5, TimeUnit.SECONDS);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
+							System.out.println("Waiting for QR Code Scanning Failure popup to display");
+							return true;
+						} else {
+							return false;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "QR Code Scanning Failure popup displayed");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"QR Code Scanning Failure popup did not appear after waiting for 2 minutes");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
 
 	/**
 	 * <h1>Wait for progress bar to close</h1>

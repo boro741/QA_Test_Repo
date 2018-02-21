@@ -80,6 +80,12 @@ public class VerifyDisplayedPopUp extends Keyword {
                     dasDIY.isBaseStationNotFoundPopupVisible();
                     break;
                 }
+                case "SCANNING FAILURE": {
+                    
+                    DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+                    dasDIY.isQRCodeScanningFailurePopupVisible();
+                    break;
+                }
 			default:
 			{
 				flag = false;
@@ -87,6 +93,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 				return flag;
 			}
 			}
+
 		return flag;
 	}
 

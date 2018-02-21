@@ -152,21 +152,26 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYWhenQRCodeIsNotScanned
-Scenario: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
+Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When user does not scan QR code for "2" minutes
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When QR code is not scanned for "2" minutes
 Then user should receive a "scanning failure" popup
-When user clicks on "RETRY" button
+When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
-And user scans the QR code by showing it to the base station camera
+#And user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
+
+Examples: 
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYWhenInvalidQRCodeIsScanned
 Scenario: As a user my DAS device should not be configured when invalid QR code is scanned

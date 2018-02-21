@@ -137,6 +137,18 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists("name",
 				"Scan this code by showing it to your Base Station\u2019s camera.", testCase, 2, false);
 	}
+	
+	public boolean isQRCodeScanningFailurePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "QRCodeScanningFailurePopupTitle");
+	}
+	
+	public boolean isOKButtonInQRCodeScanningFailurePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInQRCodeScanningFailurePopup");
+	}
+
+	public boolean clickOnOKButtonInQRCodeScanningFailurePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInQRCodeScanningFailurePopup");
+	}
 
 	public boolean scanQRCode() {
 		return true;
