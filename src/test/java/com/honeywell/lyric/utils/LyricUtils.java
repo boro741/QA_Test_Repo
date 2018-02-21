@@ -1239,9 +1239,9 @@ public class LyricUtils {
 			xValues.put(6, (int) (d1.getWidth() * 0.65));
 			xValues.put(9, (int) (d1.getWidth() * 0.65));
 			HashMap<Integer, Integer> yValues = new HashMap<Integer, Integer>();
-			yValues.put(1, (int) (d1.getHeight() * 0.7));
-			yValues.put(2, (int) (d1.getHeight() * 0.7));
-			yValues.put(3, (int) (d1.getHeight() * 0.7));
+			yValues.put(1, (int) (d1.getHeight() * 0.8));
+			yValues.put(2, (int) (d1.getHeight() * 0.8));
+			yValues.put(3, (int) (d1.getHeight() * 0.8));
 			yValues.put(4, (int) (d1.getHeight() * 0.8));
 			yValues.put(5, (int) (d1.getHeight() * 0.8));
 			yValues.put(6, (int) (d1.getHeight() * 0.8));
