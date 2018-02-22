@@ -24,3 +24,7 @@ ModelNameLabel	id	security_config_model_modelname_textview	id	security_config_mo
 ModelMACID	id	security_config_model_macid_textview	id	security_config_model_macid_textview	id	security_config_model_macid_textview						
 FirmwareDetailsTitle	id	security_config_firmware_title_textview	id	security_config_firmware_title_textview	id	security_config_firmware_title_textview						
 FirmwareVersion	id	security_config_firmware_version_textview	id	security_config_firmware_version_textview	id	security_config_firmware_version_textview						
+NoSensorsText	xpath	//android.widget.TextView[@text='No sensors']	xpath	//android.widget.TextView[@text='No sensors']	xpath	//android.widget.TextView[@text='No sensors']						
+NoKeyFobsText	xpath	//android.widget.TextView[@text='No Key Fobs']	xpath	//android.widget.TextView[@text='No Key Fobs']	xpath	//android.widget.TextView[@text='No Key Fobs']						
+KeyFobOption	xpath	"//android.widget.TextView[contains(@text,'Key Fob')]"	xpath	"//android.widget.TextView[contains(@text,'Key Fob')]"	xpath	"//android.widget.TextView[contains(@text,'Key Fob')]"						
+SensorsOption	xpath	"//android.widget.TextView[contains(@text,'Sensors')]"	xpath	"//android.widget.TextView[contains(@text,'Sensors')]"	xpath	"//android.widget.TextView[contains(@text,'Sensors')]"						

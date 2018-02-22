@@ -10,7 +10,6 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
@@ -68,7 +67,6 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Volume Option is enabled");
 						} else {
-							System.out.println(MobileUtils.getMobElement(testCase, "xpath","//android.widget.TextView[@text='Base Station Configuration']").getAttribute("enabled"));
 							Keyword.ReportStep_Pass(testCase, "Volume Delay Option is disabled");
 						}
 					}

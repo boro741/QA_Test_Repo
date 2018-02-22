@@ -172,7 +172,7 @@ Feature: DAS Settings
       | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DASSettingsDisabled 
+  @DASSettingsDisabled @UIAutomated
   Scenario: As a user I should not be allowed to change DAS settings when I am not home 
     Given user sets the entry/exit timer to "15" seconds 
       And user is set to "Away" mode through CHIL 
@@ -187,13 +187,13 @@ Feature: DAS Settings
   
   #LYDAS-3196
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyNoKeyfobsAndSensors
+  @VerifyNoKeyfobsAndSensors @UIAutomated
   Scenario: As a user I should not be displayed with Keyfobs or Sensors if I have not configured any keyfobs to my account
     Given user launches and logs in to the Lyric application
      When user navigates to "keyfob" screen from the "Dashboard" screen
-     Then user should "not be displayed" with "keyfobs" on the "keyfobs" screen 
-     When user navigates to "Sensor" screen from the "Keyfob" screen
-     Then user should "not be displayed" with "sensors" on the "sensors" screen
+     Then user should not be displayed with "keyfobs" on the "Keyfob" screen 
+     When user navigates to "Sensors" screen from the "Keyfob" screen
+     Then user should not be displayed with "sensors" on the "sensors" screen
   
   #Requirements: Single Location Single DAS Device, 1 Sensor &1 Keyfob Required
   @VerifyDisplayedSensors

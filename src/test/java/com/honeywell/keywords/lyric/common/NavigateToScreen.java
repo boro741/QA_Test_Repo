@@ -130,10 +130,10 @@ public class NavigateToScreen extends Keyword {
 						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
 							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Switch Settings From Zwave Utilities");
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Switch Settings From Zwave Utilities");
 							} else {
-								Keyword.ReportStep_Pass(testCase,
-										"Clicked on SwitchSetting From ZwaveUtilities");
+								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -231,6 +231,16 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+
+				// Navigate from 'Dashboard' to 'Keyfob Settings'
+				// Author: Pratik P. Lalseta (H119237)
+				case "KEYFOB": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					break;
+				}
+
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -464,6 +474,21 @@ public class NavigateToScreen extends Keyword {
 				}
 			}
 
+			else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SENSORS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+
 			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
@@ -481,6 +506,7 @@ public class NavigateToScreen extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return flag;
 	}
+
 	public static boolean NavigateToDashboardFromAnyScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -504,7 +530,7 @@ public class NavigateToScreen extends Keyword {
 					i++;
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")
-						|| (MobileUtils.isMobElementExists(fieldObjects,testCase, "AddNewDeviceIcon"))) {
+						|| (MobileUtils.isMobElementExists(fieldObjects, testCase, "AddNewDeviceIcon"))) {
 					Keyword.ReportStep_Pass(testCase,
 							"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
 				} else {

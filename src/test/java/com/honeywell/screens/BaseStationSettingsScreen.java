@@ -18,8 +18,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String BASESTATIONCONFIGURATION = "Base Station Configuration";
 	public static final String ENTRYEXITDELAYSETTINGS = "Entry/Exit Delay";
 	public static final String GEOFENCING = "Geofencing";
+	public static final String KEYFOB = "Key Fob";
 	public static final String VOLUME = "Volume";
 	public static final String BASESTATIONWIFI="Base Station Wi-Fi";
+	public static final String SENSORS="Sensors";
 
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
@@ -72,6 +74,40 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 			return flag;
 		}
+		
+		case BaseStationSettingsScreen.KEYFOB: {
+			boolean flag = true;
+			if (this.isKeyFobOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, "text",
+							BaseStationSettingsScreen.KEYFOB);
+				} else {
+					flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, "value",
+							BaseStationSettingsScreen.KEYFOB);
+				}
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
+			}
+			return flag;
+		}
+		
+		case BaseStationSettingsScreen.SENSORS: {
+			boolean flag = true;
+			if (this.isSensorsOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, "text",
+							BaseStationSettingsScreen.SENSORS);
+				} else {
+					flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, "value",
+							BaseStationSettingsScreen.SENSORS);
+				}
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
+			}
+			return flag;
+		}
 
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -93,6 +129,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3);
 	}
 
+	public boolean isKeyFobOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyFobOption", 3);
+	}
+
+	public boolean isSensorsOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorsOption", 3);
+	}
+	
 	public boolean isEntryExitDelaySettingsOptionVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", timeOut);
 	}
@@ -149,6 +193,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				{
 					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", BaseStationSettingsScreen.VOLUME);
 				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VolumeOption").getAttribute("enabled"));
 			}
 			else if(elementName.equals(BaseStationSettingsScreen.BASESTATIONWIFI))
 			{
@@ -389,4 +434,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return flag;
 	}
 	
+	public boolean isNoKeyFobTextVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoKeyFobsText",3);
+	}
+	
+	public boolean isNoSensorTextVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSensorsText",3);
+	}
 }
