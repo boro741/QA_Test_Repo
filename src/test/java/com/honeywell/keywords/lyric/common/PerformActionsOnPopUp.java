@@ -23,6 +23,7 @@ public class PerformActionsOnPopUp extends Keyword {
 	private TestCaseInputs inputs;
 
 	public boolean flag = true;
+
 	public PerformActionsOnPopUp(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedPopUp) {
 		this.inputs = inputs;
 		this.testCase = testCase;
@@ -114,7 +115,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
 				DASZwaveUtils.clickOKOnDeviceNotFoundPopUp(testCase);
@@ -126,7 +127,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")){
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				flag = flag & DASZwaveUtils.clickCancelFurtherExclusionOnExcludedPopup(testCase);
@@ -134,19 +135,21 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			case "CONFIRMS": {
 				flag = flag & DASZwaveUtils.clickConfirmFurtherExclusionOnExcludedPopup(testCase);
-                break;
+				break;
+			}
+			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SETUP")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isNoButtonInCancelPopupVisible()) {
+				if (dasDIY.isNoButtonInCancelPopupVisible()) {
 					dasDIY.clickOnNoButtonInCancelPopup();
 				}
 				break;
 			}
 			case "ACCEPTS": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isYesButtonInCancelPopupVisible()) {
+				if (dasDIY.isYesButtonInCancelPopupVisible()) {
 					dasDIY.clickOnYesButtonInCancelPopup();
 				}
 				break;
@@ -161,14 +164,14 @@ public class PerformActionsOnPopUp extends Keyword {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON OK IN": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isOKButtonInBaseStationNotFoundPopupVisible()) {
+				if (dasDIY.isOKButtonInBaseStationNotFoundPopupVisible()) {
 					dasDIY.clickOnOKButtonInBaseStationNotFoundPopup();
 				}
 				break;
 			}
 			case "RETRIES BASE STATION PAIRING IN": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+				if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
 					dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
 				}
@@ -180,11 +183,11 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}  else if (expectedPopUp.get(1).equalsIgnoreCase("SCANNING FAILURE")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SCANNING FAILURE")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "ACCEPTS": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
+				if (dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
 					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
 				}
 				break;
