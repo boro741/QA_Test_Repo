@@ -349,7 +349,6 @@ public class NavigateToScreen extends Keyword {
 					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
 					dasDIY.isRegisterBaseStationHeaderTitleVisible();
 					dasDIY.isQRCodeDisplayed();
-					dasDIY.scanQRCode();
 					break;
 				}
 				case "SELECT BASE STATION": {

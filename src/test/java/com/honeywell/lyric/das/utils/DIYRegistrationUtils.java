@@ -1,6 +1,15 @@
 package com.honeywell.lyric.das.utils;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -9,6 +18,7 @@ import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
@@ -192,12 +202,12 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Wait for QR code scanning failure popup to display</h1>
 	 * <p>
-	 * The waitForQRCodeScanningFailurePopupToDisplay method waits until the
-	 * QR code scanning failure popup displays.
+	 * The waitForQRCodeScanningFailurePopupToDisplay method waits until the QR code
+	 * scanning failure popup displays.
 	 * </p>
 	 *
 	 * @author Midhun Gollapalli (H179225)
@@ -206,8 +216,8 @@ public class DIYRegistrationUtils {
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase.
 	 *            testCase instance.
-	 * @return boolean Returns 'true' if the QR code scanning failure popup appears. Returns
-	 *         'false' if QR code scanning failure popup does not display.
+	 * @return boolean Returns 'true' if the QR code scanning failure popup appears.
+	 *         Returns 'false' if QR code scanning failure popup does not display.
 	 */
 	public static boolean waitForQRCodeScanningFailurePopupToDisplay(TestCases testCase, int duration) {
 		boolean flag = true;
@@ -350,36 +360,104 @@ public class DIYRegistrationUtils {
 	}
 
 	/**
-	 * <h1>Create passcode after DIY Registration</h1>
+	 * <h1>Scan QR code</h1>
 	 * <p>
-	 * The createPasscodeAfterDIYRegistration method creates a passcode after DIY
-	 * Registration
+	 * The scanQRCode method is to scan QR code
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H179225)
+	 * @author Pratik P. Lalseta (H119237)
 	 * @version 1.0
-	 * @since 2018-02-21
+	 * @since 2018-02-22
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase.
 	 *            testCase instance.
 	 * @param attribute
 	 *            Attribute of the value used to locate the element
-	 * @return boolean Returns 'true' if the passcode is created. Returns 'false' if
-	 *         the passcode is not created.
+	 * @return boolean Returns 'true' if the QR code is scanned. Returns 'false' if
+	 *         the QR code scan is unsuccessful.
 	 */
-	public static boolean createPasscodeAfterDIYRegistration(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean scanQRCode(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		DASDIYRegistrationScreens dd = new DASDIYRegistrationScreens(testCase);
-		if (dd.isPasscodeTitlePresent()) {
-			if (!inputs.isInputAvailable("PASSCODE")) {
+		if (testCase.isTestSuccessful()) {
+			JFrame frame = new JFrame();
+			try {
+				String screenShotPath = LyricUtils.takeScreenShot(
+						System.getProperty("user.dir") + File.separator + "QRCodes", testCase.getMobileDriver());
+				screenShotPath = System.getProperty("user.dir") + File.separator + "QRCodes" + File.separator
+						+ screenShotPath;
+
+				BufferedImage picture = ImageIO.read(new File(screenShotPath));
+				ImageIcon imageIcon = new ImageIcon(
+						new ImageIcon(picture).getImage().getScaledInstance(500, 700, Image.SCALE_DEFAULT));
+				JLabel label = new JLabel(imageIcon);
+				frame.add(label);
+				frame.pack();
+				frame.setAlwaysOnTop(true);
+				frame.setVisible(true);
+				testCase.startTimer("QRCodeScanningTimer");
+
+				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+				fWait.pollingEvery(5, TimeUnit.SECONDS);
+				fWait.withTimeout(1, TimeUnit.MINUTES);
+				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+					public Boolean apply(CustomDriver driver) {
+						try {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								if (dasDIY.isConnectToNetworkHeaderDescVisible()) {
+									String displayedText = dasDIY.getToolBarTitleInConnectToNetworkScreen();
+									if (displayedText.equals("Connect to Network")) {
+										return true;
+									} else {
+										return false;
+									}
+								} else if (dasDIY.isLookingForNetworkConnectionProgressBarVisible()) {
+									return true;
+								} else {
+									return false;
+								}
+							} else {
+								if (dasDIY.isConnectToNetworkHeaderDescVisible()) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+
+						} catch (Exception e) {
+							return false;
+						}
+					}
+				});
+				if (isEventReceived) {
+					Keyword.ReportStep_Pass(testCase, "Successfully scanned QR code");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "QR code not scanned");
+				}
+				testCase.stopTimer("QRCodeScanningTimer", "", "", "");
+				frame.setVisible(false);
+				frame.dispose();
+			} catch (TimeoutException e) {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Passcode not provided in inputs");
-				return flag;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to scan QR code");
+				frame.setVisible(false);
+				frame.dispose();
+			} catch (IOException e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				frame.setVisible(false);
+				frame.dispose();
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				frame.setVisible(false);
+				frame.dispose();
 			}
-			flag = flag & dd.clickOnCreatePasscodeButton();
-			flag = flag & LyricUtils.createPasscode(testCase, inputs.getInputValue("PASSCODE"));
 		} else {
-			Keyword.ReportStep_Pass(testCase, "Passcode not required");
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Scenario steps failed already, hence skipping the verification");
 		}
 		return flag;
 	}

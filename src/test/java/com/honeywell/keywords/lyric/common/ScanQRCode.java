@@ -8,27 +8,30 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 
-public class CreatePasscodeAfterRegistration extends Keyword {
+public class ScanQRCode extends Keyword {
 
 	private TestCases testCase;
-	private TestCaseInputs inputs;
+
 	public boolean flag = true;
 
-	public CreatePasscodeAfterRegistration(TestCases testCase, TestCaseInputs inputs) {
-		this.inputs = inputs;
+	public ScanQRCode(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
 	}
 
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() {
+
 		return flag;
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user creates a passcode if required$")
+	@KeywordStep(gherkins = "^user scans the QR code by showing it to the base station camera$")
 	public boolean keywordSteps() {
-		DIYRegistrationUtils.createPasscodeAfterDIYRegistration(testCase, inputs);
+		if (testCase.isTestSuccessful()) {
+
+			DIYRegistrationUtils.scanQRCode(testCase);
+		}
 		return flag;
 	}
 
@@ -37,4 +40,5 @@ public class CreatePasscodeAfterRegistration extends Keyword {
 	public boolean postCondition() {
 		return flag;
 	}
+
 }

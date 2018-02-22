@@ -150,10 +150,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInQRCodeScanningFailurePopup");
 	}
 
-	public boolean scanQRCode() {
-		return true;
-	}
-
 	public boolean isLookingForNetworkConnectionProgressBarVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LookingForNetworkConnectionLoadingSpinner",
 				3);
@@ -165,6 +161,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isConnectToNetworkHeaderDescVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectoNetworkHeaderDesc");
+	}
+	
+	public String getToolBarTitleInConnectToNetworkScreen() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ConnectoNetworkHeaderTitle", false).getAttribute("text");
 	}
 
 	public boolean isAddANetworkButtonVisible() {
@@ -358,15 +358,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return flag;
 	}
 
-	public boolean isPasscodeTitlePresent() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PasscodePopUpTitle", 3);
-	}
-
 	public boolean isPasscodeTitlePresent(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PasscodePopUpTitle", timeOut);
-	}
-
-	public boolean clickOnCreatePasscodeButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CreatePasscodeButton");
 	}
 }

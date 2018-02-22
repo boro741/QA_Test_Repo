@@ -46,7 +46,6 @@ public class SelectBaseStationMACID extends Keyword {
 			DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
 			dasDIY.isRegisterBaseStationHeaderTitleVisible();
 			dasDIY.isQRCodeDisplayed();
-			dasDIY.scanQRCode();
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,

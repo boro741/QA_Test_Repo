@@ -411,14 +411,16 @@ When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
-When user inputs "vibex888" as the WiFi Password 
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -447,7 +449,8 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -482,7 +485,8 @@ Then user navigates to "Smart Home Security Success" screen from the "Connect to
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -501,7 +505,6 @@ Then user navigates to "Smart Home Security Success" screen from the "Connect to
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -539,7 +542,8 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -583,7 +587,8 @@ Then user should be displayed with the "Enable Geofencing" screen
 And user clicks on "SKIP" button
 Then user should be displayed with the "Enable Amazon Alexa" screen
 And user clicks on "SKIP" button
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -617,7 +622,8 @@ Then user should be displayed with the "Enable Geofencing" screen
 And user clicks on "SKIP" button
 Then user should be displayed with the "Enable Amazon Alexa" screen
 And user clicks on "SKIP" button
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -654,7 +660,8 @@ Then user should be displayed with the "Enable Geofencing" screen
 And user clicks on "SKIP" button
 Then user should be displayed with the "Enable Amazon Alexa" screen
 And user clicks on "SKIP" button
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -697,7 +704,8 @@ And user clicks on "SKIP" button
 Then user should be displayed with the "Enable Amazon Alexa" screen
 When user navigates to other apps and navigates back to Lyric app
 And user clicks on "SKIP" button
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to other apps and navigates back to Lyric app
@@ -729,7 +737,8 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -769,7 +778,8 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user performs factory settings on the registered DAS
@@ -810,7 +820,8 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user switches off/unplugs the registered DAS
@@ -842,7 +853,8 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
+#And user creates a passcode if required
+And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to other apps and navigates back to Lyric app
@@ -866,7 +878,6 @@ And user navigates to "Smart Home Security Success" screen from the "Connect to 
 Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-And user creates a passcode if required
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to other apps and navigates back to Lyric app
