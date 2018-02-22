@@ -62,9 +62,14 @@ public class EditDeviceName extends Keyword {
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Switch")) {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				if (zwaveScreen.isNamingFieldDisplayed()) {
-					zwaveScreen.setNameToSwitch(parameters.get(1));
-					zwaveScreen.saveEditedNameToSwitch();
+				if (zwaveScreen.isEditNamingFieldDisplayed()) {
+					zwaveScreen.editNameToSwitch(parameters.get(1));
+					if(testCase.getPlatform().toUpperCase().contains("IOS")){
+						zwaveScreen.saveEditedNameToSwitch();
+					}else{
+						zwaveScreen.saveEditedNameToSwitchOnAndroid();
+						zwaveScreen.ClickSwitchSettingFromZwaveUtilities();
+					}
 				}
 			}
 		} catch (Exception e) {

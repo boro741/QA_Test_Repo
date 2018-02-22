@@ -76,9 +76,17 @@ public class ZwaveScreen extends MobileScreens{
 					value);
 		}
 		
-		public boolean saveNameToSwitch(){
+		public boolean saveNameToSwitchOnIOS(){
 			return MobileUtils.clickOnElement(objectDefinition,testCase, "ReturnKeypad")
 			 && MobileUtils.clickOnElement(objectDefinition,testCase, "DoneButtonAfterNaming");
+		}
+		public boolean saveNameToSwitchOnAndroid(){
+			return MobileUtils.pressBackButton(testCase, "Hide keypad")
+			 && MobileUtils.clickOnElement(objectDefinition,testCase, "DoneButtonAfterNaming");
+		}
+		public boolean saveEditedNameToSwitchOnAndroid(){
+			return MobileUtils.pressBackButton(testCase, "Hide keypad")
+			 && MobileUtils.pressBackButton(testCase, "NavigateBack to save");
 		}
 		public boolean saveEditedNameToSwitch(){
 			return MobileUtils.clickOnElement(objectDefinition,testCase, "ReturnKeypad");
@@ -88,11 +96,23 @@ public class ZwaveScreen extends MobileScreens{
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameEditField");
 		}
 		
+		public boolean editNameToSwitch(String value){
+			MobileUtils.getMobElement(objectDefinition, testCase, "SwitchRenameField").clear();
+			return MobileUtils.setValueToElement(objectDefinition, testCase, "SwitchRenameField",
+					value);
+		}
+		
+		public  boolean isEditNamingFieldDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchRenameField");
+		}
 		public boolean clickRetryOnDeviceNotFoundPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryOption");
 		}
 		public boolean clickOKOnDeviceExcludedPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
+		}
+		public boolean clickOKOnDeviceNotFoundPopUp() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "NoDeviceToExcludePopupDismiss");
 		}
 		public boolean clickAddNowOnDeviceExcludedPopUp() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNowOption");
@@ -123,6 +143,14 @@ public class ZwaveScreen extends MobileScreens{
 		
 		public boolean clickGeneralDeviceExclusionMenu() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceExclusion");
+		}
+		
+		public boolean clickCancelFurtherExclusionOnExcludedPopup() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralExcludeCancelFurthur");
+		}
+		
+		public boolean clickConfirmFurtherExclusionOnExcludedPopup() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralExcludeCorfirmFurthur");
 		}
 		
 		public boolean clickControllerFactoryResetMenu() {

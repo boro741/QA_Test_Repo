@@ -43,6 +43,10 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
 				break;
 			}
+			case "SWITCH DELETED SUCCESSFULLY":{
+				flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
+				break;
+			}
 			case "REMOVE DEVICE":{
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				flag = zwaveScreen.isRemoveDevicePopUpDisplayed();
@@ -54,6 +58,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 				break;
 			}
 			case "INCLUSION DEVICE NOT FOUND":
+			{
+				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+				break;
+			}
+			case "DEVICE NOT FOUND":
 			{
 				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
 				break;

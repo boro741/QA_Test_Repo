@@ -106,6 +106,34 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+				DASZwaveUtils.clickOKOnDeviceNotFoundPopUp(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")){
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				flag = flag & DASZwaveUtils.clickCancelFurtherExclusionOnExcludedPopup(testCase);
+				break;
+			}
+			case "CONFIRMS": {
+				flag = flag & DASZwaveUtils.clickConfirmFurtherExclusionOnExcludedPopup(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		}
 		return flag;
 	}

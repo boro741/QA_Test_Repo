@@ -17,7 +17,7 @@ public class Dashboard extends MobileScreens {
 	public Dashboard(TestCases testCase) {
 		super(testCase, screenName);
 	}
-	
+
 	public boolean isWeatherIconVisible()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon",3,false);
@@ -27,31 +27,31 @@ public class Dashboard extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon",timeOut,false);
 	}
-	
+
 	public boolean isAddDeviceIconVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon",timeOut,false);
-		
+
 	}
-	
+
 	public boolean clickOnAddNewDeviceIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
 	}
-	
+
 	public boolean clickOnGlobalDrawerButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
-	
+
 	public boolean areDevicesVisibleOnDashboard(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut); 
 	}
-	
+
 	public boolean areDevicesVisibleOnDashboard()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3); 
 	}
-	
+
 	public boolean isDevicePresentOnDashboard(String deviceName)
 	{
 		boolean flag=true;
@@ -74,7 +74,7 @@ public class Dashboard extends MobileScreens {
 					break;
 				}
 			}
-				flag = f;
+			flag = f;
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard Icons not found");
@@ -86,10 +86,39 @@ public class Dashboard extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", 3);
 	}
-	
+
 	public boolean isGlobalDrawerButtonVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
+	}
+
+	public String getSwitchStatus() {
+		if (this.areDevicesVisibleOnDashboard(10)) {
+			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
+					"DashboardIconText");
+			List<WebElement> dashboardIconStatus = MobileUtils.getMobElements(objectDefinition, testCase,
+					"DashboardIconStatus");
+			for (int i=0; i<=dashboardIconText.size(); i++) {
+				String displayedText = "";
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					displayedText = dashboardIconText.get(i).getText();
+				} else {
+					try {
+						displayedText = dashboardIconText.get(i).getAttribute("value");
+					} catch (Exception e1) {
+					}
+				}
+				if (displayedText.contains("Switch")) {
+					if(dashboardIconStatus.get(i).getText().toUpperCase().contains("ON")){
+						return "ON";
+					}else {
+						return "OFF";
+					}
+				}
+			}
+		} else {
+		}
+		return null;
 	}
 
 }

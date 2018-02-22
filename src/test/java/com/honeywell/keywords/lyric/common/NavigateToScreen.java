@@ -86,6 +86,10 @@ public class NavigateToScreen extends Keyword {
 					DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
 				}
+				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
+					DASZwaveUtils.navigateToGeneralExclusionFromDashboard(testCase);
+					break;
+				}
 				case "SWITCH PRIMARY CARD": {
 					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
 					break;
@@ -97,10 +101,10 @@ public class NavigateToScreen extends Keyword {
 						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
 							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on ");
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Switch Settings From Zwave Utilities");
 							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Add new device menu from Global drawer");
+								Keyword.ReportStep_Pass(testCase,
+										"Clicked on SwitchSetting From ZwaveUtilities");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

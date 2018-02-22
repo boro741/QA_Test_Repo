@@ -140,11 +140,11 @@ public class ChangeStatusOnScreen extends Keyword {
 				}
 				case "OFF": {
 					try {
-						if(!ZWaveRelayUtils.isSwitch1ON()){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
-						}else{
+						if(ZWaveRelayUtils.isSwitch1ON()){
 							ZWaveRelayUtils.pressButtonOnSwitch1();
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
+						}else{
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is already in to "+expectedScreen.get(1) );
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

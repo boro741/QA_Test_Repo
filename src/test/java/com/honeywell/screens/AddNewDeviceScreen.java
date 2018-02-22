@@ -14,14 +14,20 @@ public class AddNewDeviceScreen extends MobileScreens{
 	}
 
 	public boolean clickOnZwaveFromAddNewDevice() {
-		try {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value", "Z-Wave Device");
-		} catch (Exception e) {
-			System.out.println("Not able to locate");
+		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",3)) {
+			int counter = 0;
+			while (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",3) && counter < 4) {
+				try {
+					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				counter++;
+			}
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveList");
 	}
-	
+
 	public boolean isAddNewDeviceHeaderDisplayed(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader");
 	}

@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
@@ -43,6 +44,7 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
 		case "ACTIVATE Z-WAVE DEVICE": {
+			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			if(zwaveScreen.isActivateZwaveScreenDisplayed()){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
@@ -53,6 +55,7 @@ public class VerifyScreen extends Keyword {
 			break;
 		}
 		case "EXCLUSION MODE ACTIVE":{
+			DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			if(zwaveScreen.isExcludeZwaveScreenDisplayed()){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");

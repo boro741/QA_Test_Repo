@@ -15,6 +15,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 
 public class VerifyStatusOnScreen extends Keyword {
@@ -86,17 +87,25 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "DASHBOARD":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
-
-				//Dashboard ds = new Dashboard(testCase);
-				//if(ds..verifySwitchStatus()){
-				//	currentStatus=zp.fetchSwitchStatus();
+				Dashboard ds = new Dashboard(testCase);
+				currentStatus=ds.getSwitchStatus();
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
-
+					if(currentStatus.equals("ON")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
 					break;
 				}
 				case "OFF": {
-
+					if(currentStatus.equals("OFF")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
 					break;
 				}
 				}
