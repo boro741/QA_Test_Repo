@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -18,11 +19,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 	private TestCases testCase;
 	private ArrayList<String> expectedPopUp;
 	private TestCaseInputs inputs;
-	//private HashMap<String, MobileObject> fieldObjects;
+	// private HashMap<String, MobileObject> fieldObjects;
 
 	public boolean flag = true;
 
-	public VerifyDisplayedPopUp(TestCases testCase, TestCaseInputs inputs,ArrayList<String> expectedPopUp) {
+	public VerifyDisplayedPopUp(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedPopUp) {
 		this.inputs = inputs;
 		this.testCase = testCase;
 		this.expectedPopUp = expectedPopUp;
@@ -37,7 +38,6 @@ public class VerifyDisplayedPopUp extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user should receive a (.*) popup$")
 	public boolean keywordSteps() {
-		//if (testCase.isTestSuccessful()) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "SWITCH EXCLUDED SUCCESSFULLY":{
 				flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
@@ -65,8 +65,27 @@ public class VerifyDisplayedPopUp extends Keyword {
 			case "DEVICE NOT FOUND":
 			{
 				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+                break;
+            }
+			case "CANCEL SETUP":
+                {
+				
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				dasDIY.isCancelPopupVisible();
 				break;
 			}
+                case "BASE STATION NOT FOUND": {
+                    
+                    DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+                    dasDIY.isBaseStationNotFoundPopupVisible();
+                    break;
+                }
+                case "SCANNING FAILURE": {
+                    
+                    DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+                    dasDIY.isQRCodeScanningFailurePopupVisible();
+                    break;
+                }
 			default:
 			{
 				flag = false;
@@ -74,12 +93,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 				return flag;
 			}
 			}
-		/*}
-		else
-		{
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Scenario has already failed");
-		}*/
+
 		return flag;
 	}
 

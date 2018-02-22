@@ -1,27 +1,25 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.screens.Dashboard;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 
-public class VerifyDeviceNotDisplayedOnDashboard extends Keyword {
+public class WaitForQRCodeToTimeout extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
-	private ArrayList<String> expectedDevice;
+	private ArrayList<String> numberOfMinutes;
 	public boolean flag = true;
 
-	public VerifyDeviceNotDisplayedOnDashboard(TestCases testCase, TestCaseInputs inputs,
-			ArrayList<String> expectedDevice) {
+	public WaitForQRCodeToTimeout(TestCases testCase, TestCaseInputs inputs, ArrayList<String> numberOfMinutes) {
 		// this.inputs = inputs;
 		this.testCase = testCase;
-		this.expectedDevice = expectedDevice;
+		this.numberOfMinutes = numberOfMinutes;
 	}
 
 	@Override
@@ -31,14 +29,10 @@ public class VerifyDeviceNotDisplayedOnDashboard extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should not be displayed with (.*) device on dashboard$")
+	@KeywordStep(gherkins = "^QR code is not scanned for (.*) minutes$")
 	public boolean keywordSteps() {
-		Dashboard dashBordScreen = new Dashboard(testCase);
-		if (!dashBordScreen.isDevicePresentOnDashboard(expectedDevice.get(0))) {
-			Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
-		} else {
-			Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " displayed");
-		}
+		DIYRegistrationUtils.waitForQRCodeScanningFailurePopupToDisplay(testCase,
+				Integer.parseInt(numberOfMinutes.get(0)));
 		return flag;
 	}
 

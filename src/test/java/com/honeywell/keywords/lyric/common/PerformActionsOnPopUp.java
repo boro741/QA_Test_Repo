@@ -11,7 +11,9 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -42,6 +44,12 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnNoButton();
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButton();
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
 				break;
 			}
@@ -126,6 +134,59 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			case "CONFIRMS": {
 				flag = flag & DASZwaveUtils.clickConfirmFurtherExclusionOnExcludedPopup(testCase);
+                break;
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SETUP")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isNoButtonInCancelPopupVisible()) {
+					dasDIY.clickOnNoButtonInCancelPopup();
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isYesButtonInCancelPopupVisible()) {
+					dasDIY.clickOnYesButtonInCancelPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("BASE STATION NOT FOUND")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isOKButtonInBaseStationNotFoundPopupVisible()) {
+					dasDIY.clickOnOKButtonInBaseStationNotFoundPopup();
+				}
+				break;
+			}
+			case "RETRIES BASE STATION PAIRING IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+					dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}  else if (expectedPopUp.get(1).equalsIgnoreCase("SCANNING FAILURE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if(dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
+					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
+				}
 				break;
 			}
 			default: {

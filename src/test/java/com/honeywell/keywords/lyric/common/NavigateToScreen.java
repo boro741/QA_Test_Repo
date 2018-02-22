@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -149,9 +150,27 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
-					Dashboard db = new Dashboard(testCase);
-					if (db.isAddDeviceIconVisible(5)) {
-						flag = flag & db.clickOnAddNewDeviceIcon();
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.isAddDeviceIconVisible(5)) {
+						flag = flag & ds.clickOnAddNewDeviceIcon();
+					}
+					break;
+				}
+				case "ADD NEW DEVICE IN GLOBAL DRAWER": {
+					Dashboard ds = new Dashboard(testCase);
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+						dasDIY.clickOnBackArrowInSelectADeviceScreen();
+					}
+					if (ds.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
 					break;
 				}
@@ -252,11 +271,9 @@ public class NavigateToScreen extends Keyword {
 					if (bs.isBackButtonVisible()) {
 						flag = flag & bs.clickOnBackButton();
 					}
-					if(!d.areDevicesVisibleOnDashboard())
-					{
+					if (!d.areDevicesVisibleOnDashboard()) {
 						flag = flag & bs.clickOnBackButton();
-						if(!d.areDevicesVisibleOnDashboard())
-						{
+						if (!d.areDevicesVisibleOnDashboard()) {
 							flag = flag & bs.clickOnBackButton();
 						}
 					}
@@ -298,7 +315,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SMART HOME SECURITY": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					flag = flag & dasDIY.clickOnSmartHomeSecurityButton();
+					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
 					break;
 				}
 				}
@@ -314,15 +331,31 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "LOOKING FOR BASE STATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+					}
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					break;
+				}
 				case "REGISTER BASE STATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isNextButtonVisible()) {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
-					dasDIY.waitForLookingForBaseStationProgressBarToComplete();
-					dasDIY.verifyRegisterBaseStationHeaderTitle();
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					dasDIY.isRegisterBaseStationHeaderTitleVisible();
 					dasDIY.isQRCodeDisplayed();
-					dasDIY.scanQRCode();
+					break;
+				}
+				case "SELECT BASE STATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+					}
+					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 					break;
 				}
 				}
@@ -330,8 +363,62 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "CONNECT TO NETWORK": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.waitForLookingForNetworkConnectionProgressBarToComplete();
-					dasDIY.verifyConnectToNetworkHeaderTitle();
+					DIYRegistrationUtils.waitForLookingForNetworkConnectionProgressBarToComplete(testCase);
+					dasDIY.isConnectToNetworkHeaderTitleVisible();
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SMART HOME SECURITY SUCCESS": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+					if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
+						dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SMART HOME SECURITY SUCCESS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ENABLE GEOFENCING": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					dasDIY.isGeoFencingHeaderTitleVisible();
+					if (dasDIY.isSkipButtonInGeoFencingScreenVisible()) {
+						dasDIY.clickOnSkipButtonInGeoFencingScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ENABLE AMAZON ALEXA": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					dasDIY.isAmazonAlexaHeaderTitleVisible();
+					if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
+						dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isIncreaseSecurityPopupVisible()) {
+						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+						}
+						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+							dasDIY.clickOnGotItButtonInQuickControlsPopup();
+						}
+						if (dasDIY.isIncreaseSecurityPopupVisible()) {
+							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+						}
+					} else {
+						return true;
+					}
 					break;
 				}
 				}

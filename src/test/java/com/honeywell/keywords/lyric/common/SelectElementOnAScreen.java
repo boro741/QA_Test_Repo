@@ -108,8 +108,7 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "HOME": {
 					boolean flag = true;
-					System.out.println("#######Location name: " + parameters.get(0));
-					if (dasDIY.verifyChooseLocationHeaderTitle() && dasDIY.isHomeLocationDisplayed()) {
+					if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isHomeLocationDisplayed()) {
 						flag = flag & dasDIY.clickOnHomeLocation();
 					}
 					return flag;
@@ -121,7 +120,7 @@ public class SelectElementOnAScreen extends Keyword {
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					System.out.println("#######Device name: " + parameters.get(0));
-					if (dasDIY.verifyNameYourBaseStationHeaderTitle() && dasDIY.isLivingRoomBaseStationDisplayed()) {
+					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isLivingRoomBaseStationDisplayed()) {
 						flag = flag & dasDIY.clickOnLivingRoomBaseStation();
 					}
 					return flag;
@@ -131,11 +130,10 @@ public class SelectElementOnAScreen extends Keyword {
 				
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.verifyConnectToNetworkHeaderDesc() && dasDIY.isAddANetworkButtonVisible()) {
-						flag = flag & dasDIY.selectWifi(parameters.get(0));
+					if (dasDIY.isConnectToNetworkHeaderDescVisible() && dasDIY.isAddANetworkButtonVisible()) {
+						flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(parameters.get(0));
 					}
 					dasDIY.isWiFiPasswordTextFieldVisibile();
-				
 			}
 
 		} catch (Exception e) {

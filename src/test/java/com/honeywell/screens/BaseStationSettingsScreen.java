@@ -97,6 +97,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean clickOnNoButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
 	}
+	
+	public boolean clickOnYesButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
+	}
 
 	public boolean isDeleteDASPopUpVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASPopUpConfirmationTitle", 3);

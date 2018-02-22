@@ -40,6 +40,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.CustomIOSDriver;
+import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
@@ -51,6 +52,7 @@ import com.honeywell.screens.SecretMenu;
 import io.appium.java_client.MobileBy;
 
 public class LyricUtils {
+
 	/**
 	 * <h1>Take Screenshot</h1>
 	 * <p>
@@ -617,9 +619,9 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
@@ -879,19 +881,41 @@ public class LyricUtils {
 		return flag;
 	}
 
-	public static void scrollList(TestCases testCase, String locatorType, String locatorValue) {
-		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);
+
+	/**
+	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
+	 * <p>
+	 * The scrollToElementUsingExactAttributeValue method scrolls to an element
+	 * using the attribute and exact value passed to the method in the parameters.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
+	 */
+	public static boolean scrollUpAList(TestCases testCase, HashMap<String, MobileObject> objectDefinition,
+			String objectName) throws Exception {
+		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, objectName);
 		Dimension d1;
 		Point p1;
-		int startx;
-		int starty;
-		int endy;
+		int startx = -1;
+		int starty = -1;
+		int endy = -1;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();
 			startx = p1.getX();
-			starty = d1.getHeight();
-			endy = -p1.getY() / 10;
+			starty = (int) (d1.height * 0.90) + p1.getY();
+			endy = (int) (d1.height * 0.60) + p1.getY();
 		} else {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();
@@ -899,7 +923,24 @@ public class LyricUtils {
 			endy = (int) -((d1.height * 0.50) + p1.getY());
 			startx = d1.width / 2;
 		}
-		testCase.getMobileDriver().swipe(startx, starty, startx, endy, 500);
+		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
+	}
+
+	public static boolean scrollUpAList(TestCases testCase, String locatorType, String locatorValue) throws Exception {
+		WebElement ele = MobileUtils.getMobElement(testCase, "id", "fragment_add_new_device_list");
+		Dimension d1;
+		Point p1;
+		int startx = -1;
+		int starty = -1;
+		int endy = -1;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			d1 = ele.getSize();
+			p1 = ele.getLocation();
+			startx = p1.getX();
+			starty = (int) (d1.height * 0.90) + p1.getY();
+			endy = (int) (d1.height * 0.60) + p1.getY();
+		}
+		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
 	}
 
 	/**
@@ -1035,6 +1076,135 @@ public class LyricUtils {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Device : " + deviceName + " is not present on the dashboard.");
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Verify if Device is still displayed in dashboard after deleting it</h1>
+	 * <p>
+	 * The verifyDeviceNotDisplayedOnDashboard method verifes if device is still
+	 * displayed in dashboard after deleting it.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if device is not displayed in dashboard
+	 *         screen. Returns 'false' if device is still displayed in dashboard
+	 *         screen.
+	 */
+	public static boolean verifyDeviceNotDisplayedOnDashboard(TestCases testCase, TestCaseInputs inputs,
+			String expectedDevice) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DAS_InstallationScreen");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton", 30, false)) {
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 5)) {
+				List<WebElement> dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase,
+						"DashboardIconText");
+				if (MobileUtils.isMobElementExists("id", "name", testCase, 3, false)) {
+					dashboardIconText.addAll(MobileUtils.getMobElements(testCase, "id", "name"));
+				}
+				boolean f = false;
+				String deviceName = "";
+				for (WebElement e : dashboardIconText) {
+					String displayedText;
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						displayedText = e.getText();
+					} else {
+						displayedText = e.getAttribute("value");
+					}
+					if (expectedDevice.equalsIgnoreCase("Switch")) {
+						deviceName = inputs.getInputValue("LOCATION1_SWITCH1_NAME");
+					} else if (expectedDevice.equalsIgnoreCase("Dimmer")) {
+						deviceName = inputs.getInputValue("LOCATION1_DIMMER1_NAME");
+					}
+					if (displayedText.equals(deviceName)) {
+						f = true;
+						break;
+					}
+				}
+				if (f) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device : " + deviceName + " is present on the dashboard.");
+				} else {
+					Keyword.ReportStep_Pass(testCase, "Device : " + deviceName + " is not present on the dashboard.");
+				}
+			} else {
+				Keyword.ReportStep_Pass(testCase, "No devices found on the dashboard");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "User is not on the dashboard");
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate to DAS Settings screen</h1>
+	 * <p>
+	 * The navigateToDASSettings method navigates user to DAS Settings screen.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if navigation to DAS Settings is successfully.
+	 *         Returns 'false' if navigation to DAS Settings screen fails.
+	 */
+	public static boolean navigateToDASSettings(TestCases testCase, String dasDeviceName) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DIYRegistration");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "GlobalDrawerButton");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Global Drawer button");
+		}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerIconList", 3)) {
+				List<WebElement> icons = MobileUtils.getMobElements(fieldObjects, testCase, "GlobalDrawerIconList");
+				boolean iconFound = false;
+				for (WebElement icon : icons) {
+					if (icon.getAttribute("text").equalsIgnoreCase(dasDeviceName)) {
+						iconFound = true;
+						icon.click();
+						break;
+					}
+				}
+				if (iconFound) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on '" + dasDeviceName + "'");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"'" + dasDeviceName + "' not found in Global Drawer list");
+				}
+
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not find items on Global Drawer list");
+			}
+
+		} else {
+			if (MobileUtils.isMobElementExists("name", dasDeviceName, testCase, 3, false)) {
+				flag = flag & MobileUtils.clickOnElement(testCase, "name", dasDeviceName);
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not find " + dasDeviceName + " Device button in the Global Drawer List");
+			}
 		}
 		return flag;
 	}
