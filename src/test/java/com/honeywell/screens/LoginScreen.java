@@ -49,9 +49,6 @@ public class LoginScreen extends MobileScreens{
 			} else {
 				element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
 				flag = flag & MobileUtils.longPress(testCase, element, 8000);
-				if (!MobileUtils.isMobElementExists(objectDefinition,testCase,"WebServerURL",3,false)) {
-					flag = flag & MobileUtils.longPress(testCase, element, 8000);
-				}
 			}
 			return flag;
 		}

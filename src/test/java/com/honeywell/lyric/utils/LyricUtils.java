@@ -39,6 +39,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.deviceCloudProviders.PCloudyExecutionDesiredCapability.PCloudyDeviceInformation;
 import com.honeywell.commons.mobile.CustomDriver;
+import com.honeywell.commons.mobile.CustomIOSDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
@@ -65,6 +66,8 @@ public class LyricUtils {
 	 * @param driver
 	 *            The driver instantiated to run the test case
 	 * @return String File name of the screen shot
+	 * 
+	 *         Modified On: 21/02/2018 by Surendar
 	 */
 	public static String takeScreenShot(String path, WebDriver driver) {
 		String scrName = "#";
@@ -370,8 +373,8 @@ public class LyricUtils {
 		}
 		if (ls.isLoginButtonVisible()) {
 			flag = flag & ls.clickOnLoginButton();
-		} else{
-				MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
+		} else {
+			MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
 		}
 		return flag;
 	}
@@ -408,17 +411,20 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						int counter = 0;
-						while (os.isAllowButtonVisible(1) && counter < 3) {
-							os.clickOnAllowButton();
-							counter++;
-						}
-						if (os.isNotNowButtonVisible(1)) {
-							os.clickOnNotNowButton();
+						try {
+							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 							return false;
-						}
-						while (os.isGotitButton(5) && counter < 5) {
-							os.clickOnGotitButton();
-							counter++;
+						} catch (Exception e) {
+							if (os.isNotNowButtonVisible(1)) {
+								os.clickOnNotNowButton();
+								return false;
+							} else if (os.isGotitButtonVisible(1)) {
+								while (os.isGotitButtonVisible(1) && counter < 5) {
+									os.clickOnGotitButton();
+									counter++;
+								}
+								return false;
+							}
 						}
 					} else {
 						if (os.isCloseButtonVisible(1)) {
@@ -477,22 +483,43 @@ public class LyricUtils {
 				flag = flag & os.clickOnAllowButton();
 			}
 		} else {
-			int counter = 0;
-			while (!ls.isLyricLogoVisible() && counter < 5) {
-				if (os.isAllowButtonVisible()) {
-					flag = flag & os.clickOnAllowButton();
-				}
-				if (os.isAlwaysAllowButtonVisible(2)) {
-					flag = flag & os.clickOnAlwaysAllowButton();
-				}
-				if (os.isOkButtonVisible()) {
-					flag = flag & os.clickOnOkButton();
+			try {
+				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+				fWait.pollingEvery(2, TimeUnit.SECONDS);
+				fWait.withTimeout(1, TimeUnit.MINUTES);
+				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+					public Boolean apply(CustomDriver driver) {
+						try {
+							if (ls.isLyricLogoVisible()) {
+								return true;
+							}
+							if (os.isCancelButtonVisible()) {
+								os.clickOnCancelButton();
+								return false;
+							} else {
+								((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
+								return false;
+							}
+						} catch (Exception e) {
+							return false;
+						}
+					}
+				});
+				if (isEventReceived) {
+					Keyword.ReportStep_Pass(testCase, "Login to Lyric : Successfully navigated to HomeScreen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Login To Lyric : Unable to navigate to homepage. Could not find notification icon on homepage");
 				}
 
-				if (os.isCancelButtonVisible()) {
-					flag = flag & os.clickOnCancelButton();
-				}
-				counter++;
+			} catch (TimeoutException e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Timed out while loading. Wait time : 2 minutes");
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}
 		}
 		return flag;
@@ -530,7 +557,7 @@ public class LyricUtils {
 				// Keeping this explicit wait because sometimes the environment selection fails
 				// on ANDROID
 				TimeUnit.SECONDS.sleep(1);
-				//Thread.sleep(1000);
+				// Thread.sleep(1000);
 			}
 			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
 			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
@@ -851,7 +878,7 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	public static void scrollList(TestCases testCase, String locatorType, String locatorValue) {
 		WebElement ele = MobileUtils.getMobElement(testCase, locatorType, locatorValue);
 		Dimension d1;
@@ -864,7 +891,7 @@ public class LyricUtils {
 			p1 = ele.getLocation();
 			startx = p1.getX();
 			starty = d1.getHeight();
-			endy = -p1.getY()/10;
+			endy = -p1.getY() / 10;
 		} else {
 			d1 = ele.getSize();
 			p1 = ele.getLocation();

@@ -73,7 +73,7 @@ public class OSPopUps extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButton",timeOut,false);
 	}
-	public boolean isGotitButton(int timeOut)
+	public boolean isGotitButtonVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GotIT",timeOut,false);
 	}

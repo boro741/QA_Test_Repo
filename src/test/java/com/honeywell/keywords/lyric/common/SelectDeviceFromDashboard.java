@@ -88,7 +88,7 @@ public class SelectDeviceFromDashboard extends Keyword {
 					"Device : " + deviceToBeSelected + " is not present on the dashboard. Available Devices: " + availableDevices);
 		}
 		int counter = 0;
-		while (os.isGotitButton(5) && counter < 5) {
+		while (os.isGotitButtonVisible(5) && counter < 5) {
 			os.clickOnGotitButton();
 			counter++;
 		}
