@@ -17,6 +17,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	private static final String screenName = "DASSettings";
 	public static final String BASESTATIONCONFIGURATION = "Base Station Configuration";
 	public static final String ENTRYEXITDELAYSETTINGS = "Entry/Exit Delay";
+	public static final String GEOFENCING = "Geofencing";
+	public static final String VOLUME = "Volume";
+	public static final String BASESTATIONWIFI="Base Station Wi-Fi";
 
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
@@ -120,6 +123,52 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
+	public boolean isElementEnabled(String elementName) throws Exception
+	{
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID"))
+		{
+			if(elementName.equals(BaseStationSettingsScreen.GEOFENCING))
+			{
+				if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingOption",3))
+				{
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", BaseStationSettingsScreen.GEOFENCING);
+				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingOption").getAttribute("enabled"));
+			}
+			else if(elementName.equals(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS))
+			{
+				if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption",3))
+				{
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDelayOption").getAttribute("enabled"));
+			}
+			else if(elementName.equals(BaseStationSettingsScreen.VOLUME))
+			{
+				if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "VolumeOption",3))
+				{
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", BaseStationSettingsScreen.VOLUME);
+				}
+			}
+			else if(elementName.equals(BaseStationSettingsScreen.BASESTATIONWIFI))
+			{
+				if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationWiFiOption",3))
+				{
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", BaseStationSettingsScreen.BASESTATIONWIFI);
+				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption").getAttribute("enabled"));
+			}
+			else
+			{
+				throw new Exception("Invalid Input : " + elementName);
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
 	public boolean verifyParticularEntryExitDelayOptionVisible(String option) throws Exception {
 		String attribute = "";
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

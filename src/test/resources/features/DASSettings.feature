@@ -184,11 +184,6 @@ Feature: DAS Settings
       | Entry/Exit Delay   | 
       | Volume             |
       | Base Station Wi-Fi | 
-       
-     When user navigates to "Base Station Settings" screen from the "Security Settings" screen 
-     Then the following "Security Settings" options should be disabled:
-      | Options            | 
-      | Base Station Wi-Fi | 
   
   #LYDAS-3196
   #Requirements: Single Location Single DAS Device, No Sensors Required
