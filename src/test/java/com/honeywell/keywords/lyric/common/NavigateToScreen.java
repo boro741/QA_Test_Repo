@@ -159,7 +159,7 @@ public class NavigateToScreen extends Keyword {
 				case "ADD NEW DEVICE IN GLOBAL DRAWER": {
 					Dashboard ds = new Dashboard(testCase);
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if(dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+					if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
 						dasDIY.clickOnBackArrowInSelectADeviceScreen();
 					}
 					if (ds.clickOnGlobalDrawerButton()) {
@@ -271,11 +271,9 @@ public class NavigateToScreen extends Keyword {
 					if (bs.isBackButtonVisible()) {
 						flag = flag & bs.clickOnBackButton();
 					}
-					if(!d.areDevicesVisibleOnDashboard())
-					{
+					if (!d.areDevicesVisibleOnDashboard()) {
 						flag = flag & bs.clickOnBackButton();
-						if(!d.areDevicesVisibleOnDashboard())
-						{
+						if (!d.areDevicesVisibleOnDashboard()) {
 							flag = flag & bs.clickOnBackButton();
 						}
 					}
@@ -407,22 +405,20 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					// dasDIY.verifyDashboardScreenTitle();
-					if(dasDIY.isIncreaseSecurityPopupVisible()) {
-						return flag;
+					if (dasDIY.isIncreaseSecurityPopupVisible()) {
+						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+						}
+						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+							dasDIY.clickOnGotItButtonInQuickControlsPopup();
+						}
+						if (dasDIY.isIncreaseSecurityPopupVisible()) {
+							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+						}
+					} else {
+						return true;
 					}
-					/*
-					 * if(dasDIY.isIncreaseSecurityPopupVisible()) {
-					 * dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-					 * if(dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-					 * dasDIY.clickOnGotItButtonInAccessMoreInfoPopup(); }
-					 * if(dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-					 * dasDIY.clickOnGotItButtonInQuickControlsPopup(); }
-					 * if(dasDIY.isIncreaseSecurityPopupVisible()) {
-					 * dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup(); } } else {
-					 * 
-					 * }
-					 */
 					break;
 				}
 				}
