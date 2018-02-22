@@ -44,6 +44,15 @@ public class VerifyScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
+		case "Z-WAVE UTILITIES":{
+			if(DASZwaveUtils.verifyZWaveUtilitiesScreen(testCase)){
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			}else{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
 		case "ACTIVATE Z-WAVE DEVICE": {
 			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -140,6 +149,7 @@ public class VerifyScreen extends Keyword {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Screen " + expectedScreen.get(0));
 			return flag;
+
 		}
 		}
 		return flag;

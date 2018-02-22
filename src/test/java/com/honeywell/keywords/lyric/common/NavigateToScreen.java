@@ -78,6 +78,18 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
+				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					flag= flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
+					break;
+				}
+				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					flag= flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
+					break;
 				}
 				}
 			}

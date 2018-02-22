@@ -15,6 +15,9 @@ ExcludeModeTitle	Xpath	//*[@text='Exclude Z-Wave device now']					NAME	Exclude Z
 NoDeviceToExcludePopupHeader	Xpath	//*[@text='Device not found!']										
 NoDeviceToExcludePopupMessage	Xpath	//*[@text='Could not exclude any device. Request Failed!']					NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.
 NoDeviceToExcludePopupDismiss	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
+NoDeviceToExcludePopupRetry	Xpath	//*[@text='Retry']										
+NoDeviceToExcludePopupDismiss	Xpath	//*[@text='Cancel']										
+NoDeviceToExcludePopupCancel	Xpath	//*[@text='CANCEL']										
 ExcludedPopupHeader	Xpath	"//*[contains(@text,'is excluded successfully!')]"					NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion
 CancelFurtherExcludeButton	Xpath	//*[@text='CANCEL']					NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
 ConfirmFurtherExcludeButton	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
