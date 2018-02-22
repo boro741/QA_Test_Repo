@@ -279,6 +279,19 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				// Navigate from 'Base Station Configuration' to 'Model and Firmware Details'
+				// Author: Pratik P. Lalseta (H119237)
+				case "MODEL AND FIRMWARE DETAILS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isModelAndFirmwareOptionsVisibleOnBaseStationConfigurationScreen()) {
+						flag = flag & bs.clickOnModelAndFirmwareOptionsOnBaseStationConfigurationScreen();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not find 'Model And Firmaware Details' option");
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));

@@ -98,7 +98,7 @@ Feature: DAS Settings
   
   #LYDAS-6941
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @ResetWiFi
+  @ResetWiFi @NotAutomatable
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -120,7 +120,7 @@ Feature: DAS Settings
       | WPA2_PERSONAL_MIXED | abcd      | abcd          | 
       | WPA2                | abcd      | abcd          | 
   
-  @ResetWiFiByAddingNetwork
+  @ResetWiFiByAddingNetwork @NotAutomatable
   #Requirements: Single Location Single DAS Device, No Sensors Required
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
@@ -137,7 +137,7 @@ Feature: DAS Settings
       | WiFi SSID | WiFi Password | 
       | abcd      | abcd          | 
   
-  @ResetWiFiIncorrectPassword
+  @ResetWiFiIncorrectPassword @NotAutomatable
   #Requirements: Single Location Single DAS Device, No Sensors Required
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
@@ -156,16 +156,17 @@ Feature: DAS Settings
   
   #LYDAS-4099,LYDAS-3633,LYDAS-3469,LYDAS-3419,LYDAS-2411
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyDASPanelModelAndFirmwareDetails
+  @VerifyDASPanelModelAndFirmwareDetails @UIAutomated
   Scenario: As a user I want to view that all model, firmware and panel details 
     Given user launches and logs in to the Lyric application 
-     When user navigates to "Base Station Settings" screen from the "Dashboard" screen 
-     Then user should be displayed with the following "Panel Settings" options: 
-      | Settings           | 
-      | Base Station Wi-Fi | 
+     When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+     Then user should be displayed with the following "Base Station Configuration" options: 
+      | Settings           |
+      | Name               |  
       | Battery            | 
-     When user navigates to "Model and Firmware Details" screen from the "Base Station Settings" screen 
-     Then user should be displayed with the following "Panel Model and Firware Details" options: 
+      | Model and Firmware Details |
+     When user navigates to "Model and Firmware Details" screen from the "Base Station Configuration" screen
+     Then user should be displayed with the following "Panel Model and Firmware Details" options: 
       | Settings         | 
       | Model Details    | 
       | Firmware Details | 
@@ -178,10 +179,12 @@ Feature: DAS Settings
      When user launches and logs in to the Lyric application 
       And user navigates to "Security Settings" screen from the "Dashboard" screen
      Then the following "Security Settings" options should be disabled:
-      | Options          | 
-      | Entry/Exit Delay | 
-      | Volume           | 
-      | Geofencing       | 
+      | Options            | 
+      | Geofencing         |
+      | Entry/Exit Delay   | 
+      | Volume             |
+      | Base Station Wi-Fi | 
+       
      When user navigates to "Base Station Settings" screen from the "Security Settings" screen 
      Then the following "Security Settings" options should be disabled:
       | Options            | 
@@ -516,4 +519,91 @@ Feature: DAS Settings
      Then "Video Quality" value should be updated to "High" on "Video Quality Settings" screen 
      When user navigates to "Video Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "High" on "Video Settings" screen
-  
+     
+     @EnableDisableMotionDetection
+     Scenario: As a user I should be able to enable or disable motion detection
+     Given user DAS camera is set to "on" through CHIL
+      And motion detection is "enabled" on user DAS panel through CHIL
+     When user launches and logs in to the Lyric application 
+     And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+     And user changes the "Motion Detection" to "Off"
+     Then "Motion Detection" value should be updated to "Off" on "Motion Detection Settings" screen
+  	When user navigates to "Video Settings" screen from the "Motion Detection Settings" screen
+  	Then "Motion Detection" value should be updated to "Off" on "Video Settings" screen
+  	When user navigates to "Motion Detection Settings" screen from the "Video Settings" screen
+     And user changes the "Motion Detection" to "On"
+     Then "Motion Detection" value should be updated to "On" on "Motion Detection Settings" screen
+  	When user navigates to "Video Settings" screen from the "Motion Detection Settings" screen
+  	Then "Motion Detection" value should be updated to "On" on "Video Settings" screen
+  	
+  	@ChooseAllZones
+  	Scenario: As a user I should be able to select and draw all the 4 zones
+  	Given user DAS camera is set to "on" through CHIL
+      And motion detection is "enabled" on user DAS panel through CHIL
+     When user launches and logs in to the Lyric application 
+     And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+     Then user should be displayed with "zone 1" as the default zone
+     And user verifies that the entire snapshot is selected as the motion detection zone
+     When user selects "zone 2" from the "Motion Detection Settings" screen
+     And user "enables" detection in "zone 2"
+     Then user "should be able" to draw on "zone 2"
+     When user selects "zone 3" from the "Motion Detection Settings" screen
+     And user "enables" detection in "zone 3"
+     Then user "should be able" to draw on "zone 3"
+     When user selects "zone 4" from the "Motion Detection Settings" screen
+     And user "enables" detection in "zone 4"
+     Then user "should be able" to draw on "zone 4"
+     
+     @VerifyMotionSensitivitySettings
+     Scenario: As a user I should be able to set motion sensitivity on my DAS panel to Off,High,Low, Normal and High
+     Given user DAS camera is set to "on" through CHIL
+      And motion detection is "enabled" on user DAS panel through CHIL
+     When user launches and logs in to the Lyric application 
+     And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+     Then user should be displayed with the following "Motion Sensitivity Settings" options:
+     | Settings | 
+     | Off      | 
+     | Low      |
+     | Medium   | 
+     | High     |
+     When user changes the "Motion Sensitivity" to "Off"
+     Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
+     And "no" motion detection changes should be reported
+     When user changes the "Motion Sensitivity" to "Low"
+     Then "Motion Sensitivity" value should be updated to "Low" on "Motion Detection Settings" screen
+     And "low" motion detection changes should be reported
+     When user changes the "Motion Sensitivity" to "medium"
+     Then "Motion Sensitivity" value should be updated to "medium" on "Motion Detection Settings" screen
+     And "medium" motion detection changes should be reported
+     When user changes the "Motion Sensitivity" to "high"
+     Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
+     And "high" motion detection changes should be reported
+     
+     @VerifySensitivityOnZones
+     Scenario Outline: As a user I want to verify sensitivity on all the zones
+     Given user DAS camera is set to "on" through CHIL
+      And "motion detection" is "enabled" on user DAS panel through CHIL
+      And "motion sensitivity" is "high" on user DAS panel through CHIL
+     When user launches and logs in to the Lyric application 
+     And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+     When user selects <zones> from the "Motion Detection Settings" screen
+     And user "enables" detection in <zones>
+     And user selects an area on the detection zone
+     Then the selected area should be highlighted in red
+     And user panel should report motion detection changes on the selected area
+     Examples:
+     |zones|
+     |zone2|
+     |zone3|
+     |zone4|
+     
+     @VerifyMultipleZonesOverlapError
+     Scenario: As a user I want to verify sensitivity area on my zones should not overlap
+     Given user DAS camera is set to "on" through CHIL
+      And "motion detection" is "enabled" on user DAS panel through CHIL
+      And "motion sensitivity" is "high" on user DAS panel through CHIL
+     When user launches and logs in to the Lyric application
+     And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+     And user ovelaps motion detection area across multiple zones
+     And user navigates to "Video Settings" screen from the "Motion Detection Settings" screen
+     Then user should be displayed with "Error-Zones overlap" popup

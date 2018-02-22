@@ -241,4 +241,103 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "DASNameTextbox", value);
 	}
 
+	public boolean isDASNameOptionlVisibleOnBaseStationConfigurationScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTitle",3);
+	}
+
+	public boolean verifyDASNameOptionTextOnBaseStationConfigurationScreen() {
+		if (this.isDASNameOptionlVisibleOnBaseStationConfigurationScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "DASNameTitle").getAttribute("text")
+					.equalsIgnoreCase("Name"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isBatteryOptionVisibleOnBaseStationConfigurationScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASBatteryTitle",3);
+	}
+
+	public boolean verifyBatteryOptionTextOnBaseStationConfigurationScreen() {
+		if (this.isBatteryOptionVisibleOnBaseStationConfigurationScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "DASBatteryTitle").getAttribute("text")
+					.equalsIgnoreCase("Battery"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isBatteryStatusVisibleOnBaseStationConfigurationScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASBatteryStatus",3);
+	}
+
+	public boolean verifyBatteryStatusTextOnBaseStationConfigurationScreen() {
+		if (this.isBatteryOptionVisibleOnBaseStationConfigurationScreen()) {
+			String status = MobileUtils.getMobElement(objectDefinition, testCase, "DASBatteryStatus")
+					.getAttribute("text");
+			return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isModelAndFirmwareOptionsVisibleOnBaseStationConfigurationScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelAndFirmwareDetails",3);
+	}
+
+	public boolean verifyModelAndFirmwareDetailsOptionTextOnBaseStationConfigurationScreen() {
+		if (this.isModelAndFirmwareOptionsVisibleOnBaseStationConfigurationScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "ModelAndFirmwareDetails")
+					.getAttribute("text").equalsIgnoreCase("Model and Firmware Details"));
+
+		} else {
+			return false;
+		}
+	}
+
+	public boolean clickOnModelAndFirmwareOptionsOnBaseStationConfigurationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
+	}
+	
+	public boolean verifyModelDetailsOnModelAndFirmwareDetailsPage() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelDetailsLabel").getAttribute("text").equalsIgnoreCase("Model Details"));
+		} else {
+			flag = false;
+		}
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelNameLabel"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelNameLabel").getAttribute("text").equalsIgnoreCase("DAS"));
+		} else {
+			flag = false;
+		}
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelMACID"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelMACID").getAttribute("text").toUpperCase().contains("MAC ID : "));
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+	
+	public boolean verifyFirmwareDetailsOnModelAndFirmwareDetailsPage() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareDetailsTitle"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareDetailsTitle").getAttribute("text").equalsIgnoreCase("Firmware Details"));
+		} else {
+			flag = false;
+		}
+		
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareVersion"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareVersion").getAttribute("text").toUpperCase().contains("VERSION"));
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+	
 }
