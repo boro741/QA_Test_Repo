@@ -57,8 +57,23 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
+			} 
+			if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "SWITCH PRIMARY CARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+					break;
+				}
+				}
+			} 
+			else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ZWAVE DEVICES": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);

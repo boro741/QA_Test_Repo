@@ -27,11 +27,13 @@ DoneButtonAfterNaming	Xpath	//*[@text='Done']					NAME	Done	NAME	Done	NAME	Done
 ReturnKeypad							NAME	Return	NAME	Return	NAME	Return
 ZwaveUtilitiesMenu	Xpath	//*[@text='Z-Wave Utilities']					NAME	Z-Wave Utilities				
 SwitchSettingsMenu	Xpath	"//*[contains(@text,'Switch')]"					Xpath	"//*[contains(@value,'Switch')]"				
+SwitchSettingsMenuStatus	ID	settings_value_view										
 AllONButton	ID	btn_all_on					NAME	All On				
 AllOffButton	ID	btn_all_off					NAME	All Off				
 FixAllButton	ID	btn_fix_all					NAME	Fix All				
 SwitchRenameField	ID	zwave_edit_name					Xpath	"//*[contains(@value,'Switch')]"				
 SwitchSettingsStatus	ID	zwave_status_value										
+ToggleStatusProgress	Xpath	//*[@text='Please wait.']										
 SwitchStatusToggle	ID	settings_switch					NAME	Status_toggle				
 ModelFirmwareTitle	Xpath	//*[@text='Model and Firmware Details']					NAME	Model and Firmware Details				
 ModelFirmwareSubTitle	ID	zwave_firmware_details					NAME	Model and Firmware Details_subTitle				

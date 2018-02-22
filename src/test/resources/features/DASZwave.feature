@@ -221,6 +221,7 @@ As a user I want to control all devices using ZWave technology
      When user "Retries" the "Exclusion Device not found" popup
       And user "activates" the "switch" function key
      Then user should receive a "Switch Excluded Successfully" popup
+      When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should not be displayed with "Switch" device on dashboard
   
@@ -299,12 +300,11 @@ As a user I want to control all devices using ZWave technology
       And user turns "on" the "Switch" through the "Switch settings"
       And user turns "off" the "Switch" through the "Switch settings"
      Then user should see the "Switch" status as "offline" on the "Switch settings"
-     When user navigates to "Zwave utilities" screen from the "Switch settings" screen
-     Then user should see the "All ON" status as "inactive" on the "Zwave utilities"
-      And user should see the "All OFF" status as "inactive" on the "Zwave utilities"
-      And user should see the "Fix All" status as "active" on the "Zwave utilities"
-     When user navigates to "Dashboard" screen from the "Zwave utilities" screen 
-      And user navigates to "Switch Primary card" screen from the "Dashboard" screen 
+     When user navigates to "Zwave devices" screen from the "Switch settings" screen
+     Then user should see the "All ON" status as "inactive" on the "Zwave devices"
+      And user should see the "All OFF" status as "inactive" on the "Zwave devices"
+      And user should see the "Fix All" status as "active" on the "Zwave devices"
+      And user navigates to "Switch Primary card" screen from the "Zwave devices" screen 
      Then user should see the "Switch" status as "offline" on the "Switch Primary card"
   
   @OnlineZwaveSwitchFromSettings @LYDAS-6370

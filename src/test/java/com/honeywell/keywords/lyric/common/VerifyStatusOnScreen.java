@@ -17,6 +17,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.ZwavePrimardCardScreen;
+import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyStatusOnScreen extends Keyword {
 
@@ -70,10 +71,161 @@ public class VerifyStatusOnScreen extends Keyword {
 						}
 						break;
 					}
+					case "OFFLINE": {
+						if(zp.getSwitchStatus().equalsIgnoreCase("OFFLINE")){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
 					}
 				}else{
 					flag=false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
+				}
+				break;
+			}
+			default:{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
+			}
+			}
+			break;
+		}
+		case "SWITCH SETTINGS":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SWITCH": {
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ON": {
+					currentStatus=zwaveScreen.getSwitchStatus();
+					if(currentStatus.equals("ON")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFF": {
+					currentStatus=zwaveScreen.getSwitchStatus();
+					if(currentStatus.equals("OFF")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFFLINE": {
+					currentStatus=zwaveScreen.getSwitchStatusOffline();
+					if(currentStatus.toUpperCase().equals("OFFLINE")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
+				}
+				}
+				break;
+			}
+			default:{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
+			}
+			}
+			break;
+		}
+		case "ZWAVE DEVICES":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "ALL ON": {
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ACTIVE": {
+					if(zwaveScreen.isAllOnEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "INACTIVE": {
+					if(!zwaveScreen.isAllOnEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
+				}
+				}
+				break;
+			}
+			case "ALL OFF": {
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ACTIVE": {
+					if(zwaveScreen.isAllOffEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "INACTIVE": {
+					if(!zwaveScreen.isAllOffEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
+				}
+				}
+				break;
+			}
+			case "FIX ALL": {
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ACTIVE": {
+					if(zwaveScreen.isFixAllEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "INACTIVE": {
+					if(!zwaveScreen.isFixAllEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
+				}
 				}
 				break;
 			}
@@ -101,6 +253,15 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				case "OFF": {
 					if(currentStatus.equals("OFF")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFFLINE": {
+					if(currentStatus.toUpperCase().equals("OFFLINE")){
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
 					}else{
 						flag=false;

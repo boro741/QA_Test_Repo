@@ -24,6 +24,10 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "SwitchStatusToggle");
 	}
 
+	public String getSwitchStatusOffline(){
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "SwitchSettingsStatus");
+	}  
+	
 	public boolean clickOnStatus(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchStatusToggle");
 	}
@@ -189,6 +193,17 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickZwaveUtilitiesMenu() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveUtilitiesMenu");
 	}
+	
+	public boolean isAllOffEnabled() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "AllOffButton").isEnabled();
+	}
 
+	public boolean isAllOnEnabled() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "AllONButton").isEnabled();
+	}
+	
+	public boolean isFixAllEnabled() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "FixAllButton").isEnabled();
+	}
 
 }
