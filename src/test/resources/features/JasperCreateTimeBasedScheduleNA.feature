@@ -28,7 +28,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule with default schedule value
      Then verify "Weekday and Weekend" schedule gets created successfully
-     And user logs out of the app 
+#     And user logs out of the app 
     Examples: 
       | scheduling      | 
       #| No scheduling   | 
@@ -38,73 +38,79 @@ so that my home temperature will get set automatically all days based on the tim
   Scenario: Caution message cancelled to change Weekday and Weekend schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Weekday and Weekend schedule over Geofence schedule by cancelling geofence schedule retained 
-    Given user has "Geofence scheduling" mode
-    And user logs in to Lyric app
+    Given user thermostat is set to "geofence based" schedule
+    And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user selects "Cancel" option while creating "Weekday and Weekend" schedule with default schedule value
      Then verify "Geofence" schedule is retained
-     And user logs out of the app
+#     And user logs out of the app
   
   @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms @Automated @--xrayid:ATER-7494
   Scenario: Caution message confirmed to change Weekday and Weekend schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Weekday and Weekend schedule over Geofence schedule 
-    Given user has "Geofence scheduling" mode
-    And user logs in to Lyric app
+    Given user thermostat is set to "geofence based" schedule
+    And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user selects "Confirm" option while creating "Weekday and Weekend" schedule with default schedule value
      Then verify "Weekday and Weekend" schedule gets created successfully
-     And user logs out of the app
+#     And user logs out of the app
   
   @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleCancels @Automated @--xrayid:ATER-7495
   Scenario: Caution message cancelled to change Everyday schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Everyday schedule over Geofence schedule and by cancelling geofence schedule retained 
-    Given user has "Geofence scheduling" mode
-    And user logs in to Lyric app
+    Given user thermostat is set to "geofence based" schedule
+    And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user selects "Cancel" option while creating "Everyday" schedule with default schedule value
      Then verify "Geofence" schedule is retained
-     And user logs out of the app
+#     And user logs out of the app
   
   @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleConfirms @Automated @--xrayid:ATER-7496
   Scenario: Caution message confirmed to change Everyday schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Everyday schedule over Geofence schedule with time format 24or12hr
-    Given user has "Geofence scheduling" mode
-    And user logs in to Lyric app
+    Given user thermostat is set to "geofence based" schedule
+    And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user selects "Confirm" option while creating "Everyday" schedule with default schedule value
      Then verify "Everyday" schedule gets created successfully
-     And user logs out of the app
+#     And user logs out of the app
   
   @CreateNAEverydayscheduleTemperatureRange @Automated @--xrayid:ATER-7497
   Scenario Outline: To create Everyday schedule by setting up with new temperature value for systems 
   As an user
   I want to create Everyday schedule by setting up with new temperature value from default schedule value
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by setting temperature value to <Temperature>
      Then verify "Everyday" schedule gets created successfully 
       And verify temperature is set within the maximum and minimum range
-      And user logs out of the app
+#      And user logs out of the app
     Examples: 
       | Temperature   | 
-      #| Above Maximum | 
-      #| Below Minimum | 
-      #| At Maximum    | 
-      #| At Minimum    | 
+      | Above Maximum | 
+      | Below Minimum | 
+      | At Maximum    | 
+      | At Minimum    | 
       | within range  | 
   
   @CreateNAWeekdayandWeekendscheduleTemperatureRange @Automated @--xrayid:ATER-7498
   Scenario Outline: To configure Weekday and Weekend schedule by setting up with new temperature value for systems 
   I want to create Weekday and Weekend schedule by setting up with new temperature value from default schedule value
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule by setting temperature value to <Temperature>
      Then verify "Weekday and Weekend" schedule gets created successfully 
       And verify temperature is set within the maximum and minimum range
-      And user logs out of the app
+#      And user logs out of the app
     Examples: 
       | Temperature   | 
-      #| Above Maximum | 
-      #| Below Minimum | 
-      #| At Maximum    | 
-      #| At Minimum    | 
+#      | Above Maximum | 
+#      | Below Minimum | 
+#      | At Maximum    | 
+#      | At Minimum    | 
       | within range  | 
   
   @CreateNAEverydayscheduleTimeformat @Automated @--xrayid:ATER-7499

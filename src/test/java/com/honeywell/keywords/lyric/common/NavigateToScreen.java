@@ -21,6 +21,7 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.Schedule;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -351,6 +352,45 @@ public class NavigateToScreen extends Keyword {
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {
+		return flag;
+	}
+	public static boolean NavigateToDashboardFromAnyScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			Schedule sch = new Schedule(testCase);
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) {
+				Keyword.ReportStep_Pass(testCase,
+						"Navigate To Primary Card : User is already on the Primary Card or Dashboard");
+				return flag;
+			} else {
+				int i = 0;
+				while ((!MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) && i < 10) {
+					if (sch.isCloseButtonVisible(3)) {
+						flag = flag & sch.clickOnCloseButton();
+					} else if (bs.isBackButtonVisible(2)) {
+						flag = flag & bs.clickOnBackButton();
+					} else if (bs.isBackButtonVisible(2)) {
+						flag = flag & bs.clickOnBackButton();
+					}
+					i++;
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")
+						|| (MobileUtils.isMobElementExists(fieldObjects,testCase, "AddNewDeviceIcon"))) {
+					Keyword.ReportStep_Pass(testCase,
+							"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Navigate To Primary Card : Failed to navigate to Primary card or Dashboard");
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Navigate To Primary Card : Error Occured : " + e.getMessage());
+		}
 		return flag;
 	}
 
