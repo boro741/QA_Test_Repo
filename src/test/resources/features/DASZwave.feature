@@ -203,24 +203,25 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Switch Excluded Successfully" popup
      When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
       And user should be displayed with the "Z-Wave Utilities" screen
-     When user navigates to "Dashboard" screen from "Z-Wave Utilities" screen
-     Then user should not be displayed with "Switch" device on dashboard
+     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
+     Then user should not be displayed with "Switch1" device on dashboard
   
   @GeneralExcludeSwitchOnNoDeviceFound @corrected
   Scenario: (ZwaveTC11) As a user I should be able to exclude a zwave switch through the General exclusion in application
       And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device(General Exclusion)" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave device through General Exclusion" screen from the "Dashboard" screen
      Then user should be displayed with the "Exclusion Mode Active" screen
-     When user "does not activates" the "switch" function key
-     Then user should receive a "Device not found" popup
-     When user "dismisses" the "Further Exclusion" popup 
-      And user navigates to "Z-Wave device(General Exclusion)" from "Z-Wave Utilities" screen
+     When user "does not activate" the "switch" function key
+     Then user should receive a "Exclusion Device not found" popup
+     When user "dismisses" the "Exclusion Device not found" popup 
+      And user navigates to "Z-Wave device through General Exclusion" screen from the "Z-Wave Utilities" screen
      Then user should be displayed with the "Exclusion Mode Active" screen
-     When user "does not activates" the "switch" function key
-     Then user should receive a "Device not found" popup
-     When user "Retries the exclusion on" the "Device not found" popup
+     When user "does not activate" the "switch" function key
+     Then user should receive a "Exclusion Device not found" popup
+     When user "Retries" the "Exclusion Device not found" popup
       And user "activates" the "switch" function key
      Then user should receive a "Switch Excluded Successfully" popup
+      When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should not be displayed with "Switch" device on dashboard
   
@@ -299,12 +300,11 @@ As a user I want to control all devices using ZWave technology
       And user turns "on" the "Switch" through the "Switch settings"
       And user turns "off" the "Switch" through the "Switch settings"
      Then user should see the "Switch" status as "offline" on the "Switch settings"
-     When user navigates to "Zwave utilities" screen from the "Switch settings" screen
-     Then user should see the "All ON" status as "inactive" on the "Zwave utilities"
-      And user should see the "All OFF" status as "inactive" on the "Zwave utilities"
-      And user should see the "Fix All" status as "active" on the "Zwave utilities"
-     When user navigates to "Dashboard" screen from the "Zwave utilities" screen 
-      And user navigates to "Switch Primary card" screen from the "Dashboard" screen 
+     When user navigates to "Zwave devices" screen from the "Switch settings" screen
+     Then user should see the "All ON" status as "inactive" on the "Zwave devices"
+      And user should see the "All OFF" status as "inactive" on the "Zwave devices"
+      And user should see the "Fix All" status as "active" on the "Zwave devices"
+      And user navigates to "Switch Primary card" screen from the "Zwave devices" screen 
      Then user should see the "Switch" status as "offline" on the "Switch Primary card"
   
   @OnlineZwaveSwitchFromSettings @LYDAS-6370
@@ -337,7 +337,7 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Switch settings" screen from the "Dashboard" screen
       And user selects "Replace" from "Dimmer settings" screen
      Then user should be displayed with the "Inclusion Mode Active" screen
-     When user "does not activates" the "dimmer" function key
+     When user "does not activate" the "dimmer" function key
      Then user should receive a "Device not found" popup
   
   @ReplaceZwaveDimmerWithSwitch @LYDAS-5380

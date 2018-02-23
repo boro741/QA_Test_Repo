@@ -62,6 +62,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
 				break;
 			}
+			case "EXCLUSION DEVICE NOT FOUND":
+			{
+				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+				break;
+			}
 			case "DEVICE NOT FOUND":
 			{
 				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);

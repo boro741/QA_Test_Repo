@@ -114,11 +114,36 @@ public class PerformActionsOnPopUp extends Keyword {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
 				return flag;
 			}
+		}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("EXCLUSION DEVICE NOT FOUND")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASZwaveUtils.clickCancelOnExcludeDeviceNotFoundPopUp(testCase);
+				break;
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
+			case "RETRIES": {
+				DASZwaveUtils.clickRetryOnExcludeDeviceNotFoundPopUp(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
 				DASZwaveUtils.clickOKOnDeviceNotFoundPopUp(testCase);
+				break;
+			}
+			case "DISMISSES": {
+				DASZwaveUtils.clickCancelOnDeviceNotFoundPopUp(testCase);
+				break;
+			}
+			case "RETRY": {
+				DASZwaveUtils.clickRetryOnDeviceNotFoundPopUp(testCase);
 				break;
 			}
 			default: {

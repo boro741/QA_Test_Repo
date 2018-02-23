@@ -171,6 +171,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					switch (expectedScreen.get(0).toUpperCase()) {
 					case "ON": {
 						if(zs.switchOn()){
+							//TODO
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;
@@ -180,6 +181,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					}
 					case "OFF": {
 						if(zs.switchOff()){
+							//TODO
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;
