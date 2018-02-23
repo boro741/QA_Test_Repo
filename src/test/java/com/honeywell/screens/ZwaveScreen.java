@@ -69,6 +69,10 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchSettingsMenu");
 	}
 
+	public boolean ClickDimmerSettingFromZwaveUtilities() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DimmerSettingsMenu");
+	}
+	
 	public  boolean ClickDeleteFromSettings() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
 	}

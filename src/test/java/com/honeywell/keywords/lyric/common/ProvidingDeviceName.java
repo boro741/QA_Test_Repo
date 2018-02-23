@@ -39,7 +39,9 @@ public class ProvidingDeviceName extends Keyword {
 	@KeywordStep(gherkins = "^user names the (.*) to (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(0).equalsIgnoreCase("Switch")) {
+			switch (parameters.get(0).toUpperCase()) {
+			case "DIMMER":
+			case "SWITCH": {
 				DASZwaveUtils.waitForNamingScreen(testCase);
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if(zwaveScreen.isNamingFieldDisplayed()){
@@ -50,6 +52,12 @@ public class ProvidingDeviceName extends Keyword {
 						zwaveScreen.saveNameToSwitchOnAndroid();
 					}
 				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + parameters.get(0));
+			}	
 			}
 		} catch (Exception e) {
 			flag = false;

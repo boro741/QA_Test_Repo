@@ -90,7 +90,7 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
 	}
 
-	public String getSwitchStatus() {
+	public String getZwaveDeviceStatus(String expectedDevice) {
 		if (this.areDevicesVisibleOnDashboard(10)) {
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
 					"DashboardIconText");
@@ -106,7 +106,7 @@ public class Dashboard extends MobileScreens {
 					} catch (Exception e1) {
 					}
 				}
-				if (displayedText.contains("Switch")) {
+				if (displayedText.toUpperCase().contains(expectedDevice)) {
 					if(dashboardIconStatus.get(i).getText().toUpperCase().contains("ON")){
 						return "ON";
 					}else {
