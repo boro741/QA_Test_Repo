@@ -27,6 +27,11 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon",timeOut,false);
 	}
 
+	public boolean isSplashScreenVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SplashScreen",timeOut,false);
+	}
+	
 	public boolean isAddDeviceIconVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon",timeOut,false);

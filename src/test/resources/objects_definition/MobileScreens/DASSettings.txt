@@ -13,12 +13,12 @@ GeofencingOption	xpath	//android.widget.TextView[@text='Geofencing']	xpath	//and
 60SecondsOption	xpath	//android.widget.TextView[@text='60']	xpath	//android.widget.TextView[@text='60']	xpath	//android.widget.TextView[@text='60']	name	Entry_Exit_0_3	name	Entry_Exit_0_3	name	Entry_Exit_0_3
 EntryExitTable	id	das_settings_recyclerview	id	das_settings_recyclerview	id	das_settings_recyclerview	xpath	//XCUIElementTypeTable	xpath	//XCUIElementTypeTable	xpath	//XCUIElementTypeTable
 EntryExitTimerValue	id	settings_value	id	settings_value	id	settings_value	name	Security_Settings_0_3_value	name	Security_Settings_0_3_value	name	Security_Settings_0_3_value
-BackButton	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
+BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
 DASNameTextbox	id	security_settings_edit_name	id	security_settings_edit_name	id	security_settings_edit_name	name	BaseStation_Settings_0_0_textField_value	name	BaseStation_Settings_0_0_textField_value	name	BaseStation_Settings_0_0_textField_value
-DASNameTitle	id	das_name_label	id	das_name_label	id	das_name_label						
-DASBatteryTitle	id	settings_title_view	id	settings_title_view	id	settings_title_view						
+DASNameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']						
+DASBatteryTitle	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']						
 DASBatteryStatus	id	settings_hint_view	id	settings_hint_view	id	settings_hint_view						
-ModelAndFirmwareDetails	id	list_item_lyric_horizontal_text_view_primary_text	id	list_item_lyric_horizontal_text_view_primary_text	id	list_item_lyric_horizontal_text_view_primary_text						
+ModelAndFirmwareDetails	xpath	//android.widget.TextView[@text='Model and Firmware Details']	xpath	//android.widget.TextView[@text='Model and Firmware Details']	xpath	//android.widget.TextView[@text='Model and Firmware Details']						
 ModelDetailsLabel	id	camera_config_model_title_textview	id	camera_config_model_title_textview	id	camera_config_model_title_textview						
 ModelNameLabel	id	security_config_model_modelname_textview	id	security_config_model_modelname_textview	id	security_config_model_modelname_textview						
 ModelMACID	id	security_config_model_macid_textview	id	security_config_model_macid_textview	id	security_config_model_macid_textview						
@@ -28,3 +28,7 @@ NoSensorsText	xpath	//android.widget.TextView[@text='No sensors']	xpath	//androi
 NoKeyFobsText	xpath	//android.widget.TextView[@text='No Key Fobs']	xpath	//android.widget.TextView[@text='No Key Fobs']	xpath	//android.widget.TextView[@text='No Key Fobs']						
 KeyFobOption	xpath	"//android.widget.TextView[contains(@text,'Key Fob')]"	xpath	"//android.widget.TextView[contains(@text,'Key Fob')]"	xpath	"//android.widget.TextView[contains(@text,'Key Fob')]"						
 SensorsOption	xpath	"//android.widget.TextView[contains(@text,'Sensors')]"	xpath	"//android.widget.TextView[contains(@text,'Sensors')]"	xpath	"//android.widget.TextView[contains(@text,'Sensors')]"						
+KeyfobList	id	list_item_lyric_horizontal_text_view_primary_text	id	list_item_lyric_horizontal_text_view_primary_text	id	list_item_lyric_horizontal_text_view_primary_text						
+SensorList	id	sensor_name	id	sensor_name	id	sensor_name						
+SensorStatusOption	xpath	//android.widget.TextView[@text='Status']	xpath	//android.widget.TextView[@text='Status']	xpath	//android.widget.TextView[@text='Status']						
+SignalStrengthOption	xpath	//android.widget.TextView[@text='Signal Strength and Test']	xpath	//android.widget.TextView[@text='Signal Strength and Test']	xpath	//android.widget.TextView[@text='Signal Strength and Test']						

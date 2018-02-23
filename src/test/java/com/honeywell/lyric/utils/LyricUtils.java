@@ -434,10 +434,10 @@ public class LyricUtils {
 							return false;
 						}
 					}
-					if (d.isWeatherIconVisible(1)) {
-						return true;
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						return d.isWeatherIconVisible(1);
 					} else {
-						return false;
+						return !d.isSplashScreenVisible(1);
 					}
 
 				}
@@ -880,7 +880,6 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-
 
 	/**
 	 * <h1>Scroll To Element Using Exact Attribute Value</h1>

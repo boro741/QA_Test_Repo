@@ -195,28 +195,37 @@ Feature: DAS Settings
      When user navigates to "Sensors" screen from the "Keyfob" screen
      Then user should not be displayed with "sensors" on the "sensors" screen
   
-  #Requirements: Single Location Single DAS Device, 1 Sensor &1 Keyfob Required
-  @VerifyDisplayedSensors
+  #Requirements: Single Location Single DAS Device, Atleast 1 Sensor & Atleast 1 Keyfob Required
+  @VerifyDisplayedKeyfobsAndSensors @UIAutomated
   Scenario: As a user I should be displayed with all my sensors and keyfobs
     Given user launches and logs in to the Lyric application
      When user navigates to "Keyfob" screen from the "Dashboard" screen
-     Then user should be displayed with all "keyfob" names configured to his/her account
+     Then user should be displayed with all "keyfob" names configured to his account
      When user navigates to "Keyfob Settings" screen from the "Keyfob" screen
      Then user should be displayed with the following "Keyfob Settings" options: 
       | Settings                   | 
       | Name                       | 
-      | Model and Firmware Details | 
-      | Delete                     | 
-     When user navigates to "Sensor" screen from the "Keyfob Settings" screen
-     Then user should be displayed with all "sensor" names configured to his/her account
-     Then user should be displayed with the following "Keyfob Settings" options: 
+      | Model and Firmware Details |  
+      When user navigates to "Model and Firmware Details" screen from the "Keyfob Settings" screen
+      Then user should be displayed with the following "Keyfob Model and Firmware Details" options: 
+      | Settings         | 
+      | Model Details    | 
+      | Firmware Details |
+     When user navigates to "Sensors" screen from the "Keyfob Model and Firmware Details" screen
+     Then user should be displayed with all "sensor" names configured to his account
+     When user navigates to "Sensor Settings" screen from the "Sensor" screen
+     Then user should be displayed with the following "Sensor Settings" options: 
       | Settings                   | 
       | Name                       | 
       | Status                     | 
       | Signal Strength and Test   | 
       | Battery                    | 
-      | Model and Firmware Details | 
-      | Delete                     | 
+      | Model and Firmware Details |
+      When user navigates to "Model and Firmware Details" screen from the "Sensor Settings" screen
+      Then user should be displayed with the following "Sensor Model and Firmware Details" options: 
+      | Settings         | 
+      | Model Details    | 
+      | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, 1 Sensor Required
   @RenameSensors

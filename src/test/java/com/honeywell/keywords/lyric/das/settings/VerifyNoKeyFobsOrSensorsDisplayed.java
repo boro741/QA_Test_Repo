@@ -48,7 +48,7 @@ public class VerifyNoKeyFobsOrSensorsDisplayed extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "No Keyfob text is not displayed");
 				}
 			}
-			if (parameters.get(0).equalsIgnoreCase("sensors")
+			else if (parameters.get(0).equalsIgnoreCase("sensors")
 					&& parameters.get(1).equalsIgnoreCase("sensors")) {
 				if(bs.isNoSensorTextVisible())
 				{

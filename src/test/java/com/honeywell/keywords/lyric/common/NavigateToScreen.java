@@ -232,7 +232,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 
-				// Navigate from 'Dashboard' to 'Keyfob Settings'
+				// Navigate from 'Dashboard' to 'Keyfobs List'
 				// Author: Pratik P. Lalseta (H119237)
 				case "KEYFOB": {
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
@@ -482,6 +482,69 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 					break;
 				}
+				case "KEYFOB SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No Keyfob names were provided in the Requirement file");
+						return flag;
+					}
+					flag = flag & bs.selectKeyfobFromKeyfobList(inputs.getInputValue("LOCATION1_KEYFOB1_NAME"));
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Keyfob Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MODEL AND FIRMWARE DETAILS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Keyfob Model and Firmware Details")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SENSORS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Sensor")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
+							&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No sensor names were provided in the Requirement file");
+						return flag;
+					}
+					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
+						flag = flag
+								& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME"));
+					} else {
+						flag = flag
+								& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME"));
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -489,7 +552,19 @@ public class NavigateToScreen extends Keyword {
 				}
 			}
 
-			else {
+			else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MODEL AND FIRMWARE DETAILS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnModelAndFirmwareOptionsOnSensorSettingsScreen();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

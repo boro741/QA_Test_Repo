@@ -335,12 +335,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "DASNameTextbox", value);
 	}
 
-	public boolean isDASNameOptionlVisibleOnBaseStationConfigurationScreen() {
+	public boolean isDASNameOptionVisibleOnBaseStationConfigurationScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTitle",3);
 	}
 
 	public boolean verifyDASNameOptionTextOnBaseStationConfigurationScreen() {
-		if (this.isDASNameOptionlVisibleOnBaseStationConfigurationScreen()) {
+		if (this.isDASNameOptionVisibleOnBaseStationConfigurationScreen()) {
 			return (MobileUtils.getMobElement(objectDefinition, testCase, "DASNameTitle").getAttribute("text")
 					.equalsIgnoreCase("Name"));
 		} else {
@@ -393,7 +393,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
 	}
 	
-	public boolean verifyModelDetailsOnModelAndFirmwareDetailsPage() {
+	public boolean verifyDASModelDetailsOnModelAndFirmwareDetailsPage() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel"))
 		{
@@ -415,8 +415,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
-	
-	public boolean verifyFirmwareDetailsOnModelAndFirmwareDetailsPage() {
+		
+	public boolean verifyDASFirmwareDetailsOnModelAndFirmwareDetailsPage() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareDetailsTitle"))
 		{
@@ -434,6 +434,71 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return flag;
 	}
 	
+	public boolean verifyKeyfobModelDetailsOnModelAndFirmwareDetailsPage() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel",3))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelDetailsLabel").getAttribute("text").equalsIgnoreCase("Model Details"));
+		} else {
+			flag = false;
+		}
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelMACID",3))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelMACID").getAttribute("text").toUpperCase().contains("SERIAL NO : "));
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+	
+	public boolean verifyKeyfobFirmwareDetailsOnModelAndFirmwareDetailsPage() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareDetailsTitle"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareDetailsTitle").getAttribute("text").equalsIgnoreCase("Firmware Details"));
+		} else {
+			flag = false;
+		}
+		
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareVersion"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareVersion").getAttribute("text").toUpperCase().contains("VERSION"));
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
+	public boolean isModelAndFirmwareOptionsVisibleOnKeyfobSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelAndFirmwareDetails",3);
+	}
+	
+	public boolean clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
+	}
+	
+	public boolean verifyModelAndFirmwareDetailsOptionTextOnKeyfobSettingsScreen() {
+		if (this.isModelAndFirmwareOptionsVisibleOnKeyfobSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "ModelAndFirmwareDetails")
+					.getAttribute("text").equalsIgnoreCase("Model and Firmware Details"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isKeyfobNameOptionVisibleOnKeyfobSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTitle",3);
+	}
+
+	public boolean verifyKeyfobNameOptionTextOnKeyfobSettingsScreen() {
+		if (this.isKeyfobNameOptionVisibleOnKeyfobSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "DASNameTitle").getAttribute("text")
+					.equalsIgnoreCase("Name"));
+		} else {
+			return false;
+		}
+	}
+	
 	public boolean isNoKeyFobTextVisible()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoKeyFobsText",3);
@@ -443,4 +508,164 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSensorsText",3);
 	}
+
+	public boolean isKeyfobPresentInKeyfobsList(String keyfobName)
+	{
+		List<WebElement> keyfobs = MobileUtils.getMobElements(objectDefinition, testCase, "KeyfobList");
+		boolean found = false;
+		for(WebElement keyfob:keyfobs)
+		{
+			if(keyfob.getAttribute("text").equalsIgnoreCase(keyfobName))
+			{
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
+	
+	public boolean isSensorPresentInSensorsList(String sensorName)
+	{
+		List<WebElement> sensors = MobileUtils.getMobElements(objectDefinition, testCase, "SensorList");
+		boolean found = false;
+		for(WebElement sensor:sensors)
+		{
+			if(sensor.getAttribute("text").equalsIgnoreCase(sensorName))
+			{
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
+
+	public boolean selectKeyfobFromKeyfobList(String keyfobName)
+	{
+		return MobileUtils.clickOnElement(testCase, "xpath", "//android.widget.TextView[@text='" + keyfobName + "']");
+	}
+
+	public boolean selectSensorFromSensorList(String sensorName)
+	{
+		return MobileUtils.clickOnElement(testCase, "xpath", "//android.widget.TextView[@text='" + sensorName + "']");
+	}
+	
+	public boolean verifySensorModelDetailsOnModelAndFirmwareDetailsPage() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelDetailsLabel").getAttribute("text").equalsIgnoreCase("Model Details"));
+		} else {
+			flag = false;
+		}
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelMACID"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelMACID").getAttribute("text").toUpperCase().contains("SERIAL NO : "));
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+	
+	public boolean verifySensorFirmwareDetailsOnModelAndFirmwareDetailsPage() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareDetailsTitle"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareDetailsTitle").getAttribute("text").equalsIgnoreCase("Firmware Details"));
+		} else {
+			flag = false;
+		}
+		
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareVersion"))
+		{
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareVersion").getAttribute("text").toUpperCase().contains("VERSION"));
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
+	public boolean isSensorNameOptionVisibleOnSensorSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTitle",3);
+	}
+	
+	public boolean isSensorStatusOptionVisibleOnSensorSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption",3);
+	}
+	
+	public boolean isSensorSignalStrengthAndTestOptionVisibleOnSensorSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthOption",3);
+	}
+	
+	public boolean isSensorBatteryOptionVisibleOnSensorSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASBatteryTitle",3);
+	}
+	
+	public boolean isBatteryStatusVisibleOnSensorSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASBatteryStatus",3);
+	}
+	
+	public boolean isModelAndFirmwareDetailsOptionVisibleOnSensorSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelAndFirmwareDetails",3);
+	}	
+
+	public boolean verifySensorNameOptionTextOnSensorSettingsScreen() {
+		if (this.isKeyfobNameOptionVisibleOnKeyfobSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "DASNameTitle").getAttribute("text")
+					.equalsIgnoreCase("Name"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean verifySensorStatusOptionTextOnSensorSettingsScreen() {
+		if (this.isSensorStatusOptionVisibleOnSensorSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "SensorStatusOption").getAttribute("text")
+					.equalsIgnoreCase("Status"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean verifySensorSignalStrengthAndTestOptionTextOnSensorSettingsScreen() {
+		if (this.isSensorSignalStrengthAndTestOptionVisibleOnSensorSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "SignalStrengthOption").getAttribute("text")
+					.equalsIgnoreCase("Signal Strength and Test"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean verifyBatteryOptionTextOnSensorSettingsScreen() {
+		if (this.isSensorBatteryOptionVisibleOnSensorSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "DASBatteryTitle").getAttribute("text")
+					.equalsIgnoreCase("Battery"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean verifyBatteryStatusTextOnSensorSettingsScreen() {
+		if (this.isSensorBatteryOptionVisibleOnSensorSettingsScreen()) {
+			String status = MobileUtils.getMobElement(objectDefinition, testCase, "DASBatteryStatus")
+					.getAttribute("text");
+			return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean verifyModelAndFirmwareDetailsOptionTextOnSensorSettingsScreen() {
+		if (this.isModelAndFirmwareDetailsOptionVisibleOnSensorSettingsScreen()) {
+			return (MobileUtils.getMobElement(objectDefinition, testCase, "ModelAndFirmwareDetails")
+					.getAttribute("text").equalsIgnoreCase("Model and Firmware Details"));
+
+		} else {
+			return false;
+		}
+	}
+
+	public boolean clickOnModelAndFirmwareOptionsOnSensorSettingsScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
+	}
+
 }
