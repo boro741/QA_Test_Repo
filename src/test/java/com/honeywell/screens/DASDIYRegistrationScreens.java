@@ -1,5 +1,10 @@
 package com.honeywell.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -157,6 +162,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isConnectToNetworkHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectoNetworkHeaderTitle");
+
 	}
 
 	public boolean isConnectToNetworkHeaderDescVisible() {
@@ -181,7 +187,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + wifiName + "']",
 					testCase, 3);
 		} else {
-			return true;
+			return MobileUtils.isMobElementExists("name", wifiName, testCase, 3);
+
 		}
 	}
 
@@ -203,7 +210,20 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				}
 			}
 		} else {
-			return true;
+
+			if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
+				return MobileUtils.clickOnElement(testCase, "name", wifiName);
+			} else {
+				int counter = 0;
+				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
+					LyricUtils.scrollUpAList(testCase, objectDefinition, "WiFiList");
+				}
+				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
+					return MobileUtils.clickOnElement(testCase, "name", wifiName);
+				} else {
+					throw new Exception("Click On WiFi Name : Could not find wifi : " + wifiName + " in the list");
+				}
+			}
 		}
 	}
 
@@ -223,11 +243,20 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+		}
 	}
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
+
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		}else {
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]");
+		}
 	}
 
 	public boolean isConnectingSmartHomeSecurityLoadingSpinnerVisible() {
@@ -341,7 +370,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
 						testCase, 3) && counter < 4) {
-					System.out.println("#######counter: " + counter);
 					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 					counter++;
 				}
@@ -359,7 +387,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("name", deviceName, testCase, 3) && counter < 4) {
-					System.out.println("#######counter: " + counter);
 					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 					counter++;
 				}
@@ -384,7 +411,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
 						testCase, 3) && counter < 4) {
-					System.out.println("#######counter: " + counter);
 					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 					counter++;
 				}
@@ -403,7 +429,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("name", deviceName, testCase, 3) && counter < 4) {
-					System.out.println("#######counter: " + counter);
 					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 					counter++;
 				}

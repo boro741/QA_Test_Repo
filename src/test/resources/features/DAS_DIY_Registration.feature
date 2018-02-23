@@ -162,7 +162,7 @@ When QR code is not scanned for "2" minutes
 Then user should receive a "scanning failure" popup
 When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
-#And user scans the QR code by showing it to the base station camera
+And user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 
 Examples: 

@@ -22,62 +22,9 @@ import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class DIYRegistrationUtils {
-
-	/**
-	 * <h1>Wait for device list progress bar to complete</h1>
-	 * <p>
-	 * The waitForFetchingDeviceListProgressBarToComplete method waits until the
-	 * progress bar closes.
-	 * </p>
-	 *
-	 * @author Midhun Gollapalli (H179225)
-	 * @version 1.0
-	 * @since 2018-02-21
-	 * @param testCase
-	 *            Instance of the TestCases class used to create the testCase.
-	 *            testCase instance.
-	 * @return boolean Returns 'true' if the progress bar disappears. Returns
-	 *         'false' if the progress bar is still displayed.
-	 */
-	public static boolean waitForFetchingDeviceListProgressBarToComplete(TestCases testCase) {
-		boolean flag = true;
-		try {
-			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
-			AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
-			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-				public Boolean apply(String a) {
-					try {
-						if (addNewDevice.isFetchingDevicesListProgressBarVisible()) {
-							System.out.println("Waiting for Fetching Devices List loading spinner to disappear");
-							return false;
-						} else {
-							return true;
-						}
-					} catch (Exception e) {
-						return false;
-					}
-				}
-			});
-			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Waiting for Fetching Devices List loading spinner diasppeared");
-			}
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Fetching Devices List loading spinner did not disapper after waiting for 1 minute");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
-		}
-
-		return flag;
-	}
 
 	/**
 	 * <h1>Wait for progress bar to close</h1>
@@ -328,7 +275,7 @@ public class DIYRegistrationUtils {
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			fWait.withTimeout(3, TimeUnit.MINUTES);
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
@@ -351,7 +298,7 @@ public class DIYRegistrationUtils {
 		} catch (TimeoutException e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Connecting Smart Home Security loading spinner did not disapper after waiting for 2 minutes");
+					"Connecting Smart Home Security loading spinner did not disapper after waiting for 3 minutes");
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
