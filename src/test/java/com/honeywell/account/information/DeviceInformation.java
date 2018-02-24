@@ -52,7 +52,7 @@ public class DeviceInformation {
 		}
 	}
 
-	public String getJasperDeviceType(){
+	public String getJasperDeviceType() {
 		String type = " ";
 		if (deviceInformation != null) {
 			try {
@@ -63,111 +63,144 @@ public class DeviceInformation {
 				} else if (temp.equals("15")) {
 					type = "NA";
 				}
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}
-		}else {
+		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Jasper Device Type : Not Connected to CHAPI. Returning \"\" value");
-			}
-			return type;
 		}
-
-		public String getThermostatUnits() throws Exception {
-			String units = " ";
-			if (deviceInformation != null) {
-				units = deviceInformation.getJSONObject("thermostat").getString("units");
-			} else {
-				throw new Exception("Device Information not found");
-			}
-			return units;
-		}
-
-		public String getThermoStatScheduleType() throws Exception {
-			String systemMode = "";
-			if (deviceInformation != null) {
-				systemMode = deviceInformation.getJSONObject("scheduleType").getString("scheduleType");
-			} else {
-				throw new Exception("Device Information not found");
-			}
-			return systemMode;
-		}
-
-		public List<String> getAllowedModes() throws Exception {
-			List<String> allowedModes = new ArrayList<String>();
-			if (deviceInformation != null) {
-				JSONArray temp = new JSONArray();
-				temp = deviceInformation.getJSONObject("thermostat").getJSONArray("allowedModes");
-				for (int i = 0; i < temp.length(); i++) {
-					allowedModes.add(temp.getString(i));
-				}
-			} else {
-				throw new Exception("Device Information not found");
-			}
-			return allowedModes;
-		}
-
-		public HashMap<String, String> getDeviceMaxMinSetPoints() throws Exception {
-			HashMap<String, String> setPoints = new HashMap<String, String>();
-			if (deviceInformation != null) {
-				List<String> allowedModes = getAllowedModes();
-				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					String temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxHeatSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MaxHeat", temp);
-					temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxCoolSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MaxCool", temp);
-					temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minHeatSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MinHeat", temp);
-					temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minCoolSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MinCool", temp);
-				} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
-					String temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxCoolSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MaxCool", temp);
-					temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minCoolSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MinCool", temp);
-				} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					String temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxHeatSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MaxHeat", temp);
-					temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minHeatSetpoint"));
-					if (getThermostatUnits().equals("Celsius")) {
-						temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
-								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
-					}
-					setPoints.put("MinHeat", temp);
-				}
-				return setPoints;
-			} else {
-				throw new Exception("Device Information not found");
-			}
-		}
-
+		return type;
 	}
+
+	public String getThermostatUnits() throws Exception {
+		String units = " ";
+		if (deviceInformation != null) {
+			units = deviceInformation.getJSONObject("thermostat").getString("units");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return units;
+	}
+
+	public String getThermoStatScheduleType() throws Exception {
+		String systemMode = "";
+		if (deviceInformation != null) {
+			systemMode = deviceInformation.getJSONObject("scheduleType").getString("scheduleType");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return systemMode;
+	}
+
+	public List<String> getAllowedModes() throws Exception {
+		List<String> allowedModes = new ArrayList<String>();
+		if (deviceInformation != null) {
+			JSONArray temp = new JSONArray();
+			temp = deviceInformation.getJSONObject("thermostat").getJSONArray("allowedModes");
+			for (int i = 0; i < temp.length(); i++) {
+				allowedModes.add(temp.getString(i));
+			}
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return allowedModes;
+	}
+
+	public HashMap<String, String> getDeviceMaxMinSetPoints() throws Exception {
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		if (deviceInformation != null) {
+			List<String> allowedModes = getAllowedModes();
+			if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+				String temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxHeatSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MaxHeat", temp);
+				temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxCoolSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MaxCool", temp);
+				temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minHeatSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MinHeat", temp);
+				temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minCoolSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MinCool", temp);
+			} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
+				String temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxCoolSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MaxCool", temp);
+				temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minCoolSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MinCool", temp);
+			} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+				String temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("maxHeatSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MaxHeat", temp);
+				temp = String.valueOf(deviceInformation.getJSONObject("thermostat").get("minHeatSetpoint"));
+				if (getThermostatUnits().equals("Celsius")) {
+					temp = JasperSchedulingUtils.roundOffCelsiusData(testCase,
+							JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, temp));
+				}
+				setPoints.put("MinHeat", temp);
+			}
+			return setPoints;
+		} else {
+			throw new Exception("Device Information not found");
+		}
+	}
+
+	public String getDASSensorID(String sensorName) throws Exception {
+		if (deviceInformation != null) {
+			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
+			for(int i=0;i<sensors.length();i++)
+			{
+				JSONObject sensor = sensors.getJSONObject(i);
+				if(sensor.getString("name").equals(sensorName))
+				{
+					return sensor.getString("id");
+				}
+			}
+			throw new Exception("Sensor Name: "+ sensorName +" not found in configured sensors");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+	}
+
+	public String getDASSensorResponseType(String sensorName) throws Exception {
+		if (deviceInformation != null) {
+			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
+			for(int i=0;i<sensors.length();i++)
+			{
+				JSONObject sensor = sensors.getJSONObject(i);
+				if(sensor.getString("name").equals(sensorName))
+				{
+					return sensor.getJSONObject("configurations").getString("responseType");
+				}
+			}
+			throw new Exception("Sensor Name: "+ sensorName +" not found in configured sensors");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+	}
+
+}

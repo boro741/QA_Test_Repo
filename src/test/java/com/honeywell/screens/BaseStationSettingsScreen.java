@@ -524,8 +524,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return found;
 	}
 	
-	public boolean isSensorPresentInSensorsList(String sensorName)
+	public boolean isSensorPresentInSensorsList(String sensorName) throws Exception
 	{
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorList",10))
+		{
 		List<WebElement> sensors = MobileUtils.getMobElements(objectDefinition, testCase, "SensorList");
 		boolean found = false;
 		for(WebElement sensor:sensors)
@@ -537,6 +539,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 		}
 		return found;
+		}
+		else
+		{
+			throw new Exception("No sensors found");
+		}
+		
 	}
 
 	public boolean selectKeyfobFromKeyfobList(String keyfobName)

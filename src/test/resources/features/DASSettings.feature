@@ -93,7 +93,7 @@ Feature: DAS Settings
       And user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
      When user edits the "DAS Panel" name to "Test Panel Name" 
       And user navigates to "Dashboard" screen from the "Base Station Configuration" screen 
-     Then user should be displayed with "Test Panel Name" device on dashboard 
+     Then user should be displayed with "Test Panel Name" device on the "dashboard" screen 
       And user reverts back the "DAS device name" through CHIL
   
   #LYDAS-6941
@@ -234,18 +234,8 @@ Feature: DAS Settings
      When user navigates to "Sensor Settings" screen from the "Dashboard" screen
      When user edits the "sensor" name to "Test Sensor Name" 
       And user navigates to "Sensor" screen from the "Sensor Settings" screen
-     Then user should be displayed with "Test Sensor Name" device on the "Sensor Settings" screen
+     Then user should be displayed with "Test Sensor Name" device on the "Sensor" screen
       And user reverts back the "Sensor Name" through CHIL
-  
-  #Requirements: Single Location Single DAS Device, 1 Sensor Required    
-  @VerifySensorModelAndFirmwareDetails
-  Scenario: As a user I should be able to verify keyfob model and firmware details
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Sensor Model and Firmware Settings" screen from the "Dashboard" screen
-     Then user should be displayed with the following "Sensor Model and Firmware Details" options: 
-      | Details          | 
-      | Model Details    | 
-      | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, 1 Sensor Required
   @DeleteSensor
@@ -267,16 +257,6 @@ Feature: DAS Settings
       And user navigates to "Keyfob" screen from the "Keyfob Settings" screen
      Then user should be displayed with "Test Keyfob Name" device on the "Keyfob Settings" screen
       And user reverts back the "Keyfob Name" through CHIL
-  
-  #Requirements: Single Location Single DAS Device, 1 Keyfob Required
-  @VerifyKeyfobModelAndFirmwareDetails
-  Scenario: As a user I should be able to verify keyfob model and firmware details
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Keyfob Model and Firmware Settings" screen from the "Dashboard" screen
-     Then user should be displayed with the following "Keyfob Model and Firmware Details" options: 
-      | Details          | 
-      | Model Details    | 
-      | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, 1 Keyfob Required
   @DeleteKeyfob

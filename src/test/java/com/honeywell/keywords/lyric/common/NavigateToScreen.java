@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -16,6 +17,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.das.chil.PutDeviceNameThroughCHIL;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
@@ -57,7 +59,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} 
+			}
 			if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SWITCH PRIMARY CARD": {
@@ -67,8 +69,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
+			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -98,12 +99,12 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag= flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
+					flag = flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 					break;
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag= flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
+					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 					break;
 				}
 				}
@@ -238,6 +239,32 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					break;
+				}
+
+				case "SENSOR SETTINGS": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					String sensorName = "";
+					if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
+							&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No sensor names were provided in the Requirement file");
+						return flag;
+					}
+					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
+						sensorName = inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME");
+					} else {
+						sensorName = inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME");
+					}
+					flag = flag & bs.selectSensorFromSensorList(sensorName);
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+					inputs.setInputValue(PutDeviceNameThroughCHIL.SENSORNAME, sensorName);
+					inputs.setInputValue(PutDeviceNameThroughCHIL.SENSORID, devInfo.getDASSensorID(sensorName));
+					inputs.setInputValue(PutDeviceNameThroughCHIL.SENSORRESPONSETYPE,
+							devInfo.getDASSensorResponseType(sensorName));
 					break;
 				}
 
@@ -557,6 +584,11 @@ public class NavigateToScreen extends Keyword {
 				case "MODEL AND FIRMWARE DETAILS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnModelAndFirmwareOptionsOnSensorSettingsScreen();
+					break;
+				}
+				case "SENSOR": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
 					break;
 				}
 				default: {

@@ -20,6 +20,9 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 	public boolean flag = true;
 	private TestCaseInputs inputs;
 	public ArrayList<String> exampleData;
+	public static final String SENSORID = "sensorid";
+	public static final String SENSORRESPONSETYPE = "sensorresponsetype";
+	public static final String SENSORNAME = "sensorname";
 
 	public PutDeviceNameThroughCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
@@ -37,9 +40,9 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 	@KeywordStep(gherkins = "^user reverts back the (.*) through CHIL$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
+			@SuppressWarnings("resource")
+			CHILUtil chUtil = new CHILUtil(inputs);
 			if (exampleData.get(0).equalsIgnoreCase("DAS Device name")) {
-				@SuppressWarnings("resource")
-				CHILUtil chUtil = new CHILUtil(inputs);
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 				if (chUtil.getConnection()) {
@@ -56,7 +59,23 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 					}
 				}
 			} else if (exampleData.get(0).equalsIgnoreCase("Sensor name")) {
-
+				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+				if (chUtil.getConnection()) {
+					int result = chUtil.putDASSensorName(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+							inputs.getInputValue(PutDeviceNameThroughCHIL.SENSORNAME),
+							inputs.getInputValue(PutDeviceNameThroughCHIL.SENSORID),
+							inputs.getInputValue(PutDeviceNameThroughCHIL.SENSORRESPONSETYPE));
+					if (result == 202) {
+						Keyword.ReportStep_Pass(testCase, "Successfully changed the sensor name to : "
+								+ inputs.getInputValue(PutDeviceNameThroughCHIL.SENSORNAME));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change the sensor name to "
+										+ inputs.getInputValue(PutDeviceNameThroughCHIL.SENSORNAME));
+					}
+				}
 			}
 
 		} catch (Exception e) {

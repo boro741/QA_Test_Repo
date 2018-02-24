@@ -492,4 +492,18 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
+	
+	public int putDASSensorName(long locationID,String deviceID, String sensorNameToBePut,String sensorID,String sensorResponseType) throws Exception
+	{
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/partitions/1/Sensors", locationID,deviceID);
+			String headerData = String.format("{\"chime\":\"Standard\",\"responseType\":\"%s\",\"sensitivity\":0,\"isActive\":true,\"id\":\"%s\",\"name\":\"%s\"}", sensorResponseType,sensorID,sensorNameToBePut);
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+	
 }

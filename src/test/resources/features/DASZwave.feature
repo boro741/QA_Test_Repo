@@ -66,7 +66,7 @@ As a user I want to control all devices using ZWave technology
      When user "activates" the "switch" function key
       And user names the "switch" to "Switch1"
   #null, string length with 14, only alpha numeric char}
-     Then user should be displayed with "Switch1" device on dashboard
+     Then user should be displayed with "Switch1" device on the "dashboard" screen
   
   @DeviceFoundAfterExclude @Automated 
   Scenario: (ZwaveTC5) As a user I can exclude my zwave device from No device found popup and can include
@@ -85,7 +85,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
       And user names the "switch" to "Switch1"
-     Then user should be displayed with "Switch1" device on dashboard
+     Then user should be displayed with "Switch1" device on the "dashboard" screen
   
   @AddNewDeviceIncludeZwaveSwitch @Automated @LYDAS-5209 @LYDAS-6587
   Scenario: (ZwaveTC6) As a user I want to include a zwave switch through the Add new device flow in application
@@ -95,7 +95,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
       And user names the "switch" to "Switch1"
-     Then user should be displayed with "Switch1" device on dashboard
+     Then user should be displayed with "Switch1" device on the "dashboard" screen
   # Then user receives a "Zwave device added" activity log
   
   @ToggleZwaveSwitchThroughPrimaryCard @Automated @LYDAS-4594
@@ -151,7 +151,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
       And user names the "switch" to "Switch2"
-     Then user should be displayed with "Switch2" device on dashboard
+     Then user should be displayed with "Switch2" device on the "dashboard" screen
   # Then user receives a "Zwave device added" activity log
   
   @ZwaveSwitchRename @Automated @LYDAS-5395
@@ -160,7 +160,7 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Switch settings" screen from the "Dashboard" screen
       And user edits the "Switch" name to "Switch2"
       And user navigates to "Dashboard" screen from the "Switch settings" screen
-     Then user should be displayed with "Switch2" device on dashboard
+     Then user should be displayed with "Switch2" device on the "dashboard" screen
     #  And user reverts back the "Switch" name through CHIL
   
   
@@ -192,7 +192,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "switch" function key
       And user names the "switch" to "Switch1"
-     Then user should be displayed with "Switch1" device on dashboard
+     Then user should be displayed with "Switch1" device on the "dashboard" screen
   
   @GeneralExcludeZwaveSwitch @Reviewed
   Scenario: (ZwaveTC10) As a user I should be able to exclude a zwave switch through General exclusion in the application
@@ -242,7 +242,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "dimmer" function key
       And user names the "dimmer" as "Dimmer1"
-     Then user should be displayed with "Dimmer1" device on dashboard	
+     Then user should be displayed with "Dimmer1" device on the "dashboard" screen	
       And user receives a "Zwave device added" activity log
      
   @GeneralExcludeZwaveDimmer @corrected
@@ -289,7 +289,7 @@ As a user I want to control all devices using ZWave technology
      When user navigates to "Dimmer settings" screen from the "Dashboard" screen
       And user edits the "Dimmer" name to "Dimmer2"
       And user navigates to "Dashboard" screen from the "Dimmer settings" screen
-     Then user should be displayed with "Dimmer2" device on dashboard
+     Then user should be displayed with "Dimmer2" device on the "dashboard" screen
       And user reverts back the "Dimmer" name through CHIL
   
   @OfflineZwaveSwitchFromSettings
@@ -351,7 +351,7 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Dimmer Replaced Successfully" popup
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Dimmer" device on dashboard
+     Then user should be displayed with "Dimmer" device on the "dashboard" screen
   # check in settings that its a switch
   
   @ReplaceZwaveDimmerWithDimmer
@@ -365,7 +365,7 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Dimmer Replaced Successfully" popup
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Dimmer" device on dashboard
+     Then user should be displayed with "Dimmer" device on the "dashboard" screen
   
   @ReplaceZwaveSwitchWithDimmer
   Scenario: (ZwaveTC25) As a user I should be able to replace my offline switch with a zwave dimmer
@@ -378,7 +378,7 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Switch Replaced Successfully" popup
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Switch" device on dashboard
+     Then user should be displayed with "Switch" device on the "dashboard" screen
   # check in settings that its a dimmer
   
   @ReplaceZwaveSwitchWithSwitch
@@ -392,7 +392,7 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Switch Replaced Successfully" popup
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Switch" device on dashboard
+     Then user should be displayed with "Switch" device on the "dashboard" screen
   
   @ReplaceZwaveSwitchWithUnknown @LYDAS-5380
   Scenario: (ZwaveTC27) As a user I should be able to replace my offline switch with unknown zwave devices
@@ -432,7 +432,7 @@ As a user I want to control all devices using ZWave technology
      Then user should receive a "Device Replaced Successfully" popup
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with <Expected device> device on dashboard 
+     Then user should be displayed with <Expected device> device on the "dashboard" screen 
   
     Examples: 
       | Individual settings  | Device To Activate | Expected device | 
@@ -695,7 +695,7 @@ As a user I want to control all devices using ZWave technology
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates" the "AIO" function key
      And user names the "AIO" as "AIO"
-     Then user should be displayed with "AIO" device on dashboard
+     Then user should be displayed with "AIO" device on the "dashboard" screen
   
   #actionable on any modes
   
