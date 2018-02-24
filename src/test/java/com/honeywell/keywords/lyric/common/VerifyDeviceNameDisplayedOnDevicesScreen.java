@@ -12,14 +12,14 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
-public class VerifyDeviceDisplayedOnDashboard extends Keyword {
+public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
 	private ArrayList<String> expectedDevice;
 	public boolean flag = true;
 
-	public VerifyDeviceDisplayedOnDashboard(TestCases testCase, TestCaseInputs inputs,
+	public VerifyDeviceNameDisplayedOnDevicesScreen(TestCases testCase, TestCaseInputs inputs,
 			ArrayList<String> expectedDevice) {
 		// this.inputs = inputs;
 		this.testCase = testCase;
