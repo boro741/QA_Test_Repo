@@ -467,7 +467,12 @@ public class NavigateToScreen extends Keyword {
 							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 						}
 					} else {
-						return true;
+						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+						}
+						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+							dasDIY.clickOnGotItButtonInQuickControlsPopup();
+						}
 					}
 					break;
 				}
