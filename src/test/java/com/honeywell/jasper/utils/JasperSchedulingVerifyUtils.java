@@ -1,17 +1,25 @@
 package com.honeywell.jasper.utils;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
+import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.InputVariables;
+
+
+import io.appium.java_client.TouchAction;
 
 public class JasperSchedulingVerifyUtils {
 
@@ -1276,5 +1284,594 @@ public class JasperSchedulingVerifyUtils {
 		return flag;
 	}
 
+	public static boolean verifyTimeFieldIncrements(TestCases testCase, TestCaseInputs inputs, String timeInterval) {
+		boolean flag = true;
+		int i = 0;
+		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+		List<WebElement> scheduleDayHeaders = null;
+		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		String jasperStatType = statInfo.getJasperDeviceType();
+
+		if (timeInterval.equalsIgnoreCase("10")) {
+			i = 10;
+		} else if (timeInterval.equalsIgnoreCase("15")) {
+			i = 15;
+		}
+
+		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
+			String geofenceStartTime = "", geofenceEndTime = "";
+			Double temp;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("ID", "scheduling_period_startEnd_time", testCase, 5)) {
+					if (MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
+							.contains("M")
+							|| MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
+									.contains("m")) {
+						geofenceStartTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
+								.getText().split("\\s+")[0];
+					} else {
+						geofenceStartTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
+								.getText().split("\\s+")[0];
+					}
+					if (MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
+							.contains("M")
+							|| MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
+									.contains("m")) {
+						geofenceEndTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
+								.getText().split("\\s+")[3];
+					} else {
+						geofenceEndTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
+								.getText().split("\\s+")[2];
+					}
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_subTitle", testCase, 5)) {
+					if (MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle").getAttribute("value")
+							.contains("M")
+							|| MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
+									.getAttribute("value").contains("m")) {
+						geofenceStartTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
+								.getAttribute("value").split("\\s+")[0];
+					} else {
+						geofenceStartTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
+								.getAttribute("value").split("\\s+")[0];
+					}
+					if (MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle").getAttribute("value")
+							.contains("M")
+							|| MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
+									.getAttribute("value").contains("m")) {
+						geofenceEndTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
+								.getAttribute("value").split("\\s+")[3];
+					} else {
+						geofenceEndTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
+								.getAttribute("value").split("\\s+")[2];
+					}
+				}
+			}
+			temp = Double.parseDouble(geofenceStartTime.split(":")[1]);
+			if (temp.intValue() % i == 0) {
+				Keyword.ReportStep_Pass(testCase, "Start time is set in intervals of " + i + " minutes");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Start time is not set in intervals of " + i + " minutes");
+			}
+			temp = Double.parseDouble(geofenceEndTime.split(":")[1]);
+			if (temp.intValue() % i == 0) {
+				Keyword.ReportStep_Pass(testCase, "End time is set in intervals of " + i + " minutes");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"End time is not set in intervals of " + i + " minutes");
+			}
+
+		} else {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+				String everydayStartTime = "", everydayEndTime = "";
+				Double temp;
+				List<WebElement> everydayPeriodTime = null;
+
+				if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE) != null && !inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).isEmpty()) {
+					if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+						flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+					} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+						flag = flag
+								& JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+					}
+
+					WebElement period = null;
+					CustomDriver driver = testCase.getMobileDriver();
+					Dimension dimension = driver.manage().window().getSize();
+					int height = dimension.getHeight();
+					int width = dimension.getWidth();
+					TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (!MobileUtils.isMobElementExists("XPATH",
+								"//*[@content-desc='" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']", testCase,
+								5)) {
+							testCase.getMobileDriver()
+									.scrollToExact(inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED).split("_")[1]);
+							while (!MobileUtils.isMobElementExists("XPATH",
+									"//*[@content-desc='" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
+									testCase, 5)) {
+								touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82)
+										.release();
+								touchAction.perform();
+							}
+						}
+						period = testCase.getMobileDriver().findElement(
+								By.xpath("//*[@content-desc='" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']"));
+						period.findElement(By.id("scheduling_period_time")).click();
+
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+									.getText().split("\\s+")[0];
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to locate the Start time");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+								everydayEndTime = MobileUtils
+										.getMobElement(fieldObjects, testCase, "TimeChooserEndTime").getText()
+										.split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the End time");
+							}
+						}
+						temp = Double.parseDouble(everydayStartTime.split(":")[1]);
+						if (temp.intValue() % i == 0) {
+							Keyword.ReportStep_Pass(testCase,
+									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]Start time: "
+											+ everydayStartTime + " is set in intervals of " + i + " minutes");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]Start time: "
+											+ everydayStartTime + " is not set in intervals of " + i + " minutes");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
+							if (temp.intValue() % i == 0) {
+								Keyword.ReportStep_Pass(testCase,
+										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]End time: "
+												+ everydayEndTime + " is set in intervals of " + i + " minutes");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]End time: "
+												+ everydayEndTime + " is not set in intervals of " + i + " minutes");
+							}
+						}
+					} else {
+						desiredDayIndex = Arrays.asList(scheduleDays)
+								.indexOf(inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED).split("_")[0]);
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
+							scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
+									"ScheduleDayHeader");
+							lesserDayIndex = Arrays.asList(scheduleDays)
+									.indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
+							greaterDayIndex = Arrays.asList(scheduleDays).indexOf(
+									scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
+						}
+						int m = 0;
+						while ((!MobileUtils.isMobElementExists("XPATH",
+								"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
+										+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
+								testCase, 5)) && m < 10) {
+							if (desiredDayIndex > greaterDayIndex) {
+								touchAction.press(10, (int) (dimension.getHeight() * .5))
+										.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+								m++;
+							} else if (desiredDayIndex < lesserDayIndex) {
+								touchAction.press(10, (int) (dimension.getHeight() * .5))
+										.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+								m++;
+							} else {
+								touchAction.press(10, (int) (dimension.getHeight() * .5))
+										.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+								m++;
+							}
+						}
+						period = testCase.getMobileDriver()
+								.findElement(By.name(inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)));
+
+						if (period != null) {
+							try {
+								period.click();
+								Keyword.ReportStep_Pass(testCase,
+										"Selected the period: " + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED));
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to select the period: " + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED));
+
+							}
+						}
+
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+									.getAttribute("value").split("\\s+")[0];
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to locate the Start time");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+								everydayEndTime = MobileUtils
+										.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
+										.getAttribute("value").split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the End time");
+							}
+						}
+						temp = Double.parseDouble(everydayStartTime.split(":")[1]);
+						if (temp.intValue() % i == 0) {
+							Keyword.ReportStep_Pass(testCase,
+									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]Start time: "
+											+ everydayStartTime + " is set in intervals of " + i + " minutes");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]Start time: "
+											+ everydayStartTime + " is not set in intervals of " + i + " minutes");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
+							if (temp.intValue() % i == 0) {
+								Keyword.ReportStep_Pass(testCase,
+										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]End time: "
+												+ everydayEndTime + " is set in intervals of " + i + " minutes");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "]End time: "
+												+ everydayEndTime + " is not set in intervals of " + i + " minutes");
+							}
+						}
+						if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
+							if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+								flag = false;
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to locate the CANCEL button in Edit Period screen");
+						}
+					}
+				} else {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayTime", 5)) {
+						everydayPeriodTime = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+					}
+					for (int e = 0; e < everydayPeriodTime.size(); e++) {
+						if (everydayPeriodTime.get(e) != null) {
+							everydayPeriodTime.get(e).click();
+						}
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+								everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+										.getText().split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Start time");
+							}
+							if (jasperStatType.equalsIgnoreCase("EMEA")) {
+								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+									everydayEndTime = MobileUtils
+											.getMobElement(fieldObjects, testCase, "TimeChooserEndTime").getText()
+											.split("\\s+")[0];
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to locate the End time");
+								}
+							}
+						} else {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+								everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+										.getAttribute("value").split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Start time");
+							}
+							if (jasperStatType.equalsIgnoreCase("EMEA")) {
+								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+									everydayEndTime = MobileUtils
+											.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
+											.getAttribute("value").split("\\s+")[0];
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to locate the End time");
+								}
+							}
+						}
+						temp = Double.parseDouble(everydayStartTime.split(":")[1]);
+						if (temp.intValue() % i == 0) {
+							Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]Start time: " + everydayStartTime
+									+ " is set in intervals of " + i + " minutes");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[Period-" + (e + 1) + "]Start time: " + everydayStartTime
+											+ " is not set in intervals of " + i + " minutes");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
+							if (temp.intValue() % i == 0) {
+								Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]End time: " + everydayEndTime
+										+ " is set in intervals of " + i + " minutes");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"[Period-" + (e + 1) + "]End time: " + everydayEndTime
+												+ " is not set in intervals of " + i + " minutes");
+							}
+						}
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Back button in Edit Period screen");
+							}
+						} else {
+							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
+								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the CANCEL button in Edit Period screen");
+							}
+						}
+					}
+				}
+			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+				String startTime = "", endTime = "";
+				Double temp;
+				List<WebElement> periodTime = null;
+				// =================================================ANDROID====================================================================
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SchedulePeriodTime", 5)) {
+						periodTime = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTime");
+					}
+					for (int e = 0; e < periodTime.size(); e++) {
+						if (e == 4) {
+							Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+							dimensions = testCase.getMobileDriver().manage().window().getSize();
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 20) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						}
+
+						if (periodTime.get(e) != null) {
+							periodTime.get(e).click();
+						}
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+							startTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser").getText()
+									.split("\\s+")[0];
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to locate the Start time");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+								endTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
+										.getText().split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the End time");
+							}
+						}
+						temp = Double.parseDouble(startTime.split(":")[1]);
+						if (temp.intValue() % i == 0) {
+							Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]Start time: " + startTime
+									+ " is set in intervals of " + i + " minutes");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[Period-" + (e + 1)
+									+ "]Start time: " + startTime + " is not set in intervals of " + i + " minutes");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							temp = Double.parseDouble(endTime.split(":")[1]);
+							if (temp.intValue() % i == 0) {
+								Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]End time: " + endTime
+										+ " is set in intervals of " + i + " minutes");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[Period-" + (e + 1)
+										+ "]End time: " + endTime + " is not set in intervals of " + i + " minutes");
+							}
+						}
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Back button in Edit Period screen");
+							}
+						} else {
+							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
+								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the CANCEL button in Edit Period screen");
+							}
+						}
+					}
+				}
+				// =======================================================IOS===========================================================
+				else {
+					// ========================================Weekday=====================================================
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayPeriodTime", 5)) {
+						periodTime = MobileUtils.getMobElements(fieldObjects, testCase, "WeekdayPeriodTime");
+					}
+					for (int e = 0; e < periodTime.size(); e++) {
+						if (periodTime.get(e) != null) {
+							periodTime.get(e).click();
+						}
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+							startTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+									.getAttribute("value").split("\\s+")[0];
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to locate the Start time");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+								endTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
+										.getAttribute("value").split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the End time");
+							}
+						}
+						temp = Double.parseDouble(startTime.split(":")[1]);
+						if (temp.intValue() % i == 0) {
+							Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]Start time: " + startTime
+									+ " is set in intervals of " + i + " minutes");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[Period-" + (e + 1)
+									+ "]Start time: " + startTime + " is not set in intervals of " + i + " minutes");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							temp = Double.parseDouble(endTime.split(":")[1]);
+							if (temp.intValue() % i == 0) {
+								Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]End time: " + endTime
+										+ " is set in intervals of " + i + " minutes");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[Period-" + (e + 1)
+										+ "]End time: " + endTime + " is not set in intervals of " + i + " minutes");
+							}
+						}
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Back button in Edit Period screen");
+							}
+						} else {
+							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
+								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the CANCEL button in Edit Period screen");
+							}
+						}
+					}
+					// ================================================Weekend====================================================
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendPeriodTime", 5)) {
+						periodTime = MobileUtils.getMobElements(fieldObjects, testCase, "WeekendPeriodTime");
+					}
+					for (int e = 0; e < periodTime.size(); e++) {
+						if (periodTime.get(e) != null) {
+							periodTime.get(e).click();
+						}
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+							startTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+									.getAttribute("value").split("\\s+")[0];
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to locate the Start time");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+								endTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
+										.getAttribute("value").split("\\s+")[0];
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the End time");
+							}
+						}
+						temp = Double.parseDouble(startTime.split(":")[1]);
+						if (temp.intValue() % i == 0) {
+							Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]Start time: " + startTime
+									+ " is set in intervals of " + i + " minutes");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[Period-" + (e + 1)
+									+ "]Start time: " + startTime + " is not set in intervals of " + i + " minutes");
+						}
+						if (jasperStatType.equalsIgnoreCase("EMEA")) {
+							temp = Double.parseDouble(endTime.split(":")[1]);
+							if (temp.intValue() % i == 0) {
+								Keyword.ReportStep_Pass(testCase, "[Period-" + (e + 1) + "]End time: " + endTime
+										+ " is set in intervals of " + i + " minutes");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[Period-" + (e + 1)
+										+ "]End time: " + endTime + " is not set in intervals of " + i + " minutes");
+							}
+						}
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Back button in Edit Period screen");
+							}
+						} else {
+							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
+								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the CANCEL button in Edit Period screen");
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return flag;
+	}
+
+	
 
 }
