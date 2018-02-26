@@ -1,5 +1,7 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -57,4 +59,10 @@ public class ZwavePrimardCardScreen extends MobileScreens{
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus");
 		}
 
+		public WebElement getDimmerSeekBar() {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "DimmerIntensitySeekbar");
+		}
+		public boolean isDimmerSeekBarVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DimmerIntensitySeekbar");
+		}
 }

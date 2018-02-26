@@ -60,7 +60,7 @@ public class EditDeviceName extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Switch")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Switch")||parameters.get(0).equalsIgnoreCase("Dimmer")) {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if (zwaveScreen.isEditNamingFieldDisplayed()) {
 					zwaveScreen.editNameToSwitch(parameters.get(1));
@@ -68,7 +68,11 @@ public class EditDeviceName extends Keyword {
 						zwaveScreen.saveEditedNameToSwitch();
 					}else{
 						zwaveScreen.saveEditedNameToSwitchOnAndroid();
+						if(parameters.get(0).equalsIgnoreCase("Switch")){
 						zwaveScreen.ClickSwitchSettingFromZwaveUtilities();
+						}else if(parameters.get(0).equalsIgnoreCase("Dimmer")){
+							zwaveScreen.ClickDimmerSettingFromZwaveUtilities();
+						}
 					}
 				}
 			}
