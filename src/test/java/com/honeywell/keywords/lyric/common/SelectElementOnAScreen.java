@@ -119,7 +119,6 @@ public class SelectElementOnAScreen extends Keyword {
 				case "LIVING ROOM": {
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					System.out.println("#######Device name: " + parameters.get(0));
 					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isLivingRoomBaseStationDisplayed()) {
 						flag = flag & dasDIY.clickOnLivingRoomBaseStation();
 					}

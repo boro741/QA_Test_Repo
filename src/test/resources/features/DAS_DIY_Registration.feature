@@ -7,13 +7,9 @@ As a user I want to register a DAS device using the Lyric application
 Scenario: As a user I should be able to see Smart Home Security option in Add New Device screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user should be displayed with the following "Add New Device Dashboard" options:
- |		Select Device			|
- |		Smart Home Security		| 
-And user navigates to "Add New Device in Global Drawer" screen from the "Dashboard" screen
-Then user should be displayed with the following "Add New Device Global Drawer" options:
- |		Select Device			|
- |		Smart Home Security		| 
+Then user should be displayed with "Smart Home Security" option
+When user navigates to "Add New Device in Global Drawer" screen from the "Dashboard" screen
+Then user should be displayed with "Smart Home Security" option
 
 @DIYCancelSetUp
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
@@ -27,8 +23,8 @@ When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Choose Location" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
-When user "accepts" the "Cancel Setup" popupAdd New Device Dashboard
-Then user navigates to "Add New Device Dashboard" screen from "Choose Location" screen
+When user "accepts" the "Cancel Setup" popup
+Then user navigates to "Add New Device Dashboard" screen from the "Choose Location" screen
 
 @DIYConfirmYourAddressZipCode
 Scenario Outline: As a user I should be navigated to zip code screen for the entered custom location when location services are enabled
@@ -99,7 +95,7 @@ Then user should receive a "Location services" popup
 And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen
 When user turns "off" location services for Lyric app in mobile settings
-And user navigates to "Power Base Station Instructions" screen from "Power Base Station" screen
+And user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user should receive a "Location services" popup
 And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen 
@@ -166,7 +162,7 @@ When QR code is not scanned for "2" minutes
 Then user should receive a "scanning failure" popup
 When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
-#And user scans the QR code by showing it to the base station camera
+And user scans the QR code by showing it to the base station camera
 Then user should be displayed with the "Connect to Network" screen
 
 Examples: 
@@ -420,7 +416,7 @@ When user navigates to "Enable Geofencing" screen from the "Smart Home Security 
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
-And user disables the passcode through CHIL
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on dashboard
 And user should be displayed with <device name> device on dashboard
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 

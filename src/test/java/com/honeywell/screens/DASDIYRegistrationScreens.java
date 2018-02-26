@@ -1,5 +1,10 @@
 package com.honeywell.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -92,31 +97,31 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isRegisterBaseStationHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RegisterBaseStationHeaderTitle");
 	}
-	
+
 	public boolean isBaseStationNotFoundPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationNotFounPopupTitle");
 	}
-	
+
 	public boolean isOKButtonInBaseStationNotFoundPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInBaseStationNotFounPopup");
 	}
-	
+
 	public boolean clickOnOKButtonInBaseStationNotFoundPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInBaseStationNotFounPopup");
 	}
-	
+
 	public boolean isRetryButtonInBaseStationNotFoundPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RetryButtonInBaseStationNotFoundPopup");
 	}
-	
+
 	public boolean clickOnRetryButtonInBaseStationNotFoundPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryButtonInBaseStationNotFoundPopup");
 	}
-	
+
 	public boolean isBackArrowInRegisterBaseStationVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInRegisterBaseStationHeader");
 	}
-	
+
 	public boolean clickOnBackArrowInRegisterBaseStationScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrowInRegisterBaseStationHeader");
 	}
@@ -137,11 +142,11 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists("name",
 				"Scan this code by showing it to your Base Station\u2019s camera.", testCase, 2, false);
 	}
-	
+
 	public boolean isQRCodeScanningFailurePopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "QRCodeScanningFailurePopupTitle");
 	}
-	
+
 	public boolean isOKButtonInQRCodeScanningFailurePopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInQRCodeScanningFailurePopup");
 	}
@@ -157,14 +162,16 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isConnectToNetworkHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectoNetworkHeaderTitle");
+
 	}
 
 	public boolean isConnectToNetworkHeaderDescVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectoNetworkHeaderDesc");
 	}
-	
+
 	public String getToolBarTitleInConnectToNetworkScreen() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "ConnectoNetworkHeaderTitle", false).getAttribute("text");
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ConnectoNetworkHeaderTitle", false)
+				.getAttribute("text");
 	}
 
 	public boolean isAddANetworkButtonVisible() {
@@ -180,7 +187,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + wifiName + "']",
 					testCase, 3);
 		} else {
-			return true;
+			return MobileUtils.isMobElementExists("name", wifiName, testCase, 3);
+
 		}
 	}
 
@@ -202,10 +210,23 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				}
 			}
 		} else {
-			return true;
+
+			if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
+				return MobileUtils.clickOnElement(testCase, "name", wifiName);
+			} else {
+				int counter = 0;
+				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
+					LyricUtils.scrollUpAList(testCase, objectDefinition, "WiFiList");
+				}
+				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
+					return MobileUtils.clickOnElement(testCase, "name", wifiName);
+				} else {
+					throw new Exception("Click On WiFi Name : Could not find wifi : " + wifiName + " in the list");
+				}
+			}
 		}
 	}
-	
+
 	public boolean isWiFiPasswordTextFieldVisibile() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiPasswordTextField");
 	}
@@ -222,11 +243,20 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+		}
 	}
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
+
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		}else {
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]");
+		}
 	}
 
 	public boolean isConnectingSmartHomeSecurityLoadingSpinnerVisible() {
@@ -330,6 +360,46 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddSecurityButtonInIncreaseSecurityPopup");
 	}
 
+	public boolean isSmartHomeSecurityOptionVisible(String deviceName) throws Exception {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
+					testCase, 3)) {
+				return flag;
+			} else {
+				int counter = 0;
+				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
+						testCase, 3) && counter < 4) {
+					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					counter++;
+				}
+				if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
+						testCase, 3)) {
+					return flag;
+				} else {
+					throw new Exception(
+							"Select Device To Install : Could not find device : " + deviceName + " in the list");
+				}
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("name", deviceName, testCase, 3)) {
+				return flag;
+			} else {
+				int counter = 0;
+				while (!MobileUtils.isMobElementExists("name", deviceName, testCase, 3) && counter < 4) {
+					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					counter++;
+				}
+				if (MobileUtils.isMobElementExists("name", deviceName, testCase, 3)) {
+					return flag;
+				} else {
+					throw new Exception(
+							"Select Device To Install : Could not find device : " + deviceName + " in the list");
+				}
+			}
+		}
+	}
+
 	public boolean selectDeviceToInstall(String deviceName) throws Exception {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -341,7 +411,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
 						testCase, 3) && counter < 4) {
-					System.out.println("#######counter: " + counter);
 					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 					counter++;
 				}
@@ -354,6 +423,23 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 							"Select Device To Install : Could not find device : " + deviceName + " in the list");
 				}
 			}
+		} else {
+			if (MobileUtils.isMobElementExists("name", deviceName, testCase, 3)) {
+				flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceName);
+			} else {
+				int counter = 0;
+				while (!MobileUtils.isMobElementExists("name", deviceName, testCase, 3) && counter < 4) {
+					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					counter++;
+				}
+				if (MobileUtils.isMobElementExists("name", deviceName, testCase, 3)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", deviceName);
+				} else {
+					throw new Exception(
+							"Select Device To Install : Could not find device : " + deviceName + " in the list");
+				}
+			}
+
 		}
 		return flag;
 	}

@@ -79,7 +79,6 @@ public class VerifyScreen extends Keyword {
 		}
 		case "ADD NEW DEVICE DASHBOARD": {
 			AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
-			DIYRegistrationUtils.waitForFetchingDeviceListProgressBarToComplete(testCase);
 			if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed()) {
 				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
 			} else {

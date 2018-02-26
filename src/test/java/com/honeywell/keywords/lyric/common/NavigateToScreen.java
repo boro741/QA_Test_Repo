@@ -412,6 +412,16 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ADD NEW DEVICE DASHBOARD": {
+					AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
+					if (addNewDevice.isAddNewDeviceHeaderDisplayed()) {
+						return flag;
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "POWER BASE STATION INSTRUCTIONS": {
@@ -510,7 +520,12 @@ public class NavigateToScreen extends Keyword {
 							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 						}
 					} else {
-						return true;
+						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+						}
+						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+							dasDIY.clickOnGotItButtonInQuickControlsPopup();
+						}
 					}
 					break;
 				}
