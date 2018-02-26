@@ -62,11 +62,10 @@ public class DeviceInformation {
 				}
 			}
 		} else {
-			System.out.println("Fix it");
-			//throw new Exception("Device Information not found");
+			throw new Exception("Device Information not found");
 		}
-		}catch(Exception e){
-			System.out.println("fixxxx"+e.getMessage());
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
 		}
 		return sDimmerDeviceID;
 	}
