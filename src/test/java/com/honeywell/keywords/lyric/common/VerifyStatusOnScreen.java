@@ -48,10 +48,47 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "DIMMER PRIMARY CARD":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DIMMER" :{
-				//TODO
+				ZwavePrimardCardScreen zp = new ZwavePrimardCardScreen(testCase);
+				DASZwaveUtils.waitForSwitchingToComplete(testCase);
+				if(zp.verifyPresenceOfDimmerStatus()){
+					currentStatus=zp.getDimmerStatus();
+					switch (expectedScreen.get(1).toUpperCase()) {
+					case "ON": {
+						if(Integer.parseInt(currentStatus)>0){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
+					case "OFF": {
+						if(currentStatus.equalsIgnoreCase("Off")){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
+					case "OFFLINE": {
+						if(zp.getSwitchStatus().equalsIgnoreCase("OFFLINE")){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
+					}
+				}else{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
+				}
 				break;
 			}
 			}
+			break;
 		}
 		case "SWITCH PRIMARY CARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {

@@ -161,12 +161,11 @@ public class ChangeStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "ON": {
 					try {
-						System.out.println(ZWaveRelayUtils.getDimmerIntensityRange());
-						if(true){
+					    int iIntensity=Integer.parseInt(ZWaveRelayUtils.getDimmerIntensityRange().split("-")[0]);
+						if(iIntensity>0){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
-							ZWaveRelayUtils.pressButtonOnSwitch1();
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) +" status is in "+expectedScreen.get(1) +" but found as "+iIntensity);
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -176,12 +175,12 @@ public class ChangeStatusOnScreen extends Keyword {
 				}
 				case "OFF": {
 					try {
-						if(ZWaveRelayUtils.isSwitch1ON()){
-							ZWaveRelayUtils.pressButtonOnSwitch1();
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
-						}else{
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is already in to "+expectedScreen.get(1) );
-						}
+						 int iIntensity=Integer.parseInt(ZWaveRelayUtils.getDimmerIntensityRange().split("-")[0]);
+							if(iIntensity==0){
+								Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+							}else{
+								Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) +" status is in "+expectedScreen.get(1) +" but found as "+iIntensity);
+							}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
