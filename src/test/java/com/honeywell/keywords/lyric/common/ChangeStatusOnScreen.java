@@ -41,8 +41,10 @@ public class ChangeStatusOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user turns (.*) the (.*) through the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
+		case "DIMMER PRIMARY CARD": 
 		case "SWITCH PRIMARY CARD": {
 			switch (expectedScreen.get(1).toUpperCase()) {
+			case "DIMMER": 
 			case "SWITCH": {
 				ZwavePrimardCardScreen zp = new ZwavePrimardCardScreen(testCase);
 				if(zp.verifyPresenceOfSwitchStatus()){
@@ -155,6 +157,40 @@ public class ChangeStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "DIMMER": {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "ON": {
+					try {
+					    int iIntensity=Integer.parseInt(ZWaveRelayUtils.getDimmerIntensityRange().split("-")[0]);
+						if(iIntensity>0){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) +" status is in "+expectedScreen.get(1) +" but found as "+iIntensity);
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				}
+				case "OFF": {
+					try {
+						 int iIntensity=Integer.parseInt(ZWaveRelayUtils.getDimmerIntensityRange().split("-")[0]);
+							if(iIntensity==0){
+								Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+							}else{
+								Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) +" status is in "+expectedScreen.get(1) +" but found as "+iIntensity);
+							}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				}
+				}
+				break;
+			}
+			
 			default:{
 				flag=false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
@@ -162,8 +198,10 @@ public class ChangeStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "DIMMER SETTINGS":
 		case "SWITCH SETTINGS":{
 			switch (expectedScreen.get(1).toUpperCase()) {
+			case "DIMMER":
 			case "SWITCH": {
 				ZwaveScreen zs = new ZwaveScreen(testCase);
 				if(zs.verifyPresenceOfSwitchStatus()){

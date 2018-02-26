@@ -45,6 +45,51 @@ public class VerifyStatusOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should see the (.*) status as (.*) on the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
+		case "DIMMER PRIMARY CARD":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DIMMER" :{
+				ZwavePrimardCardScreen zp = new ZwavePrimardCardScreen(testCase);
+				DASZwaveUtils.waitForSwitchingToComplete(testCase);
+				if(zp.verifyPresenceOfDimmerStatus()){
+					currentStatus=zp.getDimmerStatus();
+					switch (expectedScreen.get(1).toUpperCase()) {
+					case "ON": {
+						if(Integer.parseInt(currentStatus)>0){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
+					case "OFF": {
+						if(currentStatus.equalsIgnoreCase("Off")){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
+					case "OFFLINE": {
+						if(zp.getSwitchStatus().equalsIgnoreCase("OFFLINE")){
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
+						}else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						}
+						break;
+					}
+					}
+				}else{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
+				}
+				break;
+			}
+			}
+			break;
+		}
 		case "SWITCH PRIMARY CARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
@@ -94,8 +139,10 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "DIMMER SETTINGS":
 		case "SWITCH SETTINGS":{
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DIMMER" :
 			case "SWITCH": {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -240,7 +287,45 @@ public class VerifyStatusOnScreen extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
 				Dashboard ds = new Dashboard(testCase);
-				currentStatus=ds.getSwitchStatus();
+				currentStatus=ds.getZwaveDeviceStatus("SWITCH");
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ON": {
+					if(currentStatus.equals("ON")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFF": {
+					if(currentStatus.equals("OFF")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFFLINE": {
+					if(currentStatus.toUpperCase().equals("OFFLINE")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				}
+				/*}else{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
+				}*/
+				break;
+			}
+			case "DIMMER": {
+				Dashboard ds = new Dashboard(testCase);
+				currentStatus=ds.getZwaveDeviceStatus("DIMMER");
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
 					if(currentStatus.equals("ON")){

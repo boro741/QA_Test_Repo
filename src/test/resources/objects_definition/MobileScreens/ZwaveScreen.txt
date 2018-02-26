@@ -16,7 +16,6 @@ NoDeviceToExcludePopupHeader	Xpath	//*[@text='Device not found!']
 NoDeviceToExcludePopupMessage	Xpath	//*[@text='Could not exclude any device. Request Failed!']					NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.
 NoDeviceToExcludePopupDismiss	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
 NoDeviceToExcludePopupRetry	Xpath	//*[@text='Retry']										
-NoDeviceToExcludePopupDismiss	Xpath	//*[@text='Cancel']										
 NoDeviceToExcludePopupCancel	Xpath	//*[@text='CANCEL']										
 ExcludedPopupHeader	Xpath	"//*[contains(@text,'is excluded successfully!')]"					NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion
 CancelFurtherExcludeButton	Xpath	//*[@text='CANCEL']					NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
@@ -28,6 +27,7 @@ ReturnKeypad							NAME	Return	NAME	Return	NAME	Return
 ZwaveUtilitiesMenu	Xpath	//*[@text='Z-Wave Utilities']					NAME	Z-Wave Utilities				
 SwitchSettingsMenu	Xpath	"//*[contains(@text,'Switch')]"					Xpath	"//*[contains(@value,'Switch')]"				
 SwitchSettingsMenuStatus	ID	settings_value_view										
+DimmerSettingsMenu	Xpath	"//*[contains(@text,'Dimmer')]"										
 AllONButton	ID	btn_all_on					NAME	All On				
 AllOffButton	ID	btn_all_off					NAME	All Off				
 FixAllButton	ID	btn_fix_all					NAME	Fix All				

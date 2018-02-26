@@ -46,4 +46,15 @@ public class ZwavePrimardCardScreen extends MobileScreens{
 			}
 		}
 
+		public boolean verifyPresenceOfDimmerStatus() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DimmerPrimaryCardStatus");
+		}
+
+		public String getDimmerStatus() {
+			if(MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus").contains("%")){
+				return MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus").replaceAll("%", "");
+			}else 
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus");
+		}
+
 }
