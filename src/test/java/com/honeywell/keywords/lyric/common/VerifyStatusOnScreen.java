@@ -3,6 +3,8 @@ package com.honeywell.keywords.lyric.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.openqa.selenium.interactions.InputSource;
+
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -22,7 +24,7 @@ import com.honeywell.screens.ZwaveScreen;
 public class VerifyStatusOnScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+    private TestCaseInputs inputs;
 	public ArrayList<String> expectedScreen;
 	public boolean flag = true;
 	public DataTable data;
@@ -31,7 +33,7 @@ public class VerifyStatusOnScreen extends Keyword {
 
 	public VerifyStatusOnScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
+	    this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
 	}
 
@@ -72,7 +74,7 @@ public class VerifyStatusOnScreen extends Keyword {
 						break;
 					}
 					case "OFFLINE": {
-						if(zp.getSwitchStatus().equalsIgnoreCase("OFFLINE")){
+						if(currentStatus.equalsIgnoreCase("OFFLINE")){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;
@@ -262,6 +264,82 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				case "INACTIVE": {
 					if(!zwaveScreen.isFixAllEnabled()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
+				}
+				}
+				break;
+			}
+			case "SWITCH": {
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				String currentStatus =zwaveScreen.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ON": {
+					if(currentStatus.equalsIgnoreCase("ON")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFF": {
+					if(currentStatus.equalsIgnoreCase("OFF")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFFLINE": {
+					if(currentStatus.equalsIgnoreCase("OFFLINE")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
+				}
+				}
+				break;
+			}
+			case "DIMMER": {
+				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+				String currentStatus =zwaveScreen.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ON": {
+					if(currentStatus.equalsIgnoreCase("ON")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFF": {
+					if(currentStatus.equalsIgnoreCase("OFF")){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}else{
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					}
+					break;
+				}
+				case "OFFLINE": {
+					if(currentStatus.equalsIgnoreCase("OFFLINE")){
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
 					}else{
 						flag=false;

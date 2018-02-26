@@ -52,6 +52,24 @@ public class DeviceInformation {
 		}
 	}
 
+	public String getDimmerDeviceID() throws Exception {
+		String sDimmerDeviceID ="";
+		try{
+		if (deviceInformation != null) {
+			for(int i=0; i <deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").length(); i++){
+				if(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).getJSONObject("configurations").get("switchType").toString().equals("Dimmer")){
+					return deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("id").toString();
+				}
+			}
+		} else {
+			System.out.println("Fix it");
+			//throw new Exception("Device Information not found");
+		}
+		}catch(Exception e){
+			System.out.println("fixxxx"+e.getMessage());
+		}
+		return sDimmerDeviceID;
+	}
 	public String getJasperDeviceType(){
 		String type = " ";
 		if (deviceInformation != null) {

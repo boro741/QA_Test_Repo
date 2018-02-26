@@ -72,3 +72,6 @@ FactoryResetPopupMessage	Xpath	//*[@text='Z-Wave Controller will be reset to fac
 FactoryResetPopupCancel	Xpath	//*[@text='Cancel']										
 FactoryResetPopupConfirm	Xpath	//*[@text='OK']										
 FactoryResetProgress	Xpath	//*[@text='Z-Wave factory reset is in progress']										
+ZwaveDevicesList	ID	ll_row_parent										
+ZwaveDevicesName	ID	settings_title_view										
+ZwaveDevicesStatus	ID	settings_value_view										

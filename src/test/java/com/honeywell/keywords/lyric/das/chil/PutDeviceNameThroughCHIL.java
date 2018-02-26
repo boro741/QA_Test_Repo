@@ -58,6 +58,30 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 			} else if (exampleData.get(0).equalsIgnoreCase("Sensor name")) {
 
 			}
+			else if (exampleData.get(0).equalsIgnoreCase("Dimmer name")) {
+				@SuppressWarnings("resource")
+				CHILUtil chUtil = new CHILUtil(inputs);
+				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+				if (chUtil.getConnection()) {
+					int result = chUtil.putZwaveDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),deviceInfo.getDimmerDeviceID(),
+							inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
+					if (result == 200||result == 202) {
+						Keyword.ReportStep_Pass(testCase, "Successfully changed the ZWAVE DIMMER name to : "
+								+ inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change the ZWAVE DIMMER to "
+										+ inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
+					}
+				}
+			}else{
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to change the device name to "
+								+ inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
+			}
 
 		} catch (Exception e) {
 			flag = false;
