@@ -42,11 +42,23 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.isSensorPresentInSensorsList(expectedDevice.get(0))) {
 					Keyword.ReportStep_Pass(testCase,
-							"Sensor : " + expectedDevice.get(0) + " is present in the sensor list");
+							"Sensor : '" + expectedDevice.get(0) + "' is present in the sensor list");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sensor : " + expectedDevice.get(0) + " is not present in the sensor list");
+							"Sensor : '" + expectedDevice.get(0) + "' is not present in the sensor list");
+				}
+			}
+			
+			else if (expectedDevice.get(1).equalsIgnoreCase("Keyfob")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isKeyfobPresentInKeyfobsList(expectedDevice.get(0))) {
+					Keyword.ReportStep_Pass(testCase,
+							"Keyfob : '" + expectedDevice.get(0) + "' is present in the keyfob list");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Keyfob : '" + expectedDevice.get(0) + "' is not present in the keyfob list");
 				}
 			}
 		} catch (Exception e) {

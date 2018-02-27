@@ -8,6 +8,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class DASSettingsUtils {
@@ -47,6 +48,33 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
+	public static boolean verifyDeleteSensorConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DeleteSensorPopUpConfirmationTitle", 3)) {
+			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up Title is correctly displayed");
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (inputs.getInputValue(DASInputVariables.SENSORTYPE).equals(DASInputVariables.MOTIONSENSOR)) {
+				flag = flag & bs.isMotionSensorDeletePopUpMessageVisible();
+			} else {
+				flag = flag & bs.isAccessSensorDeletePopUpMessageVisible();
+			}
+
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up message correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete Sensor Confirmation Pop Up message not correctly displayed.");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Delete Sensor Confirmation Pop Up not displayed");
+		}
+		return flag;
+	}
+
 	public static boolean verifyDeleteDASConfirmationPopUpIsNotDisplayed(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -55,6 +83,18 @@ public class DASSettingsUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete DAS Confirmation Pop Up displayed");
 		} else {
 			Keyword.ReportStep_Pass(testCase, "Delete DAS Confirmation Pop Up not displayed");
+		}
+		return flag;
+	}
+	
+	public static boolean verifyDeleteSensorConfirmationPopUpIsNotDisplayed(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		if (bs.isDeleteSensorPopUpVisible()) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete Sensor Confirmation Pop Up displayed");
+		} else {
+			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up not displayed");
 		}
 		return flag;
 	}

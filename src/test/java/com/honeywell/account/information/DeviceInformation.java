@@ -197,7 +197,24 @@ public class DeviceInformation {
 					return sensor.getString("id");
 				}
 			}
-			throw new Exception("Sensor Name: "+ sensorName +" not found in configured sensors");
+			throw new Exception("Sensor Name: '"+ sensorName +"' not found in configured sensors");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+	}
+	
+	public String getDASKeyfobID(String keyfobName) throws Exception {
+		if (deviceInformation != null) {
+			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
+			for(int i=0;i<keyfobs.length();i++)
+			{
+				JSONObject keyfob = keyfobs.getJSONObject(i);
+				if(keyfob.getString("name").equals(keyfobName))
+				{
+					return keyfob.getString("id");
+				}
+			}
+			throw new Exception("Keyfob Name: '"+ keyfobName +"' not found in configured sensors");
 		} else {
 			throw new Exception("Device Information not found");
 		}

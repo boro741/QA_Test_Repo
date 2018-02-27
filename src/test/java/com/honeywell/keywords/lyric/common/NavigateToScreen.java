@@ -17,9 +17,9 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.keywords.lyric.das.chil.PutDeviceNameThroughCHIL;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -325,18 +325,39 @@ public class NavigateToScreen extends Keyword {
 					}
 					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
 						sensorName = inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME");
+						inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.ACCESSSENSOR);
 					} else {
 						sensorName = inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME");
+						inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
 					}
 					flag = flag & bs.selectSensorFromSensorList(sensorName);
 					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
-					inputs.setInputValue(PutDeviceNameThroughCHIL.SENSORNAME, sensorName);
-					inputs.setInputValue(PutDeviceNameThroughCHIL.SENSORID, devInfo.getDASSensorID(sensorName));
-					inputs.setInputValue(PutDeviceNameThroughCHIL.SENSORRESPONSETYPE,
-							devInfo.getDASSensorResponseType(sensorName));
+					inputs.setInputValue(DASInputVariables.SENSORNAME, sensorName);
+					inputs.setInputValue(DASInputVariables.SENSORID, devInfo.getDASSensorID(sensorName));
+					inputs.setInputValue(DASInputVariables.SENSORRESPONSETYPE,
+							devInfo.getDASSensorResponseType(sensorName));	
 					break;
 				}
 
+				case "KEYFOB SETTINGS": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					String keyfobName = "";
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No keyfob names were provided in the Requirement file");
+						return flag;
+					}
+					keyfobName = inputs.getInputValue("LOCATION1_KEYFOB1_NAME");
+					flag = flag & bs.selectSensorFromSensorList(keyfobName);
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
+					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+					break;
+				}
+				
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -614,6 +635,11 @@ public class NavigateToScreen extends Keyword {
 				case "MODEL AND FIRMWARE DETAILS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen();
+					break;
+				}
+				case "KEYFOB":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
 					break;
 				}
 				default: {

@@ -224,6 +224,22 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 		}
+		if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnCancelButton();
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+
+		}
 		return flag;
 	}
 

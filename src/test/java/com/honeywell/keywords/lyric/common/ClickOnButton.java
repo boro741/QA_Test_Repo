@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -10,8 +9,8 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class ClickOnButton extends Keyword {
@@ -20,7 +19,6 @@ public class ClickOnButton extends Keyword {
 	// private TestCaseInputs inputs;
 	public ArrayList<String> expectedButton;
 	public boolean flag = true;
-	private HashMap<String, MobileObject> fieldObjects;
 
 	public ClickOnButton(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedButton) {
 		this.testCase = testCase;
@@ -37,40 +35,53 @@ public class ClickOnButton extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user (.*) by clicking on (.*) button$")
 	public boolean keywordSteps() throws KeywordException {
-		if (expectedButton.get(0).equalsIgnoreCase("deletes DAS device")) {
-			switch (expectedButton.get(1).toUpperCase()) {
-			case "DELETE": {
-				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DeleteDASButton");
-				break;
-			}
-			}
-		} else if (expectedButton.get(0).equalsIgnoreCase("cancels the set up")) {
-			switch (expectedButton.get(1).toUpperCase()) {
-			case "CANCEL": {
-				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isCancelButtonInChooseLocationScreenVisible()) {
-					dasDIY.clickOnCancelButtonInChooseLocationScreen();
+		try {
+			if (expectedButton.get(0).equalsIgnoreCase("deletes DAS device")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnDeleteButton();
+					break;
 				}
-				break;
-			}
-			}
-		} else if (expectedButton.get(0).equalsIgnoreCase("views cancel setup")) {
-			switch (expectedButton.get(1).toUpperCase()) {
-			case "BACK ARROW": {
-				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if(dasDIY.isBackArrowInRegisterBaseStationVisible()) {
-					dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
-					if(dasDIY.isCancelPopupVisible()) {
-						return flag;
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("cancels the set up")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "CANCEL": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCancelButtonInChooseLocationScreenVisible()) {
+						dasDIY.clickOnCancelButtonInChooseLocationScreen();
 					}
+					break;
 				}
-				
-				break;
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("views cancel setup")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "BACK ARROW": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isBackArrowInRegisterBaseStationVisible()) {
+						dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+						if (dasDIY.isCancelPopupVisible()) {
+							return flag;
+						}
+					}
+
+					break;
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("deletes sensor")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnDeleteButton();
+					break;
+				}
+				}
 			}
-			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
-		
+
 		return flag;
 	}
 
