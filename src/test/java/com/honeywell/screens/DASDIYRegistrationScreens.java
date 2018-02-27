@@ -128,6 +128,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isMultipleBaseStationsScreenSubHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MultipleBaseStationsScreenSubHeaderTitle");
 	}
+	
+	public boolean isRefereshButtonInSelectBaseStationScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RefreshButtonInSelectBaseStationScreen");
+	}
+	
+	public boolean clickOnRefereshButtonInSelectBaseStationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "RefreshButtonInSelectBaseStationScreen");
+	}
+
 
 	public String getToolBarTitleInRegisterBaseStationScreen() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "ToolbarTitle", false).getAttribute("text");

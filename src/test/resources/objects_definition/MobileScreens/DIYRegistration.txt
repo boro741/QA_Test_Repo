@@ -17,9 +17,10 @@ BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*
 OKButtonInBaseStationNotFounPopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']
 RetryButtonInBaseStationNotFoundPopup	ID	button1	ID	button1	ID	button1	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']
 RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']
-MultipleBaseStationsScreenSubHeaderTitle	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']						
-BaseStationMACID	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']						
+MultipleBaseStationsScreenSubHeaderTitle	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	NAME	Multiple Base stations Found	NAME	Multiple Base stations Found	NAME	Multiple Base stations Found
+BaseStationMACID	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']
 QRCode	ID	qrcode_icon	ID	qrcode_icon	ID	qrcode_icon	xpath	//XCUIElementTypeImage	xpath	//XCUIElementTypeImage	xpath	//XCUIElementTypeImage
+RefreshButtonInSelectBaseStationScreen	ID	fragment_diy_refresh	ID	fragment_diy_refresh	ID	fragment_diy_refresh	NAME	Refresh	NAME	Refresh	NAME	Refresh
 QRCodeScanningFailurePopupTitle	XPATH	//*[@text='Scanning Failure']	XPATH	//*[@text='Scanning Failure']	XPATH	//*[@text='Scanning Failure']	XPATH	//*[@name='Scanning Failure']	XPATH	//*[@name='Scanning Failure']	XPATH	//*[@name='Scanning Failure']
 OKButtonInQRCodeScanningFailurePopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']
 BackArrowInRegisterBaseStationHeader	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Cancel	NAME	Cancel	NAME	Cancel

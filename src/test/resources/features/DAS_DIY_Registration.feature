@@ -174,11 +174,12 @@ Scenario Outline: As a user my DAS device should not be configured when invalid 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans an invalid QR code
 Then user should receive a "scanning failure" popup
 When user "accepts" the "scanning failure" popup
@@ -190,21 +191,21 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYRefreshBaseStationsList
-Scenario: As a user I should be able to refresh the base stations list
+Scenario Outline: As a user I should be able to refresh the base stations list when multiple base stations are displayed
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When there are multiple base stations available
-Then user should be displayed with the "Select Base Station" screen with list of Mac IDs for each base station
-And user clicks on "Refresh" button
-When there is one base station available
-And user scans the QR code by showing it to the base station camera
-Then user should be displayed with the "Connect to Network" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
+And user "views select base station screen" by clicking on "Refresh" button
+
+Examples: 
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYDisconnectDASDevice
 Scenario: As a user I should be prompted with Bluetooth disconnected popup when DAS device is disconnected

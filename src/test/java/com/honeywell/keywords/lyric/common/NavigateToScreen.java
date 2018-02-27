@@ -258,7 +258,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
 					Dashboard ds = new Dashboard(testCase);
-					if (ds.isAddDeviceIconVisible(5)) {
+					if (ds.isAddDeviceIconVisible(15)) {
 						flag = flag & ds.clickOnAddNewDeviceIcon();
 					}
 					break;
@@ -534,8 +534,9 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
 					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					dasDIY.isRegisterBaseStationHeaderTitleVisible();
-					dasDIY.isQRCodeDisplayed();
+					if(dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
+					}
 					break;
 				}
 				case "SELECT BASE STATION": {
@@ -544,7 +545,9 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
 					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
+					if(dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Multiple base stations with MAC ID's are displayed");
+					}
 					break;
 				}
 				}

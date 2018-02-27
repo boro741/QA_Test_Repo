@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -89,6 +90,20 @@ public class ClickOnButton extends Keyword {
 				case "DELETE": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnDeleteButton();
+					break;
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("views select base station screen")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "REFRESH": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
+						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
+							return flag;
+						}
+					}
 					break;
 				}
 				}
