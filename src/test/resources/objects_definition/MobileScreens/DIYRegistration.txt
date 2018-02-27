@@ -3,7 +3,7 @@ BackArrowInSelectANewDeviceHeader	XPATH	//*[@class='android.widget.ImageButton']
 AddNewDeviceHeader	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']
 SmartHomeSecurity	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	NAME	Smart Home Security	NAME	Smart Home Security	NAME	Smart Home Security
 ChooseLocationHeaderTitle	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@value='Choose Location']	XPATH	//*[@value='Choose Location']	XPATH	//*[@value='Choose Location']
-CancelButtonInChooseLocationScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Cancel	NAME	Cancel	NAME	Cancel
+CancelButton	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Cancel	NAME	Cancel	NAME	Cancel
 CancelPopupTitle	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?']	NAME	Cancel Setup?	NAME	Cancel Setup?	NAME	Cancel Setup?
 YesButtonInCancelSetUpPopup	ID	button1	ID	button1	ID	button1	NAME	Yes	NAME	Yes	NAME	Yes
 NoButtonInCancelSetUpPopup	ID	button2	ID	button2	ID	button2	NAME	No	NAME	No	NAME	No
@@ -28,8 +28,10 @@ LookingForNetworkConnectionLoadingSpinner	ID	progressBar	ID	progressBar	ID	progr
 ConnectoNetworkHeaderTitle	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	XPATH	//*[@value='Connect']	XPATH	//*[@value='Connect']	XPATH	//*[@value='Connect']
 ConnectoNetworkHeaderDesc	ID	header_view_description	ID	header_view_description	ID	header_view_description	NAME	Select your Wi-Fi network	NAME	Select your Wi-Fi network	NAME	Select your Wi-Fi network
 WiFiList	ID	diy_wld_list	ID	diy_wld_list	ID	diy_wld_list	XPATH	//XCUIElementTypeCollectionView	XPATH	//XCUIElementTypeCollectionView	XPATH	//XCUIElementTypeCollectionView
-AddANetworkButton	ID	add_wifi_network	ID	add_wifi_network	ID	add_wifi_network	NAME	Add A Network	NAME	Add A Network	NAME	Add A Network
 WiFiPasswordTextField	ID	wifi_password	ID	wifi_password	ID	wifi_password	NAME	Password	NAME	Password	NAME	Password
+AddANetworkButton	ID	add_wifi_network	ID	add_wifi_network	ID	add_wifi_network	NAME	Add A Network	NAME	Add A Network	NAME	Add A Network
+AddANetworkScreenTitle	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	NAME	Connect	NAME	Connect	NAME	Connect
+CancelButtonInAddANetworkScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Cancel	NAME	Cancel	NAME	Cancel
 JoinButtonInConnectToNetworkScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Next	NAME	Next	NAME	Next
 ConnectingSmartHomeSecurityLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 SmartHomeSecuritySuccessHeaderTitle	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']

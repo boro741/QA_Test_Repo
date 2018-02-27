@@ -25,12 +25,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChooseLocationHeaderTitle");
 	}
 
-	public boolean isCancelButtonInChooseLocationScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInChooseLocationScreen");
+	public boolean isCancelButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
 	}
 
-	public boolean clickOnCancelButtonInChooseLocationScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInChooseLocationScreen");
+	public boolean clickOnCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 	}
 
 	public boolean isCancelPopupVisible() {
@@ -181,7 +181,23 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isAddANetworkButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
 	}
-
+	
+	public boolean clickOnAddANetworkButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddANetworkButton");
+	}
+	
+	public boolean isAddANetworkHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkScreenTitle");
+	}
+	
+	public boolean isCancelButtonInAddANetworkScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
+	}
+	
+	public boolean clickOnCancelButtonInAddANetworkScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
+	}
+	
 	public boolean isAvailableNetworkVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AvailableNetworkNameInTheWiFiList");
 	}

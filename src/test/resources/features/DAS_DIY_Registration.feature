@@ -297,27 +297,31 @@ And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
 @DIYCancelSetUpInConnectToNetworkScreen
-Scenario: As a user I should be able to cancel set up in Connect to Network screen
+Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-And user scans the QR code by showing it to the base station camera
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Add A Network" button
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Cancel" button
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user "adds a Network" by clicking on "Add A Network" button
+And user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Cancel" button
+Then user should be displayed with the "Add a Network" screen
+When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
+
+Examples: 
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYMoveAwayFromDASDeviceAfterScanningQRCode
 Scenario: As a user I should be prompted with Bluetooth Disconnected popup when I move away from DAS device after scanning the QR code

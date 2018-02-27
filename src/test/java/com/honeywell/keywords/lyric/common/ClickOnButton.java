@@ -61,17 +61,17 @@ public class ClickOnButton extends Keyword {
 					}
 				}
 				}
-			} else if (expectedButton.get(0).equalsIgnoreCase("cancels the set up")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("CANCELS THE SET UP")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "CANCEL": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isCancelButtonInChooseLocationScreenVisible()) {
-						dasDIY.clickOnCancelButtonInChooseLocationScreen();
+					if (dasDIY.isCancelButtonVisible()) {
+						dasDIY.clickOnCancelButton();
 					}
 					break;
 				}
 				}
-			} else if (expectedButton.get(0).equalsIgnoreCase("views cancel setup")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "BACK ARROW": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -83,6 +83,20 @@ public class ClickOnButton extends Keyword {
 					}
 
 					break;
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS SELECT BASE STATION SCREEN")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "REFRESH": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
+						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
+							return flag;
+						}
+						break;
+					}
 				}
 				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("deletes sensor")) {
@@ -107,12 +121,26 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("ADDS A NETWORK")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "ADD A NETWORK": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isAddANetworkButtonVisible()) {
+						dasDIY.clickOnAddANetworkButton();
+						if (dasDIY.isAddANetworkHeaderTitleVisible()) {
+							return flag;
+						}
+					}
+					break;
+				}
+				}
+
 			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-		}
 
+		}
 		return flag;
 	}
 
