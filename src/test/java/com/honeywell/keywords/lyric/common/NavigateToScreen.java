@@ -52,7 +52,7 @@ public class NavigateToScreen extends Keyword {
 	@KeywordStep(gherkins = "^user navigates to (.*) screen from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")) {
+			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")||screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -60,12 +60,18 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			else	 if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+					break;
+				}
+				case "DIMMER PRIMARY CARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					NavigateToPrimaryCardFromDashboard(testCase, "Dimmer1");
 					break;
 				}
 				}
@@ -89,7 +95,27 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
+			} else if (screen.get(1).equalsIgnoreCase("DIMMER SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ZWAVE DEVICES": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
+				case "DIMMER PRIMARY CARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					NavigateToPrimaryCardFromDashboard(testCase, "Dimmer1");
+					break;
+				}
+				case "DASHBOARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
+				}
+			}else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -135,6 +161,49 @@ public class NavigateToScreen extends Keyword {
 										"Could not click on Switch Settings From Zwave Utilities");
 							} else {
 								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "Z-WAVE DEVICES": {
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Navigated to  Zwave DEVICES");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Zwave DEVICES menu from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "DIMMER PRIMARY CARD": {
+					NavigateToPrimaryCardFromDashboard(testCase, "Dimmer1");
+					break;
+				}
+				case "DIMMER SETTINGS": {
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
+							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+							if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Switch Settings From Zwave Utilities");
+							} else {
+								Keyword.ReportStep_Pass(testCase,
+										"Clicked on SwitchSetting From ZwaveUtilities");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -396,6 +465,16 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ADD NEW DEVICE DASHBOARD": {
+					AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
+					if (addNewDevice.isAddNewDeviceHeaderDisplayed()) {
+						return flag;
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "POWER BASE STATION INSTRUCTIONS": {
@@ -494,7 +573,12 @@ public class NavigateToScreen extends Keyword {
 							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 						}
 					} else {
-						return true;
+						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+						}
+						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+							dasDIY.clickOnGotItButtonInQuickControlsPopup();
+						}
 					}
 					break;
 				}

@@ -152,7 +152,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")||expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF DIMMER EXCLUDED SUCCESSFULLY")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				flag = flag & DASZwaveUtils.clickCancelFurtherExclusionOnExcludedPopup(testCase);

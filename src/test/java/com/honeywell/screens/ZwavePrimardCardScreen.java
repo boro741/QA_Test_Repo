@@ -1,5 +1,7 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -46,4 +48,21 @@ public class ZwavePrimardCardScreen extends MobileScreens{
 			}
 		}
 
+		public boolean verifyPresenceOfDimmerStatus() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DimmerPrimaryCardStatus");
+		}
+
+		public String getDimmerStatus() {
+			if(MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus").contains("%")){
+				return MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus").replaceAll("%", "");
+			}else 
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "DimmerPrimaryCardStatus");
+		}
+
+		public WebElement getDimmerSeekBar() {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "DimmerIntensitySeekbar");
+		}
+		public boolean isDimmerSeekBarVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DimmerIntensitySeekbar");
+		}
 }

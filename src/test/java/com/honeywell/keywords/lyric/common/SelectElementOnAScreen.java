@@ -50,7 +50,25 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Switch Settings")) {
+			}else if (parameters.get(1).equalsIgnoreCase("Z-wave Devices")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "ALL ON": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickOnAllOn();
+					break;
+				}
+				case "ALL OFF": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickOnAllOff();
+					break;
+				}
+				case "FIX ALL": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickOnFixAll();
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Switch Settings")||parameters.get(1).equalsIgnoreCase("Dimmer Settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DELETE": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -119,7 +137,6 @@ public class SelectElementOnAScreen extends Keyword {
 				case "LIVING ROOM": {
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					System.out.println("#######Device name: " + parameters.get(0));
 					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isLivingRoomBaseStationDisplayed()) {
 						flag = flag & dasDIY.clickOnLivingRoomBaseStation();
 					}

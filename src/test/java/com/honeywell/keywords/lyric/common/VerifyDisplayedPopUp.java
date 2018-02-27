@@ -39,6 +39,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 	@KeywordStep(gherkins = "^user should receive a (.*) popup$")
 	public boolean keywordSteps() {
 			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DIMMER EXCLUDED SUCCESSFULLY":
 			case "SWITCH EXCLUDED SUCCESSFULLY":{
 				flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
 				break;

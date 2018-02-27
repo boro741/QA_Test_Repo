@@ -9,4 +9,4 @@ AppSettingsAndInfoOption	xpath	//android.widget.TextView[@text='App Settings & I
 MyAccountOption	xpath	//android.widget.TextView[@text='My Account']	xpath	//android.widget.TextView[@text='My Account']	xpath	//android.widget.TextView[@text='My Account']	name	my_account	name	my_account	name	my_account
 MessagesOption	xpath	//android.widget.TextView[@text='Messages']	xpath	//android.widget.TextView[@text='Messages']	xpath	//android.widget.TextView[@text='Messages']	name	messages	name	messages	name	messages
 LogoutOption	xpath	//android.widget.TextView[@text='Logout']	xpath	//android.widget.TextView[@text='Logout']	xpath	//android.widget.TextView[@text='Logout']	name	logout	name	logout	name	logout
-SecondaryCardSettings	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text						
+SecondaryCardSettings	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	NAME	Living Room	NAME	Living Room	NAME	Living Room

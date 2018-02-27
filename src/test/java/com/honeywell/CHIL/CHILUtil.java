@@ -506,4 +506,16 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
+	public int putZwaveDeviceName(long locationID,String deviceID,String subDeviceID, String deviceNameToBePut) throws Exception
+	{
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/subdevices/%s", locationID,deviceID,subDeviceID);
+			String headerData = String.format("{\"name\": \"Dimmer1\"}", deviceNameToBePut);
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
 }

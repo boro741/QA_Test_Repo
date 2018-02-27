@@ -91,10 +91,10 @@ so that my home temperature will get set automatically all days based on the tim
     Examples: 
       | Temperature   | 
       | Above Maximum | 
-      | Below Minimum | 
-      | At Maximum    | 
-      | At Minimum    | 
-      | within range  | 
+#      | Below Minimum | 
+#      | At Maximum    | 
+#      | At Minimum    | 
+#      | within range  | 
   
   @CreateNAWeekdayandWeekendscheduleTemperatureRange @Automated @--xrayid:ATER-7498
   Scenario Outline: To configure Weekday and Weekend schedule by setting up with new temperature value for systems 
@@ -107,27 +107,29 @@ so that my home temperature will get set automatically all days based on the tim
 #      And user logs out of the app
     Examples: 
       | Temperature   | 
-#      | Above Maximum | 
+      | Above Maximum | 
 #      | Below Minimum | 
 #      | At Maximum    | 
 #      | At Minimum    | 
-      | within range  | 
+#      | within range  | 
   
   @CreateNAEverydayscheduleTimeformat @Automated @--xrayid:ATER-7499
   Scenario: To create Everyday Time schedule by setting up with new time value for systems
   As an user
   I want to create Everyday schedule by setting up with new time value for both format
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by changing with new time values
      Then verify "Everyday" schedule gets created successfully 
       And verify the time fields can be set with increments of "15 minutes"
-      And user logs out of the app
+#      And user logs out of the app
   
   @CreateNAEverydayscheduleDeletingperiod @Automated  @--xrayid:ATER-7500
   Scenario Outline: To create Everyday schedule by deleting period for systems with all possible modes and time formats
   As an user
   I want to create Everyday schedule by deleting new period
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by deleting <Period> from the default schedule values
      Then verify "Everyday" schedule gets created successfully
      And user logs out of the app

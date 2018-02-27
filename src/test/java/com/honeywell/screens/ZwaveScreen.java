@@ -1,5 +1,9 @@
 package com.honeywell.screens;
 
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -24,6 +28,19 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "SwitchStatusToggle");
 	}
 
+	public String getSwitchStatusFromDevicesListScreen(String deviceName){
+		List<WebElement> listOFZwaveDevices = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesList");
+		List<WebElement> listOFZwaveDevicesName = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesName");
+		List<WebElement> listOFZwaveDevicesStatus = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesStatus");
+		
+		for(int i=0; i<listOFZwaveDevices.size();i++){
+			if(listOFZwaveDevicesName.get(i).getText().contains(deviceName)){
+				return	listOFZwaveDevicesStatus.get(i).getText();
+			}
+		}
+		return null;
+	}
+	
 	public String getSwitchStatusOffline(){
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "SwitchSettingsStatus");
 	}  
@@ -69,6 +86,10 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchSettingsMenu");
 	}
 
+	public boolean ClickDimmerSettingFromZwaveUtilities() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DimmerSettingsMenu");
+	}
+	
 	public  boolean ClickDeleteFromSettings() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
 	}
@@ -198,12 +219,23 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.getMobElement(objectDefinition, testCase, "AllOffButton").isEnabled();
 	}
 
+	public boolean clickOnAllOff() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllOffButton");
+	}
+	
 	public boolean isAllOnEnabled() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "AllONButton").isEnabled();
 	}
 	
+	public boolean clickOnAllOn() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllONButton");
+	}
 	public boolean isFixAllEnabled() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "FixAllButton").isEnabled();
 	}
 
+	public boolean clickOnFixAll() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllButton");
+	}
+	
 }

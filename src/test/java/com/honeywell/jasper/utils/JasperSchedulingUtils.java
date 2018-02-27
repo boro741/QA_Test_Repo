@@ -75,6 +75,308 @@ public class JasperSchedulingUtils {
 		return tempelate;
 	}
 
+	public static boolean createGeofenceBasedSchedule(TestCases testCase, TestCaseInputs inputs,
+			boolean createScheduleUsingUseGeofenceButton) {
+		boolean flag = true;
+		try
+		{
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+
+			flag = flag & viewScheduleOnPrimaryCard(testCase);
+
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateScheduleButton");
+			} else {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleOffOverlay", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOffOverlay")) {
+						flag = false;
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
+					}
+				}
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOptionsButton");
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SwitchToGeofencingButton", 5)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SwitchToGeofencingButton");
+				}
+			}
+
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (createScheduleUsingUseGeofenceButton) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='USE GEOFENCING']");
+				} else {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='LEARN MORE']");
+				}
+			} else {
+				if (createScheduleUsingUseGeofenceButton) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", "USE GEOFENCING");
+				} else {
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", "LEARN MORE");
+				}
+			}
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			List<String> allowedModes = statInfo.getAllowedModes();
+			Keyword.ReportStep_Pass(testCase, " ");
+			Keyword.ReportStep_Pass(testCase, "*************** Setting set points for Home period ***************");
+			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_HOME);
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderMultiTemperature",
+							5)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to home set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to home set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperatures do you prefer when you're at home" +
+					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to home set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to home set points page"
+					 * ); }
+					 */
+				}
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")
+					|| !allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderSingleTemperature",
+							5)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to home set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to home set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperature do you prefer when you're at home" +
+					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to home set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to home set points page"
+					 * ); }
+					 */
+				}
+			}
+			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
+				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Home cool set points to " + targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Home heat set points to " + targetSetPoints.get("targetHeatTemp"));
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Home heat set points to " + targetSetPoints.get("targetHeatTemp"));
+			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Home cool set points to " + targetSetPoints.get("targetCoolTemp"));
+			}
+			flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Home", targetSetPoints);
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NextButton", 5)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+			}
+			Keyword.ReportStep_Pass(testCase,
+					"*************** Completed setting set points for Home period ***************");
+			Keyword.ReportStep_Pass(testCase, " ");
+			Keyword.ReportStep_Pass(testCase, "*************** Setting set points for Away period ***************");
+			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_AWAY);
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderMultiTemperature",
+							5)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to away set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to away set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperatures do you prefer when you're away from home"
+					 * + "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to away set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to away set points page"
+					 * ); }
+					 */
+				}
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")
+					|| !allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderSingleTemperature",
+							5)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to away set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to away set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperature do you prefer when you're away from away" +
+					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to away set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to home set points page"
+					 * ); }
+					 */
+				}
+			}
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
+				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Away cool set points to " + targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Away heat set points to " + targetSetPoints.get("targetHeatTemp"));
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Away heat set points to " + targetSetPoints.get("targetHeatTemp"));
+			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
+				Keyword.ReportStep_Pass(testCase,
+						"Set Period Set Points : Setting Away cool set points to " + targetSetPoints.get("targetCoolTemp"));
+			}
+			flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Away", targetSetPoints);
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NextButton", 5)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+			}
+			Keyword.ReportStep_Pass(testCase,
+					"*************** Completed setting set points for Away period ***************");
+			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipSleepButton");
+				} else {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NoButton");
+				}
+
+			} else {
+				Keyword.ReportStep_Pass(testCase, " ");
+				Keyword.ReportStep_Pass(testCase,
+						"*************** Setting time and set points for Sleep period ***************");
+				inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
+				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "YesButton");
+				}
+				flag = flag & setPeriodTime(testCase,
+						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME), "GeofenceSleepStartTime", true, true);
+				flag = flag & setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME),
+						"GeofenceSleepEndTime", true, true);
+				if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+					targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
+					targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
+					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep cool set points to "
+							+ targetSetPoints.get("targetCoolTemp"));
+					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep heat set points to "
+							+ targetSetPoints.get("targetHeatTemp"));
+				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+					targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
+					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep heat set points to "
+							+ targetSetPoints.get("targetHeatTemp"));
+				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+					targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
+					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep cool set points to "
+							+ targetSetPoints.get("targetCoolTemp"));
+				}
+				flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+				Keyword.ReportStep_Pass(testCase,
+						"*************** Completed setting time and set points for Sleep period ***************");
+			}
+			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
+			// "Geofence");
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 5)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+			}
+
+			if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
+				System.out.println("Copy all");
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 3)) {
+					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+					for (WebElement cbox : checkBoxes) {
+						if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+							if (cbox.getAttribute("value").equals("Disabled")) {
+								cbox.click();
+							}
+						} else {
+							if (cbox.getAttribute("checked").equals("false")) {
+								cbox.click();
+							}
+						}
+					}
+
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 5)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				}
+			} else if (inputs.getInputValue(InputVariables.SPECIFIC_STAT_COPYING).equals("Yes")) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 5)) {
+					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+					System.out.println(checkBoxes.size());
+					String SelectStatPosition = getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+							Double.parseDouble("0"), Double.parseDouble(String.valueOf(checkBoxes.size())));
+
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						// if
+						// (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("value").equals(""))
+						// {
+						Keyword.ReportStep_Pass(testCase,
+								"Selecting stat at Position " + SelectStatPosition + ", copying to "
+										+ checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("label"));
+						checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
+						inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
+								checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("label"));
+						// }
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Selecting stat at Position " + SelectStatPosition
+								+ ", copying to " + checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked").equals("false")) {
+							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
+							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
+									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
+						}
+					}
+
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 5)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SkipButton", 5)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipButton");
+				}
+			}
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
+				Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Create Schedule : Failed to navigate to Primary Card");
+			}
+		} catch (Exception e) {
+		}
+		return flag;
+	}
+
 	public static HashMap<String, String> getDefaultScheduleValues(TestCases testCase, TestCaseInputs inputs,
 			String typeOfSchedule) {
 		HashMap<String, String> scheduleValues = new HashMap<String, String>();
@@ -6039,7 +6341,7 @@ public class JasperSchedulingUtils {
 
 					try {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
+						.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 						TimeUnit.SECONDS.sleep(3);
 
 					} catch (Exception e1) {
@@ -6074,7 +6376,7 @@ public class JasperSchedulingUtils {
 				} else {
 					try {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+						.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 						TimeUnit.SECONDS.sleep(3);
 					} catch (Exception e1) {
 						flag = false;
@@ -9311,6 +9613,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
+									System.out.println("WEEKDAY_WAKE_TIME : " + tempTime + InputVariables.WEEKDAY_WAKE_TIME );
 									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME).equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT).equalsIgnoreCase(
 													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
@@ -10907,7 +11210,7 @@ public class JasperSchedulingUtils {
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting maximum and minimum set points for Sleep ***************");
 			}
-			// flag = flag & JasperUtils.verifyCreatedSchedule(testCase, inputs,
+			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
 			// "Geofence");
 			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 5)) {
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
@@ -12178,7 +12481,985 @@ public class JasperSchedulingUtils {
 		return flag;
 	}
 
+	public static boolean createTimeBasedSchedule(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try
+		{
+			WebElement element = null;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
+			flag = flag & viewScheduleOnPrimaryCard(testCase);
+
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateScheduleButton");
+
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeOption")) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "TimeOption");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Create Schedule : Unable to navigate to create schedule page.");
+					return false;
+				}
+			} else {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleOffOverlay", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOffOverlay")) {
+						flag = false;
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
+					}
+				}
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOptionsButton");
+
+				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+				String currentScheduleType = statInfo.getThermoStatScheduleType();
+
+				if (currentScheduleType.equalsIgnoreCase("Timed")) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateNewTimeScheduleButton");
+				} else {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SwitchToTimeScheduleButton");
+				}
+			}
+
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EverydayScheduleButton");
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+					String[] modes = { "Wake", "Away", "Home", "Sleep" };
+					for (String mode : modes) {
+						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
+						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+						List<String> allowedModes = statInfo.getAllowedModes();
+						periodTimeandSetPoint.put("periodName", mode);
+						if (mode.equals("Wake")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Wake_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayWake");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_WAKE);
+						} else if (mode.equals("Away")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Away_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayAway");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_AWAY);
+						} else if (mode.equals("Home")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Home_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayHome");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_HOME);
+						} else if (mode.equals("Sleep")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Sleep_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydaySleep");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_SLEEP);
+						}
+						Keyword.ReportStep_Pass(testCase, " ");
+						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
+								periodTimeandSetPoint, element);
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+					}
+				} else {
+					String[] modes = { "1", "2", "3", "4" };
+					for (String mode : modes) {
+						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
+						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+						List<String> allowedModes = statInfo.getAllowedModes();
+						periodTimeandSetPoint.put("periodName", mode);
+						if (mode.equals("1")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='1_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(testCase, "name", "Everyday_1");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT));
+							}
+						} else if (mode.equals("2")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='2_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(testCase, "name", "Everyday_2");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT));
+							}
+						} else if (mode.equals("3")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='3_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(testCase, "name", "Everyday_3");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
+							}
+						} else if (mode.equals("4")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='4_Everyday']"));
+							} else {
+								element = MobileUtils.getMobElement(testCase, "name", "Everyday_4");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
+							}
+						}
+						Keyword.ReportStep_Pass(testCase, " ");
+						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
+								periodTimeandSetPoint, element);
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+					}
+				}
+			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "WeekdayandWeekendScheduleButton");
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
+							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
+					for (String mode : modes) {
+						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
+						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+						List<String> allowedModes = statInfo.getAllowedModes();
+						periodTimeandSetPoint.put("periodName", mode);
+						if (mode.equals("Wake_Weekday")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Wake_Monday - Friday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdayWake");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_WAKE);
+						} else if (mode.equals("Away_Weekday")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Away_Monday - Friday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdayAway");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_AWAY);
+						} else if (mode.equals("Home_Weekday")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Home_Monday - Friday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdayHome");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_HOME);
+						} else if (mode.equals("Sleep_Weekday")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='Sleep_Monday - Friday']"));
+							} else {
+								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdaySleep");
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_SLEEP);
+						} else if (mode.equals("Wake_Weekend")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='Wake_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendWake", 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e3) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element Wake_Saturday-Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendWake");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='Wake_Saturday - Sunday']"));
+									}
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element Wake_Saturday-Sunday");
+								}
+							}
+
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKEND_WAKE);
+						} else if (mode.equals("Away_Weekend")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='Away_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendAway", 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element Away_Saturday - Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendAway");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='Away_Saturday - Sunday']"));
+									}
+
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element Away_Saturday-Sunday");
+								}
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKEND_AWAY);
+						} else if (mode.equals("Home_Weekend")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='Home_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendHome", 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element Home_Saturday-Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendHome");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='Home_Saturday - Sunday']"));
+									}
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element Home_Saturday-Sunday");
+								}
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA,InputVariables. WEEKEND_HOME);
+						} else if (mode.equals("Sleep_Weekend")) {
+							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='Sleep_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendSleep", 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element Sleep_Saturday-Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendSleep");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='Sleep_Saturday - Sunday']"));
+									}
+
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element Sleep_Saturday-Sunday");
+								}
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT));
+							}
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKEND_SLEEP);
+						}
+						Keyword.ReportStep_Pass(testCase, " ");
+						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
+								periodTimeandSetPoint, element);
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+					}
+				} else {
+					String[] modes = { "1_Weekday", "2_Weekday", "3_Weekday", "4_Weekday", "1_Weekend", "2_Weekend",
+							"3_Weekend", "4_Weekend" };
+					for (String mode : modes) {
+						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
+						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+						List<String> allowedModes = statInfo.getAllowedModes();
+						periodTimeandSetPoint.put("periodName", mode);
+						if (mode.equals("1_Weekday")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='1_Monday - Friday']"));
+							} else {
+								element = testCase.getMobileDriver().findElement(By.name("Monday - Friday_1"));
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_1_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_1_COOL_SETPOINT));
+							}
+						} else if (mode.equals("2_Weekday")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='2_Monday - Friday']"));
+							} else {
+								element = testCase.getMobileDriver().findElement(By.name("Monday - Friday_2"));
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT));
+							}
+						} else if (mode.equals("3_Weekday")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='3_Monday - Friday']"));
+							} else {
+								element = testCase.getMobileDriver().findElement(By.name("Monday - Friday_3"));
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT));
+							}
+						} else if (mode.equals("4_Weekday")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								element = testCase.getMobileDriver()
+										.findElement(By.xpath("//*[@content-desc='4_Monday - Friday']"));
+							} else {
+								element = testCase.getMobileDriver().findElement(By.name("Monday - Friday_4"));
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
+							}
+						} else if (mode.equals("1_Weekend")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='1_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_1", testCase, 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e3) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element Saturday-Sunday_1");
+										}
+									}
+									element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_1");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='1_Saturday - Sunday']"));
+									}
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element 1_Saturday-Sunday");
+								}
+							}
+
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_1_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_1_COOL_SETPOINT));
+							}
+						} else if (mode.equals("2_Weekend")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='2_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_2", testCase, 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element 2_Saturday-Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_2");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='2_Saturday - Sunday']"));
+									}
+
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element 2_Saturday-Sunday");
+								}
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT));
+							}
+						} else if (mode.equals("3_Weekend")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='3_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_3", testCase, 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element 3_Saturday-Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_3");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='3_Saturday - Sunday']"));
+									}
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element 3_Saturday-Sunday");
+								}
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT));
+							}
+						} else if (mode.equals("4_Weekend")) {
+							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
+							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
+							try {
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									element = testCase.getMobileDriver()
+											.findElement(By.xpath("//*[@content-desc='4_Saturday - Sunday']"));
+								} else {
+									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+									TouchAction action = new TouchAction(testCase.getMobileDriver());
+									action.press(10, (int) (dimension.getHeight() * .5))
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_4", testCase, 5)) {
+										try {
+											action.press(10, (int) (dimension.getHeight() * .5))
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										} catch (Exception e) {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Create Schedule : Could not find element 4_Saturday-Sunday");
+										}
+									}
+									element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_4");
+								}
+							} catch (NoSuchElementException e) {
+								try {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+										int startx = (dimensions.width * 20) / 100;
+										int starty = (dimensions.height * 62) / 100;
+										int endx = (dimensions.width * 22) / 100;
+										int endy = (dimensions.height * 35) / 100;
+										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										element = testCase.getMobileDriver()
+												.findElement(By.xpath("//*[@content-desc='4_Saturday - Sunday']"));
+									}
+
+								} catch (NoSuchElementException e1) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Create Schedule : Could not find element 4_Saturday-Sunday");
+								}
+							}
+							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
+							} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("HeatSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
+							} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+								periodTimeandSetPoint.put("CoolSetPoint",
+										inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
+							}
+						}
+						Keyword.ReportStep_Pass(testCase, " ");
+						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
+								periodTimeandSetPoint, element);
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
+								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+					}
+				}
+			}
+			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
+			// "Time");
+			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmChangeButton", 10)) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (testCase.getMobileDriver().findElement(By.id("android:id/button1")).getAttribute("text")
+							.equals("Confirm Change")) {
+						testCase.getMobileDriver().findElement(By.id("android:id/button1")).click();
+					}
+				} else {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmChangeButton")) {
+						flag = false;
+					}
+				}
+			}
+			if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
+				System.out.println("Copy all");
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 3)) {
+					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+					for (WebElement cbox : checkBoxes) {
+						if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+							if (cbox.getAttribute("value").equals("Disabled")) {
+								cbox.click();
+							}
+						} else {
+							if (cbox.getAttribute("checked").equals("false")) {
+								cbox.click();
+							}
+						}
+					}
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 3)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				}
+			} else if (inputs.getInputValue(InputVariables.SPECIFIC_STAT_COPYING).equals("Yes")) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 3)) {
+					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+					System.out.println(checkBoxes.size());
+					String SelectStatPosition = getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+							Double.parseDouble("0"), Double.parseDouble(String.valueOf(checkBoxes.size())));
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Pass(testCase, "Selecting stat at Position " + SelectStatPosition
+								+ ", copying to " + checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Selecting stat at Position " + SelectStatPosition + ", copying to "
+										+ checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("label"));
+					}
+
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("value").equals("Disabled")) {
+							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
+							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
+									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("label"));
+						}
+					} else {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked").equals("false")) {
+							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
+							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
+									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
+						}
+					}
+
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 3)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SkipButton", 3)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipButton");
+				}
+			}
+			/*
+			 * if (MobileUtils.isMobElementExists(fieldObjects, testCase,
+			 * "GeofenceScheduleButton", 10)) { Keyword.ReportStep_Pass(testCase,
+			 * "Create Schedule : Successfully navigated to Primary Card"); } else
+			 */if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
+				 Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
+			 } else {
+				 flag = false;
+				 Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						 "Create Schedule : Failed to navigate to Primary Card");
+			 }
+		} catch (Exception e) {
+
+		}
+		return flag;
+	}
 
 
 	public static boolean createTimeBasedScheduleWithMinMaxSetPoints(TestCases testCase, TestCaseInputs inputs) {
@@ -13092,6 +14373,43 @@ public class JasperSchedulingUtils {
 		return flag;
 	}
 
+	public static boolean selectIndividualDaysViewOrGroupedDaysView(TestCases testCase, String viewDays) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		try {
+			if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByIndividualDays", 10)) {
+				flag = flag & viewScheduleOnPrimaryCard(testCase);
+				if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByIndividualDays", 5)) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "App not in schedule view screen");
+				}
+			}
 
+			if ("Individual Days".equalsIgnoreCase(viewDays)) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByIndividualDays", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ViewByIndividualDays")) {
+						flag = false;
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Selected View by Individual days");
+					}
+				}
+			} else {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByGroupedDays", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ViewByGroupedDays")) {
+						flag = false;
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Selected View by Grouped days");
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
 
 }
