@@ -307,6 +307,82 @@ public class DIYRegistrationUtils {
 	}
 
 	/**
+	 * <h1>Scan Invalid QR code</h1>
+	 * <p>
+	 * The scanQRCode method is to scan QR code
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-22
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @return boolean Returns 'true' if the QR code scanning failure popup gets
+	 *         displayed. Returns 'false' if the QR code scanning failure popup does
+	 *         not display.
+	 */
+	public static boolean scanInvalidQRCode(TestCases testCase) {
+
+		JFrame frame = new JFrame();
+		boolean flag = true;
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		try {
+			String screenShotPath = System.getProperty("user.dir") + File.separator + "QRCodes" + File.separator
+					+ "InvalidQRCode.png";
+
+			BufferedImage picture = ImageIO.read(new File(screenShotPath));
+			ImageIcon imageIcon = new ImageIcon(
+					new ImageIcon(picture).getImage().getScaledInstance(500, 700, Image.SCALE_DEFAULT));
+			JLabel label = new JLabel(imageIcon);
+			frame.add(label);
+			frame.pack();
+			frame.setAlwaysOnTop(true);
+			frame.setVisible(true);
+
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+			fWait.pollingEvery(5, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+				public Boolean apply(CustomDriver driver) {
+					try {
+						if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
+							return true;
+						} else {
+							return false;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Scanning Failure QR code popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Scanning Failure QR code popup is not displayed");
+			}
+			frame.setVisible(false);
+			frame.dispose();
+		} catch (IOException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			frame.setVisible(false);
+			frame.dispose();
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			frame.setVisible(false);
+			frame.dispose();
+		}
+		return flag;
+
+	}
+
+	/**
 	 * <h1>Scan QR code</h1>
 	 * <p>
 	 * The scanQRCode method is to scan QR code
@@ -370,7 +446,6 @@ public class DIYRegistrationUtils {
 									return false;
 								}
 							}
-
 						} catch (Exception e) {
 							return false;
 						}

@@ -170,7 +170,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYWhenInvalidQRCodeIsScanned
-Scenario: As a user my DAS device should not be configured when invalid QR code is scanned
+Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -179,14 +179,15 @@ Then user navigates to "Name Your Base Station" screen from the "Choose Location
 And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
 Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When user scans "invalid" QR code
+When user scans an invalid QR code
 Then user should receive a "scanning failure" popup
-When user clicks on "RETRY" button
+When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
-And user scans "valid" QR code
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Refresh" button
-Then "Connect to Network" screen should refresh and update the "WiFi list"
+And user scans the QR code by showing it to the base station camera
+
+Examples: 
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYRefreshBaseStationsList
 Scenario: As a user I should be able to refresh the base stations list
@@ -610,44 +611,6 @@ Then user navigates to "Power Base Station Instructions" screen from the "Power 
 And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Open Wi-Fi Network"
-Then user should be displayed with the "Connecting Smart Home Security" screen
-And user should be displayed with the "Almost Done" screen
-Then user should be displayed with the "Smart Home Security" screen
-When user clicks on "No" button
-Then user should be displayed with the "Enable Geofencing" screen
-And user clicks on "SKIP" button
-Then user should be displayed with the "Enable Amazon Alexa" screen
-And user clicks on "SKIP" button
-#And user creates a passcode if required
-And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
-And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
-And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
-
-Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
-
-@DIYConnectingToWiFiNetworkWithSecurityDisabled
-Scenario Outline: As a user I should not be able to connect to a Wi-Fi network with security disbaled and able to perform DAS registration
-Given user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user clicks on "Network with security disabled" button
-Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user inputs "Valid password" as the WiFi Password
-And user clicks on "Next" button
 Then user should be displayed with the "Connecting Smart Home Security" screen
 And user should be displayed with the "Almost Done" screen
 Then user should be displayed with the "Smart Home Security" screen
