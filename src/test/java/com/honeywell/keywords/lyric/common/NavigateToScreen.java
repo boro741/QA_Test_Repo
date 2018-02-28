@@ -62,6 +62,11 @@ public class NavigateToScreen extends Keyword {
 			}
 			else	 if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);

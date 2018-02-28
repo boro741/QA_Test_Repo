@@ -9,14 +9,14 @@ DeviceNotFoundPopup	Xpath	//*[@text='Device not found!']					NAME	Device not fou
 TryExcludeOption	Xpath	//*[@text='Try Exclude']					NAME	Try Exclude	NAME	Try Exclude	NAME	Try Exclude
 RetryOption	Xpath	//*[@text='Retry']					NAME	Retry	NAME	Retry	NAME	Retry
 CancelOption	Xpath	//*[@text='Cancel']					NAME	Cancel	NAME	Cancel	NAME	Cancel
-EnteringExclusionModeOverlay	Xpath	//*[@text='Entering Exclusion Mode. Please wait.']										
+EnteringExclusionModeOverlay	Xpath	//*[@text='Entering Exclusion Mode. Please wait.']					NAME	Entering Exclusion Mode. Please wait.	NAME	Entering Exclusion Mode. Please wait.	NAME	Entering Exclusion Mode. Please wait.
 ExcludeModeScreenHeader	Xpath	//*[@text='Exclusion Mode Active']					Xpath	//*[@value='Exclusion Mode Active']	Xpath	//*[@value='Exclusion Mode Active']	Xpath	//*[@value='Exclusion Mode Active']
 ExcludeModeTitle	Xpath	//*[@text='Exclude Z-Wave device now']					NAME	Exclude Z-Wave device now	NAME	Exclude Z-Wave device now	NAME	Exclude Z-Wave device now
-NoDeviceToExcludePopupHeader	Xpath	//*[@text='Device not found!']										
+NoDeviceToExcludePopupHeader	Xpath	//*[@text='Device not found!']					NAME	Device not found!				
 NoDeviceToExcludePopupMessage	Xpath	//*[@text='Could not exclude any device. Request Failed!']					NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.	NAME	No Z-Wave device was found to exclude. Please Retry.
 NoDeviceToExcludePopupDismiss	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
-NoDeviceToExcludePopupRetry	Xpath	//*[@text='Retry']										
-NoDeviceToExcludePopupCancel	Xpath	//*[@text='CANCEL']										
+NoDeviceToExcludePopupRetry	Xpath	//*[@text='Retry']					NAME	Retry				
+NoDeviceToExcludePopupCancel	Xpath	//*[@text='CANCEL']					NAME	Cancel				
 ExcludedPopupHeader	Xpath	"//*[contains(@text,'is excluded successfully!')]"					NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion	NAME	Z-Wave Exclusion
 CancelFurtherExcludeButton	Xpath	//*[@text='CANCEL']					NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
 ConfirmFurtherExcludeButton	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
@@ -27,13 +27,20 @@ ReturnKeypad							NAME	Return	NAME	Return	NAME	Return
 ZwaveUtilitiesMenu	Xpath	//*[@text='Z-Wave Utilities']					NAME	Z-Wave Utilities				
 SwitchSettingsMenu	Xpath	"//*[contains(@text,'Switch')]"					Xpath	"//*[contains(@value,'Switch')]"				
 SwitchSettingsMenuStatus	ID	settings_value_view										
-DimmerSettingsMenu	Xpath	"//*[contains(@text,'Dimmer')]"										
+DimmerSettingsMenu	Xpath	"//*[contains(@text,'Dimmer')]"					Xpath	"//*[contains(@value,'Dimmer')]"				
 AllONButton	ID	btn_all_on					NAME	All On				
 AllOffButton	ID	btn_all_off					NAME	All Off				
 FixAllButton	ID	btn_fix_all					NAME	Fix All				
+FixAllPopup							NAME	Fix All				
+FixAllPopupMessage							NAME	Fix All will try to restore faulty Z-Wave devices. It will delete the devices which cannot be restored. This may take few minutes to complete.				
+FixAllPopupConfirm							NAME	OK				
+FixAllPopupCancel							NAME	Cancel				
+FixAllProgress							NAME	Fix All process in progress. Please wait!				
+FixAllRequestFailed							NAME	Request Failed!				
+FixAllAcceptResult							NAME	OK				
 SwitchRenameField	ID	zwave_edit_name					Xpath	"//*[contains(@value,'Switch')]"				
 SwitchSettingsStatus	ID	zwave_status_value										
-ToggleStatusProgress	Xpath	//*[@text='Please wait.']										
+ToggleStatusProgress	Xpath	//*[@text='Please wait.']					NAME	Please wait…				
 SwitchStatusToggle	ID	settings_switch					NAME	Status_toggle				
 ModelFirmwareTitle	Xpath	//*[@text='Model and Firmware Details']					NAME	Model and Firmware Details				
 ModelFirmwareSubTitle	ID	zwave_firmware_details					NAME	Model and Firmware Details_subTitle				
@@ -61,10 +68,10 @@ SwitchPrimaryCardOff	ID	option_switch_off					NAME	States_0
 SwitchPrimaryCardOn	ID	option_switch_on					NAME	States_1				
 GeneralDeviceInclusion	ID	zwave_general_inclusion					NAME	General Device Inclusion				
 GeneralDeviceExclusion	ID	zwave_general_exclusion					NAME	General Device Exclusion				
-GeneralExcludedPopupTitle	Xpath	"//*[contains(@text,'Unknown is excluded successfully!')]"										
-GeneralExcludedPopupMessage	Xpath	"//*[contains(@text,'Do you want to remove another Z-Wave device?')]"										
-GeneralExcludeCorfirmFurthur	Xpath	//*[@text='OK']										
-GeneralExcludeCancelFurthur	Xpath	//*[@text='CANCEL']										
+GeneralExcludedPopupTitle	Xpath	"//*[contains(@text,'Unknown is excluded successfully!')]"					NAME	Unknown is removed successfully. Do you want to remove another Z-Wave device?				
+GeneralExcludedPopupMessage	Xpath	"//*[contains(@text,'Do you want to remove another Z-Wave device?')]"					NAME	Unknown is removed successfully. Do you want to remove another Z-Wave device?				
+GeneralExcludeCorfirmFurthur	Xpath	//*[@text='OK']					NAME	OK				
+GeneralExcludeCancelFurthur	Xpath	//*[@text='CANCEL']					NAME	CANCEL				
 ControllerFactoryReset	ID	controller_reset					NAME	Controller Factory Reset				
 ModelandFirmwareDetails	ID	model_fw					NAME	Model and Firmware Details				
 FactoryResetPopupHeader	Xpath	//*[@text='Factory Reset?']										
@@ -72,6 +79,6 @@ FactoryResetPopupMessage	Xpath	//*[@text='Z-Wave Controller will be reset to fac
 FactoryResetPopupCancel	Xpath	//*[@text='Cancel']										
 FactoryResetPopupConfirm	Xpath	//*[@text='OK']										
 FactoryResetProgress	Xpath	//*[@text='Z-Wave factory reset is in progress']										
-ZwaveDevicesList	ID	ll_row_parent										
+ZwaveDevicesList	ID	ll_row_parent					XPATH	"//*[contains(@name,'_cell')]"				
 ZwaveDevicesName	ID	settings_title_view										
-ZwaveDevicesStatus	ID	settings_value_view										
+ZwaveDevicesStatus	ID	settings_value_view					XPATH	"//*[contains(@name,'_value')]"				

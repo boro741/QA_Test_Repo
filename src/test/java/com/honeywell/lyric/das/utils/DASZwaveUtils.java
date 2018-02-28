@@ -139,6 +139,41 @@ public class DASZwaveUtils {
 		return flag;
 	}
 
+	public static boolean waitForToggleActionToComplete(TestCases testCase) {
+		boolean flag = true;
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ToggleStatusProgress", 5)) {
+							System.out.println("Waiting for Switching to complete");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Switching to completed");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Switching to complete did not complete after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+	
 	public static boolean clickNavigateUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
@@ -231,6 +266,40 @@ public class DASZwaveUtils {
 		return zwaveScreen.clickConfirmFurtherExclusionOnExcludedPopup();
 	}
 
+	
+	public static boolean waitForActionToComplete(TestCases testCase) {
+		boolean flag = true;
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "FixAllProgress", 5)) {
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Screen diasppeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Entering inclusion did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
 	//Exclude screen elements
 
 	public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
@@ -365,6 +434,5 @@ public class DASZwaveUtils {
 		}
 
 	}
-
 
 }

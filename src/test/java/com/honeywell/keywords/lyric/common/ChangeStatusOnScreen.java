@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -25,10 +26,12 @@ public class ChangeStatusOnScreen extends Keyword {
 	public DataTable data;
 	public HashMap<String, MobileObject> fieldObjects;
 	private String currentStatus;
+	private TestCaseInputs inputs;
 
 	public ChangeStatusOnScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
 		this.expectedScreen = expectedScreen;
+		this.inputs= inputs;
 	}
 
 	@Override
@@ -128,6 +131,7 @@ public class ChangeStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "ON": {
 					try {
+						ZWaveRelayUtils.powerOnZwaveSwitch(inputs);
 						if(ZWaveRelayUtils.isSwitch1ON()){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
@@ -135,13 +139,13 @@ public class ChangeStatusOnScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
 				}
 				case "OFF": {
 					try {
+						ZWaveRelayUtils.powerOnZwaveSwitch(inputs);
 						if(ZWaveRelayUtils.isSwitch1ON()){
 							ZWaveRelayUtils.pressButtonOnSwitch1();
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
@@ -149,7 +153,24 @@ public class ChangeStatusOnScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is already in to "+expectedScreen.get(1) );
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				}
+				case "OFFLINE": {
+					try {
+						ZWaveRelayUtils.powerOffZwaveSwitch(inputs);
+						ZwaveScreen zs=new ZwaveScreen(testCase);
+						zs.ClickSwitchSettingFromZwaveUtilities();
+						int i=0;
+						while(i<3 && zs.verifyPresenceOfSwitchStatus()){
+							zs.clickOffStatus();
+							DASZwaveUtils.waitForToggleActionToComplete(testCase);
+							i++;
+						}
+						DASZwaveUtils.clickNavigateUp(testCase, inputs);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					break;
@@ -161,6 +182,7 @@ public class ChangeStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "ON": {
 					try {
+						ZWaveRelayUtils.powerOnZwaveDimmer(inputs);
 						int iIntensity=Integer.parseInt(ZWaveRelayUtils.getDimmerIntensityRange().split("-")[0]);
 						if(iIntensity>0){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
@@ -168,13 +190,13 @@ public class ChangeStatusOnScreen extends Keyword {
 							ZWaveRelayUtils.pressButtonOnDimmer1();
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
 				}
 				case "OFF": {
 					try {
+						ZWaveRelayUtils.powerOnZwaveDimmer(inputs);
 						int iIntensity=Integer.parseInt(ZWaveRelayUtils.getDimmerIntensityRange().split("-")[0]);
 						if(iIntensity==0){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
@@ -182,7 +204,24 @@ public class ChangeStatusOnScreen extends Keyword {
 							ZWaveRelayUtils.pressButtonOnDimmer1();
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				}
+				case "OFFLINE": {
+					try {
+						ZWaveRelayUtils.powerOffZwaveDimmer(inputs);
+						ZwaveScreen zs=new ZwaveScreen(testCase);
+						zs.ClickDimmerSettingFromZwaveUtilities();
+						int i=0;
+						while(i<3 && zs.verifyPresenceOfSwitchStatus()){
+							zs.clickOffStatus();
+							DASZwaveUtils.waitForToggleActionToComplete(testCase);
+							i++;
+						}
+						DASZwaveUtils.clickNavigateUp(testCase, inputs);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					break;
@@ -209,7 +248,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					switch (expectedScreen.get(0).toUpperCase()) {
 					case "ON": {
 						if(zs.switchOn()){
-							//TODO
+							DASZwaveUtils.waitForToggleActionToComplete(testCase); 
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;
@@ -219,7 +258,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					}
 					case "OFF": {
 						if(zs.switchOff()){
-							//TODO
+							DASZwaveUtils.waitForToggleActionToComplete(testCase); 
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;

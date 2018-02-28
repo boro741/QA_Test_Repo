@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -65,6 +66,9 @@ public class SelectElementOnAScreen extends Keyword {
 				case "FIX ALL": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 					zwaveScreen.clickOnFixAll();
+					zwaveScreen.clickOnFixAllPopupConfirm();
+					DASZwaveUtils.waitForActionToComplete(testCase);   
+					zwaveScreen.clickOnFixAllPopupAccept();
 					break;
 				}
 				}

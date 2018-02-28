@@ -3,8 +3,6 @@ package com.honeywell.keywords.lyric.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.openqa.selenium.interactions.InputSource;
-
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
