@@ -77,6 +77,7 @@ public class VerifyScreen extends Keyword {
 			}
 			break;
 		}
+		case "ADD NEW DEVICE": 
 		case "ADD NEW DEVICE DASHBOARD": {
 			AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
 			if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed()) {

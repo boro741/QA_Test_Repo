@@ -67,6 +67,11 @@ public class NavigateToScreen extends Keyword {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					break;
 				}
+				case "SWITCH SETTINGS": {
+					ZwaveScreen zs = new ZwaveScreen(testCase);
+					zs.ClickSwitchSettingFromZwaveUtilities();
+					break;
+				}
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
