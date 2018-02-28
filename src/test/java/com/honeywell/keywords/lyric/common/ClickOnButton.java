@@ -99,6 +99,46 @@ public class ClickOnButton extends Keyword {
 					}
 				}
 				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "BACK ARROW": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isBackArrowInRegisterBaseStationVisible()) {
+						dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+						if (dasDIY.isCancelPopupVisible()) {
+							return flag;
+						}
+						break;
+					}
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("ADDS A NETWORK")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "ADD A NETWORK": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isAddANetworkButtonVisible()) {
+						dasDIY.clickOnAddANetworkButton();
+						if (dasDIY.isAddANetworkHeaderTitleVisible()) {
+							return flag;
+						}
+						break;
+					}
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS SELECT BASE STATION SCREEN")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "REFRESH": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
+						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
+							return flag;
+						}
+						break;
+					}
+				}
+				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("deletes sensor")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
@@ -134,7 +174,23 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
-
+			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES LOCATION DETAILS")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					dasDIY.clickOnGlobalDrawerButton();
+					if (dasDIY.isLocationDetailsVisible()) {
+						dasDIY.clickOnLocationDetails();
+						if (dasDIY.isDeleteLocationButtonVisible()) {
+							dasDIY.clickOnDeleteLocationButton();
+							if (dasDIY.isDeleteLocationPopupVisible()) {
+								dasDIY.clickOnYesButtonInDeleteLocationPopup();
+							}
+						}
+					}
+					break;
+				}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

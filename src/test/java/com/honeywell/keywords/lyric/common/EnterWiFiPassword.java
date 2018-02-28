@@ -30,7 +30,7 @@ public class EnterWiFiPassword extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user inputs (.*) as the WiFi Password$")
+	@KeywordStep(gherkins = "^user inputs \"(.*)\" as the WiFi Password$")
 	public boolean keywordSteps() {
 		
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);

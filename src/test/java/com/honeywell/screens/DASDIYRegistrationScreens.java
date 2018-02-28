@@ -5,6 +5,10 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
+
 public class DASDIYRegistrationScreens extends MobileScreens {
 
 	private static final String screenName = "DIYRegistration";
@@ -24,7 +28,61 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isChooseLocationHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChooseLocationHeaderTitle");
 	}
+	
+	public boolean isCustomLocationTextFieldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CustomeLocationTextField");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean enterCustomLocationName(String customLocationNameText) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomeLocationTextField", customLocationNameText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver())
+			.pressKeyCode(AndroidKeyCode.ENTER);
+		} else {
+			MobileUtils.clickOnElement(testCase, "name", "Done");
+		}
+		return flag;
+	}
+	
+	public boolean isConfirmYourAddressZipCodeTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmYourAddressZipCodeTitle");
+	}
 
+	public boolean isZipCodeTextFieldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ZipCodeTextField");
+	}
+	
+	public boolean clearEnteredTextInZipCodeTextField() {
+		return MobileUtils.clearTextField(objectDefinition, testCase, "ZipCodeTextField");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean enterZipCode(String zipCodeText) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "ZipCodeTextField", zipCodeText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver())
+			.pressKeyCode(AndroidKeyCode.ENTER);
+		} else {
+			MobileUtils.clickOnElement(testCase, "ID", "Return");
+			MobileUtils.clickOnElement(testCase, "NAME", "Next");
+		}
+		return flag;
+	}
+	
+	public boolean isInvalidZipCodePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidZipCodeErrorPopup");
+	}
+	
+	public boolean isOKButtonInInvalidZipCodePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInInvalidZipCodeErrorPopup");
+	}
+
+	public boolean clickOnOKButtonInInvalidZipCodePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInInvalidZipCodeErrorPopup");
+	}
 	public boolean isCancelButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
 	}
@@ -71,6 +129,23 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnLivingRoomBaseStation() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SelectLivingRoomBaseStation");
+	}
+	
+	public boolean isCustomNameTextFieldDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CustomNameTextField", 3);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean enterCustomNameInNameYourBaseStationScreen(String customNameText) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameTextField", customNameText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver())
+			.pressKeyCode(AndroidKeyCode.ENTER);
+		} else {
+			MobileUtils.clickOnElement(testCase, "NAME", "Done");
+		}
+		return flag;
 	}
 
 	public boolean isPowerYourBaseStationHeaderTitleVisible() {
@@ -378,6 +453,34 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnAddSecurityButtonInIncreaseSecurityPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddSecurityButtonInIncreaseSecurityPopup");
+	}
+	
+	public boolean clickOnGlobalDrawerButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
+	}
+	
+	public boolean isLocationDetailsVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationDetailsInSettings");
+	}
+
+	public boolean clickOnLocationDetails() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDetailsInSettings");
+	}
+	
+	public boolean isDeleteLocationButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocation");
+	}
+
+	public boolean clickOnDeleteLocationButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteLocation");
+	}
+	
+	public boolean isDeleteLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocationPopupTitle");
+	}
+
+	public boolean clickOnYesButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
 	}
 
 	public boolean isSmartHomeSecurityOptionVisible(String deviceName) throws Exception {

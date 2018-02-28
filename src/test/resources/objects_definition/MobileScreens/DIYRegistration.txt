@@ -8,8 +8,14 @@ CancelPopupTitle	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?
 YesButtonInCancelSetUpPopup	ID	button1	ID	button1	ID	button1	NAME	Yes	NAME	Yes	NAME	Yes
 NoButtonInCancelSetUpPopup	ID	button2	ID	button2	ID	button2	NAME	No	NAME	No	NAME	No
 SelectHomeLocation	XPATH	//android.widget.Button[@text='Home']	XPATH	//android.widget.Button[@text='Home']	XPATH	//android.widget.Button[@text='Home']	NAME	Home	NAME	Home	NAME	Home
+CustomeLocationTextField	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit	NAME	Add Home	NAME	Add Home	NAME	Add Home
+ConfirmYourAddressZipCodeTitle	XPATH	//*[@text='Confirm your address ZIP Code']	XPATH	//*[@text='Confirm your address ZIP Code']	XPATH	//*[@text='Confirm your address ZIP Code']	XPATH	"//*[contains(@name, 'ZIP Code')]"	XPATH	"//*[contains(@name, 'ZIP Code')]"	XPATH	"//*[contains(@name, 'ZIP Code')]"
+ZipCodeTextField	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit	NAME	ZIP Code	NAME	ZIP Code	NAME	ZIP Code
+InvalidZipCodeErrorPopup	ID	message	ID	message	ID	message	NAME	Error	NAME	Error	NAME	Error
+OKButtonInInvalidZipCodeErrorPopup	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	NAME	OK	NAME	OK	NAME	OK
 NameYourBaseStationHeaderTitle	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']
 SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	NAME	Living Room	NAME	Living Room	NAME	Living Room
+CustomNameTextField							NAME	Custom	NAME	Custom	NAME	Custom
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Next	NAME	Next	NAME	Next
 LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
@@ -60,3 +66,8 @@ BaseStationSettingsOption	xpath	//*[@text='Base Station Settings']	xpath	//*[@te
 DeleteDASDeviceButton	id	delete_das_button	id	delete_das_button	id	delete_das_button	NAME	Delete	NAME	Delete	NAME	Delete
 YesButton	xpath	//*[@text='Yes' or @text='YES'] 	xpath	//*[@text='Yes' or @text='YES'] 	xpath	//*[@text='Yes' or @text='YES'] 	NAME	YES	NAME	YES	NAME	YES
 DevicesList	id	fragment_add_new_device_list	id	fragment_add_new_device_list	id	fragment_add_new_device_list	NAME	Select a device to install_SectionHeader	NAME	Select a device to install_SectionHeader	NAME	Select a device to install_SectionHeader
+LocationDetailsInSettings							NAME	details	NAME	details	NAME	details
+DeleteLocation							NAME	Delete Location	NAME	Delete Location	NAME	Delete Location
+DeleteLocationPopupTitle							NAME	Delete Location?	NAME	Delete Location?	NAME	Delete Location?
+NoButtonInDeleteLocationPopup							NAME	NO	NAME	NO	NAME	NO
+YesButtonInDeleteLocationPopup							NAME	YES	NAME	YES	NAME	YES

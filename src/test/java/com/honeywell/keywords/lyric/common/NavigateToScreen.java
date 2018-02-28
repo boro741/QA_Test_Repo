@@ -197,6 +197,19 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "Z-WAVE DEVICES": {
 					DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
+							Keyword.ReportStep_Pass(testCase, "Navigated to  Zwave DEVICES");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Zwave DEVICES menu from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
@@ -534,7 +547,7 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
 					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					if(dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
+					if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
 						Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
 					}
 					break;
@@ -545,7 +558,7 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnNextButton();
 					}
 					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					if(dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
+					if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
 						Keyword.ReportStep_Pass(testCase, "Multiple base stations with MAC ID's are displayed");
 					}
 					break;
@@ -597,6 +610,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					System.out.println(testCase.getMobileDriver().getPageSource());
 					if (dasDIY.isIncreaseSecurityPopupVisible()) {
 						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
@@ -808,10 +822,9 @@ public class NavigateToScreen extends Keyword {
 	/**
 	 * <h1>Navigate from Dashboard to Security Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates
-	 * from the dashboard to the security screen by clicking on the Global
-	 * Drawer option and clicking on the camera name on the secondary card
-	 * settings
+	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates from
+	 * the dashboard to the security screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -820,10 +833,10 @@ public class NavigateToScreen extends Keyword {
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase
 	 * @param inputs
-	 *            Instance of the TestCaseInputs class used to pass inputs to
-	 *            the testCase instance
-	 * @return boolean Returns 'true' if navigation is successful. Returns
-	 *         'false' if navigation is not successful.
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
 	 */
 	private boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -870,7 +883,6 @@ public class NavigateToScreen extends Keyword {
 								"Could not find DAS Panel Settings button");
 					}
 				}
-
 			} else
 
 			{

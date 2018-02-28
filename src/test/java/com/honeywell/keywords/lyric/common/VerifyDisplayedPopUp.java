@@ -39,61 +39,63 @@ public class VerifyDisplayedPopUp extends Keyword {
 	@KeywordStep(gherkins = "^user should receive a (.*) popup$")
 	public boolean keywordSteps() {
 		switch (expectedPopUp.get(0).toUpperCase()) {
-		case "CONTROLLER RESET CONFIRMATION":{
+		case "CONTROLLER RESET CONFIRMATION": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			flag = flag & zwaveScreen.isFactoryResetPopupHeaderDisplayed() & zwaveScreen.isFactoryResetPopupMessageDisplayed();
+			flag = flag & zwaveScreen.isFactoryResetPopupHeaderDisplayed()
+					& zwaveScreen.isFactoryResetPopupMessageDisplayed();
 			break;
 		}
-		case "FACTORY RESET SUCCESSFUL":{
+		case "FACTORY RESET SUCCESSFUL": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			flag = flag & zwaveScreen.isFactoryResetSuccessfullPopupHeaderDisplayed() & zwaveScreen.isFactoryResetSuccessfullPopupMessageDisplayed();
+			flag = flag & zwaveScreen.isFactoryResetSuccessfullPopupHeaderDisplayed()
+					& zwaveScreen.isFactoryResetSuccessfullPopupMessageDisplayed();
 			break;
 		}
 		case "DIMMER EXCLUDED SUCCESSFULLY":
-		case "SWITCH EXCLUDED SUCCESSFULLY":{
+		case "SWITCH EXCLUDED SUCCESSFULLY": {
 			flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
 			break;
 		}
-		case "SWITCH DELETED SUCCESSFULLY":{
+		case "SWITCH DELETED SUCCESSFULLY": {
 			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
 			break;
 		}
-		case "REMOVE DEVICE":{
+		case "REMOVE DEVICE": {
+
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			flag = zwaveScreen.isRemoveDevicePopUpDisplayed();
 			break;
 		}
-		case "DELETE DAS CONFIRMATION":
-		{
+		case "DELETE DAS CONFIRMATION": {
 			flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUp(testCase, inputs);
 			break;
 		}
-		case "DELETE SENSOR CONFIRMATION":
-		{
+		case "DELETE SENSOR CONFIRMATION": {
 			flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUp(testCase, inputs);
 			break;
 		}
-		
-		case "INCLUSION DEVICE NOT FOUND":
-		{
-			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
-			break;
-		}
-		case "EXCLUSION DEVICE NOT FOUND":
-		{
-			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
-			break;
-		}
-		case "DEVICE NOT FOUND":
-		{
-			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
-			break;
-		}
-		case "CANCEL SETUP":
-		{
 
+		case "INCLUSION DEVICE NOT FOUND": {
+			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+			break;
+		}
+		case "EXCLUSION DEVICE NOT FOUND": {
+			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+			break;
+		}
+		case "DEVICE NOT FOUND": {
+			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
+			break;
+		}
+		case "CANCEL SETUP": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			dasDIY.isCancelPopupVisible();
+			break;
+		}
+		case "INVALID ZIP CODE": {
+
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			dasDIY.isInvalidZipCodePopupVisible();
 			break;
 		}
 		case "BASE STATION NOT FOUND": {
@@ -108,14 +110,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 			dasDIY.isQRCodeScanningFailurePopupVisible();
 			break;
 		}
-		default:
-		{
+		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
 			return flag;
 		}
 		}
-
 		return flag;
 	}
 
