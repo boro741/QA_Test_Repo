@@ -271,6 +271,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("WI-FI CONNECTION FAILED")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInWiFiConnectionFailedPopupVisible()) {
+					dasDIY.clickOnOKButtonInWiFiConnectionFailedPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		}
 		if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {

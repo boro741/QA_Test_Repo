@@ -330,29 +330,27 @@ Scenario: As a user I should not be able to connect to a Wi-Fi network with inva
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Available Network" button
-Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user inputs "Invalid password" as the WiFi Password
-And user clicks on "Next" button
-Then user should be displayed with the "Connecting Smart Home Security" screen
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex444" as the WiFi Password
 And user should receive a "Wi-Fi Connection Failed" popup
-And user clicks on "OK" button
+When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user clicks on "Cancel" button
+When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Cancel" button
+Then user should be displayed with the "Enter your Wi-Fi password" screen
+When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Add New Device Dashboard" screen
+Then user navigates to "Add New Device Dashboard" screen from the "Enter your Wi-Fi password" screen
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable
 Scenario Outline: As a user I want to register a DAS device using the Lyric application

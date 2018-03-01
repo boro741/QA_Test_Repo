@@ -38,6 +38,9 @@ WiFiPasswordTextField	ID	wifi_password	ID	wifi_password	ID	wifi_password	NAME	Pa
 AddANetworkButton	ID	add_wifi_network	ID	add_wifi_network	ID	add_wifi_network	NAME	Add A Network	NAME	Add A Network	NAME	Add A Network
 AddANetworkScreenTitle	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	XPATH	//*[@text='Connect to Network']	NAME	Connect	NAME	Connect	NAME	Connect
 CancelButtonInAddANetworkScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Cancel	NAME	Cancel	NAME	Cancel
+EnterWiFIPasswordScreenSubTitle	ID	header_view_description	ID	header_view_description	ID	header_view_description	NAME	Enter your Wi-Fi password	NAME	Enter your Wi-Fi password	NAME	Enter your Wi-Fi password
+WiFiConnectionFailedPopupTitle	XPATH	//*[@text='Wi-Fi Connection failed']	XPATH	//*[@text='Wi-Fi Connection failed']	XPATH	//*[@text='Wi-Fi Connection failed']	NAME	Wi-Fi Connection failed	NAME	Wi-Fi Connection failed	NAME	Wi-Fi Connection failed
+OKButtonInWiFiConnectionFailedPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 JoinButtonInConnectToNetworkScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Next	NAME	Next	NAME	Next
 ConnectingSmartHomeSecurityLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 SmartHomeSecuritySuccessHeaderTitle	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']

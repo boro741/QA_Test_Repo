@@ -110,6 +110,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 			dasDIY.isQRCodeScanningFailurePopupVisible();
 			break;
 		}
+		case "WI-FI CONNECTION FAILED": {
+
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			dasDIY.isWiFiConnectionFailedPopupVisible();
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

@@ -714,6 +714,16 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("ENTER YOUR WI-FI PASSWORD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ADD NEW DEVICE DASHBOARD": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isAddNewDeviceScreenVisible(5)) {
+						return true;
+					}
+					break;
+				}
+				}
 			}
 
 			else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
