@@ -40,7 +40,41 @@ public class PerformActionsOnPopUp extends Keyword {
 	@KeywordStep(gherkins = "^user (.*) the (.*) popup$")
 	public boolean keywordSteps() {
 
-		if (expectedPopUp.get(1).equalsIgnoreCase("Delete DAS Confirmation")) {
+
+		if (expectedPopUp.get(1).equalsIgnoreCase("FACTORY RESET SUCCESSFUL")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				zScreen.clickOnFactoryResetSuccessfullAckConfirm();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CANCELS": {
+				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				zScreen.clickOnFactoryResetPopupCancel();
+				break;
+			}
+			case "CONFIRMS": {
+				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				zScreen.clickOnFactoryResetPopupConfirm();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete DAS Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -114,7 +148,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
 				return flag;
 			}
-		}
+			}
 		}else if (expectedPopUp.get(1).equalsIgnoreCase("EXCLUSION DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {

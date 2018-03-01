@@ -94,6 +94,23 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 					}
 				}
 			}
+			else if (exampleData.get(0).equalsIgnoreCase("Switch name")) {
+				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+				if (chUtil.getConnection()) {
+					int result = chUtil.putZwaveDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),deviceInfo.getDimmerDeviceID(),
+							inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
+					if (result == 200||result == 202) {
+						Keyword.ReportStep_Pass(testCase, "Successfully changed the ZWAVE SWITCH name to : "
+								+ inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change the ZWAVE SWITCH to "
+										+ inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
+					}
+				}
+			}
 			else if (exampleData.get(0).equalsIgnoreCase("Dimmer name")) {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);

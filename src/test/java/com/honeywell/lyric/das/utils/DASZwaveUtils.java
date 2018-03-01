@@ -139,6 +139,53 @@ public class DASZwaveUtils {
 		return flag;
 	}
 
+	public static boolean waitForToggleActionToComplete(TestCases testCase) {
+		boolean flag = true;
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ToggleStatusProgress", 5)) {
+							System.out.println("Waiting for Switching to complete");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Switching to completed");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Switching to complete did not complete after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	
+	public static boolean clickCancelFromNavigation(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickCancelFromNavigation();
+	}
+	
+	public static boolean clickConfirmOnCancelFromNavigation(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickConfirmOnCancelFromNavigation();
+	}
+	
+	
 	public static boolean clickNavigateUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
@@ -152,26 +199,29 @@ public class DASZwaveUtils {
 		return zwaveScreen.isZwaveUtitiesScreenDisplayed();
 	}
 
-	public static boolean navigateToGeneralInclusionFromDashboard(TestCases testCase){
+	public static boolean verifyZWaveDevicesScreen(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.isZwaveDevicesScreenDisplayed();
+	}
+	public static boolean navigateToZwaveUtilitiesFromDashboard(TestCases testCase){
 		boolean flag = true;
-		Dashboard dashboardScreen = new Dashboard(testCase);
-		flag=dashboardScreen.clickOnGlobalDrawerButton();
-		SecondaryCardSettings secScreen = new SecondaryCardSettings(testCase);
-		flag= flag & secScreen.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES);
+		navigateToZwaveDevicesFromDashboard(testCase);
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 		flag= flag & zwaveScreen.clickZwaveUtilitiesMenu();  
+		return flag;
+	}
+	public static boolean navigateToGeneralInclusionFromDashboard(TestCases testCase){
+		boolean flag = true;
+		navigateToZwaveUtilitiesFromDashboard(testCase);
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 		flag= flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 		return flag;
 	}
 
 	public static boolean navigateToGeneralExclusionFromDashboard(TestCases testCase){
 		boolean flag = true;
-		Dashboard dashboardScreen = new Dashboard(testCase);
-		flag=dashboardScreen.clickOnGlobalDrawerButton();
-		SecondaryCardSettings secScreen = new SecondaryCardSettings(testCase);
-		flag= flag & secScreen.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES);
+		navigateToZwaveUtilitiesFromDashboard(testCase);
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		flag= flag & zwaveScreen.clickZwaveUtilitiesMenu();  
 		flag= flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 		return flag;
 	}
@@ -230,7 +280,42 @@ public class DASZwaveUtils {
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 		return zwaveScreen.clickConfirmFurtherExclusionOnExcludedPopup();
 	}
-
+//FixAllProgress
+	
+	public static boolean waitForActionToComplete(TestCases testCase,HashMap<String, MobileObject> fieldObjects,String locator) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, locator, 5)) {
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Screen diasppeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Entering inclusion did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	
 	//Exclude screen elements
 
 	public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
@@ -365,6 +450,34 @@ public class DASZwaveUtils {
 		}
 
 	}
-
+	public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
+		Dashboard ds = new Dashboard(testCase);
+		if (ds.clickOnGlobalDrawerButton()) {
+			SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+			if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Navigated to  Zwave DEVICES");
+					return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on Zwave DEVICES menu from Global drawer");
+			}
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Could not click on Global drawer menu from dashboard");
+		}
+		return false;
+	}
+	public static boolean navigateToControllerDetailsFromDashboard(TestCases testCase) {
+		navigateToZwaveUtilitiesFromDashboard(testCase);
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickModelandFirmwareDetailsMenu();
+	}
+	public static boolean isControllerDetailsDisplayed(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.isZwaveUtitiesScreenDisplayed();  
+		
+	}
+	
 
 }

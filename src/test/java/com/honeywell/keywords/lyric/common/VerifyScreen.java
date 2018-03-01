@@ -44,6 +44,19 @@ public class VerifyScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
+		case "Z-WAVE CONTROLLER INFO":{
+			DASZwaveUtils.isControllerDetailsDisplayed(testCase);
+			break;
+		}
+		case "Z-WAVE DEVICES":{
+			if(DASZwaveUtils.verifyZWaveDevicesScreen(testCase)){
+				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
+			}else{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in excpected screen: "+expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
 		case "Z-WAVE UTILITIES":{
 			if(DASZwaveUtils.verifyZWaveUtilitiesScreen(testCase)){
 				Keyword.ReportStep_Pass(testCase, "In " +expectedScreen.get(0).toUpperCase() + " screen");
@@ -53,6 +66,7 @@ public class VerifyScreen extends Keyword {
 			}
 			break;
 		}
+		case "INCLUSION MODE ACTIVE":
 		case "ACTIVATE Z-WAVE DEVICE": {
 			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -77,6 +91,7 @@ public class VerifyScreen extends Keyword {
 			}
 			break;
 		}
+		case "ADD NEW DEVICE": 
 		case "ADD NEW DEVICE DASHBOARD": {
 			AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
 			if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed()) {

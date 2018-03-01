@@ -2,6 +2,8 @@ package com.honeywell.lyric.relayutils;
 
 import java.util.concurrent.TimeUnit;
 
+import com.honeywell.commons.coreframework.TestCaseInputs;
+
 public class ZWaveRelayUtils {
 
 	public static void enrollZwaveSwitch1() throws Exception {
@@ -85,5 +87,47 @@ public class ZWaveRelayUtils {
 			throw new Exception(e.getMessage());
 		}
 		return dimmerIntensityRange;
+	}
+
+	public static String powerOffZwaveSwitch(TestCaseInputs inputs) throws Exception {
+		if(!inputs.getInputValue("SwitchState").equals("SwitchPowerOff")){
+			SerialDriver.initialize();
+			SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1PowerPort);
+			TimeUnit.SECONDS.sleep(10);
+			SerialDriver.closePort();
+		}
+		inputs.setInputValueWithoutTarget("SwitchState", "SwitchPowerOff");
+		return "SwitchPowerOff";
+	}
+	public static String powerOnZwaveSwitch(TestCaseInputs inputs) throws Exception {
+		if(!inputs.getInputValue("SwitchState").equals("SwitchPowerOn")){
+			SerialDriver.initialize();
+			SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1PowerPort);
+			TimeUnit.SECONDS.sleep(10);
+			SerialDriver.closePort();
+		}
+		inputs.setInputValueWithoutTarget("SwitchState", "SwitchPowerOn");
+		return "SwitchPowerOn";
+	}
+
+	public static String powerOffZwaveDimmer(TestCaseInputs inputs) throws Exception {
+		if(!inputs.getInputValue("DimmerState").equals("DimmerPowerOff")){
+			SerialDriver.initialize();
+			SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1PowerPort);
+			TimeUnit.SECONDS.sleep(10);
+			SerialDriver.closePort();
+		}
+		inputs.setInputValueWithoutTarget("DimmerState", "DimmerPowerOff");
+		return "DimmerPowerOff";
+	}
+	public static String powerOnZwaveDimmer(TestCaseInputs inputs) throws Exception {
+		if(!inputs.getInputValue("DimmerState").equals("DimmerPowerOn")){
+			SerialDriver.initialize();
+			SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1PowerPort);
+			TimeUnit.SECONDS.sleep(10);
+			SerialDriver.closePort();
+		}
+		inputs.setInputValueWithoutTarget("DimmerState", "DimmerPowerOn");
+		return "DimmerPowerOn";
 	}
 }

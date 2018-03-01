@@ -52,16 +52,27 @@ public class NavigateToScreen extends Keyword {
 	@KeywordStep(gherkins = "^user navigates to (.*) screen from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")||screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
+			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
+					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					break;
 				}
 				}
-			}
-			else	 if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
+				case "SWITCH SETTINGS": {
+					ZwaveScreen zs = new ZwaveScreen(testCase);
+					zs.ClickSwitchSettingFromZwaveUtilities();
+					break;
+
+				}
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -115,8 +126,12 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
+			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "ZWAVE DEVICES": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -138,6 +153,10 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "Z-WAVE CONTROLLER DETAILS": {
+					DASZwaveUtils.navigateToControllerDetailsFromDashboard(testCase);
+					break;
+				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
@@ -172,21 +191,12 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "Z-WAVE UTILITIES": {
+					DASZwaveUtils.navigateToZwaveUtilitiesFromDashboard(testCase);
+					break;
+				}
 				case "Z-WAVE DEVICES": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Navigated to  Zwave DEVICES");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Zwave DEVICES menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
+					DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
@@ -200,10 +210,10 @@ public class NavigateToScreen extends Keyword {
 						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
 							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 							if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Switch Settings From Zwave Utilities");
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Switch Settings From Zwave Utilities");
 							} else {
-								Keyword.ReportStep_Pass(testCase,
-										"Clicked on SwitchSetting From ZwaveUtilities");
+								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -335,7 +345,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.SENSORNAME, sensorName);
 					inputs.setInputValue(DASInputVariables.SENSORID, devInfo.getDASSensorID(sensorName));
 					inputs.setInputValue(DASInputVariables.SENSORRESPONSETYPE,
-							devInfo.getDASSensorResponseType(sensorName));	
+							devInfo.getDASSensorResponseType(sensorName));
 					break;
 				}
 
@@ -357,7 +367,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					break;
 				}
-				
+
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -367,7 +377,8 @@ public class NavigateToScreen extends Keyword {
 
 			else if (screen.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				switch (screen.get(0).toUpperCase()) {
-				// Navigate from 'Entry/Exit Delay Settings' to 'Security Settings'
+				// Navigate from 'Entry/Exit Delay Settings' to 'Security
+				// Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SETTINGS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -383,12 +394,12 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
+					break;
 				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
+			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
-				// Navigate from 'Security Settings' to 'Entry/Exit Delay Settings'
+				// Navigate from 'Security Settings' to 'Entry/Exit Delay
+				// Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -433,7 +444,8 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				// Navigate from 'Base Station Configuration' to 'Model and Firmware Details'
+				// Navigate from 'Base Station Configuration' to 'Model and
+				// Firmware Details'
 				// Author: Pratik P. Lalseta (H119237)
 				case "MODEL AND FIRMWARE DETAILS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -604,9 +616,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
+			} else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSORS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -637,7 +647,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & bs.clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen();
 					break;
 				}
-				case "KEYFOB":{
+				case "KEYFOB": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();
 					break;
@@ -714,7 +724,6 @@ public class NavigateToScreen extends Keyword {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
-
 		return flag;
 	}
 
@@ -796,9 +805,10 @@ public class NavigateToScreen extends Keyword {
 	/**
 	 * <h1>Navigate from Dashboard to Security Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates from
-	 * the dashboard to the security screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates
+	 * from the dashboard to the security screen by clicking on the Global
+	 * Drawer option and clicking on the camera name on the secondary card
+	 * settings
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -807,10 +817,10 @@ public class NavigateToScreen extends Keyword {
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase
 	 * @param inputs
-	 *            Instance of the TestCaseInputs class used to pass inputs to the
-	 *            testCase instance
-	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
-	 *         if navigation is not successful.
+	 *            Instance of the TestCaseInputs class used to pass inputs to
+	 *            the testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns
+	 *         'false' if navigation is not successful.
 	 */
 	private boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;

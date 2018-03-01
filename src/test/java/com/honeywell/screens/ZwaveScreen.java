@@ -30,21 +30,28 @@ public class ZwaveScreen extends MobileScreens{
 
 	public String getSwitchStatusFromDevicesListScreen(String deviceName){
 		List<WebElement> listOFZwaveDevices = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesList");
-		List<WebElement> listOFZwaveDevicesName = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesName");
-		List<WebElement> listOFZwaveDevicesStatus = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesStatus");
-		
-		for(int i=0; i<listOFZwaveDevices.size();i++){
-			if(listOFZwaveDevicesName.get(i).getText().contains(deviceName)){
-				return	listOFZwaveDevicesStatus.get(i).getText();
+		if(testCase.getPlatform().toUpperCase().contains("IOS")){
+			List<WebElement> listOFZwaveDevicesName = MobileUtils.getMobElements(testCase, "name",deviceName);
+			if(listOFZwaveDevicesName.size()>0){
+				return MobileUtils.getFieldValue(testCase, "name",deviceName+"_value");
+			}
+		}else{
+			List<WebElement> listOFZwaveDevicesName = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesName");
+			List<WebElement> listOFZwaveDevicesStatus = MobileUtils.getMobElements(objectDefinition, testCase, "ZwaveDevicesStatus");
+
+			for(int i=0; i<listOFZwaveDevices.size();i++){
+				if(listOFZwaveDevicesName.get(i).getText().contains(deviceName)){
+					return	listOFZwaveDevicesStatus.get(i).getText();
+				}
 			}
 		}
 		return null;
 	}
-	
+
 	public String getSwitchStatusOffline(){
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "SwitchSettingsStatus");
 	}  
-	
+
 	public boolean clickOnStatus(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchStatusToggle");
 	}
@@ -89,7 +96,7 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean ClickDimmerSettingFromZwaveUtilities() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DimmerSettingsMenu");
 	}
-	
+
 	public  boolean ClickDeleteFromSettings() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
 	}
@@ -139,9 +146,10 @@ public class ZwaveScreen extends MobileScreens{
 
 	//ZwaveUtilities
 	public  boolean isZwaveUtitiesScreenDisplayed() {
+		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralDeviceInclusion") && MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralDeviceExclusion");
 	}
-	
+
 	public boolean clickGeneralDeviceInclusionMenu() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceInclusion");
 	}
@@ -149,7 +157,7 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickGeneralDeviceExclusionMenu() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceExclusion");
 	}
-	
+
 	public boolean clickControllerFactoryResetMenu() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ControllerFactoryReset");
 	}
@@ -158,12 +166,26 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelandFirmwareDetails");
 	}
 
+
+	//controller info
+
+	public  boolean isModelandFirmwareDetailsDisplayed() {
+		boolean detailsFound= false;
+		String details= MobileUtils.getFieldValue(objectDefinition, testCase, "ModelFirmwareSubTitle");
+		if(details.contains("Home ID")||details.contains("Product Type : ")
+				|| details.contains("Product ID :") || details.contains("Node :")
+				|| details.contains("Manufacturer :") || details.contains("Security :")
+				){
+			detailsFound=true;
+		}
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelFirmwareTitle") && detailsFound;
+	}
 	//device not found popup
-	
+
 	public boolean clickTryExcludeOnDeviceNotFoundPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TryExcludeOption");
 	}
-	
+
 	public boolean clickOKOnDeviceNotFoundPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoDeviceToExcludePopupDismiss");
 	}
@@ -178,12 +200,12 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickNoDeviceToExcludePopupCancel() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoDeviceToExcludePopupCancel");
 	}
-	
+
 	public boolean clickNoDeviceToExcludePopupRetry() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoDeviceToExcludePopupRetry");
 	}
 	//Excluded popup
-	
+
 	public boolean clickOKOnDeviceExcludedPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
 	}
@@ -191,7 +213,7 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickAddNowOnDeviceExcludedPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNowOption");
 	}
-	
+
 	public boolean clickCancelFurtherExclusionOnExcludedPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralExcludeCancelFurthur");
 	}
@@ -199,7 +221,7 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickConfirmFurtherExclusionOnExcludedPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralExcludeCorfirmFurthur");
 	}
-	
+
 	//Remove popup
 	public boolean clickCancelOnRemoveDevicePopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelDeviceRemovalButton");
@@ -209,12 +231,12 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
 	}
 
-	
+
 
 	public boolean clickZwaveUtilitiesMenu() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveUtilitiesMenu");
 	}
-	
+
 	public boolean isAllOffEnabled() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "AllOffButton").isEnabled();
 	}
@@ -222,11 +244,11 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickOnAllOff() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllOffButton");
 	}
-	
+
 	public boolean isAllOnEnabled() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "AllONButton").isEnabled();
 	}
-	
+
 	public boolean clickOnAllOn() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllONButton");
 	}
@@ -237,5 +259,67 @@ public class ZwaveScreen extends MobileScreens{
 	public boolean clickOnFixAll() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllButton");
 	}
-	
+
+	public boolean clickOnFixAllPopupConfirm() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllPopupConfirm");
+	}
+
+	public boolean clickOnFixAllPopupCancel() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllPopupCancel");
+	}
+
+	public boolean clickOnFixAllPopupAccept() {
+		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllAcceptResult");
+	}
+
+	public boolean clickCancelFromNavigation() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+	}
+
+	public boolean clickConfirmOnCancelFromNavigation() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelYesButton");
+	}
+
+	public boolean isZwaveDevicesScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveUtilitiesMenu");
+	}
+
+	public boolean clickOnFactoryReset() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ControllerFactoryReset");
+	}
+
+	public boolean isFactoryResetPopupHeaderDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FactoryResetPopupHeader");
+	}
+
+	public boolean isFactoryResetPopupMessageDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FactoryResetPopupMessage");
+	}
+
+	public boolean clickOnFactoryResetPopupCancel() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FactoryResetPopupCancel");
+	}
+
+	public boolean clickOnFactoryResetPopupConfirm() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FactoryResetPopupConfirm");
+	}
+
+	public boolean isFactoryResetProgressDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FactoryResetProgress");
+	}
+
+	public boolean isFactoryResetSuccessfullPopupHeaderDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FactoryResetSuccessfullPopup");
+	}
+
+	public boolean isFactoryResetSuccessfullPopupMessageDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FactoryResetSuccessfullPopupMessage");
+	}
+
+	public boolean clickOnFactoryResetSuccessfullAckConfirm() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FactoryResetSuccessfullAck");
+	}
+
+
 }

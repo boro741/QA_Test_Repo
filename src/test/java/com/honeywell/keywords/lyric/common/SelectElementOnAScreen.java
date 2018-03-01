@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -42,11 +43,27 @@ public class SelectElementOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.*)\" from \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(1).equalsIgnoreCase("install device")) {
+			if(parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")||parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")||parameters.get(1).equalsIgnoreCase("Activate Z-Wave Device")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "CONFIRM CANCEL": {
+					DASZwaveUtils.clickCancelFromNavigation(testCase);
+					DASZwaveUtils.clickConfirmOnCancelFromNavigation(testCase);
+					break;
+				}
+				}
+			}else if (parameters.get(1).equalsIgnoreCase("install device")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "Z-WAVE DEVICE": {
 					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 					ads.clickOnZwaveFromAddNewDevice();
+					break;
+				}
+				}
+			}else if (parameters.get(1).equalsIgnoreCase("Z-wave Utilities")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CONTROLLER FACTORY RESET": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickOnFactoryReset();
 					break;
 				}
 				}
@@ -65,6 +82,8 @@ public class SelectElementOnAScreen extends Keyword {
 				case "FIX ALL": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 					zwaveScreen.clickOnFixAll();
+					zwaveScreen.clickOnFixAllPopupConfirm();
+					zwaveScreen.clickOnFixAllPopupAccept();
 					break;
 				}
 				}
@@ -144,13 +163,13 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
-				
-					boolean flag = true;
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isConnectToNetworkHeaderDescVisible() && dasDIY.isAddANetworkButtonVisible()) {
-						flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(parameters.get(0));
-					}
-					dasDIY.isWiFiPasswordTextFieldVisibile();
+
+				boolean flag = true;
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isConnectToNetworkHeaderDescVisible() && dasDIY.isAddANetworkButtonVisible()) {
+					flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(parameters.get(0));
+				}
+				dasDIY.isWiFiPasswordTextFieldVisibile();
 			}
 
 		} catch (Exception e) {

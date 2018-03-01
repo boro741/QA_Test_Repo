@@ -2,6 +2,6 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 ZwaveMenu							NAME	Z-Wave Devices	Name	Z-Wave Devices	Name	Z-Wave Devices
 ZwaveList	Xpath	//*[@text='Z-Wave Device']	Xpath	//*[@text='Z-Wave Device']	Xpath	//*[@text='Z-Wave Device']	NAME	Z-Wave Device	Name	Z-Wave Device	Name	Z-Wave Device
 CancelButton							NAME	Cancel	Name	Cancel	Name	Cancel
-DevicesList	id	fragment_add_new_device_list	id	fragment_add_new_device_list	id	fragment_add_new_device_list						
+DevicesList	id	fragment_add_new_device_list	id	fragment_add_new_device_list	id	fragment_add_new_device_list	Xpath	//XCUIElementTypeTable	Xpath	//XCUIElementTypeTable	Xpath	//XXCUIElementTypeTable
 AddNewDeviceHeader	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	xpath	//*[@value='Add New Device']	xpath	//*[@value='Add New Device']	xpath	//*[@value='Add New Device']
 FetchingDevicesLoadingSpinnerMsg	ID	message	ID	message	ID	message						
