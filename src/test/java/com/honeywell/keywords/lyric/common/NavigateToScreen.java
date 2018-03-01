@@ -60,7 +60,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			else	 if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -85,7 +85,8 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
+			} 
+			else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -127,6 +128,10 @@ public class NavigateToScreen extends Keyword {
 				}
 			}else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "ZWAVE DEVICES": {
+					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					break;
+				}
 				case "DASHBOARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -135,12 +140,12 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag = flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
+					flag= flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 					break;
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
+					flag= flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 					break;
 				}
 				}
@@ -148,6 +153,10 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "Z-WAVE CONTROLLER DETAILS":{
+					DASZwaveUtils.navigateToControllerDetailsFromDashboard(testCase);
+					break;
+				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
@@ -167,10 +176,10 @@ public class NavigateToScreen extends Keyword {
 						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
 							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Switch Settings From Zwave Utilities");
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Switch Settings From Zwave Utilities");
 							} else {
-								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
+								Keyword.ReportStep_Pass(testCase,
+										"Clicked on SwitchSetting From ZwaveUtilities");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -182,21 +191,12 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "Z-WAVE UTILITIES": {
+					DASZwaveUtils.navigateToZwaveUtilitiesFromDashboard(testCase);
+					break;
+				}
 				case "Z-WAVE DEVICES": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Navigated to  Zwave DEVICES");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Zwave DEVICES menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
+					DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
@@ -312,6 +312,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 
+
 				// Navigate from 'Dashboard' to 'Keyfobs List'
 				// Author: Pratik P. Lalseta (H119237)
 				case "KEYFOB": {
@@ -367,7 +368,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					break;
 				}
-				
+
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -393,340 +394,341 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				}
+				break;
 			}
-
-			else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
-				switch (screen.get(0).toUpperCase()) {
-				// Navigate from 'Security Settings' to 'Entry/Exit Delay Settings'
-				// Author: Pratik P. Lalseta (H119237)
-				case "ENTRY-EXIT DELAY": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isEntryExitDelaySettingsOptionVisible()) {
-						flag = flag & bs
-								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find Entry/Exit Delay option on DAS Panel Settings screen");
-					}
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Base Station Configuration")) {
-				switch (screen.get(0).toUpperCase()) {
-				// Navigate from 'Base Station Configuration' to 'Dashboard'
-				// Author: Pratik P. Lalseta (H119237)
-				case "DASHBOARD": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					Dashboard d = new Dashboard(testCase);
-					if (bs.isBackButtonVisible()) {
-						flag = flag & bs.clickOnBackButton();
-					}
-					if (bs.isBackButtonVisible(10)) {
-						flag = flag & bs.clickOnBackButton();
-					}
-					if (bs.isBackButtonVisible()) {
-						flag = flag & bs.clickOnBackButton();
-					}
-					if (!d.areDevicesVisibleOnDashboard()) {
-						flag = flag & bs.clickOnBackButton();
-						if (!d.areDevicesVisibleOnDashboard()) {
-							flag = flag & bs.clickOnBackButton();
-						}
-					}
-					break;
-				}
-				// Navigate from 'Base Station Configuration' to 'Model and Firmware Details'
-				// Author: Pratik P. Lalseta (H119237)
-				case "MODEL AND FIRMWARE DETAILS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isModelAndFirmwareOptionsVisibleOnBaseStationConfigurationScreen()) {
-						flag = flag & bs.clickOnModelAndFirmwareOptionsOnBaseStationConfigurationScreen();
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find 'Model And Firmaware Details' option");
-					}
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "ADD NEW DEVICE GLOBAL DRAWER": {
-					SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-					if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Add new device menu from Global drawer");
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "GLOBAL DRAWER": {
-					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
-					if (addScreen.clickOnCancelButtonOfAddDeviceScreen()) {
-						Dashboard ds = new Dashboard(testCase);
-						if (!ds.clickOnGlobalDrawerButton()) {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Global drawer menu from dashboard");
-
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Add new device - cancel");
-						flag = false;
-					}
-					break;
-				}
-				case "SMART HOME SECURITY": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "ADD NEW DEVICE DASHBOARD": {
-					AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
-					if (addNewDevice.isAddNewDeviceHeaderDisplayed()) {
-						return flag;
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "POWER BASE STATION INSTRUCTIONS": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "LOOKING FOR BASE STATION": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					break;
-				}
-				case "REGISTER BASE STATION": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					dasDIY.isRegisterBaseStationHeaderTitleVisible();
-					dasDIY.isQRCodeDisplayed();
-					break;
-				}
-				case "SELECT BASE STATION": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "CONNECT TO NETWORK": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					DIYRegistrationUtils.waitForLookingForNetworkConnectionProgressBarToComplete(testCase);
-					dasDIY.isConnectToNetworkHeaderTitleVisible();
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "SMART HOME SECURITY SUCCESS": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
-					if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
-						dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("SMART HOME SECURITY SUCCESS")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "ENABLE GEOFENCING": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.isGeoFencingHeaderTitleVisible();
-					if (dasDIY.isSkipButtonInGeoFencingScreenVisible()) {
-						dasDIY.clickOnSkipButtonInGeoFencingScreen();
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "ENABLE AMAZON ALEXA": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.isAmazonAlexaHeaderTitleVisible();
-					if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
-						dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isIncreaseSecurityPopupVisible()) {
-						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-						}
-						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-							dasDIY.clickOnGotItButtonInQuickControlsPopup();
-						}
-						if (dasDIY.isIncreaseSecurityPopupVisible()) {
-							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-						}
-					} else {
-						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-						}
-						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-							dasDIY.clickOnGotItButtonInQuickControlsPopup();
-						}
-					}
-					break;
-				}
-				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "SENSORS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnBackButton();
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					break;
-				}
-				case "KEYFOB SETTINGS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"No Keyfob names were provided in the Requirement file");
-						return flag;
-					}
-					flag = flag & bs.selectKeyfobFromKeyfobList(inputs.getInputValue("LOCATION1_KEYFOB1_NAME"));
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("Keyfob Settings")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "MODEL AND FIRMWARE DETAILS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen();
-					break;
-				}
-				case "KEYFOB":{
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnBackButton();
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("Keyfob Model and Firmware Details")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "SENSORS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnBackButton();
-					flag = flag & bs.clickOnBackButton();
-					flag = flag & bs.clickOnBackButton();
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("Sensor")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "SENSOR SETTINGS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
-							&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"No sensor names were provided in the Requirement file");
-						return flag;
-					}
-					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
-						flag = flag
-								& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME"));
-					} else {
-						flag = flag
-								& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME"));
-					}
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "MODEL AND FIRMWARE DETAILS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnModelAndFirmwareOptionsOnSensorSettingsScreen();
-					break;
-				}
-				case "SENSOR": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnBackButton();
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				}
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
-			}
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 
-		return flag;
-	}
+
+				else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
+					switch (screen.get(0).toUpperCase()) {
+					// Navigate from 'Security Settings' to 'Entry/Exit Delay Settings'
+					// Author: Pratik P. Lalseta (H119237)
+					case "ENTRY-EXIT DELAY": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						if (bs.isEntryExitDelaySettingsOptionVisible()) {
+							flag = flag & bs
+									.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not find Entry/Exit Delay option on DAS Panel Settings screen");
+						}
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				}
+
+				else if (screen.get(1).equalsIgnoreCase("Base Station Configuration")) {
+					switch (screen.get(0).toUpperCase()) {
+					// Navigate from 'Base Station Configuration' to 'Dashboard'
+					// Author: Pratik P. Lalseta (H119237)
+					case "DASHBOARD": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						Dashboard d = new Dashboard(testCase);
+						if (bs.isBackButtonVisible()) {
+							flag = flag & bs.clickOnBackButton();
+						}
+						if (bs.isBackButtonVisible(10)) {
+							flag = flag & bs.clickOnBackButton();
+						}
+						if (bs.isBackButtonVisible()) {
+							flag = flag & bs.clickOnBackButton();
+						}
+						if (!d.areDevicesVisibleOnDashboard()) {
+							flag = flag & bs.clickOnBackButton();
+							if (!d.areDevicesVisibleOnDashboard()) {
+								flag = flag & bs.clickOnBackButton();
+							}
+						}
+						break;
+					}
+					// Navigate from 'Base Station Configuration' to 'Model and Firmware Details'
+					// Author: Pratik P. Lalseta (H119237)
+					case "MODEL AND FIRMWARE DETAILS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						if (bs.isModelAndFirmwareOptionsVisibleOnBaseStationConfigurationScreen()) {
+							flag = flag & bs.clickOnModelAndFirmwareOptionsOnBaseStationConfigurationScreen();
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not find 'Model And Firmaware Details' option");
+						}
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "ADD NEW DEVICE GLOBAL DRAWER": {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "GLOBAL DRAWER": {
+						AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
+						if (addScreen.clickOnCancelButtonOfAddDeviceScreen()) {
+							Dashboard ds = new Dashboard(testCase);
+							if (!ds.clickOnGlobalDrawerButton()) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Global drawer menu from dashboard");
+
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device - cancel");
+							flag = false;
+						}
+						break;
+					}
+					case "SMART HOME SECURITY": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "ADD NEW DEVICE DASHBOARD": {
+						AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
+						if (addNewDevice.isAddNewDeviceHeaderDisplayed()) {
+							return flag;
+						}
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "POWER BASE STATION INSTRUCTIONS": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						if (dasDIY.isNextButtonVisible()) {
+							flag = flag & dasDIY.clickOnNextButton();
+						}
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "LOOKING FOR BASE STATION": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						if (dasDIY.isNextButtonVisible()) {
+							flag = flag & dasDIY.clickOnNextButton();
+						}
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						break;
+					}
+					case "REGISTER BASE STATION": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						if (dasDIY.isNextButtonVisible()) {
+							flag = flag & dasDIY.clickOnNextButton();
+						}
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						dasDIY.isRegisterBaseStationHeaderTitleVisible();
+						dasDIY.isQRCodeDisplayed();
+						break;
+					}
+					case "SELECT BASE STATION": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						if (dasDIY.isNextButtonVisible()) {
+							flag = flag & dasDIY.clickOnNextButton();
+						}
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "CONNECT TO NETWORK": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						DIYRegistrationUtils.waitForLookingForNetworkConnectionProgressBarToComplete(testCase);
+						dasDIY.isConnectToNetworkHeaderTitleVisible();
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "SMART HOME SECURITY SUCCESS": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+						if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
+							dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+						}
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("SMART HOME SECURITY SUCCESS")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "ENABLE GEOFENCING": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						dasDIY.isGeoFencingHeaderTitleVisible();
+						if (dasDIY.isSkipButtonInGeoFencingScreenVisible()) {
+							dasDIY.clickOnSkipButtonInGeoFencingScreen();
+						}
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "ENABLE AMAZON ALEXA": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						dasDIY.isAmazonAlexaHeaderTitleVisible();
+						if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
+							dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
+						}
+						break;
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "DASHBOARD": {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						if (dasDIY.isIncreaseSecurityPopupVisible()) {
+							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+							if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+								dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+							}
+							if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+								dasDIY.clickOnGotItButtonInQuickControlsPopup();
+							}
+							if (dasDIY.isIncreaseSecurityPopupVisible()) {
+								dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+							}
+						} else {
+							if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+								dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+							}
+							if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+								dasDIY.clickOnGotItButtonInQuickControlsPopup();
+							}
+						}
+						break;
+					}
+					}
+				}
+				else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "SENSORS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+						break;
+					}
+					case "KEYFOB SETTINGS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"No Keyfob names were provided in the Requirement file");
+							return flag;
+						}
+						flag = flag & bs.selectKeyfobFromKeyfobList(inputs.getInputValue("LOCATION1_KEYFOB1_NAME"));
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("Keyfob Settings")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "MODEL AND FIRMWARE DETAILS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen();
+						break;
+					}
+					case "KEYFOB":{
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.clickOnBackButton();
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("Keyfob Model and Firmware Details")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "SENSORS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				} else if (screen.get(1).equalsIgnoreCase("Sensor")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "SENSOR SETTINGS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
+								&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"No sensor names were provided in the Requirement file");
+							return flag;
+						}
+						if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
+							flag = flag
+									& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME"));
+						} else {
+							flag = flag
+									& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME"));
+						}
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				}
+
+				else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "MODEL AND FIRMWARE DETAILS": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.clickOnModelAndFirmwareOptionsOnSensorSettingsScreen();
+						break;
+					}
+					case "SENSOR": {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.clickOnBackButton();
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
+				}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+				return flag;
+			}
 
 	@Override
 	@AfterKeyword
@@ -806,9 +808,10 @@ public class NavigateToScreen extends Keyword {
 	/**
 	 * <h1>Navigate from Dashboard to Security Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates from
-	 * the dashboard to the security screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates
+	 * from the dashboard to the security screen by clicking on the Global
+	 * Drawer option and clicking on the camera name on the secondary card
+	 * settings
 	 * </p>
 	 *
 	 * @author Pratik P. Lalseta (H119237)
@@ -817,10 +820,10 @@ public class NavigateToScreen extends Keyword {
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase
 	 * @param inputs
-	 *            Instance of the TestCaseInputs class used to pass inputs to the
-	 *            testCase instance
-	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
-	 *         if navigation is not successful.
+	 *            Instance of the TestCaseInputs class used to pass inputs to
+	 *            the testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns
+	 *         'false' if navigation is not successful.
 	 */
 	private boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;

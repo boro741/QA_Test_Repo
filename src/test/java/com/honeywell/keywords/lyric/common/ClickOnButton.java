@@ -10,7 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
@@ -46,21 +45,19 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
-			}else if(expectedButton.get(0).equalsIgnoreCase("fixes all zwave devices")){
+			} else if (expectedButton.get(0).equalsIgnoreCase("fixes all zwave devices")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "FIX ALL": {
-					ZwaveScreen zs= new ZwaveScreen(testCase);
-					if(zs.isFixAllEnabled()){
+					ZwaveScreen zs = new ZwaveScreen(testCase);
+					if (zs.isFixAllEnabled()) {
 						zs.clickOnFixAll();
 						zs.clickOnFixAllPopupCancel();
 						zs.clickOnFixAll();
 						zs.clickOnFixAllPopupConfirm();
-						DASZwaveUtils.waitForActionToComplete(testCase);   
 						zs.clickOnFixAllPopupAccept();
-					}else{
+					} else {
 						Keyword.ReportStep_Pass(testCase, "No device found to be offline");
 					}
-					break;
 				}
 				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("cancels the set up")) {

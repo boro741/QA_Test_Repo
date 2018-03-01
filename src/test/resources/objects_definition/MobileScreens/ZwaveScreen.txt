@@ -5,6 +5,8 @@ ActivateTheDeviceHeader	Xpath	//*[@text='Activate Z-Wave Device']					Xpath	//*[
 ActivateTheDeviceTitle	Xpath	//*[@text='Activate Z-Wave device now']					NAME	Activate Z-Wave device now	NAME	Activate Z-Wave device now	NAME	Activate Z-Wave device now
 CheckingForDevice	Xpath	//*[@text='Checking for device']					NAME	Checking for device	NAME	Checking for device	NAME	Checking for device
 CancelButton	ID	diy_cancel_button					NAME	Cancel	NAME	Cancel	NAME	Cancel
+CancelNoButton							NAME	No	NAME	No	NAME	No
+CancelYesButton							NAME	Yes	NAME	Yes	NAME	Yes
 DeviceNotFoundPopup	Xpath	//*[@text='Device not found!']					NAME	Device not found!	NAME	Device not found!	NAME	Device not found!
 TryExcludeOption	Xpath	//*[@text='Try Exclude']					NAME	Try Exclude	NAME	Try Exclude	NAME	Try Exclude
 RetryOption	Xpath	//*[@text='Retry']					NAME	Retry	NAME	Retry	NAME	Retry
@@ -42,6 +44,7 @@ SwitchRenameField	ID	zwave_edit_name					Xpath	"//*[contains(@value,'Switch')]"
 SwitchSettingsStatus	ID	zwave_status_value										
 ToggleStatusProgress	Xpath	//*[@text='Please wait.']					NAME	Please wait…				
 SwitchStatusToggle	ID	settings_switch					NAME	Status_toggle				
+FetchingControllerDetails							NAME	Fetching Z-Wave Controller details				
 ModelFirmwareTitle	Xpath	//*[@text='Model and Firmware Details']					NAME	Model and Firmware Details				
 ModelFirmwareSubTitle	ID	zwave_firmware_details					NAME	Model and Firmware Details_subTitle				
 ReplaceButton	ID	btn_replace_zwave					NAME	Replace				
@@ -74,11 +77,14 @@ GeneralExcludeCorfirmFurthur	Xpath	//*[@text='OK']					NAME	OK
 GeneralExcludeCancelFurthur	Xpath	//*[@text='CANCEL']					NAME	CANCEL				
 ControllerFactoryReset	ID	controller_reset					NAME	Controller Factory Reset				
 ModelandFirmwareDetails	ID	model_fw					NAME	Model and Firmware Details				
-FactoryResetPopupHeader	Xpath	//*[@text='Factory Reset?']										
-FactoryResetPopupMessage	Xpath	//*[@text='Z-Wave Controller will be reset to factory default. All the connected Z-Wave devices will be removed. Are you sure?']										
-FactoryResetPopupCancel	Xpath	//*[@text='Cancel']										
-FactoryResetPopupConfirm	Xpath	//*[@text='OK']										
-FactoryResetProgress	Xpath	//*[@text='Z-Wave factory reset is in progress']										
+FactoryResetPopupHeader	Xpath	//*[@text='Factory Reset?']					NAME	Factory Reset?				
+FactoryResetPopupMessage	Xpath	//*[@text='Z-Wave Controller will be reset to factory default. All the connected Z-Wave devices will be removed. Are you sure?']					NAME	Z-Wave Controller will be reset to factory default. All the connected Z-Wave devices will be removed. Are you sure?				
+FactoryResetPopupCancel	Xpath	//*[@text='Cancel']					NAME	Cancel				
+FactoryResetPopupConfirm	Xpath	//*[@text='OK']					NAME	OK				
+FactoryResetProgress	Xpath	//*[@text='Z-Wave factory reset is in progress']					NAME	Z-Wave Controller Factory Reset in progress				
+FactoryResetSuccessfullPopup							NAME	Factory Reset successful				
+FactoryResetSuccessfullPopupMessage							NAME	Make sure to exclude every device before connecting again.				
+FactoryResetSuccessfullAck							NAME	OK				
 ZwaveDevicesList	ID	ll_row_parent					XPATH	"//*[contains(@name,'_cell')]"				
 ZwaveDevicesName	ID	settings_title_view										
 ZwaveDevicesStatus	ID	settings_value_view					XPATH	"//*[contains(@name,'_value')]"				
