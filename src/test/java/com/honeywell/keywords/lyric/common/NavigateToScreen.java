@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -18,6 +19,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -58,8 +60,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			else
-			if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			else	 if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -74,8 +75,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
+			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
@@ -125,12 +125,12 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag= flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
+					flag = flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 					break;
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag= flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
+					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 					break;
 				}
 				}
@@ -157,10 +157,10 @@ public class NavigateToScreen extends Keyword {
 						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
 							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Switch Settings From Zwave Utilities");
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Switch Settings From Zwave Utilities");
 							} else {
-								Keyword.ReportStep_Pass(testCase,
-										"Clicked on SwitchSetting From ZwaveUtilities");
+								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -301,6 +301,63 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+
+				// Navigate from 'Dashboard' to 'Keyfobs List'
+				// Author: Pratik P. Lalseta (H119237)
+				case "KEYFOB": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					break;
+				}
+
+				case "SENSOR SETTINGS": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					String sensorName = "";
+					if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
+							&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No sensor names were provided in the Requirement file");
+						return flag;
+					}
+					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
+						sensorName = inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME");
+						inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.ACCESSSENSOR);
+					} else {
+						sensorName = inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME");
+						inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
+					}
+					flag = flag & bs.selectSensorFromSensorList(sensorName);
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+					inputs.setInputValue(DASInputVariables.SENSORNAME, sensorName);
+					inputs.setInputValue(DASInputVariables.SENSORID, devInfo.getDASSensorID(sensorName));
+					inputs.setInputValue(DASInputVariables.SENSORRESPONSETYPE,
+							devInfo.getDASSensorResponseType(sensorName));	
+					break;
+				}
+
+				case "KEYFOB SETTINGS": {
+					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					String keyfobName = "";
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No keyfob names were provided in the Requirement file");
+						return flag;
+					}
+					keyfobName = inputs.getInputValue("LOCATION1_KEYFOB1_NAME");
+					flag = flag & bs.selectSensorFromSensorList(keyfobName);
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
+					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+					break;
+				}
+				
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -549,7 +606,107 @@ public class NavigateToScreen extends Keyword {
 				}
 			}
 
-			else {
+			else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SENSORS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					break;
+				}
+				case "KEYFOB SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No Keyfob names were provided in the Requirement file");
+						return flag;
+					}
+					flag = flag & bs.selectKeyfobFromKeyfobList(inputs.getInputValue("LOCATION1_KEYFOB1_NAME"));
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Keyfob Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MODEL AND FIRMWARE DETAILS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnModelAndFirmwareOptionsOnKeyfobSettingsScreen();
+					break;
+				}
+				case "KEYFOB":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Keyfob Model and Firmware Details")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SENSORS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Sensor")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
+							&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No sensor names were provided in the Requirement file");
+						return flag;
+					}
+					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
+						flag = flag
+								& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME"));
+					} else {
+						flag = flag
+								& bs.selectSensorFromSensorList(inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME"));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+
+			else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MODEL AND FIRMWARE DETAILS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnModelAndFirmwareOptionsOnSensorSettingsScreen();
+					break;
+				}
+				case "SENSOR": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
@@ -566,6 +723,7 @@ public class NavigateToScreen extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return flag;
 	}
+
 	public static boolean NavigateToDashboardFromAnyScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -589,7 +747,7 @@ public class NavigateToScreen extends Keyword {
 					i++;
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")
-						|| (MobileUtils.isMobElementExists(fieldObjects,testCase, "AddNewDeviceIcon"))) {
+						|| (MobileUtils.isMobElementExists(fieldObjects, testCase, "AddNewDeviceIcon"))) {
 					Keyword.ReportStep_Pass(testCase,
 							"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
 				} else {

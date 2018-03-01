@@ -93,7 +93,7 @@ Feature: DAS Settings
       And user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
      When user edits the "DAS Panel" name to "Test Panel Name" 
       And user navigates to "Dashboard" screen from the "Base Station Configuration" screen 
-     Then user should be displayed with "Test Panel Name" device on dashboard 
+     Then user should be displayed with "Test Panel Name" device on the "dashboard" screen 
       And user reverts back the "DAS device name" through CHIL
   
   #LYDAS-6941
@@ -172,7 +172,7 @@ Feature: DAS Settings
       | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DASSettingsDisabled 
+  @DASSettingsDisabled @UIAutomated
   Scenario: As a user I should not be allowed to change DAS settings when I am not home 
     Given user sets the entry/exit timer to "15" seconds 
       And user is set to "Away" mode through CHIL 
@@ -184,95 +184,78 @@ Feature: DAS Settings
       | Entry/Exit Delay   | 
       | Volume             |
       | Base Station Wi-Fi | 
-       
-     When user navigates to "Base Station Settings" screen from the "Security Settings" screen 
-     Then the following "Security Settings" options should be disabled:
-      | Options            | 
-      | Base Station Wi-Fi | 
   
   #LYDAS-3196
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyNoKeyfobsAndSensors
+  @VerifyNoKeyfobsAndSensors @UIAutomated
   Scenario: As a user I should not be displayed with Keyfobs or Sensors if I have not configured any keyfobs to my account
     Given user launches and logs in to the Lyric application
      When user navigates to "keyfob" screen from the "Dashboard" screen
-     Then user should "not be displayed" with "keyfobs" on the "keyfobs" screen 
-     When user navigates to "Sensor" screen from the "Keyfob" screen
-     Then user should "not be displayed" with "sensors" on the "sensors" screen
+     Then user should not be displayed with "keyfobs" on the "Keyfob" screen 
+     When user navigates to "Sensors" screen from the "Keyfob" screen
+     Then user should not be displayed with "sensors" on the "sensors" screen
   
-  #Requirements: Single Location Single DAS Device, 1 Sensor &1 Keyfob Required
-  @VerifyDisplayedSensors
+  #Requirements: Single Location Single DAS Device, Atleast 1 Sensor & Atleast 1 Keyfob Required
+  @VerifyDisplayedKeyfobsAndSensors @UIAutomated
   Scenario: As a user I should be displayed with all my sensors and keyfobs
     Given user launches and logs in to the Lyric application
      When user navigates to "Keyfob" screen from the "Dashboard" screen
-     Then user should be displayed with all "keyfob" names configured to his/her account
+     Then user should be displayed with all "keyfob" names configured to his account
      When user navigates to "Keyfob Settings" screen from the "Keyfob" screen
      Then user should be displayed with the following "Keyfob Settings" options: 
       | Settings                   | 
       | Name                       | 
-      | Model and Firmware Details | 
-      | Delete                     | 
-     When user navigates to "Sensor" screen from the "Keyfob Settings" screen
-     Then user should be displayed with all "sensor" names configured to his/her account
-     Then user should be displayed with the following "Keyfob Settings" options: 
+      | Model and Firmware Details |  
+      When user navigates to "Model and Firmware Details" screen from the "Keyfob Settings" screen
+      Then user should be displayed with the following "Keyfob Model and Firmware Details" options: 
+      | Settings         | 
+      | Model Details    | 
+      | Firmware Details |
+     When user navigates to "Sensors" screen from the "Keyfob Model and Firmware Details" screen
+     Then user should be displayed with all "sensor" names configured to his account
+     When user navigates to "Sensor Settings" screen from the "Sensor" screen
+     Then user should be displayed with the following "Sensor Settings" options: 
       | Settings                   | 
       | Name                       | 
       | Status                     | 
       | Signal Strength and Test   | 
       | Battery                    | 
-      | Model and Firmware Details | 
-      | Delete                     | 
+      | Model and Firmware Details |
+      When user navigates to "Model and Firmware Details" screen from the "Sensor Settings" screen
+      Then user should be displayed with the following "Sensor Model and Firmware Details" options: 
+      | Settings         | 
+      | Model Details    | 
+      | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, 1 Sensor Required
-  @RenameSensors
+  @RenameSensors @UIAutomated
   Scenario: As a user I should be able to rename the sensors configured on my account
     Given user launches and logs in to the Lyric application
      When user navigates to "Sensor Settings" screen from the "Dashboard" screen
      When user edits the "sensor" name to "Test Sensor Name" 
       And user navigates to "Sensor" screen from the "Sensor Settings" screen
-     Then user should be displayed with "Test Sensor Name" device on the "Sensor Settings" screen
+     Then user should be displayed with "Test Sensor Name" device on the "Sensor" screen
       And user reverts back the "Sensor Name" through CHIL
   
-  #Requirements: Single Location Single DAS Device, 1 Sensor Required    
-  @VerifySensorModelAndFirmwareDetails
-  Scenario: As a user I should be able to verify keyfob model and firmware details
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Sensor Model and Firmware Settings" screen from the "Dashboard" screen
-     Then user should be displayed with the following "Sensor Model and Firmware Details" options: 
-      | Details          | 
-      | Model Details    | 
-      | Firmware Details | 
-  
   #Requirements: Single Location Single DAS Device, 1 Sensor Required
-  @DeleteSensor
+  @DeleteSensor @UIAutomated
   Scenario: As a user I should be able to delete sensors configured to my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
       And user launches and logs in to the Lyric application 
      When user navigates to "Sensor Settings" screen from the "Dashboard" screen 
-      And user "deletes sensor" by clicking on "delete" button 
-     Then user should receive a "Delete Sensor Confirmation" pop up 
-     When user "accepts" the "Delete Sensor Confirmation" popup
-     Then user should not be displayed with the deleted "sensor" on the "Sensor Settings" screen 
+      And user "deletes sensor" by clicking on "delete" button
+     Then user should receive a "Delete Sensor Confirmation" popup
+     And user "dismisses" the "Delete Sensor Confirmation" popup
   
   #Requirements: Single Location Single DAS Device, 1 Keyfob Required
-  @RenameKeyfob
+  @RenameKeyfob @UIAutomated
   Scenario: As a user I should be able to rename the keyfobs configured on my account
     Given user launches and logs in to the Lyric application
      When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
-     When user edits the "keyfob" name to "Test Keyfob Name"  
+     When user edits the "keyfob" name to "Test Keyfob Name"
       And user navigates to "Keyfob" screen from the "Keyfob Settings" screen
-     Then user should be displayed with "Test Keyfob Name" device on the "Keyfob Settings" screen
+     Then user should be displayed with "Test Keyfob Name" device on the "Keyfob" screen
       And user reverts back the "Keyfob Name" through CHIL
-  
-  #Requirements: Single Location Single DAS Device, 1 Keyfob Required
-  @VerifyKeyfobModelAndFirmwareDetails
-  Scenario: As a user I should be able to verify keyfob model and firmware details
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Keyfob Model and Firmware Settings" screen from the "Dashboard" screen
-     Then user should be displayed with the following "Keyfob Model and Firmware Details" options: 
-      | Details          | 
-      | Model Details    | 
-      | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, 1 Keyfob Required
   @DeleteKeyfob
@@ -298,7 +281,7 @@ Feature: DAS Settings
      Then "Base Station Volume" value should be updated to "99" on "Security Settings" screen
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @ConfigureAmazonAlexa
+  @ConfigureAmazonAlexa @NotAutomatable
   Scenario: As a user I should be able to configure Amazon Alexa to my DAS Panel
     Given user launches and logs in to the Lyric application
      When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
@@ -375,7 +358,7 @@ Feature: DAS Settings
   
   #LYDAS-6643
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyOKSecurityVoiceCommands
+  @VerifyOKSecurityVoiceCommands @NotAutomatable
   Scenario: As a user I should be able to enable/disable OK Security Voice Commands
     Given user launches and logs in to the Lyric application
      When user navigates to "Voice Commands" screen from the "Dashboard" screen

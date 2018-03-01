@@ -480,24 +480,41 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 
-	public int putDASDeviceName(long locationID,String deviceID, String deviceNameToBePut) throws Exception
-	{
+	public int putDASDeviceName(long locationID, String deviceID, String deviceNameToBePut) throws Exception {
 		int result = -1;
 		if (isConnected) {
-			String url = chilURL + String.format("api/locations/%s/devices/%s", locationID,deviceID);
-			String headerData = String.format("{\"OnboardDeviceName\": \"%s\",\"name\": \"Security\"}", deviceNameToBePut);
+			String url = chilURL + String.format("api/locations/%s/devices/%s", locationID, deviceID);
+			String headerData = String.format("{\"OnboardDeviceName\": \"%s\",\"name\": \"Security\"}",
+					deviceNameToBePut);
 			result = doPutRequest(url, headerData).getResponseCode();
 		} else {
 			throw new Exception("Not connected to CHIL");
 		}
 		return result;
 	}
-	
-	public int putZwaveDeviceName(long locationID,String deviceID,String subDeviceID, String deviceNameToBePut) throws Exception
-	{
+
+	public int putDASSensorName(long locationID, String deviceID, String sensorNameToBePut, String sensorID,
+			String sensorResponseType) throws Exception {
 		int result = -1;
 		if (isConnected) {
-			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/subdevices/%s", locationID,deviceID,subDeviceID);
+			String url = chilURL
+					+ String.format("api/v3/locations/%s/devices/%s/partitions/1/Sensors", locationID, deviceID);
+			String headerData = String.format(
+					"{\"chime\":\"Standard\",\"responseType\":\"%s\",\"sensitivity\":0,\"isActive\":true,\"id\":\"%s\",\"name\":\"%s\"}",
+					sensorResponseType, sensorID, sensorNameToBePut);
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+
+	public int putZwaveDeviceName(long locationID, String deviceID, String subDeviceID, String deviceNameToBePut)
+			throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL
+					+ String.format("api/v3/locations/%s/devices/%s/subdevices/%s", locationID, deviceID, subDeviceID);
 			String headerData = String.format("{\"name\": \"Dimmer1\"}", deviceNameToBePut);
 			result = doPutRequest(url, headerData).getResponseCode();
 		} else {
@@ -505,4 +522,19 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
+
+	public int putDASKeyfobName(long locationID, String deviceID, String keyfobNameToBePut, String keyfobID)
+			throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/partitions/1/KeyFobs/%s", locationID,
+					deviceID, keyfobID);
+			String headerData = String.format("{\"name\":\"%s\"}", keyfobNameToBePut);
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+
 }

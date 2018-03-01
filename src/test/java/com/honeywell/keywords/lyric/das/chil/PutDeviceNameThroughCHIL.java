@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.DASInputVariables;
 
 public class PutDeviceNameThroughCHIL extends Keyword {
 
@@ -37,9 +38,9 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 	@KeywordStep(gherkins = "^user reverts back the (.*) through CHIL$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
+			@SuppressWarnings("resource")
+			CHILUtil chUtil = new CHILUtil(inputs);
 			if (exampleData.get(0).equalsIgnoreCase("DAS Device name")) {
-				@SuppressWarnings("resource")
-				CHILUtil chUtil = new CHILUtil(inputs);
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 				if (chUtil.getConnection()) {
@@ -56,11 +57,44 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 					}
 				}
 			} else if (exampleData.get(0).equalsIgnoreCase("Sensor name")) {
-
+				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+				if (chUtil.getConnection()) {
+					int result = chUtil.putDASSensorName(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+							inputs.getInputValue(DASInputVariables.SENSORNAME),
+							inputs.getInputValue(DASInputVariables.SENSORID),
+							inputs.getInputValue(DASInputVariables.SENSORRESPONSETYPE));
+					if (result == 202) {
+						Keyword.ReportStep_Pass(testCase, "Successfully changed the sensor name to : "
+								+ inputs.getInputValue(DASInputVariables.SENSORNAME));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change the sensor name to "
+										+ inputs.getInputValue(DASInputVariables.SENSORNAME));
+					}
+				}
+			}
+			else if (exampleData.get(0).equalsIgnoreCase("Keyfob name")) {
+				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+				if (chUtil.getConnection()) {
+					int result = chUtil.putDASKeyfobName(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+							inputs.getInputValue(DASInputVariables.KEYFOBNAME),
+							inputs.getInputValue(DASInputVariables.KEYFOBID));
+					System.out.println(result);
+					if (result == 202) {
+						Keyword.ReportStep_Pass(testCase, "Successfully changed the keyfob name to : "
+								+ inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change the sensor name to "
+										+ inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+					}
+				}
 			}
 			else if (exampleData.get(0).equalsIgnoreCase("Dimmer name")) {
-				@SuppressWarnings("resource")
-				CHILUtil chUtil = new CHILUtil(inputs);
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 				if (chUtil.getConnection()) {

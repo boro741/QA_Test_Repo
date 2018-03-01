@@ -58,6 +58,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUp(testCase, inputs);
 				break;
 			}
+			case "DELETE SENSOR CONFIRMATION":
+			{
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUp(testCase, inputs);
+				break;
+			}
+			
 			case "INCLUSION DEVICE NOT FOUND":
 			{
 				flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
