@@ -66,7 +66,7 @@ GotItButtonInQuickControlsPopup	ID	btn_positive_got_it	ID	btn_positive_got_it	ID
 GlobalDrawerButton	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	name	menu	name	menu	name	menu
 GlobalDrawerIconList	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text						
 BaseStationSettingsOption	xpath	//*[@text='Base Station Settings']	xpath	//*[@text='Base Station Settings']	xpath	//*[@text='Base Station Settings']	XPATH	//*[@value='Base Station Settings']	XPATH	//*[@value='Base Station Settings']	XPATH	//*[@value='Base Station Settings']
-DeleteDASDeviceButton	id	delete_das_button	id	delete_das_button	id	delete_das_button	NAME	Delete	NAME	Delete	NAME	Delete
+DeleteDASDeviceButton	id	delete_das_button	id	delete_das_button	id	delete_das_button	NAME	Delete Base Station	NAME	Delete Base Station	NAME	Delete Base Station
 YesButton	xpath	//*[@text='Yes' or @text='YES'] 	xpath	//*[@text='Yes' or @text='YES'] 	xpath	//*[@text='Yes' or @text='YES'] 	NAME	YES	NAME	YES	NAME	YES
 DevicesList	id	fragment_add_new_device_list	id	fragment_add_new_device_list	id	fragment_add_new_device_list	NAME	Select a device to install_SectionHeader	NAME	Select a device to install_SectionHeader	NAME	Select a device to install_SectionHeader
 LocationDetailsInSettings							NAME	details	NAME	details	NAME	details

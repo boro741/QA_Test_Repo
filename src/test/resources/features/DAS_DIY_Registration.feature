@@ -634,34 +634,27 @@ Scenario Outline: As a user I want to register a DAS device using the Lyric appl
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user clicks on "Available Network" button
-Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user inputs "Valid password" as the WiFi Password
-And user clicks on "Next" button
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user navigates to other apps and navigates back to Lyric app
-Then user should be displayed with the "Connecting Smart Home Security" screen
+Then user scans the QR code by showing it to the base station camera
+And user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 When user navigates to other apps and navigates back to Lyric app
-And user should be displayed with the "Almost Done" screen
+Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to other apps and navigates back to Lyric app
-Then user should be displayed with the "Smart Home Security" screen
+Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 When user navigates to other apps and navigates back to Lyric app
-When user clicks on "No" button
-Then user should be displayed with the "Enable Geofencing" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to other apps and navigates back to Lyric app
-And user clicks on "SKIP" button
-Then user should be displayed with the "Enable Amazon Alexa" screen
-When user navigates to other apps and navigates back to Lyric app
-And user clicks on "SKIP" button
+Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
-And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
+#And user disables the passcode through CHIL
 When user navigates to other apps and navigates back to Lyric app
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
@@ -669,12 +662,13 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
+When user navigates to other apps and navigates back to Lyric app
 Then user should not be displayed with "Security" device on dashboard
 And user should not be displayed with <device name> device on dashboard
 
 Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
+      | location name                           | device name                     | 
+      | Home                                    | Living Room                     |
 
 @DIYTryToReRegisterDAS
 Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS using the Lyric application

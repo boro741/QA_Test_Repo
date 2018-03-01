@@ -16,7 +16,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public DASDIYRegistrationScreens(TestCases testCase) {
 		super(testCase, screenName);
 	}
-	
+
 	public boolean isAddNewDeviceScreenVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", timeOut);
 	}
@@ -266,7 +266,11 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isAddANetworkButtonVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+		}
 	}
 
 	public boolean clickOnAddANetworkButton() {
@@ -333,7 +337,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			}
 		}
 	}
-	
+
 	public boolean isWiFiPasswordScreenSubTitleTextVisibile() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnterWiFIPasswordScreenSubTitle");
 	}
@@ -352,21 +356,21 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 		return flag;
 	}
-	
+
 	public boolean isWiFiConnectionFailedPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiConnectionFailedPopupTitle");
 	}
-	
+
 	public boolean isOKButtonInWiFiConnectionFailedPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInWiFiConnectionFailedPopup");
 	}
-	
+
 	public boolean clickOnOKButtonInWiFiConnectionFailedPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInWiFiConnectionFailedPopup");
 	}
 
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
 			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);

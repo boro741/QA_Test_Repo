@@ -483,4 +483,27 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
+
+	/**
+	 * <h1>Minimize and Maximize the app</h1>
+	 * <p>
+	 * The minimizeAndMaximizeTheApp method is to minimize and maximize the app
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-01
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @return boolean Returns 'true' if the app is minimized and maximized. Returns
+	 *         'false' if unsuccessful.
+	 */
+	public static boolean minimizeAndMaximizeTheApp(TestCases testCase) {
+		boolean flag = true;
+		MobileUtils.minimizeApp(testCase, 5);
+		return flag;
+	}
 }
