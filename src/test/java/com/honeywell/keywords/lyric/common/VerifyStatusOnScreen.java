@@ -197,19 +197,19 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ACTIVE": {
 					if(zwaveScreen.isAllOnEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOnEnabled());
 					}else{
 						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOnEnabled());
 					}
 					break;
 				}
 				case "INACTIVE": {
 					if(!zwaveScreen.isAllOnEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOnEnabled());
 					}else{
 						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOnEnabled());
 					}
 					break;
 				}
@@ -225,19 +225,19 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ACTIVE": {
 					if(zwaveScreen.isAllOffEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOffEnabled());
 					}else{
 						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOffEnabled());
 					}
 					break;
 				}
 				case "INACTIVE": {
 					if(!zwaveScreen.isAllOffEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOffEnabled());
 					}else{
 						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOffEnabled());
 					}
 					break;
 				}
@@ -253,19 +253,19 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ACTIVE": {
 					if(zwaveScreen.isFixAllEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isFixAllEnabled());
 					}else{
 						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isFixAllEnabled());
 					}
 					break;
 				}
 				case "INACTIVE": {
 					if(!zwaveScreen.isFixAllEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isFixAllEnabled());
 					}else{
 						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isFixAllEnabled());
 					}
 					break;
 				}
@@ -363,7 +363,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
 				Dashboard ds = new Dashboard(testCase);
-				currentStatus=ds.getZwaveDeviceStatus("SWITCH");
+				currentStatus=ds.getZwaveDeviceStatus(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
 					if(currentStatus.equals("ON")){
@@ -401,7 +401,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			case "DIMMER": {
 				Dashboard ds = new Dashboard(testCase);
-				currentStatus=ds.getZwaveDeviceStatus("DIMMER");
+				currentStatus=ds.getZwaveDeviceStatus(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
 					if(currentStatus.equals("ON")){

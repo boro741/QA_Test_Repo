@@ -261,7 +261,6 @@ public class ZwaveScreen extends MobileScreens{
 	}
 
 	public boolean clickOnFixAllPopupConfirm() {
-		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllPopupConfirm");
 	}
 
@@ -270,6 +269,7 @@ public class ZwaveScreen extends MobileScreens{
 	}
 
 	public boolean clickOnFixAllPopupAccept() {
+		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllAcceptResult");
 	}
 
