@@ -467,59 +467,8 @@ As a user I want to control all devices using ZWave technology
       And user turns "off" the "Unknown" through the "Unknown settings"
       And user navigates to "Z-Wave Utilities" screen from the "Unknown settings" screen
      Then user should see the "Unknown" status as "off" on the "Z-Wave Utilities"
-  
-  @ReplaceZwaveTimeout @LYDAS-6569/LYDAS-5427
-  Scenario: (ZwaveTC22) As a I should be able to delete my zwave switch
-  # switch configured but offline
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Switch settings" screen from the "Dashboard" screen
-      And user selects "Replace" from "Dimmer settings" screen
-     Then user should be displayed with the "Inclusion Mode Active" screen
-     When user "does not activate" the "dimmer" function key
-     Then user should receive a "Device not found" popup
-  
-  @ReplaceZwaveDimmerWithSwitch @LYDAS-5380
-  Scenario: (ZwaveTC23) As a user I should be able to replace my offline dimmer with a zwave switch
-  #dimmer with offline
-    Given user launches and logs in to the Lyric application 
-     When user navigates to "Dimmer settings" screen from the "Dashboard" screen
-      And user selects "Replace" from "Dimmer settings" screen
-     Then user should be displayed with the "Inclusion Mode Active" screen
-     When user "activates" the "Switch" function key
-     Then user should receive a "Dimmer Replaced Successfully" popup
-      And user should be displayed with the "Z-Wave Utilities" screen
-     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Dimmer" device on dashboard
-  # check in settings that its a switch
-  
-  @ReplaceZwaveDimmerWithDimmer
-  Scenario: (ZwaveTC24)  As a user I should be able to replace my offline dimmer with a another dimmer
-  #dimmer with offline
-    Given user launches and logs in to the Lyric application 
-     When user navigates to "Dimmer settings" screen from the "Dashboard" screen
-      And user selects "Replace" from "Dimmer settings" screen
-     Then user should be displayed with the "Inclusion Mode Active" screen
-     When user "activates" the "Dimmer2" function key
-     Then user should receive a "Dimmer Replaced Successfully" popup
-      And user should be displayed with the "Z-Wave Utilities" screen
-     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Dimmer" device on dashboard
-  
-  @ReplaceZwaveSwitchWithDimmer
-  Scenario: (ZwaveTC25) As a user I should be able to replace my offline switch with a zwave dimmer
-  #switch with offline
-    Given user launches and logs in to the Lyric application 
-     When user navigates to "Switch settings" screen from the "Dashboard" screen
-      And user selects "Replace" from "Switch settings" screen
-     Then user should be displayed with the "Inclusion Mode Active" screen
-     When user "activates" the "Dimmer" function key
-     Then user should receive a "Switch Replaced Successfully" popup
-      And user should be displayed with the "Z-Wave Utilities" screen
-     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with "Switch" device on dashboard
-  # check in settings that its a dimmer
-  
-  @ReplaceZwaveSwitchWithSwitch
+     
+     @ReplaceZwaveSwitchWithSwitch1
   Scenario: (ZwaveTC26) As a user I should be able to replace with another zwave switch
   #switch with offline
     Given user launches and logs in to the Lyric application 
@@ -531,6 +480,77 @@ As a user I want to control all devices using ZWave technology
       And user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
      Then user should be displayed with "Switch" device on dashboard
+  
+  @ReplaceZwaveSwitchWithSwitch @LYDAS-5380 @ReplaceZwaveTimeout @LYDAS-6569/LYDAS-5427
+  Scenario: (ZwaveTC_R) As a I should be able to replace with another zwave switch
+  # switch configured but offline
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Switch settings" screen from the "Dashboard" screen
+      And user turns "offline" the "Switch" through the "Z-Wave device function key"
+      When user navigates to "Switch settings" screen from the "Zwave devices" screen
+      And user selects "Replace" from "Switch settings" screen
+     Then user should be displayed with the "Replace Mode Active" screen
+     When user "does not activate" the "Switch" function key
+     Then user should receive a "Device not found" popup
+     When user "confirms" the "Device not found" popup
+     And user selects "Replace" from "Switch settings" screen
+     Then user should be displayed with the "Replace Mode Active" screen
+     When user "connects" the "Switch power" function key
+     When user "activates" the "Switch" function key
+     Then user should receive a "Switch Replaced Successfully" popup
+      And user should be displayed with the "Z-Wave devices" screen
+      When user navigates to "Dashboard" screen from the "Z-Wave devices" screen
+     Then user should be displayed with "Switch" device on dashboard
+  
+  @ReplaceZwaveDimmerWithDimmer
+  Scenario: (ZwaveTC_R4)  As a user I should be able to replace my offline dimmer with a another dimmer
+  #dimmer with offline
+     Given user launches and logs in to the Lyric application
+     When user navigates to "Dimmer settings" screen from the "Dashboard" screen
+      And user turns "offline" the "Dimmer" through the "Z-Wave device function key"
+      When user navigates to "Dimmer settings" screen from the "Zwave devices" screen
+      And user selects "Replace" from "Dimmer settings" screen
+     Then user should be displayed with the "Replace Mode Active" screen
+     When user "connects" the "Dimmer power" function key
+     When user "activates" the "Dimmer" function key
+     Then user should receive a "Dimmer Replaced Successfully" popup
+       And user should be displayed with the "Z-Wave DEVICES" screen
+     When user navigates to "Dashboard" screen from the "ZWave devices" screen
+     Then user should be displayed with "Dimmer" device on "dashboard" screen
+  
+  @ReplaceZwaveSwitchWithDimmer
+  Scenario: (ZwaveTC_R2) As a user I should be able to replace my offline switch with a zwave dimmer
+  #switch with offline
+    Given user launches and logs in to the Lyric application
+     When user navigates to "Switch settings" screen from the "Dashboard" screen
+      And user turns "offline" the "Switch" through the "Z-Wave device function key"
+      When user navigates to "Switch settings" screen from the "Zwave devices" screen
+      And user selects "Replace" from "Switch settings" screen
+     Then user should be displayed with the "Replace Mode Active" screen
+     When user "connects" the "Dimmer power" function key
+     When user "activates" the "Dimmer" function key
+     Then user should receive a "Switch Replaced Successfully" popup
+      And user should be displayed with the "Z-Wave DEVICES" screen
+     When user navigates to "Dashboard" screen from the "ZWave devices" screen
+     Then user should be displayed with "Switch" device on "dashboard" screen
+  # check in settings that its a dimmer
+  
+   @ReplaceZwaveDimmerWithSwitch @LYDAS-5380
+  Scenario: (ZwaveTC_R3) As a user I should be able to replace my offline dimmer with a zwave switch
+  #dimmer with offline
+     Given user launches and logs in to the Lyric application
+     When user navigates to "Dimmer settings" screen from the "Dashboard" screen
+      And user turns "offline" the "Dimmer" through the "Z-Wave device function key"
+      When user navigates to "Dimmer settings" screen from the "Zwave devices" screen
+      And user selects "Replace" from "Dimmer settings" screen
+     Then user should be displayed with the "Replace Mode Active" screen
+     When user "connects" the "Switch power" function key
+     When user "activates" the "Switch" function key
+     Then user should receive a "Dimmer Replaced Successfully" popup
+      And user should be displayed with the "Z-Wave DEVICES" screen
+     When user navigates to "Dashboard" screen from the "ZWave devices" screen
+     Then user should be displayed with "Dimmer" device on "dashboard" screen
+  # check in settings that its a switch
   
   @ReplaceZwaveSwitchWithUnknown @LYDAS-5380
   Scenario: (ZwaveTC27) As a user I should be able to replace my offline switch with unknown zwave devices

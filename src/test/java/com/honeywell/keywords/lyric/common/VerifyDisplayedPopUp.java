@@ -56,7 +56,15 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
 			break;
 		}
-		case "SWITCH DELETED SUCCESSFULLY": {
+
+		case "DIMMER REPLACED SUCCESSFULLY":
+		case "SWITCH REPLACED SUCCESSFULLY":{
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			flag = flag & zwaveScreen.isReplacedSuccessfullyDisplayed();
+			flag = flag & zwaveScreen.clickOnReplacedSuccessfullyMessageAck();
+			break;
+		}
+		case "SWITCH DELETED SUCCESSFULLY":{
 			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
 			break;
 		}

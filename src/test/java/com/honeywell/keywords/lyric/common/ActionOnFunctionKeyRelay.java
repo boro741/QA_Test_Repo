@@ -17,14 +17,14 @@ import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 public class ActionOnFunctionKeyRelay extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> deviceType;
 
 	public ActionOnFunctionKeyRelay(TestCases testCase, TestCaseInputs inputs, ArrayList<String> deviceType) {
 		this.testCase = testCase;
 		this.deviceType = deviceType;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -52,8 +52,26 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 				}
 			}else if(deviceType.get(0).equalsIgnoreCase("does not activate")){
 				DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
+			}else if(deviceType.get(0).equalsIgnoreCase("disconnects")){
+				if (deviceType.get(1).equalsIgnoreCase("Switch power")) {
+					Keyword.ReportStep_Pass(testCase, "Disconnecting function key on Switch");
+					ZWaveRelayUtils.powerOffZwaveSwitch(inputs);
+				}
+				else if (deviceType.get(1).equalsIgnoreCase("Dimmer power")) {
+					Keyword.ReportStep_Pass(testCase, "Disconnecting function key on Dimmer");
+					ZWaveRelayUtils.powerOffZwaveDimmer(inputs);
+				}
+			}else if(deviceType.get(0).equalsIgnoreCase("connects")){
+				if (deviceType.get(1).equalsIgnoreCase("Switch power")) {
+					Keyword.ReportStep_Pass(testCase, "Disconnecting function key on Switch");
+					ZWaveRelayUtils.powerOnZwaveSwitch(inputs);
+				}
+				else if (deviceType.get(1).equalsIgnoreCase("Dimmer power")) {
+					Keyword.ReportStep_Pass(testCase, "Disconnecting function key on Dimmer");
+					ZWaveRelayUtils.powerOnZwaveDimmer(inputs);
+				}
 			}
-			
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
