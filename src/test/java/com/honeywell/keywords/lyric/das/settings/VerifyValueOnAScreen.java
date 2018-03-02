@@ -12,14 +12,14 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
-public class VerifyEntryExitTime extends Keyword {
+public class VerifyValueOnAScreen extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 
-	public VerifyEntryExitTime(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
+	public VerifyValueOnAScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.parameters = parameters;
 		// this.inputs = inputs;
@@ -32,7 +32,7 @@ public class VerifyEntryExitTime extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^(.*) value should be updated to (.*) on (.*) screen$", description = "This keyword verifies the Entry/Exit delay values on the Security Settings screen and Entry/Exit Screen.\n Accepted Parameters: Parameter 1: 'Entry-Exit Delay'\nParameter 2: (15,30,45,60)\nParameter 3: (Entry-Exit Delay/Security Settings)")
+	@KeywordStep(gherkins = "^(.*) value should be updated to (.*) on (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (parameters.get(0).equalsIgnoreCase("Entry-Exit Delay")
@@ -75,6 +75,18 @@ public class VerifyEntryExitTime extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Entry-Exit Delay Timer not displayed on DAS Settings screen");
+				}
+			}
+			else if (parameters.get(0).equalsIgnoreCase("Base Station Volume")
+					&& parameters.get(2).equalsIgnoreCase("Security Settings")) {
+				String value = parameters.get(1).split("%")[0].split("~")[1];
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.verifyBaseStationVolumeValueOnSecuritySettings(value)) {
+					Keyword.ReportStep_Pass(testCase, "Volume value is displayed correctly: " + parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Volume value is not displated correctly. Expected : " + parameters.get(1));
 				}
 			}
 		} catch (Exception e) {

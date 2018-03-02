@@ -258,27 +258,26 @@ Feature: DAS Settings
       And user reverts back the "Keyfob Name" through CHIL
   
   #Requirements: Single Location Single DAS Device, 1 Keyfob Required
-  @DeleteKeyfob
+  @DeleteKeyfob @UIAutomated
   Scenario: As a user I should be able to delete Keyfob configured to my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
       And user launches and logs in to the Lyric application 
      When user navigates to "Keyfob Settings" screen from the "Dashboard" screen 
-      And user "deletes keyfob" by clicking on "delete" button 
-     Then user should receive a "Delete keyfob Confirmation" pop up 
-     When user "accepts" the "Delete Keyfob Confirmation" popup
-     Then user should not be displayed with the deleted "keyfob" on the "Keyfob Settings" screen
+      And user "deletes keyfob" by clicking on "delete" button
+     Then user should receive a "Delete keyfob Confirmation" popup 
+     And user "dismisses" the "Delete Keyfob Confirmation" popup
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @ChangeBaseStationVolume
+  @ChangeBaseStationVolume @UIAutomated
   Scenario: As a user I should be able to change the base station volume
     Given user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
-      And user changes the "Base Station Volume" to "0%"
-     Then "Base Station Volume" value should be updated to "0" on "Security Settings" screen
-     When user changes the "Base Station Volume" to "50%"
-     Then "Base Station Volume" value should be updated to "50" on "Security Settings" screen
-     When user changes the "Base Station Volume" to "99%"
-     Then "Base Station Volume" value should be updated to "99" on "Security Settings" screen
+      And user changes the "Base Station Volume" to "~0%"
+     Then "Base Station Volume" value should be updated to "~0%" on "Security Settings" screen
+     When user changes the "Base Station Volume" to "~50%"
+     Then "Base Station Volume" value should be updated to "~50%" on "Security Settings" screen
+     When user changes the "Base Station Volume" to "~99%"
+     Then "Base Station Volume" value should be updated to "~99%" on "Security Settings" screen
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @ConfigureAmazonAlexa @NotAutomatable
@@ -295,7 +294,7 @@ Feature: DAS Settings
      Then user verifies that the DAS Panel "reponds" to "Amazon Alexa Voice Commands"
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @AmazonAlexaLogoff
+  @AmazonAlexaLogoff @NotAutomatable
   Scenario: As a user I should be able to log off Amazon Alexa from my DAS account
     Given user launches and logs in to the Lyric application
      When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen

@@ -38,6 +38,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user should receive a (.*) popup$")
 	public boolean keywordSteps() {
+
 		switch (expectedPopUp.get(0).toUpperCase()) {
 		case "CONTROLLER RESET CONFIRMATION": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -61,7 +62,6 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 		case "REMOVE DEVICE": {
-
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			flag = zwaveScreen.isRemoveDevicePopUpDisplayed();
 			break;
@@ -74,7 +74,10 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUp(testCase, inputs);
 			break;
 		}
-
+		case "DELETE KEYFOB CONFIRMATION": {
+			flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUp(testCase, inputs);
+			break;
+		}
 		case "INCLUSION DEVICE NOT FOUND": {
 			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
 			break;

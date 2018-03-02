@@ -437,9 +437,20 @@ public class LyricUtils {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						return d.isWeatherIconVisible(1);
 					} else {
-						return !d.isSplashScreenVisible(1);
+						if (!d.isSplashScreenVisible(2) && d.isWeatherIconVisible() && !d.isProgressBarVisible(2)) {
+							int counter = 0;
+							if (os.isGotitButtonVisible(1)) {
+								while (os.isGotitButtonVisible(1) && counter < 5) {
+									os.clickOnGotitButton();
+									counter++;
+								}
+							}
+							System.out.println("Returning true");
+							return true;
+						} else {
+							return false;
+						}
 					}
-
 				}
 			});
 			if (isEventReceived) {
@@ -619,10 +630,10 @@ public class LyricUtils {
 	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		//flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 

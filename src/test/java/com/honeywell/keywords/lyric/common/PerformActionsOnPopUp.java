@@ -286,8 +286,8 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}
-		if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
+
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -301,7 +301,24 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Keyfob Confirmation")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnCancelButton();
+				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}
 		return flag;
 	}

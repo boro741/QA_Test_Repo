@@ -3,7 +3,9 @@ package com.honeywell.screens;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
@@ -109,6 +111,23 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return flag;
 		}
 
+		case BaseStationSettingsScreen.VOLUME: {
+			boolean flag = true;
+			if (this.isVolumeOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
+							BaseStationSettingsScreen.VOLUME);
+				} else {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value",
+							BaseStationSettingsScreen.VOLUME);
+				}
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
+			}
+			return flag;
+		}
+
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",
@@ -137,6 +156,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorsOption", 3);
 	}
 
+	public boolean isVolumeOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VolumeOption", 3);
+	}
+
 	public boolean isEntryExitDelaySettingsOptionVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", timeOut);
 	}
@@ -155,6 +178,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isDeleteSensorPopUpVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorPopUpConfirmationTitle", 3);
+	}
+
+	public boolean isDeleteKeyfobPopUpVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteKeyfobPopUpConfirmationTitle", 3);
 	}
 
 	public boolean verifyParticularBaseStationSettingsVisible(String settingName) throws Exception {
@@ -671,13 +698,59 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorDeletePopUpMessage", 3);
 	}
 
+	public boolean isKeyfobDeletePopUpMessageVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobDeletePopUpMessage", 3);
+	}
+
 	public boolean isAccessSensorDeletePopUpMessageVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AccessSensorDeletePopUpMessage", 3);
 	}
-	
-	public boolean clickOnCancelButton()
-	{
+
+	public boolean clickOnCancelButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+	}
+
+	public boolean isDeleteDASDevicePopUpTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASPopUpConfirmationTitle", 3);
+	}
+
+	public boolean isDeleteSensorPopUpTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorPopUpConfirmationTitle", 3);
+	}
+
+	public boolean isKeyfobPopUpTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteKeyfobPopUpConfirmationTitle", 3);
+	}
+
+	public boolean setValueToVolumeSlider(String value) {
+		WebElement volumeSlider = MobileUtils.getMobElement(objectDefinition, testCase, "VolumeSlider");
+		Dimension d1 = volumeSlider.getSize();
+		Point p1 = volumeSlider.getLocation();
+		float sliderLength = d1.getWidth();
+		float pixelPerPercent = sliderLength / 100;
+		float pixelToBeMoved = Integer.parseInt(value) * pixelPerPercent;
+		return MobileUtils.clickOnCoordinate(testCase, (int) (p1.getX() + pixelToBeMoved), p1.getY());
+	}
+
+	public boolean isBaseStationVolumeValueVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VolumeValue", 3);
+	}
+
+	public boolean isBaseStationVolumeValueVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VolumeValue", timeOut);
+	}
+
+	public boolean verifyBaseStationVolumeValueOnSecuritySettings(String value) throws Exception {
+		if (this.isBaseStationVolumeValueVisible(10)) {
+			String displayedValue = MobileUtils.getMobElement(objectDefinition, testCase, "VolumeValue")
+					.getAttribute("text");
+			displayedValue = displayedValue.split("%")[0];
+			int expectedValue = Integer.parseInt(value);
+			int actualValue = Integer.parseInt(displayedValue);
+			return (expectedValue <= (actualValue + 5) && expectedValue >= (actualValue - 5));
+		} else {
+			throw new Exception("Could not find Volume Value Elements");
+		}
 	}
 
 }
