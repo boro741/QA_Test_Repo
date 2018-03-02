@@ -465,11 +465,12 @@ When user navigates to "Add New Device Dashboard" screen from the "Dashboard" sc
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
+When user selects <first device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When user scans the QR code by showing it to the base station camera
+Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
+When user selects <Base Station MAC ID> from "Select Base Station" screen
+And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
@@ -480,12 +481,12 @@ When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
+And user should be displayed with <first device name> device on the "dashboard" screen
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
+When user selects <dsecond device namee> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
@@ -500,17 +501,22 @@ When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user should be displayed with <second device name> device on the "dashboard" screen
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+And user should not be displayed with <first device name> device on dashboard
+And user should not be displayed with <second device name> device on dashboard
 
 Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
+      |	location name	|	first device name	|	second device name	|	Base Station MAC ID		|
+      |	Home				|	Living Room			|	Kitchen				|	B8:2C:A0:00:07:D8		|
 
 @DIYRegistrationByReceivingCallsAndMsgs
 Scenario Outline: As a user I want to register a DAS device using the Lyric application

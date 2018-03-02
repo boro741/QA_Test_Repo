@@ -216,6 +216,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isMultipleBaseStationsScreenSubHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MultipleBaseStationsScreenSubHeaderTitle");
 	}
+	
+	public boolean isMACIDVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationMACID");
+	}
+	
+	public boolean clickOnMACID() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationMACID");
+	}
 
 	public boolean isRefereshButtonInSelectBaseStationScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RefreshButtonInSelectBaseStationScreen");

@@ -259,6 +259,8 @@ public class NavigateToScreen extends Keyword {
 					Dashboard ds = new Dashboard(testCase);
 					if (ds.isAddDeviceIconVisible(15)) {
 						flag = flag & ds.clickOnAddNewDeviceIcon();
+					} else if (ds.isAddDeviceIconBelowExistingDASDeviceVisible(10)) {
+						flag = flag & ds.clickOnAddDeviceIconBelowExistingDASDevice();
 					}
 					break;
 				}
@@ -716,5 +718,4 @@ public class NavigateToScreen extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return flag;
 	}
-
 }

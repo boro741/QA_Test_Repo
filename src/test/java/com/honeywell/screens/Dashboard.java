@@ -17,19 +17,16 @@ public class Dashboard extends MobileScreens {
 		super(testCase, screenName);
 	}
 
-	public boolean isWeatherIconVisible()
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon",3,false);
+	public boolean isWeatherIconVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon", 3, false);
 	}
 
-	public boolean isWeatherIconVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon",timeOut,false);
+	public boolean isWeatherIconVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon", timeOut, false);
 	}
 
-	public boolean isSplashScreenVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SplashScreen",timeOut,false);
+	public boolean isSplashScreenVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SplashScreen", timeOut, false);
 	}
 	
 	public boolean isProgressBarVisible(int timeOut)
@@ -47,23 +44,30 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
 	}
 
+	public boolean isAddDeviceIconBelowExistingDASDeviceVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice",
+				timeOut, false);
+
+	}
+
+	public boolean clickOnAddDeviceIconBelowExistingDASDevice() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice");
+	}
+
 	public boolean clickOnGlobalDrawerButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
 
-	public boolean areDevicesVisibleOnDashboard(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut); 
+	public boolean areDevicesVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
 	}
 
-	public boolean areDevicesVisibleOnDashboard()
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3); 
+	public boolean areDevicesVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3);
 	}
 
-	public boolean isDevicePresentOnDashboard(String deviceName)
-	{
-		boolean flag=true;
+	public boolean isDevicePresentOnDashboard(String deviceName) {
+		boolean flag = true;
 		if (this.areDevicesVisibleOnDashboard(10)) {
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
 					"DashboardIconText");
@@ -90,13 +94,11 @@ public class Dashboard extends MobileScreens {
 		return flag;
 	}
 
-	public boolean isGlobalDrawerButtonVisible()
-	{
+	public boolean isGlobalDrawerButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", 3);
 	}
 
-	public boolean isGlobalDrawerButtonVisible(int timeOut)
-	{
+	public boolean isGlobalDrawerButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
 	}
 
@@ -106,7 +108,7 @@ public class Dashboard extends MobileScreens {
 					"DashboardIconText");
 			List<WebElement> dashboardIconStatus = MobileUtils.getMobElements(objectDefinition, testCase,
 					"DashboardIconStatus");
-			for (int i=0; i<=dashboardIconText.size(); i++) {
+			for (int i = 0; i <= dashboardIconText.size(); i++) {
 				String displayedText = "";
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					displayedText = dashboardIconText.get(i).getText();
@@ -117,9 +119,9 @@ public class Dashboard extends MobileScreens {
 					}
 				}
 				if (displayedText.toUpperCase().contains(expectedDevice)) {
-					if(dashboardIconStatus.get(i).getText().toUpperCase().contains("ON")){
+					if (dashboardIconStatus.get(i).getText().toUpperCase().contains("ON")) {
 						return "ON";
-					}else {
+					} else {
 						return "OFF";
 					}
 				}

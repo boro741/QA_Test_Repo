@@ -4,6 +4,7 @@ GlobalDrawerIconList	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	i
 DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	name	title	name	title	name	title
 DashboardIconStatus	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text						
 AddNewDeviceIcon	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	name	icon add device white	name	icon add device white	name	icon add device white
+AddNewDeviceIconBelowExistingDevice							name	icon add device	name	icon add device	name	icon add device
 AddNewDeviceMenu							name	Add New Device	name	Add New Device	name	Add New Device
 ZwaveSwitchSelectedState							name	Selected_State	name	Selected_State	name	Selected_State
 WeatherIcon	id	action_weather	id	action_weather	id	action_weather	name	icon showers small	name	icon showers small	name	icon showers small

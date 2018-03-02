@@ -14,6 +14,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -43,7 +44,9 @@ public class SelectElementOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.*)\" from \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if(parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")||parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")||parameters.get(1).equalsIgnoreCase("Activate Z-Wave Device")){
+			if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
+					|| parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")
+					|| parameters.get(1).equalsIgnoreCase("Activate Z-Wave Device")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRM CANCEL": {
 					DASZwaveUtils.clickCancelFromNavigation(testCase);
@@ -51,7 +54,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("install device")) {
+			} else if (parameters.get(1).equalsIgnoreCase("install device")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "Z-WAVE DEVICE": {
 					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
@@ -59,7 +62,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("Z-wave Utilities")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Z-wave Utilities")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONTROLLER FACTORY RESET": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -67,7 +70,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("Z-wave Devices")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Z-wave Devices")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "ALL ON": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -87,7 +90,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Switch Settings")||parameters.get(1).equalsIgnoreCase("Dimmer Settings")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Switch Settings")
+					|| parameters.get(1).equalsIgnoreCase("Dimmer Settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DELETE": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -146,7 +150,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Choose Location")) {
+			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "HOME": {
@@ -164,7 +168,7 @@ public class SelectElementOnAScreen extends Keyword {
 					return flag;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Name Your Base Station")) {
+			} else if (parameters.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "LIVING ROOM": {
 					boolean flag = true;
@@ -179,6 +183,18 @@ public class SelectElementOnAScreen extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isCustomNameTextFieldDisplayed()) {
 						flag = flag & dasDIY.enterCustomNameInNameYourBaseStationScreen(parameters.get(0));
+					}
+					return flag;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "B8:2C:A0:00:07:D8": {
+					boolean flag = true;
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isMACIDVisible()) {
+						flag = flag & dasDIY.clickOnMACID();
+						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
 					}
 					return flag;
 				}
