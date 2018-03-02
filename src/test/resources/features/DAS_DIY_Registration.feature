@@ -419,8 +419,8 @@ And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with "Security" device on the "dashboard" screen
-Then user should not be displayed with <device name> device on the "dashboard" screen
+And user should not be displayed with <device name> device on dashboard
+Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
       | location name                           | device name						| invalid zip code			| valid zip code				|
