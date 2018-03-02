@@ -437,7 +437,7 @@ public class LyricUtils {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						return d.isWeatherIconVisible(1);
 					} else {
-						if (!d.isSplashScreenVisible(2) && d.isWeatherIconVisible() && !d.isProgressBarVisible(2)) {
+						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
 							int counter = 0;
 							if (os.isGotitButtonVisible(1)) {
 								while (os.isGotitButtonVisible(1) && counter < 5) {
