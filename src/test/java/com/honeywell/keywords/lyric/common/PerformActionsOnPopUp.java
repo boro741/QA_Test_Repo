@@ -40,7 +40,6 @@ public class PerformActionsOnPopUp extends Keyword {
 	@KeywordStep(gherkins = "^user (.*) the (.*) popup$")
 	public boolean keywordSteps() {
 
-
 		if (expectedPopUp.get(1).equalsIgnoreCase("FACTORY RESET SUCCESSFUL")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
@@ -55,7 +54,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CANCELS": {
 				ZwaveScreen zScreen = new ZwaveScreen(testCase);
@@ -149,7 +148,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("EXCLUSION DEVICE NOT FOUND")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("EXCLUSION DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				DASZwaveUtils.clickCancelOnExcludeDeviceNotFoundPopUp(testCase);
@@ -165,8 +164,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}
-		else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("DEVICE NOT FOUND")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
 				DASZwaveUtils.clickOKOnDeviceNotFoundPopUp(testCase);
@@ -186,7 +184,8 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")||expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF DIMMER EXCLUDED SUCCESSFULLY")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF SWITCH EXCLUDED SUCCESSFULLY")
+				|| expectedPopUp.get(1).equalsIgnoreCase("FURTHER EXCLUSION OF DIMMER EXCLUDED SUCCESSFULLY")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				flag = flag & DASZwaveUtils.clickCancelFurtherExclusionOnExcludedPopup(testCase);
@@ -210,6 +209,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isYesButtonInCancelPopupVisible()) {
 					dasDIY.clickOnYesButtonInCancelPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("INVALID ZIP CODE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInInvalidZipCodePopupVisible()) {
+					dasDIY.clickOnOKButtonInInvalidZipCodePopup();
 				}
 				break;
 			}
@@ -248,6 +262,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
 					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("WI-FI CONNECTION FAILED")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInWiFiConnectionFailedPopupVisible()) {
+					dasDIY.clickOnOKButtonInWiFiConnectionFailedPopup();
 				}
 				break;
 			}

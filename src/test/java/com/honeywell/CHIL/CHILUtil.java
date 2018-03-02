@@ -537,4 +537,19 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 
+	public int putForgotPasscode() throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/PinStatus");
+
+			String headerData = String.format("{\"userName\":\"%s\",\"pinStatus\":\"ForgotPin\"}",
+					inputs.getInputValue("USERID"));
+
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+
 }

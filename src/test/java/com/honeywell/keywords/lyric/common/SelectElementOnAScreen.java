@@ -150,6 +150,13 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					return flag;
 				}
+				case "CALIFORNIA": {
+					boolean flag = true;
+					if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isCustomLocationTextFieldVisible()) {
+						flag = flag & dasDIY.enterCustomLocationName(parameters.get(0));
+					}
+					return flag;
+				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Name Your Base Station")) {
 				switch (parameters.get(0).toUpperCase()) {
@@ -158,6 +165,14 @@ public class SelectElementOnAScreen extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isLivingRoomBaseStationDisplayed()) {
 						flag = flag & dasDIY.clickOnLivingRoomBaseStation();
+					}
+					return flag;
+				}
+				case "SCRUM ROOM": {
+					boolean flag = true;
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isCustomNameTextFieldDisplayed()) {
+						flag = flag & dasDIY.enterCustomNameInNameYourBaseStationScreen(parameters.get(0));
 					}
 					return flag;
 				}

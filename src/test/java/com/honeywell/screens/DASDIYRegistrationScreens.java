@@ -1,14 +1,13 @@
 package com.honeywell.screens;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.WebElement;
-
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
 
 public class DASDIYRegistrationScreens extends MobileScreens {
 
@@ -16,6 +15,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public DASDIYRegistrationScreens(TestCases testCase) {
 		super(testCase, screenName);
+	}
+
+	public boolean isAddNewDeviceScreenVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", timeOut);
 	}
 
 	public boolean isBackArrowInSelectADeviceScreenVisible() {
@@ -30,12 +33,76 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChooseLocationHeaderTitle");
 	}
 
-	public boolean isCancelButtonInChooseLocationScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInChooseLocationScreen");
+	public boolean isCustomLocationTextFieldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CustomeLocationTextField");
 	}
 
-	public boolean clickOnCancelButtonInChooseLocationScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInChooseLocationScreen");
+	@SuppressWarnings("unchecked")
+	public boolean enterCustomLocationName(String customLocationNameText) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomeLocationTextField",
+				customLocationNameText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
+		} else {
+			MobileUtils.clickOnElement(testCase, "name", "Done");
+		}
+		return flag;
+	}
+
+	public boolean isConfirmYourAddressZipCodeTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmYourAddressZipCodeTitle");
+	}
+
+	public boolean isZipCodeTextFieldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ZipCodeTextField");
+	}
+
+	public boolean clearEnteredTextInZipCodeTextField() {
+		return MobileUtils.clearTextField(objectDefinition, testCase, "ZipCodeTextField");
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean enterZipCode(String zipCodeText) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "ZipCodeTextField", zipCodeText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
+		} else {
+			MobileUtils.clickOnElement(testCase, "ID", "Return");
+			MobileUtils.clickOnElement(testCase, "NAME", "Next");
+		}
+		return flag;
+	}
+
+	public boolean isInvalidZipCodePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidZipCodeErrorPopup");
+	}
+
+	public boolean isOKButtonInInvalidZipCodePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInInvalidZipCodeErrorPopup");
+	}
+
+	public boolean clickOnOKButtonInInvalidZipCodePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInInvalidZipCodeErrorPopup");
+	}
+
+	public boolean isCancelButtonVisible() {
+
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[2]", testCase);
+		}
+	}
+
+	public boolean clickOnCancelButton() {
+
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[2]");
+		}
 	}
 
 	public boolean isCancelPopupVisible() {
@@ -76,6 +143,22 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnLivingRoomBaseStation() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SelectLivingRoomBaseStation");
+	}
+
+	public boolean isCustomNameTextFieldDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CustomNameTextField", 3);
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean enterCustomNameInNameYourBaseStationScreen(String customNameText) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameTextField", customNameText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
+		} else {
+			MobileUtils.clickOnElement(testCase, "NAME", "Done");
+		}
+		return flag;
 	}
 
 	public boolean isPowerYourBaseStationHeaderTitleVisible() {
@@ -134,6 +217,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MultipleBaseStationsScreenSubHeaderTitle");
 	}
 
+	public boolean isRefereshButtonInSelectBaseStationScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RefreshButtonInSelectBaseStationScreen");
+	}
+
+	public boolean clickOnRefereshButtonInSelectBaseStationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "RefreshButtonInSelectBaseStationScreen");
+	}
+
 	public String getToolBarTitleInRegisterBaseStationScreen() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "ToolbarTitle", false).getAttribute("text");
 	}
@@ -175,7 +266,27 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isAddANetworkButtonVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+		}
+	}
+
+	public boolean clickOnAddANetworkButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddANetworkButton");
+	}
+
+	public boolean isAddANetworkHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkScreenTitle");
+	}
+
+	public boolean isCancelButtonInAddANetworkScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
+	}
+
+	public boolean clickOnCancelButtonInAddANetworkScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
 	}
 
 	public boolean isAvailableNetworkVisible() {
@@ -227,6 +338,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 	}
 
+	public boolean isWiFiPasswordScreenSubTitleTextVisibile() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnterWiFIPasswordScreenSubTitle");
+	}
+
 	public boolean isWiFiPasswordTextFieldVisibile() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiPasswordTextField");
 	}
@@ -242,8 +357,20 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return flag;
 	}
 
+	public boolean isWiFiConnectionFailedPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiConnectionFailedPopupTitle");
+	}
+
+	public boolean isOKButtonInWiFiConnectionFailedPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInWiFiConnectionFailedPopup");
+	}
+
+	public boolean clickOnOKButtonInWiFiConnectionFailedPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInWiFiConnectionFailedPopup");
+	}
+
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
 			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
@@ -252,9 +379,9 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
 
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
-		}else {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
+		} else {
 			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]");
 		}
 	}
@@ -358,6 +485,34 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnAddSecurityButtonInIncreaseSecurityPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddSecurityButtonInIncreaseSecurityPopup");
+	}
+
+	public boolean clickOnGlobalDrawerButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
+	}
+
+	public boolean isLocationDetailsVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationDetailsInSettings");
+	}
+
+	public boolean clickOnLocationDetails() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDetailsInSettings");
+	}
+
+	public boolean isDeleteLocationButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocation");
+	}
+
+	public boolean clickOnDeleteLocationButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteLocation");
+	}
+
+	public boolean isDeleteLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocationPopupTitle");
+	}
+
+	public boolean clickOnYesButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
 	}
 
 	public boolean isSmartHomeSecurityOptionVisible(String deviceName) throws Exception {

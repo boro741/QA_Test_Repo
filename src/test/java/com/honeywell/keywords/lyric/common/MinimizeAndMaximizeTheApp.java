@@ -1,7 +1,5 @@
 package com.honeywell.keywords.lyric.common;
 
-import java.util.ArrayList;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -9,17 +7,14 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
-import com.honeywell.screens.DASDIYRegistrationScreens;
 
-public class EnterWiFiPassword extends Keyword {
+public class MinimizeAndMaximizeTheApp extends Keyword {
 
 	private TestCases testCase;
-	private ArrayList<String> expectedWiFiPassword;
 	public boolean flag = true;
 
-	public EnterWiFiPassword(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedWiFiPassword) {
+	public MinimizeAndMaximizeTheApp(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.expectedWiFiPassword = expectedWiFiPassword;
 	}
 
 	@Override
@@ -30,15 +25,10 @@ public class EnterWiFiPassword extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user inputs \"(.*)\" as the WiFi Password$")
+	@KeywordStep(gherkins = "^user navigates to other apps and navigates back to Lyric app$")
 	public boolean keywordSteps() {
 		
-		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-		dasDIY.enterWiFiPassword(expectedWiFiPassword.get(0));
-		if(dasDIY.isJoinButtonInConnectToNetworkScreenVisible()) {
-			dasDIY.clickOnJoinButtonInConnectToNetworkScreen();
-			DIYRegistrationUtils.waitForConnectingSmartHomeSecurityProgressBarToComplete(testCase);
-		}
+		DIYRegistrationUtils.minimizeAndMaximizeTheApp(testCase);
 		return flag;
 	}
 
