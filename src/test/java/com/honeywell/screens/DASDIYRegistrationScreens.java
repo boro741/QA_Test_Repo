@@ -40,8 +40,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	@SuppressWarnings("unchecked")
 	public boolean enterCustomLocationName(String customLocationNameText) {
 		boolean flag = true;
-		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomeLocationTextField",
-				customLocationNameText);
+			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomeLocationTextField",
+					customLocationNameText);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
 		} else {
@@ -70,7 +70,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
 		} else {
 			MobileUtils.clickOnElement(testCase, "ID", "Return");
-			MobileUtils.clickOnElement(testCase, "NAME", "Next");
+			MobileUtils.clickOnElement(testCase, "NAME", "RightButton");
 		}
 		return flag;
 	}
@@ -269,7 +269,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
 		} else {
-			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"RightButton\"])[2]", testCase);
 		}
 	}
 
@@ -373,16 +373,16 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
-			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"RightButton\"])[2]", testCase);
 		}
 	}
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
 
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
-			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]");
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"RightButton\"])[2]");
 		}
 	}
 
@@ -416,19 +416,35 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isSkipButtonInGeoFencingScreenVisible() {
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen")) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"LeftButton\"])[2]", testCase);
+		}
 	}
 
 	public boolean clickOnSkipButtonInGeoFencingScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"LeftButton\"])[2]");
+		}
 	}
 
 	public boolean isEnableButtonInGeoFencingScreenVisible() {
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen")) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		}else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"RightButton\"])[2]", testCase);
+		}
 	}
 
 	public boolean clickEnableSkipButtonInGeoFencingScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"RightButton\"])[2]");
+		}
 	}
 
 	public boolean isAmazonAlexaHeaderTitleVisible() {
@@ -436,11 +452,19 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isSkipButtonInAmazonAlexaVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInAmazonAlexa")) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInAmazonAlexa");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"LeftButton\"])[2]", testCase);
+		}
 	}
 
 	public boolean clickOnSkipButtonInAmazonAlexaScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInAmazonAlexa");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"LeftButton\"])[2]");
+		}
 	}
 
 	public boolean isSetUpButtonInAmazonAlexaScreenVisible() {

@@ -17,7 +17,7 @@ NameYourBaseStationHeaderTitle	XPATH	//*[@text='Name Your Base Station']	XPATH	/
 SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	NAME	Living Room	NAME	Living Room	NAME	Living Room
 CustomNameTextField							NAME	Custom	NAME	Custom	NAME	Custom
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']
-NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Next	NAME	Next	NAME	Next
+NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
 LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@name='Base Station Not Found']	XPATH	//*[@name='Base Station Not Found']	XPATH	//*[@name='Base Station Not Found']
 OKButtonInBaseStationNotFounPopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']
@@ -44,8 +44,8 @@ OKButtonInWiFiConnectionFailedPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAM
 JoinButtonInConnectToNetworkScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Next	NAME	Next	NAME	Next
 ConnectingSmartHomeSecurityLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 SmartHomeSecuritySuccessHeaderTitle	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']
-NoButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	No	NAME	No	NAME	No
-YesButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Yes	NAME	Yes	NAME	Yes
+NoButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	LeftButton	NAME	LeftButton	NAME	LeftButton
+YesButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
 GeoFencingHeaderTitle	XPATH	//*[@text='Just Come and Go']	XPATH	//*[@text='Just Come and Go']	XPATH	//*[@text='Just Come and Go']	XPATH	//*[@value='Just Come and Go']	XPATH	//*[@value='Just Come and Go']	XPATH	//*[@value='Just Come and Go']
 SkipButtonInGeoFencingScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	Skip	NAME	Skip	NAME	Skip
 EnableButtonInGeoFencingScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Enable	NAME	Enable	NAME	Enable

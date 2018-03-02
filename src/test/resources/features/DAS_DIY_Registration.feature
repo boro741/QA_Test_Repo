@@ -355,22 +355,22 @@ Then user navigates to "Add New Device Dashboard" screen from the "Enter your Wi
 @DIYRegistrationWhenSingleBaseStationIsAvailable
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
 Given user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects <location name> from "Choose Location" screen
-Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
-Then user should be displayed with the "Power Base Station" screen
-When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-When user scans the QR code by showing it to the base station camera
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+#Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+#When user selects <location name> from "Choose Location" screen
+#Then user should be displayed with the "Name Your Base Station" screen
+#When user selects <device name> from "Name Your Base Station" screen
+#Then user should be displayed with the "Power Base Station" screen
+#When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+#Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+#When user scans the QR code by showing it to the base station camera
+#Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+#When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+#And user inputs "vibex888" as the WiFi Password 
+#Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+#When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+#Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+#When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
