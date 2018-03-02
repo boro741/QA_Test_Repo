@@ -760,8 +760,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASButton", 3)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
 		} else {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
+			if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]",
+					testCase)) {
+				return MobileUtils.clickOnElement(testCase, "XPATH",
+						"(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]");
+			} else {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
+			}
 		}
 	}
 

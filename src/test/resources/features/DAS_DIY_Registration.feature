@@ -486,7 +486,7 @@ When user navigates to "Add New Device Dashboard" screen from the "Dashboard" sc
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <dsecond device namee> from "Name Your Base Station" screen
+When user selects <second device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen

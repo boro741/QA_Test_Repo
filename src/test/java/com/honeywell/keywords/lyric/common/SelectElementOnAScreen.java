@@ -178,6 +178,14 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					return flag;
 				}
+				case "KITCHEN": {
+					boolean flag = true;
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isKitchenInBaseStationDisplayed()) {
+						flag = flag & dasDIY.clickOnKitchenBaseStation();
+					}
+					return flag;
+				}
 				case "SCRUM ROOM": {
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);

@@ -15,6 +15,7 @@ InvalidZipCodeErrorPopup	ID	message	ID	message	ID	message	NAME	Error	NAME	Error	
 OKButtonInInvalidZipCodeErrorPopup	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	NAME	OK	NAME	OK	NAME	OK
 NameYourBaseStationHeaderTitle	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']
 SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	NAME	Living Room	NAME	Living Room	NAME	Living Room
+SelectKitchenInNameYourBaseStation	XPATH	//android.widget.Button[@text='Kitchen']	XPATH	//android.widget.Button[@text='Kitchen']	XPATH	//android.widget.Button[@text='Kitchen']	NAME	Kitchen	NAME	Kitchen	NAME	Kitchen
 CustomNameTextField							NAME	Custom	NAME	Custom	NAME	Custom
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
@@ -74,3 +75,4 @@ DeleteLocation							NAME	Delete Location	NAME	Delete Location	NAME	Delete Locat
 DeleteLocationPopupTitle							NAME	Delete Location?	NAME	Delete Location?	NAME	Delete Location?
 NoButtonInDeleteLocationPopup							NAME	NO	NAME	NO	NAME	NO
 YesButtonInDeleteLocationPopup							NAME	YES	NAME	YES	NAME	YES
+DeletingLocationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View

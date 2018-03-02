@@ -85,6 +85,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				DIYRegistrationUtils.waitForDeletingLocationProgressBarToComplete(testCase);
 				break;
 			}
 			default: {

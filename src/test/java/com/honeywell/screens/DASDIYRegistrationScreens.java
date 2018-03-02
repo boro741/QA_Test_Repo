@@ -144,6 +144,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnLivingRoomBaseStation() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SelectLivingRoomBaseStation");
 	}
+	
+	public boolean isKitchenInBaseStationDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectKitchenInNameYourBaseStation", 3);
+	}
+
+	public boolean clickOnKitchenBaseStation() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SelectKitchenInNameYourBaseStation");
+	}
 
 	public boolean isCustomNameTextFieldDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CustomNameTextField", 3);
@@ -545,6 +553,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnYesButtonInDeleteLocationPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
+	}
+	
+	public boolean isDeletingLocationLoadingProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeletingLocationLoadingSpinner", 3);
 	}
 
 	public boolean isSmartHomeSecurityOptionVisible(String deviceName) throws Exception {
