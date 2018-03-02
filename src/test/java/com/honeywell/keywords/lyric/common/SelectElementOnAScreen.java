@@ -94,6 +94,12 @@ public class SelectElementOnAScreen extends Keyword {
 					zwaveScreen.ClickDeleteFromSettings();
 					break;
 				}
+				case "REPLACE": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickOnReplaceButton();
+					zwaveScreen.clickOnReplacePopupOk();
+					break;
+				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Entry-Exit Delay")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

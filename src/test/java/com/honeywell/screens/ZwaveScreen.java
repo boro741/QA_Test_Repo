@@ -321,5 +321,48 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FactoryResetSuccessfullAck");
 	}
 
+	//REPLACE FUNCTIONLITY
+	
+	public boolean clickOnReplaceButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ReplaceButton");
+	}
+	
+	public boolean isReplacePopupHeaderDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplacePopupHeader");
+	}
+	
+	public boolean clickOnReplacePopupCancel() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ReplacePopupCancel");
+	}
+	
+	public boolean clickOnReplacePopupOk() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ReplacePopupOk");
+	}
+	
+	public boolean isReplaceProgressDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplaceProgress");
+	}
+	
+	public boolean isReplaceScreenDisplayed() {
+		DASZwaveUtils.waitForActionToComplete(testCase, objectDefinition, "ReplaceProgress");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplaceScreen");
+	}
+	
+	public boolean isReplaceScreenMessageDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplaceScreenMessage");
+	}
+	
+	public boolean isReplacedSuccessfullyDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplacedSuccessfully");
+	}
+	
+	public boolean isReplacedSuccessfullyMessageDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplacedSuccessfullyMessage");
+	}
+	
+	public boolean clickOnReplacedSuccessfullyMessageAck() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ReplacedSuccessfullyMessageAck");
+	}
+	
 
 }

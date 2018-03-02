@@ -66,6 +66,17 @@ public class VerifyScreen extends Keyword {
 			}
 			break;
 		}
+		case "REPLACE MODE ACTIVE":{
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			if (zwaveScreen.isReplaceScreenDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
 		case "INCLUSION MODE ACTIVE":
 		case "ACTIVATE Z-WAVE DEVICE": {
 			DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);

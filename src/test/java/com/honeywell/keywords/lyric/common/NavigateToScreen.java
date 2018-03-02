@@ -73,6 +73,12 @@ public class NavigateToScreen extends Keyword {
 					break;
 
 				}
+				case "DIMMER SETTINGS": {
+					ZwaveScreen zs = new ZwaveScreen(testCase);
+					zs.ClickDimmerSettingFromZwaveUtilities();
+					break;
+
+				}
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
