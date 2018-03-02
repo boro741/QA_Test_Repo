@@ -622,7 +622,7 @@ public class LyricUtils {
 		// flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		// flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		// flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		//flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 

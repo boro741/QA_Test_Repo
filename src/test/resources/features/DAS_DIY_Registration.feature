@@ -412,15 +412,15 @@ Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing"
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on dashboard
-And user should be displayed with <device name> device on dashboard
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
-Then user "deletes location details" by clicking on "delete" button
+And user should not be displayed with "Security" device on the "dashboard" screen
+Then user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name                           | device name						| invalid zip code			| valid zip code				|
@@ -556,31 +556,26 @@ Scenario Outline: As a user I want to register a DAS device by connecting to ava
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-And user clicks on "security type" button
-When user enters "invalid" new network credentials and tries to join the network
-Then user should receive a "WiFi Connection timeout" popup
-And user clicks on "OK" button
-Then user should be displayed with the "Connect to Network" screen
-When user clicks on "Available Network" button
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex444" as the WiFi Password
+Then user should receive a "Wi-Fi Connection Failed" popup
+When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user inputs "Valid password" as the WiFi Password
-And user clicks on "Next" button
-Then user should be displayed with the "Connecting Smart Home Security" screen
-And user should be displayed with the "Almost Done" screen
-Then user should be displayed with the "Smart Home Security" screen
-When user clicks on "No" button
-Then user should be displayed with the "Enable Geofencing" screen
-And user clicks on "SKIP" button
-Then user should be displayed with the "Enable Amazon Alexa" screen
-And user clicks on "SKIP" button
+And user inputs "vibex888" as the WiFi Password 
+Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
-And user disables the passcode through CHIL
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 

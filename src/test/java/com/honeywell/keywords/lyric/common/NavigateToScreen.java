@@ -610,7 +610,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					System.out.println(testCase.getMobileDriver().getPageSource());
+					//System.out.println(testCase.getMobileDriver().getPageSource());
 					if (dasDIY.isIncreaseSecurityPopupVisible()) {
 						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
