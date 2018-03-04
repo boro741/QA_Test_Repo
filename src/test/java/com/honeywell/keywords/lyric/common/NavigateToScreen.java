@@ -522,6 +522,29 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "DASHBOARD": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
+						flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
+						if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
+							flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
+						}
+						if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
+							flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
+						}
+						if (dasDIY.isCancelPopupVisible()) {
+							flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
+						}
+						if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
+							flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
+						} else {
+							if(dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+								flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
+							}
+						}
+
+					}
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -534,6 +557,14 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "ADD SENSOR SUCCESS": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+					if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
+						dasDIY.clickYesNoButtonInSmartHomeSecuritySuccessScreen();
+					}
+					break;
+				}
 				case "SMART HOME SECURITY SUCCESS": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();

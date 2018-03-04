@@ -16,11 +16,12 @@ OKButtonInInvalidZipCodeErrorPopup	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	X
 NameYourBaseStationHeaderTitle	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@text='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']	XPATH	//*[@value='Name Your Base Station']
 SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	NAME	Living Room	NAME	Living Room	NAME	Living Room
 SelectKitchenInNameYourBaseStation	XPATH	//android.widget.Button[@text='Kitchen']	XPATH	//android.widget.Button[@text='Kitchen']	XPATH	//android.widget.Button[@text='Kitchen']	NAME	Kitchen	NAME	Kitchen	NAME	Kitchen
-CustomNameTextField							NAME	Custom	NAME	Custom	NAME	Custom
+CustomNameTextField	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit	NAME	Custom	NAME	Custom	NAME	Custom
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
+BackButtonInPowerBaseStationScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
 LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
-BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@name='Base Station Not Found']	XPATH	//*[@name='Base Station Not Found']	XPATH	//*[@name='Base Station Not Found']
+BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//XCUIElementTypeAlert	XPATH	//XCUIElementTypeAlert	XPATH	//XCUIElementTypeAlert
 OKButtonInBaseStationNotFounPopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']
 RetryButtonInBaseStationNotFoundPopup	ID	button1	ID	button1	ID	button1	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']
 RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']
@@ -70,9 +71,9 @@ BaseStationSettingsOption	xpath	//*[@text='Base Station Settings']	xpath	//*[@te
 DeleteDASDeviceButton	id	delete_das_button	id	delete_das_button	id	delete_das_button	NAME	Delete Base Station	NAME	Delete Base Station	NAME	Delete Base Station
 YesButton	xpath	//*[@text='Yes' or @text='YES'] 	xpath	//*[@text='Yes' or @text='YES'] 	xpath	//*[@text='Yes' or @text='YES'] 	NAME	YES	NAME	YES	NAME	YES
 DevicesList	id	fragment_add_new_device_list	id	fragment_add_new_device_list	id	fragment_add_new_device_list	NAME	Select a device to install_SectionHeader	NAME	Select a device to install_SectionHeader	NAME	Select a device to install_SectionHeader
-LocationDetailsInSettings							NAME	details	NAME	details	NAME	details
-DeleteLocation							NAME	Delete Location	NAME	Delete Location	NAME	Delete Location
-DeleteLocationPopupTitle							NAME	Delete Location?	NAME	Delete Location?	NAME	Delete Location?
-NoButtonInDeleteLocationPopup							NAME	NO	NAME	NO	NAME	NO
-YesButtonInDeleteLocationPopup							NAME	YES	NAME	YES	NAME	YES
-DeletingLocationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
+LocationDetailsInSettings	XPATH	"//*[contains(@text, 'Details')]"	XPATH	"//*[contains(@text, 'Details')]"	XPATH	"//*[contains(@text, 'Details')]"	NAME	details	NAME	details	NAME	details
+DeleteLocation	ID	setting_delete_location	ID	setting_delete_location	ID	setting_delete_location	NAME	Delete Location	NAME	Delete Location	NAME	Delete Location
+DeleteLocationPopupTitle	XPATH	//*[@text='Delete Location?']	XPATH	//*[@text='Delete Location?']	XPATH	//*[@text='Delete Location?']	NAME	Delete Location?	NAME	Delete Location?	NAME	Delete Location?
+NoButtonInDeleteLocationPopup	ID	button2	ID	button2	ID	button2	NAME	NO	NAME	NO	NAME	NO
+YesButtonInDeleteLocationPopup	ID	button1	ID	button1	ID	button1	NAME	YES	NAME	YES	NAME	YES
+DeletingLocationLoadingSpinner	ID	progress	ID	progress	ID	progress	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View

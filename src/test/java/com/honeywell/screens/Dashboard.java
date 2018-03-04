@@ -90,6 +90,7 @@ public class Dashboard extends MobileScreens {
 			flag = f;
 		} else {
 			Keyword.ReportStep_Pass(testCase, "Dashboard Icons not found");
+			flag = false;
 		}
 		return flag;
 	}

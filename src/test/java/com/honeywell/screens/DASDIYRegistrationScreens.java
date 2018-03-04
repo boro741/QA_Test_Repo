@@ -208,6 +208,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnRetryButtonInBaseStationNotFoundPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryButtonInBaseStationNotFoundPopup");
 	}
+	
+	public boolean isBackArrowInPowerBaseStationVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInPowerBaseStationScreen");
+	}
+
+	public boolean clickOnBackArrowInPowerBaseStationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInPowerBaseStationScreen");
+	}
 
 	public boolean isBackArrowInRegisterBaseStationVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInRegisterBaseStationHeader");
