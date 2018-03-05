@@ -98,7 +98,7 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 				if (chUtil.getConnection()) {
-					int result = chUtil.putZwaveDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),deviceInfo.getZwaveDeviceID(inputs.getInputValue("LOCATION1_SWITCH1_NAME")),
+					int result = chUtil.putZwaveDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),deviceInfo.getZwaveDeviceID(inputs.getInputValue("DEVICE_NAME_TO_REVERT")),
 							inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
 					if (result == 200||result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Successfully changed the ZWAVE SWITCH name to : "
@@ -115,7 +115,7 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 				if (chUtil.getConnection()) {
-					int result = chUtil.putZwaveDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),deviceInfo.getZwaveDeviceID(inputs.getInputValue("LOCATION1_DIMMER1_NAME")),
+					int result = chUtil.putZwaveDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),deviceInfo.getZwaveDeviceID(inputs.getInputValue("DEVICE_NAME_TO_REVERT")),
 							inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
 					if (result == 200||result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Successfully changed the ZWAVE DIMMER name to : "

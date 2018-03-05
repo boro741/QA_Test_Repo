@@ -270,6 +270,10 @@ public class ZwaveScreen extends MobileScreens{
 
 	public boolean clickOnFixAllPopupAccept() {
 		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
+		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
+		if(!testCase.getPlatform().toUpperCase().contains("IOS")){
+			return true;
+		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FixAllAcceptResult");
 	}
 

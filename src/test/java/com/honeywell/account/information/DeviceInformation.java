@@ -52,12 +52,14 @@ public class DeviceInformation {
 		}
 	}
 
-	public String getZwaveDeviceID(String type) throws Exception {
+	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID ="";
 		try{
 		if (deviceInformation != null) {
 			for(int i=0; i <deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").length(); i++){
-				if(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).getJSONObject("configurations").get("nodeDescription").toString().equals(type)){
+				System.out.println(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("name"));
+				if(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("name").toString().equals(name)){
+						//.getJSONObject("configurations").get("nodeDescription").toString().equals(name)){
 					return deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("id").toString();
 				}
 			}

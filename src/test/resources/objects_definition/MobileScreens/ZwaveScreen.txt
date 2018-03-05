@@ -5,8 +5,8 @@ ActivateTheDeviceHeader	Xpath	//*[@text='Activate Z-Wave Device']					Xpath	//*[
 ActivateTheDeviceTitle	Xpath	//*[@text='Activate Z-Wave device now']					NAME	Activate Z-Wave device now	NAME	Activate Z-Wave device now	NAME	Activate Z-Wave device now
 CheckingForDevice	Xpath	//*[@text='Checking for device']					NAME	Checking for device	NAME	Checking for device	NAME	Checking for device
 CancelButton	ID	diy_cancel_button					NAME	Cancel	NAME	Cancel	NAME	Cancel
-CancelNoButton							NAME	No	NAME	No	NAME	No
-CancelYesButton							NAME	Yes	NAME	Yes	NAME	Yes
+CancelNoButton	Xpath	//*[@text='No']					NAME	No	NAME	No	NAME	No
+CancelYesButton	Xpath	//*[@text='Yes']					NAME	Yes	NAME	Yes	NAME	Yes
 DeviceNotFoundPopup	Xpath	//*[@text='Device not found!']					NAME	Device not found!	NAME	Device not found!	NAME	Device not found!
 TryExcludeOption	Xpath	//*[@text='Try Exclude']					NAME	Try Exclude	NAME	Try Exclude	NAME	Try Exclude
 RetryOption	Xpath	//*[@text='Retry']					NAME	Retry	NAME	Retry	NAME	Retry
@@ -33,11 +33,11 @@ DimmerSettingsMenu	Xpath	"//*[contains(@text,'Dimmer')]"					Xpath	"//*[contains
 AllONButton	ID	btn_all_on					NAME	All On				
 AllOffButton	ID	btn_all_off					NAME	All Off				
 FixAllButton	ID	btn_fix_all					NAME	Fix All				
-FixAllPopup							NAME	Fix All				
-FixAllPopupMessage							NAME	Fix All will try to restore faulty Z-Wave devices. It will delete the devices which cannot be restored. This may take few minutes to complete.				
-FixAllPopupConfirm							NAME	OK				
-FixAllPopupCancel							NAME	Cancel				
-FixAllProgress							NAME	Fix All process in progress. Please wait!				
+FixAllPopup	Xpath	//*[@text='Fix All']					NAME	Fix All				
+FixAllPopupMessage	Xpath	//*[@text='Fix All will try to restore faulty Z-Wave devices. It will delete the devices which cannot be restored. This may take few minutes to complete.']					NAME	Fix All will try to restore faulty Z-Wave devices. It will delete the devices which cannot be restored. This may take few minutes to complete.				
+FixAllPopupConfirm	Xpath	//*[@text='OK']					NAME	OK				
+FixAllPopupCancel	Xpath	//*[@text='Cancel']					NAME	Cancel				
+FixAllProgress	Xpath	//*[@text='Fix All in progress.']					NAME	Fix All process in progress. Please wait!				
 FixAllRequestFailed							NAME	Request Failed!				
 FixAllAcceptResult							NAME	OK				
 SwitchRenameField	ID	zwave_edit_name					Xpath	"//*[contains(@value,'Switch')]"				
