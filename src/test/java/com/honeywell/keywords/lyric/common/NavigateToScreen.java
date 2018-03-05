@@ -203,19 +203,6 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "Z-WAVE DEVICES": {
 					DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-							Keyword.ReportStep_Pass(testCase, "Navigated to  Zwave DEVICES");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Zwave DEVICES menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
