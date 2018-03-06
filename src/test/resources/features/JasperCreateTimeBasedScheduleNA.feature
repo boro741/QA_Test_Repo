@@ -17,7 +17,7 @@ so that my home temperature will get set automatically all days based on the tim
     Examples: 
       | scheduling      | 
       | no              | 
-      #| Time scheduling | 
+      #| time based | 
   
   @CreateNAWeekdayandWeekendTimebasedscheduleSinglestatDefaultvalue @Automated @--xrayid:ATER-7492
   Scenario Outline: To create Weekday and Weekend schedule with default schedule value for systems
@@ -32,7 +32,7 @@ so that my home temperature will get set automatically all days based on the tim
     Examples: 
       | scheduling      | 
       #| No scheduling   | 
-      | Time scheduling | 
+      | time based | 
   
   @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleCancels @Automated @--xrayid:ATER-7493
   Scenario: Caution message cancelled to change Weekday and Weekend schedule From Geofence schedule for systems
@@ -132,30 +132,32 @@ so that my home temperature will get set automatically all days based on the tim
   	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by deleting <Period> from the default schedule values
      Then verify "Everyday" schedule gets created successfully
-     And user logs out of the app
+#     And user logs out of the app
     Examples: 
       | Period           | 
-      #| Atleast 1 period | 
-      #| Atleast 2 period | 
+      | Atleast 1 period |
+      | Atleast 2 period | 
       | Atleast 3 period | 
   
   @CreateNAEverydayscheduleDeletingAllperiod @Automated @--xrayid:ATER-7501
   Scenario: To verify by deleting all periods for systems with all possible modes and time formats
   As an user
   I want to redirected to scheduling selection screen
-  	Given user logs in to Lyric app 
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by deleting "All 4 periods" from the default schedule values
      Then verify app redirected to scheduling selection screen
-     And user logs out of the app
+#     And user logs out of the app
   
   @CreateNAWeekdayandWeekendscheduleDeletingperiod @Automated @--xrayid:ATER-7502
   Scenario Outline: To create Everyday schedule by deleting period for systems
   As an user
   I want to create Weekday and Weekend schedule by deleting new period
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule by deleting <Period> from the default schedule values
      Then verify "Weekday and Weekend" schedule gets created successfully
-     And user logs out of the app
+#     And user logs out of the app
     Examples: 
       | Period           | 
       | Atleast 1 period | 
@@ -166,20 +168,22 @@ so that my home temperature will get set automatically all days based on the tim
   Scenario: To verify by deleting all periods for systems
   As an user
   I want to redirected to scheduling selection screen
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule by deleting "All 4 periods" from the default schedule values
      Then verify app redirected to scheduling selection screen
-     And user logs out of the app
+#     And user logs out of the app
   
   @CreateNAWeekdayandWeekendscheduleTimeformat @Automated @--xrayid:ATER-7504
   Scenario: To configure Weekday and Weekend schedule by setting up with new time value for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24or12hr
   As an user
   I want to create Weekday and Weekend schedule by setting up with new time value for all time format
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule by changing with new time values
      Then verify "Weekday and Weekend" schedule gets created successfully 
       And verify the time fields can be set with increments of "15 minutes"
-      And user logs out of the app
+#      And user logs out of the app
   
   @ErrormessageCreateEverydayscheduleNA @NotAutomatable
   Scenario Outline:To get error messages on system unavailability
@@ -187,6 +191,8 @@ so that my home temperature will get set automatically all days based on the tim
   I want to get error messages on system unavailability to create schedule with time format 24or12hr 
   So that i will get notified on system unavailability
     Given With the <Condition>
+    And user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When User creates "Everyday" schedule with default schedule value  
      Then Verify the error message
     Examples: 
@@ -219,11 +225,12 @@ so that my home temperature will get set automatically all days based on the tim
   Scenario Outline: Copying schedule to stats in location for systems with all possible modes and time formats
   As an user
   I want to create Everyday schedule for stat in my location
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates default "Everyday" schedule value <Copying> stats
      Then verify "Everyday" schedule gets created successfully
       And verify "Everyday" schedule is <Verifycopy> stats
-      And user logs out of the app
+#      And user logs out of the app
     Examples: 
       | Copying                            | Verifycopy           | 
       | without copying to other           | not copied to other  | 
@@ -234,11 +241,12 @@ so that my home temperature will get set automatically all days based on the tim
   Scenario Outline: Copying schedule to stats in location for systems with all possible modes and time formats
   As an user
   I want to create Weekday and Weekend schedule for stat in my location
-  	Given user logs in to Lyric app
+  	Given user launches and logs in to the Lyric application
+  	And user selects "Jasper device" from the dashboard
      When user creates default "Weekday and Weekend" schedule value <Copying> stats
      Then verify "Weekday and Weekend" schedule gets created successfully 
       And verify "Weekday and Weekend" schedule is <Verifycopy> stats
-      And user logs out of the app
+#      And user logs out of the app
     Examples: 
       | Copying                            | Verifycopy           | 
       #| without copying to other           | not copied to other  | 
