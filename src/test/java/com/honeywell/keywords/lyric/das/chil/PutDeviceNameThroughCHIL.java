@@ -82,7 +82,6 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 					int result = chUtil.putDASKeyfobName(locInfo.getLocationID(), deviceInfo.getDeviceID(),
 							inputs.getInputValue(DASInputVariables.KEYFOBNAME),
 							inputs.getInputValue(DASInputVariables.KEYFOBID));
-					System.out.println(result);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Successfully changed the keyfob name to : "
 								+ inputs.getInputValue(DASInputVariables.KEYFOBNAME));
