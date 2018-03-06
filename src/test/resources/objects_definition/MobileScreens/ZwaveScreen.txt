@@ -51,12 +51,14 @@ ReplaceButton	ID	btn_replace_zwave					NAME	Replace
 ReplacePopupHeader	Xpath	"//*[contains(@text,'Replace')]"					Xpath	"//*[contains(@name,'Replace')]"				
 ReplacePopupCancel	Xpath	//*[@text='Cancel']					NAME	CANCEL				
 ReplacePopupOk	Xpath	//*[@text='OK']					NAME	OK				
-ReplaceProgress							NAME	Entering Replace Mode. Please wait.				
+ReplaceProgress	Xpath	//*[@text='Entering Replace Mode. Please wait.']					NAME	Entering Replace Mode. Please wait.				
 ReplaceScreen	Xpath	//*[@text='Replace']					NAME	Replace Z-Wave device now				
 ReplaceScreenMessage	ID	replace_text_instruction										
-ReplacedSuccessfully							NAME	Replaced Successfully				
-ReplacedSuccessfullyMessage							Xpath	"//*[contains(@value,'has been activated!')]"				
-ReplacedSuccessfullyMessageAck							NAME	OK				
+ReplacedSuccessfully	Xpath	//*[@text='Replaced Successfully.']					NAME	Replaced Successfully				
+ReplacedSuccessfullyMessage	Xpath	"//*[contains(@text,'has been activated!')]"					Xpath	"//*[contains(@value,'has been activated!')]"				
+ReplacedSuccessfullyMessageAck	Xpath	//*[@text='OK']					NAME	OK				
+ReplaceFailedPopup	Xpath	//*[@text='Replace failed.']										
+ReplaceFailedPopup	Xpath	//*[@text='OK']										
 DeleteButton	ID	btn_delete_zwave					NAME	Delete				
 RemoveDevicePopupTitle	Xpath	"//*[contains(@text,'Remove')]"					xpath	"//*[contains(@value,'Remove')]"				
 RemoveDevicePopupMessage	Xpath	//*[@text='This device will be permanently removed. Are you sure?']					NAME	This device will be permanently removed. Are you sure?				
