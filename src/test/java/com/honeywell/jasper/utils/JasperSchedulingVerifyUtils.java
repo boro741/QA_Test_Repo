@@ -1872,6 +1872,57 @@ public class JasperSchedulingVerifyUtils {
 		return flag;
 	}
 
+	public static boolean verifyAppRedirectedToScheduleScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayScheduleButton", 5)) {
+			Keyword.ReportStep_Pass(testCase, "App is successfuly redirected to schedule selection screen");
+
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+				}
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Close button");
+				}
+				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Close button");
+				}
+
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"App is not redirected to schedule selection screen");
+		}
+		return flag;
+	}
+
 	
 
 }

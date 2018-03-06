@@ -32,6 +32,8 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.Schedule;
 
 import io.appium.java_client.TouchAction;
 
@@ -1573,7 +1575,6 @@ public class JasperSchedulingUtils {
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
 				} else {
-
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
 					for (String mode : modes) {
@@ -9613,7 +9614,6 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									System.out.println("WEEKDAY_WAKE_TIME : " + tempTime + InputVariables.WEEKDAY_WAKE_TIME );
 									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME).equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT).equalsIgnoreCase(
 													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
@@ -10978,16 +10978,15 @@ public class JasperSchedulingUtils {
 				}
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-				if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
-					flag = false;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			Schedule sch = new Schedule(testCase);
+			int i = 0;
+			while ((!MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton")) && i < 2) {
+				if (sch.isCloseButtonVisible(3)) {
+					flag = flag & sch.clickOnCloseButton();
 				}
 			}
-			if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-				if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
-					flag = false;
-				}
-			}
+			i++;
 		}
 		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -11010,21 +11009,13 @@ public class JasperSchedulingUtils {
 							"Verify Displayed Schedule :Use My Home Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Home", testCase, 5)) {
+				if (MobileUtils.isMobElementExists("name", "Using Home Settings", testCase, 5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
-				} else {
-					flag = false;
-					scheduleRetainedFlag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Verify Displayed Schedule : Use My Home Settings option not displayed on schedule screen");
-				}
-				if (MobileUtils.isMobElementExists("name", "Geofence_Away", testCase, 5)) {
+				} else if (MobileUtils.isMobElementExists("name", "Using Away Settings", testCase, 5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
-				} else {
-					flag = false;
-					scheduleRetainedFlag = false;
+				} else if (scheduleRetainedFlag = false){
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Displayed Schedule : Use My Home Settings option not displayed on schedule screen");
 				}
@@ -14409,6 +14400,103 @@ public class JasperSchedulingUtils {
 					"Error Occured : " + e.getMessage());
 		}
 
+		return flag;
+	}
+	public static boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
+		WebElement element = null;
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationSpinner", 5)) {
+			element = MobileUtils.getMobElement(fieldObjects, testCase, "LocationSpinner");
+		}
+		if (element != null) {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationNameIOS", 5)) {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "LocationNameIOS").getAttribute("value")
+							.contains(locationToBeSelected)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Select Location From DashBoard : User is already in location : "
+										+ locationToBeSelected);
+					} else {
+						fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
+
+						if (MobileUtils.clickOnElement(testCase, "name", locationToBeSelected)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Select Location From DashBoard : Successfully selected location : "
+											+ locationToBeSelected);
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Select Location From DashBoard : Failed to select location : "
+											+ locationToBeSelected);
+						}
+					}
+				}
+			} else {
+				if (element.getText().equalsIgnoreCase(locationToBeSelected)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Select Location From DashBoard : User is already in location : " + locationToBeSelected);
+				} else {
+					boolean f = false;
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
+					List<WebElement> locNames = MobileUtils.getMobElements(fieldObjects, testCase, "LocationDropDown");
+					for (WebElement ele : locNames) {
+						if (ele.getText().equalsIgnoreCase(locationToBeSelected)) {
+							ele.click();
+							f = true;
+							break;
+						}
+					}
+					if (f) {
+						Keyword.ReportStep_Pass(testCase,
+								"Select Location From DashBoard : Successfully selected location : "
+										+ locationToBeSelected);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Select Location From DashBoard : Failed to select location : " + locationToBeSelected);
+					}
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static boolean selectDeviceFromDashBoard(TestCases testCase, String deviceToBeSelected) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			if (MobileUtils.clickOnElement(testCase, "xpath",
+					"//XCUIElementTypeStaticText[@value='" + deviceToBeSelected + "']")) {
+				Keyword.ReportStep_Pass(testCase,
+						"Select Device From DashBoard : Successfully selected device : " + deviceToBeSelected);
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Select Device From Dashboard : Failed to select device : " + deviceToBeSelected);
+			}
+		} else {
+			boolean f = false;
+			List<WebElement> devices = MobileUtils.getMobElements(fieldObjects, testCase, "DashBoardDevices");
+			for (WebElement element : devices) {
+				WebElement ele = element;
+				if (ele.getText().equals(deviceToBeSelected)) {
+					ele.click();
+					f = true;
+					break;
+				}
+			}
+			if (f) {
+				Keyword.ReportStep_Pass(testCase,
+						"Select Device From DashBoard : Successfully selected device : " + deviceToBeSelected);
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Select Device From Dashboard : Failed to select device : " + deviceToBeSelected);
+			}
+		}
 		return flag;
 	}
 

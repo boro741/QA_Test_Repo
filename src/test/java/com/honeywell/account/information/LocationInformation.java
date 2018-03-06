@@ -3,8 +3,10 @@ package com.honeywell.account.information;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
 public class LocationInformation {
@@ -50,6 +52,22 @@ public class LocationInformation {
 		} else {
 			return -1;
 		}
+	}
+	
+	public int getDeviceCountOfLocation() {
+		int deviceCount = 0;
+		if (locationInformation != null) {
+			try {
+				deviceCount = locationInformation.getJSONArray("devices").length();
+			} catch (Exception e) {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Device Schedule Type : Not Connected to CHAPI. Returning \"\" value");
+		}
+
+		return deviceCount;
 	}
 
 }
