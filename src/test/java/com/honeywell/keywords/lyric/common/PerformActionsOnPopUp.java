@@ -296,6 +296,12 @@ public class PerformActionsOnPopUp extends Keyword {
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
 				break;
 			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButtonInDeleteSensorPopup();
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

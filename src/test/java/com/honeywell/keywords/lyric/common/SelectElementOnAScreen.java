@@ -215,6 +215,25 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(parameters.get(0));
 				}
 				dasDIY.isWiFiPasswordTextFieldVisibile();
+			}  else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "DOOR": {
+					boolean flag = true;
+					if (dasDIY.isDoorOptionInNameSensorScreenVisible()) {
+						flag = flag & dasDIY.clickOnDoorOptionInNameSensorScreen();
+					}
+					return flag;
+				}
+				case "FRONT DOOR": {
+					boolean flag = true;
+					if (dasDIY.isFrontDoorOptionInNameSensorScreenVisible()) {
+						flag = flag & dasDIY.clickOnFrontDoorOptionInNameSensorScreen();
+						DIYRegistrationUtils.waitUntilSavingSensorLoadingSpinnerDisappears(testCase);
+					}
+					return flag;
+				}
+				}
 			}
 
 		} catch (Exception e) {

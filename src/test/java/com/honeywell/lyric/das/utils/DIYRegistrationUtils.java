@@ -24,7 +24,48 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
 public class DIYRegistrationUtils {
+
+	/**
+	 * <h1>Turn off device bluetooth</h1>
+	 * <p>
+	 * The turnOffDeviceBluetooth method turns off device bluetooth.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-5
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the bluetooth is turned off. Returns
+	 *         'false' if the bluetooth is not turned off.
+	 */
+	@SuppressWarnings("unchecked")
+	public static boolean turnOffDeviceBluetooth(TestCases testCase) throws Exception{
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			//((AndroidDriver<MobileElement>) testCase.getMobileDriver()).setConnection();
+			//startActivity(new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS));
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).openNotifications();
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).getSettings();
+			MobileUtils.swipe(testCase, 530, 210, 0, 200);
+			MobileElement el3 = ((AndroidDriver<MobileElement>) testCase.getMobileDriver()).findElementByAccessibilityId("title");
+			int width = el3.getLocation().getX();
+			int height = el3.getLocation().getY();
+			System.out.println("####width: " + width);
+			System.out.println("#######height: " + height);
+			MobileElement el1 = ((AndroidDriver<MobileElement>) testCase.getMobileDriver()).findElementByAccessibilityId("Bluetooth on.");
+			el1.click();
+			MobileElement el2 = ((AndroidDriver<MobileElement>) testCase.getMobileDriver()).findElementByXPath("//android.view.View[@content-desc=\"Bluetooth off.\"]");
+			el2.click();
+			
+		}
+		return flag;
+	}
 
 	/**
 	 * <h1>Wait for progress bar to close</h1>
@@ -483,6 +524,318 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
+	
+	/**
+	 * <h1>Wait until sensor set up button displays</h1>
+	 * <p>
+	 * The waitForSetUpButtonToDisplay method waits until the
+	 * set up button displays.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-5
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the sensor set up button displays. Returns
+	 *         'false' if the sensor set up button does not display.
+	 */
+	public static boolean waitForSensorSetUpButtonToDisplay(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (!dasDIY.isSensorSetUpButtonVisible()) {
+							System.out.println("Waiting for Sensor Set Up button to be displayed");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Sensor Set Up button is displayed");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Sensor Set Up button does not display after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait until In Progress loading spinner disappears</h1>
+	 * <p>
+	 * The waitUntilInProgressLoadingSpinnerDisappears method waits until the
+	 * loading spinner disappears.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-5
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the in progress loading spinner disappears. Returns
+	 *         'false' if the in progress loading spinner is still displayed.
+	 */
+	public static boolean waitUntilInProgressLoadingSpinnerDisappears(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (dasDIY.isInProgressLoadingSpinnerTextVisible()) {
+							System.out.println("Waiting for In progress loading spinner text to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "In progress loading spinner disappeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"In Progress loading spinner does not disappear even after 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait until Saving Sensor loading spinner disappears</h1>
+	 * <p>
+	 * The waitUntilInProgressLoadingSpinnerDisappears method waits until the
+	 * loading spinner disappears.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-5
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the Saving Sensor loading spinner disappears. Returns
+	 *         'false' if the Saving Sensor loading spinner is still displayed.
+	 */
+	public static boolean waitUntilSavingSensorLoadingSpinnerDisappears(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (dasDIY.isSavingSensorLoadingSpinnerTextVisible()) {
+							System.out.println("Waiting for Saving Sensor loading spinner text to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Saving Sensor loading spinner disappeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Saving Sensor loading spinner does not disappear even after 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait until Verifying loading spinner disappears</h1>
+	 * <p>
+	 * The waitUntilVerifyingLoadingSpinnerDisappears method waits until the
+	 * loading spinner disappears.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-5
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the Verifying loading spinner disappears. Returns
+	 *         'false' if the Verifying loading spinner is still displayed.
+	 */
+	public static boolean waitUntilVerifyingLoadingSpinnerDisappears(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (dasDIY.isVerifyingLoadingSpinnerTextVisible()) {
+							System.out.println("Waiting for Verifying loading spinner text to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Verifyig loading spinner disappeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Verifying loading spinner does not disappear even after 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait until Finishing up loading spinner disappears</h1>
+	 * <p>
+	 * The waitUntilFinishingUpLoadingSpinnerDisappears method waits until the
+	 * loading spinner disappears.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-5
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the Finishing up loading spinner disappears. Returns
+	 *         'false' if the Finishing up loading spinner is still displayed.
+	 */
+	public static boolean waitUntilFinishingUpLoadingSpinnerDisappears(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (dasDIY.isFinishingUpLoadingSpinnerTextVisible()) {
+							System.out.println("Waiting for Finishing up loading spinner text to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Finishing up loading spinner disappeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Finishing up loading spinner does not disappear even after 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait for Saving GeoFencing progress bar to close</h1>
+	 * <p>
+	 * The waitForSavingGeoFencingProgressBarToComplete method waits until the
+	 * progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-2
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
+	public static boolean waitForSavingGeoFencingProgressBarToComplete(TestCases testCase) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (dasDIY.isEnablingGeoFencingLoadingProgressBarVisible()) {
+							System.out.println("Waiting for Saving Geofencing loading spinner to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Saving Geofencing loading spinner diasppeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Saving Geofencing loading spinner did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
 
 	/**
 	 * <h1>Minimize and Maximize the app</h1>
@@ -506,7 +859,7 @@ public class DIYRegistrationUtils {
 		MobileUtils.minimizeApp(testCase, 5);
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Wait for Deleting progress bar to close</h1>
 	 * <p>

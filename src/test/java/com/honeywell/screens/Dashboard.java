@@ -102,6 +102,23 @@ public class Dashboard extends MobileScreens {
 	public boolean isGlobalDrawerButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
 	}
+	
+	public boolean isSecurityTitleInDashboardScreenVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityTitleInDashboardScreen", timeOut);
+	}
+	
+	public boolean clickOnSecurityTitleInDashboardScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SecurityTitleInDashboardScreen");
+	}
+	
+	public boolean isSettingsIconInSecurityScreenVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SettingsIconInSecurityScreen", timeOut);
+	}
+	
+	public boolean clickOnSettingsIconInSecurityScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SettingsIconInSecurityScreen");
+	}
+	
 
 	public String getZwaveDeviceStatus(String expectedDevice) {
 		if (this.areDevicesVisibleOnDashboard(10)) {

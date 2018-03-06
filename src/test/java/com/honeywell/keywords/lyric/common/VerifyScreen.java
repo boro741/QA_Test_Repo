@@ -218,6 +218,29 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+
+			case "CHECK LOCATION": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isCheckLocationScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "NAME SENSOR": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isNameSensorScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "In " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in excpected screen: " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
