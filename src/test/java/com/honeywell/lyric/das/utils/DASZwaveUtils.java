@@ -307,7 +307,7 @@ public class DASZwaveUtils {
 		} catch (TimeoutException e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Entering inclusion did not disapper after waiting for 1 minute");
+					locator+" did not disapper after waiting for 1 minute");
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());

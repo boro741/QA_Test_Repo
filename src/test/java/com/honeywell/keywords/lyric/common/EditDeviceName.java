@@ -19,7 +19,7 @@ import com.honeywell.screens.ZwaveScreen;
 public class EditDeviceName extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 	public HashMap<String, MobileObject> fieldObjects;
@@ -27,7 +27,7 @@ public class EditDeviceName extends Keyword {
 	public EditDeviceName(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.parameters = parameters;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -99,10 +99,12 @@ public class EditDeviceName extends Keyword {
 					zwaveScreen.editNameToSwitch(parameters.get(1));
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						zwaveScreen.saveEditedNameToSwitch();
+						inputs.setInputValue("DEVICE_NAME_TO_REVERT",parameters.get(1));
 					} else {
 						zwaveScreen.saveEditedNameToSwitchOnAndroid();
+						inputs.setInputValue("DEVICE_NAME_TO_REVERT",parameters.get(1));
 						if(parameters.get(0).equalsIgnoreCase("Switch")){
-						zwaveScreen.ClickSwitchSettingFromZwaveUtilities();
+							zwaveScreen.ClickSwitchSettingFromZwaveUtilities();
 						}else if(parameters.get(0).equalsIgnoreCase("Dimmer")){
 							zwaveScreen.ClickDimmerSettingFromZwaveUtilities();
 						}

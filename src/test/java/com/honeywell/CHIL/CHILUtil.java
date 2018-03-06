@@ -515,7 +515,7 @@ public class CHILUtil implements AutoCloseable {
 		if (isConnected) {
 			String url = chilURL
 					+ String.format("api/v3/locations/%s/devices/%s/subdevices/%s", locationID, deviceID, subDeviceID);
-			String headerData = String.format("{\"name\": \"Dimmer1\"}", deviceNameToBePut);
+			String headerData = String.format("{\"name\": \"%s\"}", deviceNameToBePut);
 			result = doPutRequest(url, headerData).getResponseCode();
 		} else {
 			throw new Exception("Not connected to CHIL");

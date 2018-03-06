@@ -40,12 +40,14 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 			if(deviceType.get(0).equalsIgnoreCase("activates")){
 				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
 					Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
+					ZWaveRelayUtils.powerOnZwaveSwitch(inputs);
 					ZWaveRelayUtils.enrollZwaveSwitch1();
 					TimeUnit.SECONDS.sleep(2);
 					ZWaveRelayUtils.pressButtonOnSwitch1();
 				}
 				else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
 					Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
+					ZWaveRelayUtils.powerOnZwaveDimmer(inputs);
 					ZWaveRelayUtils.enrollZwaveDimmer1();
 					TimeUnit.SECONDS.sleep(2);
 					ZWaveRelayUtils.pressButtonOnDimmer1();

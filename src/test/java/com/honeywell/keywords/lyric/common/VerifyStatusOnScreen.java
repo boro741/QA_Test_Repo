@@ -2,6 +2,7 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -277,6 +278,11 @@ public class VerifyStatusOnScreen extends Keyword {
 				break;
 			}
 			case "SWITCH": {
+				try {
+					TimeUnit.SECONDS.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				String currentStatus =zwaveScreen.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -315,6 +321,11 @@ public class VerifyStatusOnScreen extends Keyword {
 				break;
 			}
 			case "DIMMER": {
+				try {
+					TimeUnit.SECONDS.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				String currentStatus =zwaveScreen.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
