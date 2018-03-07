@@ -649,7 +649,7 @@ public class NavigateToScreen extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isSignalStrengthTextVisibleInCheckLocationScreen() && dasDIY.isNextButtonVisible()) {
 						dasDIY.clickOnNextButton();
-						if (dasDIY.isPrepareSensorScreenTitleVisible()
+						if (dasDIY.isPrepareSensorScreenTitleVisible(15)
 								&& dasDIY.isUnEvenButtonVisibleInPrepareSensorScreen()
 								&& dasDIY.isEvenButtonVisibleInPrepareSensorScreen()) {
 							return true;

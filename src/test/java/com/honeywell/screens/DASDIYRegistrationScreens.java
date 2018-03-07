@@ -542,8 +542,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthLabelInCheckLocationScreen");
 	}
 
-	public boolean isPrepareSensorScreenTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrepareSensorScreenTitle");
+	public boolean isPrepareSensorScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrepareSensorScreenTitle", timeOut);
 	}
 
 	public boolean isUnEvenButtonVisibleInPrepareSensorScreen() {

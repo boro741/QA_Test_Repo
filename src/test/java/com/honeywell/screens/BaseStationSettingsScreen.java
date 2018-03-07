@@ -212,10 +212,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
 	}
 
-	public boolean clickOnYesButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
-	}
-
 	public boolean isDeleteDASPopUpVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASPopUpConfirmationTitle", 3);
 	}
@@ -802,8 +798,18 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 	}
 
-	public boolean clickOnYesButtonInDeleteSensorPopup() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
+	public boolean clickOnYesButton() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButton")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButton")) {
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	public boolean isDeleteDASDevicePopUpTitleVisible() {
