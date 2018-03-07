@@ -196,17 +196,13 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "B8:2C:A0:00:07:D8": {
 					boolean flag = true;
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isMACIDVisible()) {
-						flag = flag & dasDIY.clickOnMACID();
+					if (dasDIY.isMACIDVisible(parameters.get(0).toUpperCase())) {
+						flag = flag & dasDIY.clickOnMACID(parameters.get(0).toUpperCase());
 						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
 					}
 					return flag;
-				}
-				}
 			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
 
 				boolean flag = true;

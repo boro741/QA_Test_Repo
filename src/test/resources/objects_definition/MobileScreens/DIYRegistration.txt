@@ -48,42 +48,43 @@ ConnectingSmartHomeSecurityLoadingSpinner	ID	progressBar	ID	progressBar	ID	progr
 SmartHomeSecuritySuccessHeaderTitle	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']
 NoButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	LeftButton	NAME	LeftButton	NAME	LeftButton
 YesButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
-SetUpAccessoriesScreenTitle							XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
-SensorSetUpButton							NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton
-OverviewScreenTitle							NAME	Here's how it works	NAME	Here's how it works	NAME	Here's how it works
-InProgressLoadingSpinnerText							NAME	In progress	NAME	In progress	NAME	In progress
-LocateSensorScreenTitle							NAME	Find the lit sensor	NAME	Find the lit sensor	NAME	Find the lit sensor
-NameSensorScreenTitle							NAME	Select sensor location	NAME	Select sensor location	NAME	Select sensor location
-DoorOptionInNameSensorScreen							XPATH	//*[@value='Door']	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']
-FrontDoorOptionInNameSensorScreen							NAME	Front Door	NAME	Front Door	NAME	Front Door
-SavingSensorLoadingSpinnerText							NAME	Saving Sensor…	NAME	Saving Sensor…	NAME	Saving Sensor…
-CheckLocationScreenTitle							XPATH	//*[@value='Check Location']	XPATH	//*[@value='Check Location']	XPATH	//*[@value='Check Location']
-CloseDoorSubHeaderTextInCheckLocationScreen							NAME	Close door	NAME	Close door	NAME	Close door
-CheckLocationSignalScreenTitle							XPATH	//*[@value='Check signal near your door']	XPATH	//*[@value='Check signal near your door']	XPATH	//*[@value='Check signal near your door']
-SignalStrengthLabelInCheckLocationScreen							NAME	MountSensor_1_0_subTitle	NAME	MountSensor_1_0_subTitle	NAME	MountSensor_1_0_subTitle
-PrepareSensorScreenTitle							XPATH	//*[@value='Prepare Sensor']	XPATH	//*[@value='Prepare Sensor']	XPATH	//*[@value='Prepare Sensor']
-UnEvenButtonInPrepareSensorScreen							NAME	LeftButton	NAME	LeftButton	NAME	LeftButton
-EvenButtonInPrepareSensorScreen							NAME	RightButton	NAME	RightButton	NAME	RightButton
-PlaceAdhesiveStripsScreenTitle							NAME	Place adhesive strips	NAME	Place adhesive strips	NAME	Place adhesive strips
-MountSensorScreenTitle							XPATH	//*[@value='Mount Sensor']	XPATH	//*[@value='Mount Sensor']	XPATH	//*[@value='Mount Sensor']
-MountSensorScreenSubHeaderTitle							NAME	Mount halves	NAME	Mount halves	NAME	Mount halves
-VerifyingLoadingSpinnerText							NAME	Verifying…	NAME	Verifying…	NAME	Verifying…
-SensorReadyScreenTitle							XPATH	//*[@value='Sensor Ready']	XPATH	//*[@value='Sensor Ready']	XPATH	//*[@value='Sensor Ready']
-SuccessLabelInSensorReadyScren							NAME	Success!	NAME	Success!	NAME	Success!
-SetUpAccessoriesConfiguredScreenTitle							XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
-ConfiguredLabelInSetUpAccessoriesScreen							NAME	SetupAccessories_1_0_value	NAME	SetupAccessories_1_0_value	NAME	SetupAccessories_1_0_value
-SaveButtonInSetUpAccessoriesScreen							NAME	RightButton	NAME	RightButton	NAME	RightButton
-FinishingUpLoadingSpinnerText							NAME	Finishing up	NAME	Finishing up	NAME	Finishing up
+SetUpAccessoriesScreenTitle	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
+SensorSetUpButton	ID	sensor_setup_text	ID	sensor_setup_text	ID	sensor_setup_text	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton
+OverviewScreenTitle	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	NAME	Here's how it works	NAME	Here's how it works	NAME	Here's how it works
+InProgressLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress
+LocateSensorScreenTitle	XPATH	//*[@text='Locate Sensor']	XPATH	//*[@text='Locate Sensor']	XPATH	//*[@text='Locate Sensor']	NAME	Find the lit sensor	NAME	Find the lit sensor	NAME	Find the lit sensor
+NameSensorScreenTitle	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	NAME	Select sensor location	NAME	Select sensor location	NAME	Select sensor location
+DoorOptionInNameSensorScreen	ID	door	ID	door	ID	door	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']
+FrontDoorOptionInNameSensorScreen	XPATH	//*[@text='Front Door']	XPATH	//*[@text='Front Door']	XPATH	//*[@text='Front Door']	NAME	Front Door	NAME	Front Door	NAME	Front Door
+SavingSensorLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	Saving Sensor…	NAME	Saving Sensor…	NAME	Saving Sensor…
+CheckLocationScreenTitle	XPATH	//*[@text='Check Location']	XPATH	//*[@text='Check Location']	XPATH	//*[@text='Check Location']	XPATH	//*[@value='Check Location']	XPATH	//*[@value='Check Location']	XPATH	//*[@value='Check Location']
+CloseDoorSubHeaderTextInCheckLocationScreen	ID	header_view_subtitle	ID	header_view_subtitle	ID	header_view_subtitle	NAME	Close door	NAME	Close door	NAME	Close door
+CheckLocationSignalScreenTitle	XPATH	//*[@text='Check signal near your door']	XPATH	//*[@text='Check signal near your door']	XPATH	//*[@text='Check signal near your door']	XPATH	//*[@value='Check signal near your door']	XPATH	//*[@value='Check signal near your door']	XPATH	//*[@value='Check signal near your door']
+SignalStrengthLabelInCheckLocationScreen	ID	signal_strength_view	ID	signal_strength_view	ID	signal_strength_view	NAME	MountSensor_1_0_subTitle	NAME	MountSensor_1_0_subTitle	NAME	MountSensor_1_0_subTitle
+PrepareSensorScreenTitle	XPATH	//*[@text='Prepare Sensor']	XPATH	//*[@text='Prepare Sensor']	XPATH	//*[@text='Prepare Sensor']	XPATH	//*[@value='Prepare Sensor']	XPATH	//*[@value='Prepare Sensor']	XPATH	//*[@value='Prepare Sensor']
+UnEvenButtonInPrepareSensorScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	LeftButton	NAME	LeftButton	NAME	LeftButton
+EvenButtonInPrepareSensorScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
+PlaceAdhesiveStripsScreenTitle	ID	header_view_subtitle	ID	header_view_subtitle	ID	header_view_subtitle	NAME	Place adhesive strips	NAME	Place adhesive strips	NAME	Place adhesive strips
+MountSensorScreenTitle	XPATH	//*[@text='Mount Sensor']	XPATH	//*[@text='Mount Sensor']	XPATH	//*[@text='Mount Sensor']	XPATH	//*[@value='Mount Sensor']	XPATH	//*[@value='Mount Sensor']	XPATH	//*[@value='Mount Sensor']
+MountSensorScreenSubHeaderTitle	ID	header_view_subtitle	ID	header_view_subtitle	ID	header_view_subtitle	NAME	Mount halves	NAME	Mount halves	NAME	Mount halves
+VerifyingLoadingSpinnerText	ID	verify_text	ID	verify_text	ID	verify_text	NAME	Verifying…	NAME	Verifying…	NAME	Verifying…
+SensorReadyScreenTitle	XPATH	//*[@text='Sensor Ready']	XPATH	//*[@text='Sensor Ready']	XPATH	//*[@text='Sensor Ready']	XPATH	//*[@value='Sensor Ready']	XPATH	//*[@value='Sensor Ready']	XPATH	//*[@value='Sensor Ready']
+SuccessLabelInSensorReadyScren	ID	header_view_subtitle	ID	header_view_subtitle	ID	header_view_subtitle	NAME	Success!	NAME	Success!	NAME	Success!
+SetUpAccessoriesConfiguredScreenTitle	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
+ConfiguredLabelInSetUpAccessoriesScreen	ID	access_sensor_name	ID	access_sensor_name	ID	access_sensor_name	NAME	SetupAccessories_1_0_value	NAME	SetupAccessories_1_0_value	NAME	SetupAccessories_1_0_value
+SaveButtonInSetUpAccessoriesScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
+FinishingUpLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	Finishing up	NAME	Finishing up	NAME	Finishing up
 GeoFencingHeaderTitle	XPATH	//*[@text='Just Come and Go']	XPATH	//*[@text='Just Come and Go']	XPATH	//*[@text='Just Come and Go']	XPATH	//*[@value='Just Come and Go']	XPATH	//*[@value='Just Come and Go']	XPATH	//*[@value='Just Come and Go']
 SkipButtonInGeoFencingScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	Skip	NAME	Skip	NAME	Skip
 EnableButtonInGeoFencingScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Enable	NAME	Enable	NAME	Enable
-CancelButtonInGeoFenceScreen							NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item
-GeoFenceScreenHeaderTitle							XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']
-UseLocationButtonInGeoFenceScreen							NAME	ic use location	NAME	ic use location	NAME	ic use location
-SaveButtonInGeoFenceScreen							NAME	Save	NAME	Save	NAME	Save
-GeoFenceEnabledScreenHeaderTitle							XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']
-GeoFenceEnabledScreenSubHeaderTitle							NAME	Geofence Enabled!	NAME	Geofence Enabled!	NAME	Geofence Enabled!
-SaveButtonInGeoFenceEnabledScreen							NAME	RightButton	NAME	RightButton	NAME	RightButton
+EnablingGeoFencingLoadingSpinner	ID	progress	ID	progress	ID	progress	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
+CancelButtonInGeoFenceScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item
+GeoFenceScreenHeaderTitle	XPATH	//*[@text='Geofencing']	XPATH	//*[@text='Geofencing']	XPATH	//*[@text='Geofencing']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']
+UseLocationButtonInGeoFenceScreen	ID	fragment_geofence_find_my_location	ID	fragment_geofence_find_my_location	ID	fragment_geofence_find_my_location	NAME	ic use location	NAME	ic use location	NAME	ic use location
+SaveButtonInGeoFenceScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Save	NAME	Save	NAME	Save
+GeoFenceEnabledScreenHeaderTitle	XPATH	//*[@text='Geofence']	XPATH	//*[@text='Geofence']	XPATH	//*[@text='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']
+GeoFenceEnabledScreenSubHeaderTitle	XPATH	//*[@text='Geofence Enabled!']	XPATH	//*[@text='Geofence Enabled!']	XPATH	//*[@text='Geofence Enabled!']	NAME	Geofence Enabled!	NAME	Geofence Enabled!	NAME	Geofence Enabled!
+SaveButtonInGeoFenceEnabledScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
 AmazonAlexaHeaderTitle	XPATH	//*[@text='Amazon Alexa']	XPATH	//*[@text='Amazon Alexa']	XPATH	//*[@text='Amazon Alexa']	XPATH	//*[@value='Amazon Alexa']	XPATH	//*[@value='Amazon Alexa']	XPATH	//*[@value='Amazon Alexa']
 SkipButtonInAmazonAlexa	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	Skip	NAME	Skip	NAME	Skip
 SetUpButtonInAmazonAlexa	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Set Up	NAME	Set Up	NAME	Set Up
@@ -110,4 +111,3 @@ DeleteLocationPopupTitle	XPATH	//*[@text='Delete Location?']	XPATH	//*[@text='De
 NoButtonInDeleteLocationPopup	ID	button2	ID	button2	ID	button2	NAME	NO	NAME	NO	NAME	NO
 YesButtonInDeleteLocationPopup	ID	button1	ID	button1	ID	button1	NAME	YES	NAME	YES	NAME	YES
 DeletingLocationLoadingSpinner	ID	progress	ID	progress	ID	progress	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
-EnablingGeoFencingLoadingSpinner	ID	progress	ID	progress	ID	progress	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
