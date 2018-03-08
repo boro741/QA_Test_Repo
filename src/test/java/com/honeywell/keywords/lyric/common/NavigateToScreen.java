@@ -268,7 +268,7 @@ public class NavigateToScreen extends Keyword {
 					Dashboard ds = new Dashboard(testCase);
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
-						dasDIY.clickOnBackArrowInSelectADeviceScreen();
+						flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
 					}
 					if (ds.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -286,32 +286,32 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SETTINGS": {
 					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+							& DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
 				case "BASE STATION CONFIGURATION": {
 					flag = flag
-							& DASSettingsUtils.navigateFromDashboardToBaseStationConfigurationScreen(testCase, inputs);
+							& DASSettingsUtils.navigateFromDashboardToBaseStationConfigurationScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardToEntryExitDelayScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToEntryExitDelayScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Keyfobs List'
 				// Author: Pratik P. Lalseta (H119237)
 				case "KEYFOB": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardToKeyfobScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToKeyfobScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Sensors List'
 				// Author: Pratik P. Lalseta (H119237)
 				case "SENSORS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardToSensorsScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToSensorsScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Sensor Settings List'
@@ -330,13 +330,13 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Amazon Alexa Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "AMAZON ALEXA SETTINGS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardToAmazonAlexaScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToAmazonAlexaScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Video Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "VIDEO SETTINGS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardToVideoSettingsScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToVideoSettingsScreen(testCase);
 					break;
 				}
 
@@ -399,13 +399,7 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dashboard d = new Dashboard(testCase);
-					if (bs.isBackButtonVisible()) {
-						flag = flag & bs.clickOnBackButton();
-					}
-					if (bs.isBackButtonVisible(10)) {
-						flag = flag & bs.clickOnBackButton();
-					}
-					if (bs.isBackButtonVisible()) {
+					while(bs.isBackButtonVisible()) {
 						flag = flag & bs.clickOnBackButton();
 					}
 					if (!d.areDevicesVisibleOnDashboard()) {
@@ -474,9 +468,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ADD NEW DEVICE DASHBOARD": {
 					AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
-					if (addNewDevice.isAddNewDeviceHeaderDisplayed()) {
-						return flag;
-					}
+					flag = flag & addNewDevice.isAddNewDeviceHeaderDisplayed();
 					break;
 				}
 				}
@@ -493,333 +485,128 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "LOOKING FOR BASE STATION": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					break;
+					return DIYRegistrationUtils.navigateFromPowerBaseStationToLookingForBaseStation(testCase);
+
 				}
 				case "REGISTER BASE STATION": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
-						Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromPowerBaseStationToRegisterBaseStation(testCase);
 				}
 				case "SELECT BASE STATION": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						flag = flag & dasDIY.clickOnNextButton();
-					}
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
-						Keyword.ReportStep_Pass(testCase, "Multiple base stations with MAC ID's are displayed");
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromPowerBaseStationToSelectBaseStation(testCase);
 				}
 				case "DASHBOARD": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
-						flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
-						if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
-							flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
-						}
-						if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
-							flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
-						}
-						if (dasDIY.isCancelPopupVisible()) {
-							flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
-						}
-						if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
-							flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
-						} else {
-							if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
-								flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
-							}
-						}
-
-					}
+					return DIYRegistrationUtils.navigateFromPowerBaseStationToDashboard(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CONNECT TO NETWORK": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					DIYRegistrationUtils.waitForLookingForNetworkConnectionProgressBarToComplete(testCase);
-					dasDIY.isConnectToNetworkHeaderTitleVisible();
-					break;
+					return DIYRegistrationUtils.navigateFromRegisterBaseStationToConnectToNetwork(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SMART HOME SECURITY SUCCESS": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
-					if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
-						dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromConnectToNetworkToSmartHomeSecuritySuccess(testCase);
 				}
 				case "SET UP ACCESSORIES": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
-						dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
-						if (dasDIY.isSetUpAccessoriesScreenTitleVisible()) {
-							DIYRegistrationUtils.waitForSensorSetUpButtonToDisplay(testCase);
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromConnectToNetworkToSetUpAccessories(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "OVERVIEW": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isSensorSetUpButtonVisible()) {
-						dasDIY.clickOnSensorSetUpButton();
-						if (dasDIY.isOverviewScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "OVERVIEW": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isSensorSetUpButtonVisible()) {
-						dasDIY.clickOnSensorSetUpButton();
-						if (dasDIY.isOverviewScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromSetUpAccessoriesToOverview(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("OVERVIEW")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "LOCATE SENSOR": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						DIYRegistrationUtils.waitUntilInProgressLoadingSpinnerDisappears(testCase);
-						if (dasDIY.isLocateSensorScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromOverviewToLocateSensor(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("LOCATE SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "NAME SENSOR": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						if (dasDIY.isNameSensorScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromLocateSensorToNameSensor(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHECK LOCATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CHECK LOCATION SIGNAL": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isCloseDoorSubHeaderTextInCheckLocationScreenVisible() && dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						DIYRegistrationUtils.waitUntilInProgressLoadingSpinnerDisappears(testCase);
-						if (dasDIY.isCheckLocationSignalScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromCheckLocationToCheckLocationSignal(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHECK LOCATION SIGNAL")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PREPARE SENSOR": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isSignalStrengthTextVisibleInCheckLocationScreen() && dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						if (dasDIY.isPrepareSensorScreenTitleVisible(15)
-								&& dasDIY.isUnEvenButtonVisibleInPrepareSensorScreen()
-								&& dasDIY.isEvenButtonVisibleInPrepareSensorScreen()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromCheckLocationSignalToPrepareSensor(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("PREPARE SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PLACE ADHESIVE STRIPS": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isEvenButtonVisibleInPrepareSensorScreen()) {
-						dasDIY.clickOnEvenButtonInPrepareSensorScreen();
-						if (dasDIY.isPlaceAdhesiveStripsScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromPrepareSensorToPlaceAdhesiveStrips(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("PLACE ADHESIVE STRIPS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOUNT SENSOR": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isPlaceAdhesiveStripsScreenTitleVisible() && dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						if (dasDIY.isMountSensorScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromPlaceAdhesiveStripsToMountSensor(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("MOUNT SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR READY": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isMountSensorScreenSubHeaderTitleVisible() && dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						DIYRegistrationUtils.waitUntilVerifyingLoadingSpinnerDisappears(testCase);
-						if (dasDIY.isSensorReadyScreenTitleVisible()
-								&& dasDIY.isSuccessLabelDisplayedInSensorReadyScreen()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromMountSensorToSensorReady(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SENSOR READY")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SET UP ACCESSORIES CONFIGURED": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNextButtonVisible()) {
-						dasDIY.clickOnNextButton();
-						DIYRegistrationUtils.waitUntilFinishingUpLoadingSpinnerDisappears(testCase);
-						if (dasDIY.isSetUpAccessoriesConfiguredScreenTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromSensorReadyToSetUpAccConfigured(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES CONFIGURED")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isConfiguredLabelInSetUpAccessoriesConfiguredScreenVisible()
-							&& dasDIY.isSaveButtonInSetUpAccessoriesConfiguredScreenVisible()) {
-						dasDIY.clickOnSaveButtonInSetUpAccessoriesConfiguredScreen();
-						DIYRegistrationUtils.waitUntilFinishingUpLoadingSpinnerDisappears(testCase);
-						if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
-							dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
-						}
-						if (dasDIY.isGeoFencingHeaderTitleVisible(5)) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromSetUpAccConfiguredToEnableGeoFencing(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GEOFENCE": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isEnableButtonInGeoFencingScreenVisible()) {
-						dasDIY.clickOnEnableButtonInGeoFencingScreen();
-						if (dasDIY.isGeoFenceScreenHeaderTitleVisible()) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromEnableGeoFencingToGeoFence(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GEOFENCE ENABLED": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isCancelButtonInGeoFenceScreenVisible() && dasDIY.isUseLocationInGeoFenceScreenVisible()
-							&& dasDIY.isSaveButtonInGeoFenceScreenVisible()) {
-						dasDIY.clickOnSaveButtonInGeoFenceScreen();
-						DIYRegistrationUtils.waitForSavingGeoFencingProgressBarToComplete(testCase);
-						if (dasDIY.isGeoFenceEnabledScreenHeaderTitleVisible(15)) {
-							return true;
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromGeoFenceToGeoFenceEnabled(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE ENABLED")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE AMAZON ALEXA": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isGeoFenceEnabledScreenSubHeaderTitleVisible()
-							&& dasDIY.isSaveButtonGeoFenceEnabledScreenVisible()) {
-						dasDIY.clickOnSaveButtonGeoFenceEnabledScreen();
-						if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
-							dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromGeoFenceEnabledToEnableAmazonAlexa(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SMART HOME SECURITY SUCCESS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.isGeoFencingHeaderTitleVisible(5);
-					if (dasDIY.isEnableButtonInGeoFencingScreenVisible()) {
-						dasDIY.clickOnEnableButtonInGeoFencingScreen();
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE AMAZON ALEXA": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.isAmazonAlexaHeaderTitleVisible();
-					if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
-						dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromEnableGeoFencingToEnableAmazonAlexa(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					// System.out.println(testCase.getMobileDriver().getPageSource());
-					if (dasDIY.isIncreaseSecurityPopupVisible()) {
-						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-						}
-						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-							dasDIY.clickOnGotItButtonInQuickControlsPopup();
-						}
-						if (dasDIY.isIncreaseSecurityPopupVisible()) {
-							dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-						}
-					} else {
-						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-							dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-						}
-						if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-							dasDIY.clickOnGotItButtonInQuickControlsPopup();
-						}
-					}
-					break;
+					return DIYRegistrationUtils.navigateFromEnableAmazonAlexaToDashboard(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
@@ -898,6 +685,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "BASE STATION CONFIGURATION": {
+					flag = flag & DASSettingsUtils.navigateFromSensorScreenToBaseStationConfigurationScreen(testCase);
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -909,22 +700,6 @@ public class NavigateToScreen extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isAddNewDeviceScreenVisible(5)) {
 						return true;
-					}
-					break;
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("SENSORS")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isBackButtonVisible()) {
-						bs.clickOnBackButton();
-						if (bs.isBackButtonVisible(10)) {
-							bs.clickOnBackButton();
-							if (bs.isBackButtonVisible(10)) {
-								bs.clickOnBackButton();
-							}
-						}
 					}
 					break;
 				}

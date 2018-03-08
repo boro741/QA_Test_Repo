@@ -31,7 +31,7 @@ public class WaitForQRCodeToTimeout extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^QR code is not scanned for (.*) minutes$")
 	public boolean keywordSteps() {
-		DIYRegistrationUtils.waitForQRCodeScanningFailurePopupToDisplay(testCase,
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "QRCODE SCANNING FAILURE POPUP",
 				Integer.parseInt(numberOfMinutes.get(0)));
 		return flag;
 	}

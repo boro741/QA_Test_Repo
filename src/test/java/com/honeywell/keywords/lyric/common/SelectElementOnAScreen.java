@@ -17,7 +17,6 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
-import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -151,88 +150,22 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
-				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				switch (parameters.get(0).toUpperCase()) {
-				case "HOME": {
-					boolean flag = true;
-					if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isHomeLocationDisplayed()) {
-						flag = flag & dasDIY.clickOnHomeLocation();
-					}
-					return flag;
-				}
-				case "CALIFORNIA": {
-					boolean flag = true;
-					if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isCustomLocationTextFieldVisible()) {
-						flag = flag & dasDIY.enterCustomLocationName(parameters.get(0));
-					}
-					return flag;
-				}
-				}
+				return DIYRegistrationUtils.selectAvaiableLocation(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "LIVING ROOM": {
-					boolean flag = true;
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isLivingRoomBaseStationDisplayed()) {
-						flag = flag & dasDIY.clickOnLivingRoomBaseStation();
-					}
-					return flag;
-				}
-				case "KITCHEN": {
-					boolean flag = true;
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isKitchenInBaseStationDisplayed()) {
-						flag = flag & dasDIY.clickOnKitchenBaseStation();
-					}
-					return flag;
-				}
-				case "SCRUM ROOM": {
-					boolean flag = true;
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isCustomNameTextFieldDisplayed()) {
-						flag = flag & dasDIY.enterCustomNameInNameYourBaseStationScreen(parameters.get(0));
-					}
-					return flag;
-				}
-				}
+				return DIYRegistrationUtils.selectAvaiableBaseStationName(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
-					boolean flag = true;
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isMACIDVisible(parameters.get(0).toUpperCase())) {
-						flag = flag & dasDIY.clickOnMACID(parameters.get(0).toUpperCase());
-						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-					}
-					return flag;
+				return DIYRegistrationUtils.selectABaseStationFromListOfAvailableBaseStations(testCase,
+						parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
-
-				boolean flag = true;
-				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if (dasDIY.isConnectToNetworkHeaderDescVisible() && dasDIY.isAddANetworkButtonVisible()) {
-					flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(parameters.get(0));
-				}
-				dasDIY.isWiFiPasswordTextFieldVisibile();
-			}  else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
-				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				switch (parameters.get(0).toUpperCase()) {
-				case "DOOR": {
-					boolean flag = true;
-					if (dasDIY.isDoorOptionInNameSensorScreenVisible()) {
-						flag = flag & dasDIY.clickOnDoorOptionInNameSensorScreen();
-					}
-					return flag;
-				}
-				case "FRONT DOOR": {
-					boolean flag = true;
-					if (dasDIY.isFrontDoorOptionInNameSensorScreenVisible()) {
-						flag = flag & dasDIY.clickOnFrontDoorOptionInNameSensorScreen();
-						DIYRegistrationUtils.waitUntilSavingSensorLoadingSpinnerDisappears(testCase);
-					}
-					return flag;
-				}
-				}
+				return DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase, parameters.get(0));
+			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
 			}
+		} catch (
 
-		} catch (Exception e) {
+		Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

@@ -630,7 +630,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return MobileUtils.clickOnElement(testCase, "xpath",
 					"//android.widget.TextView[@text='" + sensorName + "']");
 		} else {
-			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@value='" + sensorName + "']");
+			return MobileUtils.clickOnElement(testCase, "xpath", "//XCUIElementTypeStaticText[@value='" + sensorName + "']");
 		}
 	}
 

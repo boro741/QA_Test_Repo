@@ -4,6 +4,7 @@ AddNewDeviceHeader	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New 
 SmartHomeSecurity	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	NAME	Smart Home Security	NAME	Smart Home Security	NAME	Smart Home Security
 ChooseLocationHeaderTitle	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@value='Choose Location']	XPATH	//*[@value='Choose Location']	XPATH	//*[@value='Choose Location']
 CancelButton	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Cancel	NAME	Cancel	NAME	Cancel
+CancelButtonInSetUp	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	XPATH	(//XCUIElementTypeButton[@name='Cancel'])[2]	XPATH	(//XCUIElementTypeButton[@name='Cancel'])[2]	XPATH	(//XCUIElementTypeButton[@name='Cancel'])[2]
 CancelPopupTitle	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?']	NAME	Cancel Setup?	NAME	Cancel Setup?	NAME	Cancel Setup?
 YesButtonInCancelSetUpPopup	ID	button1	ID	button1	ID	button1	NAME	Yes	NAME	Yes	NAME	Yes
 NoButtonInCancelSetUpPopup	ID	button2	ID	button2	ID	button2	NAME	No	NAME	No	NAME	No
@@ -19,6 +20,8 @@ SelectKitchenInNameYourBaseStation	XPATH	//android.widget.Button[@text='Kitchen'
 CustomNameTextField	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit	NAME	Custom	NAME	Custom	NAME	Custom
 PowerYourBaseStationHeaderTitle	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@text='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']	XPATH	//*[@value='Power Base Station']
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
+RightButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	XPATH	(//XCUIElementTypeButton[@name='RightButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='RightButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='RightButton'])[2]
+LeftButton	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]
 BackButtonInPowerBaseStationScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
 LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//XCUIElementTypeAlert	XPATH	//XCUIElementTypeAlert	XPATH	//XCUIElementTypeAlert
@@ -28,6 +31,7 @@ RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//
 MultipleBaseStationsScreenSubHeaderTitle	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	NAME	Multiple Base stations Found	NAME	Multiple Base stations Found	NAME	Multiple Base stations Found
 BaseStationMACID	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']
 QRCode	ID	qrcode_icon	ID	qrcode_icon	ID	qrcode_icon	xpath	//XCUIElementTypeImage	xpath	//XCUIElementTypeImage	xpath	//XCUIElementTypeImage
+RegisterBaseStationQRCodeScanText	XPATH	"//*[contains(@text, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@text, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@text, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@name, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@name, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@name, 'Scan this code by showing it to your Base Station')]"
 RefreshButtonInSelectBaseStationScreen	ID	fragment_diy_refresh	ID	fragment_diy_refresh	ID	fragment_diy_refresh	NAME	Refresh	NAME	Refresh	NAME	Refresh
 QRCodeScanningFailurePopupTitle	XPATH	//*[@text='Scanning Failure']	XPATH	//*[@text='Scanning Failure']	XPATH	//*[@text='Scanning Failure']	XPATH	//*[@name='Scanning Failure']	XPATH	//*[@name='Scanning Failure']	XPATH	//*[@name='Scanning Failure']
 OKButtonInQRCodeScanningFailurePopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']
@@ -111,3 +115,5 @@ DeleteLocationPopupTitle	XPATH	//*[@text='Delete Location?']	XPATH	//*[@text='De
 NoButtonInDeleteLocationPopup	ID	button2	ID	button2	ID	button2	NAME	NO	NAME	NO	NAME	NO
 YesButtonInDeleteLocationPopup	ID	button1	ID	button1	ID	button1	NAME	YES	NAME	YES	NAME	YES
 DeletingLocationLoadingSpinner	ID	progress	ID	progress	ID	progress	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
+DoneButtonInKeyboard							NAME	Done	NAME	Done	NAME	Done
+ReturnButtonInKeyboard							ID	Return	ID	Return	ID	Return

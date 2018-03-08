@@ -391,14 +391,14 @@ Scenario Outline: As a user I want to register a DAS device with new location an
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects <location name> from "Choose Location" screen
+When user inputs <new location name> in the "Choose Location" screen
 Then user should be displayed with the "Confirm Your ZIP Code" screen
 When user inputs <invalid zip code>
 Then user should receive a "Invalid zip code" popup
 When user "dismisses" the "Invalid zip code" popup
 When user inputs <valid zip code>
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
+When user inputs <new device name> in the "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
@@ -423,8 +423,8 @@ And user should not be displayed with <device name> device on dashboard
 Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
-      | location name                           | device name						| invalid zip code			| valid zip code				|
-      | California                              | Scrum Room						| 55555						| 90001						|
+      | new location name		| new device name		| invalid zip code		| valid zip code		|
+      | California				| Scrum Room				| 55555					| 90001				|
 
 @DIYRegistrationWithAddSensorAndEnableGeoFencing
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
@@ -471,8 +471,7 @@ And user "dismisses" the "Delete Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-When user navigates to "Dashboard" screen from the "Sensors" screen
-Then user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+When user navigates to "Base Station Configuration" screen from the "Sensors" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
@@ -581,8 +580,6 @@ And user should not be displayed with <device name> device on dashboard
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
-      | Office                                  | Scrum Room                      |
-      | abcdefghijklmnopqrstuvwxyzabcd          | abcdefghijklmnopqrstuvwxyzefgh  |
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 

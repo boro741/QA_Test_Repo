@@ -91,7 +91,7 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
 						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
 							return flag;
 						}
@@ -131,7 +131,7 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
 						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
 							return flag;
 						}
@@ -153,7 +153,7 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
 						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+						DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
 							return flag;
 						}
