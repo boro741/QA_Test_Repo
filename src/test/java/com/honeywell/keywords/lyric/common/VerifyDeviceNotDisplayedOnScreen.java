@@ -12,14 +12,14 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.ZwaveScreen;
 
-public class VerifyDeviceNotDisplayedOnDashboard extends Keyword {
+public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
 	private ArrayList<String> expectedDevice;
 	public boolean flag = true;
 
-	public VerifyDeviceNotDisplayedOnDashboard(TestCases testCase, TestCaseInputs inputs,
+	public VerifyDeviceNotDisplayedOnScreen(TestCases testCase, TestCaseInputs inputs,
 			ArrayList<String> expectedDevice) {
 		// this.inputs = inputs;
 		this.testCase = testCase;
