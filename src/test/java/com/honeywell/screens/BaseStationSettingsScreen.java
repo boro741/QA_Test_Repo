@@ -24,6 +24,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String VOLUME = "Volume";
 	public static final String BASESTATIONWIFI = "Base Station Wi-Fi";
 	public static final String SENSORS = "Sensors";
+	public static final String AMAZONALEXA = "Amazon Alexa";
+	public static final String VIDEOSETTINGS = "Video Settings";
+	public static final String MOTIONDETECTION = "Motion Detection";
+	public static final String NIGHTVISION = "Night Vision";
+	public static final String VIDEOQUALITY = "Video Quality";
 
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
@@ -69,9 +74,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value",
 							BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 				}
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EntryExitDelayOption");
-			}
-			if (this.isBaseStationConfigurationsOptionVisible()) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EntryExitDelayOption");
 			}
 			return flag;
@@ -128,6 +130,40 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return flag;
 		}
 
+		case BaseStationSettingsScreen.AMAZONALEXA: {
+			boolean flag = true;
+			if (this.isAmazonAlexaOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonAlexaOption");
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
+							BaseStationSettingsScreen.AMAZONALEXA);
+				} else {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value",
+							BaseStationSettingsScreen.AMAZONALEXA);
+				}
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonAlexaOption");
+			}
+			return flag;
+		}
+		
+		case BaseStationSettingsScreen.VIDEOSETTINGS:{
+			boolean flag = true;
+			if (this.isVideoSettingsOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoSettingsOption");
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
+							BaseStationSettingsScreen.VIDEOSETTINGS);
+				} else {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "value",
+							BaseStationSettingsScreen.VIDEOSETTINGS);
+				}
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoSettingsOption");
+			}
+			return flag;
+		}
+
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",
@@ -148,6 +184,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3);
 	}
 
+	public boolean isAmazonAlexaOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaOption", 3);
+	}
+
+	public boolean isVideoSettingsOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoSettingsOption", 3);
+	}
+	
 	public boolean isKeyFobOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyFobOption", 3);
 	}
@@ -201,11 +245,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isElementEnabled(String elementName) throws Exception {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (elementName.equals(BaseStationSettingsScreen.GEOFENCING)) {
-				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingOption", 3)) {
+				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceOption", 3)) {
 					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
 							BaseStationSettingsScreen.GEOFENCING);
 				}
-				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingOption")
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceOption")
 						.getAttribute("enabled"));
 			} else if (elementName.equals(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS)) {
 				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3)) {
@@ -228,7 +272,34 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				}
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption")
 						.getAttribute("enabled"));
-			} else {
+			} 
+			else if (elementName.equals(BaseStationSettingsScreen.MOTIONDETECTION)) {
+				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionOption", 3)) {
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
+							BaseStationSettingsScreen.MOTIONDETECTION);
+				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionOption")
+						.getAttribute("enabled"));
+			}
+			else if (elementName.equals(BaseStationSettingsScreen.NIGHTVISION)) {
+				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOption", 3)) {
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
+							BaseStationSettingsScreen.NIGHTVISION);
+				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionOption")
+						.getAttribute("enabled"));
+			}
+			else if (elementName.equals(BaseStationSettingsScreen.VIDEOQUALITY)) {
+				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityOption", 3)) {
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
+							BaseStationSettingsScreen.VIDEOQUALITY);
+				}
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityOption")
+						.getAttribute("enabled"));
+			}
+			
+			
+			else {
 				throw new Exception("Invalid Input : " + elementName);
 			}
 		} else {
@@ -694,6 +765,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
+	public boolean clickOnAlexaAppButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlexaAppLink");
+	}
+
 	public boolean isMotionSensorDeletePopUpMessageVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorDeletePopUpMessage", 3);
 	}
@@ -729,6 +804,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		float sliderLength = d1.getWidth();
 		float pixelPerPercent = sliderLength / 100;
 		float pixelToBeMoved = Integer.parseInt(value) * pixelPerPercent;
+		System.out.println("Setting for " + value);
+		System.out.println("X: " + (int) (p1.getX() + pixelToBeMoved));
+		System.out.println("Y: " + p1.getY());
 		return MobileUtils.clickOnCoordinate(testCase, (int) (p1.getX() + pixelToBeMoved), p1.getY());
 	}
 
@@ -753,4 +831,35 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
+	public boolean verifyAlexaAppPlayStoreTitleIsVisible(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PlayStoreAppTitle", 15)) {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "PlayStoreAppTitle").getAttribute("text")
+					.equalsIgnoreCase("Amazon Alexa")) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			throw new Exception("Play Store Download Page not displayed");
+		}
+	}
+
+	public boolean isGeofencingSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSwitch", 3)) {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSwitch").getAttribute("text")
+					.equalsIgnoreCase("ON")) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			throw new Exception("Could not find Geofencing Status Switch");
+		}
+	}
+
+	public boolean toggleGeofenceSwitch(TestCases testCase)
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceSwitch");
+	}
+	
 }

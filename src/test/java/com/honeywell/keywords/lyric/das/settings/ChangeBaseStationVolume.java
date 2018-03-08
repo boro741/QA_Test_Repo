@@ -39,10 +39,41 @@ public class ChangeBaseStationVolume extends Keyword {
 			{
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.VOLUME);
-				String value = parameters.get(1).split("~")[1].split("%")[0];
+				String value = parameters.get(1).split("%")[0].split("~")[1];
 				if(bs.setValueToVolumeSlider(value))
 				{
-					System.out.println("Successfully set");
+					Keyword.ReportStep_Pass(testCase, "Successfully set the volume to " + parameters.get(1));
+				}
+				else
+				{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set the volume to: " + parameters.get(1));
+				}
+			}
+			else if(parameters.get(0).equalsIgnoreCase("Geofencing Status"))
+			{
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if(parameters.get(1).equalsIgnoreCase("ON"))
+				{
+					if(bs.isGeofencingSwitchEnabled(testCase))
+					{
+						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");
+					}
+					else
+					{
+						flag = flag & bs.toggleGeofenceSwitch(testCase);
+					}
+				}
+				else if(parameters.get(1).equalsIgnoreCase("OFF"))
+				{
+					if(!bs.isGeofencingSwitchEnabled(testCase))
+					{
+						Keyword.ReportStep_Pass(testCase, "Geofence is already disabled on the settings page");
+					}
+					else
+					{
+						flag = flag & bs.toggleGeofenceSwitch(testCase);
+					}
 				}
 			}
 					

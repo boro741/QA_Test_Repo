@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
+import com.honeywell.lyric.das.utils.DASUtils;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -547,9 +548,37 @@ public class CHILUtil implements AutoCloseable {
 
 			result = doPutRequest(url, headerData).getResponseCode();
 		} else {
-			throw new Exception("Not connected to CHIL");
+			throw new Exception("Not connected to CHIL");        
 		}
 		return result;
 	}
 
+	public int changeDASCameraModeStatus(TestCases testCase, TestCaseInputs inputs, long locationID, String cameraID,
+			boolean turnOn) throws Exception {
+		if (isConnected) {
+			JSONObject cameraConfig = DASUtils.getDASCameraConfig(testCase, inputs);
+			String url = this.chilURL + "api/locations/" + locationID + "/devices/" + cameraID
+					+ "/config?CameraKind=HONDAS";
+			cameraConfig.put("privacyMode", turnOn ? "off" : "on");
+			cameraConfig.remove("deviceId");
+			String headerData = cameraConfig.toString();
+			return doPostRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+	}
+
+	public int changeLocationGeofenceStatus(boolean turnOn, long locationID) throws Exception
+	{
+		if (isConnected) {
+			String url = chilURL + String.format("api/v2/locations/%s", locationID);
+			String headerData = String.format("{\"country\":\"US\",\"geoFenceEnabled\":%s,\"locationID\":%s,\"originCoordinates\":{\"TAG\":\"CoordinatesType\",\"latitude\":12.9251375,\"longitude\":77.68699},\"radius\":878}", turnOn,locationID);
+			return doPutRequest(url, headerData).getResponseCode();
+		}
+		else {
+			throw new Exception("Not connected to CHIL");
+		}
+
+	}
+	
 }
