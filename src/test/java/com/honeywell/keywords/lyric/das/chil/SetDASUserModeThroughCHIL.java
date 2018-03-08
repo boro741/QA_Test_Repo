@@ -88,6 +88,18 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						}
 						break;
 					}
+					case "OFF": {
+						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+								"Off", testCase);
+						if (result == 202) {
+							Keyword.ReportStep_Pass(testCase, "Base station is set to Night Mode");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not set base station in NIGHT MODE : " + result);
+						}
+						break;
+					}
 					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

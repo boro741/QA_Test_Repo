@@ -24,7 +24,7 @@ CancelFurtherExcludeButton	Xpath	//*[@text='CANCEL']					NAME	CANCEL	NAME	CANCEL
 ConfirmFurtherExcludeButton	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
 NameTheDeviceTitle	Xpath	//*[@text='Name the device']					NAME	Name the Device	NAME	Name the Device	NAME	Name the Device
 NameEditField	ID	custom_generic_edit_naming					Xpath	//XCUIElementTypeTextField	Xpath	//XCUIElementTypeTextField	Xpath	//XCUIElementTypeTextField
-DoneButtonAfterNaming	Xpath	//*[@text='Done']					NAME	Done	NAME	Done	NAME	Done
+DoneButtonAfterNaming	Xpath	//*[@text='Done']					NAME	RightButton	NAME	RightButton	NAME	RightButton
 ReturnKeypad							NAME	Return	NAME	Return	NAME	Return
 ZwaveUtilitiesMenu	Xpath	//*[@text='Z-Wave Utilities']					NAME	Z-Wave Utilities				
 SwitchSettingsMenu	Xpath	"//*[contains(@text,'Switch')]"					Xpath	"//*[contains(@value,'Switch')]"				
@@ -91,6 +91,8 @@ FactoryResetProgress	Xpath	//*[@text='Z-Wave factory reset is in progress']					
 FactoryResetSuccessfullPopup							NAME	Factory Reset successful				
 FactoryResetSuccessfullPopupMessage							NAME	Make sure to exclude every device before connecting again.				
 FactoryResetSuccessfullAck							NAME	OK				
+FactoryResetFailedPopup	Xpath	//*[@text='Factory Reset failed']										
+FactoryResetFailedPopupAck	Xpath	//*[@text='OK']										
 ZwaveDevicesList	ID	ll_row_parent					XPATH	"//*[contains(@name,'_cell')]"				
 ZwaveDevicesName	ID	settings_title_view										
 ZwaveDevicesStatus	ID	settings_value_view					XPATH	"//*[contains(@name,'_value')]"				

@@ -1,6 +1,5 @@
 package com.honeywell.lyric.das.utils;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.TimeoutException;
@@ -11,11 +10,11 @@ import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -24,15 +23,16 @@ public class DASZwaveUtils {
 	//Activate device screen actions
 	public static boolean timeOutForNoActivatedDevice(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		AddNewDeviceScreen addDeviceScreen= new AddNewDeviceScreen(testCase);
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
+			fWait.withTimeout(2, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "RetryOption",1)||MobileUtils.isMobElementExists(fieldObjects, testCase, "NoDeviceToExcludePopupHeader",1)) {
+						if (addDeviceScreen.isAddNewDeviceHeaderDisplayed()||zScreen.isRetryOnDeviceNotFoundPopUpDisplayed()||zScreen.isNoDeviceToExcludePopupHeaderDisplayed()) {
 							return true;
 						} else {
 							return false;
@@ -57,15 +57,15 @@ public class DASZwaveUtils {
 	}
 	public static boolean waitForEnteringInclusionToComplete(TestCases testCase) {
 		boolean flag = true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EnteringInclusionModeOverlay", 5)) {
+						if (zScreen.isEnteringInclusionModeOverlayDisplayed()) {
 							System.out.println("Waiting for Entering inclusion to disappear");
 							return false;
 						} else {
@@ -92,8 +92,8 @@ public class DASZwaveUtils {
 
 	public static boolean verifyDeviceNotFoundPopUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DeviceNotFoundPopup", 3)) {
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		if (zScreen.isDeviceNotFoundPopupDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Device Not Found Pop Up Title is correctly displayed");
 		} else {
 			flag = false;
@@ -107,14 +107,14 @@ public class DASZwaveUtils {
 	public static boolean waitForSwitchingToComplete(TestCases testCase) {
 		boolean flag = true;
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwavePrimaryScreen");
+			ZwavePrimardCardScreen zPrimaryScreen = new ZwavePrimardCardScreen(testCase);
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SwitchingToOverlay", 5)) {
+						if (zPrimaryScreen.isSwitchingToOverlayDisplayed()) {
 							System.out.println("Waiting for Switching to complete");
 							return false;
 						} else {
@@ -141,15 +141,16 @@ public class DASZwaveUtils {
 
 	public static boolean waitForToggleActionToComplete(TestCases testCase) {
 		boolean flag = true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ToggleStatusProgress", 5)) {
+						if (zScreen.isToggleStatusProgressDisplayed()) {
 							System.out.println("Waiting for Switching to complete");
 							return false;
 						} else {
@@ -173,23 +174,23 @@ public class DASZwaveUtils {
 		}
 		return flag;
 	}
-	
-	
+
+
 	public static boolean clickCancelFromNavigation(TestCases testCase) {
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 		return zwaveScreen.clickCancelFromNavigation();
 	}
-	
+
 	public static boolean clickConfirmOnCancelFromNavigation(TestCases testCase) {
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 		return zwaveScreen.clickConfirmOnCancelFromNavigation();
 	}
-	
-	
-	public static boolean clickNavigateUp(TestCases testCase, TestCaseInputs inputs) {
+
+
+	public static boolean clickNavigateUp(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "NavigateBack");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		zScreen.clickNavigateBack();
 		return flag;
 	}
 
@@ -226,11 +227,28 @@ public class DASZwaveUtils {
 		return flag;
 	}
 
+	public static boolean navigateToSwitchPrimaryCardFromSwitchSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
+		return flag;
+	}
+
+	public static boolean navigateToDashboardFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs){
+		boolean flag = true;
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		return flag;
+	}
+
 	public static boolean waitForNamingScreen(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		MobileUtils.isMobElementExists(fieldObjects, testCase, "NameTheDeviceTitle");
-		MobileUtils.isMobElementExists(fieldObjects, testCase, "NameTheDeviceTitle");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		zScreen.isNameTheDeviceTitleDisplayed();
+		zScreen.isNameTheDeviceTitleDisplayed();
 		return flag;
 	}
 	// Remove popup
@@ -280,9 +298,9 @@ public class DASZwaveUtils {
 		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 		return zwaveScreen.clickConfirmFurtherExclusionOnExcludedPopup();
 	}
-//FixAllProgress
-	
-	public static boolean waitForActionToComplete(TestCases testCase,HashMap<String, MobileObject> fieldObjects,String locator) {
+	//FixAllProgress
+
+	public static boolean waitForActionToComplete(TestCases testCase,String actionName) {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
@@ -291,193 +309,224 @@ public class DASZwaveUtils {
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, locator, 5)) {
-							return false;
-						} else {
-							return true;
+						switch(actionName.toUpperCase()){
+						case "FIX ALL":{
+							ZwaveScreen zScreen = new ZwaveScreen(testCase);
+							if(zScreen.isFixAllProgressDisplayed()){
+								return false;
+							}else {
+								return true;
+							}
 						}
-					} catch (Exception e) {
-						return false;
-					}
+						case "REPLACE PROGRESS":{
+							ZwaveScreen zScreen = new ZwaveScreen(testCase);
+							if(zScreen.isReplaceProgressDisplayed()){
+								return false;
+							}else {
+								return true;
+							}
+						}
+						default:{
+							Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
+									actionName+" input not handled");
+						}
+					    } 
+				    } catch (Exception e) {
+					return false;
 				}
-			});
+					return false;
+			}
+		});
 			if (isEventReceived) {
 				Keyword.ReportStep_Pass(testCase, "Screen diasppeared");
 			}
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					locator+" did not disapper after waiting for 1 minute");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
-		}
-		return flag;
+	} catch (TimeoutException e) {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				actionName+" did not disapper after waiting for 1 minute");
+	} catch (Exception e) {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 	}
-	
-	
-	//Exclude screen elements
+	return flag;
+}
 
-	public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
-		boolean flag = true;
-		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
-			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-				public Boolean apply(String a) {
-					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EnteringExclusionModeOverlay", 5)) {
-							System.out.println("Waiting for Entering exclusion to disappear");
-							return false;
-						} else {
-							return true;
-						}
-					} catch (Exception e) {
+//Exclude screen elements
+
+public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
+	boolean flag = true;
+	try {
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		FluentWait<String> fWait = new FluentWait<String>(" ");
+		fWait.pollingEvery(3, TimeUnit.SECONDS);
+		fWait.withTimeout(1, TimeUnit.MINUTES);
+		Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+			public Boolean apply(String a) {
+				try {
+					if (zScreen.isEnteringExclusionModeOverlayDisplayed()) {
+						System.out.println("Waiting for Entering exclusion to disappear");
 						return false;
+					} else {
+						return true;
 					}
+				} catch (Exception e) {
+					return false;
 				}
-			});
-			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Entering inclusion diasppeared");
 			}
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Entering inclusion did not disapper after waiting for 1 minute");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		});
+		if (isEventReceived) {
+			Keyword.ReportStep_Pass(testCase, "Entering inclusion diasppeared");
 		}
-		return flag;
+	} catch (TimeoutException e) {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Entering inclusion did not disapper after waiting for 1 minute");
+	} catch (Exception e) {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 	}
+	return flag;
+}
 
-	public static boolean verifyDeviceExcludedPopUp(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupTitle")) {
-			//MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage");
-			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
-			/*String message, locator = "";
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				locator = "xpath";
-				message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
-			} else {
-				locator = "name";
-				message = "This device will be permanently removed. Are you sure?";
-			}
-			 */
-			//if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
-			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage")){
-				Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Device Excluded Pop Up message displayed incorrectly");
-			}
+public static boolean verifyDeviceExcludedPopUp(TestCases testCase, TestCaseInputs inputs) {
+	boolean flag = true;
+	ZwaveScreen zScreen = new ZwaveScreen(testCase);
+	if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
+		Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
+		if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
+			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Device Excluded Pop Up not displayed");
+					"Device Excluded Pop Up message displayed incorrectly");
 		}
-		return flag;
-	} 
-	public static boolean clickCancelOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
-		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		return zwaveScreen.clickNoDeviceToExcludePopupCancel();
+	} else {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Device Excluded Pop Up not displayed");
 	}
+	return flag;
+} 
+public static boolean clickCancelOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
+	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+	return zwaveScreen.clickNoDeviceToExcludePopupCancel();
+}
 
-	public static boolean clickRetryOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
-		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		return zwaveScreen.clickNoDeviceToExcludePopupRetry();
-	}
+public static boolean clickRetryOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
+	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+	return zwaveScreen.clickNoDeviceToExcludePopupRetry();
+}
 
-	public static boolean verifyDeviceDeletedPopUp(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupTitle")) {
-			//MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage");
-			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
-			/*String message, locator = "";
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				locator = "xpath";
-				message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
-			} else {
-				locator = "name";
-				message = "This device will be permanently removed. Are you sure?";
-			}
-			 */
-			//if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
-			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage")){
-				Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Device Excluded Pop Up message displayed incorrectly");
-			}
+public static boolean verifyDeviceDeletedPopUp(TestCases testCase, TestCaseInputs inputs) {
+	boolean flag = true;
+	ZwaveScreen zScreen = new ZwaveScreen(testCase);
+	if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
+		Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
+		if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
+			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Device Excluded Pop Up not displayed");
+					"Device Excluded Pop Up message displayed incorrectly");
 		}
-		return flag;
+	} else {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Device Excluded Pop Up not displayed");
 	}
-	public static void increaseDimmerIntensity(TestCases testCase,
-			int intensityToBeSet) {
-		ZwavePrimardCardScreen zps = new ZwavePrimardCardScreen(testCase);
-		WebElement slider = zps.getDimmerSeekBar();
-		int xAxisStartPoint = slider.getLocation().getX() + 90;
-		int yAxis = slider.getLocation().getY()
-				+ (slider.getSize().getHeight() / 2);
-		double sliderWidth = slider.getSize().getWidth() - 150;
-		double pixelsPerPercent = sliderWidth / 100;
-		double pixelsToBeMoved = (intensityToBeSet * pixelsPerPercent);
-		Keyword.ReportStep_Pass(testCase, "Setting the dimmer intensity to: "
-				+ intensityToBeSet);
-		MobileUtils.clickOnCoordinate(testCase,
-				(int) (xAxisStartPoint + pixelsToBeMoved), yAxis);
-		if (zps.isDimmerSeekBarVisible()) {
+	return flag;
+}
+public static void increaseDimmerIntensity(TestCases testCase,
+		int intensityToBeSet) {
+	ZwavePrimardCardScreen zps = new ZwavePrimardCardScreen(testCase);
+	WebElement slider = zps.getDimmerSeekBar();
+	int xAxisStartPoint = slider.getLocation().getX() + 90;
+	int yAxis = slider.getLocation().getY()
+			+ (slider.getSize().getHeight() / 2);
+	double sliderWidth = slider.getSize().getWidth() - 150;
+	double pixelsPerPercent = sliderWidth / 100;
+	double pixelsToBeMoved = (intensityToBeSet * pixelsPerPercent);
+	Keyword.ReportStep_Pass(testCase, "Setting the dimmer intensity to: "
+			+ intensityToBeSet);
+	MobileUtils.clickOnCoordinate(testCase,
+			(int) (xAxisStartPoint + pixelsToBeMoved), yAxis);
+	if (zps.isDimmerSeekBarVisible()) {
+		Keyword.ReportStep_Pass(testCase,
+				"Successfully changed dimmer intensity");
+	} else {
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Failed to change dimmer intensity");
+	}
+
+}
+public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
+	try {
+		DashboardUtils.selectDeviceFromDashboard(testCase,"Switch1");
+		PrimaryCard pScreen = new PrimaryCard(testCase);
+		if (pScreen.clickOnCogIcon()) {
 			Keyword.ReportStep_Pass(testCase,
-					"Successfully changed dimmer intensity");
+					"Navigated to  Zwave DEVICES");
+			return true;
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Failed to change dimmer intensity");
+					"Could not click on Zwave DEVICES menu from Global drawer");
 		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 
+	return false;
+}
+
+public static boolean navigateToSwitchSettingsFromDashboard(TestCases testCase) {
+	navigateToZwaveDevicesFromDashboard(testCase);
+	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+	if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Could not click on Switch Settings From Zwave Utilities");
+	} else {
+		Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
+		return true;
 	}
-	public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
-		Dashboard ds = new Dashboard(testCase);
-		if (ds.clickOnGlobalDrawerButton()) {
-			SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-			if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-					Keyword.ReportStep_Pass(testCase,
-							"Navigated to  Zwave DEVICES");
-					return true;
-			} else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Could not click on Zwave DEVICES menu from Global drawer");
-			}
-		} else {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Could not click on Global drawer menu from dashboard");
-		}
-		return false;
+	return false;
+}
+
+public static boolean navigateToDimmerSettingsFromDashboard(TestCases testCase) {
+	navigateToZwaveDevicesFromDashboard(testCase);
+	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+	if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Could not click on Dimmer Settings From Zwave Utilities");
+	} else {
+		Keyword.ReportStep_Pass(testCase, "Clicked on Dimmer Setting From ZwaveUtilities");
+		return true;
 	}
-	public static boolean navigateToControllerDetailsFromDashboard(TestCases testCase) {
-		navigateToZwaveUtilitiesFromDashboard(testCase);
-		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		return zwaveScreen.clickModelandFirmwareDetailsMenu();
+	return false;
+}
+
+public static boolean navigateToControllerDetailsFromDashboard(TestCases testCase) {
+	navigateToZwaveUtilitiesFromDashboard(testCase);
+	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+	return zwaveScreen.clickModelandFirmwareDetailsMenu();
+}
+public static boolean isControllerDetailsDisplayed(TestCases testCase) {
+	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+	return zwaveScreen.isZwaveUtitiesScreenDisplayed();  
+
+}
+
+public static boolean navigateToAddDeviceScreenFromDashboardThroughIcon(TestCases testCase) {
+	Dashboard ds = new Dashboard(testCase);
+	if (ds.clickOnAddNewDeviceIcon()) {
+		AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+		ads.clickOnZwaveFromAddNewDevice();
+		return true;
+	} else {
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Could not click on Global drawer menu from dashboard");
 	}
-	public static boolean isControllerDetailsDisplayed(TestCases testCase) {
-		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		return zwaveScreen.isZwaveUtitiesScreenDisplayed();  
-		
-	}
-	
+	return false;
+}
+
 
 }

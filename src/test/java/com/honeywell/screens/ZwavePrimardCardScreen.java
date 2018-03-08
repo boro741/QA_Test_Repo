@@ -20,6 +20,10 @@ public class ZwavePrimardCardScreen extends MobileScreens{
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchPrimaryCardStatus");
 		}
 		
+		public boolean isSwitchingToOverlayDisplayed(){
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchingToOverlay");
+		}
+		
 		public String getSwitchStatus(){
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "SwitchPrimaryCardStatus");
 		}

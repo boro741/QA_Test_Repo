@@ -28,12 +28,12 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 	private TestCases testCase;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
-	private TestCaseInputs inputs;
+	//private TestCaseInputs inputs;
 	public HashMap<String, MobileObject> fieldObjects;
 
 	public RemoveZwaveDeviceCleanUp(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
-		this.inputs = inputs;
+		//this.inputs = inputs;
 		this.parameters = parameters;
 	}
 
@@ -92,8 +92,8 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 								TimeUnit.SECONDS.sleep(2);
 								ZWaveRelayUtils.pressButtonOnSwitch1();
 								zwaveScreen.clickOKOnDeviceExcludedPopUp();
-								DASZwaveUtils.clickNavigateUp(testCase, inputs);
-								DASZwaveUtils.clickNavigateUp(testCase, inputs);
+								DASZwaveUtils.clickNavigateUp(testCase);
+								DASZwaveUtils.clickNavigateUp(testCase);
 							}else{
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Could not click on "+parameters.get(0));

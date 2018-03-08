@@ -348,6 +348,10 @@ public class CHILUtil implements AutoCloseable {
 						headerData = "{\"ArmType\":\"1\"," + "\"InstantArm\":\"true\"" + ",\"SilenceBeep\":\"false\""
 								+ ",\"QuickArm\":\"false\"" + ",\"BypassSensors\": []}";
 
+					} else if (modeToSet.toUpperCase().contains("OFF")) {
+						url = this.chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID
+								+ "/partitions/1/Disarm";
+						headerData = "{\"EnableSilentMode\":\"true\""+"}";
 					}
 					result = doPutRequest(url, headerData).getResponseCode();
 				}
