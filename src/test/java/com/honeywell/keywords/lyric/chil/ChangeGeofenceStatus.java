@@ -41,8 +41,8 @@ public class ChangeGeofenceStatus extends Keyword {
 				CHILUtil chUtil = new CHILUtil(inputs);
 				if (parameters.get(1).equalsIgnoreCase("enabled")) {
 					status = true;
-				} else if (parameters.get(1).equalsIgnoreCase("enabled")) {
-					status = true;
+				} else if (parameters.get(1).equalsIgnoreCase("disabled")) {
+					status = false;
 				} else {
 					flag = false;
 					throw new Exception("Invalid Input: " + parameters.get(0));
