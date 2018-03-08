@@ -3,6 +3,7 @@ package com.honeywell.jasper.utils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
@@ -1961,7 +1964,7 @@ public class JasperSchedulingUtils {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Incorrect time chooser identifier");
 				}
-				if (setTime.toUpperCase().contains(time.toUpperCase())) {
+				if (setTime.toUpperCase().contains(time.toUpperCase().replaceAll("^0*", ""))) {
 					Keyword.ReportStep_Pass(testCase, "Verify Set Period Time : Time is set to " + time);
 				} else {
 					flag = false;
@@ -5868,6 +5871,7 @@ public class JasperSchedulingUtils {
 				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 				heatUp = ss.getHeatSetPointUpButton();
 				heatDown = ss.getHeatSetPointDownButton();
+
 			} else {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
@@ -5878,8 +5882,8 @@ public class JasperSchedulingUtils {
 					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 
 					heatUp = ss.getHeatSetPointUpButton(index);
-					;
 					heatDown = ss.getHeatSetPointDownButton();
+
 				}
 			}
 		}
