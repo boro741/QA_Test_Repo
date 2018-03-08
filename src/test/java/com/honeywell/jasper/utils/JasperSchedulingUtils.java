@@ -32,7 +32,6 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.Schedule;
 
 import io.appium.java_client.TouchAction;

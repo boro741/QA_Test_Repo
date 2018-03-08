@@ -1,10 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -13,17 +9,15 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.Schedule;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -81,13 +75,13 @@ public class NavigateToScreen extends Keyword {
 				case "SWITCH PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+					DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					NavigateToPrimaryCardFromDashboard(testCase, "Dimmer1");
+					DashboardUtils.selectDeviceFromDashboard(testCase, "Dimmer1");
 					break;
 				}
 				}
@@ -101,7 +95,7 @@ public class NavigateToScreen extends Keyword {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+					DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
 					break;
 				}
 				case "DASHBOARD": {
@@ -121,7 +115,7 @@ public class NavigateToScreen extends Keyword {
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
 					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					NavigateToPrimaryCardFromDashboard(testCase, "Dimmer1");
+					DashboardUtils.selectDeviceFromDashboard(testCase, "Dimmer1");
 					break;
 				}
 				case "DASHBOARD": {
@@ -171,7 +165,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SWITCH PRIMARY CARD": {
-					NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
+					DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
 					break;
 				}
 				case "SWITCH SETTINGS": {
@@ -205,7 +199,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
-					NavigateToPrimaryCardFromDashboard(testCase, "Dimmer1");
+					DashboardUtils.selectDeviceFromDashboard(testCase, "Dimmer1");
 					break;
 				}
 				case "DIMMER SETTINGS": {
@@ -723,72 +717,4 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 
-	public static boolean NavigateToDashboardFromAnyScreen(TestCases testCase) {
-		boolean flag = true;
-		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			Schedule sch = new Schedule(testCase);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) {
-				Keyword.ReportStep_Pass(testCase,
-						"Navigate To Primary Card : User is already on the Primary Card or Dashboard");
-				return flag;
-			} else {
-				int i = 0;
-				while ((!MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")) && i < 10) {
-					if (sch.isCloseButtonVisible(3)) {
-						flag = flag & sch.clickOnCloseButton();
-					} else if (bs.isBackButtonVisible(2)) {
-						flag = flag & bs.clickOnBackButton();
-					} else if (bs.isBackButtonVisible(2)) {
-						flag = flag & bs.clickOnBackButton();
-					}
-					i++;
-				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GlobalDrawerButton")
-						|| (MobileUtils.isMobElementExists(fieldObjects, testCase, "AddNewDeviceIcon"))) {
-					Keyword.ReportStep_Pass(testCase,
-							"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Navigate To Primary Card : Failed to navigate to Primary card or Dashboard");
-				}
-			}
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Navigate To Primary Card : Error Occured : " + e.getMessage());
-		}
-		return flag;
-	}
-
-	public static boolean NavigateToPrimaryCardFromDashboard(TestCases testCase, String expectedDevice) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 30)) {
-			List<WebElement> dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase,
-					"DashboardIconText");
-			for (WebElement e : dashboardIconText) {
-				String displayedText = "";
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					displayedText = e.getText();
-				} else {
-					try {
-						displayedText = e.getAttribute("value");
-					} catch (Exception e1) {
-					}
-				}
-				if (displayedText.equalsIgnoreCase(expectedDevice)) {
-					e.click();
-					Keyword.ReportStep_Pass(testCase, "Clicked on device: " + expectedDevice);
-					break;
-				}
-			}
-		} else {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard Icons not found");
-		}
-		return flag;
-	}
 }
