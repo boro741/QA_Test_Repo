@@ -19,8 +19,7 @@ public class SelectBaseStationMACID extends Keyword {
 	public boolean flag = true;
 	private ArrayList<String> expectedMACID;
 
-	public SelectBaseStationMACID(TestCases testCase, TestCaseInputs inputs,
-			ArrayList<String> expectedMACID) {
+	public SelectBaseStationMACID(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedMACID) {
 		// this.inputs = inputs;
 		this.testCase = testCase;
 		this.expectedMACID = expectedMACID;
@@ -39,17 +38,16 @@ public class SelectBaseStationMACID extends Keyword {
 		if (testCase.isTestSuccessful()) {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			try {
-				DIYRegistrationUtils.selectABaseStation(testCase, inputs, expectedMACID.get(0));
+				flag = flag & DIYRegistrationUtils.selectABaseStation(testCase, inputs, expectedMACID.get(0));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
-			dasDIY.isRegisterBaseStationHeaderTitleVisible();
-			dasDIY.isQRCodeDisplayed();
+			DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+			flag = flag & dasDIY.isRegisterBaseStationHeaderTitleVisible();
+			flag = flag & dasDIY.isQRCodeDisplayed();
 		} else {
 			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-					FailType.FUNCTIONAL_FAILURE,
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Scenario steps failed already, hence skipping the verification");
 		}
 		return flag;

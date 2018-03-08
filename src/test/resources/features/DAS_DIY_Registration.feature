@@ -205,9 +205,9 @@ Then user should be displayed with the "Power Base Station" screen
 @DIYTurnOffMobileDeviceBluetooth
 Scenario: As a user I should be prompted with Bluetooth is off popup when mobile device Bluetooth is off
 Given user launches and logs in to the Lyric application
-When And user turns "off" mobile device Bluetooth
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user turns "off" mobile device Bluetooth
+Then user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+When user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 And user navigates to "Choose Location" screen from the "Smart Home Security" screen
 Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
 And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
@@ -391,14 +391,14 @@ Scenario Outline: As a user I want to register a DAS device with new location an
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects <location name> from "Choose Location" screen
+When user inputs <new location name> in the "Choose Location" screen
 Then user should be displayed with the "Confirm Your ZIP Code" screen
 When user inputs <invalid zip code>
 Then user should receive a "Invalid zip code" popup
 When user "dismisses" the "Invalid zip code" popup
 When user inputs <valid zip code>
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
+When user inputs <new device name> in the "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
@@ -410,39 +410,8 @@ Then user navigates to "Smart Home Security Success" screen from the "Connect to
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-#And user creates a passcode if required
-#And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
-And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
-And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with "Security" device on the "dashboard" screen
-Then user should not be displayed with <device name> device on the "dashboard" screen
-
-Examples: 
-      | location name                           | device name						| invalid zip code			| valid zip code				|
-      | California                              | Scrum Room						| 55555						| 90001						|
-
-@DIYRegistrationWithSensorsGeoFencingOnAndAlexaConnect
-Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
-Given user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-And user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-#And user creates a passcode if required
-And user disables the passcode through CHIL
+##And user creates a passcode if required
+##And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -451,12 +420,67 @@ Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on dashboard
 And user should not be displayed with <device name> device on dashboard
+Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
-      | location name                           | device name                     | 
-      | Home                                    | Living Room                     |
-      | Office                                  | Scrum Room                      |
-      | abcdefghijklmnopqrstuvwxyzabcd          | abcdefghijklmnopqrstuvwxyzefgh  |
+      | new location name		| new device name		| invalid zip code		| valid zip code		|
+      | California				| Scrum Room				| 55555					| 90001				|
+
+@DIYRegistrationWithAddSensorAndEnableGeoFencing
+Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
+Given user launches and logs in to the Lyric application
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user navigates to "Set Up Accessories" screen from the "Connect to Network" screen
+And user navigates to "Overview" screen from the "Set Up Accessories" screen
+Then user navigates to "Locate Sensor" screen from the "Overview" screen
+And user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+When user selects <sensor location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects <sensor location area> from "Name Sensor" screen
+Then user should be displayed with the "Check Location" screen
+And user navigates to "Check Location Signal" screen from the "Check Location" screen
+Then user navigates to "Prepare Sensor" screen from the "Check Location Signal" screen
+And user navigates to "Place Adhesive strips" screen from the "Prepare Sensor" screen
+Then user navigates to "Mount Sensor" screen from the "Place Adhesive strips" screen
+And user navigates to "Sensor Ready" screen from the "Mount Sensor" screen
+Then user navigates to "Set Up Accessories configured" screen from the "Sensor Ready" screen
+And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
+Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
+And user navigates to "Geofence Enabled" screen from the "Geofence" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
+When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "dismisses" the "Delete Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "accepts" the "Delete Sensor Confirmation" popup
+When user navigates to "Base Station Configuration" screen from the "Sensors" screen
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <device name> device on dashboard
+
+Examples: 
+      | location name	| device name		| sensor location		| sensor location area		|
+      | Home				| Living Room		| Door					| Front Door					|
 
 @DIYMultipleDASRegistrationsForTheSameAccount
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
@@ -465,50 +489,58 @@ When user navigates to "Add New Device Dashboard" screen from the "Dashboard" sc
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
+When user selects <first device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
 Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
-When user selects a base station with MAC ID "B8:2C:A0:00:07:D8"
-When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
-When user inputs "vibex888" as the WiFi Password 
+When user selects <Base Station MAC ID> from "Select Base Station" screen
+And user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
-And user disables the passcode through CHIL
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
+And user should be displayed with <first device name> device on the "dashboard" screen
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects <device name> from "Name Your Base Station" screen
+When user selects <second device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-Then user navigates to "Select Base Station" screen from the "Power Base Station Instructions" screen
-When user selects a base station with MAC ID "B8:2C:A0:00:07:D8"
-When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
-When user inputs "vibex888" as the WiFi Password 
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user should be displayed with <second device name> device on the "dashboard" screen
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+And user should not be displayed with <first device name> device on dashboard
+And user should not be displayed with <second device name> device on dashboard
 
 Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
+      |	location name	|	first device name	|	second device name	|	Base Station MAC ID		|
+      |	Home				|	Living Room			|	Kitchen				|	B8:2C:A0:00:07:D8		|
 
 @DIYRegistrationByReceivingCallsAndMsgs
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
@@ -548,8 +580,6 @@ And user should not be displayed with <device name> device on dashboard
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
-      | Office                                  | Scrum Room                      |
-      | abcdefghijklmnopqrstuvwxyzabcd          | abcdefghijklmnopqrstuvwxyzefgh  |
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
@@ -666,45 +696,51 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYTryToReRegisterDAS
-Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS using the Lyric application
+Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <first device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-And user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-And user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
+Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
-And user disables the passcode through CHIL
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
+And user should be displayed with <first device name> device on the "dashboard" screen
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user navigates to "Choose Location" screen from the "Smart Home Security" screen
-Then user navigates to "Name Your Base Station" screen from the "Choose Location" screen
-And user navigates to "Power Base Station" screen from the "Name Your Base Station" screen
-Then user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-And user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user clicks on "Available Network" button
-Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user inputs "Valid password" as the WiFi Password
-And user clicks on "Next" button
-Then user should be displayed with the "Connecting Smart Home Security" screen
-And user should be displayed with the "Almost Done" screen
-Then user should be displayed with the "Device already registered" screen
-When user clicks on "OK" button
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <second device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Looking for Base Station" screen from the "Power Base Station Instructions" screen
+And user should receive a "Base Station Not Found" popup
+Then user "retries base station pairing in" the "Base Station Not Found" popup
+Then user should receive a "Base Station Not Found" popup
+And user "clicks on OK in" the "Base Station Not Found" popup
+When user navigates to "dashboard" screen from the "Power Base Station Instructions" screen
+Then user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on dashboard
+And user should not be displayed with <first device name> device on dashboard
 
 Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
+      | location name | first device name	| second device name		|
+      | Home          | Living Room  		| Kitchen				|
 
 @DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS
 Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS after performing factory settings on the registered DAS

@@ -83,7 +83,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 		case "DELETE KEYFOB CONFIRMATION": {
-			flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUp(testCase, inputs);
+			flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUp(testCase);
 			break;
 		}
 		case "INCLUSION DEVICE NOT FOUND": {

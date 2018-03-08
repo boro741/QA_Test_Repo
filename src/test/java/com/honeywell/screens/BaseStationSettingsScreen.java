@@ -146,8 +146,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 			return flag;
 		}
-		
-		case BaseStationSettingsScreen.VIDEOSETTINGS:{
+
+		case BaseStationSettingsScreen.VIDEOSETTINGS: {
 			boolean flag = true;
 			if (this.isVideoSettingsOptionVisible()) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoSettingsOption");
@@ -191,7 +191,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isVideoSettingsOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoSettingsOption", 3);
 	}
-	
+
 	public boolean isKeyFobOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyFobOption", 3);
 	}
@@ -210,10 +210,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean clickOnNoButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
-	}
-
-	public boolean clickOnYesButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
 	}
 
 	public boolean isDeleteDASPopUpVisible() {
@@ -272,24 +268,21 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				}
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption")
 						.getAttribute("enabled"));
-			} 
-			else if (elementName.equals(BaseStationSettingsScreen.MOTIONDETECTION)) {
+			} else if (elementName.equals(BaseStationSettingsScreen.MOTIONDETECTION)) {
 				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionOption", 3)) {
 					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
 							BaseStationSettingsScreen.MOTIONDETECTION);
 				}
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionOption")
 						.getAttribute("enabled"));
-			}
-			else if (elementName.equals(BaseStationSettingsScreen.NIGHTVISION)) {
+			} else if (elementName.equals(BaseStationSettingsScreen.NIGHTVISION)) {
 				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOption", 3)) {
 					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
 							BaseStationSettingsScreen.NIGHTVISION);
 				}
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionOption")
 						.getAttribute("enabled"));
-			}
-			else if (elementName.equals(BaseStationSettingsScreen.VIDEOQUALITY)) {
+			} else if (elementName.equals(BaseStationSettingsScreen.VIDEOQUALITY)) {
 				if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityOption", 3)) {
 					LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text",
 							BaseStationSettingsScreen.VIDEOQUALITY);
@@ -297,8 +290,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityOption")
 						.getAttribute("enabled"));
 			}
-			
-			
+
 			else {
 				throw new Exception("Invalid Input : " + elementName);
 			}
@@ -634,7 +626,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean selectSensorFromSensorList(String sensorName) {
-		return MobileUtils.clickOnElement(testCase, "xpath", "//android.widget.TextView[@text='" + sensorName + "']");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//android.widget.TextView[@text='" + sensorName + "']");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "xpath", "//XCUIElementTypeStaticText[@value='" + sensorName + "']");
+		}
 	}
 
 	public boolean verifySensorModelDetailsOnModelAndFirmwareDetailsPage() {
@@ -760,13 +757,29 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASButton", 3)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
 		} else {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
+			if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]",
+					testCase)) {
+				return MobileUtils.clickOnElement(testCase, "XPATH",
+						"(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]");
+			} else {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
+			}
 		}
 	}
 
 	public boolean clickOnAlexaAppButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlexaAppLink");
+	}
+
+	public boolean clickOnDeleteSensorButton() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorButton")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean isMotionSensorDeletePopUpMessageVisible() {
@@ -783,6 +796,20 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean clickOnCancelButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+	}
+
+	public boolean clickOnYesButton() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButton")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButton")) {
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	public boolean isDeleteDASDevicePopUpTitleVisible() {
@@ -857,9 +884,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
-	public boolean toggleGeofenceSwitch(TestCases testCase)
-	{
+	public boolean toggleGeofenceSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceSwitch");
 	}
-	
+
 }

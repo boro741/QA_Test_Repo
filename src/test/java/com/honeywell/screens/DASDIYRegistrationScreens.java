@@ -45,7 +45,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
 		} else {
-			MobileUtils.clickOnElement(testCase, "name", "Done");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
 		}
 		return flag;
 	}
@@ -69,8 +69,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
 		} else {
-			MobileUtils.clickOnElement(testCase, "ID", "Return");
-			MobileUtils.clickOnElement(testCase, "NAME", "Next");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonInKeyboard");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
 		}
 		return flag;
 	}
@@ -89,19 +89,19 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isCancelButtonVisible() {
 
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton", 5)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
 		} else {
-			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[2]", testCase);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInSetUp");
 		}
 	}
 
 	public boolean clickOnCancelButton() {
 
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton", 5)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 		} else {
-			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[2]");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSetUp");
 		}
 	}
 
@@ -125,24 +125,44 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelSetUpPopup");
 	}
 
-	public boolean isHomeLocationDisplayed() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectHomeLocation", 3);
+	public boolean isAvialbleLocationNameDisplayed(String availableLocation) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("xpath",
+					"//android.widget.TextView[@text='" + availableLocation + "']", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("NAME", availableLocation, testCase);
+		}
 	}
 
-	public boolean clickOnHomeLocation() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SelectHomeLocation");
+	public boolean clickOnAvailableLocationName(String availableLocation) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//android.widget.TextView[@text='" + availableLocation + "']");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "NAME", availableLocation);
+		}
 	}
 
 	public boolean isNameYourBaseStationHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameYourBaseStationHeaderTitle");
 	}
 
-	public boolean isLivingRoomBaseStationDisplayed() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectLivingRoomBaseStation", 3);
+	public boolean isAvailableBaseStationNameDisplayed(String availableBaseStationName) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("xpath",
+					"//android.widget.TextView[@text='" + availableBaseStationName + "']", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("NAME", availableBaseStationName, testCase);
+		}
 	}
 
-	public boolean clickOnLivingRoomBaseStation() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SelectLivingRoomBaseStation");
+	public boolean clickOnAvailableBaseStationName(String availableBaseStationName) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//android.widget.TextView[@text='" + availableBaseStationName + "']");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "NAME", availableBaseStationName);
+		}
 	}
 
 	public boolean isCustomNameTextFieldDisplayed() {
@@ -156,7 +176,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.ENTER);
 		} else {
-			MobileUtils.clickOnElement(testCase, "NAME", "Done");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
 		}
 		return flag;
 	}
@@ -166,11 +186,19 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isNextButtonVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
 	}
 
 	public boolean clickOnNextButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
 	}
 
 	public boolean isLookingForBaseStationProgressBarVisible() {
@@ -201,6 +229,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryButtonInBaseStationNotFoundPopup");
 	}
 
+	public boolean isBackArrowInPowerBaseStationVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInPowerBaseStationScreen");
+	}
+
+	public boolean clickOnBackArrowInPowerBaseStationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInPowerBaseStationScreen");
+	}
+
 	public boolean isBackArrowInRegisterBaseStationVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInRegisterBaseStationHeader");
 	}
@@ -217,6 +253,27 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MultipleBaseStationsScreenSubHeaderTitle");
 	}
 
+	public boolean isMACIDVisible(String dasDeviceMacID) {
+
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + dasDeviceMacID + "']",
+					testCase);
+		} else {
+			return MobileUtils.isMobElementExists("xpath",
+					"//XCUIElementTypeStaticText[@value='" + dasDeviceMacID + "']", testCase);
+		}
+	}
+
+	public boolean clickOnMACID(String dasDeviceMacID) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//android.widget.TextView[@text='" + dasDeviceMacID + "']");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//XCUIElementTypeStaticText[@value='" + dasDeviceMacID + "']");
+		}
+	}
+
 	public boolean isRefereshButtonInSelectBaseStationScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RefreshButtonInSelectBaseStationScreen");
 	}
@@ -230,8 +287,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isSingleBaseStationDisplayed() {
-		return MobileUtils.isMobElementExists("name",
-				"Scan this code by showing it to your Base Station\u2019s camera.", testCase, 2, false);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RegisterBaseStationQRCodeScanText", 2,
+				false);
 	}
 
 	public boolean isQRCodeScanningFailurePopupVisible() {
@@ -266,10 +323,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isAddANetworkButtonVisible() {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton", 5)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
 		} else {
-			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
 		}
 	}
 
@@ -317,7 +374,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					return MobileUtils.clickOnElement(testCase, "xpath",
 							"//android.widget.TextView[@text='" + wifiName + "']");
 				} else {
-					throw new Exception("Click On WiFi Name : Could not find wifi : " + wifiName + " in the list");
+					throw new Exception("Could not find wifi : " + wifiName + " in the list");
 				}
 			}
 		} else {
@@ -352,7 +409,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
-			MobileUtils.clickOnElement(testCase, "name", "Done");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
 		}
 		return flag;
 	}
@@ -370,19 +427,19 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen", 5)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
-			return MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]", testCase);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
 		}
 	}
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
 
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen", 5)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
-			return MobileUtils.clickOnElement(testCase, "XPATH", "(//XCUIElementTypeButton[@name=\"Next\"])[2]");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
 	}
 
@@ -396,39 +453,280 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isNoButtonInSmartHomeSecuritySuccessScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInSmartHomeSecuritySuccessScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInSmartHomeSecuritySuccessScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase,
+					"NoButtonInSmartHomeSecuritySuccessScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton");
+		}
 	}
 
 	public boolean clickOnNoButtonInSmartHomeSecuritySuccessScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInSmartHomeSecuritySuccessScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInSmartHomeSecuritySuccessScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInSmartHomeSecuritySuccessScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "LeftButton");
+		}
 	}
 
 	public boolean isYesButtonInSmartHomeSecuritySuccessScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInSmartHomeSecuritySuccessScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInSmartHomeSecuritySuccessScreen",
+				5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase,
+					"YesButtonInSmartHomeSecuritySuccessScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
 	}
 
-	public boolean clickYesNoButtonInSmartHomeSecuritySuccessScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInSmartHomeSecuritySuccessScreen");
+	public boolean clickYesButtonInSmartHomeSecuritySuccessScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInSmartHomeSecuritySuccessScreen",
+				5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInSmartHomeSecuritySuccessScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
 	}
 
-	public boolean isGeoFencingHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeoFencingHeaderTitle");
+	public boolean isSetUpAccessoriesScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpAccessoriesScreenTitle");
+	}
+
+	public boolean isSensorSetUpButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton");
+	}
+
+	public boolean clickOnSensorSetUpButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
+	}
+
+	public boolean isOverviewScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OverviewScreenTitle");
+	}
+
+	public boolean isInProgressLoadingSpinnerTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InProgressLoadingSpinnerText");
+	}
+
+	public boolean isLocateSensorScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocateSensorScreenTitle");
+	}
+
+	public boolean isNameSensorScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameSensorScreenTitle");
+	}
+
+	public boolean isAvailableSensorNameVisible(String availableSensorName) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("xpath",
+					"//android.widget.TextView[@text='" + availableSensorName + "']", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("xpath",
+					"//XCUIElementTypeStaticText[@value='" + availableSensorName + "']", testCase);
+		}
+	}
+
+	public boolean clickOnAvailableSensorName(String availableSensorName) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//android.widget.TextView[@text='" + availableSensorName + "']");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//XCUIElementTypeStaticText[@value='" + availableSensorName + "']");
+		}
+	}
+
+	public boolean isSavingSensorLoadingSpinnerTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SavingSensorLoadingSpinnerText");
+	}
+
+	public boolean isCheckLocationScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CheckLocationScreenTitle");
+	}
+
+	public boolean isCloseDoorSubHeaderTextInCheckLocationScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"CloseDoorSubHeaderTextInCheckLocationScreen");
+	}
+
+	public boolean isCheckLocationSignalScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CheckLocationSignalScreenTitle");
+	}
+
+	public boolean isSignalStrengthTextVisibleInCheckLocationScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthLabelInCheckLocationScreen");
+	}
+
+	public boolean isPrepareSensorScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrepareSensorScreenTitle", timeOut);
+	}
+
+	public boolean isUnEvenButtonVisibleInPrepareSensorScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "UnEvenButtonInPrepareSensorScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "UnEvenButtonInPrepareSensorScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton");
+		}
+	}
+
+	public boolean clickOnUnEvenButtonInPrepareSensorScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "UnEvenButtonInPrepareSensorScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "UnEvenButtonInPrepareSensorScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "LeftButton");
+		}
+	}
+
+	public boolean isEvenButtonVisibleInPrepareSensorScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EvenButtonInPrepareSensorScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EvenButtonInPrepareSensorScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean clickOnEvenButtonInPrepareSensorScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EvenButtonInPrepareSensorScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "EvenButtonInPrepareSensorScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean isPlaceAdhesiveStripsScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceAdhesiveStripsScreenTitle");
+	}
+
+	public boolean isMountSensorScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MountSensorScreenTitle");
+	}
+
+	public boolean isMountSensorScreenSubHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MountSensorScreenSubHeaderTitle");
+	}
+
+	public boolean isVerifyingLoadingSpinnerTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VerifyingLoadingSpinnerText");
+	}
+
+	public boolean isSensorReadyScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorReadyScreenTitle");
+	}
+
+	public boolean isSuccessLabelDisplayedInSensorReadyScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SuccessLabelInSensorReadyScren");
+	}
+
+	public boolean isSetUpAccessoriesConfiguredScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpAccessoriesConfiguredScreenTitle");
+	}
+
+	public boolean isConfiguredLabelInSetUpAccessoriesConfiguredScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfiguredLabelInSetUpAccessoriesScreen");
+	}
+
+	public boolean isSaveButtonInSetUpAccessoriesConfiguredScreenVisible() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInSetUpAccessoriesScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInSetUpAccessoriesScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean clickOnSaveButtonInSetUpAccessoriesConfiguredScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInSetUpAccessoriesScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInSetUpAccessoriesScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean isFinishingUpLoadingSpinnerTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FinishingUpLoadingSpinnerText");
+	}
+
+	public boolean isGeoFencingHeaderTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeoFencingHeaderTitle", timeOut);
 	}
 
 	public boolean isSkipButtonInGeoFencingScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton");
+		}
 	}
 
 	public boolean clickOnSkipButtonInGeoFencingScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "LeftButton");
+		}
 	}
 
 	public boolean isEnableButtonInGeoFencingScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
 	}
 
-	public boolean clickEnableSkipButtonInGeoFencingScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+	public boolean clickOnEnableButtonInGeoFencingScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean isEnablingGeoFencingLoadingProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnablingGeoFencingLoadingSpinner");
+	}
+
+	public boolean isGeoFenceScreenHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeoFenceScreenHeaderTitle");
+	}
+
+	public boolean isCancelButtonInGeoFenceScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInGeoFenceScreen");
+	}
+
+	public boolean isUseLocationInGeoFenceScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseLocationButtonInGeoFenceScreen");
+	}
+
+	public boolean isSaveButtonInGeoFenceScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceScreen");
+	}
+
+	public boolean clickOnSaveButtonInGeoFenceScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInGeoFenceScreen");
+	}
+
+	public boolean isGeoFenceEnabledScreenHeaderTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeoFenceEnabledScreenHeaderTitle", timeOut);
+	}
+
+	public boolean isGeoFenceEnabledScreenSubHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeoFenceEnabledScreenSubHeaderTitle");
+	}
+
+	public boolean isSaveButtonGeoFenceEnabledScreenVisible() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean clickOnSaveButtonGeoFenceEnabledScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
 	}
 
 	public boolean isAmazonAlexaHeaderTitleVisible() {
@@ -436,11 +734,19 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isSkipButtonInAmazonAlexaVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInAmazonAlexa", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInAmazonAlexa");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton");
+		}
 	}
 
 	public boolean clickOnSkipButtonInAmazonAlexaScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInGeoFencingScreen");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInAmazonAlexa", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInAmazonAlexa");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "LeftButton");
+		}
 	}
 
 	public boolean isSetUpButtonInAmazonAlexaScreenVisible() {
@@ -513,6 +819,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean clickOnYesButtonInDeleteLocationPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
+	}
+
+	public boolean isDeletingLocationLoadingProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeletingLocationLoadingSpinner", 3);
 	}
 
 	public boolean isSmartHomeSecurityOptionVisible(String deviceName) throws Exception {

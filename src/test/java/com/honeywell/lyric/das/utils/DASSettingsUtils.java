@@ -1,9 +1,5 @@
 package com.honeywell.lyric.das.utils;
 
-import java.util.List;
-
-import org.openqa.selenium.WebElement;
-
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
@@ -13,9 +9,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
-import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
-import com.honeywell.screens.SecondaryCardSettings;
 
 public class DASSettingsUtils {
 
@@ -80,7 +74,7 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean verifyDeleteKeyfobConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean verifyDeleteKeyfobConfirmationPopUp(TestCases testCase) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isKeyfobPopUpTitleVisible()) {
@@ -100,7 +94,7 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean verifyDeleteDASConfirmationPopUpIsNotDisplayed(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean verifyDeleteDASConfirmationPopUpIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isDeleteDASPopUpVisible()) {
@@ -112,7 +106,7 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isDeleteKeyfobPopUpVisible()) {
@@ -125,7 +119,7 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean verifyDeleteSensorConfirmationPopUpIsNotDisplayed(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean verifyDeleteSensorConfirmationPopUpIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isDeleteSensorPopUpVisible()) {
@@ -157,8 +151,7 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase,
-			TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
@@ -175,13 +168,12 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardToBaseStationConfigurationScreen(TestCases testCase,
-			TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 		} catch (Exception e) {
 			flag = false;
@@ -190,10 +182,10 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardToEntryExitDelayScreen(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardToEntryExitDelayScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			if (bs.isEntryExitDelaySettingsOptionVisible()) {
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
@@ -209,10 +201,10 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardToKeyfobScreen(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardToKeyfobScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
 		} catch (Exception e) {
@@ -222,10 +214,10 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardToSensorsScreen(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardToSensorsScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 		} catch (Exception e) {
@@ -238,7 +230,7 @@ public class DASSettingsUtils {
 	public static boolean navigateFromDashboardToSensorSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 			String sensorName = "";
@@ -271,7 +263,7 @@ public class DASSettingsUtils {
 	public static boolean navigateFromDashboardToKeyfobSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			String keyfobName = "";
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
@@ -293,10 +285,10 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardToAmazonAlexaScreen(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardToAmazonAlexaScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.AMAZONALEXA);
 		} catch (Exception e) {
@@ -306,10 +298,10 @@ public class DASSettingsUtils {
 		return flag;
 	}
 	
-	public static boolean navigateFromDashboardToVideoSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardToVideoSettingsScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
-			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.VIDEOSETTINGS);
 		} catch (Exception e) {
@@ -318,5 +310,21 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-
+	
+	public static boolean navigateFromSensorScreenToBaseStationConfigurationScreen(TestCases testCase)
+	{
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if(bs.isBackButtonVisible())
+			{
+				flag = flag & bs.clickOnBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 }

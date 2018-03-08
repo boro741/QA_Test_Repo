@@ -26,37 +26,480 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class DIYRegistrationUtils {
 
+	public static boolean navigateFromPowerBaseStationToDashboard(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
+			flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
+			if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
+				flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
+			}
+			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
+				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
+			}
+			if (dasDIY.isCancelPopupVisible()) {
+				flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
+			}
+			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
+				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
+			} else {
+				if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+					flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromPowerBaseStationToLookingForBaseStation(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+		}
+		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		return flag;
+	}
+
+	public static boolean navigateFromPowerBaseStationToRegisterBaseStation(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+		}
+		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
+			Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromPowerBaseStationToSelectBaseStation(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+		}
+		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
+			Keyword.ReportStep_Pass(testCase, "Multiple base stations with MAC ID's are displayed");
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromRegisterBaseStationToConnectToNetwork(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "NETWORK CONNECTION PROGRESS BAR", 1);
+		flag = flag & dasDIY.isConnectToNetworkHeaderTitleVisible();
+		return flag;
+	}
+
+	public static boolean navigateFromConnectToNetworkToSmartHomeSecuritySuccess(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		flag = flag & dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+		if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
+			flag = flag & dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromConnectToNetworkToSetUpAccessories(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
+			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
+			if (dasDIY.isSetUpAccessoriesScreenTitleVisible()) {
+				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
+			}
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromSetUpAccessoriesToOverview(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isSensorSetUpButtonVisible()) {
+			flag = flag & dasDIY.clickOnSensorSetUpButton();
+			flag = flag & dasDIY.isOverviewScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromOverviewToLocateSensor(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 1);
+			flag = flag & dasDIY.isLocateSensorScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromLocateSensorToNameSensor(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & dasDIY.isNameSensorScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromCheckLocationToCheckLocationSignal(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isCloseDoorSubHeaderTextInCheckLocationScreenVisible() && dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 1);
+			flag = flag & dasDIY.isCheckLocationSignalScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromCheckLocationSignalToPrepareSensor(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isSignalStrengthTextVisibleInCheckLocationScreen() && dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & dasDIY.isPrepareSensorScreenTitleVisible(15);
+			flag = flag & dasDIY.isUnEvenButtonVisibleInPrepareSensorScreen();
+			flag = flag & dasDIY.isEvenButtonVisibleInPrepareSensorScreen();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromPrepareSensorToPlaceAdhesiveStrips(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isEvenButtonVisibleInPrepareSensorScreen()) {
+			flag = flag & dasDIY.clickOnEvenButtonInPrepareSensorScreen();
+			flag = flag & dasDIY.isPlaceAdhesiveStripsScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromPlaceAdhesiveStripsToMountSensor(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isPlaceAdhesiveStripsScreenTitleVisible() && dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & dasDIY.isMountSensorScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromMountSensorToSensorReady(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isMountSensorScreenSubHeaderTitleVisible() && dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
+			flag = flag & dasDIY.isSensorReadyScreenTitleVisible();
+			flag = flag & dasDIY.isSuccessLabelDisplayedInSensorReadyScreen();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromSensorReadyToSetUpAccConfigured(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNextButtonVisible()) {
+			flag = flag & dasDIY.clickOnNextButton();
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "FINISHING UP PROGRESS BAR", 1);
+			flag = flag & dasDIY.isSetUpAccessoriesConfiguredScreenTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromSetUpAccConfiguredToEnableGeoFencing(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isConfiguredLabelInSetUpAccessoriesConfiguredScreenVisible()
+				&& dasDIY.isSaveButtonInSetUpAccessoriesConfiguredScreenVisible()) {
+			flag = flag & dasDIY.clickOnSaveButtonInSetUpAccessoriesConfiguredScreen();
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "FINISHING UP PROGRESS BAR", 1);
+			if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
+				flag = flag & dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+			}
+			flag = flag & dasDIY.isGeoFencingHeaderTitleVisible(5);
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromEnableGeoFencingToGeoFence(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isEnableButtonInGeoFencingScreenVisible()) {
+			flag = flag & dasDIY.clickOnEnableButtonInGeoFencingScreen();
+			flag = flag & dasDIY.isGeoFenceScreenHeaderTitleVisible();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromGeoFenceToGeoFenceEnabled(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isCancelButtonInGeoFenceScreenVisible() && dasDIY.isUseLocationInGeoFenceScreenVisible()
+				&& dasDIY.isSaveButtonInGeoFenceScreenVisible()) {
+			flag = flag & dasDIY.clickOnSaveButtonInGeoFenceScreen();
+			flag = flag
+					& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING GEOFENCE PROGRESS BAR", 1);
+			flag = flag & dasDIY.isGeoFenceEnabledScreenHeaderTitleVisible(15);
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromGeoFenceEnabledToEnableAmazonAlexa(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isGeoFenceEnabledScreenSubHeaderTitleVisible()
+				&& dasDIY.isSaveButtonGeoFenceEnabledScreenVisible()) {
+			flag = flag & dasDIY.clickOnSaveButtonGeoFenceEnabledScreen();
+			if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
+				flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
+			}
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		flag = flag & dasDIY.isGeoFencingHeaderTitleVisible(5);
+		if (dasDIY.isSkipButtonInGeoFencingScreenVisible()) {
+			flag = flag & dasDIY.clickOnSkipButtonInGeoFencingScreen();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromEnableGeoFencingToEnableAmazonAlexa(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		flag = flag & dasDIY.isAmazonAlexaHeaderTitleVisible();
+		if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
+			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromEnableAmazonAlexaToDashboard(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isIncreaseSecurityPopupVisible()) {
+			flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+			if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+				flag = flag & dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+			}
+			if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+				flag = flag & dasDIY.clickOnGotItButtonInQuickControlsPopup();
+			}
+			if (dasDIY.isIncreaseSecurityPopupVisible()) {
+				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+			}
+		} else {
+			if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
+				flag = flag & dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
+			}
+			if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
+				flag = flag & dasDIY.clickOnGotItButtonInQuickControlsPopup();
+			}
+		}
+		return flag;
+	}
+
+	public static boolean selectAvaiableLocation(TestCases testCase, String availableLocation) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
+			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
+		}
+		return flag;
+	}
+
+	public static boolean inputNewLocationName(TestCases testCase, String newLocationName) {
+
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isCustomLocationTextFieldVisible()) {
+			flag = flag & dasDIY.enterCustomLocationName(newLocationName);
+		}
+		return flag;
+
+	}
+
+	public static boolean selectAvaiableBaseStationName(TestCases testCase, String availableBaseStationName) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNameYourBaseStationHeaderTitleVisible()
+				&& dasDIY.isAvailableBaseStationNameDisplayed(availableBaseStationName)) {
+			flag = flag & dasDIY.clickOnAvailableBaseStationName(availableBaseStationName);
+		}
+		return flag;
+	}
+
+	public static boolean inputNewBaseStationnName(TestCases testCase, String newBaseStationName) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isCustomNameTextFieldDisplayed()) {
+			flag = flag & dasDIY.enterCustomNameInNameYourBaseStationScreen(newBaseStationName);
+		}
+		return flag;
+	}
+
+	public static boolean selectABaseStationFromListOfAvailableBaseStations(TestCases testCase,
+			String baseStationMACID) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isMACIDVisible(baseStationMACID.toUpperCase())) {
+			flag = flag & dasDIY.clickOnMACID(baseStationMACID.toUpperCase());
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		}
+		return flag;
+	}
+
+	public static boolean selectWiFiNameFromTheListOfAvailableNetworks(TestCases testCase, String wifiName)
+			throws Exception {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isConnectToNetworkHeaderDescVisible() && dasDIY.isAddANetworkButtonVisible()) {
+			flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(wifiName);
+		}
+		return dasDIY.isWiFiPasswordTextFieldVisibile();
+	}
+
+	public static boolean selectAvailableSensorName(TestCases testCase, String availableSensorName) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isAvailableSensorNameVisible(availableSensorName)) {
+			flag = flag & dasDIY.clickOnAvailableSensorName(availableSensorName);
+		}
+		return flag;
+
+	}
+
 	/**
-	 * <h1>Wait for progress bar to close</h1>
+	 * <h1>Wait for until progress bar to complete</h1>
 	 * <p>
-	 * The waitForLookingForBaseStationProgressBarToComplete method waits until the
-	 * progress bar closes.
+	 * The waitForProgressBarToComplete method waits until the progress bar closes.
 	 * </p>
 	 *
 	 * @author Midhun Gollapalli (H179225)
 	 * @version 1.0
-	 * @since 2018-02-21
+	 * @since 2018-03-08
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase.
 	 *            testCase instance.
 	 * @return boolean Returns 'true' if the progress bar disappears. Returns
 	 *         'false' if the progress bar is still displayed.
 	 */
-	public static boolean waitForLookingForBaseStationProgressBarToComplete(TestCases testCase) {
+	public static boolean waitForProgressBarToComplete(TestCases testCase, String elementProgressBar, int duration) {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (dasDIY.isLookingForBaseStationProgressBarVisible()) {
-							System.out.println("Waiting for Looking for Base station loading spinner to disappear");
-							return false;
-						} else {
+						switch (elementProgressBar) {
+						case "BASE STATION PROGRESS BAR": {
+							if (dasDIY.isLookingForBaseStationProgressBarVisible()) {
+								System.out.println("Waiting for progress bar loading spinner to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "QRCODE SCANNING FAILURE POPUP": {
+							if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
+								System.out.println("Waiting for QR Code Scanning Failure popup to display");
+								return true;
+							} else {
+								return false;
+							}
+						}
+						case "NETWORK CONNECTION PROGRESS BAR": {
+							if (dasDIY.isLookingForNetworkConnectionProgressBarVisible()) {
+								System.out.println("Waiting for Looking for Wi-Fi list loading spinner to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "SMART HOME SECURITY PROGRESS BAR": {
+							if (dasDIY.isConnectingSmartHomeSecurityLoadingSpinnerVisible()) {
+								System.out.println(
+										"Waiting for Connecting Smart Home Security loading spinner to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "SENSOR SET UP BUTTON": {
+							if (!dasDIY.isSensorSetUpButtonVisible()) {
+								System.out.println("Waiting for Sensor Set Up button to be displayed");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "IN PROGRESS BAR": {
+							if (dasDIY.isInProgressLoadingSpinnerTextVisible()) {
+								System.out.println("Waiting for In progress loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "SAVING SENSOR PROGRESS BAR": {
+							if (dasDIY.isSavingSensorLoadingSpinnerTextVisible()) {
+								System.out.println("Waiting for Saving Sensor loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "LOADING SPINNER BAR": {
+							if (dasDIY.isVerifyingLoadingSpinnerTextVisible()) {
+								System.out.println("Waiting for Verifying loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "FINISHING UP PROGRESS BAR": {
+							if (dasDIY.isFinishingUpLoadingSpinnerTextVisible()) {
+								System.out.println("Waiting for Finishing up loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "SAVING GEOFENCE PROGRESS BAR": {
+							if (dasDIY.isEnablingGeoFencingLoadingProgressBarVisible()) {
+								System.out.println("Waiting for Saving Geofencing loading spinner to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "DELETING LOCATION PROGRESS BAR": {
+							if (dasDIY.isDeletingLocationLoadingProgressBarVisible()) {
+								System.out.println("Waiting for Deleting Location loading spinner to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						default: {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid argument passed : " + elementProgressBar);
 							return true;
+						}
 						}
 					} catch (Exception e) {
 						return false;
@@ -64,12 +507,12 @@ public class DIYRegistrationUtils {
 				}
 			});
 			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Looking for Base station loading spinner diasppeared");
+				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared");
 			}
 		} catch (TimeoutException e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Looking for base station loading spinner did not disapper after waiting for 1 minute");
+					"Progress bar loading spinner did not disapper after waiting for 1 minute");
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
@@ -146,162 +589,6 @@ public class DIYRegistrationUtils {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "MAC ID : " + macID + " not present");
 			}
-		}
-		return flag;
-	}
-
-	/**
-	 * <h1>Wait for QR code scanning failure popup to display</h1>
-	 * <p>
-	 * The waitForQRCodeScanningFailurePopupToDisplay method waits until the QR code
-	 * scanning failure popup displays.
-	 * </p>
-	 *
-	 * @author Midhun Gollapalli (H179225)
-	 * @version 1.0
-	 * @since 2018-02-21
-	 * @param testCase
-	 *            Instance of the TestCases class used to create the testCase.
-	 *            testCase instance.
-	 * @return boolean Returns 'true' if the QR code scanning failure popup appears.
-	 *         Returns 'false' if QR code scanning failure popup does not display.
-	 */
-	public static boolean waitForQRCodeScanningFailurePopupToDisplay(TestCases testCase, int duration) {
-		boolean flag = true;
-		try {
-			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
-			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-				public Boolean apply(String a) {
-					try {
-						if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
-							System.out.println("Waiting for QR Code Scanning Failure popup to display");
-							return true;
-						} else {
-							return false;
-						}
-					} catch (Exception e) {
-						return false;
-					}
-				}
-			});
-			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "QR Code Scanning Failure popup displayed");
-			}
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"QR Code Scanning Failure popup did not appear after waiting for 2 minutes");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
-		}
-
-		return flag;
-	}
-
-	/**
-	 * <h1>Wait for progress bar to close</h1>
-	 * <p>
-	 * The waitForLookingForNetworkConnectionProgressBarToComplete method waits
-	 * until the progress bar closes.
-	 * </p>
-	 *
-	 * @author Midhun Gollapalli (H179225)
-	 * @version 1.0
-	 * @since 2018-02-21
-	 * @param testCase
-	 *            Instance of the TestCases class used to create the testCase.
-	 *            testCase instance.
-	 * @return boolean Returns 'true' if the progress bar disappears. Returns
-	 *         'false' if the progress bar is still displayed.
-	 */
-	public static boolean waitForLookingForNetworkConnectionProgressBarToComplete(TestCases testCase) {
-		boolean flag = true;
-		try {
-			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
-			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-				public Boolean apply(String a) {
-					try {
-						if (dasDIY.isLookingForNetworkConnectionProgressBarVisible()) {
-							System.out.println("Waiting for Looking for Wi-Fi list loading spinner to disappear");
-							return false;
-						} else {
-							return true;
-						}
-					} catch (Exception e) {
-						return false;
-					}
-				}
-			});
-			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Looking for Wi-Fi list loading spinner diasppeared");
-			}
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Looking for Wi-Fi list loading spinner did not disapper after waiting for 1 minute");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
-		}
-
-		return flag;
-	}
-
-	/**
-	 * <h1>Wait for progress bar to close</h1>
-	 * <p>
-	 * The waitForConnectingSmartHomeSecurityProgressBarToComplete method waits
-	 * until the progress bar closes.
-	 * </p>
-	 *
-	 * @author Midhun Gollapalli (H179225)
-	 * @version 1.0
-	 * @since 2018-02-21
-	 * @param testCase
-	 *            Instance of the TestCases class used to create the testCase.
-	 *            testCase instance.
-	 * @return boolean Returns 'true' if the progress bar disappears. Returns
-	 *         'false' if the progress bar is still displayed.
-	 */
-	public static boolean waitForConnectingSmartHomeSecurityProgressBarToComplete(TestCases testCase) {
-		boolean flag = true;
-		try {
-			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(3, TimeUnit.MINUTES);
-			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-				public Boolean apply(String a) {
-					try {
-						if (dasDIY.isConnectingSmartHomeSecurityLoadingSpinnerVisible()) {
-							System.out
-									.println("Waiting for Connecting Smart Home Security loading spinner to disappear");
-							return false;
-						} else {
-							return true;
-						}
-					} catch (Exception e) {
-						return false;
-					}
-				}
-			});
-			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Connecting Smart Home Security loading spinner diasppeared");
-			}
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Connecting Smart Home Security loading spinner did not disapper after waiting for 3 minutes");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
@@ -506,4 +793,5 @@ public class DIYRegistrationUtils {
 		MobileUtils.minimizeApp(testCase, 5);
 		return flag;
 	}
+
 }

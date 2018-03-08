@@ -9,17 +9,16 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
-import com.honeywell.screens.DASDIYRegistrationScreens;
 
-public class EnterWiFiPassword extends Keyword {
+public class EnterNewLocationAndDeviceName extends Keyword {
 
 	private TestCases testCase;
-	private ArrayList<String> expectedWiFiPassword;
+	private ArrayList<String> inputName;
 	public boolean flag = true;
 
-	public EnterWiFiPassword(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedWiFiPassword) {
+	public EnterNewLocationAndDeviceName(TestCases testCase, TestCaseInputs inputs, ArrayList<String> inputName) {
 		this.testCase = testCase;
-		this.expectedWiFiPassword = expectedWiFiPassword;
+		this.inputName = inputName;
 	}
 
 	@Override
@@ -30,14 +29,13 @@ public class EnterWiFiPassword extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user inputs \"(.*)\" as the WiFi Password$")
+	@KeywordStep(gherkins = "^user inputs \"(.*)\" in the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 
-		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-		dasDIY.enterWiFiPassword(expectedWiFiPassword.get(0));
-		if (dasDIY.isJoinButtonInConnectToNetworkScreenVisible()) {
-			dasDIY.clickOnJoinButtonInConnectToNetworkScreen();
-			DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SMART HOME SECURITY PROGRESS BAR", 1);
+		if (inputName.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+			return DIYRegistrationUtils.inputNewLocationName(testCase, inputName.get(0));
+		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
+			return DIYRegistrationUtils.inputNewBaseStationnName(testCase, inputName.get(0));
 		}
 		return flag;
 	}

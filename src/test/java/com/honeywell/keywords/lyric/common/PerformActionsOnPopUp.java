@@ -78,13 +78,15 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnNoButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
+				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+						"DELETING LOCATION PROGRESS BAR", 1);
 				break;
 			}
 			default: {
@@ -201,14 +203,14 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isNoButtonInCancelPopupVisible()) {
-					dasDIY.clickOnNoButtonInCancelPopup();
+					flag = flag & dasDIY.clickOnNoButtonInCancelPopup();
 				}
 				break;
 			}
 			case "ACCEPTS": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isYesButtonInCancelPopupVisible()) {
-					dasDIY.clickOnYesButtonInCancelPopup();
+					flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
 				}
 				break;
 			}
@@ -223,7 +225,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInInvalidZipCodePopupVisible()) {
-					dasDIY.clickOnOKButtonInInvalidZipCodePopup();
+					flag = flag & dasDIY.clickOnOKButtonInInvalidZipCodePopup();
 				}
 				break;
 			}
@@ -238,15 +240,16 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "CLICKS ON OK IN": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInBaseStationNotFoundPopupVisible()) {
-					dasDIY.clickOnOKButtonInBaseStationNotFoundPopup();
+					flag = flag & dasDIY.clickOnOKButtonInBaseStationNotFoundPopup();
 				}
 				break;
 			}
 			case "RETRIES BASE STATION PAIRING IN": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
-					dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
-					DIYRegistrationUtils.waitForLookingForBaseStationProgressBarToComplete(testCase);
+					flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+							"BASE STATION PROGRESS BAR", 1);
 				}
 				break;
 			}
@@ -261,7 +264,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
-					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
+					flag = flag & dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
 				}
 				break;
 			}
@@ -276,7 +279,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInWiFiConnectionFailedPopupVisible()) {
-					dasDIY.clickOnOKButtonInWiFiConnectionFailedPopup();
+					flag = flag & dasDIY.clickOnOKButtonInWiFiConnectionFailedPopup();
 				}
 				break;
 			}
@@ -292,7 +295,13 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnCancelButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButton();
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
@@ -306,7 +315,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnCancelButton();
-				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase, inputs);
+				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
