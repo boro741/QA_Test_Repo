@@ -1,6 +1,7 @@
 package com.honeywell.keywords.jasper.scheduling.Verify;
 
 import java.util.ArrayList;
+
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -10,7 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
-import com.honeywell.keywords.lyric.common.NavigateToScreen;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
 
 public class VerifyScheduleIsRetained extends Keyword {
@@ -49,7 +50,7 @@ public class VerifyScheduleIsRetained extends Keyword {
 			}
 			flag = flag & JasperSchedulingUtils.verifyScheduleRetained(testCase, inputs);
 
-			flag = flag & NavigateToScreen.NavigateToDashboardFromAnyScreen(testCase);
+			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 
 		} catch (Exception e) {
 			flag = false;

@@ -129,4 +129,9 @@ public class Dashboard extends MobileScreens {
 		return null;
 	}
 
+	public List<WebElement> getDashboardDeviceNameElements()
+	{
+		return MobileUtils.getMobElements(objectDefinition, testCase, "DashboardIconText");
+	}
+	
 }

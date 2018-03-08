@@ -13,7 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
-import com.honeywell.keywords.lyric.common.NavigateToScreen;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
 
 
@@ -59,7 +59,7 @@ public class VerifyTimeFeildIntervals extends Keyword {
 				flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 				flag = flag & JasperSchedulingVerifyUtils.verifyTimeFieldIncrements(testCase, inputs, timeInterval);
-				flag = flag & NavigateToScreen.NavigateToDashboardFromAnyScreen(testCase);
+				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 			}
 		} catch (Exception e) {
 			flag = false;

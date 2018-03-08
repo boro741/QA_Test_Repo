@@ -1,10 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -12,10 +8,8 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.screens.OSPopUps;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 
 public class SelectDeviceFromDashboard extends Keyword {
 
@@ -40,7 +34,8 @@ public class SelectDeviceFromDashboard extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user selects (.*) from the dashboard$")
 	public boolean keywordSteps() {
-		OSPopUps os = new OSPopUps(testCase);
+		try
+		{
 		String deviceToBeSelected = "";
 		if(deviceType.get(0).equalsIgnoreCase("DAS Device"))
 		{
@@ -58,39 +53,18 @@ public class SelectDeviceFromDashboard extends Keyword {
 		{
 			deviceToBeSelected = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
 		}
-
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Dashboard");
-		List<WebElement> dashboardIconText = null;
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DashboardIconText", 5)) {
-			dashboardIconText = MobileUtils.getMobElements(fieldObjects, testCase, "DashboardIconText");
-		}
-		boolean f = false;
-		List<String> availableDevices = new ArrayList<String>();
-		for (WebElement e : dashboardIconText) {
-			String displayedText;
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				displayedText = e.getText();
-			} else {
-				displayedText = e.getAttribute("value");
-			}
-			availableDevices.add(displayedText);
-			if (displayedText.equals(deviceToBeSelected)) {
-				e.click();
-				f = true;
-				break;
-			}
-		}
-		if (f) {
+		if (DashboardUtils.selectDeviceFromDashboard(testCase, deviceToBeSelected)) {
 			Keyword.ReportStep_Pass(testCase, "Successfully selected device : " + deviceToBeSelected);
 		} else {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Device : " + deviceToBeSelected + " is not present on the dashboard. Available Devices: " + availableDevices);
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device : " + deviceToBeSelected
+					+ " is not present on the dashboard");
 		}
-		int counter = 0;
-		while (os.isGotitButtonVisible(5) && counter < 5) {
-			os.clickOnGotitButton();
-			counter++;
+		}
+		catch(Exception e)
+		{
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
