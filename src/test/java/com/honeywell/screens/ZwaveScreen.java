@@ -89,6 +89,14 @@ public class ZwaveScreen extends MobileScreens{
 	}
 
 	//Settings
+	public boolean isSwitchSettingOnZwaveDevicesDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchSettingsMenu");
+	}
+	
+	public boolean isDimmerSettingOnZwaveDevicesDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DimmerSettingsMenu");
+	}
+	
 	public boolean ClickSwitchSettingFromZwaveUtilities() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchSettingsMenu");
 	}
@@ -323,6 +331,14 @@ public class ZwaveScreen extends MobileScreens{
 
 	public boolean clickOnFactoryResetSuccessfullAckConfirm() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FactoryResetSuccessfullAck");
+	}
+	
+	public boolean isFactoryResetFailedPopupMessageDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FactoryResetFailedPopup");
+	}
+	
+	public boolean clickOnFactoryResetFailedPopupAckConfirm() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FactoryResetFailedPopupAck");
 	}
 
 	//REPLACE FUNCTIONLITY

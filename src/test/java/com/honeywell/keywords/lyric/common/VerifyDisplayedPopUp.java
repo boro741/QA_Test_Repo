@@ -57,6 +57,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
 			break;
 		}
+		case "FACTORY RESET FAILED":{
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			flag = flag & zwaveScreen.isFactoryResetFailedPopupMessageDisplayed()
+					& zwaveScreen.clickOnFactoryResetFailedPopupAckConfirm();
+			break;
+		}
 
 		case "DIMMER REPLACED SUCCESSFULLY":
 		case "SWITCH REPLACED SUCCESSFULLY":{

@@ -169,33 +169,15 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SWITCH SETTINGS": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-							if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Switch Settings From Zwave Utilities");
-							} else {
-								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
-							}
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Add new device menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
+					DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
 					break;
 				}
 				case "Z-WAVE UTILITIES": {
-					DASZwaveUtils.navigateToZwaveUtilitiesFromDashboard(testCase);
+					flag = DASZwaveUtils.navigateToZwaveUtilitiesFromDashboard(testCase);
 					break;
 				}
 				case "Z-WAVE DEVICES": {
-					DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
+					flag = DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
@@ -203,56 +185,11 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DIMMER SETTINGS": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ZWAVEDEVICES)) {
-							ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-							if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on Switch Settings From Zwave Utilities");
-							} else {
-								Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
-							}
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Add new device menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
+					DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
 					break;
 				}
 				case "Z-WAVE DEVICE ADD NEW DEVICE": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
-							AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-							ads.clickOnZwaveFromAddNewDevice();
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Add new device menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
-					break;
-				}
-				case "ADD NEW DEVICE GLOBAL DRAWER": {
-					Dashboard ds = new Dashboard(testCase);
-					if (ds.clickOnGlobalDrawerButton()) {
-						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDNEWDEVICE)) {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Add new device menu from Global drawer");
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-					}
+					DASZwaveUtils.navigateToAddDeviceScreenFromDashboardThroughIcon(testCase);
 					break;
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
@@ -366,7 +303,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
