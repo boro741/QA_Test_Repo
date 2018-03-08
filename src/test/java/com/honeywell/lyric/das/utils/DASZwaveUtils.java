@@ -14,10 +14,9 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.keywords.lyric.common.NavigateToScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -26,8 +25,8 @@ public class DASZwaveUtils {
 	//Activate device screen actions
 	public static boolean timeOutForNoActivatedDevice(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		HashMap<String, MobileObject> AddNewScreenfieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		AddNewDeviceScreen addDeviceScreen= new AddNewDeviceScreen(testCase);
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
@@ -35,7 +34,7 @@ public class DASZwaveUtils {
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(AddNewScreenfieldObjects, testCase, "AddNewDeviceHeader",1)||MobileUtils.isMobElementExists(fieldObjects, testCase, "RetryOption",1)||MobileUtils.isMobElementExists(fieldObjects, testCase, "NoDeviceToExcludePopupHeader",1)) {
+						if (addDeviceScreen.isAddNewDeviceHeaderDisplayed()||zScreen.isRetryOnDeviceNotFoundPopUpDisplayed()||zScreen.isNoDeviceToExcludePopupHeaderDisplayed()) {
 							return true;
 						} else {
 							return false;
@@ -60,15 +59,15 @@ public class DASZwaveUtils {
 	}
 	public static boolean waitForEnteringInclusionToComplete(TestCases testCase) {
 		boolean flag = true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EnteringInclusionModeOverlay", 5)) {
+						if (zScreen.isEnteringInclusionModeOverlayDisplayed()) {
 							System.out.println("Waiting for Entering inclusion to disappear");
 							return false;
 						} else {
@@ -95,8 +94,8 @@ public class DASZwaveUtils {
 
 	public static boolean verifyDeviceNotFoundPopUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DeviceNotFoundPopup", 3)) {
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		if (zScreen.isDeviceNotFoundPopupDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Device Not Found Pop Up Title is correctly displayed");
 		} else {
 			flag = false;
@@ -110,14 +109,14 @@ public class DASZwaveUtils {
 	public static boolean waitForSwitchingToComplete(TestCases testCase) {
 		boolean flag = true;
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwavePrimaryScreen");
+			ZwavePrimardCardScreen zPrimaryScreen = new ZwavePrimardCardScreen(testCase);
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SwitchingToOverlay", 5)) {
+						if (zPrimaryScreen.isSwitchingToOverlayDisplayed()) {
 							System.out.println("Waiting for Switching to complete");
 							return false;
 						} else {
@@ -144,15 +143,16 @@ public class DASZwaveUtils {
 
 	public static boolean waitForToggleActionToComplete(TestCases testCase) {
 		boolean flag = true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ToggleStatusProgress", 5)) {
+						if (zScreen.isToggleStatusProgressDisplayed()) {
 							System.out.println("Waiting for Switching to complete");
 							return false;
 						} else {
@@ -189,10 +189,10 @@ public class DASZwaveUtils {
 	}
 
 
-	public static boolean clickNavigateUp(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean clickNavigateUp(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		flag = MobileUtils.clickOnElement(fieldObjects, testCase, "NavigateBack");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		zScreen.clickNavigateBack();
 		return flag;
 	}
 
@@ -229,11 +229,28 @@ public class DASZwaveUtils {
 		return flag;
 	}
 
+	public static boolean navigateToSwitchPrimaryCardFromSwitchSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
+		return flag;
+	}
+
+	public static boolean navigateToDashboardFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs){
+		boolean flag = true;
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		return flag;
+	}
+
 	public static boolean waitForNamingScreen(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-		MobileUtils.isMobElementExists(fieldObjects, testCase, "NameTheDeviceTitle");
-		MobileUtils.isMobElementExists(fieldObjects, testCase, "NameTheDeviceTitle");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		zScreen.isNameTheDeviceTitleDisplayed();
+		zScreen.isNameTheDeviceTitleDisplayed();
 		return flag;
 	}
 	// Remove popup
@@ -324,14 +341,14 @@ public class DASZwaveUtils {
 	public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
 		boolean flag = true;
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
+			ZwaveScreen zScreen = new ZwaveScreen(testCase);
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
 			fWait.withTimeout(1, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EnteringExclusionModeOverlay", 5)) {
+						if (zScreen.isEnteringExclusionModeOverlayDisplayed()) {
 							System.out.println("Waiting for Entering exclusion to disappear");
 							return false;
 						} else {
@@ -358,23 +375,10 @@ public class DASZwaveUtils {
 
 	public static boolean verifyDeviceExcludedPopUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupTitle")) {
-			//MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
-			/*String message, locator = "";
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				locator = "xpath";
-				message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
-			} else {
-				locator = "name";
-				message = "This device will be permanently removed. Are you sure?";
-			}
-			 */
-			//if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
-			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage")){
+			if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
 				Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
 			} else {
 				flag = false;
@@ -400,23 +404,10 @@ public class DASZwaveUtils {
 
 	public static boolean verifyDeviceDeletedPopUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ZwaveScreen");
-
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupTitle")) {
-			//MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage");
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
-			/*String message, locator = "";
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				locator = "xpath";
-				message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
-			} else {
-				locator = "name";
-				message = "This device will be permanently removed. Are you sure?";
-			}
-			 */
-			//if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
-			if(MobileUtils.isMobElementExists(fieldObjects, testCase, "ExcludedSuccessPopupMessage")){
+			if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
 				Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
 			} else {
 				flag = false;
@@ -454,16 +445,21 @@ public class DASZwaveUtils {
 
 	}
 	public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
-		NavigateToScreen.NavigateToPrimaryCardFromDashboard(testCase, "Switch1");
-		Dashboard dScreen= new Dashboard(testCase);
-		if (dScreen.clickOnSettingsIconInSecurityScreen()) {
-			Keyword.ReportStep_Pass(testCase,
-					"Navigated to  Zwave DEVICES");
-			return true;
-		} else {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Could not click on Zwave DEVICES menu from Global drawer");
+		try {
+			DashboardUtils.selectDeviceFromDashboard(testCase,"Switch1");
+			PrimaryCard pScreen = new PrimaryCard(testCase);
+			if (pScreen.clickOnCogIcon()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Navigated to  Zwave DEVICES");
+				return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on Zwave DEVICES menu from Global drawer");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		return false;
 	}
 

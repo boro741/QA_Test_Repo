@@ -143,6 +143,10 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition,testCase, "ReturnKeypad");
 	}
 
+	public boolean clickNavigateBack(){
+		return MobileUtils.clickOnElement(objectDefinition,testCase, "NavigateBack");
+	}
+	
 	public  boolean isEditNamingFieldDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchRenameField");
 	}
@@ -201,6 +205,41 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "RetryOption");
 	}
 
+	public boolean isRetryOnDeviceNotFoundPopUpDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RetryOption");
+	}
+	
+	public boolean isExcludedSuccessPopupMessageDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ExcludedSuccessPopupMessage");
+	}
+	
+	public boolean isExcludedSuccessPopupTitleDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ExcludedSuccessPopupTitle");
+	}
+	
+	public boolean isEnteringExclusionModeOverlayDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnteringExclusionModeOverlay",3);
+	}
+	
+	public boolean isNameTheDeviceTitleDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameTheDeviceTitle");
+	}
+	public boolean isToggleStatusProgressDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ToggleStatusProgress");
+	}
+	
+	public boolean isDeviceNotFoundPopupDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceNotFoundPopup");
+	}
+	
+	public boolean isNoDeviceToExcludePopupHeaderDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoDeviceToExcludePopupHeader");
+	}
+	
+	public boolean isEnteringInclusionModeOverlayDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnteringInclusionModeOverlay",3);
+	}
+	
 	public boolean clickCancelOnDeviceNotFoundPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelOption");
 	}

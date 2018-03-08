@@ -49,15 +49,15 @@ public class NavigateToScreen extends Keyword {
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
 				case "SWITCH SETTINGS": {
@@ -73,14 +73,14 @@ public class NavigateToScreen extends Keyword {
 
 				}
 				case "SWITCH PRIMARY CARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					DashboardUtils.selectDeviceFromDashboard(testCase, "Dimmer1");
 					break;
 				}
@@ -88,53 +88,43 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
 				case "SWITCH PRIMARY CARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
+					DASZwaveUtils.navigateToSwitchPrimaryCardFromSwitchSettings(testCase, inputs);
 					break;
 				}
 				case "DASHBOARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.navigateToDashboardFromZwaveIndividualDeviceSettings(testCase, inputs);
 					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("DIMMER SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DashboardUtils.selectDeviceFromDashboard(testCase, "Dimmer1");
+					DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
 					break;
 				}
 				case "DASHBOARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.navigateToDashboardFromZwaveIndividualDeviceSettings(testCase, inputs);
 					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
 				case "DASHBOARD": {
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
-					DASZwaveUtils.clickNavigateUp(testCase, inputs);
+					DASZwaveUtils.clickNavigateUp(testCase);
+					DASZwaveUtils.clickNavigateUp(testCase);
+					DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {

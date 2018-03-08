@@ -168,7 +168,7 @@ public class ChangeStatusOnScreen extends Keyword {
 							DASZwaveUtils.waitForToggleActionToComplete(testCase);
 							i++;
 						}
-						DASZwaveUtils.clickNavigateUp(testCase, inputs);
+						DASZwaveUtils.clickNavigateUp(testCase);
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -219,7 +219,7 @@ public class ChangeStatusOnScreen extends Keyword {
 							DASZwaveUtils.waitForToggleActionToComplete(testCase);
 							i++;
 						}
-						DASZwaveUtils.clickNavigateUp(testCase, inputs);
+						DASZwaveUtils.clickNavigateUp(testCase);
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
 					} catch (Exception e) {
 						e.printStackTrace();
