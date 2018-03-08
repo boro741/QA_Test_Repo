@@ -11,8 +11,10 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.DASInputVariables;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
 
 public class DASSettingsUtils {
@@ -158,54 +160,14 @@ public class DASSettingsUtils {
 	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;
-		Dashboard d = new Dashboard(testCase);
-		SecondaryCardSettings s = new SecondaryCardSettings(testCase);
+		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
-			if (d.isGlobalDrawerButtonVisible(5)) {
-				flag = flag & d.clickOnGlobalDrawerButton();
-				if (!s.areSecondaryCardSettingsVisible(2)) {
-					flag = flag & d.clickOnGlobalDrawerButton();
-				}
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (s.areSecondaryCardSettingsVisible()) {
-						List<WebElement> icons = s.getSecondaryCardSettings();
-						boolean iconFound = false;
-						for (WebElement icon : icons) {
-							if (icon.getAttribute("text")
-									.equalsIgnoreCase(inputs.getInputValue("LOCATION1_CAMERA1_NAME"))) {
-								iconFound = true;
-								icon.click();
-								break;
-							}
-						}
-						if (iconFound) {
-							Keyword.ReportStep_Pass(testCase, "Successfully navigated to DAS Panel Settings");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not find DAS Panel Settings button");
-						}
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find items on Global Drawer list");
-					}
-				} else {
-					if (MobileUtils.isMobElementExists("name", inputs.getInputValue("LOCATION1_CAMERA1_NAME"), testCase,
-							3)) {
-						flag = flag & MobileUtils.clickOnElement(testCase, "name",
-								inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find DAS Panel Settings button");
-					}
-				}
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Global Drawer button");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
+			if(pc.isCogIconVisible())
+			{
+				flag = flag & pc.clickOnCogIcon();
 			}
-
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
