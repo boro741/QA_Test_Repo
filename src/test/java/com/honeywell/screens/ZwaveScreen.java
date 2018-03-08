@@ -158,7 +158,8 @@ public class ZwaveScreen extends MobileScreens{
 
 	//ZwaveUtilities
 	public  boolean isZwaveUtitiesScreenDisplayed() {
-		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
+		DASZwaveUtils.waitForActionToComplete(testCase,"Fix All");
+		DASZwaveUtils.waitForActionToComplete(testCase,"Fix all");
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralDeviceInclusion") && MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralDeviceExclusion");
 	}
 
@@ -316,8 +317,8 @@ public class ZwaveScreen extends MobileScreens{
 	}
 
 	public boolean clickOnFixAllPopupAccept() {
-		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
-		DASZwaveUtils.waitForActionToComplete(testCase,objectDefinition,"FixAllProgress");
+		DASZwaveUtils.waitForActionToComplete(testCase,"Fix all");
+		DASZwaveUtils.waitForActionToComplete(testCase,"Fix all");
 		if(!testCase.getPlatform().toUpperCase().contains("IOS")){
 			return true;
 		}
@@ -336,6 +337,10 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveUtilitiesMenu");
 	}
 
+	public boolean isFixAllProgressDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FixAllProgress");
+	}
+	
 	public boolean clickOnFactoryReset() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ControllerFactoryReset");
 	}
@@ -403,7 +408,7 @@ public class ZwaveScreen extends MobileScreens{
 	}
 	
 	public boolean isReplaceScreenDisplayed() {
-		DASZwaveUtils.waitForActionToComplete(testCase, objectDefinition, "ReplaceProgress");
+		DASZwaveUtils.waitForActionToComplete(testCase, "Replace Progress");
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ReplaceScreen");
 	}
 	
