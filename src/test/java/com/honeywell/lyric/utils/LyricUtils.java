@@ -438,15 +438,7 @@ public class LyricUtils {
 						return d.isWeatherIconVisible(1);
 					} else {
 						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
-							int counter = 0;
-							if (os.isGotitButtonVisible(1)) {
-								while (os.isGotitButtonVisible(1) && counter < 5) {
-									os.clickOnGotitButton();
-									counter++;
-								}
-							}
-							System.out.println("Returning true");
-							return true;
+							return LyricUtils.closeCoachMarks(testCase);
 						} else {
 							return false;
 						}
@@ -1156,4 +1148,18 @@ public class LyricUtils {
 		return flag;
 	}
 
+	public static boolean closeCoachMarks(TestCases testCase)
+	{
+		boolean flag = true;
+		OSPopUps os = new OSPopUps(testCase);
+		int counter = 0;
+		if (os.isGotitButtonVisible(1)) {
+			while (os.isGotitButtonVisible(1) && counter < 5) {
+				flag = flag & os.clickOnGotitButton();
+				counter++;
+			}
+		}
+		return flag;
+	}
+	
 }
