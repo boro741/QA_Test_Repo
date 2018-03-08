@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
-import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -17,9 +16,9 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
-import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -290,87 +289,58 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Security Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SETTINGS": {
-					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
 				case "BASE STATION CONFIGURATION": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					flag = flag & bs
-							.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardToBaseStationConfigurationScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
-					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isEntryExitDelaySettingsOptionVisible()) {
-						flag = flag & bs
-								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to find Entry/Exit Delay option on DAS Panel Settings");
-					}
+					flag = flag & DASSettingsUtils.navigateFromDashboardToEntryExitDelayScreen(testCase, inputs);
 					break;
 				}
-
 				// Navigate from 'Dashboard' to 'Keyfobs List'
 				// Author: Pratik P. Lalseta (H119237)
 				case "KEYFOB": {
-					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToKeyfobScreen(testCase, inputs);
 					break;
 				}
-
+				// Navigate from 'Dashboard' to 'Sensors List'
+				// Author: Pratik P. Lalseta (H119237)
+				case "SENSORS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardToSensorsScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Sensor Settings List'
+				// Author: Pratik P. Lalseta (H119237)
 				case "SENSOR SETTINGS": {
-					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					String sensorName = "";
-					if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
-							&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"No sensor names were provided in the Requirement file");
-						return flag;
-					}
-					if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
-						sensorName = inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME");
-						inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.ACCESSSENSOR);
-					} else {
-						sensorName = inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME");
-						inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
-					}
-					flag = flag & bs.selectSensorFromSensorList(sensorName);
-					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
-					inputs.setInputValue(DASInputVariables.SENSORNAME, sensorName);
-					inputs.setInputValue(DASInputVariables.SENSORID, devInfo.getDASSensorID(sensorName));
-					inputs.setInputValue(DASInputVariables.SENSORRESPONSETYPE,
-							devInfo.getDASSensorResponseType(sensorName));
+					flag = flag & DASSettingsUtils.navigateFromDashboardToSensorSettingsScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Keyfob Settings List'
+				// Author: Pratik P. Lalseta (H119237)
+				case "KEYFOB SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardToKeyfobSettingsScreen(testCase, inputs);
 					break;
 				}
 
-				case "KEYFOB SETTINGS": {
-					flag = flag & this.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					String keyfobName = "";
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
-					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"No keyfob names were provided in the Requirement file");
-						return flag;
-					}
-					keyfobName = inputs.getInputValue("LOCATION1_KEYFOB1_NAME");
-					flag = flag & bs.selectSensorFromSensorList(keyfobName);
-					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
-					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
-					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+				// Navigate from 'Dashboard' to 'Amazon Alexa Settings'
+				// Author: Pratik P. Lalseta (H119237)
+				case "AMAZON ALEXA SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardToAmazonAlexaScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Video Settings'
+				// Author: Pratik P. Lalseta (H119237)
+				case "VIDEO SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardToVideoSettingsScreen(testCase, inputs);
 					break;
 				}
 
@@ -603,7 +573,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					//System.out.println(testCase.getMobileDriver().getPageSource());
+					// System.out.println(testCase.getMobileDriver().getPageSource());
 					if (dasDIY.isIncreaseSecurityPopupVisible()) {
 						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 						if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
@@ -818,84 +788,6 @@ public class NavigateToScreen extends Keyword {
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard Icons not found");
-		}
-		return flag;
-	}
-
-	/**
-	 * <h1>Navigate from Dashboard to Security Screen</h1>
-	 * <p>
-	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates from
-	 * the dashboard to the security screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
-	 * </p>
-	 *
-	 * @author Pratik P. Lalseta (H119237)
-	 * @version 1.0
-	 * @since 2018-02-15
-	 * @param testCase
-	 *            Instance of the TestCases class used to create the testCase
-	 * @param inputs
-	 *            Instance of the TestCaseInputs class used to pass inputs to the
-	 *            testCase instance
-	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
-	 *         if navigation is not successful.
-	 */
-	private boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
-		Dashboard d = new Dashboard(testCase);
-		SecondaryCardSettings s = new SecondaryCardSettings(testCase);
-		try {
-			if (d.isGlobalDrawerButtonVisible(5)) {
-				flag = flag & d.clickOnGlobalDrawerButton();
-				if (!s.areSecondaryCardSettingsVisible(2)) {
-					flag = flag & d.clickOnGlobalDrawerButton();
-				}
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (s.areSecondaryCardSettingsVisible()) {
-						List<WebElement> icons = s.getSecondaryCardSettings();
-						boolean iconFound = false;
-						for (WebElement icon : icons) {
-							if (icon.getAttribute("text")
-									.equalsIgnoreCase(inputs.getInputValue("LOCATION1_CAMERA1_NAME"))) {
-								iconFound = true;
-								icon.click();
-								break;
-							}
-						}
-						if (iconFound) {
-							Keyword.ReportStep_Pass(testCase, "Successfully navigated to DAS Panel Settings");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not find DAS Panel Settings button");
-						}
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find items on Global Drawer list");
-					}
-				} else {
-					if (MobileUtils.isMobElementExists("name", inputs.getInputValue("LOCATION1_CAMERA1_NAME"), testCase,
-							3)) {
-						flag = flag & MobileUtils.clickOnElement(testCase, "name",
-								inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find DAS Panel Settings button");
-					}
-				}
-			} else
-
-			{
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Global Drawer button");
-			}
-
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 		return flag;
 	}

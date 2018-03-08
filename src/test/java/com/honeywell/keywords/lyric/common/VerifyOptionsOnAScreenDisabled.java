@@ -60,17 +60,14 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Entry/Exit Delay Option is disabled");
 						}
-					}
-					else if (fieldTobeVerified.equalsIgnoreCase("Volume")) {
+					} else if (fieldTobeVerified.equalsIgnoreCase("Volume")) {
 						if (bs.isElementEnabled(BaseStationSettingsScreen.VOLUME)) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Volume Option is enabled");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Volume Option is enabled");
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Volume Delay Option is disabled");
 						}
-					}
-					else if (fieldTobeVerified.equalsIgnoreCase("Base Station Wi-Fi")) {
+					} else if (fieldTobeVerified.equalsIgnoreCase("Base Station Wi-Fi")) {
 						if (bs.isElementEnabled(BaseStationSettingsScreen.BASESTATIONWIFI)) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -84,6 +81,43 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
 
+			}
+			break;
+		}
+		case "VIDEO SETTINGS": {
+			try {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				for (int i = 0; i < data.getSize(); i++) {
+					String fieldTobeVerified = data.getData(i, "Options");
+					if (fieldTobeVerified.equalsIgnoreCase("Motion Detection")) {
+						if (bs.isElementEnabled(BaseStationSettingsScreen.MOTIONDETECTION)) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Motion Detection Option is enabled");
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Motion Detection Option is disabled");
+						}
+					} else if (fieldTobeVerified.equalsIgnoreCase("Night Vision")) {
+						if (bs.isElementEnabled(BaseStationSettingsScreen.NIGHTVISION)) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Night Vision Option is enabled");
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Night Vision Option is disabled");
+						}
+					} else if (fieldTobeVerified.equalsIgnoreCase("Video Quality")) {
+						if (bs.isElementEnabled(BaseStationSettingsScreen.VIDEOQUALITY)) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Video Quality Option is enabled");
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Video Quality Option is disabled");
+						}
+					}
+				}
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 			}
 			break;
 		}

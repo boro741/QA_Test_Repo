@@ -23,7 +23,7 @@ Feature: DAS Settings
       | Settings                   | 
       | Alert Settings             |
       | Amazon Alexa               | 
-      | Geofencing                 |
+      | Geofence                   |
       | Video Settings             |
       | OK Security Voice Commands | 
       | Entry/Exit Delay           | 
@@ -303,28 +303,28 @@ Feature: DAS Settings
      When user "accepts" the "Confirm Amazon Alexa Logout" popup 
      Then user verifies that the DAS Panel "does not repond" to "Amazon Alexa Voice Commands"
   
-  #Requirements: Single Location Single DAS Device, No Sensors Required
-  @AmazonAlexaAppDownload
+  #Requirements: Single Location Single DAS Device, No Sensors Required, Amazon Alexa Signed in
+  @AmazonAlexaAppDownload @UIAutomated 
   Scenario: As a user I should be able to download the Amazon Alexa App
     Given user launches and logs in to the Lyric application
      When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
       And user "downloads the Alexa app" by clicking on "Alexa app" button
-     Then user should be navigated to the "Alexa app" download page
+     Then user should be displayed with the "Alexa app download page" screen
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @EnableDisableGeofencing
-  Scenario: As a user I should be able to enable/disable geofencing on my DAS Panel account   
-    Given geofencing is "enabled" on the user account through CHIL
+  @EnableDisableGeofencing @UIAutomated
+  Scenario: As a user I should be able to enable or disable geofencing on my DAS Panel account   
+    Given "location" geofencing is "enabled" on the user account through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
-      And user changes the "Geofencing" to "ON"
+      And user changes the "Geofencing Status" to "ON"
      Then "Geofencing" value should be updated to "ON" on "Security Settings" screen
-     When user changes the "Geofencing" to "OFF"
+     When user changes the "Geofencing Status" to "OFF"
      Then "Geofencing" value should be updated to "OFF" on "Security Settings" screen
   
   #LYDAS-6820,LYDAS-6890,LYDAS-3596
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VideoSettingsDisabled
+  @VideoSettingsDisabled @UIAutomated
   Scenario: As a user I should be able to access DAS camera settings
     Given user DAS camera is set to "off" through CHIL
       And user launches and logs in to the Lyric application
@@ -334,7 +334,14 @@ Feature: DAS Settings
       | Motion Detection | 
       | Night Vision     | 
       | Video Quality    | 
-     When user selects the "Motion Detection" option 
+  
+  #Requirements: Single Location Single DAS Device, No Sensors Required
+  @VerifyToastMessages @NotAutomatable
+  Scenario: As a user I should be receive a toast message when accessing a disabled option
+    Given user DAS camera is set to "off" through CHIL
+      And user launches and logs in to the Lyric application
+     When user navigates to "Video Settings" screen from the "Dashboard" screen
+     And user selects the "Motion Detection" option 
      Then user receives a "Ensure camera is turned on" toast message
      When user selects the "Night Vision" option 
      Then user receives a "Ensure camera is turned on" toast message
@@ -433,7 +440,7 @@ Feature: DAS Settings
   
   #LYDAS-6939
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyNightVisionSettings
+  @VerifyNightVisionSettings @NotAutomatable
   Scenario: As a user I should be able to update my Night Vision Settings
     Given user launches and logs in to the Lyric application 
      When user navigates to "Night Vision Settings" screen from the "Dashboard" screen 
@@ -468,7 +475,7 @@ Feature: DAS Settings
      Then "Night Vision" value should be updated to "Off" on "Video Settings" screen
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyVideoQualitySettings
+  @VerifyVideoQualitySettings @NotAutomatable
   Scenario: As a user I should be able to update my Video Quality Settings
     Given user launches and logs in to the Lyric application 
      When user navigates to "Video Quality Settings" screen from the "Dashboard" screen 
@@ -502,7 +509,7 @@ Feature: DAS Settings
      When user navigates to "Video Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "High" on "Video Settings" screen
      
-     @EnableDisableMotionDetection
+     @EnableDisableMotionDetection @NotAutomatable
      Scenario: As a user I should be able to enable or disable motion detection
      Given user DAS camera is set to "on" through CHIL
       And motion detection is "enabled" on user DAS panel through CHIL

@@ -76,8 +76,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Entry-Exit Delay Timer not displayed on DAS Settings screen");
 				}
-			}
-			else if (parameters.get(0).equalsIgnoreCase("Base Station Volume")
+			} else if (parameters.get(0).equalsIgnoreCase("Base Station Volume")
 					&& parameters.get(2).equalsIgnoreCase("Security Settings")) {
 				String value = parameters.get(1).split("%")[0].split("~")[1];
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -88,7 +87,30 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Volume value is not displated correctly. Expected : " + parameters.get(1));
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("Geofencing")
+					&& parameters.get(2).equalsIgnoreCase("Security Settings")) {
+
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofencing is enabled on Base Station Settings");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Geofencing is disabled on Base Station Settings");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofencing is disabled on Base Station Settings");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Geofencing is enabled on Base Station Settings");
+					}
+
+				}
 			}
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

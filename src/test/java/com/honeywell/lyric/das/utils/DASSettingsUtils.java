@@ -1,5 +1,10 @@
 package com.honeywell.lyric.das.utils;
 
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -7,6 +12,8 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SecondaryCardSettings;
 
 public class DASSettingsUtils {
 
@@ -108,7 +115,8 @@ public class DASSettingsUtils {
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isDeleteKeyfobPopUpVisible()) {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete Keyfob Confirmation Pop Up displayed");
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Delete Keyfob Confirmation Pop Up displayed");
 		} else {
 			Keyword.ReportStep_Pass(testCase, "Delete Keyfob Confirmation Pop Up not displayed");
 		}
@@ -127,4 +135,226 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+
+	/**
+	 * <h1>Navigate from Dashboard to Security Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToSecuritySettingsScreen method navigates from
+	 * the dashboard to the security screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		Dashboard d = new Dashboard(testCase);
+		SecondaryCardSettings s = new SecondaryCardSettings(testCase);
+		try {
+			if (d.isGlobalDrawerButtonVisible(5)) {
+				flag = flag & d.clickOnGlobalDrawerButton();
+				if (!s.areSecondaryCardSettingsVisible(2)) {
+					flag = flag & d.clickOnGlobalDrawerButton();
+				}
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (s.areSecondaryCardSettingsVisible()) {
+						List<WebElement> icons = s.getSecondaryCardSettings();
+						boolean iconFound = false;
+						for (WebElement icon : icons) {
+							if (icon.getAttribute("text")
+									.equalsIgnoreCase(inputs.getInputValue("LOCATION1_CAMERA1_NAME"))) {
+								iconFound = true;
+								icon.click();
+								break;
+							}
+						}
+						if (iconFound) {
+							Keyword.ReportStep_Pass(testCase, "Successfully navigated to DAS Panel Settings");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not find DAS Panel Settings button");
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not find items on Global Drawer list");
+					}
+				} else {
+					if (MobileUtils.isMobElementExists("name", inputs.getInputValue("LOCATION1_CAMERA1_NAME"), testCase,
+							3)) {
+						flag = flag & MobileUtils.clickOnElement(testCase, "name",
+								inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not find DAS Panel Settings button");
+					}
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Global Drawer button");
+			}
+
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToBaseStationConfigurationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToEntryExitDelayScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isEntryExitDelaySettingsOptionVisible()) {
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Unable to find Entry/Exit Delay option on DAS Panel Settings");
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToKeyfobScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToSensorsScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToSensorSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+			String sensorName = "";
+			if (!inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")
+					&& !inputs.isInputAvailable("LOCATION1_MOTIONENSOR1_NAME")) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"No sensor names were provided in the Requirement file");
+				return flag;
+			}
+			if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
+				sensorName = inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME");
+				inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.ACCESSSENSOR);
+			} else {
+				sensorName = inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME");
+				inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
+			}
+			flag = flag & bs.selectSensorFromSensorList(sensorName);
+			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+			inputs.setInputValue(DASInputVariables.SENSORNAME, sensorName);
+			inputs.setInputValue(DASInputVariables.SENSORID, devInfo.getDASSensorID(sensorName));
+			inputs.setInputValue(DASInputVariables.SENSORRESPONSETYPE, devInfo.getDASSensorResponseType(sensorName));
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToKeyfobSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			String keyfobName = "";
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+			if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"No keyfob names were provided in the Requirement file");
+				return flag;
+			}
+			keyfobName = inputs.getInputValue("LOCATION1_KEYFOB1_NAME");
+			flag = flag & bs.selectSensorFromSensorList(keyfobName);
+			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+			inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
+			inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromDashboardToAmazonAlexaScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.AMAZONALEXA);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromDashboardToVideoSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase, inputs);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.VIDEOSETTINGS);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
 }

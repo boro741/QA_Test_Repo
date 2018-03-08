@@ -53,25 +53,25 @@ public class DeviceInformation {
 	}
 
 	public String getZwaveDeviceID(String name) throws Exception {
-		String sDimmerDeviceID ="";
-		try{
+		String sDimmerDeviceID = "";
 		if (deviceInformation != null) {
-			for(int i=0; i <deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").length(); i++){
-				System.out.println(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("name"));
-				if(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("name").toString().equals(name)){
-						//.getJSONObject("configurations").get("nodeDescription").toString().equals(name)){
-					return deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices").getJSONArray("switches").getJSONObject(i).get("id").toString();
+			for (int i = 0; i < deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices")
+					.getJSONArray("switches").length(); i++) {
+				System.out.println(deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices")
+						.getJSONArray("switches").getJSONObject(i).get("name"));
+				if (deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices")
+						.getJSONArray("switches").getJSONObject(i).get("name").toString().equals(name)) {
+					return deviceInformation.getJSONObject("deviceDetails").getJSONObject("automationDevices")
+							.getJSONArray("switches").getJSONObject(i).get("id").toString();
 				}
 			}
 		} else {
 			throw new Exception("Device Information not found");
 		}
-		}catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}
 		return sDimmerDeviceID;
 	}
-	public String getJasperDeviceType(){
+
+	public String getJasperDeviceType() {
 		String type = " ";
 		if (deviceInformation != null) {
 			try {
@@ -191,32 +191,28 @@ public class DeviceInformation {
 	public String getDASSensorID(String sensorName) throws Exception {
 		if (deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
-			for(int i=0;i<sensors.length();i++)
-			{
+			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
-				if(sensor.getString("name").equals(sensorName))
-				{
+				if (sensor.getString("name").equals(sensorName)) {
 					return sensor.getString("id");
 				}
 			}
-			throw new Exception("Sensor Name: '"+ sensorName +"' not found in configured sensors");
+			throw new Exception("Sensor Name: '" + sensorName + "' not found in configured sensors");
 		} else {
 			throw new Exception("Device Information not found");
 		}
 	}
-	
+
 	public String getDASKeyfobID(String keyfobName) throws Exception {
 		if (deviceInformation != null) {
 			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
-			for(int i=0;i<keyfobs.length();i++)
-			{
+			for (int i = 0; i < keyfobs.length(); i++) {
 				JSONObject keyfob = keyfobs.getJSONObject(i);
-				if(keyfob.getString("name").equals(keyfobName))
-				{
+				if (keyfob.getString("name").equals(keyfobName)) {
 					return keyfob.getString("id");
 				}
 			}
-			throw new Exception("Keyfob Name: '"+ keyfobName +"' not found in configured sensors");
+			throw new Exception("Keyfob Name: '" + keyfobName + "' not found in configured sensors");
 		} else {
 			throw new Exception("Device Information not found");
 		}
@@ -225,15 +221,28 @@ public class DeviceInformation {
 	public String getDASSensorResponseType(String sensorName) throws Exception {
 		if (deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
-			for(int i=0;i<sensors.length();i++)
-			{
+			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
-				if(sensor.getString("name").equals(sensorName))
-				{
+				if (sensor.getString("name").equals(sensorName)) {
 					return sensor.getJSONObject("configurations").getString("responseType");
 				}
 			}
-			throw new Exception("Sensor Name: "+ sensorName +" not found in configured sensors");
+			throw new Exception("Sensor Name: " + sensorName + " not found in configured sensors");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+	}
+
+	public String getDASCameraID() throws Exception {
+		if (deviceInformation != null) {
+			JSONArray onBoardDevices = deviceInformation.getJSONObject("deviceDetails").getJSONArray("onboardDevices");
+			for (int i = 0; i < onBoardDevices.length(); i++) {
+				JSONObject onBoardDevice = onBoardDevices.getJSONObject(i);
+				if (onBoardDevice.getString("deviceClass").equals("Camera")) {
+					return onBoardDevice.getString("deviceID");
+				}
+			}
+			throw new Exception("No Onboard devices found");
 		} else {
 			throw new Exception("Device Information not found");
 		}

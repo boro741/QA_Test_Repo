@@ -199,7 +199,17 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
-			} else {
+			}
+			else if (expectedButton.get(0).equalsIgnoreCase("downloads the Alexa app")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "ALEXA APP": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnAlexaAppButton();
+					break;
+				}
+				}
+			}
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Invalid Input: " + expectedButton.get(1));
