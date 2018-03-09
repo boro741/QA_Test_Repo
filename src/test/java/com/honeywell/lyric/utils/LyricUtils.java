@@ -989,11 +989,10 @@ public class LyricUtils {
 					return false;
 				}
 			}
-
 		} catch (NoSuchElementException e) {
-			throw new Exception("Element with text : '" + value + "' not found");
+			throw new Exception("Element with text : '" + value + "' not found. Exception Type: No Such Element Exception");
 		} catch (Exception e) {
-			throw new Exception("Error Occured: " + e.getMessage());
+			throw new Exception("Element with text : '" + value + "' not found. Exception Message: " + e.getMessage());
 		}
 	}
 
@@ -1034,8 +1033,9 @@ public class LyricUtils {
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
 				js.executeScript("mobile: scroll", scrollObject);
-				WebElement element = testCase.getMobileDriver()
-						.findElement(MobileBy.iOSNsPredicateString(attribute + " CONTAINS '" + value + "'"));
+				WebElement element = MobileUtils.getMobElement(testCase, "xpath", "//*[contains(@" + attribute +",'" + value +"')]");
+				//WebElement element = testCase.getMobileDriver()
+				//		.findElement(MobileBy.iOSNsPredicateString(attribute + " CONTAINS '" + value + "'"));
 				if (element.getAttribute(attribute).contains(value)) {
 					return true;
 				} else {
@@ -1045,9 +1045,9 @@ public class LyricUtils {
 			}
 
 		} catch (NoSuchElementException e) {
-			throw new Exception("Element with text : '" + value + "' not found");
+			throw new Exception("Element with text/value containing : '" + value + "' not found. Exception Type : No Such Element Exception");
 		} catch (Exception e) {
-			throw new Exception("Error Occured: " + e.getMessage());
+			throw new Exception("Element with text/value containing : '" + value + "' not found. Exception Message: " + e.getMessage());
 		}
 	}
 

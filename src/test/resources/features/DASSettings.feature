@@ -23,15 +23,15 @@ Feature: DAS Settings
       | Settings                   | 
       | Alert Settings             |
       | Amazon Alexa               | 
-      | Geofence                   |
+      | Geofencing                 |
       | Video Settings             |
       | OK Security Voice Commands | 
       | Entry/Exit Delay           | 
       | About Security Modes       | 
       | Key Fob                    | 
       | Sensors                    |
-      | Volume                     |  
-      | Base Station Wi-Fi         | 
+      | Base Station Volume        |  
+      | Reset Wi-Fi                | 
       | Base Station Configuration | 
   
   #LYDAS-4216,LYDAS-3376,LYDAS-3244,LYDAS-2660,LYDAS-2403,LYDAS-2380,LYDAS-2360,LYDAS-2149,LYDAS-3440
@@ -88,7 +88,7 @@ Feature: DAS Settings
   #LYDAS-7040,LYDAS-2508,LYDAS-2337
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @RenameDASBaseStation @UIAutomated
-  Scenario: As a user I want to rename my Base station through th application 
+  Scenario: As a user I want to rename my Base station through the application 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
      When user edits the "DAS Panel" name to "Test Panel Name" 
@@ -270,7 +270,8 @@ Feature: DAS Settings
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @ChangeBaseStationVolume @UIAutomated
   Scenario: As a user I should be able to change the base station volume
-    Given user launches and logs in to the Lyric application
+    Given user is set to "Home" mode through CHIL 
+    And user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
       And user changes the "Base Station Volume" to "~0%"
      Then "Base Station Volume" value should be updated to "~0%" on "Security Settings" screen

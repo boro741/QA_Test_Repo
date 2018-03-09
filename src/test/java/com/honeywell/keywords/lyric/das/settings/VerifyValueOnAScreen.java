@@ -61,7 +61,7 @@ public class VerifyValueOnAScreen extends Keyword {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.isEntryExitDelaySettingsOptionVisible(15)) {
 					String displayed = bs.getEntryExitTimerValueFromSecuritySettingsScreen();
-					String expected = parameters.get(1) + " seconds";
+					String expected = parameters.get(1) + " Seconds";
 					if (displayed.equalsIgnoreCase(expected)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Entry-Exit Delay timer correctly displayed on DAS Settings screen");

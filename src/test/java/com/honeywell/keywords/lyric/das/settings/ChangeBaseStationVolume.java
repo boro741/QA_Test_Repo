@@ -61,7 +61,7 @@ public class ChangeBaseStationVolume extends Keyword {
 					}
 					else
 					{
-						flag = flag & bs.toggleGeofenceSwitch(testCase);
+						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
 				else if(parameters.get(1).equalsIgnoreCase("OFF"))
@@ -72,7 +72,7 @@ public class ChangeBaseStationVolume extends Keyword {
 					}
 					else
 					{
-						flag = flag & bs.toggleGeofenceSwitch(testCase);
+						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
 			}
