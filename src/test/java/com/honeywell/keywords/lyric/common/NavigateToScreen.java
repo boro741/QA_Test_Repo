@@ -326,14 +326,10 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dashboard d = new Dashboard(testCase);
-					while(bs.isBackButtonVisible()) {
+					int counter = 0;
+					while(bs.isBackButtonVisible() && !d.areDevicesVisibleOnDashboard() && counter < 4) {
 						flag = flag & bs.clickOnBackButton();
-					}
-					if (!d.areDevicesVisibleOnDashboard()) {
-						flag = flag & bs.clickOnBackButton();
-						if (!d.areDevicesVisibleOnDashboard()) {
-							flag = flag & bs.clickOnBackButton();
-						}
+						counter++;
 					}
 					break;
 				}
