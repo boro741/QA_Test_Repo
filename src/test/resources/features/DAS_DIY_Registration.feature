@@ -379,8 +379,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name                           | device name                     | 
@@ -418,8 +418,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <new device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <new device name> device on the "dashboard" screen
 Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
@@ -472,12 +472,12 @@ And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
 Then user should not be displayed with "sensors" on the "sensors" screen
-When user navigates to "Base Station Configuration" screen from the "Sensors" screen
+When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name	| device name		| sensor location		| sensor location area		|
@@ -535,9 +535,9 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <first device name> device on dashboard
-And user should not be displayed with <second device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <first device name> device on the "dashboard" screen
+And user should not be displayed with <second device name> device on the "dashboard" screen
 
 Examples: 
       |	location name	|	first device name	|	second device name	|	Base Station MAC ID		|
@@ -575,8 +575,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name                           | device name                     | 
@@ -613,8 +613,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name | device name  | 
@@ -648,8 +648,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name | device name  | 
@@ -689,8 +689,8 @@ And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 When user navigates to other apps and navigates back to Lyric app
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name                           | device name                     | 
@@ -736,8 +736,8 @@ Then user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <first device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
       | location name | first device name	| second device name		|
@@ -844,8 +844,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 And user navigates to "Choose Location" screen from the "Smart Home Security" screen
@@ -867,8 +867,8 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
       | location name | device name  | 

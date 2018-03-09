@@ -22,7 +22,7 @@ import com.honeywell.screens.ZwaveScreen;
 public class SelectElementOnAScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 	public HashMap<String, MobileObject> fieldObjects;
@@ -30,7 +30,7 @@ public class SelectElementOnAScreen extends Keyword {
 	public SelectElementOnAScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.parameters = parameters;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -150,8 +150,15 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+				inputs.setInputValue("LOCATION1_NAME", parameters.get(0));
 				return DIYRegistrationUtils.selectAvaiableLocation(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
+				if (!inputs.isInputAvailable("LOCATION1_CAMERA1_NAME")) {
+					inputs.setInputValue("LOCATION1_CAMERA1_NAME", parameters.get(0));
+				} else {
+					inputs.setInputValue("LOCATION1_CAMERA2_NAME", parameters.get(0));
+				}
+
 				return DIYRegistrationUtils.selectAvaiableBaseStationName(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
 				return DIYRegistrationUtils.selectABaseStationFromListOfAvailableBaseStations(testCase,

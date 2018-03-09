@@ -8,13 +8,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
-import com.honeywell.commons.coreframework.Keyword;
-import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
-import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
 public class BaseStationSettingsScreen extends MobileScreens {
@@ -596,8 +592,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoKeyFobsText", 3);
 	}
 
-	public boolean isNoSensorTextVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSensorsText", 3);
+	public boolean isNoSensorTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSensorsText", timeOut);
 	}
 
 	public boolean isKeyfobPresentInKeyfobsList(String keyfobName) {
@@ -781,14 +777,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlexaAppLink");
 	}
 
-	public boolean clickOnDeleteSensorButton() {
-		boolean flag = true;
+	public boolean clickOnDeleteSensorButton() throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		} else {
-			flag = false;
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		}
-		return flag;
 	}
 
 	public boolean isMotionSensorDeletePopUpMessageVisible() {

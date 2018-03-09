@@ -15,10 +15,12 @@ public class EnterNewLocationAndDeviceName extends Keyword {
 	private TestCases testCase;
 	private ArrayList<String> inputName;
 	public boolean flag = true;
+	private TestCaseInputs inputs;
 
 	public EnterNewLocationAndDeviceName(TestCases testCase, TestCaseInputs inputs, ArrayList<String> inputName) {
 		this.testCase = testCase;
 		this.inputName = inputName;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -33,8 +35,10 @@ public class EnterNewLocationAndDeviceName extends Keyword {
 	public boolean keywordSteps() {
 
 		if (inputName.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+			inputs.setInputValue("LOCATION1_NAME", inputName.get(0));
 			return DIYRegistrationUtils.inputNewLocationName(testCase, inputName.get(0));
 		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
+			inputs.setInputValue("LOCATION1_CAMERA1_NAME", inputName.get(0));
 			return DIYRegistrationUtils.inputNewBaseStationnName(testCase, inputName.get(0));
 		}
 		return flag;

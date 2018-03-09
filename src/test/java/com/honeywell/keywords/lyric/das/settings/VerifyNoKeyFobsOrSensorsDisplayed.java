@@ -32,7 +32,7 @@ public class VerifyNoKeyFobsOrSensorsDisplayed extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should not be displayed with (.*) on the (.*) screen$")
+	@KeywordStep(gherkins = "^user should not be displayed with \"(.*)\" on the \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -50,7 +50,7 @@ public class VerifyNoKeyFobsOrSensorsDisplayed extends Keyword {
 			}
 			else if (parameters.get(0).equalsIgnoreCase("sensors")
 					&& parameters.get(1).equalsIgnoreCase("sensors")) {
-				if(bs.isNoSensorTextVisible())
+				if(bs.isNoSensorTextVisible(15))
 				{
 					Keyword.ReportStep_Pass(testCase, "No Sensors text is displayed");
 				}

@@ -178,6 +178,7 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
 					DIYRegistrationUtils.deleteLocation(testCase);
+					break;
 				}
 				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("deletes keyfob")) {

@@ -309,6 +309,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
 			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
+			
 		}
 		return flag;
 	}
@@ -379,12 +380,12 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		dasDIY.clickOnGlobalDrawerButton();
 		if (dasDIY.isLocationDetailsVisible()) {
-			dasDIY.clickOnLocationDetails();
+			flag = flag & dasDIY.clickOnLocationDetails();
 			if (dasDIY.isDeleteLocationButtonVisible()) {
-				dasDIY.clickOnDeleteLocationButton();
+				flag = flag & dasDIY.clickOnDeleteLocationButton();
 				if (dasDIY.isDeleteLocationPopupVisible()) {
-					dasDIY.clickOnYesButtonInDeleteLocationPopup();
-					d.isAddDeviceIconVisible(10);
+					flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+					flag = flag & d.isAddDeviceIconVisible(10);
 				}
 			}
 		}
