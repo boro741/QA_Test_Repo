@@ -38,11 +38,7 @@ public class EnterNewLocationAndDeviceName extends Keyword {
 			inputs.setInputValue("LOCATION1_NAME", inputName.get(0));
 			return DIYRegistrationUtils.inputNewLocationName(testCase, inputName.get(0));
 		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
-			if(!inputs.isInputAvailable("LOCATION1_CAMERA1_NAM")) {
 			inputs.setInputValue("LOCATION1_CAMERA1_NAME", inputName.get(0));
-			} else {
-				inputs.setInputValue("LOCATION1_CAMERA2_NAME", inputName.get(0));
-			}
 			return DIYRegistrationUtils.inputNewBaseStationnName(testCase, inputName.get(0));
 		}
 		return flag;
