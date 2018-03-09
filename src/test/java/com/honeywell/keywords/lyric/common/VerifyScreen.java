@@ -57,7 +57,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -68,7 +68,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -80,7 +80,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -94,7 +94,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -107,7 +107,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -120,7 +120,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -132,7 +132,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -144,7 +144,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -156,7 +156,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -168,7 +168,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -180,7 +180,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -193,7 +193,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -205,7 +205,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -217,7 +217,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -229,7 +229,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -241,7 +241,7 @@ public class VerifyScreen extends Keyword {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to excpected screen " + expectedScreen.get(0).toUpperCase());
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 			}
 			case "ALEXA APP DOWNLOAD PAGE": {

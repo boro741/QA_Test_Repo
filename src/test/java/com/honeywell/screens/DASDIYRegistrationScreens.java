@@ -519,20 +519,20 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isAvailableSensorNameVisible(String availableSensorName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("xpath",
-					"//android.widget.TextView[@text='" + availableSensorName + "']", testCase);
+					"//*[@text='" + availableSensorName + "']", testCase);
 		} else {
 			return MobileUtils.isMobElementExists("xpath",
-					"//XCUIElementTypeStaticText[@value='" + availableSensorName + "']", testCase);
+					"//*[@value='" + availableSensorName + "']", testCase);
 		}
 	}
 
 	public boolean clickOnAvailableSensorName(String availableSensorName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(testCase, "xpath",
-					"//android.widget.TextView[@text='" + availableSensorName + "']");
+					"//*[@text='" + availableSensorName + "']");
 		} else {
 			return MobileUtils.clickOnElement(testCase, "xpath",
-					"//XCUIElementTypeStaticText[@value='" + availableSensorName + "']");
+					"//*[@value='" + availableSensorName + "']");
 		}
 	}
 

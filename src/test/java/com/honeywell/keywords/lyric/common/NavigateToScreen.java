@@ -212,15 +212,13 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Security Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SETTINGS": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
 				case "BASE STATION CONFIGURATION": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardToBaseStationConfigurationScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardToBaseStationConfigurationScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
@@ -501,6 +499,9 @@ public class NavigateToScreen extends Keyword {
 				case "GEOFENCE": {
 					return DIYRegistrationUtils.navigateFromEnableGeoFencingToGeoFence(testCase);
 				}
+				case "ENABLE AMAZON ALEXA": {
+					return DIYRegistrationUtils.navigateFromEnableGeoFencingToEnableAmazonAlexa(testCase);
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -518,12 +519,6 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
 					return DIYRegistrationUtils.navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(testCase);
-				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "ENABLE AMAZON ALEXA": {
-					return DIYRegistrationUtils.navigateFromEnableGeoFencingToEnableAmazonAlexa(testCase);
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {

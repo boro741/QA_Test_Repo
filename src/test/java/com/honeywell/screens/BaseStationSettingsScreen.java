@@ -592,8 +592,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoKeyFobsText", 3);
 	}
 
-	public boolean isNoSensorTextVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSensorsText", 3);
+	public boolean isNoSensorTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSensorsText", timeOut);
 	}
 
 	public boolean isKeyfobPresentInKeyfobsList(String keyfobName) {
@@ -638,7 +638,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					"//XCUIElementTypeStaticText[@value='" + sensorName + "']");
 		}
 	}
-
+	
 	public boolean verifySensorModelDetailsOnModelAndFirmwareDetailsPage() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel")) {
@@ -777,14 +777,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlexaAppLink");
 	}
 
-	public boolean clickOnDeleteSensorButton() {
-		boolean flag = true;
+	public boolean clickOnDeleteSensorButton() throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		} else {
-			flag = false;
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		}
-		return flag;
 	}
 
 	public boolean isMotionSensorDeletePopUpMessageVisible() {

@@ -84,9 +84,9 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
 				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 						"DELETING LOCATION PROGRESS BAR", 1);
+				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
@@ -301,7 +301,6 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {

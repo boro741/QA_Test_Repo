@@ -23,6 +23,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.Dashboard;
 
 public class DIYRegistrationUtils {
 
@@ -299,13 +300,6 @@ public class DIYRegistrationUtils {
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
-		} else {
-			if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-			}
-			if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInQuickControlsPopup();
-			}
 		}
 		return flag;
 	}
@@ -315,6 +309,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
 			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
+			
 		}
 		return flag;
 	}
@@ -377,7 +372,24 @@ public class DIYRegistrationUtils {
 			flag = flag & dasDIY.clickOnAvailableSensorName(availableSensorName);
 		}
 		return flag;
+	}
 
+	public static boolean deleteLocation(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		Dashboard d = new Dashboard(testCase);
+		boolean flag = true;
+		dasDIY.clickOnGlobalDrawerButton();
+		if (dasDIY.isLocationDetailsVisible()) {
+			flag = flag & dasDIY.clickOnLocationDetails();
+			if (dasDIY.isDeleteLocationButtonVisible()) {
+				flag = flag & dasDIY.clickOnDeleteLocationButton();
+				if (dasDIY.isDeleteLocationPopupVisible()) {
+					flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+					flag = flag & d.isAddDeviceIconVisible(10);
+				}
+			}
+		}
+		return flag;
 	}
 
 	/**

@@ -157,8 +157,7 @@ public class DASSettingsUtils {
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 			flag = flag & LyricUtils.closeCoachMarks(testCase);
-			if(pc.isCogIconVisible())
-			{
+			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
 		} catch (Exception e) {
@@ -297,7 +296,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromDashboardToVideoSettingsScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -310,14 +309,12 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
-	public static boolean navigateFromSensorScreenToBaseStationConfigurationScreen(TestCases testCase)
-	{
+
+	public static boolean navigateFromSensorScreenToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			if(bs.isBackButtonVisible())
-			{
+			if (bs.isBackButtonVisible()) {
 				flag = flag & bs.clickOnBackButton();
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);

@@ -33,7 +33,7 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should not be displayed with (.*) device on the (.*) screen$")
+	@KeywordStep(gherkins = "^user should not be displayed with \"(.*)\" device on the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 		Dashboard dashBordScreen = new Dashboard(testCase);
 		switch (expectedDevice.get(1).toUpperCase()){
