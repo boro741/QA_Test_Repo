@@ -8,9 +8,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
 public class BaseStationSettingsScreen extends MobileScreens {
@@ -638,7 +642,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					"//XCUIElementTypeStaticText[@value='" + sensorName + "']");
 		}
 	}
-
+	
 	public boolean verifySensorModelDetailsOnModelAndFirmwareDetailsPage() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel")) {

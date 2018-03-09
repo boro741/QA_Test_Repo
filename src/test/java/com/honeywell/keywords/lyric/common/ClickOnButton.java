@@ -177,18 +177,7 @@ public class ClickOnButton extends Keyword {
 			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES LOCATION DETAILS")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
-					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					dasDIY.clickOnGlobalDrawerButton();
-					if (dasDIY.isLocationDetailsVisible()) {
-						dasDIY.clickOnLocationDetails();
-						if (dasDIY.isDeleteLocationButtonVisible()) {
-							dasDIY.clickOnDeleteLocationButton();
-							if (dasDIY.isDeleteLocationPopupVisible()) {
-								dasDIY.clickOnYesButtonInDeleteLocationPopup();
-							}
-						}
-					}
-					break;
+					DIYRegistrationUtils.deleteLocation(testCase);
 				}
 				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("deletes keyfob")) {

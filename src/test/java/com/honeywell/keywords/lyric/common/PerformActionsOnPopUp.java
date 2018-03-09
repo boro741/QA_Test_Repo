@@ -301,7 +301,6 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {

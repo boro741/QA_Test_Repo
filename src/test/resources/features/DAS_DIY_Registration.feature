@@ -3,7 +3,7 @@ Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
 
-@DIYSmartHomeSecurityOptionInAddNewDevice
+@DIYSmartHomeSecurityOptionInAddNewDevice	@WeDon'tHaveAddNewDeviceInGlobalDrawer
 Scenario: As a user I should be able to see Smart Home Security option in Add New Device screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -11,7 +11,7 @@ Then user should be displayed with "Smart Home Security" option
 When user navigates to "Add New Device in Global Drawer" screen from the "Dashboard" screen
 Then user should be displayed with "Smart Home Security" option
 
-@DIYCancelSetUp
+@DIYCancelSetUp	@UIAutomated
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -52,7 +52,7 @@ Then user should receive a "Location services" popup
 And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen 
 
-@DIYWhenNoBaseStationsAreAvailable
+@DIYWhenNoBaseStationsAreAvailable	@UIAutomated
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -77,7 +77,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYCancelSetUpInRegisterBaseStation
+@DIYCancelSetUpInRegisterBaseStation	@UIAutomated
 Scenario Outline: As a user I should be able to cancel set up in Register Base Station screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -99,7 +99,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYWhenQRCodeIsNotScanned
+@DIYWhenQRCodeIsNotScanned	@UIAutomated
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -121,7 +121,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYWhenInvalidQRCodeIsScanned
+@DIYWhenInvalidQRCodeIsScanned	@UIAutomated
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -142,7 +142,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRefreshBaseStationsList
+@DIYRefreshBaseStationsList	@UIAutomated
 Scenario Outline: As a user I should be able to refresh the base stations list when multiple base stations are displayed
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -248,7 +248,7 @@ Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYCancelSetUpInConnectToNetworkScreen
+@DIYCancelSetUpInConnectToNetworkScreen	@UIAutomated
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -301,7 +301,7 @@ Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYAddAWiFiNetwork
+@DIYAddAWiFiNetwork	@Setuprequired
 Scenario: As a user I should be able to add a new network
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -325,7 +325,7 @@ Then user should be displayed with the "Connect to Network" screen
 When user enters "valid" new network credentials and tries to join the network
 Then added network should be displayed in the list of networks in "Connect to Network" screen
 
-@DIYInvalidWiFiPassword
+@DIYInvalidWiFiPassword	@UIAutomated
 Scenario: As a user I should not be able to connect to a Wi-Fi network with invalid password
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -352,7 +352,7 @@ Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user navigates to "Add New Device Dashboard" screen from the "Enter your Wi-Fi password" screen
 
-@DIYRegistrationWhenSingleBaseStationIsAvailable
+@DIYRegistrationWhenSingleBaseStationIsAvailable	@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -386,7 +386,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
       
-@DIYRegistrationWithNewLocationAndBaseStationName
+@DIYRegistrationWithNewLocationAndBaseStationName		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -413,20 +413,20 @@ When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 ##And user creates a passcode if required
 ##And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
+And user should be displayed with <new device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 And user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on dashboard
-And user should not be displayed with <device name> device on dashboard
+And user should not be displayed with <new device name> device on dashboard
 Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
       | new location name		| new device name		| invalid zip code		| valid zip code		|
       | California				| Scrum Room				| 55555					| 90001				|
 
-@DIYRegistrationWithAddSensorAndEnableGeoFencing
+@DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -471,6 +471,7 @@ And user "dismisses" the "Delete Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should not be displayed with "sensors" on the "sensors" screen
 When user navigates to "Base Station Configuration" screen from the "Sensors" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
@@ -482,7 +483,7 @@ Examples:
       | location name	| device name		| sensor location		| sensor location area		|
       | Home				| Living Room		| Door					| Front Door					|
 
-@DIYMultipleDASRegistrationsForTheSameAccount
+@DIYMultipleDASRegistrationsForTheSameAccount	@UIAutomated
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -581,7 +582,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork
+@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -619,7 +620,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYConnectingToOpenWiFiNetwork
+@DIYConnectingToOpenWiFiNetwork	@SetUpRequired
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform DAS registration
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -654,7 +655,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYRegistrationByNavigatingToOtherApps
+@DIYRegistrationByNavigatingToOtherApps		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -695,7 +696,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYTryToReRegisterDAS
+@DIYTryToReRegisterDAS		@UIAutomated
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -817,7 +818,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYDeleteExistingDASAndRegisterIt
+@DIYDeleteExistingDASAndRegisterIt	@UIAutomated
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
