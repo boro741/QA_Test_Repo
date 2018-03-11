@@ -762,10 +762,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASButton", 3)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]",
+			if (MobileUtils.isMobElementExists("NAME", "Delete Base Station",
 					testCase)) {
-				return MobileUtils.clickOnElement(testCase, "XPATH",
-						"(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]");
+				return MobileUtils.clickOnElement(testCase, "NAME",
+						"Delete Base Station");
 			} else {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
 				return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
@@ -806,12 +806,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
-		} else {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButton")) {
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
-			} else {
-				flag = false;
-			}
 		}
 		return flag;
 	}

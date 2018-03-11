@@ -194,7 +194,7 @@ public class NavigateToScreen extends Keyword {
 				case "ADD NEW DEVICE IN GLOBAL DRAWER": {
 					Dashboard ds = new Dashboard(testCase);
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+					if (dasDIY.isBackArrowInSelectADeviceScreenVisible(5)) {
 						flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
 					}
 					if (ds.clickOnGlobalDrawerButton()) {

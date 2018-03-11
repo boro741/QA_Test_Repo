@@ -77,7 +77,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "REMOVE DEVICE": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			flag = zwaveScreen.isRemoveDevicePopUpDisplayed();
+			flag = flag & zwaveScreen.isRemoveDevicePopUpDisplayed();
 			break;
 		}
 		case "DELETE DAS CONFIRMATION": {
@@ -106,31 +106,31 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "CANCEL SETUP": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isCancelPopupVisible();
+			flag = flag & dasDIY.isCancelPopupVisible();
 			break;
 		}
 		case "INVALID ZIP CODE": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isInvalidZipCodePopupVisible();
+			flag = flag & dasDIY.isInvalidZipCodePopupVisible();
 			break;
 		}
 		case "BASE STATION NOT FOUND": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isBaseStationNotFoundPopupVisible();
+			flag = flag & dasDIY.isBaseStationNotFoundPopupVisible();
 			break;
 		}
 		case "SCANNING FAILURE": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isQRCodeScanningFailurePopupVisible();
+			flag = flag & dasDIY.isQRCodeScanningFailurePopupVisible();
 			break;
 		}
 		case "WI-FI CONNECTION FAILED": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isWiFiConnectionFailedPopupVisible();
+			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
 		default: {

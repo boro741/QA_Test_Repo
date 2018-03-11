@@ -24,6 +24,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.OSPopUps;
 
 public class DIYRegistrationUtils {
 
@@ -44,7 +45,7 @@ public class DIYRegistrationUtils {
 			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
 				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
 			} else {
-				if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+				if (dasDIY.isBackArrowInSelectADeviceScreenVisible(15)) {
 					flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
 				}
 			}
@@ -65,10 +66,18 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromPowerBaseStationToRegisterBaseStation(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
+		int counter = 0;
 		if (dasDIY.isNextButtonVisible()) {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
+				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+				counter++;
+				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+			}
+		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
 		}
@@ -111,7 +120,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
-			if (dasDIY.isSetUpAccessoriesScreenTitleVisible()) {
+			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(15)) {
 				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
 			}
 		}
@@ -290,16 +299,12 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
-			flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-			if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-			}
-			if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInQuickControlsPopup();
-			}
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
+		} else {
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}
