@@ -338,7 +338,7 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex444" as the WiFi Password
 And user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
@@ -369,8 +369,8 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
-And user inputs "MidhunSatya@08" as the WiFi Password 
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -438,42 +438,42 @@ Examples:
 @DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
 Given user launches and logs in to the Lyric application
-#When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-#Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-#When user selects <location name> from "Choose Location" screen
-#Then user should be displayed with the "Name Your Base Station" screen
-#When user selects <device name> from "Name Your Base Station" screen
-#Then user should be displayed with the "Power Base Station" screen
-#When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-#Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
-#When user scans the QR code by showing it to the base station camera
-#Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-#When user selects "ChocoFairy" from "Connect to Network" screen
-#And user inputs "MidhunSatya@08" as the WiFi Password
-#Then user navigates to "Set Up Accessories" screen from the "Connect to Network" screen
-#And user navigates to "Overview" screen from the "Set Up Accessories" screen
-#Then user navigates to "Locate Sensor" screen from the "Overview" screen
-#And user navigates to "Name Sensor" screen from the "Locate Sensor" screen
-#When user selects <sensor location> from "Name Sensor" screen
-#Then user should be displayed with the "Name Sensor" screen
-#When user selects <sensor location area> from "Name Sensor" screen
-#Then user should be displayed with the "Check Location" screen
-#And user navigates to "Check Location Signal" screen from the "Check Location" screen
-#Then user navigates to "Prepare Sensor" screen from the "Check Location Signal" screen
-#And user navigates to "Place Adhesive strips" screen from the "Prepare Sensor" screen
-#Then user navigates to "Mount Sensor" screen from the "Place Adhesive strips" screen
-#And user navigates to "Sensor Ready" screen from the "Mount Sensor" screen
-#Then user navigates to "Set Up Accessories configured" screen from the "Sensor Ready" screen
-#And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-#Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-#And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-#Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-#And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-##And user creates a passcode if required
-##And user disables the passcode through CHIL
-#Then user should be displayed with "Security" device on the "dashboard" screen
-#And user should be displayed with <device name> device on the "dashboard" screen
-#When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user navigates to "Set Up Accessories" screen from the "Connect to Network" screen
+And user navigates to "Overview" screen from the "Set Up Accessories" screen
+Then user navigates to "Locate Sensor" screen from the "Overview" screen
+And user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+When user selects <sensor location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects <sensor location area> from "Name Sensor" screen
+Then user should be displayed with the "Check Location" screen
+And user navigates to "Check Location Signal" screen from the "Check Location" screen
+Then user navigates to "Prepare Sensor" screen from the "Check Location Signal" screen
+And user navigates to "Place Adhesive strips" screen from the "Prepare Sensor" screen
+Then user navigates to "Mount Sensor" screen from the "Place Adhesive strips" screen
+And user navigates to "Sensor Ready" screen from the "Mount Sensor" screen
+Then user navigates to "Set Up Accessories configured" screen from the "Sensor Ready" screen
+And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
+Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
+And user navigates to "Geofence Enabled" screen from the "Geofence" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
+When user navigates to "Sensor Settings" screen from the "Dashboard" screen
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
@@ -607,12 +607,12 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "MidhunSatya@04" as the WiFi Password
 Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-And user inputs "MidhunSatya@08" as the WiFi Password 
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -684,8 +684,8 @@ Then user navigates to "Register Base Station" screen from the "Power Base Stati
 When user navigates to other apps and navigates back to Lyric app
 Then user scans the QR code by showing it to the base station camera
 And user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
-And user inputs "MidhunSatya@08" as the WiFi Password 
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 When user navigates to other apps and navigates back to Lyric app
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to other apps and navigates back to Lyric app
@@ -727,8 +727,8 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
-And user inputs "MidhunSatya@08" as the WiFi Password 
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -853,8 +853,8 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
-And user inputs "MidhunSatya@08" as the WiFi Password 
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -879,8 +879,8 @@ When user navigates to "Power Base Station Instructions" screen from the "Power 
 Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "ChocoFairy" from "Connect to Network" screen
-And user inputs "MidhunSatya@08" as the WiFi Password 
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
