@@ -42,7 +42,7 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnDeleteButton();
+					flag = flag & bs.clickOnDeleteDASButton();
 					break;
 				}
 				}
@@ -171,7 +171,7 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnDeleteButton();
+					flag = flag & bs.clickOnDeleteDASButton();
 					break;
 				}
 				}
