@@ -1201,7 +1201,7 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-
+	
 	/**
 	 * <h1>Get Location Time</h1>
 	 * <p>
