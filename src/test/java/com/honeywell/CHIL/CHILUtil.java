@@ -564,7 +564,7 @@ public class CHILUtil implements AutoCloseable {
 			String url = this.chilURL + "api/locations/" + locationID + "/devices/" + cameraID
 					+ "/config?CameraKind=HONDAS";
 			cameraConfig.put("privacyMode", turnOn ? "off" : "on");
-			cameraConfig.remove("deviceId");
+			cameraConfig.put("hwPrivacyMode", turnOn ? "off" : "on");
 			String headerData = cameraConfig.toString();
 			return doPostRequest(url, headerData).getResponseCode();
 		} else {

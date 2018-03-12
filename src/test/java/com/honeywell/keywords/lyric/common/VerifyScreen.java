@@ -17,6 +17,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -252,6 +253,17 @@ public class VerifyScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Amazon Alexa App download page is not displayed");
+				}
+				break;
+			}
+			case "CAMERA SETTINGS INTRODUCTION": {
+				DASCameraSolutionCard dc = new DASCameraSolutionCard(testCase);
+				if (dc.isCameraSettingsIntroImageVisible(10)) {
+					Keyword.ReportStep_Pass(testCase, "Camera Settings Introduction page is displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Settings Introduction page is not displayed");
 				}
 				break;
 			}

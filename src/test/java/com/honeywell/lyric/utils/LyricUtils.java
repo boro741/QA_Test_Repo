@@ -44,6 +44,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.OSPopUps;
@@ -400,9 +401,10 @@ public class LyricUtils {
 	 * @return boolean Returns 'true' if weather icon is found. Returns 'false' if
 	 *         weather icon is not located.
 	 */
-	public static boolean verifyLoginSuccessful(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean verifyLoginSuccessful(TestCases testCase, TestCaseInputs inputs, boolean... closeCoachMarks) {
 		boolean flag = true;
 		OSPopUps os = new OSPopUps(testCase);
+		CoachMarks cm = new CoachMarks(testCase);
 		Dashboard d = new Dashboard(testCase);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
@@ -412,7 +414,6 @@ public class LyricUtils {
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						int counter = 0;
 						try {
 							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 							return false;
@@ -420,12 +421,13 @@ public class LyricUtils {
 							if (os.isNotNowButtonVisible(1)) {
 								os.clickOnNotNowButton();
 								return false;
-							} else if (os.isGotitButtonVisible(1)) {
-								while (os.isGotitButtonVisible(1) && counter < 5) {
-									os.clickOnGotitButton();
-									counter++;
+							} else if (cm.isGotitButtonVisible(1)) {
+								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
+									return true;
+								} else {
+									return LyricUtils.closeCoachMarks(testCase);
 								}
-								return false;
+
 							}
 						}
 					} else {
@@ -438,7 +440,12 @@ public class LyricUtils {
 						return d.isWeatherIconVisible(1);
 					} else {
 						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
-							return LyricUtils.closeCoachMarks(testCase);
+							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
+								return true;
+							} else {
+								return LyricUtils.closeCoachMarks(testCase);
+							}
+
 						} else {
 							return false;
 						}
@@ -619,13 +626,18 @@ public class LyricUtils {
 	 *         description have been performed successfully. Returns 'false' if any
 	 *         of the operations mentioned in the description fails.
 	 */
-	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs,
+			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		if (closeCoachMarks.length > 0) {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
+		} else {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		}
 		return flag;
 	}
 
@@ -990,7 +1002,8 @@ public class LyricUtils {
 				}
 			}
 		} catch (NoSuchElementException e) {
-			throw new Exception("Element with text : '" + value + "' not found. Exception Type: No Such Element Exception");
+			throw new Exception(
+					"Element with text : '" + value + "' not found. Exception Type: No Such Element Exception");
 		} catch (Exception e) {
 			throw new Exception("Element with text : '" + value + "' not found. Exception Message: " + e.getMessage());
 		}
@@ -1033,9 +1046,11 @@ public class LyricUtils {
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
 				js.executeScript("mobile: scroll", scrollObject);
-				WebElement element = MobileUtils.getMobElement(testCase, "xpath", "//*[contains(@" + attribute +",'" + value +"')]");
-				//WebElement element = testCase.getMobileDriver()
-				//		.findElement(MobileBy.iOSNsPredicateString(attribute + " CONTAINS '" + value + "'"));
+				WebElement element = MobileUtils.getMobElement(testCase, "xpath",
+						"//*[contains(@" + attribute + ",'" + value + "')]");
+				// WebElement element = testCase.getMobileDriver()
+				// .findElement(MobileBy.iOSNsPredicateString(attribute + " CONTAINS '" + value
+				// + "'"));
 				if (element.getAttribute(attribute).contains(value)) {
 					return true;
 				} else {
@@ -1045,9 +1060,11 @@ public class LyricUtils {
 			}
 
 		} catch (NoSuchElementException e) {
-			throw new Exception("Element with text/value containing : '" + value + "' not found. Exception Type : No Such Element Exception");
+			throw new Exception("Element with text/value containing : '" + value
+					+ "' not found. Exception Type : No Such Element Exception");
 		} catch (Exception e) {
-			throw new Exception("Element with text/value containing : '" + value + "' not found. Exception Message: " + e.getMessage());
+			throw new Exception("Element with text/value containing : '" + value + "' not found. Exception Message: "
+					+ e.getMessage());
 		}
 	}
 
@@ -1148,18 +1165,17 @@ public class LyricUtils {
 		return flag;
 	}
 
-	public static boolean closeCoachMarks(TestCases testCase)
-	{
+	public static boolean closeCoachMarks(TestCases testCase) {
 		boolean flag = true;
-		OSPopUps os = new OSPopUps(testCase);
+		CoachMarks cm = new CoachMarks(testCase);
 		int counter = 0;
-		if (os.isGotitButtonVisible(1)) {
-			while (os.isGotitButtonVisible(1) && counter < 5) {
-				flag = flag & os.clickOnGotitButton();
+		if (cm.isGotitButtonVisible(1)) {
+			while (cm.isGotitButtonVisible(1) && counter < 5) {
+				flag = flag & cm.clickOnGotitButton();
 				counter++;
 			}
 		}
 		return flag;
 	}
-	
+
 }

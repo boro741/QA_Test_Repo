@@ -264,6 +264,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardToVideoSettingsScreen(testCase);
 					break;
 				}
+				// Navigate from 'Dashboard' to 'Security Solutions Card'
+				// Author: Pratik P. Lalseta (H119237)
+				case "SECURITY SOLUTION CARD": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					break;
+				}
 
 				default: {
 					flag = false;
@@ -655,10 +661,41 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} else {
+			}
+
+			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SOLUTION CARD": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} 
+			else if (screen.get(1).equalsIgnoreCase("Camera Settings Introduction")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SOLUTION CARD": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
+			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

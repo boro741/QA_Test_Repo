@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -131,6 +132,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			dasDIY.isWiFiConnectionFailedPopupVisible();
+			break;
+		}
+		
+		case "NEW TO LYRIC CAMERA" : {
+			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;
 		}
 		default: {

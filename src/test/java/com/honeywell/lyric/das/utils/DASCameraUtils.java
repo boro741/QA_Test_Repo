@@ -9,6 +9,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.DASCameraSolutionCard;
 
 public class DASCameraUtils {
 	private static HashMap<String, MobileObject> fieldObjects;
@@ -105,4 +106,18 @@ public class DASCameraUtils {
 		}
 		return flag;
 	}
+
+	public static boolean verifyNewToLyricPopUp(TestCases testCase) {
+		boolean flag = true;
+		DASCameraSolutionCard dc = new DASCameraSolutionCard(testCase);
+		if (dc.isNewToLyricCameraPopUpTitleVisible(15)) {
+			Keyword.ReportStep_Pass(testCase, "New To Lyric Camera Pop Up Title is displayed");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"New To Lyric Camera Pop Up Title not displayed correctly");
+		}
+		return flag;
+	}
+
 }
