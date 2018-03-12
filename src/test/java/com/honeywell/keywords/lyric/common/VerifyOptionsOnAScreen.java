@@ -141,7 +141,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"'Name' Sensor Option is not displayed on the Sensor Settings Screen");
 					}
 				} else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
-					if (bs.verifySensorStatusOptionTextOnSensorSettingsScreen()) {
+					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
 						Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
 					} else {
 						flag = false;

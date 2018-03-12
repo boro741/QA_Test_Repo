@@ -181,23 +181,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASBatteryStatus", 3);
 	}
 
-	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
-						.equalsIgnoreCase("ON")) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return Boolean.parseBoolean(MobileUtils
-						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
-			}
-		} else {
-			throw new Exception("Could not find Camera On In Home Mode Switch");
-		}
-	}
 
 	public boolean isDASNameOptionVisibleOnBaseStationConfigurationScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTitle", 3);
@@ -623,9 +606,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
 	}
 
-	public boolean toggleGeofencingSwitch(TestCases testCase) {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingSwitch");
-	}
+	
 
 	public boolean verifyAlexaAppPlayStoreTitleIsVisible(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PlayStoreAppTitle", 15)) {
@@ -932,11 +913,23 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 
-
-	public boolean verifySensorStatusOptionTextOnSensorSettingsScreen() {
-		if (this.isSensorStatusOptionVisibleOnSensorSettingsScreen()) {
-			return (MobileUtils.getMobElement(objectDefinition, testCase, "SensorStatusOption").getAttribute("text")
-					.equalsIgnoreCase("Status"));
+	public boolean toggleGeofencingSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingSwitch");
+	}
+	
+	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return Boolean.parseBoolean(MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch")
+						.getAttribute("value"));
+			}
 		} else {
 			return false;
 		}
@@ -944,4 +937,5 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	
 
 
+	
 }
