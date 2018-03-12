@@ -21,6 +21,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -74,7 +75,8 @@ public class DIYRegistrationUtils {
 			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
 				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 				counter++;
-				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+				flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 			}
 		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
@@ -313,7 +315,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
 			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
-			
+
 		}
 		return flag;
 	}
@@ -437,6 +439,18 @@ public class DIYRegistrationUtils {
 							} else {
 								return false;
 							}
+						}
+						case "WAIT UNTIL DAS REBOOT": {
+							long waitTime = System.currentTimeMillis() - DeleteAndRebootDASDevice.rebootStartTimer;
+							if (waitTime > 90000) {
+								System.out.println("90 seconds complete after reboot");
+								return true;
+							} else {
+								System.out.println("Waiting for 90 seconds after reboot command. " + waitTime / 1000
+										+ " seconds completed.");
+								return false;
+							}
+
 						}
 						case "NETWORK CONNECTION PROGRESS BAR": {
 							if (dasDIY.isLookingForNetworkConnectionProgressBarVisible()) {

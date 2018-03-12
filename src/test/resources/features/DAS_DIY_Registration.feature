@@ -13,7 +13,8 @@ Then user should be displayed with "Smart Home Security" option
 
 @DIYCancelSetUp	@UIAutomated
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 Then user should be displayed with the "Choose Location" screen
@@ -54,7 +55,8 @@ Then user should be displayed with the "Looking for Base Station" screen
 
 @DIYWhenNoBaseStationsAreAvailable	@UIAutomated		@Doesn'tRequireAnyBaseStationsForExecution
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -79,7 +81,8 @@ Examples:
 
 @DIYCancelSetUpInRegisterBaseStation		@UIAutomated
 Scenario Outline: As a user I should be able to cancel set up in Register Base Station screen
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -101,7 +104,8 @@ Examples:
 
 @DIYWhenQRCodeIsNotScanned	@UIAutomated
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -123,7 +127,8 @@ Examples:
 
 @DIYWhenInvalidQRCodeIsScanned	@UIAutomated
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -144,7 +149,8 @@ Examples:
 
 @DIYRefreshBaseStationsList	@UIAutomated		@RequiresMultipleBaseStationsForExecution
 Scenario Outline: As a user I should be able to refresh the base stations list when multiple base stations are displayed
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -250,7 +256,8 @@ Then user should be displayed with the "Power Base Station" screen
 
 @DIYCancelSetUpInConnectToNetworkScreen	@UIAutomated
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -303,7 +310,8 @@ Then user should be displayed with the "Power Base Station" screen
 
 @DIYAddAWiFiNetwork	@Setuprequired
 Scenario: As a user I should be able to add a new network
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 And user navigates to "Choose Location" screen from the "Smart Home Security" screen
@@ -327,7 +335,8 @@ Then added network should be displayed in the list of networks in "Connect to Ne
 
 @DIYInvalidWiFiPassword	@UIAutomated
 Scenario Outline: As a user I should not be able to connect to a Wi-Fi network with invalid password
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -358,7 +367,8 @@ Examples:
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -395,7 +405,8 @@ Examples:
       
 @DIYRegistrationWithNewLocationAndBaseStationName		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user inputs <new location name> in the "Choose Location" screen
@@ -437,7 +448,8 @@ Examples:
 
 @DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -497,7 +509,8 @@ Examples:
 
 @DIYMultipleDASRegistrationsForTheSameAccount	@UIAutomated
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -596,7 +609,8 @@ Examples:
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -637,7 +651,8 @@ Examples:
 
 @DIYConnectingToOpenWiFiNetwork	@SetUpRequired
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform DAS registration
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 And user navigates to "Choose Location" screen from the "Smart Home Security" screen
@@ -672,7 +687,8 @@ Examples:
 
 @DIYRegistrationByNavigatingToOtherApps		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -716,7 +732,8 @@ Examples:
 
 @DIYTryToReRegisterDAS		@UIAutomated
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -841,7 +858,8 @@ Examples:
 
 @DIYDeleteExistingDASAndRegisterIt	@UIAutomated
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
-Given user launches and logs in to the Lyric application
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen

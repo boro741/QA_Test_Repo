@@ -397,6 +397,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "POWER BASE STATION INSTRUCTIONS": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "WAIT UNTIL DAS REBOOT", 1);
 					if (dasDIY.isNextButtonVisible()) {
 						flag = flag & dasDIY.clickOnNextButton();
 					}

@@ -91,6 +91,51 @@ public class ADBUtils {
 		}
 		return devices;
 	}
+	
+	public static boolean rebootDASDevice(String dasDeviceADBID) throws Exception {
+		boolean flag = true;
+		boolean isDASDeviceConnected = false;
+		FluentWait<Boolean> fWait = new FluentWait<Boolean>(isDASDeviceConnected);
+		fWait.pollingEvery(3, TimeUnit.SECONDS);
+		fWait.withTimeout(1, TimeUnit.MINUTES);
+		try {
+			Boolean isEventReceived = fWait.until(new Function<Boolean, Boolean>() {
+				public Boolean apply(Boolean connected) {
+					try {
+						if (isDevicePresentInADBDevices(dasDeviceADBID)) {
+							System.out.println("Device is available in adb devices list");
+							return true;
+						} else {
+							System.out.println("Waiting for device to be available in adb devices list");
+							return false;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			isDASDeviceConnected = isEventReceived;
+		} catch (TimeoutException e) {
+			flag = false;
+			throw new Exception("DAS device '" + dasDeviceADBID
+					+ "' is not connected. DAS device could not be found in ADB devices command. Wait Time 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			throw new Exception("Error Occured" + e.getMessage());
+		}
+
+		if (isDASDeviceConnected) {
+			String output = ADBUtils.executeADBCommand("adb -s " + dasDeviceADBID + " reboot");
+			if (!output.trim().equals("")) {
+				flag = false;
+				throw new Exception("Could not reboot device. Output : " + output);
+			}
+		} else {
+			throw new Exception("DAS device '" + dasDeviceADBID
+					+ "' is not connected. DAS device could not be found in ADB devices command");
+		}
+		return flag;
+	}
 
 	public static void clearLogcatLogs(String... deviceUDID) throws Exception {
 		String cmd = "";
@@ -187,6 +232,16 @@ public class ADBUtils {
 			throw new Exception("Error Occured: " + e.getMessage());
 		}
 		return output;
+	}
+	
+	public static void deleteDASDeviceCFAFiles(String... deviceUDID) throws Exception {
+		String cmd = "";
+		if (deviceUDID.length > 0) {
+			cmd = "adb -s " + deviceUDID[0] + " shell rm -rf /data/misc/bluetooth/*.cfa";
+		} else {
+			cmd = "adb shell rm -rf /data/misc/bluetooth/*.cfa";
+		}
+		executeADBCommand(cmd);
 	}
 
 	public static void pullADBFile(String filePathOnADBShell,
