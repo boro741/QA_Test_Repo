@@ -174,7 +174,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
-		case "NEW TO LYRIC CAMERA": {
+		case "NEW TO LYRIC CAMERA" : {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;
 		}

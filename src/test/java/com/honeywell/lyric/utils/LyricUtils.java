@@ -430,7 +430,8 @@ public class LyricUtils {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
-									return CoachMarkUtils.closeCoachMarks(testCase);
+
+									return LyricUtils.closeCoachMarks(testCase);
 								}
 
 							}
@@ -448,7 +449,8 @@ public class LyricUtils {
 							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 								return true;
 							} else {
-								return CoachMarkUtils.closeCoachMarks(testCase);
+
+								return LyricUtils.closeCoachMarks(testCase);
 							}
 
 						} else {
@@ -1223,7 +1225,6 @@ public class LyricUtils {
 		String time = " ";
 		try {
 			TimeZone timeZone = TimeZone.getTimeZone(locInfo.getIANATimeZone());
-
 			Calendar date = Calendar.getInstance(timeZone);
 			String ampm;
 			if (date.get(Calendar.AM_PM) == Calendar.AM) {
@@ -1262,4 +1263,18 @@ public class LyricUtils {
 		}
 		return time;
 	}
+
+	public static boolean closeCoachMarks(TestCases testCase) {
+		boolean flag = true;
+		CoachMarks cm = new CoachMarks(testCase);
+		int counter = 0;
+		if (cm.isGotitButtonVisible(1)) {
+			while (cm.isGotitButtonVisible(1) && counter < 5) {
+				flag = flag & cm.clickOnGotitButton();
+				counter++;
+			}
+		}
+		return flag;
+	}
+
 }

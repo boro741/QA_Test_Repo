@@ -10,7 +10,6 @@ public class CoachMarks extends MobileScreens {
 
 	private static final String screenName = "CoachMark";
 
-
 	public static final String[] DASDashboardCoachMarkHeaders = new String[] { "Access More Information",
 			"Quick Controls" };
 	public static final String[] DASDashboardCoachMarkDescriptions = new String[] {
@@ -142,7 +141,6 @@ public class CoachMarks extends MobileScreens {
 		return flag;
 	}
 
-	@SuppressWarnings("unused")
 	public boolean verifySolutionCardCoachMarks(String deviceType) {
 		boolean flag = true;
 		switch (deviceType) {
@@ -263,6 +261,4 @@ public class CoachMarks extends MobileScreens {
 
 		return flag;
 	}
-
-		
 }
