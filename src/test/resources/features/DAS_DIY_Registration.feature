@@ -335,9 +335,9 @@ Then added network should be displayed in the list of networks in "Connect to Ne
 
 @DIYInvalidWiFiPassword	@UIAutomated
 Scenario Outline: As a user I should not be able to connect to a Wi-Fi network with invalid password
-launches and logs in to the Lyric application
-Given user launches and logs in to the Lyric application
->>>>>>> Resolved Conflicts
+
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -449,9 +449,7 @@ Examples:
 
 @DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
-
 Given user launches and logs in to the Lyric application
-
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -488,7 +486,6 @@ And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Sensor Settings" screen from the "Dashboard" screen
->>>>>>> WiFi name is updated
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
@@ -608,7 +605,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	@UIAutomated
-Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting with invalid Wi-Fi password 
+Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen

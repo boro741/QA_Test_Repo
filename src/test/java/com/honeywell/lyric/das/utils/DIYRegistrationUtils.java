@@ -25,7 +25,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
 import com.honeywell.lyric.utils.ADBUtils;
-import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -80,8 +79,8 @@ public class DIYRegistrationUtils {
 			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
 				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 				counter++;
-
-				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+				flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 			}
 		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
