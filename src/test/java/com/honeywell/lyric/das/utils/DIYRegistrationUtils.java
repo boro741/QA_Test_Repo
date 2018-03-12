@@ -24,7 +24,6 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.OSPopUps;
 
 public class DIYRegistrationUtils {
 
@@ -299,10 +298,10 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
-			flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		} else {
 			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
