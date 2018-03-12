@@ -291,7 +291,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -325,7 +325,7 @@ public class NavigateToScreen extends Keyword {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dashboard d = new Dashboard(testCase);
 					int counter = 0;
-					while(bs.isBackButtonVisible() && !d.areDevicesVisibleOnDashboard() && counter < 4) {
+					while (bs.isBackButtonVisible() && !d.areDevicesVisibleOnDashboard() && counter < 4) {
 						flag = flag & bs.clickOnBackButton();
 						counter++;
 					}
@@ -622,9 +622,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
+			} else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MODEL AND FIRMWARE DETAILS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -634,6 +632,22 @@ public class NavigateToScreen extends Keyword {
 				case "SENSOR": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Video Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SOLUTION CARD": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
 					break;
 				}
 				default: {

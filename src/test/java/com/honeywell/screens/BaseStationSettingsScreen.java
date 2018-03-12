@@ -268,29 +268,44 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 
 		} else if (elementName.equals(BaseStationSettingsScreen.MOTIONDETECTION)) {
-			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionOption", 3)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.MOTIONDETECTION);
 			}
-			return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionOption")
-					.getAttribute("enabled"));
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionOption")
+						.getAttribute("enabled"));
+			} else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionCell").getText()
+						.equals("enabled") ? true : false);
+			}
 		} else if (elementName.equals(BaseStationSettingsScreen.NIGHTVISION)) {
-			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOption", 3)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.NIGHTVISION);
 			}
-			return Boolean.valueOf(
-					MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionOption").getAttribute("enabled"));
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionOption")
+						.getAttribute("enabled"));
+			} else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionCell").getText()
+						.equals("enabled") ? true : false);
+			}
 		} else if (elementName.equals(BaseStationSettingsScreen.VIDEOQUALITY)) {
-			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityOption", 3)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.VIDEOQUALITY);
 			}
-			return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityOption")
-					.getAttribute("enabled"));
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityOption")
+						.getAttribute("enabled"));
+			} else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityCell").getText()
+						.equals("enabled") ? true : false);
+			}
 		}
 
 		else {
@@ -881,12 +896,17 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isGeofencingSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingSwitch", 3)) {
-			if (MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingSwitch").getAttribute("text")
-					.equalsIgnoreCase("ON")) {
-				return true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				return false;
+				return Boolean.parseBoolean(MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingSwitch")
+						.getAttribute("value"));
 			}
 		} else {
 			throw new Exception("Could not find Geofencing Status Switch");
@@ -895,6 +915,28 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean toggleGeofencingSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingSwitch");
+	}
+	
+	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return Boolean.parseBoolean(MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch")
+						.getAttribute("value"));
+			}
+		} else {
+			throw new Exception("Could not find Camera On In Home Mode Switch");
+		}
+	}
+
+	public boolean toggleCameraOnInHomeModeSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
 	}
 
 }

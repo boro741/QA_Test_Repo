@@ -319,7 +319,27 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
+		case "VIDEO SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Settings");
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Video Setting: '" + fieldTobeVerified + "' is present on the Video Settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Setting: '" + fieldTobeVerified + "' is not present on the Video Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

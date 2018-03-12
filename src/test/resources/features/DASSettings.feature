@@ -350,7 +350,7 @@ Feature: DAS Settings
      Then user receives a "Ensure camera is turned on" toast message
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyVideoSettings
+  @VerifyVideoSettings @UIAutomated
   Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off
     Given user DAS camera is set to "on" through CHIL
       And user launches and logs in to the Lyric application
@@ -382,9 +382,10 @@ Feature: DAS Settings
       | Camera Commands   | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyCameraOnInHomeMode
-  Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
+  @VerifyCameraOnInHomeMode @UIAutomated
+  Scenario: As a user I should be able to enable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
+    And user DAS camera is set to "off" through CHIL
       And user launches and logs in to the Lyric application 
      When user navigates to "Video Settings" screen from the "Dashboard" screen
       And user changes the "Camera ON in Home Mode" to "ON"
@@ -395,8 +396,9 @@ Feature: DAS Settings
   #LYDAS-3148,LYDAS-2634
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOffInHomeMode
-  Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
+  Scenario: As a user I should be able to disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
+    And user DAS camera is set to "on" through CHIL
       And user launches and logs in to the Lyric application 
      When user navigates to "Video Settings" screen from the "Dashboard" screen
       And user changes the "Camera ON in Home Mode" to "Off"
@@ -405,7 +407,7 @@ Feature: DAS Settings
      Then user camera is "not live streaming"
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyCameraOnInNightMode
+  @VerifyCameraOnInNightMode @UIAutomated
   Scenario: As a user I should be able to enable/disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application 
