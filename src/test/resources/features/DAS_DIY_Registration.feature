@@ -622,7 +622,7 @@ Then user navigates to "Register Base Station" screen from the "Power Base Stati
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "MidhunSatya@04" as the WiFi Password
+And user inputs "vibex444" as the WiFi Password
 Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
