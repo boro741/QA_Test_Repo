@@ -931,14 +931,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
-	public boolean verifySensorSignalStrengthAndTestOptionTextOnSensorSettingsScreen() {
-		if (this.isSensorSignalStrengthAndTestOptionVisibleOnSensorSettingsScreen()) {
-			return (MobileUtils.getMobElement(objectDefinition, testCase, "SignalStrengthOption").getAttribute("text")
-					.equalsIgnoreCase("Signal Strength and Test"));
-		} else {
-			return false;
-		}
-	}
+
 
 	public boolean verifySensorStatusOptionTextOnSensorSettingsScreen() {
 		if (this.isSensorStatusOptionVisibleOnSensorSettingsScreen()) {
@@ -948,5 +941,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return false;
 		}
 	}
+	
+
 
 }
