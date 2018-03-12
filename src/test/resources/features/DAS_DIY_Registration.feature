@@ -436,12 +436,10 @@ And user should be displayed with <new device name> device on the "dashboard" sc
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
-And user "dismisses" the "Delete DAS Confirmation" popup
-Then user "deletes DAS device" by clicking on "delete" button
-And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
+Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
       | new location name		| new device name		| invalid zip code		| valid zip code		|
@@ -901,9 +899,6 @@ And user should be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
-And user "dismisses" the "Delete DAS Confirmation" popup
-Then user "deletes DAS device" by clicking on "delete" button
-And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
