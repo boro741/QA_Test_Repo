@@ -57,7 +57,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASZwaveUtils.verifyDeviceExcludedPopUp(testCase, inputs);
 			break;
 		}
-		case "FACTORY RESET FAILED":{
+		case "FACTORY RESET FAILED": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			flag = flag & zwaveScreen.isFactoryResetFailedPopupMessageDisplayed()
 					& zwaveScreen.clickOnFactoryResetFailedPopupAckConfirm();
@@ -65,19 +65,19 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 
 		case "DIMMER REPLACED SUCCESSFULLY":
-		case "SWITCH REPLACED SUCCESSFULLY":{
+		case "SWITCH REPLACED SUCCESSFULLY": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			flag = flag & zwaveScreen.isReplacedSuccessfullyDisplayed();
 			flag = flag & zwaveScreen.clickOnReplacedSuccessfullyMessageAck();
 			break;
 		}
-		case "SWITCH DELETED SUCCESSFULLY":{
+		case "SWITCH DELETED SUCCESSFULLY": {
 			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
 			break;
 		}
 		case "REMOVE DEVICE": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			flag = zwaveScreen.isRemoveDevicePopUpDisplayed();
+			flag = flag & zwaveScreen.isRemoveDevicePopUpDisplayed();
 			break;
 		}
 		case "DELETE DAS CONFIRMATION": {
@@ -106,31 +106,37 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "CANCEL SETUP": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isCancelPopupVisible();
+			if (dasDIY.isCancelPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+				return flag;
+			}
 			break;
 		}
 		case "INVALID ZIP CODE": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isInvalidZipCodePopupVisible();
+			flag = flag & dasDIY.isInvalidZipCodePopupVisible();
 			break;
 		}
 		case "BASE STATION NOT FOUND": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isBaseStationNotFoundPopupVisible();
+			flag = flag & dasDIY.isBaseStationNotFoundPopupVisible();
 			break;
 		}
 		case "SCANNING FAILURE": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isQRCodeScanningFailurePopupVisible();
+			flag = flag & dasDIY.isQRCodeScanningFailurePopupVisible();
 			break;
 		}
 		case "WI-FI CONNECTION FAILED": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			dasDIY.isWiFiConnectionFailedPopupVisible();
+			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
 		default: {

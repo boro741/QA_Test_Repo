@@ -42,7 +42,7 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnDeleteButton();
+					flag = flag & bs.clickOnDeleteDASButton();
 					break;
 				}
 				}
@@ -66,7 +66,7 @@ public class ClickOnButton extends Keyword {
 				case "CANCEL": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isCancelButtonVisible()) {
-						dasDIY.clickOnCancelButton();
+						flag = flag & dasDIY.clickOnCancelButton();
 					}
 					break;
 				}
@@ -76,10 +76,8 @@ public class ClickOnButton extends Keyword {
 				case "BACK ARROW": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isBackArrowInRegisterBaseStationVisible()) {
-						dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
-						if (dasDIY.isCancelPopupVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+						flag = flag & dasDIY.isCancelPopupVisible();
 					}
 
 					break;
@@ -90,11 +88,9 @@ public class ClickOnButton extends Keyword {
 				case "REFRESH": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
-						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
-						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
+						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 						break;
 					}
 				}
@@ -104,10 +100,8 @@ public class ClickOnButton extends Keyword {
 				case "BACK ARROW": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isBackArrowInRegisterBaseStationVisible()) {
-						dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
-						if (dasDIY.isCancelPopupVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+						flag = flag & dasDIY.isCancelPopupVisible();
 						break;
 					}
 				}
@@ -117,10 +111,8 @@ public class ClickOnButton extends Keyword {
 				case "ADD A NETWORK": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isAddANetworkButtonVisible()) {
-						dasDIY.clickOnAddANetworkButton();
-						if (dasDIY.isAddANetworkHeaderTitleVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnAddANetworkButton();
+						flag = flag & dasDIY.isAddANetworkHeaderTitleVisible();
 						break;
 					}
 				}
@@ -130,11 +122,9 @@ public class ClickOnButton extends Keyword {
 				case "REFRESH": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
-						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
-						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
+						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 						break;
 					}
 				}
@@ -152,11 +142,9 @@ public class ClickOnButton extends Keyword {
 				case "REFRESH": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
-						dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
-						if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
+						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 					}
 					break;
 				}
@@ -166,10 +154,8 @@ public class ClickOnButton extends Keyword {
 				case "ADD A NETWORK": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isAddANetworkButtonVisible()) {
-						dasDIY.clickOnAddANetworkButton();
-						if (dasDIY.isAddANetworkHeaderTitleVisible()) {
-							return flag;
-						}
+						flag = flag & dasDIY.clickOnAddANetworkButton();
+						flag = flag & dasDIY.isAddANetworkHeaderTitleVisible();
 					}
 					break;
 				}
@@ -177,7 +163,7 @@ public class ClickOnButton extends Keyword {
 			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES LOCATION DETAILS")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
-					DIYRegistrationUtils.deleteLocation(testCase);
+					flag = flag & DIYRegistrationUtils.deleteLocation(testCase);
 					break;
 				}
 				}
@@ -185,7 +171,7 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnDeleteButton();
+					flag = flag & bs.clickOnDeleteDASButton();
 					break;
 				}
 				}

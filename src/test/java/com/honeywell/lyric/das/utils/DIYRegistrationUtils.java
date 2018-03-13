@@ -21,6 +21,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -44,7 +45,7 @@ public class DIYRegistrationUtils {
 			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
 				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
 			} else {
-				if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+				if (dasDIY.isBackArrowInSelectADeviceScreenVisible(15)) {
 					flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
 				}
 			}
@@ -65,10 +66,19 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromPowerBaseStationToRegisterBaseStation(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
+		int counter = 0;
 		if (dasDIY.isNextButtonVisible()) {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
+				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+				counter++;
+				flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+			}
+		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
 		}
@@ -111,7 +121,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
-			if (dasDIY.isSetUpAccessoriesScreenTitleVisible()) {
+			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(15)) {
 				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
 			}
 		}
@@ -290,16 +300,12 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
-			flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-			if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-			}
-			if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInQuickControlsPopup();
-			}
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
+		} else {
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}
@@ -309,7 +315,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
 			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
-			
+
 		}
 		return flag;
 	}
@@ -433,6 +439,18 @@ public class DIYRegistrationUtils {
 							} else {
 								return false;
 							}
+						}
+						case "WAIT UNTIL DAS REBOOT": {
+							long waitTime = System.currentTimeMillis() - DeleteAndRebootDASDevice.rebootStartTimer;
+							if (waitTime > 90000) {
+								System.out.println("90 seconds complete after reboot");
+								return true;
+							} else {
+								System.out.println("Waiting for 90 seconds after reboot command. " + waitTime / 1000
+										+ " seconds completed.");
+								return false;
+							}
+
 						}
 						case "NETWORK CONNECTION PROGRESS BAR": {
 							if (dasDIY.isLookingForNetworkConnectionProgressBarVisible()) {

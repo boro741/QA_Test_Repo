@@ -758,19 +758,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
 	}
 
-	public boolean clickOnDeleteButton() throws Exception {
+	public boolean clickOnDeleteDASButton() throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASButton", 3)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]",
-					testCase)) {
-				return MobileUtils.clickOnElement(testCase, "XPATH",
-						"(//XCUIElementTypeButton[@name=\"Delete Base Station\"])[2]");
-			} else {
-				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, testCase.getPlatform().toUpperCase().contains("ANDROID")?"text":"value", "Delete Base Station");
 				return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
 			}
-		}
 	}
 
 	public boolean clickOnAlexaAppButton() {
@@ -781,7 +775,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		} else {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, testCase.getPlatform().toUpperCase().contains("ANDROID")?"text":"value", "DELETE");
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		}
 	}
@@ -806,12 +800,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButton");
-		} else {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButton")) {
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
-			} else {
-				flag = false;
-			}
 		}
 		return flag;
 	}
