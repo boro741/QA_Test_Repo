@@ -32,7 +32,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.Schedule;
+import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -79,40 +79,28 @@ public class JasperSchedulingUtils {
 	public static boolean createGeofenceBasedSchedule(TestCases testCase, TestCaseInputs inputs,
 			boolean createScheduleUsingUseGeofenceButton) {
 		boolean flag = true;
-		try
-		{
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
-			flag = flag & viewScheduleOnPrimaryCard(testCase);
-
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateScheduleButton");
+		try {
+			SchedulingScreen ss = new SchedulingScreen(testCase);
+			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			if (ss.isCreateScheduleButtonVisible(5)) {
+				flag = flag & ss.clickOnCreateScheduleButton();
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleOffOverlay", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOffOverlay")) {
+				if (ss.isScheduleOverlayVisible(5)) {
+					if (!ss.clickOnScheduleOverlay()) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
 					}
 				}
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOptionsButton");
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SwitchToGeofencingButton", 5)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SwitchToGeofencingButton");
+				flag = flag & ss.clickOnScheduleOptionsButton();
+				if (ss.isSwitchToGeofenceButtonVisible(5)) {
+					flag = flag & ss.clickOnSwitchToGeofenceButton();
 				}
 			}
-
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (createScheduleUsingUseGeofenceButton) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='USE GEOFENCING']");
-				} else {
-					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='LEARN MORE']");
-				}
+			if (createScheduleUsingUseGeofenceButton) {
+				flag = flag & ss.clickOnUseGeofencingText();
 			} else {
-				if (createScheduleUsingUseGeofenceButton) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", "USE GEOFENCING");
-				} else {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", "LEARN MORE");
-				}
+				flag = flag & ss.clickOnLearnMoreButton();
 			}
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
@@ -121,8 +109,7 @@ public class JasperSchedulingUtils {
 			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_HOME);
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderMultiTemperature",
-							5)) {
+					if (ss.isHomeTemperatureHeaderMultiTemperatureVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to home set points page");
 					} else {
@@ -133,20 +120,18 @@ public class JasperSchedulingUtils {
 				} else {
 					/*
 					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperatures do you prefer when you're at home" +
-					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to home set points page"
-					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * "What temperatures do you prefer when you're at home" + "\u003F", testCase,
+					 * 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to home set points page" ); } else
+					 * { flag = false; Keyword.ReportStep_Fail(testCase,
 					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to home set points page"
-					 * ); }
+					 * "Create Schedule : Failed to navigate to home set points page" ); }
 					 */
 				}
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")
 					|| !allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderSingleTemperature",
-							5)) {
+					if (ss.isHomeTemperatureHeaderSingleTemperatureVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to home set points page");
 					} else {
@@ -157,13 +142,12 @@ public class JasperSchedulingUtils {
 				} else {
 					/*
 					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperature do you prefer when you're at home" +
-					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to home set points page"
-					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * "What temperature do you prefer when you're at home" + "\u003F", testCase,
+					 * 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to home set points page" ); } else
+					 * { flag = false; Keyword.ReportStep_Fail(testCase,
 					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to home set points page"
-					 * ); }
+					 * "Create Schedule : Failed to navigate to home set points page" ); }
 					 */
 				}
 			}
@@ -171,22 +155,22 @@ public class JasperSchedulingUtils {
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
 				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Home cool set points to " + targetSetPoints.get("targetCoolTemp"));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Home heat set points to " + targetSetPoints.get("targetHeatTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Home cool set points to "
+						+ targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Home heat set points to "
+						+ targetSetPoints.get("targetHeatTemp"));
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
 				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Home heat set points to " + targetSetPoints.get("targetHeatTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Home heat set points to "
+						+ targetSetPoints.get("targetHeatTemp"));
 			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Home cool set points to " + targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Home cool set points to "
+						+ targetSetPoints.get("targetCoolTemp"));
 			}
 			flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Home", targetSetPoints);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NextButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+			if (ss.isNextButtonVisible(5)) {
+				flag = flag & ss.clickOnNextButton();
 			}
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed setting set points for Home period ***************");
@@ -195,8 +179,7 @@ public class JasperSchedulingUtils {
 			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_AWAY);
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderMultiTemperature",
-							5)) {
+					if (ss.isAwayTemperatureHeaderMultiTemperatureVisble(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to away set points page");
 					} else {
@@ -207,20 +190,18 @@ public class JasperSchedulingUtils {
 				} else {
 					/*
 					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperatures do you prefer when you're away from home"
-					 * + "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to away set points page"
-					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * "What temperatures do you prefer when you're away from home" + "\u003F",
+					 * testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to away set points page" ); } else
+					 * { flag = false; Keyword.ReportStep_Fail(testCase,
 					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to away set points page"
-					 * ); }
+					 * "Create Schedule : Failed to navigate to away set points page" ); }
 					 */
 				}
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")
 					|| !allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderSingleTemperature",
-							5)) {
+					if (ss.isAwayTemperatureHeaderSingleTemperatureVisble(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to away set points page");
 					} else {
@@ -231,43 +212,42 @@ public class JasperSchedulingUtils {
 				} else {
 					/*
 					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperature do you prefer when you're away from away" +
-					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to away set points page"
-					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * "What temperature do you prefer when you're away from away" + "\u003F",
+					 * testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to away set points page" ); } else
+					 * { flag = false; Keyword.ReportStep_Fail(testCase,
 					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to home set points page"
-					 * ); }
+					 * "Create Schedule : Failed to navigate to home set points page" ); }
 					 */
 				}
 			}
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
 				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Away cool set points to " + targetSetPoints.get("targetCoolTemp"));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Away heat set points to " + targetSetPoints.get("targetHeatTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Away cool set points to "
+						+ targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Away heat set points to "
+						+ targetSetPoints.get("targetHeatTemp"));
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
 				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Away heat set points to " + targetSetPoints.get("targetHeatTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Away heat set points to "
+						+ targetSetPoints.get("targetHeatTemp"));
 			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
-				Keyword.ReportStep_Pass(testCase,
-						"Set Period Set Points : Setting Away cool set points to " + targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Away cool set points to "
+						+ targetSetPoints.get("targetCoolTemp"));
 			}
 			flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Away", targetSetPoints);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NextButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+			if (ss.isNextButtonVisible(5)) {
+				flag = flag & ss.clickOnNextButton();
 			}
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed setting set points for Away period ***************");
 			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipSleepButton");
+					flag = flag & ss.clickOnSkipSleepButton();
 				} else {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NoButton");
+					flag = flag & ss.clickOnNoButton();
 				}
 
 			} else {
@@ -276,43 +256,47 @@ public class JasperSchedulingUtils {
 						"*************** Setting time and set points for Sleep period ***************");
 				inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "YesButton");
+					flag = flag & ss.clickOnYesButton();
 				}
-				flag = flag & setPeriodTime(testCase,
-						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME), "GeofenceSleepStartTime", true, true);
+				flag = flag & setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME),
+						"GeofenceSleepStartTime", true, true);
 				flag = flag & setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME),
 						"GeofenceSleepEndTime", true, true);
 				if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-					targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
-					targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
+					targetSetPoints.put("targetCoolTemp",
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
+					targetSetPoints.put("targetHeatTemp",
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
 					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep cool set points to "
 							+ targetSetPoints.get("targetCoolTemp"));
 					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep heat set points to "
 							+ targetSetPoints.get("targetHeatTemp"));
 				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
-					targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
+					targetSetPoints.put("targetHeatTemp",
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
 					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep heat set points to "
 							+ targetSetPoints.get("targetHeatTemp"));
 				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-					targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
+					targetSetPoints.put("targetCoolTemp",
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
 					Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep cool set points to "
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+				flag = flag & ss.clickOnNextButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for Sleep period ***************");
 			}
 			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
 			// "Geofence");
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+			if (ss.isDoneButtonVisible(5)) {
+				flag = flag & ss.clickOnDoneButton();
 			}
 
 			if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
 				System.out.println("Copy all");
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 3)) {
-					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+				if (ss.isCheckBoxVisible(3)) {
+					List<WebElement> checkBoxes = ss.getAllCheckBoxElements();
 					for (WebElement cbox : checkBoxes) {
 						if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 							if (cbox.getAttribute("value").equals("Disabled")) {
@@ -326,12 +310,12 @@ public class JasperSchedulingUtils {
 					}
 
 				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 5)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				if (ss.isCopyButtonVisible(5)) {
+					flag = flag & ss.clickOnCopyButton();
 				}
 			} else if (inputs.getInputValue(InputVariables.SPECIFIC_STAT_COPYING).equals("Yes")) {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 5)) {
-					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+				if (ss.isCheckBoxVisible(5)) {
+					List<WebElement> checkBoxes = ss.getAllCheckBoxElements();
 					System.out.println(checkBoxes.size());
 					String SelectStatPosition = getRandomSetPointValueBetweenMinandMax(testCase, inputs,
 							Double.parseDouble("0"), Double.parseDouble(String.valueOf(checkBoxes.size())));
@@ -350,7 +334,8 @@ public class JasperSchedulingUtils {
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Selecting stat at Position " + SelectStatPosition
 								+ ", copying to " + checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
-						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked").equals("false")) {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked")
+								.equals("false")) {
 							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
 							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
 									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
@@ -358,15 +343,15 @@ public class JasperSchedulingUtils {
 					}
 
 				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 5)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				if (ss.isCopyButtonVisible(5)) {
+					flag = flag & ss.clickOnCopyButton();
 				}
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SkipButton", 5)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipButton");
+				if (ss.isSkipButtonVisible(5)) {
+					flag = flag & ss.clickOnSkipButton();
 				}
 			}
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
+			if (ss.isTimeScheduleButtonVisible(10)) {
 				Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
 			} else {
 				flag = false;
@@ -797,9 +782,9 @@ public class JasperSchedulingUtils {
 
 	public static boolean viewScheduleOnPrimaryCard(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "TimeScheduleButton");
+		SchedulingScreen ss = new SchedulingScreen(testCase);
+		if (ss.isTimeScheduleButtonVisible(10)) {
+			flag = flag & ss.clickOnTimeScheduleButton();
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule button not found on Primary Card");
@@ -809,18 +794,16 @@ public class JasperSchedulingUtils {
 
 	public static boolean createTimeBasedScheduleWithDefaultValues(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		try
-		{
+		try {
 			WebElement element = null;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			flag = flag & viewScheduleOnPrimaryCard(testCase);
 
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateScheduleButton");
+			if (ss.isCreateScheduleButtonVisible(5)) {
+				flag = flag & ss.clickOnCreateScheduleButton();
 
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeOption")) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "TimeOption");
+				if (ss.isTimeOptionVisible(5)) {
+					flag = flag & ss.clickOnTimeOption();
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -828,28 +811,28 @@ public class JasperSchedulingUtils {
 					return false;
 				}
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleOffOverlay", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOffOverlay")) {
+				if (ss.isScheduleOffOverlayVisible(5)) {
+					if (!ss.clickOnScheduleOffOverlay()) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
 					}
 				}
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOptionsButton");
+				flag = flag & ss.clickOnScheduleOptionsButton();
 
 				DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 				String currentScheduleType = devInfo.getThermoStatScheduleType();
 
 				if (currentScheduleType.equalsIgnoreCase("Timed")) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateNewTimeScheduleButton");
+					flag = flag & ss.clickOnCreateNewTimeScheduleButton();
 				} else {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SwitchToTimeScheduleButton");
+					flag = flag & ss.clickOnSwitchToTimeScheduleButton();
 				}
 			}
 
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EverydayScheduleButton");
+				flag = flag & ss.clickOnEverydayScheduleButton();
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
 					for (String mode : modes) {
@@ -859,12 +842,7 @@ public class JasperSchedulingUtils {
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("Wake")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Wake_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayWake");
-							}
+							element = ss.getEverydayWakeElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT));
@@ -880,12 +858,7 @@ public class JasperSchedulingUtils {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_WAKE);
 						} else if (mode.equals("Away")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Away_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayAway");
-							}
+							element = ss.getEverydayAwayElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT));
@@ -901,12 +874,7 @@ public class JasperSchedulingUtils {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_AWAY);
 						} else if (mode.equals("Home")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Home_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayHome");
-							}
+							element = ss.getEverydayHomeElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT));
@@ -922,12 +890,7 @@ public class JasperSchedulingUtils {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_HOME);
 						} else if (mode.equals("Sleep")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Sleep_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydaySleep");
-							}
+							element = ss.getEverydaySleepElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT));
@@ -956,8 +919,8 @@ public class JasperSchedulingUtils {
 											+ periodTimeandSetPoint.get("periodName"));
 							return false;
 						}
-						flag = flag & JasperSchedulingUtils.verifySetPeriodTime(testCase, periodTimeandSetPoint.get("Time"),
-								"TimeChooser");
+						flag = flag & JasperSchedulingUtils.verifySetPeriodTime(testCase,
+								periodTimeandSetPoint.get("Time"), "TimeChooser");
 						String coolTemp = " ";
 						String heatTemp = " ";
 						if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
@@ -999,7 +962,7 @@ public class JasperSchedulingUtils {
 							}
 							flag = flag & JasperSchedulingUtils.verifyCoolStepperValue(testCase, inputs, coolTemp, "");
 						}
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed verifying time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
@@ -1013,14 +976,10 @@ public class JasperSchedulingUtils {
 						List<String> allowedModes = devInfo.getAllowedModes();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("1")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='1_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(testCase, "name", "Everyday_1");
-							}
+							element = ss.getEveryday1Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT));
@@ -1034,14 +993,10 @@ public class JasperSchedulingUtils {
 										inputs.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT));
 							}
 						} else if (mode.equals("2")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='2_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(testCase, "name", "Everyday_2");
-							}
+							element = ss.getEveryday2Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT));
@@ -1055,14 +1010,10 @@ public class JasperSchedulingUtils {
 										inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT));
 							}
 						} else if (mode.equals("3")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='3_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(testCase, "name", "Everyday_3");
-							}
+							element = ss.getEveryday3Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
@@ -1076,14 +1027,10 @@ public class JasperSchedulingUtils {
 										inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
 							}
 						} else if (mode.equals("4")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='4_Everyday']"));
-							} else {
-								element = MobileUtils.getMobElement(testCase, "name", "Everyday_4");
-							}
+							element = ss.getEveryday4Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
@@ -1111,45 +1058,23 @@ public class JasperSchedulingUtils {
 											+ periodTimeandSetPoint.get("periodName"));
 							return false;
 						}
-						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists("XPATH",
-									"//*[@text='When do you want the temperature to change?']", testCase, 5)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Time chooser header is shown correctly: When do you want the temperature to change?");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Time chooser header is not shown correctly");
-							}
-							if (MobileUtils.isMobElementExists("XPATH",
-									"//*[@text='What temperature is preferred during this time?']", testCase, 5)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Temp chooser header is shown correctly: What temperature is preferred during this time?");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Temp chooser header is not shown correctly");
-							}
+						if (ss.isTimeChooserHeaderVisible(5)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Time chooser header is shown correctly: When do you want the temperature to change?");
 						} else {
-							if (MobileUtils.isMobElementExists("XPATH",
-									"//*[@value='When do you want the temperature to change?']", testCase, 5)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Time chooser header is shown correctly: When do you want the temperature to change?");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Time chooser header is not shown correctly");
-							}
-							if (MobileUtils.isMobElementExists("XPATH",
-									"//*[@value='What temperature is preferred at this time?']", testCase, 5)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Temp chooser header is shown correctly: What temperature is preferred at this time?");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Temp chooser header is not shown correctly");
-							}
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Time chooser header is not shown correctly");
 						}
+						if (ss.isTempChooserHeaderVisible(5)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Temp chooser header is shown correctly: What temperature is preferred during this time?");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Temp chooser header is not shown correctly");
+						}
+
 						flag = flag & JasperSchedulingUtils.verifySetPeriodTime(testCase,
 								periodTimeandSetPoint.get("StartTime"), "TimeChooser");
 						flag = flag & JasperSchedulingUtils.verifySetPeriodTime(testCase,
@@ -1195,14 +1120,14 @@ public class JasperSchedulingUtils {
 							}
 							flag = flag & JasperSchedulingUtils.verifyCoolStepperValue(testCase, inputs, coolTemp, "");
 						}
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed verifying time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
 				}
 			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "WeekdayandWeekendScheduleButton");
+				flag = flag & ss.clickOnWeekdayandWeekendScheduleButton();
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
@@ -1213,12 +1138,7 @@ public class JasperSchedulingUtils {
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("Wake_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Wake_Monday - Friday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdayWake");
-							}
+							element = ss.getWeekdayWakeElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT));
@@ -1234,12 +1154,7 @@ public class JasperSchedulingUtils {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_WAKE);
 						} else if (mode.equals("Away_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Away_Monday - Friday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdayAway");
-							}
+							element = ss.getWeekdayAwayElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT));
@@ -1255,12 +1170,7 @@ public class JasperSchedulingUtils {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_AWAY);
 						} else if (mode.equals("Home_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Home_Monday - Friday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdayHome");
-							}
+							element = ss.getWeekdayHomeElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT));
@@ -1276,12 +1186,7 @@ public class JasperSchedulingUtils {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_HOME);
 						} else if (mode.equals("Sleep_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='Sleep_Monday - Friday']"));
-							} else {
-								element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekdaySleep");
-							}
+							element = ss.getWeekdaySleepElement();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT));
@@ -1299,24 +1204,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='Wake_Saturday - Sunday']"));
+									element = ss.getWeekendWakeElement();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendWake", 5)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekendWakeElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e3) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Wake_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendWake");
+									element = ss.getWeekendWakeElement();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1327,8 +1231,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='Wake_Saturday - Sunday']"));
+										element = ss.getWeekendWakeElement();
 									}
 								} catch (NoSuchElementException e1) {
 									flag = false;
@@ -1354,24 +1257,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='Away_Saturday - Sunday']"));
+									element = ss.getWeekendAwayElement();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendAway", 5)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekendAwayElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Away_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendAway");
+									element = ss.getWeekendAwayElement();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1382,8 +1284,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='Away_Saturday - Sunday']"));
+										element = ss.getWeekendAwayElement();
 									}
 
 								} catch (NoSuchElementException e1) {
@@ -1409,24 +1310,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='Home_Saturday - Sunday']"));
+									element = ss.getWeekendHomeElement();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendHome", 5)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekendHomeElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Home_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendHome");
+									element = ss.getWeekendHomeElement();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1437,8 +1337,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='Home_Saturday - Sunday']"));
+										element = ss.getWeekendHomeElement();
 									}
 								} catch (NoSuchElementException e1) {
 									flag = false;
@@ -1463,24 +1362,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='Sleep_Saturday - Sunday']"));
+									element = ss.getWeekendSleepElement();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendSleep", 5)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekendSleepElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Sleep_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(fieldObjects, testCase, "WeekendSleep");
+									element = ss.getWeekendSleepElement();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1491,8 +1389,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='Sleep_Saturday - Sunday']"));
+										element = ss.getWeekendSleepElement();
 									}
 
 								} catch (NoSuchElementException e1) {
@@ -1569,7 +1466,7 @@ public class JasperSchedulingUtils {
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "");
 						}
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed verifying time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
@@ -1583,13 +1480,7 @@ public class JasperSchedulingUtils {
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("Wake_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='1_Monday - Friday']"));
-							} else {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@name='Monday - Friday_1']"));
-							}
+							element = ss.getWeekday1Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT));
@@ -1604,13 +1495,7 @@ public class JasperSchedulingUtils {
 							}
 						} else if (mode.equals("Away_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='2_Monday - Friday']"));
-							} else {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@name='Monday - Friday_2']"));
-							}
+							element = ss.getWeekday2Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT));
@@ -1625,13 +1510,7 @@ public class JasperSchedulingUtils {
 							}
 						} else if (mode.equals("Home_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='3_Monday - Friday']"));
-							} else {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@name='Monday - Friday_3']"));
-							}
+							element = ss.getWeekday3Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
@@ -1646,13 +1525,7 @@ public class JasperSchedulingUtils {
 							}
 						} else if (mode.equals("Sleep_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@content-desc='4_Monday - Friday']"));
-							} else {
-								element = testCase.getMobileDriver()
-										.findElement(By.xpath("//*[@name='Monday - Friday_4']"));
-							}
+							element = ss.getWeekday4Element();
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
 										inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
@@ -1669,26 +1542,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='1_Saturday - Sunday']"));
+									element = ss.getWeekend1Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists("xpath", "//*[@name='Saturday - Sunday_1']",
-											testCase)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekend1ElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e3) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(testCase, "xpath",
-											"//*[@name='Saturday - Sunday_1']");
+									element = ss.getWeekend1Element();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1699,8 +1569,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='1_Saturday - Sunday']"));
+										element = ss.getWeekend1Element();
 									}
 								} catch (NoSuchElementException e1) {
 									flag = false;
@@ -1725,26 +1594,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='2_Saturday - Sunday']"));
+									element = ss.getWeekend2Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists("xpath", "//*[@name='Saturday - Sunday_2']",
-											testCase)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekend2ElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Away_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(testCase, "xpath",
-											"//*[@name='Saturday - Sunday_2']");
+									element = ss.getWeekend2Element();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1755,8 +1621,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='2_Saturday - Sunday']"));
+										element = ss.getWeekend2Element();
 									}
 
 								} catch (NoSuchElementException e1) {
@@ -1781,26 +1646,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='3_Saturday - Sunday']"));
+									element = ss.getWeekend3Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists("xpath", "//*[@name='Saturday - Sunday_3']",
-											testCase)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekend3ElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Home_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(testCase, "xpath",
-											"//*[@name='Saturday - Sunday_3']");
+									element = ss.getWeekend3Element();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1811,8 +1673,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='3_Saturday - Sunday']"));
+										element = ss.getWeekend3Element();
 									}
 								} catch (NoSuchElementException e1) {
 									flag = false;
@@ -1836,26 +1697,23 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = testCase.getMobileDriver()
-											.findElement(By.xpath("//*[@content-desc='4_Saturday - Sunday']"));
+									element = ss.getWeekend4Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!MobileUtils.isMobElementExists("xpath", "//*[@name='Saturday - Sunday_4']",
-											testCase)) {
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									if (!ss.isWeekend4ElementVisible(5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Create Schedule : Could not find element Sleep_Saturday-Sunday");
 										}
 									}
-									element = MobileUtils.getMobElement(testCase, "xpath",
-											"//*[@name='Saturday - Sunday_4']");
+									element = ss.getWeekend4Element();
 								}
 							} catch (NoSuchElementException e) {
 								try {
@@ -1866,8 +1724,7 @@ public class JasperSchedulingUtils {
 										int endx = (dimensions.width * 22) / 100;
 										int endy = (dimensions.height * 35) / 100;
 										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-										element = testCase.getMobileDriver()
-												.findElement(By.xpath("//*[@content-desc='4_Saturday - Sunday']"));
+										element = ss.getWeekend4Element();
 									}
 
 								} catch (NoSuchElementException e1) {
@@ -1943,7 +1800,7 @@ public class JasperSchedulingUtils {
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "");
 						}
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed verifying time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
@@ -1999,7 +1856,7 @@ public class JasperSchedulingUtils {
 					}
 				}
 
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayScheduleButton", 5)) {
+				if (ss.isEverydayScheduleButtonVisible(5)) {
 					Keyword.ReportStep_Pass(testCase, "Successfully deleted all the periods");
 					return flag;
 				}
@@ -2008,61 +1865,43 @@ public class JasperSchedulingUtils {
 				JasperSchedulingUtils.addPeriodEMEADefaultCase(testCase, inputs);
 			}
 
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+			if (ss.isDoneButtonVisible(5)) {
+				flag = flag & ss.clickOnDoneButton();
 			}
 			if (!inputs.getInputValue("ConfirmTimeShedule").isEmpty()) {
 				System.out.println(inputs.getInputValue("ConfirmTimeShedule"));
 				if (inputs.getInputValue("ConfirmTimeShedule").equalsIgnoreCase("true")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmChangeButton", 5, false)) {
+					if (ss.isConfirmChangeButtonVisible(5)) {
 						Keyword.ReportStep_Pass(testCase, "Create Schedule : Confirm change button shown");
-						if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmChangeButton")) {
+						if (!ss.clickOnConfirmChangeButton()) {
 							flag = false;
 						}
 					}
 				} else {
-					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						if (MobileUtils.isMobElementExists("name", "CANCEL", testCase, 5, false)) {
-							Keyword.ReportStep_Pass(testCase, "Create Schedule : Cancel change button shown");
-							if (!MobileUtils.clickOnElement(testCase, "name", "CANCEL")) {
-								flag = false;
-							}
-						} else {
+					if (ss.isCancelChangeButtonVisible(5)) {
+						Keyword.ReportStep_Pass(testCase, "Create Schedule : Cancel change button shown");
+						if (!ss.clickOnCancelChangeButton()) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel button not shown");
 						}
 					} else {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CancelChangeButton", 5, false)) {
-							Keyword.ReportStep_Pass(testCase, "Create Schedule : Cancel change button shown");
-							if (!MobileUtils.clickOnElement(fieldObjects, testCase, "CancelChangeButton")) {
-								flag = false;
-							}
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel button not shown");
-						}
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel button not shown");
 					}
 					return flag;
 				}
 
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmChangeButton", 10, false)) {
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (testCase.getMobileDriver().findElement(By.id("android:id/button1")).getAttribute("text")
-								.equals("Confirm Change")) {
-							testCase.getMobileDriver().findElement(By.id("android:id/button1")).click();
-						}
-					} else {
-						if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmChangeButton")) {
-							flag = false;
-						}
+				if (ss.isConfirmChangeButtonVisible(10)) {
+
+					if (!ss.clickOnConfirmChangeButton()) {
+						flag = false;
 					}
 				}
 			}
 			if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
 				System.out.println("Copy all");
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 3, false)) {
-					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+				if (ss.isCheckBoxVisible(3)) {
+					List<WebElement> checkBoxes = ss.getAllCheckBoxElements();
 					for (WebElement cbox : checkBoxes) {
 						if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 							if (cbox.getAttribute("value").equals("Disabled")) {
@@ -2076,12 +1915,12 @@ public class JasperSchedulingUtils {
 					}
 
 				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 3, false)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				if (ss.isCopyButtonVisible(3)) {
+					flag = flag & ss.clickOnCopyButton();
 				}
 			} else if (inputs.getInputValue(InputVariables.SPECIFIC_STAT_COPYING).equals("Yes")) {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CheckBox", 3, false)) {
-					List<WebElement> checkBoxes = MobileUtils.getMobElements(fieldObjects, testCase, "CheckBox");
+				if (ss.isCheckBoxVisible(3)) {
+					List<WebElement> checkBoxes = ss.getAllCheckBoxElements();
 					System.out.println(checkBoxes.size());
 					String SelectStatPosition = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase,
 							inputs, Double.parseDouble("0"), Double.parseDouble(String.valueOf(checkBoxes.size())));
@@ -2095,13 +1934,15 @@ public class JasperSchedulingUtils {
 					}
 
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("value").equals("Disabled")) {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("value")
+								.equals("Disabled")) {
 							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
 							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
 									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("label"));
 						}
 					} else {
-						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked").equals("false")) {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked")
+								.equals("false")) {
 							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
 							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
 									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
@@ -2109,11 +1950,11 @@ public class JasperSchedulingUtils {
 					}
 
 				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CopyButton", 10, false)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CopyButton");
+				if (ss.isCopyButtonVisible(10)) {
+					flag = flag & ss.clickOnCopyButton();
 				}
-			} else if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SkipButton", 10, false)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipButton");
+			} else if (ss.isSkipButtonVisible(10)) {
+				flag = flag & ss.clickOnSkipButton();
 			}
 			/*
 			 * if (MobileUtils.isMobElementExists(fieldObjects, testCase,
@@ -2125,9 +1966,7 @@ public class JasperSchedulingUtils {
 			 * false; Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 			 * "Create Schedule : Failed to navigate to Primary Card"); }
 			 */
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
@@ -2146,7 +1985,7 @@ public class JasperSchedulingUtils {
 				if (MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition).getText()
 						.replaceAll("\\.", "").toUpperCase().contains(time12hours)
 						|| MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition).getText()
-						.replaceAll("\\.", "").toUpperCase().contains(time24hours)) {
+								.replaceAll("\\.", "").toUpperCase().contains(time24hours)) {
 					Keyword.ReportStep_Pass(testCase, "Verify Set Period Time : Time is set to " + time);
 				} else {
 					flag = false;
@@ -2196,8 +2035,7 @@ public class JasperSchedulingUtils {
 
 	public static boolean addPeriodEMEADefaultCase(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		try
-		{
+		try {
 			HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 			String tempPeriod = " ", tempPeriodStartTime = " ", tempPeriodEndTime = "";
 			WebElement element = null;
@@ -2250,7 +2088,7 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 						}
 						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayTimeList", 5)) {
 							weekdaySchedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
@@ -2275,7 +2113,7 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 						}
 						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendTimeList", 5)) {
 							weekendSchedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
@@ -2313,7 +2151,8 @@ public class JasperSchedulingUtils {
 						} else {
 							tempPeriodStartTime = weekendSchedule_period_time.get(Integer.parseInt(tempPeriod) - 4 - 1)
 									.getText();
-							tempPeriodEndTime = weekendSchedule_period_time.get(Integer.parseInt(tempPeriod) - 4).getText();
+							tempPeriodEndTime = weekendSchedule_period_time.get(Integer.parseInt(tempPeriod) - 4)
+									.getText();
 
 						}
 					}
@@ -2322,7 +2161,8 @@ public class JasperSchedulingUtils {
 							.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 						tempPeriodStartTime = schedule_period_time.get(Integer.parseInt(tempPeriod) - 1)
 								.getAttribute("value");
-						tempPeriodEndTime = schedule_period_time.get(Integer.parseInt(tempPeriod)).getAttribute("value");
+						tempPeriodEndTime = schedule_period_time.get(Integer.parseInt(tempPeriod))
+								.getAttribute("value");
 					} else {
 						if (Integer.parseInt(tempPeriod) <= 4) {
 							tempPeriodStartTime = weekdaySchedule_period_time.get(Integer.parseInt(tempPeriod) - 1)
@@ -2363,8 +2203,10 @@ public class JasperSchedulingUtils {
 							"[Exception] Error message: " + e.getMessage());
 				}
 
-				tempPeriodStartTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase, tempPeriodStartTime, true, 0, 30);
-				tempPeriodEndTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase, tempPeriodEndTime, false, 0, 30);
+				tempPeriodStartTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase, tempPeriodStartTime,
+						true, 0, 30);
+				tempPeriodEndTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase, tempPeriodEndTime, false,
+						0, 30);
 				inputs.setInputValue(InputVariables.ADD_PERIOD_START_TIME, tempPeriodStartTime);
 				inputs.setInputValue(InputVariables.ADD_PERIOD_END_TIME, tempPeriodEndTime);
 
@@ -2384,8 +2226,8 @@ public class JasperSchedulingUtils {
 							inputs.getInputValue(InputVariables.ADD_PERIOD_COOL_SETPOINT));
 				}
 
-				flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint,
-						element);
+				flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
+						periodTimeandSetPoint, element);
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for new period ***************");
@@ -2409,10 +2251,11 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 						}
 						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayTimeList", 5)) {
-							schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "WeekdayTimeList");
+							schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
+									"WeekdayTimeList");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2432,10 +2275,11 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 						}
 						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendTimeList", 5)) {
-							schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "WeekendTimeList");
+							schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
+									"WeekendTimeList");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2533,38 +2377,44 @@ public class JasperSchedulingUtils {
 									inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT,
 											MobileUtils
-											.getMobElement(testCase, "name", "Everyday_" + i + "_HeatTemperature")
-											.getAttribute("value"));
+													.getMobElement(testCase, "name",
+															"Everyday_" + i + "_HeatTemperature")
+													.getAttribute("value"));
 								} else if (i == 2) {
 									inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT,
 											MobileUtils
-											.getMobElement(testCase, "name", "Everyday_" + i + "_HeatTemperature")
-											.getAttribute("value"));
+													.getMobElement(testCase, "name",
+															"Everyday_" + i + "_HeatTemperature")
+													.getAttribute("value"));
 								} else if (i == 3) {
 									inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT,
 											MobileUtils
-											.getMobElement(testCase, "name", "Everyday_" + i + "_HeatTemperature")
-											.getAttribute("value"));
+													.getMobElement(testCase, "name",
+															"Everyday_" + i + "_HeatTemperature")
+													.getAttribute("value"));
 								} else if (i == 4) {
 									inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT,
 											MobileUtils
-											.getMobElement(testCase, "name", "Everyday_" + i + "_HeatTemperature")
-											.getAttribute("value"));
+													.getMobElement(testCase, "name",
+															"Everyday_" + i + "_HeatTemperature")
+													.getAttribute("value"));
 								} else if (i == 5) {
 									inputs.setInputValue(InputVariables.EVERYDAY_5_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT,
 											MobileUtils
-											.getMobElement(testCase, "name", "Everyday_" + i + "_HeatTemperature")
-											.getAttribute("value"));
+													.getMobElement(testCase, "name",
+															"Everyday_" + i + "_HeatTemperature")
+													.getAttribute("value"));
 								} else if (i == 6) {
 									inputs.setInputValue(InputVariables.EVERYDAY_6_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT,
 											MobileUtils
-											.getMobElement(testCase, "name", "Everyday_" + i + "_HeatTemperature")
-											.getAttribute("value"));
+													.getMobElement(testCase, "name",
+															"Everyday_" + i + "_HeatTemperature")
+													.getAttribute("value"));
 								}
 							}
 						}
@@ -2583,7 +2433,7 @@ public class JasperSchedulingUtils {
 								Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 								TouchAction action = new TouchAction(testCase.getMobileDriver());
 								action.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
+										.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 							}
 							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayTimeList", 5)) {
 								schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
@@ -2649,7 +2499,8 @@ public class JasperSchedulingUtils {
 									try {
 										tempTime = schedule_period_time.get(i - 1).getAttribute("value");
 										if (!schedule_period_time.get(i - 1).getAttribute("value").contains("m")
-												&& !schedule_period_time.get(i - 1).getAttribute("value").contains("M")) {
+												&& !schedule_period_time.get(i - 1).getAttribute("value")
+														.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
 											final Date dateObj1 = sdf
 													.parse(schedule_period_time.get(i - 1).getAttribute("value"));
@@ -2672,44 +2523,44 @@ public class JasperSchedulingUtils {
 										inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Monday - Friday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Monday - Friday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 2) {
 										inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Monday - Friday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Monday - Friday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 3) {
 										inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Monday - Friday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Monday - Friday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 4) {
 										inputs.setInputValue(InputVariables.WEEKDAY_4_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Monday - Friday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Monday - Friday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 5) {
 										inputs.setInputValue(InputVariables.WEEKDAY_5_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Monday - Friday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Monday - Friday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 6) {
 										inputs.setInputValue(InputVariables.WEEKDAY_6_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Monday - Friday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Monday - Friday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									}
 								}
 							}
@@ -2726,7 +2577,7 @@ public class JasperSchedulingUtils {
 								Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 								TouchAction action = new TouchAction(testCase.getMobileDriver());
 								action.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+										.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 							}
 							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendTimeList", 5)) {
 								schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
@@ -2792,7 +2643,8 @@ public class JasperSchedulingUtils {
 									try {
 										tempTime = schedule_period_time.get(i - 1).getAttribute("value");
 										if (!schedule_period_time.get(i - 1).getAttribute("value").contains("m")
-												&& !schedule_period_time.get(i - 1).getAttribute("value").contains("M")) {
+												&& !schedule_period_time.get(i - 1).getAttribute("value")
+														.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
 											final Date dateObj1 = sdf
 													.parse(schedule_period_time.get(i - 1).getAttribute("value"));
@@ -2815,44 +2667,44 @@ public class JasperSchedulingUtils {
 										inputs.setInputValue(InputVariables.WEEKEND_1_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Saturday - Sunday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Saturday - Sunday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 2) {
 										inputs.setInputValue(InputVariables.WEEKEND_2_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Saturday - Sunday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Saturday - Sunday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 3) {
 										inputs.setInputValue(InputVariables.WEEKEND_3_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Saturday - Sunday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Saturday - Sunday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 4) {
 										inputs.setInputValue(InputVariables.WEEKEND_4_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Saturday - Sunday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Saturday - Sunday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 5) {
 										inputs.setInputValue(InputVariables.WEEKEND_5_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Saturday - Sunday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Saturday - Sunday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									} else if (i == 6) {
 										inputs.setInputValue(InputVariables.WEEKEND_6_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT,
 												MobileUtils
-												.getMobElement(testCase, "name",
-														"Saturday - Sunday_" + i + "_HeatTemperature")
-												.getAttribute("value"));
+														.getMobElement(testCase, "name",
+																"Saturday - Sunday_" + i + "_HeatTemperature")
+														.getAttribute("value"));
 									}
 								}
 							}
@@ -2862,16 +2714,15 @@ public class JasperSchedulingUtils {
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to add a new period: Initial period count-" + initialPeriodSize + " Final period count-"
-									+ finalPeriodSize);
+							"Failed to add a new period: Initial period count-" + initialPeriodSize
+									+ " Final period count-" + finalPeriodSize);
 				}
 			} else {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "[AddImage] Add image/+ icon is not shown");
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"[AddImage] Add image/+ icon is not shown");
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
@@ -3064,19 +2915,19 @@ public class JasperSchedulingUtils {
 				if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 					Keyword.ReportStep_Pass(testCase,
 							"Set Period Set Points : Setting " + periodTimeandSetPoint.get("periodName")
-							+ " cool set points to " + periodTimeandSetPoint.get("CoolSetPoint"));
+									+ " cool set points to " + periodTimeandSetPoint.get("CoolSetPoint"));
 					Keyword.ReportStep_Pass(testCase,
 							"Set Period Set Points : Setting " + periodTimeandSetPoint.get("periodName")
-							+ " heat set points to " + periodTimeandSetPoint.get("HeatSetPoint"));
+									+ " heat set points to " + periodTimeandSetPoint.get("HeatSetPoint"));
 					targetSetPoints.put("targetCoolTemp", periodTimeandSetPoint.get("CoolSetPoint"));
 					targetSetPoints.put("targetHeatTemp", periodTimeandSetPoint.get("HeatSetPoint"));
 				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
 					Keyword.ReportStep_Pass(testCase, "Setting " + periodTimeandSetPoint.get("periodName")
-					+ " heat set points to " + periodTimeandSetPoint.get("HeatSetPoint"));
+							+ " heat set points to " + periodTimeandSetPoint.get("HeatSetPoint"));
 					targetSetPoints.put("targetHeatTemp", periodTimeandSetPoint.get("HeatSetPoint"));
 				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 					Keyword.ReportStep_Pass(testCase, "Setting " + periodTimeandSetPoint.get("periodName")
-					+ " cool set points to " + periodTimeandSetPoint.get("CoolSetPoint"));
+							+ " cool set points to " + periodTimeandSetPoint.get("CoolSetPoint"));
 					targetSetPoints.put("targetCoolTemp", periodTimeandSetPoint.get("CoolSetPoint"));
 				}
 				flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetSetPoints,
@@ -3115,7 +2966,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3127,7 +2978,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3228,7 +3079,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3240,7 +3091,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3343,7 +3194,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3355,7 +3206,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3456,7 +3307,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3468,7 +3319,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3665,7 +3516,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3677,7 +3528,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3775,7 +3626,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3787,7 +3638,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3887,7 +3738,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3899,7 +3750,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -3997,7 +3848,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4009,7 +3860,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4205,7 +4056,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4278,7 +4129,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4352,7 +4203,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4425,7 +4276,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4565,7 +4416,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4637,7 +4488,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4710,7 +4561,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4782,7 +4633,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4926,7 +4777,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -4999,7 +4850,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5073,7 +4924,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5146,7 +4997,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5287,7 +5138,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5413,7 +5264,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5540,7 +5391,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5666,7 +5517,7 @@ public class JasperSchedulingUtils {
 							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5936,7 +5787,7 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-							.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5948,7 +5799,7 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-							.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5973,7 +5824,7 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-							.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -5998,7 +5849,7 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
 							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
-							.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
 							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
@@ -6016,8 +5867,6 @@ public class JasperSchedulingUtils {
 		}
 		return flag;
 	}
-
-
 
 	public static boolean setCoolStepper(TestCases testCase, TestCaseInputs inputs, String targetCoolTemp, int index) {
 		boolean flag = true;
@@ -6235,7 +6084,7 @@ public class JasperSchedulingUtils {
 		boolean flag = true, deletedPeriodFlag = true;
 		List<WebElement> schedule_period_title, schedule_period_time = null;
 		String expectedPeriodTime = "";
-		Dimension dimensions ;
+		Dimension dimensions;
 		int startx, starty, endx, endy;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -6260,8 +6109,7 @@ public class JasperSchedulingUtils {
 						if (String.valueOf(i)
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 							expectedPeriodTime = MobileUtils
-									.getMobElement(testCase, "xpath",
-											"//android.widget.FrameLayout[" + i
+									.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + i
 											+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
 									.getText();
 							try {
@@ -6289,13 +6137,11 @@ public class JasperSchedulingUtils {
 					for (int i = 5; i <= (weekendschedule_period_title.size() * 2); i++) {
 						if (String.valueOf(i)
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
-							if (MobileUtils.isMobElementExists("Xpath",
-									"//android.widget.FrameLayout[" + (i)
+							if (MobileUtils.isMobElementExists("Xpath", "//android.widget.FrameLayout[" + (i)
 									+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
 									testCase, 5)) {
 								expectedPeriodTime = MobileUtils
-										.getMobElement(testCase, "xpath",
-												"//android.widget.FrameLayout[" + (i)
+										.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + (i)
 												+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
 										.getText();
 							}
@@ -6314,7 +6160,8 @@ public class JasperSchedulingUtils {
 
 			} else {
 				for (int i = 1; i <= schedule_period_title.size(); i++) {
-					if (String.valueOf(i).equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
+					if (String.valueOf(i)
+							.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 						expectedPeriodTime = schedule_period_time.get(i - 1).getText();
 						try {
 							schedule_period_title.get(i - 1).click();
@@ -6341,7 +6188,7 @@ public class JasperSchedulingUtils {
 
 					try {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
+								.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 						TimeUnit.SECONDS.sleep(3);
 
 					} catch (Exception e1) {
@@ -6363,20 +6210,21 @@ public class JasperSchedulingUtils {
 							expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
 							try {
 								schedule_period_time.get(i - 1).click();
-								Keyword.ReportStep_Pass(testCase,
-										"Selected period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
+								Keyword.ReportStep_Pass(testCase, "Selected period-"
+										+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
 								break;
 							} catch (Exception e) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-										+ " Error message: " + e.getMessage());
+										"Failed to click on Period-"
+												+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+												+ " Error message: " + e.getMessage());
 							}
 						}
 					}
 				} else {
 					try {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 						TimeUnit.SECONDS.sleep(3);
 					} catch (Exception e1) {
 						flag = false;
@@ -6397,13 +6245,14 @@ public class JasperSchedulingUtils {
 							expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
 							try {
 								schedule_period_time.get(i - 1).click();
-								Keyword.ReportStep_Pass(testCase,
-										"Selected period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
+								Keyword.ReportStep_Pass(testCase, "Selected period-"
+										+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
 								break;
 							} catch (Exception e) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-										+ " Error message: " + e.getMessage());
+										"Failed to click on Period-"
+												+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+												+ " Error message: " + e.getMessage());
 							}
 						}
 					}
@@ -6417,7 +6266,8 @@ public class JasperSchedulingUtils {
 							"Failed to locate Everyday schedule period times");
 				}
 				for (int i = 1; i <= schedule_period_time.size(); i++) {
-					if (String.valueOf(i).equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
+					if (String.valueOf(i)
+							.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 						expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
 						try {
 							schedule_period_time.get(i - 1).click();
@@ -6426,8 +6276,9 @@ public class JasperSchedulingUtils {
 							break;
 						} catch (Exception e) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-									+ " Error message: " + e.getMessage());
+									"Failed to click on Period-"
+											+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+											+ " Error message: " + e.getMessage());
 						}
 					}
 				}
@@ -6505,7 +6356,8 @@ public class JasperSchedulingUtils {
 		if (deletedPeriodFlag) {
 			Keyword.ReportStep_Pass(testCase,
 					"Successfully deleted the Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
-			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("1")) {
 					inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, "Tap to set");
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("2")) {
@@ -6564,8 +6416,7 @@ public class JasperSchedulingUtils {
 						if (weekdayschedule_period_title.get(i - 1).getText()
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 							expectedPeriodTime = MobileUtils
-									.getMobElement(testCase, "xpath",
-											"//android.widget.FrameLayout[" + i
+									.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + i
 											+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
 									.getText();
 							try {
@@ -6593,8 +6444,7 @@ public class JasperSchedulingUtils {
 						if (String.valueOf((Integer.parseInt(weekendschedule_period_title.get(i - 1).getText()) + 4))
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 							expectedPeriodTime = MobileUtils
-									.getMobElement(testCase, "xpath",
-											"//android.widget.FrameLayout[" + i
+									.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + i
 											+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
 									.getText();
 							try {
@@ -6639,7 +6489,7 @@ public class JasperSchedulingUtils {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * .3))
-					.release().perform();
+							.release().perform();
 
 					if (MobileUtils.isMobElementExists("xpath",
 							"//*[contains(@name,'Monday - Friday_') and contains(@name,'_Time')]", testCase, 5)) {
@@ -6648,7 +6498,7 @@ public class JasperSchedulingUtils {
 					}
 
 					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.3))
-					.release().perform();
+							.release().perform();
 
 					if (MobileUtils.isMobElementExists("xpath",
 							"//*[contains(@name,'Saturday - Sunday_') and contains(@name,'_Time')]", testCase, 5)) {
@@ -6660,7 +6510,7 @@ public class JasperSchedulingUtils {
 					if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
 
 						action.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .3)).release().perform();
+								.moveTo(0, (int) (dimension.getHeight() * .3)).release().perform();
 
 						schedule_period_time = weekdayschedule_period_title;
 						expectedPeriod = "Monday - Friday_";
@@ -6675,14 +6525,15 @@ public class JasperSchedulingUtils {
 									break;
 								} catch (Exception e) {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-											+ " Error message: " + e.getMessage());
+											"Failed to click on Period-"
+													+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+													+ " Error message: " + e.getMessage());
 								}
 							}
 						}
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.3)).release().perform();
+								.moveTo(0, (int) (dimension.getHeight() * -.3)).release().perform();
 
 						schedule_period_time = weekendschedule_period_title;
 						expectedPeriod = "Saturday - Sunday_";
@@ -6698,8 +6549,9 @@ public class JasperSchedulingUtils {
 									break;
 								} catch (Exception e) {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-											+ " Error message: " + e.getMessage());
+											"Failed to click on Period-"
+													+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+													+ " Error message: " + e.getMessage());
 								}
 							}
 						}
@@ -6717,8 +6569,9 @@ public class JasperSchedulingUtils {
 								break;
 							} catch (Exception e) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-										+ " Error message: " + e.getMessage());
+										"Failed to click on Period-"
+												+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+												+ " Error message: " + e.getMessage());
 							}
 						}
 					}
@@ -6735,8 +6588,9 @@ public class JasperSchedulingUtils {
 							break;
 						} catch (Exception e) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to click on Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-									+ " Error message: " + e.getMessage());
+									"Failed to click on Period-"
+											+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
+											+ " Error message: " + e.getMessage());
 						}
 					}
 				}
@@ -6809,18 +6663,15 @@ public class JasperSchedulingUtils {
 				// MobileUtils.getMobElements(testCase,"xpath","//*[contains(@content-desc,'_Monday-Friday')]/android.widget.TextView[1]");
 				if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
 					/*
-					 * for (int i = 0; i <weekdayschedule_period_title.size();
-					 * i++) { if (weekdayschedule_period_title.get(i).getText()
-					 * .equalsIgnoreCase(inputs.getInputValue(
-					 * PERIOD_NUMBER_EMEA_TO_DELETE))) { expectedPeriodTime =
-					 * weekdayschedule_period_time.get(i).getText(); try {
+					 * for (int i = 0; i <weekdayschedule_period_title.size(); i++) { if
+					 * (weekdayschedule_period_title.get(i).getText()
+					 * .equalsIgnoreCase(inputs.getInputValue( PERIOD_NUMBER_EMEA_TO_DELETE))) {
+					 * expectedPeriodTime = weekdayschedule_period_time.get(i).getText(); try {
 					 * weekdayschedule_period_title.get(i).click();
-					 * Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i
-					 * + 1)); break; } catch (Exception e) { flag = false;
-					 * Keyword.ReportStep_Fail(testCase,
+					 * Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i + 1)); break; }
+					 * catch (Exception e) { flag = false; Keyword.ReportStep_Fail(testCase,
 					 * FailType.FUNCTIONAL_FAILURE,
-					 * "[SelectPeriodToDelete] Failed to select Period-" + (i +
-					 * 1)); } } }
+					 * "[SelectPeriodToDelete] Failed to select Period-" + (i + 1)); } } }
 					 */
 				} else {
 					dimensions = testCase.getMobileDriver().manage().window().getSize();
@@ -6835,18 +6686,15 @@ public class JasperSchedulingUtils {
 					// MobileUtils.getMobElements(testCase,"xpath","//*[contains(@content-desc,'_Saturday-Sunday')]/android.widget.TextView[1]");
 
 					/*
-					 * for (int i = 0; i <weekendschedule_period_title.size();
-					 * i++) { if (weekendschedule_period_title.get(i).getText()
-					 * .equalsIgnoreCase(inputs.getInputValue(
-					 * PERIOD_NUMBER_EMEA_TO_DELETE))) { expectedPeriodTime =
-					 * weekendschedule_period_time.get(i).getText(); try {
+					 * for (int i = 0; i <weekendschedule_period_title.size(); i++) { if
+					 * (weekendschedule_period_title.get(i).getText()
+					 * .equalsIgnoreCase(inputs.getInputValue( PERIOD_NUMBER_EMEA_TO_DELETE))) {
+					 * expectedPeriodTime = weekendschedule_period_time.get(i).getText(); try {
 					 * weekendschedule_period_title.get(i).click();
-					 * Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i
-					 * + 1)); break; } catch (Exception e) { flag = false;
-					 * Keyword.ReportStep_Fail(testCase,
+					 * Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i + 1)); break; }
+					 * catch (Exception e) { flag = false; Keyword.ReportStep_Fail(testCase,
 					 * FailType.FUNCTIONAL_FAILURE,
-					 * "[SelectPeriodToDelete] Failed to select Period-" + (i +
-					 * 1)); } } }
+					 * "[SelectPeriodToDelete] Failed to select Period-" + (i + 1)); } } }
 					 */
 				}
 			} else {
@@ -6881,88 +6729,138 @@ public class JasperSchedulingUtils {
 		if (deletedPeriodFlag) {
 			Keyword.ReportStep_Pass(testCase,
 					"Succesfully deleted the Period-" + inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
-			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("1")) {
-					inputs.setInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT));
 					inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, InputVariables.EVERYDAY_2_TIME);
-					inputs.setInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
 					inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, InputVariables.EVERYDAY_3_TIME);
-					inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
 					inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, InputVariables.EVERYDAY_4_TIME);
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("2")) {
-					inputs.setInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
 					inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, InputVariables.EVERYDAY_3_TIME);
-					inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
 					inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, InputVariables.EVERYDAY_4_TIME);
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("3")) {
-					inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT));
 					inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, InputVariables.EVERYDAY_4_TIME);
 				}
 			} else {
 
 				if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("1")) {
 					// 1, 2,3, 4
-					inputs.setInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
+					inputs.setInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_1_TIME,
+							inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
 					System.out.println("1 " + inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_1_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_1_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
 					System.out.println("2 " + inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
-					inputs.setInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_TIME,
+							inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
 					System.out.println("3 " + inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
 
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("2")) {
-					inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_TIME,
+							inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
 					System.out.println("2 " + inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
 					System.out.println("3 " + inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("3")) {
-					inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
 					System.out.println("3 " + inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME,
+							inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("5")) {
 					// 1, 2,3, 4
-					inputs.setInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_1_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_1_TIME, inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
-					System.out.println("1 " + inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT) + " " + InputVariables.WEEKEND_2_TIME);
-					inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_1_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_1_TIME,
+							inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
+					System.out.println("1 " + inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT) + " "
+							+ InputVariables.WEEKEND_2_TIME);
+					inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
 					System.out.println("2 " + inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_2_TIME, inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
-					inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_2_TIME,
+							inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
+					inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
 					System.out.println("3 " + inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_TIME, inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
+					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_3_TIME,
+							inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("6")) {
-					inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
 					System.out.println("2 " + inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_2_TIME, inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
-					inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_2_TIME,
+							inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
+					inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
 					System.out.println("3 " + inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_TIME, inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
+					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_3_TIME,
+							inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 				} else if (inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE).equalsIgnoreCase("7")) {
 					System.out.println("3 " + inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT, inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
-					inputs.setInputValue(InputVariables.WEEKEND_3_TIME, inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
+					inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT,
+							inputs.getInputValue(InputVariables.WEEKEND_4_COOL_SETPOINT));
+					inputs.setInputValue(InputVariables.WEEKEND_3_TIME,
+							inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 				}
 
 			}
@@ -6991,7 +6889,8 @@ public class JasperSchedulingUtils {
 					"*********************** Verifying time based schedule on Primary Card **************************");
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Every Day']", testCase, 5)) {
 						try {
 							testCase.getMobileDriver().findElement(By.xpath("//*[@text='Every Day']"));
@@ -7027,9 +6926,12 @@ public class JasperSchedulingUtils {
 												"[Exception] Error message: " + e.getMessage());
 									}
 									if (i == 1) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
-										if (inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT).contains(".0")) {
-											tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT)
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
+										if (inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT)
+												.contains(".0")) {
+											tempHeatSetPointFromInputs = inputs
+													.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT)
 													.split("\\.")[0];
 										}
 										tempHeatSetPointApp = schedule_heatsetpoints.get(i - 1).getText();
@@ -7066,14 +6968,17 @@ public class JasperSchedulingUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period 1's expected time and heat set point: " + tempTimeInputs
-													+ " " + tempHeatSetPointFromInputs
-													+ " are not shown correctly: " + tempTime + " "
-													+ tempHeatSetPointApp);
+															+ " " + tempHeatSetPointFromInputs
+															+ " are not shown correctly: " + tempTime + " "
+															+ tempHeatSetPointApp);
 										}
 									} else if (i == 2) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
-										if (inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT).contains(".0")) {
-											tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT)
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
+										if (inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT)
+												.contains(".0")) {
+											tempHeatSetPointFromInputs = inputs
+													.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT)
 													.split("\\.")[0];
 										}
 										tempHeatSetPointApp = schedule_heatsetpoints.get(i - 1).getText();
@@ -7110,14 +7015,17 @@ public class JasperSchedulingUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period 2's expected time and heat set point: " + tempTimeInputs
-													+ " " + tempHeatSetPointFromInputs
-													+ " are not shown correctly: " + tempTime + " "
-													+ tempHeatSetPointApp);
+															+ " " + tempHeatSetPointFromInputs
+															+ " are not shown correctly: " + tempTime + " "
+															+ tempHeatSetPointApp);
 										}
 									} else if (i == 3) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
-										if (inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT).contains(".0")) {
-											tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT)
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
+										if (inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT)
+												.contains(".0")) {
+											tempHeatSetPointFromInputs = inputs
+													.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT)
 													.split("\\.")[0];
 										}
 										tempHeatSetPointApp = schedule_heatsetpoints.get(i - 1).getText();
@@ -7154,14 +7062,17 @@ public class JasperSchedulingUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period 3's expected time and heat set point: " + tempTimeInputs
-													+ " " + tempHeatSetPointFromInputs
-													+ " are not shown correctly: " + tempTime + " "
-													+ tempHeatSetPointApp);
+															+ " " + tempHeatSetPointFromInputs
+															+ " are not shown correctly: " + tempTime + " "
+															+ tempHeatSetPointApp);
 										}
 									} else if (i == 4) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
-										if (inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT).contains(".0")) {
-											tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT)
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
+										if (inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT)
+												.contains(".0")) {
+											tempHeatSetPointFromInputs = inputs
+													.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT)
 													.split("\\.")[0];
 										}
 										tempHeatSetPointApp = schedule_heatsetpoints.get(i - 1).getText();
@@ -7198,14 +7109,17 @@ public class JasperSchedulingUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period 4's expected time and heat set point: " + tempTimeInputs
-													+ " " + tempHeatSetPointFromInputs
-													+ " are not shown correctly: " + tempTime + " "
-													+ tempHeatSetPointApp);
+															+ " " + tempHeatSetPointFromInputs
+															+ " are not shown correctly: " + tempTime + " "
+															+ tempHeatSetPointApp);
 										}
 									} else if (i == 5) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT);
-										if (inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT).contains(".0")) {
-											tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT)
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT);
+										if (inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT)
+												.contains(".0")) {
+											tempHeatSetPointFromInputs = inputs
+													.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT)
 													.split("\\.")[0];
 										}
 										tempHeatSetPointApp = schedule_heatsetpoints.get(i - 1).getText();
@@ -7242,14 +7156,17 @@ public class JasperSchedulingUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period 5's expected time and heat set point: " + tempTimeInputs
-													+ " " + tempHeatSetPointFromInputs
-													+ " are not shown correctly: " + tempTime + " "
-													+ tempHeatSetPointApp);
+															+ " " + tempHeatSetPointFromInputs
+															+ " are not shown correctly: " + tempTime + " "
+															+ tempHeatSetPointApp);
 										}
 									} else if (i == 6) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT);
-										if (inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT).contains(".0")) {
-											tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT)
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT);
+										if (inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT)
+												.contains(".0")) {
+											tempHeatSetPointFromInputs = inputs
+													.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT)
 													.split("\\.")[0];
 										}
 										tempHeatSetPointApp = schedule_heatsetpoints.get(i - 1).getText();
@@ -7286,36 +7203,33 @@ public class JasperSchedulingUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period 6's expected time and heat set point: " + tempTimeInputs
-													+ " " + tempHeatSetPointFromInputs
-													+ " are not shown correctly: " + tempTime + " "
-													+ tempHeatSetPointApp);
+															+ " " + tempHeatSetPointFromInputs
+															+ " are not shown correctly: " + tempTime + " "
+															+ tempHeatSetPointApp);
 										}
 									}
 								}
 							} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
 								/*
-								 * schedule_coolsetpoints =
-								 * MobileUtils.getMobElements(fieldObjects,
-								 * testCase, "SchedulePeriodCoolSetPoint");
+								 * schedule_coolsetpoints = MobileUtils.getMobElements(fieldObjects, testCase,
+								 * "SchedulePeriodCoolSetPoint");
 								 */
 								List<WebElement> schedule_everydaytitle = MobileUtils.getMobElements(fieldObjects,
 										testCase, "EverydayTitleList");
 								for (int i = 0; i < schedule_periodtimes.size(); i++) {
 									Keyword.ReportStep_Pass(testCase,
 											"*********************** Verifying schedule period time and schedule period heat set points against set values **************************");
-									dateString = MobileUtils
-											.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ schedule_everydaytitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+									dateString = MobileUtils.getFieldValue(testCase, "xpath",
+											"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+													+ schedule_everydaytitle.get(i).getText()
+													+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 											.replaceAll("\\.", "");
 									tempTime = dateString;
 									if (i == 0) {
-										if (!MobileUtils
-												.getFieldValue(testCase, "xpath",
-														"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																+ schedule_everydaytitle.get(i).getText()
-																+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!MobileUtils.getFieldValue(testCase, "xpath",
+												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+														+ schedule_everydaytitle.get(i).getText()
+														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 												.equalsIgnoreCase("Tap to set")) {
 
 											try {
@@ -7340,52 +7254,60 @@ public class JasperSchedulingUtils {
 
 											/*
 											 * System.out.println(inputs.
-											 * getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
-											 * ); System.out.println(tempTime);
-											 * System.out.println(inputs.
-											 * getInputValue(
+											 * getInputValue(InputVariables.EVERYDAY_WAKE_TIME) );
+											 * System.out.println(tempTime); System.out.println(inputs. getInputValue(
 											 * InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT));
 											 */
 											System.out.println(MobileUtils.getFieldValue(testCase, "xpath",
 													"//*[contains(@content-desc,'"
 															+ schedule_everydaytitle.get(i).getText()
 															+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"));
-											if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME).equalsIgnoreCase(tempTime)
+											if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
+													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period WAKE's expected time and heat and cool set points are shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT));
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
+																+ " " + inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_COOL_SETPOINT));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period WAKE's expected time and heat and cool set points: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
+																+ " "
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
 																+ " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
 											}
 										} else {
@@ -7395,27 +7317,27 @@ public class JasperSchedulingUtils {
 																	+ schedule_everydaytitle.get(i).getText()
 																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
 												Keyword.ReportStep_Pass(testCase,
-														"Period WAKE's expected time is shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
+														"Period WAKE's expected time is shown correctly: " + inputs
+																.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period WAKE's expected time: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_WAKE_TIME)
 																+ " is not shown correctly: "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
 											}
 										}
 									} else if (i == 1) {
-										if (!MobileUtils
-												.getFieldValue(testCase, "xpath",
-														"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																+ schedule_everydaytitle.get(i).getText()
-																+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!MobileUtils.getFieldValue(testCase, "xpath",
+												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+														+ schedule_everydaytitle.get(i).getText()
+														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 												.equalsIgnoreCase("Tap to set")) {
 											try {
 												if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -7436,41 +7358,51 @@ public class JasperSchedulingUtils {
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"[Exception] Error message: " + e.getMessage());
 											}
-											if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME).equalsIgnoreCase(tempTime)
+											if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
+													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period AWAY's expected time and heat and cool set points are shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT));
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
+																+ " " + inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_COOL_SETPOINT));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period AWAY's expected time and heat and cool set points: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_TIME)
+																+ " "
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
 																+ " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
 
 											}
@@ -7481,27 +7413,27 @@ public class JasperSchedulingUtils {
 																	+ schedule_everydaytitle.get(i).getText()
 																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
 												Keyword.ReportStep_Pass(testCase,
-														"Period AWAY's expected time is shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
+														"Period AWAY's expected time is shown correctly: " + inputs
+																.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period AWAY's expected time: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_AWAY_TIME)
 																+ " is not shown correctly: "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
 											}
 										}
 									} else if (i == 2) {
-										if (!MobileUtils
-												.getFieldValue(testCase, "xpath",
-														"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																+ schedule_everydaytitle.get(i).getText()
-																+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!MobileUtils.getFieldValue(testCase, "xpath",
+												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+														+ schedule_everydaytitle.get(i).getText()
+														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 												.equalsIgnoreCase("Tap to set")) {
 											try {
 												if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -7522,42 +7454,52 @@ public class JasperSchedulingUtils {
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"[Exception] Error message: " + e.getMessage());
 											}
-											if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME).equalsIgnoreCase(tempTime)
+											if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
+													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period HOME's expected time and heat and cool set points are shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT));
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
+																+ " " + inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_COOL_SETPOINT));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period HOME's expected time and heat and cool set points: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
+																+ " "
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
 																+ " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
 
 											}
@@ -7568,27 +7510,27 @@ public class JasperSchedulingUtils {
 																	+ schedule_everydaytitle.get(i).getText()
 																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
 												Keyword.ReportStep_Pass(testCase,
-														"Period HOME's expected time is shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
+														"Period HOME's expected time is shown correctly: " + inputs
+																.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period HOME's expected time: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_HOME_TIME)
 																+ " is not shown correctly: "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
 											}
 										}
 									} else if (i == 3) {
-										if (!MobileUtils
-												.getFieldValue(testCase, "xpath",
-														"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																+ schedule_everydaytitle.get(i).getText()
-																+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!MobileUtils.getFieldValue(testCase, "xpath",
+												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+														+ schedule_everydaytitle.get(i).getText()
+														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 												.equalsIgnoreCase("Tap to set")) {
 											try {
 												if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -7609,42 +7551,52 @@ public class JasperSchedulingUtils {
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"[Exception] Error message: " + e.getMessage());
 											}
-											if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME).equalsIgnoreCase(tempTime)
+											if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
+													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-															"xpath", "//*[contains(@content-desc,'"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
+																	"xpath",
+																	"//*[contains(@content-desc,'"
+																			+ schedule_everydaytitle.get(i).getText()
+																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period SLEEP's expected time and heat and cool set points are shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT));
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
+																+ " " + inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period SLEEP's expected time and heat and cool set points: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME) + " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_TIME)
 																+ " "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
+																+ " "
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
 																+ " "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
 
 											}
@@ -7655,18 +7607,19 @@ public class JasperSchedulingUtils {
 																	+ schedule_everydaytitle.get(i).getText()
 																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
 												Keyword.ReportStep_Pass(testCase,
-														"Period SLEEP's expected time is shown correctly: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
+														"Period SLEEP's expected time is shown correctly: " + inputs
+																.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
 											} else {
 												flag = false;
 												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 														"Period SLEEP's expected time: "
-																+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
+																+ inputs.getInputValue(
+																		InputVariables.EVERYDAY_SLEEP_TIME)
 																+ " is not shown correctly: "
 																+ MobileUtils.getFieldValue(testCase, "xpath",
 																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
 																				+ schedule_everydaytitle.get(i)
-																				.getText()
+																						.getText()
 																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
 											}
 										}
@@ -7752,10 +7705,11 @@ public class JasperSchedulingUtils {
 										"[Exception] Error message: " + e.getMessage());
 							}
 							if (i == 0) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekdayschedule_periodheatsetPoint.get(0).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -7795,10 +7749,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 1) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekdayschedule_periodheatsetPoint.get(1).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -7838,10 +7793,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 2) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekdayschedule_periodheatsetPoint.get(2).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -7881,10 +7837,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 3) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekdayschedule_periodheatsetPoint.get(3).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -7924,10 +7881,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 4) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekdayschedule_periodheatsetPoint.get(4).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -7967,10 +7925,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 5) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekdayschedule_periodheatsetPoint.get(5).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8047,10 +8006,11 @@ public class JasperSchedulingUtils {
 										"[Exception] Error message: " + e.getMessage());
 							}
 							if (i == 0) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekendschedule_periodsetPoint.get(0).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8090,10 +8050,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 1) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekendschedule_periodsetPoint.get(1).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8133,10 +8094,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 2) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekendschedule_periodsetPoint.get(2).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8176,10 +8138,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 3) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekendschedule_periodsetPoint.get(3).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8221,10 +8184,11 @@ public class JasperSchedulingUtils {
 							}
 
 							else if (i == 4) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekendschedule_periodsetPoint.get(4).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8264,10 +8228,11 @@ public class JasperSchedulingUtils {
 													+ tempHeatSetPointApp);
 								}
 							} else if (i == 5) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = weekendschedule_periodsetPoint.get(5).getText();
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -8319,19 +8284,17 @@ public class JasperSchedulingUtils {
 								"*********************** Verifying Weekday-Weekend schedule period time and schedule period heat set points against set values **************************");
 
 						for (int i = 0; i < weekdayschedule_periodtitle.size(); i++) {
-							dateString = MobileUtils
-									.getFieldValue(testCase, "xpath",
-											"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-													+ weekdayschedule_periodtitle.get(i).getText()
-													+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+							dateString = MobileUtils.getFieldValue(testCase, "xpath",
+									"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+											+ weekdayschedule_periodtitle.get(i).getText()
+											+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 									.replaceAll("\\.", "");
 							tempTime = dateString;
 							if (i == 0) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekdayschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekdayschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8352,29 +8315,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Wake's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Wake's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8408,11 +8377,10 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (i == 1) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekdayschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekdayschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8433,29 +8401,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Away's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Away's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8489,11 +8463,10 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (i == 2) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekdayschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekdayschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8514,29 +8487,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Home's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Home's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8570,11 +8549,10 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (i == 3) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekdayschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekdayschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8595,29 +8573,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekdayschedule_periodtitle.get(i).getText()
+																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Sleep's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Sleep's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8654,19 +8638,17 @@ public class JasperSchedulingUtils {
 						}
 
 						for (int i = 0; i < weekendschedule_periodtitle.size(); i++) {
-							dateString = MobileUtils
-									.getFieldValue(testCase, "xpath",
-											"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-													+ weekendschedule_periodtitle.get(i).getText()
-													+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+							dateString = MobileUtils.getFieldValue(testCase, "xpath",
+									"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+											+ weekendschedule_periodtitle.get(i).getText()
+											+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 									.replaceAll("\\.", "");
 							tempTime = dateString;
 							if (i == 0) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekendschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekendschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8687,29 +8669,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Wake's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Wake's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8743,11 +8731,10 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (i == 1) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekendschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekendschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8768,29 +8755,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Away's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Away's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8824,11 +8817,10 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (i == 2) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekendschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekendschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8849,29 +8841,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Home's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Home's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8905,11 +8903,10 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (i == 3) {
-								if (!MobileUtils
-										.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ weekendschedule_periodtitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+								if (!MobileUtils.getFieldValue(testCase, "xpath",
+										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+												+ weekendschedule_periodtitle.get(i).getText()
+												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
 										.equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -8930,29 +8927,35 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME).equalsIgnoreCase(tempTime)
+									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
+															"//*[contains(@content-desc,'"
+																	+ weekendschedule_periodtitle.get(i).getText()
+																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Sleep's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Sleep's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ MobileUtils.getFieldValue(testCase, "xpath",
 																"//*[contains(@content-desc,'"
@@ -8990,7 +8993,8 @@ public class JasperSchedulingUtils {
 					}
 				}
 			} else {
-				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					try {
 						if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
 							if (MobileUtils.isMobElementExists("xpath",
@@ -9035,10 +9039,11 @@ public class JasperSchedulingUtils {
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
 									if (inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT).contains(".0")) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT)
-												.split("\\.")[0];
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT).split("\\.")[0];
 									}
 									tempTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_TIME);
 									try {
@@ -9079,10 +9084,11 @@ public class JasperSchedulingUtils {
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
 									if (inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT).contains(".0")) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT)
-												.split("\\.")[0];
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT).split("\\.")[0];
 									}
 									tempTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_TIME);
 									try {
@@ -9123,10 +9129,11 @@ public class JasperSchedulingUtils {
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
 									if (inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT).contains(".0")) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT)
-												.split("\\.")[0];
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT).split("\\.")[0];
 									}
 									tempTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_TIME);
 									try {
@@ -9167,10 +9174,11 @@ public class JasperSchedulingUtils {
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
 									if (inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT).contains(".0")) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT)
-												.split("\\.")[0];
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT).split("\\.")[0];
 									}
 									tempTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_TIME);
 									try {
@@ -9211,10 +9219,11 @@ public class JasperSchedulingUtils {
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT);
 									if (inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT).contains(".0")) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT)
-												.split("\\.")[0];
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT).split("\\.")[0];
 									}
 									tempTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_5_TIME);
 									try {
@@ -9255,10 +9264,11 @@ public class JasperSchedulingUtils {
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT);
 									if (inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT).contains(".0")) {
-										tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT)
-												.split("\\.")[0];
+										tempHeatSetPointFromInputs = inputs
+												.getInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT).split("\\.")[0];
 									}
 									tempTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_6_TIME);
 									try {
@@ -9338,28 +9348,37 @@ public class JasperSchedulingUtils {
 										tempCoolSetPointApp = MobileUtils
 												.getMobElement(testCase, "name", "Everyday_Wake_CoolTemperature")
 												.getAttribute("value");
-										if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME).equalsIgnoreCase(tempTime)
+										if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
+												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+														.equalsIgnoreCase(tempHeatSetPointApp)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+														.equalsIgnoreCase(tempCoolSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period WAKE's expected time and heat and cool set points are shown correctly: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT));
+															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
+															+ " " + inputs.getInputValue(
+																	InputVariables.EVERYDAY_WAKE_COOL_SETPOINT));
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period WAKE's expected time and heat and cool set points: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
+															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
 															+ " are not shown correctly: " + tempTime + " "
 															+ tempHeatSetPointApp + " " + tempCoolSetPointApp);
 										}
 									} else {
-										if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME).equalsIgnoreCase(tempTime)) {
+										if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
+												.equalsIgnoreCase(tempTime)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period WAKE's expected time is shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
@@ -9398,28 +9417,37 @@ public class JasperSchedulingUtils {
 										tempCoolSetPointApp = MobileUtils
 												.getMobElement(testCase, "name", "Everyday_Away_CoolTemperature")
 												.getAttribute("value");
-										if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME).equalsIgnoreCase(tempTime)
+										if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
+												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+														.equalsIgnoreCase(tempHeatSetPointApp)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+														.equalsIgnoreCase(tempCoolSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period AWAY's expected time and heat and cool set points are shown correctly: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT));
+															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
+															+ " " + inputs.getInputValue(
+																	InputVariables.EVERYDAY_AWAY_COOL_SETPOINT));
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period AWAY's expected time and heat and cool set points: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
+															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
 															+ " are not shown correctly: " + tempTime + " "
 															+ tempHeatSetPointApp + " " + tempCoolSetPointApp);
 										}
 									} else {
-										if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME).equalsIgnoreCase(tempTime)) {
+										if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
+												.equalsIgnoreCase(tempTime)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period AWAY's expected time is shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
@@ -9458,29 +9486,38 @@ public class JasperSchedulingUtils {
 										tempCoolSetPointApp = MobileUtils
 												.getMobElement(testCase, "name", "Everyday_Home_CoolTemperature")
 												.getAttribute("value");
-										if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME).equalsIgnoreCase(tempTime)
+										if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
+												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+														.equalsIgnoreCase(tempHeatSetPointApp)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+														.equalsIgnoreCase(tempCoolSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period HOME's expected time and heat and cool set points are shown correctly: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT));
+															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
+															+ " " + inputs.getInputValue(
+																	InputVariables.EVERYDAY_HOME_COOL_SETPOINT));
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period HOME's expected time and heat and cool set points: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
+															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
 															+ " are not shown correctly: " + tempTime
 
 															+ " " + tempHeatSetPointApp + " " + tempCoolSetPointApp);
 										}
 									} else {
-										if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME).equalsIgnoreCase(tempTime)) {
+										if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
+												.equalsIgnoreCase(tempTime)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period HOME's expected time is shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
@@ -9519,29 +9556,38 @@ public class JasperSchedulingUtils {
 										tempCoolSetPointApp = MobileUtils
 												.getMobElement(testCase, "name", "Everyday_Sleep_CoolTemperature")
 												.getAttribute("value");
-										if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME).equalsIgnoreCase(tempTime)
+										if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
+												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+														.equalsIgnoreCase(tempHeatSetPointApp)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+														.equalsIgnoreCase(tempCoolSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period SLEEP's expected time and heat and cool set points are shown correctly: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT));
+															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
+															+ " " + inputs.getInputValue(
+																	InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT));
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Period SLEEP's expected time and heat and cool set points: "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT) + " "
-															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
+															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
+															+ " "
+															+ inputs.getInputValue(
+																	InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
 															+ " are not shown correctly: " + tempTime
 
 															+ " " + tempHeatSetPointApp + " " + tempCoolSetPointApp);
 										}
 									} else {
-										if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME).equalsIgnoreCase(tempTime)) {
+										if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
+												.equalsIgnoreCase(tempTime)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period SLEEP's expected time is shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
@@ -9613,23 +9659,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Wake's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Wake's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekday_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -9648,7 +9702,7 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Wake's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekday
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							} else if (i == 2) {
@@ -9675,23 +9729,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Away's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Away's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekday_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -9710,7 +9772,7 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Away's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekday
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							} else if (i == 3) {
@@ -9737,23 +9799,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Home's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Home's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekday_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -9772,7 +9842,7 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Home's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekday
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							} else if (i == 4) {
@@ -9799,23 +9869,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekday_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Sleep's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekday-Sleep's expected weekday time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekday_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -9834,7 +9912,7 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Sleep's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekday
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							}
@@ -9866,23 +9944,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Wake's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Wake's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekend_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -9901,7 +9987,7 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Wake's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekend
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							} else if (i == 2) {
@@ -9928,23 +10014,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Away's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Away's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekend_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -9963,7 +10057,7 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Away's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekend
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							} else if (i == 3) {
@@ -9990,23 +10084,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Home's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Home's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_HOME_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekend_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -10025,7 +10127,7 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Home's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekend
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							} else if (i == 4) {
@@ -10052,23 +10154,31 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME).equalsIgnoreCase(tempTime)
-											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
-											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT).equalsIgnoreCase(
-													schedule_weekend_coolsetpoints.get(j).getAttribute("value"))) {
+									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
+											.equalsIgnoreCase(tempTime)
+											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
+													.equalsIgnoreCase(
+															schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
+													.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
+															.getAttribute("value"))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Sleep's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT));
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
+														+ " " + inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_COOL_SETPOINT));
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Period Weekend-Sleep's expected Weekend time and heat and cool set points: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT) + " "
-														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
+														+ " "
+														+ inputs.getInputValue(
+																InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
 														+ schedule_weekend_heatsetpoints.get(j).getAttribute("value")
 														+ " "
@@ -10087,7 +10197,7 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Sleep's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
 														+ " is not shown correctly: " + schedule_periodtimes_weekend
-														.get(i - 1).getAttribute("value"));
+																.get(i - 1).getAttribute("value"));
 									}
 								}
 							}
@@ -10145,10 +10255,11 @@ public class JasperSchedulingUtils {
 										"[Exception] Error message: " + e.getMessage());
 							}
 							if (i == 1) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekday_heatsetpoints.get(0).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10183,14 +10294,15 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 1's expected weekday time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							} else if (i == 2) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekday_heatsetpoints.get(1).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10225,14 +10337,15 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 2's expected weekday time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							} else if (i == 3) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekday_heatsetpoints.get(2).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10267,14 +10380,15 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 3's expected weekday time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							} else if (i == 4) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekday_heatsetpoints.get(3).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10309,8 +10423,8 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 4's expected weekday time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							}
 
@@ -10338,10 +10452,11 @@ public class JasperSchedulingUtils {
 										"[Exception] Error message: " + e.getMessage());
 							}
 							if (i == 1) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekend_heatsetpoints.get(0).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10376,14 +10491,15 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 1's expected Weekend time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							} else if (i == 2) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekend_heatsetpoints.get(1).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10418,14 +10534,15 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 2's expected Weekend time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							} else if (i == 3) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekend_heatsetpoints.get(2).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10460,14 +10577,15 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 3's expected Weekend time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							} else if (i == 4) {
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT);
 								if (inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT).contains(".0")) {
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT)
-											.split("\\.")[0];
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT).split("\\.")[0];
 								}
 								tempHeatSetPointApp = schedule_weekend_heatsetpoints.get(3).getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
@@ -10502,8 +10620,8 @@ public class JasperSchedulingUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Period 4's expected Weekend time and heat set point: " + tempTimeInputs
-											+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
-											+ tempTime + " " + tempHeatSetPointApp);
+													+ " " + tempHeatSetPointFromInputs + " are not shown correctly: "
+													+ tempTime + " " + tempHeatSetPointApp);
 								}
 							}
 
@@ -10578,8 +10696,8 @@ public class JasperSchedulingUtils {
 				}
 			} else {
 				/*
-				 * if (MobileUtils.isMobElementExists("name", "When I'm Home",
-				 * testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+				 * if (MobileUtils.isMobElementExists("name", "When I'm Home", testCase, 5)) {
+				 * Keyword.ReportStep_Pass(testCase,
 				 * "Verify Displayed Schedule : When I'm Home text displayed on schedule screen"
 				 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
 				 * FailType.FUNCTIONAL_FAILURE,
@@ -10617,8 +10735,8 @@ public class JasperSchedulingUtils {
 				}
 
 				/*
-				 * if (MobileUtils.isMobElementExists("name", "When I'm Away",
-				 * testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+				 * if (MobileUtils.isMobElementExists("name", "When I'm Away", testCase, 5)) {
+				 * Keyword.ReportStep_Pass(testCase,
 				 * "Verify Displayed Schedule : When I'm Away text displayed on schedule screen"
 				 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
 				 * FailType.FUNCTIONAL_FAILURE,
@@ -10655,7 +10773,7 @@ public class JasperSchedulingUtils {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"[HomeSettings] Home set point: " + tempHeatSetPointFromInputs
-								+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 					}
 					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
 						tempHeatSetPointApp = schedule_setpoints.get(1).getText();
@@ -10674,7 +10792,7 @@ public class JasperSchedulingUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Sleep set point: " + tempHeatSetPointFromInputs
-									+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 
 						SleepStartEndTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
@@ -10722,7 +10840,8 @@ public class JasperSchedulingUtils {
 											+ inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME)
 											+ " is not shown correctly in solution card: " + SleepStartTime);
 						}
-						if (SleepEndTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME))) {
+						if (SleepEndTime
+								.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep End time is shown correctly in solution card: "
 											+ SleepEndTime);
@@ -10750,7 +10869,7 @@ public class JasperSchedulingUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Away set point: " + tempHeatSetPointFromInputs
-									+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 					} else {
 						tempHeatSetPointApp = schedule_setpoints.get(1).getText();
@@ -10769,7 +10888,7 @@ public class JasperSchedulingUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Away set point: " + tempHeatSetPointFromInputs
-									+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 					}
 				} else {
@@ -10798,7 +10917,7 @@ public class JasperSchedulingUtils {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"[HomeSettings] Home set point: " + tempHeatSetPointFromInputs
-								+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 					}
 					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
 						sleepHeatSetPointIOS = MobileUtils.getMobElement(testCase, "name",
@@ -10819,7 +10938,7 @@ public class JasperSchedulingUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Sleep set point: " + tempHeatSetPointFromInputs
-									+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 
 						SleepStartEndTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
@@ -10867,7 +10986,8 @@ public class JasperSchedulingUtils {
 											+ inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME)
 											+ " is not shown correctly in solution card: " + SleepStartTime);
 						}
-						if (SleepEndTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME))) {
+						if (SleepEndTime
+								.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep End time is shown correctly in solution card: "
 											+ SleepEndTime);
@@ -10897,7 +11017,7 @@ public class JasperSchedulingUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[AwaySettings] Away set point: " + tempHeatSetPointFromInputs
-									+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 					} else {
 						awayHeatSetPointIOS = MobileUtils.getMobElement(testCase, "name",
@@ -10918,7 +11038,7 @@ public class JasperSchedulingUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Away set point: " + tempHeatSetPointFromInputs
-									+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 					}
 				} else {
@@ -10978,7 +11098,7 @@ public class JasperSchedulingUtils {
 			}
 		} else {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-			Schedule sch = new Schedule(testCase);
+			SchedulingScreen sch = new SchedulingScreen(testCase);
 			int i = 0;
 			while ((!MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton")) && i < 2) {
 				if (sch.isCloseButtonVisible(3)) {
@@ -10987,7 +11107,8 @@ public class JasperSchedulingUtils {
 			}
 			i++;
 		}
-		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
+		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED)
+				.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Home Settings']", testCase, 5)) {
 					Keyword.ReportStep_Pass(testCase,
@@ -11014,14 +11135,16 @@ public class JasperSchedulingUtils {
 				} else if (MobileUtils.isMobElementExists("name", "Using Away Settings", testCase, 5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
-				} else if (scheduleRetainedFlag = false){
+				} else if (scheduleRetainedFlag = false) {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Displayed Schedule : Use My Home Settings option not displayed on schedule screen");
 				}
 			}
-		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED)
+				.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 
-		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED).equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED)
+				.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 
 		}
 
@@ -11030,8 +11153,8 @@ public class JasperSchedulingUtils {
 					inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED) + " is retained in Solution card");
 		} else {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Failed to retain " + inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED) + " in Solution card");
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to retain "
+					+ inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED) + " in Solution card");
 		}
 
 		return flag;
@@ -11040,8 +11163,7 @@ public class JasperSchedulingUtils {
 	public static boolean createGeofenceBasedScheduleWithMinMaxSetPoints(TestCases testCase, TestCaseInputs inputs,
 			boolean createScheduleUsingUseGeofenceButton) {
 		boolean flag = true;
-		try{
-
+		try {
 
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -11188,13 +11310,15 @@ public class JasperSchedulingUtils {
 					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "YesButton");
 				}
 				flag = flag & JasperSchedulingUtils.setPeriodTime(testCase,
-						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME), "GeofenceSleepStartTime", true, true);
-				flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME),
-						"GeofenceSleepEndTime", true, true);
+						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME), "GeofenceSleepStartTime", true,
+						true);
+				flag = flag & JasperSchedulingUtils.setPeriodTime(testCase,
+						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME), "GeofenceSleepEndTime", true,
+						true);
 				Keyword.ReportStep_Pass(testCase, " ");
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Setting maximum and minimum set points for Sleep ***************");
-				inputs.setInputValue(InputVariables.GEOFENCE_PERIOD,InputVariables.GEOFENCE_SLEEP);
+				inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
 				Keyword.ReportStep_Pass(testCase,
@@ -11225,7 +11349,8 @@ public class JasperSchedulingUtils {
 			String periodName, HashMap<String, String> targetSetPoints) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetSetPoints, false);
+			flag = flag
+					& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetSetPoints, false);
 		} else {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 			try {
@@ -11245,8 +11370,8 @@ public class JasperSchedulingUtils {
 					String coolTemp = " ";
 					String heatTemp = " ";
 					if (periodName.equals("Home") || periodName.equals("Sleep")) {
-						flag = flag
-								& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetSetPoints, false);
+						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs,
+								targetSetPoints, false);
 						return flag;
 					} else if (periodName.equals("Away")) {
 						size = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").size();
@@ -11496,8 +11621,6 @@ public class JasperSchedulingUtils {
 		return flag;
 	}
 
-
-
 	public static boolean setGeofenceSchedulePeriodSetPoints(TestCases testCase, TestCaseInputs inputs,
 			HashMap<String, String> targetSetPoints, boolean validateMinMaxSetPoints) {
 		boolean flag = true;
@@ -11514,7 +11637,8 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
 						int targetCoolTemp, targetHeatTemp;
 						Double temp = Double.parseDouble(minMaxSetPoints.get("MaxCool"));
-						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
+						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
 							targetCoolTemp = temp.intValue();
 							temp = Double.parseDouble(minMaxSetPoints.get("MaxHeat"));
 							targetHeatTemp = temp.intValue();
@@ -11522,70 +11646,102 @@ public class JasperSchedulingUtils {
 							targetHeatTemp += 1;
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "AboveMaximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "AboveMaximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, String.valueOf(targetHeatTemp - 1));
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, String.valueOf(targetCoolTemp - 1));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, String.valueOf(targetHeatTemp - 1));
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, String.valueOf(targetCoolTemp - 1));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, String.valueOf(targetHeatTemp - 1));
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT, String.valueOf(targetCoolTemp - 1));
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp - 1));
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp - 1));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp - 1));
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp - 1));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp - 1));
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp - 1));
 							}
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
 							temp = Double.parseDouble(minMaxSetPoints.get("MaxCool"));
 							targetCoolTemp = temp.intValue();
 							temp = Double.parseDouble(minMaxSetPoints.get("MaxHeat"));
 							targetHeatTemp = temp.intValue();
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "Maximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "Maximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, String.valueOf(targetHeatTemp));
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, String.valueOf(targetCoolTemp));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, String.valueOf(targetHeatTemp));
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, String.valueOf(targetCoolTemp));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, String.valueOf(targetHeatTemp));
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT, String.valueOf(targetCoolTemp));
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp));
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp));
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp));
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp));
 							}
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
 							temp = Double.parseDouble(minMaxSetPoints.get("MinCool"));
 							targetCoolTemp = temp.intValue();
 							temp = Double.parseDouble(minMaxSetPoints.get("MinHeat"));
@@ -11594,68 +11750,99 @@ public class JasperSchedulingUtils {
 							targetHeatTemp -= 1;
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "BelowMinimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "BelowMinimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, String.valueOf(targetHeatTemp + 1));
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, String.valueOf(targetCoolTemp + 1));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, String.valueOf(targetHeatTemp + 1));
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, String.valueOf(targetCoolTemp + 1));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, String.valueOf(targetHeatTemp + 1));
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT, String.valueOf(targetCoolTemp + 1));
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp + 1));
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp + 1));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp + 1));
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp + 1));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp + 1));
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp + 1));
 							}
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
 							temp = Double.parseDouble(minMaxSetPoints.get("MinCool"));
 							targetCoolTemp = temp.intValue();
 							temp = Double.parseDouble(minMaxSetPoints.get("MinHeat"));
 							targetHeatTemp = temp.intValue();
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "Minimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "Minimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, String.valueOf(targetHeatTemp));
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, String.valueOf(targetCoolTemp));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, String.valueOf(targetHeatTemp));
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, String.valueOf(targetCoolTemp));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, String.valueOf(targetHeatTemp));
-								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT, String.valueOf(targetCoolTemp));
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp));
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp));
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp));
+								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT,
+										String.valueOf(targetCoolTemp));
 							}
 						} else {
 							HashMap<String, String> targetHeatCoolPoints = new HashMap<String, String>();
@@ -11664,25 +11851,28 @@ public class JasperSchedulingUtils {
 							Double minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
 							Double maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
 							Double minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
-							heatTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, minCool,
-									minHeat);
-							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool,
-									minCool);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+							heatTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+									minCool, minHeat);
+							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+									maxCool, minCool);
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, heatTemp);
 								targetHeatCoolPoints.put("targetHeatTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, coolTemp);
 								targetHeatCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, heatTemp);
 								targetHeatCoolPoints.put("targetHeatTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, coolTemp);
 								targetHeatCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, heatTemp);
 								targetHeatCoolPoints.put("targetHeatTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
@@ -11696,95 +11886,123 @@ public class JasperSchedulingUtils {
 					} else {
 						Double targetCoolTemp = Double.parseDouble(minMaxSetPoints.get("MaxCool"));
 						Double targetHeatTemp = Double.parseDouble(targetSetPoints.get("MaxHeat"));
-						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
+						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
 							targetCoolTemp += 0.5;
 							targetHeatTemp += 0.5;
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "AboveMaximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "AboveMaximum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
 							targetCoolTemp = Double.parseDouble(minMaxSetPoints.get("MaxCool"));
 							targetHeatTemp = Double.parseDouble(targetSetPoints.get("MaxHeat"));
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "Maximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "Maximum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
 							targetCoolTemp = Double.parseDouble(minMaxSetPoints.get("MinCool"));
 							targetHeatTemp = Double.parseDouble(targetSetPoints.get("MinHeat"));
 							targetCoolTemp -= 0.5;
 							targetHeatTemp -= 0.5;
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "BelowMinimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "BelowMinimum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
 							targetCoolTemp = Double.parseDouble(minMaxSetPoints.get("MinCool"));
 							targetHeatTemp = Double.parseDouble(targetSetPoints.get("MinHeat"));
 							coolTemp = String.valueOf(targetCoolTemp);
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "Minimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -11796,25 +12014,28 @@ public class JasperSchedulingUtils {
 							Double minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
 							Double maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
 							Double minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
-							heatTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
-									minHeat);
-							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool,
-									minCool);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+							heatTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+									maxHeat, minHeat);
+							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+									maxCool, minCool);
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, heatTemp);
 								targetHeatCoolPoints.put("targetHeatTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, coolTemp);
 								targetHeatCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, heatTemp);
 								targetHeatCoolPoints.put("targetHeatTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, coolTemp);
 								targetHeatCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, heatTemp);
 								targetHeatCoolPoints.put("targetHeatTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
@@ -11830,54 +12051,70 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
 						int targetCoolTemp;
 						Double temp = Double.parseDouble(minMaxSetPoints.get("MaxCool"));
-						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
+						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
 							targetCoolTemp = temp.intValue();
 							targetCoolTemp += 1;
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "AboveMaximum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
 							temp = Double.parseDouble(minMaxSetPoints.get("MaxCool"));
 							targetCoolTemp = temp.intValue();
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "Maximum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
 							temp = Double.parseDouble(minMaxSetPoints.get("MinCool"));
 							targetCoolTemp = temp.intValue();
 							targetCoolTemp -= 1;
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "BelowMinimum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
 							temp = Double.parseDouble(minMaxSetPoints.get("MinCool"));
 							targetCoolTemp = temp.intValue();
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
@@ -11886,71 +12123,90 @@ public class JasperSchedulingUtils {
 						} else {
 							Double maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
 							Double minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
-							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool,
-									minCool);
+							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+									maxCool, minCool);
 							HashMap<String, String> targetCoolPoints = new HashMap<String, String>();
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, coolTemp);
 								targetCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, coolTemp);
 								targetCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT, coolTemp);
 								targetCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
 							}
-							flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetCoolPoints,
-									false);
+							flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs,
+									targetCoolPoints, false);
 						}
 					} else {
 						Double targetCoolTemp = Double.parseDouble(targetSetPoints.get("MaxCool"));
-						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
+						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
 							targetCoolTemp += 0.5;
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "AboveMaximum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
 							targetCoolTemp = Double.parseDouble(targetSetPoints.get("MaxCool"));
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "Maximum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
 							targetCoolTemp = Double.parseDouble(targetSetPoints.get("MinCool"));
 							targetCoolTemp -= 0.5;
 							heatTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 							}
 							flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "BelowMinimum");
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
 							targetCoolTemp = Double.parseDouble(targetSetPoints.get("MinCool"));
 							coolTemp = String.valueOf(targetCoolTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 							} else {
 								flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
@@ -11959,24 +12215,27 @@ public class JasperSchedulingUtils {
 						} else {
 							Double maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
 							Double minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
-							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool,
-									minCool);
+							coolTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+									maxCool, minCool);
 							HashMap<String, String> targetCoolPoints = new HashMap<String, String>();
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT, coolTemp);
 								targetCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT, coolTemp);
 								targetCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT, coolTemp);
 								targetCoolPoints.put("targetCoolTemp",
 										inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
 							}
-							flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetCoolPoints,
-									false);
+							flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs,
+									targetCoolPoints, false);
 						}
 					}
 				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
@@ -11986,10 +12245,13 @@ public class JasperSchedulingUtils {
 						targetHeatTemp += 1;
 
 						heatTemp = String.valueOf(targetHeatTemp);
-						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 						} else {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -11999,10 +12261,13 @@ public class JasperSchedulingUtils {
 						temp = Double.parseDouble(minMaxSetPoints.get("MaxHeat"));
 						targetHeatTemp = temp.intValue();
 						heatTemp = String.valueOf(targetHeatTemp);
-						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 						} else {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -12013,10 +12278,13 @@ public class JasperSchedulingUtils {
 						targetHeatTemp = temp.intValue();
 						targetHeatTemp -= 1;
 						heatTemp = String.valueOf(targetHeatTemp);
-						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 						} else {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -12026,10 +12294,13 @@ public class JasperSchedulingUtils {
 						temp = Double.parseDouble(minMaxSetPoints.get("MinHeat"));
 						targetHeatTemp = temp.intValue();
 						heatTemp = String.valueOf(targetHeatTemp);
-						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+						if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+								|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+						} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+								.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 						} else {
 							flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -12038,104 +12309,140 @@ public class JasperSchedulingUtils {
 
 					} else {
 						Double targetHeatTemp = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
-						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
+						if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.ABOVE_MAXIMUM)) {
 							targetHeatTemp += 0.5;
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "AboveMaximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, String.valueOf(targetHeatTemp - 0.5));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, String.valueOf(targetHeatTemp - 0.5));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp - 0.5));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp - 0.5));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT,
 										String.valueOf(targetHeatTemp - 0.5));
 							}
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MAXIMUM)) {
 							targetHeatTemp = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "Maximum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, heatTemp);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, heatTemp);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, heatTemp);
 							}
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.BELOW_MINIMUM)) {
 							targetHeatTemp = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
 							targetHeatTemp -= 0.5;
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "BelowMinimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, String.valueOf(targetHeatTemp + 0.5));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
-								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, String.valueOf(targetHeatTemp + 0.5));
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp + 0.5));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,
+										String.valueOf(targetHeatTemp + 0.5));
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT,
 										String.valueOf(targetHeatTemp + 0.5));
 							}
-						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE).equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
+						} else if (inputs.getInputValue(InputVariables.SETPOINT_RANGE)
+								.equalsIgnoreCase(InputVariables.AT_MINIMUM)) {
 							targetHeatTemp = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
 							heatTemp = String.valueOf(targetHeatTemp);
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+									|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+											.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 							} else {
 								flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
 							}
 							flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "Minimum");
-							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+							if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, heatTemp);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, heatTemp);
-							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+							} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 								inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, heatTemp);
 							}
 						} else {
-							if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
+							if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 								HashMap<String, String> targetHeatPoints = new HashMap<String, String>();
 								Double maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
 								Double minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
-								heatTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
-										minHeat);
+								heatTemp = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase,
+										inputs, maxHeat, minHeat);
 								String tempGeofencePeriod = "";
-								if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
+								if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)) {
 									inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, heatTemp);
 									targetHeatPoints.put("targetHeatTemp",
 											inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT));
 									tempGeofencePeriod = "Home";
-								} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+								} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 									inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, heatTemp);
 									targetHeatPoints.put("targetHeatTemp",
 											inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
 									tempGeofencePeriod = "Away";
-								} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+								} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+										.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 									inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, heatTemp);
 									targetHeatPoints.put("targetHeatTemp",
 											inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
@@ -12160,19 +12467,25 @@ public class JasperSchedulingUtils {
 						coolTemp = String.valueOf(targetCoolTemp);
 						heatTemp = String.valueOf(targetHeatTemp);
 					}
-					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 					} else {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
 					}
 					flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "");
-					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 					} else {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -12186,10 +12499,13 @@ public class JasperSchedulingUtils {
 						Double targetHeatTemp = Double.parseDouble(targetSetPoints.get("targetHeatTemp"));
 						heatTemp = String.valueOf(targetHeatTemp);
 					}
-					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
-					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 1);
 					} else {
 						flag = flag & setHeatStepper(testCase, inputs, heatTemp, 0);
@@ -12203,10 +12519,13 @@ public class JasperSchedulingUtils {
 						Double targetCoolTemp = Double.parseDouble(targetSetPoints.get("targetCoolTemp"));
 						coolTemp = String.valueOf(targetCoolTemp);
 					}
-					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
-							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
+					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_HOME)
+							|| inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+									.equalsIgnoreCase(InputVariables.GEOFENCE_SLEEP)) {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
-					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
+					} else if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD)
+							.equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)) {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 1);
 					} else {
 						flag = flag & setCoolStepper(testCase, inputs, coolTemp, 0);
@@ -12222,7 +12541,6 @@ public class JasperSchedulingUtils {
 		return flag;
 	}
 
-
 	public static boolean verifyCoolStepperValue(TestCases testCase, TestCaseInputs inputs, String coolTemp,
 			String verifyMinimumOrMaximum) {
 		boolean flag = true;
@@ -12236,11 +12554,13 @@ public class JasperSchedulingUtils {
 						.findElement(By.id("scheduling_period_temp_point")).getText();
 			} else {
 				int size = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").size();
-				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY) && (size > 1)) {
+				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
+						&& (size > 1)) {
 					coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(1)
 							.getAttribute("value");
 				} else {
-					coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPoints").getAttribute("value");
+					coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPoints")
+							.getAttribute("value");
 				}
 			}
 			HashMap<String, String> minMaxSetPoints = statInfo.getDeviceMaxMinSetPoints();
@@ -12253,8 +12573,7 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						coolTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						coolTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						coolTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (coolSetPoint.equals(coolTemp)) {
@@ -12274,12 +12593,12 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						coolTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						coolTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						coolTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (coolSetPoint.equals(coolTemp)) {
-					Keyword.ReportStep_Pass(testCase, "Verify Cool Stepper Value : Cool Set Point set to max set point");
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Cool Stepper Value : Cool Set Point set to max set point");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12294,8 +12613,7 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						coolTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						coolTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						coolTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (coolSetPoint.equals(coolTemp)) {
@@ -12315,12 +12633,12 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						coolTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						coolTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						coolTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (coolSetPoint.equals(coolTemp)) {
-					Keyword.ReportStep_Pass(testCase, "Verify Cool Stepper Value : Cool Set Point set to min set point");
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Cool Stepper Value : Cool Set Point set to min set point");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12350,7 +12668,7 @@ public class JasperSchedulingUtils {
 	public static boolean verifyHeatStepperValue(TestCases testCase, TestCaseInputs inputs, String heatTemp,
 			String verifyMinimumOrMaximum) {
 		boolean flag = true;
-		try{
+		try {
 			String heatSetPoint = " ";
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -12361,11 +12679,13 @@ public class JasperSchedulingUtils {
 						.findElement(By.id("scheduling_period_temp_point")).getText();
 			} else {
 				int size = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").size();
-				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY) && (size > 1)) {
+				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
+						&& (size > 1)) {
 					heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(1)
 							.getAttribute("value");
 				} else {
-					heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints").getAttribute("value");
+					heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints")
+							.getAttribute("value");
 				}
 			}
 
@@ -12378,8 +12698,7 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						heatTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						heatTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (heatSetPoint.equals(heatTemp)) {
@@ -12399,12 +12718,12 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						heatTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						heatTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (heatSetPoint.equals(heatTemp)) {
-					Keyword.ReportStep_Pass(testCase, "Verify Heat Stepper Value : Heat Set Point set to max set point");
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Heat Stepper Value : Heat Set Point set to max set point");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12419,8 +12738,7 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						heatTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						heatTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (heatSetPoint.equals(heatTemp)) {
@@ -12440,12 +12758,12 @@ public class JasperSchedulingUtils {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						heatTemp = roundOffCelsiusData(testCase, setPoints);
 					} else {
-						heatTemp = roundOffCelsiusData(testCase,
-								convertFromFahrenhietToCelsius(testCase, setPoints));
+						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
 				if (heatSetPoint.equals(heatTemp)) {
-					Keyword.ReportStep_Pass(testCase, "Verify Heat Stepper Value : Heat Set Point set to min set point");
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Heat Stepper Value : Heat Set Point set to min set point");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12473,8 +12791,7 @@ public class JasperSchedulingUtils {
 
 	public static boolean createTimeBasedSchedule(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		try
-		{
+		try {
 			WebElement element = null;
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -12511,7 +12828,8 @@ public class JasperSchedulingUtils {
 				}
 			}
 
-			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EverydayScheduleButton");
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
@@ -12608,8 +12926,8 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
-								periodTimeandSetPoint, element);
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint,
+								element);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
@@ -12622,7 +12940,8 @@ public class JasperSchedulingUtils {
 						List<String> allowedModes = statInfo.getAllowedModes();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("1")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
@@ -12643,7 +12962,8 @@ public class JasperSchedulingUtils {
 										inputs.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT));
 							}
 						} else if (mode.equals("2")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
@@ -12664,7 +12984,8 @@ public class JasperSchedulingUtils {
 										inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT));
 							}
 						} else if (mode.equals("3")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
@@ -12685,7 +13006,8 @@ public class JasperSchedulingUtils {
 										inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT));
 							}
 						} else if (mode.equals("4")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
+							periodTimeandSetPoint.put("StartTime",
+									inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
@@ -12709,14 +13031,15 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
-								periodTimeandSetPoint, element);
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint,
+								element);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
 				}
-			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "WeekdayandWeekendScheduleButton");
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
@@ -12820,11 +13143,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendWake", 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e3) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12875,11 +13198,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendAway", 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12930,11 +13253,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendHome", 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12973,7 +13296,7 @@ public class JasperSchedulingUtils {
 								periodTimeandSetPoint.put("CoolSetPoint",
 										inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT));
 							}
-							inputs.setInputValue(InputVariables.PERIOD_NAME_NA,InputVariables. WEEKEND_HOME);
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKEND_HOME);
 						} else if (mode.equals("Sleep_Weekend")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
 							try {
@@ -12984,11 +13307,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendSleep", 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -13033,8 +13356,8 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
-								periodTimeandSetPoint, element);
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint,
+								element);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
@@ -13142,11 +13465,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_1", testCase, 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e3) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -13197,11 +13520,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_2", testCase, 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -13252,11 +13575,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_3", testCase, 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -13306,11 +13629,11 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 									if (!MobileUtils.isMobElementExists("name", "Saturday - Sunday_4", testCase, 5)) {
 										try {
 											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+													.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 										} catch (Exception e) {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -13354,8 +13677,8 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
-								periodTimeandSetPoint, element);
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint,
+								element);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
@@ -13412,13 +13735,15 @@ public class JasperSchedulingUtils {
 					}
 
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("value").equals("Disabled")) {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("value")
+								.equals("Disabled")) {
 							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
 							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
 									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("label"));
 						}
 					} else {
-						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked").equals("false")) {
+						if (checkBoxes.get(Integer.parseInt(SelectStatPosition)).getAttribute("checked")
+								.equals("false")) {
 							checkBoxes.get(Integer.parseInt(SelectStatPosition)).click();
 							inputs.setInputValue(InputVariables.STAT_TO_COPY_SCHEDULE,
 									checkBoxes.get(Integer.parseInt(SelectStatPosition)).getText());
@@ -13439,24 +13764,22 @@ public class JasperSchedulingUtils {
 			 * "GeofenceScheduleButton", 10)) { Keyword.ReportStep_Pass(testCase,
 			 * "Create Schedule : Successfully navigated to Primary Card"); } else
 			 */if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
-				 Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
-			 } else {
-				 flag = false;
-				 Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						 "Create Schedule : Failed to navigate to Primary Card");
-			 }
+				Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Create Schedule : Failed to navigate to Primary Card");
+			}
 		} catch (Exception e) {
 
 		}
 		return flag;
 	}
 
-
 	public static boolean createTimeBasedScheduleWithMinMaxSetPoints(TestCases testCase, TestCaseInputs inputs) {
 
 		boolean flag = true;
-		try
-		{
+		try {
 			WebElement element = null;
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -13493,8 +13816,8 @@ public class JasperSchedulingUtils {
 				}
 			}
 
-
-			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "EverydayScheduleButton");
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
@@ -13522,7 +13845,7 @@ public class JasperSchedulingUtils {
 							} else {
 								element = MobileUtils.getMobElement(fieldObjects, testCase, "EverydayHome");
 							}
-							inputs.setInputValue(InputVariables.PERIOD_NAME_NA,InputVariables.EVERYDAY_HOME);
+							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_HOME);
 						} else if (mode.equals("Sleep")) {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
@@ -13544,11 +13867,12 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting maximum and minimum set points for "
 								+ mode + " period ***************");
-						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
+						flag = flag
+								& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed setting maximum and minimum set points for " + mode
-								+ " period ***************");
+										+ " period ***************");
 					}
 				}
 				// ================================================EMEA===========================================================
@@ -13559,18 +13883,20 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='1_Everyday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(0) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(0) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(0).getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Everyday_1");
-								if (MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[@name='InputVariables.EVERYDAY_1_TIME']").get(0) != null) {
-									inputs.setInputValue(InputVariables.EVERYDAY_1_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
-													"//XCUIElementTypeStaticText[@name='InputVariables.EVERYDAY_1_TIME']")
+								if (MobileUtils
+										.getMobElements(testCase, "xpath",
+												"//XCUIElementTypeStaticText[@name='InputVariables.EVERYDAY_1_TIME']")
+										.get(0) != null) {
+									inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, MobileUtils.getMobElement(
+											testCase, "xpath",
+											"//XCUIElementTypeStaticText[@name='InputVariables.EVERYDAY_1_TIME']")
 											.getAttribute("value"));
 								}
 							}
@@ -13579,19 +13905,22 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='2_Everyday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(1) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(1) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(1).getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Everyday_2");
-								if (MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[@name='Everyday_2_Time']").get(0) != null) {
+								if (MobileUtils
+										.getMobElements(testCase, "xpath",
+												"//XCUIElementTypeStaticText[@name='Everyday_2_Time']")
+										.get(0) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_2_TIME,
 											MobileUtils
-											.getMobElement(testCase, "xpath",
-													"//XCUIElementTypeStaticText[@name='Everyday_2_Time']")
-											.getAttribute("value"));
+													.getMobElement(testCase, "xpath",
+															"//XCUIElementTypeStaticText[@name='Everyday_2_Time']")
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, InputVariables.EVERYDAY_2);
@@ -13599,39 +13928,45 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='3_Everyday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(2) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(2) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(2).getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Everyday_3");
-								if (MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[@name='Everyday_3_Time']").get(0) != null) {
+								if (MobileUtils
+										.getMobElements(testCase, "xpath",
+												"//XCUIElementTypeStaticText[@name='Everyday_3_Time']")
+										.get(0) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_3_TIME,
 											MobileUtils
-											.getMobElement(testCase, "xpath",
-													"//XCUIElementTypeStaticText[@name='Everyday_3_Time']")
-											.getAttribute("value"));
+													.getMobElement(testCase, "xpath",
+															"//XCUIElementTypeStaticText[@name='Everyday_3_Time']")
+													.getAttribute("value"));
 								}
 							}
-							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA,InputVariables.EVERYDAY_3);
+							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, InputVariables.EVERYDAY_3);
 						} else if (mode.equals("4")) {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='4_Everyday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(3) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(3) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(3).getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Everyday_4");
-								if (MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[@name='Everyday_4_Time']").get(0) != null) {
+								if (MobileUtils
+										.getMobElements(testCase, "xpath",
+												"//XCUIElementTypeStaticText[@name='Everyday_4_Time']")
+										.get(0) != null) {
 									inputs.setInputValue(InputVariables.EVERYDAY_4_TIME,
 											MobileUtils
-											.getMobElement(testCase, "xpath",
-													"//XCUIElementTypeStaticText[@name='Everyday_4_Time']")
-											.getAttribute("value"));
+													.getMobElement(testCase, "xpath",
+															"//XCUIElementTypeStaticText[@name='Everyday_4_Time']")
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, InputVariables.EVERYDAY_4);
@@ -13643,17 +13978,19 @@ public class JasperSchedulingUtils {
 						} catch (Exception e) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Set Period Time and Set Points : Failed to select Period-" + InputVariables.PERIOD_NUMBER_EMEA);
+									"Set Period Time and Set Points : Failed to select Period-"
+											+ InputVariables.PERIOD_NUMBER_EMEA);
 							return false;
 						}
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting maximum and minimum set points for "
 								+ mode + " period ***************");
-						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
+						flag = flag
+								& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed setting maximum and minimum set points for " + mode
-								+ " period ***************");
+										+ " period ***************");
 					}
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 10)) {
@@ -13676,17 +14013,15 @@ public class JasperSchedulingUtils {
 				}
 				/*
 				 * if (MobileUtils.isMobElementExists(fieldObjects, testCase,
-				 * "GeofenceScheduleButton", 10)) {
-				 * Keyword.ReportStep_Pass(testCase,
-				 * "Create Schedule : Successfully navigated to Primary Card"); }
-				 * else
+				 * "GeofenceScheduleButton", 10)) { Keyword.ReportStep_Pass(testCase,
+				 * "Create Schedule : Successfully navigated to Primary Card"); } else
 				 */if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
-					 Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
-				 } else {
-					 flag = false;
-					 Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							 "Create Schedule : Failed to navigate to Primary Card");
-				 }
+					Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Create Schedule : Failed to navigate to Primary Card");
+				}
 
 			} else {
 				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "WeekdayandWeekendScheduleButton");
@@ -13786,7 +14121,7 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
 							try {
@@ -13841,7 +14176,7 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME));
 							try {
@@ -13896,7 +14231,7 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME));
 							try {
@@ -13950,7 +14285,7 @@ public class JasperSchedulingUtils {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
 							try {
@@ -14014,11 +14349,12 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting maximum and minimum set points for "
 								+ mode + " period ***************");
-						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
+						flag = flag
+								& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed setting maximum and minimum set points for " + mode
-								+ " period ***************");
+										+ " period ***************");
 					}
 				}
 				// ================================================EMEA===========================================================
@@ -14029,7 +14365,8 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='1_Monday - Friday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(0) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(0).getText());
 								}
@@ -14040,10 +14377,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Monday - Friday_1_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_1_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Monday - Friday_1_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "1");
@@ -14051,7 +14387,8 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='2_Monday - Friday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(1) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(1) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(1).getText());
 								}
@@ -14062,10 +14399,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Monday - Friday_2_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_2_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Monday - Friday_2_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "2");
@@ -14073,7 +14409,8 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='3_Monday - Friday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(2) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(2) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(2).getText());
 								}
@@ -14084,10 +14421,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Monday - Friday_3_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_3_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Monday - Friday_3_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "3");
@@ -14095,7 +14431,8 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								element = testCase.getMobileDriver()
 										.findElement(By.xpath("//*[@content-desc='4_Monday - Friday']"));
-								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time").get(3) != null) {
+								if (MobileUtils.getMobElements(testCase, "ID", "scheduling_period_time")
+										.get(3) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_4_TIME, MobileUtils
 											.getMobElements(testCase, "ID", "scheduling_period_time").get(3).getText());
 								}
@@ -14106,10 +14443,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Monday - Friday_4_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKDAY_4_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Monday - Friday_4_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "4");
@@ -14128,7 +14464,7 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 								}
 							} catch (NoSuchElementException e1) {
 								flag = false;
@@ -14141,10 +14477,9 @@ public class JasperSchedulingUtils {
 								if (MobileUtils.getMobElement(testCase, "xpath",
 										"//*[@content-desc='1_Saturday - Sunday']/android.widget.TextView") != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_1_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//*[@content-desc='1_Saturday - Sunday']/android.widget.TextView")
-											.getText());
+													.getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_1");
@@ -14153,10 +14488,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Saturday - Sunday_1_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_1_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Saturday - Sunday_1_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 
@@ -14176,7 +14510,7 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 								}
 							} catch (NoSuchElementException e1) {
 								flag = false;
@@ -14189,10 +14523,9 @@ public class JasperSchedulingUtils {
 								if (MobileUtils.getMobElement(testCase, "xpath",
 										"//*[@content-desc='2_Saturday - Sunday']/android.widget.TextView") != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_2_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//*[@content-desc='2_Saturday - Sunday']/android.widget.TextView")
-											.getText());
+													.getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_2");
@@ -14201,10 +14534,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Saturday - Sunday_2_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_2_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Saturday - Sunday_2_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "6");
@@ -14223,7 +14555,7 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 								}
 							} catch (NoSuchElementException e1) {
 								flag = false;
@@ -14236,10 +14568,9 @@ public class JasperSchedulingUtils {
 								if (MobileUtils.getMobElement(testCase, "xpath",
 										"//*[@content-desc='3_Saturday - Sunday']/android.widget.TextView") != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_3_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//*[@content-desc='3_Saturday - Sunday']/android.widget.TextView")
-											.getText());
+													.getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_3");
@@ -14248,10 +14579,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Saturday - Sunday_3_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_3_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Saturday - Sunday_3_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "7");
@@ -14270,7 +14600,7 @@ public class JasperSchedulingUtils {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
 									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 								}
 							} catch (NoSuchElementException e1) {
 								flag = false;
@@ -14283,10 +14613,9 @@ public class JasperSchedulingUtils {
 								if (MobileUtils.getMobElement(testCase, "xpath",
 										"//*[@content-desc='4_Saturday - Sunday']/android.widget.TextView") != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_4_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//*[@content-desc='4_Saturday - Sunday']/android.widget.TextView")
-											.getText());
+													.getText());
 								}
 							} else {
 								element = MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_4");
@@ -14295,10 +14624,9 @@ public class JasperSchedulingUtils {
 												"//XCUIElementTypeStaticText[@name='Saturday - Sunday_4_Time']")
 										.get(0) != null) {
 									inputs.setInputValue(InputVariables.WEEKEND_4_TIME,
-											MobileUtils
-											.getMobElement(testCase, "xpath",
+											MobileUtils.getMobElement(testCase, "xpath",
 													"//XCUIElementTypeStaticText[@name='Saturday - Sunday_4_Time']")
-											.getAttribute("value"));
+													.getAttribute("value"));
 								}
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NUMBER_EMEA, "8");
@@ -14310,17 +14638,19 @@ public class JasperSchedulingUtils {
 						} catch (Exception e) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Set Period Time and Set Points : Failed to select Period-" + InputVariables.PERIOD_NUMBER_EMEA);
+									"Set Period Time and Set Points : Failed to select Period-"
+											+ InputVariables.PERIOD_NUMBER_EMEA);
 							return false;
 						}
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting maximum and minimum set points for "
 								+ mode + " period ***************");
-						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
+						flag = flag
+								& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
 						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed setting maximum and minimum set points for " + mode
-								+ " period ***************");
+										+ " period ***************");
 					}
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 10)) {
@@ -14343,21 +14673,17 @@ public class JasperSchedulingUtils {
 				}
 				/*
 				 * if (MobileUtils.isMobElementExists(fieldObjects, testCase,
-				 * "GeofenceScheduleButton", 10)) {
-				 * Keyword.ReportStep_Pass(testCase,
-				 * "Create Schedule : Successfully navigated to Primary Card"); }
-				 * else
+				 * "GeofenceScheduleButton", 10)) { Keyword.ReportStep_Pass(testCase,
+				 * "Create Schedule : Successfully navigated to Primary Card"); } else
 				 */if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
-					 Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
-				 } else {
-					 flag = false;
-					 Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							 "Create Schedule : Failed to navigate to Primary Card");
-				 }
+					Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Create Schedule : Failed to navigate to Primary Card");
+				}
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 		return flag;
@@ -14401,6 +14727,7 @@ public class JasperSchedulingUtils {
 
 		return flag;
 	}
+
 	public static boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");

@@ -10,7 +10,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.Schedule;
+import com.honeywell.screens.SchedulingScreen;
 
 public class DashboardUtils {
 
@@ -49,7 +49,7 @@ public class DashboardUtils {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			Schedule sch = new Schedule(testCase);
+			SchedulingScreen sch = new SchedulingScreen(testCase);
 			Dashboard d = new Dashboard(testCase);
 			if (d.isGlobalDrawerButtonVisible()) {
 				Keyword.ReportStep_Pass(testCase,
