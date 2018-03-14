@@ -603,7 +603,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	@UIAutomated
-Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
+Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting with invalid Wi-Fi password 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
