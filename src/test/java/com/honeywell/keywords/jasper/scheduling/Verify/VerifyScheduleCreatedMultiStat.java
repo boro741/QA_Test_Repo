@@ -12,7 +12,9 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SchedulingScreen;
 
 public class VerifyScheduleCreatedMultiStat extends Keyword {
@@ -75,9 +77,9 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 				if (str != null && !str.isEmpty()) {
 					inputs.setInputValue("LOCATION1_DEVICE1_NAME", str);
 					if (!inputs.getInputValue("LOCATION1_DEVICE1_NAME").equals(device1Name)) {
-						flag = flag && JasperSchedulingUtils.selectLocationFromDashBoard(testCase,
+						flag = flag && Dashboard.selectLocationFromDashBoard(testCase,
 								inputs.getInputValue("LOCATION2_NAME"));
-						flag = flag && JasperSchedulingUtils.selectDeviceFromDashBoard(testCase,
+						flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
 								inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 						if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
 							if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)

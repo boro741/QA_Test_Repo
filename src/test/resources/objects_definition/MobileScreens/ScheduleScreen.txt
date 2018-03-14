@@ -1,6 +1,6 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-AddImage	ID	scheduling_create_sleep_settings_image	ID	scheduling_create_sleep_settings_image	ID	scheduling_create_sleep_settings_image	NAME	Add Period	NAME	Add Period	NAME	Add Period
-AddPeriodButton	ID	com.honeywell.android.lyric:id/scheduling_period_title	ID	com.honeywell.android.lyric:id/scheduling_period_title	ID	com.honeywell.android.lyric:id/scheduling_period_title	ID	Add Period	ID	Add Period	ID	Add Period
+AddImage	ID	scheduling_create_sleep_settings_image	ID	scheduling_create_sleep_settings_image	ID	scheduling_create_sleep_settings_image	NAME	icon_add_period	NAME	icon_add_period	NAME	icon_add_period
+AddPeriodButton	ID	com.honeywell.android.lyric:id/scheduling_period_title	ID	com.honeywell.android.lyric:id/scheduling_period_title	ID	com.honeywell.android.lyric:id/scheduling_period_title	NAME	icon_add_period	NAME	icon_add_period	NAME	icon_add_period
 AlertErrorButton							ID	OK	ID	OK	ID	OK
 AwayTemperatureHeaderMultiTemperature	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'away')]"	NAME	What temperatures do you prefer when you're away from home?	NAME	What temperatures do you prefer when you're away from home?	NAME	What temperatures do you prefer when you're away from home?
 AwayTemperatureHeaderSingleTemperature	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	NAME	What temperature do you prefer when you're away from home?	NAME	What temperature do you prefer when you're away from home?	NAME	What temperature do you prefer when you're away from home?
@@ -8,14 +8,14 @@ BackButton	XPATH	//*[@content-desc='Navigate Up']	XPATH	//*[@content-desc='Navig
 CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
 CheckBox	ID	text1	ID	text1	ID	text1	NAME	CopyScheduleCheckbox	NAME	CopyScheduleCheckbox	NAME	CopyScheduleCheckbox
 CloseButton	XPATH	//android.widget.ImageButton[@content-desc='Global Close']	XPATH	//android.widget.ImageButton[@content-desc='Global Close']	XPATH	//android.widget.ImageButton[@content-desc='Global Close']	NAME	Back	NAME	Back	NAME	Back
-ConfirmChangeButton	ID	android:id/button1	ID	android:id/button1	ID	android:id/button1	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
+ConfirmChangeButton	ID	button1	ID	button1	ID	button1	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
 ConfirmDeleteButton	XPATH	//*[@text='Delete']	XPATH	//*[@text='Delete']	XPATH	//*[@text='Delete']	NAME	DELETE	NAME	DELETE	NAME	DELETE
 ConfirmDeletePopup							NAME	Confirm Delete	NAME	Confirm Delete	NAME	Confirm Delete
 CoolDecrement							NAME	coolTemparatureLowerButton	NAME	coolTemparatureLowerButton	NAME	coolTemparatureLowerButton
 CoolIncrement							NAME	coolTemparatureUpperButton	NAME	coolTemparatureUpperButton	NAME	coolTemparatureUpperButton
 CoolSetPointChooser	ID	cooling_chooser	ID	cooling_chooser	ID	cooling_chooser						
 CoolSetPoints							NAME	coolTemperatureLabel	NAME	coolTemperatureLabel	NAME	coolTemperatureLabel
-CopyButton	XPATH	//*[@text='Copy']	XPATH	//*[@text='Copy']	XPATH	//*[@text='Copy']	NAME	COPY	NAME	COPY	NAME	COPY
+CopyButton	XPATH	//*[@text='Copy']	XPATH	//*[@text='Copy']	XPATH	//*[@text='Copy']	NAME	Copy	NAME	Copy	NAME	Copy
 CreateNewTimeScheduleButton	XPATH	//android.widget.TextView[@text='Create new time schedule']	XPATH	//android.widget.TextView[@text='Create new time schedule']	XPATH	//android.widget.TextView[@text='Create new time schedule']	NAME	Create new time schedule	NAME	Create new time schedule	NAME	Create new time schedule
 CreateScheduleButton	XPATH	//android.widget.Button[@text='CREATE SCHEDULE']	XPATH	//android.widget.Button[@text='CREATE SCHEDULE']	XPATH	//android.widget.Button[@text='CREATE SCHEDULE']	ID	Create Schedule	ID	Create Schedule	ID	Create Schedule
 CreateSleepSettings	XPATH	//android.widget.TextView[@text='Create Sleep Settings']	XPATH	//android.widget.TextView[@text='Create Sleep Settings']	XPATH	//android.widget.TextView[@text='Create Sleep Settings']	XPATH	//*[@name='Geofence_Sleep']	XPATH	//*[@name='Geofence_Sleep']	XPATH	//*[@name='Geofence_Sleep']
@@ -74,8 +74,8 @@ selectminutevalueforty	XPATH	//*[@index='8']	XPATH	//*[@index='8']	XPATH	//*[@in
 selectminutevaluetwenty	XPATH	//*[@index='4']	XPATH	//*[@index='4']	XPATH	//*[@index='4']	XPATH	//*[@value='20 minutes']	XPATH	//*[@value='20 minutes']	XPATH	//*[@value='20 minutes']
 selectvaluesix	XPATH	//*[@index='5']	XPATH	//*[@index='5']	XPATH	//*[@index='5']	XPATH	//*[@value='6 oêclock']	XPATH	//*[@value='6 oêclock']	XPATH 	//*[@value='6 oêclock']
 selectvalueten	XPATH	//*[@index='9']	XPATH	//*[@index='9']	XPATH	//*[@index='9']	XPATH	//*[@value='6 oêclock']	XPATH	//*[@value='6 oêclock']	XPATH 	//*[@value='6 oêclock']
-SkipButton	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	NAME	SKIP	NAME	SKIP	NAME	SKIP
-SkipSleepButton	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	NAME	SKIP	NAME	SKIP	NAME	SKIP
+SkipButton	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	NAME	Skip	NAME	Skip	NAME	Skip
+SkipSleepButton	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	NAME	Skip	NAME	Skip	NAME	Skip
 SwitchToGeofencingButton	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	NAME	Switch to geofencing	NAME	Switch to geofencing	NAME	Switch to geofencing
 SwitchToTimeScheduleButton	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	NAME	Switch to time schedule	NAME	Switch to time schedule	NAME	Switch to time schedule
 TimeAM	ID	am_label	ID	am_label	ID	am_label	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']

@@ -3,7 +3,6 @@ package com.honeywell.jasper.utils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.SocketException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,11 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.FluentWait;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
@@ -28,10 +26,8 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
+
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
@@ -2000,8 +1996,8 @@ public class JasperSchedulingUtils {
 			SchedulingScreen ss = new SchedulingScreen(testCase);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = devInfo.getAllowedModes();
-			if (ss.isAddImageButtonVisible(5)) {
-				element = ss.getAddImageElement();
+			if (testCase.getMobileDriver().findElements(By.name("icon_add_period")) != null) {
+				element = testCase.getMobileDriver().findElement(By.name("icon_add_period"));
 				Keyword.ReportStep_Pass(testCase, " ");
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Setting time and set points for new period ***************");
@@ -2023,7 +2019,6 @@ public class JasperSchedulingUtils {
 					do {
 						tempPeriod = String.valueOf(rn.nextInt((7 - 1) + 1) + 1);
 					} while (tempPeriod.equalsIgnoreCase("4"));
-					System.out.println(tempPeriod);
 					if (Integer.parseInt(tempPeriod) <= 4) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							while (!ss.isWeekday1ElementVisible(5)) {
@@ -2048,7 +2043,7 @@ public class JasperSchedulingUtils {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate Weekday Time list");
 						}
-						element = ss.getAddImageElements().get(0);
+						element = testCase.getMobileDriver().findElements(By.name("icon_add_period")).get(0);
 						initialPeriodSize = weekdaySchedule_period_time.size();
 					} else {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -2080,7 +2075,7 @@ public class JasperSchedulingUtils {
 								element = ss.getAddImageElements().get(0);
 							}
 						} else {
-							element = ss.getAddImageElements().get(1);
+							element = testCase.getMobileDriver().findElements(By.name("icon_add_period")).get(1);
 						}
 
 						initialPeriodSize = weekendSchedule_period_time.size();
@@ -2770,6 +2765,7 @@ public class JasperSchedulingUtils {
 			String jasperStatType = devInfo.getJasperDeviceType();
 			try {
 				String elementDesc = element.getAttribute("name");
+//				element = testCase.getMobileDriver().findElement(By.name("icon_add_period"));
 				element.click();
 				Keyword.ReportStep_Pass(testCase, "Successfully click on : " + elementDesc);
 			} catch (Exception e) {
@@ -5871,6 +5867,7 @@ public class JasperSchedulingUtils {
 				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 				heatUp = ss.getHeatSetPointUpButton();
 				heatDown = ss.getHeatSetPointDownButton();
+
 
 			} else {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
@@ -13882,86 +13879,6 @@ public class JasperSchedulingUtils {
 					"Error Occured : " + e.getMessage());
 		}
 
-		return flag;
-	}
-
-	public static boolean selectDeviceFromDashBoard(TestCases testCase, String deviceToBeSelected) {
-		boolean flag = true;
-		try {
-			if (DashboardUtils.selectDeviceFromDashboard(testCase, deviceToBeSelected)) {
-				Keyword.ReportStep_Pass(testCase,
-						"Select Device From DashBoard : Successfully selected device : " + deviceToBeSelected);
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Select Device From Dashboard : Failed to select device : " + deviceToBeSelected);
-			}
-		} catch (Exception e) {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
-			return false;
-		}
-		return flag;
-	}
-
-	public static boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
-		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
-		WebElement element = null;
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationSpinner", 5)) {
-			element = MobileUtils.getMobElement(fieldObjects, testCase, "LocationSpinner");
-		}
-		if (element != null) {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationNameIOS", 5)) {
-					if (MobileUtils.getMobElement(fieldObjects, testCase, "LocationNameIOS").getAttribute("value")
-							.contains(locationToBeSelected)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Select Location From DashBoard : User is already in location : "
-										+ locationToBeSelected);
-					} else {
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
-
-						if (MobileUtils.clickOnElement(testCase, "name", locationToBeSelected)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Select Location From DashBoard : Successfully selected location : "
-											+ locationToBeSelected);
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Select Location From DashBoard : Failed to select location : "
-											+ locationToBeSelected);
-						}
-					}
-				}
-			} else {
-				if (element.getText().equalsIgnoreCase(locationToBeSelected)) {
-					Keyword.ReportStep_Pass(testCase,
-							"Select Location From DashBoard : User is already in location : " + locationToBeSelected);
-				} else {
-					boolean f = false;
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
-					List<WebElement> locNames = MobileUtils.getMobElements(fieldObjects, testCase, "LocationDropDown");
-					for (WebElement ele : locNames) {
-						if (ele.getText().equalsIgnoreCase(locationToBeSelected)) {
-							ele.click();
-							f = true;
-							break;
-						}
-					}
-					if (f) {
-						Keyword.ReportStep_Pass(testCase,
-								"Select Location From DashBoard : Successfully selected location : "
-										+ locationToBeSelected);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Select Location From DashBoard : Failed to select location : " + locationToBeSelected);
-					}
-				}
-			}
-		}
 		return flag;
 	}
 

@@ -650,6 +650,7 @@ public class LyricUtils {
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
+
 		return flag;
 	}
 

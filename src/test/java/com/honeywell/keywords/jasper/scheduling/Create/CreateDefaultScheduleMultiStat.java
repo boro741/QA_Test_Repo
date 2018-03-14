@@ -16,7 +16,9 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
+import com.honeywell.screens.Dashboard;
 
 
 public class CreateDefaultScheduleMultiStat extends Keyword {
@@ -46,9 +48,7 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 			locationName = inputs.getInputValue("LOCATION2_NAME");
 			deviceName = inputs.getInputValue("LOCATION2_DEVICE1_NAME");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-
-			flag = flag & JasperSchedulingUtils.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
-
+			Dashboard.selectLocationFromDashBoard(testCase,inputs.getInputValue("LOCATION2_NAME"));
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
 			inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
@@ -83,7 +83,7 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 				}
 
 			}
-			flag = flag & JasperSchedulingUtils.selectDeviceFromDashBoard(testCase, inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
 			String jasperStatType = statInfo.getJasperDeviceType();
 
 			if (exampleData.get(0).equalsIgnoreCase("Geofence")) {
@@ -104,7 +104,7 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 			} else if (exampleData.get(1).equalsIgnoreCase("by copying schedule to selected")) {
 				inputs.setInputValue(InputVariables.SPECIFIC_STAT_COPYING, "Yes");
 			}
-			if (statInfo.getDeviceID().equals("Jasper")) {
+			if (statInfo.getJasperDeviceType().equals("Jasper") || statInfo.getJasperDeviceType().equals("EMEA")) {
 				List<String> allowedModes = statInfo.getAllowedModes();
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
@@ -216,22 +216,22 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 
 					if (jasperStatType.toUpperCase().contains("EMEA")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 1, 10);
-						inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 1, 10);
-						inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 1, 10);
-						inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 1, 10);
-						inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 					} else if (jasperStatType.toUpperCase().contains("NA")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 1, 15);
-						inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 1, 15);
-						inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 1, 15);
-						inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 1, 15);
-						inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime);
+						inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 					}
 					flag = flag & JasperSchedulingUtils.createTimeBasedSchedule(testCase, inputs);
 
@@ -240,24 +240,24 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 					inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
 					inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
-					inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, defaultValues.get("WeekdayWakeTime"));
-					inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, defaultValues.get("WeekdayWakeTime"));
+					inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, defaultValues.get("WeekdayWakeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, defaultValues.get("WeekdayWakeTime").toLowerCase().replaceAll("^0*", ""));
 					temp = parseValue(defaultValues.get("WeekdayWakeCoolTemp"));
 					inputs.setInputValue(InputVariables.WEEKDAY_1_COOL_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT, temp);
 					temp = parseValue(defaultValues.get("WeekdayWakeHeatTemp"));
 					inputs.setInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT, temp);
-					inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, defaultValues.get("WeekdayAwayTime"));
-					inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, defaultValues.get("WeekdayAwayTime"));
+					inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, defaultValues.get("WeekdayAwayTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, defaultValues.get("WeekdayAwayTime").toLowerCase().replaceAll("^0*", ""));
 					temp = parseValue(defaultValues.get("WeekdayAwayCoolTemp"));
 					inputs.setInputValue(InputVariables.WEEKDAY_2_COOL_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT, temp);
 					temp = parseValue(defaultValues.get("WeekdayAwayHeatTemp"));
 					inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT, temp);
-					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, defaultValues.get("WeekdayHomeTime"));
-					inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, defaultValues.get("WeekdayHomeTime"));
+					inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, defaultValues.get("WeekdayHomeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, defaultValues.get("WeekdayHomeTime").toLowerCase().replaceAll("^0*", ""));
 					temp = parseValue(defaultValues.get("WeekdayHomeCoolTemp"));
 					inputs.setInputValue(InputVariables.WEEKDAY_3_COOL_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT, temp);
@@ -272,24 +272,24 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 					temp = parseValue(defaultValues.get("WeekdaySleepHeatTemp"));
 					inputs.setInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT, temp);
-					inputs.setInputValue(InputVariables.WEEKEND_1_TIME, defaultValues.get("WeekendWakeTime"));
-					inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, defaultValues.get("WeekendWakeTime"));
+					inputs.setInputValue(InputVariables.WEEKEND_1_TIME, defaultValues.get("WeekendWakeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, defaultValues.get("WeekendWakeTime").toLowerCase().replaceAll("^0*", ""));
 					temp = parseValue(defaultValues.get("WeekendWakeCoolTemp"));
 					inputs.setInputValue(InputVariables.WEEKEND_1_COOL_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT, temp);
 					temp = parseValue(defaultValues.get("WeekendWakeHeatTemp"));
 					inputs.setInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT, temp);
-					inputs.setInputValue(InputVariables.WEEKEND_2_TIME, defaultValues.get("WeekendAwayTime"));
-					inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, defaultValues.get("WeekendAwayTime"));
+					inputs.setInputValue(InputVariables.WEEKEND_2_TIME, defaultValues.get("WeekendAwayTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, defaultValues.get("WeekendAwayTime").toLowerCase().replaceAll("^0*", ""));
 					temp = parseValue(defaultValues.get("WeekendAwayCoolTemp"));
 					inputs.setInputValue(InputVariables.WEEKEND_2_COOL_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT, temp);
 					temp = parseValue(defaultValues.get("WeekendAwayHeatTemp"));
 					inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT, temp);
-					inputs.setInputValue(InputVariables.WEEKEND_3_TIME, defaultValues.get("WeekendHomeTime"));
-					inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, defaultValues.get("WeekendHomeTime"));
+					inputs.setInputValue(InputVariables.WEEKEND_3_TIME, defaultValues.get("WeekendHomeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, defaultValues.get("WeekendHomeTime").toLowerCase().replaceAll("^0*", ""));
 					temp = parseValue(defaultValues.get("WeekendHomeCoolTemp"));
 					inputs.setInputValue(InputVariables.WEEKEND_3_COOL_SETPOINT, temp);
 					inputs.setInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT, temp);
@@ -307,38 +307,38 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 
 					if (jasperStatType.toUpperCase().contains("EMEA")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKDAY_4_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKEND_1_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_1_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKEND_2_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_2_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKEND_3_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_3_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 10);
-						inputs.setInputValue(InputVariables.WEEKEND_4_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 					} else if (jasperStatType.toUpperCase().contains("NA")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 15);
-						inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime);
+						inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 					}
 					flag = flag & JasperSchedulingUtils.createTimeBasedSchedule(testCase, inputs);
 				}

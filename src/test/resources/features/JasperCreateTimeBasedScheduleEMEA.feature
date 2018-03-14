@@ -142,7 +142,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "everyday" schedule gets created successfully
 #      And user logs out of the app
 #  
-  #@CreateEMEAEverydayscheduleDeletingperiod  @--xrayid:ATER-7441
+  @CreateEMEAEverydayscheduleDeletingperiod  @--xrayid:ATER-7441
   Scenario: To create EMEA Everyday schedule by setting up with new time value for both time format
   As an user
   I want to create Everyday schedule by deleting new period for both time format
@@ -150,9 +150,9 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "everyday" schedule by deleting period from the default schedule values
      Then verify "everyday" schedule gets created successfully
-      And user logs out of the app
+#      And user logs out of the app
   
-  @CreateEMEAWeekedayandWeekendscheduleAddingperiod  @--xrayid:ATER-7442
+  #@CreateEMEAWeekedayandWeekendscheduleAddingperiod  @--xrayid:ATER-7442
   Scenario: To create EMEA Weekeday and Weekend schedule by setting up with new time value for time format 12hr
   As an user
   I want to create Weekeday and Weekend schedule by adding new period for both time format
@@ -162,7 +162,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "weekday and weekend" schedule by adding period to the default schedule values
      Then verify "weekday and weekend" schedule gets created successfully
-     And user logs out of the app
+#     And user logs out of the app
   
   @CreateEMEAWeekedayandWeekendscheduleDeletingperiod  @--xrayid:ATER-7443
   Scenario: To create EMEA Weekeday and Weekend schedule by setting up with new time value for time format 12hr
@@ -174,19 +174,19 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "weekday and weekend" schedule by deleting period from the default schedule values
      Then verify "weekday and weekend" schedule gets created successfully
-      And user logs out of the app
+#      And user logs out of the app
   
-  #@CreateEMEAWeekdayandWeekendScheduleTimeformat @Automated @--xrayid:ATER-7444
+  @CreateEMEAWeekdayandWeekendScheduleTimeformat @Automated @--xrayid:ATER-7444
   Scenario: To configure EMEA Weekday and Weekend schedule by setting up with new time value for both format
   As an user
   I want to create Weekday and Weekend schedule by setting up with new time value for both format
     Given user thermostat is set to "no" schedule
       And user launches and logs in to the Lyric application
     And user selects "Jasper device" from the dashboard
-    When user creates "weekday and weekend" schedule by changing with new time values
+    When user creates "Weekday and Weekend" schedule by changing with new time values
      Then verify "weekday and weekend" schedule gets created successfully 
       And verify the time fields can be set with increments of "10 minutes"
-      And user logs out of the app
+#      And user logs out of the app
   
   @CreateEMEAEverydayscheduleMultistatCopyschedule @Automated @--xrayid:ATER-7445
   Scenario Outline: Create EMEA Everyday Schedule MultiStat Copy
@@ -195,11 +195,10 @@ so that my home temperature will get set automatically all days based on the tim
   So that my temperature will get set automatically for all stat in my location based on the time
    Given user thermostat is set to "no" schedule
       And user launches and logs in to the Lyric application
-    And user selects "Jasper device" from the dashboard
-     When user creates default "everyday" schedule value <copying> stats
-	 Then verify "everyday" schedule gets created successfully
-      And verify "everyday" schedule is <verify copy> stats
-      And user logs out of the app
+     When user creates default "Everyday" schedule value <copying> stats
+	 Then verify "Everyday" schedule gets created successfully
+      And verify "Everyday" schedule is <verify copy> stats
+#      And user logs out of the app
      Examples: 
       | copying                           | verify copy         | 
       | without copying schedule to other | not copied to other | 
@@ -211,12 +210,12 @@ so that my home temperature will get set automatically all days based on the tim
   As an user
   I want to create Weekday and Weekend schedule for stat in my location 
   So that my temperature will get set automatically for all stat in my location based on the time
-    Given user has "no scheduling" mode
-   And user logs in to Lyric app
+    Given user thermostat is set to "no" schedule
+   And user launches and logs in to the Lyric application
      When user creates default "weekday and weekend" schedule value <copying> stats
      Then verify "weekday and weekend" schedule gets created successfully
       And verify "weekday and weekend" schedule is <verify copy> stats
-      And user logs out of the app
+#      And user logs out of the app
      Examples: 
       | copying                           | verify copy         | 
       #| without copying schedule to other | not copied to other | 
