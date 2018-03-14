@@ -92,6 +92,7 @@ public class VerifyValueOnAScreen extends Keyword {
 
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					Thread.sleep(10000);
 					if (bs.isGeofencingSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Geofencing is enabled on Base Station Settings");
 					} else {

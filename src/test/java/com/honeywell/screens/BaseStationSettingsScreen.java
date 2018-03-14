@@ -653,7 +653,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					"//XCUIElementTypeStaticText[@value='" + sensorName + "']");
 		}
 	}
-	
+
 	public boolean verifySensorModelDetailsOnModelAndFirmwareDetailsPage() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelDetailsLabel")) {
@@ -838,7 +838,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			Point p1 = volumeSlider.getLocation();
 			float sliderLength = d1.getWidth();
 			float pixelPerPercent = sliderLength / 100;
-			float pixelToBeMoved = Integer.parseInt(value) * pixelPerPercent;
+			float pixelToBeMoved = Integer.parseInt(value.equals("0") ? "1" : value) * pixelPerPercent;
 			System.out.println("Setting for " + value);
 			System.out.println("X: " + (int) (p1.getX() + pixelToBeMoved));
 			System.out.println("Y: " + p1.getY());
@@ -904,7 +904,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean toggleGeofencingSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingSwitch");
 	}
-	
+
 	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -915,8 +915,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			} else {
-				return Boolean.parseBoolean(MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch")
-						.getAttribute("value"));
+				return Boolean.parseBoolean(MobileUtils
+						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
 			}
 		} else {
 			throw new Exception("Could not find Camera On In Home Mode Switch");

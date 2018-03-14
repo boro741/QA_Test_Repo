@@ -6,8 +6,8 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
-import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.PrimaryCard;
 
@@ -156,7 +156,7 @@ public class DASSettingsUtils {
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-			flag = flag & LyricUtils.closeCoachMarks(testCase);
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}

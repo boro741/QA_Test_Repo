@@ -326,7 +326,7 @@ Feature: DAS Settings
   #LYDAS-6820,LYDAS-6890,LYDAS-3596
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VideoSettingsDisabled @UIAutomated
-  Scenario: As a user I should be able to access DAS camera settings
+  Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off 
     Given user DAS camera is set to "off" through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Video Settings" screen from the "Dashboard" screen
@@ -351,7 +351,7 @@ Feature: DAS Settings
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyVideoSettings @UIAutomated
-  Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off
+  Scenario: As a user I should be able to access DAS camera settings
     Given user DAS camera is set to "on" through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Video Settings" screen from the "Dashboard" screen

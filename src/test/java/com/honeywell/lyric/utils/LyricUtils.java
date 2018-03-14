@@ -425,7 +425,7 @@ public class LyricUtils {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
-									return LyricUtils.closeCoachMarks(testCase);
+									return CoachMarkUtils.closeCoachMarks(testCase);
 								}
 
 							}
@@ -443,7 +443,7 @@ public class LyricUtils {
 							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 								return true;
 							} else {
-								return LyricUtils.closeCoachMarks(testCase);
+								return CoachMarkUtils.closeCoachMarks(testCase);
 							}
 
 						} else {
@@ -630,9 +630,9 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		//flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		//flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
@@ -1161,19 +1161,6 @@ public class LyricUtils {
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "User is not on the dashboard");
-		}
-		return flag;
-	}
-
-	public static boolean closeCoachMarks(TestCases testCase) {
-		boolean flag = true;
-		CoachMarks cm = new CoachMarks(testCase);
-		int counter = 0;
-		if (cm.isGotitButtonVisible(1)) {
-			while (cm.isGotitButtonVisible(1) && counter < 5) {
-				flag = flag & cm.clickOnGotitButton();
-				counter++;
-			}
 		}
 		return flag;
 	}

@@ -1,13 +1,20 @@
 package com.honeywell.lyric.das.utils;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASCameraSolutionCard;
 
@@ -120,4 +127,41 @@ public class DASCameraUtils {
 		return flag;
 	}
 
+	public static boolean isCameraLiveStreaming(TestCases testCase) throws Exception {
+		try {
+			DASCameraSolutionCard dc = new DASCameraSolutionCard(testCase);
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			fWait.until(new Function<CustomDriver, Boolean>() {
+				@Override
+				public Boolean apply(CustomDriver driver) {
+					if (dc.isLoadingLiveTextVisible(1) || dc.isCameraStreamLoadingProgressBarVisible(1)) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+			});
+			if(dc.isNewToLyricCameraPopUpTitleVisible(5))
+			{
+				dc.clickOnNotNowButton();
+				CoachMarkUtils.closeCoachMarks(testCase);
+			}
+			if(dc.isLiveTextVisible(5))
+			{
+				return true;
+			}
+			else if(dc.isCameraOffTextVisible(5))
+			{
+				return false;
+			}
+			else
+			{
+				throw new Exception("Invalid Streaming text displayed");
+			}
+		} catch (TimeoutException e) {
+			throw new Exception("Loading Live Stream text did not disappear. Wait Time : 1 minute");
+		}
+	}
 }
