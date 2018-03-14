@@ -5,4 +5,3 @@ CancelButton							name	Cancel	name	Cancel	name	Cancel
 NotNowButton							name	Not Now	name	Not Now	name	Not Now
 CloseButton	ID	btn_close	ID	btn_close	ID	btn_close						
 AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always Allow
-GotIT	id	btn_positive_got_it	id	btn_positive_got_it	id	btn_positive_got_it	NAME	Got It	NAME	Got It	NAME	Got It

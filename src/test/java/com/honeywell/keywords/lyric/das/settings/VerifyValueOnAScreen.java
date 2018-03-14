@@ -92,6 +92,7 @@ public class VerifyValueOnAScreen extends Keyword {
 
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					Thread.sleep(10000);
 					if (bs.isGeofencingSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Geofencing is enabled on Base Station Settings");
 					} else {
@@ -106,6 +107,30 @@ public class VerifyValueOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Geofencing is enabled on Base Station Settings");
+					}
+
+				}
+			}
+			
+			else if(parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")
+					&& parameters.get(2).equalsIgnoreCase("Video Settings"))
+			{
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is enabled on Video Settings");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera On in Home Mode is disabled on Video Settings");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is disabled on Video Settings");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera On in Home Mode is enabled on Video Settings");
 					}
 
 				}

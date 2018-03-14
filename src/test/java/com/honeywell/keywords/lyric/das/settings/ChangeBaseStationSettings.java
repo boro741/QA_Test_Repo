@@ -12,14 +12,14 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
-public class ChangeBaseStationVolume extends Keyword {
+public class ChangeBaseStationSettings extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 
-	public ChangeBaseStationVolume(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
+	public ChangeBaseStationSettings(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.parameters = parameters;
 		// this.inputs = inputs;
@@ -73,6 +73,32 @@ public class ChangeBaseStationVolume extends Keyword {
 					else
 					{
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
+					}
+				}
+			}
+			else if(parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode"))
+			{
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if(parameters.get(1).equalsIgnoreCase("ON"))
+				{
+					if(bs.isCameraOnInHomeModeSwitchEnabled(testCase))
+					{
+						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is already enabled on the settings page");
+					}
+					else
+					{
+						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
+					}
+				}
+				else if(parameters.get(1).equalsIgnoreCase("OFF"))
+				{
+					if(!bs.isCameraOnInHomeModeSwitchEnabled(testCase))
+					{
+						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is already disabled on the settings page");
+					}
+					else
+					{
+						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
 					}
 				}
 			}

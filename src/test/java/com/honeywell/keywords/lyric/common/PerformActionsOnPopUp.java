@@ -13,6 +13,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.ZwaveScreen;
@@ -336,6 +337,19 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("New to Lyric Camera")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				DASCameraSolutionCard dc = new DASCameraSolutionCard(testCase);
+				flag = flag & dc.clickOnOkButton();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

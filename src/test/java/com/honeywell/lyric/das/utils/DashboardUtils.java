@@ -14,8 +14,7 @@ import com.honeywell.screens.Schedule;
 
 public class DashboardUtils {
 
-	public static boolean selectDeviceFromDashboard(TestCases testCase,
-			String deviceToBeSelected) throws Exception{
+	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected) throws Exception {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
 		if (d.areDevicesVisibleOnDashboard(5)) {
@@ -37,9 +36,15 @@ public class DashboardUtils {
 				break;
 			}
 		}
+		if (f) {
+			Keyword.ReportStep_Pass(testCase, "Successfully selected " + deviceToBeSelected + " device from Dashboard");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Failed to select " + deviceToBeSelected + " device from Dashboard");
+		}
 		return f;
 	}
-	
+
 	public static boolean navigateToDashboardFromAnyScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -62,8 +67,7 @@ public class DashboardUtils {
 					}
 					i++;
 				}
-				if (d.isGlobalDrawerButtonVisible()
-						|| (d.isAddDeviceIconVisible(5))) {
+				if (d.isGlobalDrawerButtonVisible() || (d.isAddDeviceIconVisible(5))) {
 					Keyword.ReportStep_Pass(testCase,
 							"Navigate To Primary Card : Successfully navigated to Primary card or Dashboard");
 				} else {
@@ -79,5 +83,5 @@ public class DashboardUtils {
 		}
 		return flag;
 	}
-	
+
 }
