@@ -631,10 +631,9 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		 flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		 flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		 flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
