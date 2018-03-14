@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.common;
+package com.honeywell.keywords.lyric.das.diyregistration;
 
 import java.util.ArrayList;
 import com.honeywell.commons.coreframework.AfterKeyword;

@@ -18,13 +18,13 @@ import com.honeywell.screens.ZwaveScreen;
 public class ClickOnButton extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	//private TestCaseInputs inputs;
 	public ArrayList<String> expectedButton;
 	public boolean flag = true;
 
 	public ClickOnButton(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedButton) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
+		//this.inputs = inputs;
 		this.expectedButton = expectedButton;
 	}
 
