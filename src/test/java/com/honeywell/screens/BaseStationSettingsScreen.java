@@ -916,7 +916,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean toggleGeofencingSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingSwitch");
 	}
-	
+
 	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -927,8 +927,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			} else {
-				return Boolean.parseBoolean(MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch")
-						.getAttribute("value"));
+				return Boolean.parseBoolean(MobileUtils
+						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
 			}
 		} else {
 			return false;

@@ -24,7 +24,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
 import com.honeywell.lyric.utils.ADBUtils;
-import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -307,9 +306,6 @@ public class DIYRegistrationUtils {
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
-			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-		} else {
-			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}

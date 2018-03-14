@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.CoachMarks;
 
 public class VerifyCoachMarks extends Keyword {
@@ -42,27 +43,27 @@ public class VerifyCoachMarks extends Keyword {
 			if (cm.isGotitButtonVisible(15)) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DAS DASHBOARD": {
-					flag = flag & cm.verifyDashboardCoachMarks(CoachMarks.DAS);
+					flag = flag & CoachMarkUtils.verifyDashboardCoachMarks(testCase,CoachMarkUtils.DAS);
 					break;
 				}
 				case "DAS SOLUTION CARD": {
-					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.DAS);
+					flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase,CoachMarkUtils.DAS);
 					break;
 				}
 				case "DAS CAMERA SOLUTION CARD": {
-					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.DASCAMERA);
+					flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase,CoachMarkUtils.DASCAMERA);
 					break;
 				}
 				case "THERMOSTAT DASHBOARD": {
-					flag = flag & cm.verifyDashboardCoachMarks(CoachMarks.THERMOSTAT);
+					flag = flag & CoachMarkUtils.verifyDashboardCoachMarks(testCase,CoachMarkUtils.THERMOSTAT);
 					break;
 				}
 				case "NA THERMOSTAT SOLUTION CARD": {
-					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.THERMOSTATNA);
+					flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase,CoachMarkUtils.THERMOSTATNA);
 					break;
 				}
 				case "EMEA THERMOSTAT SOLUTION CARD": {
-					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.THERMOSTATEMEA);
+					flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase,CoachMarkUtils.THERMOSTATEMEA);
 					break;
 				}
 				default: {
