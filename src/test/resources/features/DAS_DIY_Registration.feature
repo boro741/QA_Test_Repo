@@ -759,9 +759,6 @@ When user navigates to "dashboard" screen from the "Power Base Station Instructi
 Then user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
-And user "dismisses" the "Delete DAS Confirmation" popup
-Then user "deletes DAS device" by clicking on "delete" button
-And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <first device name> device on the "dashboard" screen
