@@ -24,7 +24,7 @@ RightButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_bu
 LeftButton	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]
 BackButtonInPowerBaseStationScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
 LookingForBaseStationLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
-BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//XCUIElementTypeAlert	XPATH	//XCUIElementTypeAlert	XPATH	//XCUIElementTypeAlert
+BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	XPATH	//*[@text='Base Station Not Found']	NAME	Base Station  Not Found	NAME	Base Station  Not Found	NAME	Base Station  Not Found
 OKButtonInBaseStationNotFounPopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']
 RetryButtonInBaseStationNotFoundPopup	ID	button1	ID	button1	ID	button1	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']
 RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']

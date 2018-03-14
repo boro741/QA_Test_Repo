@@ -15,6 +15,7 @@ import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -84,10 +85,21 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				Dashboard d = new Dashboard(testCase);
 				flag = flag & bs.clickOnYesButton();
 				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 						"DELETING LOCATION PROGRESS BAR", 1);
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
+				if (d.isAddDeviceIconVisible(1) || d.isAddDeviceIconBelowExistingDASDeviceVisible(1)) {
+					flag = true;
+					Keyword.ReportStep_Pass(testCase, "Dashboard screen is dispalyed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard screen is not displayed");
+				}
+				if (!testCase.isTestSuccessful() || !flag) {
+					flag = flag & DIYRegistrationUtils.deleteDASDeviceThroughCHIL(testCase, inputs);
+				}
 				break;
 			}
 			default: {

@@ -194,7 +194,7 @@ public class NavigateToScreen extends Keyword {
 				case "ADD NEW DEVICE IN GLOBAL DRAWER": {
 					Dashboard ds = new Dashboard(testCase);
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+					if (dasDIY.isBackArrowInSelectADeviceScreenVisible(5)) {
 						flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
 					}
 					if (ds.clickOnGlobalDrawerButton()) {
@@ -403,6 +403,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "POWER BASE STATION INSTRUCTIONS": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "WAIT UNTIL DAS REBOOT", 1);
 					if (dasDIY.isNextButtonVisible()) {
 						flag = flag & dasDIY.clickOnNextButton();
 					}

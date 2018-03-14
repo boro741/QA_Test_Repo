@@ -244,6 +244,7 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
+				break;
 			}
 			case "ALEXA APP DOWNLOAD PAGE": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

@@ -585,4 +585,38 @@ public class CHILUtil implements AutoCloseable {
 
 	}
 	
+	public int deleteDevice(long locationID, String deviceID, boolean isDasDevice) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = " ";
+			url = chilURL + "api/locations/" + locationID + "/Devices/" + deviceID;
+			try {
+				if (isDasDevice) {
+					result = doDeleteRequest(url, true).getResponseCode();
+				} else {
+					result = doDeleteRequest(url).getResponseCode();
+				}
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
+
+		}
+		return result;
+	}
+	
+	public int deleteLocation(long locationID) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = " ";
+			url = chilURL + "api/locations/" + locationID + "/users/" + userID;
+			try {
+				result = doDeleteRequest(url).getResponseCode();
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
+
+		}
+		return result;
+	}
+	
 }

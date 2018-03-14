@@ -15,15 +15,19 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
+import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
+import com.honeywell.lyric.utils.ADBUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.account.information.LocationInformation;
 
 public class DIYRegistrationUtils {
 
@@ -44,7 +48,7 @@ public class DIYRegistrationUtils {
 			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
 				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
 			} else {
-				if (dasDIY.isBackArrowInSelectADeviceScreenVisible()) {
+				if (dasDIY.isBackArrowInSelectADeviceScreenVisible(15)) {
 					flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
 				}
 			}
@@ -65,10 +69,19 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromPowerBaseStationToRegisterBaseStation(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
+		int counter = 0;
 		if (dasDIY.isNextButtonVisible()) {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
+				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+				counter++;
+				flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+			}
+		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
 		}
@@ -111,7 +124,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
-			if (dasDIY.isSetUpAccessoriesScreenTitleVisible()) {
+			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(15)) {
 				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
 			}
 		}
@@ -290,16 +303,12 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
-			flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-			if (dasDIY.isGotItButtonInAccessMoreInfoPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInAccessMoreInfoPopup();
-			}
-			if (dasDIY.isGotItButtonInQuickControlsPopupVisible()) {
-				flag = flag & dasDIY.clickOnGotItButtonInQuickControlsPopup();
-			}
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
+		} else {
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}
@@ -309,7 +318,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
 			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
-			
+
 		}
 		return flag;
 	}
@@ -391,6 +400,146 @@ public class DIYRegistrationUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean deleteDASDeviceThroughCHIL(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>("");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(90, TimeUnit.SECONDS);
+			@SuppressWarnings("resource")
+			CHILUtil chUtil = new CHILUtil(inputs);
+			//inputs.setInputValue("LOCATION1_NAME", locationName, false);
+			LocationInformation locInfo = new LocationInformation(testCase,
+					inputs);
+			if (chUtil.getConnection()) {
+				try {
+					int result = chUtil.deleteDevice(locInfo.getLocationID(),
+							locInfo.getDASDeviceID(), false);
+					if (result == 200) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully deleted DAS Device");
+						try {
+							Boolean isEventReceived = fWait
+									.until(new Function<String, Boolean>() {
+										public Boolean apply(String a) {
+
+											try {
+												LocationInformation locInfo = new LocationInformation(
+														testCase, inputs);
+												if (locInfo
+														.getNumberOfDeviceInLocation() == 0) {
+													return true;
+												} else {
+													System.out.println("Waiting for device to get deleted from CHIL. Number of devices : "
+															+ locInfo
+																	.getNumberOfDeviceInLocation());
+													return false;
+												}
+											} catch (Exception e) {
+												return false;
+											}
+										}
+									});
+							if (isEventReceived) {
+								Keyword.ReportStep_Pass(testCase,
+										"Device successfully deleted through CHIL without Client header");
+								fWait.withTimeout(30, TimeUnit.SECONDS);
+								try {
+									fWait.until(new Function<String, Boolean>() {
+										public Boolean apply(String a) {
+											try {
+												if (ADBUtils
+														.isDevicePresentInADBDevices(inputs
+																.getInputValue("DAS_DEVICE_UDID"))) {
+													System.out
+															.println("Waiting for device to reboot");
+													return false;
+												} else {
+													System.out
+															.println("Device rebooted");
+													return true;
+												}
+											} catch (Exception e) {
+												return false;
+											}
+										}
+									});
+								} catch (TimeoutException e) {
+								} catch (Exception e) {
+								}
+							}
+						} catch (TimeoutException e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase,
+									FailType.FUNCTIONAL_FAILURE,
+									"Device not deleted from CHIL. Wait Time = 1 minute");
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase,
+									FailType.FUNCTIONAL_FAILURE,
+									"Error Occured : " + e.getMessage());
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase,
+								FailType.FUNCTIONAL_FAILURE,
+								"Failed to delete DAS device. Response Code : "
+										+ result);
+						result = chUtil.deleteDevice(locInfo.getLocationID(),
+								locInfo.getDASDeviceID(), true);
+						if (result == 200) {
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully deleted DAS Device using Client header");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase,
+									FailType.FUNCTIONAL_FAILURE,
+									"Failed to delete DAS device. Response Code : "
+											+ result);
+						}
+					}
+
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase,
+							FailType.FUNCTIONAL_FAILURE,
+							"Error Occured : " + e.getMessage());
+				}
+
+				if (!inputs.getInputValue("LOCATION1_NAME").equals("Home")) {
+					try {
+						int result = chUtil.deleteLocation(locInfo
+								.getLocationID());
+						if (result == 200) {
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully deleted location : "
+											+ inputs.getInputValue("LOCATION1_NAME"));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase,
+									FailType.FUNCTIONAL_FAILURE,
+									"Failed to delete location : "
+											+ inputs.getInputValue("LOCATION1_NAME")
+											+ ". Response Code : " + result);
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase,
+								FailType.FUNCTIONAL_FAILURE, "Error Occured : "
+										+ e.getMessage());
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
 
 	/**
 	 * <h1>Wait for until progress bar to complete</h1>
@@ -433,6 +582,18 @@ public class DIYRegistrationUtils {
 							} else {
 								return false;
 							}
+						}
+						case "WAIT UNTIL DAS REBOOT": {
+							long waitTime = System.currentTimeMillis() - DeleteAndRebootDASDevice.rebootStartTimer;
+							if (waitTime > 90000) {
+								System.out.println("90 seconds complete after reboot");
+								return true;
+							} else {
+								System.out.println("Waiting for 90 seconds after reboot command. " + waitTime / 1000
+										+ " seconds completed.");
+								return false;
+							}
+
 						}
 						case "NETWORK CONNECTION PROGRESS BAR": {
 							if (dasDIY.isLookingForNetworkConnectionProgressBarVisible()) {

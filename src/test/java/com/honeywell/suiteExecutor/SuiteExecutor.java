@@ -12,35 +12,49 @@ public class SuiteExecutor {
 				// "aterbuild:aterbuild@123",
 				"--useXCUITest", "true", 
 				//"--deviceCloudProviderCredentials", "PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.lalseta@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
-				"--appToInstall", "Android:400000043,IOS:43", 
+				"--appToInstall", "Android:400000054,IOS:57", 
 				"--groups", 
-				//"DIYSmartHomeSecurityOptionInAddNewDevice",
+				
 				//"DIYCancelSetUp",
-				//"DIYDenyAppAccessToLocationServices",
-				//"DIYWhenNoBaseStationsAreAvailable",
 				//"DIYCancelSetUpInRegisterBaseStation",
 				//"DIYWhenQRCodeIsNotScanned",
+				//"DIYCancelSetUpInConnectToNetworkScreen",
+				//"DIYInvalidWiFiPassword",
 				//"DIYWhenInvalidQRCodeIsScanned",
+				
+				//"DIYRegistrationWhenSingleBaseStationIsAvailable",
+				//"DIYRegistrationWithNewLocationAndBaseStationName",
+				//"DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork",
+				//"DIYRegistrationByNavigatingToOtherApps",
+				//"DIYTryToReRegisterDAS",
+				//"DIYDeleteExistingDASAndRegisterIt",
+				
+				//Add sensor and enabling geofencing scenario
+				"DIYRegistrationWithAddSensorAndEnableGeoFencing",
+				
+				//No base station should be available for the following scenario
+				//"DIYWhenNoBaseStationsAreAvailable",
+				
+				//Following scenarios require Multiple base stations
 				//"DIYRefreshBaseStationsList",
+				//"DIYMultipleDASRegistrationsForTheSameAccount",
+				
+				//Invalid scenario, as UI is changed
+				//"DIYSmartHomeSecurityOptionInAddNewDevice",
+				
+				//Following scenarios require SetUp
+				//"DIYAddAWiFiNetwork",
+				//"DIYConnectingToOpenWiFiNetwork",
+				
+				//Following scenarios are not automatable
+				//"DIYDenyAppAccessToLocationServices",
 				//"DIYDisconnectDASDevice",
 				//"DIYTimeoutInDASDevice",
 				//"DIYTurnOffMobileDeviceBluetooth",
-				//"DIYCancelSetUpInConnectToNetworkScreen",
 				//"DIYMoveAwayFromDASDeviceAfterScanningQRCode",
-				//"DIYAddAWiFiNetwork",
-				//"DIYInvalidWiFiPassword",
-				//"DIYRegistrationWhenSingleBaseStationIsAvailable",
-				//"DIYRegistrationWithNewLocationAndBaseStationName",
-				//"DIYRegistrationWithSensorsGeoFencingOnAndAlexaConnect",
-				//"DIYMultipleDASRegistrationsForTheSameAccount",
-				//"DIYRegistrationByReceivingCallsAndMsgs",
-				"DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork",
-				//"DIYConnectingToOpenWiFiNetwork",
-				//"DIYRegistrationByNavigatingToOtherApps",
-				//"DIYTryToReRegisterDAS",
 				//"DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS",
 				//"DIYTryToReRegisterDASWhenDASIsOffline",
-				//"DIYDeleteExistingDASAndRegisterIt",
+				//"DIYRegistrationByReceivingCallsAndMsgs",
 				};
 
 		//commandLineArguments = new String[] {"--help"};
