@@ -92,7 +92,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 						"DELETING LOCATION PROGRESS BAR", 1);
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
-				if (d.isAddDeviceIconVisible(10) || d.isAddDeviceIconBelowExistingDASDeviceVisible(10)) {
+				if (d.isAddDeviceIconVisible(1) || d.isAddDeviceIconBelowExistingDASDeviceVisible(1)) {
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, "Dashboard screen is dispalyed");
 				} else {

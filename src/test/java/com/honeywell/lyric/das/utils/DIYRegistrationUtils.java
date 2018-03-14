@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
 import com.honeywell.CHIL.CHILUtil;
-import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -29,6 +28,7 @@ import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.account.information.LocationInformation;
 
 public class DIYRegistrationUtils {
 
