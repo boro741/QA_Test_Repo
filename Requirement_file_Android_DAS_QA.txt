@@ -9,3 +9,4 @@ Include Group	Group Name	Combine	Platform-Type-OS-Version	Name	Location	Environm
 	VerifyNoKeyfobsAndSensors		Android-Device-Android-.*	.*	PCloudy	CHIL INT (AZURE)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_DEV,DAS'"
 	EnableDisableGeofencing		Android-Device-Android-.*	.*	PCloudy	CHIL INT (AZURE)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_DEV,DAS'"
 	VideoSettingsDisabled		Android-Device-Android-.*	.*	PCloudy	CHIL INT (AZURE)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_DEV,DAS'"
+	VerifyVideoSettings		Android-Device-Android-.*	.*	PCloudy	CHIL INT (AZURE)	"AcquisitionType=Automatic, Tags='SINGLE_LOCATION_SINGLE_DEVICE,CHIL_DAS_DEV,DAS'"
