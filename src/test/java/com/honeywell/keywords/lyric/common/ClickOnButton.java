@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.common;
+ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
@@ -53,8 +53,8 @@ public class ClickOnButton extends Keyword {
 					if (zs.isFixAllEnabled()) {
 						zs.clickOnFixAll();
 						zs.clickOnFixAllPopupCancel();
-						zs.clickOnFixAll();
-						zs.clickOnFixAllPopupConfirm();
+						zs.clickOnFixAll(); 
+						zs.clickOnFixAllPopupConfirm(); 
 						zs.clickOnFixAllPopupAccept();
 					} else {
 						Keyword.ReportStep_Pass(testCase, "No device found to be offline");

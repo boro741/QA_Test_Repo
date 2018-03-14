@@ -41,7 +41,7 @@ FixAllProgress	Xpath	//*[@text='Fix All in progress.']					NAME	Fix All process 
 FixAllRequestFailed							NAME	Request Failed!				
 FixAllAcceptResult							NAME	OK				
 SwitchRenameField	ID	zwave_edit_name					Xpath	"//*[contains(@value,'Switch')]"				
-SwitchSettingsStatus	ID	zwave_status_value										
+SwitchSettingsStatus	ID	zwave_status_value					NAME	Status_value				
 ToggleStatusProgress	Xpath	//*[@text='Please wait.']					NAME	Please wait…				
 SwitchStatusToggle	ID	settings_switch					NAME	Status_toggle				
 FetchingControllerDetails							NAME	Fetching Z-Wave Controller details				
@@ -66,7 +66,7 @@ CancelDeviceRemovalButton	Xpath	//*[@text='Cancel']					NAME	CANCEL	NAME	CANCEL	
 ConfirmDeviceRemovalButton	Xpath	//*[@text='OK']					NAME	OK	NAME	OK	NAME	OK
 NavigateBack	Xpath	"//*[contains(@content-desc,'Navigate Up')]"					NAME	Back				
 ExcludedSuccessPopupTitle	Xpath	"//*[contains(@text,'excluded')]"					NAME	Z-Wave Exclusion				
-ExcludedSuccessPopupMessage	Xpath	"//*[contains(@text,'successfully')]"					Xpath	"//*[contains(@value,'is excluded successfully')]"				
+ExcludedSuccessPopupMessage	Xpath	"//*[contains(@text,'successfully')]"					Xpath	"//*[contains(@value,'successfully')]"				
 DeletedSuccessPopupTitle	Xpath	"//*[contains(@text,'Removed')]"					NAME	Z-Wave Exclusion				
 DeletedSuccessPopupMessage	Xpath	"//*[contains(@text,'Removed successfully')]"					Xpath	"//*[contains(@value,'is excluded successfully')]"				
 AckExcludedPopup	Xpath	//*[@text='OK']					Xpath	"//*[contains(@value,'is excluded successfully')]"				

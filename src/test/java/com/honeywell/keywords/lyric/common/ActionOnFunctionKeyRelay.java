@@ -1,8 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.screens.ZwaveScreen;
 
 public class ActionOnFunctionKeyRelay extends Keyword {
 
@@ -37,22 +36,72 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 	@KeywordStep(gherkins = "^user (.*) the (.*) function key$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if(deviceType.get(0).equalsIgnoreCase("activates")){
+			if(deviceType.get(0).equalsIgnoreCase("activates for discovery")){
+				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				int i=0;
 				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
-					Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
-					ZWaveRelayUtils.powerOnZwaveSwitch(inputs);
-					ZWaveRelayUtils.enrollZwaveSwitch1();
-					TimeUnit.SECONDS.sleep(2);
-					ZWaveRelayUtils.pressButtonOnSwitch1();
+					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
+						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
+						i++;
+						if(zScreen.isDeviceNotFoundPopupDisplayed(10)){
+							zScreen.clickRetryOnDeviceNotFoundPopUp();
+							zScreen.isActivateZwaveScreenDisplayed();
+						}
+					}
+					while(i<3 && !zScreen.isNamingFieldDisplayed(10) && zScreen.isActivateZwaveScreenDisplayed() );
+
+				}	else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
+					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
+						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
+						i++;
+						if(zScreen.isDeviceNotFoundPopupDisplayed(10)){
+							zScreen.clickRetryOnDeviceNotFoundPopUp();
+							zScreen.isActivateZwaveScreenDisplayed();
+						}
+					}while(i<3 && !zScreen.isNamingFieldDisplayed(10) && zScreen.isActivateZwaveScreenDisplayed());
 				}
-				else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
-					Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
-					ZWaveRelayUtils.powerOnZwaveDimmer(inputs);
-					ZWaveRelayUtils.enrollZwaveDimmer1();
-					TimeUnit.SECONDS.sleep(2);
-					ZWaveRelayUtils.pressButtonOnDimmer1();
+			}
+			else if(deviceType.get(0).equalsIgnoreCase("activates for exclusion")){
+				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				int i=0;
+				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
+					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
+						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
+						i++;
+					}
+					while(i<3 && !zScreen.isExcludedSuccessPopupMessageDisplayed(10) && zScreen.isExcludeZwaveScreenDisplayed());
+
+				}	else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
+					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
+						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
+						i++;
+					}while(i<3 && !zScreen.isExcludedSuccessPopupMessageDisplayed(10) && zScreen.isExcludeZwaveScreenDisplayed());
 				}
-			}else if(deviceType.get(0).equalsIgnoreCase("does not activate")){
+			}
+			else if(deviceType.get(0).equalsIgnoreCase("activates for replacement")){
+				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				int i=0;
+				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
+					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
+						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
+						i++;
+					}
+					while(i<3 && !zScreen.isReplaceScreenDisplayed() && zScreen.isReplaceScreenMessageDisplayed());
+
+				}	else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
+					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
+						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
+						i++;
+					}while(i<3 && !zScreen.isReplaceScreenDisplayed() && zScreen.isReplaceScreenMessageDisplayed());
+				}
+			}
+			else if(deviceType.get(0).equalsIgnoreCase("does not activate")){
 				DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
 			}else if(deviceType.get(0).equalsIgnoreCase("disconnects")){
 				if (deviceType.get(1).equalsIgnoreCase("Switch power")) {

@@ -92,7 +92,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SWITCH PRIMARY CARD": {
-					DASZwaveUtils.navigateToSwitchPrimaryCardFromSwitchSettings(testCase, inputs);
+					DASZwaveUtils.navigateToPrimaryCardFromSettings(testCase);
 					break;
 				}
 				case "DASHBOARD": {
@@ -107,7 +107,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DIMMER PRIMARY CARD": {
-					DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
+					DASZwaveUtils.navigateToDimmerPrimaryCardFromDimmerSettings(testCase);
 					break;
 				}
 				case "DASHBOARD": {
@@ -146,10 +146,12 @@ public class NavigateToScreen extends Keyword {
 					DASZwaveUtils.navigateToControllerDetailsFromDashboard(testCase);
 					break;
 				}
+				case "GENERAL INCLUSION THROUGH ZWAVE PRIMARY CARD":
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
 				}
+				case "GENERAL EXCLUSION THROUGH ZWAVE PRIMARY CARD":
 				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					DASZwaveUtils.navigateToGeneralExclusionFromDashboard(testCase);
 					break;
@@ -395,7 +397,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ADD NEW DEVICE DASHBOARD": {
 					AddNewDeviceScreen addNewDevice = new AddNewDeviceScreen(testCase);
-					flag = flag & addNewDevice.isAddNewDeviceHeaderDisplayed();
+					flag = flag & addNewDevice.isAddNewDeviceHeaderDisplayed(30);
 					break;
 				}
 				}
