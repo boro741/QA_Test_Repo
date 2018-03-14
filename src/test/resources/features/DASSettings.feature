@@ -316,6 +316,7 @@ Feature: DAS Settings
   @EnableDisableGeofencing @UIAutomated
   Scenario: As a user I should be able to enable or disable geofencing on my DAS Panel account   
     Given "location" geofencing is "enabled" on the user account through CHIL
+    And user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
       And user changes the "Geofencing Status" to "ON"
@@ -328,6 +329,7 @@ Feature: DAS Settings
   @VideoSettingsDisabled @UIAutomated
   Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off 
     Given user DAS camera is set to "off" through CHIL
+    And user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Video Settings" screen from the "Dashboard" screen
      Then the following "Video Settings" options should be disabled:
@@ -353,6 +355,7 @@ Feature: DAS Settings
   @VerifyVideoSettings @UIAutomated
   Scenario: As a user I should be able to access DAS camera settings
     Given user DAS camera is set to "on" through CHIL
+    And user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
      When user navigates to "Video Settings" screen from the "Dashboard" screen
      Then user should be displayed with the following "Video Settings" options: 

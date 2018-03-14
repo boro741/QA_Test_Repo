@@ -383,7 +383,7 @@ public class NavigateToScreen extends Keyword {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dashboard d = new Dashboard(testCase);
 					int counter = 0;
-					while (bs.isBackButtonVisible() && !d.areDevicesVisibleOnDashboard() && counter < 4) {
+					while (bs.isBackButtonVisible(5) && !d.areDevicesVisibleOnDashboard() && counter < 4) {
 						flag = flag & bs.clickOnBackButton();
 						counter++;
 					}
