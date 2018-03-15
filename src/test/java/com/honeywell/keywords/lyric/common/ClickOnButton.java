@@ -51,11 +51,11 @@ public class ClickOnButton extends Keyword {
 				case "FIX ALL": {
 					ZwaveScreen zs = new ZwaveScreen(testCase);
 					if (zs.isFixAllEnabled()) {
-						zs.clickOnFixAll();
-						zs.clickOnFixAllPopupCancel();
-						zs.clickOnFixAll(); 
-						zs.clickOnFixAllPopupConfirm(); 
-						zs.clickOnFixAllPopupAccept();
+						flag = flag & zs.clickOnFixAll();
+						flag = flag & zs.clickOnFixAllPopupCancel();
+						flag = flag & zs.clickOnFixAll(); 
+						flag = flag & zs.clickOnFixAllPopupConfirm(); 
+						flag = flag & zs.clickOnFixAllPopupAccept();
 					} else {
 						Keyword.ReportStep_Pass(testCase, "No device found to be offline");
 					}

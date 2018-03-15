@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -72,7 +71,45 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & zwaveScreen.clickOnReplacedSuccessfullyMessageAck();
 			break;
 		}
-		case "SWITCH DELETED SUCCESSFULLY": {
+
+		case "DIMMER DELETED SUCCESSFULLY":{
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			if(DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)){
+				return true;
+			}else
+				if(zwaveScreen.isDeviceNotFoundPopupDisplayed()){
+					zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
+					zwaveScreen.ClickDeleteFromSettings();
+					zwaveScreen.clickOkOnRemoveDevicePopUp();
+					zwaveScreen.isExcludeZwaveScreenDisplayed();
+					try {
+						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
+			break;
+
+		}
+		case "SWITCH DELETED SUCCESSFULLY":{
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			if(DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)){
+				return true;
+			}else
+				if(zwaveScreen.isDeviceNotFoundPopupDisplayed()){
+					zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
+					zwaveScreen.ClickDeleteFromSettings();
+					zwaveScreen.clickOkOnRemoveDevicePopUp();
+					zwaveScreen.isExcludeZwaveScreenDisplayed();
+					try {
+						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
 			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
 			break;
 		}
@@ -107,13 +144,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "CANCEL SETUP": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if (dasDIY.isCancelPopupVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
-				return flag;
-			}
+ 			if (dasDIY.isCancelPopupVisible()) {
+ 				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
+ 			} else {
+ 				flag = false;
+ 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+ 				return flag;
+ 			}
 			break;
 		}
 		case "INVALID ZIP CODE": {
@@ -129,18 +166,16 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 		case "SCANNING FAILURE": {
-
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isQRCodeScanningFailurePopupVisible();
 			break;
 		}
 		case "WI-FI CONNECTION FAILED": {
-
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
-		
+
 		case "NEW TO LYRIC CAMERA" : {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;

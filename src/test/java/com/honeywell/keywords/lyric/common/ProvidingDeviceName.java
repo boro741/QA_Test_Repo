@@ -12,9 +12,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
-import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.ZwaveScreen;
 
 public class ProvidingDeviceName extends Keyword {
@@ -55,11 +53,11 @@ public class ProvidingDeviceName extends Keyword {
 					}
 				}
 				if(zwaveScreen.isNamingFieldDisplayed()){
-					zwaveScreen.setNameToSwitch(parameters.get(1));
+					flag = flag & zwaveScreen.setNameToSwitch(parameters.get(1));
 					if(testCase.getPlatform().toUpperCase().contains("IOS")){
-						zwaveScreen.saveNameToSwitchOnIOS();
+						flag = flag & zwaveScreen.saveNameToSwitchOnIOS();
 					}else{
-						zwaveScreen.saveNameToSwitchOnAndroid();
+						flag = flag & zwaveScreen.saveNameToSwitchOnAndroid();
 					}
 				}else{
 					flag = false;
@@ -67,10 +65,9 @@ public class ProvidingDeviceName extends Keyword {
 				}
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isIncreaseSecurityPopupVisible()) {
-					if (dasDIY.isIncreaseSecurityPopupVisible()) {
-						dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
-					}
+					flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 				}
+
 				break;
 			}
 			default: {

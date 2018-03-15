@@ -45,15 +45,15 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 				Dashboard dScreen = new Dashboard(testCase);
 				f=dScreen.isDevicePresentOnDashboard("Switch1")||dScreen.isDevicePresentOnDashboard("Switch 001")||dScreen.isDevicePresentOnDashboard("Switch2");
 				if(f){
-					DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
+					flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					zwaveScreen.ClickDeleteFromSettings();
+					flag = flag & zwaveScreen.ClickDeleteFromSettings();
 					zwaveScreen.isRemoveDevicePopUpDisplayed();
-					DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
-					DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
-					DASZwaveUtils.activateZwaveSwitch(testCase,inputs);
-					zwaveScreen.clickOKOnDeviceExcludedPopUp();
-					DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
+					flag = flag & DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
+					flag = flag & DASZwaveUtils.activateZwaveSwitch(testCase,inputs);
+					flag = flag & zwaveScreen.clickOKOnDeviceExcludedPopUp();
+					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 				}else{
 					Keyword.ReportStep_Pass(testCase,
 							"No switch found");
@@ -65,15 +65,15 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 				Dashboard dScreen = new Dashboard(testCase);
 				f=dScreen.isDevicePresentOnDashboard("Dimmer1")||dScreen.isDevicePresentOnDashboard("Dimmer 001")||dScreen.isDevicePresentOnDashboard("Dimmer2");
 				if(f){
-					DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
+					flag = flag & DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					zwaveScreen.ClickDeleteFromSettings();
+					flag = flag & zwaveScreen.ClickDeleteFromSettings();
 					zwaveScreen.isRemoveDevicePopUpDisplayed();
-					DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
+					flag = flag & DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
 					DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
 					DASZwaveUtils.activateZwaveDimmer(testCase,inputs);
-					zwaveScreen.clickOKOnDeviceExcludedPopUp();
-					DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & zwaveScreen.clickOKOnDeviceExcludedPopUp();
+					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 				}else{
 					Keyword.ReportStep_Pass(testCase,
 							"No Dimmer found");
@@ -85,15 +85,15 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 				Dashboard dScreen = new Dashboard(testCase);
 				f=dScreen.isDevicePresentOnDashboard("Dimmer1")||dScreen.isDevicePresentOnDashboard("Dimmer 001")||dScreen.isDevicePresentOnDashboard("Dimmer2");
 				if(f){
-					DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
+					flag = flag & DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					zwaveScreen.ClickDeleteFromSettings();
-					zwaveScreen.isRemoveDevicePopUpDisplayed();
-					DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
-					DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
+					flag = flag & zwaveScreen.ClickDeleteFromSettings();
+					flag = flag & zwaveScreen.isRemoveDevicePopUpDisplayed();
+					flag = flag & DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
+					flag = flag & DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
 					DASZwaveUtils.activateZwaveDimmer(testCase,inputs);
-					zwaveScreen.clickOKOnDeviceExcludedPopUp();
-					DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & zwaveScreen.clickOKOnDeviceExcludedPopUp();
+					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 				}else{
 					Keyword.ReportStep_Pass(testCase,
 							"No Dimmer found");
@@ -102,15 +102,15 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 				f = false;
 				f=dScreen.isDevicePresentOnDashboard("Switch1")||dScreen.isDevicePresentOnDashboard("Switch 001")||dScreen.isDevicePresentOnDashboard("Switch2");
 				if(f){
-					DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
+					flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					zwaveScreen.ClickDeleteFromSettings();
-					zwaveScreen.isRemoveDevicePopUpDisplayed();
-					DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
-					DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
+					flag = flag & zwaveScreen.ClickDeleteFromSettings();
+					flag = flag & zwaveScreen.isRemoveDevicePopUpDisplayed();
+					flag = flag & DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
+					flag = flag & DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
 					DASZwaveUtils.activateZwaveSwitch(testCase,inputs);
-					zwaveScreen.clickOKOnDeviceExcludedPopUp();
-					DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & zwaveScreen.clickOKOnDeviceExcludedPopUp();
+					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 				}else{
 					Keyword.ReportStep_Pass(testCase,
 							"No switch found");

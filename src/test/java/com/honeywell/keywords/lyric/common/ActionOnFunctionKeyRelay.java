@@ -45,8 +45,8 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
 						i++;
 						if(zScreen.isDeviceNotFoundPopupDisplayed(10)){
-							zScreen.clickRetryOnDeviceNotFoundPopUp();
-							zScreen.isActivateZwaveScreenDisplayed();
+							flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
+							flag = flag & zScreen.isActivateZwaveScreenDisplayed();
 						}
 					}
 					while(i<3 && !zScreen.isNamingFieldDisplayed(10) && zScreen.isActivateZwaveScreenDisplayed() );
@@ -57,8 +57,8 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
 						i++;
 						if(zScreen.isDeviceNotFoundPopupDisplayed(10)){
-							zScreen.clickRetryOnDeviceNotFoundPopUp();
-							zScreen.isActivateZwaveScreenDisplayed();
+							flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
+							flag = flag & zScreen.isActivateZwaveScreenDisplayed();
 						}
 					}while(i<3 && !zScreen.isNamingFieldDisplayed(10) && zScreen.isActivateZwaveScreenDisplayed());
 				}
