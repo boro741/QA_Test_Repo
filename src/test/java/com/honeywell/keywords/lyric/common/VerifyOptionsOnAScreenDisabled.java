@@ -67,13 +67,13 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Volume Delay Option is disabled");
 						}
-					} else if (fieldTobeVerified.equalsIgnoreCase("Base Station Wi-Fi")) {
+					} else if (fieldTobeVerified.equalsIgnoreCase("Reset Wi-Fi")) {
 						if (bs.isElementEnabled(BaseStationSettingsScreen.RESETWIFI)) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Base Station Wi-Fi Option is enabled");
+									"Reset Wi-Fi Option is enabled");
 						} else {
-							Keyword.ReportStep_Pass(testCase, "Base Station Wi-Fi Option is disabled");
+							Keyword.ReportStep_Pass(testCase, "Reset Wi-Fi Option is disabled");
 						}
 					}
 				} catch (Exception e) {

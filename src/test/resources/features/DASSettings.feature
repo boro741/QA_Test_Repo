@@ -4,7 +4,7 @@ Feature: DAS Settings
   
   #LYDAS-7075,LYDAS-4088,LYDAS-4058,LYDAS-4011,LYDAS-3294,LYDAS-3271,LYDAS-3116,LYDAS-2982,LYDAS-2808,LYDAS-2610,LYDAS-2563,LYDAS-2497,LYDAS-2408,LYDAS-2404,LYDAS-2231,LYDAS-2167
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DeleteBaseStation @UIAutomated
+  @DeleteBaseStation @UIAutomated @--xrayid:ATER-23183
   Scenario: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application 
@@ -15,7 +15,7 @@ Feature: DAS Settings
   
   #LYDAS-3398,LYDAS-3270,LYDAS-2770
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyDASSettings @UIAutomated
+  @VerifyDASSettings @UIAutomated @--xrayid:ATER-23186
   Scenario: As a user I want to verify that all DAS Settings options are available to me 
     Given user launches and logs in to the Lyric application 
      When user navigates to "Security Settings" screen from the "Dashboard" screen 
@@ -36,7 +36,7 @@ Feature: DAS Settings
   
   #LYDAS-4216,LYDAS-3376,LYDAS-3244,LYDAS-2660,LYDAS-2403,LYDAS-2380,LYDAS-2360,LYDAS-2149,LYDAS-3440
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DASEntryExitDelaySettings @UIAutomated 
+  @DASEntryExitDelaySettings @UIAutomated @--xrayid:ATER-23190
   Scenario: As user I want to verify if entry exit delay time displayed on settings and user can update the value 
     Given user is set to "Home" mode through CHIL 
       And user launches and logs in to the Lyric application 
@@ -87,7 +87,7 @@ Feature: DAS Settings
   
   #LYDAS-7040,LYDAS-2508,LYDAS-2337
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @RenameDASBaseStation @UIAutomated
+  @RenameDASBaseStation @UIAutomated @--xrayid:ATER-23191
   Scenario: As a user I want to rename my Base station through the application 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -156,7 +156,7 @@ Feature: DAS Settings
   
   #LYDAS-4099,LYDAS-3633,LYDAS-3469,LYDAS-3419,LYDAS-2411
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyDASPanelModelAndFirmwareDetails @UIAutomated
+  @VerifyDASPanelModelAndFirmwareDetails @UIAutomated @--xrayid:ATER-23195
   Scenario: As a user I want to view that all model, firmware and panel details 
     Given user launches and logs in to the Lyric application 
      When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -172,7 +172,7 @@ Feature: DAS Settings
       | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DASSettingsDisabled @UIAutomated
+  @DASSettingsDisabled @UIAutomated @--xrayid:ATER-23199
   Scenario: As a user I should not be allowed to change DAS settings when I am not home 
     Given user sets the entry/exit timer to "15" seconds 
       And user is set to "Away" mode through CHIL 
@@ -183,11 +183,11 @@ Feature: DAS Settings
       | Geofencing         |
       | Entry/Exit Delay   | 
       | Volume             |
-      | Base Station Wi-Fi | 
+      | Reset Wi-Fi        | 
   
   #LYDAS-3196
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyNoKeyfobsAndSensors @UIAutomated
+  @VerifyNoKeyfobsAndSensors @UIAutomated @--xrayid:ATER-23200
   Scenario: As a user I should not be displayed with Keyfobs or Sensors if I have not configured any keyfobs to my account
     Given user launches and logs in to the Lyric application
      When user navigates to "keyfob" screen from the "Dashboard" screen
@@ -196,7 +196,7 @@ Feature: DAS Settings
      Then user should not be displayed with "sensors" on the "sensors" screen
   
   #Requirements: Single Location Single DAS Device, Atleast 1 Sensor & Atleast 1 Keyfob Required
-  @VerifyDisplayedKeyfobsAndSensors @UIAutomated
+  @VerifyDisplayedKeyfobsAndSensors @UIAutomated 
   Scenario: As a user I should be displayed with all my sensors and keyfobs
     Given user launches and logs in to the Lyric application
      When user navigates to "Keyfob" screen from the "Dashboard" screen
@@ -228,7 +228,7 @@ Feature: DAS Settings
       | Firmware Details | 
   
   #Requirements: Single Location Single DAS Device, 1 Sensor Required
-  @RenameSensors @UIAutomated
+  @RenameSensors @UIAutomated 
   Scenario: As a user I should be able to rename the sensors configured on my account
     Given user launches and logs in to the Lyric application
      When user navigates to "Sensor Settings" screen from the "Dashboard" screen
@@ -248,7 +248,7 @@ Feature: DAS Settings
      And user "dismisses" the "Delete Sensor Confirmation" popup
   
   #Requirements: Single Location Single DAS Device, 1 Keyfob Required
-  @RenameKeyfob @UIAutomated
+  @RenameKeyfob @UIAutomated 
   Scenario: As a user I should be able to rename the keyfobs configured on my account
     Given user launches and logs in to the Lyric application
      When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
@@ -258,7 +258,7 @@ Feature: DAS Settings
       And user reverts back the "Keyfob Name" through CHIL
   
   #Requirements: Single Location Single DAS Device, 1 Keyfob Required
-  @DeleteKeyfob @UIAutomated
+  @DeleteKeyfob @UIAutomated 
   Scenario: As a user I should be able to delete Keyfob configured to my DAS panel from my account through the Lyric application 
     Given user is set to "Home" mode through CHIL 
       And user launches and logs in to the Lyric application 
@@ -268,7 +268,7 @@ Feature: DAS Settings
      And user "dismisses" the "Delete Keyfob Confirmation" popup
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @ChangeBaseStationVolume @UIAutomated
+  @ChangeBaseStationVolume @UIAutomated @--xrayid:ATER-23201
   Scenario: As a user I should be able to change the base station volume
     Given user is set to "Home" mode through CHIL 
     And user launches and logs in to the Lyric application
@@ -313,7 +313,7 @@ Feature: DAS Settings
      Then user should be displayed with the "Alexa app download page" screen
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @EnableDisableGeofencing @UIAutomated
+  @EnableDisableGeofencing @UIAutomated @--xrayid:ATER-23203
   Scenario: As a user I should be able to enable or disable geofencing on my DAS Panel account   
     Given "location" geofencing is "enabled" on the user account through CHIL
     And user is set to "Home" mode through CHIL
@@ -326,7 +326,7 @@ Feature: DAS Settings
   
   #LYDAS-6820,LYDAS-6890,LYDAS-3596
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VideoSettingsDisabled @UIAutomated
+  @VideoSettingsDisabled @UIAutomated @--xrayid:ATER-23204
   Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off 
     Given user DAS camera is set to "off" through CHIL
     And user is set to "Home" mode through CHIL
@@ -352,7 +352,7 @@ Feature: DAS Settings
      Then user receives a "Ensure camera is turned on" toast message
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyVideoSettings @UIAutomated
+  @VerifyVideoSettings @UIAutomated @--xrayid:ATER-23205
   Scenario: As a user I should be able to access DAS camera settings
     Given user DAS camera is set to "on" through CHIL
     And user is set to "Home" mode through CHIL
