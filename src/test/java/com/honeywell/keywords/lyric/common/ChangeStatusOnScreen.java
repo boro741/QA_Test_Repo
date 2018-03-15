@@ -161,14 +161,14 @@ public class ChangeStatusOnScreen extends Keyword {
 					try {
 						ZWaveRelayUtils.powerOffZwaveSwitch(inputs);
 						ZwaveScreen zs=new ZwaveScreen(testCase);
-						zs.ClickSwitchSettingFromZwaveUtilities();
+						flag = flag & zs.ClickSwitchSettingFromZwaveDevices();
 						int i=0;
 						while(i<3 && zs.verifyPresenceOfSwitchStatus()){
-							zs.clickOffStatus();
-							DASZwaveUtils.waitForToggleActionToComplete(testCase);
+							flag = flag & zs.clickOffStatus();
+							flag = flag & DASZwaveUtils.waitForToggleActionToComplete(testCase);
 							i++;
 						}
-						DASZwaveUtils.clickNavigateUp(testCase);
+						flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -212,14 +212,14 @@ public class ChangeStatusOnScreen extends Keyword {
 					try {
 						ZWaveRelayUtils.powerOffZwaveDimmer(inputs);
 						ZwaveScreen zs=new ZwaveScreen(testCase);
-						zs.ClickDimmerSettingFromZwaveUtilities();
+						flag = flag & zs.ClickDimmerSettingFromZwaveUtilities();
 						int i=0;
 						while(i<3 && zs.verifyPresenceOfSwitchStatus()){
-							zs.clickOffStatus();
-							DASZwaveUtils.waitForToggleActionToComplete(testCase);
+							flag = flag & zs.clickOffStatus();
+							flag = flag & DASZwaveUtils.waitForToggleActionToComplete(testCase);
 							i++;
 						}
-						DASZwaveUtils.clickNavigateUp(testCase);
+						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is made to "+expectedScreen.get(1) );
 					} catch (Exception e) {
 						e.printStackTrace();

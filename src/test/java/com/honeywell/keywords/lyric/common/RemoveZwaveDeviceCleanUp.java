@@ -43,20 +43,27 @@ public class RemoveZwaveDeviceCleanUp extends Keyword {
 			case "SWITCH1": {
 				boolean f = false;
 				Dashboard dScreen = new Dashboard(testCase);
-				f=dScreen.isDevicePresentOnDashboard("Switch1")||dScreen.isDevicePresentOnDashboard("Switch 001")||dScreen.isDevicePresentOnDashboard("Switch2");
-				if(f){
-					flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
-					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					flag = flag & zwaveScreen.ClickDeleteFromSettings();
-					zwaveScreen.isRemoveDevicePopUpDisplayed();
-					flag = flag & DASZwaveUtils.clickOKOnDeviceExcludedPopUp(testCase);
-					flag = flag & DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
-					flag = flag & DASZwaveUtils.activateZwaveSwitch(testCase,inputs);
-					flag = flag & zwaveScreen.clickOKOnDeviceExcludedPopUp();
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-				}else{
-					Keyword.ReportStep_Pass(testCase,
-							"No switch found");
+				for (int i =0; i<3;i++){
+					f=dScreen.isDevicePresentOnDashboard("Switch1")||dScreen.isDevicePresentOnDashboard("Switch 001")||dScreen.isDevicePresentOnDashboard("Switch2");
+					if(f){
+						flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
+						ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+						flag = flag & zwaveScreen.ClickDeleteFromSettings();
+						flag = flag & zwaveScreen.isRemoveDevicePopUpDisplayed();
+						flag = flag & DASZwaveUtils.clickOkOnRemoveDevicePopUp(testCase, inputs);
+						flag = flag & DASZwaveUtils.waitForEnteringExclusionToComplete(testCase);
+						flag = flag & DASZwaveUtils.activateZwaveSwitch(testCase,inputs);
+						flag = flag & zwaveScreen.clickOKOnDeviceExcludedPopUp();
+						if(testCase.getPlatform().contains("IOS")){
+							flag = flag & DASZwaveUtils.navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
+							flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+							flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
+						}
+					}else{
+						Keyword.ReportStep_Pass(testCase,
+								"No switch found");
+						break;
+					}
 				}
 				break;
 			}

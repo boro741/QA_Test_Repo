@@ -96,17 +96,17 @@ public class EditDeviceName extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("Switch")||parameters.get(0).equalsIgnoreCase("Dimmer")) {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if (zwaveScreen.isEditNamingFieldDisplayed()) {
-					zwaveScreen.editNameToSwitch(parameters.get(1));
+					flag = flag & zwaveScreen.editNameToSwitch(parameters.get(1));
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						zwaveScreen.saveEditedNameToSwitch();
+						flag = flag & zwaveScreen.saveEditedNameToSwitch();
 						inputs.setInputValue("DEVICE_NAME_TO_REVERT",parameters.get(1));
 					} else {
-						zwaveScreen.saveEditedNameToSwitchOnAndroid();
+						flag = flag & zwaveScreen.saveEditedNameToSwitchOnAndroid();
 						inputs.setInputValue("DEVICE_NAME_TO_REVERT",parameters.get(1));
 						if(parameters.get(0).equalsIgnoreCase("Switch")){
-							zwaveScreen.ClickSwitchSettingFromZwaveUtilities();
+							flag = flag & zwaveScreen.ClickSwitchSettingFromZwaveDevices();
 						}else if(parameters.get(0).equalsIgnoreCase("Dimmer")){
-							zwaveScreen.ClickDimmerSettingFromZwaveUtilities();
+							flag = flag & zwaveScreen.ClickDimmerSettingFromZwaveUtilities();
 						}
 					}
 				}else{

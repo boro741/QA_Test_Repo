@@ -5,12 +5,23 @@ As a user I want to control all devices using ZWave technology
 Background:
 Given user is set to "Home" mode through CHIL 
 
-
+ @GeneralExcludeZwaveSwitch @UIAutomated
+  Scenario: (ZwaveTC_Set1_1) As a user I should be able to exclude a zwave switch through General exclusion in the application
+      Given user launches and logs in to the Lyric application
+     When user navigates to "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION" screen from the "Dashboard" screen
+     Then user should be displayed with the "Exclusion Mode Active" screen
+     When user "activates for exclusion" the "switch" function key
+     Then user should receive a "Switch Excluded Successfully" popup
+     When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
+      And user should be displayed with the "Z-Wave Utilities" screen
+     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
+     Then user should not be displayed with "Switch1" device on the "dashboard" screen
+     
 @DimmerExcludeFromAddDevice
- Scenario: (ZwaveTC_A) As a user I can exclude my zwave device from No device found popup and can include
+ Scenario: (ZwaveTC_Set1_2) As a user I can exclude my zwave device from No device found popup and can include
   #switch already configured
     Given user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #timeout
      When user "does not activate" the "dimmer" function key
@@ -20,11 +31,13 @@ Given user is set to "Home" mode through CHIL
       And user "activates for exclusion" the "dimmer" function key
      Then user should receive a "Dimmer Excluded Successfully" popup
      
+    
+     
  @AddNewDeviceInclusionNoDeviceFound @UIAutomated
-  Scenario: (ZwaveTC_Set1_1) As a user I should be displayed no device popup when there is no zwave device available to add 
+  Scenario: (ZwaveTC_Set1_3) As a user I should be displayed no device popup when there is no zwave device available to add 
   #atleast 1 das
       And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #timeout
      When user "does not activate" the "switch" function key
@@ -46,10 +59,10 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with the "Add new device" screen
 
    @AddNewDeviceIncludeZwaveSwitch @UIAutomated @LYDAS-5209 @LYDAS-6587
-  Scenario: (ZwaveTC_Set1_2) As a user I want to include a zwave switch through the Add new device flow in application
+  Scenario: (ZwaveTC_Set1_4) As a user I want to include a zwave switch through the Add new device flow in application
     Given user launches and logs in to the Lyric application 
       And user has no "switch1"
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates for discovery" the "switch" function key
       And user names the "switch" to "Switch1"
@@ -57,10 +70,10 @@ Given user is set to "Home" mode through CHIL
   # Then user receives a "Zwave device added" activity log
   
   @DeviceFoundAfterExclude @UIAutomated 
-  Scenario: (ZwaveTC_Set1_3) As a user I can exclude my zwave device from No device found popup and can include
+  Scenario: (ZwaveTC_Set1_5) As a user I can exclude my zwave device from No device found popup and can include
   #switch already configured
     Given user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #timeout
      When user "does not activate" the "switch" function key
@@ -76,7 +89,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Switch1" device on the "dashboard" screen
      
    @ToggleZwaveSwitchThroughPrimaryCard @UIAutomated @LYDAS-4594
-  Scenario: (ZwaveTC_Set1_4) As a user I should be able to control my zwave switch to different states from primary card screen
+  Scenario: (ZwaveTC_Set1_6) As a user I should be able to control my zwave switch to different states from primary card screen
       And user launches and logs in to the Lyric application
     Given user turns "off" the "Switch" through the "Z-Wave device function key"
      When user navigates to "Switch Primary card" screen from the "Dashboard" screen
@@ -109,22 +122,23 @@ Given user is set to "Home" mode through CHIL
       And user should see the "Switch" status as "off" on the "Switch Primary card"
    
    @StatusChangeOfSwitchFromSettings @UIAutomated
-  Scenario: (ZwaveTC_Set1_5) As a user i should be able to control my zwave switch to different states from the settings screen
-      And user launches and logs in to the Lyric application
+  Scenario: (ZwaveTC_Set1_7) As a user i should be able to control my zwave switch to different states from the settings screen
+      Given user launches and logs in to the Lyric application
+       And user turns "off" the "Switch" through the "Z-Wave device function key"
       When user navigates to "Z-WAVE DEVICES" screen from the "Dashboard" screen
       And user "fixes all zwave devices" by clicking on "Fix all" button
      When user navigates to "Switch settings" screen from the "Zwave devices" screen
       And user turns "on" the "Switch" through the "Switch settings"
-     When user navigates to "Switch Primary card" screen from the "Switch settings" screen 
+     When user navigates to "Switch Primary card VIA ZWAVE DEVICES" screen from the "Switch settings" screen 
      Then user should see the "Switch" status as "on" on the "Switch Primary card"
      When user navigates to "Dashboard" screen from the "Switch Primary card" screen 
       And user navigates to "Switch settings" screen from the "Dashboard" screen
       And user turns "off" the "Switch" through the "Switch settings"
-      And user navigates to "Switch Primary card" screen from the "Switch settings" screen 
+      And user navigates to "Switch Primary card VIA PRIMARY CARD" screen from the "Switch settings" screen 
      Then user should see the "Switch" status as "off" on the "Switch Primary card"
    
     @OfflineZwaveSwitchFromSettings @UIAutomated
-  Scenario: (ZwaveTC_Set1_6) As a user I should be infromed when my switch device goes offline
+  Scenario: (ZwaveTC_Set1_8) As a user I should be infromed when my switch device goes offline
   # switch configured but offline
     Given user launches and logs in to the Lyric application
     When user navigates to "Z-WAVE DEVICES" screen from the "Dashboard" screen
@@ -141,16 +155,61 @@ Given user is set to "Home" mode through CHIL
     # Then user should see the "Switch" status as "offline" on the "Switch Primary card"
   
    @ZwaveSwitchRename @UIAutomated @LYDAS-5395
-  Scenario: (ZwaveTC_Set1_7) As a user I should be able to rename my zwave switch
+  Scenario: (ZwaveTC_Set1_9) As a user I should be able to rename my zwave switch
       And user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
       And user edits the "Switch" name to "Switch2"
-      And user navigates to "Dashboard" screen from the "Switch settings" screen
+      And user navigates to "Dashboard via Primary card" screen from the "Switch settings" screen
      Then user should be displayed with "Switch2" device on the "dashboard" screen
       And user reverts back the "Switch name"  through CHIL
       
+      @GeneralExcludeSwitchOnNoDeviceFound @UIAutomated
+  Scenario: (ZwaveTC_Set1_9a) As a user I should be able to exclude a zwave switch through the General exclusion in application
+      And user launches and logs in to the Lyric application 
+     When user navigates to "Z-Wave device through General Exclusion" screen from the "Dashboard" screen
+     Then user should be displayed with the "Exclusion Mode Active" screen
+     When user "does not activate" the "switch" function key
+     Then user should receive a "Exclusion Device not found" popup
+     When user "dismisses" the "Exclusion Device not found" popup 
+      And user navigates to "Z-Wave device through General Exclusion" screen from the "Z-Wave Utilities" screen
+     Then user should be displayed with the "Exclusion Mode Active" screen
+     When user "does not activate" the "switch" function key
+     Then user should receive a "Exclusion Device not found" popup
+     When user "Retries" the "Exclusion Device not found" popup
+      And user "activates for exclusion" the "switch" function key
+     Then user should receive a "Switch Excluded Successfully" popup
+      When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
+     Then user should not be displayed with "Switch" device on the "dashboard" screen
+     
+      @DeviceIncludedOnRetry @UIAutomated @LYDAS-6172
+  Scenario: (ZwaveTC_Set1_9b) As a user I should be able to retry the zwave inclusion from No device found popup
+    Given user launches and logs in to the Lyric application 
+      And user has no "Switch1"
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "does not activate" the "switch" function key
+     #timeout
+     Then user should receive a "Inclusion Device not found" popup
+     When user "Retries the inclusion on" the "Inclusion Device not found" popup
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates for discovery" the "switch" function key
+      And user names the "switch" to "Switch1"
+  #null, string length with 14, only alpha numeric char}
+     Then user should be displayed with "Switch1" device on the "dashboard" screen
+     
+      @ReIncludeZwaveSwitch @UIAutomated @LYDAS-5209 @LYDAS-6587
+  Scenario: (ZwaveTC_Set1_9c) As a user i should be able to include a zwave switch through the Add new device flow in application
+    Given user launches and logs in to the Lyric application 
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
+     Then user should be displayed with the "Activate Z-Wave Device" screen
+     When user "activates for discovery" the "switch" function key
+      And user names the "switch" to "Switch2"
+     Then user should be displayed with "Switch2" device on the "dashboard" screen
+  # Then user receives a "Zwave device added" activity log
+   And user reverts back the "Switch name"  through CHIL
+   
        @DeleteZwaveSwitchFromSettings @DeleteZwaveTimeout @UIAutomated @LYDAS-6763
-  Scenario: (ZwaveTC_Set1_8) As a user I should be able to delete my zwave switch
+  Scenario: (ZwaveTC_Set1_9d) As a user I should be able to delete my zwave switch
   #switch configured and online
     Given user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
@@ -167,7 +226,7 @@ Given user is set to "Home" mode through CHIL
      When user "activates for exclusion" the "switch" function key
      Then user should receive a "Switch deleted Successfully" popup
      When user "confirms" the "Device Excluded" popup
-      And user navigates to "Dashboard" screen from the "ZWave DEVICES" screen
+     # And user navigates to "Dashboard" screen from the "ZWave DEVICES" screen
      Then user should not be displayed with "Switch1" device on the "dashboard" screen
   
   
@@ -196,51 +255,6 @@ Given user is set to "Home" mode through CHIL
       And user should be displayed with the "DAS1 online on Zwave" screen
       And user should be displayed with the "DAS1 offline on Zwave" screen
       
-  @ReIncludeZwaveSwitch @UIAutomated @LYDAS-5209 @LYDAS-6587
-  Scenario: (ZwaveTC_Set3_2) As a user i should be able to include a zwave switch through the Add new device flow in application
-    Given user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "activates for discovery" the "switch" function key
-      And user names the "switch" to "Switch2"
-     Then user should be displayed with "Switch2" device on the "dashboard" screen
-  # Then user receives a "Zwave device added" activity log
-   And user reverts back the "Switch name"  through CHIL
-  
-   @GeneralExcludeSwitchOnNoDeviceFound @UIAutomated
-  Scenario: (ZwaveTC_Set3_3) As a user I should be able to exclude a zwave switch through the General exclusion in application
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device through General Exclusion" screen from the "Dashboard" screen
-     Then user should be displayed with the "Exclusion Mode Active" screen
-     When user "does not activate" the "switch" function key
-     Then user should receive a "Exclusion Device not found" popup
-     When user "dismisses" the "Exclusion Device not found" popup 
-      And user navigates to "Z-Wave device through General Exclusion" screen from the "Z-Wave Utilities" screen
-     Then user should be displayed with the "Exclusion Mode Active" screen
-     When user "does not activate" the "switch" function key
-     Then user should receive a "Exclusion Device not found" popup
-     When user "Retries" the "Exclusion Device not found" popup
-      And user "activates for exclusion" the "switch" function key
-     Then user should receive a "Switch Excluded Successfully" popup
-      When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
-     Then user should not be displayed with "Switch" device on the "dashboard" screen
-  
-  @DeviceIncludedOnRetry @UIAutomated @LYDAS-6172
-  Scenario: (ZwaveTC_Set3_4) As a user I should be able to retry the zwave inclusion from No device found popup
-    Given user launches and logs in to the Lyric application 
-      And user has no "Switch1"
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "does not activate" the "switch" function key
-     #timeout
-     Then user should receive a "Inclusion Device not found" popup
-     When user "Retries the inclusion on" the "Inclusion Device not found" popup
-     Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user "activates for discovery" the "switch" function key
-      And user names the "switch" to "Switch1"
-  #null, string length with 14, only alpha numeric char}
-     Then user should be displayed with "Switch1" device on the "dashboard" screen
-  
   @OnlineZwaveSwitchFromSettings @LYDAS-6370 
   Scenario: (ZwaveTC_O) As a user I should be infromed when my switch device goes offline
   # switch configured but offline
@@ -255,7 +269,7 @@ Given user is set to "Home" mode through CHIL
   @AddNewDeviceIncludeZwaveLock @LYDAS-5002
   Scenario: (ZwaveTC) As a user I should be able to include a zwave lock through the Add new device in application
       And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user "activates for discovery" the "lock" function key
       And user names the "lock" as "Lock1"
@@ -266,7 +280,7 @@ Given user is set to "Home" mode through CHIL
   @AddNewDeviceIncludeZwaveDimmer @UIAutomated
   Scenario: (ZwaveTC_Set2_1) As a user I should be able to include a zwave dimmer through the the Add new device in application
       And user launches and logs in to the Lyric application 
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #timeout
      When user "does not activate" the "dimmer" function key
@@ -287,12 +301,12 @@ Given user is set to "Home" mode through CHIL
     Given user launches and logs in to the Lyric application
      When user navigates to "Dimmer settings" screen from the "Dashboard" screen
       And user turns "on" the "Dimmer" through the "Dimmer settings"
-     When user navigates to "Dimmer Primary card" screen from the "Dimmer settings" screen 
+     When user navigates to "Dimmer Primary card VIA PRIMARY CARD" screen from the "Dimmer settings" screen 
      Then user should see the "Dimmer" status as "on" on the "Dimmer Primary card"
      When user navigates to "Dashboard" screen from the "Dimmer Primary card" screen 
       And user navigates to "Dimmer settings" screen from the "Dashboard" screen
       And user turns "off" the "Dimmer" through the "Dimmer settings"
-      And user navigates to "Dimmer Primary card" screen from the "Dimmer settings" screen 
+      And user navigates to "Dimmer Primary card VIA PRIMARY CARD" screen from the "Dimmer settings" screen 
      Then user should see the "Dimmer" status as "off" on the "Dimmer Primary card"
      
      @ChangeDimmerIntensity @LYDAS-5377 @UIAutomated
@@ -329,7 +343,7 @@ Given user is set to "Home" mode through CHIL
     Given user launches and logs in to the Lyric application
      When user navigates to "Dimmer settings" screen from the "Dashboard" screen
       And user edits the "Dimmer" name to "Dimmer2"
-      And user navigates to "Dashboard" screen from the "Dimmer settings" screen
+      And user navigates to "Dashboard via Primary card" screen from the "Dimmer settings" screen
      Then user should be displayed with "Dimmer2" device on the "dashboard" screen
      And user reverts back the "Dimmer name" through CHIL
      
@@ -348,18 +362,6 @@ Given user is set to "Home" mode through CHIL
      When user "confirms" the "Device Excluded" popup
      Then user should not be displayed with "Dimmer" device on the "dashboard" screen
    
-     
-   @GeneralExcludeZwaveSwitch @UIAutomated
-  Scenario: (ZwaveTC_Set4_6) As a user I should be able to exclude a zwave switch through General exclusion in the application
-      And user launches and logs in to the Lyric application 
-     When user navigates to "General Exclusion through ZWAVE Primary card" screen from the "Dashboard" screen
-     Then user should be displayed with the "Exclusion Mode Active" screen
-     When user "activates for exclusion" the "switch" function key
-     Then user should receive a "Switch Excluded Successfully" popup
-     When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
-      And user should be displayed with the "Z-Wave Utilities" screen
-     When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     Then user should not be displayed with "Switch1" device on the "dashboard" screen
      
   @GeneralIncludeZwaveSwitch @UIAutomated @LYDAS-5507 @NotExecutableUnless1deviceEnrolled
   Scenario: (ZwaveTC_Set4_7) As a user I should be able to exclude a zwave switch through General Inclusion in the application
@@ -523,7 +525,7 @@ Given user is set to "Home" mode through CHIL
   Scenario: (ZwaveTC_Set3_5) As a user I should be able to replace my offline switch with a zwave dimmer
   #switch with offline
    Given user launches and logs in to the Lyric application 
-      When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+      When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #timeout
      When user "does not activate" the "dimmer" function key
@@ -578,7 +580,7 @@ Given user is set to "Home" mode through CHIL
   Scenario: (ZwaveTC_Set3_6) As a user I should be able to replace my offline dimmer with a zwave switch
   #dimmer with offline
   Given user launches and logs in to the Lyric application 
-      When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+      When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #timeout
      When user "does not activate" the "dimmer" function key
@@ -694,7 +696,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Global drawer" screen from the "Dashboard" screen
      Then user should not be able to configure "Z-Wave Device" 
   #when das panel is Online
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
   #when das panel is offline
      When user selects "Cancel" from "Activate Z-Wave Device" screen
@@ -720,9 +722,9 @@ Given user is set to "Home" mode through CHIL
   Scenario: (ZwaveTC42) As a user I should be able to perform zwave operation when das panel is alarm state
     Given user launches and logs in to the Lyric application
     And das panel is in alarm state
-     When user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     When user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
-     When user navigates to "Z-Wave device(General Inclusion)" screen from the "Z-Wave device Add new device" screen
+     When user navigates to "Z-Wave device(General Inclusion)" screen from the "Z-Wave inclusion through Add new device icon" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user navigates to "Z-Wave device(General Exclusion)" screen from the "Z-Wave device(General Inclusion)" screen
      Then user should be displayed with the "Exclusion Mode Active" screen
@@ -762,7 +764,7 @@ Given user is set to "Home" mode through CHIL
      When user selects "CONFIRM CANCEL" from "Inclusion Mode Active" screen
      Then user should be displayed with the "Z-Wave Utilities" screen
      When user navigates to "Dashboard" screen from the "Z-Wave Utilities" screen
-     And user navigates to "Z-Wave device Add new device" screen from the "Dashboard" screen
+     And user navigates to "Z-Wave inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate Z-Wave Device" screen
      When user selects "CONFIRM CANCEL" from "Activate Z-Wave Device" screen
      Then user should be displayed with the "Add new device" screen
