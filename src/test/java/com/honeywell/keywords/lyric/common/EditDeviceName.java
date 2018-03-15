@@ -109,6 +109,9 @@ public class EditDeviceName extends Keyword {
 							zwaveScreen.ClickDimmerSettingFromZwaveUtilities();
 						}
 					}
+				}else{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to locate the naming text field");
 				}
 			}
 		} catch (Exception e) {

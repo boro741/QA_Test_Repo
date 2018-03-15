@@ -168,7 +168,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					break;
 				}
 				case "OFFLINE": {
-					currentStatus=zwaveScreen.getSwitchStatusOffline();
+   					currentStatus=zwaveScreen.getSwitchStatusOffline();
 					if(currentStatus.toUpperCase().equals("OFFLINE")){
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
 					}else{

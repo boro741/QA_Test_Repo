@@ -37,11 +37,19 @@ public class Dashboard extends MobileScreens {
 	public boolean isAddDeviceIconVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon",timeOut,false);
-
 	}
 
+	public boolean isAddDeviceIconBelowExistingDevicesVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice",timeOut,false);
+	}
 	public boolean clickOnAddNewDeviceIcon() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
+		if(isAddDeviceIconVisible(10)){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
+		}else if(isAddDeviceIconBelowExistingDevicesVisible(10)){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice");
+		}
+		return false;
 	}
 
 	public boolean isAddDeviceIconBelowExistingDASDeviceVisible(int timeOut) {

@@ -115,7 +115,7 @@ public class VerifyScreen extends Keyword {
 			case "ADD NEW DEVICE":
 			case "ADD NEW DEVICE DASHBOARD": {
 				AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
-				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed()) {
+				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed(60)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {

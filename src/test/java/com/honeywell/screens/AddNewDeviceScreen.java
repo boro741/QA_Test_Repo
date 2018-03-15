@@ -32,8 +32,8 @@ public class AddNewDeviceScreen extends MobileScreens{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingDevicesLoadingSpinnerMsg", 3);
 	}
 
-    public boolean isAddNewDeviceHeaderDisplayed(){
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader");
+    public boolean isAddNewDeviceHeaderDisplayed(int lookFor){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader",lookFor);
 	}
 
 	public boolean clickOnCancelButtonOfAddDeviceScreen() {

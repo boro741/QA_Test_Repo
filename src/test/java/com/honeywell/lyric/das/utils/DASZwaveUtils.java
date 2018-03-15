@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
@@ -32,7 +33,7 @@ public class DASZwaveUtils {
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (addDeviceScreen.isAddNewDeviceHeaderDisplayed()||zScreen.isRetryOnDeviceNotFoundPopUpDisplayed()||zScreen.isNoDeviceToExcludePopupHeaderDisplayed()) {
+						if (addDeviceScreen.isAddNewDeviceHeaderDisplayed(1)||zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(1)||zScreen.isNoDeviceToExcludePopupHeaderDisplayed(1)) {
 							return true;
 						} else {
 							return false;
@@ -115,7 +116,6 @@ public class DASZwaveUtils {
 				public Boolean apply(String a) {
 					try {
 						if (zPrimaryScreen.isSwitchingToOverlayDisplayed()) {
-							System.out.println("Waiting for Switching to complete");
 							return false;
 						} else {
 							return true;
@@ -151,7 +151,6 @@ public class DASZwaveUtils {
 				public Boolean apply(String a) {
 					try {
 						if (zScreen.isToggleStatusProgressDisplayed()) {
-							System.out.println("Waiting for Switching to complete");
 							return false;
 						} else {
 							return true;
@@ -227,22 +226,27 @@ public class DASZwaveUtils {
 		return flag;
 	}
 
-	public static boolean navigateToSwitchPrimaryCardFromSwitchSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+	public static boolean navigateToDashboardFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
 		boolean flag = true;
 		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
-		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
-		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
-		flag= flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
+		flag= flag & navigateToPrimaryCardFromSettings(testCase);
 		return flag;
 	}
 
-	public static boolean navigateToDashboardFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs){
+	public static boolean navigateToPrimaryCardFromSettings(TestCases testCase) throws Exception{
 		boolean flag = true;
 		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
 		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
+		//flag= flag & navigateToZwaveDevicesFromSettings(testCase);
+		return flag;
+	}
+
+	public static boolean navigateToZwaveDevicesFromSettings(TestCases testCase) throws Exception{
+		boolean flag = true;
 		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
 		return flag;
 	}
+
 
 	public static boolean waitForNamingScreen(TestCases testCase) {
 		boolean flag = true;
@@ -305,7 +309,7 @@ public class DASZwaveUtils {
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
+			fWait.withTimeout(3, TimeUnit.MINUTES);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -330,203 +334,251 @@ public class DASZwaveUtils {
 							Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
 									actionName+" input not handled");
 						}
-					    } 
-				    } catch (Exception e) {
+						} 
+					} catch (Exception e) {
+						return false;
+					}
 					return false;
 				}
-					return false;
-			}
-		});
+			});
 			if (isEventReceived) {
 				Keyword.ReportStep_Pass(testCase, "Screen diasppeared");
 			}
-	} catch (TimeoutException e) {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				actionName+" did not disapper after waiting for 1 minute");
-	} catch (Exception e) {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					actionName+" did not disapper after waiting for 3 minutes");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
 	}
-	return flag;
-}
 
-//Exclude screen elements
+	//Exclude screen elements
 
-public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
-	boolean flag = true;
-	try {
-		ZwaveScreen zScreen = new ZwaveScreen(testCase);
-		FluentWait<String> fWait = new FluentWait<String>(" ");
-		fWait.pollingEvery(3, TimeUnit.SECONDS);
-		fWait.withTimeout(1, TimeUnit.MINUTES);
-		Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-			public Boolean apply(String a) {
-				try {
-					if (zScreen.isEnteringExclusionModeOverlayDisplayed()) {
-						System.out.println("Waiting for Entering exclusion to disappear");
+	public static boolean waitForEnteringExclusionToComplete(TestCases testCase) {
+		boolean flag = true;
+		try {
+			ZwaveScreen zScreen = new ZwaveScreen(testCase);
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(1, TimeUnit.MINUTES);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (zScreen.isEnteringExclusionModeOverlayDisplayed()) {
+							System.out.println("Waiting for Entering exclusion to disappear");
+							return false;
+						} else {
+							return true;
+						}
+					} catch (Exception e) {
 						return false;
-					} else {
-						return true;
 					}
-				} catch (Exception e) {
-					return false;
 				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Entering inclusion diasppeared");
 			}
-		});
-		if (isEventReceived) {
-			Keyword.ReportStep_Pass(testCase, "Entering inclusion diasppeared");
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Entering inclusion did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
-	} catch (TimeoutException e) {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Entering inclusion did not disapper after waiting for 1 minute");
-	} catch (Exception e) {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		return flag;
 	}
-	return flag;
-}
 
-public static boolean verifyDeviceExcludedPopUp(TestCases testCase, TestCaseInputs inputs) {
-	boolean flag = true;
-	ZwaveScreen zScreen = new ZwaveScreen(testCase);
-	if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
-		Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
-		if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
-			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
+	public static boolean verifyDeviceExcludedPopUp(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
+			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
+			if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
+				Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Device Excluded Pop Up message displayed incorrectly");
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Device Excluded Pop Up message displayed incorrectly");
+					"Device Excluded Pop Up not displayed");
 		}
-	} else {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Device Excluded Pop Up not displayed");
+		return flag;
+	} 
+	public static boolean clickCancelOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickNoDeviceToExcludePopupCancel();
 	}
-	return flag;
-} 
-public static boolean clickCancelOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
-	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-	return zwaveScreen.clickNoDeviceToExcludePopupCancel();
-}
 
-public static boolean clickRetryOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
-	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-	return zwaveScreen.clickNoDeviceToExcludePopupRetry();
-}
+	public static boolean activateZwaveSwitch(TestCases testCase, TestCaseInputs inputs) throws Exception {
+		ZWaveRelayUtils.powerOnZwaveSwitch(inputs);
+		ZWaveRelayUtils.enrollZwaveSwitch1();
+		TimeUnit.SECONDS.sleep(2);
+		ZWaveRelayUtils.pressButtonOnSwitch1();
+		return true;
+	}
 
-public static boolean verifyDeviceDeletedPopUp(TestCases testCase, TestCaseInputs inputs) {
-	boolean flag = true;
-	ZwaveScreen zScreen = new ZwaveScreen(testCase);
-	if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
-		Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
-		if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
-			Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
+	public static boolean activateZwaveDimmer(TestCases testCase, TestCaseInputs inputs) throws Exception {
+		ZWaveRelayUtils.powerOnZwaveDimmer(inputs);
+		ZWaveRelayUtils.enrollZwaveDimmer1();
+		TimeUnit.SECONDS.sleep(2);
+		ZWaveRelayUtils.pressButtonOnDimmer1();
+		return true;
+	}
+
+
+	public static boolean clickRetryOnExcludeDeviceNotFoundPopUp(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickNoDeviceToExcludePopupRetry();
+	}
+
+	public static boolean verifyDeviceDeletedPopUp(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		if(testCase.getPlatform().toUpperCase().contains("IOS")){
+			if (zScreen.isExcludedSuccessPopupTitleDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up Title is correctly displayed");
+				if(zScreen.isExcludedSuccessPopupMessageDisplayed()){
+					Keyword.ReportStep_Pass(testCase, "Device Excluded Pop Up message correctly displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device Excluded Pop Up message displayed incorrectly");
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Device Excluded Pop Up not displayed");
+			}
+		} else{
+		if (zScreen.isDeletedSuccessPopupTitleDisplayed()) {
+			Keyword.ReportStep_Pass(testCase, "Device removed Pop Up Title is correctly displayed");
+			if(zScreen.isDeletedSuccessPopupMessageDisplayed()){
+				Keyword.ReportStep_Pass(testCase, "Device removed Pop Up message correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Device Excluded Pop Up message displayed incorrectly");
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Device Excluded Pop Up message displayed incorrectly");
+					"Device Excluded Pop Up not displayed");
 		}
-	} else {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Device Excluded Pop Up not displayed");
+		}
+		return flag;
 	}
-	return flag;
-}
-public static void increaseDimmerIntensity(TestCases testCase,
-		int intensityToBeSet) {
-	ZwavePrimardCardScreen zps = new ZwavePrimardCardScreen(testCase);
-	WebElement slider = zps.getDimmerSeekBar();
-	int xAxisStartPoint = slider.getLocation().getX() + 90;
-	int yAxis = slider.getLocation().getY()
-			+ (slider.getSize().getHeight() / 2);
-	double sliderWidth = slider.getSize().getWidth() - 150;
-	double pixelsPerPercent = sliderWidth / 100;
-	double pixelsToBeMoved = (intensityToBeSet * pixelsPerPercent);
-	Keyword.ReportStep_Pass(testCase, "Setting the dimmer intensity to: "
-			+ intensityToBeSet);
-	MobileUtils.clickOnCoordinate(testCase,
-			(int) (xAxisStartPoint + pixelsToBeMoved), yAxis);
-	if (zps.isDimmerSeekBarVisible()) {
-		Keyword.ReportStep_Pass(testCase,
-				"Successfully changed dimmer intensity");
-	} else {
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Failed to change dimmer intensity");
-	}
-
-}
-public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
-	try {
-		DashboardUtils.selectDeviceFromDashboard(testCase,"Switch1");
-		PrimaryCard pScreen = new PrimaryCard(testCase);
-		if (pScreen.clickOnCogIcon()) {
+	public static void increaseDimmerIntensity(TestCases testCase,
+			int intensityToBeSet) {
+		ZwavePrimardCardScreen zps = new ZwavePrimardCardScreen(testCase);
+		WebElement slider = zps.getDimmerSeekBar();
+		int xAxisStartPoint = slider.getLocation().getX() + 90;
+		int yAxis = slider.getLocation().getY()
+				+ (slider.getSize().getHeight() / 2);
+		double sliderWidth = slider.getSize().getWidth() - 150;
+		double pixelsPerPercent = sliderWidth / 100;
+		double pixelsToBeMoved = (intensityToBeSet * pixelsPerPercent);
+		Keyword.ReportStep_Pass(testCase, "Setting the dimmer intensity to: "
+				+ intensityToBeSet);
+		MobileUtils.clickOnCoordinate(testCase,
+				(int) (xAxisStartPoint + pixelsToBeMoved), yAxis);
+		if (zps.isDimmerSeekBarVisible()) {
 			Keyword.ReportStep_Pass(testCase,
-					"Navigated to  Zwave DEVICES");
+					"Successfully changed dimmer intensity");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Failed to change dimmer intensity");
+		}
+
+	}
+	public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
+		try {
+			if(DashboardUtils.selectDeviceFromDashboard(testCase,"Switch1")
+					||DashboardUtils.selectDeviceFromDashboard(testCase,"Switch2")
+					||DashboardUtils.selectDeviceFromDashboard(testCase,"Dimmer1")
+					||DashboardUtils.selectDeviceFromDashboard(testCase,"Dimmer2")){
+				PrimaryCard pScreen = new PrimaryCard(testCase);
+				if (pScreen.clickOnCogIcon()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Navigated to  Zwave DEVICES");
+					return true;
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Could not click on Zwave DEVICES menu from Global drawer");
+				}
+			}else{
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on Zwave device from dashboard");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	public static boolean navigateToSwitchSettingsFromDashboard(TestCases testCase) {
+		navigateToZwaveDevicesFromDashboard(testCase);
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Could not click on Switch Settings From Zwave Utilities");
+		} else {
+			Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean navigateToDimmerSettingsFromDashboard(TestCases testCase) {
+		navigateToZwaveDevicesFromDashboard(testCase);
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Could not click on Dimmer Settings From Zwave Utilities");
+		} else {
+			Keyword.ReportStep_Pass(testCase, "Clicked on Dimmer Setting From ZwaveUtilities");
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean navigateToDimmerPrimaryCardFromDimmerSettings(TestCases testCase){
+		boolean flag=true;
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		flag = flag & zScreen.clickNavigateBack();
+		flag = flag & zScreen.clickNavigateBack();
+		return flag;
+	}
+	public static boolean navigateToControllerDetailsFromDashboard(TestCases testCase) {
+		navigateToZwaveUtilitiesFromDashboard(testCase);
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.clickModelandFirmwareDetailsMenu();
+	}
+	public static boolean isControllerDetailsDisplayed(TestCases testCase) {
+		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+		return zwaveScreen.isZwaveUtitiesScreenDisplayed();  
+
+	}
+
+	public static boolean navigateToAddDeviceScreenFromDashboardThroughIcon(TestCases testCase) {
+		Dashboard ds = new Dashboard(testCase);
+		if (ds.clickOnAddNewDeviceIcon()) {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			ads.clickOnZwaveFromAddNewDevice();
 			return true;
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Could not click on Zwave DEVICES menu from Global drawer");
+					"Could not click on Global drawer menu from dashboard");
 		}
-	} catch (Exception e) {
-		e.printStackTrace();
+		return false;
 	}
-
-	return false;
-}
-
-public static boolean navigateToSwitchSettingsFromDashboard(TestCases testCase) {
-	navigateToZwaveDevicesFromDashboard(testCase);
-	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-	if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Could not click on Switch Settings From Zwave Utilities");
-	} else {
-		Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
-		return true;
-	}
-	return false;
-}
-
-public static boolean navigateToDimmerSettingsFromDashboard(TestCases testCase) {
-	navigateToZwaveDevicesFromDashboard(testCase);
-	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-	if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Could not click on Dimmer Settings From Zwave Utilities");
-	} else {
-		Keyword.ReportStep_Pass(testCase, "Clicked on Dimmer Setting From ZwaveUtilities");
-		return true;
-	}
-	return false;
-}
-
-public static boolean navigateToControllerDetailsFromDashboard(TestCases testCase) {
-	navigateToZwaveUtilitiesFromDashboard(testCase);
-	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-	return zwaveScreen.clickModelandFirmwareDetailsMenu();
-}
-public static boolean isControllerDetailsDisplayed(TestCases testCase) {
-	ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-	return zwaveScreen.isZwaveUtitiesScreenDisplayed();  
-
-}
-
-public static boolean navigateToAddDeviceScreenFromDashboardThroughIcon(TestCases testCase) {
-	Dashboard ds = new Dashboard(testCase);
-	if (ds.clickOnAddNewDeviceIcon()) {
-		AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-		ads.clickOnZwaveFromAddNewDevice();
-		return true;
-	} else {
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				"Could not click on Global drawer menu from dashboard");
-	}
-	return false;
-}
 
 
 }
