@@ -49,7 +49,7 @@ public class NavigateToScreen extends Keyword {
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
 					break;
 				}
 				}
@@ -62,7 +62,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SWITCH SETTINGS": {
 					ZwaveScreen zs = new ZwaveScreen(testCase);
-					flag = flag & zs.ClickSwitchSettingFromZwaveUtilities();
+					flag = flag & zs.ClickSwitchSettingFromZwaveDevices();
 					break;
 
 				}
@@ -91,12 +91,25 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
-				case "SWITCH PRIMARY CARD": {
-					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSettings(testCase);
+				case "SWITCH PRIMARY CARD VIA PRIMARY CARD": {
+					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+					break;
+				}
+				case "SWITCH PRIMARY CARD VIA ZWAVE DEVICES": {
+					flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToSwitchPrimaryCardFromDashboard(testCase);
 					break;
 				}
 				case "DASHBOARD": {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveIndividualDeviceSettings(testCase, inputs);
+					break;
+				}
+				case "DASHBOARD VIA PRIMARY CARD": {
+					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
 					break;
 				}
 				}
@@ -106,8 +119,16 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
 					break;
 				}
-				case "DIMMER PRIMARY CARD": {
-					flag = flag & DASZwaveUtils.navigateToDimmerPrimaryCardFromDimmerSettings(testCase);
+				case "DIMMER PRIMARY CARD VIA PRIMARY CARD": {
+					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+					break;
+				}
+				case "DIMMER PRIMARY CARD VIA ZWAVE DEVICES": {
+					flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToDimmerPrimaryCardFromDashboard(testCase);
 					break;
 				}
 				case "DASHBOARD": {
@@ -118,13 +139,11 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveUtilitiesSettings(testCase, inputs);
 					break;
 				}
 				case "DASHBOARD": {
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveUtilitiesSettings(testCase, inputs);
 					break;
 				}
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
@@ -146,12 +165,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToControllerDetailsFromDashboard(testCase);
 					break;
 				}
-				case "GENERAL INCLUSION THROUGH ZWAVE PRIMARY CARD":
 				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
 					flag = flag & DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
 				}
-				case "GENERAL EXCLUSION THROUGH ZWAVE PRIMARY CARD":
 				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					flag = flag & DASZwaveUtils.navigateToGeneralExclusionFromDashboard(testCase);
 					break;
@@ -180,7 +197,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
 					break;
 				}
-				case "Z-WAVE DEVICE ADD NEW DEVICE": {
+				case "Z-WAVE INCLUSION THROUGH ADD NEW DEVICE ICON": {
 					flag = flag & DASZwaveUtils.navigateToAddDeviceScreenFromDashboardThroughIcon(testCase);
 					break;
 				}

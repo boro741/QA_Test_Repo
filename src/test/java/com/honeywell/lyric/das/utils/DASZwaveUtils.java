@@ -13,7 +13,10 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.ZwavePrimardCardScreen;
@@ -228,18 +231,54 @@ public class DASZwaveUtils {
 
 	public static boolean navigateToDashboardFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
 		boolean flag = true;
-		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
-		flag= flag & navigateToPrimaryCardFromSettings(testCase);
+
+		flag= flag & navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
+		flag= flag & navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
+		flag= flag & navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+		flag= flag & navigateToDashboardFromPrimaryCard(testCase, inputs);
+		return flag;
+	}
+	public static boolean navigateToDashboardFromPrimaryCard(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & DASZwaveUtils.clickNavigateUp(testCase);
+		return flag;
+	}
+	public static boolean navigateToPrimaryCardFromSecuritySettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & DASZwaveUtils.clickNavigateUp(testCase);
 		return flag;
 	}
 
-	public static boolean navigateToPrimaryCardFromSettings(TestCases testCase) throws Exception{
+	public static boolean navigateToSecuritySettingsFromZwaveDevices(TestCases testCase,TestCaseInputs inputs) throws Exception{
 		boolean flag = true;
-		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
-		flag= flag &DASZwaveUtils.clickNavigateUp(testCase);
-		//flag= flag & navigateToZwaveDevicesFromSettings(testCase);
+		flag= flag & DASZwaveUtils.clickNavigateUp(testCase);
 		return flag;
 	}
+
+	public static boolean navigateToZwaveDevicesFromZwaveUtilitiesSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & DASZwaveUtils.clickNavigateUp(testCase);
+		return flag;
+	}
+	public static boolean navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & DASZwaveUtils.clickNavigateUp(testCase);
+		return flag;
+	}
+	public static boolean navigateToPrimaryCardFromZwaveIndividualDeviceSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & DASZwaveUtils.clickNavigateUp(testCase);
+		return flag;
+	}
+	public static boolean navigateToDashboardFromZwaveUtilitiesSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & navigateToZwaveDevicesFromZwaveUtilitiesSettings(testCase, inputs);
+		flag= flag & navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
+		flag= flag & navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+		flag= flag & navigateToDashboardFromPrimaryCard(testCase, inputs);
+		return flag;
+	}
+
 
 	public static boolean navigateToZwaveDevicesFromSettings(TestCases testCase) throws Exception{
 		boolean flag = true;
@@ -457,20 +496,20 @@ public class DASZwaveUtils {
 						"Device Excluded Pop Up not displayed");
 			}
 		} else{
-		if (zScreen.isDeletedSuccessPopupTitleDisplayed()) {
-			Keyword.ReportStep_Pass(testCase, "Device removed Pop Up Title is correctly displayed");
-			if(zScreen.isDeletedSuccessPopupMessageDisplayed()){
-				Keyword.ReportStep_Pass(testCase, "Device removed Pop Up message correctly displayed");
+			if (zScreen.isDeletedSuccessPopupTitleDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "Device removed Pop Up Title is correctly displayed");
+				if(zScreen.isDeletedSuccessPopupMessageDisplayed()){
+					Keyword.ReportStep_Pass(testCase, "Device removed Pop Up message correctly displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device Excluded Pop Up message displayed incorrectly");
+				}
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Device Excluded Pop Up message displayed incorrectly");
+						"Device Excluded Pop Up not displayed");
 			}
-		} else {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Device Excluded Pop Up not displayed");
-		}
 		}
 		return flag;
 	}
@@ -498,24 +537,25 @@ public class DASZwaveUtils {
 
 	}
 	public static boolean navigateToZwaveDevicesFromDashboard(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
-			if(DashboardUtils.selectDeviceFromDashboard(testCase,"Switch1")
-					||DashboardUtils.selectDeviceFromDashboard(testCase,"Switch2")
-					||DashboardUtils.selectDeviceFromDashboard(testCase,"Dimmer1")
-					||DashboardUtils.selectDeviceFromDashboard(testCase,"Dimmer2")){
-				PrimaryCard pScreen = new PrimaryCard(testCase);
-				if (pScreen.clickOnCogIcon()) {
-					Keyword.ReportStep_Pass(testCase,
-							"Navigated to  Zwave DEVICES");
-					return true;
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Could not click on Zwave DEVICES menu from Global drawer");
-				}
-			}else{
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Could not click on Zwave device from dashboard");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
 			}
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ZWAVEDEVICES);
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase,
+						"Navigated to Zwave DEVICES");
+				return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not navigate to Zwave DEVICES menu from dashboard");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -523,36 +563,50 @@ public class DASZwaveUtils {
 		return false;
 	}
 
-	public static boolean navigateToSwitchSettingsFromDashboard(TestCases testCase) {
-		navigateToZwaveDevicesFromDashboard(testCase);
-		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		if (!zwaveScreen.ClickSwitchSettingFromZwaveUtilities()) {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Could not click on Switch Settings From Zwave Utilities");
-		} else {
-			Keyword.ReportStep_Pass(testCase, "Clicked on SwitchSetting From ZwaveUtilities");
-			return true;
-		}
+	public static boolean navigateToSwitchSettingsFromDashboard(TestCases testCase) throws Exception {
+		boolean flag= true;
+			if(navigateToSwitchPrimaryCardFromDashboard(testCase)){
+				PrimaryCard pc = new PrimaryCard(testCase);
+				flag = flag & pc.clickOnCogIcon();
+				return flag;
+			}
 		return false;
 	}
 
-	public static boolean navigateToDimmerSettingsFromDashboard(TestCases testCase) {
-		navigateToZwaveDevicesFromDashboard(testCase);
-		ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-		if (!zwaveScreen.ClickDimmerSettingFromZwaveUtilities()) {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Could not click on Dimmer Settings From Zwave Utilities");
-		} else {
-			Keyword.ReportStep_Pass(testCase, "Clicked on Dimmer Setting From ZwaveUtilities");
-			return true;
+	public static boolean navigateToSwitchPrimaryCardFromDashboard(TestCases testCase) throws Exception {
+		boolean flag= true;
+		String switchNames[] = {"Switch1","Switch 001","Switch2"};
+		for(String switchName : switchNames){
+			if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase,switchName)){
+				flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, switchName);
+				return true;
+			}
 		}
 		return false;
 	}
-
+	public static boolean navigateToDimmerPrimaryCardFromDashboard(TestCases testCase) throws Exception {
+		boolean flag= true;
+		String switchNames[] = {"Dimmer1","Switch 001","Dimmer2"};
+		for(String switchName : switchNames){
+			if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase,switchName)){
+				flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, switchName);
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean navigateToDimmerSettingsFromDashboard(TestCases testCase) throws Exception {
+		boolean flag= true;
+			if(navigateToDimmerPrimaryCardFromDashboard(testCase)){
+				PrimaryCard pc = new PrimaryCard(testCase);
+				flag = flag & pc.clickOnCogIcon();
+				return flag;
+			}
+		return false;
+	}
 	public static boolean navigateToDimmerPrimaryCardFromDimmerSettings(TestCases testCase){
 		boolean flag=true;
 		ZwaveScreen zScreen = new ZwaveScreen(testCase);
-		flag = flag & zScreen.clickNavigateBack();
 		flag = flag & zScreen.clickNavigateBack();
 		return flag;
 	}

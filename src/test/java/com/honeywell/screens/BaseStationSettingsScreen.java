@@ -29,7 +29,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String MOTIONDETECTION = "Motion Detection";
 	public static final String NIGHTVISION = "Night Vision";
 	public static final String VIDEOQUALITY = "Video Quality";
-
+	public static final String ZWAVEDEVICES = "Z-Wave Devices";
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
 	public static final String IOSENTRYEXITTABLELOCATORVALUE = "//XCUIElementTypeCell";
@@ -136,6 +136,18 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 			return flag;
 		}
+		case BaseStationSettingsScreen.ZWAVEDEVICES  : {
+			boolean flag = true;
+			if (this.isZwaveDevicesSettingOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
+			} else {
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						BaseStationSettingsScreen.ZWAVEDEVICES);
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
+			}
+			return flag;
+		}
 
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -165,6 +177,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoSettingsOption", 3);
 	}
 
+	public boolean isZwaveDevicesSettingOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveDevicesSettingsOption", 3);
+	}
 	public boolean isKeyFobOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyFobOption", 3);
 	}
