@@ -484,7 +484,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean verifyBatteryStatusTextOnBaseStationConfigurationScreen() {
 		if (this.isBatteryOptionVisibleOnBaseStationConfigurationScreen()) {
 			String status = MobileUtils.getMobElement(objectDefinition, testCase, "DASBatteryStatus").getText();
-			return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				int batteryPercent = Integer.parseInt(status.split("%")[0]);
+				return (batteryPercent >= 0 && batteryPercent <= 100);
+			} else {
+				return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
+			}
 		} else {
 			return false;
 		}
@@ -798,9 +803,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASButton", 3)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
 		} else {
-				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, testCase.getPlatform().toUpperCase().contains("ANDROID")?"text":"value", "Delete Base Station");
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
-			}
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+					testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Delete Base Station");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteDASButton");
+		}
 	}
 
 	public boolean clickOnAlexaAppButton() {
@@ -811,7 +817,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		} else {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, testCase.getPlatform().toUpperCase().contains("ANDROID")?"text":"value", "DELETE");
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+					testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "DELETE");
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
 		}
 	}
