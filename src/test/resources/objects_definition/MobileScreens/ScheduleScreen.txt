@@ -126,3 +126,10 @@ Weekend1	XPATH	//*[@content-desc='1_Saturday - Sunday']	XPATH	//*[@content-desc=
 Weekend2	XPATH	//*[@content-desc='2_Saturday - Sunday']	XPATH	//*[@content-desc='2_Saturday - Sunday']	XPATH	//*[@content-desc='2_Saturday - Sunday']	XPATH	//*[@name='Saturday - Sunday_2']	XPATH	//*[@name='Saturday - Sunday_2']	XPATH	//*[@name='Saturday - Sunday_2']
 Weekend3	XPATH	//*[@content-desc='3_Saturday - Sunday']	XPATH	//*[@content-desc='3_Saturday - Sunday']	XPATH	//*[@content-desc='3_Saturday - Sunday']	XPATH	//*[@name='Saturday - Sunday_3']	XPATH	//*[@name='Saturday - Sunday_3']	XPATH	//*[@name='Saturday - Sunday_3']
 Weekend4	XPATH	//*[@content-desc='4_Saturday - Sunday']	XPATH	//*[@content-desc='4_Saturday - Sunday']	XPATH	//*[@content-desc='4_Saturday - Sunday']	XPATH	//*[@name='Saturday - Sunday_4']	XPATH	//*[@name='Saturday - Sunday_4']	XPATH	//*[@name='Saturday - Sunday_4']
+TimeScheduleStartTime							NAME	TimeSchedule_StartTime	NAME	TimeSchedule_StartTime	NAME	TimeSchedule_StartTime
+TimeScheduleEndTime							XPATH	//XCUIElementTypeCell[@name='End']	XPATH	//XCUIElementTypeCell[@name='End']	XPATH	//XCUIElementTypeCell[@name='End']
+StartButton							NAME	Start	NAME	Start	NAME	Start
+TimeScheduleEndTimeCell							NAME	TimeSchedule_EndTime_cell	NAME	TimeSchedule_EndTime_cell	NAME	TimeSchedule_EndTime_cell
+AMPMLabel	ID	ampm_label	ID	ampm_label	ID	ampm_label						
+AMLabel	ID	am_label	ID	am_label	ID	am_label						
+PMLabel	ID	pm_label	ID	pm_label	ID	pm_label						

@@ -1980,11 +1980,11 @@ public class JasperSchedulingUtils {
 			SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
 			String time12hours = time;
 			String time24hours = date24Format.format(date12Format.parse(time));
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition).getText()
-						.replaceAll("\\.", "").toUpperCase().contains(time12hours)
-						|| MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition).getText()
+				if (ss.getElementFromObjectDefinitions(locatorValueinObjectDefinition).getText().replaceAll("\\.", "")
+						.toUpperCase().contains(time12hours)
+						|| ss.getElementFromObjectDefinitions(locatorValueinObjectDefinition).getText()
 								.replaceAll("\\.", "").toUpperCase().contains(time24hours)) {
 					Keyword.ReportStep_Pass(testCase, "Verify Set Period Time : Time is set to " + time);
 				} else {
@@ -1995,17 +1995,13 @@ public class JasperSchedulingUtils {
 			} else {
 				String setTime = "";
 				if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooser")) {
-					setTime = MobileUtils.getMobElement(testCase, "name", "TimeSchedule_StartTime_value")
-							.getAttribute("value");
+					setTime = ss.getTimeChooserValue();
 				} else if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooserEndTime")) {
-					setTime = MobileUtils.getMobElement(testCase, "name", "TimeSchedule_EndTime_value")
-							.getAttribute("value");
+					setTime = ss.getTimeChooserEndTimeValue();
 				} else if (locatorValueinObjectDefinition.equalsIgnoreCase("GeofenceSleepStartTime")) {
-					setTime = MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition)
-							.getAttribute("value");
+					setTime = ss.getElementFromObjectDefinitions(locatorValueinObjectDefinition).getAttribute("value");
 				} else if (locatorValueinObjectDefinition.equalsIgnoreCase("GeofenceSleepEndTime")) {
-					setTime = MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition)
-							.getAttribute("value");
+					setTime = ss.getElementFromObjectDefinitions(locatorValueinObjectDefinition).getAttribute("value");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Incorrect time chooser identifier");
@@ -2043,13 +2039,11 @@ public class JasperSchedulingUtils {
 			List<WebElement> weekdaySchedule_period_time = null;
 			List<WebElement> weekendSchedule_period_time = null;
 			int initialPeriodSize = 0, finalPeriodSize = 0;
-
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = devInfo.getAllowedModes();
-
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AddImage", 5)) {
-				element = MobileUtils.getMobElement(fieldObjects, testCase, "AddImage");
+			if (ss.isAddImageButtonVisible(5)) {
+				element = ss.getAddImageElement();
 				Keyword.ReportStep_Pass(testCase, " ");
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Setting time and set points for new period ***************");
@@ -2058,8 +2052,8 @@ public class JasperSchedulingUtils {
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					tempPeriod = String.valueOf(rn.nextInt((3 - 1) + 1) + 1);
 					System.out.println(tempPeriod);
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayTime", 5)) {
-						schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+					if (ss.isEverydayTimeVisible(5)) {
+						schedule_period_time = ss.getEverydayTimeElements();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2074,8 +2068,7 @@ public class JasperSchedulingUtils {
 					System.out.println(tempPeriod);
 					if (Integer.parseInt(tempPeriod) <= 4) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							while (!MobileUtils.isMobElementExists("XPATH",
-									"//*[contains(@content-desc,'1_Monday - Friday')]", testCase, 5)) {
+							while (!ss.isWeekday1ElementVisible(5)) {
 								Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 								int startx = (dimensions.width * 20) / 100;
 								int starty = (dimensions.height * 62) / 100;
@@ -2090,15 +2083,14 @@ public class JasperSchedulingUtils {
 							action.press(10, (int) (dimension.getHeight() * .5))
 									.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayTimeList", 5)) {
-							weekdaySchedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
-									"WeekdayTimeList");
+						if (ss.isWeekDayTimeListVisible(5)) {
+							weekdaySchedule_period_time = ss.getWeekdayTimeListElements();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate Weekday Time list");
 						}
-						element = MobileUtils.getMobElements(fieldObjects, testCase, "AddImage").get(0);
+						element = ss.getAddImageElements().get(0);
 						initialPeriodSize = weekdaySchedule_period_time.size();
 					} else {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -2115,23 +2107,22 @@ public class JasperSchedulingUtils {
 							action.press(10, (int) (dimension.getHeight() * .5))
 									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendTimeList", 5)) {
-							weekendSchedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
-									"WeekendTimeList");
+						if (ss.isWeekendTimeListVisible(5)) {
+							weekendSchedule_period_time = ss.getWeekdendTimeListElements();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate Weekend Time list");
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							int size = MobileUtils.getMobElements(fieldObjects, testCase, "AddImage").size();
+							int size = ss.getAddImageElements().size();
 							if (size > 1) {
-								element = MobileUtils.getMobElements(fieldObjects, testCase, "AddImage").get(1);
+								element = ss.getAddImageElements().get(1);
 							} else {
-								element = MobileUtils.getMobElements(fieldObjects, testCase, "AddImage").get(0);
+								element = ss.getAddImageElements().get(0);
 							}
 						} else {
-							element = MobileUtils.getMobElements(fieldObjects, testCase, "AddImage").get(1);
+							element = ss.getAddImageElements().get(1);
 						}
 
 						initialPeriodSize = weekendSchedule_period_time.size();
@@ -2228,13 +2219,13 @@ public class JasperSchedulingUtils {
 
 				flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs,
 						periodTimeandSetPoint, element);
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+				flag = flag & ss.clickOnSaveButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for new period ***************");
 
 				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
-					schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+					schedule_period_time = ss.getEverydayTimeElements();
 					finalPeriodSize = schedule_period_time.size();
 				} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
@@ -2253,9 +2244,8 @@ public class JasperSchedulingUtils {
 							action.press(10, (int) (dimension.getHeight() * .5))
 									.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayTimeList", 5)) {
-							schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
-									"WeekdayTimeList");
+						if (ss.isWeekDayTimeListVisible(5)) {
+							schedule_period_time = ss.getWeekdayTimeListElements();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2277,9 +2267,8 @@ public class JasperSchedulingUtils {
 							action.press(10, (int) (dimension.getHeight() * .5))
 									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendTimeList", 5)) {
-							schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
-									"WeekendTimeList");
+						if (ss.isWeekendTimeListVisible(5)) {
+							schedule_period_time = ss.getWeekdendTimeListElements();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2295,11 +2284,9 @@ public class JasperSchedulingUtils {
 							+ initialPeriodSize + " Final period count-" + finalPeriodSize);
 					if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 							.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
-						schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+						schedule_period_time = ss.getEverydayTimeElements();
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							schedule_period_setpoint = MobileUtils.getMobElements(fieldObjects, testCase,
-									"SchedulePeriodHeatSetPoint");
-
+							schedule_period_setpoint = ss.getSchedulePeriodHeatSetPointElement();
 							for (int i = 1; i <= schedule_period_time.size(); i++) {
 								try {
 									tempTime = schedule_period_time.get(i - 1).getText();
@@ -2376,45 +2363,27 @@ public class JasperSchedulingUtils {
 								if (i == 1) {
 									inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT,
-											MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + "_HeatTemperature")
-													.getAttribute("value"));
+											ss.getValueOfEverydayHeatTemperatureElementAtIndex(i));
 								} else if (i == 2) {
 									inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT,
-											MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + "_HeatTemperature")
-													.getAttribute("value"));
+											ss.getValueOfEverydayHeatTemperatureElementAtIndex(i));
 								} else if (i == 3) {
 									inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT,
-											MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + "_HeatTemperature")
-													.getAttribute("value"));
+											ss.getValueOfEverydayHeatTemperatureElementAtIndex(i));
 								} else if (i == 4) {
 									inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT,
-											MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + "_HeatTemperature")
-													.getAttribute("value"));
+											ss.getValueOfEverydayHeatTemperatureElementAtIndex(i));
 								} else if (i == 5) {
 									inputs.setInputValue(InputVariables.EVERYDAY_5_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_5_HEAT_SETPOINT,
-											MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + "_HeatTemperature")
-													.getAttribute("value"));
+											ss.getValueOfEverydayHeatTemperatureElementAtIndex(i));
 								} else if (i == 6) {
 									inputs.setInputValue(InputVariables.EVERYDAY_6_TIME, tempTime);
 									inputs.setInputValue(InputVariables.EVERYDAY_6_HEAT_SETPOINT,
-											MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + "_HeatTemperature")
-													.getAttribute("value"));
+											ss.getValueOfEverydayHeatTemperatureElementAtIndex(i));
 								}
 							}
 						}
@@ -2435,17 +2404,15 @@ public class JasperSchedulingUtils {
 								action.press(10, (int) (dimension.getHeight() * .5))
 										.moveTo(0, (int) (dimension.getHeight() * .2)).release().perform();
 							}
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayTimeList", 5)) {
-								schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
-										"WeekdayTimeList");
+							if (ss.isWeekDayTimeListVisible(5)) {
+								schedule_period_time = ss.getWeekdayTimeListElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Failed to locate Weekday Time list");
 							}
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								schedule_period_setpoint = MobileUtils.getMobElements(fieldObjects, testCase,
-										"WeekdayHeatSetpointListEMEA");
+								schedule_period_setpoint = ss.getWeekdayHeatSetpointListEMEAElements();
 								for (int i = 1; i <= schedule_period_time.size(); i++) {
 									try {
 										tempTime = schedule_period_time.get(i - 1).getText();
@@ -2522,45 +2489,27 @@ public class JasperSchedulingUtils {
 									if (i == 1) {
 										inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
 									} else if (i == 2) {
 										inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
 									} else if (i == 3) {
 										inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
 									} else if (i == 4) {
 										inputs.setInputValue(InputVariables.WEEKDAY_4_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
 									} else if (i == 5) {
 										inputs.setInputValue(InputVariables.WEEKDAY_5_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
 									} else if (i == 6) {
 										inputs.setInputValue(InputVariables.WEEKDAY_6_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
 									}
 								}
 							}
@@ -2579,17 +2528,15 @@ public class JasperSchedulingUtils {
 								action.press(10, (int) (dimension.getHeight() * .5))
 										.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 							}
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendTimeList", 5)) {
-								schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase,
-										"WeekendTimeList");
+							if (ss.isWeekendTimeListVisible(5)) {
+								schedule_period_time = ss.getWeekdendTimeListElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Failed to locate Weekend Time list");
 							}
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								schedule_period_setpoint = MobileUtils.getMobElements(fieldObjects, testCase,
-										"WeekendHeatSetpointListEMEA");
+								schedule_period_setpoint = ss.getWeekdendHeatSetpointListEMEAElements();
 								for (int i = 1; i <= schedule_period_time.size(); i++) {
 									try {
 										tempTime = schedule_period_time.get(i - 1).getText();
@@ -2666,45 +2613,27 @@ public class JasperSchedulingUtils {
 									if (i == 1) {
 										inputs.setInputValue(InputVariables.WEEKEND_1_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_1_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(i));
 									} else if (i == 2) {
 										inputs.setInputValue(InputVariables.WEEKEND_2_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_2_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(i));
 									} else if (i == 3) {
 										inputs.setInputValue(InputVariables.WEEKEND_3_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_3_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(i));
 									} else if (i == 4) {
 										inputs.setInputValue(InputVariables.WEEKEND_4_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_4_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(i));
 									} else if (i == 5) {
 										inputs.setInputValue(InputVariables.WEEKEND_5_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_5_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(i));
 									} else if (i == 6) {
 										inputs.setInputValue(InputVariables.WEEKEND_6_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKEND_6_HEAT_SETPOINT,
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + i + "_HeatTemperature")
-														.getAttribute("value"));
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(i));
 									}
 								}
 							}
@@ -2732,7 +2661,8 @@ public class JasperSchedulingUtils {
 
 	public static boolean setPeriodTime(TestCases testCase, String time, String locatorValueinObjectDefinition,
 			boolean isValidTime, boolean verifySetPeriodTime) {
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen ss = new SchedulingScreen(testCase);
+
 		boolean flag = true;
 		try {
 			String timeToSet = " ";
@@ -2741,43 +2671,38 @@ public class JasperSchedulingUtils {
 			String minutes = time.split(":")[1].split(" ")[0];
 			String ampm = time.split(":")[1].split(" ")[1];
 			String invalidTime = " ";
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, locatorValueinObjectDefinition)) {
+			if (ss.isElementFromObjectDefinitionsVisible(locatorValueinObjectDefinition, 5)) {
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 					if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooser")) {
-						if (!MobileUtils.clickOnElement(testCase, "name", "TimeSchedule_StartTime")) {
+						if (!ss.clickOnTimeScheduleStartTime()) {
 							flag = false;
 						}
 					} else if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooserEndTime")) {
-						if (MobileUtils.isMobElementExists("xpath", "//XCUIElementTypeCell[@name='End']", testCase,
-								5)) {
-							if (!MobileUtils.getMobElement(testCase, "xpath", "//XCUIElementTypeCell[@name='End']")
-									.getAttribute("value").equalsIgnoreCase("false")) {
-								if (!MobileUtils.clickOnElement(testCase, "xpath",
-										"//XCUIElementTypeCell[@name='End']")) {
+						if (ss.isTimeScheduleEndTimeVisible(5)) {
+							if (!ss.getTimeScheduleEndTimeValue().equalsIgnoreCase("false")) {
+								if (!ss.clickOnTimeScheduleEndTime()) {
 									flag = false;
 								}
 							} else {
-								if (!MobileUtils.clickOnElement(testCase, "name", "Start")) {
+								if (!ss.clickOnStartButton()) {
 									flag = false;
 								}
 								return flag;
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("name", "TimeSchedule_EndTime_cell", testCase, 5)) {
-								if (!MobileUtils.clickOnElement(testCase, "name", "TimeSchedule_EndTime_cell")) {
+							if (ss.isTimeScheduleEndTimeCellVisible(5)) {
+								if (!ss.clickOnTimeScheduleEndTimeCell()) {
 									flag = false;
 								}
 							}
 						}
 					} else {
-						flag = flag
-								& MobileUtils.clickOnElement(fieldObjects, testCase, locatorValueinObjectDefinition);
+						flag = flag & ss.clickOnElementFromObjectDefinitions(locatorValueinObjectDefinition);
 					}
 				} else {
-					if (MobileUtils.getMobElement(fieldObjects, testCase, locatorValueinObjectDefinition)
-							.getAttribute("enabled").equalsIgnoreCase("true")) {
-						flag = flag
-								& MobileUtils.clickOnElement(fieldObjects, testCase, locatorValueinObjectDefinition);
+					if (ss.getElementFromObjectDefinitions(locatorValueinObjectDefinition).getAttribute("enabled")
+							.equalsIgnoreCase("true")) {
+						flag = flag & ss.clickOnElementFromObjectDefinitions(locatorValueinObjectDefinition);
 					} else {
 						Keyword.ReportStep_Pass(testCase, locatorValueinObjectDefinition + " is disabled");
 						return flag;
@@ -2788,9 +2713,7 @@ public class JasperSchedulingUtils {
 				SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a");
 				SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
 				time24hours = date24Format.format(date12Format.parse(time));
-				if (MobileUtils.isMobElementExists("id", "ampm_label", testCase, 3, false)
-						|| MobileUtils.isMobElementExists("id", "am_label", testCase, 3, false)
-						|| MobileUtils.isMobElementExists("id", "pm_label", testCase, 3, false)) {
+				if (ss.isAMPMLabelVisible(3) || ss.isAMLabelVisible(3) || ss.isAMPMLabelVisible(3)) {
 					if (ampm.equalsIgnoreCase("AM")) {
 						ampm = "A.M.";
 					} else {
@@ -2803,8 +2726,8 @@ public class JasperSchedulingUtils {
 					invalidTime = time24hours.split(":")[0] + ":25";
 				}
 				if (isValidTime) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimePicker", 5)) {
-						if (MobileUtils.setValueToElement(fieldObjects, testCase, "TimePicker", timeToSet)) {
+					if (ss.isTimePickerVisible(5)) {
+						if (ss.setValueToTimePicker(timeToSet)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Set Period Time : Successfully set time " + timeToSet + " to time picker");
 						} else {
@@ -2812,11 +2735,11 @@ public class JasperSchedulingUtils {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Set Period Time : Failed to set time " + timeToSet + " to time picker");
 						}
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "OkButton");
+						flag = flag & ss.clickOnOkButton();
 					}
 				} else {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimePicker", 5)) {
-						if (!MobileUtils.setValueToElement(fieldObjects, testCase, "TimePicker", invalidTime)) {
+					if (ss.isTimePickerVisible(5)) {
+						if (!ss.setValueToTimePicker(invalidTime)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Set Period Time : Failed to set time " + invalidTime + " to time picker");
 						} else {
@@ -2824,7 +2747,7 @@ public class JasperSchedulingUtils {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Set Period Time : Successfully set time " + timeToSet + " to time picker");
 						}
-						if (MobileUtils.setValueToElement(fieldObjects, testCase, "TimePicker", timeToSet)) {
+						if (ss.setValueToTimePicker(timeToSet)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Set Period Time : Successfully set time " + timeToSet + " to time picker");
 						} else {
@@ -2832,7 +2755,7 @@ public class JasperSchedulingUtils {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Set Period Time : Failed to set time " + timeToSet + " to time picker");
 						}
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "OkButton");
+						flag = flag & ss.clickOnOkButton();
 					}
 				}
 				if (verifySetPeriodTime) {
@@ -2842,32 +2765,31 @@ public class JasperSchedulingUtils {
 			} else {
 				int i = Integer.parseInt(hours);
 				hours = Integer.toString(i);
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeHours", 5)) {
-					flag = flag & MobileUtils.setValueInPicker(testCase, fieldObjects, "TimeHours", hours);
+				if (ss.isTimeHoursVisible(5)) {
+					flag = flag & ss.setValueToTimeHoursPicker(hours);
 				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeMinutes", 5)) {
-					flag = flag & MobileUtils.setValueInPicker(testCase, fieldObjects, "TimeMinutes", minutes);
+				if (ss.isTimeMinutesVisible(5)) {
+					flag = flag & ss.setValueToTimeMinutesPicker(minutes);
 				}
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeAMPM", 5)) {
-					flag = flag & MobileUtils.setValueInPicker(testCase, fieldObjects, "TimeAMPM", ampm);
+				if (ss.isTimeAMPMVisible(5)) {
+					flag = flag & ss.setValueToTimeAMPMPicker(ampm);
 				}
 				if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooser")) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "TimeSchedule_StartTime")) {
+					if (!ss.clickOnTimeScheduleStartTime()) {
 						flag = false;
 					}
 				} else if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooserEndTime")) {
-					if (!MobileUtils.getMobElement(testCase, "NAME", "End").getAttribute("value")
-							.equalsIgnoreCase("false")) {
-						if (!MobileUtils.clickOnElement(testCase, "name", "End")) {
+					if (!ss.getTimeScheduleEndTimeValue().equalsIgnoreCase("false")) {
+						if (!ss.clickOnTimeScheduleEndTime()) {
 							flag = false;
 						}
 					} else {
-						if (!MobileUtils.clickOnElement(testCase, "name", "Start")) {
+						if (!ss.clickOnStartButton()) {
 							flag = false;
 						}
 					}
 				} else {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, locatorValueinObjectDefinition);
+					flag = flag & ss.clickOnElementFromObjectDefinitions(locatorValueinObjectDefinition);
 				}
 				if (verifySetPeriodTime) {
 					flag = flag & verifySetPeriodTime(testCase, time, locatorValueinObjectDefinition);
@@ -5874,16 +5796,13 @@ public class JasperSchedulingUtils {
 		WebElement coolUp = null;
 		WebElement coolDown = null;
 		int coolScroller = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 
 			try {
-				coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointChooser")
-						.findElement(By.id("scheduling_period_temp_point")).getText();
-				coolUp = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointChooser")
-						.findElement(By.id("scheduling_temp_chooser_up"));
-				coolDown = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointChooser")
-						.findElement(By.id("scheduling_temp_chooser_down"));
+				coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
+				coolUp = ss.getCoolSetPointUpButton();
+				coolDown = ss.getCoolSetPointDownButton();
 			} catch (NoSuchElementException e) {
 				try {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -5893,12 +5812,9 @@ public class JasperSchedulingUtils {
 						int endx = (dimensions.width * 22) / 100;
 						int endy = (dimensions.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointChooser")
-								.findElement(By.id("scheduling_period_temp_point")).getText();
-						coolUp = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointChooser")
-								.findElement(By.id("scheduling_temp_chooser_up"));
-						coolDown = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointChooser")
-								.findElement(By.id("scheduling_temp_chooser_down"));
+						coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
+						coolUp = ss.getCoolSetPointUpButton();
+						coolDown = ss.getCoolSetPointDownButton();
 					}
 				} catch (NoSuchElementException e1) {
 					flag = false;
@@ -5907,25 +5823,24 @@ public class JasperSchedulingUtils {
 			}
 
 		} else {
-			int size = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").size();
+			int size = ss.getCoolSetPointsElements().size();
 
 			if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
 					&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-				coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPoints").getAttribute("value");
-				coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton")).get(0);
-				coolDown = MobileUtils.getMobElement(fieldObjects, testCase, "CoolDecrement");
+				coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
+				coolUp = ss.getCoolSetPointUpButton();
+				coolDown = ss.getCoolSetPointDownButton();
 			} else {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-					coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(1)
+					coolSetPoint = ss.getCoolSetPointsElements().get(1)
 							.getAttribute("value");
-					coolUp = MobileUtils.getMobElements(fieldObjects, testCase, "CoolIncrement").get(1);
-					coolDown = MobileUtils.getMobElements(fieldObjects, testCase, "CoolDecrement").get(1);
+					coolUp = ss.getCoolIncrementElements().get(1);
+					coolDown = ss.getCoolDecrementElements().get(1);
 				} else {
-					coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPoints")
-							.getAttribute("value");
-					coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton")).get(index);
-					coolDown = MobileUtils.getMobElement(fieldObjects, testCase, "CoolDecrement");
+					coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
+					coolUp = ss.getCoolSetPointUpButton();
+					coolDown = ss.getCoolSetPointDownButton();
 				}
 			}
 		}
