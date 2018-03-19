@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class ActionOnFunctionKeyRelay extends Keyword {
@@ -68,6 +69,32 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 				int i=0;
 				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
 					do{
+						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
+							if(zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(5)){
+								flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
+							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
+								flag = flag & zScreen.clickOKOnDeviceExcludedPopUp();
+								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+								if(ads.isAddNewDeviceHeaderDisplayed(5)){
+									flag = flag &ads.clickOnZwaveFromAddNewDevice();
+								}
+							}
+						}
+						/*AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
+							if(zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(5)){
+								zScreen.clickRetryOnDeviceNotFoundPopUp();
+							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
+								zScreen.clickOKOnDeviceExcludedPopUp();
+								ads.clickOnZwaveFromAddNewDevice();
+							} 
+						}else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
+							zScreen.clickOKOnDeviceExcludedPopUp();
+						}
+						if(ads.isAddNewDeviceHeaderDisplayed(5)){
+							ads.clickOnZwaveFromAddNewDevice();
+						}
+						 */
 						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
 						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
 						i++;
@@ -76,6 +103,15 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 
 				}	else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
 					do{
+						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
+							if(zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(5)){
+								flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
+							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
+								flag = flag & zScreen.clickOKOnDeviceExcludedPopUp();
+								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+								flag = flag & ads.clickOnZwaveFromAddNewDevice();
+							}
+						}
 						Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
 						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
 						i++;

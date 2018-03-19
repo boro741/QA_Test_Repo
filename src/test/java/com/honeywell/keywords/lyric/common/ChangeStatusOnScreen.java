@@ -212,7 +212,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					try {
 						ZWaveRelayUtils.powerOffZwaveDimmer(inputs);
 						ZwaveScreen zs=new ZwaveScreen(testCase);
-						flag = flag & zs.ClickDimmerSettingFromZwaveUtilities();
+						flag = flag & zs.ClickDimmerSettingFromZwaveDevices();
 						int i=0;
 						while(i<3 && zs.verifyPresenceOfSwitchStatus()){
 							flag = flag & zs.clickOffStatus();

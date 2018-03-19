@@ -56,8 +56,7 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-					flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveDevicesSettings(testCase, inputs);
 					break;
 				}
 				case "SWITCH SETTINGS": {
@@ -68,7 +67,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "DIMMER SETTINGS": {
 					ZwaveScreen zs = new ZwaveScreen(testCase);
-					flag = flag & zs.ClickDimmerSettingFromZwaveUtilities();
+					flag = flag & zs.ClickDimmerSettingFromZwaveDevices();
 					break;
 
 				}
@@ -109,6 +108,10 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "DASHBOARD VIA PRIMARY CARD": {
 					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
+					break;
+				}
+				case "DASHBOARD VIA ZWAVE CARD": {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
 					break;
 				}
@@ -181,6 +184,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboard(testCase);
 					break;
 				}
+				case "SWITCH SETTINGS VIA ZWAVE DEVICES": {
+					flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboardViaZwaveDevices(testCase);
+					break;
+				}
 				case "Z-WAVE UTILITIES": {
 					flag = DASZwaveUtils.navigateToZwaveUtilitiesFromDashboard(testCase);
 					break;
@@ -195,6 +202,10 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "DIMMER SETTINGS": {
 					flag = flag & DASZwaveUtils.navigateToDimmerSettingsFromDashboard(testCase);
+					break;
+				}
+				case "DIMMER SETTINGS VIA ZWAVE DEVICES": {
+					flag = flag & DASZwaveUtils.navigateToDimmerSettingsFromDashboardViaZwaveDevices(testCase);
 					break;
 				}
 				case "Z-WAVE INCLUSION THROUGH ADD NEW DEVICE ICON": {

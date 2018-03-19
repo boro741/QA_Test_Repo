@@ -103,7 +103,7 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchSettingsMenu");
 	}
 
-	public boolean ClickDimmerSettingFromZwaveUtilities() {
+	public boolean ClickDimmerSettingFromZwaveDevices() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DimmerSettingsMenu");
 	}
 
@@ -270,6 +270,9 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeviceRemovalButton");
 	}
 
+	public boolean isOKOnDeviceExcludedPopUpDisplayed(int lookFor) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmDeviceRemovalButton", lookFor);
+	}
 	public boolean clickAddNowOnDeviceExcludedPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNowOption");
 	}
@@ -352,6 +355,11 @@ public class ZwaveScreen extends MobileScreens{
 
 	public boolean isFixAllProgressDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FixAllProgress",5,false);
+	}
+
+	public boolean isNamingProgressDisplayed() {
+		return MobileUtils.isMobElementExists("name","In progress",testCase);
+		//return MobileUtils.isMobElementExists(objectDefinition, testCase, "FixAllProgress",5,false);
 	}
 
 	public boolean clickOnFactoryReset() {
