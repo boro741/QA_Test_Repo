@@ -430,7 +430,8 @@ public class LyricUtils {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
-									return CoachMarkUtils.closeCoachMarks(testCase);
+
+									return LyricUtils.closeCoachMarks(testCase);
 								}
 
 							}
@@ -449,7 +450,7 @@ public class LyricUtils {
 								return true;
 							} else {
 								return CoachMarkUtils.closeCoachMarks(testCase);
-							}
+		}
 
 						} else {
 							return false;
@@ -1198,6 +1199,19 @@ public class LyricUtils {
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "User is not on the dashboard");
+		}
+		return flag;
+	}
+	
+	public static boolean closeCoachMarks(TestCases testCase) {
+		boolean flag = true;
+		CoachMarks cm = new CoachMarks(testCase);
+		int counter = 0;
+		if (cm.isGotitButtonVisible(1)) {
+			while (cm.isGotitButtonVisible(1) && counter < 5) {
+				flag = flag & cm.clickOnGotitButton();
+				counter++;
+			}
 		}
 		return flag;
 	}
