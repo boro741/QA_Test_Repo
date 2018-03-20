@@ -55,6 +55,18 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "GENERAL INCLUSION": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickZwaveUtilitiesMenu();
+					flag = flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
+					break;
+				}
+				case "GENERAL EXCLUSION": {
+					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					zwaveScreen.clickZwaveUtilitiesMenu();
+					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
+					break;
+				}
 				case "DASHBOARD": {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveDevicesSettings(testCase, inputs);
 					break;

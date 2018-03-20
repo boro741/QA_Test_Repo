@@ -404,7 +404,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with the "Activate ZWAVE Device" screen
      When user "activates for discovery" the "dimmer" function key
       And user names the "Dimmer" to "Dimmer1"
-     When user navigates to "ZWAVE device through General Exclusion" screen from the "ZWAVE Utilities" screen
+     When user navigates to "General Exclusion" screen from the "ZWAVE devices" screen
      Then user should be displayed with the "Exclusion Mode Active" screen
      When user "activates for exclusion" the "switch" function key
      Then user should receive a "Switch Excluded Successfully" popup
@@ -801,7 +801,7 @@ Given user is set to "Home" mode through CHIL
      When user "activates for discovery" the "Dimmer" function key
       And user names the "Dimmer" to "Dimmer1"
      Then user should be displayed with "Dimmer1" device on the "ZWAVE devices" screen
-     When user navigates to "ZWAVE device through General Inclusion" screen from the "ZWAVE Utilities" screen
+     When user navigates to "General Inclusion" screen from the "ZWAVE devices" screen
      Then user should be displayed with the "Activate ZWAVE Device" screen
      When user "activates for discovery" the "Switch" function key
      And user names the "Switch" to "Switch1"

@@ -66,9 +66,11 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 			}
 			else if(deviceType.get(0).equalsIgnoreCase("activates for exclusion")){
 				ZwaveScreen zScreen = new ZwaveScreen(testCase);
+				AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 				int i=0;
 				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
 					do{
+						
 						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
 						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
 						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
@@ -77,7 +79,6 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 								flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
 							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
 								flag = flag & zScreen.clickOKOnDeviceExcludedPopUp();
-								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 								if(ads.isAddNewDeviceHeaderDisplayed(5)){
 									//select zdevice from add device screen
 									flag = flag &ads.clickOnZwaveFromAddNewDevice();
@@ -87,6 +88,11 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 									//select general exclusion from zdevice
 									flag = flag & zScreen.clickGeneralDeviceExclusionMenu();
 								}
+							}else if(ads.isAddNewDeviceHeaderDisplayed(5)){
+								//select zdevice from add device screen
+								flag = flag &ads.clickOnZwaveFromAddNewDevice();
+								DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
+								flag = flag & zScreen.clickTryExcludeOnDeviceNotFoundPopUp();
 							}
 						}
 
@@ -103,7 +109,6 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 								flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
 							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
 								flag = flag & zScreen.clickOKOnDeviceExcludedPopUp();
-								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 								if(ads.isAddNewDeviceHeaderDisplayed(5)){
 									//select zdevice from add device screen
 									flag = flag &ads.clickOnZwaveFromAddNewDevice();
@@ -113,6 +118,11 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 									//select general exclusion from zdevice
 									flag = flag & zScreen.clickGeneralDeviceExclusionMenu();
 								}
+							}else if(ads.isAddNewDeviceHeaderDisplayed(5)){
+								//select zdevice from add device screen
+								flag = flag &ads.clickOnZwaveFromAddNewDevice();
+								DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
+								flag = flag & zScreen.clickTryExcludeOnDeviceNotFoundPopUp();
 							}
 						}
 						i++;
