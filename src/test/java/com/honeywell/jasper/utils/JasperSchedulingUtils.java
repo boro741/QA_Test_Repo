@@ -118,15 +118,6 @@ public class JasperSchedulingUtils {
 								"Create Schedule : Failed to navigate to home set points page");
 					}
 				} else {
-					/*
-					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperatures do you prefer when you're at home" + "\u003F", testCase,
-					 * 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to home set points page" ); } else
-					 * { flag = false; Keyword.ReportStep_Fail(testCase,
-					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to home set points page" ); }
-					 */
 				}
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")
 					|| !allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
@@ -140,15 +131,7 @@ public class JasperSchedulingUtils {
 								"Create Schedule : Failed to navigate to home set points page");
 					}
 				} else {
-					/*
-					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperature do you prefer when you're at home" + "\u003F", testCase,
-					 * 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to home set points page" ); } else
-					 * { flag = false; Keyword.ReportStep_Fail(testCase,
-					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to home set points page" ); }
-					 */
+
 				}
 			}
 			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
@@ -188,15 +171,6 @@ public class JasperSchedulingUtils {
 								"Create Schedule : Failed to navigate to away set points page");
 					}
 				} else {
-					/*
-					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperatures do you prefer when you're away from home" + "\u003F",
-					 * testCase, 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to away set points page" ); } else
-					 * { flag = false; Keyword.ReportStep_Fail(testCase,
-					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to away set points page" ); }
-					 */
 				}
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")
 					|| !allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
@@ -210,15 +184,6 @@ public class JasperSchedulingUtils {
 								"Create Schedule : Failed to navigate to away set points page");
 					}
 				} else {
-					/*
-					 * if (MobileUtils.isMobElementExists("name",
-					 * "What temperature do you prefer when you're away from away" + "\u003F",
-					 * testCase, 5)) { Keyword.ReportStep_Pass(testCase,
-					 * "Create Schedule : Successfully navigated to away set points page" ); } else
-					 * { flag = false; Keyword.ReportStep_Fail(testCase,
-					 * FailType.FUNCTIONAL_FAILURE,
-					 * "Create Schedule : Failed to navigate to home set points page" ); }
-					 */
 				}
 			}
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
@@ -1956,16 +1921,6 @@ public class JasperSchedulingUtils {
 			} else if (ss.isSkipButtonVisible(10)) {
 				flag = flag & ss.clickOnSkipButton();
 			}
-			/*
-			 * if (MobileUtils.isMobElementExists(fieldObjects, testCase,
-			 * "GeofenceScheduleButton", 10)) { Keyword.ReportStep_Pass(testCase,
-			 * "Create Schedule : Successfully navigated to Primary Card"); } else if
-			 * (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton",
-			 * 10)) { Keyword.ReportStep_Pass(testCase,
-			 * "Create Schedule : Successfully navigated to Primary Card"); } else { flag =
-			 * false; Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-			 * "Create Schedule : Failed to navigate to Primary Card"); }
-			 */
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
@@ -5833,8 +5788,7 @@ public class JasperSchedulingUtils {
 			} else {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-					coolSetPoint = ss.getCoolSetPointsElements().get(1)
-							.getAttribute("value");
+					coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
 					coolUp = ss.getCoolIncrementElements().get(1);
 					coolDown = ss.getCoolDecrementElements().get(1);
 				} else {
@@ -5882,15 +5836,12 @@ public class JasperSchedulingUtils {
 		WebElement heatUp = null;
 		WebElement heatDown = null;
 		int heatScroller = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			try {
-				heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-						.findElement(By.id("scheduling_period_temp_point")).getText();
-				heatUp = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-						.findElement(By.id("scheduling_temp_chooser_up"));
-				heatDown = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-						.findElement(By.id("scheduling_temp_chooser_down"));
+				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+				heatUp = ss.getHeatSetPointUpButton();
+				heatDown = ss.getHeatSetPointDownButton();
 			} catch (NoSuchElementException e) {
 				try {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -5900,41 +5851,37 @@ public class JasperSchedulingUtils {
 						int endx = (dimensions.width * 22) / 100;
 						int endy = (dimensions.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-								.findElement(By.id("scheduling_period_temp_point")).getText();
-						heatUp = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-								.findElement(By.id("scheduling_temp_chooser_up"));
-						heatDown = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-								.findElement(By.id("scheduling_temp_chooser_down"));
+						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+						heatUp = ss.getHeatSetPointUpButton();
+						heatDown = ss.getHeatSetPointDownButton();
 					}
 				} catch (NoSuchElementException e1) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find the cool stepper");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find the heat stepper");
 				}
 			}
 		} else {
-			int size = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").size();
+			int size = ss.getHeatSetPointsElements().size();
 
 			if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
 					&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-				heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints").getAttribute("value");
-				heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(0);
-				heatDown = MobileUtils.getMobElement(fieldObjects, testCase, "HeatDecrement");
+				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+				heatUp = ss.getHeatSetPointUpButton();
+				heatDown = ss.getHeatSetPointDownButton();
 			} else {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-					heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(1)
-							.getAttribute("value");
-					heatUp = MobileUtils.getMobElements(fieldObjects, testCase, "HeatIncrement").get(1);
-					heatDown = MobileUtils.getMobElements(fieldObjects, testCase, "HeatDecrement").get(1);
+					heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+					heatUp = ss.getHeatIncrementElements().get(1);
+					heatDown = ss.getHeatDecrementElements().get(1);
 				} else {
-					heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints")
-							.getAttribute("value");
+					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 					// heatUp =
 					// getMobElementWithoutVisibilityCheck(fieldObjects,
 					// testCase, "HeatIncrement",false,true);
-					heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(index);
-					heatDown = MobileUtils.getMobElement(fieldObjects, testCase, "HeatDecrement");
+					heatUp = ss.getHeatSetPointUpButton(index);
+					;
+					heatDown = ss.getHeatSetPointDownButton();
 				}
 			}
 		}
@@ -6001,11 +5948,11 @@ public class JasperSchedulingUtils {
 		String expectedPeriodTime = "";
 		Dimension dimensions;
 		int startx, starty, endx, endy;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			schedule_period_title = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTitle");
-			schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTime");
+			schedule_period_title = ss.getSchedulePeriodTitleElements();
+			schedule_period_time = ss.getSchedulePeriodTimeElements();
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 
@@ -6017,16 +5964,12 @@ public class JasperSchedulingUtils {
 					endy = (dimensions.height * 35) / 100;
 					testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
 					testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
-					List<WebElement> weekdayschedule_period_title = MobileUtils.getMobElements(testCase, "xpath",
-							"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout[1]/android.widget.TextView");
+					List<WebElement> weekdayschedule_period_title = ss.getWeekdaySchedulePeriodTitleElements();
 
 					for (int i = 1; i <= (weekdayschedule_period_title.size()); i++) {
 						if (String.valueOf(i)
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
-							expectedPeriodTime = MobileUtils
-									.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + i
-											+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
-									.getText();
+							expectedPeriodTime = ss.getWeekdayPeroidTimeValueAtIndex(i);
 							try {
 								weekdayschedule_period_title.get(i - 1).click();
 								Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i));
@@ -6046,19 +5989,13 @@ public class JasperSchedulingUtils {
 					endy = (dimensions.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-					List<WebElement> weekendschedule_period_title = MobileUtils.getMobElements(testCase, "xpath",
-							"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[1]/android.widget.TextView");
+					List<WebElement> weekendschedule_period_title = ss.getWeekendSchedulePeriodTitleElements();
 
 					for (int i = 5; i <= (weekendschedule_period_title.size() * 2); i++) {
 						if (String.valueOf(i)
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
-							if (MobileUtils.isMobElementExists("Xpath", "//android.widget.FrameLayout[" + (i)
-									+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
-									testCase, 5)) {
-								expectedPeriodTime = MobileUtils
-										.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + (i)
-												+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
-										.getText();
+							if (ss.isWeekendPeriodTimeElementAtIndexVisible(i, 5)) {
+								expectedPeriodTime = ss.getWeekendPeroidTimeValueAtIndex(i);
 							}
 							try {
 								weekendschedule_period_title.get(i - 5).click();
@@ -6112,8 +6049,8 @@ public class JasperSchedulingUtils {
 								"Error while/after scrolling up: " + e1.getMessage());
 					}
 
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayPeriodTime", 5)) {
-						schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "WeekdayPeriodTime");
+					if (ss.isWeekdayPeriodTimeVisible(5)) {
+						schedule_period_time = ss.getWeekdayPeriodTimeElements();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -6147,8 +6084,8 @@ public class JasperSchedulingUtils {
 								"Error while/after scrolling down: " + e1.getMessage());
 					}
 
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendPeriodTime", 5)) {
-						schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "WeekendPeriodTime");
+					if (ss.isWeekendPeriodTimeVisible(5)) {
+						schedule_period_time = ss.getWeekendPeriodTimeElements();
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -6173,8 +6110,8 @@ public class JasperSchedulingUtils {
 					}
 				}
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayTime", 5)) {
-					schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+				if (ss.isEverydayPeriodTimeVisible(5)) {
+					schedule_period_time = ss.getEverydayPeriodTimeElements();
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -6200,30 +6137,18 @@ public class JasperSchedulingUtils {
 			}
 		}
 
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon", 5)) {
-			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "PeriodDeleteIcon")) {
+		if (ss.isPeriodDeleteIconVisible(5)) {
+			if (!ss.clickOnPeriodDeleteIcon()) {
 				flag = false;
 			} else {
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Delete']", testCase, 5)) {
-						if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Delete']")) {
-							flag = false;
-						}
-					} else {
+				if (ss.isConfirmDeleteButtonVisible(5)) {
+					if (!ss.clickOnConfirmDeleteButton()) {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to find Confirm Delete button");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("name", "DELETE", testCase, 5)) {
-						if (!MobileUtils.clickOnElement(testCase, "name", "DELETE")) {
-							flag = false;
-						}
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to find Confirm Delete button");
-					}
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to find Confirm Delete button");
 				}
 			}
 		} else {
@@ -6236,8 +6161,8 @@ public class JasperSchedulingUtils {
 				// TODO
 
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SchedulePeriodTime", 5)) {
-					schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTime");
+				if (ss.isSchedulePeriodTimeVisible(5)) {
+					schedule_period_time = ss.getSchedulePeriodTimeElements();
 					for (WebElement elem : schedule_period_time) {
 						if (elem.getText().equalsIgnoreCase(expectedPeriodTime)) {
 							flag = false;
@@ -6254,8 +6179,8 @@ public class JasperSchedulingUtils {
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				// TODO
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayTime", 5)) {
-					schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+				if (ss.isEverydayTimeVisible(5)) {
+					schedule_period_time = ss.getEverydayTimeElements();
 					for (WebElement elem : schedule_period_time) {
 						if (elem.getAttribute("value").equalsIgnoreCase(expectedPeriodTime)) {
 							flag = false;
@@ -6311,11 +6236,10 @@ public class JasperSchedulingUtils {
 		boolean flag = true, deletedPeriodFlag = true;
 		List<WebElement> schedule_period_title, schedule_period_time;
 		String expectedPeriodTime = "";
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			schedule_period_title = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTitle");
-			schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTime");
+			schedule_period_title = ss.getSchedulePeriodTitleElements();
+			schedule_period_time = ss.getSchedulePeriodTimeElements();
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
@@ -6325,15 +6249,11 @@ public class JasperSchedulingUtils {
 					int endx = (dimensions.width * 22) / 100;
 					int endy = (dimensions.height * 35) / 100;
 					testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
-					List<WebElement> weekdayschedule_period_title = MobileUtils.getMobElements(testCase, "xpath",
-							"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout[1]/android.widget.TextView");
+					List<WebElement> weekdayschedule_period_title = ss.getWeekdaySchedulePeriodTitleElements();
 					for (int i = 1; i <= (weekdayschedule_period_title.size()); i++) {
 						if (weekdayschedule_period_title.get(i - 1).getText()
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
-							expectedPeriodTime = MobileUtils
-									.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + i
-											+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
-									.getText();
+							expectedPeriodTime = ss.getWeekdayPeroidTimeValueAtIndex(i);
 							try {
 								weekdayschedule_period_title.get(i - 1).click();
 								Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i));
@@ -6352,16 +6272,12 @@ public class JasperSchedulingUtils {
 					int endx = (dimensions.width * 22) / 100;
 					int endy = (dimensions.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-					List<WebElement> weekendschedule_period_title = MobileUtils.getMobElements(testCase, "xpath",
-							"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[1]/android.widget.TextView");
+					List<WebElement> weekendschedule_period_title = ss.getWeekendSchedulePeriodTitleElements();
 
 					for (int i = 1; i <= weekendschedule_period_title.size(); i++) {
 						if (String.valueOf((Integer.parseInt(weekendschedule_period_title.get(i - 1).getText()) + 4))
 								.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
-							expectedPeriodTime = MobileUtils
-									.getMobElement(testCase, "xpath", "//android.widget.FrameLayout[" + i
-											+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
-									.getText();
+							expectedPeriodTime = ss.getWeekendPeroidTimeValueAtIndex(i);
 							try {
 								weekendschedule_period_title.get(i - 1).click();
 								Keyword.ReportStep_Pass(testCase, "Selected Period-"
@@ -6406,19 +6322,15 @@ public class JasperSchedulingUtils {
 					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * .3))
 							.release().perform();
 
-					if (MobileUtils.isMobElementExists("xpath",
-							"//*[contains(@name,'Monday - Friday_') and contains(@name,'_Time')]", testCase, 5)) {
-						weekdayschedule_period_title = MobileUtils.getMobElements(testCase, "xpath",
-								"//*[contains(@name,'Monday - Friday_') and contains(@name,'_Time')]");
+					if (ss.isWeekdaySchedulePeriodTitleVisible(5)) {
+						weekdayschedule_period_title = ss.getWeekdaySchedulePeriodTitleElements();
 					}
 
 					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.3))
 							.release().perform();
 
-					if (MobileUtils.isMobElementExists("xpath",
-							"//*[contains(@name,'Saturday - Sunday_') and contains(@name,'_Time')]", testCase, 5)) {
-						weekendschedule_period_title = MobileUtils.getMobElements(testCase, "xpath",
-								"//*[contains(@name,'Saturday - Sunday_') and contains(@name,'_Time')]");
+					if (ss.isWeekendSchedulePeriodTitleVisible(5)) {
+						weekendschedule_period_title = ss.getWeekendSchedulePeriodTitleElements();
 					}
 
 					String expectedPeriod;
@@ -6430,8 +6342,7 @@ public class JasperSchedulingUtils {
 						schedule_period_time = weekdayschedule_period_title;
 						expectedPeriod = "Monday - Friday_";
 						for (int i = 1; i <= schedule_period_time.size(); i++) {
-							String temp = MobileUtils.getMobElement(testCase, "name", expectedPeriod + i)
-									.getAttribute("name");
+							String temp = ss.getPeriodName(expectedPeriod + i);
 							temp = temp.split("_")[1];
 							if (temp.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 								expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
@@ -6453,8 +6364,7 @@ public class JasperSchedulingUtils {
 						schedule_period_time = weekendschedule_period_title;
 						expectedPeriod = "Saturday - Sunday_";
 						for (int i = 1; i <= schedule_period_time.size(); i++) {
-							String temp = MobileUtils.getMobElement(testCase, "name", expectedPeriod + i)
-									.getAttribute("name");
+							String temp = ss.getPeriodName(expectedPeriod + i);
 							temp = temp.split("_")[1];
 							if (String.valueOf((Integer.parseInt(temp) + 4))
 									.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
@@ -6473,9 +6383,9 @@ public class JasperSchedulingUtils {
 					}
 
 				} else {
-					schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+					schedule_period_time = ss.getEverydayTimeElements();
 					for (int i = 1; i <= schedule_period_time.size(); i++) {
-						String temp = MobileUtils.getMobElement(testCase, "name", "Everyday_" + i).getAttribute("name");
+						String temp = ss.getPeriodName("Everyday_" + i);
 						temp = temp.split("_")[1];
 						if (temp.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 							expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
@@ -6492,9 +6402,9 @@ public class JasperSchedulingUtils {
 					}
 				}
 			} else {
-				schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+				schedule_period_time = ss.getEverydayTimeElements();
 				for (int i = 1; i <= schedule_period_time.size(); i++) {
-					String temp = MobileUtils.getMobElement(testCase, "name", "Everyday_" + i).getAttribute("name");
+					String temp = ss.getPeriodName("Everyday_" + i);
 					temp = temp.split("_")[1];
 					if (temp.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 						expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
@@ -6511,52 +6421,27 @@ public class JasperSchedulingUtils {
 				}
 			}
 		}
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='When do you want the temperature to change?']",
-					testCase, 5)) {
-				Keyword.ReportStep_Pass(testCase,
-						"Period edit screen is shown: When do you want the temperature to change?");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Period edit screen is not shown");
-			}
+
+		if (ss.isPeriodEditScreenTitleVisible(5)) {
+			Keyword.ReportStep_Pass(testCase,
+					"Period edit screen is shown: When do you want the temperature to change?");
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//UIAStaticText[@value='When do you want the temperature to change?']", testCase, 5)) {
-				Keyword.ReportStep_Pass(testCase,
-						"Period edit screen is shown: When do you want the temperature to change?");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Period edit screen is not shown");
-			}
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Period edit screen is not shown");
 		}
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon", 5)) {
-			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "PeriodDeleteIcon")) {
+
+		if (ss.isPeriodDeleteIconVisible(5)) {
+			if (!ss.clickOnPeriodDeleteIcon()) {
 				flag = false;
 			} else {
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Delete']", testCase, 5)) {
-						if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Delete']")) {
-							flag = false;
-						}
-					} else {
+				if (ss.isConfirmDeleteButtonVisible(5)) {
+					if (!ss.clickOnConfirmDeleteButton()) {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to find Confirm Delete button");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("xpath",
-							"//XCUIElementTypeAlert[@name='Confirm Delete']//XCUIElementTypeButton[@name='DELETE']",
-							testCase, 5)) {
-						if (!MobileUtils.clickOnElement(testCase, "xpath",
-								"//XCUIElementTypeAlert[@name='Confirm Delete']//XCUIElementTypeButton[@name='DELETE']")) {
-							flag = false;
-						}
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to find Confirm Delete button");
-					}
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to find Confirm Delete button");
 				}
 			}
 		} else {
@@ -6572,22 +6457,7 @@ public class JasperSchedulingUtils {
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
 				testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
-				// List<WebElement> weekdayschedule_period_title =
-				// MobileUtils.getMobElements(testCase,"xpath","//*[contains(@content-desc,'_Monday-Friday')]//android.widget.RelativeLayout/android.widget.TextView");
-				// List<WebElement> weekdayschedule_period_time =
-				// MobileUtils.getMobElements(testCase,"xpath","//*[contains(@content-desc,'_Monday-Friday')]/android.widget.TextView[1]");
 				if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
-					/*
-					 * for (int i = 0; i <weekdayschedule_period_title.size(); i++) { if
-					 * (weekdayschedule_period_title.get(i).getText()
-					 * .equalsIgnoreCase(inputs.getInputValue( PERIOD_NUMBER_EMEA_TO_DELETE))) {
-					 * expectedPeriodTime = weekdayschedule_period_time.get(i).getText(); try {
-					 * weekdayschedule_period_title.get(i).click();
-					 * Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i + 1)); break; }
-					 * catch (Exception e) { flag = false; Keyword.ReportStep_Fail(testCase,
-					 * FailType.FUNCTIONAL_FAILURE,
-					 * "[SelectPeriodToDelete] Failed to select Period-" + (i + 1)); } } }
-					 */
 				} else {
 					dimensions = testCase.getMobileDriver().manage().window().getSize();
 					startx = (dimensions.width * 20) / 100;
@@ -6595,25 +6465,9 @@ public class JasperSchedulingUtils {
 					endx = (dimensions.width * 22) / 100;
 					endy = (dimensions.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-					// List<WebElement> weekendschedule_period_title =
-					// MobileUtils.getMobElements(testCase,"xpath","//*[contains(@content-desc,'_Saturday-Sunday')]//android.widget.RelativeLayout/android.widget.TextView");
-					// List<WebElement> weekendschedule_period_time =
-					// MobileUtils.getMobElements(testCase,"xpath","//*[contains(@content-desc,'_Saturday-Sunday')]/android.widget.TextView[1]");
-
-					/*
-					 * for (int i = 0; i <weekendschedule_period_title.size(); i++) { if
-					 * (weekendschedule_period_title.get(i).getText()
-					 * .equalsIgnoreCase(inputs.getInputValue( PERIOD_NUMBER_EMEA_TO_DELETE))) {
-					 * expectedPeriodTime = weekendschedule_period_time.get(i).getText(); try {
-					 * weekendschedule_period_title.get(i).click();
-					 * Keyword.ReportStep_Pass(testCase, "Selected Period-" + (i + 1)); break; }
-					 * catch (Exception e) { flag = false; Keyword.ReportStep_Fail(testCase,
-					 * FailType.FUNCTIONAL_FAILURE,
-					 * "[SelectPeriodToDelete] Failed to select Period-" + (i + 1)); } } }
-					 */
 				}
 			} else {
-				schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTime");
+				schedule_period_time = ss.getSchedulePeriodTimeElements();
 				for (WebElement elem : schedule_period_time) {
 					if (elem.getText().equalsIgnoreCase(expectedPeriodTime)) {
 						flag = false;
@@ -6629,7 +6483,7 @@ public class JasperSchedulingUtils {
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 
 			} else {
-				schedule_period_time = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+				schedule_period_time = ss.getEverydayTimeElements();
 				for (WebElement elem : schedule_period_time) {
 					if (elem.getAttribute("value").equalsIgnoreCase(expectedPeriodTime)) {
 						flag = false;
@@ -6795,7 +6649,7 @@ public class JasperSchedulingUtils {
 				SleepStartEndTime = "", SleepStartTime = "", SleepEndTime = "";
 		String dateString = "", tempTime = "", tempTimeInputs = "";
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 
 		flag = flag & viewScheduleOnPrimaryCard(testCase);
 
@@ -6806,15 +6660,13 @@ public class JasperSchedulingUtils {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Every Day']", testCase, 5)) {
+					if (ss.isEverydayTextVisible(5)) {
 						try {
-							testCase.getMobileDriver().findElement(By.xpath("//*[@text='Every Day']"));
+							ss.getEverydayText();
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Displayed Schedule : Everyday text displayed on schedule screen");
-							schedule_periodtimes = MobileUtils.getMobElements(fieldObjects, testCase,
-									"SchedulePeriodTime");
-							schedule_heatsetpoints = MobileUtils.getMobElements(fieldObjects, testCase,
-									"SchedulePeriodHeatSetPoint");
+							schedule_periodtimes = ss.getSchedulePeriodTimeElements();
+							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 							if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
 								for (int i = 1; i <= schedule_periodtimes.size(); i++) {
 									Keyword.ReportStep_Pass(testCase,
@@ -7125,26 +6977,16 @@ public class JasperSchedulingUtils {
 									}
 								}
 							} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
-								/*
-								 * schedule_coolsetpoints = MobileUtils.getMobElements(fieldObjects, testCase,
-								 * "SchedulePeriodCoolSetPoint");
-								 */
-								List<WebElement> schedule_everydaytitle = MobileUtils.getMobElements(fieldObjects,
-										testCase, "EverydayTitleList");
+								List<WebElement> schedule_everydaytitle = ss.getEverydayTitleListElements();
 								for (int i = 0; i < schedule_periodtimes.size(); i++) {
 									Keyword.ReportStep_Pass(testCase,
 											"*********************** Verifying schedule period time and schedule period heat set points against set values **************************");
-									dateString = MobileUtils.getFieldValue(testCase, "xpath",
-											"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-													+ schedule_everydaytitle.get(i).getText()
-													+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-											.replaceAll("\\.", "");
+									dateString = ss.getTimeOfEverydayScheduleOfGivenPeriod(
+											schedule_everydaytitle.get(i).getText()).replaceAll("\\.", "");
 									tempTime = dateString;
 									if (i == 0) {
-										if (!MobileUtils.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ schedule_everydaytitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!ss.getTimeOfEverydayScheduleOfGivenPeriod(
+												schedule_everydaytitle.get(i).getText())
 												.equalsIgnoreCase("Tap to set")) {
 
 											try {
@@ -7173,24 +7015,15 @@ public class JasperSchedulingUtils {
 											 * System.out.println(tempTime); System.out.println(inputs. getInputValue(
 											 * InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT));
 											 */
-											System.out.println(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'"
-															+ schedule_everydaytitle.get(i).getText()
-															+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"));
+
 											if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
 													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(ss.getHeatSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(ss.getCoolSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period WAKE's expected time and heat and cool set points are shown correctly: "
 																+ inputs.getInputValue(
@@ -7213,24 +7046,15 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-																+ " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+																+ ss.getHeatSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText())
+																+ " " + ss.getCoolSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										} else {
 											if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+													.equalsIgnoreCase(ss.getTimeOfEverydayScheduleOfGivenPeriod(
+															schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period WAKE's expected time is shown correctly: " + inputs
 																.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
@@ -7241,18 +7065,13 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_WAKE_TIME)
 																+ " is not shown correctly: "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+																+ ss.getTimeOfEverydayScheduleOfGivenPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										}
 									} else if (i == 1) {
-										if (!MobileUtils.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ schedule_everydaytitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!ss.getTimeOfEverydayScheduleOfGivenPeriod(
+												schedule_everydaytitle.get(i).getText())
 												.equalsIgnoreCase("Tap to set")) {
 											try {
 												if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -7276,17 +7095,11 @@ public class JasperSchedulingUtils {
 											if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
 													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(ss.getHeatSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(ss.getCoolSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period AWAY's expected time and heat and cool set points are shown correctly: "
 																+ inputs.getInputValue(
@@ -7308,25 +7121,16 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-																+ " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
-
+																+ ss.getHeatSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText())
+																+ " " + ss.getCoolSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										} else {
+											// schedule_everydaytitle.get(i).getText()
 											if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+													.equalsIgnoreCase(ss.getTimeOfEverydayScheduleOfGivenPeriod(
+															schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period AWAY's expected time is shown correctly: " + inputs
 																.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
@@ -7337,18 +7141,13 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_AWAY_TIME)
 																+ " is not shown correctly: "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+																+ ss.getTimeOfEverydayScheduleOfGivenPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										}
 									} else if (i == 2) {
-										if (!MobileUtils.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ schedule_everydaytitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!ss.getTimeOfEverydayScheduleOfGivenPeriod(
+												schedule_everydaytitle.get(i).getText())
 												.equalsIgnoreCase("Tap to set")) {
 											try {
 												if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -7372,17 +7171,11 @@ public class JasperSchedulingUtils {
 											if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
 													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(ss.getHeatSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(ss.getCoolSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period HOME's expected time and heat and cool set points are shown correctly: "
 																+ inputs.getInputValue(
@@ -7405,25 +7198,15 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-																+ " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
-
+																+ ss.getHeatSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText())
+																+ " " + ss.getCoolSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										} else {
 											if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+													.equalsIgnoreCase(ss.getTimeOfEverydayScheduleOfGivenPeriod(
+															schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period HOME's expected time is shown correctly: " + inputs
 																.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
@@ -7434,18 +7217,13 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_HOME_TIME)
 																+ " is not shown correctly: "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+																+ ss.getTimeOfEverydayScheduleOfGivenPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										}
 									} else if (i == 3) {
-										if (!MobileUtils.getFieldValue(testCase, "xpath",
-												"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-														+ schedule_everydaytitle.get(i).getText()
-														+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+										if (!ss.getTimeOfEverydayScheduleOfGivenPeriod(
+												schedule_everydaytitle.get(i).getText())
 												.equalsIgnoreCase("Tap to set")) {
 											try {
 												if (!dateString.contains("m") && !dateString.contains("M")) {
@@ -7469,17 +7247,11 @@ public class JasperSchedulingUtils {
 											if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
 													.equalsIgnoreCase(tempTime)
 													&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+															.equalsIgnoreCase(ss.getHeatSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))
 													&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
-															.equalsIgnoreCase(MobileUtils.getFieldValue(testCase,
-																	"xpath",
-																	"//*[contains(@content-desc,'"
-																			+ schedule_everydaytitle.get(i).getText()
-																			+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+															.equalsIgnoreCase(ss.getCoolSetPointsOfGivenEverydayPeriod(
+																	schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period SLEEP's expected time and heat and cool set points are shown correctly: "
 																+ inputs.getInputValue(
@@ -7502,25 +7274,15 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
 																+ " are not shown correctly: " + tempTime + " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-																+ " "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
-
+																+ ss.getHeatSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText())
+																+ " " + ss.getCoolSetPointsOfGivenEverydayPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										} else {
 											if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																	+ schedule_everydaytitle.get(i).getText()
-																	+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+													.equalsIgnoreCase(ss.getTimeOfEverydayScheduleOfGivenPeriod(
+															schedule_everydaytitle.get(i).getText()))) {
 												Keyword.ReportStep_Pass(testCase,
 														"Period SLEEP's expected time is shown correctly: " + inputs
 																.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
@@ -7531,11 +7293,8 @@ public class JasperSchedulingUtils {
 																+ inputs.getInputValue(
 																		InputVariables.EVERYDAY_SLEEP_TIME)
 																+ " is not shown correctly: "
-																+ MobileUtils.getFieldValue(testCase, "xpath",
-																		"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																				+ schedule_everydaytitle.get(i)
-																						.getText()
-																				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+																+ ss.getTimeOfEverydayScheduleOfGivenPeriod(
+																		schedule_everydaytitle.get(i).getText()));
 											}
 										}
 
@@ -7555,9 +7314,9 @@ public class JasperSchedulingUtils {
 								"Verify Displayed Schedule : Everyday text not displayed on schedule screen");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Monday - Friday']", testCase, 5)) {
+					if (ss.isWeekdayTextVisible(5)) {
 						try {
-							testCase.getMobileDriver().findElement(By.xpath("//*[@text='Monday - Friday']"));
+							ss.getWeekdayText();
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Displayed Schedule : Monday-Friday text displayed on schedule screen");
 						} catch (NoSuchElementException e) {
@@ -7571,9 +7330,9 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Displayed Schedule : Monday-Friday text not displayed on schedule screen");
 					}
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Saturday - Sunday']", testCase, 5)) {
+					if (ss.isWeekendTextVisible(5)) {
 						try {
-							testCase.getMobileDriver().findElement(By.xpath("//*[@text='Saturday - Sunday']"));
+							ss.getWeekendText();
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Displayed Schedule : Saturday-Sunday text displayed on schedule screen");
 						} catch (NoSuchElementException e) {
@@ -7590,10 +7349,9 @@ public class JasperSchedulingUtils {
 
 					// start//////////////////////////
 					if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
-						List<WebElement> weekdayschedule_periodtimes = MobileUtils.getMobElements(fieldObjects,
-								testCase, "WeekdayTimeList");
-						List<WebElement> weekdayschedule_periodheatsetPoint = MobileUtils.getMobElements(fieldObjects,
-								testCase, "WeekdayHeatSetpointListEMEA");
+						List<WebElement> weekdayschedule_periodtimes = ss.getWeekdayTimeListElements();
+						List<WebElement> weekdayschedule_periodheatsetPoint = ss
+								.getWeekdayHeatSetpointListEMEAElements();
 						Keyword.ReportStep_Pass(testCase,
 								"*********************** Verifying Weekday-Weekend schedule period time and schedule period heat set points against set values **************************");
 
@@ -7894,10 +7652,9 @@ public class JasperSchedulingUtils {
 						int endy = (dimensions.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 
-						List<WebElement> weekendschedule_periodtimes = MobileUtils.getMobElements(testCase, "xpath",
-								"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]");
-						List<WebElement> weekendschedule_periodsetPoint = MobileUtils.getMobElements(testCase, "xpath",
-								"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[2]/android.widget.TextView");
+						List<WebElement> weekendschedule_periodtimes = ss.getWeekendSchedulePeriodTimesElements();
+						List<WebElement> weekendschedule_periodsetPoint = ss
+								.getWeekendSchedulePeriodSetPointsElements();
 						for (int i = 0; i < weekendschedule_periodtimes.size(); i++) {
 							dateString = weekendschedule_periodtimes.get(i).getText().replaceAll("\\.", "");
 							tempTime = dateString;
@@ -8191,26 +7948,19 @@ public class JasperSchedulingUtils {
 					}
 					// end/////////////////////////
 					else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
-						List<WebElement> weekdayschedule_periodtitle = MobileUtils.getMobElements(fieldObjects,
-								testCase, "WeekdayTitleList");
-						List<WebElement> weekendschedule_periodtitle = MobileUtils.getMobElements(fieldObjects,
-								testCase, "WeekendTitleList");
+						List<WebElement> weekdayschedule_periodtitle = ss.getWeekdayTitleListElements();
+						List<WebElement> weekendschedule_periodtitle = ss.getWeekendTitleListElements();
 						Keyword.ReportStep_Pass(testCase,
 								"*********************** Verifying Weekday-Weekend schedule period time and schedule period heat set points against set values **************************");
 
 						for (int i = 0; i < weekdayschedule_periodtitle.size(); i++) {
-							dateString = MobileUtils.getFieldValue(testCase, "xpath",
-									"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-											+ weekdayschedule_periodtitle.get(i).getText()
-											+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+							dateString = ss
+									.getTimeOfWeekdayScheduleOfGivenPeriod(weekdayschedule_periodtitle.get(i).getText())
 									.replaceAll("\\.", "");
 							tempTime = dateString;
 							if (i == 0) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekdayschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+										weekdayschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8233,15 +7983,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Wake's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME) + " "
@@ -8260,22 +8006,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+													weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Wake's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME));
@@ -8285,18 +8024,13 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Wake's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								}
 							} else if (i == 1) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekdayschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+										weekdayschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8319,15 +8053,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Away's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME) + " "
@@ -8346,22 +8076,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+													weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Away's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME));
@@ -8371,18 +8094,13 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Away's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								}
 							} else if (i == 2) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekdayschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+										weekdayschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8405,15 +8123,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Home's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME) + " "
@@ -8432,22 +8146,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+													weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Home's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME));
@@ -8457,18 +8164,13 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Home's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								}
 							} else if (i == 3) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekdayschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+										weekdayschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8491,15 +8193,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekdayschedule_periodtitle.get(i).getText()
-																	+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekdayPeriod(
+															weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Sleep's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME) + " "
@@ -8518,22 +8216,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekdayPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekdayschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+													weekdayschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Sleep's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME));
@@ -8543,28 +8234,21 @@ public class JasperSchedulingUtils {
 												"Period Weekday-Sleep's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekdayschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekdayScheduleOfGivenPeriod(
+																weekdayschedule_periodtitle.get(i).getText()));
 									}
 								}
 							}
 						}
 
 						for (int i = 0; i < weekendschedule_periodtitle.size(); i++) {
-							dateString = MobileUtils.getFieldValue(testCase, "xpath",
-									"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-											+ weekendschedule_periodtitle.get(i).getText()
-											+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
+							dateString = ss
+									.getTimeOfWeekendScheduleOfGivenPeriod(weekendschedule_periodtitle.get(i).getText())
 									.replaceAll("\\.", "");
 							tempTime = dateString;
 							if (i == 0) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekendschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekendScheduleOfGivenPeriod(
+										weekendschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8587,15 +8271,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Wake's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME) + " "
@@ -8614,22 +8294,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekendScheduleOfGivenPeriod(
+													weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Wake's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
@@ -8639,18 +8312,13 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Wake's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekendScheduleOfGivenPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								}
 							} else if (i == 1) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekendschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekendScheduleOfGivenPeriod(
+										weekendschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8673,15 +8341,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Away's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME) + " "
@@ -8700,22 +8364,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekendScheduleOfGivenPeriod(
+													weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Away's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME));
@@ -8725,18 +8382,13 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Away's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekendScheduleOfGivenPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								}
 							} else if (i == 2) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekendschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekendScheduleOfGivenPeriod(
+										weekendschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8759,15 +8411,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Home's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME) + " "
@@ -8786,22 +8434,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKEND_HOME_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText())
+														+ " " + ss.getCoolSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekendScheduleOfGivenPeriod(
+													weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Home's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME));
@@ -8811,18 +8452,13 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Home's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekendScheduleOfGivenPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								}
 							} else if (i == 3) {
-								if (!MobileUtils.getFieldValue(testCase, "xpath",
-										"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-												+ weekendschedule_periodtitle.get(i).getText()
-												+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView")
-										.equalsIgnoreCase("Tap to set")) {
+								if (!ss.getTimeOfWeekendScheduleOfGivenPeriod(
+										weekendschedule_periodtitle.get(i).getText()).equalsIgnoreCase("Tap to set")) {
 									try {
 										if (!dateString.contains("m") && !dateString.contains("M")) {
 											final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
@@ -8845,15 +8481,11 @@ public class JasperSchedulingUtils {
 									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]"))
+													.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
-													.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-															"//*[contains(@content-desc,'"
-																	+ weekendschedule_periodtitle.get(i).getText()
-																	+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"))) {
+													.equalsIgnoreCase(ss.getCoolSetPointsOfGivenWeekendPeriod(
+															weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Sleep's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME) + " "
@@ -8872,22 +8504,15 @@ public class JasperSchedulingUtils {
 														+ inputs.getInputValue(
 																InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
 														+ " are not shown correctly: " + tempTime + " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]")
-														+ " "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]"));
+														+ ss.getHeatSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText())
+														+ " " + ss.getHeatSetPointsOfGivenWeekendPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
-											.equalsIgnoreCase(MobileUtils.getFieldValue(testCase, "xpath",
-													"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-															+ weekendschedule_periodtitle.get(i).getText()
-															+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"))) {
+											.equalsIgnoreCase(ss.getTimeOfWeekendScheduleOfGivenPeriod(
+													weekendschedule_periodtitle.get(i).getText()))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Sleep's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
@@ -8897,10 +8522,8 @@ public class JasperSchedulingUtils {
 												"Period Weekend-Sleep's expected time: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
 														+ " is not shown correctly: "
-														+ MobileUtils.getFieldValue(testCase, "xpath",
-																"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
-																		+ weekendschedule_periodtitle.get(i).getText()
-																		+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView"));
+														+ ss.getTimeOfWeekendScheduleOfGivenPeriod(
+																weekendschedule_periodtitle.get(i).getText()));
 									}
 								}
 							}
@@ -8912,11 +8535,8 @@ public class JasperSchedulingUtils {
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					try {
 						if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
-							if (MobileUtils.isMobElementExists("xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]",
-									testCase, 6)) {
-								schedule_periodtime = MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]");
+							if (ss.isEverydayScheduleTitleAndPeriodTimeVisble(6)) {
+								schedule_periodtime = ss.getEverydayScheduleTitleAndPeriodTimeElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -8948,9 +8568,7 @@ public class JasperSchedulingUtils {
 											"[Exception] Error message: " + e.getMessage());
 								}
 								if (i == 1) {
-									tempHeatSetPointApp = MobileUtils
-											.getMobElement(testCase, "name", "Everyday_1_HeatTemperature")
-											.getAttribute("value");
+									tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("1");
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
@@ -8993,9 +8611,7 @@ public class JasperSchedulingUtils {
 														+ tempTime + " " + tempHeatSetPointApp);
 									}
 								} else if (i == 2) {
-									tempHeatSetPointApp = MobileUtils
-											.getMobElement(testCase, "name", "Everyday_2_HeatTemperature")
-											.getAttribute("value");
+									tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("2");
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
@@ -9038,9 +8654,7 @@ public class JasperSchedulingUtils {
 														+ tempTime + " " + tempHeatSetPointApp);
 									}
 								} else if (i == 3) {
-									tempHeatSetPointApp = MobileUtils
-											.getMobElement(testCase, "name", "Everyday_3_HeatTemperature")
-											.getAttribute("value");
+									tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("3");
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
@@ -9083,9 +8697,7 @@ public class JasperSchedulingUtils {
 														+ tempTime + " " + tempHeatSetPointApp);
 									}
 								} else if (i == 4) {
-									tempHeatSetPointApp = MobileUtils
-											.getMobElement(testCase, "name", "Everyday_4_HeatTemperature")
-											.getAttribute("value");
+									tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("4");
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
@@ -9128,9 +8740,7 @@ public class JasperSchedulingUtils {
 														+ tempTime + " " + tempHeatSetPointApp);
 									}
 								} else if (i == 5) {
-									tempHeatSetPointApp = MobileUtils
-											.getMobElement(testCase, "name", "Everyday_5_HeatTemperature")
-											.getAttribute("value");
+									tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("5");
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
@@ -9173,9 +8783,7 @@ public class JasperSchedulingUtils {
 														+ tempTime + " " + tempHeatSetPointApp);
 									}
 								} else if (i == 6) {
-									tempHeatSetPointApp = MobileUtils
-											.getMobElement(testCase, "name", "Everyday_6_HeatTemperature")
-											.getAttribute("value");
+									tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("6");
 									if (tempHeatSetPointApp.contains(".0")) {
 										tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 									}
@@ -9220,10 +8828,8 @@ public class JasperSchedulingUtils {
 								}
 							}
 						} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
-							if (MobileUtils.isMobElementExists("xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'_Time')]", testCase, 6)) {
-								schedule_periodtime = MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'_Time')]");
+							if (ss.isEverydaySchedulePeriodTimeVisible(6)) {
+								schedule_periodtime = ss.getEverydaySchedulePeriodTimesElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -9257,12 +8863,8 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										tempHeatSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Wake_HeatTemperature")
-												.getAttribute("value");
-										tempCoolSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Wake_CoolTemperature")
-												.getAttribute("value");
+										tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("Wake");
+										tempCoolSetPointApp = ss.getCoolSetPointsOfGivenEverydayPeriod("Wake");
 										if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
@@ -9326,12 +8928,8 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										tempHeatSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Away_HeatTemperature")
-												.getAttribute("value");
-										tempCoolSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Away_CoolTemperature")
-												.getAttribute("value");
+										tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("Away");
+										tempCoolSetPointApp = ss.getCoolSetPointsOfGivenEverydayPeriod("Away");
 										if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
@@ -9395,12 +8993,8 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										tempHeatSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Home_HeatTemperature")
-												.getAttribute("value");
-										tempCoolSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Home_CoolTemperature")
-												.getAttribute("value");
+										tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("Home");
+										tempCoolSetPointApp = ss.getCoolSetPointsOfGivenEverydayPeriod("Home");
 										if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
@@ -9465,12 +9059,8 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										tempHeatSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Sleep_HeatTemperature")
-												.getAttribute("value");
-										tempCoolSetPointApp = MobileUtils
-												.getMobElement(testCase, "name", "Everyday_Sleep_CoolTemperature")
-												.getAttribute("value");
+										tempHeatSetPointApp = ss.getHeatSetPointsOfGivenEverydayPeriod("Sleep");
+										tempCoolSetPointApp = ss.getCoolSetPointsOfGivenEverydayPeriod("Sleep");
 										if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
@@ -9524,21 +9114,13 @@ public class JasperSchedulingUtils {
 					}
 				} else {
 					if (!inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
-						if (MobileUtils.isMobElementExists("xpath",
-								"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-								testCase, 5)) {
-							schedule_periodtimes_weekday = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
-							schedule_periodtimes_weekend = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
-							schedule_weekday_heatsetpoints = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_HeatTemperature')]");
-							schedule_weekend_heatsetpoints = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_HeatTemperature')]");
-							schedule_weekday_coolsetpoints = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_CoolTemperature')]");
-							schedule_weekend_coolsetpoints = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_CoolTemperature')]");
+						if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(6)) {
+							schedule_periodtimes_weekday = ss.getWeekdayPeriodTimeElements();
+							schedule_periodtimes_weekend = ss.getWeekendPeriodTimeElements();
+							schedule_weekday_heatsetpoints = ss.getWeekdayHeatSetpoints();
+							schedule_weekend_heatsetpoints = ss.getWeekendHeatSetpoints();
+							schedule_weekday_coolsetpoints = ss.getWeekdayCoolSetpoints();
+							schedule_weekend_coolsetpoints = ss.getWeekendCoolSetpoints();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -10118,26 +9700,18 @@ public class JasperSchedulingUtils {
 							}
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("xpath",
-								"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-								testCase, 5)) {
-							schedule_periodtimes_weekday = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
-							schedule_weekday_heatsetpoints = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_HeatTemperature')]");
+						if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(5)) {
+							schedule_periodtimes_weekday = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
+							schedule_weekday_heatsetpoints = ss.getWeekdayHeatSetpoints();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate Weekday schedule period times");
 						}
-						if (MobileUtils.isMobElementExists("xpath",
-								"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]",
-								testCase, 5)) {
-							schedule_periodtimes_weekend = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
+						if (ss.isWeekendScheduleTitleAndPeriodTimeVisble(5)) {
+							schedule_periodtimes_weekend = ss.getWeekendScheduleTitleAndPeriodTimeElements();
 
-							schedule_weekend_heatsetpoints = MobileUtils.getMobElements(testCase, "xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_HeatTemperature')]");
+							schedule_weekend_heatsetpoints = ss.getWeekendHeatSetpoints();
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -10553,8 +10127,7 @@ public class JasperSchedulingUtils {
 					"*********************** Verifying goefence based schedule on Primary Card **************************");
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='When I" + "\u2019" + "m Home']", testCase, 5)) {
+				if (ss.isWhenImHomeTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : When I'm Home text displayed on schedule screen");
 				} else {
@@ -10563,7 +10136,7 @@ public class JasperSchedulingUtils {
 							"Verify Displayed Schedule : When I'm Home text not displayed on schedule screen");
 				}
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Home Settings']", testCase, 5)) {
+				if (ss.isUseMyHomeSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 				} else {
@@ -10573,7 +10146,7 @@ public class JasperSchedulingUtils {
 				}
 
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Create Sleep Settings']", testCase, 5)) {
+					if (ss.isCreateSleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Create Sleep Settings option displayed on schedule screen");
 					} else {
@@ -10582,7 +10155,7 @@ public class JasperSchedulingUtils {
 								"Verify Displayed Schedule :Create Sleep Settings option not displayed on schedule screen");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
+					if (ss.isUseMySleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Use My Sleep Settings option displayed on schedule screen");
 					} else {
@@ -10592,7 +10165,7 @@ public class JasperSchedulingUtils {
 					}
 				}
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='When I" + "\u2019" + "m Away']", testCase, 5)) {
+				if (ss.isWhenImAwayTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : When I'm Away text displayed on schedule screen");
 				} else {
@@ -10601,7 +10174,7 @@ public class JasperSchedulingUtils {
 							"Verify Displayed Schedule : When I'm Away text not displayed on schedule screen");
 				}
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Away Settings']", testCase, 5)) {
+				if (ss.isUseMyAwaySettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 				} else {
@@ -10610,17 +10183,7 @@ public class JasperSchedulingUtils {
 							"Verify Displayed Schedule :Use My Home Settings option not displayed on schedule screen");
 				}
 			} else {
-				/*
-				 * if (MobileUtils.isMobElementExists("name", "When I'm Home", testCase, 5)) {
-				 * Keyword.ReportStep_Pass(testCase,
-				 * "Verify Displayed Schedule : When I'm Home text displayed on schedule screen"
-				 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
-				 * FailType.FUNCTIONAL_FAILURE,
-				 * "Verify Displayed Schedule : When I'm Home text not displayed on schedule screen"
-				 * ); }
-				 */
-
-				if (MobileUtils.isMobElementExists("xpath", "//*[@value='Use My Home Settings']", testCase, 5)) {
+				if (ss.isUseMyHomeSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 				} else {
@@ -10630,7 +10193,7 @@ public class JasperSchedulingUtils {
 				}
 
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@value='Create Sleep Settings']", testCase, 5)) {
+					if (ss.isCreateSleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Create Sleep Settings option displayed on schedule screen");
 					} else {
@@ -10639,7 +10202,7 @@ public class JasperSchedulingUtils {
 								"Verify Displayed Schedule : Create Sleep Settings option not displayed on schedule screen");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@value='Use My Sleep Settings']", testCase, 5)) {
+					if (ss.isUseMySleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Use My Sleep Settings option displayed on schedule screen");
 					} else {
@@ -10648,18 +10211,7 @@ public class JasperSchedulingUtils {
 								"Verify Displayed Schedule : Use My Sleep Settings option not displayed on schedule screen");
 					}
 				}
-
-				/*
-				 * if (MobileUtils.isMobElementExists("name", "When I'm Away", testCase, 5)) {
-				 * Keyword.ReportStep_Pass(testCase,
-				 * "Verify Displayed Schedule : When I'm Away text displayed on schedule screen"
-				 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
-				 * FailType.FUNCTIONAL_FAILURE,
-				 * "Verify Displayed Schedule : When I'm Away text not displayed on schedule screen"
-				 * ); }
-				 */
-
-				if (MobileUtils.isMobElementExists("xpath", "//*[@value='Use My Away Settings']", testCase, 5)) {
+				if (ss.isUseMyAwaySettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 				} else {
@@ -10670,8 +10222,8 @@ public class JasperSchedulingUtils {
 			}
 			// ============================================ANDROID============================================================
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-					schedule_setpoints = MobileUtils.getMobElements(testCase, "ID", "scheduling_period_heating_point");
+				if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+					schedule_setpoints = ss.getSchedulePeriodHeatSetPointElement();
 					tempHeatSetPointApp = schedule_setpoints.get(0).getText();
 					if (schedule_setpoints.get(0).getText().contains(".0")) {
 						tempHeatSetPointApp = schedule_setpoints.get(0).getText().split("\\.")[0];
@@ -10710,8 +10262,7 @@ public class JasperSchedulingUtils {
 											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 
-						SleepStartEndTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
-								.getText();
+						SleepStartEndTime = ss.getSleepStartEndTime();
 
 						dateString = SleepStartEndTime.replaceAll("\\.", "");
 						String startTimeTemp, endTimeTemp;
@@ -10814,8 +10365,8 @@ public class JasperSchedulingUtils {
 			}
 			// ================================================IOS================================================================
 			else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Home_HeatTemperature", testCase, 5)) {
-					homeHeatSetPointIOS = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_HeatTemperature");
+				if (ss.isGeofenceHomeHeatElementVisible(5)) {
+					homeHeatSetPointIOS = ss.getGeofenceHomeHeatElement();
 					tempHeatSetPointApp = homeHeatSetPointIOS.getAttribute("value");
 					if (tempHeatSetPointApp.contains(".0")) {
 						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
@@ -10835,8 +10386,7 @@ public class JasperSchedulingUtils {
 										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 					}
 					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
-						sleepHeatSetPointIOS = MobileUtils.getMobElement(testCase, "name",
-								"Geofence_Sleep_HeatTemperature");
+						sleepHeatSetPointIOS = ss.getGeofenceSleepHeatElement();
 						tempHeatSetPointApp = sleepHeatSetPointIOS.getAttribute("value");
 						if (tempHeatSetPointApp.contains(".0")) {
 							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
@@ -10856,8 +10406,7 @@ public class JasperSchedulingUtils {
 											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 
-						SleepStartEndTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-								.getAttribute("value");
+						SleepStartEndTime = ss.getGeofenceSleepSubTitleText();
 
 						dateString = SleepStartEndTime.replaceAll("\\.", "");
 						String startTimeTemp, endTimeTemp;
@@ -10914,8 +10463,7 @@ public class JasperSchedulingUtils {
 											+ " is not shown correctly in solution card: " + SleepEndTime);
 						}
 
-						awayHeatSetPointIOS = MobileUtils.getMobElement(testCase, "name",
-								"Geofence_Away_HeatTemperature");
+						awayHeatSetPointIOS = ss.getGeofenceAwayHeatElement();
 						tempHeatSetPointApp = awayHeatSetPointIOS.getAttribute("value");
 						if (tempHeatSetPointApp.contains(".0")) {
 							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
@@ -10935,8 +10483,7 @@ public class JasperSchedulingUtils {
 											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 						}
 					} else {
-						awayHeatSetPointIOS = MobileUtils.getMobElement(testCase, "name",
-								"Geofence_Away_HeatTemperature");
+						awayHeatSetPointIOS = ss.getGeofenceAwayHeatElement();
 						tempHeatSetPointApp = awayHeatSetPointIOS.getAttribute("value");
 						if (tempHeatSetPointApp.contains(".0")) {
 							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
@@ -10967,7 +10514,7 @@ public class JasperSchedulingUtils {
 		} else if (scheduleType.equalsIgnoreCase("no schedule")) {
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying no schedule on Primary Card **************************");
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NoScheduleText", 5)) {
+			if (ss.isNoScheduleTextVisible(5)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Displayed Schedule : No schedule text displayed on schedule screen");
 			} else {
@@ -10980,10 +10527,10 @@ public class JasperSchedulingUtils {
 		}
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='Navigate Up']")).click();
+				ss.clickOnBackButton();
 			} else {
-				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+				if (ss.isCloseButtonVisible(5)) {
+					if (!ss.clickOnCloseButton()) {
 						flag = false;
 					}
 				}
@@ -10999,25 +10546,23 @@ public class JasperSchedulingUtils {
 
 	public static boolean verifyScheduleRetained(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true, scheduleRetainedFlag = true;
-
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='Navigate Up']", testCase, 5)) {
-				if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@content-desc='Navigate Up']")) {
+			if (ss.isBackButtonVisible(5)) {
+				if (!ss.clickOnBackButton()) {
 					flag = false;
 				}
 			}
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='Navigate Up']", testCase, 5)) {
-				if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@content-desc='Navigate Up']")) {
+			if (ss.isBackButtonVisible(5)) {
+				if (!ss.clickOnBackButton()) {
 					flag = false;
 				}
 			}
 		} else {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-			SchedulingScreen sch = new SchedulingScreen(testCase);
 			int i = 0;
-			while ((!MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton")) && i < 2) {
-				if (sch.isCloseButtonVisible(3)) {
-					flag = flag & sch.clickOnCloseButton();
+			while ((!ss.isTimeScheduleButtonVisible(5)) && i < 2) {
+				if (ss.isCloseButtonVisible(3)) {
+					flag = flag & ss.clickOnCloseButton();
 				}
 			}
 			i++;
@@ -11025,7 +10570,7 @@ public class JasperSchedulingUtils {
 		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED)
 				.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Home Settings']", testCase, 5)) {
+				if (ss.isUseMyHomeSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 				} else {
@@ -11034,7 +10579,7 @@ public class JasperSchedulingUtils {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Displayed Schedule :Use My Home Settings option not displayed on schedule screen");
 				}
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Away Settings']", testCase, 5)) {
+				if (ss.isUseMyAwaySettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 				} else {
@@ -11044,10 +10589,10 @@ public class JasperSchedulingUtils {
 							"Verify Displayed Schedule :Use My Home Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "Using Home Settings", testCase, 5)) {
+				if (ss.isUseMyHomeSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
-				} else if (MobileUtils.isMobElementExists("name", "Using Away Settings", testCase, 5)) {
+				} else if (ss.isUseMyAwaySettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 				} else if (scheduleRetainedFlag = false) {
@@ -11079,48 +10624,37 @@ public class JasperSchedulingUtils {
 			boolean createScheduleUsingUseGeofenceButton) {
 		boolean flag = true;
 		try {
-
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			flag = flag & viewScheduleOnPrimaryCard(testCase);
 
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CreateScheduleButton");
+			if (ss.isCreateScheduleButtonVisible(5)) {
+				flag = flag & ss.clickOnCreateScheduleButton();
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleOffOverlay", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOffOverlay")) {
+				if (ss.isScheduleOffOverlayVisible(5)) {
+					if (!ss.clickOnScheduleOffOverlay()) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
 					}
 				}
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ScheduleOptionsButton");
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SwitchToGeofencingButton", 5)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SwitchToGeofencingButton");
+				flag = flag & ss.clickOnScheduleOptionsButton();
+				if (ss.isSwitchToGeofenceButtonVisible(5)) {
+					flag = flag & ss.clickOnSwitchToGeofenceButton();
 				}
+			}
+			if (createScheduleUsingUseGeofenceButton) {
+				flag = flag & ss.clickOnUseGeofencingText();
+			} else {
+				flag = flag & ss.clickOnLearnMoreButton();
 			}
 
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (createScheduleUsingUseGeofenceButton) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='USE GEOFENCING']");
-				} else {
-					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='LEARN MORE']");
-				}
-			} else {
-				if (createScheduleUsingUseGeofenceButton) {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", "USE GEOFENCING");
-				} else {
-					flag = flag & MobileUtils.clickOnElement(testCase, "name", "LEARN MORE");
-				}
-			}
 			Keyword.ReportStep_Pass(testCase, " ");
 			Keyword.ReportStep_Pass(testCase, "*************** Setting set points for Home period ***************");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderMultiTemperature",
-							5)) {
+					if (ss.isHomeTemperatureHeaderMultiTemperatureVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to home set points page");
 					} else {
@@ -11131,8 +10665,7 @@ public class JasperSchedulingUtils {
 				}
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderSingleTemperature",
-							5)) {
+					if (ss.isHomeTemperatureHeaderSingleTemperatureVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to home set points page");
 					} else {
@@ -11143,8 +10676,7 @@ public class JasperSchedulingUtils {
 				}
 			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HomeTemperatureHeaderSingleTemperature",
-							5)) {
+					if (ss.isHomeTemperatureHeaderSingleTemperatureVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to home set points page");
 					} else {
@@ -11160,15 +10692,14 @@ public class JasperSchedulingUtils {
 					"*************** Setting maximum and minimum set points for Home ***************");
 			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_HOME);
 			flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+			flag = flag & ss.clickOnNextButton();
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed setting maximum and minimum set points for Home ***************");
 			Keyword.ReportStep_Pass(testCase, " ");
 			Keyword.ReportStep_Pass(testCase, "*************** Setting set points for Away period ***************");
 			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderMultiTemperature",
-							5)) {
+					if (ss.isAwayTemperatureHeaderMultiTemperatureVisble(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to away set points page");
 					} else {
@@ -11179,8 +10710,7 @@ public class JasperSchedulingUtils {
 				}
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderSingleTemperature",
-							5)) {
+					if (ss.isAwayTemperatureHeaderSingleTemperatureVisble(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to away set points page");
 					} else {
@@ -11191,8 +10721,7 @@ public class JasperSchedulingUtils {
 				}
 			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AwayTemperatureHeaderSingleTemperature",
-							5)) {
+					if (ss.isAwayTemperatureHeaderSingleTemperatureVisble(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Create Schedule : Successfully navigated to away set points page");
 					} else {
@@ -11207,14 +10736,14 @@ public class JasperSchedulingUtils {
 					"*************** Setting maximum and minimum set points for Away ***************");
 			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_AWAY);
 			flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+			flag = flag & ss.clickOnNextButton();
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed setting maximum and minimum set points for Away ***************");
 			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipSleepButton");
+					flag = flag & ss.clickOnSkipSleepButton();
 				} else {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NoButton");
+					flag = flag & ss.clickOnNoButton();
 				}
 
 			} else {
@@ -11222,7 +10751,7 @@ public class JasperSchedulingUtils {
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Setting time and set points for Sleep period ***************");
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "YesButton");
+					flag = flag & ss.clickOnYesButton();
 				}
 				flag = flag & JasperSchedulingUtils.setPeriodTime(testCase,
 						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME), "GeofenceSleepStartTime", true,
@@ -11235,19 +10764,19 @@ public class JasperSchedulingUtils {
 						"*************** Setting maximum and minimum set points for Sleep ***************");
 				inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "NextButton");
+				flag = flag & ss.clickOnNextButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting maximum and minimum set points for Sleep ***************");
 			}
 			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
 			// "Geofence");
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+			if (ss.isDoneButtonVisible(5)) {
+				flag = flag & ss.clickOnDoneButton();
 			}
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SkipButton", 5)) {
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SkipButton");
+			if (ss.isSkipButtonVisible(5)) {
+				flag = flag & ss.clickOnSkipButton();
 			}
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeScheduleButton", 10)) {
+			if (ss.isTimeScheduleButtonVisible(10)) {
 				Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");
 			} else {
 				flag = false;
@@ -11267,7 +10796,7 @@ public class JasperSchedulingUtils {
 			flag = flag
 					& JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, targetSetPoints, false);
 		} else {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			try {
 				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 				List<String> allowedModes = statInfo.getAllowedModes();
@@ -11289,37 +10818,29 @@ public class JasperSchedulingUtils {
 								targetSetPoints, false);
 						return flag;
 					} else if (periodName.equals("Away")) {
-						size = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").size();
+						size = ss.getCoolSetPointsElements().size();
 						if (size > 1) {
-							coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(1)
-									.getAttribute("value");
-							heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(1)
-									.getAttribute("value");
-							coolUp = MobileUtils.getMobElements(fieldObjects, testCase, "CoolIncrement").get(1);
-							coolDown = MobileUtils.getMobElements(fieldObjects, testCase, "CoolDecrement").get(1);
-							heatUp = MobileUtils.getMobElements(fieldObjects, testCase, "HeatIncrement").get(1);
-							heatDown = MobileUtils.getMobElements(fieldObjects, testCase, "HeatDecrement").get(1);
+							coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
+							heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+							coolUp = ss.getCoolIncrementElements().get(1);
+							coolDown = ss.getCoolDecrementElements().get(1);
+							heatUp = ss.getHeatIncrementElements().get(1);
+							heatDown = ss.getHeatDecrementElements().get(1);
 
 						} else {
-							coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(0)
-									.getAttribute("value");
-							heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(0)
-									.getAttribute("value");
+							coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
+							heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
 							if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
 									&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-								coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton"))
-										.get(0);
-								coolDown = MobileUtils.getMobElements(fieldObjects, testCase, "CoolDecrement").get(0);
-								heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton"))
-										.get(0);
-								heatDown = MobileUtils.getMobElements(fieldObjects, testCase, "HeatDecrement").get(0);
+								coolUp = ss.getCoolIncrementElements().get(0);
+								coolDown = ss.getCoolDecrementElements().get(0);
+								heatUp = ss.getHeatIncrementElements().get(0);
+								heatDown = ss.getHeatDecrementElements().get(0);
 							} else {
-								coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton"))
-										.get(1);
-								coolDown = MobileUtils.getMobElements(fieldObjects, testCase, "CoolDecrement").get(0);
-								heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton"))
-										.get(1);
-								heatDown = MobileUtils.getMobElements(fieldObjects, testCase, "HeatDecrement").get(0);
+								coolUp = ss.getCoolIncrementElements().get(1);
+								coolDown = ss.getCoolDecrementElements().get(0);
+								heatUp = ss.getHeatIncrementElements().get(1);
+								heatDown = ss.getHeatDecrementElements().get(0);
 							}
 						}
 					}
@@ -11356,13 +10877,11 @@ public class JasperSchedulingUtils {
 							coolDown.click();
 						}
 					}
-					size = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").size();
+					size = ss.getCoolSetPointsElements().size();
 					if (periodName.equals("Away") && (size > 1)) {
-						coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(1)
-								.getAttribute("value");
+						coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
 					} else {
-						coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(0)
-								.getAttribute("value");
+						coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
 					}
 					flag = flag & verifyCoolStepperValue(testCase, inputs, coolTemp, "");
 					if (heatScroller < 0) {
@@ -11376,38 +10895,32 @@ public class JasperSchedulingUtils {
 							heatDown.click();
 						}
 					}
-					size = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").size();
+					size = ss.getHeatSetPointsElements().size();
 					if (periodName.equals("Away") && (size > 1)) {
-						heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(1)
-								.getAttribute("value");
+						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
 					} else {
-						heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(0)
-								.getAttribute("value");
+						heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
 					}
 					flag = flag & verifyHeatStepperValue(testCase, inputs, heatTemp, "");
 				}
 
 				else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
 					String heatTemp = " ";
-					size = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").size();
+					size = ss.getHeatSetPointsElements().size();
 
 					if (periodName.equalsIgnoreCase("Away")) {
-						heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(0)
-								.getAttribute("value");
+						heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
 						if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
 								&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-							heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton"))
-									.get(0);
+							heatUp = ss.getHeatIncrementElements().get(0);
 						} else {
-							heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton"))
-									.get(1);
+							heatUp = ss.getHeatIncrementElements().get(1);
 						}
 					} else {
-						heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints")
-								.getAttribute("value");
-						heatUp = testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(0);
+						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+						heatUp = ss.getHeatIncrementElements().get(0);
 					}
-					heatDown = MobileUtils.getMobElement(fieldObjects, testCase, "HeatDecrement");
+					heatDown = ss.getHeatSetPointDownButton();
 
 					if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
 						int targetHeatTemp = Integer.parseInt(targetSetPoints.get("targetHeatTemp"));
@@ -11436,11 +10949,10 @@ public class JasperSchedulingUtils {
 					}
 
 					if (periodName.equalsIgnoreCase("Away") && (size > 1)) {
-						heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(1)
+						heatSetPoint = ss.getHeatSetPointsElements().get(1)
 								.getAttribute("value");
 					} else {
-						heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints")
-								.getAttribute("value");
+						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 					}
 
 					if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
@@ -11458,24 +10970,21 @@ public class JasperSchedulingUtils {
 					}
 				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 					String coolTemp = " ";
-					size = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").size();
+					size = ss.getCoolSetPointsElements().size();
 					if (periodName.equalsIgnoreCase("Away")) {
-						coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(0)
+						coolSetPoint = ss.getCoolSetPointsElements().get(0)
 								.getAttribute("value");
 						if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
 								&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-							coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton"))
-									.get(0);
+							coolUp = ss.getCoolIncrementElements().get(0);
 						} else {
-							coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton"))
-									.get(1);
+							coolUp = ss.getCoolIncrementElements().get(1);
 						}
 					} else {
-						coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPoints")
-								.getAttribute("value");
-						coolUp = testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton")).get(0);
+						coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
+						coolUp = ss.getCoolIncrementElements().get(0);
 					}
-					coolDown = MobileUtils.getMobElement(fieldObjects, testCase, "CoolDecrement");
+					coolDown = ss.getCoolSetPointDownButton();
 
 					if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
 						int targetCoolTemp = Integer.parseInt(targetSetPoints.get("targetCoolTemp"));
@@ -11503,11 +11012,10 @@ public class JasperSchedulingUtils {
 					}
 
 					if (periodName.equalsIgnoreCase("Away") && (size > 1)) {
-						coolSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "CoolSetPoints").get(1)
+						coolSetPoint = ss.getCoolSetPointsElements().get(1)
 								.getAttribute("value");
 					} else {
-						coolSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPoints")
-								.getAttribute("value");
+						coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
 					}
 
 					if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
@@ -12585,22 +12093,20 @@ public class JasperSchedulingUtils {
 		boolean flag = true;
 		try {
 			String heatSetPoint = " ";
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			HashMap<String, String> minMaxSetPoints = statInfo.getDeviceMaxMinSetPoints();
 			String jasperStatType = statInfo.getJasperDeviceType();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointChooser")
-						.findElement(By.id("scheduling_period_temp_point")).getText();
+				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 			} else {
-				int size = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").size();
+				int size = ss.getHeatSetPointsElements().size();
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-					heatSetPoint = MobileUtils.getMobElements(fieldObjects, testCase, "HeatSetPoints").get(1)
+					heatSetPoint = ss.getHeatSetPointsElements().get(1)
 							.getAttribute("value");
 				} else {
-					heatSetPoint = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPoints")
-							.getAttribute("value");
+					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 				}
 			}
 
@@ -12704,12 +12210,15 @@ public class JasperSchedulingUtils {
 		return flag;
 	}
 
+	
+	
+	
 	public static boolean createTimeBasedSchedule(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
 			WebElement element = null;
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			flag = flag & viewScheduleOnPrimaryCard(testCase);
 
 			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
@@ -13602,7 +13111,7 @@ public class JasperSchedulingUtils {
 			}
 			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
 			// "Time");
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+			flag = flag & ss.clickOnDoneButton();
 			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmChangeButton", 10)) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (testCase.getMobileDriver().findElement(By.id("android:id/button1")).getAttribute("text")
@@ -13694,6 +13203,7 @@ public class JasperSchedulingUtils {
 	public static boolean createTimeBasedScheduleWithMinMaxSetPoints(TestCases testCase, TestCaseInputs inputs) {
 
 		boolean flag = true;
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 		try {
 			WebElement element = null;
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
@@ -13909,7 +13419,7 @@ public class JasperSchedulingUtils {
 					}
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 10)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+					flag = flag & ss.clickOnDoneButton();
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmChangeButton", 10)) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -14569,7 +14079,7 @@ public class JasperSchedulingUtils {
 					}
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DoneButton", 10)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButton");
+					flag = flag & ss.clickOnDoneButton();
 				}
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmChangeButton", 10)) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
