@@ -69,51 +69,52 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 				int i=0;
 				if (deviceType.get(1).equalsIgnoreCase("Switch")) {
 					do{
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
+						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
 						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
+							//retry on device not found popup
 							if(zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(5)){
 								flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
 							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
 								flag = flag & zScreen.clickOKOnDeviceExcludedPopUp();
 								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 								if(ads.isAddNewDeviceHeaderDisplayed(5)){
+									//select zdevice from add device screen
 									flag = flag &ads.clickOnZwaveFromAddNewDevice();
+									DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
+									flag = flag & zScreen.clickTryExcludeOnDeviceNotFoundPopUp();
+								}else if(zScreen.isGeneralDeviceExclusionMenuDisplayed()){
+									//select general exclusion from zdevice
+									flag = flag & zScreen.clickGeneralDeviceExclusionMenu();
 								}
 							}
 						}
-						/*AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
-							if(zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(5)){
-								zScreen.clickRetryOnDeviceNotFoundPopUp();
-							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
-								zScreen.clickOKOnDeviceExcludedPopUp();
-								ads.clickOnZwaveFromAddNewDevice();
-							} 
-						}else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
-							zScreen.clickOKOnDeviceExcludedPopUp();
-						}
-						if(ads.isAddNewDeviceHeaderDisplayed(5)){
-							ads.clickOnZwaveFromAddNewDevice();
-						}
-						 */
-						Keyword.ReportStep_Pass(testCase, "Activating function key on Switch");
-						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
+
 						i++;
 					}
 					while(i<3 && !zScreen.isExcludedSuccessPopupMessageDisplayed(10) && zScreen.isExcludeZwaveScreenDisplayed());
 
 				}	else if (deviceType.get(1).equalsIgnoreCase("Dimmer")) {
 					do{
-						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){
+						Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
+						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
+						if(zScreen.isDeviceNotFoundPopupDisplayed(5)){//retry on device not found popup
 							if(zScreen.isRetryOnDeviceNotFoundPopUpDisplayed(5)){
 								flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
 							} else if(zScreen.isOKOnDeviceExcludedPopUpDisplayed(5)){
 								flag = flag & zScreen.clickOKOnDeviceExcludedPopUp();
 								AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-								flag = flag & ads.clickOnZwaveFromAddNewDevice();
+								if(ads.isAddNewDeviceHeaderDisplayed(5)){
+									//select zdevice from add device screen
+									flag = flag &ads.clickOnZwaveFromAddNewDevice();
+									DASZwaveUtils.timeOutForNoActivatedDevice(testCase);
+									flag = flag & zScreen.clickTryExcludeOnDeviceNotFoundPopUp();
+								}else if(zScreen.isGeneralDeviceExclusionMenuDisplayed()){
+									//select general exclusion from zdevice
+									flag = flag & zScreen.clickGeneralDeviceExclusionMenu();
+								}
 							}
 						}
-						Keyword.ReportStep_Pass(testCase, "Activating function key on Dimmer");
-						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
 						i++;
 					}while(i<3 && !zScreen.isExcludedSuccessPopupMessageDisplayed(10) && zScreen.isExcludeZwaveScreenDisplayed());
 				}

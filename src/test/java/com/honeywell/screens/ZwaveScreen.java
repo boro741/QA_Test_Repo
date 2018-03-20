@@ -177,6 +177,10 @@ public class ZwaveScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralDeviceExclusion");
 	}
 
+	public boolean isGeneralDeviceExclusionMenuDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralDeviceExclusion");
+	}
+	
 	public boolean clickControllerFactoryResetMenu() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ControllerFactoryReset");
 	}
