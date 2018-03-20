@@ -13,7 +13,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public static final String WHENIMHOMELOCATOR = "//*[@text='When I" + "\u2019" + "m Home']";
 	public static final String WHENIMAWAYLOCATOR = "//*[@text='When I" + "\u2019" + "m Away']";
-	
+
 	private static final String screenName = "ScheduleScreen";
 
 	public SchedulingScreen(TestCases testCase) {
@@ -360,13 +360,20 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.getMobElement(testCase, "name", locatorValue).getAttribute("name");
 	}
 
-	public boolean isSchedulePeriodHeatSetPointVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SchedulePeriodHeatSetPoint",timeOut);
+	public boolean isSchedulePeriodHeatSetPointVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SchedulePeriodHeatSetPoint", timeOut);
 	}
-	
+
+	public boolean isSchedulePeriodCoolSetPointVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SchedulePeriodCoolSetPoint", timeOut);
+	}
+
 	public List<WebElement> getSchedulePeriodHeatSetPointElement() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "SchedulePeriodHeatSetPoint");
+	}
+
+	public List<WebElement> getSchedulePeriodCoolSetPointElement() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SchedulePeriodCoolSetPoint");
 	}
 
 	public List<WebElement> getSchedulePeriodTimeElements() {
@@ -414,7 +421,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.getMobElement(testCase, "name", "Everyday_" + index + "_HeatTemperature")
 				.getAttribute("value");
 	}
-	
+
 	public List<WebElement> getValueOfEverydayTimeElementAtIndex(int index) {
 		return MobileUtils.getMobElements(testCase, "name", "Everyday_" + index + "_Time");
 	}
@@ -422,16 +429,34 @@ public class SchedulingScreen extends MobileScreens {
 	public List<WebElement> getValueOfWeekdayTimeElementAtIndex(int index) {
 		return MobileUtils.getMobElements(testCase, "name", "Monday - Friday_" + index + "_Time");
 	}
+
 	public WebElement getValueOfWeekendTimeElementAtIndex(int index) {
-		return MobileUtils.getMobElement(testCase, "xpath", "//*[@content-desc='"+index+"_Saturday - Sunday']/android.widget.TextView");
+		return MobileUtils.getMobElement(testCase, "xpath",
+				"//*[@content-desc='" + index + "_Saturday - Sunday']/android.widget.TextView");
 	}
-	
+
 	public List<WebElement> getValueOfWeekendTimesElementAtIndex(int index) {
-		return MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText[@name='Saturday - Sunday_"+index+"_Time']");
+		return MobileUtils.getMobElements(testCase, "xpath",
+				"//XCUIElementTypeStaticText[@name='Saturday - Sunday_" + index + "_Time']");
 	}
-	
-	public String getValueOfWeekdayHeatTemperatureElementAtIndex(int index) {
-		return MobileUtils.getMobElement(testCase, "name", "Monday - Friday_" + index + "_HeatTemperature")
+
+	public String getValueOfWeekdayHeatTemperatureElementAtIndex(String periodName) {
+		return MobileUtils.getMobElement(testCase, "name", "Monday - Friday_" + periodName + "_HeatTemperature")
+				.getAttribute("value");
+	}
+
+	public String getValueOfWeekdayCoolTemperatureElementAtIndex(String periodName) {
+		return MobileUtils.getMobElement(testCase, "name", "Monday - Friday_" + periodName + "_CoolTemperature")
+				.getAttribute("value");
+	}
+
+	public String getValueOfWeekendHeatTemperatureElementAtIndex(String periodName) {
+		return MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_" + periodName + "_HeatTemperature")
+				.getAttribute("value");
+	}
+
+	public String getValueOfWeekendCoolTemperatureElementAtIndex(String periodName) {
+		return MobileUtils.getMobElement(testCase, "name", "Saturday - Sunday_" + periodName + "_CoolTemperature")
 				.getAttribute("value");
 	}
 
@@ -471,16 +496,15 @@ public class SchedulingScreen extends MobileScreens {
 	public List<WebElement> getWeekendHeatSetpoints() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "WeekendHeatSetpoints");
 	}
-	
+
 	public List<WebElement> getWeekdayCoolSetpoints() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "WeekdayCoolSetpoints");
 	}
 
 	public List<WebElement> getWeekendCoolSetpoints() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "WeekendCool"
-				+ "Setpoints");
+		return MobileUtils.getMobElements(objectDefinition, testCase, "WeekendCool" + "Setpoints");
 	}
-	
+
 	public WebElement getWeekdayHomeElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "WeekdayHome");
 	}
@@ -508,7 +532,7 @@ public class SchedulingScreen extends MobileScreens {
 	public List<WebElement> getWeekendScheduleTitleAndPeriodTimeElements() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "WeekendScheduleTitleAndPeriodTime");
 	}
-	
+
 	public WebElement getWeekdaySleepElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "WeekdaySleep");
 	}
@@ -787,13 +811,11 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isWeekdayScheduleTitleAndPeriodTimeVisble(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeekdayScheduleTitleAndPeriodTime",
-				timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeekdayScheduleTitleAndPeriodTime", timeOut);
 	}
-	
+
 	public boolean isWeekendScheduleTitleAndPeriodTimeVisble(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeekendScheduleTitleAndPeriodTime",
-				timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeekendScheduleTitleAndPeriodTime", timeOut);
 	}
 
 	public boolean isWeekdayTextVisible(int timeOut) {
@@ -870,93 +892,152 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean setValueToTimeMinutesPicker(String value) {
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "TimeMinutes", value);
 	}
-	
+
 	public boolean setValueToTimePicker(String value) {
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "TimePicker", value);
 	}
-	
-	public boolean isWhenImHomeTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists("xpath", SchedulingScreen.WHENIMHOMELOCATOR, testCase,timeOut);
+
+	public boolean isWhenImHomeTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists("xpath", SchedulingScreen.WHENIMHOMELOCATOR, testCase, timeOut);
 	}
-	
-	public boolean isWhenImAwayTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists("xpath", SchedulingScreen.WHENIMAWAYLOCATOR, testCase,timeOut);
+
+	public boolean isWhenImAwayTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists("xpath", SchedulingScreen.WHENIMAWAYLOCATOR, testCase, timeOut);
 	}
-	
-	public boolean isUseMyHomeSettingsTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMyHomeSettingsText",timeOut);
+
+	public boolean isUseMyHomeSettingsTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMyHomeSettingsText", timeOut);
 	}
-	
-	public boolean isCreateSleepSettingsTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CreateSleepSettingsText",timeOut);
+
+	public boolean isCreateSleepSettingsTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CreateSleepSettingsText", timeOut);
 	}
-	
-	public boolean isUseMySleepSettingsTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMySleepSettingsText",timeOut);
+
+	public boolean isUseMySleepSettingsTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMySleepSettingsText", timeOut);
 	}
-	
-	public boolean isUseMyAwaySettingsTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMyAwaySettingsText",timeOut);
+
+	public boolean isUseMyAwaySettingsTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMyAwaySettingsText", timeOut);
 	}
-	
-	public String getSleepStartEndTime()
-	{
+
+	public String getSleepStartEndTime() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "SchedulingPeriodSleepStartTime").getText();
 	}
-	
-	public boolean isGeofenceHomeHeatElementVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceHomeHeat",timeOut);
+
+	public boolean isGeofenceHomeHeatElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceHomeHeat", timeOut);
 	}
-	
-	public WebElement getGeofenceHomeHeatElement()
-	{
+
+	public WebElement getGeofenceHomeHeatElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceHomeHeat");
 	}
-	
-	public WebElement getGeofenceAwayHeatElement()
-	{
+
+	public boolean isGeofenceHomeCoolElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceHomeCool", timeOut);
+	}
+
+	public WebElement getGeofenceHomeCoolElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceHomeCool");
+	}
+
+	public boolean isGeofenceSleepCoolElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleepCool", timeOut);
+	}
+
+	public WebElement getGeofenceSleepCoolElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSleepCool");
+	}
+
+	public boolean isGeofenceAwayHeatElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAwayHeat", timeOut);
+	}
+
+	public boolean isGeofenceAwayCoolElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAwayCool", timeOut);
+	}
+
+	public WebElement getGeofenceAwayCoolElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceAwayCool");
+	}
+
+	public boolean isGeofenceSleepHeatElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleepHeat", timeOut);
+	}
+
+	public WebElement getGeofenceAwayHeatElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceAwayHeat");
 	}
-	
-	public boolean isNoScheduleTextVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoScheduleText",timeOut);
+
+	public boolean isNoScheduleTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoScheduleText", timeOut);
 	}
-	
-	public WebElement getGeofenceSleepHeatElement()
-	{
+
+	public WebElement getGeofenceSleepHeatElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSleepHeat");
 	}
-	
-	public String getGeofenceSleepSubTitleText()
-	{
+
+	public boolean isGeofenceSleepSubTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleepSubTitle", timeOut);
+	}
+
+	public String getGeofenceSleepSubTitleText() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSleepSubTitle").getAttribute("value");
 	}
-	
-	public boolean isViewByIndividualDaysVisible(int timeOut)
-	{
+
+	public boolean isViewByIndividualDaysVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ViewByIndividualDays", timeOut);
 	}
-	
-	public boolean clickOnViewByIndividualDays()
-	{
+
+	public boolean clickOnViewByIndividualDays() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ViewByIndividualDays");
 	}
-	
-	public boolean isViewByGroupedDaysVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ViewByGroupedDays",timeOut);
+
+	public boolean isViewByGroupedDaysVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ViewByGroupedDays", timeOut);
+	}
+
+	public boolean clickOnViewByGroupedDays() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ViewByGroupedDays");
+	}
+
+	public boolean isGeofenceCoolHeatTemperatureVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceCoolHeatTemperature", timeOut);
+	}
+
+	public WebElement getGeofenceCoolHeatTemperatureElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceCoolHeatTemperature");
+	}
+
+	public boolean isSchedulingPeriodSleepStartTimeVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SchedulingPeriodSleepStartTime", timeOut);
+	}
+
+	public String getSchedulingPeriodSleepStartTimeText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SchedulingPeriodSleepStartTime").getText();
+	}
+
+	public boolean isScheduleDayHeaderVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleDayHeader", timeOut);
 	}
 	
-	public boolean clickOnViewByGroupedDays()
+	public List<WebElement> getScheduleDayHeaderElements()
 	{
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "ViewByGroupedDays");
+		return MobileUtils.getMobElements(objectDefinition, testCase, "ScheduleDayHeader");
+	}
+	
+	public boolean isTimeChooserEndTimeVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeChooserEndTime",timeOut);
+	}
+	
+	public boolean isNavigationLeftBarItemVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NavigationLeftBarItem",timeOut);
+	}
+	
+	public boolean clickOnNavigationLeftBarItem()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NavigationLeftBarItem");
 	}
 }

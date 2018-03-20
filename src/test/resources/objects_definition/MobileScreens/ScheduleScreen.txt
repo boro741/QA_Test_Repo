@@ -32,8 +32,11 @@ EverydayTitleList	XPATH	"//*[contains(@content-desc,'_Everyday')]/android.widget
 EverydayWake	XPATH	//*[@content-desc='Wake_Everyday']	XPATH	//*[@content-desc='Wake_Everyday']	XPATH	//*[@content-desc='Wake_Everyday']	ID	Everyday_Wake	ID	Everyday_Wake	ID	Everyday_Wake
 GeofenceSleepSubTitle							NAME	Geofence_Sleep_subTitle	NAME	Geofence_Sleep_subTitle	NAME	Geofence_Sleep_subTitle
 GeofenceAway							XPATH	//*[@name='Geofence_Away']	XPATH	//*[@name='Geofence_Away']	XPATH	//*[@name='Geofence_Away']
+GeofenceAwayCool							NAME	Geofence_Away_CoolTemperature	NAME	Geofence_Away_CoolTemperature	NAME	Geofence_Away_CoolTemperature
 GeofenceAwayHeat							NAME	Geofence_Away_HeatTemperature	NAME	Geofence_Away_HeatTemperature	NAME	Geofence_Away_HeatTemperature
 GeofenceHome							XPATH	//UIATableCell[@name='Geofence_Home']	XPATH	//UIATableCell[@name='Geofence_Home']	XPATH	//UIATableCell[@name='Geofence_Home']
+GeofenceHomeCool							NAME	Geofence_Home_CoolTemperature	NAME	Geofence_Home_CoolTemperature	NAME	Geofence_Home_CoolTemperature
+GeofenceSleepCool							NAME	Geofence_Sleep_CoolTemperature	NAME	Geofence_Sleep_CoolTemperature	NAME	Geofence_Sleep_CoolTemperature
 GeofenceHomeHeat							NAME	Geofence_Home_HeatTemperature	NAME	Geofence_Home_HeatTemperature	NAME	Geofence_Home_HeatTemperature
 GeofenceScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	icon geofence normal	NAME	icon geofence normal	NAME	icon geofence normal
 GeofenceSleep							XPATH	//UIATableCell[@name='Geofence_Sleep']	XPATH	//UIATableCell[@name='Geofence_Sleep']	XPATH	//UIATableCell[@name='Geofence_Sleep']
@@ -155,3 +158,5 @@ CreateSleepSettingsText	XPATH	//*[@text='Create Sleep Settings']	XPATH	//*[@text
 UseMySleepSettingsText	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']						
 UseMyAwaySettingsText	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	NAME	Using Away Settings	NAME	Using Away Settings	NAME	Using Away Settings
 SchedulingPeriodSleepStartTime	id	scheduling_period_startEnd_time	id	scheduling_period_startEnd_time	id	scheduling_period_startEnd_time						
+GeofenceCoolHeatTemperature							NAME	Geofence_Cool_HeatTemperature	NAME	Geofence_Cool_HeatTemperature	NAME	Geofence_Cool_HeatTemperature
+NavigationLeftBarItem							NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item

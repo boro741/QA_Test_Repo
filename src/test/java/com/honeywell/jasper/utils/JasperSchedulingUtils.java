@@ -2444,27 +2444,27 @@ public class JasperSchedulingUtils {
 									if (i == 1) {
 										inputs.setInputValue(InputVariables.WEEKDAY_1_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_1_HEAT_SETPOINT,
-												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(String.valueOf(i)));
 									} else if (i == 2) {
 										inputs.setInputValue(InputVariables.WEEKDAY_2_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_2_HEAT_SETPOINT,
-												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(String.valueOf(i)));
 									} else if (i == 3) {
 										inputs.setInputValue(InputVariables.WEEKDAY_3_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_3_HEAT_SETPOINT,
-												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(String.valueOf(i)));
 									} else if (i == 4) {
 										inputs.setInputValue(InputVariables.WEEKDAY_4_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_4_HEAT_SETPOINT,
-												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(String.valueOf(i)));
 									} else if (i == 5) {
 										inputs.setInputValue(InputVariables.WEEKDAY_5_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_5_HEAT_SETPOINT,
-												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(String.valueOf(i)));
 									} else if (i == 6) {
 										inputs.setInputValue(InputVariables.WEEKDAY_6_TIME, tempTime);
 										inputs.setInputValue(InputVariables.WEEKDAY_6_HEAT_SETPOINT,
-												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(i));
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(String.valueOf(i)));
 									}
 								}
 							}

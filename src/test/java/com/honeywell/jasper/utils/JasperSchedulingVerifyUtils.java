@@ -30,7 +30,7 @@ public class JasperSchedulingVerifyUtils {
 			List<WebElement> schedule_heatsetpoints, schedule_coolsetpoints, schedule_period_time = null;
 			WebElement heatSetPoint, coolSetPoint;
 			String[] schedulePeriods = { "Wake", "Away", "Home", "Sleep" };
-
+			SchedulingScreen ss = new SchedulingScreen(testCase);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
 
@@ -44,9 +44,8 @@ public class JasperSchedulingVerifyUtils {
 				if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-							schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-									"scheduling_period_heating_point");
+						if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 							for (WebElement setpoints : schedule_heatsetpoints) {
 								if (setpoints != null) {
 									if (Double.parseDouble(setpoints.getText()) <= maxHeat
@@ -64,9 +63,8 @@ public class JasperSchedulingVerifyUtils {
 								}
 							}
 						}
-						if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
-							schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
-									"scheduling_period_cooling_point");
+						if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
+							schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
 							for (WebElement setpoints : schedule_coolsetpoints) {
 								if (setpoints != null) {
 									if (Double.parseDouble(setpoints.getText()) <= maxCool
@@ -85,8 +83,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("name", "Geofence_Home_CoolTemperature", testCase, 5)) {
-							coolSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_CoolTemperature");
+						if (ss.isGeofenceHomeCoolElementVisible(5)) {
+							coolSetPoint = ss.getGeofenceHomeCoolElement();
 							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -101,8 +99,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Home_HeatTemperature", testCase, 5)) {
-							heatSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_HeatTemperature");
+						if (ss.isGeofenceHomeHeatElementVisible(5)) {
+							heatSetPoint = ss.getGeofenceHomeHeatElement();
 							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -117,9 +115,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_CoolTemperature", testCase, 5)) {
-							coolSetPoint = MobileUtils.getMobElement(testCase, "name",
-									"Geofence_Sleep_CoolTemperature");
+						if (ss.isGeofenceSleepCoolElementVisible(5)) {
+							coolSetPoint = ss.getGeofenceSleepCoolElement();
 							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -134,9 +131,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_HeatTemperature", testCase, 5)) {
-							heatSetPoint = MobileUtils.getMobElement(testCase, "name",
-									"Geofence_Sleep_HeatTemperature");
+						if (ss.isGeofenceSleepHeatElementVisible(5)) {
+							heatSetPoint = ss.getGeofenceSleepHeatElement();
 							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -151,8 +147,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Away_CoolTemperature", testCase, 5)) {
-							coolSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_CoolTemperature");
+						if (ss.isGeofenceAwayCoolElementVisible(5)) {
+							coolSetPoint = ss.getGeofenceAwayCoolElement();
 							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -167,8 +163,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Away_HeatTemperature", testCase, 5)) {
-							heatSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_HeatTemperature");
+						if (ss.isGeofenceAwayHeatElementVisible(5)) {
+							heatSetPoint = ss.getGeofenceAwayHeatElement();
 							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -189,9 +185,8 @@ public class JasperSchedulingVerifyUtils {
 					if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 							.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-								schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_heating_point");
+							if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 								for (WebElement setpoints : schedule_heatsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxHeat
@@ -209,9 +204,8 @@ public class JasperSchedulingVerifyUtils {
 									}
 								}
 							}
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
-								schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_cooling_point");
+							if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
+								schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
 								for (WebElement setpoints : schedule_coolsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxCool
@@ -230,10 +224,8 @@ public class JasperSchedulingVerifyUtils {
 								}
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'_Time')]", testCase, 6)) {
-								schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'_Time')]");
+							if (ss.isEverydaySchedulePeriodTimeVisible(6)) {
+								schedule_period_time = ss.getEverydaySchedulePeriodTimesElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -241,85 +233,46 @@ public class JasperSchedulingVerifyUtils {
 								return flag;
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
-								if (Double
-										.parseDouble(MobileUtils
-												.getMobElement(testCase, "name",
-														"Everyday_" + schedulePeriods[i] + "_CoolTemperature")
-												.getAttribute("value")) <= maxCool
-										&& Double
-												.parseDouble(
-														MobileUtils
-																.getMobElement(testCase, "name",
-																		"Everyday_" + schedulePeriods[i]
-																				+ "_CoolTemperature")
-																.getAttribute("value")) >= minCool) {
-									Keyword.ReportStep_Pass(testCase,
-											"Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Everyday_" + schedulePeriods[i]
-																					+ "_CoolTemperature")
-																	.getAttribute("value"))
-													+ " is set within or at the maximum and minimum range");
+								if (Double.parseDouble(
+										ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])) <= maxCool
+										&& Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
+												schedulePeriods[i])) >= minCool) {
+									Keyword.ReportStep_Pass(testCase, "Set Point value: "
+											+ Double.parseDouble(
+													ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[TemperatureInMaxMinRange] Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Everyday_" + schedulePeriods[i]
-																					+ "_CoolTemperature")
-																	.getAttribute("value"))
+													+ Double.parseDouble(ss
+															.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
 													+ " is not set within or at the maximum and minimum range");
 								}
-								if (Double
-										.parseDouble(MobileUtils
-												.getMobElement(testCase, "name",
-														"Everyday_" + schedulePeriods[i] + "_HeatTemperature")
-												.getAttribute("value")) <= maxHeat
-										&& Double
-												.parseDouble(
-														MobileUtils
-																.getMobElement(testCase, "name",
-																		"Everyday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase,
-											"Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Everyday_" + schedulePeriods[i]
-																					+ "_HeatTemperature")
-																	.getAttribute("value"))
-													+ " is set within or at the maximum and minimum range");
+								if (Double.parseDouble(
+										ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])) <= maxHeat
+										&& Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
+												schedulePeriods[i])) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase, "Set Point value: "
+											+ Double.parseDouble(
+													ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[TemperatureInMaxMinRange] Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Everyday_" + schedulePeriods[i]
-																					+ "_HeatTemperature")
-																	.getAttribute("value"))
+													+ Double.parseDouble(ss
+															.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
 						}
 					} else {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							schedule_heatsetpoints = MobileUtils.getMobElements(
-									MobileUtils.loadObjectFile(testCase, "ScheduleScreen"), testCase,
-									"SchedulePeriodHeatSetPoint");
-							schedule_coolsetpoints = MobileUtils.getMobElements(
-									MobileUtils.loadObjectFile(testCase, "ScheduleScreen"), testCase,
-									"SchedulePeriodCoolSetPoint");
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-								schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_heating_point");
+							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
+							schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
+							if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 								for (WebElement setpoints : schedule_heatsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxHeat
@@ -337,9 +290,8 @@ public class JasperSchedulingVerifyUtils {
 									}
 								}
 							}
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
-								schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_cooling_point");
+							if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
+								schedule_heatsetpoints = ss.getSchedulePeriodCoolSetPointElement();
 								for (WebElement setpoints : schedule_coolsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxCool
@@ -358,11 +310,8 @@ public class JasperSchedulingVerifyUtils {
 								}
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-									testCase, 6)) {
-								schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
+							if (ss.isWeekdayPeriodTimeVisible(6)) {
+								schedule_period_time = ss.getWeekdayPeriodTimeElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -371,79 +320,45 @@ public class JasperSchedulingVerifyUtils {
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
 								if (Double
-										.parseDouble(
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + schedulePeriods[i]
-																		+ "_HeatTemperature")
-														.getAttribute("value")) <= maxHeat
-										&& Double
-												.parseDouble(MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + schedulePeriods[i]
-																		+ "_HeatTemperature")
-														.getAttribute("value")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase,
-											"[Monday - Friday] Heat Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Monday - Friday_" + schedulePeriods[i]
-																					+ "_HeatTemperature")
-																	.getAttribute("value"))
-													+ " is set within or at the maximum and minimum range");
+										.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+												schedulePeriods[i])) <= maxHeat
+										&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+												schedulePeriods[i])) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase, "[Monday - Friday] Heat Set Point value: "
+											+ Double.parseDouble(ss
+													.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i]))
+											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Monday - Friday] Heat Set Point value: "
 													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Monday - Friday_" + schedulePeriods[i]
-																					+ "_HeatTemperature")
-																	.getAttribute("value"))
+															ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+																	schedulePeriods[i]))
+
 													+ " is not set within or at the maximum and minimum range");
 								}
 								if (Double
-										.parseDouble(
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + schedulePeriods[i]
-																		+ "_CoolTemperature")
-														.getAttribute("value")) <= maxHeat
-										&& Double
-												.parseDouble(MobileUtils
-														.getMobElement(testCase, "name",
-																"Monday - Friday_" + schedulePeriods[i]
-																		+ "_CoolTemperature")
-														.getAttribute("value")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase,
-											"[Monday - Friday]Cool Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Monday - Friday_" + schedulePeriods[i]
-																					+ "_CoolTemperature")
-																	.getAttribute("value"))
-													+ " is set within or at the maximum and minimum range");
+										.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
+												schedulePeriods[i])) <= maxHeat
+										&& Double.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
+												schedulePeriods[i])) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase, "[Monday - Friday]Cool Set Point value: "
+											+ Double.parseDouble(ss
+													.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i]))
+											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Monday - Friday]Cool Set Point value: "
 													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Monday - Friday_" + schedulePeriods[i]
-																					+ "_CoolTemperature")
-																	.getAttribute("value"))
+															ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
+																	schedulePeriods[i]))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
-							if (MobileUtils.isMobElementExists("xpath",
-									"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]",
-									testCase, 6)) {
-								schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
+							if (ss.isWeekendScheduleTitleAndPeriodTimeVisble(6)) {
+								schedule_period_time = ss.getWeekendScheduleTitleAndPeriodTimeElements();
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -452,71 +367,39 @@ public class JasperSchedulingVerifyUtils {
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
 								if (Double
-										.parseDouble(
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + schedulePeriods[i]
-																		+ "_HeatTemperature")
-														.getAttribute("value")) <= maxHeat
-										&& Double
-												.parseDouble(MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + schedulePeriods[i]
-																		+ "_HeatTemperature")
-														.getAttribute("value")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase,
-											"[Saturday - Sunday]Heat Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Saturday - Sunday_" + schedulePeriods[i]
-																					+ "_HeatTemperature")
-																	.getAttribute("value"))
-													+ " is set within or at the maximum and minimum range");
+										.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+												schedulePeriods[i])) <= maxHeat
+										&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+												schedulePeriods[i])) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Heat Set Point value: "
+											+ Double.parseDouble(ss
+													.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i]))
+											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Saturday - Sunday]Heat Set Point value: "
 													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Saturday - Sunday_" + schedulePeriods[i]
-																					+ "_HeatTemperature")
-																	.getAttribute("value"))
+															ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+																	schedulePeriods[i]))
 													+ " is not set within or at the maximum and minimum range");
 								}
 								if (Double
-										.parseDouble(
-												MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + schedulePeriods[i]
-																		+ "_CoolTemperature")
-														.getAttribute("value")) <= maxHeat
-										&& Double
-												.parseDouble(MobileUtils
-														.getMobElement(testCase, "name",
-																"Saturday - Sunday_" + schedulePeriods[i]
-																		+ "_CoolTemperature")
-														.getAttribute("value")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase,
-											"[Saturday - Sunday]Cool Set Point value: "
-													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Saturday - Sunday_" + schedulePeriods[i]
-																					+ "_CoolTemperature")
-																	.getAttribute("value"))
-													+ " is set within or at the maximum and minimum range");
+										.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
+												schedulePeriods[i])) <= maxHeat
+										&& Double.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
+												schedulePeriods[i])) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Cool Set Point value: "
+											+ Double.parseDouble(ss
+													.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i]))
+											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Saturday - Sunday]Cool Set Point value: "
 													+ Double.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Saturday - Sunday_" + schedulePeriods[i]
-																					+ "_CoolTemperature")
-																	.getAttribute("value"))
+															ss.getValueOfWeekendCoolTemperatureElementAtIndex(
+																	schedulePeriods[i]))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -529,9 +412,8 @@ public class JasperSchedulingVerifyUtils {
 				if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
-							schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
-									"scheduling_period_cooling_point");
+						if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
+							schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
 							for (WebElement setpoints : schedule_coolsetpoints) {
 								if (setpoints != null) {
 									if (Double.parseDouble(setpoints.getText()) <= maxCool
@@ -550,8 +432,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("name", "Geofence_Cool_HeatTemperature", testCase, 5)) {
-							coolSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Cool_HeatTemperature");
+						if (ss.isGeofenceCoolHeatTemperatureVisible(5)) {
+							coolSetPoint = ss.getGeofenceCoolHeatTemperatureElement();
 							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxCool
 									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minCool) {
 								Keyword.ReportStep_Pass(testCase,
@@ -566,9 +448,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Sleeep_CoolTemperature", testCase, 5)) {
-							coolSetPoint = MobileUtils.getMobElement(testCase, "name",
-									"Geofence_Sleeep_CoolTemperature");
+						if (ss.isGeofenceSleepCoolElementVisible(5)) {
+							coolSetPoint = ss.getGeofenceSleepCoolElement();
 							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxCool
 									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minCool) {
 								Keyword.ReportStep_Pass(testCase,
@@ -583,8 +464,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Away_CoolTemperature", testCase, 5)) {
-							coolSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_CoolTemperature");
+						if (ss.isGeofenceAwayCoolElementVisible(5)) {
+							coolSetPoint = ss.getGeofenceAwayCoolElement();
 							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxCool
 									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minCool) {
 								Keyword.ReportStep_Pass(testCase,
@@ -605,9 +486,8 @@ public class JasperSchedulingVerifyUtils {
 					if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 							.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
-								schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_cooling_point");
+							if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
+								schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
 								for (WebElement setpoints : schedule_coolsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxCool
@@ -627,82 +507,46 @@ public class JasperSchedulingVerifyUtils {
 							}
 						} else {
 							if (statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")) {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]");
+								if (ss.isEverydayScheduleTitleAndPeriodTimeVisble(5)) {
+									schedule_period_time = ss.getEverydayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + 1 + "_CoolTemperature")
-													.getAttribute("value")) <= maxCool
-											&& Double.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + i + 1 + "_CoolTemperature")
-													.getAttribute("value")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(
-																MobileUtils
-																		.getMobElement(testCase, "name",
-																				"Everyday_" + i + 1
-																						+ "_CoolTemperature")
-																		.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getCoolSetPointsOfGivenEverydayPeriod(String.valueOf(i + 1))) <= maxCool
+											&& Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
+													String.valueOf(i + 1))) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getCoolSetPointsOfGivenEverydayPeriod(String.valueOf(i + 1)))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(
-																MobileUtils
-																		.getMobElement(testCase, "name",
-																				"Everyday_" + i + 1
-																						+ "_CoolTemperature")
-																		.getAttribute("value"))
+														+ Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
+																String.valueOf(i + 1)))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
 							} else {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]");
+								if (ss.isEverydayScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getEverydayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(
-													MobileUtils
-															.getMobElement(testCase, "name",
-																	"Everyday_" + schedulePeriods[i]
-																			+ "_CoolTemperature")
-															.getAttribute("value")) <= maxCool
-											&& Double
-													.parseDouble(MobileUtils
-															.getMobElement(testCase, "name",
-																	"Everyday_" + schedulePeriods[i]
-																			+ "_CoolTemperature")
-															.getAttribute("value")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Everyday_" + schedulePeriods[i]
-																				+ "_CoolTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])) <= maxCool
+											&& Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
+													schedulePeriods[i])) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Everyday_" + schedulePeriods[i]
-																				+ "_CoolTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
+																schedulePeriods[i]))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -710,12 +554,9 @@ public class JasperSchedulingVerifyUtils {
 						}
 					} else {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							schedule_heatsetpoints = MobileUtils.getMobElements(
-									MobileUtils.loadObjectFile(testCase, "ScheduleScreen"), testCase,
-									"SchedulePeriodHeatSetPoint");
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-								schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_heating_point");
+							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
+							if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 								for (WebElement setpoints : schedule_heatsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxCool
@@ -735,158 +576,88 @@ public class JasperSchedulingVerifyUtils {
 							}
 						} else {
 							if (statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")) {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
+								if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(5)) {
+									schedule_period_time = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Monday - Friday_" + (i + 1) + "_HeatTemperature")
-													.getAttribute("value")) <= maxCool
-											&& Double
-													.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Monday - Friday_" + (i + 1)
-																					+ "_HeatTemperature")
-																	.getAttribute("value")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getHeatSetPointsOfGivenWeekdayPeriod(String.valueOf(i + 1))) <= maxCool
+											&& Double.parseDouble(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+													String.valueOf(i + 1))) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getHeatSetPointsOfGivenWeekdayPeriod(String.valueOf(i + 1)))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+																String.valueOf(i + 1)))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
+								if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Saturday - Sunday_" + (i + 1) + "_HeatTemperature")
-													.getAttribute("value")) <= maxCool
-											&& Double
-													.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Saturday - Sunday_" + (i + 1)
-																					+ "_HeatTemperature")
-																	.getAttribute("value")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getHeatSetPointsOfGivenWeekendPeriod(String.valueOf(i + 1))) <= maxCool
+											&& Double.parseDouble(ss.getHeatSetPointsOfGivenWeekendPeriod(
+													String.valueOf(i + 1))) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getHeatSetPointsOfGivenWeekendPeriod(String.valueOf(i + 1)))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss.getHeatSetPointsOfGivenWeekendPeriod(
+																String.valueOf(i + 1)))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
 							} else {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
+								if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Monday - Friday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) <= maxCool
-											&& Double.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Monday - Friday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getHeatSetPointsOfGivenWeekdayPeriod(schedulePeriods[i])) <= maxCool
+											&& Double.parseDouble(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+													schedulePeriods[i])) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getHeatSetPointsOfGivenWeekdayPeriod(schedulePeriods[i]))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss.getHeatSetPointsOfGivenWeekdayPeriod(
+																schedulePeriods[i]))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
+								if (ss.isWeekendScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekendScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Saturday - Sunday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) <= maxCool
-											&& Double.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Saturday - Sunday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getHeatSetPointsOfGivenWeekendPeriod(schedulePeriods[i])) <= maxCool
+											&& Double.parseDouble(ss.getHeatSetPointsOfGivenWeekendPeriod(
+													schedulePeriods[i])) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getHeatSetPointsOfGivenWeekendPeriod(schedulePeriods[i]))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss.getHeatSetPointsOfGivenWeekendPeriod(
+																schedulePeriods[i]))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -900,9 +671,8 @@ public class JasperSchedulingVerifyUtils {
 				if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-							schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-									"scheduling_period_heating_point");
+						if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 							for (WebElement setpoints : schedule_heatsetpoints) {
 								if (setpoints != null) {
 									if (Double.parseDouble(setpoints.getText()) <= maxHeat
@@ -921,8 +691,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("name", "Geofence_Home_HeatTemperature", testCase, 5)) {
-							heatSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_HeatTemperature");
+						if (ss.isGeofenceHomeHeatElementVisible(5)) {
+							heatSetPoint = ss.getGeofenceHomeHeatElement();
 							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -937,9 +707,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Sleeep_HeatTemperature", testCase, 5)) {
-							heatSetPoint = MobileUtils.getMobElement(testCase, "name",
-									"Geofence_Sleeep_HeatTemperature");
+						if (ss.isGeofenceSleepHeatElementVisible(5)) {
+							heatSetPoint = ss.getGeofenceSleepHeatElement();
 							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -954,8 +723,8 @@ public class JasperSchedulingVerifyUtils {
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Geofence_Away_HeatTemperature", testCase, 5)) {
-							heatSetPoint = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_HeatTemperature");
+						if (ss.isGeofenceAwayHeatElementVisible(5)) {
+							heatSetPoint = ss.getGeofenceAwayHeatElement();
 							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
@@ -976,9 +745,8 @@ public class JasperSchedulingVerifyUtils {
 					if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 							.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-								schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_heating_point");
+							if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 								for (WebElement setpoints : schedule_heatsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxHeat
@@ -998,100 +766,56 @@ public class JasperSchedulingVerifyUtils {
 							}
 						} else {
 							if (statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")) {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]");
+								if (ss.isEverydayScheduleTitleAndPeriodTimeVisble(5)) {
+									schedule_period_time = ss.getEverydayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(
-													MobileUtils
-															.getMobElement(testCase, "name",
-																	"Everyday_" + (i + 1) + "_HeatTemperature")
-															.getAttribute("value")) <= maxHeat
-											&& Double.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Everyday_" + (i + 1) + "_HeatTemperature")
-													.getAttribute("value")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(
-																MobileUtils
-																		.getMobElement(testCase, "name",
-																				"Everyday_" + (i + 1)
-																						+ "_HeatTemperature")
-																		.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getHeatSetPointsOfGivenEverydayPeriod(String.valueOf(i + 1))) <= maxHeat
+											&& Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
+													String.valueOf(i + 1))) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getHeatSetPointsOfGivenEverydayPeriod(String.valueOf(i + 1)))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(
-																MobileUtils
-																		.getMobElement(testCase, "name",
-																				"Everyday_" + (i + 1)
-																						+ "_HeatTemperature")
-																		.getAttribute("value"))
+														+ Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
+																String.valueOf(i + 1)))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
 							} else {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]");
+								if (ss.isEverydayScheduleTitleAndPeriodTimeVisble(5)) {
+									schedule_period_time = ss.getEverydayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(
-													MobileUtils
-															.getMobElement(testCase, "name",
-																	"Everyday_" + schedulePeriods[i]
-																			+ "_HeatTemperature")
-															.getAttribute("value")) <= maxHeat
-											&& Double
-													.parseDouble(MobileUtils
-															.getMobElement(testCase, "name",
-																	"Everyday_" + schedulePeriods[i]
-																			+ "_HeatTemperature")
-															.getAttribute("value")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Everyday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])) <= maxHeat
+											&& Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
+													schedulePeriods[i])) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Everyday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
+																schedulePeriods[i]))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
 							}
 						}
 					} else {
-
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							// schedule_periodtimes_weekday =
-							// MobileUtils.getMobElements(MobileUtils.loadObjectFile(testCase,
-							// "ScheduleScreen"), testCase, "SchedulePeriodTime");
-							schedule_heatsetpoints = MobileUtils.getMobElements(
-									MobileUtils.loadObjectFile(testCase, "ScheduleScreen"), testCase,
-									"SchedulePeriodHeatSetPoint");
-							if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-								schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-										"scheduling_period_heating_point");
+							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
+							if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
+								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 								for (WebElement setpoints : schedule_heatsetpoints) {
 									if (setpoints != null) {
 										if (Double.parseDouble(setpoints.getText()) <= maxHeat
@@ -1111,158 +835,94 @@ public class JasperSchedulingVerifyUtils {
 							}
 						} else {
 							if (statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")) {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
+								if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
 									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Monday - Friday_" + (i + 1) + "_HeatTemperature")
-													.getAttribute("value")) <= maxHeat
-											&& Double
-													.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Monday - Friday_" + (i + 1)
-																					+ "_HeatTemperature")
-																	.getAttribute("value")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+											.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+													String.valueOf(i + 1))) <= maxHeat
+											&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+													String.valueOf(i + 1))) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+														String.valueOf(i + 1)))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(
+																ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+																		String.valueOf(i + 1)))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
+								if (ss.isWeekendScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekendScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
-									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Saturday - Sunday_" + (i + 1) + "_HeatTemperature")
-													.getAttribute("value")) <= maxHeat
-											&& Double
-													.parseDouble(
-															MobileUtils
-																	.getMobElement(testCase, "name",
-																			"Saturday - Sunday_" + (i + 1)
-																					+ "_HeatTemperature")
-																	.getAttribute("value")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+									if (Double.parseDouble(
+											ss.getValueOfWeekendHeatTemperatureElementAtIndex(i + 1)) <= maxHeat
+											&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+													i + 1)) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														ss.getValueOfWeekendHeatTemperatureElementAtIndex(i + 1))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + (i + 1)
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(ss
+																.getValueOfWeekendHeatTemperatureElementAtIndex(i + 1))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
 							} else {
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Monday - Friday') and contains(@name,'_Time')]");
+								if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
 									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Monday - Friday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) <= maxHeat
-											&& Double.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Monday - Friday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+											.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+													schedulePeriods[i])) <= maxHeat
+											&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+													schedulePeriods[i])) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+														schedulePeriods[i]))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Monday - Friday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(
+																ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+																		schedulePeriods[i]))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
-								if (MobileUtils.isMobElementExists("xpath",
-										"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]",
-										testCase, 6)) {
-									schedule_period_time = MobileUtils.getMobElements(testCase, "xpath",
-											"//XCUIElementTypeStaticText[contains(@name,'Saturday - Sunday') and contains(@name,'_Time')]");
+								if (ss.isWeekdayScheduleTitleAndPeriodTimeVisble(6)) {
+									schedule_period_time = ss.getWeekdayScheduleTitleAndPeriodTimeElements();
 								}
 								for (int i = 0; i < schedule_period_time.size(); i++) {
 									if (Double
-											.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Saturday - Sunday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) <= maxHeat
-											&& Double.parseDouble(MobileUtils
-													.getMobElement(testCase, "name",
-															"Saturday - Sunday_" + schedulePeriods[i]
-																	+ "_HeatTemperature")
-													.getAttribute("value")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
-														+ " is set within or at the maximum and minimum range");
+											.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+													schedulePeriods[i])) <= maxHeat
+											&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+													schedulePeriods[i])) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+														schedulePeriods[i]))
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(MobileUtils
-																.getMobElement(testCase, "name",
-																		"Saturday - Sunday_" + schedulePeriods[i]
-																				+ "_HeatTemperature")
-																.getAttribute("value"))
+														+ Double.parseDouble(
+																ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+																		schedulePeriods[i]))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -1273,10 +933,10 @@ public class JasperSchedulingVerifyUtils {
 			}
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='Navigate Up']")).click();
+				ss.clickOnBackButton();
 			} else {
-				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+				if (ss.isCloseButtonVisible(5)) {
+					if (!ss.clickOnCloseButton()) {
 						flag = false;
 					}
 				}
@@ -1294,7 +954,7 @@ public class JasperSchedulingVerifyUtils {
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
+		SchedulingScreen ss = new SchedulingScreen(testCase);
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		String jasperStatType = statInfo.getJasperDeviceType();
 
@@ -1309,49 +969,33 @@ public class JasperSchedulingVerifyUtils {
 			String geofenceStartTime = "", geofenceEndTime = "";
 			Double temp;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("ID", "scheduling_period_startEnd_time", testCase, 5)) {
-					if (MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
-							.contains("M")
-							|| MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
-									.contains("m")) {
-						geofenceStartTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
-								.getText().split("\\s+")[0];
+				if (ss.isSchedulingPeriodSleepStartTimeVisible(5)) {
+					if (ss.getSchedulingPeriodSleepStartTimeText().contains("M")
+							|| ss.getSchedulingPeriodSleepStartTimeText().contains("m")) {
+						geofenceStartTime = ss.getSchedulingPeriodSleepStartTimeText().split("\\s+")[0];
 					} else {
-						geofenceStartTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
-								.getText().split("\\s+")[0];
+						geofenceStartTime = ss.getSchedulingPeriodSleepStartTimeText().split("\\s+")[0];
 					}
-					if (MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
-							.contains("M")
-							|| MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time").getText()
-									.contains("m")) {
-						geofenceEndTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
-								.getText().split("\\s+")[3];
+					if (ss.getSchedulingPeriodSleepStartTimeText().contains("M")
+							|| ss.getSchedulingPeriodSleepStartTimeText().contains("m")) {
+						geofenceEndTime = ss.getSchedulingPeriodSleepStartTimeText().split("\\s+")[3];
 					} else {
-						geofenceEndTime = MobileUtils.getMobElement(testCase, "ID", "scheduling_period_startEnd_time")
-								.getText().split("\\s+")[2];
+						geofenceEndTime = ss.getSchedulingPeriodSleepStartTimeText().split("\\s+")[2];
 					}
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_subTitle", testCase, 5)) {
-					if (MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle").getAttribute("value")
-							.contains("M")
-							|| MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-									.getAttribute("value").contains("m")) {
-						geofenceStartTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-								.getAttribute("value").split("\\s+")[0];
+				if (ss.isGeofenceSleepSubTitleVisible(5)) {
+					if (ss.getGeofenceSleepSubTitleText().contains("M")
+							|| ss.getGeofenceSleepSubTitleText().contains("m")) {
+						geofenceStartTime = ss.getGeofenceSleepSubTitleText().split("\\s+")[0];
 					} else {
-						geofenceStartTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-								.getAttribute("value").split("\\s+")[0];
+						geofenceStartTime = ss.getGeofenceSleepSubTitleText().split("\\s+")[0];
 					}
-					if (MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle").getAttribute("value")
-							.contains("M")
-							|| MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-									.getAttribute("value").contains("m")) {
-						geofenceEndTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-								.getAttribute("value").split("\\s+")[3];
+					if (ss.getGeofenceSleepSubTitleText().contains("M")
+							|| ss.getGeofenceSleepSubTitleText().contains("m")) {
+						geofenceEndTime = ss.getGeofenceSleepSubTitleText().split("\\s+")[3];
 					} else {
-						geofenceEndTime = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_subTitle")
-								.getAttribute("value").split("\\s+")[2];
+						geofenceEndTime = ss.getGeofenceSleepSubTitleText().split("\\s+")[2];
 					}
 				}
 			}
@@ -1417,7 +1061,7 @@ public class JasperSchedulingVerifyUtils {
 								+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']"));
 						period.findElement(By.id("scheduling_period_time")).click();
 
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
+						if (ss.isTimeChooserHeaderVisible(5)) {
 							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
 									.getText().split("\\s+")[0];
 						} else {
@@ -1426,7 +1070,7 @@ public class JasperSchedulingVerifyUtils {
 									"Failed to locate the Start time");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
+							if (ss.isTimeChooserEndTimeVisible(5)) {
 								everydayEndTime = MobileUtils
 										.getMobElement(fieldObjects, testCase, "TimeChooserEndTime").getText()
 										.split("\\s+")[0];
@@ -1467,9 +1111,8 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						desiredDayIndex = Arrays.asList(scheduleDays)
 								.indexOf(inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED).split("_")[0]);
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-							scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
-									"ScheduleDayHeader");
+						if (ss.isScheduleDayHeaderVisible(5)) {
+							scheduleDayHeaders = ss.getScheduleDayHeaderElements();
 							lesserDayIndex = Arrays.asList(scheduleDays)
 									.indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 							greaterDayIndex = Arrays.asList(scheduleDays).indexOf(
@@ -1511,19 +1154,16 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
-							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-									.getAttribute("value").split("\\s+")[0];
+						if (ss.isTimeChooserHeaderVisible(5)) {
+							everydayStartTime = ss.getTimeChooserValue().split("\\s+")[0];
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate the Start time");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
-								everydayEndTime = MobileUtils
-										.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
-										.getAttribute("value").split("\\s+")[0];
+							if (ss.isTimeChooserEndTimeVisible(5)) {
+								everydayEndTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1569,27 +1209,24 @@ public class JasperSchedulingVerifyUtils {
 						}
 					}
 				} else {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "EverydayTime", 5)) {
-						everydayPeriodTime = MobileUtils.getMobElements(fieldObjects, testCase, "EverydayTime");
+					if (ss.isEverydayTimeVisible(5)) {
+						everydayPeriodTime = ss.getEverydayTimeElements();
 					}
 					for (int e = 0; e < everydayPeriodTime.size(); e++) {
 						if (everydayPeriodTime.get(e) != null) {
 							everydayPeriodTime.get(e).click();
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
-								everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-										.getText().split("\\s+")[0];
+							if (ss.isTimeChooserHeaderVisible(5)) {
+								everydayStartTime = ss.getTimeChooserValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Failed to locate the Start time");
 							}
 							if (jasperStatType.equalsIgnoreCase("EMEA")) {
-								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
-									everydayEndTime = MobileUtils
-											.getMobElement(fieldObjects, testCase, "TimeChooserEndTime").getText()
-											.split("\\s+")[0];
+								if (ss.isTimeChooserEndTimeVisible(5)) {
+									everydayEndTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1597,19 +1234,16 @@ public class JasperSchedulingVerifyUtils {
 								}
 							}
 						} else {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
-								everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-										.getAttribute("value").split("\\s+")[0];
+							if (ss.isTimeChooserHeaderVisible(5)) {
+								everydayStartTime = ss.getTimeChooserValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Failed to locate the Start time");
 							}
 							if (jasperStatType.equalsIgnoreCase("EMEA")) {
-								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
-									everydayEndTime = MobileUtils
-											.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
-											.getAttribute("value").split("\\s+")[0];
+								if (ss.isTimeChooserEndTimeVisible(5)) {
+									everydayEndTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1640,8 +1274,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+							if (ss.isBackButtonVisible(5)) {
+								if (!ss.clickOnBackButton()) {
 									flag = false;
 								}
 							} else {
@@ -1650,8 +1284,8 @@ public class JasperSchedulingVerifyUtils {
 										"Failed to locate the Back button in Edit Period screen");
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
-								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+							if (ss.isNavigationLeftBarItemVisible(5)) {
+								if (!ss.clickOnNavigationLeftBarItem()) {
 									flag = false;
 								}
 							} else {
@@ -1669,8 +1303,8 @@ public class JasperSchedulingVerifyUtils {
 				List<WebElement> periodTime = null;
 				// =================================================ANDROID====================================================================
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SchedulePeriodTime", 5)) {
-						periodTime = MobileUtils.getMobElements(fieldObjects, testCase, "SchedulePeriodTime");
+					if (ss.isSchedulePeriodTimeVisible(5)) {
+						periodTime = ss.getSchedulePeriodTimeElements();
 					}
 					for (int e = 0; e < periodTime.size(); e++) {
 						if (e == 4) {
@@ -1686,8 +1320,8 @@ public class JasperSchedulingVerifyUtils {
 						if (periodTime.get(e) != null) {
 							periodTime.get(e).click();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
-							startTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser").getText()
+						if (ss.isTimeChooserHeaderVisible(5)) {
+							startTime = ss.getTimeChooserValue()
 									.split("\\s+")[0];
 						} else {
 							flag = false;
@@ -1695,9 +1329,8 @@ public class JasperSchedulingVerifyUtils {
 									"Failed to locate the Start time");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
-								endTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
-										.getText().split("\\s+")[0];
+							if (ss.isTimeChooserEndTimeVisible(5)) {
+								endTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1725,8 +1358,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+							if (ss.isBackButtonVisible(5)) {
+								if (!ss.clickOnBackButton()) {
 									flag = false;
 								}
 							} else {
@@ -1735,8 +1368,8 @@ public class JasperSchedulingVerifyUtils {
 										"Failed to locate the Back button in Edit Period screen");
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
-								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+							if (ss.isNavigationLeftBarItemVisible(5)) {
+								if (!ss.clickOnNavigationLeftBarItem()) {
 									flag = false;
 								}
 							} else {
@@ -1750,25 +1383,23 @@ public class JasperSchedulingVerifyUtils {
 				// =======================================================IOS===========================================================
 				else {
 					// ========================================Weekday=====================================================
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekdayPeriodTime", 5)) {
-						periodTime = MobileUtils.getMobElements(fieldObjects, testCase, "WeekdayPeriodTime");
+					if (ss.isWeekdayPeriodTimeVisible(5)) {
+						periodTime = ss.getWeekdayPeriodTimeElements();
 					}
 					for (int e = 0; e < periodTime.size(); e++) {
 						if (periodTime.get(e) != null) {
 							periodTime.get(e).click();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
-							startTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-									.getAttribute("value").split("\\s+")[0];
+						if (ss.isTimeChooserHeaderVisible(5)) {
+							startTime = ss.getTimeChooserValue().split("\\s+")[0];
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate the Start time");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
-								endTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
-										.getAttribute("value").split("\\s+")[0];
+							if (ss.isTimeChooserEndTimeVisible(5)) {
+								endTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1796,8 +1427,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+							if (ss.isBackButtonVisible(5)) {
+								if (!ss.clickOnBackButton()) {
 									flag = false;
 								}
 							} else {
@@ -1806,8 +1437,8 @@ public class JasperSchedulingVerifyUtils {
 										"Failed to locate the Back button in Edit Period screen");
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
-								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+							if (ss.isNavigationLeftBarItemVisible(5)) {
+								if (!ss.clickOnNavigationLeftBarItem()) {
 									flag = false;
 								}
 							} else {
@@ -1818,25 +1449,23 @@ public class JasperSchedulingVerifyUtils {
 						}
 					}
 					// ================================================Weekend====================================================
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WeekendPeriodTime", 5)) {
-						periodTime = MobileUtils.getMobElements(fieldObjects, testCase, "WeekendPeriodTime");
+					if (ss.isWeekendPeriodTimeVisible(5)) {
+						periodTime = ss.getWeekendPeriodTimeElements();
 					}
 					for (int e = 0; e < periodTime.size(); e++) {
 						if (periodTime.get(e) != null) {
 							periodTime.get(e).click();
 						}
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooser", 5)) {
-							startTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-									.getAttribute("value").split("\\s+")[0];
+						if (ss.isTimeChooserHeaderVisible(5)) {
+							startTime = ss.getTimeChooserValue().split("\\s+")[0];
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate the Start time");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "TimeChooserEndTime", 5)) {
-								endTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime")
-										.getAttribute("value").split("\\s+")[0];
+							if (ss.isTimeChooserEndTimeVisible(5)) {
+								endTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1864,8 +1493,8 @@ public class JasperSchedulingVerifyUtils {
 							}
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+							if (ss.isBackButtonVisible(5)) {
+								if (!ss.clickOnBackButton()) {
 									flag = false;
 								}
 							} else {
@@ -1874,8 +1503,8 @@ public class JasperSchedulingVerifyUtils {
 										"Failed to locate the Back button in Edit Period screen");
 							}
 						} else {
-							if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
-								if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+							if (ss.isNavigationLeftBarItemVisible(5)) {
+								if (!ss.clickOnNavigationLeftBarItem()) {
 									flag = false;
 								}
 							} else {
