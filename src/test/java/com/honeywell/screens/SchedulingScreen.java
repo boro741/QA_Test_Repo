@@ -414,7 +414,22 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.getMobElement(testCase, "name", "Everyday_" + index + "_HeatTemperature")
 				.getAttribute("value");
 	}
+	
+	public List<WebElement> getValueOfEverydayTimeElementAtIndex(int index) {
+		return MobileUtils.getMobElements(testCase, "name", "Everyday_" + index + "_Time");
+	}
 
+	public List<WebElement> getValueOfWeekdayTimeElementAtIndex(int index) {
+		return MobileUtils.getMobElements(testCase, "name", "Monday - Friday_" + index + "_Time");
+	}
+	public WebElement getValueOfWeekendTimeElementAtIndex(int index) {
+		return MobileUtils.getMobElement(testCase, "xpath", "//*[@content-desc='"+index+"_Saturday - Sunday']/android.widget.TextView");
+	}
+	
+	public List<WebElement> getValueOfWeekendTimesElementAtIndex(int index) {
+		return MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText[@name='Saturday - Sunday_"+index+"_Time']");
+	}
+	
 	public String getValueOfWeekdayHeatTemperatureElementAtIndex(int index) {
 		return MobileUtils.getMobElement(testCase, "name", "Monday - Friday_" + index + "_HeatTemperature")
 				.getAttribute("value");
@@ -582,7 +597,6 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "WeekendTitleList");
 	}
 
-	// WeekendWake
 	public WebElement getWeekendWakeElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "WeekendWake");
 	}
@@ -924,5 +938,25 @@ public class SchedulingScreen extends MobileScreens {
 	public String getGeofenceSleepSubTitleText()
 	{
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSleepSubTitle").getAttribute("value");
+	}
+	
+	public boolean isViewByIndividualDaysVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ViewByIndividualDays", timeOut);
+	}
+	
+	public boolean clickOnViewByIndividualDays()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ViewByIndividualDays");
+	}
+	
+	public boolean isViewByGroupedDaysVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ViewByGroupedDays",timeOut);
+	}
+	
+	public boolean clickOnViewByGroupedDays()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ViewByGroupedDays");
 	}
 }
