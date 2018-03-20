@@ -139,7 +139,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Z-Wave Utilities")) {
+			} else if (screen.get(1).equalsIgnoreCase("ZWAVE Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ZWAVE DEVICES": {
 					flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveUtilitiesSettings(testCase, inputs);
@@ -149,12 +149,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveUtilitiesSettings(testCase, inputs);
 					break;
 				}
-				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
+				case "ZWAVE DEVICE THROUGH GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 					flag = flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 					break;
 				}
-				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
+				case "ZWAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 					break;
@@ -164,15 +164,15 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "Z-WAVE CONTROLLER DETAILS": {
+				case "ZWAVE CONTROLLER DETAILS": {
 					flag = flag & DASZwaveUtils.navigateToControllerDetailsFromDashboard(testCase);
 					break;
 				}
-				case "Z-WAVE DEVICE THROUGH GENERAL INCLUSION": {
+				case "ZWAVE DEVICE THROUGH GENERAL INCLUSION": {
 					flag = flag & DASZwaveUtils.navigateToGeneralInclusionFromDashboard(testCase);
 					break;
 				}
-				case "Z-WAVE DEVICE THROUGH GENERAL EXCLUSION": {
+				case "ZWAVE DEVICE THROUGH GENERAL EXCLUSION": {
 					flag = flag & DASZwaveUtils.navigateToGeneralExclusionFromDashboard(testCase);
 					break;
 				}
@@ -188,11 +188,11 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToSwitchSettingsFromDashboardViaZwaveDevices(testCase);
 					break;
 				}
-				case "Z-WAVE UTILITIES": {
+				case "ZWAVE UTILITIES": {
 					flag = DASZwaveUtils.navigateToZwaveUtilitiesFromDashboard(testCase);
 					break;
 				}
-				case "Z-WAVE DEVICES": {
+				case "ZWAVE DEVICES": {
 					flag = DASZwaveUtils.navigateToZwaveDevicesFromDashboard(testCase);
 					break;
 				}
@@ -208,7 +208,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToDimmerSettingsFromDashboardViaZwaveDevices(testCase);
 					break;
 				}
-				case "Z-WAVE INCLUSION THROUGH ADD NEW DEVICE ICON": {
+				case "ZWAVE INCLUSION THROUGH ADD NEW DEVICE ICON": {
 					flag = flag & DASZwaveUtils.navigateToAddDeviceScreenFromDashboardThroughIcon(testCase);
 					break;
 				}

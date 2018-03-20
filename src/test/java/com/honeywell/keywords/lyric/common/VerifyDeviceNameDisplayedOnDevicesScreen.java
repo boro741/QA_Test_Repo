@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 
@@ -38,7 +39,24 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 		try {
 			if (expectedDevice.get(1).equalsIgnoreCase("Dashboard")) {
 				flag = flag & LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, expectedDevice.get(0));
-			} else if (expectedDevice.get(1).equalsIgnoreCase("Sensor")) {
+			} else if(expectedDevice.get(1).equalsIgnoreCase("Zwave devices")){
+				ZwaveScreen zs=new ZwaveScreen(testCase);
+				if(expectedDevice.get(0).contains("Switch")){
+					flag = flag & zs.isSwitchSettingOnZwaveDevicesDisplayed();
+				}else if(expectedDevice.get(0).contains("Dimmer")){
+					flag = flag & zs.isDimmerSettingOnZwaveDevicesDisplayed();
+				}
+				if(flag){
+					Keyword.ReportStep_Pass(testCase,
+							expectedDevice.get(0) + "' is present in the "+expectedDevice.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedDevice.get(0) + "' is not present in the "+expectedDevice.get(1));
+				}
+
+			}
+			else if (expectedDevice.get(1).equalsIgnoreCase("Sensor")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.isSensorPresentInSensorsList(expectedDevice.get(0))) {
 					Keyword.ReportStep_Pass(testCase,
@@ -49,7 +67,7 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 							"Sensor : '" + expectedDevice.get(0) + "' is not present in the sensor list");
 				}
 			}
-			
+
 			else if (expectedDevice.get(1).equalsIgnoreCase("Keyfob")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.isKeyfobPresentInKeyfobsList(expectedDevice.get(0))) {

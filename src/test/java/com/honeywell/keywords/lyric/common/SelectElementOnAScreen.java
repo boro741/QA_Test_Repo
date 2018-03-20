@@ -45,7 +45,7 @@ public class SelectElementOnAScreen extends Keyword {
 		try {
 			if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")
-					|| parameters.get(1).equalsIgnoreCase("Activate Z-Wave Device")) {
+					|| parameters.get(1).equalsIgnoreCase("Activate ZWAVE Device")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRM CANCEL": {
 					DASZwaveUtils.clickCancelFromNavigation(testCase);
@@ -55,13 +55,13 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("install device")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "Z-WAVE DEVICE": {
+				case "ZWAVE DEVICE": {
 					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 					ads.clickOnZwaveFromAddNewDevice();
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Z-wave Utilities")) {
+			} else if (parameters.get(1).equalsIgnoreCase("ZWAVE Utilities")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONTROLLER FACTORY RESET": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -69,7 +69,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Z-wave Devices")) {
+			} else if (parameters.get(1).equalsIgnoreCase("ZWAVE Devices")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "ALL ON": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);

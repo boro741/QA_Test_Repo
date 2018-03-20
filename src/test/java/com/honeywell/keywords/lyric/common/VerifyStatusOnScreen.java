@@ -455,7 +455,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
-		case "Z-WAVE DEVICE":{
+		case "ZWAVE DEVICE":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -463,11 +463,11 @@ public class VerifyStatusOnScreen extends Keyword {
 					try {
 						if (ZWaveRelayUtils.isSwitch1ON()) {
 							Keyword.ReportStep_Pass(testCase,
-									"Switch is in on state in z-wave device");
+									"Switch is in on state in ZWAVE device");
 						} else {
 							Keyword.ReportStep_Fail(testCase,
 									FailType.FUNCTIONAL_FAILURE,
-									"Switch is not in on state on the z-wave device");
+									"Switch is not in on state on the ZWAVE device");
 						}
 					} catch (Exception e) {
 						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue"+e.getMessage());
@@ -477,12 +477,12 @@ public class VerifyStatusOnScreen extends Keyword {
 					try {
 						if (!ZWaveRelayUtils.isSwitch1ON()) {
 							Keyword.ReportStep_Pass(testCase,
-									"Switch is in off state in z-wave device");
+									"Switch is in off state in ZWAVE device");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase,
 									FailType.FUNCTIONAL_FAILURE,
-									"Switch is not in off state on the z-wave device");
+									"Switch is not in off state on the ZWAVE device");
 						}
 					} catch (Exception e) {
 						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue"+e.getMessage());

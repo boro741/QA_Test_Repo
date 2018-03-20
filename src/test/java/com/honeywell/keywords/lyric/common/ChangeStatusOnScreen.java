@@ -125,7 +125,7 @@ public class ChangeStatusOnScreen extends Keyword {
 			}
 			break;
 		}
-		case "Z-WAVE DEVICE FUNCTION KEY":{
+		case "ZWAVE DEVICE FUNCTION KEY":{
 			switch (expectedScreen.get(1).toUpperCase()) {
 			case "SWITCH": {
 				switch (expectedScreen.get(0).toUpperCase()) {

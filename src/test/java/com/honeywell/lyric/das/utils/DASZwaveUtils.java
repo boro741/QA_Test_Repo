@@ -102,7 +102,7 @@ public class DASZwaveUtils {
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"No Z-Wave device Pop Up not displayed or mispelled");
+					"No ZWAVE device Pop Up not displayed or mispelled");
 		}
 		return flag;
 	}
