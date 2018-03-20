@@ -143,13 +143,8 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "CANCEL SETUP": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			if (dasDIY.isCancelPopupVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
-				return flag;
-			}
+
+			flag = flag & dasDIY.isCancelPopupVisible();
 			break;
 		}
 		case "INVALID ZIP CODE": {
@@ -178,7 +173,6 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;
 		}
-
 		case "SET TO OFF": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			flag = flag & sc.isSetToOffPopupVisible();

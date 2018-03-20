@@ -29,6 +29,7 @@ import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.OSPopUps;
 
 public class DIYRegistrationUtils {
 
@@ -79,8 +80,8 @@ public class DIYRegistrationUtils {
 			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
 				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 				counter++;
-				flag = flag
-						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+
+				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 			}
 		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
@@ -304,12 +305,13 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
+
+//			flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
-			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 		} else {
-			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+//			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}
