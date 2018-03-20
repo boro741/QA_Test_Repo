@@ -1,7 +1,6 @@
 package com.honeywell.keywords.jasper.scheduling.Verify;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -11,11 +10,10 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.lyric.utils.InputVariables;
+import com.honeywell.screens.SchedulingScreen;
 
 public class VerifyScheduleCreatedMultiStat extends Keyword {
 	public boolean flag = true;
@@ -59,9 +57,9 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 			flag = false;
 		}
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CloseButton")) {
-			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "CloseButton")) {
+		SchedulingScreen ss = new SchedulingScreen(testCase);
+		if (ss.isCloseButtonVisible(5)) {
+			if (!ss.clickOnCloseButton()) {
 				flag = false;
 			}
 		}
@@ -102,26 +100,20 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 								}
 							} else {
 								flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NoScheduleText")) {
+								if (ss.isNoScheduleTextVisible(5)) {
 									Keyword.ReportStep_Pass(testCase, "No schedule screen is displayed on "
 											+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 								} else {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											" 'No schedule' screen not displayed");
 								}
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-										if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+
+									if (ss.isBackButtonVisible(5)) {
+										if (!ss.clickOnBackButton()) {
 											flag = false;
 										}
 									}
-								} else {
-									if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-										if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
-											flag = false;
-										}
-									}
-								}
+								
 							}
 						} else if (inputs.getInputValue(InputVariables.SPECIFIC_STAT_COPYING).equals("Yes")) {
 							if (inputs.getInputValue(InputVariables.STAT_TO_COPY_SCHEDULE)
@@ -137,19 +129,19 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 								}
 							} else {
 								flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "NoScheduleText")) {
+								if (ss.isNoScheduleTextVisible(5)) {
 									Keyword.ReportStep_Pass(testCase, "No schedule screen is displayed on "
 											+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 								} else {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											" 'No schedule' screen not displayed");
 								}
-								if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+								if (!ss.clickOnBackButton()) {
 									flag = false;
 								}
 							}
 						}
-						if (!MobileUtils.clickOnElement(fieldObjects, testCase, "CloseButton")) {
+						if (!ss.clickOnCloseButton()) {
 							flag = false;
 						}
 					}
