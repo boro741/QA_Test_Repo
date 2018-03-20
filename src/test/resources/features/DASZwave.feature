@@ -413,7 +413,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with the "Activate ZWAVE Device" screen
      When user "activates for discovery" the "Switch" function key
      And user names the "Switch" to "Switch1"
-    When user navigates to "ZWAVE DEVICES" screen from the "ZWAVE Utilities" screen
+    When user navigates to "ZWAVE DEVICES" screen from the "ZWAVE devices" screen
     And user "fixes all zwave devices" by clicking on "Fix all" button
     When user turns <SwitchStatus> the "Switch" through the "ZWAVE device function key"
     And user turns <DimmerStatus> the "Dimmer" through the "ZWAVE device function key"

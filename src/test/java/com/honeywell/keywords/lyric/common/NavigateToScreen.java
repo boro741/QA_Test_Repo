@@ -57,12 +57,20 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					if(!testCase.getPlatform().toUpperCase().contains("IOS")){
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ZWAVEDEVICES);
+					}
 					zwaveScreen.clickZwaveUtilitiesMenu();
 					flag = flag & zwaveScreen.clickGeneralDeviceInclusionMenu();
 					break;
 				}
 				case "GENERAL EXCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+					if(!testCase.getPlatform().toUpperCase().contains("IOS")){
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ZWAVEDEVICES);
+					}
 					zwaveScreen.clickZwaveUtilitiesMenu();
 					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 					break;
@@ -339,7 +347,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -738,7 +746,7 @@ public class NavigateToScreen extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
-			
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
