@@ -18,6 +18,8 @@ public class DeviceInformation {
 
 	private JSONObject deviceInformation;
 	private TestCases testCase;
+	String locationName;
+	String statName;
 
 	// private TestCaseInputs inputs;
 
@@ -247,5 +249,125 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
+	public String getThermostatType() {
+		String type = "";
+		if (deviceInformation != null) {
+			try {
+				type = deviceInformation.get("deviceType").toString();
+			} catch (Exception e) {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return type ;
+	}
+	public String getThermoStatMode() {
+		String systemMode = "";
+		if (deviceInformation != null) {
+			try {
+				systemMode = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.getString("mode");
+			} catch (Exception e) {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
+						+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+			}
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get System Mode : Not Connected to CHAPI. Returning \"\" value");
+			return "";
+		}
+		return systemMode;
+	}
+
+
+	public String getThermostatModeWhenAutoChangeOverActive() {
+		String systemMode = "";
+		if (deviceInformation != null) {
+			try {
+				systemMode = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.getString("heatCoolMode");
+			} catch (Exception e) {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
+						+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+			}
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get System Mode : Not Connected to CHAPI. Returning \"\" value");
+			return "";
+		}
+		return systemMode;
+	}
+
+
+	public String getIndoorTemperature() {
+		String indoorTemp = " ";
+		try {
+			if (deviceInformation != null) {
+
+				indoorTemp = deviceInformation.getJSONObject("thermostat").get("indoorTemperature").toString();
+
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Indoor Temperature : Not Connected to CHAPI. Returning \"\" value");
+				return "";
+			}
+			if (getThermostatUnits().equals("Celsius")) {
+				indoorTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, indoorTemp);
+			} else if (getThermostatUnits().equals("Fahrenheit")) {
+				Double temp = Double.parseDouble(indoorTemp);
+				indoorTemp = String.valueOf(temp.intValue());
+			}
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+		}
+		return indoorTemp;
+	}
+
+
+	public String getCurrentSetPoints() {
+		String currentSetPoints = " ";
+		try {
+			if (deviceInformation != null) {
+
+				if (getThermoStatMode().equals("Heat")) {
+					currentSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+							.get("heatSetpoint").toString();
+				} else if (getThermoStatMode().equals("Cool")) {
+					currentSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+							.get("coolSetpoint").toString();
+				} else if (getThermoStatMode().equals("Auto")) {
+					if (getThermostatModeWhenAutoChangeOverActive().equals("Heat")) {
+						currentSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+								.get("heatSetpoint").toString();
+					} else if (getThermostatModeWhenAutoChangeOverActive().equals("Cool")) {
+						currentSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+								.get("coolSetpoint").toString();
+					}
+				}
+
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Current Set Points : Not Connected to CHAPI. Returning \"\" value");
+				return "";
+			}
+			if (getThermostatUnits().equals("Celsius")) {
+				currentSetPoints = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, currentSetPoints);
+			} else if (getThermostatUnits().equals("Fahrenheit")) {
+				Double temp = Double.parseDouble(currentSetPoints);
+				currentSetPoints = String.valueOf(temp.intValue());
+			}
+		} catch (Exception e) {
+			
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+		}
+		return currentSetPoints;
+	}
+
+
 
 }

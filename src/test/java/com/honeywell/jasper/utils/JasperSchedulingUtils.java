@@ -26,7 +26,8 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
-
+import com.honeywell.commons.mobile.MobileObject;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.lyric.utils.InputVariables;
@@ -13881,5 +13882,202 @@ public class JasperSchedulingUtils {
 
 		return flag;
 	}
+	public static boolean addOrDeleteSleepSettings(TestCases testCase, TestCaseInputs inputs,
+			boolean addSleepSettings) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		flag = flag & viewScheduleOnPrimaryCard(testCase);
+		inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
+		if (addSleepSettings) {
+			inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "Yes");
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateSleepSettings", 5)) {
+				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "CreateSleepSettings")) {
+					flag = false;
+				} else {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SaveButton", 5)) {
+						if (!MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton")) {
+							flag = false;
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate SAVE button");
+					}
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to locate Create Sleep Settings button");
+			}
+		} else {
+			inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "No");
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='Use My Sleep Settings']")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Use My Sleep Settings option not displayed on schedule screen");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "Geofence_Sleep", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "Geofence_Sleep")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Use My Sleep Settings option not displayed on schedule screen");
+				}
+			}
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon", 5)) {
+				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "PeriodDeleteIcon")) {
+					flag = false;
+				} else {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Delete']", testCase, 5)) {
+							if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Delete']")) {
+								flag = false;
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to find Confirm Delete button");
+						}
+					} else {
+						if (MobileUtils.isMobElementExists("name", "DELETE", testCase, 5)) {
+							if (!MobileUtils.clickOnElement(testCase, "name", "DELETE")) {
+								flag = false;
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to find Confirm Delete button");
+						}
+					}
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Delete icon");
+			}
+		}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+					flag = false;
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+				if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+					flag = false;
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+			}
+		}
+
+		return flag;
+	}
+
+	public static boolean setGeofenceSleepSettings(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			List<String> allowedModes = statInfo.getAllowedModes();
+			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
+
+			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
+					Keyword.ReportStep_Pass(testCase, "Use My Sleep Settings option displayed on schedule screen");
+					if (!MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='Use My Sleep Settings']")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Use My Sleep Settings option not displayed on schedule screen");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "Geofence_Sleep", testCase, 5)) {
+					Keyword.ReportStep_Pass(testCase, "Use My Sleep Settings option displayed on schedule screen");
+					if (!MobileUtils.clickOnElement(testCase, "name", "Geofence_Sleep")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Use My Sleep Settings option not displayed on schedule screen");
+				}
+			}
+			Keyword.ReportStep_Pass(testCase, " ");
+			Keyword.ReportStep_Pass(testCase,
+					"*************** Setting time and set points for Sleep period ***************");
+			flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME),
+					"GeofenceSleepStartTime", true, true);
+			flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME),
+					"GeofenceSleepEndTime", true, true);
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
+				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep cool set points to "
+						+ targetSetPoints.get("targetCoolTemp"));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep heat set points to "
+						+ targetSetPoints.get("targetHeatTemp"));
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetHeatTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep heat set points to "
+						+ targetSetPoints.get("targetHeatTemp"));
+			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				targetSetPoints.put("targetCoolTemp", inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT));
+				Keyword.ReportStep_Pass(testCase, "Set Period Set Points : Setting Sleep cool set points to "
+						+ targetSetPoints.get("targetCoolTemp"));
+			}
+			flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SaveButton", 5)) {
+				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton")) {
+					flag = false;
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate SAVE button");
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+
+
 
 }

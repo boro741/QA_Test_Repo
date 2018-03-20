@@ -1040,4 +1040,22 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NavigationLeftBarItem");
 	}
+	public List<WebElement> getSchedulePeriodTimeElement()
+	{
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SchedulePeriodTime");
+	}
+	
+	public List<WebElement> getSchedulePeriodbuttons()
+	{
+		return MobileUtils.getMobElements(objectDefinition, testCase, "AddPeriodButton");
+	}
+	public boolean isAddPeriodButtonVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddPeriodButton", timeOut);
+	}
+	
+	public boolean clickOnAddPeriodButtonButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddPeriodButton");
+	}
 }

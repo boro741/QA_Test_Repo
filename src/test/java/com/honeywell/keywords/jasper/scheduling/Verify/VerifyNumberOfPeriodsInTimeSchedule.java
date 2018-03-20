@@ -1,8 +1,6 @@
 package com.honeywell.keywords.jasper.scheduling.Verify;
 
 import java.util.ArrayList;
-
-import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -11,20 +9,17 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.lyric.utils.InputVariables;
 
-
-public class VerifyTimeFeildIntervals extends Keyword {
+public class VerifyNumberOfPeriodsInTimeSchedule extends Keyword {
 
 	public TestCases testCase;
 	public TestCaseInputs inputs;
-	ArrayList<String> exampleData;
 	public boolean flag = true;
+	ArrayList<String> exampleData;
 
-	public VerifyTimeFeildIntervals(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public VerifyNumberOfPeriodsInTimeSchedule(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.exampleData = exampleData;
@@ -37,30 +32,17 @@ public class VerifyTimeFeildIntervals extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify the time fields can be set with increments of \"(.+)\"$")
+	@KeywordStep(gherkins = "^verify user should have atleast \"(.+)\" schedule period in \"(.+)\" view$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String timeInterval = "";
-			if (!statInfo.isOnline()) {
-				Keyword.ReportStep_Pass(testCase, "Thermostat is offline");
-				return true;
-			}
+			if (exampleData.get(0).equalsIgnoreCase("One")) {
+				flag = flag & JasperSchedulingVerifyUtils.verifyNumberOfSchedulePeriodsInTimeSchedule(testCase, inputs, 1);
 
-			if (exampleData.get(0).equalsIgnoreCase("10 minutes")) {
-				timeInterval = "10";
-				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, "EMEA");
-			} else if (exampleData.get(0).equalsIgnoreCase("15 minutes")) {
-				timeInterval = "15";
-				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, "NA");
-			}
+			} else if (exampleData.get(0).equalsIgnoreCase("Two")) {
+				flag = flag & JasperSchedulingVerifyUtils.verifyNumberOfSchedulePeriodsInTimeSchedule(testCase, inputs, 2);
 
-			if (statInfo.getThermostatType().equals("Jasper")) {
-				flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-
-				flag = flag & JasperSchedulingVerifyUtils.verifyTimeFieldIncrements(testCase, inputs, timeInterval);
-				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 			}
+			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
