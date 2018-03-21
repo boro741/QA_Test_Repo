@@ -1007,7 +1007,13 @@ public class LyricUtils {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				scrollObject.put("predicateString", attribute + " == '" + value + "'");
-				js.executeScript("mobile:scroll", scrollObject);
+				try {
+					js.executeScript("mobile:scroll", scrollObject);
+				} catch (Exception e) {
+					if (e.getMessage().contains("Failed to find scrollable visible")) {
+						js.executeScript("mobile:scroll", scrollObject);
+					}
+				}
 				WebElement element = testCase.getMobileDriver()
 						.findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
 				if (element.getAttribute(attribute).equals(value)) {

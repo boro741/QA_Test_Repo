@@ -186,13 +186,7 @@ public class DASSettingsUtils {
 		try {
 			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			if (bs.isEntryExitDelaySettingsOptionVisible()) {
-				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Unable to find Entry/Exit Delay option on DAS Panel Settings");
-			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
