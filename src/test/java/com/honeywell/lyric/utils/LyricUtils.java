@@ -369,6 +369,10 @@ public class LyricUtils {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
+			else
+			{
+				ls.clickOnLyricLogo();
+			}
 			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Password set to - " + inputs.getInputValue("PASSWORD"));
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

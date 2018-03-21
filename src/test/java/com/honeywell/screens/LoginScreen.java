@@ -58,4 +58,9 @@ public class LoginScreen extends MobileScreens{
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LyricLogo",3);
 		}
 		
+		public boolean clickOnLyricLogo()
+		{
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "LyricLogo");
+		}
+		
 }
