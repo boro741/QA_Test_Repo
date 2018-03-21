@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -157,8 +158,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isBaseStationConfigurationsOptionVisible() {
-		return (MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationConfigurationsOption").isEnabled())
-				&& (MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationConfigurationsOption", 3));
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationConfigurationsOption", 3);
 	}
 
 	public boolean isBaseStationVolumeValueVisible() {
@@ -469,14 +469,17 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		case BaseStationSettingsScreen.BASESTATIONCONFIGURATION: {
 			boolean flag = true;
 			if (this.isBaseStationConfigurationsOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 1");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			} else {
+				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			}
 			if (this.isBaseStationConfigurationsOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 3");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			}
 			return flag;
