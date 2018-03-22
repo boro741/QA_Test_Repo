@@ -12,6 +12,7 @@ import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -178,6 +179,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 		case "NEW TO LYRIC CAMERA" : {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
+			break;
+		}
+		
+		case "SET TO OFF": {
+
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & sc.isSetToOffPopupVisible();
 			break;
 		}
 		default: {

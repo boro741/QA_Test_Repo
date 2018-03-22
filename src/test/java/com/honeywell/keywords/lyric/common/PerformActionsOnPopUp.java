@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
@@ -16,6 +17,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -350,7 +352,32 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SET TO OFF")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if(sc.isCancelButtonInSetToOffPopupVisible()) {
+					flag = flag & sc.clickOnCancelButtonInSetToOffPopup();
+				}
+				flag = flag & DASCommandControlUtils.verifySetToOffPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if(sc.isOKButtonInSetToOffPopupVisible()) {
+					flag = flag & sc.clickOnOKButtonInSetToOffPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} 
+		
+		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

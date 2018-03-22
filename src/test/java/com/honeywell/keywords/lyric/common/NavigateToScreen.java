@@ -14,6 +14,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -318,6 +319,7 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
 				}
 

@@ -36,6 +36,22 @@ public class LocationInformation {
 			return -1;
 		}
 	}
+	
+	public long getZipCode() throws Exception {
+		if (locationInformation != null) {
+			return locationInformation.getLong("zipcode");
+		} else {
+			return -1;
+		}
+	}
+	
+	public String getIANATimeZone() throws Exception {
+		if (locationInformation != null) {
+			return locationInformation.getString("ianaTimeZone");
+		} else {
+			return null;
+		}
+	}
 
 	public long getUserID() throws Exception {
 		if (locationInformation != null) {
@@ -52,6 +68,29 @@ public class LocationInformation {
 			return id;
 		} else {
 			return -1;
+		}
+	}
+	
+	public String getUserFirstName(){
+		String firstName = null;
+		if (locationInformation != null) {
+			JSONArray users;
+
+			try {
+				users = locationInformation.getJSONArray("users");
+				JSONObject tempObj = null;
+				for (int i = 0; i < users.length(); i++) {
+					tempObj = users.optJSONObject(i);
+					if (tempObj.getString("username").equalsIgnoreCase(inputs.getInputValue("USERID"))) {
+						firstName = tempObj.getString("firstname");
+					}
+				}
+			} catch (Exception e) {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+			return firstName;
+		} else {
+			return firstName;
 		}
 	}
 	
