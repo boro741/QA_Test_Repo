@@ -41,7 +41,8 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 			if (!dashBordScreen.isDevicePresentOnDashboard(expectedDevice.get(0))) {
 				Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
 			} else {
-				Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " displayed");
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
 			}
 			break;
 		}
@@ -52,7 +53,8 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 				if(!zwaveScreen.isSwitchSettingOnZwaveDevicesDisplayed()){
 					Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
 				}else {
-					Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " displayed");
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
 				}
 				break;
 			}
@@ -60,7 +62,8 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 				if(!zwaveScreen.isDimmerSettingOnZwaveDevicesDisplayed()){
 					Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
 				}else {
-					Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " displayed");
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
 				}
 				break;
 			}

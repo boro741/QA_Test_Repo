@@ -47,11 +47,11 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "Z-WAVE CONTROLLER INFO": {
+			case "ZWAVE CONTROLLER INFO": {
 				DASZwaveUtils.isControllerDetailsDisplayed(testCase);
 				break;
 			}
-			case "Z-WAVE DEVICES": {
+			case "ZWAVE DEVICES": {
 				if (DASZwaveUtils.verifyZWaveDevicesScreen(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
@@ -62,7 +62,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "Z-WAVE UTILITIES": {
+			case "ZWAVE UTILITIES": {
 				if (DASZwaveUtils.verifyZWaveUtilitiesScreen(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
@@ -86,7 +86,7 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "INCLUSION MODE ACTIVE":
-			case "ACTIVATE Z-WAVE DEVICE": {
+			case "ACTIVATE ZWAVE DEVICE": {
 				DASZwaveUtils.waitForEnteringInclusionToComplete(testCase);
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if (zwaveScreen.isActivateZwaveScreenDisplayed()) {

@@ -125,7 +125,7 @@ public class ChangeStatusOnScreen extends Keyword {
 			}
 			break;
 		}
-		case "Z-WAVE DEVICE FUNCTION KEY":{
+		case "ZWAVE DEVICE FUNCTION KEY":{
 			switch (expectedScreen.get(1).toUpperCase()) {
 			case "SWITCH": {
 				switch (expectedScreen.get(0).toUpperCase()) {
@@ -212,7 +212,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					try {
 						ZWaveRelayUtils.powerOffZwaveDimmer(inputs);
 						ZwaveScreen zs=new ZwaveScreen(testCase);
-						flag = flag & zs.ClickDimmerSettingFromZwaveUtilities();
+						flag = flag & zs.ClickDimmerSettingFromZwaveDevices();
 						int i=0;
 						while(i<3 && zs.verifyPresenceOfSwitchStatus()){
 							flag = flag & zs.clickOffStatus();

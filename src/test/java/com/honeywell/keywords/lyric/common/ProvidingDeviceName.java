@@ -56,6 +56,7 @@ public class ProvidingDeviceName extends Keyword {
 					flag = flag & zwaveScreen.setNameToSwitch(parameters.get(1));
 					if(testCase.getPlatform().toUpperCase().contains("IOS")){
 						flag = flag & zwaveScreen.saveNameToSwitchOnIOS();
+						DASZwaveUtils.waitForActionToComplete(testCase, "SAVING NAME");
 					}else{
 						flag = flag & zwaveScreen.saveNameToSwitchOnAndroid();
 					}

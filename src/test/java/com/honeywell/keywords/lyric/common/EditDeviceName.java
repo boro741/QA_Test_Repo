@@ -106,7 +106,7 @@ public class EditDeviceName extends Keyword {
 						if(parameters.get(0).equalsIgnoreCase("Switch")){
 							flag = flag & zwaveScreen.ClickSwitchSettingFromZwaveDevices();
 						}else if(parameters.get(0).equalsIgnoreCase("Dimmer")){
-							flag = flag & zwaveScreen.ClickDimmerSettingFromZwaveUtilities();
+							flag = flag & zwaveScreen.ClickDimmerSettingFromZwaveDevices();
 						}
 					}
 				}else{

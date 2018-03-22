@@ -39,17 +39,17 @@ public class VerifyNotConfigurable extends Keyword {
 	@KeywordStep(gherkins = "^user should not be able to configure (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedButton.get(0).toUpperCase()) {
-		case "Z-WAVE DEVICE FROM ADD DEVICE LIST": {
+		case "ZWAVE DEVICE FROM ADD DEVICE LIST": {
 			fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
 			try {
-				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name","Z-Wave Device");
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name","ZWAVE Device");
 			} catch (Exception e) {
 				System.out.println("Not able to locate");
 			}
 			flag = flag & !MobileUtils.isMobElementExists(fieldObjects, testCase, "ZwaveList");
 			break;
 		}
-		case "Z-WAVE DEVICE FROM GLOBAL DRAWER MENU": {
+		case "ZWAVE DEVICE FROM GLOBAL DRAWER MENU": {
 			fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
 			flag = flag & !MobileUtils.isMobElementExists(fieldObjects, testCase, "ZwaveMenu");
 			break;

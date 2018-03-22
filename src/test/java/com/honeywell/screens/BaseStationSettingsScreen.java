@@ -1,6 +1,7 @@
 package com.honeywell.screens;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -138,12 +139,17 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 		case BaseStationSettingsScreen.ZWAVEDEVICES  : {
 			boolean flag = true;
+			TimeUnit.SECONDS.sleep(10);
 			if (this.isZwaveDevicesSettingOptionVisible()) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.ZWAVEDEVICES);
+				TimeUnit.SECONDS.sleep(10);
+				if(this.isZwaveDevicesSettingOptionVisible()){
+					System.out.println("Located Zwave devices");
+				}
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
 			}
 			return flag;

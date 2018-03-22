@@ -102,7 +102,7 @@ public class DASZwaveUtils {
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"No Z-Wave device Pop Up not displayed or mispelled");
+					"No ZWAVE device Pop Up not displayed or mispelled");
 		}
 		return flag;
 	}
@@ -279,6 +279,13 @@ public class DASZwaveUtils {
 		return flag;
 	}
 
+	public static boolean navigateToDashboardFromZwaveDevicesSettings(TestCases testCase,TestCaseInputs inputs) throws Exception{
+		boolean flag = true;
+		flag= flag & navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
+		flag= flag & navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
+		flag= flag & navigateToDashboardFromPrimaryCard(testCase, inputs);
+		return flag;
+	}
 
 	public static boolean navigateToZwaveDevicesFromSettings(TestCases testCase) throws Exception{
 		boolean flag = true;
@@ -353,6 +360,14 @@ public class DASZwaveUtils {
 				public Boolean apply(String a) {
 					try {
 						switch(actionName.toUpperCase()){
+						case "SAVING NAME":{
+							ZwaveScreen zScreen = new ZwaveScreen(testCase);
+							if(zScreen.isFixAllProgressDisplayed()){
+								return false;
+							}else {
+								return true;
+							}
+						}
 						case "FIX ALL":{
 							ZwaveScreen zScreen = new ZwaveScreen(testCase);
 							if(zScreen.isFixAllProgressDisplayed()){
@@ -572,12 +587,29 @@ public class DASZwaveUtils {
 			}
 		return false;
 	}
+	
+	public static boolean navigateToSwitchSettingsFromDashboardViaZwaveDevices(TestCases testCase) throws Exception {
+		boolean flag= true;
+		flag = flag & navigateToZwaveDevicesFromDashboard(testCase);
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		flag = flag & zScreen.ClickSwitchSettingFromZwaveDevices();
+		return flag;
+	}
 
+	public static boolean navigateToDimmerSettingsFromDashboardViaZwaveDevices(TestCases testCase) throws Exception {
+		boolean flag= true;
+		flag = flag & navigateToZwaveDevicesFromDashboard(testCase);
+		ZwaveScreen zScreen = new ZwaveScreen(testCase);
+		flag = flag & zScreen.ClickDimmerSettingFromZwaveDevices();
+		return flag;
+	}
+	
 	public static boolean navigateToSwitchPrimaryCardFromDashboard(TestCases testCase) throws Exception {
 		boolean flag= true;
 		String switchNames[] = {"Switch1","Switch 001","Switch2"};
+		Dashboard d = new Dashboard(testCase);
 		for(String switchName : switchNames){
-			if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase,switchName)){
+			if(d.isDevicePresentOnDashboard(switchName)){
 				flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, switchName);
 				return true;
 			}

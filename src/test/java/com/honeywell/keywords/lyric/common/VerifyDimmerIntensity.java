@@ -35,17 +35,17 @@ public class VerifyDimmerIntensity extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with (.*) intensity on the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(1).equalsIgnoreCase("Z-Wave device")) {
+			if (parameters.get(1).equalsIgnoreCase("ZWAVE device")) {
 				
 				int intensityToBeVerified = Integer.parseInt(parameters.get(0).split("%")[0].split("~")[1]);
 				String range =verifyRange(intensityToBeVerified); 
 				if (!range.equals("Not In Range")) {
 					Keyword.ReportStep_Pass(testCase,
-							"Dimmer Intensity is between the range : " + range + " on Z-Wave device");
+							"Dimmer Intensity is between the range : " + range + " on ZWAVE device");
 				} else {
 					if (!range.equals("Not In Range")) {
 						Keyword.ReportStep_Pass(testCase,
-								"Dimmer Intensity is between the range : " + range + " on Z-Wave device");
+								"Dimmer Intensity is between the range : " + range + " on ZWAVE device");
 					}
 					else
 					{
