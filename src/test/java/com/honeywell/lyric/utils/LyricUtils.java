@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -630,9 +631,10 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		//flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		//flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
@@ -751,6 +753,38 @@ public class LyricUtils {
 		}
 
 		return time;
+	}
+	
+	/**
+	 * <h1>Get Device Time</h1>
+	 * <p>
+	 * The addMinutesToDate method gets the time on the device with added minutes
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-03-17
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return String Device time in the format 'yyyymmddThh:mm:a'
+	 */
+	public static String addMinutesToDate(TestCases testCase, String date, int noOfMins) {
+		String dateAfterAddition = "";
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'h:mm a");
+			Calendar c = Calendar.getInstance();
+			c.setTime(dateFormat.parse(date));
+			c.add(Calendar.MINUTE, noOfMins);
+			dateAfterAddition = dateFormat.format(c.getTime());
+		} catch (Exception e) {
+			dateAfterAddition = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return dateAfterAddition;
 	}
 
 	/**
@@ -1165,4 +1199,65 @@ public class LyricUtils {
 		return flag;
 	}
 
+	
+	/**
+	 * <h1>Get Location Time</h1>
+	 * <p>
+	 * The getLocationTime method returns the location time
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return TimeZone Returns the location time
+	 */
+	public static String getLocationTime(TestCases testCase, TestCaseInputs inputs, String timeFormat) {
+		LocationInformation locInfo = new LocationInformation(testCase, inputs);
+		String time = " ";
+		try {
+			TimeZone timeZone = TimeZone.getTimeZone(locInfo.getIANATimeZone());
+
+			Calendar date = Calendar.getInstance(timeZone);
+			String ampm;
+			if (date.get(Calendar.AM_PM) == Calendar.AM) {
+				ampm = "AM";
+			} else {
+				ampm = "PM";
+			}
+			String hour;
+			if (date.get(Calendar.HOUR) == 0) {
+				hour = "12";
+			} else {
+				hour = String.valueOf(date.get(Calendar.HOUR));
+			}
+			String minute;
+			if (date.get(Calendar.MINUTE) < 10) {
+				minute = "0" + date.get(Calendar.MINUTE);
+			} else {
+				minute = String.valueOf(date.get(Calendar.MINUTE));
+			}
+			int month = date.get(Calendar.MONTH) + 1;
+			switch (timeFormat) {
+			case "TIMEINYYMMHHMMFORMAT": {
+				time = String.valueOf(date.get(Calendar.YEAR) + "-" + month + "-" + date.get(Calendar.DAY_OF_MONTH)
+						+ "T" + hour + ":" + minute + " " + ampm);
+				break;
+			}
+			case "TIMEINHHMMFORMAT": {
+				time = String.valueOf(hour + ":" + minute + " " + ampm);
+				break;
+			}
+			}
+		} catch (Exception e) {
+			time = "";
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Android Device Time : Error Occured : " + e.getMessage());
+		}
+		return time;
+	}
 }
