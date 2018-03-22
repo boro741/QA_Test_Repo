@@ -56,7 +56,7 @@ public class CreateDefaultScheduleWithEditTime extends Keyword {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			}
 
-			if (statInfo.getDeviceID().equals("Jasper")) {
+			if (statInfo.getThermostatType().equals("Jasper")) {
 				List<String> allowedModes = statInfo.getAllowedModes();
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());

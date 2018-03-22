@@ -86,8 +86,7 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 									if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeleteButton")) {
 										flag = false;
 									} else {
-										if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon",
-												5)) {
+										if (MobileUtils.isMobElementExists("name", inputs.getInputValue("LOCATION1_DEVICE1_NAME"), testCase)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Schedule period is deleted when clicked on Delete during Delete operation");
 										} else {

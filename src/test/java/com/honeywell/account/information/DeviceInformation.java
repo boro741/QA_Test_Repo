@@ -39,8 +39,7 @@ public class DeviceInformation {
 
 	public Boolean isOnline() throws Exception {
 		if (deviceInformation != null) {
-			return (Boolean) deviceInformation.getJSONObject("deviceDetails").getJSONArray("onboardDevices")
-					.getJSONObject(0).get("isAlive");
+			return (Boolean) deviceInformation.get("isAlive");
 		} else {
 			throw new Exception("Device Information not found");
 		}

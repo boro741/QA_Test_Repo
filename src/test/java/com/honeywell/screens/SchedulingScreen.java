@@ -28,6 +28,9 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
+	public boolean IsSaveButtonVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButton",timeOut);
+	}
 
 	public boolean clickOnCancelChangeButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelChangeButton");
@@ -191,7 +194,7 @@ public class SchedulingScreen extends MobileScreens {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser")
 					.findElement(By.id("scheduling_temp_chooser_down"));
 		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "CoolDecrement");
+			return testCase.getMobileDriver().findElements(By.name("coolTemparatureLowerButton")).get(0);
 		}
 	}
 
@@ -310,7 +313,7 @@ public class SchedulingScreen extends MobileScreens {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
 					.findElement(By.id("scheduling_temp_chooser_down"));
 		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
+			return testCase.getMobileDriver().findElements(By.name("heatTemparatureLowerButton")).get(0);
 		}
 	}
 
@@ -1054,7 +1057,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddPeriodButton", timeOut);
 	}
 	
-	public boolean clickOnAddPeriodButtonButton()
+	public boolean clickOnAddPeriodButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddPeriodButton");
 	}

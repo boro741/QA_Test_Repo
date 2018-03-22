@@ -62,7 +62,7 @@ public class EditScheduleByChangingTemperatureToMinMaxValues extends Keyword {
 			}
 
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			if (statInfo.getJasperDeviceType().equalsIgnoreCase("Jasper")) {
+			if (statInfo.getThermostatType().equalsIgnoreCase("Jasper")) {
 				jasperStatType = statInfo.getJasperDeviceType();
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
 			}
@@ -84,14 +84,14 @@ public class EditScheduleByChangingTemperatureToMinMaxValues extends Keyword {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
 
 				if (jasperStatType.equalsIgnoreCase("NA")) {
-					inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, defaultValues.get("EverydayWakeTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, defaultValues.get("EverydayAwayTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, defaultValues.get("EverydayHomeTime"));
+					inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, defaultValues.get("EverydayWakeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, defaultValues.get("EverydayAwayTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, defaultValues.get("EverydayHomeTime").toLowerCase().replaceAll("^0*", ""));
 					inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, defaultValues.get("EverydaySleepTime"));
 				} else if (jasperStatType.equalsIgnoreCase("EMEA")) {
-					inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, defaultValues.get("EverydayWakeTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, defaultValues.get("EverydayAwayTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, defaultValues.get("EverydayHomeTime"));
+					inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, defaultValues.get("EverydayWakeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, defaultValues.get("EverydayAwayTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, defaultValues.get("EverydayHomeTime").toLowerCase().replaceAll("^0*", ""));
 					inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, defaultValues.get("EverydaySleepTime"));
 				}
 

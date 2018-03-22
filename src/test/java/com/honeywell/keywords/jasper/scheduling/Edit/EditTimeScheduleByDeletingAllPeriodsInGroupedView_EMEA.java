@@ -50,12 +50,12 @@ public class EditTimeScheduleByDeletingAllPeriodsInGroupedView_EMEA extends Keyw
 				NoOfPeriods = s.getSchedulePeriodTimeElement().size();
 			}
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String jasperStatType = statInfo.getJasperDeviceType();
+			String jasperStatType = statInfo.getThermostatType();
 			if (!statInfo.isOnline()) {
 				Keyword.ReportStep_Pass(testCase, "Thermostat is offline");
 				return true;
 			}
-			if (jasperStatType.equals("EMEA")) {
+			if (jasperStatType.equals("Jasper")) {
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					int deletioncount = NoOfPeriods;

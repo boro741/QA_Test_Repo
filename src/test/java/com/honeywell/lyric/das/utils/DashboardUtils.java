@@ -64,6 +64,8 @@ public class DashboardUtils {
 						flag = flag & bs.clickOnBackButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
+					} else if (sch.IsSaveButtonVisible(5)){
+						flag = flag & sch.clickOnSaveButton();
 					}
 					i++;
 				}
