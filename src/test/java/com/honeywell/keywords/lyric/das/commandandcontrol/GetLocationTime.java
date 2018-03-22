@@ -1,9 +1,5 @@
 package com.honeywell.keywords.lyric.das.commandandcontrol;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
-import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;

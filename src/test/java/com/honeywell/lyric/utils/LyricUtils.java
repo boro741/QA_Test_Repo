@@ -631,10 +631,10 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		 flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		 flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		 flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
@@ -754,7 +754,7 @@ public class LyricUtils {
 
 		return time;
 	}
-	
+
 	/**
 	 * <h1>Get Device Time</h1>
 	 * <p>
@@ -931,13 +931,13 @@ public class LyricUtils {
 	}
 
 	/**
-	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
+	 * <h1>Scroll To The List</h1>
 	 * <p>
-	 * The scrollToElementUsingExactAttributeValue method scrolls to an element
-	 * using the attribute and exact value passed to the method in the parameters.
+	 * The scrollUpAList method scrolls to an element
+	 * using swipe gestures.
 	 * </p>
 	 *
-	 * @author Pratik P. Lalseta (H119237)
+	 * @author Midhun Gollapalli (H179225)
 	 * @version 1.0
 	 * @since 2018-02-15
 	 * @param testCase
@@ -950,43 +950,25 @@ public class LyricUtils {
 	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
 	 *         the element is not found.
 	 */
-	public static boolean scrollUpAList(TestCases testCase, HashMap<String, MobileObject> objectDefinition,
-			String objectName) throws Exception {
-		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, objectName);
+	public static boolean scrollUpAList(TestCases testCase, WebElement devieListWebEle)
+			throws Exception {
 		Dimension d1;
 		Point p1;
 		int startx = -1;
 		int starty = -1;
 		int endy = -1;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			d1 = ele.getSize();
-			p1 = ele.getLocation();
+			d1 = devieListWebEle.getSize();
+			p1 = devieListWebEle.getLocation();
 			startx = p1.getX();
 			starty = (int) (d1.height * 0.90) + p1.getY();
 			endy = (int) (d1.height * 0.60) + p1.getY();
 		} else {
-			d1 = ele.getSize();
-			p1 = ele.getLocation();
+			d1 = devieListWebEle.getSize();
+			p1 = devieListWebEle.getLocation();
 			starty = (int) (d1.height * 0.80);
 			endy = (int) -((d1.height * 0.50) + p1.getY());
 			startx = d1.width / 2;
-		}
-		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
-	}
-
-	public static boolean scrollUpAList(TestCases testCase, String locatorType, String locatorValue) throws Exception {
-		WebElement ele = MobileUtils.getMobElement(testCase, "id", "fragment_add_new_device_list");
-		Dimension d1;
-		Point p1;
-		int startx = -1;
-		int starty = -1;
-		int endy = -1;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			d1 = ele.getSize();
-			p1 = ele.getLocation();
-			startx = p1.getX();
-			starty = (int) (d1.height * 0.90) + p1.getY();
-			endy = (int) (d1.height * 0.60) + p1.getY();
 		}
 		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
 	}
@@ -1199,7 +1181,6 @@ public class LyricUtils {
 		return flag;
 	}
 
-	
 	/**
 	 * <h1>Get Location Time</h1>
 	 * <p>

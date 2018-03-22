@@ -37,14 +37,6 @@ public class LocationInformation {
 		}
 	}
 	
-	public long getZipCode() throws Exception {
-		if (locationInformation != null) {
-			return locationInformation.getLong("zipcode");
-		} else {
-			return -1;
-		}
-	}
-	
 	public String getIANATimeZone() throws Exception {
 		if (locationInformation != null) {
 			return locationInformation.getString("ianaTimeZone");

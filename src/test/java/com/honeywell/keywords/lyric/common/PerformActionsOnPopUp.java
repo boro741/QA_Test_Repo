@@ -92,7 +92,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 						"DELETING LOCATION PROGRESS BAR", 1);
 				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
-				if (d.isAddDeviceIconVisible(1) || d.isAddDeviceIconBelowExistingDASDeviceVisible(1)) {
+				if (d.isAddDeviceIconVisible(10) || d.isAddDeviceIconBelowExistingDASDeviceVisible(10)) {
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, "Dashboard screen is dispalyed");
 				} else {
@@ -356,17 +356,28 @@ public class PerformActionsOnPopUp extends Keyword {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-				if(sc.isCancelButtonInSetToOffPopupVisible()) {
+				if (sc.isCancelButtonInSetToOffPopupVisible()) {
 					flag = flag & sc.clickOnCancelButtonInSetToOffPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button in set to off popup is not displayed");
+					return flag;
 				}
 				flag = flag & DASCommandControlUtils.verifySetToOffPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			case "ACCEPTS": {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-				if(sc.isOKButtonInSetToOffPopupVisible()) {
+				if (sc.isOKButtonInSetToOffPopupVisible()) {
 					flag = flag & sc.clickOnOKButtonInSetToOffPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button in set to off popup is not displayed");
+					return flag;
 				}
+				flag = flag & DASCommandControlUtils.verifySetToOffPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
@@ -375,8 +386,8 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} 
-		
+		}
+
 		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

@@ -21,6 +21,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", timeOut);
 	}
 
+	public MobileElement getDeviceListWebElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "DevicesList");
+	}
+
 	public boolean isBackArrowInSelectADeviceScreenVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInSelectANewDeviceHeader", timeOut);
 	}
@@ -127,8 +131,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isAvialbleLocationNameDisplayed(String availableLocation) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("xpath",
-					"//android.widget.Button[@text='" + availableLocation + "']", testCase);
+			return MobileUtils.isMobElementExists("xpath", "//android.widget.Button[@text='" + availableLocation + "']",
+					testCase);
 		} else {
 			return MobileUtils.isMobElementExists("NAME", availableLocation, testCase);
 		}
@@ -350,6 +354,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnCancelButtonInAddANetworkScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
 	}
+	
+	public MobileElement getWiFiListWebElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "WiFiList");
+	}
 
 	public boolean isAvailableNetworkVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AvailableNetworkNameInTheWiFiList");
@@ -373,7 +381,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "WiFiList");
+					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
 				}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
 					return MobileUtils.clickOnElement(testCase, "xpath",
@@ -389,7 +397,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "WiFiList");
+					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
 				}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
 					return MobileUtils.clickOnElement(testCase, "name", wifiName);
@@ -523,21 +531,17 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isAvailableSensorNameVisible(String availableSensorName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("xpath",
-					"//*[@text='" + availableSensorName + "']", testCase);
+			return MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
 		} else {
-			return MobileUtils.isMobElementExists("xpath",
-					"//*[@value='" + availableSensorName + "']", testCase);
+			return MobileUtils.isMobElementExists("xpath", "//*[@value='" + availableSensorName + "']", testCase);
 		}
 	}
 
 	public boolean clickOnAvailableSensorName(String availableSensorName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.clickOnElement(testCase, "xpath",
-					"//*[@text='" + availableSensorName + "']");
+			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
 		} else {
-			return MobileUtils.clickOnElement(testCase, "xpath",
-					"//*[@value='" + availableSensorName + "']");
+			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@value='" + availableSensorName + "']");
 		}
 	}
 
@@ -840,7 +844,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
 						testCase, 3) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					LyricUtils.scrollUpAList(testCase, this.getDeviceListWebElement());
 					counter++;
 				}
 				if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
@@ -857,7 +861,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("name", deviceName, testCase, 3) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					LyricUtils.scrollUpAList(testCase, this.getDeviceListWebElement());
 					counter++;
 				}
 				if (MobileUtils.isMobElementExists("name", deviceName, testCase, 3)) {
@@ -881,7 +885,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
 						testCase, 3) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					LyricUtils.scrollUpAList(testCase, this.getDeviceListWebElement());
 					counter++;
 				}
 				if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
@@ -899,7 +903,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!MobileUtils.isMobElementExists("name", deviceName, testCase, 3) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					LyricUtils.scrollUpAList(testCase, this.getDeviceListWebElement());
 					counter++;
 				}
 				if (MobileUtils.isMobElementExists("name", deviceName, testCase, 3)) {

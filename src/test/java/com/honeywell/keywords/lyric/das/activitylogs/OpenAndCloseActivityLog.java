@@ -8,6 +8,7 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 
 public class OpenAndCloseActivityLog extends Keyword {
@@ -36,17 +37,19 @@ public class OpenAndCloseActivityLog extends Keyword {
 		switch (activityLogInput.get(0).toUpperCase()) {
 		case "OPENS": {
 			try {
-				DASActivityLogsUtils.openActivityLogs(testCase);
+				flag = flag & DASActivityLogsUtils.openActivityLogs(testCase);
 			} catch (Exception e) {
-				e.printStackTrace();
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to open activity logs");
 			}
 			break;
 		}
 		case "CLOSES": {
 			try {
-				DASActivityLogsUtils.closeActivityLogs(testCase);
+				flag = flag & DASActivityLogsUtils.closeActivityLogs(testCase);
 			} catch (Exception e) {
-				e.printStackTrace();
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to close activity logs");
 			}
 			break;
 		}
