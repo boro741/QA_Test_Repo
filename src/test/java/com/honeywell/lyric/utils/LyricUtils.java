@@ -510,10 +510,15 @@ public class LyricUtils {
 							if (ls.isLyricLogoVisible()) {
 								return true;
 							}
-							if (os.isCancelButtonVisible()) {
+							if(os.isIgnoreButtonVisible(3))
+							{
+								os.clickOnIgnoreButton();
+								return false;
+							}
+							/*if (os.isCancelButtonVisible()) {
 								os.clickOnCancelButton();
 								return false;
-							} else {
+							}*/ else {
 								((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 								return false;
 							}
@@ -1069,8 +1074,14 @@ public class LyricUtils {
 			} else {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
-				scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
-				js.executeScript("mobile: scroll", scrollObject);
+				try {
+					scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
+					js.executeScript("mobile:scroll", scrollObject);
+				} catch (Exception e) {
+					scrollObject.clear();
+					scrollObject.put("direction", "down");
+					js.executeScript("mobile:scroll", scrollObject);
+				}
 				WebElement element = MobileUtils.getMobElement(testCase, "xpath",
 						"//*[contains(@" + attribute + ",'" + value + "')]");
 				// WebElement element = testCase.getMobileDriver()
