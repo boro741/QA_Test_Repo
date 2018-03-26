@@ -750,7 +750,7 @@ public class DIYRegistrationUtils {
 					locType = "xpath";
 					locVal = "//XCUIElementTypeCollectionView";
 				}
-				LyricUtils.scrollUpAList(testCase, locType, locVal);
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, locType, locVal);
 				i++;
 				if (i > 5) {
 					break;

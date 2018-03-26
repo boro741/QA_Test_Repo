@@ -5,20 +5,26 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
-public class AddNewDeviceScreen extends MobileScreens{
+public class AddNewDeviceScreen extends MobileScreens {
 
-	private static final String screenName = "AddNewDevice";		
+	private static final String screenName = "AddNewDevice";
 
 	public AddNewDeviceScreen(TestCases testCase) {
-		super(testCase,screenName);
+		super(testCase, screenName);
 	}
 
 	public boolean clickOnZwaveFromAddNewDevice() {
-		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",3)) {
+		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList", 3)) {
 			int counter = 0;
-			while (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList",3) && counter < 8) {
+			while (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList", 3) && counter < 8) {
 				try {
-					LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "ID",
+								"fragment_add_new_device_list");
+					} else {
+						LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "XPATH", "//");
+					}
+					// LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -27,13 +33,13 @@ public class AddNewDeviceScreen extends MobileScreens{
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveList");
 	}
-	
+
 	public boolean isFetchingDevicesListProgressBarVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingDevicesLoadingSpinnerMsg", 3);
 	}
 
-    public boolean isAddNewDeviceHeaderDisplayed(int lookFor){
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader",lookFor);
+	public boolean isAddNewDeviceHeaderDisplayed(int lookFor) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", lookFor);
 	}
 
 	public boolean clickOnCancelButtonOfAddDeviceScreen() {

@@ -12,6 +12,7 @@ import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -72,44 +73,42 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 
-		case "DIMMER DELETED SUCCESSFULLY":{
+		case "DIMMER DELETED SUCCESSFULLY": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			if(DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)){
+			if (DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)) {
 				return true;
-			}else
-				if(zwaveScreen.isDeviceNotFoundPopupDisplayed()){
-					zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
-					zwaveScreen.ClickDeleteFromSettings();
-					zwaveScreen.clickOkOnRemoveDevicePopUp();
-					zwaveScreen.isExcludeZwaveScreenDisplayed();
-					try {
-						DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
+			} else if (zwaveScreen.isDeviceNotFoundPopupDisplayed()) {
+				zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
+				zwaveScreen.ClickDeleteFromSettings();
+				zwaveScreen.clickOkOnRemoveDevicePopUp();
+				zwaveScreen.isExcludeZwaveScreenDisplayed();
+				try {
+					DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+
+			}
 			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
 			break;
 
 		}
-		case "SWITCH DELETED SUCCESSFULLY":{
+		case "SWITCH DELETED SUCCESSFULLY": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			if(DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)){
+			if (DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)) {
 				return true;
-			}else
-				if(zwaveScreen.isDeviceNotFoundPopupDisplayed()){
-					zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
-					zwaveScreen.ClickDeleteFromSettings();
-					zwaveScreen.clickOkOnRemoveDevicePopUp();
-					zwaveScreen.isExcludeZwaveScreenDisplayed();
-					try {
-						DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
+			} else if (zwaveScreen.isDeviceNotFoundPopupDisplayed()) {
+				zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
+				zwaveScreen.ClickDeleteFromSettings();
+				zwaveScreen.clickOkOnRemoveDevicePopUp();
+				zwaveScreen.isExcludeZwaveScreenDisplayed();
+				try {
+					DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+
+			}
 			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
 			break;
 		}
@@ -144,13 +143,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "CANCEL SETUP": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
- 			if (dasDIY.isCancelPopupVisible()) {
- 				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
- 			} else {
- 				flag = false;
- 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
- 				return flag;
- 			}
+			if (dasDIY.isCancelPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+				return flag;
+			}
 			break;
 		}
 		case "INVALID ZIP CODE": {
@@ -176,8 +175,21 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 
-		case "NEW TO LYRIC CAMERA" : {
+		case "NEW TO LYRIC CAMERA": {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
+			break;
+		}
+
+		case "SET TO OFF": {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & sc.isSetToOffPopupVisible();
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedPopUp.get(0) + "' is not displayed");
+			}
 			break;
 		}
 		default: {

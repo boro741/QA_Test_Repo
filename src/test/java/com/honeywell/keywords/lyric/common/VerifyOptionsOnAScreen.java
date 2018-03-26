@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class VerifyOptionsOnAScreen extends Keyword {
 
@@ -126,7 +127,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
+
 		case "SENSOR SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -139,18 +140,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"'Name' Sensor Option is not displayed on the Sensor Settings Screen");
 					}
-				} 
-				else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
 					if (bs.verifySensorStatusOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Status' Option is present on the Sensors Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"'Status' Option is not displayed on the Sensor Settings Screen");
 					}
-				}
-				else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
 					if (bs.verifySensorSignalStrengthAndTestOptionTextOnSensorSettingsScreen()) {
 						Keyword.ReportStep_Pass(testCase,
 								"'Signal Strength And Test' Option is present on the Sensors Settings Screen");
@@ -160,11 +158,10 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"'Signal Strength And Test' Option is not displayed on the Sensor Settings Screen");
 					}
 				}
-				
+
 				else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
 					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Battery' Option is present on the Sensor Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "'Battery' Option is present on the Sensor Settings Screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -195,7 +192,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
+
 		case "KEYFOB SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -225,29 +222,25 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
+
 		case "PANEL MODEL AND FIRMWARE DETAILS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
-					if(bs.verifyDASModelDetailsOnModelAndFirmwareDetailsPage())
-					{
+					if (bs.verifyDASModelDetailsOnModelAndFirmwareDetailsPage()) {
 						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
-					}
-					else
-					{
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Model Details are not displayed correctly");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Model Details are not displayed correctly");
 					}
 				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
-					if(bs.verifyDASFirmwareDetailsOnModelAndFirmwareDetailsPage())
-					{
+					if (bs.verifyDASFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
 						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
-					}
-					else
-					{
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Firmware Details are not displayed correctly");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Firmware Details are not displayed correctly");
 					}
 				} else {
 					flag = false;
@@ -261,24 +254,20 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
-					if(bs.verifyKeyfobModelDetailsOnModelAndFirmwareDetailsPage())
-					{
+					if (bs.verifyKeyfobModelDetailsOnModelAndFirmwareDetailsPage()) {
 						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
-					}
-					else
-					{
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Model Details are not displayed correctly");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Model Details are not displayed correctly");
 					}
 				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
-					if(bs.verifyKeyfobFirmwareDetailsOnModelAndFirmwareDetailsPage())
-					{
+					if (bs.verifyKeyfobFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
 						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
-					}
-					else
-					{
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Firmware Details are not displayed correctly");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Firmware Details are not displayed correctly");
 					}
 				} else {
 					flag = false;
@@ -292,24 +281,20 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
-					if(bs.verifySensorModelDetailsOnModelAndFirmwareDetailsPage())
-					{
+					if (bs.verifySensorModelDetailsOnModelAndFirmwareDetailsPage()) {
 						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
-					}
-					else
-					{
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Model Details are not displayed correctly");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Model Details are not displayed correctly");
 					}
 				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
-					if(bs.verifySensorFirmwareDetailsOnModelAndFirmwareDetailsPage())
-					{
+					if (bs.verifySensorFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
 						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
-					}
-					else
-					{
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Firmware Details are not displayed correctly");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Firmware Details are not displayed correctly");
 					}
 				} else {
 					flag = false;
@@ -329,8 +314,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"Video Setting: '" + fieldTobeVerified + "' is present on the Video Settings screen");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Video Setting: '" + fieldTobeVerified + "' is not present on the Video Settings screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Video Setting: '"
+								+ fieldTobeVerified + "' is not present on the Video Settings screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -340,6 +325,28 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "SECURITY MODE": {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "SecurityStates");
+				try {
+					if (sc.isSecurityStateVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldTobeVerified
+								+ "' is present on the Security Solutions Card screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
+								+ fieldTobeVerified + "' is not present on the Security Solutions Card screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

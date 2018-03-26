@@ -1,0 +1,12 @@
+FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
+ProgressBar	id	progress_bar	id	progress_bar	id	progress_bar	name	activityIndicator	name	activityIndicator	name	activityIndicator
+TimerProgressBar	id	countdown_time_text	id	countdown_time_text	id	countdown_time_text	name	countDownTimer	name	countDownTimer	name	countDownTimer
+ActivityLogHeader	id	activity_logs_heading_text	id	activity_logs_heading_text	id	activity_logs_heading_text	name	Events_1_0_Title	name	Events_1_0_Title	name	Events_1_0_Title
+ActivityLogSubHeader	id	activity_logs_sub_heading_text	id	activity_logs_sub_heading_text	id	activity_logs_sub_heading_text	name	Events_1_0_Subtitle	name	Events_1_0_Subtitle	name	Events_1_0_Subtitle
+ClickToViewDetailedIssue	id	status_left_drawable										
+BackToViewList	xPATH	//*[@content-desc='Navigate Up']					ID	nav bar back				
+AcitvityLogScrollUp	id	bottom_sheet_carat_image	id	bottom_sheet_carat_image	id	bottom_sheet_carat_image	NAME	icon_arch	NAME	icon_arch	NAME	icon_arch
+AcitvityLogScrollDown	id	bottom_sheet_carat_image	id	bottom_sheet_carat_image	id	bottom_sheet_carat_image	NAME	icon_arrow_up	NAME	icon_arrow_up	NAME	icon_arrow_up
+ActivityLogTime	id	activity_event_time_text	id	activity_event_time_text	id	activity_event_time_text						
+ActivityLogDay	id	bump_line_separator_image	id	bump_line_separator_image	id	bump_line_separator_image	NAME	icon_arrow_up	NAME	icon_arrow_up	NAME	icon_arrow_up
+PanelState	id	text_status	id	text_status	id	text_status	NAME	PanelState	NAME	PanelState	NAME	PanelState
