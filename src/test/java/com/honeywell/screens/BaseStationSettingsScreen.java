@@ -720,7 +720,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelNameLabel")) {
 				flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelNameLabel").getText()
-						.equalsIgnoreCase("DAS"));
+						.equalsIgnoreCase("Smart Home Security"));
 
 			} else {
 				flag = false;
@@ -734,7 +734,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelNameLabel")) {
 				flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelNameLabel").getText()
-						.toUpperCase().contains("DAS\nMAC ID : "));
+						.toUpperCase().contains("Smart Home Security\nMAC ID : "));
 			} else {
 				flag = false;
 			}
