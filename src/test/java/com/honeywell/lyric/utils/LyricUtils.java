@@ -369,6 +369,10 @@ public class LyricUtils {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
+			else
+			{
+				ls.clickOnLyricLogo();
+			}
 			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Password set to - " + inputs.getInputValue("PASSWORD"));
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -506,10 +510,15 @@ public class LyricUtils {
 							if (ls.isLyricLogoVisible()) {
 								return true;
 							}
-							if (os.isCancelButtonVisible()) {
+							if(os.isIgnoreButtonVisible(3))
+							{
+								os.clickOnIgnoreButton();
+								return false;
+							}
+							/*if (os.isCancelButtonVisible()) {
 								os.clickOnCancelButton();
 								return false;
-							} else {
+							}*/ else {
 								((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 								return false;
 							}
@@ -631,10 +640,9 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		 flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		 flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		 flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
@@ -1008,7 +1016,13 @@ public class LyricUtils {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				scrollObject.put("predicateString", attribute + " == '" + value + "'");
-				js.executeScript("mobile:scroll", scrollObject);
+				try {
+					js.executeScript("mobile:scroll", scrollObject);
+				} catch (Exception e) {
+					if (e.getMessage().contains("Failed to find scrollable visible")) {
+						js.executeScript("mobile:scroll", scrollObject);
+					}
+				}
 				WebElement element = testCase.getMobileDriver()
 						.findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
 				if (element.getAttribute(attribute).equals(value)) {
@@ -1060,8 +1074,14 @@ public class LyricUtils {
 			} else {
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
-				scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
-				js.executeScript("mobile: scroll", scrollObject);
+				try {
+					scrollObject.put("predicateString", attribute + " CONTAINS '" + value + "'");
+					js.executeScript("mobile:scroll", scrollObject);
+				} catch (Exception e) {
+					scrollObject.clear();
+					scrollObject.put("direction", "down");
+					js.executeScript("mobile:scroll", scrollObject);
+				}
 				WebElement element = MobileUtils.getMobElement(testCase, "xpath",
 						"//*[contains(@" + attribute + ",'" + value + "')]");
 				// WebElement element = testCase.getMobileDriver()

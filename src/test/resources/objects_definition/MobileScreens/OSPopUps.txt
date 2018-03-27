@@ -5,3 +5,4 @@ CancelButton							name	Cancel	name	Cancel	name	Cancel
 NotNowButton							name	Not Now	name	Not Now	name	Not Now
 CloseButton	ID	btn_close	ID	btn_close	ID	btn_close						
 AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always Allow
+IgnoreButton							name	Ignore	name	Ignore	name	Ignore

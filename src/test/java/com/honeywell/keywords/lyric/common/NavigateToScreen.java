@@ -358,14 +358,8 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isEntryExitDelaySettingsOptionVisible()) {
-						flag = flag & bs
+					flag = flag & bs
 								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not find Entry/Exit Delay option on DAS Panel Settings screen");
-					}
 					break;
 				}
 				default: {
@@ -383,7 +377,7 @@ public class NavigateToScreen extends Keyword {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dashboard d = new Dashboard(testCase);
 					int counter = 0;
-					while (bs.isBackButtonVisible() && !d.areDevicesVisibleOnDashboard() && counter < 4) {
+					while (bs.isBackButtonVisible(5) && !d.areDevicesVisibleOnDashboard() && counter < 4) {
 						flag = flag & bs.clickOnBackButton();
 						counter++;
 					}
