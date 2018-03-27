@@ -18,7 +18,6 @@ import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.lyric.das.utils.DASUtils;
 import com.honeywell.lyric.utils.InputVariables;
-import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 
@@ -815,6 +814,102 @@ public class CHILUtil implements AutoCloseable {
 			System.out.println();
 		}
 
+		return result;
+	}
+	public int changeSystemMode(long locationID, String deviceID, String thermostatMode) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/thermostat/Mode", locationID, deviceID);
+				String headerData = String.format("{\"thermostatMode\":\"%s\"}", thermostatMode);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	public int setCoolThermostatStatus(long locationID, String deviceID) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/v2/locations/%s/devices/%s/thermostat/coolSetpoint", locationID, deviceID);
+				String headerData = String.format("{\"thermostatSetpointStatus\":\"%s\"}", "NoHold");
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int setHeatThermostatStatus(long locationID, String deviceID) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/v2/locations/%s/devices/%s/thermostat/HeatSetpoint", locationID, deviceID);
+				String headerData = String.format("\"thermostatSetpointStatus\":\"%s\"", "NoHold");
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+
+
+	public int enableVacation(long locationID, String deviceID, String startTime, String endTime, String deviceUnits,
+			int coolSetPoints, int heatSetPoints) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("api/v2/locations/%s/vacationHold", locationID);
+				String headerData = String.format(
+						"{\"vacationStart\": \"%s\",\"vacationEnd\": \"%s\",\"thermostatVacationHoldSettings\": [{\"deviceID\": \"%s\",\"coolSetpoint\": %d,\"heatSetpoint\": %d,\"units\": \"%s\"}],\"enabled\": true}",
+						startTime, endTime, deviceID, coolSetPoints, heatSetPoints, deviceUnits);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int disableVacation(long locationID, String deviceID) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("api/v2/locations/%s/vacationHold", locationID);
+				String headerData = String.format(
+						"{\"thermostatVacationHoldSettings\":[{\"deviceID\":\"%s\"}],\"enabled\":false}", deviceID);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 

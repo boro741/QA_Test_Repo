@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -26,7 +28,6 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.SchedulingScreen;
-
 
 import io.appium.java_client.TouchAction;
 
@@ -61,7 +62,7 @@ public class JasperSchedulingVerifyUtils {
 											&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
 												"Set Point value: " + Double.parseDouble(setpoints.getText())
-														+ " is set within or at the maximum and minimum range");
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -80,7 +81,7 @@ public class JasperSchedulingVerifyUtils {
 											&& Double.parseDouble(setpoints.getText()) >= minCool) {
 										Keyword.ReportStep_Pass(testCase,
 												"Set Point value: " + Double.parseDouble(setpoints.getText())
-														+ " is set within or at the maximum and minimum range");
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -202,7 +203,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -221,7 +222,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -288,7 +289,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -307,7 +308,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -331,8 +332,8 @@ public class JasperSchedulingVerifyUtils {
 								if (Double
 										.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 												schedulePeriods[i])) <= maxHeat
-										&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-												schedulePeriods[i])) >= minHeat) {
+												&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+														schedulePeriods[i])) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Monday - Friday] Heat Set Point value: "
 											+ Double.parseDouble(ss
 													.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i]))
@@ -350,8 +351,8 @@ public class JasperSchedulingVerifyUtils {
 								if (Double
 										.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
 												schedulePeriods[i])) <= maxHeat
-										&& Double.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-												schedulePeriods[i])) >= minHeat) {
+												&& Double.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
+														schedulePeriods[i])) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Monday - Friday]Cool Set Point value: "
 											+ Double.parseDouble(ss
 													.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i]))
@@ -378,8 +379,8 @@ public class JasperSchedulingVerifyUtils {
 								if (Double
 										.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
 												schedulePeriods[i])) <= maxHeat
-										&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-												schedulePeriods[i])) >= minHeat) {
+												&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+														schedulePeriods[i])) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Heat Set Point value: "
 											+ Double.parseDouble(ss
 													.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i]))
@@ -396,8 +397,8 @@ public class JasperSchedulingVerifyUtils {
 								if (Double
 										.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
 												schedulePeriods[i])) <= maxHeat
-										&& Double.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-												schedulePeriods[i])) >= minHeat) {
+												&& Double.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
+														schedulePeriods[i])) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Cool Set Point value: "
 											+ Double.parseDouble(ss
 													.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i]))
@@ -429,7 +430,7 @@ public class JasperSchedulingVerifyUtils {
 											&& Double.parseDouble(setpoints.getText()) >= minCool) {
 										Keyword.ReportStep_Pass(testCase,
 												"Set Point value: " + Double.parseDouble(setpoints.getText())
-														+ " is set within or at the maximum and minimum range");
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -503,7 +504,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -572,7 +573,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -688,7 +689,7 @@ public class JasperSchedulingVerifyUtils {
 											&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
 												"Set Point value: " + Double.parseDouble(setpoints.getText())
-														+ " is set within or at the maximum and minimum range");
+												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -762,7 +763,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -831,7 +832,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-															+ " is set within or at the maximum and minimum range");
+													+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -851,8 +852,8 @@ public class JasperSchedulingVerifyUtils {
 									if (Double
 											.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 													String.valueOf(i + 1))) <= maxHeat
-											&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-													String.valueOf(i + 1))) >= minHeat) {
+													&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+															String.valueOf(i + 1))) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase, "Set Point value: "
 												+ Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 														String.valueOf(i + 1)))
@@ -896,8 +897,8 @@ public class JasperSchedulingVerifyUtils {
 									if (Double
 											.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 													schedulePeriods[i])) <= maxHeat
-											&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-													schedulePeriods[i])) >= minHeat) {
+													&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+															schedulePeriods[i])) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase, "Set Point value: "
 												+ Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 														schedulePeriods[i]))
@@ -919,8 +920,8 @@ public class JasperSchedulingVerifyUtils {
 									if (Double
 											.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
 													schedulePeriods[i])) <= maxHeat
-											&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-													schedulePeriods[i])) >= minHeat) {
+													&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+															schedulePeriods[i])) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase, "Set Point value: "
 												+ Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
 														schedulePeriods[i]))
@@ -988,7 +989,7 @@ public class JasperSchedulingVerifyUtils {
 					if (ss.getSchedulingPeriodSleepStartTimeText().contains("M")
 							|| ss.getSchedulingPeriodSleepStartTimeText().contains("m")) {
 						geofenceEndTime = ss.getSchedulingPeriodSleepStartTimeText().split("\\s+")[3];
-	} else {
+					} else {
 						geofenceEndTime = ss.getSchedulingPeriodSleepStartTimeText().split("\\s+")[2];
 					}
 				}
@@ -1054,15 +1055,15 @@ public class JasperSchedulingVerifyUtils {
 						if (!MobileUtils.isMobElementExists(
 								"XPATH", "//*[@content-desc='"
 										+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
-								testCase, 5)) {
+										testCase, 5)) {
 							testCase.getMobileDriver().scrollToExact(
 									inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED).split("_")[1]);
 							while (!MobileUtils.isMobElementExists(
 									"XPATH", "//*[@content-desc='"
 											+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
-									testCase, 5)) {
+											testCase, 5)) {
 								touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000))
-										.moveTo(width / 2, 82).release();
+								.moveTo(width / 2, 82).release();
 
 								touchAction.perform();
 							}
@@ -1094,28 +1095,28 @@ public class JasperSchedulingVerifyUtils {
 						if (temp.intValue() % i == 0) {
 							Keyword.ReportStep_Pass(testCase,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-											+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
-											+ " minutes");
+									+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
+									+ " minutes");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-											+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
-											+ " minutes");
+									+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
+									+ " minutes");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
 							if (temp.intValue() % i == 0) {
 								Keyword.ReportStep_Pass(testCase,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-												+ "]End time: " + everydayEndTime + " is set in intervals of " + i
-												+ " minutes");
+										+ "]End time: " + everydayEndTime + " is set in intervals of " + i
+										+ " minutes");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-												+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
-												+ " minutes");
+										+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
+										+ " minutes");
 							}
 						}
 					} else {
@@ -1129,10 +1130,11 @@ public class JasperSchedulingVerifyUtils {
 									scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 						}
 						int m = 0;
+
 						while ((!MobileUtils.isMobElementExists("XPATH",
 								"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
 										+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
-										testCase, 5)) && m < 10) {
+										testCase, 5) && m < 10)) {
 							if (desiredDayIndex > greaterDayIndex) {
 								touchAction.press(10, (int) (dimension.getHeight() * .5))
 								.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
@@ -1184,28 +1186,28 @@ public class JasperSchedulingVerifyUtils {
 						if (temp.intValue() % i == 0) {
 							Keyword.ReportStep_Pass(testCase,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-											+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
-											+ " minutes");
+									+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
+									+ " minutes");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-											+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
-											+ " minutes");
+									+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
+									+ " minutes");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
 							if (temp.intValue() % i == 0) {
 								Keyword.ReportStep_Pass(testCase,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-												+ "]End time: " + everydayEndTime + " is set in intervals of " + i
-												+ " minutes");
+										+ "]End time: " + everydayEndTime + " is set in intervals of " + i
+										+ " minutes");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-												+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
-												+ " minutes");
+										+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
+										+ " minutes");
 							}
 						}
 						if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
@@ -2718,58 +2720,58 @@ public class JasperSchedulingVerifyUtils {
 	public static boolean verifySystemMode(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		String chilDeviceSystemMode = statInfo.getThermoStatMode();
-		String chilDeviceID = statInfo.getDeviceID();
-		String appDeviceSystemMode;
-		String appDeviceDialerSystemMode;
-		WebElement dialer;
-		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-			dialer = MobileUtils.getMobElement(testCase, "name", "Dialer_" + chilDeviceID);
-			appDeviceSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "SystemModeButton")
-					.getAttribute("value");
-			appDeviceDialerSystemMode = dialer.getAttribute("label");
-		} else {
-			dialer = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer");
-			appDeviceSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "SystemModeButton")
-					.getAttribute("name");
-			appDeviceDialerSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer").getAttribute("name")
-					.split(",")[0];
-		}
-		if (chilDeviceSystemMode.equals(appDeviceSystemMode)) {
-			Keyword.ReportStep_Pass(testCase,
-					"Verify System Mode : System mode icon is in " + appDeviceSystemMode + " in both app and CHIL");
-		} else {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Verify System Mode : System mode is "
-					+ chilDeviceSystemMode + " in CHIL but system mode icon is in " + appDeviceSystemMode + " mode");
-		}
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String chilDeviceSystemMode = statInfo.getThermoStatMode();
+			String chilDeviceID = statInfo.getDeviceID();
+			String appDeviceSystemMode;
+			String appDeviceDialerSystemMode;
+			WebElement dialer;
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				dialer = MobileUtils.getMobElement(testCase, "name", "Dialer_" + chilDeviceID);
+				appDeviceSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "SystemModeButton")
+						.getAttribute("value");
+				appDeviceDialerSystemMode = dialer.getAttribute("label");
+			} else {
+				dialer = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer");
+				appDeviceSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "SystemModeButton")
+						.getAttribute("name");
+				appDeviceDialerSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer").getAttribute("name")
+						.split(",")[0];
+			}
+			if (chilDeviceSystemMode.equals(appDeviceSystemMode)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Verify System Mode : System mode icon is in " + appDeviceSystemMode + " in both app and CHIL");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Verify System Mode : System mode is "
+						+ chilDeviceSystemMode + " in CHIL but system mode icon is in " + appDeviceSystemMode + " mode");
+			}
 
-		if (chilDeviceSystemMode.equalsIgnoreCase("Off")) {
-			if (chilDeviceSystemMode.equalsIgnoreCase(appDeviceDialerSystemMode)) {
-				Keyword.ReportStep_Pass(testCase,
-						"Verify System Mode : Dialer is in " + chilDeviceSystemMode + " mode in both app and CHIL");
+			if (chilDeviceSystemMode.equalsIgnoreCase("Off")) {
+				if (chilDeviceSystemMode.equalsIgnoreCase(appDeviceDialerSystemMode)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify System Mode : Dialer is in " + chilDeviceSystemMode + " mode in both app and CHIL");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Verify System Mode : Dialer mode in app is different from CHIL. Dialer mode in app : "
+									+ appDeviceDialerSystemMode + " , CHIL : " + chilDeviceSystemMode);
+				}
 			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Verify System Mode : Dialer mode in app is different from CHIL. Dialer mode in app : "
-								+ appDeviceDialerSystemMode + " , CHIL : " + chilDeviceSystemMode);
+				if (chilDeviceSystemMode.equalsIgnoreCase("Auto")) {
+					chilDeviceSystemMode = statInfo.getThermostatModeWhenAutoChangeOverActive();
+				}
+				if (chilDeviceSystemMode.equalsIgnoreCase(appDeviceDialerSystemMode)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify System Mode : Dialer is in " + chilDeviceSystemMode + " mode in both app and CHIL");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Verify System Mode : Dialer mode in app is different from CHIL. Dialer mode in app : "
+									+ appDeviceDialerSystemMode + " , CHIL : " + chilDeviceSystemMode);
+				}
 			}
-		} else {
-			if (chilDeviceSystemMode.equalsIgnoreCase("Auto")) {
-				chilDeviceSystemMode = statInfo.getThermostatModeWhenAutoChangeOverActive();
-			}
-			if (chilDeviceSystemMode.equalsIgnoreCase(appDeviceDialerSystemMode)) {
-				Keyword.ReportStep_Pass(testCase,
-						"Verify System Mode : Dialer is in " + chilDeviceSystemMode + " mode in both app and CHIL");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Verify System Mode : Dialer mode in app is different from CHIL. Dialer mode in app : "
-								+ appDeviceDialerSystemMode + " , CHIL : " + chilDeviceSystemMode);
-			}
-		}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2835,40 +2837,40 @@ public class JasperSchedulingVerifyUtils {
 	public static boolean verifyDisplayedSetPoints(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		String chilDeviceSystemMode = statInfo.getThermoStatMode();
-		String chilDeviceID = statInfo.getDeviceID();
-		String appDeviceSetPoints = " ";
-		WebElement dialer;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String chilDeviceSystemMode = statInfo.getThermoStatMode();
+			String chilDeviceID = statInfo.getDeviceID();
+			String appDeviceSetPoints = " ";
+			WebElement dialer;
 
-		if (chilDeviceSystemMode.equalsIgnoreCase("Off")) {
-			Keyword.ReportStep_Pass(testCase,
-					"Verify Displayed Set Points : System mode is off. Hence, not verifying set points");
-			return true;
-		} else {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				dialer = MobileUtils.getMobElement(testCase, "name", "Dialer_" + chilDeviceID);
-				appDeviceSetPoints = dialer.getAttribute("value");
-			} else {
-				dialer = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer");
-				appDeviceSetPoints = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer").getAttribute("name")
-						.split(",")[1];
-			}
-			if (chilDeviceSystemMode.equalsIgnoreCase("Auto")) {
-				chilDeviceSystemMode = statInfo.getThermostatModeWhenAutoChangeOverActive();
-			}
-			String deviceSetPoints = statInfo.getCurrentSetPoints();
-			if (Double.parseDouble(deviceSetPoints) - Double.parseDouble(appDeviceSetPoints) == 0) {
+			if (chilDeviceSystemMode.equalsIgnoreCase("Off")) {
 				Keyword.ReportStep_Pass(testCase,
-						"Verify Displayed Set Points : Displayed dialer setpoint value is same as value in CHIL");
+						"Verify Displayed Set Points : System mode is off. Hence, not verifying set points");
+				return true;
 			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Verify Displayed Set Points : Displayed dialer set point value is not same as value in CHIL. Dialer value : "
-								+ appDeviceSetPoints + ", CHIL value : " + deviceSetPoints);
+				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+					dialer = MobileUtils.getMobElement(testCase, "name", "Dialer_" + chilDeviceID);
+					appDeviceSetPoints = dialer.getAttribute("value");
+				} else {
+					dialer = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer");
+					appDeviceSetPoints = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer").getAttribute("name")
+							.split(",")[1];
+				}
+				if (chilDeviceSystemMode.equalsIgnoreCase("Auto")) {
+					chilDeviceSystemMode = statInfo.getThermostatModeWhenAutoChangeOverActive();
+				}
+				String deviceSetPoints = statInfo.getCurrentSetPoints();
+				if (Double.parseDouble(deviceSetPoints) - Double.parseDouble(appDeviceSetPoints) == 0) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Displayed Set Points : Displayed dialer setpoint value is same as value in CHIL");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Verify Displayed Set Points : Displayed dialer set point value is not same as value in CHIL. Dialer value : "
+									+ appDeviceSetPoints + ", CHIL value : " + deviceSetPoints);
+				}
 			}
-		}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3022,7 +3024,7 @@ public class JasperSchedulingVerifyUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean verifyNumberOfSchedulePeriodsInTimeSchedule(TestCases testCase, TestCaseInputs inputs,
 			int numberOfPeriodsToCheck) {
 		boolean flag = true;
@@ -3153,7 +3155,7 @@ public class JasperSchedulingVerifyUtils {
 				} else {
 					if (i == 5 || i == 6) {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 					}
 					desiredDayIndex = Arrays.asList(days).indexOf(days[i]);
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
@@ -3166,10 +3168,10 @@ public class JasperSchedulingVerifyUtils {
 					while ((!MobileUtils.isMobElementExists("XPATH",
 							"//XCUIElementTypeStaticText[@name='Add Period']/preceding-sibling::XCUIElementTypeStaticText[@value='"
 									+ days[i] + "']",
-							testCase, 5)) && m < 10) {
+									testCase, 5)) && m < 10) {
 						if (desiredDayIndex > greaterDayIndex) {
 							touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 							m++;
 							scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
 									"ScheduleDayHeader");
@@ -3182,7 +3184,7 @@ public class JasperSchedulingVerifyUtils {
 									scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 						} else if (desiredDayIndex < lesserDayIndex) {
 							touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
 							m++;
 							scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
 									"ScheduleDayHeader");
@@ -3253,7 +3255,7 @@ public class JasperSchedulingVerifyUtils {
 
 		return flag;
 	}
-	
+
 	public static boolean verifyEditedDayIsSeparatedFromGroupInTimeSchedule(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true, editedDayDisplayed = false;
 		List<WebElement> scheduleDayHeaders = null;
@@ -3347,230 +3349,230 @@ public class JasperSchedulingVerifyUtils {
 			TestCaseInputs inputs, String periodName) {
 		boolean flag = true;
 		try {
-		WebElement period = null, periodCoolPoint = null, periodHeatPoint = null;
-		Double maxHeat = 0.0, minHeat = 0.0, maxCool = 0.0, minCool = 0.0;
-		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-		List<WebElement> scheduleDayHeaders = null;
-		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			WebElement period = null, periodCoolPoint = null, periodHeatPoint = null;
+			Double maxHeat = 0.0, minHeat = 0.0, maxCool = 0.0, minCool = 0.0;
+			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+			List<WebElement> scheduleDayHeaders = null;
+			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		List<String> allowedModes = statInfo.getAllowedModes();
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			List<String> allowedModes = statInfo.getAllowedModes();
 
-		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-		}
-
-		CustomDriver driver = testCase.getMobileDriver();
-		Dimension dimension = driver.manage().window().getSize();
-		int height = dimension.getHeight();
-		int width = dimension.getWidth();
-		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
-			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-				testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
+			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
 			}
 
-			while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
-				touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-				touchAction.perform();
-			}
-			if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Failed to locate the period: " + periodName);
-			} else {
-				period = MobileUtils.getMobElement(testCase, "XPATH", "//*[@content-desc='" + periodName + "']");
-				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
-					minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
-					maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
-					minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
+			CustomDriver driver = testCase.getMobileDriver();
+			Dimension dimension = driver.manage().window().getSize();
+			int height = dimension.getHeight();
+			int width = dimension.getWidth();
+			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
-					periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
-					periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 
-					if (Double.parseDouble(periodCoolPoint.getText()) <= maxCool
-							&& Double.parseDouble(periodCoolPoint.getText()) >= minCool) {
-						Keyword.ReportStep_Pass(testCase,
-								"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getText())
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Cool Set Point value: "
-										+ Double.parseDouble(periodCoolPoint.getText())
-										+ " is not set within or at the maximum and minimum range");
-					}
-					if (Double.parseDouble(periodHeatPoint.getText()) <= maxHeat
-							&& Double.parseDouble(periodHeatPoint.getText()) >= minHeat) {
-						Keyword.ReportStep_Pass(testCase,
-								"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getText())
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Heat Set Point value: "
-										+ Double.parseDouble(periodHeatPoint.getText())
-										+ " is not set within or at the maximum and minimum range");
-					}
-
-				} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
-					minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
-
-					periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
-
-					if (Double.parseDouble(periodHeatPoint.getText()) <= maxHeat
-							&& Double.parseDouble(periodHeatPoint.getText()) >= minHeat) {
-						Keyword.ReportStep_Pass(testCase,
-								"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getText())
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Heat Set Point value: "
-										+ Double.parseDouble(periodHeatPoint.getText())
-										+ " is not set within or at the maximum and minimum range");
-					}
-
-				} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
-					maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
-					minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
-
-					periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
-
-					if (Double.parseDouble(periodCoolPoint.getText()) <= maxCool
-							&& Double.parseDouble(periodCoolPoint.getText()) >= minCool) {
-						Keyword.ReportStep_Pass(testCase,
-								"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getText())
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Cool Set Point value: "
-										+ Double.parseDouble(periodCoolPoint.getText())
-										+ " is not set within or at the maximum and minimum range");
-					}
+				if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+					testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
 				}
-			}
-		} else {
-			desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-				scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
-				lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
-				greaterDayIndex = Arrays.asList(scheduleDays)
-						.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
-			}
-			int i = 0;
-			while ((!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
-					&& i < 10) {
-				if (desiredDayIndex > greaterDayIndex) {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-					i++;
-				} else if (desiredDayIndex < lesserDayIndex) {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
-					i++;
+
+				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
+					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+					touchAction.perform();
+				}
+				if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to locate the period: " + periodName);
 				} else {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-					i++;
+					period = MobileUtils.getMobElement(testCase, "XPATH", "//*[@content-desc='" + periodName + "']");
+					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
+						minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
+						maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
+						minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
+
+						periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
+						periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
+
+						if (Double.parseDouble(periodCoolPoint.getText()) <= maxCool
+								&& Double.parseDouble(periodCoolPoint.getText()) >= minCool) {
+							Keyword.ReportStep_Pass(testCase,
+									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getText())
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Cool Set Point value: "
+											+ Double.parseDouble(periodCoolPoint.getText())
+											+ " is not set within or at the maximum and minimum range");
+						}
+						if (Double.parseDouble(periodHeatPoint.getText()) <= maxHeat
+								&& Double.parseDouble(periodHeatPoint.getText()) >= minHeat) {
+							Keyword.ReportStep_Pass(testCase,
+									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getText())
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Heat Set Point value: "
+											+ Double.parseDouble(periodHeatPoint.getText())
+											+ " is not set within or at the maximum and minimum range");
+						}
+
+					} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
+						minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
+
+						periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
+
+						if (Double.parseDouble(periodHeatPoint.getText()) <= maxHeat
+								&& Double.parseDouble(periodHeatPoint.getText()) >= minHeat) {
+							Keyword.ReportStep_Pass(testCase,
+									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getText())
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Heat Set Point value: "
+											+ Double.parseDouble(periodHeatPoint.getText())
+											+ " is not set within or at the maximum and minimum range");
+						}
+
+					} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
+						maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
+						minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
+
+						periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
+
+						if (Double.parseDouble(periodCoolPoint.getText()) <= maxCool
+								&& Double.parseDouble(periodCoolPoint.getText()) >= minCool) {
+							Keyword.ReportStep_Pass(testCase,
+									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getText())
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Cool Set Point value: "
+											+ Double.parseDouble(periodCoolPoint.getText())
+											+ " is not set within or at the maximum and minimum range");
+						}
+					}
 				}
-			}
-			String cp = periodName + "_CoolTemperature";
-			String hp = periodName + "_HeatTemperature";
-			WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
-			System.out.println(elemTime.getAttribute("value"));
-			if (!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Failed to locate the period: " + periodName);
 			} else {
-				period = testCase.getMobileDriver().findElement(By.name(periodName));
-				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
-					minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
-					maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
-					minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
-
-					periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
-					periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
-
-					if (Double.parseDouble(periodCoolPoint.getAttribute("value")) <= maxCool
-							&& Double.parseDouble(periodCoolPoint.getAttribute("value")) >= minCool) {
-						Keyword.ReportStep_Pass(testCase,
-								"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getAttribute("value"))
-										+ " is set within or at the maximum and minimum range");
+				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
+					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
+					greaterDayIndex = Arrays.asList(scheduleDays)
+							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
+				}
+				int i = 0;
+				while ((!MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+						&& i < 10) {
+					if (desiredDayIndex > greaterDayIndex) {
+						touchAction.press(10, (int) (dimension.getHeight() * .5))
+						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						i++;
+					} else if (desiredDayIndex < lesserDayIndex) {
+						touchAction.press(10, (int) (dimension.getHeight() * .5))
+						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+						i++;
 					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Cool Set Point value: "
-										+ Double.parseDouble(periodCoolPoint.getAttribute("value"))
-										+ " is not set within or at the maximum and minimum range");
+						touchAction.press(10, (int) (dimension.getHeight() * .5))
+						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						i++;
 					}
-					if (Double.parseDouble(periodHeatPoint.getAttribute("value")) <= maxHeat
-							&& Double.parseDouble(periodHeatPoint.getAttribute("value")) >= minHeat) {
-						Keyword.ReportStep_Pass(testCase,
-								"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getAttribute("value"))
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Heat Set Point value: "
-										+ Double.parseDouble(periodHeatPoint.getAttribute("value"))
-										+ " is not set within or at the maximum and minimum range");
-					}
+				}
+				String cp = periodName + "_CoolTemperature";
+				String hp = periodName + "_HeatTemperature";
+				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
+				System.out.println(elemTime.getAttribute("value"));
+				if (!MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to locate the period: " + periodName);
+				} else {
+					period = testCase.getMobileDriver().findElement(By.name(periodName));
+					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
+						minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
+						maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
+						minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
 
-				} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
-					minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
+						periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
+						periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
 
-					periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
+						if (Double.parseDouble(periodCoolPoint.getAttribute("value")) <= maxCool
+								&& Double.parseDouble(periodCoolPoint.getAttribute("value")) >= minCool) {
+							Keyword.ReportStep_Pass(testCase,
+									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getAttribute("value"))
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Cool Set Point value: "
+											+ Double.parseDouble(periodCoolPoint.getAttribute("value"))
+											+ " is not set within or at the maximum and minimum range");
+						}
+						if (Double.parseDouble(periodHeatPoint.getAttribute("value")) <= maxHeat
+								&& Double.parseDouble(periodHeatPoint.getAttribute("value")) >= minHeat) {
+							Keyword.ReportStep_Pass(testCase,
+									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getAttribute("value"))
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Heat Set Point value: "
+											+ Double.parseDouble(periodHeatPoint.getAttribute("value"))
+											+ " is not set within or at the maximum and minimum range");
+						}
 
-					if (Double.parseDouble(periodHeatPoint.getAttribute("value")) <= maxHeat
-							&& Double.parseDouble(periodHeatPoint.getAttribute("value")) >= minHeat) {
-						Keyword.ReportStep_Pass(testCase,
-								"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getAttribute("value"))
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Heat Set Point value: "
-										+ Double.parseDouble(periodHeatPoint.getAttribute("value"))
-										+ " is not set within or at the maximum and minimum range");
-					}
+					} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
+						minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
 
-				} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
-					maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
-					minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
+						periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
 
-					periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
+						if (Double.parseDouble(periodHeatPoint.getAttribute("value")) <= maxHeat
+								&& Double.parseDouble(periodHeatPoint.getAttribute("value")) >= minHeat) {
+							Keyword.ReportStep_Pass(testCase,
+									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getAttribute("value"))
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Heat Set Point value: "
+											+ Double.parseDouble(periodHeatPoint.getAttribute("value"))
+											+ " is not set within or at the maximum and minimum range");
+						}
 
-					if (Double.parseDouble(periodCoolPoint.getAttribute("value")) <= maxCool
-							&& Double.parseDouble(periodCoolPoint.getAttribute("value")) >= minCool) {
-						Keyword.ReportStep_Pass(testCase,
-								"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getAttribute("value"))
-										+ " is set within or at the maximum and minimum range");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"[TemperatureInMaxMinRange] Cool Set Point value: "
-										+ Double.parseDouble(periodCoolPoint.getAttribute("value"))
-										+ " is not set within or at the maximum and minimum range");
+					} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
+						maxCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxCool"));
+						minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
+
+						periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
+
+						if (Double.parseDouble(periodCoolPoint.getAttribute("value")) <= maxCool
+								&& Double.parseDouble(periodCoolPoint.getAttribute("value")) >= minCool) {
+							Keyword.ReportStep_Pass(testCase,
+									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getAttribute("value"))
+									+ " is set within or at the maximum and minimum range");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[TemperatureInMaxMinRange] Cool Set Point value: "
+											+ Double.parseDouble(periodCoolPoint.getAttribute("value"))
+											+ " is not set within or at the maximum and minimum range");
+						}
 					}
 				}
 			}
-		}
 		}catch (Exception e){
-			
+
 		}
 
 		return flag;
@@ -3580,266 +3582,266 @@ public class JasperSchedulingVerifyUtils {
 			TestCaseInputs inputs, String periodName) {
 		boolean flag = true;
 		try {
-		WebElement period = null, periodCoolPoint = null, periodHeatPoint = null;
-		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-		List<WebElement> scheduleDayHeaders = null;
-		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			WebElement period = null, periodCoolPoint = null, periodHeatPoint = null;
+			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+			List<WebElement> scheduleDayHeaders = null;
+			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		List<String> allowedModes = statInfo.getAllowedModes();
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			List<String> allowedModes = statInfo.getAllowedModes();
 
-		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-		}
-
-		CustomDriver driver = testCase.getMobileDriver();
-		Dimension dimension = driver.manage().window().getSize();
-		int height = dimension.getHeight();
-		int width = dimension.getWidth();
-		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
-			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-				testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
+			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
 			}
 
-			while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
-				touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-				touchAction.perform();
-			}
-			if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Failed to locate the period: " + periodName);
-			} else {
-				period = MobileUtils.getMobElement(testCase, "XPATH", "//*[@content-desc='" + periodName + "']");
+			CustomDriver driver = testCase.getMobileDriver();
+			Dimension dimension = driver.manage().window().getSize();
+			int height = dimension.getHeight();
+			int width = dimension.getWidth();
+			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
-				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
-					periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 
-					if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
-						if (periodCoolPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
-									+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
-						}
-						if (periodHeatPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
-									+ periodHeatPoint.getText() + " is not in 0.5C increments for Celsius mode");
-						}
-					} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						if (!periodCoolPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
-									+ periodCoolPoint.getText() + " is not in 1F increments for Fahrenheit mode");
-						}
-						if (!periodHeatPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
-									+ periodHeatPoint.getText() + " is not in 1F increments for Fahrenheit mode");
-						}
-					}
-
-				} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
-
-					if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
-						if (periodHeatPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
-									+ periodHeatPoint.getText() + " is not in 0.5C increments for Celsius mode");
-						}
-					} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						if (!periodHeatPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
-									+ periodHeatPoint.getText() + " is not in 1F increments for Fahrenheit mode");
-						}
-					}
-
-				} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
-					periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
-
-					if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
-						if (periodCoolPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
-									+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
-						}
-					} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						if (!periodCoolPoint.getText().contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
-									+ periodCoolPoint.getText() + " is not in 1F increments for Fahrenheit mode");
-						}
-					}
+				if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+					testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
 				}
-			}
-		} else {
-			desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-				scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
-				lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
-				greaterDayIndex = Arrays.asList(scheduleDays)
-						.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
-			}
-			int i = 0;
-			while ((!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
-					&& i < 10) {
-				if (desiredDayIndex > greaterDayIndex) {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-					i++;
-				} else if (desiredDayIndex < lesserDayIndex) {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
-					i++;
+
+				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
+					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+					touchAction.perform();
+				}
+				if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to locate the period: " + periodName);
 				} else {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-					i++;
+					period = MobileUtils.getMobElement(testCase, "XPATH", "//*[@content-desc='" + periodName + "']");
+
+					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
+						periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
+
+						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+							if (periodCoolPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
+										+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
+							}
+							if (periodHeatPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
+										+ periodHeatPoint.getText() + " is not in 0.5C increments for Celsius mode");
+							}
+						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							if (!periodCoolPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
+										+ periodCoolPoint.getText() + " is not in 1F increments for Fahrenheit mode");
+							}
+							if (!periodHeatPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
+										+ periodHeatPoint.getText() + " is not in 1F increments for Fahrenheit mode");
+							}
+						}
+
+					} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
+
+						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+							if (periodHeatPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
+										+ periodHeatPoint.getText() + " is not in 0.5C increments for Celsius mode");
+							}
+						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							if (!periodHeatPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
+										+ periodHeatPoint.getText() + " is not in 1F increments for Fahrenheit mode");
+							}
+						}
+
+					} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
+						periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
+
+						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+							if (periodCoolPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
+										+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
+							}
+						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							if (!periodCoolPoint.getText().contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
+										+ periodCoolPoint.getText() + " is not in 1F increments for Fahrenheit mode");
+							}
+						}
+					}
 				}
-			}
-			String cp = periodName + "_CoolTemperature";
-			String hp = periodName + "_HeatTemperature";
-			WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
-			System.out.println(elemTime.getAttribute("value"));
-			if (!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Failed to locate the period: " + periodName);
 			} else {
-				period = testCase.getMobileDriver().findElement(By.name(periodName));
-
-				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
-					periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
-
-					if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
-						if (periodCoolPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
-									+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
-						}
-						if (periodHeatPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Heat set point: " + periodHeatPoint.getAttribute("value")
-											+ " is not in 0.5C increments for Celsius mode");
-						}
-					} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						if (!periodCoolPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Cool set point: " + periodCoolPoint.getAttribute("value")
-											+ " is not in 1F increments for Fahrenheit mode");
-						}
-						if (!periodHeatPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Heat set point: " + periodHeatPoint.getAttribute("value")
-											+ " is not in 1F increments for Fahrenheit mode");
-						}
+				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
+					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
+					greaterDayIndex = Arrays.asList(scheduleDays)
+							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
+				}
+				int i = 0;
+				while ((!MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+						&& i < 10) {
+					if (desiredDayIndex > greaterDayIndex) {
+						touchAction.press(10, (int) (dimension.getHeight() * .5))
+						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						i++;
+					} else if (desiredDayIndex < lesserDayIndex) {
+						touchAction.press(10, (int) (dimension.getHeight() * .5))
+						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+						i++;
+					} else {
+						touchAction.press(10, (int) (dimension.getHeight() * .5))
+						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						i++;
 					}
+				}
+				String cp = periodName + "_CoolTemperature";
+				String hp = periodName + "_HeatTemperature";
+				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
+				System.out.println(elemTime.getAttribute("value"));
+				if (!MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to locate the period: " + periodName);
+				} else {
+					period = testCase.getMobileDriver().findElement(By.name(periodName));
 
-				} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
+					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
+						periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
 
-					if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
-						if (periodHeatPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Heat set point: " + periodHeatPoint.getAttribute("value")
-											+ " is not in 0.5C increments for Celsius mode");
+						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+							if (periodCoolPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
+										+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
+							}
+							if (periodHeatPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+										+ " is not in 0.5C increments for Celsius mode");
+							}
+						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							if (!periodCoolPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+										+ " is not in 1F increments for Fahrenheit mode");
+							}
+							if (!periodHeatPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+										+ " is not in 1F increments for Fahrenheit mode");
+							}
 						}
-					} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						if (!periodHeatPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Heat set point: " + periodHeatPoint.getAttribute("value")
-											+ " is not in 1F increments for Fahrenheit mode");
-						}
-					}
 
-				} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
-					periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
+					} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+						periodHeatPoint = testCase.getMobileDriver().findElement(By.name(hp));
 
-					if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
-						if (periodCoolPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-									+ " is in 0.5C increments for Celsius mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Cool set point: " + periodCoolPoint.getAttribute("value")
-											+ " is not in 0.5C increments for Celsius mode");
+						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+							if (periodHeatPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+										+ " is not in 0.5C increments for Celsius mode");
+							}
+						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							if (!periodHeatPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+										+ " is not in 1F increments for Fahrenheit mode");
+							}
 						}
-					} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						if (!periodCoolPoint.getAttribute("value").contains(".")) {
-							Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-									+ " is in 1F increments for Fahrenheit mode");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Cool set point: " + periodCoolPoint.getAttribute("value")
-											+ " is not in 1F increments for Fahrenheit mode");
+
+					} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
+						periodCoolPoint = testCase.getMobileDriver().findElement(By.name(cp));
+
+						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+							if (periodCoolPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
+								+ " is in 0.5C increments for Celsius mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+										+ " is not in 0.5C increments for Celsius mode");
+							}
+						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							if (!periodCoolPoint.getAttribute("value").contains(".")) {
+								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
+								+ " is in 1F increments for Fahrenheit mode");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+										+ " is not in 1F increments for Fahrenheit mode");
+							}
 						}
 					}
 				}
 			}
-		}
 		} catch (Exception e){
-			
+
 		}
 		return flag;
 	}
@@ -3911,5 +3913,1138 @@ public class JasperSchedulingVerifyUtils {
 		return flag;
 	}
 
+	public static boolean verifyTemperatureFieldIncrements(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+			List<WebElement> schedule_heatsetpoints = null, schedule_coolsetpoints = null;
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			List<String> allowedModes = statInfo.getAllowedModes();
+
+			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+					if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
+						schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
+								"scheduling_period_heating_point");
+						for (int i = 0; i < schedule_heatsetpoints.size(); i++) {
+							if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+								if (schedule_heatsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is in 0.5C increments for Celsius mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is not in 0.5C increments for Celsius mode");
+								}
+							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+								if (!schedule_heatsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is in 1F increments for Fahrenheit mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is not in 1F increments for Fahrenheit mode");
+								}
+							}
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to locate schedule heat set points");
+					}
+					if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
+						schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
+								"scheduling_period_cooling_point");
+						for (int i = 0; i < schedule_coolsetpoints.size(); i++) {
+							if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+								if (schedule_coolsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is in 0.5C increments for Celsius mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is not in 0.5C increments for Celsius mode");
+								}
+							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+								if (!schedule_coolsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is in 1F increments for Fahrenheit mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is not in 1F increments for Fahrenheit mode");
+								}
+							}
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to locate schedule cool set points");
+					}
+				} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
+					if (MobileUtils.isMobElementExists("ID", "scheduling_period_cooling_point", testCase, 5)) {
+						schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
+								"scheduling_period_cooling_point");
+						for (int i = 0; i < schedule_coolsetpoints.size(); i++) {
+							if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+								if (schedule_coolsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is in 0.5C increments for Celsius mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is not in 0.5C increments for Celsius mode");
+								}
+							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+								if (!schedule_coolsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is in 1F increments for Fahrenheit mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_coolsetpoints.get(i).getText()
+											+ " is not in 1F increments for Fahrenheit mode");
+								}
+							}
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to locate schedule cool set points");
+					}
+				} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+					if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
+						schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
+								"scheduling_period_heating_point");
+						for (int i = 0; i < schedule_heatsetpoints.size(); i++) {
+							if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
+								if (schedule_heatsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is in 0.5C increments for Celsius mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is not in 0.5C increments for Celsius mode");
+								}
+							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+								if (!schedule_heatsetpoints.get(i).getText().contains(".")) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is in 1F increments for Fahrenheit mode");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Set point: " + schedule_heatsetpoints.get(i).getText()
+											+ " is not in 1F increments for Fahrenheit mode");
+								}
+							}
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to locate schedule heat set points");
+					}
+				}
+			}
+
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
+					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+						flag = false;
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
+				}
+			}
+		}catch (Exception e){
+
+		}
+		return flag;
+	}
+
+	public static boolean verifyAutoChangeOverLogic(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		List<WebElement> schedule_heatsetpoints, schedule_coolsetpoints;
+		String tempHeatSetPointApp = "", tempCoolSetPointApp = "";
+
+		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
+			// ============================================ANDROID============================================================
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
+					schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
+							"scheduling_period_heating_point");
+					schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
+							"scheduling_period_cooling_point");
+					// =================================Geofence HOME
+					// Period====================================
+					tempHeatSetPointApp = schedule_heatsetpoints.get(0).getText();
+					if (schedule_heatsetpoints.get(0).getText().contains(".0")) {
+						tempHeatSetPointApp = schedule_heatsetpoints.get(0).getText().split("\\.")[0];
+					}
+					tempCoolSetPointApp = schedule_coolsetpoints.get(0).getText();
+					if (schedule_coolsetpoints.get(0).getText().contains(".0")) {
+						tempCoolSetPointApp = schedule_coolsetpoints.get(0).getText().split("\\.")[0];
+					}
+					if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+						Keyword.ReportStep_Pass(testCase,
+								"[HomeSettings] Home set points are following Auto changeover logic");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"[HomeSettings] Home set points are not following Auto changeover logic with Cool temperature: "
+										+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+										+ Integer.valueOf(tempHeatSetPointApp));
+					}
+					// =================================Geofence SLEEP
+					// Period===============================
+					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
+						tempHeatSetPointApp = schedule_heatsetpoints.get(1).getText();
+						if (schedule_heatsetpoints.get(1).getText().contains(".0")) {
+							tempHeatSetPointApp = schedule_heatsetpoints.get(1).getText().split("\\.")[0];
+						}
+						tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText();
+						if (schedule_coolsetpoints.get(1).getText().contains(".0")) {
+							tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText().split("\\.")[0];
+						}
+						if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+							Keyword.ReportStep_Pass(testCase,
+									"[SleepSettings] Sleep set points are following Auto changeover logic");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[SleepSettings] Sleep set points are not following Auto changeover logic with Cool temperature: "
+											+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp));
+						}
+
+						tempHeatSetPointApp = schedule_heatsetpoints.get(2).getText();
+						if (schedule_heatsetpoints.get(2).getText().contains(".0")) {
+							tempHeatSetPointApp = schedule_heatsetpoints.get(2).getText().split("\\.")[0];
+						}
+						tempCoolSetPointApp = schedule_coolsetpoints.get(2).getText();
+						if (schedule_coolsetpoints.get(2).getText().contains(".0")) {
+							tempCoolSetPointApp = schedule_coolsetpoints.get(2).getText().split("\\.")[0];
+						}
+						if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+							Keyword.ReportStep_Pass(testCase,
+									"[AwaySettings] Away set points are following Auto changeover logic");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
+											+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp));
+						}
+					} else {
+						tempHeatSetPointApp = schedule_heatsetpoints.get(1).getText();
+						if (schedule_heatsetpoints.get(1).getText().contains(".0")) {
+							tempHeatSetPointApp = schedule_heatsetpoints.get(1).getText().split("\\.")[0];
+						}
+						tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText();
+						if (schedule_coolsetpoints.get(1).getText().contains(".0")) {
+							tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText().split("\\.")[0];
+						}
+						if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+							Keyword.ReportStep_Pass(testCase,
+									"[AwaySettings] Away set points are following Auto changeover logic");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
+											+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp));
+						}
+					}
+
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to locate Geofence schedule set points in solution card");
+				}
+			}
+			// ================================================IOS================================================================
+			else {
+				if (MobileUtils.isMobElementExists("name", "Geofence_Home_HeatTemperature", testCase, 5)) {
+					tempHeatSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_HeatTemperature")
+							.getAttribute("value");
+					if (tempHeatSetPointApp.contains(".0")) {
+						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+					}
+				}
+				if (MobileUtils.isMobElementExists("name", "Geofence_Home_CoolTemperature", testCase, 5)) {
+					tempCoolSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_CoolTemperature")
+							.getAttribute("value");
+					if (tempCoolSetPointApp.contains(".0")) {
+						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
+					}
+				}
+				if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+					Keyword.ReportStep_Pass(testCase,
+							"[HomeSettings] Home set points are following Auto changeover logic");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"[HomeSettings] Home set points are not following Auto changeover logic with Cool temperature: "
+									+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+									+ Integer.valueOf(tempHeatSetPointApp));
+				}
+
+				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
+					tempHeatSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_HeatTemperature")
+							.getAttribute("value");
+					if (tempHeatSetPointApp.contains(".0")) {
+						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+					}
+					tempCoolSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_CoolTemperature")
+							.getAttribute("value");
+					if (tempCoolSetPointApp.contains(".0")) {
+						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
+					}
+					if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+						Keyword.ReportStep_Pass(testCase,
+								"[SleepSettings] Sleep set points are following Auto changeover logic");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"[SleepSettings] Sleep set points are not following Auto changeover logic with Cool temperature: "
+										+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+										+ Integer.valueOf(tempHeatSetPointApp));
+					}
+				}
+
+				tempHeatSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_HeatTemperature")
+						.getAttribute("value");
+				if (tempHeatSetPointApp.contains(".0")) {
+					tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+				}
+				tempCoolSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_CoolTemperature")
+						.getAttribute("value");
+				if (tempCoolSetPointApp.contains(".0")) {
+					tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
+				}
+				if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+					Keyword.ReportStep_Pass(testCase,
+							"[AwaySettings] Away set points are following Auto changeover logic");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
+									+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
+									+ Integer.valueOf(tempHeatSetPointApp));
+				}
+			}
+		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.TIME_BASED_SCHEDULE)) {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+
+			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+
+			}
+		}
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='Navigate Up']")).click();
+			} else {
+				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+						flag = false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Failed to navigate back to Primary Card: Error message-" + e.getMessage());
+		}
+
+		return flag;
+	}
+
+	public static boolean verifyTimeforSpecificTimeSchedulePeriod(TestCases testCase, TestCaseInputs inputs,
+			String timeToVerify, String periodName) {
+		boolean flag = true;
+		String periodTime = "";
+		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+		List<WebElement> scheduleDayHeaders = null;
+		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+
+		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+		}
+
+		WebElement period = null;
+		CustomDriver driver = testCase.getMobileDriver();
+		Dimension dimension = driver.manage().window().getSize();
+		int height = dimension.getHeight();
+		int width = dimension.getWidth();
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
+				testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
+				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase,
+						5)) {
+					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+					touchAction.perform();
+				}
+			}
+			period = testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='" + periodName + "']"));
+			if (period != null) {
+				periodTime = period.findElement(By.id("scheduling_period_time")).getText();
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to locate the period: " + periodName);
+			}
+		} else {
+			desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
+				scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+				lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
+				greaterDayIndex = Arrays.asList(scheduleDays)
+						.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
+			}
+			int i = 0;
+			while ((!MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+					&& i < 10) {
+				if (desiredDayIndex > greaterDayIndex) {
+					touchAction.press(10, (int) (dimension.getHeight() * .5))
+					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					i++;
+				} else if (desiredDayIndex < lesserDayIndex) {
+					touchAction.press(10, (int) (dimension.getHeight() * .5))
+					.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+					i++;
+				} else {
+					touchAction.press(10, (int) (dimension.getHeight() * .5))
+					.moveTo(0, (int) (dimension.getHeight() * -.9)).release().perform();
+					i++;
+				}
+			}
+			period = testCase.getMobileDriver().findElement(By.name(periodName));
+			if (period != null) {
+				periodTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"))
+						.getAttribute("value");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to locate the period: " + periodName);
+			}
+			System.out.println(periodTime);
+		}
+
+		if (periodTime.equalsIgnoreCase(timeToVerify)) {
+			Keyword.ReportStep_Pass(testCase, "Period time for " + periodName + " is set to " + periodTime);
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Period time for " + periodName
+					+ " is set to " + periodTime + " which is not same as expected value " + timeToVerify);
+		}
+
+		return flag;
+	}
+
+	public static boolean verifySelectedScreenInViewScheduleScreen(TestCases testCase,
+			String scheduleTypeToBeValidated) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+
+		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+
+		if (scheduleTypeToBeValidated.equalsIgnoreCase("No")) {
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 10)
+					&& MobileUtils.isMobElementExists(fieldObjects, testCase, "NoScheduleText", 10)) {
+				Keyword.ReportStep_Pass(testCase, "No Schedule screen is shown in View schedule screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"No Schedule screen in not shown in View schedule screen");
+			}
+		} else if (scheduleTypeToBeValidated.equalsIgnoreCase("Everyday")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Everyday']", testCase, 10)) {
+					Keyword.ReportStep_Pass(testCase, "Everyday Schedule screen is shown in View schedule screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Everyday Schedule screen in not shown in View schedule screen");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("XPATH", "//UIAStaticText[@name='Everyday']", testCase, 10)) {
+					Keyword.ReportStep_Pass(testCase, "Everyday Schedule screen is shown in View schedule screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Everyday Schedule screen in not shown in View schedule screen");
+				}
+			}
+
+		} else if (scheduleTypeToBeValidated.equalsIgnoreCase("Weekday and Weekend")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Monday-Friday']", testCase, 10)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Weekday and Weekend Schedule screen is shown in View schedule screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Weekday and Weekend Schedule screen in not shown in View schedule screen");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("XPATH", "//UIAStaticText[@name='Monday-Friday']", testCase, 5)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Weekday and Weekend Schedule screen is shown in View schedule screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Weekday and Weekend Schedule screen in not shown in View schedule screen");
+				}
+			}
+
+		} else if (scheduleTypeToBeValidated.equalsIgnoreCase("Geofence")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Use My Home Settings']", testCase, 10)) {
+					Keyword.ReportStep_Pass(testCase, "Geofence Schedule screen is shown in View schedule screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Geofence Schedule screen in not shown in View schedule screen");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("XPATH", "//UIAStaticText[@name='Use My Home Settings']", testCase,
+						10)) {
+					Keyword.ReportStep_Pass(testCase, "Geofence Schedule screen is shown in View schedule screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Geofence Schedule screen in not shown in View schedule screen");
+				}
+			}
+		}
+
+		return flag;
+	}
+
+	public static boolean verifySchedulingStatusOnPrimaryCard(TestCases testCase, TestCaseInputs inputs,
+			String scheduleType, String overrideSetPoints) {
+		boolean flag = true;
+		try {
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
+					testCase.getMobileDriver());
+			fWait.pollingEvery(5, TimeUnit.SECONDS);
+			fWait.withTimeout(60, TimeUnit.SECONDS);
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			Double overrideTemp = Double.parseDouble(overrideSetPoints);
+			if (scheduleType.equalsIgnoreCase("Geofence")) {
+				String status;
+				if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+					status = "Hold " + overrideTemp.intValue() + "\u00B0 while " + statInfo.getCurrentSchedulePeriod();
+				} else {
+					status = "Hold " + overrideTemp + "\u00B0 while " + statInfo.getCurrentSchedulePeriod();
+				}
+
+				try {
+					Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+						public Boolean apply(CustomDriver driver) {
+							String adHocStatus = "";
+							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 3)) {
+								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 3)) {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text");
+									} else {
+										adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label");
+									}
+								}
+							}
+							if (status.equalsIgnoreCase(adHocStatus)) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					});
+					flag = isEventReceived;
+				} catch (TimeoutException e) {
+					flag = false;
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
+								+ " is not correctly displayed in the primary card with overridden set points:"
+								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("text"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
+								+ " is not correctly displayed in the primary card with overridden set points:"
+								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("label"));
+					}
+				}
+				if (flag) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Pass(testCase,
+								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
+								+ " is correctly displayed in the primary card with overridden set points:"
+								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("text"));
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
+								+ " is correctly displayed in the primary card with overridden set points:"
+								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("label"));
+					}
+				} else {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
+								+ " is not correctly displayed in the primary card with overridden set points:"
+								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("text"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
+								+ " is not correctly displayed in the primary card with overridden set points:"
+								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("label"));
+					}
+				}
+			} else if (scheduleType.equalsIgnoreCase("Time")) {
+				String thermostatSetPointStatus = statInfo.getThermostatSetPointsStatus();
+				if (thermostatSetPointStatus.equalsIgnoreCase("Permanent Hold")) {
+					String status;
+					if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						status = "Hold " + overrideTemp.intValue() + "\u00B0 Permanently";
+					} else {
+						status = "Hold " + overrideTemp + "\u00B0 Permanently";
+					}
+					try {
+						Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+							public Boolean apply(CustomDriver driver) {
+								String adHocStatus = "";
+								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 3)) {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text");
+									} else {
+										adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label");
+									}
+								}
+								if (status.equalsIgnoreCase(adHocStatus)) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+						});
+						flag = isEventReceived;
+					} catch (TimeoutException e) {
+						flag = false;
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
+									+ " is not correctly displayed in the primary card with overridden set points and time:"
+									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("text"));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
+									+ " is not correctly displayed in the primary card with overridden set points and time:"
+									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("label"));
+						}
+					}
+					if (flag) {
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							Keyword.ReportStep_Pass(testCase,
+									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
+									+ " is correctly displayed in the primary card with overridden set points and time:"
+									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("text"));
+						} else {
+							Keyword.ReportStep_Pass(testCase,
+									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
+									+ " is correctly displayed in the primary card with overridden set points and time:"
+									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("label"));
+						}
+					} else {
+						flag = false;
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
+									+ " is not correctly displayed in the primary card with overridden set points and time:"
+									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("text"));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
+									+ " is not correctly displayed in the primary card with overridden set points and time:"
+									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("label"));
+						}
+					}
+				} else if (thermostatSetPointStatus.equalsIgnoreCase("HoldUntil")) {
+					SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+					SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
+					SimpleDateFormat time24Format = new SimpleDateFormat("HH:mm");
+					String nextPeriodTime = statInfo.getNextPeriodTime();
+					Date date = timeFormat.parse(nextPeriodTime);
+					String nextPeriodTime12Hours = time12Format.format(date);
+					String nextPeriodTime24Hours = time24Format.format(date);
+					String status12Hours;
+					String status24Hours;
+
+					if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						status12Hours = "Hold " + overrideTemp.intValue() + "\u00B0 until " + nextPeriodTime12Hours.toLowerCase().replaceAll("^0*", "");
+						status24Hours = "Hold " + overrideTemp.intValue() + "\u00B0 until " + nextPeriodTime24Hours.toLowerCase().replaceAll("^0*", "");
+					} else {
+						status12Hours = "Hold " + overrideTemp + "\u00B0 until " + nextPeriodTime12Hours.toLowerCase().replaceAll("^0*", "");
+						status24Hours = "Hold " + overrideTemp + "\u00B0 until " + nextPeriodTime24Hours.toLowerCase().replaceAll("^0*", "");
+					}
+					try {
+						Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+							public Boolean apply(CustomDriver driver) {
+								String adHocStatus = "";
+								if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 3)) {
+									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+										adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text");
+									} else {
+										adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label");
+									}
+								}
+								if (status12Hours.equalsIgnoreCase(adHocStatus)
+										|| status24Hours.equalsIgnoreCase(adHocStatus)) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+						});
+						flag = isEventReceived;
+					} catch (TimeoutException e) {
+						flag = false;
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+									.contains("M")
+									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("text").contains("m")) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status12Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status24Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+							}
+						} else {
+							System.out.println("Element : " + MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("value"));
+							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+									.contains("M")
+									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("label").contains("m")) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status12Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status24Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+							}
+						}
+					}
+					if (flag) {
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+									.contains("M")
+									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("text").contains("m")) {
+								Keyword.ReportStep_Pass(testCase,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status12Hours
+												+ " is correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+							} else {
+								Keyword.ReportStep_Pass(testCase,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status24Hours
+												+ " is correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+							}
+						} else {
+							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+									.contains("M")
+									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("label").contains("m")) {
+								Keyword.ReportStep_Pass(testCase,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status12Hours
+												+ " is correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+							} else {
+								Keyword.ReportStep_Pass(testCase,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status24Hours
+												+ " is correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+							}
+
+						}
+					} else {
+						flag = false;
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+									.contains("M")
+									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("text").contains("m")) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status12Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status24Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+							}
+						} else {
+							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+									.contains("M")
+									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+									.getAttribute("label").contains("m")) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status12Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
+												+ status24Hours
+												+ " is not correctly displayed in the primary card with overridden set points and time:"
+												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+							}
+						}
+					}
+				}
+			}
+		} 
+		catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean verifyHoldUntilStatusOnPrimaryCard(TestCases testCase, TestCaseInputs inputs,
+			String holdUntilTime) {
+		boolean flag = true;
+		try {
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
+					testCase.getMobileDriver());
+			fWait.pollingEvery(5, TimeUnit.SECONDS);
+			fWait.withTimeout(60, TimeUnit.SECONDS);
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String overrideTemp = "";
+			String systemMode = statInfo.getThermoStatMode();
+			if (systemMode.equals("Auto")) {
+				systemMode = statInfo.getThermostatModeWhenAutoChangeOverActive();
+			}
+			if (systemMode.equals("Heat")) {
+				overrideTemp = statInfo.getHeatSetPoints();
+			} else if (systemMode.equals("Cool")) {
+				overrideTemp = statInfo.getCoolSetPoints();
+			}
+			if (statInfo.getThermostatUnits().equalsIgnoreCase("Fahrenheit")) {
+				Double temp = Double.parseDouble(overrideTemp);
+				overrideTemp = String.valueOf(temp);
+			}
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
+			SimpleDateFormat time24Format = new SimpleDateFormat("HH:mm");
+			Date date = time12Format.parse(holdUntilTime);
+			String nextPeriodTime12Hours = time12Format.format(date);
+			String nextPeriodTime24Hours = time24Format.format(date);
+			String status12Hours;
+			String status24Hours;
+			Double temp = Double.parseDouble(overrideTemp);
+			if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+				status12Hours = "Hold " + temp.intValue() + "\u00B0 until " + nextPeriodTime12Hours;
+				status24Hours = "Hold " + temp.intValue() + "\u00B0 until " + nextPeriodTime24Hours;
+			} else {
+				status12Hours = "Hold " + overrideTemp + "\u00B0 until " + nextPeriodTime12Hours;
+				status24Hours = "Hold " + overrideTemp + "\u00B0 until " + nextPeriodTime24Hours;
+			}
+			try {
+				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+					public Boolean apply(CustomDriver driver) {
+						String adHocStatus = "";
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 3)) {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+										.getAttribute("text");
+							} else {
+								adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+										.getAttribute("label");
+							}
+						}
+						if (status12Hours.equalsIgnoreCase(adHocStatus)
+								|| status24Hours.equalsIgnoreCase(adHocStatus)) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				});
+				flag = isEventReceived;
+			} catch (TimeoutException e) {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Error Occured : " + e.getMessage());
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+							.contains("M")
+							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+									.contains("m")) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status12Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status24Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+					}
+				} else {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+							.contains("M")
+							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+									.contains("m")) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status12Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status24Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+					}
+				}
+			}
+			if (flag) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+							.contains("M")
+							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+									.contains("m")) {
+						Keyword.ReportStep_Pass(testCase,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status12Hours
+										+ " is correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status24Hours
+										+ " is correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+					}
+				} else {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+							.contains("M")
+							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+									.contains("m")) {
+						Keyword.ReportStep_Pass(testCase,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status12Hours
+										+ " is correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status24Hours
+										+ " is correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+					}
+
+				}
+			} else {
+				flag = false;
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+							.contains("M")
+							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
+									.contains("m")) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status12Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status24Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
+					}
+				} else {
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+							.contains("M")
+							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
+									.contains("m")) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status12Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
+										+ status24Hours
+										+ " is not correctly displayed in the primary card with overridden set points and time:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
+					}
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean verifyThermostatStatus(TestCases testCase, TestCaseInputs inputs, String scheduleType) {
+		boolean flag = true;
+		try {
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			String status = "";
+			String appStatus = "";
+			if (scheduleType.equalsIgnoreCase("geofence")) {
+				status = "Using " + statInfo.getCurrentSchedulePeriod() + " Settings";
+			} else if (scheduleType.equalsIgnoreCase("time")) {
+				status = "Following Schedule";
+			} else if ((scheduleType.equalsIgnoreCase("off"))) {
+				status = "Schedule Off";
+			}
+			if (statInfo.getThermoStatMode().equalsIgnoreCase("Off")) {
+				Keyword.ReportStep_Pass(testCase, "Schedule status is not shown when system mode if OFF");
+				return flag;
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 5)) {
+					appStatus = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+							.getAttribute("text");
+				} else {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
+						appStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("text");
+					}
+				}
+
+			} else {
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 5)) {
+					appStatus = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+							.getAttribute("label");
+				} else {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
+						appStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+								.getAttribute("label");
+					}
+				}
+			}
+			if (appStatus.equalsIgnoreCase(status)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Verify Thermostat Status : Status : " + status + " is correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Verify Thermostat Status : Status: " + status + " is not displayed correctly");
+			}
+		} catch (NoSuchElementException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Verify Thermostat Schedule : No Such Element Exception. Could not find Thermostat Schedule Status");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Verify Thermostat Schedule : Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
 
 }

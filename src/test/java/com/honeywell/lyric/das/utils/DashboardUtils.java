@@ -17,7 +17,7 @@ public class DashboardUtils {
 	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected) throws Exception {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
-		if (d.areDevicesVisibleOnDashboard(5)) {
+		if (d.areDevicesVisibleOnDashboard(25)) {
 			dashboardIconText = d.getDashboardDeviceNameElements();
 		}
 		boolean f = false;

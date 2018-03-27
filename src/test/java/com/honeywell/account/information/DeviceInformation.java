@@ -1,6 +1,9 @@
 package com.honeywell.account.information;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -297,6 +300,32 @@ public class DeviceInformation {
 		}
 		return systemMode;
 	}
+	public String getCoolSetPoints() {
+		String coolSetPoints = " ";
+		try {
+			if (deviceInformation != null) {
+
+				coolSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("coolSetpoint").toString();
+
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Heat Set Points : Not Connected to CHAPI. Returning \"\" value");
+				return "";
+			}
+			if (getThermostatUnits().equals("Celsius")) {
+				coolSetPoints = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, coolSetPoints);
+			} else if (getThermostatUnits().equals("Fahrenheit")) {
+				Double temp = Double.parseDouble(coolSetPoints);
+				coolSetPoints = String.valueOf(temp.intValue());
+			}
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+		}
+		return coolSetPoints;
+	}
 
 
 	public String getIndoorTemperature() {
@@ -359,12 +388,147 @@ public class DeviceInformation {
 				currentSetPoints = String.valueOf(temp.intValue());
 			}
 		} catch (Exception e) {
-			
+
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
 					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return currentSetPoints;
+	}
+
+	public String getHeatSetPoints() {
+		String heatSetPoints = " ";
+		try {
+
+			if (deviceInformation != null) {
+
+				heatSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("heatSetpoint").toString();
+
+
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Get Heat Set Points : Not Connected to CHAPI. Returning \"\" value");
+				return "";
+			}
+			if (getThermostatUnits().equals("Celsius")) {
+				heatSetPoints = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, heatSetPoints);
+			} else if (getThermostatUnits().equals("Fahrenheit")) {
+				Double temp = Double.parseDouble(heatSetPoints);
+				heatSetPoints = String.valueOf(temp.intValue());
+			}
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+		}
+		return heatSetPoints;
+	}
+	
+	public String getCurrentSchedulePeriod() {
+		String schedulePeriod = "";
+		if (deviceInformation != null) {
+			schedulePeriod = deviceInformation.getJSONObject("currentSchedulePeriod").get("period").toString();
+			if (schedulePeriod.equalsIgnoreCase("P1") || schedulePeriod.equalsIgnoreCase("P3")) {
+				schedulePeriod = "Home";
+			} else if (schedulePeriod.equalsIgnoreCase("P2")) {
+				schedulePeriod = "Away";
+			} else if (schedulePeriod.equalsIgnoreCase("P4")) {
+				schedulePeriod = "Sleep";
+			}
+			return schedulePeriod;
+		} else {
+			schedulePeriod = "";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Information is null");
+		}
+		return schedulePeriod;
+	}
+	
+	public String getThermostatSetPointsStatus() {
+		String status = "";
+		if (getThermostatType().equalsIgnoreCase("Jasper")) {
+			if (deviceInformation != null) {
+				status = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("thermostatSetpointStatus").toString();
+				return status;
+			} else {
+				status = "";
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Stat Information is null");
+			}
+		}
+		return status;
+	}
+
+	public String getNextPeriodTime() {
+		String nextPeriodTime = "";
+		if (deviceInformation != null) {
+			nextPeriodTime = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+					.get("nextPeriodTime").toString();
+			return nextPeriodTime;
+		} else {
+			nextPeriodTime = "";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Information is null");
+		}
+		return nextPeriodTime;
+	}
+
+
+	public String getVacationStartTime() {
+		String startTime = "";
+		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		if (deviceInformation != null) {
+			try {
+				startTime = deviceInformation.getJSONObject("vacationHold").getString("vacationStart");
+				Date date = vacationDateFormat.parse(startTime);
+				Calendar c1 = Calendar.getInstance();
+				c1.setTime(date);
+				c1.set(Calendar.SECOND, 0);
+				startTime = vacationDateFormat.format(c1.getTime());
+			} catch (Exception e) {
+				startTime = " ";
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return startTime;
+	}
+	
+	public boolean isVacationRunning() {
+		boolean status;
+		if (deviceInformation != null) {
+			if (getThermostatSetPointsStatus().equalsIgnoreCase("VacationHold")) {
+				status = true;
+			} else {
+				status = false;
+			}
+			return status;
+		} else {
+			status = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"StatInformation is null");
+		}
+		return status;
+	}
+	
+	public String getVacationEndTime() {
+		String endTime = "";
+		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		if (deviceInformation != null) {
+			try {
+				endTime = deviceInformation.getJSONObject("vacationHold").getString("vacationEnd");
+				Date date = vacationDateFormat.parse(endTime);
+				Calendar c1 = Calendar.getInstance();
+				c1.setTime(date);
+				c1.set(Calendar.SECOND, 0);
+				endTime = vacationDateFormat.format(c1.getTime());
+			} catch (Exception e) {
+				endTime = " ";
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return endTime;
 	}
 
 

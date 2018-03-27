@@ -58,8 +58,10 @@ so that my home temperature will get set automatically based on edited geofence 
   I want to edit Geofence schedule by editing with new temperature value
     Given "geofence" schedule "With" sleep settings
     And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user edit "geofence" schedule by changing temperature to <Temperature> value 
      Then verify "geofence" schedule successfully gets edited
+     And user selects "Jasper device" from the dashboard
       And verify temperature is set within the maximum and minimum range
       And verify temperature is incremental by 1F for fahrenheit and 0.5C for celsius
 #       And user logs out of the app
@@ -76,12 +78,14 @@ so that my home temperature will get set automatically based on edited geofence 
   As an user
   I want to edit geofence schedule by editing with new temperature value
    	Given "geofence" schedule "With" sleep settings
-    And user logs in to Lyric app
+    And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
     When user edit "geofence" schedule by changing temperature to <Temperature> value
     Then verify "geofence" schedule successfully gets edited
+    And user selects "Jasper device" from the dashboard
     And verify temperature is set within the maximum and minimum range
     And verify cool set point is always greater than or equal to heat set point
-    And user logs out of the app
+#    And user logs out of the app
     Examples: 
       | Temperature   | 
       #| Above Maximum | 
@@ -95,23 +99,27 @@ so that my home temperature will get set automatically based on edited geofence 
   As an user
   I want to edit geofence schedule by setting up with new time value for any time format
   	Given "geofence" schedule "With" sleep settings
-  	And user logs in to Lyric app
+  	And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user edit "geofence" schedule with new sleep time values
      Then verify "geofence" schedule successfully gets edited
+     And user selects "Jasper device" from the dashboard
       And verify the time fields can be set with increments of "15 minutes"
-      And user logs out of the app
+#      And user logs out of the app
   
   @EditNAGeofencescheduleAddingSleepsettingsTimeformat @Automated @--xrayid:ATER-7583
   Scenario: To edit geofence schedule by adding sleep settings to geofence schedule with any time format
   As an user
   I want to edit geofence schedule by adding sleep settings for any time format
   	Given "geofence" schedule "Without" sleep settings
-  	And user logs in to Lyric app
+  	And user launches and logs in to the Lyric application
+    And user selects "Jasper device" from the dashboard
      When user edits "geofence" schedule by "Adding"
      And user edit "geofence" schedule with new sleep time values
      Then verify "geofence" schedule successfully gets edited
+     And user selects "Jasper device" from the dashboard
       And verify the time fields can be set with increments of "15 minutes"
-      And user logs out of the app
+#      And user logs out of the app
   
   @ErrormessageEditGeofencescheduleNA @NotAutomatable
   Scenario Outline:To get error messages on system unavailability to edit schedule
@@ -146,7 +154,7 @@ so that my home temperature will get set automatically based on edited geofence 
       | Location services is disabled in mobile device  | Without   | 
       | Location services is disabled for the lyric app | Without   | 
   
-  @GuidemessagToTurnONLocationservicesNALocationGeofenceOFF @PendingToAutomate @--xrayid:ATER-7584
+  @GuidemessagToTurnONLocationservicesNALocationGeofenceOFF @NotAutomatable @--xrayid:ATER-7584
   Scenario Outline:To edit geofence schedule eventhough geofence is set to OFF for location by editing home settings or by editing sleep settings or by editing away settings   
   As an user
   I should be allowed to edit my geofence scheduling eventhough geofence is set to OFF for location  
