@@ -17,13 +17,14 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyStatusOnScreen extends Keyword {
 
 	private TestCases testCase;
-    private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public ArrayList<String> expectedScreen;
 	public boolean flag = true;
 	public DataTable data;
@@ -32,7 +33,7 @@ public class VerifyStatusOnScreen extends Keyword {
 
 	public VerifyStatusOnScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
-	    this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
 	}
 
@@ -46,6 +47,22 @@ public class VerifyStatusOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should see the (.*) status as (.*) on the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
+		case "SECURITY SOLUTION CARD":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SENSOR" :{
+				SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ISSUE": {
+					securityScreen.isSensorIssueVisible();
+				}
+				case "NO ISSUE": {
+					securityScreen.isSensorNoIssueVisible();
+				}
+				}
+
+			}
+			}
+		}
 		case "DIMMER PRIMARY CARD":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DIMMER" :{
@@ -168,7 +185,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					break;
 				}
 				case "OFFLINE": {
-   					currentStatus=zwaveScreen.getSwitchStatusOffline();
+					currentStatus=zwaveScreen.getSwitchStatusOffline();
 					if(currentStatus.toUpperCase().equals("OFFLINE")){
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
 					}else{

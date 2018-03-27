@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
+import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -20,6 +21,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -712,6 +714,16 @@ public class NavigateToScreen extends Keyword {
 
 			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR STATUS": {
+					SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
+					if(securityScreen.isSensorIssueVisible()){
+						securityScreen.ClickOnSensorIssue();
+					}
+					else if(securityScreen.isSensorNoIssueVisible()){
+						securityScreen.ClickOnSensorNoIssue();
+					}
+
+				}
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();

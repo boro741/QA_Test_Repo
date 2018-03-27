@@ -30,7 +30,14 @@ public class AlarmScreen extends MobileScreens {
 	
 	public boolean isEntryDelayScreenDisplayed(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToHomeButton") 
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightProgress");
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton");
 	}
 	
+	public boolean clickOnSwitchToHome(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
+	}
+	
+	public boolean clickOnSwitchToNight(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToNightButton");
+	}
 }
