@@ -1271,5 +1271,4 @@ public class LyricUtils {
 		}
 		return time;
 	}
-
 }
