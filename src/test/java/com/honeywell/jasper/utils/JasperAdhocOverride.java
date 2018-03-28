@@ -35,6 +35,8 @@ import com.honeywell.screens.FlyCatcherPrimaryCard;
 
 import io.appium.java_client.TouchAction;
 
+
+
 public class JasperAdhocOverride {
 
 	public static boolean verifyAdHocHoldPermanentlyStatus(TestCases testCase, TestCaseInputs inputs,
@@ -91,11 +93,11 @@ public class JasperAdhocOverride {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					Keyword.ReportStep_Pass(testCase, "Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:"
 							+ status + " is correctly displayed in the primary card with overridden set points:"
-							+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text"));
+							+ adhoc.getAdhocStatusElement());
 				} else {
 					Keyword.ReportStep_Pass(testCase, "Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:"
 							+ status + " is correctly displayed in the primary card with overridden set points:"
-							+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label"));
+							+ adhoc.getAdhocStatusElement());
 				}
 			} else {
 				flag = false;
@@ -103,14 +105,12 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
 							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-							.getAttribute("text"));
+							+ adhoc.getAdhocStatusElement());
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
 							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-							.getAttribute("label"));
+							+ adhoc.getAdhocStatusElement());
 				}
 			}
 		} catch (Exception e){
@@ -203,10 +203,10 @@ public class JasperAdhocOverride {
 
 	public static boolean resumeScheduleFromAdHoc(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "AdHocStatus");
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "ResumeScheduleButton");
+		AdhocScreen adhoc = new AdhocScreen(testCase);
+		if (adhoc.isAdhocStatusVisible()) {
+			flag = flag & adhoc.clickOnAdhocStatusButton();
+			flag = flag & adhoc.clickOnResumeButton();
 		} else {
 			flag = false;
 			Keyword.ReportStep_Pass(testCase, "Resume Schedule : Ad hoc is not overridden cannot resume schedule");
@@ -262,10 +262,10 @@ public class JasperAdhocOverride {
 
 	public static boolean holdSetPointsPermanentlyFromAdHoc(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "AdHocStatus");
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "PemanentlyHoldButton");
+                AdhocScreen adhoc = new AdhocScreen(testCase);
+		if (adhoc.isAdhocStatusVisible()) {
+			flag = flag & adhoc.clickOnAdhocStatusButton();
+			flag = flag & adhoc.clickOnPemanentlyHoldButton();
 		} else {
 			flag = false;
 			Keyword.ReportStep_Pass(testCase,
@@ -276,10 +276,10 @@ public class JasperAdhocOverride {
 
 	public static boolean holdSetPointsUntilFromAdHoc(TestCases testCase) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "AdHocStatus");
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HoldUntilButton");
+        AdhocScreen adhoc = new AdhocScreen(testCase);
+		if (adhoc.isAdhocStatusVisible()) {
+			flag = flag & adhoc.clickOnAdhocStatusButton();
+			flag = flag & adhoc.clickOnHoldUntilButton();
 		} else {
 			flag = false;
 			Keyword.ReportStep_Pass(testCase,

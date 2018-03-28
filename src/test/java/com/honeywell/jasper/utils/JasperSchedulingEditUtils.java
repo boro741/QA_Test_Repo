@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.InputVariables;
+import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -24,9 +25,9 @@ import io.appium.java_client.TouchAction;
 public class JasperSchedulingEditUtils {
 	public static boolean editGeofenceSchedule(TestCases testCase, TestCaseInputs inputs, String geofencePeriod) {
 		boolean flag = true;
+		 SchedulingScreen schl = new SchedulingScreen(testCase);
 		try 
 		{
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 			Keyword.ReportStep_Pass(testCase,
@@ -43,7 +44,7 @@ public class JasperSchedulingEditUtils {
 							"Verify Displayed Schedule : When I'm Home text not displayed on schedule screen");
 				}
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Home Settings']", testCase, 5)) {
+				if (schl.isUseMyHomeSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 				} else {
@@ -53,7 +54,7 @@ public class JasperSchedulingEditUtils {
 				}
 
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Create Sleep Settings']", testCase, 5)) {
+					if (schl.isCreateSleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Create Sleep Settings option displayed on schedule screen");
 					} else {
@@ -62,7 +63,7 @@ public class JasperSchedulingEditUtils {
 								"Verify Displayed Schedule :Create Sleep Settings option not displayed on schedule screen");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
+					if (schl.isUseMySleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Use My Sleep Settings option displayed on schedule screen");
 					} else {
@@ -81,7 +82,7 @@ public class JasperSchedulingEditUtils {
 							"Verify Displayed Schedule : When I'm Away text not displayed on schedule screen");
 				}
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Away Settings']", testCase, 5)) {
+				if (schl.isUseMyAwaySettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 				} else {
@@ -90,7 +91,7 @@ public class JasperSchedulingEditUtils {
 							"Verify Displayed Schedule :Use My Home Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Home", testCase, 5)) {
+				if (schl.isGeofenceHomeElementVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 				} else {
@@ -100,7 +101,7 @@ public class JasperSchedulingEditUtils {
 				}
 
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-					if (MobileUtils.isMobElementExists("name", "Create Sleep Settings", testCase, 5)) {
+					if (schl.isCreateSleepSettingsTextVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Create Sleep Settings option displayed on schedule screen");
 					} else {
@@ -109,7 +110,7 @@ public class JasperSchedulingEditUtils {
 								"Verify Displayed Schedule : Create Sleep Settings option not displayed on schedule screen");
 					}
 				} else {
-					if (MobileUtils.isMobElementExists("name", "Geofence_Sleep", testCase, 5)) {
+					if (schl.isGeofenceSleepElementVisible(5)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Displayed Schedule : Use My Sleep Settings option displayed on schedule screen");
 					} else {
@@ -118,7 +119,7 @@ public class JasperSchedulingEditUtils {
 								"Verify Displayed Schedule : Use My Sleep Settings option not displayed on schedule screen");
 					}
 				}
-				if (MobileUtils.isMobElementExists("name", "Geofence_Away", testCase, 5)) {
+				if (schl.isGeofenceAwayElementVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 				} else {
@@ -133,11 +134,11 @@ public class JasperSchedulingEditUtils {
 			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
 			if (geofencePeriod.equalsIgnoreCase("Home")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Use My Home Settings']")) {
+					if (!schl.clickOnUseMyHomeSettingsButton()) {
 						flag = false;
 					}
 				} else {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GeofenceHome")) {
+					if (!schl.clickOnGeofenceHomeButton()) {
 						flag = false;
 					}
 				}
@@ -183,16 +184,16 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Home", targetSetPoints);
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+				flag = flag & schl.clickOnSaveButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting set points for Home period ***************");
 			} else if (geofencePeriod.equalsIgnoreCase("Sleep")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Use My Sleep Settings']")) {
+					if (!schl.clickOnUseMySleepSettingsButton()) {
 						flag = false;
 					}
 				} else {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GeofenceSleep")) {
+					if (!schl.clickOnGeofenceSleepButton()) {
 						flag = false;
 					}
 				}
@@ -221,16 +222,16 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+				flag = flag & schl.clickOnSaveButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for Sleep period ***************");
 			} else if (geofencePeriod.equalsIgnoreCase("Away")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Use My Away Settings']")) {
+					if (!schl.clickOnUseMyAwaySettingsButton()) {
 						flag = false;
 					}
 				} else {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GeofenceAway")) {
+					if (!schl.clickOnGeofenceAwayButton()) {
 						flag = false;
 					}
 				}
@@ -276,13 +277,13 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Away", targetSetPoints);
-				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+				flag = flag & schl.clickOnSaveButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting set points for Away period ***************");
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+				if (schl.isBackButtonVisible(5)) {
+					if (!schl.clickOnBackButton()) {
 						flag = false;
 					}
 				} else {
@@ -290,8 +291,8 @@ public class JasperSchedulingEditUtils {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+				if (schl.isCloseButtonVisible(5)) {
+					if (!schl.clickOnCloseButton()) {
 						flag = false;
 					}
 				} else {
@@ -308,7 +309,7 @@ public class JasperSchedulingEditUtils {
 
 	public static boolean editGeofenceScheduleWithMinMaxValues(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 		Keyword.ReportStep_Pass(testCase,
@@ -325,7 +326,7 @@ public class JasperSchedulingEditUtils {
 						"Verify Displayed Schedule : When I'm Home text not displayed on schedule screen");
 			}
 
-			if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Home Settings']", testCase, 5)) {
+			if (schl.isUseMyHomeSettingsTextVisible(5)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 			} else {
@@ -335,7 +336,7 @@ public class JasperSchedulingEditUtils {
 			}
 
 			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Create Sleep Settings']", testCase, 5)) {
+				if (schl.isCreateSleepSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Create Sleep Settings option displayed on schedule screen");
 				} else {
@@ -344,7 +345,7 @@ public class JasperSchedulingEditUtils {
 							"Verify Displayed Schedule :Create Sleep Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
+				if (schl.isUseMySleepSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Sleep Settings option displayed on schedule screen");
 				} else {
@@ -363,7 +364,7 @@ public class JasperSchedulingEditUtils {
 						"Verify Displayed Schedule : When I'm Away text not displayed on schedule screen");
 			}
 
-			if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Away Settings']", testCase, 5)) {
+			if (schl.isUseMyAwaySettingsTextVisible(5)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 			} else {
@@ -372,7 +373,7 @@ public class JasperSchedulingEditUtils {
 						"Verify Displayed Schedule :Use My Home Settings option not displayed on schedule screen");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("name", "Geofence_Home", testCase, 5)) {
+			if (schl.isGeofenceHomeElementVisible(5)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Displayed Schedule : Use My Home Settings option displayed on schedule screen");
 			} else {
@@ -382,7 +383,7 @@ public class JasperSchedulingEditUtils {
 			}
 
 			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-				if (MobileUtils.isMobElementExists("name", "Create Sleep Settings", testCase, 5)) {
+				if (schl.isCreateSleepSettingsTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Create Sleep Settings option displayed on schedule screen");
 				} else {
@@ -391,7 +392,7 @@ public class JasperSchedulingEditUtils {
 							"Verify Displayed Schedule : Create Sleep Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Sleep", testCase, 5)) {
+				if (schl.isGeofenceSleepElementVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : Use My Sleep Settings option displayed on schedule screen");
 				} else {
@@ -400,7 +401,7 @@ public class JasperSchedulingEditUtils {
 							"Verify Displayed Schedule : Use My Sleep Settings option not displayed on schedule screen");
 				}
 			}
-			if (MobileUtils.isMobElementExists("name", "Geofence_Away", testCase, 5)) {
+			if (schl.isGeofenceAwayElementVisible(5)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Displayed Schedule : Use My Away Settings option displayed on schedule screen");
 			} else {
@@ -411,8 +412,8 @@ public class JasperSchedulingEditUtils {
 		}
 
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Use My Home Settings']", testCase, 5)) {
-				if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Use My Home Settings']")) {
+			if (schl.isUseMyHomeSettingsTextVisible(5)) {
+				if (!schl.clickOnUseMyHomeSettingsButton()) {
 					flag = false;
 				}
 			} else {
@@ -421,8 +422,8 @@ public class JasperSchedulingEditUtils {
 						"Use My Home Settings option not displayed on schedule screen");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GeofenceHome", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GeofenceHome")) {
+			if (schl.isGeofenceHomeElementVisible(5)) {
+				if (!schl.clickOnGeofenceHomeButton()) {
 					flag = false;
 				}
 			} else {
@@ -437,15 +438,15 @@ public class JasperSchedulingEditUtils {
 		Keyword.ReportStep_Pass(testCase,
 				"*************** Setting maximum and minimum set points for Home ***************");
 		flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
-		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+		flag = flag & schl.clickOnSaveButton();
 		Keyword.ReportStep_Pass(testCase,
 				"*************** Completed setting maximum and minimum set points for Home ***************");
 
 		if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
 			inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
-					if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Use My Sleep Settings']")) {
+				if (schl.isUseMySleepSettingsTextVisible(5)) {
+					if (!schl.clickOnUseMySleepSettingsButton()) {
 						flag = false;
 					}
 				} else {
@@ -454,8 +455,8 @@ public class JasperSchedulingEditUtils {
 							"Use My Sleep Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GeofenceSleep", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GeofenceSleep")) {
+				if (schl.isGeofenceSleepElementVisible(5)) {
+					if (!schl.clickOnGeofenceSleepButton()) {
 						flag = false;
 					}
 				} else {
@@ -468,14 +469,14 @@ public class JasperSchedulingEditUtils {
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Setting maximum and minimum set points for Sleep ***************");
 			flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+			flag = flag & schl.clickOnSaveButton();
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed setting maximum and minimum set points for Sleep ***************");
 		}
 
 		inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_AWAY);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Use My Away Settings']", testCase, 5)) {
+			if (schl.isUseMyAwaySettingsTextVisible(5)) {
 				if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Use My Away Settings']")) {
 					flag = false;
 				}
@@ -485,8 +486,8 @@ public class JasperSchedulingEditUtils {
 						"Use My Away Settings option not displayed on schedule screen");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "GeofenceAway", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "GeofenceAway")) {
+			if (schl.isGeofenceAwayElementVisible(5)) {
+				if (!schl.clickOnGeofenceAwayButton()) {
 					flag = false;
 				}
 			} else {
@@ -499,13 +500,13 @@ public class JasperSchedulingEditUtils {
 		Keyword.ReportStep_Pass(testCase,
 				"*************** Setting maximum and minimum set points for Away ***************");
 		flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, null, true);
-		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+		flag = flag & schl.clickOnSaveButton();
 		Keyword.ReportStep_Pass(testCase,
 				"*************** Completed setting maximum and minimum set points for Away ***************");
 
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+			if (schl.isBackButtonVisible(5)) {
+				if (!schl.clickOnBackButton()) {
 					flag = false;
 				}
 			} else {
@@ -513,8 +514,8 @@ public class JasperSchedulingEditUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-				if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+			if (schl.isCloseButtonVisible(5)) {
+				if (!schl.clickOnCloseButton()) {
 					flag = false;
 				}
 			} else {
@@ -530,6 +531,7 @@ public class JasperSchedulingEditUtils {
 		boolean flag = true;
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
+		 SchedulingScreen schl = new SchedulingScreen(testCase);
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -586,7 +588,7 @@ public class JasperSchedulingEditUtils {
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Setting maximum and minimum set points ***************");
 						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						flag = flag & schl.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed setting maximum and minimum set points ***************");
 						inputs.setInputValue(InputVariables.SCHEDULE_PERIOD_EDITED, periodName);
@@ -658,7 +660,7 @@ public class JasperSchedulingEditUtils {
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Setting maximum and minimum set points ***************");
 						flag = flag & JasperSchedulingUtils.setTimeSchedulePeriodSetPoints(testCase, inputs, null, true);
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+						flag = flag & schl.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed setting maximum and minimum set points ***************");
 						inputs.setInputValue(InputVariables.SCHEDULE_PERIOD_EDITED, periodName);
@@ -781,8 +783,7 @@ public class JasperSchedulingEditUtils {
 			int periodCounterToBeDeleted) {
 		boolean flag = true;
 		try {
-
-
+			 SchedulingScreen schl = new SchedulingScreen(testCase);
 			WebElement period = null;
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
@@ -951,7 +952,7 @@ public class JasperSchedulingEditUtils {
 					"*************** Setting time and set points for " + schedulePeriod + " ***************");
 			flag = flag
 					& JasperSchedulingUtils.setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint, period);
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton");
+			flag = flag & schl.clickOnSaveButton();
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed setting time and set points for " + schedulePeriod + " ***************");
 

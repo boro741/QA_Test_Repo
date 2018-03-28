@@ -15,7 +15,7 @@ public class AdhocScreen extends MobileScreens {
 	}
 
 	public boolean isAdhocStatusVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus", 3, false);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus", 5, false);
 	}
 
 	public String getAdhocStatusElement() {
@@ -29,5 +29,20 @@ public class AdhocScreen extends MobileScreens {
 		}
 		return adHocStatus;
 	}
-
+	public boolean clickOnResumeButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ResumeScheduleButton");
+	}
+	
+	public boolean clickOnAdhocStatusButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AdHocStatus");
+	}
+	
+	public boolean clickOnPemanentlyHoldButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "PemanentlyHoldButton");
+	}
+	
+	public boolean clickOnHoldUntilButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HoldUntilButton");
+	}
+	
 }

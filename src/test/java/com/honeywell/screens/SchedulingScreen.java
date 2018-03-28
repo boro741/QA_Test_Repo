@@ -947,6 +947,10 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isGeofenceSleepCoolElementVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleepCool", timeOut);
 	}
+	
+	public boolean isGeofenceHomeElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceHome", timeOut);
+	}
 
 	public WebElement getGeofenceSleepCoolElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSleepCool");
@@ -1007,7 +1011,15 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isGeofenceCoolHeatTemperatureVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceCoolHeatTemperature", timeOut);
 	}
-
+	
+	public boolean isGeofenceSleepElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleep", timeOut);
+	}
+	
+	public boolean isGeofenceAwayElementVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAway", timeOut);
+	}
+	
 	public WebElement getGeofenceCoolHeatTemperatureElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceCoolHeatTemperature");
 	}
@@ -1061,4 +1073,37 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddPeriodButton");
 	}
+	
+	public boolean clickOnUseMyHomeSettingsButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMyHomeSettingsText");
+	}
+	
+	public boolean clickOnGeofenceHomeButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceHome");
+	}
+	
+	public boolean clickOnUseMySleepSettingsButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMySleepSettingsText");
+	}
+	
+	public boolean clickOnGeofenceSleepButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceSleep");
+	}
+	
+	public boolean clickOnUseMyAwaySettingsButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMyAwaySettingsText");
+	}
+	
+	public boolean clickOnGeofenceAwayButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
+	}
+
+	
+	
 }
