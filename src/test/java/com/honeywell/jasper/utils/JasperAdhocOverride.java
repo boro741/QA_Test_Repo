@@ -30,6 +30,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
+import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 
 import io.appium.java_client.TouchAction;
@@ -46,6 +47,7 @@ public class JasperAdhocOverride {
 			fWait.withTimeout(60, TimeUnit.SECONDS);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			AdhocScreen adhoc = new AdhocScreen(testCase);
 			Double overrideTemp = Double.parseDouble(overrideSetPoints);
 			String status;
 			if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
@@ -57,14 +59,8 @@ public class JasperAdhocOverride {
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
 						String adHocStatus = "";
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 3)) {
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text");
-							} else {
-								adHocStatus = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label");
-							}
+						if (adhoc.isAdhocStatusVisible()) {
+							adHocStatus = adhoc.getAdhocStatusElement();
 						}
 						if (status.equalsIgnoreCase(adHocStatus)) {
 							return true;
@@ -145,6 +141,7 @@ public class JasperAdhocOverride {
 	public static boolean changeSystemMode(TestCases testCase, TestCaseInputs inputs, String expectedMode) {
 		boolean flag = true;
 		FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			if (!statInfo.isOnline()) {
@@ -181,9 +178,9 @@ public class JasperAdhocOverride {
 
 	public static boolean verifyVisibilityOfAdHocButtonOnSolutionCard(TestCases testCase, boolean isVisible) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+		AdhocScreen adhoc = new AdhocScreen(testCase);
 		if (isVisible) {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
+			if (adhoc.isAdhocStatusVisible()) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Ad Hoc Override Present On Solution Card : Ad hoc override button is visible on solution card");
 			} else {
@@ -192,7 +189,7 @@ public class JasperAdhocOverride {
 						"Verify Ad Hoc Override Present On Solution Card : Ad hoc override button is not visible on solution card");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
+			if (adhoc.isAdhocStatusVisible()) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Verify Ad Hoc Override Present On Solution Card : Ad hoc override button visible on solution card");
