@@ -20,7 +20,7 @@ Scenario: As a user I want to switch to different states in my DAS device from H
 Given user sets the entry/exit timer to "45" seconds
 When user launches and logs in to the Lyric application
 And user is set to "Home" mode through CHIL
-Then user navigates to "Security Solution Card" screen from the "Dashboard" screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from "Home" to "Away"
 Then user should be displayed with a "Switching to Away" text
 And user should be displayed with a switching timer
@@ -107,7 +107,6 @@ Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 Then user should be displayed with the correct time stamp
 
-
 @CommandControlfromOffmode 
 Scenario: As a user I want to switch to different states in my DAS device from Off mode 
 Given user sets the entry/exit timer to "45" seconds 
@@ -129,3 +128,22 @@ When user switches from "Away" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 Then user should be displayed with the correct time stamp
+
+@PushNotificationWhenSwitchedToDiffSecurityStates
+Scenario: As a user I want to receive push notifications while switching between security states
+Given user sets the entry/exit timer to "15" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user clears all push notifications
+When "Away Mode" is triggered in the background
+Then user should receive a "set to Away" push notification
+And user clears all push notifications
+When "Night Mode" is triggered in the background
+Then user should receive a "set to Night" push notification
+And user clears all push notifications
+When "Off Mode" is triggered in the background
+Then user should receive a "set to Off" push notification
+And user clears all push notifications
+When "Home Mode" is triggered in the background
+Then user should receive a "set to Home" push notification

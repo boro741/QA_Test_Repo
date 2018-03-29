@@ -643,6 +643,7 @@ public class LyricUtils {
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
