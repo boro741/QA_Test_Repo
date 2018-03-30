@@ -13,8 +13,11 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASAlarmUtils;
+import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -43,7 +46,65 @@ public class SelectElementOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.*)\" from \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
+			if(parameters.get(1).equalsIgnoreCase("Entry delay")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "SWITCH TO HOME":{
+					DASAlarmUtils.clickOnSwitchToHome(testCase);
+					break;
+				}
+				case "SWITCH TO NIGHT":{
+					DASAlarmUtils.clickOnSwitchToNight(testCase);
+					break;
+				}
+				case "ATTENTION":{
+					DASAlarmUtils.clickOnAttention(testCase,inputs);
+					break;
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+				}
+				}
+			}else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "CONFIRMS ATTENTION":{
+					flag=DASCameraUtils.clickOnAttention(testCase);
+					flag= flag & DASCameraUtils.clickOnCreateAttention(testCase, inputs);
+					break;
+				}
+				case "CANCELS ATTENTION":{
+					flag= flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
+					break;
+
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+				}
+				}
+			}else if (parameters.get(1).equalsIgnoreCase("alarm")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "DISMISS ALARM":{
+					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
+					
+					break;
+				}
+				case "CALL":{
+					flag= flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
+					break;
+
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+				}
+				}
+			}
+
+
+			else if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Activate ZWAVE Device")) {
 				switch (parameters.get(0).toUpperCase()) {
@@ -172,7 +233,7 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 		} catch (
 
-		Exception e) {
+				Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

@@ -7,8 +7,8 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 
 public class DoorSensorActions extends Keyword {
 
@@ -39,6 +39,10 @@ public class DoorSensorActions extends Keyword {
 				DASSensorUtils.closeDoor(testCase, inputs);
 			} else if(states.get(0).contains("opens") && states.get(1).equalsIgnoreCase("after exit")){
 				DASSensorUtils.openDoor(testCase, inputs);
+			} else if(states.get(0).contains("closes") && states.get(1).equalsIgnoreCase("after exit")){
+				DASSensorUtils.closeDoor(testCase, inputs);
+			} else if(states.get(0).contains("does not close") && states.get(1).equalsIgnoreCase("after exit")){
+				DASAlarmUtils.timeOutForNoSensorAction(testCase,inputs);
 			}
 			else{
 				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");

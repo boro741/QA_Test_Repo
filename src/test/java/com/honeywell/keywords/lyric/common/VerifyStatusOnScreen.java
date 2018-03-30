@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.Dashboard;
@@ -47,19 +48,49 @@ public class VerifyStatusOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should see the (.*) status as (.*) on the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
+		case "SENSOR STATUS":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DOOR" :{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OPEN": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs,expectedScreen.get(0),expectedScreen.get(1));
+					break;
+				}
+				case "CLOSE": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs,expectedScreen.get(0),expectedScreen.get(1));
+					break;
+				}
+				}
+				if(flag){
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is "+expectedScreen.get(1).toUpperCase());
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0).toUpperCase() + " is not in "+expectedScreen.get(1).toUpperCase() );
+				}
+				break;
+			}
+			}
+		}
 		case "SECURITY SOLUTION CARD":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SENSOR" :{
 				SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ISSUE": {
-					securityScreen.isSensorIssueVisible();
+					flag =securityScreen.isSensorIssueVisible();
+					break;
 				}
 				case "NO ISSUE": {
-					securityScreen.isSensorNoIssueVisible();
+					flag= securityScreen.isSensorNoIssueVisible();
+					break;
 				}
 				}
-
+				if(flag){
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is "+expectedScreen.get(1).toUpperCase());
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0).toUpperCase() + " is not in "+expectedScreen.get(1).toUpperCase() );
+				}
 			}
 			}
 		}

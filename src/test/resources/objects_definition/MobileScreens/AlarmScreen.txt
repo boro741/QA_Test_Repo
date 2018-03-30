@@ -18,9 +18,9 @@ DashboardNightIcon	xpath	//*[@content-desc='night']					id	btn_security_dashboar
 DismissRequestProcessing	xpath	//*[@text='Processing request']					xpath	"//*[contains(@name,'Please')]"				
 AlarmWillSoundInText	xpath	//*[@text='Alarm will sound in']					name	Alarm will sound in				
 AlarmWillSoundInSeconds	id	exit_delay_timer_text					name	countDownTimer				
-SwitchToHomeButton	id	lyricButton_switch_to_home					name	SWITCH TO HOME				
-SwitchToNightButton	id	lyricButton_switch_to_night					name	SWITCH TO NIGHT				
+SwitchToHomeButton	id	lyricButton_switch_to_home					name	Switch To Home				
+SwitchToNightButton	id	lyricButton_switch_to_night					name	Switch To Night				
 SwitchToNightProgress	xpath	//*[@text='Switching to Night mode']										
-PanicButton	id	alarms_bottom_button					name	Panic Button				
-PanicAlert	xpath	"//*[contains(@text,'Are you sure you want to raise panic alarm')]"										
-PanicConfirm	id	button1										
+AttentionButton	id	alarms_bottom_button					name	Attention				
+AttentionAlert	xpath	"//*[contains(@text,'Are you sure you want to raise panic alarm')]"										
+AttentionConfirm	id	button1										

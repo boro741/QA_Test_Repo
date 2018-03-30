@@ -15,11 +15,14 @@ public class AlarmScreen extends MobileScreens {
 	public boolean isAlarmScreenDisplayed()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Title") 
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle");
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle")
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton");
 	}
 
 	public boolean clickOnDismissAlarm() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlarmDismissButton");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlarmDismissButton") &&
+				MobileUtils.clickOnElement(objectDefinition, testCase, "DismissAlarmPopupOk");
+		
 	}
 
 	public boolean clickOnCall() {
@@ -39,5 +42,13 @@ public class AlarmScreen extends MobileScreens {
 	
 	public boolean clickOnSwitchToNight(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToNightButton");
+	}
+	
+	public boolean clickOnAttention(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AttentionButton");
+	}
+	
+	public boolean isWaitingToCloseScreenDisplayed(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingToCloseDoor") ;
 	}
 }

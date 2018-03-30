@@ -13,9 +13,12 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASAlarmUtils;
+import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -47,6 +50,60 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "WAITING TO CLOSE":{
+				AlarmScreen alarmScreen = new AlarmScreen(testCase);
+				if (alarmScreen.isWaitingToCloseScreenDisplayed()){
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+			}
+			case "ENTRY DELAY":{
+				if (DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)){
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "NO ENTRY DELAY":{
+				if (!DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)){
+					Keyword.ReportStep_Pass(testCase,
+							"Not displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Displayed with " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "ALARM":{
+				if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+			}
+			case "CAMERA SOLUTION CARD": {
+				if (DASCameraUtils.isCameraLiveStreaming(testCase)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "ZWAVE CONTROLLER INFO": {
 				DASZwaveUtils.isControllerDetailsDisplayed(testCase);
 				break;
