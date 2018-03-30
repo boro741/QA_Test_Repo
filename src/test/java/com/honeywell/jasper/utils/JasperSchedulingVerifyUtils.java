@@ -1589,6 +1589,7 @@ public class JasperSchedulingVerifyUtils {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 			List<WebElement> schedule_setpoints = null;
 			WebElement setPointIOS = null;
+			SchedulingScreen schl = new SchedulingScreen(testCase);
 			String tempHeatSetPointApp = "", tempCoolSetPointApp = "", tempHeatSetPointFromInputs = "",
 					tempCoolSetPointFromInputs = "", SleepStartEndTime = "", SleepStartTime = "", SleepEndTime = "",
 					periodStartTimeApp = "", periodStartTimeInputs = "";
@@ -2481,7 +2482,7 @@ public class JasperSchedulingVerifyUtils {
 						} else {
 							desiredDayIndex = Arrays.asList(scheduleDays)
 									.indexOf(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).split("_")[0]);
-							if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
+							if (schl.isScheduleDayHeaderVisible(5)) {
 								scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
 										"ScheduleDayHeader");
 								lesserDayIndex = Arrays.asList(scheduleDays)
@@ -3031,6 +3032,7 @@ public class JasperSchedulingVerifyUtils {
 		List<WebElement> period = null;
 		String temp = "";
 		List<WebElement> scheduleDayHeaders = null;
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -3158,8 +3160,8 @@ public class JasperSchedulingVerifyUtils {
 						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 					}
 					desiredDayIndex = Arrays.asList(days).indexOf(days[i]);
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-						scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+					if (schl.isScheduleDayHeaderVisible(5)) {
+						scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 						lesserDayIndex = Arrays.asList(days).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 						greaterDayIndex = Arrays.asList(days)
 								.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
@@ -3261,6 +3263,7 @@ public class JasperSchedulingVerifyUtils {
 		List<WebElement> scheduleDayHeaders = null;
 		ArrayList<String> arrlist = new ArrayList<String>(8);
 		int editedDayDisplayedCount = 0;
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		String temp = "";
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -3274,8 +3277,8 @@ public class JasperSchedulingVerifyUtils {
 			if (!inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).isEmpty()
 					&& inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) != null) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-						scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+					if (schl.isScheduleDayHeaderVisible(5)) {
+						scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 						for (int j = 0; j < scheduleDayHeaders.size(); j++) {
 							if (!arrlist.contains(scheduleDayHeaders.get(j).getText())) {
 								arrlist.add(scheduleDayHeaders.get(j).getText());
@@ -3285,8 +3288,8 @@ public class JasperSchedulingVerifyUtils {
 						touchAction.perform();
 					}
 				} else {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-						scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+					if (schl.isScheduleDayHeaderVisible(5)) {
+						scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 						for (int j = 0; j < scheduleDayHeaders.size(); j++) {
 							if (scheduleDayHeaders.get(j).getAttribute("value")!= null){
 								System.out.println(scheduleDayHeaders.get(j).getAttribute("value"));
@@ -3350,6 +3353,7 @@ public class JasperSchedulingVerifyUtils {
 		boolean flag = true;
 		try {
 			WebElement period = null, periodCoolPoint = null, periodHeatPoint = null;
+			SchedulingScreen schl = new SchedulingScreen(testCase);
 			Double maxHeat = 0.0, minHeat = 0.0, maxCool = 0.0, minCool = 0.0;
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
@@ -3462,8 +3466,8 @@ public class JasperSchedulingVerifyUtils {
 				}
 			} else {
 				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+				if (schl.isScheduleDayHeaderVisible(5)) {
+					scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 					greaterDayIndex = Arrays.asList(scheduleDays)
 							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
@@ -3585,6 +3589,7 @@ public class JasperSchedulingVerifyUtils {
 			WebElement period = null, periodCoolPoint = null, periodHeatPoint = null;
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
+			SchedulingScreen schl = new SchedulingScreen(testCase);
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 
@@ -3709,8 +3714,8 @@ public class JasperSchedulingVerifyUtils {
 				}
 			} else {
 				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+				if (schl.isScheduleDayHeaderVisible(5)) {
+					scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 					greaterDayIndex = Arrays.asList(scheduleDays)
 							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
@@ -4289,6 +4294,7 @@ public class JasperSchedulingVerifyUtils {
 			String timeToVerify, String periodName) {
 		boolean flag = true;
 		String periodTime = "";
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
@@ -4326,8 +4332,8 @@ public class JasperSchedulingVerifyUtils {
 			}
 		} else {
 			desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-				scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+			if (schl.isScheduleDayHeaderVisible(5)) {
+				scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 				lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 				greaterDayIndex = Arrays.asList(scheduleDays)
 						.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
@@ -4377,12 +4383,12 @@ public class JasperSchedulingVerifyUtils {
 			String scheduleTypeToBeValidated) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 		if (scheduleTypeToBeValidated.equalsIgnoreCase("No")) {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 10)
-					&& MobileUtils.isMobElementExists(fieldObjects, testCase, "NoScheduleText", 10)) {
+			if (schl.isCreateScheduleButtonVisible(10)
+					&& schl.isNoScheduleTextVisible(10)) {
 				Keyword.ReportStep_Pass(testCase, "No Schedule screen is shown in View schedule screen");
 			} else {
 				flag = false;
