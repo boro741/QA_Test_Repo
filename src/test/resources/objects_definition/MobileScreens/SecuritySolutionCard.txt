@@ -26,3 +26,6 @@ ActivityLogDay	id	bump_line_separator_image	id	bump_line_separator_image	id	bump
 SetToOffPopupTitle	XPATH	//*[@text='Set to Off?']	XPATH	//*[@text='Set to Off?']	XPATH	//*[@text='Set to Off?']	NAME	Set to Off?	NAME	Set to Off?	NAME	Set to Off?
 CancelButtonInSetToOffPopup	ID	button2	ID	button2	ID	button2	NAME	Cancel	NAME	Cancel	NAME	Cancel
 OKButtonInSetToOffPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
+ClearNotificationsIcon	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	NAME	Clear notifications	NAME	Clear notifications	NAME	Clear notifications
+ClearNotificationsText	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text						
+ConfirmButtonInClearNotifications							NAME	Confirm clear notifications	NAME	Confirm clear notifications	NAME	Confirm clear notifications

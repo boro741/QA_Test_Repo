@@ -206,6 +206,49 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public String getTimeStamp() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimeStamp");
 	}
+	
+	public boolean isClearNotificationsIconVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearNotificationsIcon", 5);
+	}
+	
+	public boolean clickOnClearNotificationsIcon() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearNotificationsIcon");
+	}
+	
+	public boolean isClearNotificationsTextVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearNotificationsText", 5);
+	}
+	
+	public boolean clickOnClearNotificationsText() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearNotificationsText");
+	}
+	
+	public boolean isClearNotificationsIconEnabled() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ClearNotificationsIcon").getAttribute("enabled").equalsIgnoreCase("true");
+	}
+	
+	public boolean clickOnConfirmButtonInClearNotifications() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmButtonInClearNotifications");
+	}
+	
+	public boolean verifyIfPushNotificationIsVisible(String notification) {
+		String locatorValue = "";
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			locatorValue = "//*[@text='" + notification + "']";
+		} else {
+			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
+			System.out.println("##########locatorValue:" + locatorValue);
+		}
+		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 20)) {
+			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"'" + notification + "' Push Notification not present");
+		}
+		return flag;
+	}
 
 	public boolean verifystate(String stateToVerify) {
 		String currentPanelState = MobileUtils.getFieldValue(objectDefinition, testCase, "CurrentPanelState");

@@ -619,4 +619,35 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
+	public int switchToOff(long locationID, String deviceID, TestCases testCase) {
+
+		int result = -1;
+		try (CHILUtil chUtil = new CHILUtil(inputs)) {
+			if (chUtil.getConnection()) {
+				locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				if (locationID == -1) {
+					return -1;
+				}
+				if (chUtil.isConnected()) {
+					try {
+						String headerData = " ";
+						String url = chilURL + "api/v3/locations/" + locationID+"/devices/"+deviceID+"/partitions/1/DisArm";
+						headerData = "{\"enableSilentMode\":1}";
+						try {
+							result = doPutRequest(url, headerData).getResponseCode();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+	
 }
