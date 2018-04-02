@@ -111,6 +111,14 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
 	}
 	
+	public boolean isSecurityStatusLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus");
+	}
+	
+	public String getSecurityStatusLabel() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
+	}
+	
 	public String getZwaveDeviceStatus(String expectedDevice) {
 		if (this.areDevicesVisibleOnDashboard(10)) {
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,

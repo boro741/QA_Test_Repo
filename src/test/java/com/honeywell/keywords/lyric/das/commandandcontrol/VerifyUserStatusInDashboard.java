@@ -10,16 +10,16 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCommandControlUtils;
-import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.Dashboard;
 
-public class VerifyUserStatus extends Keyword {
+public class VerifyUserStatusInDashboard extends Keyword {
 
 	private TestCases testCase;
 	// private TestCaseInputs inputs;
 	private ArrayList<String> status;
 	public boolean flag = true;
 
-	public VerifyUserStatus(TestCases testCase, TestCaseInputs inputs, ArrayList<String> status) {
+	public VerifyUserStatusInDashboard(TestCases testCase, TestCaseInputs inputs, ArrayList<String> status) {
 		// this.inputs = inputs;
 		this.testCase = testCase;
 		this.status = status;
@@ -33,22 +33,32 @@ public class VerifyUserStatus extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user status should be set to \"(.*)\"$")
+	@KeywordStep(gherkins = "^user status should be set to \"(.*)\" in the dashboard screen$")
 	public boolean keywordSteps() {
-		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		String currentStatus = sc.getCurrentSecurityState();
+		Dashboard d = new Dashboard(testCase);
+		String currentStatus = d.getSecurityStatusLabel();
 		System.out.println("#############currentStatus: " + currentStatus);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (currentStatus.equalsIgnoreCase("Sleep")) {
 				currentStatus = "Night";
 			}
 		}
-		if (currentStatus.equalsIgnoreCase(status.get(0))) {
-			Keyword.ReportStep_Pass(testCase, "User status is set to " + status.get(0));
+		if (currentStatus != null) {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (currentStatus.contains(status.get(0).toUpperCase())) {
+					Keyword.ReportStep_Pass(testCase,
+							"User status is set to " + status.get(0) + " in the dashboard screen");
+				}
+			} else {
+				if (currentStatus.contains(status.get(0))) {
+					Keyword.ReportStep_Pass(testCase,
+							"User status is set to " + status.get(0) + " in the dashboard screen");
+				}
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"User status is not set to " + status.get(0));
+					"User status is not set to " + status.get(0) + " in the dashboard screen");
 		}
 		return flag;
 	}

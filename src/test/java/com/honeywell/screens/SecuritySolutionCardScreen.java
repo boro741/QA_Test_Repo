@@ -22,6 +22,14 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		super(testCase, screenName);
 	}
 
+	public boolean isBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorListBack");
+	}
+
+	public boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
+	}
+
 	public boolean isSecurityStateVisible(String securityState) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -36,7 +44,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.ImageView[@content-desc='" + securityState + "']", testCase);
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("NAME", securityState, testCase, 5)) {
+			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
 				return MobileUtils.isMobElementExists("NAME", securityState, testCase);
 			} else {
 				if (MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase)) {
@@ -63,7 +71,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.ImageView[@content-desc='" + securityState + "']");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("NAME", securityState, testCase, 5)) {
+			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
 				return MobileUtils.clickOnElement(testCase, "NAME", securityState);
 			} else {
 				if (MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase)) {
@@ -206,31 +214,32 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public String getTimeStamp() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimeStamp");
 	}
-	
+
 	public boolean isClearNotificationsIconVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearNotificationsIcon", 5);
 	}
-	
+
 	public boolean clickOnClearNotificationsIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearNotificationsIcon");
 	}
-	
+
 	public boolean isClearNotificationsTextVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearNotificationsText", 5);
 	}
-	
+
 	public boolean clickOnClearNotificationsText() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearNotificationsText");
 	}
-	
+
 	public boolean isClearNotificationsIconEnabled() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "ClearNotificationsIcon").getAttribute("enabled").equalsIgnoreCase("true");
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ClearNotificationsIcon").getAttribute("enabled")
+				.equalsIgnoreCase("true");
 	}
-	
+
 	public boolean clickOnConfirmButtonInClearNotifications() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmButtonInClearNotifications");
 	}
-	
+
 	public boolean verifyIfPushNotificationIsVisible(String notification) {
 		String locatorValue = "";
 		boolean flag = true;
