@@ -48,7 +48,6 @@ public class JasperAdhocOverride {
 			fWait.pollingEvery(2, TimeUnit.SECONDS);
 			fWait.withTimeout(60, TimeUnit.SECONDS);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 			AdhocScreen adhoc = new AdhocScreen(testCase);
 			Double overrideTemp = Double.parseDouble(overrideSetPoints);
 			String status;
@@ -78,14 +77,12 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
 							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-							.getAttribute("text"));
+							+ adhoc.getAdhocStatusElement());
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
 							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-							.getAttribute("label"));
+							+ adhoc.getAdhocStatusElement());
 				}
 			}
 

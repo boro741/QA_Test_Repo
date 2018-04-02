@@ -20,24 +20,21 @@ import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AdhocScreen;
 
 
 public class JasperVacation {
 	
 	public static boolean verifyVacationStatusOnPrimaryCard(TestCases testCase, TestCaseInputs inputs, boolean isOn) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 		String adHocText = "";
 		String endDate = "";
 		String endDateToBeDisplayed = "";
+		AdhocScreen adhoc = new AdhocScreen(testCase);
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (isOn) {
 			try {
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					adHocText = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text");
-				} else {
-					adHocText = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label");
-				}
+				adHocText = adhoc.getAdhocStatusElement();
 			} catch (NoSuchElementException e) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -70,12 +67,8 @@ public class JasperVacation {
 				}
 			}
 		} else {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AdHocStatus", 5)) {
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					adHocText = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text");
-				} else {
-					adHocText = MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label");
-				}
+			if (adhoc.isAdhocStatusVisible()) {
+				adHocText = adhoc.getAdhocStatusElement();
 				if (adHocText.toUpperCase().contains("VACATION")) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

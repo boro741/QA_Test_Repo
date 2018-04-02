@@ -13,7 +13,6 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.InputVariables;
@@ -533,8 +532,6 @@ public class JasperSchedulingEditUtils {
 		List<WebElement> scheduleDayHeaders = null;
 		 SchedulingScreen schl = new SchedulingScreen(testCase);
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 		CustomDriver driver = testCase.getMobileDriver();
 		Dimension dimension = driver.manage().window().getSize();
 		int height = dimension.getHeight();
@@ -598,8 +595,8 @@ public class JasperSchedulingEditUtils {
 			}
 		} else {
 			desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-				scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+			if (schl.isScheduleDayHeaderVisible(5)) {
+				scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 				lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 				greaterDayIndex = Arrays.asList(scheduleDays)
 						.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
@@ -679,9 +676,8 @@ public class JasperSchedulingEditUtils {
 		WebElement period = null;
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 		CustomDriver driver = testCase.getMobileDriver();
 		Dimension dimension = driver.manage().window().getSize();
 		int height = dimension.getHeight();
@@ -700,8 +696,8 @@ public class JasperSchedulingEditUtils {
 			period = testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='" + schedulePeriod + "']"));
 		} else {
 			desiredDayIndex = Arrays.asList(scheduleDays).indexOf(schedulePeriod.split("_")[0]);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-				scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+			if (schl.isScheduleDayHeaderVisible(5)) {
+				scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 				lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 				greaterDayIndex = Arrays.asList(scheduleDays)
 						.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
@@ -737,20 +733,20 @@ public class JasperSchedulingEditUtils {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select the period-" + period);
 		}
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon", 5)) {
-			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "PeriodDeleteIcon")) {
+		if (schl.isPeriodDeleteIconVisible(5)) {
+			if (!schl.clickOnPeriodDeleteIcon()) {
 				flag = false;
 			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate the Period delete icon");
 		}
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ConfirmDeleteButton", 5)) {
-			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeleteButton")) {
+		if (schl.isConfirmDeleteButtonVisible(5)) {
+			if (!schl.clickOnConfirmDeleteButton()) {
 				flag = false;
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleOptionsButton", 5)
-						|| MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateScheduleButton", 5)) {
+				if (schl.isScheduleOptionsVisible(5)
+						|| schl.isCreateScheduleButtonVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Schedule period is deleted when clicked on Delete during Delete operation");
 				} else {
@@ -788,8 +784,6 @@ public class JasperSchedulingEditUtils {
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 			CustomDriver driver = testCase.getMobileDriver();
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
@@ -811,8 +805,8 @@ public class JasperSchedulingEditUtils {
 				period = testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='" + schedulePeriod + "']"));
 			} else {
 				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(schedulePeriod.split("_")[0]);
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+				if (schl.isScheduleDayHeaderVisible(5)) {
+					scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 					greaterDayIndex = Arrays.asList(scheduleDays)
 							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));

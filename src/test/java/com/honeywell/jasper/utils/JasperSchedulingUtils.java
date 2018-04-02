@@ -13886,17 +13886,17 @@ public class JasperSchedulingUtils {
 	public static boolean addOrDeleteSleepSettings(TestCases testCase, TestCaseInputs inputs,
 			boolean addSleepSettings) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 		flag = flag & viewScheduleOnPrimaryCard(testCase);
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
 		if (addSleepSettings) {
 			inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "Yes");
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateSleepSettings", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "CreateSleepSettings")) {
+			if (schl.isCreateSleepSettingsVisible(5)) {
+				if (!schl.clickOnCreateSleepSettings()) {
 					flag = false;
 				} else {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SaveButton", 5)) {
-						if (!MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton")) {
+					if (schl.IsSaveButtonVisible(5)) {
+						if (!schl.clickOnSaveButton()) {
 							flag = false;
 						}
 					} else {
@@ -13932,8 +13932,8 @@ public class JasperSchedulingUtils {
 							"Use My Sleep Settings option not displayed on schedule screen");
 				}
 			}
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "PeriodDeleteIcon")) {
+			if (schl.isPeriodDeleteIconVisible(5)) {
+				if (!schl.clickOnPeriodDeleteIcon()) {
 					flag = false;
 				} else {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -13964,8 +13964,8 @@ public class JasperSchedulingUtils {
 			}
 		}
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+			if (schl.isBackButtonVisible(5)) {
+				if (!schl.clickOnBackButton()) {
 					flag = false;
 				}
 			} else {
@@ -13989,9 +13989,9 @@ public class JasperSchedulingUtils {
 	public static boolean setGeofenceSleepSettings(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
+			SchedulingScreen schl = new SchedulingScreen(testCase);
 			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
 
 			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
@@ -14043,8 +14043,8 @@ public class JasperSchedulingUtils {
 						+ targetSetPoints.get("targetCoolTemp"));
 			}
 			flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "SaveButton", 5)) {
-				if (!MobileUtils.clickOnElement(fieldObjects, testCase, "SaveButton")) {
+			if (schl.IsSaveButtonVisible(5)) {
+				if (!schl.clickOnSaveButton()) {
 					flag = false;
 				}
 			} else {
@@ -14052,8 +14052,8 @@ public class JasperSchedulingUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate SAVE button");
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton")) {
+				if (schl.isBackButtonVisible(5)) {
+					if (!schl.clickOnBackButton()) {
 						flag = false;
 					}
 				} else {
@@ -14082,6 +14082,7 @@ public class JasperSchedulingUtils {
 		boolean flag = true;
 		String periodToSelect = null;
 		Random rn = new Random();
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (statInfo.getThermostatType().equalsIgnoreCase("HoneyBadger")
 				|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
@@ -14162,8 +14163,8 @@ public class JasperSchedulingUtils {
 				}
 			}
 		}
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PeriodDeleteIcon", 5)) {
-			if (!MobileUtils.clickOnElement(fieldObjects, testCase, "PeriodDeleteIcon")) {
+		if (schl.isPeriodDeleteIconVisible(5)) {
+			if (!schl.clickOnPeriodDeleteIcon()) {
 				flag = false;
 			}
 		} else {

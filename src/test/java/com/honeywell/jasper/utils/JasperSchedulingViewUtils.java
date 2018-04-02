@@ -1,7 +1,6 @@
 package com.honeywell.jasper.utils;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -14,37 +13,37 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.InputVariables;
+import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
 
 public class JasperSchedulingViewUtils {
 	public static boolean selectIndividualDaysViewOrGroupedDaysView(TestCases testCase, String viewDays) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		try {
-			if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByIndividualDays", 10)) {
+			if (!schl.isViewByIndividualDaysVisible(5)) {
 				flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-				if (!MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByIndividualDays", 5)) {
+				if (!schl.isViewByIndividualDaysVisible(5)) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "App not in schedule view screen");
 				}
 			}
 
 			if ("Individual Days".equalsIgnoreCase(viewDays)) {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByIndividualDays", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ViewByIndividualDays")) {
+				if (schl.isViewByIndividualDaysVisible(5)) {
+					if (!schl.clickOnViewByIndividualDays()) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Selected View by Individual days");
 					}
 				}
 			} else {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ViewByGroupedDays", 5)) {
-					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ViewByGroupedDays")) {
+				if (schl.isViewByGroupedDaysVisible(5)) {
+					if (!schl.clickOnViewByGroupedDays()) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Selected View by Grouped days");
@@ -66,10 +65,9 @@ public class JasperSchedulingViewUtils {
 		try {
 			String schedulePeriodToSelect = "", jasperStatType = "";
 			WebElement period = null;
+			SchedulingScreen schl = new SchedulingScreen(testCase);
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 			List<WebElement> scheduleDayHeaders = null;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 			String[] schedulePeriods_NA = { "Wake", "Away", "Home", "Sleep" };
 			String[] schedulePeriods_EMEA = { "1", "2", "3", "4" };
 			String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
@@ -158,8 +156,8 @@ public class JasperSchedulingViewUtils {
 						.findElement(By.xpath("//*[@content-desc='" + schedulePeriodToSelect + "']"));
 			} else {
 				desiredDayIndex = Arrays.asList(days).indexOf(schedulePeriodToSelect.split("_")[0]);
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
+				if (schl.isScheduleDayHeaderVisible(5)) {
+					scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 					lesserDayIndex = Arrays.asList(days).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 					greaterDayIndex = Arrays.asList(days)
 							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));

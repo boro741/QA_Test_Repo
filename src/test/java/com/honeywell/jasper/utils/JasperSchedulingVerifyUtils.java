@@ -963,7 +963,6 @@ public class JasperSchedulingVerifyUtils {
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 		SchedulingScreen ss = new SchedulingScreen(testCase);
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		String jasperStatType = statInfo.getJasperDeviceType();
@@ -1032,7 +1031,6 @@ public class JasperSchedulingVerifyUtils {
 				String everydayStartTime = "", everydayEndTime = "";
 				Double temp;
 				List<WebElement> everydayPeriodTime = null;
-
 				if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE) != null
 						&& !inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).isEmpty()) {
 					if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
@@ -1073,8 +1071,9 @@ public class JasperSchedulingVerifyUtils {
 						period.findElement(By.id("scheduling_period_time")).click();
 
 						if (ss.isTimeChooserHeaderVisible(5)) {
-							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-									.getText().split("\\s+")[0];
+//							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+//									.getText().split("\\s+")[0];
+							everydayStartTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1082,8 +1081,7 @@ public class JasperSchedulingVerifyUtils {
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							if (ss.isTimeChooserEndTimeVisible(5)) {
-								everydayEndTime = MobileUtils
-										.getMobElement(fieldObjects, testCase, "TimeChooserEndTime").getText()
+								everydayEndTime = ss.getTimeChooserEndTimeValue()
 										.split("\\s+")[0];
 							} else {
 								flag = false;
@@ -1586,7 +1584,6 @@ public class JasperSchedulingVerifyUtils {
 	public static boolean verifyScheduleEdited(TestCases testCase, TestCaseInputs inputs, String scheduleType) {
 		boolean flag = true;
 		try {
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 			List<WebElement> schedule_setpoints = null;
 			WebElement setPointIOS = null;
 			SchedulingScreen schl = new SchedulingScreen(testCase);
@@ -1820,7 +1817,7 @@ public class JasperSchedulingVerifyUtils {
 					}
 				}
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CreateSleepSettings", 5)) {
+					if (schl.isCreateSleepSettingsVisible(5)) {
 						Keyword.ReportStep_Pass(testCase, "Create Sleep Settings is shown on solution card");
 					} else {
 						flag = false;
@@ -2483,8 +2480,7 @@ public class JasperSchedulingVerifyUtils {
 							desiredDayIndex = Arrays.asList(scheduleDays)
 									.indexOf(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).split("_")[0]);
 							if (schl.isScheduleDayHeaderVisible(5)) {
-								scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
-										"ScheduleDayHeader");
+								scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 								lesserDayIndex = Arrays.asList(scheduleDays)
 										.indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 								greaterDayIndex = Arrays.asList(scheduleDays).indexOf(
@@ -3265,8 +3261,6 @@ public class JasperSchedulingVerifyUtils {
 		int editedDayDisplayedCount = 0;
 		SchedulingScreen schl = new SchedulingScreen(testCase);
 		String temp = "";
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 		CustomDriver driver = testCase.getMobileDriver();
 		Dimension dimension = driver.manage().window().getSize();
 		int height = dimension.getHeight();
@@ -3358,8 +3352,6 @@ public class JasperSchedulingVerifyUtils {
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
 
@@ -3591,8 +3583,6 @@ public class JasperSchedulingVerifyUtils {
 			List<WebElement> scheduleDayHeaders = null;
 			SchedulingScreen schl = new SchedulingScreen(testCase);
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
 
@@ -4298,8 +4288,6 @@ public class JasperSchedulingVerifyUtils {
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
-
 		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
 			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
 		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
@@ -4382,7 +4370,6 @@ public class JasperSchedulingVerifyUtils {
 	public static boolean verifySelectedScreenInViewScheduleScreen(TestCases testCase,
 			String scheduleTypeToBeValidated) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
 		SchedulingScreen schl = new SchedulingScreen(testCase);
 		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 

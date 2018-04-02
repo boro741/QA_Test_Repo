@@ -48,6 +48,10 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmDeleteButton");
 	}
 
+	public boolean isScheduleOptionsVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOptionsButton", timeOut);
+	}
+
 	public boolean clickOnCopyButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CopyButton");
 	}
@@ -520,7 +524,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils
 				.getMobElement(testCase, "xpath",
 						"//android.widget.FrameLayout[" + index
-								+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
+						+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
 				.getText();
 	}
 
@@ -596,7 +600,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils
 				.getMobElement(testCase, "xpath",
 						"//android.widget.FrameLayout[" + (index)
-								+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
+						+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
 				.getText();
 	}
 
@@ -856,7 +860,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isWeekendPeriodTimeElementAtIndexVisible(int index, int timeOut) {
 		return MobileUtils.isMobElementExists("Xpath",
 				"//android.widget.FrameLayout[" + (index)
-						+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
+				+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
 				testCase, timeOut);
 	}
 
@@ -916,6 +920,14 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CreateSleepSettingsText", timeOut);
 	}
 
+	public boolean isCreateSleepSettingsVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CreateSleepSettings", timeOut);
+	}
+
+	public boolean clickOnCreateSleepSettings() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CreateSleepSettings");
+	}
+
 	public boolean isUseMySleepSettingsTextVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMySleepSettingsText", timeOut);
 	}
@@ -947,7 +959,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isGeofenceSleepCoolElementVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleepCool", timeOut);
 	}
-	
+
 	public boolean isGeofenceHomeElementVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceHome", timeOut);
 	}
@@ -1011,15 +1023,15 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isGeofenceCoolHeatTemperatureVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceCoolHeatTemperature", timeOut);
 	}
-	
+
 	public boolean isGeofenceSleepElementVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleep", timeOut);
 	}
-	
+
 	public boolean isGeofenceAwayElementVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAway", timeOut);
 	}
-	
+
 	public WebElement getGeofenceCoolHeatTemperatureElement() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceCoolHeatTemperature");
 	}
@@ -1035,22 +1047,22 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isScheduleDayHeaderVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleDayHeader", timeOut);
 	}
-	
+
 	public List<WebElement> getScheduleDayHeaderElements()
 	{
 		return MobileUtils.getMobElements(objectDefinition, testCase, "ScheduleDayHeader");
 	}
-	
+
 	public boolean isTimeChooserEndTimeVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeChooserEndTime",timeOut);
 	}
-	
+
 	public boolean isNavigationLeftBarItemVisible(int timeOut)
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NavigationLeftBarItem",timeOut);
 	}
-	
+
 	public boolean clickOnNavigationLeftBarItem()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NavigationLeftBarItem");
@@ -1059,7 +1071,7 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.getMobElements(objectDefinition, testCase, "SchedulePeriodTime");
 	}
-	
+
 	public List<WebElement> getSchedulePeriodbuttons()
 	{
 		return MobileUtils.getMobElements(objectDefinition, testCase, "AddPeriodButton");
@@ -1068,42 +1080,42 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddPeriodButton", timeOut);
 	}
-	
+
 	public boolean clickOnAddPeriodButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddPeriodButton");
 	}
-	
+
 	public boolean clickOnUseMyHomeSettingsButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMyHomeSettingsText");
 	}
-	
+
 	public boolean clickOnGeofenceHomeButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceHome");
 	}
-	
+
 	public boolean clickOnUseMySleepSettingsButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMySleepSettingsText");
 	}
-	
+
 	public boolean clickOnGeofenceSleepButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceSleep");
 	}
-	
+
 	public boolean clickOnUseMyAwaySettingsButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMyAwaySettingsText");
 	}
-	
+
 	public boolean clickOnGeofenceAwayButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
 
-	
-	
+
+
 }
