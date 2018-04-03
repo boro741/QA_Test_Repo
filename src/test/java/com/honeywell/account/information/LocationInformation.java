@@ -147,5 +147,6 @@ public class LocationInformation {
 
 		return deviceCount;
 	}
+	
 
 }

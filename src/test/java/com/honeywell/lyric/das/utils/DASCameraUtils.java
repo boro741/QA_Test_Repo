@@ -15,7 +15,6 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASCameraSolutionCard;
 
 public class DASCameraUtils {
@@ -75,13 +74,24 @@ public class DASCameraUtils {
 		return flag;
 	}
 
-	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean clickOnAttention(TestCases testCase) {
 		boolean flag = true;
-		fieldObjects = MobileUtils.loadObjectFile(testCase, "DAS_VideoSolution");
-		MobileUtils.clickOnElement(fieldObjects, testCase, "Attention");
-		MobileUtils.clickOnElement(fieldObjects, testCase, "AttentionIcon");
-		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-		Keyword.ReportStep_Pass(testCase, "ALARM_TIME " + inputs.getInputValue("ALARM_TIME"));
+		DASCameraSolutionCard cameraCard = new DASCameraSolutionCard(testCase);
+		flag = flag &cameraCard.clickOnAttention();
+		return flag;
+	}
+	
+	public static boolean clickOnCreateAttention(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		DASCameraSolutionCard cameraCard = new DASCameraSolutionCard(testCase);
+		flag = flag &cameraCard.clickOnCreateAttention(inputs);
+		return flag;
+	}
+	
+	public static boolean clickOnCancelAttention(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		DASCameraSolutionCard cameraCard = new DASCameraSolutionCard(testCase);
+		flag = flag &cameraCard.clickOnCancelAttention();
 		return flag;
 	}
 
@@ -104,7 +114,8 @@ public class DASCameraUtils {
 			flag = flag & selectDASCameraSolutionCard(testCase, inputs);
 			flag = flag & enableCameraMode(testCase);
 			flag = flag & verifyLiveStreaming(testCase);
-			flag = flag & clickOnAttention(testCase, inputs);
+			flag = flag & clickOnAttention(testCase);
+			flag = flag & clickOnCreateAttention(testCase, inputs);
 			flag = flag & VerifyAttentionAlarmScreen(testCase, inputs);
 		} catch (Exception e) {
 			flag = false;

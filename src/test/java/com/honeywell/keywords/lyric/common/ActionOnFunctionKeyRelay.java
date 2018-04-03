@@ -47,7 +47,6 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 						i++;
 						if(zScreen.isDeviceNotFoundPopupDisplayed(10)){
 							flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
-							flag = flag & zScreen.isActivateZwaveScreenDisplayed();
 						}
 					}
 					while(i<3 && !zScreen.isNamingFieldDisplayed(10) && zScreen.isActivateZwaveScreenDisplayed() );
@@ -59,7 +58,6 @@ public class ActionOnFunctionKeyRelay extends Keyword {
 						i++;
 						if(zScreen.isDeviceNotFoundPopupDisplayed(10)){
 							flag = flag & zScreen.clickRetryOnDeviceNotFoundPopUp();
-							flag = flag & zScreen.isActivateZwaveScreenDisplayed();
 						}
 					}while(i<3 && !zScreen.isNamingFieldDisplayed(10) && zScreen.isActivateZwaveScreenDisplayed());
 				}

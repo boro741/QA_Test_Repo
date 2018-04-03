@@ -298,5 +298,19 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		}
 		return false;
 	}
-
+	
+	public boolean ClickOnSensorIssue() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorWithIssueBuuton");
+	}
+	
+	public boolean isSensorIssueVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorWithIssueBuuton");
+	} 
+	
+	public boolean isSensorNoIssueVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorNoIssueButton");
+	}
+	public boolean ClickOnSensorNoIssue() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNoIssueButton");
+	}
 }

@@ -10,6 +10,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
@@ -20,6 +21,8 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -46,7 +49,16 @@ public class NavigateToScreen extends Keyword {
 	@KeywordStep(gherkins = "^user navigates to (.*) screen from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
+			if (screen.get(1).equalsIgnoreCase("SENSOR STATUS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ACTIVITY LOG": {
+					SensorStatusScreen sensorScreen = new SensorStatusScreen(testCase);
+					flag = flag & sensorScreen.clickOnSensorStatusScreenBack(testCase);
+					flag = flag & DASActivityLogsUtils.openActivityLogs(testCase);
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
@@ -359,7 +371,7 @@ public class NavigateToScreen extends Keyword {
 				case "ENTRY-EXIT DELAY": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs
-								.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+							.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 					break;
 				}
 				default: {
@@ -712,6 +724,15 @@ public class NavigateToScreen extends Keyword {
 
 			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR STATUS": {
+					SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
+					if(securityScreen.isSensorNoIssueVisible()){
+						flag = flag & securityScreen.ClickOnSensorNoIssue();
+					}else {
+						flag = flag & securityScreen.ClickOnSensorIssue();
+					}
+					break;
+				}
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();

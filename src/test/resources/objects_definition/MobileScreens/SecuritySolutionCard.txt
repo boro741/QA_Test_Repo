@@ -9,8 +9,8 @@ OkButton	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	name	
 CancelBypassButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	name	Cancel				
 BypassIssueMessage	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	xpath	"//*[contains(@name,'is Open.')]"				
 TimeStamp	id	text_timestamp	id	text_timestamp	id	text_timestamp	name	PanelLastUpdatedTime	name	PanelLastUpdatedTime	name	PanelLastUpdatedTime
-SensorNoIssueButton	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	name	sensor no issue button	name	sensor no issue button	name	sensor no issue button
-SensorWithIssueBuuton	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	name	sensor trouble button	name	sensor trouble button	name	sensor trouble button
+SensorNoIssueButton	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	name	SENSORS	name	sensor no issue button	name	sensor no issue button
+SensorWithIssueBuuton	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	xpath	"//*[contains(@name,'-')]"	name	sensor trouble button	name	sensor trouble button
 SensorWithOff	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	name	sensor off button	name	sensor off button	name	sensor off button
 SensorList	id	parent_alert_item	id	parent_alert_item	id	parent_alert_item	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"
 SensorListName	id	sensor_name	id	sensor_name	id	sensor_name	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"
