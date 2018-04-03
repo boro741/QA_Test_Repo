@@ -726,10 +726,10 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR STATUS": {
 					SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
-					if(securityScreen.isSensorIssueVisible()){
-						flag = flag & securityScreen.ClickOnSensorIssue();
-					}else {
+					if(securityScreen.isSensorNoIssueVisible()){
 						flag = flag & securityScreen.ClickOnSensorNoIssue();
+					}else {
+						flag = flag & securityScreen.ClickOnSensorIssue();
 					}
 					break;
 				}

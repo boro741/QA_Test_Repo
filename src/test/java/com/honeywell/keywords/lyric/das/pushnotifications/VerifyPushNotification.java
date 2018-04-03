@@ -34,7 +34,7 @@ public class VerifyPushNotification extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should receive a \"(.+)\" push notification$")
+	@KeywordStep(gherkins = "^user receives a \"(.+)\" push notification$")
 	public boolean keywordSteps() throws KeywordException {
 		String notification = "";
 		String sensorName = "";

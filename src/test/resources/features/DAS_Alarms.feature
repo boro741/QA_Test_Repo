@@ -64,16 +64,12 @@ Background:
     Then user should be displayed with the "No Entry delay" screen
     When timer ends on user device
      Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
-     And user should be displayed with sensor status "without" issue
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     Then user should see the "door sensor" status as "closed" on the "Sensor Status"
-     When user navigates to "Activity log" screen from the "Sensor Status" screen
+     Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user "opens" activity log
    Then user receives a "Door opened at Away mode" activity log
     And user receives a "Door closed at Away mode" activity log
     And user "closes" activity log
-  #   When user navigates to "Alert" screen from "Activity Log" screen
-  #   Then user receives a "Door Opened" alert
-   #   And user receives a "Door Closed" alert
        And user "opens door with app" in background 
       When user selects the "Door Opened" push notification
 	 When user selects "Switch to Home" from "Entry delay" screen
@@ -81,31 +77,26 @@ Background:
 	 Then user status should be set to "Home"
 	  Then user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     Then user should see the "door sensor" status as "open" on the "Sensor Status"
-     When user navigates to "Activity log" screen from the "Sensor Status" screen
+     Then user should see the "door" status as "open" on the "Sensor Status"
+     And user "opens" activity log
 	 Then user receives a "Door opened at Away mode" activity log
       And user receives a "Switched to Home by app" activity log
       And user "closes" activity log
-  #   Then user navigates to "Alert" screen from "Activity Log" screen
-   #   And user receives a "Door Opened" alert
-  #    And user receives a "Switched to Home" alert
+      When user "closes" the door "after Exit" delay
    # And user mobile screen is locked
       When user switches from "Home" to "Away"
       When timer ends on user device
       When user "opens" the door "after Exit" delay
       And user "closes" the door "after Exit" delay
-      When user selects the "Switch to Night" push notification
+      When user selects the "Door Opened" push notification
+	 When user selects "Switch to Night" from "Entry delay" screen
    #  Then user should be displayed with "Mobile locked" screen
    #  When user enters "Mobile Passcode" 
-	 Then user should be displayed with "Night" mode
+	 Then user status should be set to "Night"
      When user "opens" activity log
 	 Then user receives a "Door Opened at Away mode" activity log
       And user receives a "Door Closed at Away mode" activity log
       And user receives a "Switched to Night by app" activity log
-   #  Then user navigates to "Alert" screen from "Activity Log" screen
-   #   And user receives a "Door Opened" alert
-   #   And user receives a "Door Closed" alert
-  #    And user receives a "Switched to Night" alert
       
 	 
       
@@ -253,102 +244,55 @@ Background:
    #   And user receives a "Door Closed" alert
   #    And user receives a "Switched to Night" alert
      
-      @NightMode_doorsensorOpenAfterExitDelay_Switchtohome_withdooropen @--xrayid:ATER-6147
-    Scenario: As a user I should be able to switch to home from night mode entry delay screen on my arrival to home without closing the door
-    Given user is set to "Night" mode through CHIL
+      
+      
+      @NightMode_doorsensor_NoAlarmInExitDelay_EntryDelayAfterExitDelay_SwitchingToHome_SwitchToNight @P1
+  Scenario: As a user i should not get alarm when i opens and closes the door during exit delay
+    Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "opens" the door "after Exit" delay
-     Then user receives a "Door Opened" push notification
-     When user selects the "Switch to Home" push notification
-     Then user should be displayed with "Mobile Entry" screen
-     When user enters "Mobile Passcode"
-	 Then user should be displayed with "Home" mode
-      And user should be displayed "with" issue in sensor status 
-     When user navigates to "Sensor Status" screen from "Security Solution Card" screen
-     Then user should be displayed with "door" sensor in "open" status
-     When user navigates to "Activity log" screen from "Sensor Status" screen
+      And user clears all push notifications
+     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+    And user switches from "Home" to "Night"
+     And user "opens" the door "in Exit" delay  
+    Then user should be displayed with the "No Entry delay" screen
+    When user "closes" the door "in Exit" delay
+    Then user should be displayed with the "No Entry delay" screen
+    When timer ends on user device
+     Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
+     And user should be displayed with sensor status "without" issue
+     When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+     Then user should see the "door sensor" status as "closed" on the "Sensor Status"
+     When user navigates to "Activity log" screen from the "Sensor Status" screen
+   Then user receives a "Door opened at Night mode" activity log
+    And user receives a "Door closed at Night mode" activity log
+    And user "closes" activity log
+       When user "opens door with app" in background 
+      And user selects the "Door Opened" push notification
+	 And user selects "Switch to Home" from "Entry delay" screen
+	 And user navigates to "Security Solution card" screen from the "Dashboard" screen
+	 Then user status should be set to "Home"
+	  Then user should see the "sensor" status as "issue" on the "Security Solution Card"
+     When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+     Then user should see the "door sensor" status as "open" on the "Sensor Status"
+     When user navigates to "Activity log" screen from the "Sensor Status" screen
 	 Then user receives a "Door opened at Night mode" activity log
       And user receives a "Switched to Home by app" activity log
-     Then user navigates to "Alert" screen from "Activity Log" screen
-      And user receives a "Door Opened" alert
-      And user receives a "Switched to Home" alert
-      
-	  
-	  @NightMode_doorsensorOpenAfterExitDelay_Switchtohome @AF_Mode @--xrayid:ATER-6149
-    Scenario: As a user I should be able to switch to home from door open push notification on my arrival to home after closing the door
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user force closes the application
-      And user mobile screen is locked
-     When user "opens" the door "after Exit" delay
-      And user "closes" the door "after" Exit delay
-     Then user receives a "Door Opened" push notification
-      And user receives a "Door Closed" push notification
-     When user selects the "Door Opened" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
-     Then user should be displayed with "Entry Delay" screen
-     When user selects the "Switch to Home"
-	 Then user should be displayed with "Home" mode
-      And user should be displayed "without" issue in sensor status
-     When user navigates to "Activity log" screen from "Security Solution Card" screen
-	 Then user receives a "Door Opened at Night mode" activity log
-      And user receives a "Door Closed at Night mode" activity log
-      And user receives a "Switched to Home by app" activity log
-     Then user navigates to "Alert" screen from "Activity Log" screen
-      And user receives a "Door Opened" alert
-      And user receives a "Door Closed" alert
-      And user receives a "Switched to Home" alert
-      
-      
-      @NightMode_doorsensorOpenAfterExitDelay_Switchtonight @--xrayid:ATER-6150
-    Scenario: As a user I should be able to switch to Night from door open push notification in night mode on my arrival to home after closing the door
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user force closes the application
-     When user "opens" the door "after Exit" delay
-      And user "closes" the door "after" Exit delay
-     Then user receives a "Door Opened" push notification
-      And user receives a "Door Closed" push notification
-     When user selects the "Switch to Night" push notification
+      And user "closes" activity log
+      And user "closes" the door "after Exit" delay
+   # And user mobile screen is locked
+      When user switches from "Home" to "Night"
+      When timer ends on user device
+      When user "opens" the door "after Exit" delay
+      And user "closes" the door "after Exit" delay
+      When user selects the "Switch to Night" push notification
+   #  Then user should be displayed with "Mobile locked" screen
+   #  When user enters "Mobile Passcode" 
 	 Then user should be displayed with "Night" mode
-     When user navigates to "Activity log" screen from "Security Solution Card" screen
+     When user "opens" activity log
 	 Then user receives a "Door Opened at Night mode" activity log
       And user receives a "Door Closed at Night mode" activity log
       And user receives a "Switched to Night by app" activity log
-     Then user navigates to "Alert" screen from "Activity Log" screen
-      And user receives a "Door Opened" alert
-      And user receives a "Door Closed" alert
-      And user receives a "Switched to Night" alert
-     
-    @NightMode_doorsensorOpenAfterExitDelay_Switchtonight_Alarm @--xrayid:ATER-6150
-    Scenario: As a user I should be notified with alarm after night mode if i fails to close the door within entry delay period
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "opens" the door "after Exit" delay
-     Then user receives a "Door Opened" push notification
-     When user selects the "Switch to Night" push notification
-	 Then user should be displayed with "Waiting to close" screen
-      And user should be displayed with "Alarm" screen
-     When user "dismisses" the alarm
-     Then user should be displayed with "Home" Mode
-     When user navigates to "Activity log" screen from "Security Solution Card" screen
-	 Then user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Door Alarm " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert
-      
-      
-        
+	  
     @NightMode_doorsensorOpenAfterExitDelay_AttentionAlarm @--xrayid:ATER-6150
     Scenario: As a user I should be able to initiate attention alarm from entry delay screen on observing intruder in premises in night mode
     Given user is set to "Night" mode through CHIL
@@ -1044,7 +988,7 @@ Background:
        |Previous |Current   |
        |Alarm    |Dashboard |
        |Dashboard|Camera Solution Card|
-       |Camera Solution Card|Security Solution Card|Geofence radius  |
+       |Camera Solution Card|Security Solution Card|
        |Geofence radius|Geofence radius|
        |Geofence radius|Alerts & Notification|
        |Alerts & Notification|Security Solution Card|
@@ -1121,7 +1065,7 @@ Background:
        |Previous |Current   |
        |Alarm    |Dashboard |
        |Dashboard|Camera Solution Card|
-       |Camera Solution Card|Security Solution Card|Geofence radius  |
+       |Camera Solution Card|Security Solution Card|
        |Geofence radius|Geofence radius|
        |Geofence radius|Alerts & Notification|
        |Alerts & Notification|Security Solution Card|

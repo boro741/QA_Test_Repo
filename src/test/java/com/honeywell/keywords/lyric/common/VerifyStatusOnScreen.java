@@ -57,7 +57,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					flag = sensorUtils.verifySensorState(testCase, inputs,expectedScreen.get(0),expectedScreen.get(1));
 					break;
 				}
-				case "CLOSE": {
+				case "CLOSED": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs,expectedScreen.get(0),expectedScreen.get(1));
 					break;
