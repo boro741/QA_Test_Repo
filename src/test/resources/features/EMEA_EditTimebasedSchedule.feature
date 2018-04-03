@@ -13,7 +13,7 @@ so that my home temperature will get set automatically all days based on the new
       | Features               | 
       | Scheduling Icon        |
       | Following schedule      | 
-#    And user logs out of the app
+    And user logs out of the app
   
   @AddTimeschedulePeriodEMEA @Automated @--xrayid:ATER-7527
   Scenario Outline:To view the option to add schedule period for EMEA stat 
@@ -21,7 +21,7 @@ so that my home temperature will get set automatically all days based on the new
      When user selects "Jasper device" from the dashboard
      And user selects view by "Grouped Days" 
      Then verify user is shown with an option to add period for a day to accommodate maximum of six periods
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Periods   | 
       #| 1 period  | 
@@ -39,7 +39,7 @@ so that my home temperature will get set automatically all days based on the new
       And user selects view by "Grouped Days"
       And user tries to delete "All Periods" in EMEA schedule screen
      Then Verify user should have atleast "One" schedule period in "Grouped days" view
-#      And user logs out of the app
+      And user logs out of the app
   
   @DeleteTimeschedulePeriodIndividualDaysEMEA @Automated @--xrayid:ATER-7529
   Scenario: Verify User should have atleast two schedule period in set of individual days 
@@ -50,7 +50,7 @@ so that my home temperature will get set automatically all days based on the new
       And user tries to delete one of the schedule period of the last two schedule period
       Then user selects "Jasper device" from the dashboard
      And verify user should have atleast "Two" schedule period in "Individual days" view
-#     And user logs out of the app
+     And user logs out of the app
   
   @EditEndtimeTimeschedulePeriodEMEA @Automated @--xrayid:ATER-7530
   Scenario Outline:Verify User should not be allowed to edit end time of last period in a day 
@@ -60,7 +60,7 @@ so that my home temperature will get set automatically all days based on the new
       And user selects view by <Type>
       And user selects the last schedule period of a day
      Then verify user should not be allowed to edit end time
-#     And user logs out of the app
+     And user logs out of the app
       Examples:
       | Type            | 
       | Grouped days    | 
@@ -75,7 +75,7 @@ so that my home temperature will get set automatically all days based on the new
       And user selects any schedule period in a day
      Then verify user should not be allowed to edit end time with same as start time
       #And verify end time is atleast "10 min" after the start time
-#      And user logs out of the app
+      And user logs out of the app
      Examples:
       | Type            | 
       | Grouped days    | 
@@ -116,7 +116,7 @@ so that my home temperature will get set automatically all days based on the new
       And user selects view by <Type>
       And user selects any schedule period in a day
      Then verify user should be allowed to edit start time with all possible values for both time formats
-#     And user logs out of the app
+     And user logs out of the app
      Examples:
       | Type            | 
       | Grouped days    | 
@@ -145,7 +145,7 @@ so that my home temperature will get set automatically all days based on the new
       And user selects "Jasper device" from the dashboard
       And user selects view by "Grouped Days" 
      Then verify Time schedule grouped with edited <Days> separately and remaining separately
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Days       | 
       | One day    | 
@@ -162,7 +162,7 @@ so that my home temperature will get set automatically all days based on the new
      When user selects "Jasper device" from the dashboard
       And user selects view by "Individual Days"
      Then verify user shown with Time schedule list in Individual days view
-#     And user logs out of the app
+     And user logs out of the app
   
   @OfflineSchedulescreenEMEA @NotAutomatable
   Scenario Outline:To get error message when Stat is Offline and try to fetch schedule information in solution card and in schedule screen
@@ -187,7 +187,7 @@ so that my home temperature will get set automatically all days based on the new
       And verify temperature is incremental by 0.5C for celsius
       And user selects "Jasper device" from the dashboard
       And verify "Time" schedule successfully gets edited
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Type            | Temperature   | 
       #| Grouped days    | Above Maximum | 
@@ -211,7 +211,7 @@ so that my home temperature will get set automatically all days based on the new
      Then verify "Time" schedule successfully gets edited 
      And user selects "Jasper device" from the dashboard
       And verify the time fields can be set with increments of "10 minutes"
-#      And user logs out of the app
+      And user logs out of the app
       Examples:
       | Type            | 
       | Grouped days    | 
@@ -226,7 +226,7 @@ so that my home temperature will get set automatically all days based on the new
      When user edit Time schedule by deleting "Atleast 1 period"
      Then verify the dialog box message for period deletion
      And verify the period is "not deleted" on "canceling" the period deletion
-#     And user logs out of the app
+     And user logs out of the app
      Examples:
       | Type            | 
       | Grouped days    | 

@@ -14,7 +14,7 @@ so that my home temperature will get set automatically based on edited geofence 
     And user selects "Jasper device" from the dashboard
      When user edit "geofence" schedule by editing <Values>
      Then verify "geofence" schedule successfully gets edited
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Values         | 
       #| Home settings  | 
@@ -31,7 +31,7 @@ so that my home temperature will get set automatically based on edited geofence 
     And user selects "Jasper device" from the dashboard
      When user edit "geofence" schedule by editing <Values>
      Then verify "geofence" schedule successfully gets edited
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Values        | 
       | Home settings | 
@@ -47,7 +47,7 @@ so that my home temperature will get set automatically based on edited geofence 
     And user selects "Jasper device" from the dashboard
      When user edits "geofence" schedule by <Values>
      Then verify "geofence" schedule successfully gets edited
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Condition | Values   | 
       | With      | Deleting | 
@@ -63,7 +63,7 @@ so that my home temperature will get set automatically based on edited geofence 
      When user edit "geofence" schedule by changing temperature to <Temperature> value 
      Then verify "geofence" schedule successfully gets edited
       And verify temperature is set within the maximum and minimum range
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Temperature   | 
       #| Above Maximum | 
@@ -83,7 +83,7 @@ so that my home temperature will get set automatically based on edited geofence 
      Then verify "geofence" schedule successfully gets edited
      And user selects "Jasper device" from the dashboard
       And verify the time fields can be set with increments of "10 minutes"
-#      And user logs out of the app
+      And user logs out of the app
   
   @EditEMEAGeofencescheduleAddingSleepsettingsTimeformat @Automated @--xrayid:ATER-7524
   Scenario: To edit geofence schedule by adding sleep settings to geofence schedule with any time formats
@@ -97,7 +97,7 @@ so that my home temperature will get set automatically based on edited geofence 
      Then verify "geofence" schedule successfully gets edited
      And user selects "Jasper device" from the dashboard
       And verify the time fields can be set with increments of "10 minutes"
-#      And user logs out of the app
+      And user logs out of the app
   
   @ErrormessageEditGeofencescheduleEMEA @NotAutomatable
   Scenario Outline:To get error messages on system unavailability to edit schedule

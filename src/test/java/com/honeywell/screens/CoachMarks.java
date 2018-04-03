@@ -141,7 +141,7 @@ public class CoachMarks extends MobileScreens {
 		return flag;
 	}
 
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	public boolean verifySolutionCardCoachMarks(String deviceType) {
 		boolean flag = true;
 		switch (deviceType) {

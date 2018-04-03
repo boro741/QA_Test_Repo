@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingViewUtils;
 import com.honeywell.lyric.utils.InputVariables;
-import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SchedulingScreen;
 
 public class ViewTimeScheduleByIndividualOrGroupedDays extends Keyword {

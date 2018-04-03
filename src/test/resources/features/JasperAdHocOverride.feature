@@ -11,7 +11,7 @@ so that my stat will follow vacation setting on my absence in my home during the
      When user sets the temperature by tapping or rotating the set wheel in the solution card
      Then verify the schedule temperature is overridden with set temperature
       And verify the override status on the solution card is overridden with set temperature <status>
-#      And user logs out of the app
+      And user logs out of the app
   
     Examples: 
       | scheduling          | status                        | 
@@ -27,7 +27,7 @@ so that my stat will follow vacation setting on my absence in my home during the
      Then verify the schedule temperature is overridden with set temperature for "stat1"
       And verify the override status on the solution card is overridden with set temperature <status> for "stat1"
       And verify the status of stat2 in the location not affected by adhoc override of stat1
-#      And user logs out of the app
+      And user logs out of the app
   
     Examples: 
       | scheduling          | status                        | 
@@ -45,7 +45,7 @@ so that my stat will follow vacation setting on my absence in my home during the
       And user changes system mode to <mode>
      Then verify override status is retained
       And verify the override status on the solution card is overridden with set temperature "while current schedule period"
-#      And user logs out of the app
+      And user logs out of the app
   
     Examples: 
       | current mode | mode | 
@@ -67,7 +67,7 @@ so that my stat will follow vacation setting on my absence in my home during the
       And user resumes the schedule
      Then verify that schedule has resumed by checking setpoints
       And verify the "geofence scheduling" status on the solution card
-#      And user logs out of the app
+      And user logs out of the app
 Examples: 
       | current mode | mode | 
       | Heat         | Auto |
@@ -101,7 +101,7 @@ Examples:
       And user changes system mode to <mode>
      Then verify override status is retained
       And verify the override status on the solution card is overridden with set temperature "till next schedule period"
-#      And user logs out of the app
+      And user logs out of the app
   
     Examples: 
       | current mode | mode |
@@ -121,7 +121,7 @@ Examples:
      When user overrides the "time scheduling" set temperature
       And user puts schedule on permanent hold
      Then verify the override status on the solution card is overridden with set temperature "permanently"
-#      And user logs out of the app
+      And user logs out of the app
   
   @AdhocOverrideScheduleTemperatureTimeschedulingPermanentlyMultistat @NotAutomated @--xrayid:ATER-7393
   Scenario: Override schedule temperature permanently MultiStat 
@@ -148,7 +148,7 @@ Examples:
      When user holds the schedule until time "lesser than 12 hours" from current time
      Then verify hold until time is set to time lesser than 12 hours
       And verify the override status on the solution card is overridden with set temperature "till defined hold time"
-#      And user logs out of the app
+      And user logs out of the app
   
   @AdhocOverrideScheduleTemperatureTimeschedulingHolduntilMultistat @NotAutomated @--xrayid:ATER-7395
   Scenario: Override Schedule Temperature through Hold Until MultiStat
@@ -176,7 +176,7 @@ Examples:
       And user resumes the schedule
      Then verify that schedule has resumed by checking setpoints
       And verify the "time scheduling" status on the solution card
-#      And user logs out of the app
+      And user logs out of the app
   
   @AdhocOverrideScheduleTemperatureTimeschedulingResumeAfterPermanentHoldMultiStat @NotAutomated @--xrayid:ATER-7397
   Scenario: Resume scheduling from override from Time Scheduling MultiStat
@@ -203,7 +203,7 @@ Examples:
      When user resumes the schedule
      Then verify that schedule has resumed by checking setpoints
       And verify the "time scheduling" status on the solution card
-#      And user logs out of the app
+      And user logs out of the app
   
   @AdhocOverrideScheduleTemperatureTimeschedulingResumeAfterHoldUntilMultiStat @NotAutomated @--xrayid:ATER-7399
   Scenario: Resume scheduling from override from Time Scheduling MultiStat
@@ -228,7 +228,7 @@ Examples:
       And user selects "Jasper device" from the dashboard
      When user changes system mode to "off"
      Then verify the "schedule off" status on the solution card
-#      And user logs out of the app
+      And user logs out of the app
   
     Examples: 
       | scheduling     | 
@@ -244,7 +244,7 @@ Examples:
      Then verify the edited set values are updated on both vacation settings card and solutions card
      When user edits the set values under "set wheel"
      Then verify the edited set values are updated on both vacation settings card and solutions card
-#      And user logs out of the app
+      And user logs out of the app
   
   @VerifyVacationStatusOnDevicecard @Automated @--xrayid:ATER-7402
   Scenario Outline: View the vacation status in device card
@@ -253,7 +253,7 @@ Examples:
      And  user launches and logs in to the Lyric application
       And user selects "Jasper device" from the dashboard
      Then user verifies vacation is <status> in "dashboard"
-#  	  And user logs out of the app
+  	  And user logs out of the app
     Examples: 
       | vacation mode | status | 
       | active        | on     | 

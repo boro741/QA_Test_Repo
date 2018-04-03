@@ -13,7 +13,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule with default schedule value
      Then verify "Everyday" schedule gets created successfully
-     #And user logs out of the app 
+     And user logs out of the app 
     Examples: 
       | scheduling      | 
       | no              | 
@@ -28,7 +28,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule with default schedule value
      Then verify "Weekday and Weekend" schedule gets created successfully
-#     And user logs out of the app 
+     And user logs out of the app
     Examples: 
       | scheduling      | 
       #| No scheduling   | 
@@ -43,7 +43,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "Cancel" option while creating "Weekday and Weekend" schedule with default schedule value
      Then verify "Geofence" schedule is retained
-#     And user logs out of the app
+     And user logs out of the app
   
   @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms @Automated @--xrayid:ATER-7494
   Scenario: Caution message confirmed to change Weekday and Weekend schedule From Geofence schedule for systems
@@ -54,7 +54,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "Confirm" option while creating "Weekday and Weekend" schedule with default schedule value
      Then verify "Weekday and Weekend" schedule gets created successfully
-#     And user logs out of the app
+     And user logs out of the app
   
   @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleCancels @Automated @--xrayid:ATER-7495
   Scenario: Caution message cancelled to change Everyday schedule From Geofence schedule for systems
@@ -65,7 +65,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "Cancel" option while creating "Everyday" schedule with default schedule value
      Then verify "Geofence" schedule is retained
-#     And user logs out of the app
+     And user logs out of the app
   
   @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleConfirms @Automated @--xrayid:ATER-7496
   Scenario: Caution message confirmed to change Everyday schedule From Geofence schedule for systems
@@ -76,7 +76,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "Confirm" option while creating "Everyday" schedule with default schedule value
      Then verify "Everyday" schedule gets created successfully
-#     And user logs out of the app
+     And user logs out of the app
   
   @CreateNAEverydayscheduleTemperatureRange @Automated @--xrayid:ATER-7497
   Scenario Outline: To create Everyday schedule by setting up with new temperature value for systems 
@@ -87,7 +87,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates "Everyday" schedule by setting temperature value to <Temperature>
      Then verify "Everyday" schedule gets created successfully 
       And verify temperature is set within the maximum and minimum range
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Temperature   | 
       | Above Maximum | 
@@ -104,7 +104,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates "Weekday and Weekend" schedule by setting temperature value to <Temperature>
      Then verify "Weekday and Weekend" schedule gets created successfully 
       And verify temperature is set within the maximum and minimum range
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Temperature   | 
       | Above Maximum | 
@@ -122,7 +122,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates "Everyday" schedule by changing with new time values
      Then verify "Everyday" schedule gets created successfully 
       And verify the time fields can be set with increments of "15 minutes"
-#      And user logs out of the app
+      And user logs out of the app
   
   @CreateNAEverydayscheduleDeletingperiod @Automated  @--xrayid:ATER-7500
   Scenario Outline: To create Everyday schedule by deleting period for systems with all possible modes and time formats
@@ -132,7 +132,7 @@ so that my home temperature will get set automatically all days based on the tim
   	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by deleting <Period> from the default schedule values
      Then verify "Everyday" schedule gets created successfully
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Period           | 
       | Atleast 1 period |
@@ -147,7 +147,7 @@ so that my home temperature will get set automatically all days based on the tim
   	And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule by deleting "All 4 periods" from the default schedule values
      Then verify app redirected to scheduling selection screen
-#     And user logs out of the app
+     And user logs out of the app
   
   @CreateNAWeekdayandWeekendscheduleDeletingperiod @Automated @--xrayid:ATER-7502
   Scenario Outline: To create Everyday schedule by deleting period for systems
@@ -157,7 +157,7 @@ so that my home temperature will get set automatically all days based on the tim
   	And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule by deleting <Period> from the default schedule values
      Then verify "Weekday and Weekend" schedule gets created successfully
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Period           | 
       | Atleast 1 period | 
@@ -172,7 +172,7 @@ so that my home temperature will get set automatically all days based on the tim
   	And user selects "Jasper device" from the dashboard
      When user creates "Weekday and Weekend" schedule by deleting "All 4 periods" from the default schedule values
      Then verify app redirected to scheduling selection screen
-#     And user logs out of the app
+     And user logs out of the app
   
   @CreateNAWeekdayandWeekendscheduleTimeformat @Automated @--xrayid:ATER-7504
   Scenario: To configure Weekday and Weekend schedule by setting up with new time value for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24or12hr
@@ -183,7 +183,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates "Weekday and Weekend" schedule by changing with new time values
      Then verify "Weekday and Weekend" schedule gets created successfully 
       And verify the time fields can be set with increments of "15 minutes"
-#      And user logs out of the app
+      And user logs out of the app
   
   @ErrormessageCreateEverydayscheduleNA @NotAutomatable
   Scenario Outline:To get error messages on system unavailability
@@ -230,7 +230,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates default "Everyday" schedule value <Copying> stats
      Then verify "Everyday" schedule gets created successfully
       And verify "Everyday" schedule is <Verifycopy> stats
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Copying                            | Verifycopy           | 
       | without copying to other           | not copied to other  | 
@@ -246,7 +246,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates default "Weekday and Weekend" schedule value <Copying> stats
      Then verify "Weekday and Weekend" schedule gets created successfully 
       And verify "Weekday and Weekend" schedule is <Verifycopy> stats
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Copying                            | Verifycopy           | 
       #| without copying to other           | not copied to other  | 

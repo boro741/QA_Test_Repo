@@ -14,7 +14,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule with default schedule value
      Then verify "Everyday" schedule gets created successfully
-#     And user logs out of the app 
+     And user logs out of the app 
      Examples: 
       | scheduling          | 
       | no       |
@@ -31,7 +31,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "weekday and weekend" schedule with default schedule value
      Then verify "weekday and weekend" schedule gets created successfully 
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | scheduling          | 
       #| no scheduling       |
@@ -47,7 +47,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "cancel" option while creating "weekday and weekend" schedule with default schedule value
      Then verify "Geofence" schedule is retained
-#      And user logs out of the app
+      And user logs out of the app
   
   #@CautionmessageTochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms  @--xrayid:ATER-7434
   Scenario: Caution message confirmed to change EMEA Weekday and Weekend schedule From Geofence schedule 
@@ -57,7 +57,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "confirm" option while creating "weekday and weekend" schedule with default schedule value
      Then verify "weekday and weekend" schedule gets created successfully
-#     And user logs out of the app
+     And user logs out of the app
   
   #@CautionmessageTochangeGeofencescheduleFromEverydayscheduleCancels  @--xrayid:ATER-7435
   Scenario: Caution message cancelled to change EMEA Everyday schedule From Geofence schedule 
@@ -68,7 +68,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "cancel" option while creating "everyday" schedule with default schedule value
      Then verify "geofence" schedule is retained
-#      And user logs out of the app
+      And user logs out of the app
   
   @CautionmessageTochangeGeofencescheduleFromEverydayscheduleConfirms  @--xrayid:ATER-7436
   Scenario: Caution message confirmed to change EMEA Everyday schedule From Geofence schedule 
@@ -79,7 +79,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user selects "confirm" option while creating "everyday" schedule with default schedule value
      Then verify "everyday" schedule gets created successfully
-#      And user logs out of the app
+      And user logs out of the app
   
   @CreateEMEAEverydayscheduleTemperatureRange  @--xrayid:ATER-7437
   Scenario Outline: To create EMEA Everyday schedule by setting up with new temperature value
@@ -130,7 +130,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates "everyday" schedule by changing with new time values
      Then verify "everyday" schedule gets created successfully 
       And verify the time fields can be set with increments of "10 minutes"
-#      And user logs out of the app
+      And user logs out of the app
   
   @CreateEMEAEverydayscheduleAddingperiod  @--xrayid:ATER-7440
   Scenario: To create EMEA Everyday schedule by setting up with new time value for both time format
@@ -140,7 +140,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "everyday" schedule by adding period to the default schedule values
      Then verify "everyday" schedule gets created successfully
-#      And user logs out of the app
+      And user logs out of the app
 #  
   @CreateEMEAEverydayscheduleDeletingperiod  @--xrayid:ATER-7441
   Scenario: To create EMEA Everyday schedule by setting up with new time value for both time format
@@ -150,7 +150,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "everyday" schedule by deleting period from the default schedule values
      Then verify "everyday" schedule gets created successfully
-#      And user logs out of the app
+      And user logs out of the app
   
   #@CreateEMEAWeekedayandWeekendscheduleAddingperiod  @--xrayid:ATER-7442
   Scenario: To create EMEA Weekeday and Weekend schedule by setting up with new time value for time format 12hr
@@ -162,7 +162,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "weekday and weekend" schedule by adding period to the default schedule values
      Then verify "weekday and weekend" schedule gets created successfully
-#     And user logs out of the app
+     And user logs out of the app
   
   @CreateEMEAWeekedayandWeekendscheduleDeletingperiod  @--xrayid:ATER-7443
   Scenario: To create EMEA Weekeday and Weekend schedule by setting up with new time value for time format 12hr
@@ -174,7 +174,7 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "weekday and weekend" schedule by deleting period from the default schedule values
      Then verify "weekday and weekend" schedule gets created successfully
-#      And user logs out of the app
+      And user logs out of the app
   
   @CreateEMEAWeekdayandWeekendScheduleTimeformat @Automated @--xrayid:ATER-7444
   Scenario: To configure EMEA Weekday and Weekend schedule by setting up with new time value for both format
@@ -186,7 +186,7 @@ so that my home temperature will get set automatically all days based on the tim
     When user creates "Weekday and Weekend" schedule by changing with new time values
      Then verify "weekday and weekend" schedule gets created successfully 
       And verify the time fields can be set with increments of "10 minutes"
-#      And user logs out of the app
+      And user logs out of the app
   
   @CreateEMEAEverydayscheduleMultistatCopyschedule @Automated @--xrayid:ATER-7445
   Scenario Outline: Create EMEA Everyday Schedule MultiStat Copy
@@ -198,7 +198,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates default "Everyday" schedule value <copying> stats
 	 Then verify "Everyday" schedule gets created successfully
       And verify "Everyday" schedule is <verify copy> stats
-#      And user logs out of the app
+      And user logs out of the app
      Examples: 
       | copying                           | verify copy         | 
       | without copying schedule to other | not copied to other | 
@@ -215,7 +215,7 @@ so that my home temperature will get set automatically all days based on the tim
      When user creates default "weekday and weekend" schedule value <copying> stats
      Then verify "weekday and weekend" schedule gets created successfully
       And verify "weekday and weekend" schedule is <verify copy> stats
-#      And user logs out of the app
+      And user logs out of the app
      Examples: 
       | copying                           | verify copy         | 
       #| without copying schedule to other | not copied to other | 

@@ -25,7 +25,7 @@ so that my home temperature will get set automatically all days based on the new
       And user selects "Jasper device" from the dashboard
       And user selects view by "Grouped Days" 
      Then verify Time schedule grouped with edited <Days> separately and remaining separately
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Days       | 
       | One day    | 
@@ -42,7 +42,7 @@ so that my home temperature will get set automatically all days based on the new
      When user selects "Jasper device" from the dashboard
       And user selects view by "Individual Days"
      Then verify user shown with Time schedule list in Individual days view
-#     And user logs out of the app
+     And user logs out of the app
   
   @OfflineSchedulescreenNA @NotAutomatable
   Scenario Outline:To get error message when Stat is Offline and try to fetch schedule information in solution card and in schedule screen
@@ -82,7 +82,7 @@ so that my home temperature will get set automatically all days based on the new
       And verify edited period temperature is incremental by 1F for fahrenheit and 0.5C for celsius
       And user selects "Jasper device" from the dashboard
       And verify "Time" schedule successfully gets edited
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Type            | Temperature   | 
       #| Grouped days    | Above Maximum | 
@@ -110,7 +110,7 @@ so that my home temperature will get set automatically all days based on the new
       And verify cool set point is always greater than or equal to heat set point
       And user selects "Jasper device" from the dashboard
       And verify "Time" schedule successfully gets edited
-#      And user logs out of the app
+      And user logs out of the app
     Examples: 
       | Type            | Temperature   | 
       | Grouped days    | Above Maximum | 
@@ -135,7 +135,7 @@ so that my home temperature will get set automatically all days based on the new
      Then verify "Time" schedule successfully gets edited 
 #     And user selects "Jasper device" from the dashboard
 #      And verify the time fields can be set with increments of "15 minutes"
-#      And user logs out of the app
+      And user logs out of the app
       Examples:
       | Type            | 
       | Grouped days    | 
@@ -154,7 +154,7 @@ so that my home temperature will get set automatically all days based on the new
      Then verify "Time" schedule successfully gets edited 
      And user selects "Jasper device" from the dashboard
       And Verify if "Wake" period time value is displayed as "Tap to set"
-#      And user logs out of the app
+      And user logs out of the app
       Examples:
       | Type            | 
       | Grouped days    | 
@@ -169,7 +169,7 @@ so that my home temperature will get set automatically all days based on the new
      When user edit Time schedule by deleting "Atleast 1 period"
      Then verify the dialog box message for period deletion
      And verify the period is "not deleted" on "canceling" the period deletion
-#     And user logs out of the app
+     And user logs out of the app
      Examples:
       | Type            | 
       | Grouped days    | 
@@ -184,7 +184,7 @@ so that my home temperature will get set automatically all days based on the new
      And user edit Time schedule by deleting <Period> on confirming the period deletion
      And user selects "Jasper device" from the dashboard
      Then verify "Time" schedule successfully gets edited
-#     And user logs out of the app
+     And user logs out of the app
     Examples: 
       | Type            | Period           | 
       #| Grouped days    | Atleast 1 period | 
@@ -203,7 +203,7 @@ so that my home temperature will get set automatically all days based on the new
      When user edit Time schedule by deleting "All 4 periods" on confirming the period deletion
      And user selects "Jasper device" from the dashboard
      Then verify "No Schedule" screen is shown in view schedule screen
-#     And user logs out of the app
+     And user logs out of the app
      Examples:
       | Type            | 
       | Grouped days    | 
