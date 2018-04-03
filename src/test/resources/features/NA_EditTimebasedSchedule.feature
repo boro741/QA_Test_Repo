@@ -85,16 +85,16 @@ so that my home temperature will get set automatically all days based on the new
       And user logs out of the app
     Examples: 
       | Type            | Temperature   | 
-      #| Grouped days    | Above Maximum | 
-      #| Grouped days    | Below Minimum | 
-      #| Grouped days    | At Maximum    | 
-      #| Grouped days    | At Minimum    | 
+      | Grouped days    | Above Maximum | 
+      | Grouped days    | Below Minimum | 
+      | Grouped days    | At Maximum    | 
+      | Grouped days    | At Minimum    | 
       | Grouped days    | within range  | 
-      #| Individual days | Above Maximum | 
-      #| Individual days | Below Minimum | 
-      #| Individual days | At Maximum    | 
-      #| Individual days | At Minimum    | 
-      #| Individual days | within range  | 
+      | Individual days | Above Maximum | 
+      | Individual days | Below Minimum | 
+      | Individual days | At Maximum    | 
+      | Individual days | At Minimum    | 
+      | Individual days | within range  | 
   
   @EditTimescheduleTemperatureEverydayAutochangeoverEnabledNA @Automated @--xrayid:ATER-7589
   Scenario Outline: To edit time schedule by setting up with new temperature value for systems Heat cool for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr with autochangeover enabled
@@ -114,15 +114,15 @@ so that my home temperature will get set automatically all days based on the new
     Examples: 
       | Type            | Temperature   | 
       | Grouped days    | Above Maximum | 
-      #| Grouped days    | Below Minimum | 
-      #| Grouped days    | At Maximum    | 
-      #| Grouped days    | At Minimum    | 
-      #| Grouped days    | within range  | 
-      #| Individual days | Above Maximum | 
-      #| Individual days | Below Minimum | 
-      #| Individual days | At Maximum    | 
-      #| Individual days | At Minimum    | 
-      #| Individual days | within range  | 
+      | Grouped days    | Below Minimum | 
+      | Grouped days    | At Maximum    | 
+      | Grouped days    | At Minimum    | 
+      | Grouped days    | within range  | 
+      | Individual days | Above Maximum | 
+      | Individual days | Below Minimum | 
+      | Individual days | At Maximum    | 
+      | Individual days | At Minimum    | 
+      | Individual days | within range  | 
   
   @EditTimescheduleTimeformatNA @NOTAutomated @--xrayid:ATER-7590
   Scenario Outline: To Edit Time schedule by setting up with new time value for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr

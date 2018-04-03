@@ -49,7 +49,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "Geofence" schedule is retained
       And user logs out of the app
   
-  #@CautionmessageTochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms  @--xrayid:ATER-7434
+  @CautionmessageTochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms  @--xrayid:ATER-7434
   Scenario: Caution message confirmed to change EMEA Weekday and Weekend schedule From Geofence schedule 
   As an user I should get caution message to convey i will be turned to Weekday and Weekend schedule over Geofence schedule with time format 24or12hr
     Given user thermostat is set to "geofence based" schedule
@@ -59,7 +59,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "weekday and weekend" schedule gets created successfully
      And user logs out of the app
   
-  #@CautionmessageTochangeGeofencescheduleFromEverydayscheduleCancels  @--xrayid:ATER-7435
+  @CautionmessageTochangeGeofencescheduleFromEverydayscheduleCancels  @--xrayid:ATER-7435
   Scenario: Caution message cancelled to change EMEA Everyday schedule From Geofence schedule 
   As an user
   I should get caution message to convey i will be turned to Everyday schedule over Geofence schedule with time format 24or12hr and by cancelling geofence schedule retained 
@@ -115,9 +115,9 @@ so that my home temperature will get set automatically all days based on the tim
       And user logs out of the app
    Examples: 
       | temperature value | 
-      #| Above Maximum     | 
-      #| Below Minimum     | 
-      #| At Maximum        | 
+      | Above Maximum     | 
+      | Below Minimum     | 
+      | At Maximum        | 
       | At Minimum        | 
       #| Within range      |
   
@@ -152,7 +152,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "everyday" schedule gets created successfully
       And user logs out of the app
   
-  #@CreateEMEAWeekedayandWeekendscheduleAddingperiod  @--xrayid:ATER-7442
+  @CreateEMEAWeekedayandWeekendscheduleAddingperiod  @--xrayid:ATER-7442
   Scenario: To create EMEA Weekeday and Weekend schedule by setting up with new time value for time format 12hr
   As an user
   I want to create Weekeday and Weekend schedule by adding new period for both time format
