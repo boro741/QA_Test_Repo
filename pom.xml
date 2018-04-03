@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>com.honeywell</groupId>
 			<artifactId>bdd_framework</artifactId>
-			<version>1.14</version>
+			<version>1.16</version>
 		</dependency>
 
 		<!-- LYRIC SPECIFIC DEPENDENCIES -->
