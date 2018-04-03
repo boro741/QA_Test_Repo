@@ -41,7 +41,6 @@ public class SuiteExecutor {
                      //"--appToInstall","IOS:1,Android:1",
                      "--groups",
                      "EditNAGeofencescheduleWithSleepsettings",
-                     "EditNAGeofencescheduleWithSleepsettings",
                      "EditNAGeofenceschedulevaluesleepsettings",
                      "EditNAGeofencescheduleTemperatureRange",
                      "EditNAGeofencescheduleSinglestatTemperatureAutochangeoverEnabled",
