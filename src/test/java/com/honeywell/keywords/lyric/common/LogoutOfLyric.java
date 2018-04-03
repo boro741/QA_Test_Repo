@@ -1,6 +1,5 @@
 package com.honeywell.keywords.lyric.common;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -10,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
-import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -19,10 +17,11 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.keywords.jasper.chil.ActivateVacationUsingCHIL;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.LoginScreen;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -79,14 +78,8 @@ public class LogoutOfLyric extends Keyword {
 	public boolean keywordSteps() {
 		boolean flag = true;
 		try {
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			if (statInfo.isVacationRunning()) {
-				ArrayList<String> exampleData = new ArrayList<String>();
-				exampleData.add("yet to set");
-				Keyword.execute(ActivateVacationUsingCHIL.class, testCase, inputs, exampleData);
-			}
+			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 
-			// flag = flag & MobileUtils.clearNotificationAndroidOnly(testCase);
 			Dashboard db = new Dashboard(testCase);
 			if (db.isGlobalDrawerButtonVisible(10)) {
 				WebElement element = null;
@@ -137,14 +130,14 @@ public class LogoutOfLyric extends Keyword {
 										"Logout of Lyric : Logout option not found");
 							}
 						}
-						/*	fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LyricImage", 60)) {
+						LoginScreen ls = new LoginScreen(testCase);
+						if (ls.isLoginButtonVisible()) {
 							ReportStep_Pass(testCase, "Logout of Lyric : Logout operation Successful.");
 						} else {
 							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Logout of Lyric : Not able to logout of the App after click on Logout option.");
 							flag = false;
-						}*/
+						}
 					} catch (Exception e) {
 						flag = false;
 						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

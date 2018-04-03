@@ -14,12 +14,12 @@ so that my home temperature will get set automatically all days based on the tim
     And user selects "Jasper device" from the dashboard
      When user creates "Everyday" schedule with default schedule value
      Then verify "Everyday" schedule gets created successfully
-     And user logs out of the app 
+     And user logs out of the app
      Examples: 
       | scheduling          | 
       | no       |
       #| time based    | 
-      | geofence based |
+#      | geofence based |
   
   @CreateEMEAWeekdayandWeekendTimebasedscheduleSinglestatDefaultvalue  @--xrayid:ATER-7432
   Scenario Outline: To create EMEA Weekday and Weekend schedule with default schedule value

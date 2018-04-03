@@ -56,18 +56,17 @@ public class SuiteExecutor {
 				//"DIYTryToReRegisterDASWhenDASIsOffline",
 				//"DIYRegistrationByReceivingCallsAndMsgs",
 				};
-
+*/ 
 		
 		  commandLineArguments = new String[] { // "--publishresult", //
 		  //"--jira_credentials", // "aterbuild:aterbuild@123", "--publishresult",
-		  //"--requirementFileName","Requirement_file_Android_DAS_QA",
-		  "--useXCUITest",
-		  "true", "--deviceCloudProviderCredentials",
-		  "PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.lalseta@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
-		  "--appToInstall", "Android:400000059,IOS:53", "--groups",
-		  "VerifyCameraOffInHomeMode" };
-		 
-		*/ 
+		  "--requirementFileName","Requirement_file_JasperIOS",
+		  "--useXCUITest","true", 
+//		  "--deviceCloudProviderCredentials","PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.lalseta@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
+		  "--appToInstall", "Android:400000059,IOS:87","--groups",
+		  "CreateEMEAEverydayscheduleSinglestatDefaultvalue" };
+		 		  
+		
 		// commandLineArguments = new String[] {"--help"};
 		// commandLineArguments = new String[] {"--updateKeywordCatalogue"};
 

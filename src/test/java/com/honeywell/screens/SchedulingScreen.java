@@ -9,6 +9,8 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 
+import io.appium.java_client.MobileElement;
+
 public class SchedulingScreen extends MobileScreens {
 
 	public static final String WHENIMHOMELOCATOR = "//*[@text='When I" + "\u2019" + "m Home']";
@@ -185,12 +187,15 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getCoolSetPointChooserSetPointsValue() {
+		String string;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser")
+			string =  MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser")
 					.findElement(By.id("scheduling_period_temp_point")).getText();
 		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPoints").getAttribute("value");
+//			string =  MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPoints").getAttribute("value");
+			string = testCase.getMobileDriver().findElements(By.name("coolTemperatureLabel")).get(0).getText();
 		}
+		return string;
 	}
 
 	public WebElement getCoolSetPointDownButton() {
@@ -202,8 +207,9 @@ public class SchedulingScreen extends MobileScreens {
 		}
 	}
 
-	public List<WebElement> getCoolSetPointsElements() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPoints");
+	public List<MobileElement> getCoolSetPointsElements() {
+//		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPoints");
+		return testCase.getMobileDriver().findElements(By.name("coolTemperatureLabel"));
 	}
 
 	public String getCoolSetPointsOfGivenEverydayPeriod(String periodName) {
@@ -304,12 +310,14 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getHeatSetPointChooserSetPointsValue() {
+		String string;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
+			string =  MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
 					.findElement(By.id("scheduling_period_temp_point")).getText();
 		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPoints").getAttribute("value");
+			string = testCase.getMobileDriver().findElements(By.name("heatTemperatureLabel")).get(0).getText();
 		}
+		return string;
 	}
 
 	public WebElement getHeatSetPointDownButton() {
@@ -321,8 +329,9 @@ public class SchedulingScreen extends MobileScreens {
 		}
 	}
 
-	public List<WebElement> getHeatSetPointsElements() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPoints");
+	public List<MobileElement> getHeatSetPointsElements() {
+//		return MobileUtils.getMobElements(objectDefinition, testCase, "heatTemperatureLabel");
+		return testCase.getMobileDriver().findElements(By.name("heatTemperatureLabel"));
 	}
 
 	public String getHeatSetPointsOfGivenEverydayPeriod(String periodName) {
