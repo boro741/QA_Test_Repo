@@ -80,6 +80,12 @@ public class DASAlarmUtils {
 		return alarmScreen.isAlarmScreenDisplayed();
 		
 	}
+	
+	public static boolean verifyProgressDisplayed(TestCases testCase){
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		return alarmScreen.isPleaseWaitDisplayed();
+		
+	}
 
 	public static boolean clickOnDismissAlarm(TestCases testCase, TestCaseInputs inputs) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);

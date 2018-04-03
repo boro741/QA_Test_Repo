@@ -88,7 +88,10 @@ public class SelectElementOnAScreen extends Keyword {
 					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
-					
+					int i=0;
+					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase)){
+						System.out.println("Waiting for dismiss alarm request to complete");
+					}
 					break;
 				}
 				case "CALL":{

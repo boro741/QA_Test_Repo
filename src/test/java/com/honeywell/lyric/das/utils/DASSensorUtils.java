@@ -2,11 +2,13 @@ package com.honeywell.lyric.das.utils;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SensorStatusScreen;
@@ -28,6 +30,20 @@ public class DASSensorUtils {
 		return flag;
 	}
 
+	public static boolean openWindow(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("WINDOW_OPENED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		System.out.println("Open Window");
+		return flag;
+	}
+
+	
+	public static boolean closeWindow(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("WINDOW_CLOSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		System.out.println("Close Window");
+		return flag;
+	}
 	public static List<WebElement> getSensorList(TestCases testCase){
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		return sensorStatusScreen.getSensorList();
@@ -35,15 +51,15 @@ public class DASSensorUtils {
 	public boolean verifySensorState(TestCases testCase, TestCaseInputs inputs, String sensor, String states){
 		String sensorName="";
 		String sensorState="";
-		if(sensor.equalsIgnoreCase("door access sensor")){
+		if(sensor.equalsIgnoreCase("door")){
 			sensorName=inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-		}else if(sensor.equalsIgnoreCase("window access sensor")){
+		}else if(sensor.equalsIgnoreCase("window")){
 			sensorName=inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		}else{
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
 		}
 
-		if(states.equalsIgnoreCase("opened")){
+		if(states.equalsIgnoreCase("open")){
 			sensorState="Open";
 		}else if(states.equalsIgnoreCase("closed")){
 			sensorState="Closed";
@@ -67,21 +83,21 @@ public class DASSensorUtils {
 
 		list= DASSensorUtils.getSensorList(testCase);
 		boolean sensorStateMatched=false;
-		for(int i=0;i<list.size();i++){/*
+		for(int i=0;i<list.size();i++){
 			if(testCase.getPlatform().contains("IOS")){
 				if(testCase.getMobileDriver().findElements(By.xpath(
 						"//*[contains(@name,'SensorStatus_"+i+"_cell')]//*[@value='"+sensorName+"']")).size()>0){
 					if(states.contains("tamper cleared")){
 						if(MobileUtils.isMobElementExists("xpath" ,"//*[contains(@name,'SensorStatus_"+i+"_Image')]",testCase,10)){
 							MobileUtils.clickOnElement(testCase,"xpath" ,"//*[contains(@name,'SensorStatus_"+i+"_Image')]");
-							MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
+							//MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
 							try {
 								Thread.sleep(10000);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
 						}
-						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", JasperUtils.getDeviceTime(testCase, inputs));
+						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 						Keyword.ReportStep_Pass(testCase, "DOOR_TAMPER_CLEARED_TIME "+inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
 					if(testCase.getMobileDriver().findElements(By.xpath(
@@ -102,14 +118,14 @@ public class DASSensorUtils {
 						    Keyword.ReportStep_Pass(testCase, "Current state "+testCase.getMobileDriver().findElement(By.xpath(
 							"//*[contains(@content-desc,'sensor_status_item_"+i+"')]//*[contains(@text,'"+sensorState+"')]")).getText());
 							MobileUtils.clickOnElement(testCase,"xpath" ,"//*[contains(@content-desc,'sensor_status_item_"+i+"')]");
-							MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
+							//MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
 							try {
 								Thread.sleep(10000);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
 						}
-						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", JasperUtils.getDeviceTime(testCase, inputs));
+						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 						Keyword.ReportStep_Pass(testCase, "DOOR_TAMPER_CLEARED_TIME "+inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
 					if(testCase.getMobileDriver().findElements(By.xpath(
@@ -120,7 +136,7 @@ public class DASSensorUtils {
 					}
 
 				}
-			}*/
+			}
 		}
 		if(list.size()==0){
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "not able to read Sensor list");
