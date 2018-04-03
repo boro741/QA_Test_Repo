@@ -29,22 +29,6 @@ public class SuiteExecutor {
          * "VerifyVacationDefaultSetPoints"};
          */
         
-         if(commandLineArguments[0].equalsIgnoreCase("smokeTestAndroid")){
-        	 commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
-                     "--publishResult",
-                     "--requirementFileName","Requirement_file_Android.txt",
-                     "--testrunname","Smoketest-"+appName+"",
-                     "--appToInstall","IOS:1,Android:"+appName+"",
-                     "--groups",
-
-                     };
-        	 try {
-                 SuiteUtils suiteUtils = SuiteUtils.getTestSuite(commandLineArguments);
-                 suiteUtils.executeSuite();
-             } catch (Exception e) {
-                 e.printStackTrace();
-             }
-         }
          
          if(commandLineArguments[0].equalsIgnoreCase("smokeTestIOS")){
         	 commandLineArguments = new String[] {"--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
