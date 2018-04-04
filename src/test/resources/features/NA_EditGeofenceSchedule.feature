@@ -20,7 +20,7 @@ so that my home temperature will get set automatically based on edited geofence 
       | Sleep settings | 
 #      | Away settings  | 
   
-  @EditNAGeofenceschedulevalueWithoutsleepsettings @Automated @--xrayid:ATER-7578
+  @EditNAGeofencescheduleWithSleepsettings @Automated @--xrayid:ATER-7578
   Scenario Outline:To Edit geofence schedule without sleep settings for systems Heat cool,Cool,Heat for Temperature scale Celsius (or) Fahrenheit and for time format 24 (or) 12hr
   As an user
   I want to edit geofence schedule 

@@ -213,13 +213,15 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getCoolSetPointsOfGivenEverydayPeriod(String periodName) {
+		String string;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
+			string = MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
 					+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]");
 		} else {
-			return MobileUtils.getMobElement(testCase, "name", "Everyday_" + periodName + "_CoolTemperature")
+			string =  MobileUtils.getMobElement(testCase, "name", "Everyday_" + periodName + "_CoolTemperature")
 					.getAttribute("value");
 		}
+		return string;
 	}
 
 	public String getCoolSetPointsOfGivenWeekdayPeriod(String periodName) {
@@ -278,7 +280,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public List<WebElement> getEverydayScheduleTitleAndPeriodTimeElements() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "EverydayScheduleTitleAndPeriodTime");
+		return MobileUtils.getMobElements(objectDefinition, testCase, "	");
 	}
 
 	public WebElement getEverydaySleepElement() {
