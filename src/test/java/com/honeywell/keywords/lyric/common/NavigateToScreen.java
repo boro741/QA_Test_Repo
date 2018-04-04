@@ -733,6 +733,13 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "DASHBOARD": {
+					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					if(sc.isBackButtonVisible()) {
+						flag = flag & sc.clickOnBackButton();
+					}
+					break;
+				}
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();

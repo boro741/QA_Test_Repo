@@ -28,7 +28,8 @@ public class GetLocationTime extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user gets location time$")
 	public boolean keywordSteps() {
-		LyricUtils.getLocationTime(testCase, inputs, "TIMEINHHMMFORMAT");
+		String locationTime = LyricUtils.getLocationTime(testCase, inputs, "TIMEINHHMMFORMAT");
+		System.out.println("##########locationTime: " + locationTime);
 		return flag;
 	}
 

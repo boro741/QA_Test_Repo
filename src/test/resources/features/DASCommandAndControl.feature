@@ -129,6 +129,75 @@ Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 Then user should be displayed with the correct time stamp
 
+@CommandAndControlSecurityStatesWhenNavigatedBackToDashboard
+Scenario: As a user I want to verify different states in dashboard screen by updating states in solutions card screen
+Given user sets the entry/exit timer to "15" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from "Home" to "Away"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user should be displayed with a "Switching to Away" text in the Dashboard screen
+Then user status should be set to "Away" in the dashboard screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+Then user switches from "Away" to "Night"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user should be displayed with a "Switching to Night" text in the Dashboard screen
+And user status should be set to "Night" in the dashboard screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from "Night" to "Off" 
+Then user should receive a "Set to Off" popup
+When user "accepts" the "Set to Off" popup
+Then user status should be set to "Off"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user status should be set to "Off" in the dashboard screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from "Off" to "Home"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user status should be set to "Home" in the dashboard screen
+
+@CommandAndControlSecurityStatesUpdateInDashboard
+Scenario: As a user I want to set security states in dashboard screen
+Given user sets the entry/exit timer to "30" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user switches from "Home" to "Away" in the dashboard screen
+Then user should be displayed with a "Switching to Away" text in the Dashboard screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+Then user should be displayed with a "Switching to Away" text
+And user should be displayed with a switching timer
+Then timer ends on user device
+And user status should be set to "Away"
+#When user "opens" activity log
+#Then user receives a "switched to Away via the app" activity log
+#Then user gets location time
+#And user "closes" activity log
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user status should be set to "Away" in the dashboard screen
+When user switches from "Away" to "Night" in the dashboard screen
+Then user should be displayed with a "Switching to Night" text in the Dashboard screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+Then user should be displayed with a "Switching to Night" text
+And user should be displayed with a switching timer
+Then timer ends on user device
+And user status should be set to "Night"
+#When user "opens" activity log
+#Then user receives a "switched to Night via the app" activity log
+#Then user gets location time
+#And user "closes" activity log
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user status should be set to "Night" in the dashboard screen
+When user switches from "Night" to "Home" in the dashboard screen
+Then user should be displayed with a "Switching to Home" text in the Dashboard screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user status should be set to "Home"
+#When user "opens" activity log
+#Then user receives a "switched to Home via the app" activity log
+#Then user gets location time
+#And user "closes" activity log
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user status should be set to "Home" in the dashboard screen
+
 @PushNotificationWhenSwitchedToDiffSecurityStates
 Scenario: As a user I want to receive push notifications while switching between security states
 Given user sets the entry/exit timer to "15" seconds
@@ -147,3 +216,29 @@ Then user should receive a "set to Off" push notification
 And user clears all push notifications
 When "Home Mode" is triggered in the background
 Then user should receive a "set to Home" push notification
+
+@CommandControlUserpressbackbutton 
+Scenario: As a user I want to go back to dashboard when user press back button while switching modes 
+Given user sets the entry/exit timer to "60" seconds 
+And user is set to "Home" mode through CHIL 
+When user launches and logs in to the Lyric application 
+And user navigates to "security solution cards" screen from "Dashboard" screen 
+And user switches from "Home" to "Away" 
+Then user should be displayed with the "Switching to Away" text 
+And user navigates to "Dashboard" screen from "security solution cards" screen 
+When user navigates to "security solution cards" screen from "Dashboard" screen 
+Then user should be displayed with the "Switching to Away" text 
+And user should be displayed with the "switching timer" 
+When "Switching timer" ends on user device 
+Then user should be displayed with the "Away Status" 
+And user should be displayed with the "correct time stamp" 
+And user is set to "Home" mode through CHIL 
+When user switches from "Home" to "Away" 
+Then user should be displayed with the "Switching to Away" text 
+And user navigates to "Dashboard" screen from "security solution cards" screen 
+When user navigates to "backround" and returns "foreground" 
+Then user should be displayed with the "Switching to Away" text 
+And user should be displayed with the "switching timer" 
+When "Switching timer" ends on user device 
+Then user should be displayed with the "Away Status" 
+And user should be displayed with the "correct time stamp"

@@ -10,16 +10,16 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.Dashboard;
 
-public class SwitchDASStates extends Keyword {
+public class SwitchDASStatesInDashboard extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	private ArrayList<String> states;
 	public boolean flag = true;
 
-	public SwitchDASStates(TestCases testCase, TestCaseInputs inputs, ArrayList<String> states) {
+	public SwitchDASStatesInDashboard(TestCases testCase, TestCaseInputs inputs, ArrayList<String> states) {
 		this.inputs = inputs;
 		this.testCase = testCase;
 		this.states = states;
@@ -32,20 +32,22 @@ public class SwitchDASStates extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user switches from \"(.*)\" to \"(.*)\"$")
+	@KeywordStep(gherkins = "^user switches from \"(.*)\" to \"(.*)\" in the dashboard screen$")
 	public boolean keywordSteps() {
-		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		String currentStatus = sc.getCurrentSecurityState();
+		Dashboard d = new Dashboard(testCase);
+		String currentStatus = d.getSecurityStatusLabel();
 		System.out.println("#############currentStatus: " + currentStatus);
 		if (states.get(0).equalsIgnoreCase("Home")) {
-			if (currentStatus.equalsIgnoreCase("Home")) {
+			if (currentStatus.contains("HOME")
+					|| currentStatus.contains("Home")) {
 				Keyword.ReportStep_Pass(testCase, "User status is already set to Home");
 			} else {
 				flag = flag & DASCommandControlUtils.changeStatus(testCase, "Home", inputs);
 				flag = flag & DASCommandControlUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
 			}
 		} else if (states.get(0).equalsIgnoreCase("Night")) {
-			if (currentStatus.equalsIgnoreCase("Sleep") || currentStatus.equalsIgnoreCase("Night")) {
+			if (currentStatus.contains("SLEEP") || currentStatus.contains("NIGHT")
+					|| (currentStatus.contains("Night"))) {
 				Keyword.ReportStep_Pass(testCase, "User status is already set to Night");
 			} else {
 				flag = flag & DASCommandControlUtils.changeStatus(testCase, "Night", inputs);
@@ -53,7 +55,8 @@ public class SwitchDASStates extends Keyword {
 				flag = flag & DASCommandControlUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
 			}
 		} else if (states.get(0).equalsIgnoreCase("Away")) {
-			if (currentStatus.equalsIgnoreCase("Away")) {
+			if (currentStatus.contains("AWAY")
+					|| currentStatus.contains("Away")) {
 				Keyword.ReportStep_Pass(testCase, "User status is already set to Away");
 			} else {
 				flag = flag & DASCommandControlUtils.changeStatus(testCase, "Away", inputs);
