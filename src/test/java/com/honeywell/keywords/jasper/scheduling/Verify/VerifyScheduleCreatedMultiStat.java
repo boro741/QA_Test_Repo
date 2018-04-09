@@ -66,6 +66,9 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 			}
 		}
 		try {
+			if (ss.isBackButtonVisible(10)){
+				ss.clickOnBackButton();
+			}
 			locationName = inputs.getInputValue("LOCATION1_NAME");
 			deviceName = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
 			inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
