@@ -67,7 +67,7 @@ public class CreateScheduleWithMinMaxValues extends Keyword {
 				inputs.setInputValue(InputVariables.SETPOINT_RANGE, InputVariables.IN_RANGE);
 			}
 
-			if (statInfo.getJasperDeviceType().equals("Jasper")) {
+			if (statInfo.getThermostatType().equals("Jasper")) {
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
 				if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
@@ -77,33 +77,33 @@ public class CreateScheduleWithMinMaxValues extends Keyword {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,
 								defaultValues.get("GeofenceSleepStartTime"), true, 1, 10);
-						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME, changedTime);
+						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,
 								defaultValues.get("GeofenceSleepEndTime"), true, 1, 10);
-						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME, changedTime);
+						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 					} else if (jasperStatType.equalsIgnoreCase("NA")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,
 								defaultValues.get("GeofenceSleepStartTime"), true, 1, 15);
-						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME, changedTime);
+						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,
 								defaultValues.get("GeofenceSleepEndTime"), true, 1, 15);
-						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME, changedTime);
+						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 					}
 					flag = flag & JasperSchedulingUtils.createGeofenceBasedScheduleWithMinMaxSetPoints(testCase, inputs, true);
 				} else {
 					HashMap<String, String> defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
-					inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, defaultValues.get("EverydayWakeTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, defaultValues.get("EverydayAwayTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, defaultValues.get("EverydayHomeTime"));
-					inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, defaultValues.get("EverydaySleepTime"));
+					inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, defaultValues.get("EverydayWakeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, defaultValues.get("EverydayAwayTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, defaultValues.get("EverydayHomeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, defaultValues.get("EverydaySleepTime").toLowerCase().replaceAll("^0*", ""));
 
-					inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, defaultValues.get("EverydayWakeTime"));
-					inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, defaultValues.get("EverydayAwayTime"));
-					inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, defaultValues.get("EverydayHomeTime"));
-					inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, defaultValues.get("EverydaySleepTime"));
-					inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, "08:00 AM");
+					inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, defaultValues.get("EverydayWakeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, defaultValues.get("EverydayAwayTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, defaultValues.get("EverydayHomeTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, defaultValues.get("EverydaySleepTime").toLowerCase().replaceAll("^0*", ""));
+					inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, "8:00 AM");
 					inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, "10:00 AM");
-					inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, "05:00 PM");
+					inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, "5:00 PM");
 					inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, "11:00 PM");
 
 					flag = flag & JasperSchedulingUtils.createTimeBasedScheduleWithMinMaxSetPoints(testCase, inputs);

@@ -19,8 +19,12 @@ public class DASCameraSolutionCard extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NewToLyricCameraPopUpTitle",timeOut);
 	}
-
-	public boolean clickOnOkButton()
+	
+	public boolean isNewToLyricCameraPopUpMessageVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NewToLyricCameraPopUpMessage",timeOut);
+	}
+		public boolean clickOnOkButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
 	}

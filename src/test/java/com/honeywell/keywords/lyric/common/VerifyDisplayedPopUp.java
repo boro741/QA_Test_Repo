@@ -73,44 +73,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 
-		case "DIMMER DELETED SUCCESSFULLY": {
-			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			if (DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)) {
-				return true;
-			} else if (zwaveScreen.isDeviceNotFoundPopupDisplayed()) {
-				zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
-				zwaveScreen.ClickDeleteFromSettings();
-				zwaveScreen.clickOkOnRemoveDevicePopUp();
-				zwaveScreen.isExcludeZwaveScreenDisplayed();
-				try {
-					DASZwaveUtils.activateZwaveDimmer(testCase, inputs);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
-			break;
-
-		}
 		case "SWITCH DELETED SUCCESSFULLY": {
-			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-			if (DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs)) {
-				return true;
-			} else if (zwaveScreen.isDeviceNotFoundPopupDisplayed()) {
-				zwaveScreen.clickCancelOnDeviceNotFoundPopUp();
-				zwaveScreen.ClickDeleteFromSettings();
-				zwaveScreen.clickOkOnRemoveDevicePopUp();
-				zwaveScreen.isExcludeZwaveScreenDisplayed();
-				try {
-					DASZwaveUtils.activateZwaveSwitch(testCase, inputs);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-			flag = flag & DASZwaveUtils.verifyDeviceDeletedPopUp(testCase, inputs);
-			break;
 		}
 		case "REMOVE DEVICE": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -174,12 +137,10 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
-
-		case "NEW TO LYRIC CAMERA": {
+		case "NEW TO LYRIC CAMERA" : {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;
 		}
-
 		case "SET TO OFF": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			flag = flag & sc.isSetToOffPopupVisible();

@@ -37,7 +37,7 @@ public class VerifyTemperatureWithinRange extends Keyword {
 						"Thermostat is offline");
 				return true;
 			}
-			if (statInfo.getDeviceID().equals("Jasper")) {
+			if (statInfo.getThermostatType().equals("Jasper")) {
 				flag = flag & JasperSchedulingVerifyUtils.verifyTemperatureWithInRange(testCase, inputs);
 			}
 		} catch (Exception e) {

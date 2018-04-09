@@ -31,7 +31,7 @@ public class LoginScreen extends MobileScreens{
 		
 		public boolean isLoginButtonVisible()
 		{
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoginButton",3);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoginButton",15);
 		}
 		
 		public boolean isEmailAddressTextFieldVisible()

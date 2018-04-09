@@ -335,6 +335,7 @@ Then added network should be displayed in the list of networks in "Connect to Ne
 
 @DIYInvalidWiFiPassword	@UIAutomated
 Scenario Outline: As a user I should not be able to connect to a Wi-Fi network with invalid password
+
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -446,8 +447,7 @@ Examples:
 
 @DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -603,7 +603,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	@UIAutomated
-Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting with invalid Wi-Fi password 
+Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -617,7 +617,7 @@ Then user navigates to "Register Base Station" screen from the "Power Base Stati
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "vibex444" as the WiFi Password
+And user inputs "MidhunSatya@04" as the WiFi Password
 Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
@@ -760,6 +760,7 @@ Then user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
+When user navigates to other apps and navigates back to Lyric app
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <first device name> device on the "dashboard" screen
 

@@ -45,4 +45,29 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean clickOnCancelButtonOfAddDeviceScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 	}
+	
+	public boolean isPageTitleVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PageTitle", timeOut);
+	}
+	
+	public boolean isSearchVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Search",timeOut);
+	}
+	
+	public boolean clickOnBackButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+	
+	public boolean isLogoutVisible(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Logout",timeOut);
+	}
+	
+	public boolean clickOnLogoutButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Logout");
+	}
 }

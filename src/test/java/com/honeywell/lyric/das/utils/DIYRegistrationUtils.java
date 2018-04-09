@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
 import com.honeywell.CHIL.CHILUtil;
-import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -25,10 +24,10 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
 import com.honeywell.lyric.utils.ADBUtils;
-import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.account.information.LocationInformation;
 
 public class DIYRegistrationUtils {
 
@@ -304,12 +303,13 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
+
+//			flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
-			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 		} else {
-			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+//			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}

@@ -2,6 +2,8 @@ package com.honeywell.lyric.utils;
 
 public class InputVariables {
 	public static String TYPE_OF_SCHEDULE = "TypeOfSchedule";
+	public static String MOBILE_LOCATION_OFF = "false";
+	public static String MOBILE_LOCATIONPERMISSION_OFF = "false";
 	public static String TYPE_OF_TIME_SCHEDULE = "TypeOfTimeSchedule";
 	public static String TYPE_OF_SCHEDULE_RETAINED = "TypeOfScheduleRetained";
 	public static final String TIME_BASED_SCHEDULE = "Time";

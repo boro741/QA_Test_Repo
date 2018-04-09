@@ -1,0 +1,33 @@
+FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
+WLDDismissIcon	ID	general_alert_dismiss_button	ID	general_alert_dismiss_button	ID	general_alert_dismiss_button						
+Dialer							name	Dialer	name	Dialer	name	Dialer
+SetPointStepper_UP							NAME	temp stepper up	NAME	temp stepper up	NAME	temp stepper up
+NextUpdateText	ID	next_update_text	ID	next_update_text	ID	next_update_text						
+SetPointStepper_Down	ID	fragment_thermostat_dial	ID	fragment_thermostat_dial	ID	fragment_thermostat_dial	NAME	temp stepper down	NAME	temp stepper down	NAME	temp stepper down
+changedModeText	xPATH	//android.widget.TextView[cont										
+FanCirculate	XPATH	//android.widget.TextView[@text='Circulate']					XPATH	//XCUIElementTypeStaticText[@value='Circulate']	XPATH	//XCUIElementTypeStaticText[@value='Circulate']	XPATH	//XCUIElementTypeStaticText[@value='Circulate']
+CoolModeOption	XPATH	//*[@text='COOL']	XPATH	//*[@text='Cool']	XPATH	//*[@text='Cool']	XPATH	//*[@value='COOL']	XPATH	//*[@value='COOL']	XPATH	//*[@value='COOL']
+DRAdHocButton	ID	view_thermostat_dr_button	ID	view_thermostat_dr_button	ID	view_thermostat_dr_button	NAME	DREvent_Status	NAME	DREvent_Status	NAME	DREvent_Status
+HumidityTab	XPATH	//*[@text='Humidity']	XPATH	//*[@text='Humidity']	XPATH	//*[@text='Humidity']						
+WeatherButton	ID	fragment_weather_current_temperature	ID	fragment_weather_current_temperature	ID	fragment_weather_current_temperature	NAME	icon weather normal	NAME	icon weather normal	NAME	icon weather normal
+AddDevice	ID	dashboard_add_thermostat	ID	dashboard_add_thermostat	ID	dashboard_add_thermostat	NAME	Add Device	NAME	Add Device	NAME	Add Device
+FanAuto	XPATH	//android.widget.TextView[@text='Auto']					XPATH	//XCUIElementTypeStaticText[@value='Auto']	XPATH	//XCUIElementTypeStaticText[@value='Auto']	XPATH	//XCUIElementTypeStaticText[@value='Auto']
+GeofenceScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	icon geofence normal	NAME	icon geofence normal	NAME	icon geofence normal
+SystemModeButton	XPATH	//*[@text='MODE']	ID	view_thermostat_mode_change_toggle_button	ID	view_thermostat_mode_change_toggle_button	NAME	DashBoard_Mode	NAME	DashBoard_Mode	NAME	DashBoard_Mode
+HeatModeOption	XPATH	//*[@text='HEAT']	XPATH	//*[@text='Heat']	XPATH	//*[@text='Heat']	XPATH	//*[@value='HEAT']	XPATH	//*[@value='HEAT']	XPATH	//*[@value='HEAT']
+MultiStatIndoorTemp	ID	indoortemp	ID	indoortemp	ID	indoortemp	NAME	indoorTemperatureValue	NAME	indoorTemperatureValue	NAME	indoorTemperatureValue
+TemperatureHumidityValue	ID	wld_temp_humidity_value	ID	wld_temp_humidity_value	ID	wld_temp_humidity_value						
+BatteryRemainingText	ID	battery_remaining_text	ID	battery_remaining_text	ID	battery_remaining_text						
+ScheduleLabel	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_status	NAME	Schedule_Status	NAME	Schedule_Status	NAME	Schedule_Status
+DeviceLastUpdateTime	ID	device_last_update_time	ID	device_last_update_time	ID	device_last_update_time						
+Fan	id	fragment_thermostat_weather_button	id	fragment_thermostat_weather_button	id	fragment_thermostat_weather_button						
+OffModeOption	XPATH	//*[@text='OFF']	XPATH	//*[@text='Off']	XPATH	//*[@text='Off']	XPATH	//*[@value='OFF']	XPATH	//*[@value='OFF']	XPATH	//*[@value='OFF']
+TimeScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	icon calendar normal	NAME	icon calendar normal	NAME	icon calendar normal
+AdHocButton	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status
+FanOn	XPATH	//android.widget.TextView[@text='On']					XPATH	//XCUIElementTypeStaticText[@value='On']	XPATH	//XCUIElementTypeStaticText[@value='On']	XPATH	//XCUIElementTypeStaticText[@value='On']
+ThermostatScheduleStatus	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_status	NAME	Schedule_Status	NAME	Schedule_Status	NAME	Schedule_Status
+TemperatureTab	XPATH	//*[@text='Temperature']	XPATH	//*[@text='Temperature']	XPATH	//*[@text='Temperature']						
+CancelOption	ID	view_thermostat_mode_selector_cancel	ID	view_thermostat_mode_selector_cancel	ID	view_thermostat_mode_selector_cancel	NAME	iconClose	NAME	iconClose	NAME	iconClose
+IndoorTemperature	ID	fragment_thermostat_current_temperature	ID	fragment_thermostat_current_temperature	ID	fragment_thermostat_current_temperature	NAME	DashBoard_CurrentTemperature	NAME	DashBoard_CurrentTemperature	NAME	DashBoard_CurrentTemperature
+AutoModeOption	XPATH	//*[@text='AUTO']	XPATH	//*[@text='Auto']	XPATH	//*[@text='Auto']	XPATH	//*[@value='AUTO']	XPATH	//*[@value='AUTO']	XPATH	//*[@value='AUTO']
+LocationNameIOS							name	Location Name	name	Location Name	name	Location Name

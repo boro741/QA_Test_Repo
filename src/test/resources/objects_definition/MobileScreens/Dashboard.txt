@@ -13,3 +13,6 @@ SplashScreen	id	splash_screen_layout	id	splash_screen_layout	id	splash_screen_la
 ProgressBar	xpath	//android.widget.ProgressBar	xpath	//android.widget.ProgressBar	xpath	//android.widget.ProgressBar						
 SecurityTitleInDashboardScreen	XPATH	//android.widget.TextView[@text='Security']	XPATH	//android.widget.TextView[@text='Security']	XPATH	//android.widget.TextView[@text='Security']	NAME	subTitle_Security	NAME	subTitle_Security	NAME	subTitle_Security
 SettingsIconInSecurityScreen							NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
+LocationDropDownButton							NAME	Location Name	NAME	Location Name	NAME	Location Name
+LocationDropDownList							NAME	Navigation_Drop_Down_Title_cell	NAME	Navigation_Drop_Down_Title_cell	NAME	Navigation_Drop_Down_Title_cell
+LocationName							NAME	Location Name	NAME	Location Name	NAME	Location Name

@@ -85,7 +85,7 @@ public class LocationInformation {
 			return firstName;
 		}
 	}
-	
+
 	public String getDASDeviceID() {
 		String deviceID="";
 		if (locationInformation != null) {

@@ -332,6 +332,7 @@ public class NavigateToScreen extends Keyword {
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
 					break;
 				}
 
@@ -361,7 +362,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -389,7 +390,7 @@ public class NavigateToScreen extends Keyword {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dashboard d = new Dashboard(testCase);
 					int counter = 0;
-					while (bs.isBackButtonVisible(5) && !d.areDevicesVisibleOnDashboard() && counter < 4) {
+					while (bs.isBackButtonVisible() && !d.areDevicesVisibleOnDashboard() && counter < 4) {
 						flag = flag & bs.clickOnBackButton();
 						counter++;
 					}
@@ -771,7 +772,7 @@ public class NavigateToScreen extends Keyword {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
 
-		} catch (Exception e) {
+					} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

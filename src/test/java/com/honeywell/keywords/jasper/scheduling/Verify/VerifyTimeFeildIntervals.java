@@ -55,7 +55,7 @@ public class VerifyTimeFeildIntervals extends Keyword {
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, "NA");
 			}
 
-			if (statInfo.getDeviceID().equals("Jasper")) {
+			if (statInfo.getThermostatType().equals("Jasper")) {
 				flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 				flag = flag & JasperSchedulingVerifyUtils.verifyTimeFieldIncrements(testCase, inputs, timeInterval);

@@ -352,8 +352,8 @@ Feature: DAS Settings
      Then user receives a "Ensure camera is turned on" toast message
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyVideoSettings @UIAutomated @--xrayid:ATER-23205
-  Scenario: As a user I should be able to access DAS camera settings
+  @VerifyVideoSettings @UIAutomated
+  Scenario: As a user I should not be able to access certain DAS camera settings when my camera is off
     Given user DAS camera is set to "on" through CHIL
     And user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application

@@ -10,14 +10,14 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.Schedule;
+import com.honeywell.screens.SchedulingScreen;
 
 public class DashboardUtils {
 
 	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected) throws Exception {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
-		if (d.areDevicesVisibleOnDashboard(5)) {
+		if (d.areDevicesVisibleOnDashboard(25)) {
 			dashboardIconText = d.getDashboardDeviceNameElements();
 		}
 		boolean f = false;
@@ -49,7 +49,7 @@ public class DashboardUtils {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			Schedule sch = new Schedule(testCase);
+			SchedulingScreen sch = new SchedulingScreen(testCase);
 			Dashboard d = new Dashboard(testCase);
 			if (d.isGlobalDrawerButtonVisible()) {
 				Keyword.ReportStep_Pass(testCase,
@@ -64,6 +64,8 @@ public class DashboardUtils {
 						flag = flag & bs.clickOnBackButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
+					} else if (sch.IsSaveButtonVisible(5)){
+						flag = flag & sch.clickOnSaveButton();
 					}
 					i++;
 				}
@@ -83,5 +85,4 @@ public class DashboardUtils {
 		}
 		return flag;
 	}
-
 }

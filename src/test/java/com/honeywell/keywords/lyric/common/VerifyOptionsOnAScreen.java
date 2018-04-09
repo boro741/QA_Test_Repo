@@ -141,7 +141,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"'Name' Sensor Option is not displayed on the Sensor Settings Screen");
 					}
 				} else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
-					if (bs.verifySensorStatusOptionTextOnSensorSettingsScreen()) {
+					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
 						Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
 					} else {
 						flag = false;
@@ -149,7 +149,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"'Status' Option is not displayed on the Sensor Settings Screen");
 					}
 				} else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
-					if (bs.verifySensorSignalStrengthAndTestOptionTextOnSensorSettingsScreen()) {
+					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
 						Keyword.ReportStep_Pass(testCase,
 								"'Signal Strength And Test' Option is present on the Sensors Settings Screen");
 					} else {
@@ -314,8 +314,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"Video Setting: '" + fieldTobeVerified + "' is present on the Video Settings screen");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Video Setting: '"
-								+ fieldTobeVerified + "' is not present on the Video Settings screen");
+
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Setting: '" + fieldTobeVerified + "' is not present on the Video Settings screen");
 					}
 				} catch (Exception e) {
 					flag = false;

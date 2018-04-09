@@ -17,6 +17,7 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -28,6 +29,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
@@ -52,6 +54,10 @@ import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SecretMenu;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
 
 public class LyricUtils {
 
@@ -430,7 +436,8 @@ public class LyricUtils {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
-									return CoachMarkUtils.closeCoachMarks(testCase);
+
+									return LyricUtils.closeCoachMarks(testCase);
 								}
 
 							}
@@ -449,7 +456,7 @@ public class LyricUtils {
 								return true;
 							} else {
 								return CoachMarkUtils.closeCoachMarks(testCase);
-							}
+		}
 
 						} else {
 							return false;
@@ -643,12 +650,7 @@ public class LyricUtils {
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
-		if (closeCoachMarks.length > 0) {
-			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
-		} else {
-			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
-		}
+		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		return flag;
 	}
 
@@ -1201,7 +1203,20 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-
+	
+	public static boolean closeCoachMarks(TestCases testCase) {
+		boolean flag = true;
+		CoachMarks cm = new CoachMarks(testCase);
+		int counter = 0;
+		if (cm.isGotitButtonVisible(1)) {
+			while (cm.isGotitButtonVisible(1) && counter < 5) {
+				flag = flag & cm.clickOnGotitButton();
+				counter++;
+			}
+		}
+		return flag;
+	}
+	
 	/**
 	 * <h1>Get Location Time</h1>
 	 * <p>
@@ -1262,4 +1277,161 @@ public class LyricUtils {
 		}
 		return time;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static void changeLocationSettings(TestCases testCase, TestCaseInputs inputs, String status) {
+		boolean flag;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			Activity activity = new Activity("com.android.settings",
+					"com.android.settings.Settings");
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).startActivity(activity);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error - " + e.getMessage());
+				e.printStackTrace();
+			}
+			WebElement elem = ((CustomDriver) testCase.getMobileDriver()).scrollTo("Location");
+			elem = ((AndroidDriver<MobileElement>) testCase.getMobileDriver())
+					.findElement(By.xpath("//android.widget.TextView[@text='Location']"));
+			if (elem != null) {
+				elem.click();
+			}
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error - " + e.getMessage());
+				e.printStackTrace();
+			}
+			elem = ((AndroidDriver<MobileElement>) testCase.getMobileDriver())
+					.findElement(By.id("com.android.settings:id/switch_widget"));
+			if (elem != null) {
+				if (status.equalsIgnoreCase("On")) {
+					if (elem.getText().equalsIgnoreCase("Off")) {
+						elem.click();
+						Keyword.ReportStep_Pass(testCase, "Location toggle is on");
+						elem = ((AndroidDriver<MobileElement>) testCase.getMobileDriver())
+								.findElement(By.xpath("//android.widget.Button[@text='AGREE']"));
+						if (elem != null) {
+							elem.click();
+							Keyword.ReportStep_Pass(testCase, "Location services is turned on");
+						}
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Location services is already on");
+					}
+				} else if (status.equalsIgnoreCase("Off")) {
+					if (elem.getText().equalsIgnoreCase("On")) {
+						elem.click();
+						inputs.setInputValue(InputVariables.MOBILE_LOCATION_OFF, "true");
+						Keyword.ReportStep_Pass(testCase, "Location services is turned off");
+					} else {
+						inputs.setInputValue(InputVariables.MOBILE_LOCATION_OFF, "true");
+						Keyword.ReportStep_Pass(testCase, "Location services is already off");
+					}
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to locate Location services switch");
+			}
+			try {
+				Thread.sleep(7000);
+			} catch (InterruptedException e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error - " + e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			boolean success = false;
+			if (!MobileUtils.launchSettingsAppOnIOS(testCase)) {
+				flag = false;
+			} else {
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				for (int i = 0; i < 5; ++i) {
+					if (success) {
+						break;
+					}
+					try {
+						action.press(10, (int) (dimension.getHeight() * .5))
+								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+					} catch (Exception e) {
+					}
+
+					FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
+							testCase.getMobileDriver());
+					fWait.withTimeout(5, TimeUnit.SECONDS);
+					fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
+					try {
+						WebElement elem = fWait.until(
+								ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@label='Privacy']")));
+						if (elem != null) {
+							elem.click();
+							success = true;
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Scroll to Privacy : Privacy option not found");
+						}
+					} catch (TimeoutException e) {
+						// Retry again
+					}
+				}
+
+				if (MobileUtils.isMobElementExists("name", "Location Services", testCase, 5)) {
+					if (!MobileUtils.clickOnElement(testCase, "name", "Location Services")) {
+						flag = false;
+					} else {
+						List<WebElement> locServ = MobileUtils.getMobElements(testCase, "xpath",
+								"//*[@name='Location Services']");
+						WebElement toggleSwitch = null;
+						toggleSwitch=locServ.get(4);
+						/*for (WebElement locSer : locServ) {
+							System.out.println(locSer.getAttribute("value"));
+							if (locSer.getAttribute("value").equalsIgnoreCase("0")
+									|| locSer.getAttribute("value").equalsIgnoreCase("1")) {
+								toggleSwitch = locSer;
+								break;
+							} else {
+								toggleSwitch = null;
+							}
+						}*/
+						if (toggleSwitch != null) {
+							if (status.equalsIgnoreCase("off")) {
+								if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
+									toggleSwitch.click();
+									if (MobileUtils.isMobElementExists("name", "Turn Off", testCase, 5)) {
+										if (!MobileUtils.clickOnElement(testCase, "name", "Turn Off")) {
+											flag = false;
+										} else {
+											inputs.setInputValue(InputVariables.MOBILE_LOCATION_OFF, "true");
+											Keyword.ReportStep_Pass(testCase, "Turned off Location Services");
+										}
+									}
+								} else {
+									inputs.setInputValue(InputVariables.MOBILE_LOCATION_OFF, "true");
+									Keyword.ReportStep_Pass(testCase, "Location Services is already turned off");
+								}
+							} else {
+								if (toggleSwitch.getAttribute("value").equalsIgnoreCase("0")) {
+									toggleSwitch.click();
+									Keyword.ReportStep_Pass(testCase, "Turned on Location Services");
+								} else {
+									Keyword.ReportStep_Pass(testCase, "Location Services is already turned on");
+								}
+							}
+						}
+						else {
+							flag=false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate the Location Services switch");
+						}
+					}
+				}
+				MobileUtils.closeSettingsAppOnIOS(testCase);
+			}
+		}
+	}
+
 }

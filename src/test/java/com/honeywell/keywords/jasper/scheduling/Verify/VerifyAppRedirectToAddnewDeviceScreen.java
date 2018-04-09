@@ -1,26 +1,20 @@
 package com.honeywell.keywords.jasper.scheduling.Verify;
 
-import java.util.HashMap;
-
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordException;
+import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
-
-
-import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AddNewDeviceScreen;
 
 public class VerifyAppRedirectToAddnewDeviceScreen extends Keyword {	
 	private TestCases testCase;
-	private HashMap<String, MobileObject> fieldObjects;
 	public boolean flag = true;
 
 	public VerifyAppRedirectToAddnewDeviceScreen(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
 }
 	@Override
 	public boolean preCondition() throws KeywordException {
@@ -30,9 +24,9 @@ public class VerifyAppRedirectToAddnewDeviceScreen extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^verify app redirected to Add new device screen$")
 	public boolean keywordSteps() throws KeywordException {
-		fieldObjects = MobileUtils.loadObjectFile(testCase, "AddNewDevice");
-			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PageTitle", 5, false)) {
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "PageTitle")) {
+		AddNewDeviceScreen ad = new AddNewDeviceScreen(testCase);
+			if (ad.isPageTitleVisible(5)) {
+				if (ad.isPageTitleVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 					"Successfully navigated to Add New device screen");
 				} else {
@@ -41,7 +35,7 @@ public class VerifyAppRedirectToAddnewDeviceScreen extends Keyword {
 					"Failed to navigate to Add New device screen");
 				}
 			}
-			else if (MobileUtils.isMobElementExists(fieldObjects, testCase, "Search", 5, false)) {
+			else if (ad.isSearchVisible(5)) {
 				Keyword.ReportStep_Pass(testCase,
 				"Successfully navigated to Country Selection screen");
 				
@@ -54,14 +48,15 @@ public class VerifyAppRedirectToAddnewDeviceScreen extends Keyword {
 		}
 	@Override
 	public boolean postCondition() throws KeywordException {	
+		AddNewDeviceScreen ad = new AddNewDeviceScreen(testCase);
 		if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			MobileUtils.clickOnElement(testCase, "Name", "Back");
+			ad.clickOnBackButton();
 		}
 		else{
 			MobileUtils.pressBackButton(testCase);
 		}
-		if(MobileUtils.isMobElementExists(fieldObjects, testCase, "Logout")){
-			MobileUtils.clickOnElement(fieldObjects, testCase, "Logout");
+		if(ad.isLogoutVisible(5)){
+			ad.clickOnLogoutButton();
 		}
 		return flag;
 	}
