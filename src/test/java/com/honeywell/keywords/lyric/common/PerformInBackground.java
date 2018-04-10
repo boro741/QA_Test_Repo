@@ -34,7 +34,7 @@ public class PerformInBackground extends Keyword {
 		return flag;
 	}
 	@Override
-	@KeywordStep(gherkins = "^user \"(.+)\" in background$")
+	@KeywordStep(gherkins = "^\"(.+)\" is triggered in the background$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			Runnable bgnd = new Runnable() {

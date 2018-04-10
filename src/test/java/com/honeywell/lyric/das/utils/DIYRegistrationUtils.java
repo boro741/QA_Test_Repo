@@ -967,5 +967,4 @@ public class DIYRegistrationUtils {
 		MobileUtils.minimizeApp(testCase, 5);
 		return flag;
 	}
-
 }

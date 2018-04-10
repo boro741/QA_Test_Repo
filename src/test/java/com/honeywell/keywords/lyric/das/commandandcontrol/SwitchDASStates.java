@@ -76,7 +76,8 @@ public class SwitchDASStates extends Keyword {
 			// DASCommandControlUtils.waitForTimerToComplete(testCase);
 		} else if (states.get(1).equalsIgnoreCase("Away")) {
 			flag = flag & DASCommandControlUtils.changeStatus(testCase, "Away", inputs);
-			inputs.setInputValue("AWAY_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("AWAY_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+			System.out.println("#########AWAY_TIME: " + inputs.getInputValue("AWAY_TIME"));
 			Keyword.ReportStep_Pass(testCase, "AWAY_TIME " + inputs.getInputValue("AWAY_TIME"));
 		} else if (states.get(1).equalsIgnoreCase("Off")) {
 			flag = flag & DASCommandControlUtils.changeStatus(testCase, "Off", inputs);
