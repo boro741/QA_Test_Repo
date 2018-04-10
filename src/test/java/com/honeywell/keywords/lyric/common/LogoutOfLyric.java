@@ -50,7 +50,7 @@ public class LogoutOfLyric extends Keyword {
 
 		if (inputs.isRunningOn("Perfecto")) {
 			if (inputs.getInputValue(InputVariables.MOBILE_LOCATION_OFF).equalsIgnoreCase("true")) {
-				LyricUtils.changeLocationSettings(testCase, inputs, "ON");
+				flag = flag & LyricUtils.changeLocationSettings(testCase, inputs, "ON");
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					Activity activity = new Activity("com.honeywell.android.lyric",
 							"com.honeywell.granite.graniteui.presentation.activity.dashboard.DashBoardActivity");

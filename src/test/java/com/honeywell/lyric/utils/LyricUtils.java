@@ -1279,8 +1279,8 @@ public class LyricUtils {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static void changeLocationSettings(TestCases testCase, TestCaseInputs inputs, String status) {
-		boolean flag;
+	public static boolean changeLocationSettings(TestCases testCase, TestCaseInputs inputs, String status) {
+		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			Activity activity = new Activity("com.android.settings",
 					"com.android.settings.Settings");
@@ -1432,6 +1432,6 @@ public class LyricUtils {
 				MobileUtils.closeSettingsAppOnIOS(testCase);
 			}
 		}
+		return flag;
 	}
-
 }
