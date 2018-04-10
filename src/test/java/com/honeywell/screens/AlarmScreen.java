@@ -19,6 +19,10 @@ public class AlarmScreen extends MobileScreens {
 				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton");
 	}
 
+	public boolean isPleaseWaitDisplayed()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DismissRequestProcessing");
+	}
 	public boolean clickOnDismissAlarm() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlarmDismissButton") &&
 				MobileUtils.clickOnElement(objectDefinition, testCase, "DismissAlarmPopupOk");

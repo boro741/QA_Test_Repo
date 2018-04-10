@@ -92,6 +92,7 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
 				}
+				break;
 			}
 			case "CAMERA SOLUTION CARD": {
 				if (DASCameraUtils.isCameraLiveStreaming(testCase)) {

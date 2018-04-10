@@ -10,14 +10,14 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 
-public class DoorSensorActions extends Keyword {
+public class WindowSensorActions extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	private ArrayList<String> states;
 	public boolean flag = true;
 
-	public DoorSensorActions(TestCases testCase, TestCaseInputs inputs, ArrayList<String> states) {
+	public WindowSensorActions(TestCases testCase, TestCaseInputs inputs, ArrayList<String> states) {
 		this.inputs = inputs;
 		this.testCase = testCase;
 		this.states = states;
@@ -30,13 +30,13 @@ public class DoorSensorActions extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user door \"(.+)\"$")
+	@KeywordStep(gherkins = "^user window \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
 			if(states.get(0).contains("opened")){
-				DASSensorUtils.openDoor(testCase, inputs);
+				DASSensorUtils.openWindow(testCase, inputs);
 			} else if(states.get(0).contains("closed")){
-				DASSensorUtils.closeDoor(testCase, inputs);
+				DASSensorUtils.closeWindow(testCase, inputs);
 			} else if(states.get(0).contains("does not close")){
 				DASAlarmUtils.timeOutForNoSensorAction(testCase,inputs);
 			}

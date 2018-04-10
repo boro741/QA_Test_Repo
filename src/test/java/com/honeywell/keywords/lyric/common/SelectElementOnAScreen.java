@@ -49,15 +49,23 @@ public class SelectElementOnAScreen extends Keyword {
 			if(parameters.get(1).equalsIgnoreCase("Entry delay")){
 				switch (parameters.get(0).toUpperCase()) {
 				case "SWITCH TO HOME":{
-					DASAlarmUtils.clickOnSwitchToHome(testCase);
+					DASAlarmUtils.clickOnSwitchToHome(testCase,inputs);
+					int i=0;
+					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase)){
+						System.out.println("Waiting for dismiss alarm request to complete");
+					}
 					break;
 				}
 				case "SWITCH TO NIGHT":{
-					DASAlarmUtils.clickOnSwitchToNight(testCase);
+					DASAlarmUtils.clickOnSwitchToNight(testCase,inputs);
 					break;
 				}
 				case "ATTENTION":{
 					DASAlarmUtils.clickOnAttention(testCase,inputs);
+					break;
+				}
+				case "NO OPTIONS":{
+					DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
 					break;
 				}
 				default:{
@@ -88,7 +96,10 @@ public class SelectElementOnAScreen extends Keyword {
 					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
-					
+					int i=0;
+					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase)){
+						System.out.println("Waiting for dismiss alarm request to complete");
+					}
 					break;
 				}
 				case "CALL":{

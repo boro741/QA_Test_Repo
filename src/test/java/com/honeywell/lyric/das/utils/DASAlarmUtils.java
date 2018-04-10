@@ -80,6 +80,12 @@ public class DASAlarmUtils {
 		return alarmScreen.isAlarmScreenDisplayed();
 		
 	}
+	
+	public static boolean verifyProgressDisplayed(TestCases testCase){
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		return alarmScreen.isPleaseWaitDisplayed();
+		
+	}
 
 	public static boolean clickOnDismissAlarm(TestCases testCase, TestCaseInputs inputs) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
@@ -98,19 +104,24 @@ public class DASAlarmUtils {
 		return alarmScreen.isEntryDelayScreenDisplayed();
 	}
 	
-	public static boolean clickOnSwitchToHome(TestCases testCase){
+	public static boolean clickOnSwitchToHome(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		
 		return alarmScreen.clickOnSwitchToHome();
 	}
 	
-	public static boolean clickOnSwitchToNight(TestCases testCase){
+	public static boolean clickOnSwitchToNight(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		inputs.setInputValue("NIGHT_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		
 		return alarmScreen.clickOnSwitchToNight();
 	}
 	
 	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("ATTENTION_ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 		return alarmScreen.clickOnAttention();
 	}
 }
