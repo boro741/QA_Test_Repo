@@ -193,16 +193,16 @@ When user launches and logs in to the Lyric application
 And user is set to "Home" mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user clears all push notifications
-When "Away Mode" is triggered in the background
+When user "Trigers Away Mode" in background
 Then user receives a "set to Away" push notification
 And user clears all push notifications
-When "Night Mode" is triggered in the background
+When user "Trigers Night Mode" in background
 Then user receives a "set to Night" push notification
 And user clears all push notifications
-When "Off Mode" is triggered in the background
+When user "Trigers Off Mode" in background
 Then user receives a "set to Off" push notification
 And user clears all push notifications
-When "Home Mode" is triggered in the background
+When user "Trigers Home Mode" in background
 Then user receives a "set to Home" push notification
 
 @UserpressesbackbuttonWhileSwitchingModes

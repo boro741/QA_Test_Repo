@@ -70,14 +70,14 @@ public class VerifyActivityLogs extends Keyword {
 			case "SENSOR MOTION DETECTED AT AWAY MODE":{
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Motion Detected";
 				expectedActivitySubHeader = "AWAY MODE";
-				deviceTime = inputs.getInputValue("MOTION_DETECTED_TIME");
+				deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
 				break;
 			}
 
 			case "CAMERA MOTION DETECTED AT AWAY MODE":{
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Detected";
 				expectedActivitySubHeader = "AWAY MODE";
-				deviceTime = inputs.getInputValue("MOTION_DETECTED_TIME");
+				deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
 				break;
 			}
 			// opened activities
@@ -230,14 +230,14 @@ public class VerifyActivityLogs extends Keyword {
 			case "WINDOW ALARM AT AWAY MODE":{
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
 				expectedActivitySubHeader = "AWAY MODE";
-				deviceTime = inputs.getInputValue("WINDOW_OPENED_TIME");
+				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			
 			case "WINDOW ALARM AT NIGHT MODE":{
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
 				expectedActivitySubHeader = "NIGHT MODE";
-				deviceTime = inputs.getInputValue("WINDOW_OPENED_TIME");
+				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			case "ALARM AT AWAY MODE": {

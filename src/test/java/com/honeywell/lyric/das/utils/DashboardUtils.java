@@ -89,8 +89,6 @@ public class DashboardUtils {
 		}
 		return flag;
 	}
-<<<<<<< Updated upstream
-=======
 
 	/**
 	 * <h1>Wait for until progress bar to complete</h1>
@@ -216,6 +214,4 @@ public class DashboardUtils {
 
 		return flag;
 	}
-
->>>>>>> Stashed changes
 }

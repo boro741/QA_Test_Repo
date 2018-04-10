@@ -34,7 +34,7 @@ public class PerformInBackground extends Keyword {
 		return flag;
 	}
 	@Override
-	@KeywordStep(gherkins = "^\"(.+)\" is triggered in the background$")
+	@KeywordStep(gherkins = "^user \"(.+)\" in background$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			Runnable bgnd = new Runnable() {
@@ -112,7 +112,7 @@ public class PerformInBackground extends Keyword {
 					inputs.setInputValue("USERID",actualUser);
 					inputs.setInputValue("LOCATION1_NAME",actualLocName);
 				}
-				else if(states.get(0).equalsIgnoreCase("SWITCHED TO HOME")||states.get(0).equalsIgnoreCase("HOME MODE")){
+				else if(states.get(0).equalsIgnoreCase("SWITCHED TO HOME")||states.get(0).equalsIgnoreCase("TRIGERS HOME MODE")){
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"Home",testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to home");
@@ -122,7 +122,7 @@ public class PerformInBackground extends Keyword {
 								"Could not set base station in home : " + result);
 					}
 				}
-				else if(states.get(0).equalsIgnoreCase("AWAY MODE")){
+				else if(states.get(0).equalsIgnoreCase("TRIGERS AWAY MODE")){
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"AWAY",testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to AWAY MODE");
@@ -132,7 +132,7 @@ public class PerformInBackground extends Keyword {
 								"Could not set base station in AWAY MODE : " + result);
 					}
 				}
-				else if(states.get(0).equalsIgnoreCase("NIGHT MODE")||states.get(0).equalsIgnoreCase("SWITCHED TO NIGHT")){
+				else if(states.get(0).equalsIgnoreCase("TRIGERS NIGHT MODE")||states.get(0).equalsIgnoreCase("SWITCHED TO NIGHT")){
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"NIGHT",testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to NIGHT MODE");
@@ -142,7 +142,7 @@ public class PerformInBackground extends Keyword {
 								"Could not set base station in NIGHT MODE : " + result);
 					}
 				}
-				else if(states.get(0).equalsIgnoreCase("OFF MODE")){
+				else if(states.get(0).equalsIgnoreCase("TRIGERS OFF MODE")){
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"OFF", testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to NIGHT MODE");
