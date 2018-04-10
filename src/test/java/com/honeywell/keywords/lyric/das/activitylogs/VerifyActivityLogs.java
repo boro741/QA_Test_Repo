@@ -44,6 +44,9 @@ public class VerifyActivityLogs extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user receives a \"(.*)\" activity log$")
 	public boolean keywordSteps() throws KeywordException {
+		/*if(true){
+			return true;
+		}*/
 		// if(!inputs.getInputValue("VERIFY_ACTIVITYLOGS").equalsIgnoreCase("NO")){
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ActivityLogs");
@@ -68,7 +71,19 @@ public class VerifyActivityLogs extends Keyword {
 
 			// flag = flag & DASNotificationUtils.openActivityLogs(testCase);
 			switch (exampleData.get(0).toUpperCase()) {
+			case "SENSOR MOTION DETECTED AT AWAY MODE":{
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Motion Detected";
+				expectedActivitySubHeader = "AWAY MODE";
+				deviceTime = inputs.getInputValue("MOTION_DETECTED_TIME");
+				break;
+			}
 
+			case "CAMERA MOTION DETECTED AT AWAY MODE":{
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Detected";
+				expectedActivitySubHeader = "AWAY MODE";
+				deviceTime = inputs.getInputValue("MOTION_DETECTED_TIME");
+				break;
+			}
 			// opened activities
 			case "DOOR OPENED AT HOME MODE": {
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Opened";
@@ -106,7 +121,6 @@ public class VerifyActivityLogs extends Keyword {
 				deviceTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
-
 			// closed activities
 			case "DOOR CLOSED AT HOME MODE": {
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Closed";
@@ -216,6 +230,20 @@ public class VerifyActivityLogs extends Keyword {
 			}
 
 			// Alarm activities
+
+			case "WINDOW ALARM AT AWAY MODE":{
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				expectedActivitySubHeader = "AWAY MODE";
+				deviceTime = inputs.getInputValue("WINDOW_OPENED_TIME");
+				break;
+			}
+			
+			case "WINDOW ALARM AT NIGHT MODE":{
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				expectedActivitySubHeader = "NIGHT MODE";
+				deviceTime = inputs.getInputValue("WINDOW_OPENED_TIME");
+				break;
+			}
 			case "ALARM AT AWAY MODE": {
 				expectedActivityHeader = "Alarm";
 				expectedActivitySubHeader = "AWAY MODE";
@@ -459,7 +487,7 @@ public class VerifyActivityLogs extends Keyword {
 				deviceTime = inputs.getInputValue("NIGHT_TIME");
 				break;
 			}
-			
+
 			case "SWITCHED TO OFF BY INVITED USER BY APP":
 			case "SWITCHED TO OFF BY APP": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
@@ -469,7 +497,7 @@ public class VerifyActivityLogs extends Keyword {
 				deviceTime = inputs.getInputValue("NIGHT_TIME");
 				break;
 			}
-			
+
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + exampleData.get(0));

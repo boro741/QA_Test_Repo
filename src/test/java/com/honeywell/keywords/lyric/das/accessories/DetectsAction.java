@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.common;
+package com.honeywell.keywords.lyric.das.accessories;
 
 import java.util.ArrayList;
 
@@ -38,20 +38,25 @@ public class DetectsAction extends Keyword {
 		try {
 			if (parameters.get(0).equalsIgnoreCase("DAS camera")) {
 				if (parameters.get(1).equalsIgnoreCase("Motion")) {
-					flag=false;
 					System.out.println("Move the object in front of das camera");
+				}else {
+					flag=false;
 				}
-
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"Successfully deleted DAS Device through UI");
-					flag = flag & LyricUtils.verifyDeviceNotDisplayedOnDashboard(testCase, inputs, parameters.get(1));
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase,
-							FailType.FUNCTIONAL_FAILURE,
-							"Failed to detect "+parameters.get(1)+" through "+parameters.get(0));
+			} else if (parameters.get(0).equalsIgnoreCase("Sensor")) {
+				if (parameters.get(1).equalsIgnoreCase("Motion")) {
+					inputs.setInputValue("MOTION_DETECTED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					System.out.println("Move the object in front of motion sensor");
+				}else {
+					flag=false;
 				}
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase,"Detected motion");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase,
+						FailType.FUNCTIONAL_FAILURE,
+						"Failed to detect "+parameters.get(1)+" through "+parameters.get(0));
 			}
 		} catch (Exception e) {
 			flag = false;

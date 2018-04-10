@@ -30,18 +30,14 @@ public class WindowSensorActions extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user \"(.+)\" the window \"(.+)\" delay$")
+	@KeywordStep(gherkins = "^user window \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if(states.get(0).contains("opens") && states.get(1).equalsIgnoreCase("in exit")){
+			if(states.get(0).contains("opened")){
 				DASSensorUtils.openWindow(testCase, inputs);
-			} else if(states.get(0).contains("closes") && states.get(1).equalsIgnoreCase("in exit")){
+			} else if(states.get(0).contains("closed")){
 				DASSensorUtils.closeWindow(testCase, inputs);
-			} else if(states.get(0).contains("opens") && states.get(1).equalsIgnoreCase("after exit")){
-				DASSensorUtils.openWindow(testCase, inputs);
-			} else if(states.get(0).contains("closes") && states.get(1).equalsIgnoreCase("after exit")){
-				DASSensorUtils.closeWindow(testCase, inputs);
-			} else if(states.get(0).contains("does not close") && states.get(1).equalsIgnoreCase("after exit")){
+			} else if(states.get(0).contains("does not close")){
 				DASAlarmUtils.timeOutForNoSensorAction(testCase,inputs);
 			}
 			else{

@@ -45,7 +45,7 @@ public class ActionOnPushNotification extends Keyword {
 		LocationInformation locInfo = new LocationInformation(testCase, inputs);
 		DASNotificationUtils.openNotifications(testCase);
 		switch(exampleData.get(0).toUpperCase()){
-		case "MOTION":{
+		case "MOTION DETECTED":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = "Motion Dectected by "+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+" at "+ inputs.getInputValue("LOCATION1_NAME")+".";
 			break;
