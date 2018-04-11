@@ -216,6 +216,4 @@ public class Dashboard extends MobileScreens {
 		}
 		return flag;
 	}
-
-	
 }
