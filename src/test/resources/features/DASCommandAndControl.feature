@@ -235,42 +235,42 @@ And user status should be set to "Away"
 @CommandControlWhenwindow/DoorSensorfault 
 Scenario Outline:
 As a user I want to switch to different states in my DAS device when there is a sensor fault 
-	Given user sets the entry/exit timer to "45" seconds 
-	And user is set to <Status> mode through CHIL 
-	When user launches and logs in to the Lyric application 
-	And user navigates to "security solution cards" screen from "Dashboard" screen 
-	And user "opens" the <Sensor type> 
-	And user switches from <Status>to "Away" 
-	Then user should be displayed with a "Switch to Away with the sensor fault" popup 
-	When user "confirms" the "Switch to Away with the sensor fault" popup 
-	Then user should be displayed with the "Switching to Away" text 
-	And user should be displayed with the "switching timer" 
-	When "Switching timer" ends on user device 
-	Then user should be displayed with the "Away Status" 
-	And user should be displayed with the "correct time stamp" 
-	When user navigates to "sensors list"  from "security solution cards" screen 
-	Then user should see the "Sensor Satus" status as "OFF" on the "Sensor LIST" 
-	And user is set to <Status> mode through CHIL 
-	When user switches from <Status> to "Night" 
-	Then user should be displayed with a "Switch to Night with the sensor fault" popup 
-	When user user "confirms" the "Switch to Night with the sensor fault" popup 
-	Then user should be displayed with a "Switching to Night" text 
-	And user should be displayed with the "switching timer" 
-	When "Switching timer" ends on user device 
-	Then user should be displayed with the "Night Status" 
-	And user should be displayed with the "correct time stamp" 
-	When user navigates to "sensors list"  from "security solution cards" screen 
-	Then user should see the "Sensor Satus" status as "OFF" on the "Sensor List" 
-	And user is set to <Status> mode through CHIL 
-	When user switches from <Status> to "Off" 
-	Then user should receive a "Set to Off" popup 
-	When user "confirms" the "Set to Off" popup 
-	Then user should be displayed with a "Switching to Off" text 
-	And user should be displayed with the "Off Status" 
+Given user sets the entry/exit timer to "45" seconds 
+And user is set to <Status> mode through CHIL 
+When user launches and logs in to the Lyric application 
+And user navigates to "security solution cards" screen from "Dashboard" screen 
+And user "opens" the <Sensor type> 
+And user switches from <Status>to "Away" 
+Then user should be displayed with a "Switch to Away with the sensor fault" popup 
+When user "confirms" the "Switch to Away with the sensor fault" popup 
+Then user should be displayed with the "Switching to Away" text 
+And user should be displayed with the "switching timer" 
+When "Switching timer" ends on user device 
+Then user should be displayed with the "Away Status" 
+And user should be displayed with the "correct time stamp" 
+When user navigates to "sensors list"  from "security solution cards" screen 
+Then user should see the "Sensor Satus" status as "OFF" on the "Sensor LIST" 
+And user is set to <Status> mode through CHIL 
+When user switches from <Status> to "Night" 
+Then user should be displayed with a "Switch to Night with the sensor fault" popup 
+When user user "confirms" the "Switch to Night with the sensor fault" popup 
+Then user should be displayed with a "Switching to Night" text 
+And user should be displayed with the "switching timer" 
+When "Switching timer" ends on user device 
+Then user should be displayed with the "Night Status" 
+And user should be displayed with the "correct time stamp" 
+When user navigates to "sensors list"  from "security solution cards" screen 
+Then user should see the "Sensor Satus" status as "OFF" on the "Sensor List" 
+And user is set to <Status> mode through CHIL 
+When user switches from <Status> to "Off" 
+Then user should receive a "Set to Off" popup 
+When user "confirms" the "Set to Off" popup 
+Then user should be displayed with a "Switching to Off" text 
+And user should be displayed with the "Off Status" 
 	
-	Examples: 
-		|Status|Sensor type|
-		|Home|Door|
-		|Home|Window|
-		|off|Door|
-		|off|Window|
+Examples: 
+|Status|Sensor type|
+|Home|Door|
+|Home|Window|
+|off|Door|
+|off|Window|
