@@ -22,8 +22,4 @@ public class DASActivityLogsUtils {
 		}
 		return flag;
 	}
-
-	public String[][] getAllActivityLogs(TestCases testCase) {
-		return null;
-	}
 }
