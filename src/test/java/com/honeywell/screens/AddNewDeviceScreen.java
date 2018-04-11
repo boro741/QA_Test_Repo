@@ -19,8 +19,9 @@ public class AddNewDeviceScreen extends MobileScreens {
 			while (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveList", 3) && counter < 8) {
 				try {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "ID",
-								"fragment_add_new_device_list");
+						LyricUtils.scrollUpAList(testCase, MobileUtils.getMobElement(testCase, "ID",
+								"fragment_add_new_device_list"));
+						//LyricUtils.scrollToElementUsingExactAttributeValue();
 					} else {
 						LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "XPATH", "//");
 					}
