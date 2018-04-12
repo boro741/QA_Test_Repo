@@ -25,7 +25,7 @@ public class MinimizeAndMaximizeTheApp extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user navigates to other apps and navigates back to Lyric app$")
+	@KeywordStep(gherkins = "^user minimizes and maximizes the app$")
 	public boolean keywordSteps() {
 		
 		DIYRegistrationUtils.minimizeAndMaximizeTheApp(testCase);

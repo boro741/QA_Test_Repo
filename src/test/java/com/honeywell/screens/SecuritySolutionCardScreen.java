@@ -22,6 +22,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		super(testCase, screenName);
 	}
 
+	public boolean isAppSettingsIconVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AppSettingsIcon", timeOut);
+	}
+
 	public boolean isBackButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorListBack");
 	}
@@ -247,7 +251,6 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			locatorValue = "//*[@text='" + notification + "']";
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
-			System.out.println("##########locatorValue:" + locatorValue);
 		}
 		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 20)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
@@ -307,18 +310,19 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		}
 		return false;
 	}
-	
+
 	public boolean ClickOnSensorIssue() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorWithIssueBuuton");
 	}
-	
+
 	public boolean isSensorIssueVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorWithIssueBuuton");
-	} 
-	
+	}
+
 	public boolean isSensorNoIssueVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorNoIssueButton");
 	}
+
 	public boolean ClickOnSensorNoIssue() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNoIssueButton");
 	}

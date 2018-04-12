@@ -29,3 +29,4 @@ OKButtonInSetToOffPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 ClearNotificationsIcon	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	NAME	Clear notifications	NAME	Clear notifications	NAME	Clear notifications
 ClearNotificationsText	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text						
 ConfirmButtonInClearNotifications							NAME	Confirm clear notifications	NAME	Confirm clear notifications	NAME	Confirm clear notifications
+AppSettingsIcon							NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon

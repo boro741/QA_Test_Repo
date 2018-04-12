@@ -13,6 +13,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class SetDASUserModeThroughCHIL extends Keyword {
 
@@ -39,6 +42,8 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 		try {
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
+			Dashboard d = new Dashboard(testCase);
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 			if (deviceInfo.isOnline()) {
@@ -57,6 +62,29 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 								"Home", testCase);
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to home");
+							try {
+								if (testCase.getMobileDriver() == null) {
+									return flag;
+								} else {
+									if (d.isSecurityStatusLabelVisible()) {
+										String currentStatus = d.getSecurityStatusLabel();
+										System.out.println(
+												"#############currentStatus in dashbaord screen: " + currentStatus);
+										if (DashboardUtils.waitForSecurityStatusToUpdate(testCase,
+												parameters.get(0).toUpperCase(), 2)) {
+											flag = true;
+										}
+									} else {
+										if (sc.isAppSettingsIconVisible(10)) {
+											flag = true;
+										}
+									}
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error Occured: " + e.getMessage());
+							}
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -69,6 +97,29 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 								"Away", testCase);
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to Away Mode");
+							try {
+								if (testCase.getMobileDriver() == null) {
+									return flag;
+								} else {
+									if (d.isSecurityStatusLabelVisible()) {
+										String currentStatus = d.getSecurityStatusLabel();
+										System.out.println(
+												"#############currentStatus in dashbaord screen: " + currentStatus);
+										if (DashboardUtils.waitForSecurityStatusToUpdate(testCase,
+												parameters.get(0).toUpperCase(), 2)) {
+											flag = true;
+										}
+									} else {
+										if (sc.isAppSettingsIconVisible(10)) {
+											flag = true;
+										}
+									}
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error Occured: " + e.getMessage());
+							}
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -81,6 +132,29 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 								"Night", testCase);
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to Night Mode");
+							try {
+								if (testCase.getMobileDriver() == null) {
+									return flag;
+								} else {
+									if (d.isSecurityStatusLabelVisible()) {
+										String currentStatus = d.getSecurityStatusLabel();
+										System.out.println(
+												"#############currentStatus in dashbaord screen: " + currentStatus);
+										if (DashboardUtils.waitForSecurityStatusToUpdate(testCase,
+												parameters.get(0).toUpperCase(), 2)) {
+											flag = true;
+										}
+									} else {
+										if (sc.isAppSettingsIconVisible(10)) {
+											flag = true;
+										}
+									}
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error Occured: " + e.getMessage());
+							}
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -89,10 +163,33 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						break;
 					}
 					case "OFF": {
-						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
-								"Off", testCase);
+						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(), "Off",
+								testCase);
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to Night Mode");
+							try {
+								if (testCase.getMobileDriver() == null) {
+									return flag;
+								} else {
+									if (d.isSecurityStatusLabelVisible()) {
+										String currentStatus = d.getSecurityStatusLabel();
+										System.out.println(
+												"#############currentStatus in dashbaord screen: " + currentStatus);
+										if (DashboardUtils.waitForSecurityStatusToUpdate(testCase,
+												parameters.get(0).toUpperCase(), 2)) {
+											flag = true;
+										}
+									} else {
+										if (sc.isAppSettingsIconVisible(10)) {
+											flag = true;
+										}
+									}
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error Occured: " + e.getMessage());
+							}
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

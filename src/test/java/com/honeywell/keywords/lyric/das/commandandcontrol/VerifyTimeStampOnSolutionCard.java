@@ -33,39 +33,50 @@ public class VerifyTimeStampOnSolutionCard extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the correct time stamp$")
 	public boolean keywordSteps() {
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		String deviceTime = LyricUtils.getDeviceTime(testCase, inputs);
+		String deviceLocationTime = LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT");
+		System.out.println("#########deviceLocationTime: " + deviceLocationTime);
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'h:mm a");
 		SimpleDateFormat androidFormat = new SimpleDateFormat("h:mm a");
-		SimpleDateFormat iosFormat = new SimpleDateFormat("hh:mm a");
-		SimpleDateFormat iosFormat2 = new SimpleDateFormat("HH:mm");
-		String deviceTimePlusOneMin = LyricUtils.addMinutesToDate(testCase, deviceTime, 1);
-		String deviceTimeMinusOneMin = LyricUtils.addMinutesToDate(testCase, deviceTime, -1);
+		SimpleDateFormat iosFormat = new SimpleDateFormat("h:mm a");
+		SimpleDateFormat iosFormat2 = new SimpleDateFormat("H:mm");
+		String deviceTimePlusOneMin = LyricUtils.addMinutesToDate(testCase, deviceLocationTime, 1);
+		String deviceTimeMinusOneMin = LyricUtils.addMinutesToDate(testCase, deviceLocationTime, -1);
+		System.out.println("#########deviceTimePlusOneMin: " + deviceTimePlusOneMin);
+		System.out.println("#########deviceTimeMinusOneMin: " + deviceTimeMinusOneMin);
 		String displayedTimeStamp, time1, time2, time3;
 		try {
+			displayedTimeStamp = sc.getTimeStamp();
+			System.out.println("#########displayedTimeStamp: " + displayedTimeStamp);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				displayedTimeStamp = sc.getTimeStamp();
-
-				time1 = androidFormat.format(timeFormat.parse(deviceTime));
+				time1 = androidFormat.format(timeFormat.parse(deviceLocationTime));
 				time2 = androidFormat.format(timeFormat.parse(deviceTimePlusOneMin));
 				time3 = androidFormat.format(timeFormat.parse(deviceTimeMinusOneMin));
+				System.out.println("#########time1: " + time1);
+				System.out.println("#########time2: " + time2);
+				System.out.println("#########time3: " + time3);
 			} else {
-				displayedTimeStamp = sc.getTimeStamp();
-				time1 = iosFormat.format(timeFormat.parse(deviceTime));
+				time1 = iosFormat.format(timeFormat.parse(deviceLocationTime));
 				time2 = iosFormat.format(timeFormat.parse(deviceTimePlusOneMin));
 				time3 = iosFormat.format(timeFormat.parse(deviceTimeMinusOneMin));
+				System.out.println("#########time1: " + time1);
+				System.out.println("#########time2: " + time2);
+				System.out.println("#########time3: " + time3);
 			}
 			if (displayedTimeStamp.equalsIgnoreCase("Since " + time1)
 					|| displayedTimeStamp.equalsIgnoreCase("Since " + time2)
 					|| displayedTimeStamp.equalsIgnoreCase("Since " + time3)) {
-				Keyword.ReportStep_Pass(testCase, "Time stamp is correctly displayed");
+				Keyword.ReportStep_Pass(testCase, "Time stamp is correctly displayed: " + displayedTimeStamp);
 			} else {
-				time1 = iosFormat2.format(timeFormat.parse(deviceTime));
+				time1 = iosFormat2.format(timeFormat.parse(deviceLocationTime));
 				time2 = iosFormat2.format(timeFormat.parse(deviceTimePlusOneMin));
 				time3 = iosFormat2.format(timeFormat.parse(deviceTimeMinusOneMin));
+				System.out.println("#########time1: " + time1);
+				System.out.println("#########time2: " + time2);
+				System.out.println("#########time3: " + time3);
 				if (displayedTimeStamp.equalsIgnoreCase("Since " + time1)
 						|| displayedTimeStamp.equalsIgnoreCase("Since " + time2)
 						|| displayedTimeStamp.equalsIgnoreCase("Since " + time3)) {
-					Keyword.ReportStep_Pass(testCase, "Time stamp is correctly displayed");
+					Keyword.ReportStep_Pass(testCase, "Time stamp is correctly displayed: " + displayedTimeStamp);
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

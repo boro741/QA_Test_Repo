@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.das.commandandcontrol;
+package com.honeywell.keywords.lyric.das.diyregistration;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -6,30 +6,29 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 
-public class GetLocationTime extends Keyword {
+public class NavToOtherApps extends Keyword {
 
 	private TestCases testCase;
-	private TestCaseInputs inputs;
 	public boolean flag = true;
 
-	public GetLocationTime(TestCases testCase, TestCaseInputs inputs) {
-		this.inputs = inputs;
+	public NavToOtherApps(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
 	}
 
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() {
+
 		return flag;
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user gets location time$")
+	@KeywordStep(gherkins = "^user navigates to other apps and navigates back to Lyric app$")
 	public boolean keywordSteps() {
-		String locationTime = LyricUtils.getLocationTime(testCase, inputs, "TIMEINHHMMFORMAT");
-		System.out.println("##########locationTime: " + locationTime);
+		
+		DIYRegistrationUtils.minimizeAndMaximizeTheApp(testCase);
 		return flag;
 	}
 

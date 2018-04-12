@@ -374,9 +374,7 @@ public class LyricUtils {
 		if (ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString())) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
-			}
-			else
-			{
+			} else {
 				ls.clickOnLyricLogo();
 			}
 			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Password set to - " + inputs.getInputValue("PASSWORD"));
@@ -517,15 +515,13 @@ public class LyricUtils {
 							if (ls.isLyricLogoVisible()) {
 								return true;
 							}
-							if(os.isIgnoreButtonVisible(3))
-							{
+							if (os.isIgnoreButtonVisible(3)) {
 								os.clickOnIgnoreButton();
 								return false;
 							}
-							/*if (os.isCancelButtonVisible()) {
-								os.clickOnCancelButton();
-								return false;
-							}*/ else {
+							/*
+							 * if (os.isCancelButtonVisible()) { os.clickOnCancelButton(); return false; }
+							 */ else {
 								((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 								return false;
 							}
@@ -647,10 +643,15 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		 flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		 flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		 flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		if (closeCoachMarks.length > 0) {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
+		} else {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		}
 		return flag;
 	}
 
@@ -944,8 +945,7 @@ public class LyricUtils {
 	/**
 	 * <h1>Scroll To The List</h1>
 	 * <p>
-	 * The scrollUpAList method scrolls to an element
-	 * using swipe gestures.
+	 * The scrollUpAList method scrolls to an element using swipe gestures.
 	 * </p>
 	 *
 	 * @author Midhun Gollapalli (H179225)
@@ -961,8 +961,7 @@ public class LyricUtils {
 	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
 	 *         the element is not found.
 	 */
-	public static boolean scrollUpAList(TestCases testCase, WebElement devieListWebEle)
-			throws Exception {
+	public static boolean scrollUpAList(TestCases testCase, WebElement devieListWebEle) throws Exception {
 		Dimension d1;
 		Point p1;
 		int startx = -1;
@@ -1238,6 +1237,7 @@ public class LyricUtils {
 		String time = " ";
 		try {
 			TimeZone timeZone = TimeZone.getTimeZone(locInfo.getIANATimeZone());
+			System.out.println("@@@@@@@@timeZone: " + timeZone);
 
 			Calendar date = Calendar.getInstance(timeZone);
 			String ampm;
@@ -1279,8 +1279,8 @@ public class LyricUtils {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static void changeLocationSettings(TestCases testCase, TestCaseInputs inputs, String status) {
-		boolean flag;
+	public static boolean changeLocationSettings(TestCases testCase, TestCaseInputs inputs, String status) {
+		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			Activity activity = new Activity("com.android.settings",
 					"com.android.settings.Settings");
@@ -1432,6 +1432,6 @@ public class LyricUtils {
 				MobileUtils.closeSettingsAppOnIOS(testCase);
 			}
 		}
+		return flag;
 	}
-
 }

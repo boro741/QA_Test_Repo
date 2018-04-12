@@ -2,9 +2,13 @@ package com.honeywell.lyric.das.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
 
+import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
@@ -83,6 +87,131 @@ public class DashboardUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Navigate To Primary Card : Error Occured : " + e.getMessage());
 		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Wait for until progress bar to complete</h1>
+	 * <p>
+	 * The waitForProgressBarToComplete method waits until the progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-08
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
+	public static boolean waitForSecurityStatusToUpdate(TestCases testCase, String securityState, int duration) {
+		boolean flag = true;
+		System.out.println("%%%%%%%%%%securityState: " + securityState);
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			Dashboard d = new Dashboard(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						switch (securityState) {
+						case "HOME": {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								if (d.getSecurityStatusLabel().toLowerCase().contains(securityState.toLowerCase())) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+
+							} else {
+								if (d.getSecurityStatusLabel().contains(securityState)) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+							}
+						}
+						case "AWAY": {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								if (d.getSecurityStatusLabel().toLowerCase().contains(securityState.toLowerCase())) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+
+							} else {
+								if (d.getSecurityStatusLabel().contains(securityState)) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+							}
+						}
+						case "NIGHT": {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								if (d.getSecurityStatusLabel().toLowerCase().contains(securityState.toLowerCase())) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+
+							} else {
+								if (d.getSecurityStatusLabel().contains(securityState)) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+							}
+						}
+						case "OFF": {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								if (d.getSecurityStatusLabel().toLowerCase().contains(securityState.toLowerCase())) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+
+							} else {
+								if (d.getSecurityStatusLabel().contains(securityState)) {
+									System.out.println(securityState + " State is displayed");
+									return true;
+								} else {
+									return false;
+								}
+							}
+						}
+						default: {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid argument passed : " + securityState);
+							return true;
+						}
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Progress bar loading spinner did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
 		return flag;
 	}
 }
