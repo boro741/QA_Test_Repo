@@ -576,7 +576,16 @@ public class LyricUtils {
 			LoginScreen ls = new LoginScreen(testCase);
 			SecretMenu sm = new SecretMenu(testCase);
 			flag = flag & ls.longPressOnSecretMenuImage();
-
+			if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if(sm.isFeatureTweaksVisible()){
+					flag = flag & sm.clickOnFeatureTweaks();
+					flag = flag & sm.clickOnSetAccessibilityToggle();
+					flag = flag & sm.clickOnNavigateUp();
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find Feature tweaks to set Accessibility");
+					return false;
+				}
+			}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails

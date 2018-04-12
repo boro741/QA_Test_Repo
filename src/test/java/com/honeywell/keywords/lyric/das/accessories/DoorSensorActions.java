@@ -39,6 +39,10 @@ public class DoorSensorActions extends Keyword {
 				DASSensorUtils.closeDoor(testCase, inputs);
 			} else if(states.get(0).contains("does not close")){
 				DASAlarmUtils.timeOutForNoSensorAction(testCase,inputs);
+			} else if (states.get(0).contains("Tampered")){
+				DASSensorUtils.tamperDoor(testCase, inputs);
+			}else if (states.get(0).contains("Tamper Restored")){
+				DASSensorUtils.tamperClearDoor(testCase, inputs);
 			}
 			else{
 				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");

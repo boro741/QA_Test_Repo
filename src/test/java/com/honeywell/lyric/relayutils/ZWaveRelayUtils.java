@@ -7,64 +7,64 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 public class ZWaveRelayUtils {
 
 	public static void enrollZwaveSwitch1() throws Exception {
-		SerialDriver.initialize();
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.initialize();
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
 		TimeUnit.SECONDS.sleep(10);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		SerialDriver.closePort();
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.closePort();
 	}
 
 	public static void pressButtonOnSwitch1() throws Exception {
-		SerialDriver.initialize();
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.initialize();
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
 		TimeUnit.SECONDS.sleep(1);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort2);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1RelayPort1);
 		TimeUnit.SECONDS.sleep(1);
-		SerialDriver.closePort();
+		SerialDriverCore.closePort();
 	}
 
 	public static boolean isSwitch1ON() throws Exception {
-		SerialDriver.initialize();
-		if (SerialDriver.getstatus(ZWaveConstants.ZWaveSwitch1OutputStatusPort).equalsIgnoreCase("OFF")) {
-			SerialDriver.closePort();
+		SerialDriverCore.initialize();
+		if (SerialDriverCore.getstatus(ZWaveConstants.ZWaveSwitch1OutputStatusPort).equalsIgnoreCase("OFF")) {
+			SerialDriverCore.closePort();
 			return true;
 		} else {
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 			return false;
 		}
 
 	}
 
 	public static void enrollZwaveDimmer1() throws Exception {
-		SerialDriver.initialize();
-		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
+		SerialDriverCore.initialize();
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
 		TimeUnit.SECONDS.sleep(10);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
-		SerialDriver.closePort();
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
+		SerialDriverCore.closePort();
 	}
 
 	public static void pressButtonOnDimmer1() throws Exception {
-		SerialDriver.initialize();
-		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
-		SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
+		SerialDriverCore.initialize();
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
+		SerialDriverCore.setrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
 		TimeUnit.SECONDS.sleep(1);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
-		SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
-		SerialDriver.closePort();
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort2);
+		SerialDriverCore.resetrelay(ZWaveConstants.ZWaveDimmer1RelayPort1);
+		SerialDriverCore.closePort();
 	}
 
 	public static String getDimmerIntensityRange() throws Exception {
@@ -72,18 +72,18 @@ public class ZWaveRelayUtils {
 
 		try {
 			int i = 0;
-			SerialDriver.initialize();
+			SerialDriverCore.initialize();
 			while (i < 5) {
-				dimmerIntensityRange = SerialDriver
+				dimmerIntensityRange = SerialDriverCore
 						.getDimmerIntensityPercentageRange(ZWaveConstants.ZWaveDimmer1OutputPercentagePort);
 				if (!dimmerIntensityRange.equals("Invalid")) {
 					break;
 				}
 				i++;
 			}
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 		} catch (Exception e) {
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 			throw new Exception(e.getMessage());
 		}
 		return dimmerIntensityRange;
@@ -91,20 +91,20 @@ public class ZWaveRelayUtils {
 
 	public static String powerOffZwaveSwitch(TestCaseInputs inputs) throws Exception {
 		if(!inputs.getInputValue("SwitchState").equals("SwitchPowerOff")){
-			SerialDriver.initialize();
-			SerialDriver.setrelay(ZWaveConstants.ZWaveSwitch1PowerPort);
+			SerialDriverCore.initialize();
+			SerialDriverCore.setrelay(ZWaveConstants.ZWaveSwitch1PowerPort);
 			TimeUnit.SECONDS.sleep(10);
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 		}
 		inputs.setInputValueWithoutTarget("SwitchState", "SwitchPowerOff");
 		return "SwitchPowerOff";
 	}
 	public static String powerOnZwaveSwitch(TestCaseInputs inputs) throws Exception {
 		if(!inputs.getInputValue("SwitchState").equals("SwitchPowerOn")){
-			SerialDriver.initialize();
-			SerialDriver.resetrelay(ZWaveConstants.ZWaveSwitch1PowerPort);
+			SerialDriverCore.initialize();
+			SerialDriverCore.resetrelay(ZWaveConstants.ZWaveSwitch1PowerPort);
 			TimeUnit.SECONDS.sleep(10);
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 		}
 		inputs.setInputValueWithoutTarget("SwitchState", "SwitchPowerOn");
 		return "SwitchPowerOn";
@@ -112,20 +112,20 @@ public class ZWaveRelayUtils {
 
 	public static String powerOffZwaveDimmer(TestCaseInputs inputs) throws Exception {
 		if(!inputs.getInputValue("DimmerState").equals("DimmerPowerOff")){
-			SerialDriver.initialize();
-			SerialDriver.setrelay(ZWaveConstants.ZWaveDimmer1PowerPort);
+			SerialDriverCore.initialize();
+			SerialDriverCore.setrelay(ZWaveConstants.ZWaveDimmer1PowerPort);
 			TimeUnit.SECONDS.sleep(10);
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 		}
 		inputs.setInputValueWithoutTarget("DimmerState", "DimmerPowerOff");
 		return "DimmerPowerOff";
 	}
 	public static String powerOnZwaveDimmer(TestCaseInputs inputs) throws Exception {
 		if(!inputs.getInputValue("DimmerState").equals("DimmerPowerOn")){
-			SerialDriver.initialize();
-			SerialDriver.resetrelay(ZWaveConstants.ZWaveDimmer1PowerPort);
+			SerialDriverCore.initialize();
+			SerialDriverCore.resetrelay(ZWaveConstants.ZWaveDimmer1PowerPort);
 			TimeUnit.SECONDS.sleep(10);
-			SerialDriver.closePort();
+			SerialDriverCore.closePort();
 		}
 		inputs.setInputValueWithoutTarget("DimmerState", "DimmerPowerOn");
 		return "DimmerPowerOn";
