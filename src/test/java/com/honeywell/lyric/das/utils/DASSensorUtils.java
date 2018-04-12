@@ -10,6 +10,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.relayutils.RelayUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SensorStatusScreen;
 
@@ -18,7 +19,11 @@ public class DASSensorUtils {
 	public static boolean openDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-		System.out.println("Open door");
+		try {
+			RelayUtils.RSIContactSensorOpen_Door();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return flag;
 	}
 
@@ -26,7 +31,34 @@ public class DASSensorUtils {
 	public static boolean closeDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_CLOSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-		System.out.println("Close door");
+		try {
+			RelayUtils.RSIContactSensorClosed_Door();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean tamperDoor(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("DOOR_TAMPERED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		try {
+			RelayUtils.RSIDoorContactSensorTampered();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean tamperClearDoor(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		try {
+			RelayUtils.RSIDoorContactSensorTamperCleared();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return flag;
 	}
 
@@ -34,6 +66,11 @@ public class DASSensorUtils {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_OPENED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 		System.out.println("Open Window");
+		try {
+			RelayUtils.RSIContactSensorOpen_Window();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return flag;
 	}
 
@@ -42,8 +79,37 @@ public class DASSensorUtils {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_CLOSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 		System.out.println("Close Window");
+		try {
+			RelayUtils.RSIContactSensorClosed_Window();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return flag;
 	}
+	
+	public static boolean tamperWindow(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("WINDOW_TAMPERED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		try {
+			RelayUtils.RSIWindowContactSensorTamperON();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean tamperClearWindow(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("WINDOW_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		try {
+			RelayUtils.RSIDoorContactSensorTamperCleared();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
 	public static List<WebElement> getSensorList(TestCases testCase){
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		return sensorStatusScreen.getSensorList();

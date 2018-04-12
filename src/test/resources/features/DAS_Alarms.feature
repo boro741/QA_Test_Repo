@@ -3,7 +3,7 @@ Feature: DAS Alarms
 As a user I want to be notified when my sensors and system are intruded
 
 Background:
-
+ Given reset relay as precondition
 #Given "ENABLE MODE PUSH NOTIFICATION" as precondition
 #Given "ENABLE CAMERA STATUS PUSH NOTIFICATION" as precondition
 #Given relay is reset
@@ -413,9 +413,153 @@ And timer ends on user device
      And user receives a "Switched to Home by app" activity log
      And user "closes" activity log
      
+     #Door Tamepered scenarios
      
+     @Doortamper @--xrayid:ATER-6190
+      Scenario: As a user I should be notified with alarm on door tamper during exit delay 
+    Given user sets the entry/exit timer to "60" seconds
+      And user is set to "Away" mode through CHIL
+      And user launches and logs in to the Lyric application
+      And user clears all push notifications
+       #And user minimizes the application
+      #And user mobile screen is locked
+      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     When user door "Tampered"
+     #When user selects "Alarm" push notification
+     #Then user should be displayed with "Mobile Locked" screen
+     #When user enters "Mobile Passcode"
+   	 Then user should be displayed with the "Alarm" screen
+     When user door "Tamper Restored"
+      When user selects "dismiss alarm" from "alarm" screen
+     When user "opens" activity log
+     Then user receives a "DOOR SENSOR TAMPERED AT AWAY MODE" activity log
+     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
+     And user receives a "DOOR SENSOR TAMPER CLEARED AT AWAY MODE" activity log
+     And user "closes" activity log
+      And user is set to "Night" mode through CHIL
+      #And user minimizes the application
+     When user door "Tampered"
+      When user selects the "Alarm" push notification
+   	 Then user should be displayed with the "Alarm" screen
+   	  When user door "Tamper Restored"
+     When user selects "dismiss alarm" from "alarm" screen
+     When user "opens" activity log
+     Then user receives a "DOOR SENSOR TAMPERED AT NIGHT MODE" activity log
+     And user receives a "DOOR SENSOR ALARM AT NIGHT MODE" activity log
+      And user receives a "DOOR SENSOR TAMPER CLEARED AT NIGHT MODE" activity log
+      
+      
      
-     
+       @Windowtamper @--xrayid:ATER-6190
+      Scenario: As a user I should be notified with alarm on Window tamper during exit delay 
+    Given user sets the entry/exit timer to "60" seconds
+      And user is set to "Away" mode through CHIL
+      And user launches and logs in to the Lyric application
+      And user clears all push notifications
+       #And user minimizes the application
+      #And user mobile screen is locked
+      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+      When user window "Tampered"
+      When user selects the "Alarm" push notification
+   	 Then user should be displayed with the "Alarm" screen
+   	  When user window "Tamper Restored"
+     When user selects "dismiss alarm" from "alarm" screen
+     When user "opens" activity log
+     Then user receives a "WINDOW SENSOR TAMPERED AT AWAY MODE" activity log
+     And user receives a "WINDOW SENSOR ALARM AT AWAY MODE" activity log
+      And user receives a "WINDOW SENSOR TAMPER CLEARED AT AWAY MODE" activity log
+       And user "closes" activity log
+      And user is set to "Night" mode through CHIL
+      #And user minimizes the application
+     When user window "Tampered"
+      When user selects the "Alarm" push notification
+   	 Then user should be displayed with the "Alarm" screen
+   	  When user window "Tamper Restored"
+     When user selects "dismiss alarm" from "alarm" screen
+     When user "opens" activity log
+     Then user receives a "WINDOW SENSOR TAMPERED AT NIGHT MODE" activity log
+     And user receives a "WINDOW SENSOR ALARM AT NIGHT MODE" activity log
+      And user receives a "WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE" activity log
+      
+      @AwayMode_WindowtamperAfterExitDelay @--xrayid:ATER-6190
+      Scenario: As a user I should be notified with alarm on window tamper after away mode exit delay
+    Given user is set to "Away" mode through CHIL
+      And user launches and logs in to the Lyric application
+      And user minimizes the application
+      And user mobile screen is locked
+     When user "Tampered" the window
+     Then user receives a "Alarm" push notification
+     When user selects "Alarm" push notification
+     Then user should be displayed with "Mobile Locked" screen
+     When user enters "Mobile Passcode"
+   	 Then user should be displayed with the "Alarm" screen
+     When user "dismisses" the alarm
+     Then user status should be set to "Home"
+     When user navigates to "Activity Log" screen from "Security Solution Card" screen
+	 Then user receives a "Window Tampered" activity log
+     And user receives a "Window Alarm At Away Mode" activity log
+     And user receives a "ALARM AT AWAY MODE" activity log
+     And user receives a "Alarm Dismissed" activity log
+     And user receives a "Switched to Home by app" activity log
+    When user navigates to "Alert" screen from "Activity Log" screen
+    Then user receives a "Window Tampered" alert
+     And user receives a "Window Alarm At Away Mode " alert
+     And user receives a "Alarm" alert
+     And user receives a "Alarm Dismissed" alert
+     And user receives a "Switched to Home" alert 
+      
+    @NightMode_WindowtamperDuringExitDelay @--xrayid:ATER-6190
+ Scenario: As a user I should be notified with alarm on window tamper during night exit delay 
+    Given user sets the entry/exit timer to "60" seconds
+      And user is set to "Night" mode through CHIL
+      And user launches and logs in to the Lyric application
+      And user minimizes the application
+     When user "Tampered" the window
+     Then user receives a "Alarm" push notification
+     When user selects "Alarm" push notification
+   	 Then user should be displayed with the "Alarm" screen
+     When user "dismisses" the alarm
+     Then user status should be set to "Home"
+     When user navigates to "Activity Log" screen from "Security Solution Card" screen
+	 Then user receives a "Door Tampered" activity log
+     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
+     And user receives a "ALARM AT AWAY MODE" activity log
+     And user receives a "Alarm Dismissed" activity log
+     And user receives a "Switched to Home by app" activity log
+    When user navigates to "Alert" screen from "Activity Log" screen
+    Then user receives a "Window Tampered" alert
+     And user receives a "Window Alarm At Night Mode " alert
+     And user receives a "Alarm" alert
+     And user receives a "Alarm Dismissed" alert
+     And user receives a "Switched to Home" alert
+      
+      
+    @NightMode_WindowtamperAfterExitDelay @--xrayid:ATER-6190
+ Scenario: As a user I should be notified with alarm on window tamper after exit delay
+    Given user is set to "Night" mode through CHIL
+      And user launches and logs in to the Lyric application
+      And user minimizes the application
+      And user mobile screen is locked
+     When user "Tampered" the window
+     Then user receives a "Alarm" push notification
+     When user selects "Alarm" push notification
+     Then user should be displayed with "Mobile Locked" screen
+     When user enters "Mobile Passcode"
+   	 Then user should be displayed with the "Alarm" screen
+     When user "dismisses" the alarm
+     Then user status should be set to "Home"
+     When user navigates to "Activity Log" screen from "Security Solution Card" screen
+	 Then user receives a "Window Tampered" activity log
+     And user receives a "Window Alarm At Night Mode" activity log
+     And user receives a "ALARM AT AWAY MODE" activity log
+     And user receives a "Alarm Dismissed" activity log
+     And user receives a "Switched to Home by app" activity log
+    When user navigates to "Alert" screen from "Activity Log" screen
+    Then user receives a "Window Tampered" alert
+     And user receives a "Window Alarm At Night Mode " alert
+     And user receives a "Alarm" alert
+     And user receives a "Alarm Dismissed" alert
+     And user receives a "Switched to Home" alert
      
       
       @DoorsensorOpenAfterExitDelay_windowopen @--xrayid:ATER-6147
@@ -564,8 +708,8 @@ And timer ends on user device
       When user window "closed"
       When user door "closed"
       Given user is set to "Away" mode through CHIL
+       And timer ends on user device
       When user "sensor" detects the "Motion"
-      And timer ends on user device
       Then user should be displayed with the "Alarm" screen
        And user selects "dismiss alarm" from "alarm" screen
       When user "opens" activity log
@@ -578,8 +722,10 @@ And timer ends on user device
      @NightMode_Dooropen_MotionsensorAfterExitDelay_windowopen @--xrayid:ATER-6147
     Scenario: In night mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises with door open and motion detection
     Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-     When  user door "opened"
+     And user launches and logs in to the Lyric application
+     And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And timer ends on user device
+     When user door "opened"
      Then user should be displayed with the "Entry Delay" screen
      When user "sensor" detects the "Motion"
 	  When user window "opened"
@@ -794,211 +940,7 @@ And timer ends on user device
        Then user camera is "Live streaming"
        
        
-   @Doortamper_AwayMode @--xrayid:ATER-6190
-      Scenario: As a user I should be notified with alarm on door tamper during away exit delay 
-    Given user sets the entry/exit timer to "60" seconds
-      And user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
-     When user "Tampered" the door "in Exit" delay
-   	 Then user should be displayed with the "Alarm" screen
-     When user "Tamper Restored" the door
-      And user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Door Tampered" activity log
-     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Door Tampered" alert
-     And user receives a "Door Alarm " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert 
-      
-      @AwayMode_DoortamperAfterExitDelay @--xrayid:ATER-6190
-      Scenario: As a user I should be notified with alarm on door tamper after exit delay
-    Given user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "Tampered" the door "after" Exit delay
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Door Tampered" activity log
-     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Door Tampered" alert
-     And user receives a "Door Alarm " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert 
-      
-    @NightMode_DoortamperDuringExitDelay @--xrayid:ATER-6190
- Scenario: As a user I should be notified with alarm on door tamper during night mode exit delay 
-    Given user sets the entry/exit timer to "60" seconds
-      And user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-     When user "Tampered" the door "in" Exit delay
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Door Tampered" activity log
-     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Door Tampered" alert
-     And user receives a "Door Alarm " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert
-      
-      
-    @NightMode_DoortamperAfterExitDelay @--xrayid:ATER-6190
- Scenario: As a user I should be notified with alarm on door tamper after night mode exit delay
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "Tampered" the door "after" Exit delay
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Door Tampered" activity log
-     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Door Tampered" alert
-     And user receives a "Door Alarm " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert
-     
-     
-        @AwayMode_WindowtamperDuringExitDelay @--xrayid:ATER-6190
-      Scenario: As a user I should be notified with alarm on window tamper during away exit delay 
-    Given user sets the entry/exit timer to "60" seconds
-      And user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
-     When user window is "Tampered" 
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Window Tampered" activity log
-     And user receives a "Window Alarm At Away Mode" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Window Tampered" alert
-     And user receives a "Window Alarm At Away Mode " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert 
-      
-      @AwayMode_WindowtamperAfterExitDelay @--xrayid:ATER-6190
-      Scenario: As a user I should be notified with alarm on window tamper after away mode exit delay
-    Given user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "Tampered" the window
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Window Tampered" activity log
-     And user receives a "Window Alarm At Away Mode" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Window Tampered" alert
-     And user receives a "Window Alarm At Away Mode " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert 
-      
-    @NightMode_WindowtamperDuringExitDelay @--xrayid:ATER-6190
- Scenario: As a user I should be notified with alarm on window tamper during night exit delay 
-    Given user sets the entry/exit timer to "60" seconds
-      And user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-     When user "Tampered" the window
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Door Tampered" activity log
-     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Window Tampered" alert
-     And user receives a "Window Alarm At Night Mode " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert
-      
-      
-    @NightMode_WindowtamperAfterExitDelay @--xrayid:ATER-6190
- Scenario: As a user I should be notified with alarm on window tamper after exit delay
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "Tampered" the window
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Window Tampered" activity log
-     And user receives a "Window Alarm At Night Mode" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Window Tampered" alert
-     And user receives a "Window Alarm At Night Mode " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert
+   
      
      
     @AwayMode_MotiontamperDuringExitDelay @--xrayid:ATER-6190
@@ -1076,7 +1018,7 @@ And timer ends on user device
       
       
 
-      @AwayMode_Basestation_Displaced_DuringExitDelay @--xrayid:ATER-6190
+      @AwayMode_Basestation_Displaced @--xrayid:ATER-6190
       Scenario: As a user I should be notified with alarm on basestation displaced during after delay
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1100,35 +1042,22 @@ And timer ends on user device
      And user receives a "Alarm" alert
      And user receives a "Alarm Dismissed" alert
      And user receives a "Switched to Home" alert 
-     
-     
-   @AwayMode_Basestation_Displaced_AfterExitDelay @--xrayid:ATER-6190
-      Scenario: As a user I should be notified with alarm on basestation displaced after exit delay
-    Given user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
+    Given user is set to "Night" mode through CHIL
       And user minimizes the application
       And user mobile screen is locked
      When user "Displaced" the Basestation "after" Exit delay
-     Then user receives a "Alarm" push notification
-     When user selects "Alarm" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
+     Then user should be displayed with "Night" Mode
+     When user "Displaced" the Basestation "in" Exit delay
+     Then user should be displayed with "Night" Mode
      When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Basestation Displaced" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Basestation Displaced" alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert
-    
+	 Then user "should not" receives a "Basestation Displaced" activity log
+      And user receives a "Switched to Night by app" activity log
+     When user navigates to "Alert" screen from "Activity Log" screen
+     Then user receives a "Switched to Night" alert
+      And user "should not" receives a "Alarm Dismissed" alert
      
-    @NightMode_Basestation_Displaced_DuringExitDelay @--xrayid:ATER-6190
+     
+    @NightMode_Basestation_Displaced_DuringExitDelay @--xrayid:ATER-6190 @SetupRequired
       Scenario: As a user I should not get alarm on basestation displaced when panel in night mode
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1142,25 +1071,10 @@ And timer ends on user device
       And user "should not" receives a "Alarm Dismissed" alert
 
           
-   @AwayMode_Basestation_Displaced_AfterExitDelay @--xrayid:ATER-6190
-      Scenario: As a user I should not get alarm on basestation displaced when panel in away mode
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
-     When user "Displaced" the Basestation "after" Exit delay
-     Then user should be displayed with "Night" Mode
-     When user "Displaced" the Basestation "in" Exit delay
-     Then user should be displayed with "Night" Mode
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user "should not" receives a "Basestation Displaced" activity log
-      And user receives a "Switched to Night by app" activity log
-     When user navigates to "Alert" screen from "Activity Log" screen
-     Then user receives a "Switched to Night" alert
-      And user "should not" receives a "Alarm Dismissed" alert
+   
       
       
-   @Alarm_Offline @--xrayid:ATER-6190
+   @Alarm_Offline @--xrayid:ATER-6190 @SetupRequired
  Scenario: As a user I should be shown with help message after panel offline so that i will be guided to take necessary actions
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1174,21 +1088,19 @@ And timer ends on user device
       
      @ZwaveOperations_Alarm @--xrayid:ATER-6190
  Scenario Outline: As a user I should get alarm when i am performing any Zwave operation
-    Given user is set to "Night" mode through CHIL
+    Given reset relay as precondition
+    And user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
-     When user navigates to "Z-Wave Utilities" screen from the "Dashboard" screen
-	  And user selects <Zwave operation> from "Z-Wave Utilities" screen
-      And user "Tampered" the window
+     When user navigates to "ZWAVE UTILITIES" screen from the "Dashboard" screen
+      And user navigates to <Zwave operation> screen from the "ZWAVE UTILITIES" screen
+      Then user should be displayed with the <Expected> screen
+      And user window "opened"
    	 Then user should be displayed with the "Alarm" screen
- Examples:|Zwave operation|
-          |Replace        | 
-          |Fix All        |
-          |ALL ON         |
-          |ALL OFF        |
-          |Controller Factory Reset|
-          |Inclusion      |
-          |Exclusion      |
-          |Learn          |
+   	  When user selects "DISMISS ALARM OVERLAY WITH ZWAVE ACTION IN PROGRESS" from "alarm" screen
+    Examples:
+    |Zwave operation                             | Expected|
+    |ZWAVE DEVICE THROUGH GENERAL INCLUSION      |Activate ZWAVE Device|
+    |ZWAVE DEVICE THROUGH GENERAL Exclusion      |Exclusion Mode Active|
 
    
         

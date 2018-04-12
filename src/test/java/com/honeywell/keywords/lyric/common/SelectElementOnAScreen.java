@@ -19,6 +19,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -96,8 +97,22 @@ public class SelectElementOnAScreen extends Keyword {
 					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
 					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
 					int i=0;
-					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase)){
+					
+					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && !alarmScreen.isAlarmDismissButtonDisplayed() ){
+						System.out.println("Waiting for dismiss alarm request to complete");
+					}
+					break;
+				}
+				case "DISMISS ALARM OVERLAY WITH ZWAVE ACTION IN PROGRESS":{
+					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
+					ZwaveScreen ZScreen = new ZwaveScreen(testCase);
+					int i=0;
+					
+					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && !ZScreen.isCancelFromNavigationDisplayed()){
 						System.out.println("Waiting for dismiss alarm request to complete");
 					}
 					break;

@@ -293,34 +293,6 @@ public class VerifyActivityLogs extends Keyword {
 				break;
 			}
 
-			/*
-			 * Feature removed case "DOOR SENSOR ALARM DISMISSED AT HOME MODE":{
-			 * expectedActivityHeader =
-			 * inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm dismissed";
-			 * expectedActivitySubHeader = "HOME MODE"; deviceTime =
-			 * inputs.getInputValue("ALARM_DISMISSED_TIME"); break; } case
-			 * "DOOR SENSOR ALARM DISMISSED AT AWAY MODE":{ expectedActivityHeader =
-			 * inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm dismissed";
-			 * expectedActivitySubHeader = "AWAY MODE"; deviceTime =
-			 * inputs.getInputValue("ALARM_DISMISSED_TIME"); break; } case
-			 * "DOOR SENSOR ALARM DISMISSED AT NIGHT MODE":{ expectedActivityHeader =
-			 * inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm dismissed";
-			 * expectedActivitySubHeader = "NIGHT MODE"; deviceTime =
-			 * inputs.getInputValue("ALARM_DISMISSED_TIME"); break; } case
-			 * "WINDOW SENSOR ALARM DISMISSED AT HOME MODE":{ expectedActivityHeader =
-			 * inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm dismissed";
-			 * expectedActivitySubHeader = "HOME MODE"; deviceTime =
-			 * inputs.getInputValue("ALARM_DISMISSED_TIME"); break; } case
-			 * "WINDOW SENSOR ALARM DISMISSED AT AWAY MODE":{ expectedActivityHeader =
-			 * inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm dismissed";
-			 * expectedActivitySubHeader = "AWAY MODE"; deviceTime =
-			 * inputs.getInputValue("ALARM_DISMISSED_TIME"); break; } case
-			 * "WINDOW SENSOR ALARM DISMISSED AT NIGHT MODE":{ expectedActivityHeader =
-			 * inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm dismissed";
-			 * expectedActivitySubHeader = "NIGHT MODE"; deviceTime =
-			 * inputs.getInputValue("ALARM_DISMISSED_TIME"); break; }
-			 */
-
 			// bypass activities
 			case "DOOR SENSOR BYBASS": {
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Bypassed";
@@ -412,13 +384,13 @@ public class VerifyActivityLogs extends Keyword {
 				deviceLocationTime = inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME");
 				break;
 			}
-			case "DOOR SENSOR TAMPER CLEARED AT NIGHT": {
+			case "DOOR SENSOR TAMPER CLEARED AT NIGHT MODE": {
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper cleared";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME");
 				break;
 			}
-			case "WINDOW SENSOR TAMPER CLEARED AT NIGHT": {
+			case "WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE": {
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper cleared";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME");

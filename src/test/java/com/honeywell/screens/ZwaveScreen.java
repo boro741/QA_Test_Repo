@@ -345,6 +345,9 @@ public class ZwaveScreen extends MobileScreens{
 		return true;
 	}
 
+	public boolean isCancelFromNavigationDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
+	}
 	public boolean clickCancelFromNavigation() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 	}

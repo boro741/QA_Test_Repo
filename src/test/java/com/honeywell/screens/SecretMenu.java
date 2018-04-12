@@ -13,6 +13,26 @@ public class SecretMenu extends MobileScreens {
 		super(testCase, screenName);
 	}
 
+	public boolean isFeatureTweaksVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FeatureTweaks", 3);
+	}
+	
+	public boolean clickOnFeatureTweaks() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FeatureTweaks");
+	}
+	
+	public boolean clickOnNavigateUp() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrow");
+	}
+	
+	public boolean clickOnSetAccessibilityToggle() {
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AccessibilityEnabled", 3)){
+			return true;
+		}else{
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AccessibilityDisabled");
+		}
+	}
+	
 	public boolean isWebServerURLVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WebServerURL", 3);
 	}

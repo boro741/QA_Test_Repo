@@ -39,6 +39,10 @@ public class WindowSensorActions extends Keyword {
 				DASSensorUtils.closeWindow(testCase, inputs);
 			} else if(states.get(0).contains("does not close")){
 				DASAlarmUtils.timeOutForNoSensorAction(testCase,inputs);
+			}else if (states.get(0).contains("Tampered")){
+				DASSensorUtils.tamperWindow(testCase, inputs);
+			}else if (states.get(0).contains("Tamper Restored")){
+				DASSensorUtils.tamperClearWindow(testCase, inputs);
 			}
 			else{
 				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
