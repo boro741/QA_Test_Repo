@@ -33,15 +33,15 @@ public class WindowSensorActions extends Keyword {
 	@KeywordStep(gherkins = "^user window \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if(states.get(0).contains("opened")){
+			if(states.get(0).equalsIgnoreCase("opened")){
 				DASSensorUtils.openWindow(testCase, inputs);
-			} else if(states.get(0).contains("closed")){
+			} else if(states.get(0).equalsIgnoreCase("closed")){
 				DASSensorUtils.closeWindow(testCase, inputs);
-			} else if(states.get(0).contains("does not close")){
+			} else if(states.get(0).equalsIgnoreCase("does not close")){
 				DASAlarmUtils.timeOutForNoSensorAction(testCase,inputs);
-			}else if (states.get(0).contains("Tampered")){
+			}else if (states.get(0).equalsIgnoreCase("Tampered")){
 				DASSensorUtils.tamperWindow(testCase, inputs);
-			}else if (states.get(0).contains("Tamper Restored")){
+			}else if (states.get(0).equalsIgnoreCase("Tamper Restored")){
 				DASSensorUtils.tamperClearWindow(testCase, inputs);
 			}
 			else{

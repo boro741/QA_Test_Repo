@@ -19,6 +19,11 @@ public class DASNotificationUtils {
 			driver.openNotifications();
 		} else {
 			testCase.getMobileDriver().swipe(0, 0, 0, 500, 1);
+			int i=1;
+			while(i<=5 && !(MobileUtils.isMobElementExists("name", "Recent", testCase) || MobileUtils.isMobElementExists("name", "Search", testCase))){
+				testCase.getMobileDriver().swipe(0, 0, 0, 500, 1);
+				i++;
+			}
 		}
 	}
 

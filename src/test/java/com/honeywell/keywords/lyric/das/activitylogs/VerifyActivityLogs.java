@@ -82,68 +82,68 @@ public class VerifyActivityLogs extends Keyword {
 			}
 			// opened activities
 			case "DOOR OPENED AT HOME MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Opened";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " opened";
 				expectedActivitySubHeader = "HOME MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 				break;
 			}
 			case "DOOR OPENED AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Opened";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " opened";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 				break;
 			}
 			case "DOOR OPENED AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Opened";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " opened";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 				break;
 			}
 			case "WINDOW OPENED AT HOME MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Opened";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " opened";
 				expectedActivitySubHeader = "HOME MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			case "WINDOW OPENED AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Opened";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " opened";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			case "WINDOW OPENED AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Opened";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " opened";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			// closed activities
 			case "DOOR CLOSED AT HOME MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Closed";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " closed";
 				expectedActivitySubHeader = "HOME MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
 				break;
 			}
 			case "DOOR CLOSED AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Closed";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " closed";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
 				break;
 			}
 			case "DOOR CLOSED AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Closed";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " closed";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
 				break;
 			}
 			case "WINDOW CLOSED AT HOME MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Closed";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " closed";
 				expectedActivitySubHeader = "HOME MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_CLOSED_TIME");
 				break;
 			}
 			case "WINDOW CLOSED AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Closed";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " closed";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_CLOSED_TIME");
 				break;
@@ -287,7 +287,7 @@ public class VerifyActivityLogs extends Keyword {
 			case "ALARM DISMISSED BY INVITED USER":
 			case "ALARM DISMISSED": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = "Alarm Dismissed";
+				expectedActivityHeader = "Alarm cancelled ";
 				expectedActivitySubHeader = locInfo.getUserFirstName();
 				deviceLocationTime = inputs.getInputValue("ALARM_DISMISSED_TIME");
 				break;
@@ -323,37 +323,37 @@ public class VerifyActivityLogs extends Keyword {
 
 			// tampered activities
 			case "DOOR SENSOR TAMPERED AT HOME MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tampered";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper";
 				expectedActivitySubHeader = "HOME MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_TAMPERED_TIME");
 				break;
 			}
 			case "WINDOW SENSOR TAMPERED AT HOME MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tampered";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper";
 				expectedActivitySubHeader = "HOME MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 				break;
 			}
 			case "DOOR SENSOR TAMPERED AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tampered";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_TAMPERED_TIME");
 				break;
 			}
 			case "WINDOW SENSOR TAMPERED AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tampered";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 				break;
 			}
 			case "DOOR SENSOR TAMPERED AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tampered";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("DOOR_TAMPERED_TIME");
 				break;
 			}
 			case "WINDOW SENSOR TAMPERED AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tampered";
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 				break;
@@ -401,7 +401,7 @@ public class VerifyActivityLogs extends Keyword {
 			case "SWITCHED TO HOME BY INVITED USER BY APP":
 			case "SWITCHED TO HOME BY APP": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Home by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY APP";
 				deviceLocationTime = inputs.getInputValue("HOME_TIME");
@@ -410,7 +410,7 @@ public class VerifyActivityLogs extends Keyword {
 
 			case "SWITCHED TO HOME BY KEYFOB": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Home by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY KEYFOB";
 				deviceLocationTime = inputs.getInputValue("HOME_TIME");
@@ -420,7 +420,7 @@ public class VerifyActivityLogs extends Keyword {
 			case "SWITCHED TO AWAY BY INVITED USER BY APP":
 			case "SWITCHED TO AWAY BY APP": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Away by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
 						+ locInfo.getUserFirstName();
 				System.out.println("#########expectedActivityHeader: " + expectedActivityHeader);
 				expectedActivitySubHeader = "BY APP";
@@ -431,7 +431,7 @@ public class VerifyActivityLogs extends Keyword {
 
 			case "SWITCHED TO AWAY BY KEYFOB": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Away by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY KEYFOB";
 				deviceLocationTime = inputs.getInputValue("AWAY_TIME");
@@ -440,7 +440,7 @@ public class VerifyActivityLogs extends Keyword {
 			case "SWITCHED TO NIGHT BY INVITED USER BY APP":
 			case "SWITCHED TO NIGHT BY APP": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Night by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY APP";
 				deviceLocationTime = inputs.getInputValue("NIGHT_TIME");
@@ -449,7 +449,7 @@ public class VerifyActivityLogs extends Keyword {
 
 			case "SWITCHED TO NIGHT BY KEYFOB": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Night by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY KEYFOB";
 				deviceLocationTime = inputs.getInputValue("NIGHT_TIME");
@@ -459,7 +459,7 @@ public class VerifyActivityLogs extends Keyword {
 			case "SWITCHED TO OFF BY INVITED USER BY APP":
 			case "SWITCHED TO OFF BY APP": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " Switched to Off by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Off by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY APP";
 				deviceLocationTime = inputs.getInputValue("NIGHT_TIME");

@@ -44,7 +44,7 @@ public class DetectsAction extends Keyword {
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Sensor")) {
 				if (parameters.get(1).equalsIgnoreCase("Motion")) {
-					inputs.setInputValue("MOTION_DETECTED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					inputs.setInputValue("MOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 					System.out.println("Move the object in front of motion sensor");
 				}else {
 					flag=false;
