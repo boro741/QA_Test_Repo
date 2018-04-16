@@ -55,6 +55,9 @@ public class AlarmScreen extends MobileScreens {
 	}
 	
 	public boolean clickOnAttention(){
+		if(isEntryDelayScreenDisplayed()){
+			System.out.println("In Entry delay screen");
+		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AttentionButton");
 	}
 	

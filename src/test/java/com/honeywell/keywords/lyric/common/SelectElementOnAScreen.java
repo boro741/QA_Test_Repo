@@ -94,8 +94,8 @@ public class SelectElementOnAScreen extends Keyword {
 			}else if (parameters.get(1).equalsIgnoreCase("alarm")){
 				switch (parameters.get(0).toUpperCase()) {
 				case "DISMISS ALARM":{
-					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
 					AlarmScreen alarmScreen = new AlarmScreen(testCase);
 					int i=0;
@@ -106,8 +106,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "DISMISS ALARM OVERLAY WITH ZWAVE ACTION IN PROGRESS":{
-					inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-					inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+					inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
 					ZwaveScreen ZScreen = new ZwaveScreen(testCase);
 					int i=0;

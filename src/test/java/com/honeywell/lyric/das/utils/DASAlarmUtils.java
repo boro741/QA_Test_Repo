@@ -33,7 +33,7 @@ public class DASAlarmUtils {
 					public Boolean apply(String a) {
 						try {
 							if (alarmScreen.isAlarmScreenDisplayed()) {
-								inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+								inputs.setInputValue("ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 								return true;
 							} else {
 								return false;
@@ -67,9 +67,9 @@ public class DASAlarmUtils {
 		}
 		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DismissAlarmPopupOk");
 		DASSolutionCardUtils.waitForDismissProcessRequest(testCase);
-		inputs.setInputValue("ALARM_DISMISSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		Keyword.ReportStep_Pass(testCase, "ALARM_DISMISSED_TIME " + inputs.getInputValue("ALARM_DISMISSED_TIME"));
-		inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		Keyword.ReportStep_Pass(testCase, "HOME_TIME " + inputs.getInputValue("HOME_TIME"));
 
 		return flag;
@@ -106,22 +106,22 @@ public class DASAlarmUtils {
 	
 	public static boolean clickOnSwitchToHome(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		
 		return alarmScreen.clickOnSwitchToHome();
 	}
 	
 	public static boolean clickOnSwitchToNight(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		inputs.setInputValue("NIGHT_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("NIGHT_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		
 		return alarmScreen.clickOnSwitchToNight();
 	}
 	
 	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-		inputs.setInputValue("ATTENTION_ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("ATTENTION_ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		return alarmScreen.clickOnAttention();
 	}
 }

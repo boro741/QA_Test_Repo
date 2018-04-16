@@ -66,7 +66,7 @@ public class DASCameraSolutionCard extends MobileScreens {
 	
 	public boolean clickOnCreateAttention(TestCaseInputs inputs)
 	{
-		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		Keyword.ReportStep_Pass(testCase, "ALARM_TIME " + inputs.getInputValue("ALARM_TIME"));
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AttentionIcon");
 	}

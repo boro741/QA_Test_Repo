@@ -18,7 +18,7 @@ public class DASSensorUtils {
 	private boolean flag =true;
 	public static boolean openDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("DOOR_OPENED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIContactSensorOpen_Door();
 		} catch (Exception e) {
@@ -30,7 +30,7 @@ public class DASSensorUtils {
 	
 	public static boolean closeDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("DOOR_CLOSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("DOOR_CLOSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIContactSensorClosed_Door();
 		} catch (Exception e) {
@@ -41,8 +41,8 @@ public class DASSensorUtils {
 	
 	public static boolean tamperDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-		inputs.setInputValue("DOOR_TAMPERED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("DOOR_TAMPERED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIDoorContactSensorTampered();
 		} catch (Exception e) {
@@ -53,7 +53,7 @@ public class DASSensorUtils {
 	
 	public static boolean tamperClearDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIDoorContactSensorTamperCleared();
 		} catch (Exception e) {
@@ -64,7 +64,7 @@ public class DASSensorUtils {
 
 	public static boolean openWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("WINDOW_OPENED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("WINDOW_OPENED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		System.out.println("Open Window");
 		try {
 			RelayUtils.RSIContactSensorOpen_Window();
@@ -77,7 +77,7 @@ public class DASSensorUtils {
 	
 	public static boolean closeWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("WINDOW_CLOSED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("WINDOW_CLOSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		System.out.println("Close Window");
 		try {
 			RelayUtils.RSIContactSensorClosed_Window();
@@ -89,8 +89,8 @@ public class DASSensorUtils {
 	
 	public static boolean tamperWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("ALARM_TIME", LyricUtils.getDeviceTime(testCase, inputs));
-		inputs.setInputValue("WINDOW_TAMPERED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("WINDOW_TAMPERED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIWindowContactSensorTamperON();
 		} catch (Exception e) {
@@ -101,9 +101,9 @@ public class DASSensorUtils {
 	
 	public static boolean tamperClearWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("WINDOW_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+		inputs.setInputValue("WINDOW_TAMPER_CLEARED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIDoorContactSensorTamperCleared();
+			RelayUtils.RSIWindowContactSensorTamperCleared();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -163,7 +163,7 @@ public class DASSensorUtils {
 								e.printStackTrace();
 							}
 						}
-						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 						Keyword.ReportStep_Pass(testCase, "DOOR_TAMPER_CLEARED_TIME "+inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
 					if(testCase.getMobileDriver().findElements(By.xpath(
@@ -191,7 +191,7 @@ public class DASSensorUtils {
 								e.printStackTrace();
 							}
 						}
-						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 						Keyword.ReportStep_Pass(testCase, "DOOR_TAMPER_CLEARED_TIME "+inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
 					if(testCase.getMobileDriver().findElements(By.xpath(

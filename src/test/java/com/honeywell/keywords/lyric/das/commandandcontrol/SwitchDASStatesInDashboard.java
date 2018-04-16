@@ -69,21 +69,21 @@ public class SwitchDASStatesInDashboard extends Keyword {
 		}
 		if (states.get(1).equalsIgnoreCase("Home")) {
 			flag = flag & DASCommandControlUtils.changeStatus(testCase, "Home", inputs);
-			inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "HOME_TIME " + inputs.getInputValue("HOME_TIME"));
 		} else if (states.get(1).equalsIgnoreCase("Night")) {
 			flag = flag & DASCommandControlUtils.changeStatus(testCase, "Night", inputs);
-			inputs.setInputValue("NIGHT_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("NIGHT_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "NIGHT_TIME " + inputs.getInputValue("NIGHT_TIME"));
 			// flag = flag &
 			// DASCommandControlUtils.waitForTimerToComplete(testCase);
 		} else if (states.get(1).equalsIgnoreCase("Away")) {
 			flag = flag & DASCommandControlUtils.changeStatus(testCase, "Away", inputs);
-			inputs.setInputValue("AWAY_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("AWAY_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "AWAY_TIME " + inputs.getInputValue("AWAY_TIME"));
 		} else if (states.get(1).equalsIgnoreCase("Off")) {
 			flag = flag & DASCommandControlUtils.changeStatus(testCase, "Off", inputs);
-			inputs.setInputValue("OFF_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("OFF_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "OFF_TIME " + inputs.getInputValue("OFF_TIME"));
 			// flag = flag &
 			// DASCommandControlUtils.waitForTimerToComplete(testCase);

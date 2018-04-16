@@ -80,23 +80,9 @@ public class SerialDriverArduino /*extends SerialDriverCore*/ {
 			serialPort1.writeString(ch);
 			Thread.sleep(30);
 			System.out.println("Sent com port command "+ ch);
-			//TimeUnit.MILLISECONDS.sleep(3);
-			//serialPort1.writeByte((byte) 0x0D);
-			
-			
-			
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());
 		}
-		/*String temp = buffer.toString();
-		temp = temp.replace(".", "");
-		char[] array = temp.toCharArray();
-		temp = "";
-		for (int i = 0; i < array.length; i++) {
-			if (!((int) array[i] == 0)) {
-				temp = temp + array[i];
-			}
-		}*/
 	}
 
 	public static void resetrelay(String ch) throws Exception {

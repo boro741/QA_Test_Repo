@@ -115,7 +115,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		boolean flag = true;
 		switch (stateToChange.toUpperCase()) {
 		case "HOME": {
-			inputs.setInputValue("HOME_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "HOME_TIME " + inputs.getInputValue("HOME_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -124,7 +124,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "AWAY": {
-			inputs.setInputValue("AWAY_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("AWAY_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "AWAY_TIME " + inputs.getInputValue("AWAY_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -133,7 +133,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "NIGHT": {
-			inputs.setInputValue("NIGHT_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("NIGHT_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "NIGHT_TIME " + inputs.getInputValue("NIGHT_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -142,7 +142,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "OFF": {
-			inputs.setInputValue("OFF_TIME", LyricUtils.getDeviceTime(testCase, inputs));
+			inputs.setInputValue("OFF_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "OFF_TIME " + inputs.getInputValue("OFF_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);

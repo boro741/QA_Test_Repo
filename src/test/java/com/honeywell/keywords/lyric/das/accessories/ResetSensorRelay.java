@@ -13,12 +13,12 @@ import com.honeywell.lyric.relayutils.RelayUtils;
 public class ResetSensorRelay extends Keyword {
 
 	private TestCases testCase;
-	private TestCaseInputs inputs;
+	//private TestCaseInputs inputs;
 	public boolean flag = true;
 
 	public ResetSensorRelay(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.inputs = inputs;
+		//this.inputs = inputs;
 	}
 
 	@Override

@@ -11,12 +11,12 @@ import com.honeywell.commons.mobile.MobileUtils;
 public class SensorStatusScreen extends MobileScreens {
 
 	private static final String screenName = "SensorStatus";
-	
+
 	public SensorStatusScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
 
-	
+
 	public List<WebElement> getSensorList() {
 		List<WebElement> list;
 		if(!testCase.getPlatform().contains("IOS")){
@@ -26,9 +26,14 @@ public class SensorStatusScreen extends MobileScreens {
 		}
 		return list;
 	}
-	
-    
+
+	public boolean isSensorStatusVisible(){
+		return MobileUtils.isMobElementExists("xpath","//*[@value='Sensor Status']",testCase);
+	}
+
 	public boolean clickOnSensorStatusScreenBack(TestCases testCase) {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
+		if(isSensorStatusVisible()){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
+		}else return true;
 	}
 }
