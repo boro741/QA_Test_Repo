@@ -4,7 +4,7 @@ As an user
 I want to edit geofence schedule [post installation] 
 so that my home temperature will get set automatically based on edited geofence schedule settings
 
-@EditEMEAGeofencescheduleWithSleepsettings @Automated @--xrayid:ATER-7519
+@EditEMEAGeofencescheduleWithSleepsettings @FlyAutomated @--xrayid:ATER-7519
   Scenario Outline: To Edit geofence schedule 
   As an user
   I want to edit geofence schedule value
@@ -21,7 +21,7 @@ so that my home temperature will get set automatically based on edited geofence 
       | Sleep settings | 
       #| Away settings  | 
   
-  @EditEMEAGeofenceschedulevalueWithoutsleepsettings @Automated @--xrayid:ATER-7520
+  @EditEMEAGeofenceschedulevalueWithoutsleepsettings @FlyAutomated @--xrayid:ATER-7520
   Scenario Outline:To Edit geofence schedule without sleep settings
   As an user
   I want to edit geofence schedule 
@@ -37,7 +37,7 @@ so that my home temperature will get set automatically based on edited geofence 
       | Home settings | 
       | Away settings | 
   
-  @EditEMEAGeofenceschedulevaluesleepsettings @Automated @--xrayid:ATER-7521
+  @EditEMEAGeofenceschedulevaluesleepsettings @FlyAutomated @--xrayid:ATER-7521
   Scenario Outline:To Edit geofence schedule without sleep settings
   As an user
   I want to edit geofence schedule 
@@ -53,7 +53,7 @@ so that my home temperature will get set automatically based on edited geofence 
       | With      | Deleting | 
       | Without   | Adding   |
   
-  @EditEMEAGeofencescheduleTemperatureRange @Automated @--xrayid:ATER-7522
+  @EditEMEAGeofencescheduleTemperatureRange @FlyAutomated @--xrayid:ATER-7522
   Scenario Outline: To configure Geofence schedule by setting up with new temperature value
   As an user
   I want to edit Geofence schedule by editing with new temperature value
@@ -72,7 +72,7 @@ so that my home temperature will get set automatically based on edited geofence 
       #| At Minimum    | 
       | Within range  | 
   
-  @EditEMEAGeofencescheduleTimeformat @Automated @--xrayid:ATER-7523
+  @EditEMEAGeofencescheduleTimeformat @FlyAutomated @--xrayid:ATER-7523
   Scenario: To edit geofence schedule by setting up with new time for sleep settings with any time formats
   As an user
   I want to edit geofence schedule by setting up with new time value for any time format
@@ -85,7 +85,7 @@ so that my home temperature will get set automatically based on edited geofence 
       And verify the time fields can be set with increments of "10 minutes"
       And user logs out of the app
   
-  @EditEMEAGeofencescheduleAddingSleepsettingsTimeformat @Automated @--xrayid:ATER-7524
+  @EditEMEAGeofencescheduleAddingSleepsettingsTimeformat @FlyAutomated @--xrayid:ATER-7524
   Scenario: To edit geofence schedule by adding sleep settings to geofence schedule with any time formats
   As an user
   I want to edit geofence schedule by adding sleep settings for any time format

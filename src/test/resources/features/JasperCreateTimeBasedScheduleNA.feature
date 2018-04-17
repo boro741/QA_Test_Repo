@@ -4,7 +4,7 @@ As an user
 I want to create Time schedule [post installation] 
 so that my home temperature will get set automatically all days based on the time and time window is configured for my status in home like arrival time,leaving time,sleep time and wake time   
 
-@CreateNAEverydayscheduleSinglestatDefaultvalue @Automated @--xrayid:ATER-7491
+@CreateNAEverydayscheduleSinglestatDefaultvalue @FlyAutomated @--xrayid:ATER-7491
   Scenario Outline: To create Everyday schedule with default schedule value for systems
   As an user
   I want to create Everyday schedule with default schedule value with time format 24or12hr
@@ -19,7 +19,7 @@ so that my home temperature will get set automatically all days based on the tim
       | no              | 
       #| time based | 
   
-  @CreateNAWeekdayandWeekendTimebasedscheduleSinglestatDefaultvalue @Automated @--xrayid:ATER-7492
+  @CreateNAWeekdayandWeekendTimebasedscheduleSinglestatDefaultvalue @FlyAutomated @--xrayid:ATER-7492
   Scenario Outline: To create Weekday and Weekend schedule with default schedule value for systems
   As an user
   I want to create Weekday and Weekend schedule with default schedule value 
@@ -34,7 +34,7 @@ so that my home temperature will get set automatically all days based on the tim
       #| No scheduling   | 
       | time based | 
   
-  @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleCancels @Automated @--xrayid:ATER-7493
+  @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleCancels @FlyAutomated @--xrayid:ATER-7493
   Scenario: Caution message cancelled to change Weekday and Weekend schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Weekday and Weekend schedule over Geofence schedule by cancelling geofence schedule retained 
@@ -45,7 +45,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "Geofence" schedule is retained
      And user logs out of the app
   
-  @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms @Automated @--xrayid:ATER-7494
+  @CautionmessageNATochangeGeofencescheduleFromWeekdayandWeekendscheduleConfirms @FlyAutomated @--xrayid:ATER-7494
   Scenario: Caution message confirmed to change Weekday and Weekend schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Weekday and Weekend schedule over Geofence schedule 
@@ -56,7 +56,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "Weekday and Weekend" schedule gets created successfully
      And user logs out of the app
   
-  @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleCancels @Automated @--xrayid:ATER-7495
+  @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleCancels @FlyAutomated @--xrayid:ATER-7495
   Scenario: Caution message cancelled to change Everyday schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Everyday schedule over Geofence schedule and by cancelling geofence schedule retained 
@@ -67,7 +67,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "Geofence" schedule is retained
      And user logs out of the app
   
-  @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleConfirms @Automated @--xrayid:ATER-7496
+  @CautionmessageNATochangeGeofencescheduleFromEverydayscheduleConfirms @FlyAutomated @--xrayid:ATER-7496
   Scenario: Caution message confirmed to change Everyday schedule From Geofence schedule for systems
   As an user
   I should get caution message to convey i will be turned to Everyday schedule over Geofence schedule with time format 24or12hr
@@ -78,7 +78,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify "Everyday" schedule gets created successfully
      And user logs out of the app
   
-  @CreateNAEverydayscheduleTemperatureRange @Automated @--xrayid:ATER-7497
+  @CreateNAEverydayscheduleTemperatureRange @FlyAutomated @--xrayid:ATER-7497
   Scenario Outline: To create Everyday schedule by setting up with new temperature value for systems 
   As an user
   I want to create Everyday schedule by setting up with new temperature value from default schedule value
@@ -96,7 +96,7 @@ so that my home temperature will get set automatically all days based on the tim
 #      | At Minimum    | 
 #      | within range  | 
   
-  @CreateNAWeekdayandWeekendscheduleTemperatureRange @Automated @--xrayid:ATER-7498
+  @CreateNAWeekdayandWeekendscheduleTemperatureRange @FlyAutomated @--xrayid:ATER-7498
   Scenario Outline: To configure Weekday and Weekend schedule by setting up with new temperature value for systems 
   I want to create Weekday and Weekend schedule by setting up with new temperature value from default schedule value
   	Given user launches and logs in to the Lyric application
@@ -113,7 +113,7 @@ so that my home temperature will get set automatically all days based on the tim
 #      | At Minimum    | 
 #      | within range  | 
   
-  @CreateNAEverydayscheduleTimeformat @Automated @--xrayid:ATER-7499
+  @CreateNAEverydayscheduleTimeformat @FlyAutomated @--xrayid:ATER-7499
   Scenario: To create Everyday Time schedule by setting up with new time value for systems
   As an user
   I want to create Everyday schedule by setting up with new time value for both format
@@ -124,7 +124,7 @@ so that my home temperature will get set automatically all days based on the tim
       And verify the time fields can be set with increments of "15 minutes"
       And user logs out of the app
   
-  @CreateNAEverydayscheduleDeletingperiod @Automated  @--xrayid:ATER-7500
+  @CreateNAEverydayscheduleDeletingperiod @FlyAutomated  @--xrayid:ATER-7500
   Scenario Outline: To create Everyday schedule by deleting period for systems with all possible modes and time formats
   As an user
   I want to create Everyday schedule by deleting new period
@@ -139,7 +139,7 @@ so that my home temperature will get set automatically all days based on the tim
       | Atleast 2 period | 
       | Atleast 3 period | 
   
-  @CreateNAEverydayscheduleDeletingAllperiod @Automated @--xrayid:ATER-7501
+  @CreateNAEverydayscheduleDeletingAllperiod @FlyAutomated @--xrayid:ATER-7501
   Scenario: To verify by deleting all periods for systems with all possible modes and time formats
   As an user
   I want to redirected to scheduling selection screen
@@ -149,7 +149,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify app redirected to scheduling selection screen
      And user logs out of the app
   
-  @CreateNAWeekdayandWeekendscheduleDeletingperiod @Automated @--xrayid:ATER-7502
+  @CreateNAWeekdayandWeekendscheduleDeletingperiod @FlyAutomated @--xrayid:ATER-7502
   Scenario Outline: To create Everyday schedule by deleting period for systems
   As an user
   I want to create Weekday and Weekend schedule by deleting new period
@@ -164,7 +164,7 @@ so that my home temperature will get set automatically all days based on the tim
       | Atleast 2 period | 
       #| Atleast 3 period | 
   
-  @CreateNAWeekdayandWeekendscheduleDeletingAllperiod @Automated @--xrayid:ATER-7503
+  @CreateNAWeekdayandWeekendscheduleDeletingAllperiod @FlyAutomated @--xrayid:ATER-7503
   Scenario: To verify by deleting all periods for systems
   As an user
   I want to redirected to scheduling selection screen
@@ -174,7 +174,7 @@ so that my home temperature will get set automatically all days based on the tim
      Then verify app redirected to scheduling selection screen
      And user logs out of the app
   
-  @CreateNAWeekdayandWeekendscheduleTimeformat @Automated @--xrayid:ATER-7504
+  @CreateNAWeekdayandWeekendscheduleTimeformat @FlyAutomated @--xrayid:ATER-7504
   Scenario: To configure Weekday and Weekend schedule by setting up with new time value for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24or12hr
   As an user
   I want to create Weekday and Weekend schedule by setting up with new time value for all time format
@@ -221,7 +221,7 @@ so that my home temperature will get set automatically all days based on the tim
       | LCC Down                         | 
       | Stat offline                     | 
   
-  @CreateNAEverydayscheduleMultistatCopyschedule @Automated @--xrayid:ATER-7505
+  @CreateNAEverydayscheduleMultistatCopyschedule @FlyAutomated @--xrayid:ATER-7505
   Scenario Outline: Copying schedule to stats in location for systems with all possible modes and time formats
   As an user
   I want to create Everyday schedule for stat in my location
@@ -237,7 +237,7 @@ so that my home temperature will get set automatically all days based on the tim
       #| by copying schedule to all         | copied to all other  | 
       #| by copying schedule to selected    | copied to selected   | 
   
-  @CreateNAWeekdayandWeekendscheduleMultistatCopyschedule @Automated @--xrayid:ATER-7506
+  @CreateNAWeekdayandWeekendscheduleMultistatCopyschedule @FlyAutomated @--xrayid:ATER-7506
   Scenario Outline: Copying schedule to stats in location for systems with all possible modes and time formats
   As an user
   I want to create Weekday and Weekend schedule for stat in my location

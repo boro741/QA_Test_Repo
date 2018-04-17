@@ -4,7 +4,7 @@ As an user
 I want to Edit Time schedule
 so that my home temperature will get set automatically all days based on the new schedule settings for my status in home like arrival time,leaving time,sleep time and wake time   
 
-@ViewTimeschedulePrimarycardEMEA @Automated @--xrayid:ATER-7526
+@ViewTimeschedulePrimarycardEMEA @FlyAutomated @--xrayid:ATER-7526
   Scenario: To view schedule state in primary card if time schedule is available for EMEA stat for time format 24 and 12hr
     Given user thermostat is set to "time based" schedule 
     And user launches and logs in to the Lyric application
@@ -15,7 +15,7 @@ so that my home temperature will get set automatically all days based on the new
       | Following schedule      | 
     And user logs out of the app
   
-  @AddTimeschedulePeriodEMEA @Automated @--xrayid:ATER-7527
+  @AddTimeschedulePeriodEMEA @FlyAutomated @--xrayid:ATER-7527
   Scenario Outline:To view the option to add schedule period for EMEA stat 
      And user launches and logs in to the Lyric application
      When user selects "Jasper device" from the dashboard
@@ -31,7 +31,7 @@ so that my home temperature will get set automatically all days based on the new
       #| 5 periods | 
       #| 6 periods | 
   
-  @DeleteTimeschedulePeriodGroupedDaysEMEA @Automated @--xrayid:ATER-7528
+  @DeleteTimeschedulePeriodGroupedDaysEMEA @FlyAutomated @--xrayid:ATER-7528
   Scenario: Verify User should have atleast one schedule period in set of grouped days 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
@@ -41,7 +41,7 @@ so that my home temperature will get set automatically all days based on the new
      Then Verify user should have atleast "One" schedule period in "Grouped days" view
       And user logs out of the app
   
-  @DeleteTimeschedulePeriodIndividualDaysEMEA @Automated @--xrayid:ATER-7529
+  @DeleteTimeschedulePeriodIndividualDaysEMEA @FlyAutomated @--xrayid:ATER-7529
   Scenario: Verify User should have atleast two schedule period in set of individual days 
     Given user has "time schedule" with "1 Period"
      And user launches and logs in to the Lyric application
@@ -52,7 +52,7 @@ so that my home temperature will get set automatically all days based on the new
      And verify user should have atleast "Two" schedule period in "Individual days" view
      And user logs out of the app
   
-  @EditEndtimeTimeschedulePeriodEMEA @Automated @--xrayid:ATER-7530
+  @EditEndtimeTimeschedulePeriodEMEA @FlyAutomated @--xrayid:ATER-7530
   Scenario Outline:Verify User should not be allowed to edit end time of last period in a day 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
@@ -108,7 +108,7 @@ so that my home temperature will get set automatically all days based on the new
       | Grouped days    | 
       | Individual days | 
   
-  @EditStarttimeEMEA @Automated @--xrayid:ATER-7532
+  @EditStarttimeEMEA @FlyAutomated @--xrayid:ATER-7532
   Scenario Outline: Verify User should not be allowed to edit start time and end time with same time value for both time format
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
@@ -135,7 +135,7 @@ so that my home temperature will get set automatically all days based on the new
       | Grouped days    | 
       | Individual days | 
   
-  @ViewTimescheduleGroupedDaysEMEA @Automated @--xrayid:ATER-7533
+  @ViewTimescheduleGroupedDaysEMEA @FlyAutomated @--xrayid:ATER-7533
   Scenario Outline:To view the options in schedule screen for EMEA stat 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -175,7 +175,7 @@ so that my home temperature will get set automatically all days based on the new
       | LCC/TCC down | 
    
   
-  @EditTimescheduleTemperatureEMEA @Automated @--xrayid:ATER-7535
+  @EditTimescheduleTemperatureEMEA @FlyAutomated @--xrayid:ATER-7535
   Scenario Outline: To Edit time schedule period by setting up with new temperature value for stat 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -201,7 +201,7 @@ so that my home temperature will get set automatically all days based on the new
       #| Individual days | At Minimum    | 
       #| Individual days | within range  | 
   
-  @EditTimescheduleTimeformatEMEA @Automated @--xrayid:ATER-7536
+  @EditTimescheduleTimeformatEMEA @FlyAutomated @--xrayid:ATER-7536
   Scenario Outline: To Edit Time schedule by setting up with new time value for time format 24 and 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -217,7 +217,7 @@ so that my home temperature will get set automatically all days based on the new
       | Grouped days    | 
       #| Individual days | 
   
-  @CancellingDeleteperiodEMEA @Automated @--xrayid:ATER-7537
+  @CancellingDeleteperiodEMEA @FlyAutomated @--xrayid:ATER-7537
   Scenario Outline: To verify the confirmation message for deleting period for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
