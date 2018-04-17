@@ -4,7 +4,7 @@ As an user
 I want to Edit Time schedule
 so that my home temperature will get set automatically all days based on the new schedule settings for my status in home like arrival time,leaving time,sleep time and wake time   
 
-@ViewTimeschedulePrimarycardNA @Automated @--xrayid:ATER-7585
+@ViewTimeschedulePrimarycardNA @FlyAutomated @--xrayid:ATER-7585
   Scenario: To view schedule state in primary card if time schedule is available for stat with systems Heat cool,Cool,Heat and Temperture scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule 
     And user launches and logs in to the Lyric application
@@ -15,7 +15,7 @@ so that my home temperature will get set automatically all days based on the new
       | Following schedule      | 
 #    And user logs out of the app
   
-  @ViewTimescheduledefaultNA @Automated @--xrayid:ATER-7586
+  @ViewTimescheduledefaultNA @FlyAutomated @--xrayid:ATER-7586
   Scenario Outline: To view the Time schedule for stat with systems Heat cool,Cool,Heat and Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
      Given user thermostat is set to "time based" schedule 
     And user launches and logs in to the Lyric application
@@ -35,7 +35,7 @@ so that my home temperature will get set automatically all days based on the new
       | Five days  | 
       | Six days   | 
   
-  @ViewTimescheduleIndividualdaysNA @Automated @RunManual @--xrayid:ATER-7587
+  @ViewTimescheduleIndividualdaysNA @FlyAutomated @RunManual @--xrayid:ATER-7587
   Scenario: To view the Time schedule for stat with systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr in individual days
     Given user thermostat is set to "time based" schedule 
     And user launches and logs in to the Lyric application
@@ -70,7 +70,7 @@ so that my home temperature will get set automatically all days based on the new
       | Switching between the network    | 
       | Smart network switch             | 
   
-  @EditTimescheduleTemperatureNA @Automated @--xrayid:ATER-7588
+  @EditTimescheduleTemperatureNA @FlyAutomated @--xrayid:ATER-7588
   Scenario Outline: To Edit time schedule by setting up with new temperature value for stat with systems Heat cool,Cool,Heat and Temperature scale Celsius or Fahrenheit 
    Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -96,7 +96,7 @@ so that my home temperature will get set automatically all days based on the new
       | Individual days | At Minimum    | 
       | Individual days | within range  | 
   
-  @EditTimescheduleTemperatureEverydayAutochangeoverEnabledNA @Automated @--xrayid:ATER-7589
+  @EditTimescheduleTemperatureEverydayAutochangeoverEnabledNA @FlyAutomated @--xrayid:ATER-7589
   Scenario Outline: To edit time schedule by setting up with new temperature value for systems Heat cool for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr with autochangeover enabled
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -124,7 +124,7 @@ so that my home temperature will get set automatically all days based on the new
       | Individual days | At Minimum    | 
       | Individual days | within range  | 
   
-  @EditTimescheduleTimeformatNA @NOTAutomated @--xrayid:ATER-7590
+  @EditTimescheduleTimeformatNA @NOTFlyAutomated @--xrayid:ATER-7590
   Scenario Outline: To Edit Time schedule by setting up with new time value for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -141,7 +141,7 @@ so that my home temperature will get set automatically all days based on the new
       | Grouped days    | 
       #| Individual days | 
   
-  @EditTimescheduleOverlapTwoPeriodsNA @Automated @--xrayid:ATER-7591
+  @EditTimescheduleOverlapTwoPeriodsNA @FlyAutomated @--xrayid:ATER-7591
   Scenario Outline: The Time schedule removed if setting up with time value as same as it for new time schedule for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -160,7 +160,7 @@ so that my home temperature will get set automatically all days based on the new
       | Grouped days    | 
       #| Individual days | 
   
-  @CancellingDeleteperiodNA @Automated @--xrayid:ATER-7592
+  @CancellingDeleteperiodNA @FlyAutomated @--xrayid:ATER-7592
   Scenario Outline: To verify the confirmation message for deleting period for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -175,7 +175,7 @@ so that my home temperature will get set automatically all days based on the new
       | Grouped days    | 
       #| Individual days | 
   
-  @EditTimescheduleDeletingperiodNA @Automated @--xrayid:ATER-7593
+  @EditTimescheduleDeletingperiodNA @FlyAutomated @--xrayid:ATER-7593
   Scenario Outline: To edit Time schedule by deleting period for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -194,7 +194,7 @@ so that my home temperature will get set automatically all days based on the new
       #| Individual days | Atleast 2 period | 
       #| Individual days | Atleast 3 period | 
   
-  @EditTimescheduleDeletingallperiodNA @Automated @--xrayid:ATER-7594
+  @EditTimescheduleDeletingallperiodNA @FlyAutomated @--xrayid:ATER-7594
   Scenario Outline: To edit Time schedule by deleting all period for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
