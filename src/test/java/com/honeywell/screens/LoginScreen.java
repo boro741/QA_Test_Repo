@@ -58,6 +58,16 @@ public class LoginScreen extends MobileScreens{
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "LyricLogo",3);
 		}
 		
+		public boolean isSkipButtonVisible()
+		{
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipIntroButton",3);
+		}
+		
+		public boolean clickOnSkipIntroButton()
+		{
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipIntroButton");
+		}
+		
 		public boolean clickOnLyricLogo()
 		{
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "LyricLogo");

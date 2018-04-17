@@ -12,15 +12,18 @@ import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SchedulingScreen;
 
 public class DashboardUtils {
 
-	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected) throws Exception {
+	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,boolean... closeCoachMarks) throws Exception {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
+		CoachMarks cm = new CoachMarks(testCase);
 		if (d.areDevicesVisibleOnDashboard(25)) {
 			dashboardIconText = d.getDashboardDeviceNameElements();
 		}
@@ -38,6 +41,14 @@ public class DashboardUtils {
 				e.click();
 				f = true;
 				break;
+			}
+		}
+		if (cm.isGotitButtonVisible(1)) {
+			if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
+				return true;
+			} else {
+
+				return LyricUtils.closeCoachMarks(testCase);
 			}
 		}
 		if (f) {
