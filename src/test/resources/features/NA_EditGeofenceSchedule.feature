@@ -4,7 +4,7 @@ As an user
 I want to edit geofence schedule [post installation] 
 so that my home temperature will get set automatically based on edited geofence schedule settings
 
-@EditNAGeofencescheduleWithSleepsettings @Automated @--xrayid:ATER-7577
+@EditNAGeofencescheduleWithSleepsettings1 @Automated @--xrayid:ATER-7577
   Scenario Outline: To Edit geofence schedule for systems with all possible formats
   As an user
   I want to edit geofence schedule value

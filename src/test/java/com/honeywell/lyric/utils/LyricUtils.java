@@ -51,6 +51,7 @@ import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.OSPopUps;
+import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecretMenu;
 
 import io.appium.java_client.MobileBy;
@@ -519,6 +520,10 @@ public class LyricUtils {
 								os.clickOnIgnoreButton();
 								return false;
 							}
+							if (ls.isSkipButtonVisible()){
+								ls.clickOnSkipIntroButton();
+								return true;
+							}
 							/*
 							 * if (os.isCancelButtonVisible()) { os.clickOnCancelButton(); return false; }
 							 */ else {
@@ -528,7 +533,7 @@ public class LyricUtils {
 						} catch (Exception e) {
 							return false;
 						}
-					}
+					}						
 				});
 				if (isEventReceived) {
 					Keyword.ReportStep_Pass(testCase, "Login to Lyric : Successfully navigated to HomeScreen");
@@ -575,6 +580,10 @@ public class LyricUtils {
 			String environmentToSelect = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
 			LoginScreen ls = new LoginScreen(testCase);
 			SecretMenu sm = new SecretMenu(testCase);
+			SchedulingScreen sc = new SchedulingScreen(testCase);
+			if (sc.isSkipButtonVisible(10)){
+				sc.clickOnSkipButton();
+			}
 			flag = flag & ls.longPressOnSecretMenuImage();
 			if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if(sm.isFeatureTweaksVisible()){
@@ -654,8 +663,9 @@ public class LyricUtils {
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		 flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+			testCase.getMobileDriver().closeApp();
+			testCase.getMobileDriver().launchApp();
 		 flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
-		 flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {

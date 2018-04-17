@@ -34,7 +34,7 @@ GeofenceSleepSubTitle							NAME	Geofence_Sleep_subTitle	NAME	Geofence_Sleep_sub
 GeofenceAway							XPATH	//*[@name='Geofence_Away']	XPATH	//*[@name='Geofence_Away']	XPATH	//*[@name='Geofence_Away']
 GeofenceAwayCool							NAME	Geofence_Away_CoolTemperature	NAME	Geofence_Away_CoolTemperature	NAME	Geofence_Away_CoolTemperature
 GeofenceAwayHeat							NAME	Geofence_Away_HeatTemperature	NAME	Geofence_Away_HeatTemperature	NAME	Geofence_Away_HeatTemperature
-GeofenceHome							XPATH	//UIATableCell[@name='Geofence_Home']	XPATH	//UIATableCell[@name='Geofence_Home']	XPATH	//UIATableCell[@name='Geofence_Home']
+GeofenceHome							NAME	Use My Home Settings	NAME	Use My Home Settings	NAME	Use My Home Settings
 GeofenceHomeCool							NAME	Geofence_Home_CoolTemperature	NAME	Geofence_Home_CoolTemperature	NAME	Geofence_Home_CoolTemperature
 GeofenceSleepCool							NAME	Geofence_Sleep_CoolTemperature	NAME	Geofence_Sleep_CoolTemperature	NAME	Geofence_Sleep_CoolTemperature
 GeofenceHomeHeat							NAME	Geofence_Home_HeatTemperature	NAME	Geofence_Home_HeatTemperature	NAME	Geofence_Home_HeatTemperature

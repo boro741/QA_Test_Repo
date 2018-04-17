@@ -1,9 +1,14 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+
+import io.appium.java_client.MobileElement;
 
 public class SecretMenu extends MobileScreens {
 
@@ -26,10 +31,12 @@ public class SecretMenu extends MobileScreens {
 	}
 	
 	public boolean clickOnSetAccessibilityToggle() {
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AccessibilityEnabled", 3)){
+		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_toggle")).size()>0){
 			return true;
 		}else{
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "AccessibilityDisabled");
+			MobileElement ele =testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).get(1);
+   		 return MobileUtils.clickOnElement(testCase, ele, "Accessibility Attribute enable/Disbale");
+
 		}
 	}
 	

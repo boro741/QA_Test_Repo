@@ -5,3 +5,4 @@ HoneywellRosette	ID	login_rosette_new	ID	login_rosette_new	ID	login_rosette_new
 LoginButton	ID	fragment_login_login_button	ID	fragment_login_login_button	ID	fragment_login_login_button	NAME	Login	NAME	Login	NAME	Login
 Password	ID	fragment_login_password	ID	fragment_login_password	ID	fragment_login_password	NAME	Login_Password	NAME	Login_Password	NAME	Login_Password
 SecretMenuImage							name	Secret_Menu	name	Secret_Menu	name	Secret_Menu
+SkipIntroButton							ID	Intro_Screen_Skip_Button	ID	Intro_Screen_Skip_Button	ID	Intro_Screen_Skip_Button
