@@ -386,9 +386,75 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}
-
-		else {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if (sc.isCancelButtonInSwitchToPopupVisible()) {
+					flag = flag & sc.clickOnCancelButtonInSwitchToPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button in switch to popup is not displayed");
+					return flag;
+				}
+				flag = flag & DASCommandControlUtils.verifySwitchToAwayPopupIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if (sc.isOKButtonInSwitchToPopupVisible()) {
+					flag = flag & sc.clickOnOKButtonInSwitchToPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button in switch to popup is not displayed");
+					return flag;
+				}
+				flag = flag & DASCommandControlUtils.verifySwitchToAwayPopupIsNotDisplayed(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if (sc.isCancelButtonInSwitchToPopupVisible()) {
+					flag = flag & sc.clickOnCancelButtonInSwitchToPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button in switch to popup is not displayed");
+					return flag;
+				}
+				flag = flag & DASCommandControlUtils.verifySwitchToNightPopupIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if (sc.isOKButtonInSwitchToPopupVisible()) {
+					flag = flag & sc.clickOnOKButtonInSwitchToPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button in switch to popup is not displayed");
+					return flag;
+				}
+				flag = flag & DASCommandControlUtils.verifySwitchToNightPopupIsNotDisplayed(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

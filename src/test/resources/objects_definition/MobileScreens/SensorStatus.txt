@@ -2,4 +2,4 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 SensorList	id	parent_alert_item	id	parent_alert_item	id	parent_alert_item	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"
 SensorListName	id	sensor_name	id	sensor_name	id	sensor_name	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"
 SensorListValue	id	sensor_issue_priority_text	id	sensor_issue_priority_text	id	sensor_issue_priority_text	xpath	"//*[contains(@name,'_value')]"	xpath	"//*[contains(@name,'_value')]"	xpath	"//*[contains(@name,'_value')]"
-SensorListBack	XPATH	//*[@content-desc='Navigate Up']	XPATH	//*[@content-desc='Navigate Up']	XPATH	//*[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
+SensorListBack	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	name	Back	name	Back	name	Back

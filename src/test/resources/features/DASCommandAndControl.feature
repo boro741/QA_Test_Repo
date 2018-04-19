@@ -232,45 +232,160 @@ And user should be displayed with a switching timer
 Then timer ends on user device
 And user status should be set to "Away"
 
-@CommandControlWhenwindow/DoorSensorfault 
-Scenario Outline:
-As a user I want to switch to different states in my DAS device when there is a sensor fault 
-Given user sets the entry/exit timer to "45" seconds 
-And user is set to <Status> mode through CHIL 
-When user launches and logs in to the Lyric application 
-And user navigates to "security solution cards" screen from "Dashboard" screen 
-And user "opens" the <Sensor type> 
-And user switches from <Status>to "Away" 
-Then user should be displayed with a "Switch to Away with the sensor fault" popup 
-When user "confirms" the "Switch to Away with the sensor fault" popup 
-Then user should be displayed with the "Switching to Away" text 
-And user should be displayed with the "switching timer" 
-When "Switching timer" ends on user device 
-Then user should be displayed with the "Away Status" 
-And user should be displayed with the "correct time stamp" 
-When user navigates to "sensors list"  from "security solution cards" screen 
-Then user should see the "Sensor Satus" status as "OFF" on the "Sensor LIST" 
-And user is set to <Status> mode through CHIL 
-When user switches from <Status> to "Night" 
-Then user should be displayed with a "Switch to Night with the sensor fault" popup 
-When user user "confirms" the "Switch to Night with the sensor fault" popup 
-Then user should be displayed with a "Switching to Night" text 
-And user should be displayed with the "switching timer" 
-When "Switching timer" ends on user device 
-Then user should be displayed with the "Night Status" 
-And user should be displayed with the "correct time stamp" 
-When user navigates to "sensors list"  from "security solution cards" screen 
-Then user should see the "Sensor Satus" status as "OFF" on the "Sensor List" 
-And user is set to <Status> mode through CHIL 
-When user switches from <Status> to "Off" 
-Then user should receive a "Set to Off" popup 
-When user "confirms" the "Set to Off" popup 
-Then user should be displayed with a "Switching to Off" text 
-And user should be displayed with the "Off Status" 
-	
-Examples: 
-|Status|Sensor type|
-|Home|Door|
-|Home|Window|
-|off|Door|
-|off|Window|
+@CommandControlWhenDoorSensorIsInFault
+Scenario Outline: As a user I want to switch to different states in my DAS device when there is a door sensor fault 
+Given user sets the entry/exit timer to "30" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+#And user door <Fault Type>
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+When user switches from "Home" to "Away"
+Then user should receive a "Switch to Away" popup
+When user "dismisses" the "Switch to Away" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Away" 
+Then user should receive a "Switch to Away" popup
+When user "accepts" the "Switch to Away" popup
+Then user should be displayed with a "Switching to Away" text
+Then timer ends on user device
+And user status should be set to "Away"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user is set to "Home" mode through CHIL
+And user switches from "Home" to "Night" 
+Then user should receive a "Switch to Night" popup
+When user "dismisses" the "Switch to Night" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Night" 
+Then user should receive a "Switch to Night" popup
+When user "accepts" the "Switch to Night" popup
+Then user should be displayed with a "Switching to Night" text
+Then timer ends on user device
+And user status should be set to "Night"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user is set to "Home" mode through CHIL 
+And user switches from "Home" to "Off" 
+Then user should receive a "Set to Off" popup
+When user "accepts" the "Set to Off" popup
+Then user status should be set to "Off"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user switches from "Off" to "Home"
+Then user should be displayed with a "Switching to Home" text
+And user status should be set to "Home"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+#And user door <Update Fault Type>
+
+Examples:
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
+|	door				|	opened				|	open						|	off				|	closed				|
+|	door				|	tampered				|	cover tampered			|	off				|	tamper restored		|
+
+@CommandControlWhenWindowSensorIsInFault
+Scenario Outline: As a user I want to switch to different states in my DAS device when there is a window sensor fault 
+Given user sets the entry/exit timer to "30" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+#And user window <Fault Type>
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+When user switches from "Home" to "Away"
+Then user should receive a "Switch to Away" popup
+When user "dismisses" the "Switch to Away" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Away" 
+Then user should receive a "Switch to Away" popup
+When user "accepts" the "Switch to Away" popup
+Then user should be displayed with a "Switching to Away" text
+Then timer ends on user device
+And user status should be set to "Away"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user is set to "Home" mode through CHIL
+And user switches from "Home" to "Night" 
+Then user should receive a "Switch to Night" popup
+When user "dismisses" the "Switch to Night" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Night" 
+Then user should receive a "Switch to Night" popup
+When user "accepts" the "Switch to Night" popup
+Then user should be displayed with a "Switching to Night" text
+Then timer ends on user device
+And user status should be set to "Night"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user is set to "Home" mode through CHIL 
+And user switches from "Home" to "Off" 
+Then user should receive a "Set to Off" popup
+When user "accepts" the "Set to Off" popup
+Then user status should be set to "Off"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user switches from "Off" to "Home"
+Then user should be displayed with a "Switching to Home" text
+And user status should be set to "Home"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+#And user door <Update Fault Type>
+
+Examples:
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	|
+|	window			|	opened				|	open						|	off				|	closed				|
+|	window			|	tampered				|	cover tampered			|	off				|	tamper restored		|
+
+@CommandControlWhenMotionSensorIsInFault
+Scenario Outline: As a user I want to switch to different states in my DAS device when there is a motion sensor fault 
+Given user sets the entry/exit timer to "30" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+#And user motion sensor <Fault Type>
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+When user switches from "Home" to "Away"
+Then user should receive a "Switch to Away" popup
+When user "dismisses" the "Switch to Away" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Away" 
+Then user should receive a "Switch to Away" popup
+When user "accepts" the "Switch to Away" popup
+Then user should be displayed with a "Switching to Away" text
+Then timer ends on user device
+And user status should be set to "Away"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user is set to "Home" mode through CHIL
+And user switches from "Home" to "Night"
+Then user should be displayed with a "Switching to Night" text
+Then timer ends on user device
+And user status should be set to "Night"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user is set to "Home" mode through CHIL 
+And user switches from "Home" to "Off" 
+Then user should receive a "Set to Off" popup
+When user "accepts" the "Set to Off" popup
+Then user status should be set to "Off"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
+And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+When user switches from "Off" to "Home"
+Then user should be displayed with a "Switching to Home" text
+And user status should be set to "Home"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+#And user motion sensor <Update Fault Type>
+
+Examples:
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
+|	motion sensor	|	tampered				|	cover tampered			|	off				|	tamper restored		|

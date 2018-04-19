@@ -20,7 +20,7 @@ public class DASCommandControlUtils {
 		flag = flag & sc.clickOnState(statusToSelect, inputs);
 		return flag;
 	}
-	
+
 	public static boolean verifystate(TestCases testCase, String stateToVerify) {
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -39,7 +39,7 @@ public class DASCommandControlUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean verifySetToOffPopUpIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -48,6 +48,30 @@ public class DASCommandControlUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Set to Off Pop Up is still displayed");
 		} else {
 			Keyword.ReportStep_Pass(testCase, "Set to Off Pop Up is not displayed");
+		}
+		return flag;
+	}
+
+	public static boolean verifySwitchToAwayPopupIsNotDisplayed(TestCases testCase) {
+		boolean flag = true;
+		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		if (sc.isSwitchToAwayPopupVisible(5)) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Switch to away popup is still displayed");
+		} else {
+			Keyword.ReportStep_Pass(testCase, "Switch to away popup is not displayed");
+		}
+		return flag;
+	}
+
+	public static boolean verifySwitchToNightPopupIsNotDisplayed(TestCases testCase) {
+		boolean flag = true;
+		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		if (sc.isSwitchToNightPopupVisible(5)) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Switch to night popup is still displayed");
+		} else {
+			Keyword.ReportStep_Pass(testCase, "Swith to night popup is not displayed");
 		}
 		return flag;
 	}

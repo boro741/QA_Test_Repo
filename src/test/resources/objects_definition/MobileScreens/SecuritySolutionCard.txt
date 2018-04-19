@@ -9,8 +9,8 @@ OkButton	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	name	
 CancelBypassButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	name	Cancel				
 BypassIssueMessage	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	xpath	"//*[contains(@name,'is Open.')]"				
 TimeStamp	id	text_timestamp	id	text_timestamp	id	text_timestamp	name	PanelLastUpdatedTime	name	PanelLastUpdatedTime	name	PanelLastUpdatedTime
-SensorNoIssueButton	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	name	SENSORS	name	sensor no issue button	name	sensor no issue button
-SensorWithIssueBuuton	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	xpath	"//*[contains(@name,'-')]"	name	sensor trouble button	name	sensor trouble button
+SensorNoIssueButton	id	sensor_image_view	id	sensor_image_view	id	sensor_image_view	NAME	Button	NAME	Button	NAME	Button
+SensorWithIssueButon	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	xpath	"//*[contains(@name,'-')]"	name	sensor trouble button	name	sensor trouble button
 SensorWithOff	id	sensorIssues_button	id	sensorIssues_button	id	sensorIssues_button	name	sensor off button	name	sensor off button	name	sensor off button
 SensorList	id	parent_alert_item	id	parent_alert_item	id	parent_alert_item	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"
 SensorListName	id	sensor_name	id	sensor_name	id	sensor_name	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"	xpath	"//*[contains(@name,'_cell')]"
@@ -29,4 +29,9 @@ OKButtonInSetToOffPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 ClearNotificationsIcon	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	NAME	Clear notifications	NAME	Clear notifications	NAME	Clear notifications
 ClearNotificationsText	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text						
 ConfirmButtonInClearNotifications							NAME	Confirm clear notifications	NAME	Confirm clear notifications	NAME	Confirm clear notifications
-AppSettingsIcon							NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
+AppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
+SwitchToAwayPopupTitle	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	NAME	Switch to Away?	NAME	Switch to Away?	NAME	Switch to Away?
+OKButtonInPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
+CancelButtonInPopup	ID	button2	ID	button2	ID	button2	NAME	Cancel	NAME	Cancel	NAME	Cancel
+SwitchToNightPopupTitle	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Switch to Night?']	NAME	Switch to Night?	NAME	Switch to Night?	NAME	Switch to Night?
+ClearTamperButton							NAME	RightButton	NAME	RightButton	NAME	RightButton

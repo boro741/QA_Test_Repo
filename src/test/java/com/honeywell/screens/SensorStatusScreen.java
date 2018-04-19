@@ -16,24 +16,29 @@ public class SensorStatusScreen extends MobileScreens {
 		super(testCase, screenName);
 	}
 
-
 	public List<WebElement> getSensorList() {
 		List<WebElement> list;
-		if(!testCase.getPlatform().contains("IOS")){
-			list = MobileUtils.getMobElements(testCase,"xpath", "//*[contains(@content-desc,'sensor_status_item_')]");
-		}else{
-			list = MobileUtils.getMobElements(objectDefinition,testCase,"SensorList");
+		if (!testCase.getPlatform().contains("IOS")) {
+			//list = MobileUtils.getMobElements(testCase, "xpath", "//*[contains(@content-desc,'sensor_status_item_')]");
+			list = MobileUtils.getMobElements(testCase, "xpath", "//*[@resource-id = 'com.honeywell.android.lyric:id/parent_alert_item']");
+		} else {
+			list = MobileUtils.getMobElements(objectDefinition, testCase, "SensorList");
 		}
 		return list;
 	}
 
-	public boolean isSensorStatusVisible(){
-		return MobileUtils.isMobElementExists("xpath","//*[@value='Sensor Status']",testCase);
+	public boolean isSensorStatusVisible() {
+		if(!testCase.getPlatform().contains("IOS")) {
+			return MobileUtils.isMobElementExists("id", "sensor_issue_priority_text", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("xpath", "//*[@value='Sensor Status']", testCase);
+		}
 	}
 
 	public boolean clickOnSensorStatusScreenBack(TestCases testCase) {
-		if(isSensorStatusVisible()){
+		if (isSensorStatusVisible()) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
-		}else return true;
+		} else
+			return true;
 	}
 }
