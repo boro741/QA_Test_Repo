@@ -100,8 +100,9 @@ public class SelectElementOnAScreen extends Keyword {
 					AlarmScreen alarmScreen = new AlarmScreen(testCase);
 					int i=0;
 					
-					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && !alarmScreen.isAlarmDismissButtonDisplayed() ){
+					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && alarmScreen.isAlarmDismissButtonDisplayed() ){
 						System.out.println("Waiting for dismiss alarm request to complete");
+						i++;
 					}
 					break;
 				}

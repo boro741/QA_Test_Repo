@@ -64,10 +64,12 @@ Background:
      When user selects "dismiss alarm" from "alarm" screen
      Then user status should be set to "Home"
       And user "opens" activity log
-	 Then user receives a "Window Alarm At Away Mode" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       | Window Alarm At Away Mode|
+       | ALARM AT AWAY MODE       |
+       | Alarm Dismissed          |
+       | Switched to Home by app  |
       And user "closes" activity log
       And user window "closed"
       And user switches from "Home" to "Away"
@@ -82,10 +84,11 @@ Background:
      And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      And user "opens" activity log
-     Then user receives a "Attention Alarm" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+     Then verify the following activity log:
+      | Elements                 | 
+      | ALARM AT AWAY MODE       |
+      | Alarm Dismissed          |
+      | Switched to Home by app  |
      And user "closes" activity log
      And user window "closed"
       And user switches from "Home" to "Night"
@@ -97,10 +100,11 @@ Background:
      And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      And user "opens" activity log
-     Then user receives a "Attention Alarm" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+     Then verify the following activity log:
+     | Elements                 | 
+      | ALARM AT AWAY MODE       |
+      | Alarm Dismissed          |
+      | Switched to Home by app  |
      And user "closes" activity log
      And user window "closed"
      And user switches from "Home" to "Night"
@@ -115,10 +119,11 @@ Background:
      And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      And user "opens" activity log
-     Then user receives a "Attention Alarm" activity log
-     And user receives a "ALARM AT Night MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+      Then verify the following activity log:
+     | Elements                 | 
+      | ALARM AT Night MODE       |
+      | Alarm Dismissed          |
+      | Switched to Home by app  |
      And user "closes" activity log 
      And user window "closed"
      
@@ -137,10 +142,6 @@ Background:
      Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
-     And user "opens" activity log
-   Then user receives a "Door opened at Away mode" activity log
-    And user receives a "Door closed at Away mode" activity log
-    And user "closes" activity log
        And user "opens door with app" in background 
       When user selects the "Door Opened" push notification
 	 When user selects "Switch to Home" from "Entry delay" screen
@@ -150,8 +151,10 @@ Background:
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
      And user "opens" activity log
-	 Then user receives a "Door opened at Away mode" activity log
-      And user receives a "Switched to Home by app" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       | Door opened at Away mode|
+       | Switched to Home by app |
       And user "closes" activity log
       When user door "closed"
    # And user mobile screen is locked
@@ -165,9 +168,11 @@ Background:
    #  When user enters "Mobile Passcode" 
 	 Then user status should be set to "Night"
      When user "opens" activity log
-	 Then user receives a "Door Opened at Away mode" activity log
-      And user receives a "Door Closed at Away mode" activity log
-      And user receives a "Switched to Night by app" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       | Door opened at Away mode|
+       | Door Closed at Away mode |
+       | Switched to Night by app |
       
 	 
       
@@ -183,38 +188,37 @@ Background:
      And timer ends on user device
      And  user door "opened"
      Then user selects the "Door Opened" push notification
-      And user should be displayed with following:
-      | Elements                          | 
-      |  entry delay with door open title |
-      |  entry delay subtitle             |
-      |  entry delay live stream          |
-      |  entry delay alarm in secs text   |
-      |  entry delay alarm in secs counter|
-      |  entry delay switch to home button|
-      |  entry delay switch to night button|
-      |  entry delay panic button         |
-      |  entry delay navigate back button |
+  #    And user should be displayed with following:
+   #   | Elements                          | 
+   #   |  entry delay with door open title |
+   #   |  entry delay subtitle             |
+   #   |  entry delay live stream          |
+   #   |  entry delay alarm in secs text   |
+   #   |  entry delay alarm in secs counter|
+   #   |  entry delay navigate back button |
      When user selects "Switch to Night" from "Entry delay" screen
    #  Then user should be displayed with "Lyric app locked" screen
    #  When user enters "Lyric Passcode" 
 	 Then user should be displayed with the "Waiting to close" screen
 	 When user door "is not closed"
       And user should be displayed with the "Alarm" screen
-      And user should be displayed with following:
-      | Elements                    |
-      |  alarm title 	   			|
-      |  alarm subtitle			    |
-      |  alarm live stream 			|
-      |  alarm navigate back button |
-      |  call                       |
+   #   And user should be displayed with following:
+   #   | Elements                    |
+   #   |  alarm title 	   			|
+   #   |  alarm subtitle			    |
+   #   |  alarm live stream 			|
+   #   |  alarm navigate back button |
+   #   |  call                       |
      When user selects "dismiss alarm" from "alarm" screen
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
       When user "opens" activity log
-	 Then user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+       Then verify the following activity log:
+       | Elements                 | 
+       | DOOR SENSOR ALARM AT AWAY MODE|
+       | ALARM AT AWAY MODE |
+       | Alarm Dismissed |
+       |Switched to Home by app|
       When user "closes" activity log
       And user door "closed"
       When user switches from "Home" to "Away"
@@ -227,9 +231,11 @@ Background:
    When timer ends on user device
 	Then user status should be set to "Night"
      When user "opens" activity log
-	 Then user receives a "Door Opened at Away mode" activity log
-      And user receives a "Door Closed at Away mode" activity log
-      And user receives a "Switched to Night by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       | Door Opened at Away mode|
+       | Door Closed at Away mode |
+       | Switched to Night by app |
       
     @AwayMode_doorsensorOpenAfterExitDelay_AttentionAlarmFromEntryDelay_AlarmWhenNoActionTaken @--xrayid:ATER-6150
     Scenario: As a user I should be able to initiate attention alarm from away mode's entry delay screen on observing intruder in premises
@@ -248,10 +254,12 @@ Background:
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
-	 Then user receives a "Attention Alarm" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       | SIREN SOUNDED BY ACTUAL USER|
+       | ALARM AT AWAY MODE |
+       | Alarm Dismissed |
+       |Switched to Home by app|
      And user "closes" activity log
     When user door "closed"
      Given user is set to "Away" mode through CHIL
@@ -268,8 +276,10 @@ Background:
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       | Alarm Dismissed |
+       | Switched to Home by app|
      And user "closes" activity log
      
 
@@ -292,10 +302,12 @@ Background:
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
       When user "opens" activity log
-	 Then user receives a "DOOR SENSOR ALARM AT Night MODE" activity log
-     And user receives a "ALARM AT Night MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |DOOR SENSOR ALARM AT Night MODE|
+       |ALARM AT Night MODE|
+       | Alarm Dismissed |
+       | Switched to Home by app|
       When user "closes" activity log
       And user door "closed"
       When user switches from "Home" to "Night"
@@ -309,9 +321,11 @@ Background:
    When timer ends on user device
 	Then user status should be set to "Night"
      When user "opens" activity log
-	 Then user receives a "Door Opened at Night mode" activity log
-      And user receives a "Door Closed at Night mode" activity log
-      And user receives a "Switched to Night by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door Opened at Night mode|
+       |Door Closed at Night mode|
+       |Switched to Night by app|
  
      
       
@@ -332,8 +346,10 @@ Background:
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
      And user "opens" activity log
-   Then user receives a "Door opened at Night mode" activity log
-    And user receives a "Door closed at Night mode" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door Opened at Night mode|
+       |Door Closed at Night mode|
     And user "closes" activity log
        When user "opens door with app" in background 
       And user selects the "Door Opened" push notification
@@ -344,8 +360,10 @@ Background:
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
      And user "opens" activity log
-	 Then user receives a "Door opened at Night mode" activity log
-      And user receives a "Switched to Home by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door Opened at Night mode|
+       |Switched to Home by app|
       And user "closes" activity log
       And user door "closed"
    # And user mobile screen is locked
@@ -362,9 +380,11 @@ Background:
    #  When user enters "Mobile Passcode" 
 	 Then user status should be set to "Night"
      When user "opens" activity log
-	 Then user receives a "Door Opened at Night mode" activity log
-      And user receives a "Door Closed at Night mode" activity log
-      And user receives a "Switched to Night by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door Opened at Night mode|
+        |Door Closed at Night mode|
+       |Switched to Night by app|
 	  
     @NightMode_doorsensorOpenAfterExitDelay_AttentionAlarmFromEntryDelay_AlarmWhenNoActionTaken @--xrayid:ATER-6150
     Scenario: As a user I should be able to initiate attention alarm from Night mode's entry delay screen on observing intruder in premises
@@ -383,10 +403,12 @@ Background:
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
-	 Then user receives a "Attention Alarm" activity log
-     And user receives a "ALARM AT Night MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |SIREN SOUNDED BY ACTUAL USER|
+        |ALARM AT Night MODE|
+       |Alarm Dismissed|
+       |Switched to Home by app |
      And user "closes" activity log
     When user door "closed"
     When user switches from "Home" to "Night"
@@ -404,8 +426,10 @@ And timer ends on user device
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |Alarm Dismissed|
+       |Switched to Home by app |
      And user "closes" activity log
      
      #Door Tamepered scenarios
@@ -427,9 +451,11 @@ And timer ends on user device
      When user door "Tamper Restored"
       When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "DOOR SENSOR TAMPERED AT AWAY MODE" activity log
-     And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-     And user receives a "DOOR SENSOR TAMPER CLEARED AT AWAY MODE" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |DOOR SENSOR TAMPERED AT AWAY MODE|
+       |DOOR SENSOR ALARM AT AWAY MODE |
+       |DOOR SENSOR TAMPER CLEARED AT AWAY MODE|
      And user "closes" activity log
       And user is set to "Night" mode through CHIL
       #And user minimizes the application
@@ -439,9 +465,11 @@ And timer ends on user device
    	  When user door "Tamper Restored"
      When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "DOOR SENSOR TAMPERED AT NIGHT MODE" activity log
-     And user receives a "DOOR SENSOR ALARM AT NIGHT MODE" activity log
-      And user receives a "DOOR SENSOR TAMPER CLEARED AT NIGHT MODE" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |DOOR SENSOR TAMPERED AT NIGHT MODE|
+       |DOOR SENSOR ALARM AT NIGHT MODE |
+       |DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|
       
       
      
@@ -462,9 +490,11 @@ And timer ends on user device
    	  When user window "Tamper Restored"
      When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "WINDOW SENSOR TAMPERED AT AWAY MODE" activity log
-     And user receives a "WINDOW SENSOR ALARM AT AWAY MODE" activity log
-      And user receives a "WINDOW SENSOR TAMPER CLEARED AT AWAY MODE" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |WINDOW SENSOR TAMPERED AT AWAY MODE|
+       |WINDOW SENSOR ALARM AT AWAY MODE |
+       |WINDOW SENSOR TAMPER CLEARED AT AWAY MODE|
        And user "closes" activity log
       And user is set to "Night" mode through CHIL
       #And user minimizes the application
@@ -474,9 +504,11 @@ And timer ends on user device
    	  When user window "Tamper Restored"
      When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "WINDOW SENSOR TAMPERED AT NIGHT MODE" activity log
-     And user receives a "WINDOW SENSOR ALARM AT NIGHT MODE" activity log
-      And user receives a "WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |WINDOW SENSOR TAMPERED AT NIGHT MODE|
+       |WINDOW SENSOR ALARM AT NIGHT MODE |
+       |WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE|
       
       
       @DoorsensorOpenAfterExitDelay_windowopen @--xrayid:ATER-6147
@@ -491,11 +523,12 @@ And timer ends on user device
 	 Then user should be displayed with the "Alarm" screen
 	  When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "Door opened at Away mode" activity log
-      And user receives a "Window Opened at Away Mode" activity log
-      And user receives a "Window Alarm At Away Mode" activity log
-      And user receives a "ALARM AT AWAY MODE" activity log
-      And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log 
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door opened at Away mode|
+       |Window Opened at Away Mode |
+       |Window Alarm At Away Mode|
+       |ALARM AT AWAY MODE|
       And reset relay as precondition
       Given user is set to "Night" mode through CHIL
      And user clears all push notifications
@@ -506,11 +539,12 @@ And timer ends on user device
 	  When user selects "dismiss alarm" from "alarm" screen
 	  And user navigates to "Security Solution card" screen from the "Dashboard" screen
      When user "opens" activity log
-     Then user receives a "Door opened at Night mode" activity log
-      And user receives a "Window Opened at Night Mode" activity log
-      And user receives a "Window Alarm At Away Mode" activity log
-      And user receives a "ALARM AT Night MODE" activity log
-      And user receives a "DOOR SENSOR ALARM AT Night MODE" activity log 
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door opened at Night mode|
+       |Window Opened at Night Mode |
+       |Window Alarm At Night Mode|
+       |ALARM AT Night MODE|
     
     
     @DoorsensorOpenInExitDelay_windowopen @--xrayid:ATER-6147
@@ -526,22 +560,24 @@ And timer ends on user device
 	 Then user should be displayed with the "Alarm" screen
 	  When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "Door opened at Away mode" activity log
-      And user receives a "Window Opened at Away Mode" activity log
-      And user receives a "Window Alarm At Away Mode" activity log
-      And user receives a "ALARM AT AWAY MODE" activity log
-      And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log 
+      Then verify the following activity log:
+       | Elements                 | 
+       |Door opened at Away mode|
+       |Window Opened at Away Mode |
+       |Window Alarm At Away Mode|
+       |ALARM AT Away MODE|
       Given user is set to "Night" mode through CHIL
      When user door "opened"
 	 When user window "opened"
 	 Then user should be displayed with the "Alarm" screen
 	  When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "Door opened at Night mode" activity log
-      And user receives a "Window Opened at Night Mode" activity log
-      And user receives a "Window Alarm At Away Mode" activity log
-      And user receives a "ALARM AT Night MODE" activity log
-      And user receives a "DOOR SENSOR ALARM AT Night MODE" activity log 
+     Then verify the following activity log:
+       | Elements                 | 
+       |Door opened at Night mode|
+       |Window Opened at Night Mode |
+       |Window Alarm At Night Mode|
+       |ALARM AT Night MODE| 
       
     
       @Motionsensor_Switchtohome_Switchtonight_Attention_Alarm @--xrayid:ATER-6147
@@ -669,7 +705,7 @@ And timer ends on user device
        Then user should be displayed with <Current> screen
        Examples:
        |Previous |Current   |
-       |Dashborad|Geofence  |
+       |Dashboard|Geofence setting  |
        |Dashboard|Geofence Radius|
        |Dashboard|Alert|
        |Dashboard|Security Solution Card|
@@ -806,23 +842,6 @@ And timer ends on user device
        |Zwave exclusion|Alarm|
        
 
-       @Alarm_Login @--xrayid:ATER-6147
-    Scenario Outline: As an user I should be shown with alarm screen on login to lyric app during panel in alarm state
-      Given user is set to "Away" mode through CHIL
-       When user "opens" the window"in" Exit delay
-        And user launches and logs in to the Lyric application
-   	   Then user should be displayed with the "Alarm" screen
-
-       
-      @Entrydelay_Login @--xrayid:ATER-6147
-    Scenario Outline: As an user I should be shown with entry delay screen on login to lyric app during panel in entry delay state
-      Given user sets the entry/exit timer to "60" seconds
-        And user is set to "Away" mode through CHIL
-       When  user door "opened"
-        And user launches and logs in to the Lyric application
-   	   Then user should be displayed with "Entry delay" screen
-       
-       
       @Alarm_Call @--xrayid:ATER-6147
     Scenario Outline: As an user I should be able to call police from alarm screen on confirming intruder in premises
       Given user is set to "Away" mode through CHIL
@@ -833,68 +852,36 @@ And timer ends on user device
        Then user should be displayed with "Call" screen from "Alarm" screen
        
        
-      @Alarm_Livestreaming  @--xrayid:ATER-6147
+      @Livestreaming_Alarm_Entrydelay  @--xrayid:ATER-6147
     Scenario Outline: As an user I should be able to pause and resume streaming in alarm screen
       Given user is set to "Away" mode through CHIL
-       When user "opens" the window
+       When user "opens" the door
         And user launches and logs in to the Lyric application
+        Then user should be displayed with the "Entry delay screen" screen
+        And user camera is "Live streaming"
+       When user selects "Pause" from "Alarm" screen
+       Then user should be displayed with "Paused streaming" 
+       When user selects "Resume" from "Alarm" screen
+       Then user camera is "Live streaming"
    	   Then user should be displayed with the "Alarm" screen
         And user camera is "Live streaming"
        When user selects "Pause" from "Alarm" screen
        Then user should be displayed with "Paused streaming" 
        When user selects "Resume" from "Alarm" screen
        Then user camera is "Live streaming"
-       
-      @Entrydelay_Livestreaming  @--xrayid:ATER-6147
-    Scenario Outline: As an user I should be able to pause and resume streaming in entry delay screen
-      Given user sets the entry/exit timer to "60" seconds
-        And user is set to "Away" mode through CHIL
-       When user "opens" the window
-        And user launches and logs in to the Lyric application
-   	   Then user should be displayed with the "Alarm" screen
-        And user camera is "Live streaming"
-       When user selects "Pause" from "Alarm" screen
-       Then user should be displayed with "Paused streaming" 
-       When user selects "Resume" from "Alarm" screen
-       Then user camera is "Live streaming"
-       
-       
-   
      
-     
-    @AwayMode_MotiontamperDuringExitDelay @--xrayid:ATER-6190
+    @Motiontampered @--xrayid:ATER-6190
       Scenario: As a user I should be notified with alarm on motion sensor tamper during exit delay 
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
-     When user "Tampered" the motion sensor "in" Exit delay
-   	 Then user should be displayed with the "Alarm" screen
-     When user "dismisses" the alarm
-     Then user status should be set to "Home"
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user receives a "Motion Tampered" activity log
-     And user receives a "Motion Alarm" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
-     And user receives a "Switched to Home by app" activity log
-    When user navigates to "Alert" screen from "Activity Log" screen
-    Then user receives a "Motion Tampered" alert
-     And user receives a "Motion Alarm " alert
-     And user receives a "Alarm" alert
-     And user receives a "Alarm Dismissed" alert
-     And user receives a "Switched to Home" alert 
-      
-      @AwayMode_MotiontamperAfterExitDelay @--xrayid:ATER-6190
-      Scenario: As a user I should be notified with alarm on motion sensor tamper after exit delay
-    Given user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
-      And user minimizes the application
-      And user mobile screen is locked
+      #And user minimizes the application
+      #And user mobile screen is locked
      When user "Tampered" the motion sensor "after" Exit delay
      Then user receives a "Alarm" push notification
      When user selects "Alarm" push notification
-     Then user should be displayed with "Mobile Locked" screen
-     When user enters "Mobile Passcode"
+     #Then user should be displayed with "Mobile Locked" screen
+     #When user enters "Mobile Passcode"
    	 Then user should be displayed with the "Alarm" screen
      When user "dismisses" the alarm
      Then user status should be set to "Home"
@@ -937,7 +924,7 @@ And timer ends on user device
       
       
 
-      @AwayMode_Basestation_Displaced @--xrayid:ATER-6190
+      @Basestation_Displaced @--xrayid:ATER-6190
       Scenario: As a user I should be notified with alarm on basestation displaced during after delay
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -976,23 +963,6 @@ And timer ends on user device
       And user "should not" receives a "Alarm Dismissed" alert
      
      
-    @NightMode_Basestation_Displaced_DuringExitDelay @--xrayid:ATER-6190 @SetupRequired
-      Scenario: As a user I should not get alarm on basestation displaced when panel in night mode
-    Given user is set to "Night" mode through CHIL
-      And user launches and logs in to the Lyric application
-     When user "Displaced" the Basestation "in" Exit delay
-     Then user should be displayed with "Night" Mode
-     When user navigates to "Activity Log" screen from "Security Solution Card" screen
-	 Then user "should not" receives a "Basestation Displaced" activity log
-      And user receives a "Switched to Night by app" activity log
-     When user navigates to "Alert" screen from "Activity Log" screen
-     Then user receives a "Switched to Night" alert
-      And user "should not" receives a "Alarm Dismissed" alert
-
-          
-   
-      
-      
    @Alarm_Offline @--xrayid:ATER-6190 @SetupRequired
  Scenario: As a user I should be shown with help message after panel offline so that i will be guided to take necessary actions
     Given user is set to "Night" mode through CHIL

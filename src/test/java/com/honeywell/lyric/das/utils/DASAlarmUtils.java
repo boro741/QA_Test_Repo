@@ -19,8 +19,11 @@ import com.honeywell.screens.AlarmScreen;
 public class DASAlarmUtils {
 	private static HashMap<String, MobileObject> fieldObjects;
 
-	// Activate device screen actions
-	public static boolean timeOutForNoSensorAction(TestCases testCase, TestCaseInputs inputs) {
+
+
+
+	//Activate device screen actions
+	public static boolean timeOutForNoSensorAction(TestCases testCase,TestCaseInputs inputs) {
 		boolean flag = true;
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		try {
@@ -31,8 +34,7 @@ public class DASAlarmUtils {
 				public Boolean apply(String a) {
 					try {
 						if (alarmScreen.isAlarmScreenDisplayed()) {
-							inputs.setInputValue("ALARM_TIME",
-									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							inputs.setInputValue("ALARM_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 							return true;
 						} else {
 							return false;
@@ -55,7 +57,6 @@ public class DASAlarmUtils {
 		}
 		return flag;
 	}
-
 	public static boolean confirmDismissAlarm(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
@@ -67,8 +68,12 @@ public class DASAlarmUtils {
 		}
 		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DismissAlarmPopupOk");
 		DASSolutionCardUtils.waitForDismissProcessRequest(testCase);
-		inputs.setInputValue("ALARM_DISMISSED_TIME",
-				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		int i =0;
+		while( i<5 && MobileUtils.isMobElementExists(fieldObjects, testCase, "AlarmDismissButton",10)){
+			Keyword.ReportStep_Pass(testCase, "wait For Dismiss ProcessRequest");
+			i++;
+		}
+		inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		Keyword.ReportStep_Pass(testCase, "ALARM_DISMISSED_TIME " + inputs.getInputValue("ALARM_DISMISSED_TIME"));
 		inputs.setInputValue("HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		Keyword.ReportStep_Pass(testCase, "HOME_TIME " + inputs.getInputValue("HOME_TIME"));
@@ -76,13 +81,13 @@ public class DASAlarmUtils {
 		return flag;
 	}
 
-	public static boolean verifyAlarmScreenDisplayed(TestCases testCase) {
+	public static boolean verifyAlarmScreenDisplayed(TestCases testCase){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		return alarmScreen.isAlarmScreenDisplayed();
 
 	}
 
-	public static boolean verifyProgressDisplayed(TestCases testCase) {
+	public static boolean verifyProgressDisplayed(TestCases testCase){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		return alarmScreen.isPleaseWaitDisplayed();
 
@@ -100,26 +105,24 @@ public class DASAlarmUtils {
 
 	// Entry delay screen
 
-	public static boolean verifyEntryDelayScreenDisplayed(TestCases testCase) {
+	public static boolean verifyEntryDelayScreenDisplayed(TestCases testCase){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		return alarmScreen.isEntryDelayScreenDisplayed();
 	}
 
-	public static boolean clickOnSwitchToHome(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean clickOnSwitchToHome(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		inputs.setInputValue("HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-
+		inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		return alarmScreen.clickOnSwitchToHome();
 	}
 
-	public static boolean clickOnSwitchToNight(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean clickOnSwitchToNight(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		inputs.setInputValue("NIGHT_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-
+		inputs.setInputValue("NIGHT_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		return alarmScreen.clickOnSwitchToNight();
 	}
 
-	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		inputs.setInputValue("ATTENTION_ALARM_TIME",
