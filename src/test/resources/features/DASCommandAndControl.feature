@@ -2,6 +2,8 @@
 Feature: DAS Command And Control 
 	As a user I want to change the status of my DAS device
 
+Background:
+ Given reset relay as precondition
 
 @CommandControlviewSecuritysolutioncard		@UIAutomated
 Scenario: As a user I want to see all modes in my securitysolution card 
@@ -277,12 +279,11 @@ When user switches from "Off" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-And user door <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
-|	door				|	opened				|	open						|	off				|	closed				|
-|	door				|	tampered				|	cover tampered			|	off				|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	door				|	opened				|	open						|	off				|
+|	door				|	tampered				|	cover tampered			|	off				|
 
 @CommandControlWhenWindowSensorIsInFault		@UIAutomated
 Scenario Outline: As a user I want to switch to different states in my DAS device when there is a window sensor fault 
@@ -329,12 +330,11 @@ When user switches from "Off" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-And user window <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	|
-|	window			|	opened				|	open						|	off				|	closed				|
-|	window			|	tampered				|	cover tampered			|	off				|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	window			|	opened				|	open						|	off				|
+|	window			|	tampered				|	cover tampered			|	off				|
 
 @CommandControlWhenMotionSensorIsInFault		@UIAutomated
 Scenario Outline: As a user I want to switch to different states in my DAS device when there is a motion sensor fault 
@@ -375,11 +375,10 @@ When user switches from "Off" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-And user motion sensor <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
-|	motion sensor	|	tampered				|	cover tampered			|	off				|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	motion sensor	|	tampered				|	cover tampered			|	off				|
 
 @CommandControlWhenSensorIsOffline 		@CannotAutomate
 Scenario Outline: As a user I want to switch to different states in my DAS device when there is a sensor trouble/fault and in Home mode 
@@ -680,12 +679,11 @@ When user switches from "Off" to "Night" using keyfob
 Then user status should be set to "Off"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
-And user door <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Update Fault Type	|
-|	door				|	opened				|	open						|	closed				|
-|	door				|	tampered				|	cover tampered			|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|
+|	door				|	opened				|	open						|
+|	door				|	tampered				|	cover tampered			|
 
 @CommandControlFromKeyFobWhenWindowSensorIsInFault		@UIAutomated
 Scenario Outline: As a user I should not be allowed to switch to Away/Night mode through keyfob when there is a door sensor fault 
@@ -704,12 +702,11 @@ When user switches from "Off" to "Night" using keyfob
 Then user status should be set to "Off"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
-And user door <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Update Fault Type	|
-|	window			|	opened				|	open						|	closed				|
-|	window			|	tampered				|	cover tampered			|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|
+|	window			|	opened				|	open						|
+|	window			|	tampered				|	cover tampered			|
 
 #Covered in the the above scenario
 @CommandControlfromkeyfobwhensensortrouble
@@ -961,10 +958,8 @@ Then timer ends on user device
 And user status should be set to "Night"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
-And user door <Update Fault Type>
-And user window <Update Fault Type>
 
 Examples: 
-|	Security Status		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
-|	Home					|	opened				|	open						|	off				|	closed				|
-|	Off					|	opened				|	open						|	off				|	closed				|
+|	Security Status		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	Home					|	opened				|	open						|	off				|
+|	Off					|	opened				|	open						|	off				|
