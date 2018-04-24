@@ -1,7 +1,6 @@
 package com.honeywell.screens;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;

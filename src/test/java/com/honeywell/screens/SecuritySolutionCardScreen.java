@@ -350,4 +350,16 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnOKButtonInSwitchToPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
 	}
+	
+	public boolean isUnableToConnectToBaseStationAlertVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UnableToConnectToBaseStationAlert");
+	}
+	
+	public boolean isOKButtonInUnableToConnectToBaseStationAlertVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInPopup");
+	}
+	
+	public boolean clickOnOKButtonInUnableToConnectToBaseStationAlert() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
+	}
 }

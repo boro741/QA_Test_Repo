@@ -454,6 +454,16 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("UNABLE TO CONNECT TO BASE STATION")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				if (sc.isOKButtonInUnableToConnectToBaseStationAlertVisible()) {
+					flag = flag & sc.clickOnOKButtonInUnableToConnectToBaseStationAlert();
+				}
+				break;
+			}
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

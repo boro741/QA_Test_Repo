@@ -177,6 +177,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
+		case "UNABLE TO CONNECT TO BASE STATION": {
+
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & sc.isUnableToConnectToBaseStationAlertVisible();
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
