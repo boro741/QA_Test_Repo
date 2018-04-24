@@ -312,11 +312,11 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean ClickOnSensorIssue() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorWithIssueBuuton");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorWithIssueButon");
 	}
 
 	public boolean isSensorIssueVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorWithIssueBuuton");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorWithIssueButon");
 	}
 
 	public boolean isSensorNoIssueVisible() {
@@ -325,5 +325,41 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean ClickOnSensorNoIssue() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNoIssueButton");
+	}
+
+	public boolean isSwitchToAwayPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToAwayPopupTitle", timeOut);
+	}
+	
+	public boolean isSwitchToNightPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightPopupTitle", timeOut);
+	}
+
+	public boolean isCancelButtonInSwitchToPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInPopup");
+	}
+
+	public boolean clickOnCancelButtonInSwitchToPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInPopup");
+	}
+
+	public boolean isOKButtonInSwitchToPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInPopup");
+	}
+
+	public boolean clickOnOKButtonInSwitchToPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
+	}
+	
+	public boolean isUnableToConnectToBaseStationAlertVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UnableToConnectToBaseStationAlert");
+	}
+	
+	public boolean isOKButtonInUnableToConnectToBaseStationAlertVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInPopup");
+	}
+	
+	public boolean clickOnOKButtonInUnableToConnectToBaseStationAlert() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
 	}
 }

@@ -41,13 +41,14 @@ public class VerifyPushNotification extends Keyword {
 		LocationInformation locInfo = new LocationInformation(testCase, inputs);
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		DASNotificationUtils.openNotifications(testCase);
-		switch(exampleData.get(0).toUpperCase()){
-		case "MOTION":{
+		switch (exampleData.get(0).toUpperCase()) {
+		case "MOTION": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-			notification = "Motion Dectected by "+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+" at "+ inputs.getInputValue("LOCATION1_NAME")+".";
+			notification = "Motion Dectected by " + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + " at "
+					+ inputs.getInputValue("LOCATION1_NAME") + ".";
 			break;
 		}
-		case "DOOR OPENED":{
+		case "DOOR OPENED": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
@@ -68,34 +69,74 @@ public class VerifyPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO HOME": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
+						+ locInfo.getUserFirstName();
 			}
 			break;
 		}
 		case "SET TO AWAY": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();
 			}
+			System.out.println("############notification: " + notification);
+			break;
+		}
+		case "SET TO AWAY BY KEYFOB": {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
+			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO NIGHT": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ locInfo.getUserFirstName();
+			}
+			break;
+		}
+		case "SET TO NIGHT BY KEYFOB": {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
 			}
 			break;
 		}
 		case "SET TO OFF": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
+						+ locInfo.getUserFirstName();
+			}
+			break;
+		}
+		case "SET TO OFF BY KEYFOB": {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned off by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned off by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
 			}
 			break;
 		}
@@ -103,8 +144,9 @@ public class VerifyPushNotification extends Keyword {
 			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
 		}
-		case "ALARM DISMISSED":{
-			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME")+" Cancelled by "+locInfo.getUserFirstName();
+		case "ALARM DISMISSED": {
+			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME") + " Cancelled by "
+					+ locInfo.getUserFirstName();
 			break;
 		}
 		default: {

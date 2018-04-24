@@ -153,6 +153,36 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
+		case "SWITCH TO AWAY": {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & sc.isSwitchToAwayPopupVisible(5);
+			if(flag) {
+				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedPopUp.get(0) + "' is not displayed");
+			}
+			break;
+		}
+		case "SWITCH TO NIGHT": {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & sc.isSwitchToNightPopupVisible(5);
+			if(flag) {
+				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedPopUp.get(0) + "' is not displayed");
+			}
+			break;
+		}
+		case "UNABLE TO CONNECT TO BASE STATION": {
+
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & sc.isUnableToConnectToBaseStationAlertVisible();
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

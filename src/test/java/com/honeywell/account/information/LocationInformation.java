@@ -36,7 +36,7 @@ public class LocationInformation {
 			return -1;
 		}
 	}
-	
+
 	public String getIANATimeZone() throws Exception {
 		if (locationInformation != null) {
 			return locationInformation.getString("ianaTimeZone");
@@ -62,8 +62,8 @@ public class LocationInformation {
 			return -1;
 		}
 	}
-	
-	public String getUserFirstName(){
+
+	public String getUserFirstName() {
 		String firstName = null;
 		if (locationInformation != null) {
 			JSONArray users;
@@ -87,14 +87,12 @@ public class LocationInformation {
 	}
 
 	public String getDASDeviceID() {
-		String deviceID="";
+		String deviceID = "";
 		if (locationInformation != null) {
 			try {
 				JSONArray devices = locationInformation.getJSONArray("devices");
-				for(int i=0;i<devices.length();i++)
-				{
-					if(devices.optJSONObject(i).getString("deviceType").equals("HONDAS"))
-					{
+				for (int i = 0; i < devices.length(); i++) {
+					if (devices.optJSONObject(i).getString("deviceType").equals("HONDAS")) {
 						deviceID = devices.optJSONObject(i).getString("deviceID");
 						break;
 					}
@@ -109,20 +107,16 @@ public class LocationInformation {
 
 		return deviceID;
 	}
-	
-	public int getNumberOfDeviceInLocation()
-	{
-		int numberOfDevices=-1;
+
+	public int getNumberOfDeviceInLocation() {
+		int numberOfDevices = -1;
 		if (locationInformation != null) {
 			try {
 				JSONArray devices = locationInformation.getJSONArray("devices");
 				numberOfDevices = devices.length();
-			}
-			catch(JSONException e)
-			{
-				numberOfDevices=0;
-			}
-			catch (Exception e) {
+			} catch (JSONException e) {
+				numberOfDevices = 0;
+			} catch (Exception e) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}
 		} else {
@@ -131,7 +125,7 @@ public class LocationInformation {
 		}
 		return numberOfDevices;
 	}
-	
+
 	public int getDeviceCountOfLocation() {
 		int deviceCount = 0;
 		if (locationInformation != null) {
@@ -147,6 +141,5 @@ public class LocationInformation {
 
 		return deviceCount;
 	}
-	
 
 }

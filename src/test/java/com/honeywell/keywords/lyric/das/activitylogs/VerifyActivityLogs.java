@@ -412,7 +412,7 @@ public class VerifyActivityLogs extends Keyword {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
 						+ locInfo.getUserFirstName();
-				expectedActivitySubHeader = "BY KEYFOB";
+				expectedActivitySubHeader = "BY KEY FOB";
 				deviceLocationTime = inputs.getInputValue("HOME_TIME");
 				break;
 			}
@@ -422,18 +422,16 @@ public class VerifyActivityLogs extends Keyword {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
 						+ locInfo.getUserFirstName();
-				System.out.println("#########expectedActivityHeader: " + expectedActivityHeader);
 				expectedActivitySubHeader = "BY APP";
 				deviceLocationTime = inputs.getInputValue("AWAY_TIME");
-				System.out.println("#########deviceLocationTime: " + deviceLocationTime);
 				break;
 			}
 
 			case "SWITCHED TO AWAY BY KEYFOB": {
-				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				//LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();
-				expectedActivitySubHeader = "BY KEYFOB";
+						+ inputs.getInputValue("KEY_FOB_NAME");
+				expectedActivitySubHeader = "BY KEY FOB";
 				deviceLocationTime = inputs.getInputValue("AWAY_TIME");
 				break;
 			}
@@ -448,10 +446,10 @@ public class VerifyActivityLogs extends Keyword {
 			}
 
 			case "SWITCHED TO NIGHT BY KEYFOB": {
-				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				//LocationInformation locInfo = new LocationInformation(testCase, inputs);
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
-						+ locInfo.getUserFirstName();
-				expectedActivitySubHeader = "BY KEYFOB";
+						+ inputs.getInputValue("KEY_FOB_NAME");
+				expectedActivitySubHeader = "BY KEY FOB";
 				deviceLocationTime = inputs.getInputValue("NIGHT_TIME");
 				break;
 			}
@@ -459,9 +457,18 @@ public class VerifyActivityLogs extends Keyword {
 			case "SWITCHED TO OFF BY INVITED USER BY APP":
 			case "SWITCHED TO OFF BY APP": {
 				LocationInformation locInfo = new LocationInformation(testCase, inputs);
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Off by "
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
 						+ locInfo.getUserFirstName();
 				expectedActivitySubHeader = "BY APP";
+				deviceLocationTime = inputs.getInputValue("NIGHT_TIME");
+				break;
+			}
+			
+			case "SWITCHED TO OFF BY KEYFOB": {
+				//LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
+						+ inputs.getInputValue("KEY_FOB_NAME");
+				expectedActivitySubHeader = "BY KEY FOB";
 				deviceLocationTime = inputs.getInputValue("NIGHT_TIME");
 				break;
 			}

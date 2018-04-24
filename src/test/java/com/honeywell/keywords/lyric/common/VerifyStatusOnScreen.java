@@ -48,90 +48,189 @@ public class VerifyStatusOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should see the (.*) status as (.*) on the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
-		case "SENSOR STATUS":{
+		case "SENSOR STATUS": {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "DOOR" :{
+			case "DOOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
-					flag = sensorUtils.verifySensorState(testCase, inputs,expectedScreen.get(0),expectedScreen.get(1));
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
 					break;
 				}
 				case "CLOSED": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
-					flag = sensorUtils.verifySensorState(testCase, inputs,expectedScreen.get(0),expectedScreen.get(1));
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "OFF": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "COVER TAMPERED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
 					break;
 				}
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is "+expectedScreen.get(1).toUpperCase());
-				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0).toUpperCase() + " is not in "+expectedScreen.get(1).toUpperCase() );
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+				}
+				break;
+			}
+			case "WINDOW": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OPEN": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "CLOSED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "OFF": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "COVER TAMPERED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+				}
+				break;
+			}
+			case "MOTION SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OPEN": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "CLOSED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "OFF": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "COVER TAMPERED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
 				}
 				break;
 			}
 			}
 		}
-		case "SECURITY SOLUTION CARD":{
+		case "SECURITY SOLUTION CARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SENSOR" :{
+			case "SENSOR": {
 				SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ISSUE": {
-					flag =securityScreen.isSensorIssueVisible();
+					flag = securityScreen.isSensorIssueVisible();
 					break;
 				}
 				case "NO ISSUE": {
-					flag= securityScreen.isSensorNoIssueVisible();
+					flag = securityScreen.isSensorNoIssueVisible();
 					break;
 				}
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is "+expectedScreen.get(1).toUpperCase());
-				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0).toUpperCase() + " is not in "+expectedScreen.get(1).toUpperCase() );
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
 				}
 			}
 			}
 		}
-		case "DIMMER PRIMARY CARD":{
+		case "DIMMER PRIMARY CARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "DIMMER" :{
+			case "DIMMER": {
 				ZwavePrimardCardScreen zp = new ZwavePrimardCardScreen(testCase);
 				DASZwaveUtils.waitForSwitchingToComplete(testCase);
-				if(zp.verifyPresenceOfDimmerStatus()){
-					currentStatus=zp.getDimmerStatus();
+				if (zp.verifyPresenceOfDimmerStatus()) {
+					currentStatus = zp.getDimmerStatus();
 					switch (expectedScreen.get(1).toUpperCase()) {
 					case "ON": {
-						if(Integer.parseInt(currentStatus)>0){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
-						}else{
-							flag=false;
-							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						if (Integer.parseInt(currentStatus) > 0) {
+							Keyword.ReportStep_Pass(testCase,
+									expectedScreen.get(0) + " status is " + expectedScreen.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
 					case "OFF": {
-						if(currentStatus.equalsIgnoreCase("Off")){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
-						}else{
-							flag=false;
-							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						if (currentStatus.equalsIgnoreCase("Off")) {
+							Keyword.ReportStep_Pass(testCase,
+									expectedScreen.get(0) + " status is " + expectedScreen.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
 					case "OFFLINE": {
-						if(currentStatus.equalsIgnoreCase("OFFLINE")){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
-						}else{
-							flag=false;
-							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						if (currentStatus.equalsIgnoreCase("OFFLINE")) {
+							Keyword.ReportStep_Pass(testCase,
+									expectedScreen.get(0) + " status is " + expectedScreen.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
 					}
-				}else{
-					flag=false;
+				} else {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
 				}
 				break;
@@ -144,126 +243,145 @@ public class VerifyStatusOnScreen extends Keyword {
 			case "SWITCH": {
 				ZwavePrimardCardScreen zp = new ZwavePrimardCardScreen(testCase);
 				DASZwaveUtils.waitForSwitchingToComplete(testCase);
-				if(zp.verifyPresenceOfSwitchStatus()){
-					currentStatus=zp.getSwitchStatus();
+				if (zp.verifyPresenceOfSwitchStatus()) {
+					currentStatus = zp.getSwitchStatus();
 					switch (expectedScreen.get(1).toUpperCase()) {
 					case "ON": {
-						if(zp.getSwitchStatus().equalsIgnoreCase("On")){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
-						}else{
-							flag=false;
-							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						if (zp.getSwitchStatus().equalsIgnoreCase("On")) {
+							Keyword.ReportStep_Pass(testCase,
+									expectedScreen.get(0) + " status is " + expectedScreen.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
 					case "OFF": {
-						if(zp.getSwitchStatus().equalsIgnoreCase("Off")){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
-						}else{
-							flag=false;
-							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						if (zp.getSwitchStatus().equalsIgnoreCase("Off")) {
+							Keyword.ReportStep_Pass(testCase,
+									expectedScreen.get(0) + " status is " + expectedScreen.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
 					case "OFFLINE": {
-						if(zp.getSwitchStatus().equalsIgnoreCase("OFFLINE")){
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
-						}else{
-							flag=false;
-							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(0) +" status is not in "+expectedScreen.get(1)+" instead found to be "+currentStatus);
+						if (zp.getSwitchStatus().equalsIgnoreCase("OFFLINE")) {
+							Keyword.ReportStep_Pass(testCase,
+									expectedScreen.get(0) + " status is " + expectedScreen.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
 					}
-				}else{
-					flag=false;
+				} else {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
 				}
 				break;
 			}
-			default:{
-				flag=false;
+			default: {
+				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
 			}
 			}
 			break;
 		}
 		case "DIMMER SETTINGS":
-		case "SWITCH SETTINGS":{
+		case "SWITCH SETTINGS": {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "DIMMER" :
+			case "DIMMER":
 			case "SWITCH": {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
-					currentStatus=zwaveScreen.getSwitchStatus();
-					if(currentStatus.equals("ON")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					currentStatus = zwaveScreen.getSwitchStatus();
+					if (currentStatus.equals("ON")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFF": {
-					currentStatus=zwaveScreen.getSwitchStatus();
-					if(currentStatus.equals("OFF")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					currentStatus = zwaveScreen.getSwitchStatus();
+					if (currentStatus.equals("OFF")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFFLINE": {
-					currentStatus=zwaveScreen.getSwitchStatusOffline();
-					if(currentStatus.toUpperCase().equals("OFFLINE")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					currentStatus = zwaveScreen.getSwitchStatusOffline();
+					if (currentStatus.toUpperCase().equals("OFFLINE")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
 				}
 				}
 				break;
 			}
-			default:{
-				flag=false;
+			default: {
+				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
 			}
 			}
 			break;
 		}
-		case "ZWAVE DEVICES":{
+		case "ZWAVE DEVICES": {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "ALL ON": {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ACTIVE": {
-					if(zwaveScreen.isAllOnEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOnEnabled());
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOnEnabled());
+					if (zwaveScreen.isAllOnEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + zwaveScreen.isAllOnEnabled());
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + zwaveScreen.isAllOnEnabled());
 					}
 					break;
 				}
 				case "INACTIVE": {
-					if(!zwaveScreen.isAllOnEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOnEnabled());
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOnEnabled());
+					if (!zwaveScreen.isAllOnEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + !zwaveScreen.isAllOnEnabled());
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + !zwaveScreen.isAllOnEnabled());
 					}
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
 				}
 				}
@@ -273,25 +391,29 @@ public class VerifyStatusOnScreen extends Keyword {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ACTIVE": {
-					if(zwaveScreen.isAllOffEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOffEnabled());
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isAllOffEnabled());
+					if (zwaveScreen.isAllOffEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + zwaveScreen.isAllOffEnabled());
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + zwaveScreen.isAllOffEnabled());
 					}
 					break;
 				}
 				case "INACTIVE": {
-					if(!zwaveScreen.isAllOffEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOffEnabled());
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isAllOffEnabled());
+					if (!zwaveScreen.isAllOffEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + !zwaveScreen.isAllOffEnabled());
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + !zwaveScreen.isAllOffEnabled());
 					}
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
 				}
 				}
@@ -301,25 +423,29 @@ public class VerifyStatusOnScreen extends Keyword {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ACTIVE": {
-					if(zwaveScreen.isFixAllEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isFixAllEnabled());
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ zwaveScreen.isFixAllEnabled());
+					if (zwaveScreen.isFixAllEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + zwaveScreen.isFixAllEnabled());
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + zwaveScreen.isFixAllEnabled());
 					}
 					break;
 				}
 				case "INACTIVE": {
-					if(!zwaveScreen.isFixAllEnabled()){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isFixAllEnabled());
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ !zwaveScreen.isFixAllEnabled());
+					if (!zwaveScreen.isFixAllEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + !zwaveScreen.isFixAllEnabled());
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + !zwaveScreen.isFixAllEnabled());
 					}
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
 				}
 				}
@@ -332,37 +458,44 @@ public class VerifyStatusOnScreen extends Keyword {
 					e.printStackTrace();
 				}
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				String currentStatus =zwaveScreen.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
+				String currentStatus = zwaveScreen
+						.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
-					if(currentStatus.equalsIgnoreCase("ON")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equalsIgnoreCase("ON")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFF": {
-					if(currentStatus.equalsIgnoreCase("OFF")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equalsIgnoreCase("OFF")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFFLINE": {
-					if(currentStatus.equalsIgnoreCase("OFFLINE")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equalsIgnoreCase("OFFLINE")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
 				}
 				}
@@ -375,165 +508,181 @@ public class VerifyStatusOnScreen extends Keyword {
 					e.printStackTrace();
 				}
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-				String currentStatus =zwaveScreen.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
+				String currentStatus = zwaveScreen
+						.getSwitchStatusFromDevicesListScreen(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
-					if(currentStatus.equalsIgnoreCase("ON")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equalsIgnoreCase("ON")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFF": {
-					if(currentStatus.equalsIgnoreCase("OFF")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equalsIgnoreCase("OFF")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFFLINE": {
-					if(currentStatus.equalsIgnoreCase("OFFLINE")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equalsIgnoreCase("OFFLINE")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 2 not handled");
 				}
 				}
 				break;
 			}
-			default:{
-				flag=false;
+			default: {
+				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
 			}
 			}
 			break;
 		}
-		case "DASHBOARD":{
+		case "DASHBOARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
 				Dashboard ds = new Dashboard(testCase);
-				currentStatus=ds.getZwaveDeviceStatus(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
+				currentStatus = ds.getZwaveDeviceStatus(inputs.getInputValue("LOCATION1_SWITCH1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
-					if(currentStatus.equals("ON")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equals("ON")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFF": {
-					if(currentStatus.equals("OFF")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equals("OFF")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFFLINE": {
-					if(currentStatus.toUpperCase().equals("OFFLINE")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.toUpperCase().equals("OFFLINE")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				}
-				/*}else{
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
-				}*/
+				/*
+				 * }else{ flag=false; Keyword.ReportStep_Fail(testCase,
+				 * FailType.FUNCTIONAL_FAILURE, "switch status not found"); }
+				 */
 				break;
 			}
 			case "DIMMER": {
 				Dashboard ds = new Dashboard(testCase);
-				currentStatus=ds.getZwaveDeviceStatus(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
+				currentStatus = ds.getZwaveDeviceStatus(inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
-					if(currentStatus.equals("ON")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equals("ON")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFF": {
-					if(currentStatus.equals("OFF")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.equals("OFF")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				case "OFFLINE": {
-					if(currentStatus.toUpperCase().equals("OFFLINE")){
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
-					}else{
-						flag=false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0).toUpperCase() + " is in "+ currentStatus);
+					if (currentStatus.toUpperCase().equals("OFFLINE")) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					}
 					break;
 				}
 				}
-				/*}else{
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
-				}*/
+				/*
+				 * }else{ flag=false; Keyword.ReportStep_Fail(testCase,
+				 * FailType.FUNCTIONAL_FAILURE, "switch status not found"); }
+				 */
 				break;
 			}
-			default:{
-				flag=false;
+			default: {
+				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
 			}
 			}
 			break;
 		}
-		case "ZWAVE DEVICE":{
+		case "ZWAVE DEVICE": {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ON": {
 					try {
 						if (ZWaveRelayUtils.isSwitch1ON()) {
-							Keyword.ReportStep_Pass(testCase,
-									"Switch is in on state in ZWAVE device");
+							Keyword.ReportStep_Pass(testCase, "Switch is in on state in ZWAVE device");
 						} else {
-							Keyword.ReportStep_Fail(testCase,
-									FailType.FUNCTIONAL_FAILURE,
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Switch is not in on state on the ZWAVE device");
 						}
 					} catch (Exception e) {
-						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue"+e.getMessage());
+						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue" + e.getMessage());
 					}
 					break;
-				} case "OFF":  {
+				}
+				case "OFF": {
 					try {
 						if (!ZWaveRelayUtils.isSwitch1ON()) {
-							Keyword.ReportStep_Pass(testCase,
-									"Switch is in off state in ZWAVE device");
+							Keyword.ReportStep_Pass(testCase, "Switch is in off state in ZWAVE device");
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase,
-									FailType.FUNCTIONAL_FAILURE,
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Switch is not in off state on the ZWAVE device");
 						}
 					} catch (Exception e) {
-						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue"+e.getMessage());
+						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue" + e.getMessage());
 					}
 					break;
 				}
@@ -543,8 +692,8 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
-		default:{
-			flag=false;
+		default: {
+			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");
 		}
 		}
