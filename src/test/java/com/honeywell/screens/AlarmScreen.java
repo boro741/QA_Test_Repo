@@ -54,6 +54,11 @@ public class AlarmScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToNightButton");
 	}
 	
+	public boolean clickOnAlarm_NavigateBack(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Alarm_NaviigateBack");
+	}
+	
+	
 	public boolean clickOnAttention(){
 		if(isEntryDelayScreenDisplayed()){
 			System.out.println("In Entry delay screen");

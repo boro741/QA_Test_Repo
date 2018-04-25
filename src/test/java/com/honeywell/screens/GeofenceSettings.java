@@ -23,7 +23,7 @@ public class GeofenceSettings extends MobileScreens {
 		super(testCase, screenName);
 	}
 
-	public boolean selectOptionFromSecondarySettings(String option) {
+	public boolean selectOptionFromGeofenceSettings(String option) {
 		switch (option) {
 		case GeofenceSettings.ENABLEGEOFENCETHISLOCATION: {
 			if(MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceThisLocationToggle").equals(1)){

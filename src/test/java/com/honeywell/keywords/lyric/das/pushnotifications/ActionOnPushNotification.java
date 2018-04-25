@@ -172,6 +172,8 @@ public class ActionOnPushNotification extends Keyword {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"'" + notification + "' Push Notification not present");
+			testCase.getMobileDriver().launchApp();
+			Keyword.ReportStep_Pass(testCase, "'Launching app to continue testing");
 		}
 
 		return flag;

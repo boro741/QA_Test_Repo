@@ -122,6 +122,12 @@ public class DASAlarmUtils {
 		return alarmScreen.clickOnSwitchToNight();
 	}
 
+	public static boolean clickOnAlarm_NavigateBack(TestCases testCase){
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		return alarmScreen.clickOnAlarm_NavigateBack();
+	}
+	
+	
 	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
