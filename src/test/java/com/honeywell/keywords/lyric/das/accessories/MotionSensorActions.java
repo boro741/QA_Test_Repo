@@ -34,14 +34,7 @@ public class MotionSensorActions extends Keyword {
 	@KeywordStep(gherkins = "^user motion sensor \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if (states.get(0).equalsIgnoreCase("opened")) {
-				DASSensorUtils.openMotionSensor(testCase, inputs);
-			} else if (states.get(0).equalsIgnoreCase("closed")) {
-				DASSensorUtils.closeMotionSensor(testCase, inputs);
-			} else if (states.get(0).equalsIgnoreCase("is not closed")) {
-				System.out.println("No action on door sensor");
-				DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
-			} else if (states.get(0).equalsIgnoreCase("Tampered")) {
+			if (states.get(0).equalsIgnoreCase("Tampered")) {
 				DASSensorUtils.tamperMotionSensor(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
 				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);

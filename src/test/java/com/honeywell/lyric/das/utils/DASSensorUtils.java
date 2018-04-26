@@ -143,7 +143,7 @@ public class DASSensorUtils {
 		inputs.setInputValue("MOTION_SENSOR_TAMPERED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			//RelayUtils.RSIDoorContactSensorTampered();
+			RelayUtils.RSIMotionSensorTampered();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -155,7 +155,7 @@ public class DASSensorUtils {
 		inputs.setInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			//RelayUtils.RSIDoorContactSensorTamperCleared();
+		    RelayUtils.RSIMotionSensorTamperCleared();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

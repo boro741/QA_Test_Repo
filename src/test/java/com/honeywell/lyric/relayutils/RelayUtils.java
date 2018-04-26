@@ -50,5 +50,16 @@ public class RelayUtils {
 		SerialDriverArduino.setrelay(RelayConstants.RSI_AllSensor_Trip_OFF);
 		SerialDriverArduino.closePort();
 	}
+	
+	public static void RSIMotionSensorTampered() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Tamper_ON);
+		SerialDriverArduino.closePort();
+	}
+	public static void RSIMotionSensorTamperCleared() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Tamper_OFF);
+		SerialDriverArduino.closePort();
+	}
 
 }

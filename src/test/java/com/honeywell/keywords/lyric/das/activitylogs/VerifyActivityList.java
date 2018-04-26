@@ -40,8 +40,8 @@ public class VerifyActivityList extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^verify the following activity log:$")
 	public boolean keywordSteps() throws KeywordException {
-
-		/*if(true){
+/*
+		if(true){
 			return true;
 		}*/
 		// if(!inputs.getInputValue("VERIFY_ACTIVITYLOGS").equalsIgnoreCase("NO")){
@@ -61,6 +61,18 @@ public class VerifyActivityList extends Keyword {
 					inputs.setInputValue("USERID", inputs.getInputValue("INVITEDUSER"));
 				}
 				switch (dataTable.getData(i, "Elements").trim().toUpperCase()) {
+				case "MOTION SENSOR TAMEPERED AT AWAY MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPERED_TIME");
+					break;
+				}
+				case "MOTION SENSOR TAMEPER CLEARED AT AWAY MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper cleared";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME");
+					break;
+				}
 				case "SENSOR MOTION DETECTED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Motion Detected";
 					expectedActivitySubHeader = "AWAY MODE";
@@ -288,7 +300,7 @@ public class VerifyActivityList extends Keyword {
 				case "ALARM DISMISSED": {
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
 					expectedActivityHeader = "Alarm cancelled by "+locInfo.getUserFirstName();
-					expectedActivitySubHeader = locInfo.getUserFirstName();
+					expectedActivitySubHeader = "BY APP";
 					deviceLocationTime = inputs.getInputValue("ALARM_DISMISSED_TIME");
 					break;
 				}
@@ -323,37 +335,37 @@ public class VerifyActivityList extends Keyword {
 
 				// tampered activities
 				case "DOOR SENSOR TAMPERED AT HOME MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " tamper";
 					expectedActivitySubHeader = "HOME MODE";
 					deviceLocationTime = inputs.getInputValue("DOOR_TAMPERED_TIME");
 					break;
 				}
 				case "WINDOW SENSOR TAMPERED AT HOME MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " tamper";
 					expectedActivitySubHeader = "HOME MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 					break;
 				}
 				case "DOOR SENSOR TAMPERED AT AWAY MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("DOOR_TAMPERED_TIME");
 					break;
 				}
 				case "WINDOW SENSOR TAMPERED AT AWAY MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 					break;
 				}
 				case "DOOR SENSOR TAMPERED AT NIGHT MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Tamper";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " tamper";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("DOOR_TAMPERED_TIME");
 					break;
 				}
 				case "WINDOW SENSOR TAMPERED AT NIGHT MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " tamper";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 					break;
