@@ -12,7 +12,9 @@ public class SuiteExecutor {
      */
 	public static void main(String[] commandLineArguments) throws Exception {
 			
-				
+		/*########################################################################
+		 * Don't Modify this Command Line Arguments in SuiteExecutor class to avoid issue on executing Nightly test build *
+		 * ###################################################################### */
 			try {
 				SuiteUtils suiteUtils = SuiteUtils.getTestSuite(commandLineArguments);
 				suiteUtils.executeSuite();
