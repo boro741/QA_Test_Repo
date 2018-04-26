@@ -2,6 +2,8 @@
 Feature: DAS Command And Control 
 	As a user I want to change the status of my DAS device
 
+Background:
+ Given reset relay as precondition
 
 @CommandControlviewSecuritysolutioncard		@UIAutomated
 Scenario: As a user I want to see all modes in my securitysolution card 
@@ -253,7 +255,6 @@ Then timer ends on user device
 And user status should be set to "Away"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user is set to "Home" mode through CHIL
 And user switches from "Home" to "Night" 
 Then user should receive a "Switch to Night" popup
@@ -267,7 +268,6 @@ Then timer ends on user device
 And user status should be set to "Night"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user is set to "Home" mode through CHIL 
 And user switches from "Home" to "Off" 
 Then user should receive a "Set to Off" popup
@@ -275,17 +275,15 @@ When user "accepts" the "Set to Off" popup
 Then user status should be set to "Off"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user switches from "Off" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-And user door <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
-|	door				|	opened				|	open						|	off				|	closed				|
-|	door				|	tampered				|	cover tampered			|	off				|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	door				|	opened				|	open						|	off				|
+|	door				|	tampered				|	cover tampered			|	off				|
 
 @CommandControlWhenWindowSensorIsInFault		@UIAutomated
 Scenario Outline: As a user I want to switch to different states in my DAS device when there is a window sensor fault 
@@ -308,7 +306,6 @@ Then timer ends on user device
 And user status should be set to "Away"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user is set to "Home" mode through CHIL
 And user switches from "Home" to "Night" 
 Then user should receive a "Switch to Night" popup
@@ -322,7 +319,6 @@ Then timer ends on user device
 And user status should be set to "Night"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user is set to "Home" mode through CHIL 
 And user switches from "Home" to "Off" 
 Then user should receive a "Set to Off" popup
@@ -330,17 +326,15 @@ When user "accepts" the "Set to Off" popup
 Then user status should be set to "Off"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user switches from "Off" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-And user door <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	|
-|	window			|	opened				|	open						|	off				|	closed				|
-|	window			|	tampered				|	cover tampered			|	off				|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	window			|	opened				|	open						|	off				|
+|	window			|	tampered				|	cover tampered			|	off				|
 
 @CommandControlWhenMotionSensorIsInFault		@UIAutomated
 Scenario Outline: As a user I want to switch to different states in my DAS device when there is a motion sensor fault 
@@ -363,7 +357,6 @@ Then timer ends on user device
 And user status should be set to "Away"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user is set to "Home" mode through CHIL
 And user switches from "Home" to "Night"
 Then user should be displayed with a "Switching to Night" text
@@ -371,7 +364,6 @@ Then timer ends on user device
 And user status should be set to "Night"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user is set to "Home" mode through CHIL 
 And user switches from "Home" to "Off" 
 Then user should receive a "Set to Off" popup
@@ -379,16 +371,14 @@ When user "accepts" the "Set to Off" popup
 Then user status should be set to "Off"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Type> status as <Sensor Issue Type> on the "Sensor Status"
-And user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user switches from "Off" to "Home"
 Then user should be displayed with a "Switching to Home" text
 And user status should be set to "Home"
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-And user motion sensor <Update Fault Type>
 
 Examples:
-|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|	Update Fault Type	| 
-|	motion sensor	|	tampered				|	cover tampered			|	off				|	tamper restored		|
+|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	motion sensor	|	tampered				|	cover tampered			|	off				|
 
 @CommandControlWhenSensorIsOffline 		@CannotAutomate
 Scenario Outline: As a user I want to switch to different states in my DAS device when there is a sensor trouble/fault and in Home mode 
@@ -584,7 +574,7 @@ And user navigates to "security solution cards" screen from "Dashboard" screen
 Then user should be displayed with "Offline status" 
 And user should be displayed with the "correct time stamp"
 
-@CommandControlgeofencecrossedAwaymode		@NeedToCheckTheFeasibility
+@CommandControlgeofencecrossedAwaymode		@CannotAutomate
 Scenario: As a user I want to switch to Away mode in my DAS device from geofence 
 Given user sets the entry/exit timer to "15" seconds 
 And user is set to "Home" mode through CHIL 
@@ -600,7 +590,7 @@ And user should receive "switched to Away status via app with time stamp by actu
 When user navigates to "alerts" screen from "activity log" screen 
 Then user should receive "switched to Away" alert   Given user sets the entry/exit timer to "45" seconds 
 
-@CommandControlgeofencecrossedHomemode		@NeedToCheckTheFeasibility
+@CommandControlgeofencecrossedHomemode		@CannotAutomate
 Scenario: As a user I want to switch to Home mode in my DAS device from geofence 
 Given user sets the entry/exit timer to "15" seconds 
 And user is set to "Home" mode through CHIL 
@@ -658,7 +648,7 @@ And user "closes" activity log
 Then user receives a "set to Off by keyfob" push notification
 And user clears all push notifications
 
-@CommandControlFromKeyFobAndPanelWiFiIsDown		@InvalidScenario
+@CommandControlFromKeyFobAndPanelWiFiIsDown		@CannotAutomate
 Scenario: As a user I want to switch to different states in my DAS device from keyfob when panel wifi down 
 Given user is set to "Home" mode through CHIL 
 And user turn off the panel wifi 
@@ -738,7 +728,7 @@ Examples:
 |Off|Door|
 |Off|Window|
 
-@CommandControlfromvoicecommandsAwaymode		@NeedToCheckTheFeasibility
+@CommandControlfromvoicecommandsAwaymode		@SystemTeamToAutomate
 Scenario: As a user I should be able to switch to Away mode through voice commands 
 Given user sets the entry/exit timer to "45" seconds 
 And user is set to "Home" mode through CHIL 
@@ -752,7 +742,7 @@ When user is set to "Home" mode through CHIL
 When user navigates to "activity log" screen from "security solution cards" screen 
 And user should receive "switched to Away status via app with time stamp by actual user" in activity log 
 
-@CommandControlfromvoicecommandsNightmode		@NeedToCheckTheFeasibility
+@CommandControlfromvoicecommandsNightmode		@SystemTeamToAutomate
 Scenario: As a user I should be able to switch to Night mode through voice commands 
 Given user sets the entry/exit timer to "45" seconds 
 And user is set to "Home" mode through CHIL 
@@ -766,7 +756,7 @@ When user navigates to "activity log" screen from "security solution cards" scre
 And user should receive "switched to Night status via app with time stamp by actual user" in activity log 
 And user should receive "switched to Night" push notification 
 
-@CommandControlfromvoicecommandswhensensorfault		@NeedToCheckTheFeasibility
+@CommandControlfromvoicecommandswhensensorfault		@SystemTeamToAutomate
 Scenario Outline: As a user I shouldnot be allowed to switch to Away/Night mode through voice commands when sensor is fault 
 Given user sets the entry/exit timer to "60" seconds 
 And user is set to <status> mode through CHIL 
@@ -784,7 +774,7 @@ Examples:
 |Off|Door|
 |Off|Window|
 
-@CommandControlfromvoicecommandswhensensortrouble		@NeedToCheckTheFeasibility
+@CommandControlfromvoicecommandswhensensortrouble		@SystemTeamToAutomate
 Scenario Outline: As a user I shouldnot be allowed to switch to Away/Night mode through voice commands when sensor is trouble 
 And user is set to <status> mode through CHIL 
 And user "Cover Tamper" the <Sensor type> 
@@ -800,3 +790,176 @@ Examples:
 |Home|Window|
 |Off|Door|
 |Off|Window|
+
+@CommandControlChangeInDoorSensorStateDuringExitDelay		@UIAutomated 
+Scenario Outline: As a user I should not be alarmed during exit delay time and door sensor is in fault
+Given user sets the entry/exit timer to "60" seconds
+When user launches and logs in to the Lyric application
+And user is set to <Security Status> mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from <Security Status> to "Away"
+Then user should be displayed with a "Switching to Away" text
+And user should be displayed with a switching timer
+When user door <Fault Type>
+And user door <Update Fault Type>
+Then user should not be displayed with Alarm screen
+And user status should be set to "Away"
+Then user should be displayed with the correct time stamp
+When user is set to <Security Status> mode through CHIL
+And user switches from <Security Status> to "Night"
+Then user should be displayed with a "Switching to Night" text
+And user should be displayed with a switching timer
+When user door <Fault Type>
+And user door <Update Fault Type>
+Then user should not be displayed with Alarm screen
+And user status should be set to "Night"
+
+Examples:
+|	Security Status		|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Update Fault Type	|
+|	Home					|	door				|	opened				|	open						|	closed				|
+|	Off					|	door				|	opened				|	open						|	closed				|
+
+@CommandControlChangeInWindowSensorStateDuringExitDelay		@UIAutomated
+Scenario Outline: As a user I should not be alarmed during exit delay time and window sensor is in fault
+Given user sets the entry/exit timer to "60" seconds
+When user launches and logs in to the Lyric application
+And user is set to <Security Status> mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from <Security Status> to "Away"
+Then user should be displayed with a "Switching to Away" text
+And user should be displayed with a switching timer
+When user window <Fault Type>
+And user window <Update Fault Type>
+Then user should not be displayed with Alarm screen
+And user status should be set to "Away"
+Then user should be displayed with the correct time stamp
+When user is set to <Security Status> mode through CHIL
+And user switches from <Security Status> to "Night"
+Then user should be displayed with a "Switching to Night" text
+And user should be displayed with a switching timer
+When user window <Fault Type>
+And user window <Update Fault Type>
+Then user should not be displayed with Alarm screen
+And user status should be set to "Night"
+
+Examples:
+|	Security Status		|	Sensor Type		|	Fault Type			|	Sensor Issue Type		|	Update Fault Type	|
+|	Home					|	window			|	opened				|	open						|	closed				|
+|	Off					|	window			|	opened				|	open						|	closed				|
+
+@CommandControlChangeInMotionSensorStateDuringExitDelay		@UIAutomated
+Scenario: As a user I should not be alarmed during exit delay time and window sensor is in fault
+Given user sets the entry/exit timer to "60" seconds
+When user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from "Home" to "Night"
+Then user should be displayed with a "Switching to Night" text
+And user should be displayed with a switching timer
+When user "sensor" detects the "Motion"
+Then user should not be displayed with Alarm screen
+And user status should be set to "Night"
+Then user should be displayed with the correct time stamp
+When user is set to "Home" mode through CHIL
+And user switches from "Home" to "Off"
+Then user should receive a "Set to Off" popup
+When user "accepts" the "Set to Off" popup
+Then user status should be set to "Off"
+Then user should be displayed with the correct time stamp
+When user "sensor" detects the "Motion"
+Then user should not be displayed with Alarm screen
+
+#Covered in the previous scenario
+@CommandControlMultipleSensorAndMotionSensorFault 
+Scenario: As a user I want to view the motionsensor status when i have all types of sensor enrolled 
+Given user sets the entry/exit timer to "60" seconds 
+And user is set to Home mode through CHIL 
+And user has one sensor of each type enrolled 
+When user launches and logs in to the Lyric application 
+And user navigates to "security solution cards" screen from "Dashboard" screen 
+And user switches from "Home" to "Away" 
+Then user should be displayed with the "Switching to Away" text 
+And user should be displayed with the "switching timer" 
+And user user "Sensor" detects "Motion" 
+Then user should not be displayed with Alarm screen 
+When user is set to Home mode through CHIL 
+And user switches from "Home" to "Night" 
+Then user should be displayed with the "Switching to Night" text 
+And user should be displayed with the "switching timer" 
+And user "Sensor" detects "Motion" 
+Then user should not be displayed with Alarm screen 
+When user is set to Home mode through CHIL 
+And user switches from "Home" to "Night" 
+Then user should be displayed with the "Switching to Night" text 
+And user should be displayed with the "switching timer" 
+When "Switching timer" ends on user device 
+Then user should be displayed with the "Night Status" 
+And user "Sensor" detects "Motion" 
+Then user should not be displayed with Alarm screen
+
+#Covered in CommandControlChangeInDoorSensorStateDuringExitDelay and CommandControlChangeInWindowSensorStateDuringExitDelay scenarios
+@CommandControlMultipleSensorWithDifferentStateAndOneSensorIsInFault 
+Scenario Outline: As a user should not be alarmed during exit delay and my sensor is faulted 
+Given user sets the entry/exit timer to "60" seconds 
+And user is set to <Status> mode through CHIL 
+And user has one sensor of each type enrolled 
+When user launches and logs in to the Lyric application 
+And user navigates to "security solution cards" screen from "Dashboard" screen 
+And user switches from <Status> to "Away" 
+Then user should be displayed with the "Switching to Away" text 
+And user should be displayed with the "switching timer" 
+And user "opens" the <Sensor type> 
+Then user should not be displayed with Alarm screen 
+When user is set to <Status> mode through CHIL 
+And user switches from <Status> to "Night" 
+Then user should be displayed with the "Switching to Night" text 
+And user should be displayed with the "switching timer" 
+And user "opens" the <Sensor type> 
+Then user should not be displayed with Alarm screen 
+
+Examples: 
+|Status|Sensor type|
+|Home|Door|
+|Home|Window|
+|Off|Door|
+|Off|Window|
+
+@CommandControlMultipleSensorsWithFault		@UIAutomated
+Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
+Given user sets the entry/exit timer to "30" seconds
+When user launches and logs in to the Lyric application
+And user is set to <Security Status> mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user door <Fault Type>
+And user window <Fault Type>
+And user "sensor" detects the "Motion"
+And user switches from <Security Status> to "Away"
+Then user should receive a "Switch to Away" popup
+When user "dismisses" the "Switch to Away" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Away" 
+Then user should receive a "Switch to Away" popup
+When user "accepts" the "Switch to Away" popup
+Then user should be displayed with a "Switching to Away" text
+Then timer ends on user device
+And user status should be set to "Away"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+When user is set to <Security Status> mode through CHIL
+And user switches from <Security Status> to "Night"
+Then user should receive a "Switch to Night" popup
+When user "dismisses" the "Switch to Night" popup
+Then user status should be set to "Home" 
+When user switches from "Home" to "Night" 
+Then user should receive a "Switch to Night" popup
+When user "accepts" the "Switch to Night" popup
+Then user should be displayed with a "Switching to Night" text
+Then timer ends on user device
+And user status should be set to "Night"
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Type> status as <Off Status> on the "Sensor Status"
+
+Examples: 
+|	Security Status		|	Fault Type			|	Sensor Issue Type		|	Off Status		|
+|	Home					|	opened				|	open						|	off				|
+|	Off					|	opened				|	open						|	off				|
