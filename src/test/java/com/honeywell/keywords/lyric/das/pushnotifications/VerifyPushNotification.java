@@ -141,7 +141,7 @@ public class VerifyPushNotification extends Keyword {
 			break;
 		}
 		case "ALARM": {
-			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME");
+			notification = "Security Alarm in progress at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
 		}
 		case "ALARM DISMISSED": {

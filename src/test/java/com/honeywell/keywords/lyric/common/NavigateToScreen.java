@@ -197,6 +197,36 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "GEOFENCE SETTING": {
+					Dashboard dScreen = new Dashboard(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.GEOFENCE)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Add new device menu from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "GEOFENCE RADIUS":{
+					Dashboard dScreen = new Dashboard(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.GEOFENCE)) {
+							if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.GEOFENCE)) {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Add new device menu from Global drawer");
+							}
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
 				case "ZWAVE CONTROLLER DETAILS": {
 					flag = flag & DASZwaveUtils.navigateToControllerDetailsFromDashboard(testCase);
 					break;
@@ -211,6 +241,14 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SWITCH PRIMARY CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
+				/*	if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, "Switch1")){
+						flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
+					}else if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, "Switch 001")){
+						flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch 001");
+						inputs.setInputValue("LOCATION1_SWITCH1_NAME","Switch 001");
+					}else{
+						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "No Switch found");
+					}*/
 					break;
 				}
 				case "SWITCH SETTINGS": {
@@ -362,7 +400,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -772,7 +810,7 @@ public class NavigateToScreen extends Keyword {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
 
-					} catch (Exception e) {
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

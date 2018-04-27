@@ -228,20 +228,22 @@ public class VerifyActivityLogs extends Keyword {
 			// Alarm activities
 
 			case "WINDOW ALARM AT AWAY MODE":{
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			
 			case "WINDOW ALARM AT NIGHT MODE":{
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 				break;
 			}
 			case "ALARM AT AWAY MODE": {
-				expectedActivityHeader = "Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 				break;
@@ -255,31 +257,35 @@ public class VerifyActivityLogs extends Keyword {
 				break;
 			}
 			case "ALARM AT NIGHT MODE": {
-				expectedActivityHeader = "Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 				break;
 			}
 			case "DOOR SENSOR ALARM AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+				//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 				break;
 			}
 			case "DOOR SENSOR ALARM AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+				//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 				break;
 			}
 			case "WINDOW SENSOR ALARM AT NIGHT MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
+				//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "NIGHT MODE";
 				deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 				break;
 			}
 			case "WINDOW SENSOR ALARM AT AWAY MODE": {
-				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
+				//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
+				expectedActivityHeader = "Security Alarm";
 				expectedActivitySubHeader = "AWAY MODE";
 				deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 				break;
