@@ -37,7 +37,9 @@ public class MotionSensorActions extends Keyword {
 			if (states.get(0).equalsIgnoreCase("Tampered")) {
 				DASSensorUtils.tamperMotionSensor(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
-				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+				//DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+				DASSensorUtils sensorUtils = new DASSensorUtils();
+				sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 			}

@@ -43,6 +43,8 @@ public class WindowSensorActions extends Keyword {
 				DASSensorUtils.tamperWindow(testCase, inputs);
 			}else if (states.get(0).equalsIgnoreCase("Tamper Restored")){
 				DASSensorUtils.tamperClearWindow(testCase, inputs);
+				DASSensorUtils sensorUtils = new DASSensorUtils();
+				sensorUtils.verifySensorState(testCase, inputs, "window", "tamper cleared");
 			}
 			else{
 				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
