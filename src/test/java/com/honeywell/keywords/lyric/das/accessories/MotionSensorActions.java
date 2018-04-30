@@ -8,7 +8,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 
 public class MotionSensorActions extends Keyword {
@@ -37,7 +36,7 @@ public class MotionSensorActions extends Keyword {
 			if (states.get(0).equalsIgnoreCase("Tampered")) {
 				DASSensorUtils.tamperMotionSensor(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
-				//DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
 				DASSensorUtils sensorUtils = new DASSensorUtils();
 				sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
 			} else {

@@ -15,7 +15,6 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
-import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.Dashboard;
