@@ -75,13 +75,23 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.ImageView[@content-desc='" + securityState + "']");
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
-				return MobileUtils.clickOnElement(testCase, "NAME", securityState);
-			} else {
-				if (MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase)) {
-					return MobileUtils.clickOnElement(testCase, "XPATH", "//*[@value='" + securityState + "']");
+			if (securityState == "Home") {
+				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']",
+						testCase)) {
+					return MobileUtils.clickOnElement(testCase, "XPATH",
+							"//XCUIElementTypeCell[@value='" + securityState + "']");
 				} else {
 					flag = false;
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
+					return MobileUtils.clickOnElement(testCase, "NAME", securityState);
+				} else {
+					if (MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase)) {
+						return MobileUtils.clickOnElement(testCase, "XPATH", "//*[@value='" + securityState + "']");
+					} else {
+						flag = false;
+					}
 				}
 			}
 		}
@@ -115,7 +125,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		boolean flag = true;
 		switch (stateToChange.toUpperCase()) {
 		case "HOME": {
-			inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+			inputs.setInputValue("HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "HOME_TIME " + inputs.getInputValue("HOME_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -124,7 +134,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "AWAY": {
-			inputs.setInputValue("AWAY_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+			inputs.setInputValue("AWAY_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "AWAY_TIME " + inputs.getInputValue("AWAY_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -133,7 +143,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "NIGHT": {
-			inputs.setInputValue("NIGHT_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+			inputs.setInputValue("NIGHT_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "NIGHT_TIME " + inputs.getInputValue("NIGHT_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -142,7 +152,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "OFF": {
-			inputs.setInputValue("OFF_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+			inputs.setInputValue("OFF_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "OFF_TIME " + inputs.getInputValue("OFF_TIME"));
 			if (isSecurityStateVisible(stateToChange)) {
 				return clickOnSecurityState(stateToChange);
@@ -193,6 +203,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean isProgressBarVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar");
+	}
+	
+	public boolean isLoadingProgressVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
 	}
 
 	public boolean isSetToOffPopupVisible() {
@@ -252,7 +266,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
-		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 20)) {
+		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 30)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
 		} else {
 			flag = false;
@@ -330,7 +344,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isSwitchToAwayPopupVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToAwayPopupTitle", timeOut);
 	}
-	
+
 	public boolean isSwitchToNightPopupVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightPopupTitle", timeOut);
 	}
@@ -350,15 +364,15 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnOKButtonInSwitchToPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
 	}
-	
+
 	public boolean isUnableToConnectToBaseStationAlertVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UnableToConnectToBaseStationAlert");
 	}
-	
+
 	public boolean isOKButtonInUnableToConnectToBaseStationAlertVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInPopup");
 	}
-	
+
 	public boolean clickOnOKButtonInUnableToConnectToBaseStationAlert() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
 	}

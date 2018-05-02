@@ -114,12 +114,13 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean openMotionSensor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("MOTION_SENSOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("MOTION_SENSOR_OPENED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			//RelayUtils.RSIContactSensorOpen_Door();
+			// RelayUtils.RSIContactSensorOpen_Door();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,9 +129,10 @@ public class DASSensorUtils {
 
 	public static boolean closeMotionSensor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("MOTION_SENSOR_CLOSED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("MOTION_SENSOR_CLOSED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			//RelayUtils.RSIContactSensorClosed_Door();
+			// RelayUtils.RSIContactSensorClosed_Door();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -176,7 +178,7 @@ public class DASSensorUtils {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		} else if (sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-		}  else {
+		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
 		}
 
@@ -225,11 +227,26 @@ public class DASSensorUtils {
 						Keyword.ReportStep_Pass(testCase,
 								"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
-					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
-							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
-						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
-						sensorStateMatched = true;
-						break;
+					/*
+					 * if (testCase.getMobileDriver().findElements(By.xpath(
+					 * "//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[contains(@value,'" +
+					 * sensorState + "')]")).size() > 0) { Keyword.ReportStep_Pass(testCase,
+					 * sensorName + " is in " + sensorState); sensorStateMatched = true; break; }
+					 */
+					if (MobileUtils.isMobElementExists("NAME", "RightButton", testCase)) {
+						MobileUtils.clickOnElement(testCase, "NAME", "RightButton");
+						if (MobileUtils.isMobElementExists("NAME", "Sensor Tamper", testCase)
+								&& MobileUtils.isMobElementExists("NAME", "Retry", testCase)) {
+							MobileUtils.clickOnElement(testCase, "NAME", "Retry");
+						} else {
+							DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 1);
+							if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
+									+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
+								Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
+								sensorStateMatched = true;
+								break;
+							}
+						}
 					}
 				}
 			} else {
@@ -241,9 +258,9 @@ public class DASSensorUtils {
 								testCase, 10)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
-											+ testCase.getMobileDriver()
-													.findElement(By.xpath("//*[@content-desc = '" + sensorName
-															+ "']//*[contains(@text,'" + sensorState + "')]"))
+											+ testCase
+													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
 													.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 							// MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
@@ -257,6 +274,10 @@ public class DASSensorUtils {
 								LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 						Keyword.ReportStep_Pass(testCase,
 								"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
+					}
+					if (MobileUtils.isMobElementExists("ID", "action_button", testCase)) {
+						MobileUtils.clickOnElement(testCase, "ID", "action_button");
+						DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 1);
 					}
 					if (testCase.getMobileDriver()
 							.findElements(By.xpath(

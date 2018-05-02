@@ -1,9 +1,5 @@
 package com.honeywell.screens;
 
-import java.util.List;
-
-import org.openqa.selenium.WebElement;
-
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;

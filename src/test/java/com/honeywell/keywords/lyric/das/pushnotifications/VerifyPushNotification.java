@@ -70,21 +70,34 @@ public class VerifyPushNotification extends Keyword {
 		}
 		case "SET TO HOME": {
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to Home";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Home by " + locInfo.getUserFirstName();
+				 */
 			} else {
-				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Home";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO AWAY": {
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to Away";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
 			} else {
-				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Away";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
 			System.out.println("############notification: " + notification);
 			break;
@@ -102,12 +115,17 @@ public class VerifyPushNotification extends Keyword {
 		}
 		case "SET TO NIGHT": {
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+				+ " to Night";
+				/*notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ locInfo.getUserFirstName();*/
 			} else {
-				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Night";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO NIGHT BY KEYFOB": {
@@ -122,12 +140,17 @@ public class VerifyPushNotification extends Keyword {
 		}
 		case "SET TO OFF": {
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " turned " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+				+ " off";
+				/*notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
+						+ locInfo.getUserFirstName();*/
 			} else {
-				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
-						+ locInfo.getUserFirstName();
+				notification = locInfo.getUserFirstName() + " turned Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " off";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " turned Off by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO OFF BY KEYFOB": {

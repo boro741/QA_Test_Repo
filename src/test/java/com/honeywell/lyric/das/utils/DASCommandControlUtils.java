@@ -118,6 +118,14 @@ public class DASCommandControlUtils {
 								return false;
 							}
 						}
+						case "LOADING PROGRESS TEXT": {
+							if(sc.isLoadingProgressVisible()) {
+								System.out.println("Waiting for loading progress bar text to disappear");
+								return true;
+							} else {
+								return false;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);
