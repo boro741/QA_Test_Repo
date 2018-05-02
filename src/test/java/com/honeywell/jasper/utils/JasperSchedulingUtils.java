@@ -1962,7 +1962,7 @@ public class JasperSchedulingUtils {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Incorrect time chooser identifier");
 				}
-				if (setTime.toUpperCase().contains(time.toUpperCase().replaceAll("^0*", ""))) {
+				if (setTime.equalsIgnoreCase(time.replace(" AM", "")) || setTime.equalsIgnoreCase(time.replace(" PM", "")) ) {
 					Keyword.ReportStep_Pass(testCase, "Verify Set Period Time : Time is set to " + time);
 				} else {
 					flag = false;
@@ -2721,7 +2721,8 @@ public class JasperSchedulingUtils {
 				int i = Integer.parseInt(hours);
 				hours = Integer.toString(i);
 				if (ss.isTimeHoursVisible(5)) {
-					flag = flag & ss.setValueToTimeHoursPicker(hours);
+					String hoursspit = time.split(":")[0];
+					flag = flag & ss.setValueToTimeHoursPicker(hoursspit);
 				}
 				if (ss.isTimeMinutesVisible(5)) {
 					flag = flag & ss.setValueToTimeMinutesPicker(minutes);

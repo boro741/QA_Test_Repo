@@ -603,7 +603,7 @@ public class JasperSchedulingEditUtils {
 			}
 			int i = 0;
 			while ((!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+"']", testCase, 5))
 					&& i < 10) {
 				if (desiredDayIndex > greaterDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
@@ -620,26 +620,26 @@ public class JasperSchedulingEditUtils {
 				}
 			}
 			if (!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
+					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName +"_subTitle"+ "']", testCase, 5)) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Failed to locate the period: " + periodName);
 			} else {
-				WebElement period = testCase.getMobileDriver().findElement(By.name(periodName));
+				WebElement period = testCase.getMobileDriver().findElement(By.name(periodName+"_subTitle"));
 				if (period != null) {
 					if (!MobileUtils.clickOnElement(testCase, "XPATH",
-							"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']")) {
+							"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+"']")) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Selected period: " + periodName);
 
-						if (periodName.contains("Wake")) {
+						if (periodName.contains("Everyday_Wake")) {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_WAKE);
-						} else if (periodName.contains("Away")) {
+						} else if (periodName.contains("Everyday_Away")) {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_AWAY);
-						} else if (periodName.contains("Home")) {
+						} else if (periodName.contains("Everyday_Home")) {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_HOME);
-						} else if (periodName.contains("Sleep")) {
+						} else if (periodName.contains("Everyday_Sleep")) {
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.EVERYDAY_SLEEP);
 						}
 
@@ -813,7 +813,7 @@ public class JasperSchedulingEditUtils {
 				}
 				int i = 0;
 				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + schedulePeriod + "']", testCase, 5))
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + schedulePeriod + "_subTitle"+"']", testCase, 5))
 						&& i < 10) {
 					if (desiredDayIndex > greaterDayIndex) {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
@@ -829,7 +829,7 @@ public class JasperSchedulingEditUtils {
 						i++;
 					}
 				}
-				period = testCase.getMobileDriver().findElement(By.name(schedulePeriod));
+				period = testCase.getMobileDriver().findElement(By.name(schedulePeriod +"_subTitle"));
 				String cp = schedulePeriod + "_CoolTemperature";
 				String hp = schedulePeriod + "_HeatTemperature";
 				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(schedulePeriod + "_Time"));
@@ -941,8 +941,8 @@ public class JasperSchedulingEditUtils {
 			inputs.setInputValue(InputVariables.PERIOD_NAME_NA + periodCounterToBeDeleted, schedulePeriod);
 			inputs.setInputValue(InputVariables.SCHEDULE_PERIOD_EDITED, schedulePeriod);
 
-			Keyword.ReportStep_Pass(testCase, " ");
-			Keyword.ReportStep_Pass(testCase,
+			Keyword.ReportStep_Pass(testCase, "  ");
+			Keyword.ReportStep_Pass(testCase, 
 					"*************** Setting time and set points for " + schedulePeriod + " ***************");
 			flag = flag
 					& JasperSchedulingUtils.setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint, period);

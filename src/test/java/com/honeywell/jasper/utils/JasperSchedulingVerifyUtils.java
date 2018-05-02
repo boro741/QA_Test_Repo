@@ -1071,8 +1071,8 @@ public class JasperSchedulingVerifyUtils {
 						period.findElement(By.id("scheduling_period_time")).click();
 
 						if (ss.isTimeChooserHeaderVisible(5)) {
-//							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-//									.getText().split("\\s+")[0];
+							//							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
+							//									.getText().split("\\s+")[0];
 							everydayStartTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 						} else {
 							flag = false;
@@ -2487,12 +2487,14 @@ public class JasperSchedulingVerifyUtils {
 										scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 							}
 							int m = 0;
+
 							while ((!MobileUtils
 									.isMobElementExists("XPATH",
 											"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
-													+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']",
+													+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_subTitle" + "']",
 													testCase, 5))
 									&& m < 10) {
+								System.out.println(" Value : " + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i )+ "_subTitle");
 								if (desiredDayIndex > greaterDayIndex) {
 									touchAction.press(10, (int) (dimension.getHeight() * .5))
 									.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
@@ -2509,14 +2511,14 @@ public class JasperSchedulingVerifyUtils {
 							}
 							if (!MobileUtils.isMobElementExists("XPATH",
 									"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
-											+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']",
+											+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i ) + "_subTitle" + "']",
 											testCase, 5)) {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Failed to locate the period: " + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i));
 							} else {
 								period = testCase.getMobileDriver()
-										.findElement(By.name(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i)));
+										.findElement(By.name(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) +"_subTitle"));
 							}
 
 							String cp = inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_CoolTemperature";
@@ -3466,7 +3468,7 @@ public class JasperSchedulingVerifyUtils {
 				}
 				int i = 0;
 				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+"']", testCase, 5))
 						&& i < 10) {
 					if (desiredDayIndex > greaterDayIndex) {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
@@ -3487,12 +3489,12 @@ public class JasperSchedulingVerifyUtils {
 				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
 				System.out.println(elemTime.getAttribute("value"));
 				if (!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+ "']", testCase, 5)) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to locate the period: " + periodName);
 				} else {
-					period = testCase.getMobileDriver().findElement(By.name(periodName));
+					period = testCase.getMobileDriver().findElement(By.name(periodName+"_subTitle"));
 					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 						maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
 						minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
@@ -3712,7 +3714,7 @@ public class JasperSchedulingVerifyUtils {
 				}
 				int i = 0;
 				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName +"_subTitle"+ "']", testCase, 5))
 						&& i < 10) {
 					if (desiredDayIndex > greaterDayIndex) {
 						touchAction.press(10, (int) (dimension.getHeight() * .5))
@@ -3733,7 +3735,7 @@ public class JasperSchedulingVerifyUtils {
 				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
 				System.out.println(elemTime.getAttribute("value"));
 				if (!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5)) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+"']", testCase, 5)) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to locate the period: " + periodName);
@@ -4328,8 +4330,9 @@ public class JasperSchedulingVerifyUtils {
 			}
 			int i = 0;
 			while ((!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "']", testCase, 5))
+					"//XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'"+ periodName + "_subTitle"+"')]", testCase, 5))
 					&& i < 10) {
+				System.out.println();
 				if (desiredDayIndex > greaterDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
 					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
@@ -4344,10 +4347,11 @@ public class JasperSchedulingVerifyUtils {
 					i++;
 				}
 			}
-			period = testCase.getMobileDriver().findElement(By.name(periodName));
+			period = MobileUtils.getMobElement(testCase, "xpath"," //XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'"+ periodName + "_subTitle"+"')]");
 			if (period != null) {
-				periodTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"))
-						.getAttribute("value");
+				periodTime = MobileUtils.getMobElement(testCase, "xpath","//XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'"+ periodName + "_Time"+"')]").getAttribute("value");
+//						testCase.getMobileDriver().findElement(By.name(periodName + "_Time"))
+//						.getAttribute("value");
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -4854,39 +4858,39 @@ public class JasperSchedulingVerifyUtils {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
-									.contains("m")) {
+							.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+										.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+										.getAttribute("text"));
 					}
 				} else {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
-									.contains("m")) {
+							.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+										.getAttribute("label"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+										.getAttribute("label"));
 					}
 				}
 			}
@@ -4895,39 +4899,39 @@ public class JasperSchedulingVerifyUtils {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
-									.contains("m")) {
+							.contains("m")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+										.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+										.getAttribute("text"));
 					}
 				} else {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
-									.contains("m")) {
+							.contains("m")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+										.getAttribute("label"));
 					} else {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+										.getAttribute("label"));
 					}
 
 				}
@@ -4937,39 +4941,39 @@ public class JasperSchedulingVerifyUtils {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
-									.contains("m")) {
+							.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+										.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+										.getAttribute("text"));
 					}
 				} else {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
-									.contains("m")) {
+							.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+										.getAttribute("label"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+										.getAttribute("label"));
 					}
 				}
 			}
