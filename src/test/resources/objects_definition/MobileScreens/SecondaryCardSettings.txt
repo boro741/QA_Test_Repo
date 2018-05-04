@@ -11,3 +11,5 @@ MessagesOption	xpath	//android.widget.TextView[@text='Messages']	xpath	//android
 LogoutOption	xpath	//android.widget.TextView[@text='Logout']	xpath	//android.widget.TextView[@text='Logout']	xpath	//android.widget.TextView[@text='Logout']	name	logout	name	logout	name	logout
 SecondaryCardSettings	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	NAME	alerts_and_notification	NAME	alerts_and_notification	NAME	alerts_and_notification
 AddressOption	xpath	"//android.widget.TextView[contains(@text,'Address')]"					xpath	"//*[contains(@name,'Address')]"				
+FaceRecognitionOption	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']						
+HomeAddress	xpath	//android.widget.TextView[@text='Home Address']	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']						

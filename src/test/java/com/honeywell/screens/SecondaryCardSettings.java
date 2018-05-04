@@ -73,6 +73,11 @@ public class SecondaryCardSettings extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecondaryCardSettings", timeOut);
 	}
 	
+	public boolean isFROptionAvailable(int timeOut)
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FaceRecognitionOption", timeOut);
+	}
+	
 	public List<WebElement> getSecondaryCardSettings()
 	{
 		return MobileUtils.getMobElements(objectDefinition, testCase, "SecondaryCardSettings");

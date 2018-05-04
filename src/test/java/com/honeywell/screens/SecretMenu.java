@@ -25,6 +25,14 @@ public class SecretMenu extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FeatureTweaks");
 	}
 	
+	public boolean isCHILFRTweakOptionAvailable() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FRTweak", 3);
+	}
+
+	public boolean clickOnFRTweak() {
+		return MobileUtils.switchonElementAndroidOnly(objectDefinition, testCase, "FRTweak",true);
+	}
+	
 	public boolean clickOnNavigateUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrow");
 	}
