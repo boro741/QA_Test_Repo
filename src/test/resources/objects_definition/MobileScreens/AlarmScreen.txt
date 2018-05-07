@@ -24,3 +24,5 @@ SwitchToNightProgress	xpath	//*[@text='Switching to Night mode']
 AttentionButton	id	alarms_bottom_button					name	Attention				
 AttentionAlert	xpath	"//*[contains(@text,'Are you sure you want to raise panic alarm')]"										
 AttentionConfirm	id	button1										
+History_BottomArrow	id	bottom_sheet_carat_image										
+Alarm_History	id	alarms_toolbar										

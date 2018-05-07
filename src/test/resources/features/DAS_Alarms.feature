@@ -22,10 +22,14 @@ Background:
     When user selects the "MOTION DETECTED" push notification
     Then user should be displayed with the "Camera Solution Card" screen
     # And user DAS camera is "Live streaming" 
+    # check full screen view
+    #check status bar of live streaming
     When user selects "confirms attention" from "Camera Solution Card" screen
     Then user should be displayed with the "Alarm" screen  
+    #When user receives a "Alarm" push notification
     When user selects "dismiss alarm" from "alarm" screen
 	Then user should be displayed with the "Camera Solution Card" screen
+	# And user DAS camera is "Live streaming" 
     When user selects "cancels attention" from "Camera Solution Card" screen
     Then user should be displayed with the "Camera Solution Card" screen
     When user navigates to "Security Solution card" screen from "Camera Solution Card" screen
@@ -237,6 +241,7 @@ Background:
        | Switched to Home by app|
      And user "closes" activity log
      
+     
       @NightMode_doorsensorOpenAfterExitDelay_Switchtonight_DoorNotClosedAlarm_FromEntryDelayScreen @--xrayid:ATER-6150
     Scenario: As a user I should be notified with alarm in Night mode if i fails to close the door after entry delay period
     Given user is set to "Night" mode through CHIL
@@ -425,6 +430,7 @@ Background:
      And user switches from "Home" to "Away"
      When user window "opened"
    	 Then user should be displayed with the "Alarm" screen
+   	 #And user camera is "Live streaming"
      When user selects "dismiss alarm" from "alarm" screen
      Then user status should be set to "Home"
       And user "opens" activity log
@@ -891,13 +897,50 @@ Background:
    #   |Zwave inclusion|
    #   |Zwave exclusion|
     #  |Camera Activity Log|
+    |Sensor enrollment|
+    |OD event triggered|
+       |ID event triggered|
        
        
+        @Alarm_Navigation_Otherscreen_Settings @--xrayid:ATER-6147
+    Scenario Outline: As an user I should be not allowed to edit settings during panel in alarm state
+      Given user is set to "Away" mode through CHIL
+        And user launches and logs in to the Lyric application
+       When user "opens" the window
+   	   Then user should be displayed with the "Alarm" screen
+       When user navigates to <Expected> screen from "Alarm" screen
+      Then user should be displayed with "Grayed settings" screen
+       When user "dismisses" the alarm
+       Then user should be displayed with "Dashboard" screen
+       Examples:
+       |Expected   |
+       |Security Solution Card Settings|
+     #  |Camera Settings|
+     #  |Geofence radius|Geofence radius|
+     #  |Geofence radius|Alerts & Notification|
+      # |Alerts & Notification|Security Solution Card|
+      # |Security Solution Card|Comfort Solution Card|
+      # |Comfort Solution Card|WLD Solution Card|
+      # |WLD Solution Crad|My Account|
+      # |My Account|App Settings & Info|
+     #  |App Settings & Info|Add New Device|
+     #  |Add New Device|Camera Settings|
+     #  |Camera Settings|WLD Settings|
+      # |WLD Settings|Comfort Settings|
+      # |Comfort Settings|Basestation Settings |
+     #  |Basestation Settings|DAS Camera Settings|
+     #  |DAS Camera Settings |Vacation|
+     #  |Vacation|Location Details|
+      # |Location Details|Manage user|
+     #  |Manage user|Zwave settings|
+      
    
     @Entrydelay_Navigation_Otherscreen @--xrayid:ATER-6147
     Scenario: As an user I should be navigated to any screen in lyric app from entry delay screen 
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
+        When  user door "opened"
+        Then user should be displayed with "Entry Delay" screen
         And user can navigate from the entry exit delay in following screen:
        |Elements   |
       |Geofence setting  |
@@ -927,46 +970,10 @@ Background:
        |Entry Delay|Dashboard |
        |Dashboard|DAS Camera Settings|
        |DAS Camera Settings|Basestation Settings|
-       |Basestation Settings|Dashboard|     
+       |Basestation Settings|Dashboard| 
+       |my account and select the passcode| Dashboard| 
       
      
-     @Alarm_Navigation_Otherscreen_Settings @--xrayid:ATER-6147
-    Scenario Outline: As an user I should be not allowed to edit settings during panel in alarm state
-      Given user is set to "Away" mode through CHIL
-        And user launches and logs in to the Lyric application
-       When user "opens" the window
-   	   Then user should be displayed with the "Alarm" screen
-      # When user navigates to <Current> screen from <Previous> screen
-      Then user should be displayed with "Grayed settings" screen
-       When user "dismisses" the alarm
-       Then user should be displayed with "Dashboard" screen
-       Examples:
-       |Previous |Current   |
-       |Alarm    |Dashboard |
-       |Dashboard|Camera Solution Card|
-       |Camera Solution Card|Security Solution Card|
-       |Geofence radius|Geofence radius|
-       |Geofence radius|Alerts & Notification|
-       |Alerts & Notification|Security Solution Card|
-       |Security Solution Card|Comfort Solution Card|
-       |Comfort Solution Card|WLD Solution Card|
-       |WLD Solution Crad|My Account|
-       |My Account|App Settings & Info|
-       |App Settings & Info|Add New Device|
-       |Add New Device|Camera Settings|
-       |Camera Settings|WLD Settings|
-       |WLD Settings|Comfort Settings|
-       |Comfort Settings|Basestation Settings |
-       |Basestation Settings|DAS Camera Settings|
-       |DAS Camera Settings |Vacation|
-       |Vacation|Location Details|
-       |Location Details|Manage user|
-       |Manage user|Zwave settings|
-       |Zwave settings|Zwave inclusion|
-       |Zwave inclusion|Zwave exclusion|
-       |Zwave exclusion|Alarm|
-       
-
       @Alarm_Call @--xrayid:ATER-6147
     Scenario: As an user I should be able to call police from alarm screen on confirming intruder in premises
       Given user is set to "Away" mode through CHIL
@@ -1012,24 +1019,27 @@ Background:
     Scenario: As a user I should get events in alarm history during alarm period
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
-     When user "opens" the door "in" Exit delay
-      And user "sensor" detects the "Motion"
-     Then user should be displayed with "Entry Delay" screen
-      And user should be displayed with "Alarm" screen
-     When user "opens" the window "after" Entry delay
-      And user "Tampered" the door sensor "after" Entry delay
-      And user "Tampered" the window sensor "after" Entry delay
-      And user "Tampered" the motion sensor "after" Entry delay      
-     When user navigates to "Activity log" screen from "Alarm" screen
-	 Then user should be displayed with "Alarm history"
-      And user receives a "Door Opened" activity log
-      And user receives a "DOOR SENSOR ALARM AT AWAY MODE" activity log
-      And user receives a "ALARM AT AWAY MODE" activity log
-      And user receives a "Motion Detected" activity log
-      And user receives a "Window Opened" activity log
-      And user receives a "Door Tampered" activity log
-      And user receives a "Window Tampered" activity log
-      And user receives a "Motion Tampered" activity log
+      And timer ends on user device
+      When user door "opened"
+      #And user "sensor" detects the "Motion"
+      Then user should be displayed with the "Entry Delay" screen
+      When user selects "no options" from "Entry delay" screen
+      And user should be displayed with the "Alarm" screen
+      When user window "opened" 
+      #And user "Tampered" the door sensor "after" Entry delay
+      #And user "Tampered" the window sensor "after" Entry delay
+      #And user "Tampered" the motion sensor "after" Entry delay      
+      When user navigates to "Alarm history" screen from the "Alarm" screen
+      Then user should be displayed with the "Alarm history" screen
+      And verify the following alarm history:
+      |Elements|
+      |DOOR OPENED AT AWAY MODE|
+      |ALARM AT AWAY MODE|
+    #  |Motion Detected|
+      |Window Opened At away mode|
+    #  |Door Tampered|
+    #  |Window Tampered|
+    #  |Motion Sensor Tampered|
       
 
      @ZwaveOperations_Alarm @--xrayid:ATER-6190
@@ -1116,3 +1126,49 @@ Background:
      When user navigates to "Alert" screen from "Activity Log" screen
      Then user receives a "Switched to Night" alert
       And user "should not" receives a "Alarm Dismissed" alert
+      
+      
+      
+    @AlarmDismissedViaKeyfob @--xrayid:ATER-6150
+    Scenario: Scenario: As a user I should be able to dismiss alarm through keyfob
+     Given user is set to "Away" mode through CHIL
+     And user launches and logs in to the Lyric application
+     And user clears all push notifications
+     When  user window "opened"
+     When user selects "dismiss alarm" from keyfob
+     And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     Then user status should be set to "Home"
+     When user "opens" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       | Alarm Dismissed |
+       | Switched to Home by Keyfob|
+     And user "closes" activity log
+     
+     
+     @ViewIDgeneratedClipsInAlarm @--xrayid:ATER-6150
+    Scenario: Scenario: As a user I should be able to view ID generated clips during alarm 
+     Given user is set to "Away" mode through CHIL
+     And user launches and logs in to the Lyric application
+     And user clears all push notifications
+     When  user window "opened"
+     Then view video clips generated on 'Alarm' screen
+     And user is set to "Home" mode through CHIL
+     
+     @MotionViewerAlarm @--xrayid:ATER-6150
+    Scenario: Scenario: As a user I should be able to dismiss alarm through keyfob
+     Given user is set to "Away" mode through CHIL
+     And user launches and logs in to the Lyric application
+     And user clears all push notifications
+     When  user motion viewer triggered
+     When user selects "dismiss alarm" from keyfob
+     And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     Then user status should be set to "Home"
+     When user "opens" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+        | Alarm due to motion viewer |
+       | Alarm Dismissed |
+       | Switched to Home by Keyfob|
+     And user "closes" activity log
+     # verify alarm history events
