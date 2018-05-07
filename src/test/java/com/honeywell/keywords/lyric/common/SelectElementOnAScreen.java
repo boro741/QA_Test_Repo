@@ -119,7 +119,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "CALL":{
-					flag= flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag= flag & click.clickOnCall();
 					break;
 
 				}
@@ -257,6 +258,25 @@ public class SelectElementOnAScreen extends Keyword {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Call")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickCancelButton();
+					break;
+				}
+				case "CALL THE POLICE":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickCallPoliceButton();
+					break;
+
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+				}
+				}
 			}
 		} catch (
 

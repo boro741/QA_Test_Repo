@@ -69,4 +69,18 @@ public class AlarmScreen extends MobileScreens {
 	public boolean isWaitingToCloseScreenDisplayed(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingToCloseDoor") ;
 	}
+	
+	public boolean isCallScreenDisplayed() {
+		Boolean b = MobileUtils.isMobElementExists(objectDefinition, testCase, "CallPolice") &&  
+				MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelCall");
+		return (b);
+	}
+	
+	public boolean clickCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelCall");
+	}
+	
+	public boolean clickCallPoliceButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CallPolice");
+	}
 }

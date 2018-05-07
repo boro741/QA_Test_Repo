@@ -81,8 +81,6 @@ Background:
       And user "closes" activity log
       When user door "closed"
       
-   #   As a user I should be able to switch to home from door sensor open push notification on my arrival to home after closing the door
-      
       @AwayMode_doorsensor_EntryDelayAfterExitDelay_SwitchToNight
       Scenario: As a user I should be able to switch to Night from door open push notification on my arrival to home after closing the door
  Given user launches and logs in to the Lyric application
@@ -176,6 +174,7 @@ Background:
        
        @AwayMode_doorsensorOpenAfterExitDelay_AttentionAlarmFromEntryDelay @--xrayid:ATER-6150
     Scenario: As a user I should be able to initiate attention alarm from away mode's entry delay screen on observing intruder in premises
+    Given user sets the entry/exit timer to "60" seconds
      Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
      And user clears all push notifications
@@ -184,10 +183,12 @@ Background:
      #And user minimizes the application
      #user should be treated as intruder in this scenario
     When  user door "opened"
-     When user selects the "Door Opened" push notification
+    # When user selects the "Door Opened" push notification
      When user selects "Attention" from "Entry Delay" screen
      Then user should be displayed with the "Alarm" screen
+     Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
+     Then user receives a "Alarm cancelled" email
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
@@ -199,6 +200,13 @@ Background:
        |Switched to Home by app|
      And user "closes" activity log
     When user door "closed"
+     And user navigates to "Activity history" screen from the "Dashboard" screen
+     Then verify the following activity history:
+      | Elements                 | 
+    #   | SIREN SOUNDED BY ACTUAL USER|
+       | ALARM AT AWAY MODE |
+       | Alarm Dismissed |
+       |Switched to Home by app|
      
      
      @AwayMode_doorsensorOpenAfterExitDelay_AlarmWhenNoActionTaken @--xrayid:ATER-6150
@@ -229,7 +237,7 @@ Background:
        | Switched to Home by app|
      And user "closes" activity log
      
-      @NightMode_doorsensorOpenAfterExitDelay_Switchtonight_DoorNotClosedAlarm_ClosedDoorNoAlarm_FromEntryDelayScreen @--xrayid:ATER-6150
+      @NightMode_doorsensorOpenAfterExitDelay_Switchtonight_DoorNotClosedAlarm_FromEntryDelayScreen @--xrayid:ATER-6150
     Scenario: As a user I should be notified with alarm in Night mode if i fails to close the door after entry delay period
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -258,8 +266,17 @@ Background:
        | Switched to Home by app|
       When user "closes" activity log
       And user door "closed"
-      When user switches from "Home" to "Night"
-      When timer ends on user device
+      
+      
+      @NightMode_doorsensorOpenAfterExitDelay_Switchtonight_ClosedDoorNoAlarm_FromEntryDelayScreen @--xrayid:ATER-6150
+    Scenario: As a user I should be able to switch to night when door opened in Night mode after entry delay period
+    Given user is set to "Night" mode through CHIL
+      And user launches and logs in to the Lyric application
+      And user clears all push notifications
+   #  And user force closes the application
+   #   And user lyric app screen is locked
+     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And timer ends on user device
       When  user door "opened"
       Then user should be displayed with the "Entry delay" screen
       And user door "closed"
@@ -374,13 +391,12 @@ Background:
     When user door "closed"
     
     @NightMode_doorsensorOpenAfterExitDelay_AlarmWhenNoActionTaken @--xrayid:ATER-6150
-    Scenario: As a user I should be able to initiate attention alarm from Night mode's entry delay screen on observing intruder in premises
+    Scenario: As a user I should be able to see alarm from Night mode when no action taken
      Given user is set to "Night" mode through CHIL
      And user launches and logs in to the Lyric application
      And user clears all push notifications
      And user navigates to "Security Solution card" screen from the "Dashboard" screen
-    When user switches from "Home" to "Night"
-And timer ends on user device
+     And timer ends on user device
      When  user door "opened"
      Then user selects the "Door Opened" push notification
      When user door "is not closed"
@@ -656,6 +672,7 @@ And timer ends on user device
     Given user launches and logs in to the Lyric application
     And user clears all push notifications
     Given user is set to "Night" mode through CHIL
+     And user navigates to "Security Solution card" screen from the "Dashboard" screen
      When user door "opened"
 	 When user window "opened"
 	 Then user should be displayed with the "Alarm" screen
@@ -669,7 +686,7 @@ And timer ends on user device
        |ALARM AT Night MODE| 
       
     
-      @Motionsensor_Switchtohome_Switchtonight_Attention_Alarm @--xrayid:ATER-6147
+      @Motionsensor_Switchtohome @--xrayid:ATER-6147
     Scenario: As a user I should be able to switch to home from entry delay screen on my arrival to home on my motion sensor detection
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -683,36 +700,60 @@ And timer ends on user device
      #When user enters "Mobile Passcode"
      Then user should be displayed with the "Entry Delay" screen
 	 When user selects "Switch to Home" from "Entry delay" screen
-	 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 	 Then user status should be set to "Home"
      When user "opens" activity log
-	 Then user receives a "Sensor Motion Detected at Away mode" activity log
-     And user receives a "Switched to Home by app" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Sensor Motion Detected at Away mode|
+       |Switched to Home by app |
      When user "closes" activity log
+     
+     
+     @Motionsensor_Switchtonight @--xrayid:ATER-6147
+    Scenario: As a user I should be able to switch to night from entry delay screen on my arrival to home on my motion sensor detection
       Given user is set to "Away" mode through CHIL
+      And user launches and logs in to the Lyric application
+       And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And timer ends on user device
 	  When user "sensor" detects the "Motion"
 	  Then user should be displayed with the "Entry Delay" screen
      When user selects "Switch to Night" from "Entry delay" screen
      And timer ends on user device
 	 Then user status should be set to "Night"
      When user "opens" activity log
-	 Then user receives a "Sensor Motion Detected at Away mode" activity log
-     And user receives a "Switched to Night by app" activity log
+	Then verify the following activity log:
+       | Elements                 | 
+       |Sensor Motion Detected at Away mode|
+       |Switched to Night by app |
      When user "closes" activity log
+     
+     @Motionsensor_Attention @--xrayid:ATER-6147
+     Scenario: As a user I should be able to initiate panic alarm from entry delay screen on seeing suspects in my motion sensor detection video
      Given user is set to "Away" mode through CHIL
+     And user launches and logs in to the Lyric application
+       And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And timer ends on user device
 	  When user "sensor" detects the "Motion"
      When user selects "Attention" from "Entry delay" screen
      When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-	 Then user receives a "Sensor Motion Detected at Away mode" activity log
-	 Then user receives a "ATTENTION SIREN SOUNDED BY ACTUAL USER" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Sensor Motion Detected at Away mode|
+       |SIREN SOUNDED BY ACTUAL USER |
+       |ALARM AT AWAY MODE|
+       |Alarm Dismissed|
      When user "closes" activity log
+     
+     @Motionsensor_Alarm @--xrayid:ATER-6147
+    Scenario: As a user I should be able to alarm when no action taken from entry delay screen on seeing motion detection
      Given user is set to "Away" mode through CHIL
+     And user launches and logs in to the Lyric application
+       And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And timer ends on user device
 	  When user "sensor" detects the "Motion"
 	  When user selects "no options" from "Entry delay" screen
-     When user selects the "Alarm" push notification
+     #When user selects the "Alarm" push notification
      Then user should be displayed with the "Alarm" screen
     # When user navigates to "Alarm History" screen from "Alarm" screen
 	# Then user receives a "Door Alarm" in alarm history
@@ -720,15 +761,16 @@ And timer ends on user device
     # When user navigates to "Alarm" screen from "Alarm History" screen
      When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-	 Then user receives a "Sensor Motion Detected at Away mode" activity log
-     And user receives a "ALARM AT AWAY MODE" activity log
-     And user receives a "Alarm Dismissed" activity log
+     Then verify the following activity log:
+       | Elements                 | 
+       |Sensor Motion Detected at Away mode|
+       |ALARM AT AWAY MODE|
+       |Alarm Dismissed|
      When user "closes" activity log
 	        
         
-       @AwayMode_MotionDetectedWindowOpenDoorOpen_WindowOpenMotionDetectedDoorOpen @--xrayid:ATER-6147
+       @AwayMode_MotionDetectedWindowOpenDoorOpen @--xrayid:ATER-6147
     Scenario: In away mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises with motion detection
-   # Given user is set to "Home" mode through CHIL
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
        And user navigates to "Security Solution card" screen from the "Dashboard" screen
@@ -742,24 +784,35 @@ And timer ends on user device
 	 When  user door "opened"
 	 And user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-	 Then user receives a "Sensor Motion Detected at Away mode" activity log
-      And user receives a "Window Opened at Away Mode" activity log
-      And user receives a "Window Alarm At Away Mode" activity log
-      Then user receives a "Door Opened at Away mode" activity log
-      And user receives a "ALARM AT AWAY MODE" activity log
-      And user receives a "Motion Alarm" activity log 
+      Then verify the following activity log:
+       | Elements                 | 
+       |Sensor Motion Detected at Away mode|
+       |Window Opened at Away Mode|
+       |Door Opened at Away mode|
+       |ALARM AT AWAY MODE|
+       |Motion Alarm|
+       |Alarm Dismissed|
       And user "closes" activity log
       When user window "closed"
       When user door "closed"
-      Given user is set to "Away" mode through CHIL
-       And timer ends on user device
-      When user "sensor" detects the "Motion"
+      
+      @AwayMode_WindowOpenMotionDetectedDoorOpen @--xrayid:ATER-6147
+    Scenario: In away mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises with motion detection
+    Given user is set to "Away" mode through CHIL
+       And user launches and logs in to the Lyric application
+       And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And timer ends on user device
+      When user window "opened"
       Then user should be displayed with the "Alarm" screen
+      When user "sensor" detects the "Motion"
+       When  user door "opened"
        And user selects "dismiss alarm" from "alarm" screen
       When user "opens" activity log
-      And user receives a "Sensor Motion Detected at Away mode" activity log
-      And user receives a "ALARM AT AWAY MODE" activity log
-      And user receives a "Motion Alarm" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |Window Opened at Away Mode|
+       |Sensor Motion Detected at Away mode|
+       |Door Opened at Away mode|
       And user "closes" activity log
       
       
@@ -773,13 +826,13 @@ And timer ends on user device
      Then user should be displayed with the "Entry Delay" screen
      When user "sensor" detects the "Motion"
 	  When user window "opened"
-	 Then user should be displayed with the "Alarm" screen
+	  And user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
-     Then user receives a "Door Opened at Away mode" activity log
-      And user receives a "Sensor Motion Detected at Away mode" activity log
-      And user receives a "Window Opened at Away Mode"
-      And user receives a "Window Alarm At Away Mode" activity log
-      And user receives a "ALARM AT AWAY MODE" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+        |Door Opened at Away mode|
+          |Sensor Motion Detected at Away mode|
+       |Window Opened at Away Mode|
       And user "closes" activity log 
       
       
@@ -795,7 +848,7 @@ And timer ends on user device
       |Location Details|
       |Edit Account|
       |About the app|
-      |Add New Device|
+       #  |Add New Device|
      # |Alert|
      # |Comfort Solution Card|
      # |WLD Solution Card|
@@ -823,7 +876,7 @@ And timer ends on user device
       |Location Details|
       |Edit Account|
       |About the app|
-      |Add New Device|
+     # |Add New Device|
      # |Alert|
      # |Comfort Solution Card|
      # |WLD Solution Card|
@@ -915,13 +968,18 @@ And timer ends on user device
        
 
       @Alarm_Call @--xrayid:ATER-6147
-    Scenario Outline: As an user I should be able to call police from alarm screen on confirming intruder in premises
+    Scenario: As an user I should be able to call police from alarm screen on confirming intruder in premises
       Given user is set to "Away" mode through CHIL
-       When user "opens" the window
-        And user launches and logs in to the Lyric application
-   	   Then user should be displayed with the "Alarm" screen
+       And user launches and logs in to the Lyric application
+        When user window "Tampered"
+       Then user should be displayed with the "Alarm" screen
        When user selects "Call" from "Alarm" screen
-       Then user should be displayed with "Call" screen from "Alarm" screen
+       Then user should be displayed with the "Call" screen
+       When user selects "Cancel" from "Call" screen
+       Then user should be displayed with the "Alarm" screen
+        When user selects "Call" from "Alarm" screen
+       When user selects "Call the police" from "Call" screen
+      # Then user should be displayed with the “Phone” screen
        
        
     @Motiontampered @--xrayid:ATER-6190
@@ -991,7 +1049,7 @@ And timer ends on user device
     |ZWAVE DEVICE THROUGH GENERAL Exclusion      |Exclusion Mode Active|
 
    
-   @Livestreaming_Alarm_Entrydelay  @--xrayid:ATER-6147
+   @Livestreaming_Alarm_Entrydelay  @NotAutomated @--xrayid:ATER-6147
     Scenario Outline: As an user I should be able to pause and resume streaming in alarm screen
       Given user is set to "Away" mode through CHIL
        When user "opens" the door

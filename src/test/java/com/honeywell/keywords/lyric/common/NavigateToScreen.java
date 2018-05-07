@@ -197,6 +197,22 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "ACTIVITY HISTORY": {
+					Dashboard dScreen = new Dashboard(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MESSAGES)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Activity history menu from Global drawer");
+						}else{
+							//Fetching Messages
+						}
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
 				case "GEOFENCE SETTING": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {

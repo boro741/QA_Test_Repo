@@ -50,6 +50,18 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "CALL": {
+				AlarmScreen click = new AlarmScreen(testCase);
+				flag=click.isCallScreenDisplayed();
+				if(flag){
+					Keyword.ReportStep_Pass(testCase,expectedScreen.get(0).toUpperCase() +"is displayed");
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "WAITING TO CLOSE":{
 				AlarmScreen alarmScreen = new AlarmScreen(testCase);
 				if (alarmScreen.isWaitingToCloseScreenDisplayed()){

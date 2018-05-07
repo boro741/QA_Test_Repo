@@ -19,7 +19,7 @@ public class SecondaryCardSettings extends MobileScreens {
 	public static final String ADDNEWDEVICE = "Add New Device";
 	public static final String ABOUTTHEAPP= "About the app";
 	public static final String EDITACCOUNT = "Edit Account";
-	public static final String MESSAGES = "Messages";
+	public static final String MESSAGES = "Activity History";
 	public static final String LOGOUT = "Logout";
 	public static final String ADDRESSDETAILS = "Address";
 
