@@ -83,4 +83,10 @@ public class AlarmScreen extends MobileScreens {
 	public boolean clickCallPoliceButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CallPolice");
 	}
+	public boolean clickalarmHistoryButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "History_BottomArrow");
+	}
+	public boolean isAlarmHistoryDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_History");
+	}
 }

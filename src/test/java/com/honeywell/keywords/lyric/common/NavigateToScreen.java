@@ -16,6 +16,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -813,6 +814,21 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			else if (screen.get(1).equalsIgnoreCase("Alarm")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ALARM HISTORY": {
+					//AlarmScreen click = new AlarmScreen(testCase);
+					ActivityLogsScreen activityUtil= new ActivityLogsScreen(testCase);
+					activityUtil.clickOnOpenActivityLogsIcon();
+					//flag = flag & click.clickalarmHistoryButton();
 					break;
 				}
 				default: {

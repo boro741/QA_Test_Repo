@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -1460,4 +1459,69 @@ public class LyricUtils {
 		}
 		return flag;
 	}
+	
+	public static String[][] getAllAlerts(TestCases testCase) throws Exception {
+
+		String alerts[][] = new String[1][1];
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("id",
+						"ll_history_msg_container", testCase, 10)) {
+					List<WebElement> linearLayouts = new ArrayList<WebElement>();
+					linearLayouts = MobileUtils.getMobElements(testCase, "id",
+							"ll_history_msg_container");
+					alerts = new String[linearLayouts.size()][2];
+					int i = 0;
+					for (WebElement e : linearLayouts) {
+						List<WebElement> alertDetails = e.findElements(By
+								.className("android.widget.TextView"));
+						int j = 0;
+						for (WebElement details : alertDetails) {
+							if (j > 1) {
+								break;
+							}
+							alerts[i][j] = details.getAttribute("text");
+							j++;
+						}
+						i++;
+					}
+				} else {
+					throw new Exception("No Alerts found");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "alerts_cell",
+						testCase, 10)) {
+
+					List<MobileElement> tableCells = new ArrayList<MobileElement>();
+					// tableCells = MobileUtils.getMobElements(testCase,
+					// "xpath","//XCUIElementTypeCell");
+					tableCells = testCase.getMobileDriver().findElements(
+							By.name("alerts_cell"));
+					alerts = new String[tableCells.size()][2];
+					int i = 0;
+					for (MobileElement e : tableCells) {
+						List<MobileElement> alertDetails = e.findElements(By
+								.xpath("//XCUIElementTypeStaticText"));
+						int j = 0;
+						for (MobileElement details : alertDetails) {
+							if (j > 1) {
+								break;
+							}
+							alerts[i][j] = details.getAttribute("value");
+							j++;
+						}
+						i++;
+					}
+				} else {
+					throw new Exception("No Alerts found");
+				}
+
+			}
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return alerts;
+	}
+
 }

@@ -3,14 +3,7 @@ package com.honeywell.keywords.lyric.common;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.SystemClock;
-
-import com.google.common.base.Function;
 import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -20,7 +13,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GuerrillaMailUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 
 public class VerifyEmailReceived extends Keyword {
 
@@ -84,7 +76,7 @@ public class VerifyEmailReceived extends Keyword {
 		System.out.println(time);
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'h:mm a");
 		SimpleDateFormat hour12Format = new SimpleDateFormat("hh:mm a");
-		SimpleDateFormat hour24Format = new SimpleDateFormat("HH:mm");
+		//SimpleDateFormat hour24Format = new SimpleDateFormat("HH:mm");
 		return hour12Format.format(timeFormat.parse(time));
 	}
 
