@@ -5,8 +5,8 @@ Alarm_Subtitle	id	alarm_toolbar_sub_heading					name	Alarm_Navigation_Subtitle
 AlarmLiveStream_progress	id	alarms_live_view					name	Progress				
 AlarmDismissButton	id	lyricButton_dismiss_alarm					name	Dismiss Alarm				
 CallButton	id	alarm_make_call_button					name	Call				
-CallPolice							name	Call Police				
-CancelCall							name	Cancel				
+CallPolice	id	action_sheet_item_name					name	Call Police				
+CancelCall	id	view_action_sheet_selector_cancel					name	Cancel				
 DismissAlarmPopupTitle	xpath	"//*[contains(@text,'Dismiss Alarm')]"					xpath	"//*[contains(@name,'Dismiss Alarm')]"				
 DismissAlarmPopupMessage	xpath	"//*[contains(@text,'Are you sure you want to Dismiss this Alarm')]"					xpath	"//*[contains(@name,'Are you sure you want to Dismiss this Alarm')]"				
 DismissAlarmPopupOk	id	button1					name	Ok				
