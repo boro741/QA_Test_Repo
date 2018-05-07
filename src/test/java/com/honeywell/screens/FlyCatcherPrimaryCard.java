@@ -107,10 +107,9 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 
 	public String getDailerValue() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "Dialer")
-					.findElement(By.id("Dialer")).getText();
+			return MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getText();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "Dialer");
+			return MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getAttribute("value");			
 		}
 	}
 

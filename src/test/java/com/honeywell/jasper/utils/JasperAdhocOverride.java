@@ -32,6 +32,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -138,7 +139,7 @@ public class JasperAdhocOverride {
 	public static boolean changeSystemMode(TestCases testCase, TestCaseInputs inputs, String expectedMode) {
 		boolean flag = true;
 		FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
-
+		SchedulingScreen sch = new SchedulingScreen(testCase);
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			if (!statInfo.isOnline()) {
@@ -160,8 +161,8 @@ public class JasperAdhocOverride {
 				fly.changeSystemModeToAutoMode();
 			}
 			
-			if (fly.IsCloseButtonVisible(5)){
-				fly.ClickCloseButton();
+			if (sch.IsSaveButtonVisible(10)){
+				sch.clickOnSaveButton();
 			}
 
 		} catch (Exception e) {
