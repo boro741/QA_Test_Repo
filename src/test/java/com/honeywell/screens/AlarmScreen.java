@@ -1,8 +1,12 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+
+import io.appium.java_client.TouchAction;
 
 public class AlarmScreen extends MobileScreens {
 
@@ -88,5 +92,35 @@ public class AlarmScreen extends MobileScreens {
 	}
 	public boolean isAlarmHistoryDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_History");
+	}
+	
+	public boolean openAlarmHistory() {
+		boolean flag = true;
+		WebElement History_BottomArrow = null;
+		WebElement Alarm_History = null;
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			History_BottomArrow = MobileUtils.getMobElement(objectDefinition, testCase, "History_BottomArrow");
+			Alarm_History = MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_History");
+			action = action.press(History_BottomArrow).moveTo(Alarm_History).release().perform();
+		}
+	// For IOS device
+//		else {
+//			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp")) {
+//				return MobileUtils.clickOnElement(objectDefinition, testCase, "AcitvityLogScrollUp");
+//			} else {
+//				try {
+//					// MobileElement activityLogUpElement = null;
+//					CustomDriver driver = testCase.getMobileDriver();
+//			//		if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
+//			//			driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
+//					}
+//				} catch (NoSuchElementException e) {
+//
+//					throw new Exception(e + "Activity log scroll up icon is not displayed");
+//				}
+//			}
+		
+		return flag;
 	}
 }

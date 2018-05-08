@@ -79,7 +79,24 @@ public class VerifyAlarmHistoryList extends Keyword {
 					deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
 					break;
 				}
-
+				case "MOTION SENSOR TAMEPERED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPERED_TIME");
+					break;
+				}
+				case "MOTION SENSOR TAMEPER CLEARED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper cleared";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME");
+					break;
+				}
+				case "SENSOR MOTION DETECTED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " detected motion";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
+					break;
+				}
 				case "CAMERA MOTION DETECTED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Detected";
 					expectedActivitySubHeader = "AWAY MODE";

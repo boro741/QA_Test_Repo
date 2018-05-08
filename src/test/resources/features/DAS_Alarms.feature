@@ -1020,26 +1020,26 @@ Background:
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
       And timer ends on user device
-      When user door "opened"
-      #And user "sensor" detects the "Motion"
+      When user door "tampered"
+      And user "sensor" detects the "Motion"
       Then user should be displayed with the "Entry Delay" screen
       When user selects "no options" from "Entry delay" screen
       And user should be displayed with the "Alarm" screen
       When user window "opened" 
-      #And user "Tampered" the door sensor "after" Entry delay
-      #And user "Tampered" the window sensor "after" Entry delay
-      #And user "Tampered" the motion sensor "after" Entry delay      
+      And user "Tampered" the door sensor "after" Entry delay
+      And user "Tampered" the window sensor "after" Entry delay
+      And user "Tampered" the motion sensor "after" Entry delay      
       When user navigates to "Alarm history" screen from the "Alarm" screen
       Then user should be displayed with the "Alarm history" screen
       And verify the following alarm history:
       |Elements|
-      |DOOR OPENED AT AWAY MODE|
-      |ALARM AT AWAY MODE|
-    #  |Motion Detected|
-      |Window Opened At away mode|
-    #  |Door Tampered|
-    #  |Window Tampered|
-    #  |Motion Sensor Tampered|
+      |DOOR OPENED AT NIGHT MODE|
+      |ALARM AT NIGHT MODE|
+      |SENSOR MOTION DETECTED AT NIGHT MODE|
+      |Window Opened At NIGHT mode|
+      |Door Tampered At NIGHT mode|
+      |Window Tampered At NIGHT mode|
+      |Motion Sensor Tampered At NIGHT mode|
       
 
      @ZwaveOperations_Alarm @--xrayid:ATER-6190
@@ -1064,11 +1064,11 @@ Background:
       Given user is set to "Away" mode through CHIL
        When user "opens" the door
         And user launches and logs in to the Lyric application
-        Then user should be displayed with the "Entry delay screen" screen
+        Then user should be displayed with the "Entry delay" screen
         And user camera is "Live streaming"
-       When user selects "Pause" from "Alarm" screen
+       When user selects "Pause" from "Entry delay" screen
        Then user should be displayed with "Paused streaming" 
-       When user selects "Resume" from "Alarm" screen
+       When user selects "Resume" from "Entry delay" screen
        Then user camera is "Live streaming"
    	   Then user should be displayed with the "Alarm" screen
         And user camera is "Live streaming"
