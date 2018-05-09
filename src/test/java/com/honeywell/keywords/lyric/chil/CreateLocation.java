@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -39,9 +40,19 @@ public class CreateLocation extends Keyword {
 		if(result==0){
 			flag=false;
 		}
+		if(!flag)
+		{
+			ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE,"Location Creation Failed");
+		}
 		
 		if(!FRUtils.checkLocationPermittedForFR(testCase, inputs,false,result)){
 			flag=false;
+		}
+		if(flag){
+			ReportStep_Pass(testCase,"user has a location without DAS Device as expected");
+		}
+		else{
+			ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE,"user has a location with DAS Device but he should not have DAS device in this location");
 		}
 		
 		return flag;

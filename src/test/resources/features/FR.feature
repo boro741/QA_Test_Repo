@@ -7,7 +7,7 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
   Scenario: As a user I should be shown with Facial Recognition introduction during FTUE
      Given user launches and logs in to the Lyric application
        And user has location "permitted" for facial recognition
-       And user completed DAS DIY registration
+       And user has a DAS device configured
       Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
        And user navigates to "FTUE" screen from the "Smart Home Security Success" screen
        
@@ -15,7 +15,7 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
   Scenario: As a user I should not be shown with Facial Recognition introduction during FTUE
      Given user launches and logs in to the Lyric application
        And user has location "not permitted" for facial recognition
-       And user completed DAS DIY registration
+       And user has a DAS device configured
       Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
        And user should not be displayed with the "FR FTUE" screen      
        
@@ -23,7 +23,7 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
   Scenario: As a user I should be shown with Facial Recognition option in global drawer 
      Given user launches and logs in to the Lyric application
        And user has location "permitted" for facial recognition
-       And user completed DAS DIY registration
+       And user has a DAS device configured
       When user navigates to "Global drawer" screen from the "Dashboard" screen
       Then user "should be displayed" with the "FR" option 
       And user logs out of the app
@@ -33,7 +33,7 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
   Scenario: As a user I should not be shown with Facial Recognition option in global drawer 
      Given user launches and logs in to the Lyric application
        And user has location "not permitted" for facial recognition
-       And user completed DAS DIY registration
+       And user has a DAS device configured
       When user navigates to "Global drawer" screen from the "Dashboard" screen
       Then user "should not be displayed" with the "FR" option
       And user logs out of the app
@@ -57,7 +57,7 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
   @FaceRecognitionDASDeletionFRCautionPopup
   Scenario: As a user I should be shown with caution message on non availability of FR detection fature due to Base station deletion 
      Given user launches and logs in to the Lyric application
-       And user has DAS panel
+       And user has a DAS device configured
       When user deletes basestation
       Then user should be displayed with the "Caution message about FR" popup
   
@@ -520,7 +520,7 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
   @FaceRecognitionDetectionLowlightIntensity
   Scenario Outline: As a user I should get alerts on detection of face recognition even in low light intensity till 30 lux 
      Given user launches and logs in to the Lyric application
-       And user has DAS panel in Home
+       And user has DAS panel in <State>
        And user has "ETA" in the location
        And user has light intensity <Range>
       When ETA face detected during ETA time
@@ -530,15 +530,15 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
       When user navigates to "Activity Log" screen from "Security Solution Card" screen
       Then user receives a "user arrived home" activity log
       Examples:
-       |Range  |
-       |30 Lux |
-       |50 Lux |
-       |80 Lux |
+       |Range  |State	|
+       |30 Lux |Home	|	
+       |50 Lux |Home	|
+       |80 Lux |Home	|
        
   @FaceRecognitionDetectionMultipleFace
   Scenario Outline: As a user I should get alerts on detection of face recognition even multiple faces captured in frame along with ETA FR face id 
      Given user launches and logs in to the Lyric application
-       And user has DAS panel in Home
+       And user has DAS panel in <State>
        And user has "ETA" in the location
        And user has light intensity <Range>
       When ETA face detected during ETA time along with other faces
@@ -547,6 +547,11 @@ As a user I want DAS panel to recognize person and alert the user on arrival and
       Then user should be displayed with the "Security Solution Card" screen
       When user navigates to "Activity Log" screen from "Security Solution Card" screen
       Then user receives a "user arrived home" activity log
+        Examples:
+       |Range  |State	|
+       |30 Lux |Home	|	
+       |50 Lux |Home	|
+       |80 Lux |Home	|
        
   @FaceRecognitionDetectionMobileSwitchedoff  
   Scenario Outline: As a user I should get alerts on detection of face recognition for switched off mobile during ETA and switched on back till the next day ETA start time    

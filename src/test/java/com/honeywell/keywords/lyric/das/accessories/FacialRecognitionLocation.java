@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -42,6 +43,13 @@ public class FacialRecognitionLocation extends Keyword {
 		switch (screen.get(0).toUpperCase()) {
 		case "PERMITTED": {
 			flag=FRUtils.checkLocationPermittedForFR(testCase, inputs,true,locationID);
+			if(flag){
+				ReportStep_Pass(testCase, "User has permission for FR in the location");
+			}
+			else{
+				ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,"User dont have permission for FR in the location but expected to have permission");
+			}
+				
 			break;
 		}
 		case "NOT PERMITTED":{
@@ -49,6 +57,12 @@ public class FacialRecognitionLocation extends Keyword {
 			//Update to Illinois location through chil so FR will not be shown
 			FRUtils.updateLocationThroughCHIL(testCase, inputs,"{\"city\":\"Chicago Ridge\",\"state\":\"IL\",\"country\":\"US\",\"zipcode\":\"60415\"}",locationID);
 			flag=FRUtils.checkLocationPermittedForFR(testCase, inputs,false,locationID);
+			if(flag){
+				ReportStep_Pass(testCase, "User should not have permission for FR in this location but he has");
+			}
+			else{
+				ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,"User has permission for FR in this location but he should not have permission");
+			}
 			break;
 		}
 		}

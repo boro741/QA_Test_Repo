@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
@@ -65,9 +66,17 @@ public class DisableFacialRecognition extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Could not find Edit Address Button in Home Adress Screen");
 				}
+				els.clickEditButton();
 				flag=flag & els.setState(inputs.getInputValue("IL_STATE"));
 				flag=flag & els.setZipCode(inputs.getInputValue("IL_ZIPCODE"));
-				if(els.isEditButtonExist(3)){
+				flag=MobileUtils.pressBackButton(testCase);
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(els.isSaveButtonAvailable()){
 				  flag=flag & els.clickOnSaveButton();
 				  //Go To DashBoard Screen
 				  DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
@@ -75,14 +84,22 @@ public class DisableFacialRecognition extends Keyword {
 				}
 				else{
 					flag=false;
+					ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE,"Save Button is not available");
 				}
 				try {
-					Thread.sleep(15000);
+					Thread.sleep(30000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			flag=FRUtils.checkLocationPermittedForFR(testCase, inputs,true,locationID);
+			flag=FRUtils.checkLocationPermittedForFR(testCase, inputs,false,locationID);
+			if(!flag){
+				ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE,"User Dont have permission for FR in the location but he should have permission");
+			}
+			else{
+				ReportStep_Pass(testCase,"Location is edited successfully with FR disabled state and validated FR is disabled");
+				
+			}
 			}
 			break;
 		}

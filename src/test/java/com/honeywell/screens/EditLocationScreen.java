@@ -27,6 +27,11 @@ public class EditLocationScreen extends MobileScreens{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditAddressButton", timeOut);
 	}
 	
+	public boolean clickEditButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EditAddressButton");
+	}
+	
 	public boolean setLocationName(String value)
 	{
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "LocationNameText", value);

@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -33,7 +34,7 @@ public class DASDeviceDetails extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user completed DAS DIY registration$")
+	@KeywordStep(gherkins = "^user has a DAS device configured$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			Thread.sleep(10000);
@@ -45,6 +46,9 @@ public class DASDeviceDetails extends Keyword {
 		long locationID=tempJSON.getLong("locationID");
 			if(!FRUtils.IsDASDeviceAvailableAndRegistered(testCase, inputs,true,locationID)){
 				flag=false;
+			}
+			if(!flag){
+				ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE,"DAS Device is not available in the location but it should be available");
 			}
 		
 		
