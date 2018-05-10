@@ -18,6 +18,7 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -825,10 +826,8 @@ public class NavigateToScreen extends Keyword {
 			else if (screen.get(1).equalsIgnoreCase("Alarm")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ALARM HISTORY": {
-					//AlarmScreen click = new AlarmScreen(testCase);
-					ActivityLogsScreen activityUtil= new ActivityLogsScreen(testCase);
-					activityUtil.clickOnOpenActivityLogsIcon();
-					//flag = flag & click.clickalarmHistoryButton();
+					AlarmScreen open = new AlarmScreen(testCase);
+					open.openAlarmHistory();
 					break;
 				}
 				default: {

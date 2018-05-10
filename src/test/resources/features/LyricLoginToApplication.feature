@@ -4,4 +4,6 @@ As a user I want to login to the lyric application
 
     @LoginToApplication
 	Scenario: As a user I want to login to the lyric application
-	When user launches and logs in to the Lyric application
+ Given user launches and logs in to the Lyric application
+ And user logs out of the app
+      
