@@ -30,7 +30,12 @@ public class SecretMenu extends MobileScreens {
 	}
 
 	public boolean clickOnSetAccessibilityToggle() {
-		testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes_subTitle");
+		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_subTitle")).size()>0){
+			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes_subTitle");
+		}else if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size()>0){
+			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
+		}
+
 		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_toggle")).size()>0){
 			return true;
 		}else{
