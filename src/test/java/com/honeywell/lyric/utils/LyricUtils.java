@@ -585,16 +585,16 @@ public class LyricUtils {
 				sc.clickOnSkipButton();
 			}
 			flag = flag & ls.longPressOnSecretMenuImage();
-			//			if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			//				if(sm.isFeatureTweaksVisible()){
-			//					flag = flag & sm.clickOnFeatureTweaks();
-			//					flag = flag & sm.clickOnSetAccessibilityToggle();
-			//					flag = flag & sm.clickOnNavigateUp();
-			//				}else{
-			//					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find Feature tweaks to set Accessibility");
-			//					return false;
-			//				}
-			//			}
+						if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if(sm.isFeatureTweaksVisible()){
+								flag = flag & sm.clickOnFeatureTweaks();
+								flag = flag & sm.clickOnSetAccessibilityToggle();
+								flag = flag & sm.clickOnNavigateUp();
+							}else{
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find Feature tweaks to set Accessibility");
+								return false;
+						}
+						}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
@@ -662,7 +662,7 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		//		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+	    flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		//		if (inputs.isRunningOn("Perfecto")){
 		//			Map<String, Object> params = new HashMap<>();
 		//			JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();

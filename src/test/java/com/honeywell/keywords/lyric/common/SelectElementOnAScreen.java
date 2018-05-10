@@ -49,6 +49,21 @@ public class SelectElementOnAScreen extends Keyword {
 		try {
 			if(parameters.get(1).equalsIgnoreCase("Entry delay")){
 				switch (parameters.get(0).toUpperCase()) {
+				case "PAUSE":{
+					AlarmScreen click = new AlarmScreen(testCase);
+				boolean flag=false;
+				while(flag==false) {
+					click.clickLiveStreamingArea();
+					flag=click.clickPauseStreaming();
+					
+				}
+					break;
+					}
+				case "RESUME":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					click.clickPlayStreaming();
+					break;
+				}
 				case "SWITCH TO HOME":{
 					DASAlarmUtils.clickOnSwitchToHome(testCase,inputs);
 					int i=0;
@@ -93,6 +108,17 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			}else if (parameters.get(1).equalsIgnoreCase("alarm")){
 				switch (parameters.get(0).toUpperCase()) {
+				case "PAUSE":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag=click.clickPauseStreaming();
+					
+					break;
+				}
+				case "RESUME":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					click.clickPlayStreaming();
+					break;
+				}
 				case "DISMISS ALARM":{
 					inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 					inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));

@@ -26,3 +26,6 @@ AttentionAlert	xpath	"//*[contains(@text,'Are you sure you want to raise panic a
 AttentionConfirm	id	button1										
 History_BottomArrow	id	bottom_sheet_carat_image										
 Alarm_History	id	alarms_toolbar										
+pauseStreaming	id	pauseStreaming										
+LiveStreamingArea	id	camera_surfaceview										
+playStreaming	id	camera_solution_card_retry										
