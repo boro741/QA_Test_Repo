@@ -3,17 +3,12 @@ Feature: DAS Alarms
 As a user I want to be notified when my sensors and system are intruded
 
 Background:
- #Given reset relay as precondition
- #Given user is set to "Home" mode through CHIL
+Given reset relay as precondition
+Given user is set to "Home" mode through CHIL
 #Given "ENABLE MODE PUSH NOTIFICATION" as precondition
 #And user dismisses all alerts and notification through CHIL
 
 
- @LoginAccessibilityTest
- Scenario: As a user when I see any mischief acts in the live streaming I should be able to initiate the alarm from camera card 
- Given user launches and logs in to the Lyric application
- And user logs out of the app
-      
    @Attention_FromCamera @P1 
    Scenario Outline: As a user when I see any mischief acts in the live streaming I should be able to initiate the alarm from camera card 
    Given user is set to <System> mode through CHIL
