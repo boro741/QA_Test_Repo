@@ -912,6 +912,27 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
+	
+	public int putLocationV2(long locationID,String body){
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("api/v2/locations/%s", locationID);
+				String headerData = String.format(
+						body);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 
 	
 	public int switchToOff(long locationID, String deviceID, TestCases testCase) {

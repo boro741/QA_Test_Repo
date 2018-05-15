@@ -15,6 +15,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
@@ -392,6 +393,19 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 
+				case "GLOBAL DRAWER": {
+					Thread.sleep(5000);
+					Dashboard ds = new Dashboard(testCase);
+					if (!ds.clickOnGlobalDrawerButton()) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+						flag=false;
+
+					}
+				 
+					break;
+				}
+				
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));

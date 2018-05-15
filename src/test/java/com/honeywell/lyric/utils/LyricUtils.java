@@ -621,6 +621,17 @@ public class LyricUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
 				return false;
 			}
+			if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+				
+				if (sm.isCHILFRTweakOptionAvailable()) {
+					flag = flag & sm.clickOnFRTweak();
+					
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Unable to find Feature tweaks to set Accessibility");
+					return false;
+				}
+				}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				flag = flag & MobileUtils.pressBackButton(testCase);
 			} else {
