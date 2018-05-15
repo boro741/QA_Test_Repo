@@ -50,6 +50,44 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "PAUSED STREAMING":{
+				AlarmScreen check = new AlarmScreen(testCase);
+				boolean b = check.isPlayStreamingVisible();
+				if(b) {
+					Keyword.ReportStep_Pass(testCase, "Paused Streaming is displayed");
+				}
+				else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Paused Streaming is not displayed");
+				}
+			break;
+			}
+			case "ALARM HISTORY": {
+				AlarmScreen click = new AlarmScreen(testCase);
+				flag= flag & click.isAlarmHistoryDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, "Alarm History is Displayed");
+				}
+				 else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Settings Introduction page is not displayed");
+					}
+				break;
+			}
+			case "CALL": {
+				AlarmScreen click = new AlarmScreen(testCase);
+				flag=click.isCallScreenDisplayed();
+				if(flag){
+					Keyword.ReportStep_Pass(testCase,expectedScreen.get(0).toUpperCase() +"is displayed");
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "WAITING TO CLOSE":{
 				AlarmScreen alarmScreen = new AlarmScreen(testCase);
 				if (alarmScreen.isWaitingToCloseScreenDisplayed()){

@@ -46,7 +46,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		boolean blnFlag = true;
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			testCase.getMobileDriver().findElement(By.xpath("//*[@text='HEAT']")).click();
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "HeatModeOption");
 		}else{
 			testCase.getMobileDriver().findElement(By.xpath("//*[@value='HEAT']")).click();
 		}
@@ -58,7 +58,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		boolean blnFlag = true;
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			testCase.getMobileDriver().findElement(By.xpath("//*[@text='COOL']")).click();
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CoolModeOption");
 		}else{
 			testCase.getMobileDriver().findElement(By.xpath("//*[@value='COOL']")).click();
 		}
@@ -70,7 +70,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		boolean blnFlag = true;
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			testCase.getMobileDriver().findElement(By.xpath("//*[@text='OFF']")).click();
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "OffModeOption");
 		}else{
 			testCase.getMobileDriver().findElement(By.xpath("//*[@value='OFF']")).click();
 		}		
@@ -83,7 +83,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (IsAuotModeButtonVisible(5)){
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				testCase.getMobileDriver().findElement(By.xpath("//*[@text='AUTO']")).click();
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoModeOption");
 			}else{
 				testCase.getMobileDriver().findElement(By.xpath("//*[@value='AUTO']")).click();
 			}
@@ -107,10 +107,10 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 
 	public String getDailerValue() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "Dialer")
-					.findElement(By.id("Dialer")).getText();
+			System.out.println("" + MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getTagName());
+			return MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getTagName();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "Dialer");
+			return MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getAttribute("value");			
 		}
 	}
 

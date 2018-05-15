@@ -448,7 +448,7 @@ public class LyricUtils {
 						}
 					}
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						return d.isWeatherIconVisible(1);
+						return d.isGlobalDrawerButtonVisible(5);
 					} else {
 						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
 							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
@@ -520,20 +520,20 @@ public class LyricUtils {
 								os.clickOnIgnoreButton();
 								return false;
 							}
-							if (ls.isSkipButtonVisible()) {
+							if (ls.isSkipButtonVisible()){
 								ls.clickOnSkipIntroButton();
 								return true;
 							}
 							/*
 							 * if (os.isCancelButtonVisible()) { os.clickOnCancelButton(); return false; }
 							 */ else {
-								((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
-								return false;
-							}
+								 ((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
+								 return false;
+							 }
 						} catch (Exception e) {
 							return false;
 						}
-					}
+					}						
 				});
 				if (isEventReceived) {
 					Keyword.ReportStep_Pass(testCase, "Login to Lyric : Successfully navigated to HomeScreen");
@@ -581,21 +581,20 @@ public class LyricUtils {
 			LoginScreen ls = new LoginScreen(testCase);
 			SecretMenu sm = new SecretMenu(testCase);
 			SchedulingScreen sc = new SchedulingScreen(testCase);
-			if (sc.isSkipButtonVisible(10)) {
+			if (sc.isSkipButtonVisible(10)){
 				sc.clickOnSkipButton();
 			}
 			flag = flag & ls.longPressOnSecretMenuImage();
-			if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (sm.isFeatureTweaksVisible()) {
-					flag = flag & sm.clickOnFeatureTweaks();
-					flag = flag & sm.clickOnSetAccessibilityToggle();
-					flag = flag & sm.clickOnNavigateUp();
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Unable to find Feature tweaks to set Accessibility");
-					return false;
-				}
-			}
+						if (!testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if(sm.isFeatureTweaksVisible()){
+								flag = flag & sm.clickOnFeatureTweaks();
+								flag = flag & sm.clickOnSetAccessibilityToggle();
+								flag = flag & sm.clickOnNavigateUp();
+							}else{
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find Feature tweaks to set Accessibility");
+								return false;
+						}
+						}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
@@ -674,15 +673,19 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		testCase.getMobileDriver().closeApp();
-		testCase.getMobileDriver().launchApp();
+	    flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		//		if (inputs.isRunningOn("Perfecto")){
+		//			Map<String, Object> params = new HashMap<>();
+		//			JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
+		//			params.put("identifier", "com.honeywell.acs.lyric.enterprise");
+		//			flag = Boolean.parseBoolean((String) js.executeScript("mobile:application:close",params));
+		//			flag = Boolean.parseBoolean((String) js.executeScript("mobile:application:open",params));
+		//		}
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
-			// flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs,
-			// closeCoachMarks[0]);
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
-			// flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
 
 		return flag;
@@ -1295,7 +1298,7 @@ public class LyricUtils {
 			switch (timeFormat) {
 			case "TIMEINYYMMHHMMFORMAT": {
 				time = String.valueOf(date.get(Calendar.YEAR) + "-" + month + "-" + date.get(Calendar.DAY_OF_MONTH)
-						+ "T" + hour + ":" + minute + " " + ampm);
+				+ "T" + hour + ":" + minute + " " + ampm);
 				break;
 			}
 			case "TIMEINHHMMFORMAT": {
@@ -1315,7 +1318,8 @@ public class LyricUtils {
 	public static boolean changeLocationSettings(TestCases testCase, TestCaseInputs inputs, String status) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			Activity activity = new Activity("com.android.settings", "com.android.settings.Settings");
+			Activity activity = new Activity("com.android.settings",
+					"com.android.settings.Settings");
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).startActivity(activity);
 			try {
 				Thread.sleep(2000);
@@ -1388,11 +1392,12 @@ public class LyricUtils {
 					}
 					try {
 						action.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+						.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 					} catch (Exception e) {
 					}
 
-					FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+					FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
+							testCase.getMobileDriver());
 					fWait.withTimeout(5, TimeUnit.SECONDS);
 					fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
 					try {
@@ -1418,14 +1423,17 @@ public class LyricUtils {
 						List<WebElement> locServ = MobileUtils.getMobElements(testCase, "xpath",
 								"//*[@name='Location Services']");
 						WebElement toggleSwitch = null;
-						toggleSwitch = locServ.get(4);
-						/*
-						 * for (WebElement locSer : locServ) {
-						 * System.out.println(locSer.getAttribute("value")); if
-						 * (locSer.getAttribute("value").equalsIgnoreCase("0") ||
-						 * locSer.getAttribute("value").equalsIgnoreCase("1")) { toggleSwitch = locSer;
-						 * break; } else { toggleSwitch = null; } }
-						 */
+						toggleSwitch=locServ.get(4);
+						/*for (WebElement locSer : locServ) {
+							System.out.println(locSer.getAttribute("value"));
+							if (locSer.getAttribute("value").equalsIgnoreCase("0")
+									|| locSer.getAttribute("value").equalsIgnoreCase("1")) {
+								toggleSwitch = locSer;
+								break;
+							} else {
+								toggleSwitch = null;
+							}
+						}*/
 						if (toggleSwitch != null) {
 							if (status.equalsIgnoreCase("off")) {
 								if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
@@ -1450,10 +1458,10 @@ public class LyricUtils {
 									Keyword.ReportStep_Pass(testCase, "Location Services is already turned on");
 								}
 							}
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to locate the Location Services switch");
+						}
+						else {
+							flag=false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate the Location Services switch");
 						}
 					}
 				}
@@ -1462,4 +1470,69 @@ public class LyricUtils {
 		}
 		return flag;
 	}
+	
+	public static String[][] getAllAlerts(TestCases testCase) throws Exception {
+
+		String alerts[][] = new String[1][1];
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("id",
+						"ll_history_msg_container", testCase, 10)) {
+					List<WebElement> linearLayouts = new ArrayList<WebElement>();
+					linearLayouts = MobileUtils.getMobElements(testCase, "id",
+							"ll_history_msg_container");
+					alerts = new String[linearLayouts.size()][2];
+					int i = 0;
+					for (WebElement e : linearLayouts) {
+						List<WebElement> alertDetails = e.findElements(By
+								.className("android.widget.TextView"));
+						int j = 0;
+						for (WebElement details : alertDetails) {
+							if (j > 1) {
+								break;
+							}
+							alerts[i][j] = details.getAttribute("text");
+							j++;
+						}
+						i++;
+					}
+				} else {
+					throw new Exception("No Alerts found");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "alerts_cell",
+						testCase, 10)) {
+
+					List<MobileElement> tableCells = new ArrayList<MobileElement>();
+					// tableCells = MobileUtils.getMobElements(testCase,
+					// "xpath","//XCUIElementTypeCell");
+					tableCells = testCase.getMobileDriver().findElements(
+							By.name("alerts_cell"));
+					alerts = new String[tableCells.size()][2];
+					int i = 0;
+					for (MobileElement e : tableCells) {
+						List<MobileElement> alertDetails = e.findElements(By
+								.xpath("//XCUIElementTypeStaticText"));
+						int j = 0;
+						for (MobileElement details : alertDetails) {
+							if (j > 1) {
+								break;
+							}
+							alerts[i][j] = details.getAttribute("value");
+							j++;
+						}
+						i++;
+					}
+				} else {
+					throw new Exception("No Alerts found");
+				}
+
+			}
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return alerts;
+	}
+
 }

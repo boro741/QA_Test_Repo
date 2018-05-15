@@ -20,10 +20,11 @@ public class SecretMenu extends MobileScreens {
 	public boolean isFeatureTweaksVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FeatureTweaks", 3);
 	}
-	
+
 	public boolean clickOnFeatureTweaks() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FeatureTweaks");
 	}
+
 	
 	public boolean isCHILFRTweakOptionAvailable() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FRTweak", 3);
@@ -33,20 +34,27 @@ public class SecretMenu extends MobileScreens {
 		return MobileUtils.switchonElementAndroidOnly(objectDefinition, testCase, "FRTweak",true);
 	}
 	
+
 	public boolean clickOnNavigateUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrow");
 	}
-	
+
 	public boolean clickOnSetAccessibilityToggle() {
+		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_subTitle")).size()>0){
+			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes_subTitle");
+		}else if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size()>0){
+			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
+		}
+
 		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_toggle")).size()>0){
 			return true;
 		}else{
 			MobileElement ele =testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).get(1);
-   		 return MobileUtils.clickOnElement(testCase, ele, "Accessibility Attribute enable/Disbale");
+			return MobileUtils.clickOnElement(testCase, ele, "Accessibility Attribute enable/Disbale");
 
 		}
 	}
-	
+
 	public boolean isWebServerURLVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WebServerURL", 3);
 	}
@@ -165,5 +173,5 @@ public class SecretMenu extends MobileScreens {
 	public boolean clickOnDoneButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 	}
-	
+
 }

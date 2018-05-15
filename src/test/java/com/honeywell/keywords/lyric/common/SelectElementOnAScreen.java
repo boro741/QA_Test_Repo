@@ -49,6 +49,21 @@ public class SelectElementOnAScreen extends Keyword {
 		try {
 			if(parameters.get(1).equalsIgnoreCase("Entry delay")){
 				switch (parameters.get(0).toUpperCase()) {
+				case "PAUSE":{
+					AlarmScreen click = new AlarmScreen(testCase);
+				boolean flag=false;
+				while(flag==false) {
+					click.clickLiveStreamingArea();
+					flag=click.clickPauseStreaming();
+					
+				}
+					break;
+					}
+				case "RESUME":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					click.clickPlayStreaming();
+					break;
+				}
 				case "SWITCH TO HOME":{
 					DASAlarmUtils.clickOnSwitchToHome(testCase,inputs);
 					int i=0;
@@ -93,6 +108,17 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			}else if (parameters.get(1).equalsIgnoreCase("alarm")){
 				switch (parameters.get(0).toUpperCase()) {
+				case "PAUSE":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag=click.clickPauseStreaming();
+					
+					break;
+				}
+				case "RESUME":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					click.clickPlayStreaming();
+					break;
+				}
 				case "DISMISS ALARM":{
 					inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 					inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -119,7 +145,8 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "CALL":{
-					flag= flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag= flag & click.clickOnCall();
 					break;
 
 				}
@@ -257,6 +284,25 @@ public class SelectElementOnAScreen extends Keyword {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Call")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickCancelButton();
+					break;
+				}
+				case "CALL THE POLICE":{
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickCallPoliceButton();
+					break;
+
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+				}
+				}
 			}
 		} catch (
 

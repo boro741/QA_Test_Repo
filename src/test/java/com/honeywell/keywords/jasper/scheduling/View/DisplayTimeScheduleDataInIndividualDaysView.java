@@ -159,9 +159,8 @@ public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 									scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 						}
 						int m = 0;
-						while ((!MobileUtils.isMobElementExists("XPATH",
-								"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + days[i] + "_"
-										+ schedulePeriods[j] + "']",
+						while ((!MobileUtils.isMobElementExists("name",days[i] + "_"
+										+ schedulePeriods[j] + "_cell",
 								testCase, 5)) && m < 10) {
 							if (desiredDayIndex > greaterDayIndex) {
 								touchAction.press(10, (int) (dimension.getHeight() * .5))
@@ -179,8 +178,7 @@ public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 						}
 
 						WebElement period = testCase.getMobileDriver()
-								.findElement(By.xpath("//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
-										+ days[i] + "_" + schedulePeriods[j] + "']"));
+								.findElement(By.name(days[i] + "_" + schedulePeriods[j] + "_cell"));
 
 						if (period == null) {
 							flag = false;

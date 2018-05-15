@@ -16,7 +16,7 @@ import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.account.information.LocationInformation;
 
-public class VerifyActivityList extends Keyword {
+public class VerifyAlarmHistoryList extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
@@ -24,7 +24,7 @@ public class VerifyActivityList extends Keyword {
 	public boolean flag = true;
 	public String[][] eventsList;
 
-	public VerifyActivityList(TestCases testCase, TestCaseInputs inputs,  DataTable dataTable) {
+	public VerifyAlarmHistoryList(TestCases testCase, TestCaseInputs inputs,  DataTable dataTable) {
 		this.testCase = testCase;
 		this.dataTable = dataTable;
 		this.inputs = inputs;
@@ -38,7 +38,7 @@ public class VerifyActivityList extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify the following activity log:$")
+	@KeywordStep(gherkins = "^verify the following alarm history:$")
 	public boolean keywordSteps() throws KeywordException {
 /*
 		if(true){
@@ -79,7 +79,24 @@ public class VerifyActivityList extends Keyword {
 					deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
 					break;
 				}
-
+				case "MOTION SENSOR TAMEPERED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPERED_TIME");
+					break;
+				}
+				case "MOTION SENSOR TAMEPER CLEARED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper cleared";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME");
+					break;
+				}
+				case "SENSOR MOTION DETECTED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " detected motion";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
+					break;
+				}
 				case "CAMERA MOTION DETECTED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Detected";
 					expectedActivitySubHeader = "AWAY MODE";

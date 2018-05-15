@@ -23,13 +23,13 @@ CrossButton	XPATH	//android.view.ViewGroup/android.widget.ImageButton	XPATH	//an
 DoneButton	XPATH	//android.widget.Button[@text='DONE']	XPATH	//android.widget.Button[@text='DONE']	XPATH	//android.widget.Button[@text='DONE']	ID	Done	ID	Done	ID	Done
 EditedValue	NAME	6:20 AM	NAME	6:20 AM	NAME	6:20 AM	XPATH	//*[@value='06:20 am']	XPATH	//*[@value='06:20 am']	XPATH	//*[@value='06:20 am']
 EditedValueEndTime	NAME	10:40 PM	NAME	10:40 PM	NAME	10:40 PM	XPATH	//*[@value='06:20 am']	XPATH	//*[@value='06:20 am']	XPATH	//*[@value='06:20 am']
-EverydayAway	XPATH	//*[@content-desc='Away_Everyday']	XPATH	//*[@content-desc='Away_Everyday']	XPATH	//*[@content-desc='Away_Everyday']	NAME	Everyday_Away	NAME	Everyday_Away	NAME	Everyday_Away
-EverydayHome	XPATH	//*[@content-desc='Home_Everyday']	XPATH	//*[@content-desc='Home_Everyday']	XPATH	//*[@content-desc='Home_Everyday']	NAME	Everyday_Home	NAME	Everyday_Home	NAME	Everyday_Home
+EverydayAway	XPATH	//*[@content-desc='Away_Everyday']	XPATH	//*[@content-desc='Away_Everyday']	XPATH	//*[@content-desc='Away_Everyday']	NAME	Everyday_Away_subTitle	NAME	Everyday_Away_subTitle	NAME	Everyday_Away_subTitle
+EverydayHome	XPATH	//*[@content-desc='Home_Everyday']	XPATH	//*[@content-desc='Home_Everyday']	XPATH	//*[@content-desc='Home_Everyday']	NAME	Everyday_Home_subTitle	NAME	Everyday_Home_subTitle	NAME	Everyday_Home_subTitle
 EverydayScheduleButton	ID	schedule_time_everySchedule_button	ID	schedule_time_everySchedule_button	ID	schedule_time_everySchedule_button	NAME	Everyday Schedule	NAME	Everyday Schedule	NAME	Everyday Schedule
-EverydaySleep	XPATH	//*[@content-desc='Sleep_Everyday']	XPATH	//*[@content-desc='Sleep_Everyday']	XPATH	//*[@content-desc='Sleep_Everyday']	NAME	Everyday_Sleep	NAME	Everyday_Sleep	NAME	Everyday_Sleep
+EverydaySleep	XPATH	//*[@content-desc='Sleep_Everyday']	XPATH	//*[@content-desc='Sleep_Everyday']	XPATH	//*[@content-desc='Sleep_Everyday']	NAME	Everyday_Sleep_subTitle	NAME	Everyday_Sleep_subTitle	NAME	Everyday_Sleep_subTitle
 EverydayTime	ID	scheduling_period_time	ID	scheduling_period_time	ID	scheduling_period_time	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]"
 EverydayTitleList	XPATH	"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout[1]/android.widget.TextView"	XPATH	"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout[1]/android.widget.TextView"	XPATH	"//*[contains(@content-desc,'_Everyday')]/android.widget.LinearLayout[1]/android.widget.TextView"	XPATH	"//*[contains(@name,'Everyday_')]//*[contains(@label,'TimeScheduleLabel_')]"	XPATH	"//*[contains(@name,'Everyday_')]//*[contains(@label,'TimeScheduleLabel_')]"	XPATH	"//*[contains(@name,'Everyday_')]//*[contains(@label,'TimeScheduleLabel_')]"
-EverydayWake	XPATH	//*[@content-desc='Wake_Everyday']	XPATH	//*[@content-desc='Wake_Everyday']	XPATH	//*[@content-desc='Wake_Everyday']	ID	Everyday_Wake	ID	Everyday_Wake	ID	Everyday_Wake
+EverydayWake	XPATH	//*[@content-desc='Wake_Everyday']	XPATH	//*[@content-desc='Wake_Everyday']	XPATH	//*[@content-desc='Wake_Everyday']	ID	Everyday_Wake_subTitle	ID	Everyday_Wake_subTitle	ID	Everyday_Wake_subTitle
 GeofenceSleepSubTitle							NAME	Geofence_Sleep_subTitle	NAME	Geofence_Sleep_subTitle	NAME	Geofence_Sleep_subTitle
 GeofenceAway							XPATH	//*[@name='Geofence_Away']	XPATH	//*[@name='Geofence_Away']	XPATH	//*[@name='Geofence_Away']
 GeofenceAwayCool							NAME	Geofence_Away_CoolTemperature	NAME	Geofence_Away_CoolTemperature	NAME	Geofence_Away_CoolTemperature
@@ -82,8 +82,8 @@ TimeAM	ID	am_label	ID	am_label	ID	am_label	XPATH	//*[@value='AM']	XPATH	//*[@val
 TimeAMPM							xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"	xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"	xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"
 TimeChooser	ID	start_time_chooser	ID	start_time_chooser	ID	start_time_chooser	NAME	TimeSchedule_StartTime_value	NAME	TimeSchedule_StartTime_value	NAME	TimeSchedule_StartTime_value
 TimeChooserEndTime	ID	end_time_chooser	ID	end_time_chooser	ID	end_time_chooser	NAME	TimeSchedule_EndTime_value	NAME	TimeSchedule_EndTime_value	NAME	TimeSchedule_EndTime_value
-TimeHours							XPATH	"//*[contains(@value,'clock')]"	XPATH	"//*[contains(@value,'clock')]"	XPATH	"//*[contains(@value,'clock')]"
-TimeMinutes							XPATH	"//*[contains(@value,'minutes')]"	XPATH	"//*[contains(@value,'minutes')]"	XPATH	"//*[contains(@value,'minutes')]"
+TimeHours							XPATH	//XCUIElementTypePickerWheel[1]	XPATH	//XCUIElementTypePickerWheel[1]	XPATH	//XCUIElementTypePickerWheel[1]
+TimeMinutes							XPATH	//XCUIElementTypePickerWheel[2]	XPATH	//XCUIElementTypePickerWheel[2]	XPATH	//XCUIElementTypePickerWheel[2]
 TimeOption	XPATH	//android.widget.TextView[@text='Time']	XPATH	//android.widget.TextView[@text='Time']	XPATH	//android.widget.TextView[@text='Time']	NAME	Time	NAME	Time	NAME	Time
 TimePicker	ID	radial_picker	ID	radial_picker	ID	radial_picker						
 TimePM	ID	pm_label	ID	pm_label	ID	pm_label	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']
@@ -130,7 +130,7 @@ Weekend1	XPATH	//*[@content-desc='1_Saturday - Sunday']	XPATH	//*[@content-desc=
 Weekend2	XPATH	//*[@content-desc='2_Saturday - Sunday']	XPATH	//*[@content-desc='2_Saturday - Sunday']	XPATH	//*[@content-desc='2_Saturday - Sunday']	XPATH	//*[@name='Saturday - Sunday_2']	XPATH	//*[@name='Saturday - Sunday_2']	XPATH	//*[@name='Saturday - Sunday_2']
 Weekend3	XPATH	//*[@content-desc='3_Saturday - Sunday']	XPATH	//*[@content-desc='3_Saturday - Sunday']	XPATH	//*[@content-desc='3_Saturday - Sunday']	XPATH	//*[@name='Saturday - Sunday_3']	XPATH	//*[@name='Saturday - Sunday_3']	XPATH	//*[@name='Saturday - Sunday_3']
 Weekend4	XPATH	//*[@content-desc='4_Saturday - Sunday']	XPATH	//*[@content-desc='4_Saturday - Sunday']	XPATH	//*[@content-desc='4_Saturday - Sunday']	XPATH	//*[@name='Saturday - Sunday_4']	XPATH	//*[@name='Saturday - Sunday_4']	XPATH	//*[@name='Saturday - Sunday_4']
-TimeScheduleStartTime							NAME	TimeSchedule_StartTime	NAME	TimeSchedule_StartTime	NAME	TimeSchedule_StartTime
+TimeScheduleStartTime							NAME	TimeSchedule_StartTime_value	NAME	TimeSchedule_StartTime_value	NAME	TimeSchedule_StartTime_value
 TimeScheduleEndTime							XPATH	//XCUIElementTypeCell[@name='End']	XPATH	//XCUIElementTypeCell[@name='End']	XPATH	//XCUIElementTypeCell[@name='End']
 StartButton							NAME	Start	NAME	Start	NAME	Start
 TimeScheduleEndTimeCell							NAME	TimeSchedule_EndTime_cell	NAME	TimeSchedule_EndTime_cell	NAME	TimeSchedule_EndTime_cell

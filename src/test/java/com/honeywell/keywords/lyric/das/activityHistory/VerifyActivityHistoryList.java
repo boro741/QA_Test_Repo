@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.das.activitylogs;
+package com.honeywell.keywords.lyric.das.activityHistory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,19 +12,18 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.account.information.LocationInformation;
 
-public class VerifyActivityList extends Keyword {
+public class VerifyActivityHistoryList extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	public DataTable dataTable;
 	public boolean flag = true;
-	public String[][] eventsList;
+	public String[][] alerts;
 
-	public VerifyActivityList(TestCases testCase, TestCaseInputs inputs,  DataTable dataTable) {
+	public VerifyActivityHistoryList(TestCases testCase, TestCaseInputs inputs,  DataTable dataTable) {
 		this.testCase = testCase;
 		this.dataTable = dataTable;
 		this.inputs = inputs;
@@ -33,12 +32,16 @@ public class VerifyActivityList extends Keyword {
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() throws KeywordException {
-		eventsList =DASActivityLogsUtils.fetchActivityList(testCase);
+		try {
+			alerts= LyricUtils.getAllAlerts(testCase);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return flag;
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify the following activity log:$")
+	@KeywordStep(gherkins = "^verify the following activity history:$")
 	public boolean keywordSteps() throws KeywordException {
 /*
 		if(true){
@@ -249,7 +252,9 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "ALARM AT AWAY MODE": {
-					expectedActivityHeader = "Security Alarm";
+					
+				//	Alarm, [Location Name], [Panel Name], [Event Time]
+					expectedActivityHeader = "Alarm at"+inputs.getInputValue("LOCATION1_NAME");
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 					break;
@@ -488,6 +493,8 @@ public class VerifyActivityList extends Keyword {
 				if (dataTable.getData(i, "Elements").trim().contains("by invited user")) {
 					inputs.setInputValue("USERID", actualUser);
 				}
+				
+				/*
 				if (deviceLocationTime.equals("")) {
 					deviceLocationTime = LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT");
 					System.out.println("########deviceLocationTime: " + deviceLocationTime);
@@ -551,6 +558,52 @@ public class VerifyActivityList extends Keyword {
 							+ hour12Format.format(expectedTime) + " ExepectedHeader: " + expectedActivityHeader
 							+ " Expected Sub Header: " + expectedActivitySubHeader);
 				}
+				*/
+				/*if (MobileUtils.isMobElementExists(fieldObjects, testCase,
+						"AlertsTitle", 5)) {
+					Keyword.ReportStep_Pass(testCase,
+							"User is already on the alerts screen");
+				} else {
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase,
+							"AlertsIcon", 3)) {
+						flag = flag
+								& MobileUtils.clickOnElement(fieldObjects,
+										testCase, "AlertsIcon");
+					}
+				}*/
+				
+				// System.out.println(Arrays.deepToString(alerts));
+				boolean alertFound = false;
+				for (int index = 0; index < alerts.length; index++) {
+					try {
+						if (expectedActivityHeader.equalsIgnoreCase(alerts[index][0])) {
+							alertFound = true;
+							break;
+						}
+					} catch (NoSuchElementException e) {
+						break;
+					} catch (NullPointerException e) {
+						break;
+					} catch (Exception e) {
+						break;
+					}
+				}
+				if (alertFound) {
+					Keyword.ReportStep_Pass(testCase, expectedActivityHeader
+							+ " found on the alerts screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(
+							testCase,
+							FailType.FUNCTIONAL_FAILURE,
+							expectedActivityHeader
+							+ " not found on the alerts screen. Expected Alert: "
+							+ expectedActivityHeader);
+				}
+			
+			if(dataTable.getData(i, "Elements").contains("by invited user")){
+				inputs.setInputValue("USERID",actualUser);
+			}
 			}
 			
 			
@@ -560,7 +613,7 @@ public class VerifyActivityList extends Keyword {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		// }
-		eventsList = null;
+		alerts = null;
 		return flag;
 
 	}

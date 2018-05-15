@@ -13,7 +13,7 @@ so that my home temperature will get set automatically all days based on the new
       | Features               | 
       | Scheduling Icon        |
       | Following schedule      | 
-#    And user logs out of the app
+    And user logs out of the app
   
   @ViewTimescheduledefaultNA @FlyAutomated @--xrayid:ATER-7586
   Scenario Outline: To view the Time schedule for stat with systems Heat cool,Cool,Heat and Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
@@ -97,7 +97,8 @@ so that my home temperature will get set automatically all days based on the new
       | Individual days | within range  | 
   
   @EditTimescheduleTemperatureEverydayAutochangeoverEnabledNA @FlyAutomated @--xrayid:ATER-7589
-  Scenario Outline: To edit time schedule by setting up with new temperature value for systems Heat cool for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr with autochangeover enabled
+  Scenario Outline: To edit time schedule by setting up with new temp value for systems Heat cool for Temp scale c F 
+  #and for time format 24/12hr with autochangeover enabled
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
      And user selects "Jasper device" from the dashboard
@@ -114,15 +115,15 @@ so that my home temperature will get set automatically all days based on the new
     Examples: 
       | Type            | Temperature   | 
       | Grouped days    | Above Maximum | 
-      | Grouped days    | Below Minimum | 
-      | Grouped days    | At Maximum    | 
-      | Grouped days    | At Minimum    | 
-      | Grouped days    | within range  | 
-      | Individual days | Above Maximum | 
-      | Individual days | Below Minimum | 
-      | Individual days | At Maximum    | 
-      | Individual days | At Minimum    | 
-      | Individual days | within range  | 
+#      | Grouped days    | Below Minimum | 
+#      | Grouped days    | At Maximum    | 
+#      | Grouped days    | At Minimum    | 
+#      | Grouped days    | within range  | 
+#      | Individual days | Above Maximum | 
+#      | Individual days | Below Minimum | 
+#      | Individual days | At Maximum    | 
+#      | Individual days | At Minimum    | 
+#      | Individual days | within range  | 
   
   @EditTimescheduleTimeformatNA @NOTFlyAutomated @--xrayid:ATER-7590
   Scenario Outline: To Edit Time schedule by setting up with new time value for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
@@ -142,14 +143,15 @@ so that my home temperature will get set automatically all days based on the new
       #| Individual days | 
   
   @EditTimescheduleOverlapTwoPeriodsNA @FlyAutomated @--xrayid:ATER-7591
-  Scenario Outline: The Time schedule removed if setting up with time value as same as it for new time schedule for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
+  Scenario Outline: The Time schedule removed if setting up with time value as same as it for new time schedule for systems Heat cool,Cool,Heat 
+  #for Temperature scale C or Fahrenheit and for time format 24 or 12hr
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
      And user selects "Jasper device" from the dashboard
     And user selects view by <Type>
-     When user edit "Wake" period by changing time value to "6 00 AM"
+     When user edit "Wake" period by changing time value to "06 00 AM"
      And user selects "Jasper device" from the dashboard
-     And user edit "Away" period by changing time value to "6 00 AM"
+     And user edit "Away" period by changing time value to "06 00 AM"
      And user selects "Jasper device" from the dashboard
      Then verify "Time" schedule successfully gets edited 
      And user selects "Jasper device" from the dashboard

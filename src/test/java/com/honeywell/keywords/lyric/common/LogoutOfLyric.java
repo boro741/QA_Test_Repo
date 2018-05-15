@@ -106,7 +106,7 @@ public class LogoutOfLyric extends Keyword {
 								fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
 								try {
 									WebElement logoutElement = fWait.until(ExpectedConditions
-											.visibilityOfElementLocated(By.xpath("//*[@label='logout']")));
+											.visibilityOfElementLocated(By.xpath("//*[@label='logout_subTitle']")));
 									if (logoutElement != null) {
 										logoutElement.click();
 										success = true;
@@ -120,7 +120,7 @@ public class LogoutOfLyric extends Keyword {
 								}
 							}
 						} else {
-							element = testCase.getMobileDriver().scrollTo("Logout");
+							element = testCase.getMobileDriver().scrollTo("logout_subTitle");
 							if (element != null) {
 								element.click();
 								ReportStep_Pass(testCase, "Clicked on Logout option");
