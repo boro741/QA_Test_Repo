@@ -24,12 +24,15 @@ Given user is set to "Home" mode through CHIL
     #check status bar of live streaming
     When user selects "confirms attention" from "Camera Solution Card" screen
     Then user should be displayed with the "Alarm" screen  
+    #navigate to dashboard and verify the attention status
     #When user receives a "Alarm" push notification
     When user selects "dismiss alarm" from "alarm" screen
 	Then user should be displayed with the "Camera Solution Card" screen
+	 # camera remains on
 	# And user DAS camera is "Live streaming" 
     When user selects "cancels attention" from "Camera Solution Card" screen
     Then user should be displayed with the "Camera Solution Card" screen
+    # camera remains on
     When user navigates to "Security Solution card" screen from "Camera Solution Card" screen
      And user "opens" activity log
      Then verify the following activity log:
@@ -60,7 +63,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
      
-     @AwayMode_doorsensor_SwitchingToHomeFromEntryDelay_withDoorOpen
+     @Doorsensor_OpenAfterAwayExitDelay_SwitchingToHomeFromEntryDelay_withDoorOpen
     Scenario: As a user when I open the door and left open after exit delay I should be able to switch to home from entry delay screen on my arrival to home and should be notified the door status
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -217,6 +220,7 @@ Given user is set to "Home" mode through CHIL
      Then user receives a "Alarm cancelled" email
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
+     #verify the status of sensors  defect found as offline
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 | 
@@ -324,6 +328,7 @@ Given user is set to "Home" mode through CHIL
    #   And user lyric app screen is locked
      And timer ends on user device
      And  user door "opened"
+     #verify the entry delay status on dashboard
      Then user selects the "Door Opened" push notification
      When user selects "Switch to Night" from "Entry delay" screen
    #  Then user should be displayed with "Lyric app locked" screen
@@ -774,6 +779,7 @@ Given user is set to "Home" mode through CHIL
      # Then user should be displayed with "Mobile Locked" screen
      # When user enters "Mobile Passcode"
    	 Then user should be displayed with the "Alarm" screen
+   	 #navigate to dashboard and verify the status 
    	  When user window "Tamper Restored"
      When user selects "dismiss alarm" from "alarm" screen
      When user "opens" activity log
@@ -920,6 +926,7 @@ Given user is set to "Home" mode through CHIL
 	Then verify the following activity log:
        | Elements                 | 
        |Sensor Motion Detected at Away mode|
+       #verify the icon 
        |Switched to Night by app |
      When user "closes" activity log
      
@@ -938,6 +945,7 @@ Given user is set to "Home" mode through CHIL
        |Sensor Motion Detected at Away mode|
        |SIREN SOUNDED BY ACTUAL USER |
        |ALARM AT AWAY MODE|
+       #verify the icon
        |Alarm Dismissed|
      When user "closes" activity log
      
@@ -1266,6 +1274,10 @@ Given user is set to "Home" mode through CHIL
        Then user should be displayed with the "Paused streaming" 
        When user selects "Resume" from "Alarm" screen
        Then user camera is "Live streaming"
+       #minimize and launch the aoo, check live stream
+       #close the shutter and open in mid of alarm or entry delay, check live stream
+       #cover attention alarm
+       
        
     @Alarm_Offline @--xrayid:ATER-6190 @SetupRequired
  Scenario: As a user I should be shown with help message after panel offline so that i will be guided to take necessary actions
@@ -1277,6 +1289,12 @@ Given user is set to "Home" mode through CHIL
      Then user "should not" "dismisses" the alarm
      Then user should be displayed with "Offline" state
       And user should be displayed with "Help" message
+      #make the alarm dismissed
+      #make the panel offline
+      #generate the sensor alarm
+      #dismiss using keyfob
+      #make panel online
+      #check the activity log for sensor alarm details 
       
       
        @Basestation_Displaced @--xrayid:ATER-6190 @SetupRequired
@@ -1319,21 +1337,25 @@ Given user is set to "Home" mode through CHIL
       
       
       
-    @AlarmDismissedViaKeyfob @--xrayid:ATER-6150
-    Scenario: As a user I should be able to dismiss alarm through keyfob
+     @AlarmDismissedViaKeyfobDiffModes @--xrayid:ATER-6150
+    Scenario Outline: As a user I should be able to dismiss alarm through keyfob
      Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
      And user clears all push notifications
      When  user window "opened"
-     When user selects "dismiss alarm" from keyfob
+     When user selects <Mode> from keyfob
+     #validate email content
      And user navigates to "Security Solution card" screen from the "Dashboard" screen
-     Then user status should be set to "Home"
+     Then user status should be set to <Mode>
      When user "opens" activity log
      Then verify the following activity log:
-       | Elements                 | 
+       | Elements  | 
        | Alarm Dismissed |
        | Switched to Home by Keyfob|
      And user "closes" activity log
-     
+     Examples:
+     |Mode|
+     |Home|
+     |Off |
      
      
