@@ -31,3 +31,13 @@ CancelOption	ID	view_thermostat_mode_selector_cancel	ID	view_thermostat_mode_sel
 IndoorTemperature	ID	fragment_thermostat_current_temperature	ID	fragment_thermostat_current_temperature	ID	fragment_thermostat_current_temperature	NAME	DashBoard_CurrentTemperature	NAME	DashBoard_CurrentTemperature	NAME	DashBoard_CurrentTemperature
 AutoModeOption	XPATH	//*[@text='AUTO']	XPATH	//*[@text='Auto']	XPATH	//*[@text='Auto']	XPATH	//*[@value='AUTO']	XPATH	//*[@value='AUTO']	XPATH	//*[@value='AUTO']
 LocationNameIOS							name	Location Name	name	Location Name	name	Location Name
+MoreButton							ID	more	ID	more	ID	more
+PriorityButton							ID	PRIORITY	ID	PRIORITY	ID	PRIORITY
+VentilationButton							ID	VENTILATION	ID	VENTILATION	ID	VENTILATION
+VentilationOnActiveButton							ID	ventilation on active	ID	ventilation on active	ID	ventilation on active
+VentilationAutoActiveButton							ID	ventilation auto active	ID	ventilation auto active	ID	ventilation auto active
+VentilationOffActiveButton							ID	ventilation off active	ID	ventilation off active	ID	ventilation off active
+RunVentialtionButton							ID	Run Ventilation Now	ID	Run Ventilation Now	ID	Run Ventilation Now
+StopTimerButton							ID	Stop Timer	ID	Stop Timer	ID	Stop Timer
+VentilationTimerDown							ID	temp stepper down	ID	temp stepper down	ID	temp stepper down
+VentilationTimerUp							ID	temp stepper up	ID	temp stepper up	ID	temp stepper up
