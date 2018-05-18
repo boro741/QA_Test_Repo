@@ -1,0 +1,7 @@
+FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
+CardNumber	XPATH	"//*[@bounds='[90,220][630,260]']"										
+CardHolderName	XPATH	//*[@text='Enter Name']										
+Expiration	XPATH	//*[@index='4']										
+Cvc	XPATH	//*[@index='6']										
+Zip	XPATH	//*[@index='8']										
+PayNow	XPATH	//*[@content-desc='PAY NOW']										

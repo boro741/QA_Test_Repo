@@ -966,4 +966,56 @@ public class CHILUtil implements AutoCloseable {
 
 	}
 	
+	public int getStripeCustomerAndDeleteSubscription(String stripeCustomerId, String stripePrivateKey) 
+
+			throws MalformedURLException, IOException {
+					int result = -1;
+					HttpURLConnection getResponse = null;
+					URL url = new URL("https://api.stripe.com/v1/customers/" + stripeCustomerId);
+
+					getResponse = (HttpURLConnection) url.openConnection();
+
+					getResponse.setRequestProperty("customersId", stripeCustomerId);
+					getResponse.setRequestProperty("Authorization", "Bearer " + stripePrivateKey);
+					getResponse.setRequestProperty("Cookie", cookie);
+					getResponse.setDoOutput(true);
+					getResponse.setRequestMethod("GET");
+
+					if (getResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED
+							|| getResponse.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+						BufferedReader br = new BufferedReader(new InputStreamReader
+
+			((getResponse.getInputStream())));
+						StringBuilder sb = new StringBuilder();
+						String output;
+						while ((output = br.readLine()) != null) {
+						sb.append(output);
+						}
+						String JsonString = sb.toString();
+						
+			            JSONObject obj = new JSONObject(JsonString);
+			            String subscription = ""; 
+			            JSONObject one = obj.getJSONObject("subscriptions");
+			            JSONArray two = one.getJSONArray("data");
+			            for(int j=0;j<two.length();){
+			                JSONObject ingredObject= two.getJSONObject(j);
+			                subscription = ingredObject.getString("id");
+			                break;
+			            }
+			            
+			            HttpURLConnection deleteResponse = null;
+			    		URL url1 = new URL("https://api.stripe.com/v1/subscriptions/" + subscription);
+
+			    		deleteResponse = (HttpURLConnection) url1.openConnection();
+
+			    		deleteResponse.setRequestProperty("Authorization", "Bearer " + stripePrivateKey);
+			    		deleteResponse.setDoOutput(true);
+			    		deleteResponse.setRequestMethod("DELETE");
+			    		result = deleteResponse.getResponseCode();
+					}
+
+					return result;
+				}
+	
 }
