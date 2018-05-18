@@ -2,8 +2,6 @@ package com.honeywell.keywords.lyric.chil;
 
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
-import com.honeywell.lyric.utils.LyricUtils;
 
 public class CreateLocation extends Keyword {
 	private TestCases testCase;

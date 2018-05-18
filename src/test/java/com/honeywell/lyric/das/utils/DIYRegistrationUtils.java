@@ -309,7 +309,7 @@ public class DIYRegistrationUtils {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
 		} else {
-//			flag = flag & LyricUtils.closeCoachMarks(testCase);
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
 		return flag;
 	}
@@ -319,7 +319,6 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isAvialbleLocationNameDisplayed(availableLocation)) {
 			flag = flag & dasDIY.clickOnAvailableLocationName(availableLocation);
-
 		}
 		return flag;
 	}
@@ -613,6 +612,15 @@ public class DIYRegistrationUtils {
 								return true;
 							}
 						}
+						case "ALMOST DONE LOADING PROGRESS BAR TEXT": {
+							if (dasDIY.isAlmostDoneLoadingSpinnerTextVisible()) {
+								System.out.println(
+										"Waiting for Almost Done loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
 						case "SENSOR SET UP BUTTON": {
 							if (!dasDIY.isSensorSetUpButtonVisible()) {
 								System.out.println("Waiting for Sensor Set Up button to be displayed");
@@ -890,7 +898,7 @@ public class DIYRegistrationUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								if (dasDIY.isConnectToNetworkHeaderDescVisible()) {
 									String displayedText = dasDIY.getToolBarTitleInConnectToNetworkScreen();
-									if (displayedText.equals("Connect to Network")) {
+									if (displayedText.equals("Connect")) {
 										return true;
 									} else {
 										return false;

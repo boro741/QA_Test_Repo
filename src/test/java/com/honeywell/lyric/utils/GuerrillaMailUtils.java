@@ -669,6 +669,7 @@ public class GuerrillaMailUtils {
 	 * 
 	 * @return list of new messages
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	private ArrayList<Email> _checkEmail() throws Exception {
 		httpPost = new HttpPost(String.format(apiAddr, "check_email"));
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
@@ -703,6 +704,7 @@ public class GuerrillaMailUtils {
 	 * 
 	 * @return list of new messages
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	private ArrayList<Email> _getEmailList() throws Exception {
 		httpPost = new HttpPost(String.format(apiAddr, "get_email_list"));
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
