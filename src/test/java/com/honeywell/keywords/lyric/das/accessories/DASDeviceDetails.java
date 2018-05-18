@@ -1,7 +1,5 @@
 package com.honeywell.keywords.lyric.das.accessories;
 
-import java.util.ArrayList;
-
 import org.json.JSONObject;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
