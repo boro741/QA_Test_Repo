@@ -21,12 +21,16 @@ public class DASSettingsUtils {
 			String message, locator = "";
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locator = "xpath";
-				message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
+				/*message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";*/
+				message = "//android.widget.TextView[@text='This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" +
+						" and all related accessories']";
 			} else {
 				locator = "name";
-				message = "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";
+				/*message = "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";*/
+				message = "  This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" +
+						" and all related accessories.";
 			}
 
 			// message =" This will delete your Smart Home Security and all the connected

@@ -13,8 +13,7 @@ Then user should be displayed with "Smart Home Security" option
 
 @DIYCancelSetUp	@UIAutomated
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 Then user should be displayed with the "Choose Location" screen
@@ -55,8 +54,7 @@ Then user should be displayed with the "Looking for Base Station" screen
 
 @DIYWhenNoBaseStationsAreAvailable	@UIAutomated		@Doesn'tRequireAnyBaseStationsForExecution
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user selects <location name> from "Choose Location" screen
@@ -335,7 +333,6 @@ Then added network should be displayed in the list of networks in "Connect to Ne
 
 @DIYInvalidWiFiPassword	@UIAutomated
 Scenario Outline: As a user I should not be able to connect to a Wi-Fi network with invalid password
-
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -366,7 +363,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRegistrationWhenSingleBaseStationIsAvailable	@UIAutomated
+@DIYRegistrationWhenSingleBaseStationIsAvailable123	@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -760,7 +757,6 @@ Then user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
-When user navigates to other apps and navigates back to Lyric app
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <first device name> device on the "dashboard" screen
 

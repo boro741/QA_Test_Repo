@@ -75,8 +75,8 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "BACK ARROW": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isBackArrowInRegisterBaseStationVisible()) {
-						flag = flag & dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+					if (dasDIY.isCancelButtonInRegisterBaseStationVisible()) {
+						flag = flag & dasDIY.clickOnCancelButtonInRegisterBaseStationScreen();
 						flag = flag & dasDIY.isCancelPopupVisible();
 					}
 
@@ -97,10 +97,10 @@ public class ClickOnButton extends Keyword {
 				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
 				switch (expectedButton.get(1).toUpperCase()) {
-				case "BACK ARROW": {
+				case "CANCEL": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if (dasDIY.isBackArrowInRegisterBaseStationVisible()) {
-						flag = flag & dasDIY.clickOnBackArrowInRegisterBaseStationScreen();
+					if (dasDIY.isCancelButtonInRegisterBaseStationVisible()) {
+						flag = flag & dasDIY.clickOnCancelButtonInRegisterBaseStationScreen();
 						flag = flag & dasDIY.isCancelPopupVisible();
 						break;
 					}

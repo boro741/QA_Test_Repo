@@ -88,9 +88,9 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "WAITING TO CLOSE":{
+			case "WAITING TO CLOSE": {
 				AlarmScreen alarmScreen = new AlarmScreen(testCase);
-				if (alarmScreen.isWaitingToCloseScreenDisplayed()){
+				if (alarmScreen.isWaitingToCloseScreenDisplayed()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -99,8 +99,8 @@ public class VerifyScreen extends Keyword {
 							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 			}
-			case "ENTRY DELAY":{
-				if (DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)){
+			case "ENTRY DELAY": {
+				if (DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -110,8 +110,8 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "NO ENTRY DELAY":{
-				if (!DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)){
+			case "NO ENTRY DELAY": {
+				if (!DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Not displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -121,8 +121,8 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "ALARM":{
-				if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
+			case "ALARM": {
+				if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -218,6 +218,30 @@ public class VerifyScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "VIDEO CLIP": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (dasDIY.isVideoPlayerControlIconInAndroidVisible(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+					}
+
+				} else {
+					if (dasDIY.isNavBackIconDisplayedInVideoClipScreen(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+					}
 				}
 				break;
 			}

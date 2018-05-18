@@ -1,11 +1,14 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.Dimension;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidKeyCode;
 
@@ -131,7 +134,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isAvialbleLocationNameDisplayed(String availableLocation) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("xpath", "//android.widget.Button[@text='" + availableLocation + "']",
+			return MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + availableLocation + "']",
 					testCase);
 		} else {
 			return MobileUtils.isMobElementExists("NAME", availableLocation, testCase);
@@ -141,7 +144,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnAvailableLocationName(String availableLocation) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(testCase, "xpath",
-					"//android.widget.Button[@text='" + availableLocation + "']");
+					"//android.widget.TextView[@text='" + availableLocation + "']");
 		} else {
 			return MobileUtils.clickOnElement(testCase, "NAME", availableLocation);
 		}
@@ -154,7 +157,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isAvailableBaseStationNameDisplayed(String availableBaseStationName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("xpath",
-					"//android.widget.Button[@text='" + availableBaseStationName + "']", testCase);
+					"//android.widget.TextView[@text='" + availableBaseStationName + "']", testCase);
 		} else {
 			return MobileUtils.isMobElementExists("NAME", availableBaseStationName, testCase);
 		}
@@ -163,7 +166,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnAvailableBaseStationName(String availableBaseStationName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(testCase, "xpath",
-					"//android.widget.Button[@text='" + availableBaseStationName + "']");
+					"//android.widget.TextView[@text='" + availableBaseStationName + "']");
 		} else {
 			return MobileUtils.clickOnElement(testCase, "NAME", availableBaseStationName);
 		}
@@ -241,12 +244,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInPowerBaseStationScreen");
 	}
 
-	public boolean isBackArrowInRegisterBaseStationVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInRegisterBaseStationHeader");
+	public boolean isCancelButtonInRegisterBaseStationVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInRegisterBaseStationHeader");
 	}
 
-	public boolean clickOnBackArrowInRegisterBaseStationScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrowInRegisterBaseStationHeader");
+	public boolean clickOnCancelButtonInRegisterBaseStationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInRegisterBaseStationHeader");
 	}
 
 	public boolean isQRCodeDisplayed() {
@@ -313,16 +316,16 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isConnectToNetworkHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectoNetworkHeaderTitle");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectToNetworkHeaderTitle");
 
 	}
 
 	public boolean isConnectToNetworkHeaderDescVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectoNetworkHeaderDesc");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectToNetworkHeaderDesc");
 	}
 
 	public String getToolBarTitleInConnectToNetworkScreen() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "ConnectoNetworkHeaderTitle", false)
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ConnectToNetworkHeaderTitle", false)
 				.getAttribute("text");
 	}
 
@@ -374,9 +377,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean clickOnWiFiNameOnWiFiScreen(String wifiName) throws Exception {
+		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
-				return MobileUtils.clickOnElement(testCase, "xpath",
+				flag = flag &  MobileUtils.clickOnElement(testCase, "xpath",
 						"//android.widget.TextView[@text='" + wifiName + "']");
 			} else {
 				int counter = 0;
@@ -384,8 +388,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
 				}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
-					return MobileUtils.clickOnElement(testCase, "xpath",
+					flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
 							"//android.widget.TextView[@text='" + wifiName + "']");
+						if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
+							flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
+									"//android.widget.TextView[@text='" + wifiName + "']");
+						}
 				} else {
 					throw new Exception("Could not find wifi : " + wifiName + " in the list");
 				}
@@ -393,19 +401,20 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		} else {
 
 			if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
-				return MobileUtils.clickOnElement(testCase, "name", wifiName);
+				flag = flag & MobileUtils.clickOnElement(testCase, "name", wifiName);
 			} else {
 				int counter = 0;
 				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
 					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
 				}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
-					return MobileUtils.clickOnElement(testCase, "name", wifiName);
+					flag = flag & MobileUtils.clickOnElement(testCase, "name", wifiName);
 				} else {
 					throw new Exception("Click On WiFi Name : Could not find wifi : " + wifiName + " in the list");
 				}
 			}
 		}
+		return flag;
 	}
 
 	public boolean isWiFiPasswordScreenSubTitleTextVisibile() {
@@ -420,7 +429,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "WiFiPasswordTextField", password);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			return true;
 		} else {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
 		}
@@ -440,19 +449,33 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return true;
+		} else {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen", 5)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
 		}
+		}
 	}
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
-
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+		System.out.println("######dimensions.width:- " + dimensions.width);
+		System.out.println("######dimensions.height:- " + dimensions.height);
+		System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
+		System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			return true;
+		} else {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen", 5)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen");
 		} else {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
 		}
 	}
 
@@ -460,7 +483,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConnectingSmartHomeSecurityLoadingSpinner",
 				3);
 	}
-
+	
+	public boolean isAlmostDoneLoadingSpinnerTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlmostDoneLoadingSpinnerTxt",
+				3);
+	}
+	
 	public boolean isSmartHomeSecuritySuccessHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SmartHomeSecuritySuccessHeaderTitle");
 	}
@@ -551,6 +579,26 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isCheckLocationScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CheckLocationScreenTitle");
+	}
+	
+	public boolean isWatchHowToVideoLinkVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HowToVideoLink");
+	}
+	
+	public boolean clickOnWatchHowToVideoLink() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HowToVideoLink");
+	}
+	
+	public boolean isVideoPlayerControlIconInAndroidVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoPlayerControlIconInAndroid", timeOut);
+	}
+	
+	public boolean isNavBackIconDisplayedInVideoClipScreen(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInHowToVideoScreen", timeOut);
+	}
+	
+	public boolean clickOnNavBackIconInVideoClipScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrowInHowToVideoScreen");
 	}
 
 	public boolean isCloseDoorSubHeaderTextInCheckLocationScreenVisible() {

@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
@@ -73,7 +74,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					if(!testCase.getPlatform().toUpperCase().contains("IOS")){
+					if (!testCase.getPlatform().toUpperCase().contains("IOS")) {
 						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ZWAVEDEVICES);
 					}
@@ -83,7 +84,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "GENERAL EXCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
-					if(!testCase.getPlatform().toUpperCase().contains("IOS")){
+					if (!testCase.getPlatform().toUpperCase().contains("IOS")) {
 						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ZWAVEDEVICES);
 					}
@@ -131,7 +132,8 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SWITCH PRIMARY CARD VIA ZWAVE DEVICES": {
-					flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag
+							& DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
@@ -143,7 +145,8 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DASHBOARD VIA PRIMARY CARD": {
-					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag
+							& DASZwaveUtils.navigateToPrimaryCardFromZwaveIndividualDeviceSettings(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
 					break;
 				}
@@ -163,7 +166,8 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DIMMER PRIMARY CARD VIA ZWAVE DEVICES": {
-					flag = flag & DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
+					flag = flag
+							& DASZwaveUtils.navigateToZwaveDevicesFromZwaveIndividualDeviceSettings(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToSecuritySettingsFromZwaveDevices(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToPrimaryCardFromSecuritySettings(testCase, inputs);
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
@@ -230,7 +234,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "GEOFENCE RADIUS":{
+				case "GEOFENCE RADIUS": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -260,14 +264,14 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SWITCH PRIMARY CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
-				/*	if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, "Switch1")){
-						flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1");
-					}else if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, "Switch 001")){
-						flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch 001");
-						inputs.setInputValue("LOCATION1_SWITCH1_NAME","Switch 001");
-					}else{
-						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "No Switch found");
-					}*/
+					/*
+					 * if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, "Switch1")){ flag =
+					 * flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch1"); }else
+					 * if(LyricUtils.verifyDeviceDisplayedOnDashboard(testCase, "Switch 001")){ flag
+					 * = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Switch 001");
+					 * inputs.setInputValue("LOCATION1_SWITCH1_NAME","Switch 001"); }else{
+					 * ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "No Switch found"); }
+					 */
 					break;
 				}
 				case "SWITCH SETTINGS": {
@@ -304,7 +308,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
 					Dashboard ds = new Dashboard(testCase);
-					if (ds.isAddDeviceIconVisible(15)) {
+					if (ds.isAddDeviceIconVisible(20)) {
 						flag = flag & ds.clickOnAddNewDeviceIcon();
 					} else if (ds.isAddDeviceIconBelowExistingDASDeviceVisible(10)) {
 						flag = flag & ds.clickOnAddDeviceIconBelowExistingDASDevice();
@@ -432,7 +436,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -441,8 +445,8 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs
-							.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+					flag = flag
+							& bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 					break;
 				}
 				default: {
@@ -520,6 +524,45 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("WHAT TO EXPECT")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CHOOSE LOCATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+					}
+					break;
+				}
+				case "WATCH HOW-TO VIDEO": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isWatchHowToVideoLinkVisible()) {
+						flag = flag & dasDIY.clickOnWatchHowToVideoLink();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("VIDEO CLIP")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "WHAT TO EXPECT": {
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						if (dasDIY.isNavBackIconDisplayedInVideoClipScreen(10)) {
+							flag = flag & dasDIY.clickOnNavBackIconInVideoClipScreen();
+						}
+					} else {
+						if (MobileUtils.pressBackButton(testCase)) {
+							System.out.println("Clicked on Android back button");
+							ReportStep_Pass(testCase, "Clicked on Android back button");
+						} else {
+							System.out.println("Not able to click on back button");
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Not able to click on Android back button");
+							flag = false;
+						}
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ADD NEW DEVICE DASHBOARD": {
@@ -538,129 +581,158 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "REGISTER BASE STATION": {
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "WAIT UNTIL DAS REBOOT", 1);
+					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToRegisterBaseStation(testCase);
+					break;
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "LOOKING FOR BASE STATION": {
-					return DIYRegistrationUtils.navigateFromPowerBaseStationToLookingForBaseStation(testCase);
-
+					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToLookingForBaseStation(testCase);
+					break;
 				}
 				case "REGISTER BASE STATION": {
-					return DIYRegistrationUtils.navigateFromPowerBaseStationToRegisterBaseStation(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToRegisterBaseStation(testCase);
+					break;
 				}
 				case "SELECT BASE STATION": {
-					return DIYRegistrationUtils.navigateFromPowerBaseStationToSelectBaseStation(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToSelectBaseStation(testCase);
+					break;
 				}
 				case "DASHBOARD": {
-					return DIYRegistrationUtils.navigateFromPowerBaseStationToDashboard(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToDashboard(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CONNECT TO NETWORK": {
-					return DIYRegistrationUtils.navigateFromRegisterBaseStationToConnectToNetwork(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromRegisterBaseStationToConnectToNetwork(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SMART HOME SECURITY SUCCESS": {
-					return DIYRegistrationUtils.navigateFromConnectToNetworkToSmartHomeSecuritySuccess(testCase);
+					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+							"ALMOST DONE LOADING PROGRESS BAR TEXT", 3);
+					flag = flag & DIYRegistrationUtils.navigateFromConnectToNetworkToSmartHomeSecuritySuccess(testCase);
+					break;
 				}
 				case "SET UP ACCESSORIES": {
-					return DIYRegistrationUtils.navigateFromConnectToNetworkToSetUpAccessories(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromConnectToNetworkToSetUpAccessories(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "OVERVIEW": {
-					return DIYRegistrationUtils.navigateFromSetUpAccessoriesToOverview(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromSetUpAccessoriesToOverview(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("OVERVIEW")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "LOCATE SENSOR": {
-					return DIYRegistrationUtils.navigateFromOverviewToLocateSensor(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromOverviewToLocateSensor(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("LOCATE SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "NAME SENSOR": {
-					return DIYRegistrationUtils.navigateFromLocateSensorToNameSensor(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromLocateSensorToNameSensor(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHECK LOCATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CHECK LOCATION SIGNAL": {
-					return DIYRegistrationUtils.navigateFromCheckLocationToCheckLocationSignal(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromCheckLocationToCheckLocationSignal(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHECK LOCATION SIGNAL")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PREPARE SENSOR": {
-					return DIYRegistrationUtils.navigateFromCheckLocationSignalToPrepareSensor(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromCheckLocationSignalToPrepareSensor(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("PREPARE SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PLACE ADHESIVE STRIPS": {
-					return DIYRegistrationUtils.navigateFromPrepareSensorToPlaceAdhesiveStrips(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromPrepareSensorToPlaceAdhesiveStrips(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("PLACE ADHESIVE STRIPS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOUNT SENSOR": {
-					return DIYRegistrationUtils.navigateFromPlaceAdhesiveStripsToMountSensor(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromPlaceAdhesiveStripsToMountSensor(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("MOUNT SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR READY": {
-					return DIYRegistrationUtils.navigateFromMountSensorToSensorReady(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromMountSensorToSensorReady(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SENSOR READY")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SET UP ACCESSORIES CONFIGURED": {
-					return DIYRegistrationUtils.navigateFromSensorReadyToSetUpAccConfigured(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromSensorReadyToSetUpAccConfigured(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES CONFIGURED")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
-					return DIYRegistrationUtils.navigateFromSetUpAccConfiguredToEnableGeoFencing(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromSetUpAccConfiguredToEnableGeoFencing(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GEOFENCE": {
-					return DIYRegistrationUtils.navigateFromEnableGeoFencingToGeoFence(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromEnableGeoFencingToGeoFence(testCase);
+					break;
 				}
 				case "ENABLE AMAZON ALEXA": {
-					return DIYRegistrationUtils.navigateFromEnableGeoFencingToEnableAmazonAlexa(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromEnableGeoFencingToEnableAmazonAlexa(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GEOFENCE ENABLED": {
-					return DIYRegistrationUtils.navigateFromGeoFenceToGeoFenceEnabled(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromGeoFenceToGeoFenceEnabled(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE ENABLED")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE AMAZON ALEXA": {
-					return DIYRegistrationUtils.navigateFromGeoFenceEnabledToEnableAmazonAlexa(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromGeoFenceEnabledToEnableAmazonAlexa(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SMART HOME SECURITY SUCCESS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
-					return DIYRegistrationUtils.navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					return DIYRegistrationUtils.navigateFromEnableAmazonAlexaToDashboard(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromEnableAmazonAlexaToDashboard(testCase);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
@@ -797,16 +869,16 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR STATUS": {
 					SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
-					if(securityScreen.isSensorNoIssueVisible()){
+					if (securityScreen.isSensorNoIssueVisible()) {
 						flag = flag & securityScreen.ClickOnSensorNoIssue();
-					}else {
+					} else {
 						flag = flag & securityScreen.ClickOnSensorIssue();
 					}
 					break;
 				}
 				case "DASHBOARD": {
 					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-					if(sc.isBackButtonVisible()) {
+					if (sc.isBackButtonVisible()) {
 						flag = flag & sc.clickOnBackButton();
 					}
 					break;
@@ -823,8 +895,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("Camera Settings Introduction")) {
+			} else if (screen.get(1).equalsIgnoreCase("Camera Settings Introduction")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -849,8 +920,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
-			else {
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

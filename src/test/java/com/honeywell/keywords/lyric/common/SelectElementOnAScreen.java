@@ -266,7 +266,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				inputs.setInputValue("LOCATION1_NAME", parameters.get(0));
-				return DIYRegistrationUtils.selectAvaiableLocation(testCase, parameters.get(0));
+				flag = flag & DIYRegistrationUtils.selectAvaiableLocation(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
 				if (!inputs.isInputAvailable("LOCATION1_CAMERA1_NAME")) {
 					inputs.setInputValue("LOCATION1_CAMERA1_NAME", parameters.get(0));
@@ -274,12 +274,12 @@ public class SelectElementOnAScreen extends Keyword {
 					inputs.setInputValue("LOCATION1_CAMERA2_NAME", parameters.get(0));
 				}
 
-				return DIYRegistrationUtils.selectAvaiableBaseStationName(testCase, parameters.get(0));
+				flag = flag & DIYRegistrationUtils.selectAvaiableBaseStationName(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
-				return DIYRegistrationUtils.selectABaseStationFromListOfAvailableBaseStations(testCase,
+				flag = flag & DIYRegistrationUtils.selectABaseStationFromListOfAvailableBaseStations(testCase,
 						parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
-				return DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase, parameters.get(0));
+				flag = flag & DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				flag = flag
