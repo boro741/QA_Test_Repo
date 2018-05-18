@@ -22,7 +22,8 @@ public class SecondaryCardSettings extends MobileScreens {
 	public static final String MESSAGES = "Activity History";
 	public static final String LOGOUT = "Logout";
 	public static final String ADDRESSDETAILS = "Address";
-
+	public static final String MEMBERSHIPSUBSCRIPTION = "Honeywell Membership";
+	
 	public SecondaryCardSettings(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -51,6 +52,10 @@ public class SecondaryCardSettings extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "MessagesOption");
 		case SecondaryCardSettings.LOGOUT:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "LogoutOption");
+		case SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION:
+			return MobileUtils.clickOnElement(objectDefinition, testCase, 
+
+"HoneywellMembershipOption");
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",

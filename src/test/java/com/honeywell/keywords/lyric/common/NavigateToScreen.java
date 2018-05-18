@@ -218,6 +218,22 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "HONEYWELL MEMBERSHIP": {
+					Dashboard dScreen = new Dashboard(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Activity history menu from Global drawer");
+						}else{
+							//Fetching Messages
+							sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION);
+							//Keyword.ReportStep_Pass(testCase,"Honeywell Membership page opened.");
+						}
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
 				case "GEOFENCE SETTING": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
