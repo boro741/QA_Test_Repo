@@ -102,7 +102,7 @@ No	ScheduleOffVacation		IOS-Device-IOS-11.3	c85d7cb996a05d26abb89c93df86d62af548
 No	ScheduleOnVacation		IOS-Device-IOS-11.3	c85d7cb996a05d26abb89c93df86d62af5486f1f	Local	Production	"AcquisitionType=Specific, TestData='USERID=jasperna_1@grr.la,PASSWORD=Password1,PASSCODE=2580,LOCATION1_NAME=Home,LOCATION1_DEVICE1_NAME=Stat 6289'"
 No	ScheduleOnMultistat		IOS-Simulator-IOS-10.0	iPhone 6	SauceLabs	Production	"AcquisitionType=Automatic, Tags='REFACTOR_JASPER_EMEA_PROD,MULTI_LOCATION_MULTI_DEVICE'"
 No	ScheduleOffMultistat		IOS-Simulator-IOS-10.0	iPhone 6	SauceLabs	Production	"AcquisitionType=Automatic, Tags='REFACTOR_JASPER_EMEA_PROD,MULTI_LOCATION_MULTI_DEVICE'"
-Yes	ChangeStatmodeNANoschedule		Android-Device-Android-8.0	01209c39e398b1ad	Local	Production	"AcquisitionType=Specific, TestData='USERID=jasperna_1@grr.la,PASSWORD=Password1,PASSCODE=2580,LOCATION1_NAME=Home,LOCATION1_DEVICE1_NAME=Stat 6289'"
+No	ChangeStatmodeNANoschedule		Android-Device-Android-8.0	01209c39e398b1ad	Local	Production	"AcquisitionType=Specific, TestData='USERID=jasperna_1@grr.la,PASSWORD=Password1,PASSCODE=2580,LOCATION1_NAME=Home,LOCATION1_DEVICE1_NAME=Stat 6289'"
 Yes	ChangeStatModeNAGofenceschedule		Android-Device-Android-8.0	01209c39e398b1ad	Local	Production	"AcquisitionType=Automatic, Tags='REFACTOR_JASPER_NA_PROD,SINGLE_LOCATION_SINGLE_DEVICE,BASIC_SETTINGS'"
 Yes	ChangeStatModeNATimeschedule		Android-Device-Android-8.0	01209c39e398b1ad	Local	Production	"AcquisitionType=Automatic, Tags='REFACTOR_JASPER_NA_PROD,SINGLE_LOCATION_SINGLE_DEVICE,BASIC_SETTINGS'"
 Yes	ChangeStatModeNAMultistat		Android-Device-Android-8.0	01209c39e398b1ad	Local	Production	"AcquisitionType=Automatic, Tags='REFACTOR_JASPER_NA_PROD,MULTI_LOCATION_MULTI_DEVICE'"
@@ -401,3 +401,4 @@ No	clipListFilter_verifyAllOptions1		IOS-Device-IOS-.*	iPhone .*	Perfecto	Produc
 No	clipListFilter_verifyAllOptions2		IOS-Device-IOS-.*	iPhone .*	Perfecto	Production	"AcquisitionType=Automatic, Tags='PVT2_LYRIC_CAMERA,SINGLE_LOCATION_SINGLE_DEVICE'"
 No	VerifyVacationStatusOnDevicecard		IOS-Device-IOS-11.3	c85d7cb996a05d26abb89c93df86d62af5486f1f	Local	Production	"AcquisitionType=Specific, TestData='USERID=jasperna_1@grr.la,PASSWORD=Password1,PASSCODE=2580,LOCATION1_NAME=Home,LOCATION1_DEVICE1_NAME=Stat 6289'"
 Yes	VerifyVacationStatusOnDevicecard		Android-Device-Android-8.0	01209c39e398b1ad	Local	Production	"AcquisitionType=Automatic, Tags='REFACTOR_NOSTAT_PROD,SINGLE_LOCATION_NO_DEVICE'"
+Yes	ChangeStatmodeNANoschedule		Android-Device-Android-8.0	01209c39e398b1ad	Local	ChilDev(Dev2)	"AcquisitionType=Specific, TestData='USERID=deb123@grr.la,PASSWORD=Password1,PASSCODE=2580,LOCATION1_NAME=Home,LOCATION1_DEVICE1_NAME=Flycatcher New'"
