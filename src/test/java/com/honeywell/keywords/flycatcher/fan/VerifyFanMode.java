@@ -29,31 +29,23 @@ public class VerifyFanMode extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify fan mode is changed to \"(.+)\"$")
+	@KeywordStep(gherkins = "^verify current fan mode is \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		String fanMode = exampleData.get(0);
 		
 		FanModeScreen fanScreen = new FanModeScreen(testCase);
-
 		String fanStatus = fanScreen.getFanRunningSts();
 
 		if (fanStatus.trim().contains("AUTO") && fanMode.equalsIgnoreCase("AUTO")) {
-			Keyword.ReportStep_Pass(testCase, "App_Verify_Fan_Mode : Fan Auto mode is verified");
-			Keyword.ReportStep_Pass(testCase, "Current Mode is " + fanStatus);
-			return true;
-
+			Keyword.ReportStep_Pass(testCase, "Current Fan Mode is as expected : AUTO");
 		} else if (fanStatus.trim().contains("CIRCULATE") && fanMode.equalsIgnoreCase("CIRCULATE")) {
-			Keyword.ReportStep_Pass(testCase, "App_Verify_Fan_Mode : Fan Circulate mode is verified");
-			Keyword.ReportStep_Pass(testCase, "Current Mode is " + fanStatus);
-			return true;
+			Keyword.ReportStep_Pass(testCase, "Current Fan Mode is as expected : CIRCULATE");
 		} else if (fanStatus.trim().contains("ON") && fanMode.equalsIgnoreCase("ON")) {
-			Keyword.ReportStep_Pass(testCase, "App_Verify_Fan_Mode : Fan On mode is verified");
-			Keyword.ReportStep_Pass(testCase, "Current Mode is " + fanStatus);
-			return true;
+			Keyword.ReportStep_Pass(testCase, "Current Fan Mode is as expected : ON");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"AppFanMode_Verify failed. Not in Primary card");
+					"VerifyFanMode failed. Current Fan Running Status is not valid : " + fanStatus);
 		}
 
 		return flag;
@@ -63,19 +55,13 @@ public class VerifyFanMode extends Keyword {
 	@AfterKeyword
 	public boolean postCondition() {
 
-		try {
 			if (flag) {
-				ReportStep_Pass(testCase, "ChangeFanModeFly_UserInput : Keyword successfully executed");
+				ReportStep_Pass(testCase, "VerifyFanMode : Keyword successfully executed");
 			} else {
 				flag = false;
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"ChangeFanModeFly_UserInput : Keyword failed during execution");
-			}
-		} catch (Exception e) {
-			flag = false;
-			ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"ChangeFanModeFly_UserInput : Error Occured while executing post-condition : " + e.getMessage());
-		}
+						"VerifyFanMode : Keyword failed during execution");
+			}	
 		return flag;
 	}
 

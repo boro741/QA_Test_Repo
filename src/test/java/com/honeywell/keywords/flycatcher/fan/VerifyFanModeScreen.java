@@ -33,7 +33,6 @@ public class VerifyFanModeScreen extends Keyword {
 		try {
 						
 			FanModeScreen fanScreen = new FanModeScreen(testCase);
-			System.out.println("");
 			String scrnTitle = fanScreen.getFanScreenTitle();
 			
 			if (scrnTitle.trim().equals("Fan Mode"))

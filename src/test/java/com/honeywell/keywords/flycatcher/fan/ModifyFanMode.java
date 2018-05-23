@@ -36,13 +36,13 @@ public class ModifyFanMode extends Keyword {
 		FanModeScreen fanScreen = new FanModeScreen(testCase);
 
 		if (fanMode.equalsIgnoreCase("ON")) {
-			fanScreen.changeFanModeToOnMode();
+			flag = flag && fanScreen.changeFanModeToOnMode();
 			Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to ON");
 		} else if (fanMode.equalsIgnoreCase("AUTO")) {
-			fanScreen.changeFanModeToAutoMode();
+			flag = flag && fanScreen.changeFanModeToAutoMode();
 			Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to AUTO");
 		} else if (fanMode.equalsIgnoreCase("CIRCULATE")) {
-			fanScreen.changeFanModeToCircMode();
+			flag = flag && fanScreen.changeFanModeToCircMode();
 			Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to CIRCULATE");
 		} else {
 			flag = false;
@@ -50,16 +50,15 @@ public class ModifyFanMode extends Keyword {
 					"Invalid input : " + fanMode);
 		}
 
-		fanScreen.clickSaveButton();
+		flag = flag && fanScreen.clickSaveButton();
 
 		return flag;
 	}
 
 	@Override
 	@AfterKeyword
-	public boolean postCondition() {
-
-		try {
+	public boolean postCondition() 
+	{		
 			if (flag) {
 				ReportStep_Pass(testCase, "ChangeFanModeFly_UserInput : Keyword successfully executed");
 			} else {
@@ -67,11 +66,7 @@ public class ModifyFanMode extends Keyword {
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"ChangeFanModeFly_UserInput : Keyword failed during execution");
 			}
-		} catch (Exception e) {
-			flag = false;
-			ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"ChangeFanModeFly_UserInput : Error Occured while executing post-condition : " + e.getMessage());
-		}
+
 		return flag;
 	}
 
