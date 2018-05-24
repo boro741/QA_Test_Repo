@@ -37,19 +37,28 @@ public class ModifyFanMode extends Keyword {
 
 		if (fanMode.equalsIgnoreCase("ON")) {
 			flag = flag && fanScreen.changeFanModeToOnMode();
-			Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to ON");
+			if(flag)
+				Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to ON");
+			else
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set Fan Mode : ON");
 		} else if (fanMode.equalsIgnoreCase("AUTO")) {
-			flag = flag && fanScreen.changeFanModeToAutoMode();
-			Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to AUTO");
+			flag = flag && fanScreen.changeFanModeToAutoMode();			
+			if(flag)
+				Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to AUTO");
+			else
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set Fan Mode : AUTO");			
 		} else if (fanMode.equalsIgnoreCase("CIRCULATE")) {
 			flag = flag && fanScreen.changeFanModeToCircMode();
-			Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to CIRCULATE");
+			if(flag)
+				Keyword.ReportStep_Pass(testCase, "Successfully Set App Fan Mode to CIRCULATE");
+			else
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set Fan Mode : CIRCULATE");			
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Invalid input : " + fanMode);
 		}
-
+		
 		flag = flag && fanScreen.clickSaveButton();
 
 		return flag;
@@ -59,13 +68,10 @@ public class ModifyFanMode extends Keyword {
 	@AfterKeyword
 	public boolean postCondition() 
 	{		
-			if (flag) {
-				ReportStep_Pass(testCase, "ChangeFanModeFly_UserInput : Keyword successfully executed");
-			} else {
-				flag = false;
-				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"ChangeFanModeFly_UserInput : Keyword failed during execution");
-			}
+			if (flag)
+				ReportStep_Pass(testCase, "ModifyFanMode : Keyword successfully executed");
+			else 
+				ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,"ModifyFanMode : Keyword failed during execution");
 
 		return flag;
 	}

@@ -55,13 +55,11 @@ public class VerifyFanMode extends Keyword {
 	@AfterKeyword
 	public boolean postCondition() {
 
-			if (flag) {
-				ReportStep_Pass(testCase, "VerifyFanMode : Keyword successfully executed");
-			} else {
-				flag = false;
-				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"VerifyFanMode : Keyword failed during execution");
-			}	
+			if (flag) 
+				ReportStep_Pass(testCase, "VerifyFanMode : Keyword successfully executed");			
+			else
+				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "VerifyFanMode : Keyword failed during execution");
+			
 		return flag;
 	}
 
