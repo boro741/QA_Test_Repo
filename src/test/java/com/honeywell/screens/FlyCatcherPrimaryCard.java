@@ -44,6 +44,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public Boolean changeSystemModeToHeatMode()
 	{
 		boolean blnFlag = true;
+		 MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemModeButton",20);
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "HeatModeOption");
@@ -56,6 +57,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public Boolean changeSystemModeToCoolMode()
 	{
 		boolean blnFlag = true;
+		 MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemModeButton",20);
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "CoolModeOption");
@@ -68,6 +70,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public Boolean changeSystemModeToOffMode()
 	{
 		boolean blnFlag = true;
+		 MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemModeButton",20);
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "OffModeOption");
@@ -80,6 +83,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public Boolean changeSystemModeToAutoMode()
 	{
 		boolean blnFlag = true;
+		 MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemModeButton",20);
 		blnFlag = blnFlag & MobileUtils.clickOnElement(objectDefinition, testCase, "SystemModeButton");
 		if (IsAuotModeButtonVisible(5)){
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
