@@ -892,17 +892,17 @@ Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects <location name> from "Choose Location" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-When user navigates to "Power Base Station Instructions" screen from the "Power Base Station" screen
-Then user navigates to "Register Base Station" screen from the "Power Base Station Instructions" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user minimizes and maximizes the app
-Then user scans the QR code by showing it to the base station camera
-And user navigates to "Connect to Network" screen from the "Register Base Station" screen
+And user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
+And user inputs "vibex888" as the WiFi Password
 When user minimizes and maximizes the app
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user minimizes and maximizes the app
@@ -920,7 +920,7 @@ When user navigates to "Base Station Configuration" screen from the "Dashboard" 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
-When user minimizes and maximizes the app
+And user minimizes and maximizes the app
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
 
