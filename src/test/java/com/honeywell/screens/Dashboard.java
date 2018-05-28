@@ -31,33 +31,38 @@ public class Dashboard extends MobileScreens {
 	public boolean isSplashScreenVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SplashScreen", timeOut, false);
 	}
-	
-	public boolean isProgressBarVisible(int timeOut)
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar",timeOut,false);
+
+	public boolean isProgressBarVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);
 	}
-	
-	public boolean isAddDeviceIconVisible(int timeOut)
-	{
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon", timeOut)) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon",timeOut,false);
+
+	public boolean isAddDeviceIconVisible(int timeOut) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon", timeOut)) {
+			flag = flag
+					& MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon", timeOut, false);
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon")) {
+				flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon");
+			}
+		}
+		return flag;
+	}
+
+	public boolean isAddDeviceIconBelowExistingDevicesVisible(int timeOut) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice",
+				timeOut)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice",
+					timeOut, false);
 		} else {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon");
 		}
 	}
 
-	public boolean isAddDeviceIconBelowExistingDevicesVisible(int timeOut)
-	{
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice", timeOut)) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice",timeOut,false);
-		} else {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon");
-		}
-	}
 	public boolean clickOnAddNewDeviceIcon() {
-		if(isAddDeviceIconVisible(10)){
+		if (isAddDeviceIconVisible(10)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIcon");
-		}else if(isAddDeviceIconBelowExistingDevicesVisible(10)){
+		} else if (isAddDeviceIconBelowExistingDevicesVisible(10)) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice");
 		}
 		return false;
@@ -121,15 +126,15 @@ public class Dashboard extends MobileScreens {
 	public boolean isGlobalDrawerButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GlobalDrawerButton", timeOut);
 	}
-	
+
 	public boolean isSecurityStatusLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus");
 	}
-	
+
 	public String getSecurityStatusLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
 	}
-	
+
 	public String getZwaveDeviceStatus(String expectedDevice) {
 		if (this.areDevicesVisibleOnDashboard(10)) {
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
@@ -159,10 +164,10 @@ public class Dashboard extends MobileScreens {
 		return null;
 	}
 
-	public List<WebElement> getDashboardDeviceNameElements()
-	{
+	public List<WebElement> getDashboardDeviceNameElements() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "DashboardIconText");
 	}
+
 	public static boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");

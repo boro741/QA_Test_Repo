@@ -11,7 +11,7 @@ Then user should be displayed with "Smart Home Security" option
 When user navigates to "Add New Device in Global Drawer" screen from the "Dashboard" screen
 Then user should be displayed with "Smart Home Security" option
 
-@DIYCancelSetUp	@UIAutomated
+@DIYCancelSetUp123	@UIAutomated
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -252,7 +252,7 @@ Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYCancelSetUpInConnectToNetworkScreen	@UIAutomated
+@DIYCancelSetUpInConnectToNetworkScreen123	@UIAutomated
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application

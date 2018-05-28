@@ -304,7 +304,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 
-//			flag = flag & LyricUtils.closeCoachMarks(testCase);
+			// flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
 			}
@@ -327,11 +327,52 @@ public class DIYRegistrationUtils {
 
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		if (dasDIY.isChooseLocationHeaderTitleVisible() && dasDIY.isCustomLocationTextFieldVisible()) {
+		if (dasDIY.isCreateLocationHeaderTitleVisible() && dasDIY.isCustomLocationTextFieldVisible()) {
 			flag = flag & dasDIY.enterCustomLocationName(newLocationName);
 		}
 		return flag;
+	}
 
+	public static boolean verifyIfMaxCharsEnteredInCustomNameTxtField(TestCases testCase, TestCaseInputs inputs,
+			int maxAllowedCharsLength, String enteredMaxChars) {
+
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		String valueDisplayedInCustomNameTxtField = dasDIY.getValueDisplayedInCustomNameTxtField();
+
+		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
+
+			if (valueDisplayedInCustomNameTxtField.equalsIgnoreCase(enteredMaxChars)) {
+				Keyword.ReportStep_Pass(testCase,
+						valueDisplayedInCustomNameTxtField + " is correctly displayed with character length: "
+								+ valueDisplayedInCustomNameTxtField.length());
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, valueDisplayedInCustomNameTxtField
+						+ " entered is of character length: " + valueDisplayedInCustomNameTxtField.length());
+			}
+		} else if (enteredMaxChars.length() > maxAllowedCharsLength) {
+
+			if ((!valueDisplayedInCustomNameTxtField.equalsIgnoreCase(enteredMaxChars))
+					&& (valueDisplayedInCustomNameTxtField.length() <= maxAllowedCharsLength)) {
+				Keyword.ReportStep_Pass(testCase,
+						enteredMaxChars + " is trimmed to " + valueDisplayedInCustomNameTxtField
+								+ " with max allowed character length: " + valueDisplayedInCustomNameTxtField.length());
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						enteredMaxChars + " is not trimmed to " + valueDisplayedInCustomNameTxtField
+								+ " with max allowed character length: " + valueDisplayedInCustomNameTxtField.length());
+			}
+		}
+		return flag;
+	}
+
+	public static boolean clickOnNotPulsingBlueLink(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isNotPulsingBlueLinkVisible()) {
+			flag = flag & dasDIY.clickOnNotPulsingBlueLink();
+		}
+		return flag;
 	}
 
 	public static boolean selectAvaiableBaseStationName(TestCases testCase, String availableBaseStationName) {
@@ -347,7 +388,7 @@ public class DIYRegistrationUtils {
 	public static boolean inputNewBaseStationnName(TestCases testCase, String newBaseStationName) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		if (dasDIY.isNameYourBaseStationHeaderTitleVisible() && dasDIY.isCustomNameTextFieldDisplayed()) {
+		if (dasDIY.isCreateBaseStationHeaderTitleVisible() && dasDIY.isCustomNameTextFieldDisplayed()) {
 			flag = flag & dasDIY.enterCustomNameInNameYourBaseStationScreen(newBaseStationName);
 		}
 		return flag;
@@ -383,26 +424,50 @@ public class DIYRegistrationUtils {
 		return flag;
 	}
 
-	public static boolean deleteLocation(TestCases testCase) {
+	public static boolean deleteLocation(TestCases testCase, TestCaseInputs inputs) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		Dashboard d = new Dashboard(testCase);
 		boolean flag = true;
-		dasDIY.clickOnGlobalDrawerButton();
-		if (dasDIY.isLocationDetailsVisible()) {
-			flag = flag & dasDIY.clickOnLocationDetails();
-			if (dasDIY.isDeleteLocationButtonVisible()) {
-				flag = flag & dasDIY.clickOnDeleteLocationButton();
-				if (dasDIY.isDeleteLocationPopupVisible()) {
-					flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
-					flag = flag & d.isAddDeviceIconVisible(10);
+		if (dasDIY.isGlobalDrawerButtonVisible()) {
+			flag = flag & dasDIY.clickOnGlobalDrawerButton();
+			if (dasDIY.isLocationDetailsVisible()) {
+				flag = flag & dasDIY.clickOnLocationDetails();
+				if (dasDIY.getLocationNameInDetailsScreen().contains(inputs.getInputValue("LOCATION1_NAME"))) {
+					if (dasDIY.isDeleteLocationButtonVisible()) {
+						flag = flag & dasDIY.clickOnDeleteLocationButton();
+						if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
+							flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+							flag = flag & d.isAddDeviceIconVisible(10);
+						}
+					}
 				}
 			}
 		}
 		return flag;
 	}
-	
-	public static boolean deleteDASDeviceThroughCHIL(TestCases testCase,
-			TestCaseInputs inputs) {
+
+	public static boolean deleteDefaultLocation(TestCases testCase, TestCaseInputs inputs) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isGlobalDrawerButtonVisible()) {
+			flag = flag & dasDIY.clickOnGlobalDrawerButton();
+			if (dasDIY.isLocationDetailsVisible()) {
+				flag = flag & dasDIY.clickOnLocationDetails();
+				if (dasDIY.getLocationNameInDetailsScreen().contains(inputs.getInputValue("LOCATION1_NAME"))) {
+					if (dasDIY.isDeleteLocationButtonVisible()) {
+						flag = flag & dasDIY.clickOnDeleteLocationButton();
+						if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
+							flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+							flag = flag & dasDIY.isAddNewDeviceScreenVisible(10);
+						}
+					}
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static boolean deleteDASDeviceThroughCHIL(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>("");
@@ -410,38 +475,32 @@ public class DIYRegistrationUtils {
 			fWait.withTimeout(90, TimeUnit.SECONDS);
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
-			//inputs.setInputValue("LOCATION1_NAME", locationName, false);
-			LocationInformation locInfo = new LocationInformation(testCase,
-					inputs);
+			// inputs.setInputValue("LOCATION1_NAME", locationName, false);
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			if (chUtil.getConnection()) {
 				try {
-					int result = chUtil.deleteDevice(locInfo.getLocationID(),
-							locInfo.getDASDeviceID(), false);
+					int result = chUtil.deleteDevice(locInfo.getLocationID(), locInfo.getDASDeviceID(), false);
 					if (result == 200) {
-						Keyword.ReportStep_Pass(testCase,
-								"Successfully deleted DAS Device");
+						Keyword.ReportStep_Pass(testCase, "Successfully deleted DAS Device");
 						try {
-							Boolean isEventReceived = fWait
-									.until(new Function<String, Boolean>() {
-										public Boolean apply(String a) {
+							Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+								public Boolean apply(String a) {
 
-											try {
-												LocationInformation locInfo = new LocationInformation(
-														testCase, inputs);
-												if (locInfo
-														.getNumberOfDeviceInLocation() == 0) {
-													return true;
-												} else {
-													System.out.println("Waiting for device to get deleted from CHIL. Number of devices : "
-															+ locInfo
-																	.getNumberOfDeviceInLocation());
-													return false;
-												}
-											} catch (Exception e) {
-												return false;
-											}
+									try {
+										LocationInformation locInfo = new LocationInformation(testCase, inputs);
+										if (locInfo.getNumberOfDeviceInLocation() == 0) {
+											return true;
+										} else {
+											System.out.println(
+													"Waiting for device to get deleted from CHIL. Number of devices : "
+															+ locInfo.getNumberOfDeviceInLocation());
+											return false;
 										}
-									});
+									} catch (Exception e) {
+										return false;
+									}
+								}
+							});
 							if (isEventReceived) {
 								Keyword.ReportStep_Pass(testCase,
 										"Device successfully deleted through CHIL without Client header");
@@ -450,15 +509,12 @@ public class DIYRegistrationUtils {
 									fWait.until(new Function<String, Boolean>() {
 										public Boolean apply(String a) {
 											try {
-												if (ADBUtils
-														.isDevicePresentInADBDevices(inputs
-																.getInputValue("DAS_DEVICE_UDID"))) {
-													System.out
-															.println("Waiting for device to reboot");
+												if (ADBUtils.isDevicePresentInADBDevices(
+														inputs.getInputValue("DAS_DEVICE_UDID"))) {
+													System.out.println("Waiting for device to reboot");
 													return false;
 												} else {
-													System.out
-															.println("Device rebooted");
+													System.out.println("Device rebooted");
 													return true;
 												}
 											} catch (Exception e) {
@@ -472,71 +528,55 @@ public class DIYRegistrationUtils {
 							}
 						} catch (TimeoutException e) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase,
-									FailType.FUNCTIONAL_FAILURE,
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Device not deleted from CHIL. Wait Time = 1 minute");
 						} catch (Exception e) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase,
-									FailType.FUNCTIONAL_FAILURE,
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Error Occured : " + e.getMessage());
 						}
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase,
-								FailType.FUNCTIONAL_FAILURE,
-								"Failed to delete DAS device. Response Code : "
-										+ result);
-						result = chUtil.deleteDevice(locInfo.getLocationID(),
-								locInfo.getDASDeviceID(), true);
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to delete DAS device. Response Code : " + result);
+						result = chUtil.deleteDevice(locInfo.getLocationID(), locInfo.getDASDeviceID(), true);
 						if (result == 200) {
-							Keyword.ReportStep_Pass(testCase,
-									"Successfully deleted DAS Device using Client header");
+							Keyword.ReportStep_Pass(testCase, "Successfully deleted DAS Device using Client header");
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase,
-									FailType.FUNCTIONAL_FAILURE,
-									"Failed to delete DAS device. Response Code : "
-											+ result);
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to delete DAS device. Response Code : " + result);
 						}
 					}
 
 				} catch (Exception e) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase,
-							FailType.FUNCTIONAL_FAILURE,
-							"Error Occured : " + e.getMessage());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 				}
 
 				if (!inputs.getInputValue("LOCATION1_NAME").equals("Home")) {
 					try {
-						int result = chUtil.deleteLocation(locInfo
-								.getLocationID());
+						int result = chUtil.deleteLocation(locInfo.getLocationID());
 						if (result == 200) {
 							Keyword.ReportStep_Pass(testCase,
-									"Successfully deleted location : "
-											+ inputs.getInputValue("LOCATION1_NAME"));
+									"Successfully deleted location : " + inputs.getInputValue("LOCATION1_NAME"));
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase,
-									FailType.FUNCTIONAL_FAILURE,
-									"Failed to delete location : "
-											+ inputs.getInputValue("LOCATION1_NAME")
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to delete location : " + inputs.getInputValue("LOCATION1_NAME")
 											+ ". Response Code : " + result);
 						}
 					} catch (Exception e) {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase,
-								FailType.FUNCTIONAL_FAILURE, "Error Occured : "
-										+ e.getMessage());
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured : " + e.getMessage());
 					}
 				}
 			}
 
 		} catch (Exception e) {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Error Occured : " + e.getMessage());
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
@@ -614,8 +654,7 @@ public class DIYRegistrationUtils {
 						}
 						case "ALMOST DONE LOADING PROGRESS BAR TEXT": {
 							if (dasDIY.isAlmostDoneLoadingSpinnerTextVisible()) {
-								System.out.println(
-										"Waiting for Almost Done loading spinner text to disappear");
+								System.out.println("Waiting for Almost Done loading spinner text to disappear");
 								return false;
 							} else {
 								return true;

@@ -2,7 +2,7 @@
 Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
-@DASDIYWhatToExpectScreen	@P2
+@DASDIYWhatToExpectScreen	@P2			@UIAutomated
 Scenario: User should be validate What To Expect and Watch How-To Video screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -14,38 +14,35 @@ Then user should be displayed with the "Video clip" screen
 When user navigates to "What To Expect" screen from the "Video clip" screen
 Then user navigates to "Choose Location" screen from the "What To Expect" screen
 
-
-@DIYCancelSetUp		@P2
+#There is no Cancel button in Create Location, Create Base Station screens in iOS
+@DIYCancelSetUp		@P2			@UIAutomated
 Scenario Outline: User should be able to cancel the set up from choose location, Create Location, name your base station and Name your device screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
-When user "cancels the set up" by clicking on "cancel" button
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Choose Location" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user navigates to "Add New Device Dashboard" screen from the "Choose Location" screen
+Then user should be displayed with the "Add New Device Dashboard" screen
 When user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
-When user selects the "Create New Location" from "Choose Location" screen
+Then user navigates to "Choose Location" screen from the "What To Expect" screen
+When user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
-Then user should be displayed with the "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user navigates to "Add New Device Dashboard" screen from the "Choose Location" screen
+Then user should be displayed with the "Add New Device Dashboard" screen
 When user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
+Then user navigates to "Choose Location" screen from the "What To Expect" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user "cancels the set up" by clicking on "cancel" button
@@ -55,105 +52,114 @@ Then user should be displayed with the "Name Your Base Station" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user navigates to "Add New Device Dashboard" screen from the "Choose Location" screen
+Then user should be displayed with the "Add New Device Dashboard" screen
 When user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-And user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
+Then user navigates to "Choose Location" screen from the "What To Expect" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects "Create Custom Name" from "Name Your Base Station" screen
-Then user should be displayed with the "Create Custom Name" screen
+When user selects "Create New Base Station" from "Name Your Base Station" screen
+Then user should be displayed with the "Create New Base Station" screen
 And user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
-Then user should be displayed with the "Name Your Device" screen
+Then user should be displayed with the "Create New Base Station" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user navigates to "Add New Device Dashboard" screen from the "Choose Location" screen
+Then user should be displayed with the "Add New Device Dashboard" screen
 
 Examples: 
       | location name   |
       | Home            |
+      
 
-
-@DIYRegistrationWhenExistingLocationAndBaseStationNamesAreEntered		@P2
+@DIYRegistrationWhenExistingLocationAndBaseStationNamesAreEntered			@P2		@UIAutomated
 Scenario Outline: As a user I want to verify if error popup displays when existing location and base station names are entered again
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
-When user selects the "Create New Location" from "Choose Location" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
-When user inputs <Existing location name> in the "Choose Location" screen
+When user clicks on done button without entering any custom name
+Then user should receive a "Custom Name should not be empty" popup
+When user "clicks on OK in" the "Custom Name should not be empty" popup
+Then user should be displayed with the "Create Location" screen
+When user inputs <Existing location name> in the "Create Location" screen
 Then user should receive a "Existing Location Error" popup
 When user "clicks on OK in" the "Existing Location Error" popup
-Then user should be displayed with the "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user navigates to "Choose Location" screen from the "Create Location" screen
 When user selects <Existing location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user inputs <Existing device name> in the "Name Your Base Station" screen
+When user selects "Create New Base Station" from "Name Your Base Station" screen
+Then user should be displayed with the "Create New Base Station" screen
+When user clicks on done button without entering any custom name
+Then user should receive a "Custom Name should not be empty" popup
+When user "clicks on OK in" the "Custom Name should not be empty" popup
+Then user should be displayed with the "Create New Base Station" screen
+When user inputs <Existing device name> in the "Create New Base Station" screen
 Then user should receive a "Existing Base Station Error" popup
 When user "clicks on OK in" the "Existing Base Station Error" popup
-Then user should be displayed with the "Choose Location" screen
-When user selects <Existing location name> from "Choose Location" screen
-Then user should be displayed with the "Name Your Base Station" screen
-When user selects <Existing device name> from "Name Your Base Station" screen
-Then user should be displayed with the "Power Base Station" screen
+Then user should be displayed with the "Create New Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
 
 Examples: 
       | Existing location name      | Existing device name  |
       | Home                        | Living Room           |
       
-@DIYWhenUserEntersMaxCharactersInCustomLocationAndBaseStationName		@P2
+@DIYWhenUserEntersMaxCharactersInCustomLocationAndBaseStationName		@P2		@UIAutomated
 Scenario Outline: As a user I want to enter max characters in new location and base station name
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
-When user selects the "Create New Location" from "Choose Location" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
-When user inputs <max charcters> in the "Choose Location" screen
-Then user should not be allowed to enter more than "20" charcters
+When user inputs <max charcters> in the "Name Your Location" screen
+Then user should not be allowed to enter more than "30" charcters in "Name Your Location" screen
+When user navigates to "Choose Location" screen from the "Create Location" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
-When user selects "Create Custom Name" from "Name Your Base Station" screen
-And user inputs <max charcters> in the "Create Custom Name" screen
-Then user should not be allowed to enter more than "20" charcters
+When user selects "Create New Base Station" from "Name Your Base Station" screen
+Then user should be displayed with the "Create New Base Station" screen
+And user inputs <max charcters> in the "Name Your Device" screen
+Then user should not be allowed to enter more than "30" charcters in "Name Your Device" screen
 
 Examples: 
-      | max charcters                                                               |
-      | This is to test max characters in custom location name and base station     |
+      | max charcters                    | location name		|
+      | This is to test max character	| Home				|
+      | This is to test max characters	| Home				|
+      | This is to test max characterss	| Home				|
+      
 
-@DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1
+@DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
-When user selects the "Get Started" from "What To Expect" screen
-Then user should be displayed with the "Choose Location" screen
-When user selects the "Create New Location" from "Choose Location" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
-When user clicks on "Done" button
-Then user should be displayed with the "Create Location" screen
-When user inputs <new location name> in the "Choose Location" screen
+When user inputs <new location name> in the "Create Location" screen
 Then user should be displayed with the "Confirm Your ZIP Code" screen
 When user inputs <invalid zip code>
 Then user should receive a "Invalid zip code" popup
 When user "dismisses" the "Invalid zip code" popup
 When user inputs <valid zip code>
 Then user should be displayed with the "Name Your Base Station" screen
-And user selects "Create Custom Name" from "Name Your Base Station" screen
-When user clicks on "Done" button
-Then user should be displayed with the "Create Custom Name" screen
-When user inputs <new device name> in the "Name Your Base Station" screen
+When user selects "Create New Base Station" from "Name Your Base Station" screen
+Then user should be displayed with the "Create New Base Station" screen
+When user inputs <new device name> in the "Create New Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-And user selects the "Not Pulsing Blue?" from "Power Base station" screen
+And user selects "Not Pulsing Blue" from "Power Base station" screen
 Then user should be displayed with the "Base Station Help" screen
-And user should be displayed with Customer Care number on the bottom of the screen
-When user navigates to "Power Base station" screen from the " Base station Help" screen
+#And user should be displayed with Customer Care number on the bottom of the screen
+When user navigates to "Power Base station" screen from the "Base station Help" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
@@ -176,18 +182,18 @@ And user should not be displayed with <new device name> device on the "dashboard
 Then user "deletes location details" by clicking on "delete" button
 
 Examples: 
-      | new location name           | new device name       | invalid zip code            | valid zip code        |
-      | California                  | Scrum Room            | 55555                       | 90001                 |
-      | Texas                       | War Room              | 55555                       | 73301                 |
-      | Texas#$%                    | Ball Room             | 55555                       | 73301                 |
+      | new location name           | new device name       | invalid zip code             | valid zip code        |
+      | California                  | Scrum Room            | 555555                       | 90001                 |
+      | Texas                       | War Room              | 555555                       | 73301                 |
+#     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
 
 
-@DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2 
-Scenario Outline: As a user I want to verify default location name and default base station name 
-GGiven user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+@DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@UIAutomated
+Scenario Outline: As a user I want to verify default location name and default base station name
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects <Default Location> from "Choose Location" screen
 Then user should be displayed with the "Confirm Your ZIP Code" screen
@@ -198,10 +204,10 @@ When user inputs <valid zip code>
 Then user should be displayed with the "Name Your Base Station" screen
 And user selects <Default Device Name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-And user selects the "Not Pulsing Blue?" from "Power Base station" screen
+And user selects "Not Pulsing Blue" from "Power Base station" screen
 Then user should be displayed with the "Base Station Help" screen
-And user should be displayed with Customer Care number on the bottom of the screen
-When user navigates to "Power Base station" screen from the " Base station Help" screen
+#And user should be displayed with Customer Care number on the bottom of the screen
+When user navigates to "Power Base station" screen from the "Base station Help" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
@@ -221,18 +227,18 @@ Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <Default Device Name> device on the "dashboard" screen
-Then user "deletes location details" by clicking on "delete" button
-
+Then user "deletes default location details" by clicking on "delete" button
 
 Examples: 
-      | Default Location	| Default Device Name	| invalid zip code            | valid zip code        |
-      | Home				| Living room		    | 55555                       | 90001                 |		
-      | Vacation Home       | Kitchen	            | 55555                       | 90001                 |
-      | Office              | Entryway	            | 55555                       | 90001                 |
-      | Lake House          | Dining Room           | 55555                       | 90001                 |
-      | Cabin               | Bedroom               | 55555                       | 90001                 |
-      | Pool House          | First Floor           | 55555                       | 90001                 |
+      | Default Location		| Default Device Name		| invalid zip code             | valid zip code        |
+#      | Home					| Living Room				| 555555                       | 90001                 |		
+#      | Vacation Home		| Kitchen					| 555555                       | 90001                 |
+      | Office				| Entry Way					| 555555                       | 90001                 |
+#      | Lake House			| Dining Room				| 555555                       | 90001                 |
+#      | Cabin				| Bedroom					| 555555                       | 90001                 |
+#      | Pool House			| First Floor				| 555555                       | 90001                 |
 
+#CannotAutomate
 @DIYDenyAppAccessToLocationServices		@P2
 Scenario Outline: As a user I should be prompted with Location services popup when location services access is denied after installation
 Given user denies location services access while launching the Lyric app after installation and then logs in to the Lyric app
@@ -261,7 +267,8 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYWhenNoBaseStationsAreAvailable	 		@Doesn'tRequireAnyBaseStationsForExecution		@P2
+
+@DIYWhenNoBaseStationsAreAvailable	 		@Doesn'tRequireAnyBaseStationsForExecution		@P2				@UIAutomated
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -271,10 +278,12 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
+When user DAS device with ADB ID "9c48da88" is deregistered and booted
 Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 Then user should receive a "Base Station Not Found" popup
 And user "clicks on OK in" the "Base Station Not Found" popup
 Then user should be displayed with the "Power Base Station" screen
+When user DAS device with ADB ID "9c48da88" is deregistered and booted
 Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 And user should receive a "Base Station Not Found" popup
 Then user "retries base station pairing in" the "Base Station Not Found" popup
@@ -286,7 +295,8 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYWhenQRCodeIsNotScannedAndThenScanned	 		@P3
+
+@DIYWhenQRCodeIsNotScannedAndThenScanned	 		@P3			@UIAutomated
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -302,8 +312,8 @@ When QR code is not scanned for "2" minutes
 Then user should receive a "scanning failure" popup
 When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
-And user scans the QR code by showing it to the base station camera
-Then user should be displayed with the "Connect to Network" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
@@ -329,7 +339,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 	@P3
+@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 	@P3				@UIAutomated
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -345,8 +355,8 @@ When user scans an invalid QR code
 Then user should receive a "scanning failure" popup
 When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
-And user scans the QR code by showing it to the base station camera
-Then user should be displayed with the "Connect to Network" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
@@ -372,6 +382,7 @@ Examples:
       | Home                                    | Living Room                     |
       
 
+#CannotAutomate
 @DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen		@P2
 Scenario Outline: As a user I should be able to tap on Cancel multiple times in Register Base Station screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -397,7 +408,8 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYCanncelInRegisterBaseStation	 	@P2
+
+@DIYCancelInRegisterBaseStation	 	@P2			@UIAutomated
 Scenario Outline: As a user I should be able to Cancel the setup in Register Base Station screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -416,7 +428,7 @@ Then user should be displayed with the "Register Base Station" screen
 When user "cancels the set up" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user navigates to "Dashboard" screen from the "Register Base Station" screen
+Then user navigates to "Add New Device Dashboard" screen from the "Register Base Station" screen
 
 Examples: 
       | location name                           | device name                     | 
@@ -449,6 +461,8 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
+
+#CannotAutomate
 @DIYDisconnectDASDevice		@P3
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when DAS device is disconnected
 Given user launches and logs in to the Lyric application
@@ -474,6 +488,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
+#CannotAutomate
 @DIYTimeoutInDASDevice		@P3
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in DAS device
 Given user launches and logs in to the Lyric application
@@ -495,6 +510,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     | 
 
+#CannotAutomate
 @DIYTurnOffMobileDeviceBluetooth		@P2
 Scenario: As a user I should be prompted with Bluetooth is off popup when mobile device Bluetooth is off
 Given user launches and logs in to the Lyric application
@@ -541,10 +557,11 @@ Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYCancelSetUpInConnectToNetworkScreen	 	@P2
+
+@DIYCancelSetUpInConnectToNetworkScreen	 	@P2			@UIAutomated
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -557,11 +574,11 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen 
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user "cancels the set up" by clicking on "cancel" button
+When user "cancels the connect to wifi network" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user "cancels the set up" by clicking on "cancel" button
+When user "cancels the connect to network" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
@@ -570,6 +587,8 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
+
+#CannotAutoamte
 @DIYMoveAwayFromDASDeviceAfterScanningQRCode		@P3
 Scenario Outline: As a user I should be prompted with Bluetooth Disconnected popup when I move away from DAS device after scanning the QR code
 Given user launches and logs in to the Lyric application
@@ -598,6 +617,7 @@ Then user should be displayed with the "Power Base Station" screen
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
+
 
 @DIYAddAWiFiNetworkAndRegisterDAS    @Setuprequired		@P2
 Scenario Outline: As a user I should be able to add a new network
@@ -652,7 +672,7 @@ Examples:
 
 
 @DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2
-Scenario Outline: As a user I want to register a DAS device by connecting to available network after cancelling add a network 
+Scenario Outline: As a user I want to register a DAS device by connecting to available network after cancelling add a network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -697,7 +717,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1
+@DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -827,7 +847,7 @@ Examples:
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@P2
-Scenario Outline: As a user I want to register a DAS device using the Lyric application when firmware update popsup
+Scenario Outline: As a user I want to register a DAS device using the Lyric application when firmware update pops up
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -909,7 +929,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 @DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2
-Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
+Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -1242,7 +1262,7 @@ Examples:
       |	Home			|	Living Room			|	Kitchen				|	B8:2C:A0:00:07:D8		| Home Security                        | Living Room Camera                   | Home Security                         | Kitchen Camera                        | 
 
 
-@DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS
+@DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS			@P2
 Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS after performing factory settings on the registered DAS
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application

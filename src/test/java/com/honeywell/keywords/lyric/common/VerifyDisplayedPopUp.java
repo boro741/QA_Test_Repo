@@ -121,6 +121,24 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & dasDIY.isInvalidZipCodePopupVisible();
 			break;
 		}
+		case "EXISTING LOCATION ERROR": {
+
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			flag = flag & dasDIY.isCustomLocationNameExistsErrorPopupTitleVisible();
+			break;
+		}
+		case "EXISTING BASE STATION ERROR": {
+
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			flag = flag & dasDIY.isCustomBaseStationNameExistsErrorPopupTitleVisible();
+			break;
+		}
+		case "CUSTOM NAME SHOULD NOT BE EMPTY": {
+
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			flag = flag & dasDIY.isCustomBaseStationNameIsEmptyErrorPopupTitleVisible();
+			break;
+		}
 		case "BASE STATION NOT FOUND": {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);

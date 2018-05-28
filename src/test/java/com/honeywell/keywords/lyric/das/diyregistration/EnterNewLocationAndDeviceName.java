@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 
 public class EnterNewLocationAndDeviceName extends Keyword {
 
@@ -34,13 +35,23 @@ public class EnterNewLocationAndDeviceName extends Keyword {
 	@KeywordStep(gherkins = "^user inputs \"(.*)\" in the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 
-		if (inputName.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+		if (inputName.get(1).equalsIgnoreCase("CREATE LOCATION")) {
 			inputs.setInputValue("LOCATION1_NAME", inputName.get(0));
-			return DIYRegistrationUtils.inputNewLocationName(testCase, inputName.get(0));
-		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
+			flag = flag & DIYRegistrationUtils.inputNewLocationName(testCase, inputName.get(0));
+		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR LOCATION")) {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			inputs.setInputValue("LOCATION1_NAME", inputName.get(0));
+			flag = flag & 
+					dasDIY.enterMaxCharsInCustomNameTxtField(inputName.get(0));
+		} else if (inputName.get(1).equalsIgnoreCase("CREATE NEW BASE STATION")) {
 			inputs.setInputValue("LOCATION1_CAMERA1_NAME", inputName.get(0));
-			return DIYRegistrationUtils.inputNewBaseStationnName(testCase, inputName.get(0));
-		}
+			flag = flag & DIYRegistrationUtils.inputNewBaseStationnName(testCase, inputName.get(0));
+		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR DEVICE")) {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			inputs.setInputValue("LOCATION1_CAMERA1_NAME", inputName.get(0));
+			flag = flag & 
+					dasDIY.enterMaxCharsInCustomNameTxtField(inputName.get(0));
+		} 
 		return flag;
 	}
 
