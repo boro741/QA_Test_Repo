@@ -13,7 +13,7 @@ WeatherButton	ID	fragment_weather_current_temperature	ID	fragment_weather_curren
 AddDevice	ID	dashboard_add_thermostat	ID	dashboard_add_thermostat	ID	dashboard_add_thermostat	NAME	Add Device	NAME	Add Device	NAME	Add Device
 FanAuto	XPATH	//android.widget.TextView[@text='Auto']					XPATH	//XCUIElementTypeStaticText[@value='Auto']	XPATH	//XCUIElementTypeStaticText[@value='Auto']	XPATH	//XCUIElementTypeStaticText[@value='Auto']
 GeofenceScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	icon geofence normal	NAME	icon geofence normal	NAME	icon geofence normal
-SystemModeButton	XPATH	//*[@text='MODE']	ID	view_thermostat_mode_change_toggle_button	ID	view_thermostat_mode_change_toggle_button	NAME	DashBoard_Mode	NAME	DashBoard_Mode	NAME	DashBoard_Mode
+SystemModeButton	XPATH	//*[@text='MODE']	ID	view_thermostat_mode_change_toggle_button	ID	view_thermostat_mode_change_toggle_button	ID	DashBoard_Mode	ID	DashBoard_Mode	ID	DashBoard_Mode
 HeatModeOption	XPATH	//*[@text='HEAT']	XPATH	//*[@text='Heat']	XPATH	//*[@text='Heat']	XPATH	//*[@value='HEAT']	XPATH	//*[@value='HEAT']	XPATH	//*[@value='HEAT']
 MultiStatIndoorTemp	ID	indoortemp	ID	indoortemp	ID	indoortemp	NAME	indoorTemperatureValue	NAME	indoorTemperatureValue	NAME	indoorTemperatureValue
 TemperatureHumidityValue	ID	wld_temp_humidity_value	ID	wld_temp_humidity_value	ID	wld_temp_humidity_value						

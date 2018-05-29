@@ -78,7 +78,6 @@ And user navigates to "Ventilation Timer" screen from the "Ventilation Mode" scr
 Then User tap on "Stop timer"
 And Verify Timer is "Stopped"
 # And Verify Timer is Stopped on the Stat
-
 Examples:
 |To mode |Mintues|
 |Off  | 20     |
@@ -98,8 +97,6 @@ And user navigates to "Ventilation Timer" screen from the "Ventilation Mode" scr
 When user <Control Buttons> the timer <Mintues>
 And user taps on "Save"
 Then Verify Timer is "displayed" and set to <Mintues>
-
-
 Examples:
 |Control Buttons|Mintues|
 |Increment |20     |
