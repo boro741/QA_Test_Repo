@@ -204,7 +204,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isProgressBarVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar");
 	}
-	
+
 	public boolean isLoadingProgressVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
 	}
@@ -375,5 +375,55 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean clickOnOKButtonInUnableToConnectToBaseStationAlert() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
+	}
+	public boolean clickOnAppSettingsIcon() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AppSettingsIcon");
+	}
+
+	public boolean clickOnSensorButton() {
+
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorButton");
+	}
+
+	public boolean clickOnUserGivenSensorName(String givenSensorName) {
+
+		List<WebElement> sensorList;
+		if(testCase.getPlatform().contains("IOS")){
+			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		}else {
+			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		}		
+
+		for(WebElement sensor : sensorList) {
+			String actualSensorName=sensor.getText();
+			if(givenSensorName.equalsIgnoreCase(actualSensorName)){
+				sensor.click();
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public boolean isSensorDisplayed(String givenSensorName) {
+		List<WebElement> sensorList;
+		if(testCase.getPlatform().contains("IOS")){
+			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		}else {
+			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		}		
+
+		for(WebElement sensor : sensorList) {
+			String actualSensorName=sensor.getText();
+			if(givenSensorName.equalsIgnoreCase(actualSensorName)){
+				return true;
+			}
+		}
+		return false;
+
+	}
+	public boolean isSecuritySettingsTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecuritySettingsTitle",10);
+
 	}
 }

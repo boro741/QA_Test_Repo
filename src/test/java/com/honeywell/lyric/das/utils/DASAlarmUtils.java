@@ -57,6 +57,40 @@ public class DASAlarmUtils {
 		}
 		return flag;
 	}
+
+	public static boolean timeForExitDelayToEndWhenAppInBackground(TestCases testCase,TestCaseInputs inputs,int delay) {
+		boolean flag = true;
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(5, TimeUnit.SECONDS);
+			fWait.withTimeout(delay, TimeUnit.SECONDS);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (alarmScreen.isAlarmScreenDisplayed()) {
+							return true;
+						} else {
+							return false;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Exit delay completed");
+			}
+		} catch (TimeoutException e) {
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,"Exit delay completed");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+
 	public static boolean confirmDismissAlarm(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
@@ -126,8 +160,8 @@ public class DASAlarmUtils {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		return alarmScreen.clickOnAlarm_NavigateBack();
 	}
-	
-	
+
+
 	public static boolean clickOnAttention(TestCases testCase, TestCaseInputs inputs){
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));

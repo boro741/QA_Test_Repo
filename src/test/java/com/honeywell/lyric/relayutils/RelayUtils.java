@@ -24,12 +24,29 @@ public class RelayUtils {
 		SerialDriverArduino.closePort();
 	}
 
+	public static void RSIContactSensorEnroll_Window() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_1_Enroll_ON);
+		Thread.sleep(3000);
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_1_Enroll_OFF);
+		SerialDriverArduino.closePort();
+	}
 	public static void RSIContactSensorOpen_Door() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_2_Trip_ON);
 		SerialDriverArduino.closePort();
 
 	}
+	
+	public static void RSIContactSensorEnroll_Door() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_2_Enroll_ON);
+		Thread.sleep(3000);
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_2_Enroll_OFF);
+		SerialDriverArduino.closePort();
+	}
+	
+	
 	public static void RSIContactSensorClosed_Door() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_2_Trip_OFF);

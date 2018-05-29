@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.das.pushnotifications;
 
 import java.util.ArrayList;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -16,7 +15,6 @@ import com.honeywell.lyric.das.utils.DASNotificationUtils;
 import com.honeywell.screens.AlarmScreen;
 
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 
 public class ActionOnPushNotification extends Keyword {
 
@@ -50,7 +48,7 @@ public class ActionOnPushNotification extends Keyword {
 			notification = "Motion Dectected by Camera \""+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+"\".";
 			break;
 		}
-		case "SWITCH TO NIGHT":{
+		case "SWITCH TO NIGHT FROM DOOR OPEN":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			String locatorValue = "";
@@ -59,24 +57,24 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
 			}
-			MobileElement notificationLocation = MobileUtils.getMobElement(testCase,"xpath", locatorValue);
-			TouchAction first_fingerT =new TouchAction(testCase.getMobileDriver());
-			first_fingerT.longPress(notificationLocation);
-			
-			TouchActions first_finger =new TouchActions(testCase.getMobileDriver());
-			first_finger.clickAndHold(notificationLocation).release();
-			//first_finger.press(180,150).wait(2000).release();
-			//press(180,150).wait(2000).release();
-				/*	second_finger = Appium::TouchAction.new.press(:x => 183, :y => 265).wait(2000).release
-					double_tap = Appium::MultiTouch.new
-					double_tap.add first_finger
-					double_tap.add second_finger
-					double_tap.perform*/
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
-			alarmScreen.clickOnSwitchToNight();
-			break;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
+				if(alarmScreen.switchToNightOnNotificationExists()) {
+					flag=alarmScreen.clickswitchToNightOnNotification();
+				}
+				else {
+					alarmScreen.swipe(locatorValue);
+					flag=alarmScreen.clickswitchToNightOnNotification();
+				}	
+			}
+			else {
+				MobileElement element=MobileUtils.getMobElement(testCase,"xpath", locatorValue);
+				MobileUtils.longPress(testCase, element, 10);
+				flag=alarmScreen.clickOnSwitchToNight();
+			}
+			return flag;
 		}
-		case "SWITCH TO HOME":{
+		case "SWITCH TO HOME FROM DOOR OPEN":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			String locatorValue = "";
@@ -85,11 +83,23 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
 			}
-			MobileElement notificationLocation = MobileUtils.getMobElement(testCase,"xpath", locatorValue);
-			MobileUtils.longPress(testCase, notificationLocation, 10000);
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
-			alarmScreen.clickOnSwitchToHome();
-			break;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
+				if(alarmScreen.switchToHomeOnNotificationExists()) {
+					flag=alarmScreen.clickswitchToHomeOnNotification();
+				}
+				else {
+					alarmScreen.swipe(locatorValue);
+					flag=alarmScreen.clickswitchToHomeOnNotification();
+				}
+			}
+			else {
+				MobileElement element=MobileUtils.getMobElement(testCase,"xpath", locatorValue);
+				MobileUtils.longPress(testCase, element, 10);
+				flag=alarmScreen.clickOnSwitchToHome();
+
+			}
+			return flag;
 		}
 		case "DOOR OPENED":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
@@ -179,8 +189,8 @@ public class ActionOnPushNotification extends Keyword {
 
 		return flag;
 	}
-	
-	
+
+
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {

@@ -22,6 +22,8 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -348,6 +350,55 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Test Access Sensor")){
+				switch (parameters.get(0).toUpperCase()) {
+				case "SENSOR NOT WORKING":{
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag= flag & sensor.clickOnSensorNotWorking();
+					break;
+				}
+
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "SENSOR COVER TAMPERED":{
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag= flag & settingScreen.clickOnSensorCoverTamperOption();
+					break;
+				}
+				case "SIGNAL STRENGTH AND TEST":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag= flag & bs.clickOnSignalStrengthandTestOption();
+					break;
+				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Sensor Cover Tamper")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLEAR TAMPER":{
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag= flag & settingScreen.clickOnClearCoverTamperOption();
+					break;
+				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Access Sensor Help")){
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GET ADDITIONAL HELP":{
+					if(!testCase.getPlatform().contains("IOS")){
+						flag= flag & sensor.clickOnGetAdditionalHelpButton();
+					}
+					break;
+				}
+				case "TEST SIGNAL STRENGTH":{
+					flag= flag & sensor.clickOnTestSignalStrength();
+					break;
+				}
+
 				}
 			}
 		} catch (Exception e) {

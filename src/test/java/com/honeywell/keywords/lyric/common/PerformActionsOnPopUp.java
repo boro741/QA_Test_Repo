@@ -18,6 +18,7 @@ import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -494,7 +495,20 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else {
+		} else if(expectedPopUp.get(1).equalsIgnoreCase("SENSOR TAMPER")){
+			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "OK": {
+				flag = flag & settingScreen.clickOnOkTamperClearPopup();
+				break;
+			}
+			case "RETRY": {
+				flag = flag & settingScreen.clickOnRetryTamperClearPopup();
+				break;
+			}
+			}
+		}
+		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

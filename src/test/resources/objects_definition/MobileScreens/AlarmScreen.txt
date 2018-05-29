@@ -1,6 +1,6 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-Alarm_Title	id	alarm_toolbar_heading					name	Alarm_Navigation_Title				
-Alarm_NaviigateBack	xpath	//*[@content-desc='Navigate Up']					name	nav bar back				
+Alarm_Title	id	alarm_toolbar_heading					name	Alarm				
+Alarm_NaviigateBack	xpath	//*[@content-desc='Navigate Up']					name	BACK				
 Alarm_Subtitle	id	alarm_toolbar_sub_heading					name	Alarm_Navigation_Subtitle				
 AlarmLiveStream_progress	id	alarms_live_view					name	Progress				
 AlarmDismissButton	id	lyricButton_dismiss_alarm					name	Dismiss Alarm				
@@ -18,6 +18,8 @@ DashboardNightIcon	xpath	//*[@content-desc='night']					id	btn_security_dashboar
 DismissRequestProcessing	xpath	//*[@text='Processing request']					xpath	"//*[contains(@name,'Please')]"				
 AlarmWillSoundInText	xpath	//*[@text='Alarm will sound in']					name	Alarm will sound in				
 AlarmWillSoundInSeconds	id	exit_delay_timer_text					name	countDownTimer				
+EntryDelayDoorOpenTitle	xpath	"//*[contains(@text,'Door')]"					xpath	"//*[contains(@name,'Door Open')]"				
+EntryDelayDoorOpenSensorNameTitle	id	alarm_toolbar_sub_heading					xpath	"//*[contains(@name,'Door Open')]"				
 SwitchToHomeButton	id	lyricButton_switch_to_home					name	Switch To Home				
 SwitchToNightButton	id	lyricButton_switch_to_night					name	Switch To Night				
 SwitchToNightProgress	xpath	//*[@text='Switching to Night mode']										
@@ -29,3 +31,12 @@ Alarm_History	id	alarms_toolbar
 pauseStreaming	id	pauseStreaming										
 LiveStreamingArea	id	camera_surfaceview										
 playStreaming	id	camera_solution_card_retry										
+ProgressBar_timer	id	camera_progress_bar					ID	Progress	ID	Progress		
+Maximize_button	id	camera_play_fullscreen					ID	btn maximize	ID	btn maximize	ID	btn maximize
+Minimize_button	id	camera_play_fullscreen					ID	btn minimize	ID	btn minimize	ID	btn minimize
+Live_icon	id	camera_live_indicator					ID	LIVE	ID	live	ID	live
+SwitchHomeNotificationButton	xpath	"//*[contains(@text,'SWITCH TO HOME')]"										
+SwitchNightNotificationButton	xpath	"//*[contains(@text,'SWITCH TO NIGHT')]"										
+EntryDelayLocationText	Id	alarm_time_text										
+AlarmLocationTextSuffix	Id	alarm_time_text										
+EntryDelayCounter	id	exit_delay_timer_text										

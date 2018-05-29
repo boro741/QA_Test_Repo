@@ -15,6 +15,12 @@ public class DASNotificationUtils {
 	@SuppressWarnings("unchecked")
 	public static void openNotifications(TestCases testCase) {
 		MobileUtils.minimizeApp(testCase, -1);
+		try {
+			Thread.sleep(7000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) testCase.getMobileDriver();
 			driver.openNotifications();

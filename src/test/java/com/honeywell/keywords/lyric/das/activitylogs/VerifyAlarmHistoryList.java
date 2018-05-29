@@ -40,10 +40,6 @@ public class VerifyAlarmHistoryList extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^verify the following alarm history:$")
 	public boolean keywordSteps() throws KeywordException {
-/*
-		if(true){
-			return true;
-		}*/
 		// if(!inputs.getInputValue("VERIFY_ACTIVITYLOGS").equalsIgnoreCase("NO")){
 		try {
 			String expectedActivityHeader = "";
@@ -570,8 +566,6 @@ public class VerifyAlarmHistoryList extends Keyword {
 				}
 			}
 			
-			
-			// flag = flag & DASNotificationUtils.closeActivityLogs(testCase);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
@@ -585,6 +579,11 @@ public class VerifyAlarmHistoryList extends Keyword {
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {
+		try {
+			flag = flag & DASActivityLogsUtils.closeActivityLogs(testCase);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return flag;
 	}
 }

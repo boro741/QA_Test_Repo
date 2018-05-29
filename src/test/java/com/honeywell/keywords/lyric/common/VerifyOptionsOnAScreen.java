@@ -11,13 +11,14 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class VerifyOptionsOnAScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+ private TestCaseInputs inputs;
 	public ArrayList<String> expectedScreen;
 	public boolean flag = true;
 	public DataTable data;
@@ -25,7 +26,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	public VerifyOptionsOnAScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen,
 			DataTable data) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
 		this.data = data;
 	}
@@ -40,6 +41,83 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the following (.*) options:$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
+		
+		case "ENTRYDELAY":{
+			AlarmScreen check = new AlarmScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Elements");
+				switch(parameter.toUpperCase()) {
+				case "ENTRY DELAY WITH DOOR OPEN TITLE":{
+					flag = flag & check.isEntryDelayTitleVisible();
+					break;
+				}
+				case "ENTRY DELAY WITH SENSOR NAME":{
+					flag = flag & check.isEntryDelaySubTitleVisible(inputs);
+					break;
+				}
+                case "ENTRY DELAY SUBTITLE AS LOCATION NAME":{
+                	flag = flag & check.isEntryDelayLocationVisible(inputs);
+                	break;
+				}
+                case "ENTRY DELAY LIVE STREAM":{
+                	flag = flag & check.verifyLiveStreamingProgress();
+                	break;
+                } 
+               case "ENTRY DELAY ALARM IN SECS TEXT  ":{
+            		flag = flag & check.isAlarmWillSoundInTextVisible();
+            		break;
+                 }
+               case "ENTRY DELAY ALARM IN SECS COUNTER":{
+            	   flag = flag & check.AlarmInSecsCounter();
+            	   break;
+               }
+              }
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, "The "+parameter+"has found");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The "+parameter+" has not found");
+				}
+				
+				}
+			break;
+			}
+		case "ALARM":{
+			AlarmScreen check = new AlarmScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Elements");
+				switch(parameter.toUpperCase()) {
+				case "ALARM TITLE":{
+					flag = flag & check.isAlarmTitleVisible();
+					break;
+				}
+				case "ALARM SUBTITLE":{
+					flag = flag & check.isAlarmLocationVisible(inputs);
+					break;
+				}
+				case "ALARM LIVE STREAM":{
+					flag = flag & check.verifyLiveStreamingProgress();
+		               
+					break;
+				}
+				case "ALARM NAVIGATE BACK BUTTON":{
+					flag = flag & check.isAlarm_NavigatebackVisible();
+					break;
+				}
+				case "CALL":{
+					flag = flag & check.isCallButtonVisible();
+					break;
+				}
+				}
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, "The "+parameter+"has found");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The"+parameter+"has not found");
+				}
+			}
+			break;
+		}
 		case "SECURITY SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -129,69 +207,88 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		}
 
 		case "SENSOR SETTINGS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
-					if (bs.verifySensorNameOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Name' Sensor Option is present on the Sensors Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Name' Sensor Option is not displayed on the Sensor Settings Screen");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
-					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Status' Option is not displayed on the Sensor Settings Screen");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
-					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Signal Strength And Test' Option is present on the Sensors Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Signal Strength And Test' Option is not displayed on the Sensor Settings Screen");
-					}
-				}
+            BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+            for (int i = 0; i < data.getSize(); i++) {
+                  if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
+                         if (bs.verifySensorNameOptionTextOnSensorSettingsScreen()) {
+                        Keyword.ReportStep_Pass(testCase,
+                                              "'Name' Sensor Option is present on the Sensors Settings Screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Name' Sensor Option is not displayed on the Sensor Settings Screen");
+                         }
+                  } else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
+                         if (bs.verifyStatusOptionTextOnSensorSettingsScreen()) {
+                           Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Status' Option is not displayed on the Sensor Settings Screen");
+                         }
+                         if (bs.verifySensorStatusTextOnSensorSettingsScreen()) {
+                           Keyword.ReportStep_Pass(testCase, "'Sensor Status' is correctly displayed");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Sensor Status' is not correctly displayed");
+                         }
+                        
+                  } else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
+                         if (bs.verifySignalStrengthOptionTextOnSensorSettingsScreen()) {
+                           Keyword.ReportStep_Pass(testCase,
+                                              "'Signal Strength And Test' Option is present on the Sensors Settings Screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Signal Strength And Test' Option is not displayed on the Sensor Settings Screen");
+                         }
+                  }
 
-				else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
-					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Battery' Option is present on the Sensor Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Battery' Option is not displayed on the Sensor Settings Screen");
-					}
+                  else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
+                         if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
+                           Keyword.ReportStep_Pass(testCase, "'Battery' Option is present on the Sensor Settings Screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Battery' Option is not displayed on the Sensor Settings Screen");
+                         }
 
-					if (bs.verifyBatteryStatusTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Battery Status' is not correctly displayed");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
-					if (bs.verifyModelAndFirmwareDetailsOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Model and Firmware Details' Option is present on the Sensor Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Model and Firmware Details' Option is not displayed on the Sensor Settings Screen");
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
+                         if (bs.verifyBatteryStatusTextOnSensorSettingsScreen()) {
+                         Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Battery Status' is not correctly displayed");
+                         }
+                  } else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
+                         if (bs.verifyModelAndFirmwareDetailsOptionTextOnSensorSettingsScreen()) {
+                         Keyword.ReportStep_Pass(testCase,
+                                              "'Model and Firmware Details' Option is present on the Sensor Settings Screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Model and Firmware Details' Option is not displayed on the Sensor Settings Screen");
+                         }
+                  }
+                  else if (data.getData(i, "Settings").equalsIgnoreCase("Delete")) {
+                         if (bs.verifyDeleteOptionOnSensorSettingsScreenVisible()) {
+                                Keyword.ReportStep_Pass(testCase,
+                                              "'Delete' Option is present on the Sensor Settings Screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                              "'Delete' Option is not displayed on the Sensor Settings Screen");
+                         }
+                  }
+          else {
+                         flag = false;
+                         Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                       "Invalid Input: " + data.getData(i, "Settings"));
+                  }
+            }
+            break;
+     }
 
 		case "KEYFOB SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
