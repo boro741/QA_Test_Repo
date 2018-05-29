@@ -17,6 +17,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -24,6 +25,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSignalStrengthTestScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -51,7 +53,20 @@ public class NavigateToScreen extends Keyword {
 	@KeywordStep(gherkins = "^user navigates to (.*) screen from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (screen.get(1).equalsIgnoreCase("SENSOR STATUS")) {
+			if (screen.get(1).equalsIgnoreCase("Alarm history")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ALARM": {
+					AlarmScreen open = new AlarmScreen(testCase);
+					open.openAlarmHistory();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			else if (screen.get(1).equalsIgnoreCase("SENSOR STATUS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACTIVITY LOG": {
 					SensorStatusScreen sensorScreen = new SensorStatusScreen(testCase);
@@ -202,6 +217,22 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DOOR ACCESS SETTINGS": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if(security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+					flag=LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
+
+					flag = flag & security.clickOnSensorButton();
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+					security.clickOnUserGivenSensorName(givenSensorName);
+
+
+					break;
+				}
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
@@ -420,10 +451,10 @@ public class NavigateToScreen extends Keyword {
 						flag=false;
 
 					}
-				 
+
 					break;
 				}
-				
+
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -450,7 +481,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -954,7 +985,43 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} else {
+			} 
+			else if(screen.get(1).equalsIgnoreCase("Honeywell Help web portal")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ACCESS SENSOR HELP": {
+					MobileUtils.pressBackButton(testCase);
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Test Signal Strength")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ACCESS SENSOR HELP": {
+					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+					sensor.clickOnSignalStrengthBackButton();
+					sensor.isAccessSensorHelpScreenDisplayed();
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Access Sensor Help")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "TEST ACCESS SENSOR": {
+					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+					sensor.clickOnAccessSensorHelpBack();
+					sensor.isTestSensorHeadingDisplayed();
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Test Access Sensor")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ACCESS SENSOR SETTINGS": {
+					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+					sensor.clickOnTestSensorBack();
+				}
+				}
+			}
+			
+			
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

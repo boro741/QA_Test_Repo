@@ -1,0 +1,14 @@
+FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
+TestSensorHeading	xpath	//*[@text='Test sensor']					Xpath	//*[@value='Test Sensor']				
+TestSensor_SensorName	id	is_sensor_name					Xpath	"//*[contains(@value,'is currently')]"				
+TestSensor_SensorStatus	id	walk_test_sensor_status					Xpath	"//*[contains(@value,'is currently')]/following-sibling:: XCUIElementTypeStaticText"				
+SensorNotWorkingButton	id	horizontal_link_text					Xpath	"//*[contains(@name,'Sensor Not Working')]"				
+AccessSensorHelpTitle	xpath	//*[@text='Access Sensor Help']					Xpath	//*[@value='Access Sensor Help']				
+GetAdditionalHelpButton	xpath	//*[@text='Get additional help']					name	Get Additional Help				
+TestSignalStrengthButton	id	sensor_range_test					name	Test Signal Strength				
+SignalStrengthHeading	xpath	//*[@text='Signal strength']					Xpath	//*[@value='Signal Strength']				
+SignalStrengthStatus	id	signal_strength_view					name	Sensor_Range_Test_1_0_subTitle				
+SignalStrengthBackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
+AccessSensorHelpBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
+TestSensorBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
+DoneButton							name	RightButton				

@@ -121,6 +121,43 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
+		case "SENSOR SETTINGS":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Name field")) {
+					if (bs.isNameElementEnabled()) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Name field is enabled");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Name field is disabled");
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("Signal strength and test")) {
+					if(bs.isSensorSignalStrengthAndTestOptionEnabled()) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Signal strength and test is enabled");
+					}
+					else {
+						Keyword.ReportStep_Pass(testCase, "Signal strength and test field is disabled");
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("Delete")) {
+					if (bs.isDeleteElementClickable()) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Delete should not clickable in away/night mode");
+					}
+					else {
+						Keyword.ReportStep_Pass(testCase, "Delete field is disabled");
+					}
+				}
+
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

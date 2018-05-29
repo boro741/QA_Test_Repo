@@ -277,7 +277,7 @@ public class DASSensorUtils {
 					}
 					if (MobileUtils.isMobElementExists("ID", "action_button", testCase)) {
 						MobileUtils.clickOnElement(testCase, "ID", "action_button");
-						DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 1);
+						DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 2);
 					}
 					if (testCase.getMobileDriver()
 							.findElements(By.xpath(

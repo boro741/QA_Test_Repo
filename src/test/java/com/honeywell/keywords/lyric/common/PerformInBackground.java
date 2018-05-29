@@ -39,8 +39,7 @@ public class PerformInBackground extends Keyword {
 		try {
 			Runnable bgnd = new Runnable() {
 				public void run() {
-					MobileUtils.minimizeApp(testCase, 20);
-
+					MobileUtils.minimizeApp(testCase, -1);
 				}
 			};
 			Thread t1= new Thread(bgnd);
@@ -58,8 +57,25 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Exception"+e.getMessage());
 					}
-				}else
-				if(states.get(0).equalsIgnoreCase("put app")){
+				}else if(states.get(0).equalsIgnoreCase("door tampered with app")){
+					try{
+						DASSensorUtils.tamperDoor(testCase, inputs);
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+					}
+				}
+				else if(states.get(0).equalsIgnoreCase("window tampered with app")){
+					try{
+						DASSensorUtils.tamperWindow(testCase, inputs);
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+					}
+				}
+				else if(states.get(0).equalsIgnoreCase("put app")){
 					try{
 						MobileUtils.minimizeApp(testCase, 20);
 					}catch(Exception e){
@@ -155,14 +171,14 @@ public class PerformInBackground extends Keyword {
 				else{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
 				}
-				while(t1.isAlive()){
+				/*while(t1.isAlive()){
 					Keyword.ReportStep_Pass(testCase, "App in backgrond");
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-				}
+				}*/
 			}
 		} catch (Exception e) {
 			flag = false;

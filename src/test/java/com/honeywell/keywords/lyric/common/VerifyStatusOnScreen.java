@@ -17,8 +17,11 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSignalStrengthTestScreen;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -48,6 +51,24 @@ public class VerifyStatusOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should see the (.*) status as (.*) on the (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
+		case "CAMERA SOLUTION CARD":
+		case "CAMERA":{
+			CameraScreen camStatus = new CameraScreen(testCase);
+			String value=expectedScreen.get(1).toUpperCase();
+			switch(value) {
+			case "ON":{
+				if(camStatus.isCameraToggleisOn(testCase)) {
+					return true;
+				}
+				else { 
+					return false;
+				}
+			}
+			}
+
+			break;
+		}
+
 		case "SENSOR STATUS": {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR": {
@@ -200,7 +221,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -212,7 +233,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -224,7 +245,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -254,7 +275,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -266,7 +287,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -278,7 +299,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -684,6 +705,79 @@ public class VerifyStatusOnScreen extends Keyword {
 					} catch (Exception e) {
 						ReportStep_Fail(testCase, FailType.FRAMEWORK_CONFIGURATION, "Relay issue" + e.getMessage());
 					}
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
+		case "TEST ACCESS SENSOR":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DOOR SENSOR": {
+				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OPEN": {
+					if(sensor.isDoorStatusVisible(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Door Sensor is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not "+(expectedScreen.get(1)));
+					}
+
+					break;
+				}
+				case "CLOSED":{
+					if(sensor.isDoorStatusVisible(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Door Sensor is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not "+(expectedScreen.get(1)));
+					}
+
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
+		case "SIGNAL STRENGTH":{
+			SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DOOR SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "HIGH": {
+					if(sensor.isSignalStrengthVisible(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Door Sensor is Open and signal is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not Open");
+					}
+
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
+		case "ACCESS SENSOR SETTINGS":{
+			BaseStationSettingsScreen sensor = new BaseStationSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DOOR SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CLOSED":{
+					if(sensor.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Door Sensor is "+(expectedScreen.get(1)+" after test signal"));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Door Sensor is not "+(expectedScreen.get(1)+" after test signal"));
+					}
+
 					break;
 				}
 				}

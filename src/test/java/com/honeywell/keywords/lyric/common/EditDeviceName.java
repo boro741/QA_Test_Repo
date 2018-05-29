@@ -114,6 +114,18 @@ public class EditDeviceName extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to locate the naming text field");
 				}
 			}
+			else if(parameters.get(0).equalsIgnoreCase("Access Sensor")) {
+                String check = parameters.get(1);
+                switch(check.toUpperCase()){
+                       case "NEW NAME":{
+                              String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+                              BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+                              bs.RenameSensorName(givenSensorName);
+                break;
+                       }
+                }
+               
+          }
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

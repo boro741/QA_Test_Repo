@@ -22,6 +22,7 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.SensorSignalStrengthTestScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -350,6 +351,41 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			}
+			else if(parameters.get(1).equalsIgnoreCase("Test Access Sensor")){
+ 				switch (parameters.get(0).toUpperCase()) {
+ 				case "SENSOR NOT WORKING":{
+ 					System.out.println("Inside Sensor not working case");
+ 					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+ 					sensor.clickOnSensorNotWorking();
+ 					break;
+ 				}
+ 				
+ 				}
+ 			}
+ 			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")) {
+ 				switch (parameters.get(0).toUpperCase()) {
+ 				case "SIGNAL STRENGTH AND TEST":{
+ 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+ 					bs.clickOnSignalStrengthandTestOption();
+ 					break;
+ 				}
+ 				
+ 			}
+ 			}
+ 			else if(parameters.get(1).equalsIgnoreCase("Access Sensor Help")){
+ 				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+ 				switch (parameters.get(0).toUpperCase()) {
+ 				case "GET ADDITIONAL HELP":{
+ 					sensor.clickOnGetAdditionalHelpButton();
+ 					break;
+ 				}
+ 				case "TEST SIGNAL STRENGTH":{
+ 					sensor.clickOnTestSignalStrength();
+ 					break;
+ 				}
+ 				
+ 				}
+ 			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

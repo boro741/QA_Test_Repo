@@ -64,16 +64,20 @@ public class SerialDriverArduino /*extends SerialDriverCore*/ {
 	public static void main(String[] commandLineArguments) throws Exception {
 		//String ch = "0:1,1:1,2:1";
 		initialize();
-		/*0 enroll
-		1 tamper
-		2 open*/
-		setrelay("1:0");
+		/*0  enroll 3
+		1 tamper 4
+		2 open 5*/
+		setrelay("5:1");
+	//	setrelay("");
+	//	setrelay("");
+	//	setrelay("0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0");
 	/*	Thread.sleep(5000);
 		setrelay("0:0,1:0,2:0,3:1");
 		Thread.sleep(5000);
 		setrelay("0:0,1:0,2:0,3:0");*/
 		//resetrelay("0:0,1:0,2:0");
 		closePort();
+		System.out.println("executed");
 	}
 	public static void setrelay(String ch) throws Exception {
 		try {

@@ -22,6 +22,7 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.SensorSignalStrengthTestScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyScreen extends Keyword {
@@ -50,6 +51,17 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "NO ALARM":{
+				if (!DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
+					Keyword.ReportStep_Pass(testCase,
+							"Not displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Displayed with " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "PAUSED STREAMING":{
 				AlarmScreen check = new AlarmScreen(testCase);
 				boolean b = check.isPlayStreamingVisible();
@@ -98,6 +110,7 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
 				}
+				break;
 			}
 			case "ENTRY DELAY": {
 				if (DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase)) {
@@ -436,10 +449,38 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "TEST ACCESS SENSOR":{
+				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				if(sensor.isTestSensorHeadingDisplayed()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Test Access Sensor Screen is displayed");	
+				}
+				else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Test Access Sensor Screen is not displayed");
+				}
+				break;
+			}
+			case "SIGNAL STRENGTH":{
+				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				sensor.isSignalStrengthScreenDisplayed();
+				break;
+			}
+			case "ACCESS SENSOR HELP":{
+				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				sensor.isAccessSensorHelpScreenDisplayed();
+				break;
+			}
+			case "GET ADDITIONAL HELP ON ACCESS SENSOR HELP":{
+				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				sensor.isGetAdditionalHelpOnSensorHelpDisplayed();
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Invalid Screen " + expectedScreen.get(0));
+						"Invalid input " + expectedScreen.get(0));
 			}
 			}
 		} catch (Exception e) {
