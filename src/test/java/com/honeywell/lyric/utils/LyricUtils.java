@@ -676,13 +676,6 @@ public class LyricUtils {
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		if (inputs.isRunningOn("Perfecto")) {
-			Map<String, Object> params = new HashMap<>();
-			JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
-			params.put("identifier", "com.honeywell.acs.lyric.enterprise");
-			flag = Boolean.parseBoolean((String) js.executeScript("mobile:application:close", params));
-			flag = Boolean.parseBoolean((String) js.executeScript("mobile:application:open", params));
-		}
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
