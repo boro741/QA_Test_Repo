@@ -585,6 +585,16 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			}  else if (screen.get(1).equalsIgnoreCase("CREATE LOCATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CHOOSE LOCATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if(dasDIY.isBackButtonInCreateLocationScreenVisible()) {
+					flag = flag & dasDIY.clickOnBackButtonInCreateLocationScreen();
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "POWER BASE STATION INSTRUCTIONS": {
@@ -600,15 +610,8 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToRegisterBaseStation(testCase);
 					break;
 				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION INSTRUCTIONS")) {
-				switch (screen.get(0).toUpperCase()) {
 				case "LOOKING FOR BASE STATION": {
 					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToLookingForBaseStation(testCase);
-					break;
-				}
-				case "REGISTER BASE STATION": {
-					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToRegisterBaseStation(testCase);
 					break;
 				}
 				case "SELECT BASE STATION": {
@@ -620,10 +623,27 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			}  else if (screen.get(1).equalsIgnoreCase("BASE STATION HELP")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "POWER BASE STATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if(dasDIY.isBackButtonInBaseStationHelpScreenVisible()) {
+					flag = flag & dasDIY.clickOnBackButtonInBaseStationHelpScreen();
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CONNECT TO NETWORK": {
 					flag = flag & DIYRegistrationUtils.navigateFromRegisterBaseStationToConnectToNetwork(testCase);
+					break;
+				}
+				case "ADD NEW DEVICE DASHBOARD": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isAddNewDeviceScreenVisible(5)) {
+						return true;
+					}
 					break;
 				}
 				}

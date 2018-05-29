@@ -235,6 +235,36 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("EXISTING LOCATION ERROR")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInCustomLocationNameExistsErrorPopupTitleVisible()) {
+					flag = flag & dasDIY.clickOnOKButtonInCustomLocationNameExistsErrorPopup();
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CUSTOM NAME SHOULD NOT BE EMPTY")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInCustomLocationNameExistsErrorPopupTitleVisible()) {
+					flag = flag & dasDIY.clickOnOKButtonInCustomLocationNameExistsErrorPopup();
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("EXISTING BASE STATION ERROR")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInCustomBaseNameExistsErrorPopupTitleVisible()) {
+					flag = flag & dasDIY.clickOnOKButtonInCustomBaseNameExistsErrorPopup();
+				}
+				break;
+			}
+			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("INVALID ZIP CODE")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {

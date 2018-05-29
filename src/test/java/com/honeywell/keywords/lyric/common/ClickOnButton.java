@@ -18,13 +18,13 @@ import com.honeywell.screens.ZwaveScreen;
 public class ClickOnButton extends Keyword {
 
 	private TestCases testCase;
-	//private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public ArrayList<String> expectedButton;
 	public boolean flag = true;
 
 	public ClickOnButton(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedButton) {
 		this.testCase = testCase;
-		//this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedButton = expectedButton;
 	}
 
@@ -71,7 +71,17 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
-			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("CANCELS THE CONNECT TO WIFI NETWORK")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "CANCEL": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCancelButtonInWiFiScreenVisible()) {
+						flag = flag & dasDIY.clickOnCancelButtonInWiFiScreen();
+					}
+					break;
+				}
+				}
+			}  else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "BACK ARROW": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -163,7 +173,14 @@ public class ClickOnButton extends Keyword {
 			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES LOCATION DETAILS")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
-					flag = flag & DIYRegistrationUtils.deleteLocation(testCase);
+					flag = flag & DIYRegistrationUtils.deleteLocation(testCase, inputs);
+					break;
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES DEFAULT LOCATION DETAILS")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE": {
+					flag = flag & DIYRegistrationUtils.deleteDefaultLocation(testCase, inputs);
 					break;
 				}
 				}

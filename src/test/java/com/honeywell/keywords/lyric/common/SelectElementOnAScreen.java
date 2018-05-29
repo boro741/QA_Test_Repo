@@ -21,6 +21,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -47,116 +48,124 @@ public class SelectElementOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.*)\" from \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if(parameters.get(1).equalsIgnoreCase("Entry delay")){
+			if (parameters.get(1).equalsIgnoreCase("Entry delay")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "PAUSE":{
+				case "PAUSE": {
 					AlarmScreen click = new AlarmScreen(testCase);
-				boolean flag=false;
-				while(flag==false) {
-					click.clickLiveStreamingArea();
-					flag=click.clickPauseStreaming();
-					
-				}
-					break;
+					boolean flag = false;
+					while (flag == false) {
+						click.clickLiveStreamingArea();
+						flag = click.clickPauseStreaming();
+
 					}
-				case "RESUME":{
+					break;
+				}
+				case "RESUME": {
 					AlarmScreen click = new AlarmScreen(testCase);
 					click.clickPlayStreaming();
 					break;
 				}
-				case "SWITCH TO HOME":{
-					DASAlarmUtils.clickOnSwitchToHome(testCase,inputs);
-					int i=0;
-					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase)){
+				case "SWITCH TO HOME": {
+					DASAlarmUtils.clickOnSwitchToHome(testCase, inputs);
+					int i = 0;
+					while (i < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 					}
 					break;
 				}
-				case "SWITCH TO NIGHT":{
-					DASAlarmUtils.clickOnSwitchToNight(testCase,inputs);
+				case "SWITCH TO NIGHT": {
+					DASAlarmUtils.clickOnSwitchToNight(testCase, inputs);
 					break;
 				}
-				case "ATTENTION":{
-					DASAlarmUtils.clickOnAttention(testCase,inputs);
+				case "ATTENTION": {
+					DASAlarmUtils.clickOnAttention(testCase, inputs);
 					break;
 				}
-				case "NO OPTIONS":{
+				case "NO OPTIONS": {
 					DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
 					break;
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")){
+			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "CONFIRMS ATTENTION":{
-					flag=DASCameraUtils.clickOnAttention(testCase);
-					flag= flag & DASCameraUtils.clickOnCreateAttention(testCase, inputs);
+				case "CONFIRMS ATTENTION": {
+					flag = DASCameraUtils.clickOnAttention(testCase);
+					flag = flag & DASCameraUtils.clickOnCreateAttention(testCase, inputs);
 					break;
 				}
-				case "CANCELS ATTENTION":{
-					flag= flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
+				case "CANCELS ATTENTION": {
+					flag = flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
 					break;
 
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("alarm")){
+			} else if (parameters.get(1).equalsIgnoreCase("alarm")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "PAUSE":{
+				case "PAUSE": {
 					AlarmScreen click = new AlarmScreen(testCase);
-					flag=click.clickPauseStreaming();
-					
+					flag = click.clickPauseStreaming();
+
 					break;
 				}
-				case "RESUME":{
+				case "RESUME": {
 					AlarmScreen click = new AlarmScreen(testCase);
 					click.clickPlayStreaming();
 					break;
 				}
-				case "DISMISS ALARM":{
-					inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-					inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
+				case "DISMISS ALARM": {
+					inputs.setInputValue("ALARM_DISMISSED_TIME",
+							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					inputs.setInputValue("HOME_TIME",
+							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					flag = flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
 					AlarmScreen alarmScreen = new AlarmScreen(testCase);
-					int i=0;
-					
-					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && alarmScreen.isAlarmDismissButtonDisplayed() ){
+					int i = 0;
+
+					while (i < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)
+							&& alarmScreen.isAlarmDismissButtonDisplayed()) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 						i++;
 					}
 					break;
 				}
-				case "DISMISS ALARM OVERLAY WITH ZWAVE ACTION IN PROGRESS":{
-					inputs.setInputValue("ALARM_DISMISSED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-					inputs.setInputValue("HOME_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
+				case "DISMISS ALARM OVERLAY WITH ZWAVE ACTION IN PROGRESS": {
+					inputs.setInputValue("ALARM_DISMISSED_TIME",
+							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					inputs.setInputValue("HOME_TIME",
+							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					flag = flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
 					ZwaveScreen ZScreen = new ZwaveScreen(testCase);
-					int i=0;
-					
-					while(i<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && !ZScreen.isCancelFromNavigationDisplayed()){
+					int i = 0;
+
+					while (i < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)
+							&& !ZScreen.isCancelFromNavigationDisplayed()) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 					}
 					break;
 				}
-				case "CALL":{
+				case "CALL": {
 					AlarmScreen click = new AlarmScreen(testCase);
-					flag= flag & click.clickOnCall();
+					flag = flag & click.clickOnCall();
 					break;
 
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
 			}
-
 
 			else if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")
@@ -264,49 +273,84 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
-				inputs.setInputValue("LOCATION1_NAME", parameters.get(0));
-				flag = flag & DIYRegistrationUtils.selectAvaiableLocation(testCase, parameters.get(0));
-			} else if (parameters.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
-				if (!inputs.isInputAvailable("LOCATION1_CAMERA1_NAME")) {
-					inputs.setInputValue("LOCATION1_CAMERA1_NAME", parameters.get(0));
-				} else {
-					inputs.setInputValue("LOCATION1_CAMERA2_NAME", parameters.get(0));
+			} else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "SMART HOME SECURITY": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.selectDeviceToInstall(parameters.get(0));
+					break;
 				}
-
-				flag = flag & DIYRegistrationUtils.selectAvaiableBaseStationName(testCase, parameters.get(0));
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CREATE NEW LOCATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCreateNewLocationLinkVisible()) {
+						flag = flag & dasDIY.clickOnCreateNewLocationLink();
+					}
+					break;
+				}
+				default: {
+					inputs.setInputValue("LOCATION1_NAME", parameters.get(0));
+					flag = flag & DIYRegistrationUtils.selectAvaiableLocation(testCase, parameters.get(0));
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("NAME YOUR BASE STATION")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CREATE NEW BASE STATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCreateCustomBaseStationNameLinkVisible()) {
+						flag = flag & dasDIY.clickOnCreateCustomBaseStationNameLink();
+					}
+					break;
+				}
+				default: {
+					if (!inputs.isInputAvailable("LOCATION1_CAMERA1_NAME")) {
+						inputs.setInputValue("LOCATION1_CAMERA1_NAME", parameters.get(0));
+					} else {
+						inputs.setInputValue("LOCATION1_CAMERA2_NAME", parameters.get(0));
+					}
+					flag = flag & DIYRegistrationUtils.selectAvaiableBaseStationName(testCase, parameters.get(0));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("POWER BASE STATION")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "NOT PULSING BLUE": {
+					flag = flag & DIYRegistrationUtils.clickOnNotPulsingBlueLink(testCase);
+				}
+				}
 			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
 				flag = flag & DIYRegistrationUtils.selectABaseStationFromListOfAvailableBaseStations(testCase,
 						parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
-				flag = flag & DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase, parameters.get(0));
+				flag = flag & DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase,
+						parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
-			}
-			else if (parameters.get(1).equalsIgnoreCase("Call")){
+			} else if (parameters.get(1).equalsIgnoreCase("Call")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "CANCEL":{
+				case "CANCEL": {
 					AlarmScreen click = new AlarmScreen(testCase);
 					flag = flag & click.clickCancelButton();
 					break;
 				}
-				case "CALL THE POLICE":{
+				case "CALL THE POLICE": {
 					AlarmScreen click = new AlarmScreen(testCase);
 					flag = flag & click.clickCallPoliceButton();
 					break;
 
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(0)+ " - Input not handled in "+parameters.get(1));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
 			}
-		} catch (
-
-				Exception e) {
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
