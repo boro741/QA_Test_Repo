@@ -79,43 +79,43 @@ Examples:
 |Away|
 
 
-#Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccess SensorSensorStatusOFFVerificationWithHomeOffMode
-Scenario Outline:AS a user I want to Verify Access Sensor Battery status OFF 
-And user is set to "Home" mode through CHIL
-And user door "opened"
-Given user launches and logs in to the Lyric application 
+#Requirement: One DAS Panel and one Access Sensor should be configured
+
+@DASAccessSensorStatusOFFVerificationWithHomeOffMode
+Scenario Outline: As a user I want to Verify Access Sensor Battery status OFF 
+#Given user is set to "Home" through CHIL
+And user launches and logs in to the Lyric application
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
 When user switches from "Home" to <Switch to Mode>
-Then user navigates to "Door Access settings" screen from the "Security Solution card"
-Then user should see the "door sensor" status as <Sensor status> on the "Access Sensor Setting"
-And user navigates to "Security Solution card" screen from the "Access Sensor Setting" screen 
+Then user navigates to "Door Access settings" screen from the "Security Solution card" screen
+Then user should see the "door sensor" status as <Sensor status> on the "Access Sensor Settings"
+And user navigates to "Security Solution card" screen from the "Access Sensor Settings" screen 
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-Then user should see the "door" status as "open" on the "Sensor Status"
+Then user should see the "door" status as <Sensor status> on the "Sensor Status"
 Examples:
 |Switch to Mode | Sensor status|
-|Home|Open|
+#|Home|Open|
 |Off| Open|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorStatusOFFVerificationWithAwayNightMode
 Scenario Outline:AS a user I want to Verify Access Sensor Battery status OFF 
-And user is set to "Home" mode through CHIL
+#And user is set to "Home" through CHIL
 Given user launches and logs in to the Lyric application 
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
-When user switches from "Home" to <Switch to Mode>
+When user switches from "Home" to <Mode>
 Then user should receive a <Switch to Mode> popup
 When user "accepts" the <Switch to Mode> popup
-Then user navigates to "Door Access settings" screen from the "Security Solution card"
-Then user should see the "door sensor" status as <Sensor status> on the "Access Sensor Setting"
-Then user navigates to "Door Access Sensor OFF" screen from the "Door Access settings"
-And user navigates to "Security Solution card" screen from the "Access Sensor Setting" screen 
+Then user navigates to "Door Access settings" screen from the "Security Solution card" screen
+Then user should see the "door sensor" status as <Sensor status> on the "Access Sensor Settings"
+Then user navigates to "Access Sensor OFF" screen from the "Access sensor settings" screen
+And user navigates to "Security Solution card" screen from the "Access Sensor Settings" screen 
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the "door" status as "off" on the "Sensor Status"
 Examples:
-|Switch to Mode | Sensor status|
-|Night |Off|
-|Away |Off|
+|Mode|Switch to Mode | Sensor status|
+|Night|Switch to Night |Off|
+|Away|Switch to Away |Off|
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
@@ -151,6 +151,35 @@ Examples:
 |OFF | High | Opened | Closed |
 #| OFF | Medium | Opened | Closed |
 #| OFF | Low |Opened | Closed |
+
+#Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
+@DASAccessSensorStatusCoverTamperedVerificationHome
+Scenario Outline:AS a user I want to Verify Access Sensor Cover Tamper and Tamper restored status When base station status in Home and OFF mode
+Given user launches and logs in to the Lyric application 
+And user is set to <Mode> mode through CHIL
+And user door <Status>
+And user door "tampered"
+Then user navigates to "Door Access settings" screen from the "Dashboard" screen
+When user selects "Sensor Cover Tampered" from "Door Access settings" screen
+Then user should be displayed with the "Sensor Cover Tamper" screen
+And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+Then user should receive a "Sensor Tamper" popup 
+When user "OK" the "Sensor Tamper" popup 
+Then user should be displayed with the "Sensor Cover Tamper" screen
+When user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+And user should receive a "Sensor Tamper" popup 
+When user "RETRY" the "Sensor Tamper" popup
+Then user should be displayed with the "Sensor Cover Tamper" screen
+And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+Then user should receive a "Sensor Tamper" popup 
+And user door "tamper cleared"
+When user "RETRY" the "Sensor Tamper" popup
+#Then user should navigates to "Access sensor Settings" screen
+And user should see the "door sensor" status as <Status> on the "Access sensor Settings"
+Examples:
+|Mode| Status |
+|Home| Closed |
+#|Home| Open |
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor  should be in offline
 @DASAccessSensorStatusVerificationoffline
@@ -205,35 +234,7 @@ Examples:
 
 
 
-#Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
-@DASAccessSensorStatusCoverTamperedVerificationHome
-Scenario Outline:AS a user I want to Verify Access Sensor Cover Tamper and Tamper restored status When base station status in Home and OFF mode
-Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-#Access Sensor back plate not closed
-Then user navigates to "Door Access settings" screen from the "Dashboard"
-When user selects "Status Covered Tampered" 
-Then user should be displayed with "Access Sensor Cover Tampered" screen
-And User selects the "Clear Tamper" option 
-#Access Sensor back plate not closed
-Then user should be displayed with "Sensor Tamper" pop up 
-When user selects the "OK" button 
-Then user should displayed with "Access Sensor Cover Tampered" screen
-And User selects the "Clear Tamper" option 
-Then user should be displayed with "Sensor Tamper" pop up 
-When user selects the "RETRY" button
-#Access Sensor back plate not closed
-Then user should displayed with "Access Sensor Cover Tampered" screen
-And User selects the "Clear Tamper" option 
-Then user should be displayed with "Sensor Tamper" pop up 
-#Access Sensor back plate closed
-When user selects the "RETRY" button
-Then user should navigates to "Access sensor Settings" screen
-And user should display with <Status update>
-Examples:
-|Mode| Status update |
-|Home| Closed |
-|Home| Open |
+
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
@@ -309,7 +310,7 @@ Examples:
 |Away| OFF |
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and battery status should be in Low and OFFLINE
-@DASAccessSensorBatteryLowofflineStatusLowHelpScreenVerification
+@DASAccessSensorBatteryLowofflineStatusLowHelpScreenVerification @NotAutomatable
 Scenario Outline: AS a user I want to Verify Access Sensor Low and Offline Battery Help screen
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -331,7 +332,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorSignalStrengthWithSensorNotWorkingAndIsOutOfRange
+@DASAccessSensorSignalStrengthWithSensorNotWorkingAndIsOutOfRange @NotAutomatable
 Scenario Outline: As a user I should be able to verify Access Sensor not working functionality when sensor is out of range in Home and OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -357,7 +358,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and sensor status should be offline
-@DASAccessSensorSignalStrengthWhenSensorOffline
+@DASAccessSensorSignalStrengthWhenSensorOffline @NotAutomatable
 Scenario Outline: As a user I should be able to verify Access Sensor Signal strength functionality when sensor offline
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -371,22 +372,7 @@ Examples:
 
 
  
-#Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorModelAndFirmwareDetailsVerification 
-Scenario Outline: Verify Model details and Firmware details in Access Sensor
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to "Model and Firmware Details" screen from the "Sensor Settings" screen
-Then user should be displayed with the "Model Details" and "Firmware Details"  of the Access Sensor
-And user selects "Back" button
-Then user should navigates to "Access Sensor" screen
-Examples:
-|Mode|
-|Home|
-|Away|
-|Night|
-|OFF|
-|OFFLINE|
+
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASDeleteAccessSensorVerification
@@ -408,7 +394,7 @@ Examples:
 |OFF|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASDeleteAccessSensorErrorpopupVerification
+@DASDeleteAccessSensorErrorpopupVerification @NotAutomatable
 Scenario Outline: As a user I should be able to verify delete error pop up from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL 

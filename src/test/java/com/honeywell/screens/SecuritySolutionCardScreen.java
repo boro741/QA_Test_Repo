@@ -422,4 +422,8 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		return false;
 
 	}
+	public boolean isSecuritySettingsTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecuritySettingsTitle",10);
+
+	}
 }

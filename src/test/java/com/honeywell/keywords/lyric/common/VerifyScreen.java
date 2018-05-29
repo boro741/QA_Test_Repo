@@ -22,7 +22,7 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
-import com.honeywell.screens.SensorSignalStrengthTestScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyScreen extends Keyword {
@@ -450,7 +450,7 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "TEST ACCESS SENSOR":{
-				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				if(sensor.isTestSensorHeadingDisplayed()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Test Access Sensor Screen is displayed");	
@@ -463,18 +463,23 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "SIGNAL STRENGTH":{
-				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
-				sensor.isSignalStrengthScreenDisplayed();
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag & sensor.isSignalStrengthScreenDisplayed();
 				break;
 			}
 			case "ACCESS SENSOR HELP":{
-				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
-				sensor.isAccessSensorHelpScreenDisplayed();
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag &sensor.isAccessSensorHelpScreenDisplayed();
 				break;
 			}
 			case "GET ADDITIONAL HELP ON ACCESS SENSOR HELP":{
-				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
-				sensor.isGetAdditionalHelpOnSensorHelpDisplayed();
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag &sensor.isGetAdditionalHelpOnSensorHelpDisplayed();
+				break;
+			}
+			case "SENSOR COVER TAMPER":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag  &sensor.isSensorTamperedScreenDisplayed();
 				break;
 			}
 			default: {

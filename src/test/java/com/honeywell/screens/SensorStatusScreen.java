@@ -41,4 +41,5 @@ public class SensorStatusScreen extends MobileScreens {
 		} else
 			return true;
 	}
+
 }

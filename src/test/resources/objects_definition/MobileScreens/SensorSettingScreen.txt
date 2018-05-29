@@ -4,7 +4,7 @@ TestSensor_SensorName	id	is_sensor_name					Xpath	"//*[contains(@value,'is curre
 TestSensor_SensorStatus	id	walk_test_sensor_status					Xpath	"//*[contains(@value,'is currently')]/following-sibling:: XCUIElementTypeStaticText"				
 SensorNotWorkingButton	id	horizontal_link_text					Xpath	"//*[contains(@name,'Sensor Not Working')]"				
 AccessSensorHelpTitle	xpath	//*[@text='Access Sensor Help']					Xpath	//*[@value='Access Sensor Help']				
-GetAdditionalHelpButton	xpath	//*[@text='Get additional help']					name	Get Additional Help				
+GetAdditionalHelpButton	xpath	//*[@text='Get Additional Help']					name	Get Additional Help				
 TestSignalStrengthButton	id	sensor_range_test					name	Test Signal Strength				
 SignalStrengthHeading	xpath	//*[@text='Signal strength']					Xpath	//*[@value='Signal Strength']				
 SignalStrengthStatus	id	signal_strength_view					name	Sensor_Range_Test_1_0_subTitle				
@@ -12,3 +12,11 @@ SignalStrengthBackButton	xpath	//android.widget.ImageButton[@content-desc='Navig
 AccessSensorHelpBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
 TestSensorBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
 DoneButton							name	RightButton				
+SensorTamperScreen							Xpath	//*[@value='Sensor Cover Tamper']				
+ClearTamperButton							name	RightButton				
+PerformOnlyPopup							Xpath	"//*[contains(@value,'This operartion can be performed only when Smart home security is ')]"				
+PerformOnlyPopupOk							Name	OK				
+TamperNotClearedPopup							Name	Sensor Tamper				
+TamperClearPopupOk							Name	OK				
+TamperClearPopupRetry							Name	Retry				
+SensorStatusOptionValue	id	list_item_lyric_horizontal_text_view_secondary_text					name	Sensor_Settings_0_2_value				

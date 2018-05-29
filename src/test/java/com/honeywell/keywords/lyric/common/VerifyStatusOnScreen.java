@@ -21,7 +21,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
-import com.honeywell.screens.SensorSignalStrengthTestScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -716,7 +716,7 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "TEST ACCESS SENSOR":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR": {
-				SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
 					if(sensor.isDoorStatusVisible(expectedScreen.get(1))) {
@@ -745,7 +745,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			break;
 		}
 		case "SIGNAL STRENGTH":{
-			SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -770,6 +770,8 @@ public class VerifyStatusOnScreen extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
+				case "OPEN":
 				case "CLOSED":{
 					if(sensor.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Door Sensor is "+(expectedScreen.get(1)+" after test signal"));

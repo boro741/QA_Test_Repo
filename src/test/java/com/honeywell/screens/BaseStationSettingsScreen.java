@@ -908,9 +908,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean verifySensorNameOptionTextOnSensorSettingsScreen() {
-			if(MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSetting_NameTitle")
-					.equalsIgnoreCase("Name")){
-				return true;
+		if(MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSetting_NameTitle")
+				.equalsIgnoreCase("Name")){
+			return true;
 		} else {
 			return false;
 		}
@@ -941,7 +941,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean verifyStatusOptionTextOnSensorSettingsScreen() {
 
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption",5)) {
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption")) {
 			System.out.println("Status is found");
 			return true;
 		}
@@ -1132,9 +1132,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean verifySensorStatusAfterTestSignalStrength(String s) {
 		System.out.println(s);
 		if (this.verifyStatusOptionTextOnSensorSettingsScreen()) {
-			String status = MobileUtils.getMobElement(objectDefinition, testCase, "SensorStatusOptionValue")
-					.getAttribute("text");
-			System.out.println(status);
+			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
 			return (status.equalsIgnoreCase(s));
 		} else {
 			return false;

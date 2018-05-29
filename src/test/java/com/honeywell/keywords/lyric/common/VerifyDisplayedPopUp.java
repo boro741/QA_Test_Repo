@@ -13,6 +13,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -199,6 +200,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			flag = flag & sc.isUnableToConnectToBaseStationAlertVisible();
+			break;
+		}
+		case "SENSOR TAMPER":{
+			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
 			break;
 		}
 		default: {

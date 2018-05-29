@@ -25,7 +25,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
-import com.honeywell.screens.SensorSignalStrengthTestScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -621,7 +621,7 @@ public class NavigateToScreen extends Keyword {
 				case "CHOOSE LOCATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if(dasDIY.isBackButtonInCreateLocationScreenVisible()) {
-					flag = flag & dasDIY.clickOnBackButtonInCreateLocationScreen();
+						flag = flag & dasDIY.clickOnBackButtonInCreateLocationScreen();
 					}
 					break;
 				}
@@ -659,7 +659,7 @@ public class NavigateToScreen extends Keyword {
 				case "POWER BASE STATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if(dasDIY.isBackButtonInBaseStationHelpScreenVisible()) {
-					flag = flag & dasDIY.clickOnBackButtonInBaseStationHelpScreen();
+						flag = flag & dasDIY.clickOnBackButtonInBaseStationHelpScreen();
 					}
 					break;
 				}
@@ -932,6 +932,21 @@ public class NavigateToScreen extends Keyword {
 
 			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DOOR ACCESS SETTINGS": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					Thread.sleep(5000);
+					if(security.isAppSettingsIconVisible(15)) {
+						security.clickOnAppSettingsIcon();
+
+						flag=LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
+
+						flag = flag & security.clickOnSensorButton();
+						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+						security.clickOnUserGivenSensorName(givenSensorName);
+
+					}
+					break;
+				}
 				case "SENSOR STATUS": {
 					SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
 					if (securityScreen.isSensorNoIssueVisible()) {
@@ -989,14 +1004,16 @@ public class NavigateToScreen extends Keyword {
 			else if(screen.get(1).equalsIgnoreCase("Honeywell Help web portal")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACCESS SENSOR HELP": {
-					MobileUtils.pressBackButton(testCase);
+					if(!testCase.getPlatform().contains("IOS")){
+						MobileUtils.pressBackButton(testCase);
+					}
 				}
 				}
 			}
 			else if(screen.get(1).equalsIgnoreCase("Test Signal Strength")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACCESS SENSOR HELP": {
-					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					sensor.clickOnSignalStrengthBackButton();
 					sensor.isAccessSensorHelpScreenDisplayed();
 				}
@@ -1005,7 +1022,7 @@ public class NavigateToScreen extends Keyword {
 			else if(screen.get(1).equalsIgnoreCase("Access Sensor Help")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "TEST ACCESS SENSOR": {
-					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					sensor.clickOnAccessSensorHelpBack();
 					sensor.isTestSensorHeadingDisplayed();
 				}
@@ -1014,13 +1031,51 @@ public class NavigateToScreen extends Keyword {
 			else if(screen.get(1).equalsIgnoreCase("Test Access Sensor")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACCESS SENSOR SETTINGS": {
-					SensorSignalStrengthTestScreen sensor = new SensorSignalStrengthTestScreen(testCase);
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					sensor.clickOnTestSensorBack();
 				}
 				}
 			}
-			
-			
+			else if(screen.get(1).equalsIgnoreCase("Access Sensor Settings")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SECURITY SOLUTION CARD": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					SensorStatusScreen sensorStatus = new SensorStatusScreen(testCase);
+					SecuritySolutionCardScreen security=new SecuritySolutionCardScreen(testCase);
+					if(!security.isSecuritySettingsTitleVisible() && !security.isAppSettingsIconVisible(10)) {
+					sensor.clickOnTestSensorBack();
+					if(sensorStatus.isSensorStatusVisible()) {
+						System.out.println("Sensor screen visible");
+					}
+					
+					if(!security.isSecuritySettingsTitleVisible()) {
+						sensor.clickOnAccessSensorHelpBack();
+
+					}
+					
+					sensor.clickOnAccessSensorHelpBack();
+					if(security.isAppSettingsIconVisible(10))
+					{
+						System.out.println("Security solution screen visible");
+					}
+					
+					}
+                 break;
+				}
+				case "ACCESS SENSOR OFF":{
+					SensorSettingScreen s = new SensorSettingScreen(testCase);
+					if(s.clickOnSensorStatusOffOnAccessSensorScreen()) {
+						flag=flag & s.checkSensorNameInSensorOffScreen(inputs);
+						flag=flag &s.checkSensorIsOffTextVisible();
+						if(flag) {
+							s.clickOnAccessSensorHelpBack();
+							Keyword.ReportStep_Pass(testCase, "SensorOff screen is displayed");
+						}
+					}
+					break;
+				}
+				}
+			}
 			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
