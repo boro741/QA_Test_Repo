@@ -83,7 +83,8 @@ Examples:
 
 @DASAccessSensorStatusOFFVerificationWithHomeOffMode
 Scenario Outline: As a user I want to Verify Access Sensor Battery status OFF 
-#Given user is set to "Home" through CHIL
+And user door "opened"
+Given user is set to "Home" mode through CHIL
 And user launches and logs in to the Lyric application
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
 When user switches from "Home" to <Switch to Mode>
@@ -94,13 +95,14 @@ When user navigates to "Sensor Status" screen from the "Security Solution Card" 
 Then user should see the "door" status as <Sensor status> on the "Sensor Status"
 Examples:
 |Switch to Mode | Sensor status|
-#|Home|Open|
+|Home|Open|
 |Off| Open|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorStatusOFFVerificationWithAwayNightMode
 Scenario Outline:AS a user I want to Verify Access Sensor Battery status OFF 
-#And user is set to "Home" through CHIL
+And user is set to "Home" mode through CHIL
+And user door "opened"
 Given user launches and logs in to the Lyric application 
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
 When user switches from "Home" to <Mode>
