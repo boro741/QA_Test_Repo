@@ -1032,7 +1032,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACCESS SENSOR SETTINGS": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					sensor.clickOnTestSensorBack();
+					flag = flag & sensor.clickOnTestSensorBack();
 				}
 				}
 			}
@@ -1042,25 +1042,22 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					SensorStatusScreen sensorStatus = new SensorStatusScreen(testCase);
 					SecuritySolutionCardScreen security=new SecuritySolutionCardScreen(testCase);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if(!security.isSecuritySettingsTitleVisible() && !security.isAppSettingsIconVisible(10)) {
-					sensor.clickOnTestSensorBack();
-					if(sensorStatus.isSensorStatusVisible()) {
-						System.out.println("Sensor screen visible");
+						flag = flag & sensor.clickOnSensorListSettingBack();
+						if(sensorStatus.isSensorStatusVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Sensor screen visible");
+						}
+						if(!security.isSecuritySettingsTitleVisible()) {
+							flag = flag & bs.clickOnBackButton();
+						}
+						flag = flag & bs.clickOnBackButton();
+						if(security.isAppSettingsIconVisible(10))
+						{
+							Keyword.ReportStep_Pass(testCase, "Security solution screen visible");
+						}
 					}
-					
-					if(!security.isSecuritySettingsTitleVisible()) {
-						sensor.clickOnAccessSensorHelpBack();
-
-					}
-					
-					sensor.clickOnAccessSensorHelpBack();
-					if(security.isAppSettingsIconVisible(10))
-					{
-						System.out.println("Security solution screen visible");
-					}
-					
-					}
-                 break;
+					break;
 				}
 				case "ACCESS SENSOR OFF":{
 					SensorSettingScreen s = new SensorSettingScreen(testCase);
@@ -1068,7 +1065,7 @@ public class NavigateToScreen extends Keyword {
 						flag=flag & s.checkSensorNameInSensorOffScreen(inputs);
 						flag=flag &s.checkSensorIsOffTextVisible();
 						if(flag) {
-							s.clickOnAccessSensorHelpBack();
+							flag = flag & s.clickOnAccessSensorHelpBack();
 							Keyword.ReportStep_Pass(testCase, "SensorOff screen is displayed");
 						}
 					}

@@ -39,4 +39,4 @@ UnableToConnectToBaseStationAlert	XPATH	//*[@text='Failed to switch mode']	XPATH
 LoadingProgressBar	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress
 SensorButton	XPATH	"//*[contains(@text,'Sensors')]"					XPATH	"//*[contains(@value,'Sensors')]"				
 SensorName	id	sensor_name					Xpath	//XCUIElementTypeStaticText				
-SecuritySettingsTitle	XPATH	//*[@text='Security settings']										
+SecuritySettingsTitle	XPATH	//*[@text='Security settings']					XPATH	//*[@value='Security Settings']				

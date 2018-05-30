@@ -80,8 +80,7 @@ Examples:
 
 
 #Requirement: One DAS Panel and one Access Sensor should be configured
-
-@DASAccessSensorStatusOFFVerificationWithHomeOffMode
+@DASAccessSensorStatusOFFVerificationWithHomeOffMode @UIAutomatedAndroid
 Scenario Outline: As a user I want to Verify Access Sensor Battery status OFF 
 And user door "opened"
 Given user is set to "Home" mode through CHIL
@@ -99,7 +98,7 @@ Examples:
 |Off| Open|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorStatusOFFVerificationWithAwayNightMode
+@DASAccessSensorStatusOFFVerificationWithAwayNightMode @UIAutomatedAndroid
 Scenario Outline:AS a user I want to Verify Access Sensor Battery status OFF 
 And user is set to "Home" mode through CHIL
 And user door "opened"
@@ -121,7 +120,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorSignalStrengthAndTestVerificationGetAdditionlHelp
+@DASAccessSensorSignalStrengthAndTestVerificationGetAdditionlHelp @UIAutomatedAndroid
 Scenario Outline: As a user I want to Verify Access Sensor SignalStrengthAndTest in Home or OFF mode and assistance link
 Given user launches and logs in to the Lyric application 
 And user door "opened"
@@ -144,7 +143,7 @@ Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help"
 Then user door "closed"
 Then user should see the "door sensor" status as <Access Status Update> on the "Test Access Sensor"
 Then user navigates to "Access sensor Settings" screen from the "Test Access Sensor" screen
-#Then user should see the "door sensor" status as <Access Status Update> on the "Access sensor Settings"
+Then user should see the "door sensor" status as <Access Status Update> on the "Access sensor Settings"
 Examples:
 |Mode |Signal strength | Access Status | Access Status Update |
 |Home | High |  Open | Closed |
@@ -171,17 +170,30 @@ Then user should be displayed with the "Sensor Cover Tamper" screen
 When user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 And user should receive a "Sensor Tamper" popup 
 When user "RETRY" the "Sensor Tamper" popup
-Then user should be displayed with the "Sensor Cover Tamper" screen
-And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
-Then user should receive a "Sensor Tamper" popup 
 And user door "tamper cleared"
 When user "RETRY" the "Sensor Tamper" popup
-#Then user should navigates to "Access sensor Settings" screen
 And user should see the "door sensor" status as <Status> on the "Access sensor Settings"
 Examples:
 |Mode| Status |
 |Home| Closed |
-#|Home| Open |
+|Home| Open |
+
+
+#Requirement :One DAS Panel and one Access Sensor should be configured
+@DASAccessSensorModelAndFirmwareDetailsVerification 
+Scenario Outline: Verify Model details and Firmware details in Access Sensor
+Given user launches and logs in to the Lyric application
+And user is set to <Mode> mode through CHIL
+Then user navigates to "Door Access settings" screen from the "Dashboard" screen
+When user selects "Model and Firmware Details" from "Door Access settings" screen
+Then user should be displayed with the "Model and Firmware Details" screen
+Examples:
+|Mode|
+|Home|
+|Away|
+|Night|
+|OFF|
+#|OFFLINE|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor  should be in offline
 @DASAccessSensorStatusVerificationoffline
@@ -211,7 +223,6 @@ Examples:
 |Home| Closed |
 |Home| Open |
 |Home| Low battery|
-|Home| OFF |
 |Home|Offline| 
 |Home| Cover Tampered|
 |Night| Closed |
@@ -240,7 +251,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
-@DASAccessSensorStatusCoverTamperedVerificationNightOffoffline
+@DASAccessSensorStatusCoverTamperedVerificationNightOffoffline @NotAutomatable
 Scenario Outline:AS a user I want to Verify Access Sensor Cover Taper status When base station status in Away, Night, OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -255,7 +266,7 @@ Examples:
 |Offline|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
-@DASAccessSensorStatusCoverTamperedVerificationHomeawaynightoff
+@DASAccessSensorStatusCoverTamperedVerificationHomeawaynightoff @NotAutomatable
 Scenario Outline:AS a user I want to Verify Access Sensor Cover Taper status When base station status in Away, Night, OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -273,7 +284,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
-@DASAccessSensorStatusCoverTamperedVerificationOffline
+@DASAccessSensorStatusCoverTamperedVerificationOffline @NotAutomatable
 Scenario Outline: AS a user I want to Verify Access Sensor Cover Taper status When base station status in offline
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -290,7 +301,7 @@ Examples:
 |Offline|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorBatteryStatusVerificationWithHomeAwayNightOffOfflineMode
+@DASAccessSensorBatteryStatusVerificationWithHomeAwayNightOffOfflineMode @NotAutomatable
 Scenario Outline: AS a user I want to Verify Access Sensor Battery status
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -329,10 +340,6 @@ Examples:
 |OFF|
 |OFFLINE|
 
-
-
-
-
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorSignalStrengthWithSensorNotWorkingAndIsOutOfRange @NotAutomatable
 Scenario Outline: As a user I should be able to verify Access Sensor not working functionality when sensor is out of range in Home and OFF mode
@@ -357,8 +364,6 @@ Examples:
 |OFF|
 
 
-
-
 #Requirement :One DAS Panel and one Access Sensor should be configured and sensor status should be offline
 @DASAccessSensorSignalStrengthWhenSensorOffline @NotAutomatable
 Scenario Outline: As a user I should be able to verify Access Sensor Signal strength functionality when sensor offline
@@ -371,9 +376,6 @@ Examples:
 |Mode|
 |Home|
 |OFF|
-
-
- 
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured

@@ -364,6 +364,12 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")) {
 				switch (parameters.get(0).toUpperCase()) {
+				
+				case "MODEL AND FIRMWARE DETAILS":{
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag= flag & settingScreen.clickOnFirmwareDetailsOption();
+					break;
+				}
 				case "SENSOR COVER TAMPERED":{
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 					flag= flag & settingScreen.clickOnSensorCoverTamperOption();
