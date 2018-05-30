@@ -68,9 +68,12 @@ public class VerifyStatusOnScreen extends Keyword {
 
 			break;
 		}
-
+		case "SENSOR LIST":
 		case "SENSOR STATUS": {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "FRONT DOOR":
+			case "BACK DOOR":
+			case "SIDE DOOR":
 			case "DOOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
@@ -107,6 +110,9 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "LIVING ROOM WINDOW":
+			case "DINING ROOM WINDOW":
+			case "KITCHEN ROOM WINDOW":
 			case "WINDOW": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
@@ -714,9 +720,13 @@ public class VerifyStatusOnScreen extends Keyword {
 			break;
 		}
 		case "TEST ACCESS SENSOR":{
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "FRONT DOOR":
+			case "BACK DOOR":
+			case "SIDE DOOR":
 			case "DOOR SENSOR": {
-				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
 					if(sensor.isDoorStatusVisible(expectedScreen.get(1))) {
@@ -741,6 +751,36 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+
+			case "LIVING ROOM WINDOW":
+			case "DINING ROOM WINDOW":
+			case "KITCHEN ROOM WINDOW":
+			case "WINDOW SENSOR":{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OPEN": {
+					if(sensor.isWindowStatusVisible(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Door Sensor is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not "+(expectedScreen.get(1)));
+					}
+
+					break;
+				}
+				case "CLOSED":{
+					if(sensor.isWindowStatusVisible(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Door Sensor is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not "+(expectedScreen.get(1)));
+					}
+
+					break;
+				}
+				}
+				break;
+			}
+
 			}
 			break;
 		}
@@ -780,6 +820,19 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Door Sensor is not "+(expectedScreen.get(1)+" after test signal"));
 					}
 
+					break;
+				}
+				}
+				break;
+			}
+			case "SET UP ACCESSORIES":{
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					flag= flag & sensorSetting.isSensorConfigured(expectedScreen.get(0));
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
+					}
 					break;
 				}
 				}

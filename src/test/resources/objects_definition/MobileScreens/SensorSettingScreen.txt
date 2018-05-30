@@ -30,3 +30,30 @@ ModelSubTitle	ID	camera_config_model_title_textview					Xpath	//*[@value='Model 
 SerialDetail	ID	security_config_model_macid_textview					Xpath	"//*[contains(@value,'Serial No :')]"				
 FirmwareSubTitle	Id	security_config_firmware_title_textview					Xpath	//*[@value='Firmware Details']				
 VersionDetail	ID	security_config_firmware_version_textview					Xpath	"//*[contains(@value,'Version')]"				
+SensorStatusOptionValue	id	list_item_lyric_horizontal_text_view_secondary_text					name	Sensor_Settings_0_2_value				
+TestSensorTitle	xpath	//*[@text='Test Sensor']					name	Test Sensor				
+PleaseWaitForSignalStrengthandTest	xpath	//*[@text='Please wait.']					name	In progress				
+UpdatingStatusForSensorNameUpdate	xpath	//*[@text='Updating...']					xpath	//*[@value='Saving...']				
+DASSensorSettingNamingField	id	security_settings_edit_name					name	Sensor_Settings_0_1_textField_value				
+DASSensorSetting_Delete	id	delete_das_button					name	Delete				
+PerformOnlyInModesPopup							name	You can perform this action only in Home or Off Mode				
+PerformOnlyInModesPopupAck							name	Ok				
+SensorSetting_NameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle
+SensorSettingBatteryStatus	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	name	Sensor_Settings_0_4_value	name	Sensor_Settings_0_4_value	name	Sensor_Settings_0_4_value
+SensorStatusOptionValue	id	list_item_lyric_horizontal_text_view_secondary_text										
+SensorAddButton	id	diy_cancel_button										
+SensorSetUpButton	id	sensor_setup_text										
+SensorOverviewHeading	xpath	//*[@text='Sensor Overview']										
+SensorHowitWorks	xpath	//*[@text='How it Works']										
+WatchHowToVideo	xpath	//*[@text='Watch the how-to video']										
+GetStarted	id	horizontal_button_next										
+LocateSensorHeading	xpath	//*[@text='Locate Sensor']										
+FindTheLit	xpath	//*[@text='Find the Lit Sensor']										
+NextButton	id	horizontal_button_next										
+PlaceSensorHeading	xpath	//*[@text='Place Sensor']										
+WontFitAsShown	id	horizontal_link_text										
+AccessSensorInstallHelpHeading	xpath	//*[@text='Access Sensor Install Help']										
+BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']										
+DoneButton	id	horizontal_button_next										
+ConfiguredText	id	sensor_configured_text										
+SensorNameInSetUpAccessories	id	sensor_name_title										

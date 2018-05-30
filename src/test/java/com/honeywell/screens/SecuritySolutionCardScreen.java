@@ -381,7 +381,17 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnSensorButton() {
-
+		int i=5;
+		try {
+			while(i>0 && !MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton",5)){
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
+				i--;
+			}
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to locate "+e.getMessage(),true);
+			return false;
+			
+		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorButton");
 	}
 

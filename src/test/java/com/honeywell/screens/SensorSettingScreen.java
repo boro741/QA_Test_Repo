@@ -92,7 +92,6 @@ public class SensorSettingScreen extends MobileScreens{
 		try {
 			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "GetAdditionalHelpButton")) {
@@ -102,16 +101,21 @@ public class SensorSettingScreen extends MobileScreens{
 	}
 
 	public boolean clickOnFirmwareDetailsOption() {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
 	}
-	
+
 	public boolean isModelDetailsDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelSubTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "VersionDetail");
-    }
-	
+	}
+
+	public boolean verifyBatteryStatusTextOnSensorSettingsScreen() {
+		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSettingBatteryStatus");
+		return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
+	}
+
 	public boolean isFirmwareDetailsDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle");
-    }
+	}
 	public boolean clickOnGetAdditionalHelpButton() {
 		try {
 			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
@@ -125,7 +129,6 @@ public class SensorSettingScreen extends MobileScreens{
 		try {
 			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 
@@ -191,11 +194,11 @@ public class SensorSettingScreen extends MobileScreens{
 	public boolean clickOnTestSensorBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");	
 	}
-	
+
 	public boolean clickOnSensorSettingBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSettingBack");	
 	}
-	
+
 	public boolean clickOnSensorListSettingBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");	
 	}
@@ -205,7 +208,7 @@ public class SensorSettingScreen extends MobileScreens{
 		}
 		return false;
 	}
-	
+
 	public boolean isSensorTamperClearPopupDisplayed() {
 		MobileUtils.isMobElementExists(objectDefinition, testCase, "TamperNotClearedPopup");
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "TamperNotClearedPopup")) {
@@ -213,15 +216,15 @@ public class SensorSettingScreen extends MobileScreens{
 		}
 		return false;
 	}
-	
+
 	public boolean clickOnOkTamperClearPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TamperClearPopupOk");	
 	}
-	
+
 	public boolean clickOnRetryTamperClearPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TamperClearPopupRetry");	
 	}
-	
+
 	public boolean clickOnSensorCoverTamperOption() {
 		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
 		if(status.equalsIgnoreCase("Cover Tampered")){
@@ -235,19 +238,148 @@ public class SensorSettingScreen extends MobileScreens{
 	public boolean clickOnSensorStatusOffOnAccessSensorScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorStatusOptionValue");
 	}
-	
+
 	public boolean checkSensorNameInSensorOffScreen(TestCaseInputs inputs) {
 		String expectedSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 		String actualSensorName = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorNameTitleInOffScreen");
-			if(actualSensorName.equalsIgnoreCase(expectedSensorName)) {
-				System.out.println("Sensor Name is same in Off Screen");
-				return true;
-			}
-	 return false;
+		if(actualSensorName.equalsIgnoreCase(expectedSensorName)) {
+			System.out.println("Sensor Name is same in Off Screen");
+			return true;
+		}
+		return false;
 	}
 
 	public boolean checkSensorIsOffTextVisible() {
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorOffText")) {
+			return true;
+		}
+		return false;
+	}
+	public boolean clickOnAddSensorButton() {
+
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorAddButton");
+	}
+
+	public boolean clickOnSetUpButton() {
+
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
+			MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
+			return true;
+		}
+		else {
+			try {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Set Up");
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
+				MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean isSensorOverviewScreenDisplayed() {
+
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorOverviewHeading") && MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorHowitWorks");
+
+	}
+
+	public boolean clickOnWatchHowToVideoButton() {
+
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "WatchHowToVideo");
+	}
+
+	public boolean clickOnGetStartedFromSensorOverview() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStarted");
+	}
+
+	public boolean isLocateSensorScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocateSensorHeading") && MobileUtils.isMobElementExists(objectDefinition, testCase, "FindTheLit");
+
+
+	}
+
+	public boolean clickOnNextButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
+
+	}
+
+	public boolean isPlaceSensorScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceSensorHeading");
+
+	}
+
+	public boolean clickOnWontFitAsShownButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "WontFitAsShown");
+	}
+
+	public boolean isAccessSensorInstallHelpScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AccessSensorInstallHelpHeading");
+
+	}
+
+	public boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+
+	}
+
+	public boolean isWindowStatusVisible(String status) {
+		WebElement ele1=MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorName");
+		if(ele1!=null) {
+			System.out.println("Entered door status checking func");
+			String s1 = ele1.getText();
+			System.out.println(s1);
+			if(s1.toUpperCase().contains("WINDOW")) {
+				WebElement ele2=MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorStatus");
+				if(ele2!=null) {
+					String s2 = ele2.getText();
+					System.out.println(s2);
+					if(s2.equalsIgnoreCase(status)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean clickOnDoneButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+	}
+
+	public boolean isSensorConfigured(String SensorName) {
+
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfiguredText",5)) {
+			System.out.println("Found the Configured text");
+			String displayedSensorName = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorNameInSetUpAccessories");
+			if(SensorName.equalsIgnoreCase(displayedSensorName)) {
+				System.out.println("The given Sensor Name is Configured "+displayedSensorName);
+			}
+		}
+		else {
+			try {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Configured");
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			if(MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfiguredText",15)) {
+				String displayedSensorName = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorNameInSetUpAccessories");
+				if(SensorName.equalsIgnoreCase(displayedSensorName)) {
+					System.out.println("The given Sensor Name is Configured "+displayedSensorName);
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean checkSensorNameNotInSensorList(String sensorName) {
+		if(testCase.getPlatform().contains("Android")) {
+			MobileUtils.isMobElementExists("xpath", "//*[@text='"+sensorName+"']", testCase);
 			return true;
 		}
 		return false;
