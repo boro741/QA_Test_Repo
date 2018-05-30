@@ -101,6 +101,17 @@ public class SensorSettingScreen extends MobileScreens{
 		return false;
 	}
 
+	public boolean clickOnFirmwareDetailsOption() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
+	}
+	
+	public boolean isModelDetailsDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelSubTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "VersionDetail");
+    }
+	
+	public boolean isFirmwareDetailsDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle");
+    }
 	public boolean clickOnGetAdditionalHelpButton() {
 		try {
 			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
@@ -181,6 +192,13 @@ public class SensorSettingScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");	
 	}
 	
+	public boolean clickOnSensorSettingBack() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSettingBack");	
+	}
+	
+	public boolean clickOnSensorListSettingBack() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");	
+	}
 	public boolean isSensorTamperedScreenDisplayed() {
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorTamperScreen") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearTamperButton") ) {
 			return true;
@@ -220,8 +238,7 @@ public class SensorSettingScreen extends MobileScreens{
 	
 	public boolean checkSensorNameInSensorOffScreen(TestCaseInputs inputs) {
 		String expectedSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-			WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "SensorNameTitleInOffScreen");
-			String actualSensorName = ele.getAttribute("text");
+		String actualSensorName = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorNameTitleInOffScreen");
 			if(actualSensorName.equalsIgnoreCase(expectedSensorName)) {
 				System.out.println("Sensor Name is same in Off Screen");
 				return true;

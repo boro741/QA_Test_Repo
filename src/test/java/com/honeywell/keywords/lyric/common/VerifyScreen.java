@@ -482,6 +482,12 @@ public class VerifyScreen extends Keyword {
 				flag= flag  &sensor.isSensorTamperedScreenDisplayed();
 				break;
 			}
+			case "MODEL AND FIRMWARE DETAILS":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag  &  sensor.isModelDetailsDisplayed();
+				flag= flag  &  sensor.isFirmwareDetailsDisplayed();
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -491,6 +497,9 @@ public class VerifyScreen extends Keyword {
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		if(flag){
+			Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +"displayed");
 		}
 		return flag;
 	}
