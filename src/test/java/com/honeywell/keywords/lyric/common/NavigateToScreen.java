@@ -224,8 +224,7 @@ public class NavigateToScreen extends Keyword {
 					if(security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-					flag=LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
-
+					
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
@@ -454,7 +453,20 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
-
+				case "SENSOR LIST SETTINGS":{
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					if(flag) {
+						System.out.println("Successfully navigated to Sensor List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Sensor List Settings Screen");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Sensor List Settings Screen");
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -588,6 +600,10 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("VIDEO CLIP")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR OVERVIEW":{
+					MobileUtils.pressBackButton(testCase);
+					break;
+				}
 				case "WHAT TO EXPECT": {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -1070,6 +1086,61 @@ public class NavigateToScreen extends Keyword {
 						}
 					}
 					break;
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Locate Sensor")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "NAME SENSOR": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.clickOnNextButton()) {
+						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
+					}
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Place Sensor")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PLACE SENSOR ON LOCATION": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.clickOnNextButton()) {
+						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
+					}
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Access sensor Install help")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PLACE SENSOR ON LOCATION": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.clickOnBackButton()) {
+						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
+					}
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Place Sensor on location")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "TEST SENSOR": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.clickOnNextButton()) {
+						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
+					}
+				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Sensor List")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SECURITY SOLUTION CARD": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.clickOnBackButton()) {
+						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
+					}
 				}
 				}
 			}

@@ -380,6 +380,20 @@ public class SelectElementOnAScreen extends Keyword {
 					flag= flag & bs.clickOnSignalStrengthandTestOption();
 					break;
 				}
+				case "DELETE SENSOR":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag= flag & bs.clickOnDeleteSensorButton();
+					break;
+				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Window Access settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "DELETE SENSOR":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag= flag & bs.clickOnDeleteSensorButton();
+					break;
+				}
 				}
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Sensor Cover Tamper")) {
@@ -405,6 +419,84 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Sensor List Settings")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "ADD BUTTON":{
+					if(!testCase.getPlatform().contains("IOS")){
+						flag= flag & sensor.clickOnAddSensorButton();
+					}
+					break;
+				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SETUP BUTTON":{
+					if(!testCase.getPlatform().contains("IOS")){
+						flag= flag & sensor.clickOnSetUpButton();
+					}
+					break;
+				}
+				case "DONE":{
+					Thread.sleep(3000);
+					flag= flag & sensor.clickOnDoneButton();
+					break;
+				}
+				}
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0).toUpperCase()+" button");
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Sensor Overview")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "WATCH THE HOW TO VIDEO":{
+					if(!testCase.getPlatform().contains("IOS")){
+						flag= flag & sensor.clickOnWatchHowToVideoButton();
+					}
+					break;
+				}
+				case "GET STARTED":{
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+				}
+				}
+				if(flag) {
+					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+ " button");
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Place Sensor on location")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "WONT FIT AS SHOWN":{
+					if(!testCase.getPlatform().contains("IOS")){
+						flag= flag & sensor.clickOnWontFitAsShownButton();
+					}
+					break;
+				}
+				}
+				if(flag) {
+					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "DONE":{
+					if(!testCase.getPlatform().contains("IOS")){
+						flag= flag & sensor.clickOnDoneButton();
+					}
+					break;
+				}
+				}
+				if(flag) {
+					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
 		} catch (Exception e) {

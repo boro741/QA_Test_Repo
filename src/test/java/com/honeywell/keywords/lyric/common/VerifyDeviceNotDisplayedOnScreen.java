@@ -10,12 +10,13 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	private ArrayList<String> expectedDevice;
 	public boolean flag = true;
 
@@ -64,6 +65,23 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 				}else {
 					flag=false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
+				}
+				break;
+			}
+			}
+			break;
+		}
+		case "SENSOR LIST":{
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			switch (expectedDevice.get(0).toUpperCase()){
+			case "DOOR":{
+				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+				if(sensor.checkSensorNameNotInSensorList(sensorName)==false)
+				{
+					Keyword.ReportStep_Pass(testCase, "Sensor "+sensorName+"is not in sensor list");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor "+sensorName+"is in sensor list");
 				}
 				break;
 			}

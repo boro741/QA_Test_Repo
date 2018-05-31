@@ -50,6 +50,9 @@ public class DoorSensorActions extends Keyword {
 			else if (states.get(0).equalsIgnoreCase("Tamper CLEARED")){
 				DASSensorUtils.tamperClearDoor(testCase, inputs);
 			}
+			else if(states.get(0).equalsIgnoreCase("enrolled")){
+				DASSensorUtils.enrollDoor(testCase, inputs);
+			}
 			else{
 				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
 			}

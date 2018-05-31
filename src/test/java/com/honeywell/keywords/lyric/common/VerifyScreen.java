@@ -488,6 +488,42 @@ public class VerifyScreen extends Keyword {
 				flag= flag  &  sensor.isFirmwareDetailsDisplayed();
 				break;
 			}
+			case "SENSOR OVERVIEW":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag  & sensor.isSensorOverviewScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Sensor Overview Screen is displayed");
+				}
+				break;
+			}
+			case "LOCATE SENSOR":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isLocateSensorScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Locate Sensor Screen is displayed");
+				}
+				break;
+			}
+			case "PLACE SENSOR":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isPlaceSensorScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Place Sensor Screen is displayed");
+				}
+				break;
+			}
+			case "ACCESS SENSOR INSTALL HELP":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isAccessSensorInstallHelpScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"AccessSensorInstallHelp Screen is displayed");
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

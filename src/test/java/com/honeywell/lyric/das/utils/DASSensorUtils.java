@@ -16,6 +16,17 @@ import com.honeywell.screens.SensorStatusScreen;
 
 public class DASSensorUtils {
 	private boolean flag = true;
+	
+	public static boolean enrollDoor(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("DOOR_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.RSIContactSensorEnroll_Door();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 	public static boolean openDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -240,13 +251,14 @@ public class DASSensorUtils {
 							MobileUtils.clickOnElement(testCase, "NAME", "Retry");
 						} else {
 							DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 1);
-							if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
-									+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
-								Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
-								sensorStateMatched = true;
-								break;
-							}
+							
 						}
+					}
+					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
+							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
+						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
+						sensorStateMatched = true;
+						break;
 					}
 				}
 			} else {

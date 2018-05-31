@@ -3,9 +3,9 @@ Feature: DAS Access Sensor
 As a user I want to check the functioning of Access sensor 
 
 
-@DASAccessSensorStatusVerification @UIAutomatedAndroid
+@DASAccessSensorStatusVerification @UIAutomated
   Scenario: As a user I want to view that all Access Sensor settings
-  Given user is set to <Mode> mode through CHIL
+  Given user is set to "Home" mode through CHIL
     Given user launches and logs in to the Lyric application 
      When user navigates to "Door Access settings" screen from the "Dashboard" screen 
      Then user should be displayed with the following "Sensor Settings" options: 
@@ -19,7 +19,7 @@ As a user I want to check the functioning of Access sensor
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorRenameVerification @UIAutomatedAndroid
+@DASAccessSensorRenameVerification @UIAutomated
 Scenario Outline: As a user I want to rename my Access Sensor sensor through the application
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application 
@@ -29,11 +29,11 @@ Then user edits the "Access Sensor" name to "new name"
 Examples:
 |Mode|
 |Home|
-|OFF|
+#|OFF|
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorRenamePopUpVerification @UIAutomatedAndroid
+@DASAccessSensorRenamePopUpVerification @UIAutomated
 Scenario Outline: As a user I cannot rename my Access Sensor sensor through the application when its in 
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application 
@@ -45,11 +45,11 @@ Then the following "sensor settings" options should be disabled:
 Examples:
 |Mode|
 |Night|
-|Away|
+#|Away|
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorSignalStrengthAndTestVerificationWithAwayNightOffline @UIAutomatedAndroid
+@DASAccessSensorSignalStrengthAndTestVerificationWithAwayNightOffline @UIAutomated
 Scenario Outline: As a user I want to Verify Access Sensor SignalStrengthAndTest in Away, Night and offline mode
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application 
@@ -61,10 +61,10 @@ Then the following "sensor settings" options should be disabled:
 Examples:
 |Mode|
 |Away|
-|Night|
+#|Night|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASDeleteAccessSensorPopupVerification @UIAutomatedAndroid
+@DASDeleteAccessSensorPopupVerification @UIAutomated
 Scenario Outline: As a user I should be able to delete Access Sensor configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL 
@@ -76,11 +76,11 @@ Then the following "sensor settings" options should be disabled:
 Examples:
 |Mode|
 |Night|
-|Away|
+#|Away|
 
 
 #Requirement: One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorStatusOFFVerificationWithHomeOffMode @UIAutomatedAndroid
+@DASAccessSensorStatusOFFVerificationWithHomeOffMode @UIAutomated
 Scenario Outline: As a user I want to Verify Access Sensor Battery status OFF 
 And user door "opened"
 Given user is set to "Home" mode through CHIL
@@ -95,10 +95,10 @@ Then user should see the "door" status as <Sensor status> on the "Sensor Status"
 Examples:
 |Switch to Mode | Sensor status|
 |Home|Open|
-|Off| Open|
+#|Off| Open|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorStatusOFFVerificationWithAwayNightMode @UIAutomatedAndroid
+@DASAccessSensorStatusOFFVerificationWithAwayNightMode @UIAutomated
 Scenario Outline:AS a user I want to Verify Access Sensor Battery status OFF 
 And user is set to "Home" mode through CHIL
 And user door "opened"
@@ -116,11 +116,11 @@ Then user should see the "door" status as "off" on the "Sensor Status"
 Examples:
 |Mode|Switch to Mode | Sensor status|
 |Night|Switch to Night |Off|
-|Away|Switch to Away |Off|
+#|Away|Switch to Away |Off|
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorSignalStrengthAndTestVerificationGetAdditionlHelp @UIAutomatedAndroid
+@DASAccessSensorSignalStrengthAndTestVerificationGetAdditionlHelp @UIAutomated
 Scenario Outline: As a user I want to Verify Access Sensor SignalStrengthAndTest in Home or OFF mode and assistance link
 Given user launches and logs in to the Lyric application 
 And user door "opened"
@@ -149,16 +149,16 @@ Examples:
 |Home | High |  Open | Closed |
 #|Home | Medium |Opened | Closed |
 #|Home | Low |Opened | Closed |
-|OFF | High | Opened | Closed |
+#|OFF | High | Opened | Closed |
 #| OFF | Medium | Opened | Closed |
 #| OFF | Low |Opened | Closed |
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
-@DASAccessSensorStatusCoverTamperedVerificationHome
+@DASAccessSensorStatusCoverTamperedVerificationHome @UIAutomated
 Scenario Outline:AS a user I want to Verify Access Sensor Cover Tamper and Tamper restored status When base station status in Home and OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> mode through CHIL
-And user door <Status>
+And user door <State>
 And user door "tampered"
 Then user navigates to "Door Access settings" screen from the "Dashboard" screen
 When user selects "Sensor Cover Tampered" from "Door Access settings" screen
@@ -174,9 +174,9 @@ And user door "tamper cleared"
 When user "RETRY" the "Sensor Tamper" popup
 And user should see the "door sensor" status as <Status> on the "Access sensor Settings"
 Examples:
-|Mode| Status |
-|Home| Closed |
-|Home| Open |
+|Mode| State | Status |
+|Home| Closed |Closed |
+#|Home| Opened | Open |
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
@@ -190,9 +190,9 @@ Then user should be displayed with the "Model and Firmware Details" screen
 Examples:
 |Mode|
 |Home|
-|Away|
-|Night|
-|OFF|
+#|Away|
+#|Night|
+#|OFF|
 #|OFFLINE|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor  should be in offline

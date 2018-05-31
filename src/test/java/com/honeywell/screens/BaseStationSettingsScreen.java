@@ -667,15 +667,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
-	public boolean verifyBatteryStatusTextOnSensorSettingsScreen() {
-		if (this.isSensorBatteryOptionVisibleOnSensorSettingsScreen()) {
-			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSettingBatteryStatus");
-			return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
-		} else {
-			return false;
-		}
-	}
-
 	public boolean verifyDASFirmwareDetailsOnModelAndFirmwareDetailsPage() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareDetailsTitle")) {

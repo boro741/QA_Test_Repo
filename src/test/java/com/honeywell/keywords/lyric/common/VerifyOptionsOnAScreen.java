@@ -14,6 +14,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSettingScreen;
 
 public class VerifyOptionsOnAScreen extends Keyword {
 
@@ -208,6 +209,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 
 		case "SENSOR SETTINGS": {
             BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+            SensorSettingScreen sensorSettingScreen = new SensorSettingScreen(testCase);
             for (int i = 0; i < data.getSize(); i++) {
                   if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
                          if (bs.verifySensorNameOptionTextOnSensorSettingsScreen()) {
@@ -254,7 +256,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
                                               "'Battery' Option is not displayed on the Sensor Settings Screen");
                          }
 
-                         if (bs.verifyBatteryStatusTextOnSensorSettingsScreen()) {
+                         if (sensorSettingScreen.verifyBatteryStatusTextOnSensorSettingsScreen()) {
                          Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
                          } else {
                                 flag = false;
