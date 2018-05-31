@@ -33,23 +33,27 @@ public class DIYRegistrationUtils {
 
 	public static boolean navigateFromPowerBaseStationToDashboard(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		Dashboard d = new Dashboard(testCase);
 		boolean flag = true;
 		if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
 			flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
-			if (dasDIY.isBackArrowInPowerBaseStationVisible()) {
-				flag = flag & dasDIY.clickOnBackArrowInPowerBaseStationScreen();
-			}
-			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
-				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
-			}
-			if (dasDIY.isCancelPopupVisible()) {
-				flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
-			}
-			if (dasDIY.isCancelButtonInAddANetworkScreenVisible()) {
-				flag = flag & dasDIY.clickOnCancelButtonInAddANetworkScreen();
-			} else {
-				if (dasDIY.isBackArrowInSelectADeviceScreenVisible(15)) {
-					flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
+			System.out.println("#########Clicked on Back arrow in Power base station screen");
+			if (dasDIY.isBackArrowInNameYourBaseStationScreenVisible()) {
+				flag = flag & dasDIY.clickOnBackArrowInNameYourBaseStationScreen();
+				System.out.println("#########Clicked on Back arrow in Name your base station screen");
+				if (dasDIY.isBackArrowInChooseLocationScreenVisible()) {
+					flag = flag & dasDIY.clickOnBackArrowInChooseLocationScreen();
+					System.out.println("#########Clicked on Back arrow in Choose location screen");
+					if (dasDIY.isBackArrowInWhatToExpectScreenVisible()) {
+						flag = flag & dasDIY.clickOnBackArrowInWhatToExpectScreen();
+						System.out.println("#########Clicked on Back arrow in What to Expect screen");
+						if (dasDIY.isCancelButtonInAddNewDeviceScreenVisible()) {
+							flag = flag & dasDIY.clickOnCancelButtonInAddNewDeviceScreen();
+							System.out.println("#########Clicked on Cancel in in Add new device dashboard screen");
+							flag = flag & d.isAddDeviceIconVisible(20);
+							System.out.println("#########Add new device icon is present in Dashboard screen");
+						}
+					}
 				}
 			}
 		}
@@ -91,10 +95,19 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromPowerBaseStationToSelectBaseStation(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
+		int counter = 0;
 		if (dasDIY.isNextButtonVisible()) {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+		if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
+				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
+				counter++;
+				flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+			}
+		}
 		if (dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Multiple base stations with MAC ID's are displayed");
 		}
@@ -302,6 +315,10 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromEnableAmazonAlexaToDashboard(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
+		if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
+			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
+			System.out.println("**********Clicked on SKIP button in Amazon Alexa screen************");
+		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 
 			// flag = flag & LyricUtils.closeCoachMarks(testCase);
@@ -413,6 +430,15 @@ public class DIYRegistrationUtils {
 			flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(wifiName);
 		}
 		return dasDIY.isWiFiPasswordTextFieldVisibile();
+	}
+
+	public static boolean selectAvailableNetworkType(TestCases testCase, String availableNetworkType) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isAvialbleNetworkTypeDisplayed(availableNetworkType)) {
+			flag = flag & dasDIY.clickOnAvialbleNetworkType(availableNetworkType);
+		}
+		return flag;
 	}
 
 	public static boolean selectAvailableSensorName(TestCases testCase, String availableSensorName) {

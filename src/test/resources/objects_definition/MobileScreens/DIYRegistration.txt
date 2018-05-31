@@ -1,5 +1,6 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 BackArrowInSelectANewDeviceHeader	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Cancel	NAME	Cancel	NAME	Cancel
+CancelButtonInAddNewDeviceScreen							NAME	Cancel	NAME	Cancel	NAME	Cancel
 AddNewDeviceHeader	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']
 SmartHomeSecurity	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	NAME	Smart Home Security	NAME	Smart Home Security	NAME	Smart Home Security
 HowToVideoLink	ID	horizontal_link_text	ID	horizontal_link_text	ID	horizontal_link_text	NAME	Watch How-To Video	NAME	Watch How-To Video	NAME	Watch How-To Video
@@ -14,6 +15,7 @@ NoButtonInCancelSetUpPopup	ID	button2	ID	button2	ID	button2	NAME	No	NAME	No	NAME
 WhatToExpectScreenHeaderTitle	XPATH	//*[@text='What To Expect']	XPATH	//*[@text='What To Expect']	XPATH	//*[@text='What To Expect']	XPATH	//*[@value='What To Expect']	XPATH	//*[@value='What To Expect']	XPATH	//*[@value='What To Expect']
 BackButtonInWhatToExpectScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
 SelectHomeLocation	XPATH	//android.widget.TextView[@text='Home']	XPATH	//android.widget.TextView[@text='Home']	XPATH	//android.widget.TextView[@text='Home']	NAME	Home	NAME	Home	NAME	Home
+BackButtonInChooseLocationScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
 CreateCustomLocationLink	ID	horizontal_link_text	ID	horizontal_link_text	ID	horizontal_link_text	NAME	Create New Location	NAME	Create New Location	NAME	Create New Location
 CreateLocationHeaderTitle	XPATH	//*[@text='Create Location']	XPATH	//*[@text='Create Location']	XPATH	//*[@text='Create Location']	NAME	Create Location	NAME	Create Location	NAME	Create Location
 CustomeLocationTextField	ID	create_new_name_text	ID	create_new_name_text	ID	create_new_name_text			NAME	Add Home	NAME	Add Home
@@ -26,6 +28,7 @@ InvalidZipCodeErrorPopup	ID	message	ID	message	ID	message	NAME	Error	NAME	Error	
 OKButtonInInvalidZipCodeErrorPopup	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	NAME	OK	NAME	OK	NAME	OK
 NameYourBaseStationHeaderTitle	XPATH	//*[@text='Name Base Station']	XPATH	//*[@text='Name Base Station']	XPATH	//*[@text='Name Base Station']	XPATH	//*[@value='Name Base Station']	XPATH	//*[@value='Name Base Station']	XPATH	//*[@value='Name Base Station']
 SelectLivingRoomBaseStation	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	XPATH	//android.widget.Button[@text='Living Room']	NAME	Living Room	NAME	Living Room	NAME	Living Room
+BackButtonInNameYourBaseStationScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
 SelectKitchenInNameYourBaseStation	XPATH	//android.widget.Button[@text='Kitchen']	XPATH	//android.widget.Button[@text='Kitchen']	XPATH	//android.widget.Button[@text='Kitchen']	NAME	Kitchen	NAME	Kitchen	NAME	Kitchen
 CreateCustomBaseStationNameLink	ID	horizontal_link_text	ID	horizontal_link_text	ID	horizontal_link_text	NAME	Create Custom Name	NAME	Create Custom Name	NAME	Create Custom Name
 CreateBaseStationHeaderTitle	XPATH	//*[@text='Name Device']	XPATH	//*[@text='Name Device']	XPATH	//*[@text='Name Device']	XPATH	//*[@value='Name Device']	XPATH	//*[@value='Name Device']	XPATH	//*[@value='Name Device']
@@ -38,6 +41,7 @@ NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_but
 RightButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	XPATH	(//XCUIElementTypeButton[@name='RightButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='RightButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='RightButton'])[2]
 LeftButton	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[2]
 BackButtonInPowerBaseStationScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
+CancelButtonInPowerBaseStationScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button						
 NotPulsingBlueLink	ID	horizontal_link_text	ID	horizontal_link_text	ID	horizontal_link_text	NAME	Not Pulsing Blue?	NAME	Not Pulsing Blue?	NAME	Not Pulsing Blue?
 BaseStationHelpHeaderTitle	XPATH	//*[@text='Base Station Help']	XPATH	//*[@text='Base Station Help']	XPATH	//*[@text='Base Station Help']	XPATH	//*[@value='Base Station Help']	XPATH	//*[@value='Base Station Help']	XPATH	//*[@value='Base Station Help']
 BackArrowInBaseStationHelpScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
@@ -46,7 +50,7 @@ BaseStationNotFounPopupTitle	XPATH	//*[@text='Base Station Not Found']	XPATH	//*
 OKButtonInBaseStationNotFounPopup	ID	button2	ID	button2	ID	button2	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']	XPATH	//*[@name='OK']
 RetryButtonInBaseStationNotFoundPopup	ID	button1	ID	button1	ID	button1	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']	XPATH	//*[@name='Retry']
 RegisterBaseStationHeaderTitle	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@text='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']	XPATH	//*[@value='Register Base Station']
-MultipleBaseStationsScreenSubHeaderTitle	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	XPATH	//*[@text='Multiple Base Stations found']	NAME	Multiple Base stations Found	NAME	Multiple Base stations Found	NAME	Multiple Base stations Found
+MultipleBaseStationsScreenSubHeaderTitle	XPATH	//*[@text='Select your device']	XPATH	//*[@text='Select your device']	XPATH	//*[@text='Select your device']	NAME	Select your device	NAME	Select your device	NAME	Select your device
 BaseStationMACID	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@text='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']	XPATH	//*[@value='B8:2C:A0:00:07:D8']
 QRCode	ID	qrcode_icon	ID	qrcode_icon	ID	qrcode_icon	NAME	Show QR Code to Base Station	NAME	Show QR Code to Base Station	NAME	Show QR Code to Base Station
 RegisterBaseStationQRCodeScanText	XPATH	"//*[contains(@text, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@text, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@text, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@name, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@name, 'Scan this code by showing it to your Base Station')]"	XPATH	"//*[contains(@name, 'Scan this code by showing it to your Base Station')]"
@@ -58,6 +62,7 @@ LookingForNetworkConnectionLoadingSpinner	ID	progressBar	ID	progressBar	ID	progr
 ConnectToNetworkHeaderTitle	XPATH	//*[@text='Connect']	XPATH	//*[@text='Connect']	XPATH	//*[@text='Connect']	XPATH	//*[@value='Connect']	XPATH	//*[@value='Connect']	XPATH	//*[@value='Connect']
 ConnectToNetworkHeaderDesc	ID	header_view_description	ID	header_view_description	ID	header_view_description	NAME	Select your Wi-Fi network	NAME	Select your Wi-Fi network	NAME	Select your Wi-Fi network
 WiFiList	ID	diy_naming_list	ID	diy_naming_list	ID	diy_naming_list	XPATH	//XCUIElementTypeCollectionView	XPATH	//XCUIElementTypeCollectionView	XPATH	//XCUIElementTypeCollectionView
+WiFiIconInConnectToNetworkScreen	ID	list_item_display_text	ID	list_item_display_text	ID	list_item_display_text	XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell
 WiFiPasswordTextField	ID	wifi_password	ID	wifi_password	ID	wifi_password	NAME	Password	NAME	Password	NAME	Password
 AddANetworkButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Add A Network	NAME	Add A Network	NAME	Add A Network
 AddANetworkScreenTitle	XPATH	//*[@text='Add a network']	XPATH	//*[@text='Add a network']	XPATH	//*[@text='Add a network']	NAME	Connect	NAME	Connect	NAME	Connect
@@ -65,12 +70,18 @@ CancelButtonInAddANetworkScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy
 EnterWiFIPasswordScreenSubTitle	ID	header_view_subtitle	ID	header_view_subtitle	ID	header_view_subtitle	NAME	Enter your Wi-Fi password	NAME	Enter your Wi-Fi password	NAME	Enter your Wi-Fi password
 WiFiConnectionFailedPopupTitle	XPATH	//*[@text='Wi-Fi Connection failed']	XPATH	//*[@text='Wi-Fi Connection failed']	XPATH	//*[@text='Wi-Fi Connection failed']	NAME	Wi-Fi Connection failed	NAME	Wi-Fi Connection failed	NAME	Wi-Fi Connection failed
 OKButtonInWiFiConnectionFailedPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
+BackButtonInEnterWiFiPwdScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
+EnterSSIDScreenTitle	XPATH	//*[@text='Add a Network']	XPATH	//*[@text='Add a Network']	XPATH	//*[@text='Add a Network']	XPATH	//*[@value='Add a Network']	XPATH	//*[@value='Add a Network']	XPATH	//*[@value='Add a Network']
+CancelButtonInEnterSSIDScreen							NAME	Cancel	NAME	Cancel	NAME	Cancel
+BackButtonInEnterSSIDScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
 JoinButtonInConnectToNetworkScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Next	NAME	Next	NAME	Next
 ConnectingSmartHomeSecurityLoadingSpinner	ID	progressBar	ID	progressBar	ID	progressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 AlmostDoneLoadingSpinnerTxt	XPATH	//*[@text='Almost Done']	XPATH	//*[@text='Almost Done']	XPATH	//*[@text='Almost Done']	NAME	Almost Done	NAME	Almost Done	NAME	Almost Done
 SmartHomeSecuritySuccessHeaderTitle	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']	XPATH	//*[@value='Smart Home Security']
 NoButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	NAME	LeftButton	NAME	LeftButton	NAME	LeftButton
 YesButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	RightButton	NAME	RightButton	NAME	RightButton
+FirmwareUpdatePopupTitle	XPATH	//*[@text='Update Required']	XPATH	//*[@text='Update Required']	XPATH	//*[@text='Update Required']	NAME	Update Required	NAME	Update Required	NAME	Update Required
+OKButtonInFirmwareUpdatePopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 SetUpAccessoriesScreenTitle	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
 SensorSetUpButton	ID	sensor_setup_text	ID	sensor_setup_text	ID	sensor_setup_text	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton
 OverviewScreenTitle	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	NAME	Here's how it works	NAME	Here's how it works	NAME	Here's how it works

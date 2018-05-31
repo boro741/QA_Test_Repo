@@ -435,27 +435,27 @@ Examples:
       | Home                                    | Living Room                     |
       
 
-@DIYRefreshBaseStationsList		@RequiresMultipleBaseStationsForExecution		@P2
-Scenario Outline: As a user I should be able to refresh the base stations list when multiple base stations are displayed
+@DIYCancelInSelectBaseStationsListScreen		@RequiresMultipleBaseStationsForExecution		@P2			@UIAutomated
+Scenario Outline: As a user I should be able to cancel the setp up in select base station screen when multiple base stations are displayed
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+And user DAS device with ADB ID "9c43dac2" is deregistered and booted
+When user launches and logs in to the Lyric application
+And user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
-When user "views cancel setup" by clicking on "CANCEL" button
-And user "dismisses" the "Cancel Setup" popup
-Then user should be displayed with the "Register Base Station" screen
-When user "views cancel setup" by clicking on "CANCEL" button
+Then user navigates to "Select Base Station" screen from the "Power Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "dismisses" the "Cancel Setup" popup
+Then user should be displayed with the "Select Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Power Base Station" screen 
-When user navigates to "Register Base Station" screen from the "Power Base Station" screen
-And user navigates to "Select Base Station" screen from the "Register Base Station" screen
-Then user "views select base station screen" by clicking on "Refresh" button
+Then user navigates to "Add New Device Dashboard" screen from the "Select Base Station" screen
 
 Examples: 
       | location name                           | device name                     | 
@@ -671,7 +671,7 @@ Examples:
       | Home                                    | Living Room                     | thisisinvalidssid   |
 
 
-@DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2
+@DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after cancelling add a network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -682,20 +682,29 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-When user navigates to "Register Base Station" screen from the "Power Base Station" screen
-And user scans the QR code by showing it to the base station camera
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Add A Network" from "Connect to Network" screen
-And user selects "A Network Type" from "Add A Network" screen
+And user selects <Network Type> from "Add A Network" screen
 Then user should be displayed with the "Enter Network Credentials" screen
-When user "cancels the set up" by clicking on "cancel" button
+When user "Cancels the enter SSID" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Enter Network Credentials" screen
-When user "cancels the set up" by clicking on "cancel" button
+When user "Cancels the enter SSID" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Connect to Network" screen
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+Then user navigates to "Choose Location" screen from the "What To Expect" screen
+When user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
@@ -714,8 +723,8 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples: 
-      | location name | device name  | 
-      | Home          | Living Room  |
+      | location name | device name  | Network Type	|
+      | Home          | Living Room  | WEP PSK		|
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
@@ -846,7 +855,7 @@ Examples:
       | Home                                    | Living Room                     |
       
       
-@DIYRegistrationWhenFirmwareIsNotUpToDate		@P2
+@DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application when firmware update pops up
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -861,11 +870,11 @@ Then user navigates to "Register Base Station" screen from the "Power Base Stati
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-When user receives a "Firmware update" popup
-Then user "accepts" the "Firmware update" popup
-When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user receives "Firmware update" by clicking on "Yes" button
+And user "accepts" the "Firmware update" popup
+Then user should be displayed with the "Enable Geofencing" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
 #And user creates a passcode if required
@@ -884,9 +893,11 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | 
-      | Home                                    | Living Room                     |
+      | Home                                    | Living Room                     |	
+      | Home                                    | Kitchen                         |
+
       
-@DIYRegistrationByMinimizingAndMaximizingTheApp		@P3
+@DIYRegistrationByMinimizingAndMaximizingTheApp		@P3			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -928,7 +939,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2
+@DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -943,7 +954,7 @@ Then user navigates to "Register Base Station" screen from the "Power Base Stati
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "Vibe@04" as the WiFi Password
+And user inputs "vibex444" as the WiFi Password 
 Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
@@ -1048,7 +1059,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2
+@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1062,14 +1073,14 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "MPRIZE" from "Connect to Network" screen
-And user inputs "Vibe@04" as the WiFi Password
+When user selects "Any WiFi name" from "Connect to Network" screen
+And user inputs "Vibe444" as the WiFi Password
 Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-Then user navigates to "Connect to Network" screen from the "Enter your Wi-Fi password" screen
-When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
+When user navigates to "Connect to Network" screen from the "Enter your Wi-Fi password" screen
+Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
+When user inputs "vibex888" as the WiFi Password 
 Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1089,7 +1100,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYTryToReRegisterDAS		 	@P2
+@DIYTryToReRegisterDAS		 	@P2			@UIAutomated
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1120,13 +1131,16 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <second device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
-And user should receive a "Base Station Not Found" popup
-Then user "retries base station pairing in" the "Base Station Not Found" popup
+When user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 Then user should receive a "Base Station Not Found" popup
-And user "clicks on OK in" the "Base Station Not Found" popup
+When user "retries base station pairing in" the "Base Station Not Found" popup
+Then user should receive a "Base Station Not Found" popup
+When user "clicks on OK in" the "Base Station Not Found" popup
+Then user should be displayed with the "Power Base Station" screen
 When user navigates to "dashboard" screen from the "Power Base Station" screen
-Then user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <first device name> device on the "dashboard" screen
+When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
@@ -1135,10 +1149,10 @@ And user should not be displayed with <first device name> device on the "dashboa
 
 Examples: 
       | location name | first device name	| second device name		|
-      | Home          | Living Room  		| Kitchen				    |
+      | Home          | Living Room  		| Kitchen				|
       
 
-@DIYDeleteExistingDASAndRegisterIt		@P2
+@DIYDeleteExistingDASAndRegisterIt		@P2			@UIAutomated
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1200,7 +1214,7 @@ Examples:
       | Home          | Living Room  |
       
 
-@DIYMultipleDASRegistrationsForTheSameAccount		@P2
+@DIYMultipleDASRegistrationsForTheSameAccount		@P2			@UIAutomated
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1211,7 +1225,7 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-When user navigates to "Select Base Station" screen from the "Power Base Station" screen
+Then user navigates to "Select Base Station" screen from the "Power Base Station" screen
 When user selects <Base Station MAC ID> from "Select Base Station" screen
 And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen

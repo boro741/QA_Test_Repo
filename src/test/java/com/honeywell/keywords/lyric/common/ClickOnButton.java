@@ -127,7 +127,17 @@ public class ClickOnButton extends Keyword {
 					}
 				}
 				}
-			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS SELECT BASE STATION SCREEN")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("CANCELS THE ENTER SSID")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "CANCEL": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCancelButtonInEnterSSIDScreenVisible()) {
+						flag = flag & dasDIY.clickOnCancelButtonInEnterSSIDScreen();
+					}
+					break;
+				}
+				}
+			}   else if (expectedButton.get(0).equalsIgnoreCase("VIEWS SELECT BASE STATION SCREEN")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "REFRESH": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -135,6 +145,17 @@ public class ClickOnButton extends Keyword {
 						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
 						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
+						break;
+					}
+				}
+				}
+			}    else if (expectedButton.get(0).equalsIgnoreCase("FIRMWARE UPDATE")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "YES": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
+						flag = flag & dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
+						flag = flag & dasDIY.isFirmwareUpdatePopupVisible(20);
 						break;
 					}
 				}

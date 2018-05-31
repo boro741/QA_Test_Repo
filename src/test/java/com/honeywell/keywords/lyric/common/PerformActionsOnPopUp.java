@@ -335,7 +335,16 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("FIRMWARE UPDATE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isOKButtonInFirmwareUpdatePopupVisible()) {
+					flag = flag & dasDIY.clickOnOKButtonInFirmwareUpdatePopup();
+				}
+				break;
+			}
+			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
