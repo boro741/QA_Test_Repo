@@ -149,18 +149,27 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "LIVING ROOM":
+			case "FRONT HALL":
+			case "BACK HALL":
 			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
-				case "OPEN": {
+				case "GOOD": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
 							expectedScreen.get(1));
+					if(flag) {
+						System.out.println("Good is found");
+					}
 					break;
 				}
-				case "CLOSED": {
+				case "ACTIVE": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
 							expectedScreen.get(1));
+					if(flag) {
+						System.out.println("Active is found");
+					}
 					break;
 				}
 				case "OFF": {
@@ -186,6 +195,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				break;
 			}
 			}
+			break;
 		}
 		case "SECURITY SOLUTION CARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -726,7 +736,11 @@ public class VerifyStatusOnScreen extends Keyword {
 			case "BACK DOOR":
 			case "SIDE DOOR":
 			case "DOOR SENSOR": {
-
+				try {
+					TimeUnit.SECONDS.sleep(10);
+					Keyword.ReportStep_Pass(testCase, "Delay introduced for Panel to detect sensor state ");
+				} catch (InterruptedException e) {
+				}
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
 					if(sensor.isDoorStatusVisible(expectedScreen.get(1))) {
@@ -780,7 +794,23 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "LIVING ROOM":
+			case "FRONT HALL":
+			case "BACK HALL":{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "MOTION DETECTED": {
+					if(sensor.isMotionSensorStatusVisible(expectedScreen.get(0),expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not "+(expectedScreen.get(1)));
+					}
 
+					break;
+				}
+				}
+				break;
+			}
 			}
 			break;
 		}
@@ -825,7 +855,12 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			case "SET UP ACCESSORIES":{
+			}
+			break;
+		}
+		case "SET UP ACCESSORIES":{
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "FRONT DOOR":{
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "CONFIGURED": {
@@ -837,6 +872,10 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				}
 				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
 			}
 			}
 			break;

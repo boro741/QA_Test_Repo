@@ -90,7 +90,13 @@ public class SensorSettingScreen extends MobileScreens{
 
 	public boolean isGetAdditionalHelpOnSensorHelpDisplayed() {
 		try {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
+			if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"text", "Get additional help");
+			}
+			else{
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name", "Get Additional Help");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,7 +115,7 @@ public class SensorSettingScreen extends MobileScreens{
 	}
 
 	public boolean verifyBatteryStatusTextOnSensorSettingsScreen() {
-		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSettingBatteryStatus");
+		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSettingBatteryStatusValue");
 		return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
 	}
 
@@ -118,7 +124,12 @@ public class SensorSettingScreen extends MobileScreens{
 	}
 	public boolean clickOnGetAdditionalHelpButton() {
 		try {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
+			if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"text", "Get additional help");
+			}
+			else{
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name", "Get Additional Help");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -127,7 +138,12 @@ public class SensorSettingScreen extends MobileScreens{
 
 	public boolean clickOnTestSignalStrength() {
 		try {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", "Get Additional Help");
+			if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"text", "Get additional help");
+			}
+			else{
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name", "Get Additional Help");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -351,6 +367,86 @@ public class SensorSettingScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 	}
 
+	
+
+	public boolean checkSensorNameNotInSensorList(String sensorName) {
+		if(testCase.getPlatform().contains("Android")) {
+			MobileUtils.isMobElementExists("xpath", "//*[@text='"+sensorName+"']", testCase);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean editSensorNameToCustom(String customName,TestCaseInputs inputs) {
+		   
+		   if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+	       if(MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameSensor", customName)) {
+	    	//  ((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.KEYCODE_ENTER);
+	    	
+			  MobileUtils.clickOnCoordinate(testCase, 991, 1804);
+			  //TODO
+			  if(customName.toUpperCase().contains("DOOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", customName);
+				}
+				else if(customName.toUpperCase().contains("WINDOW")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", customName);
+				}
+				else if(customName.toUpperCase().contains("HALL")||customName.toUpperCase().contains("LIVING ROOM")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", customName);
+				}
+			  
+			  return true;
+		  }
+		   }
+		   
+        return false;
+	}
+
+	public boolean isMountSensorScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MountSensorHeading");
+	}
+
+	public boolean isMotionSensorStatusVisible(String SensorName,String status) {
+		WebElement ele1=MobileUtils.getMobElement(objectDefinition, testCase, "MotionSensor_SensorName");
+		if(ele1!=null) {
+			System.out.println("Entered door status checking func");
+			String s1 = ele1.getText();
+			System.out.println(s1);
+			if(s1.toUpperCase().contains(SensorName.toUpperCase())) {
+				WebElement ele2=MobileUtils.getMobElement(objectDefinition, testCase, "MotionSensor_SensorStatus");
+				if(ele2!=null) {
+					String s2 = ele2.getText();
+					System.out.println(s2);
+					if(s2.equalsIgnoreCase(status)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public boolean isSensorConfigured(String SensorName) {
+
+		if(MobileUtils.isMobElementExists("xpath", "//*[@text='"+SensorName+"']", testCase,10)) {
+	      System.out.println("The given Sensor Name is Configured "+SensorName);
+	      return true;
+	}
+		else {
+			try {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "name", SensorName);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			if(MobileUtils.isMobElementExists("xpath", "//*[@text='"+SensorName+"']", testCase,10)) {
+			      System.out.println("The given Sensor Name is Configured "+SensorName);
+			      return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
 	public boolean isSensorConfigured(String SensorName) {
 
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfiguredText",5)) {
@@ -375,13 +471,6 @@ public class SensorSettingScreen extends MobileScreens{
 			}
 		}
 		return false;
-	}
-
-	public boolean checkSensorNameNotInSensorList(String sensorName) {
-		if(testCase.getPlatform().contains("Android")) {
-			MobileUtils.isMobElementExists("xpath", "//*[@text='"+sensorName+"']", testCase);
-			return true;
-		}
-		return false;
-	}
+	} 
+	 */
 }

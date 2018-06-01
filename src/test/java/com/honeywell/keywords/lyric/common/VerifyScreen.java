@@ -549,7 +549,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "LOCATE SENSOR":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				sensor.isLocateSensorScreenDisplayed();
+				flag= flag  & sensor.isLocateSensorScreenDisplayed();
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase,
 							"Locate Sensor Screen is displayed");
@@ -558,7 +558,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "PLACE SENSOR":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				sensor.isPlaceSensorScreenDisplayed();
+				flag=flag & sensor.isPlaceSensorScreenDisplayed();
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase,
 							"Place Sensor Screen is displayed");
@@ -567,10 +567,19 @@ public class VerifyScreen extends Keyword {
 			}
 			case "ACCESS SENSOR INSTALL HELP":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				sensor.isAccessSensorInstallHelpScreenDisplayed();
+				flag= flag  & sensor.isAccessSensorInstallHelpScreenDisplayed();
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase,
 							"AccessSensorInstallHelp Screen is displayed");
+				}
+				break;
+			}
+			case "MOUNT SENSOR":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag=sensor.isMountSensorScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Mount Sensor Screen is displayed");
 				}
 				break;
 			}

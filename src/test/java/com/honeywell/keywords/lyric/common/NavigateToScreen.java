@@ -224,7 +224,7 @@ public class NavigateToScreen extends Keyword {
 					if(security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-					
+
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
@@ -602,7 +602,12 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("VIDEO CLIP")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR OVERVIEW":{
-					MobileUtils.pressBackButton(testCase);
+					if(!testCase.getPlatform().contains("IOS")){
+						MobileUtils.pressBackButton(testCase);
+					}else{
+						DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+						dasDIY.clickOnNavBackIconInVideoClipScreen();
+					}
 					break;
 				}
 				case "WHAT TO EXPECT": {
@@ -1126,6 +1131,14 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
 					}
 				}
+				case "TEST SENSOR": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.clickOnNextButton()) {
+						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
+					}
+					break;
+				}
 				}
 			}
 			else if(screen.get(1).equalsIgnoreCase("Access sensor Install help")) {
@@ -1155,7 +1168,8 @@ public class NavigateToScreen extends Keyword {
 				case "SECURITY SOLUTION CARD": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					if(sensor.clickOnBackButton()) {
-						System.out.println("NAvigated to "+screen.get(0));
+						Keyword.ReportStep_Pass(testCase, "Navigated to Base station settings");
+						flag=flag & sensor.clickOnBackButton();
 						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
 					}
 				}

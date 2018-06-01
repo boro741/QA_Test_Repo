@@ -14,6 +14,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class EditDeviceName extends Keyword {
@@ -115,17 +116,39 @@ public class EditDeviceName extends Keyword {
 				}
 			}
 			else if(parameters.get(0).equalsIgnoreCase("Access Sensor")) {
-                String check = parameters.get(1);
-                switch(check.toUpperCase()){
-                       case "NEW NAME":{
-                              String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-                              BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-                              bs.RenameSensorName(givenSensorName);
-                break;
-                       }
-                }
-               
-          }
+				String check = parameters.get(1);
+				switch(check.toUpperCase()){
+				case "NEW NAME":{
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					bs.RenameSensorName(givenSensorName);
+					break;
+				}
+				}
+
+			}
+			else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")) {
+				String check = parameters.get(1);
+				switch(check.toUpperCase()){
+				case "CUSTOM NAME":{
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					sensor.editSensorNameToCustom(parameters.get(0),inputs);
+					break;
+				}
+				}
+
+			}
+			else if(parameters.get(0).toUpperCase().contains("DUPLICATE")) {
+				String check = parameters.get(1);
+				switch(check.toUpperCase()){
+				case "CUSTOM NAME":{
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					sensor.editSensorNameToCustom(parameters.get(0).substring(10),inputs);
+					break;
+				}
+				}
+			}
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
