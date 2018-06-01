@@ -83,7 +83,7 @@ public class Dashboard extends MobileScreens {
 	}
 
 	public boolean areDevicesVisibleOnDashboard(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
 	}
 
 	public boolean areDevicesVisibleOnDashboard() {
@@ -102,7 +102,9 @@ public class Dashboard extends MobileScreens {
 					displayedText = e.getText();
 				} else {
 					try {
-						displayedText = e.getAttribute("value");
+						if ((e.getAttribute("visible").equals("true")) && (e.getAttribute("value").trim() != null)
+								&& (!e.getAttribute("value").trim().isEmpty()))
+							displayedText = e.getAttribute("value");
 					} catch (Exception e1) {
 					}
 				}

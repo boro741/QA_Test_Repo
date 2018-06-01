@@ -20,7 +20,8 @@ import com.honeywell.screens.SchedulingScreen;
 
 public class DashboardUtils {
 
-	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,boolean... closeCoachMarks) throws Exception {
+	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,
+			boolean... closeCoachMarks) throws Exception {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
@@ -30,11 +31,16 @@ public class DashboardUtils {
 		boolean f = false;
 		List<String> availableDevices = new ArrayList<String>();
 		for (WebElement e : dashboardIconText) {
-			String displayedText;
+			String displayedText = null;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				displayedText = e.getText();
 			} else {
-				displayedText = e.getAttribute("value");
+				try {
+					if ((e.getAttribute("visible").equals("true")) && (e.getAttribute("value").trim() != null)
+							&& (!e.getAttribute("value").trim().isEmpty()))
+						displayedText = e.getAttribute("value");
+				} catch (Exception e1) {
+				}
 			}
 			availableDevices.add(displayedText);
 			if (displayedText.equals(deviceToBeSelected)) {
@@ -79,7 +85,7 @@ public class DashboardUtils {
 						flag = flag & bs.clickOnBackButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
-					} else if (sch.IsSaveButtonVisible(5)){
+					} else if (sch.IsSaveButtonVisible(5)) {
 						flag = flag & sch.clickOnSaveButton();
 					}
 					i++;

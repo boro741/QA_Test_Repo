@@ -145,7 +145,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRefreshBaseStationsList	@UIAutomated		@RequiresMultipleBaseStationsForExecution
+@DIYRefreshBaseStationsList123	@UIAutomated		@RequiresMultipleBaseStationsForExecution
 Scenario Outline: As a user I should be able to refresh the base stations list when multiple base stations are displayed
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -499,7 +499,7 @@ Examples:
       | location name	| device name		| sensor location		| sensor location area		|
       | Home				| Living Room		| Door					| Front Door					|
 
-@DIYMultipleDASRegistrationsForTheSameAccount	@UIAutomated
+@DIYMultipleDASRegistrationsForTheSameAccount123	@UIAutomated
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -599,7 +599,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	@UIAutomated
+@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork123	@UIAutomated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -716,7 +716,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYTryToReRegisterDAS		@UIAutomated
+@DIYTryToReRegisterDAS123		@UIAutomated
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -839,7 +839,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYDeleteExistingDASAndRegisterIt	@UIAutomated
+@DIYDeleteExistingDASAndRegisterIt123	@UIAutomated
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application

@@ -239,10 +239,10 @@ public class NavigateToScreen extends Keyword {
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MESSAGES)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not click on Activity history menu from Global drawer");
-						}else{
-							//Fetching Messages
+						} else {
+							// Fetching Messages
 						}
-					}else {
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
 					}
@@ -253,14 +253,16 @@ public class NavigateToScreen extends Keyword {
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION)) {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Activity history menu from Global drawer");
-						}else{
-							//Fetching Messages
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Activity history menu from Global drawer");
+						} else {
+							// Fetching Messages
 							sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION);
-							//Keyword.ReportStep_Pass(testCase,"Honeywell Membership page opened.");
+							// Keyword.ReportStep_Pass(testCase,"Honeywell Membership page opened.");
 						}
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on Global drawer menu from dashboard");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
 					break;
 				}
@@ -447,10 +449,9 @@ public class NavigateToScreen extends Keyword {
 					if (!ds.clickOnGlobalDrawerButton()) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
-						flag=false;
+						flag = false;
 
 					}
-
 					break;
 				}
 				case "SENSOR LIST SETTINGS":{
@@ -632,14 +633,14 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}  else if (screen.get(1).equalsIgnoreCase("CREATE LOCATION")) {
+			} else if (screen.get(1).equalsIgnoreCase("CREATE LOCATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "CHOOSE LOCATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if(dasDIY.isBackButtonInCreateLocationScreenVisible()) {
+		if (dasDIY.isBackButtonInCreateLocationScreenVisible()) {
 						flag = flag & dasDIY.clickOnBackButtonInCreateLocationScreen();
+						break;
 					}
-					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
@@ -670,14 +671,14 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}  else if (screen.get(1).equalsIgnoreCase("BASE STATION HELP")) {
+			} else if (screen.get(1).equalsIgnoreCase("BASE STATION HELP")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "POWER BASE STATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-					if(dasDIY.isBackButtonInBaseStationHelpScreenVisible()) {
+					if (dasDIY.isBackButtonInBaseStationHelpScreenVisible()) {
 						flag = flag & dasDIY.clickOnBackButtonInBaseStationHelpScreen();
+						break;
 					}
-					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
@@ -686,6 +687,16 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromRegisterBaseStationToConnectToNetwork(testCase);
 					break;
 				}
+				case "ADD NEW DEVICE DASHBOARD": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isAddNewDeviceScreenVisible(5)) {
+						return true;
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
+				switch (screen.get(0).toUpperCase()) {
 				case "ADD NEW DEVICE DASHBOARD": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isAddNewDeviceScreenVisible(5)) {
@@ -910,6 +921,13 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "CONNECT TO NETWORK": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isBackButtonInEnterWiFiPwdScreenVisible()) {
+						dasDIY.clickOnBackButtonInEnterWiFiPwdScreen();
+					}
+					break;
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1003,8 +1021,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("Alarm")) {
+			} else if (screen.get(1).equalsIgnoreCase("Alarm")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ALARM HISTORY": {
 					AlarmScreen open = new AlarmScreen(testCase);

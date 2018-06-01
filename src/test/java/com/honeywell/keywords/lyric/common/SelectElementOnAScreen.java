@@ -325,9 +325,33 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
 				flag = flag & DIYRegistrationUtils.selectABaseStationFromListOfAvailableBaseStations(testCase,
 						parameters.get(0));
-			} else if (parameters.get(1).equalsIgnoreCase("Connect to Network")) {
-				flag = flag & DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase,
-						parameters.get(0));
+			} else if (parameters.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "ADD A NETWORK": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isAddANetworkButtonVisible()) {
+						dasDIY.clickOnAddANetworkButton();
+					}
+					break;
+				}
+				case "ANY WIFI NAME": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isWiFiNetworkNameDisplayedInConnectToNetworkScreen()) {
+						dasDIY.clickOnWiFiNetworkNameInConnectToNetworkScreen();
+					}
+					break;
+				}
+				default: {
+					flag = flag & DIYRegistrationUtils.selectWiFiNameFromTheListOfAvailableNetworks(testCase,
+							parameters.get(0));
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ADD A NETWORK")) {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isAddANetworkHeaderTitleVisible()) {
+					flag = flag & DIYRegistrationUtils.selectAvailableNetworkType(testCase, parameters.get(0));
+				}
 			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				flag = flag

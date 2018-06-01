@@ -46,16 +46,60 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrowInSelectANewDeviceHeader");
 	}
 
+	public boolean isCancelButtonInAddNewDeviceScreenVisible() {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInSelectANewDeviceHeader")) {
+				flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase,
+						"BackArrowInSelectANewDeviceHeader");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddNewDeviceScreen")) {
+				flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase,
+						"CancelButtonInAddNewDeviceScreen");
+			}
+		}
+		return flag;
+	}
+
+	public boolean clickOnCancelButtonInAddNewDeviceScreen() {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackArrowInSelectANewDeviceHeader")) {
+				flag = flag
+						& MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrowInSelectANewDeviceHeader");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddNewDeviceScreen")) {
+				flag = flag
+						& MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInAddNewDeviceScreen");
+			}
+		}
+		return flag;
+	}
+
 	public boolean isWhatToExpectScreenHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WhatToExpectScreenHeaderTitle");
 	}
 
-	public boolean isBackButtonInWhatToExpectScreenVisible() {
+	public boolean isBackArrowInWhatToExpectScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInWhatToExpectScreen");
+	}
+
+	public boolean clickOnBackArrowInWhatToExpectScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInWhatToExpectScreen");
 	}
 
 	public boolean isChooseLocationHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChooseLocationHeaderTitle");
+	}
+
+	public boolean isBackArrowInChooseLocationScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInChooseLocationScreen");
+	}
+
+	public boolean clickOnBackArrowInChooseLocationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInChooseLocationScreen");
 	}
 
 	public boolean isCreateNewLocationLinkVisible() {
@@ -177,7 +221,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 							testCase, 3)) {
 						flag = flag & MobileUtils.isMobElementExists("XPATH",
 								"(//XCUIElementTypeButton[@name=\"Cancel\"])[3]", testCase);
-						System.out.println("@@@@@@@@@@@@@@@Cancel 3@@@@@@@@@@@@@@@");
 					}
 				}
 			}
@@ -201,7 +244,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 							testCase)) {
 						flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
 								"(//XCUIElementTypeButton[@name=\"Cancel\"])[3]");
-						System.out.println("@@@@@@@@@@@@@@@Cancel 3@@@@@@@@@@@@@@@");
 					}
 				}
 			}
@@ -219,7 +261,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 						3)) {
 					flag = flag & MobileUtils.isMobElementExists("XPATH",
 							"(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase);
-					System.out.println("@@@@@@@@@@@@@@@Cancel 4@@@@@@@@@@@@@@@");
 				}
 			}
 		}
@@ -236,7 +277,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 						testCase)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
 							"(//XCUIElementTypeButton[@name=\"Cancel\"])[4]");
-					System.out.println("@@@@@@@@@@@@@@@Cancel 4@@@@@@@@@@@@@@@");
 				}
 			}
 		}
@@ -279,6 +319,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		} else {
 			return MobileUtils.clickOnElement(testCase, "NAME", availableLocation);
 		}
+	}
+
+	public boolean isBackArrowInNameYourBaseStationScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInNameYourBaseStationScreen");
+	}
+
+	public boolean clickOnBackArrowInNameYourBaseStationScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInNameYourBaseStationScreen");
 	}
 
 	public boolean isNameYourBaseStationHeaderTitleVisible() {
@@ -572,6 +620,38 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				.getAttribute("text");
 	}
 
+	public boolean isWiFiNetworkNameDisplayedInConnectToNetworkScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiIconInConnectToNetworkScreen")) {
+			flag = flag
+					& MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiIconInConnectToNetworkScreen");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH",
+						"(//XCUIElementTypeImage[@name=\"icon_wifi_signal_Very_Good\"])[1]", testCase)) {
+					flag = flag & MobileUtils.isMobElementExists("XPATH", "", testCase);
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean clickOnWiFiNetworkNameInConnectToNetworkScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "WiFiIconInConnectToNetworkScreen")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "WiFiIconInConnectToNetworkScreen");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH",
+						"(//XCUIElementTypeImage[@name=\"icon_wifi_signal_Very_Good\"])[1]", testCase)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"(//XCUIElementTypeImage[@name=\"icon_wifi_signal_Very_Good\"])[1]");
+				}
+			}
+		}
+		return flag;
+	}
+
 	public boolean isAddANetworkButtonVisible() {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton", 5)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkButton");
@@ -594,11 +674,90 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isCancelButtonInAddANetworkScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen", 5))
+			flag = flag
+					& MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen", 5);
+		else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase,
+						3)) {
+					flag = flag & MobileUtils.isMobElementExists("XPATH",
+							"(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase);
+				}
+			}
+		}
+		return flag;
 	}
 
 	public boolean clickOnCancelButtonInAddANetworkScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInAddANetworkScreen");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase,
+						3)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"(//XCUIElementTypeButton[@name=\"Cancel\"])[4]");
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean isAvialbleNetworkTypeDisplayed(String availableNetworkType) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("xpath",
+					"//android.widget.TextView[@text='" + availableNetworkType + "']", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("NAME", availableNetworkType, testCase);
+		}
+	}
+
+	public boolean clickOnAvialbleNetworkType(String availableNetworkType) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(testCase, "xpath",
+					"//android.widget.TextView[@text='" + availableNetworkType + "']");
+		} else {
+			return MobileUtils.clickOnElement(testCase, "NAME", availableNetworkType);
+		}
+	}
+
+	public boolean isEnterSSIDNameTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnterSSIDScreenTitle");
+	}
+
+	public boolean isCancelButtonInEnterSSIDScreenVisible() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton", 3)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase,
+						3)) {
+					flag = flag & MobileUtils.isMobElementExists("XPATH",
+							"(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase);
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean clickOnCancelButtonInEnterSSIDScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[4]",
+						testCase)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"(//XCUIElementTypeButton[@name=\"Cancel\"])[4]");
+				}
+			}
+		}
+		return flag;
 	}
 
 	public MobileElement getWiFiListWebElement() {
@@ -691,6 +850,38 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInWiFiConnectionFailedPopup");
 	}
 
+	public boolean isBackButtonInEnterWiFiPwdScreenVisible() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInEnterWiFiPwdScreen", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInEnterWiFiPwdScreen");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Back\"])[2]", testCase,
+						5)) {
+					flag = flag & MobileUtils.isMobElementExists("XPATH",
+							"(//XCUIElementTypeButton[@name=\"Back\"])[2]", testCase);
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean clickOnBackButtonInEnterWiFiPwdScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInEnterWiFiPwdScreen", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInEnterWiFiPwdScreen");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Back\"])[2]", testCase,
+						5)) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"(//XCUIElementTypeButton[@name=\"Back\"])[2]");
+				}
+			}
+		}
+		return flag;
+	}
+
 	public boolean isJoinButtonInConnectToNetworkScreenVisible() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return true;
@@ -765,6 +956,18 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		} else {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
+	}
+	
+	public boolean isFirmwareUpdatePopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareUpdatePopupTitle", timeOut);
+	}
+	
+	public boolean isOKButtonInFirmwareUpdatePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInFirmwareUpdatePopup");
+	}
+	
+	public boolean clickOnOKButtonInFirmwareUpdatePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInFirmwareUpdatePopup");
 	}
 
 	public boolean isSetUpAccessoriesScreenTitleVisible(int timeOut) {
