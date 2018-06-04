@@ -87,7 +87,7 @@ SensorSetUpButton	ID	sensor_setup_text	ID	sensor_setup_text	ID	sensor_setup_text
 OverviewScreenTitle	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	NAME	Here's how it works	NAME	Here's how it works	NAME	Here's how it works
 InProgressLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress
 LocateSensorScreenTitle	XPATH	//*[@text='Locate Sensor']	XPATH	//*[@text='Locate Sensor']	XPATH	//*[@text='Locate Sensor']	NAME	Find the lit sensor	NAME	Find the lit sensor	NAME	Find the lit sensor
-NameSensorScreenTitle	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	NAME	Select sensor location	NAME	Select sensor location	NAME	Select sensor location
+NameSensorScreenTitle	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	NAME	Name Sensor	NAME	Name Sensor	NAME	Name Sensor
 DoorOptionInNameSensorScreen	ID	door	ID	door	ID	door	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']
 FrontDoorOptionInNameSensorScreen	XPATH	//*[@text='Front Door']	XPATH	//*[@text='Front Door']	XPATH	//*[@text='Front Door']	NAME	Front Door	NAME	Front Door	NAME	Front Door
 SavingSensorLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	Saving Sensor…	NAME	Saving Sensor…	NAME	Saving Sensor…

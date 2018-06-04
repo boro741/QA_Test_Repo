@@ -2,9 +2,49 @@
 Feature: DAS Access Sensor
 As a user I want to check the functioning of Access sensor 
 
+@DASAccessSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo
+Scenario Outline: a- As a user I should be able to successfully enrol Access Sensor with default sensor name and video should play for assistance in sensor enrolment 
+Given user launches and logs in to the Lyric application
+And user is set to <Mode> mode through CHIL
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user selects "Add button" from "Sensor List Settings" screen
+When user door "enrolled"
+And  user selects "SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Overview" Screen 
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects <Sensor Location Area> from "Name Sensor" screen
+Then user should be displayed with the "Place Sensor" screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user door "Opened"
+Then user should see the <Sensor Location Area> status as <Access Status> on the "Test Access Sensor"
+When user door "closed"
+Then user should see the <Sensor Location Area> status as <Access Status Update> on the "Test Access Sensor"
+When user selects "Done" from "Test Sensor" screen
+#And user should not display with "cancel" button and "Back" button
+Then user should see the <Sensor Location Area> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should see the <Sensor Location Area> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+Examples:
+|Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Sensor Settings|
+|Home | Door |Front Door| Open | Closed |Door Access Settings|
 
 @DASAccessSensorStatusVerification @UIAutomated
-  Scenario: As a user I want to view that all Access Sensor settings
+  Scenario: b- As a user I want to view that all Access Sensor settings
   Given user is set to "Home" mode through CHIL
     Given user launches and logs in to the Lyric application 
      When user navigates to "Door Access settings" screen from the "Dashboard" screen 
@@ -20,7 +60,7 @@ As a user I want to check the functioning of Access sensor
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorRenameVerification @UIAutomated
-Scenario Outline: As a user I want to rename my Access Sensor sensor through the application
+Scenario Outline: c- As a user I want to rename my Access Sensor sensor through the application
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application 
 When user navigates to "Door Access settings" screen from the "Dashboard" screen
@@ -34,7 +74,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorRenamePopUpVerification @UIAutomated
-Scenario Outline: As a user I cannot rename my Access Sensor sensor through the application when its in 
+Scenario Outline: d- As a user I cannot rename my Access Sensor sensor through the application when its in 
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application 
 When user navigates to "Door Access settings" screen from the "Dashboard" screen 
@@ -50,7 +90,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorSignalStrengthAndTestVerificationWithAwayNightOffline @UIAutomated
-Scenario Outline: As a user I want to Verify Access Sensor SignalStrengthAndTest in Away, Night and offline mode
+Scenario Outline: e- As a user I want to Verify Access Sensor SignalStrengthAndTest in Away, Night and offline mode
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application 
 When user navigates to "Door Access settings" screen from the "Dashboard" screen 
@@ -65,7 +105,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASDeleteAccessSensorPopupVerification @UIAutomated
-Scenario Outline: As a user I should be able to delete Access Sensor configured to my DAS panel from my account through the Lyric application 
+Scenario Outline: f- As a user I should be able to delete Access Sensor configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL 
 When user navigates to "Door Access settings" screen from the "Dashboard" screen 
@@ -81,9 +121,9 @@ Examples:
 
 #Requirement: One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorStatusOFFVerificationWithHomeOffMode @UIAutomated
-Scenario Outline: As a user I want to Verify Access Sensor Battery status OFF 
-And user door "opened"
+Scenario Outline: g- As a user I want to Verify Access Sensor Battery status OFF 
 Given user is set to "Home" mode through CHIL
+And user door "opened"
 And user launches and logs in to the Lyric application
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
 When user switches from "Home" to <Switch to Mode>
@@ -99,7 +139,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorStatusOFFVerificationWithAwayNightMode @UIAutomated
-Scenario Outline:AS a user I want to Verify Access Sensor Battery status OFF 
+Scenario Outline: h- AS a user I want to Verify Access Sensor Battery status OFF 
 And user is set to "Home" mode through CHIL
 And user door "opened"
 Given user launches and logs in to the Lyric application 
@@ -121,7 +161,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASAccessSensorSignalStrengthAndTestVerificationGetAdditionlHelp @UIAutomated
-Scenario Outline: As a user I want to Verify Access Sensor SignalStrengthAndTest in Home or OFF mode and assistance link
+Scenario Outline: i- As a user I want to Verify Access Sensor SignalStrengthAndTest in Home or OFF mode and assistance link
 Given user launches and logs in to the Lyric application 
 And user door "opened"
 And user is set to <Mode> mode through CHIL
@@ -155,7 +195,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor status cover tampered status
 @DASAccessSensorStatusCoverTamperedVerificationHome @UIAutomated
-Scenario Outline:AS a user I want to Verify Access Sensor Cover Tamper and Tamper restored status When base station status in Home and OFF mode
+Scenario Outline: j- AS a user I want to Verify Access Sensor Cover Tamper and Tamper restored status When base station status in Home and OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> mode through CHIL
 And user door <State>
@@ -180,8 +220,8 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorModelAndFirmwareDetailsVerification 
-Scenario Outline: Verify Model details and Firmware details in Access Sensor
+@DASAccessSensorModelAndFirmwareDetailsVerification @UIAutomated
+Scenario Outline: k- Verify Model details and Firmware details in Access Sensor
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
 Then user navigates to "Door Access settings" screen from the "Dashboard" screen
@@ -194,6 +234,29 @@ Examples:
 #|Night|
 #|OFF|
 #|OFFLINE|
+
+
+
+#Requirement :One DAS Panel and one Access Sensor should be configured
+@DASDeleteAccessSensorVerification
+Scenario Outline: l- As a user I should be able to delete Access Sensor configured to my DAS panel from my account through the Lyric application 
+Given user launches and logs in to the Lyric application
+And user is set to <Mode> mode through CHIL 
+When user navigates to <Access Sensor Settings> screen from the "Dashboard" screen 
+When user selects "delete sensor" from <Access Sensor Settings> screen
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "dismisses" the "Delete Sensor Confirmation" popup
+When user selects "delete sensor" from "<Access Sensor Settings> screen
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
+ 
+Examples:
+|Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Sensor Settings|
+|Home | Door |Front Door| Open | Closed |Door Access Settings|
+#|OFF|  Door |Front Door| Open | Closed |Door Access Settings| 
+# cannot be run
+
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and Access Sensor  should be in offline
 @DASAccessSensorStatusVerificationoffline
@@ -378,24 +441,8 @@ Examples:
 |OFF|
 
 
-#Requirement :One DAS Panel and one Access Sensor should be configured
-@DASDeleteAccessSensorVerification
-Scenario Outline: As a user I should be able to delete Access Sensor configured to my DAS panel from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL 
-When user navigates to "Door Access settings" screen from the "Dashboard" screen 
-And user "deletes Access Sensor" by clicking on "delete" button
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-#And user "accepts" the "Delete Sensor Confirmation" popup
-#Then user should not be displayed with "Access Sensor" on the "sensors" screen
-Examples:
-|Mode|
-|Home|
-|OFF|
+
+
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
 @DASDeleteAccessSensorErrorpopupVerification @NotAutomatable
@@ -418,7 +465,6 @@ Examples:
 |Mode|
 |Home|
 |OFF|
-
 
 
 

@@ -16,7 +16,7 @@ import com.honeywell.screens.SensorStatusScreen;
 
 public class DASSensorUtils {
 	private boolean flag = true;
-	
+
 	public static boolean enrollDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -168,7 +168,7 @@ public class DASSensorUtils {
 		inputs.setInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-		    RelayUtils.RSIMotionSensorTamperCleared();
+			RelayUtils.RSIMotionSensorTamperCleared();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -187,7 +187,7 @@ public class DASSensorUtils {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 		} else if (sensor.equalsIgnoreCase("window")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-		} else if (sensor.equalsIgnoreCase("motion sensor")) {
+		} else if (sensor.equalsIgnoreCase("motion sensor") ||sensor.equalsIgnoreCase("Living Room") ||sensor.equalsIgnoreCase("front hall") ||sensor.equalsIgnoreCase("back hall")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
@@ -208,6 +208,10 @@ public class DASSensorUtils {
 			}
 		} else if (states.equalsIgnoreCase("cover tampered")) {
 			sensorState = "Cover Tampered";
+		} else if (states.equalsIgnoreCase("good")) {
+			sensorState = "Good";
+		} else if (states.equalsIgnoreCase("active")) {
+			sensorState = "Active";
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor state not handled");
 		}
@@ -251,7 +255,7 @@ public class DASSensorUtils {
 							MobileUtils.clickOnElement(testCase, "NAME", "Retry");
 						} else {
 							DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 1);
-							
+
 						}
 					}
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
@@ -271,9 +275,9 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-													.getText());
+											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+											.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 							// MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
 							try {

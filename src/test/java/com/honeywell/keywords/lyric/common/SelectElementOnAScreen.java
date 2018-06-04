@@ -388,7 +388,7 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")) {
 				switch (parameters.get(0).toUpperCase()) {
-				
+
 				case "MODEL AND FIRMWARE DETAILS":{
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 					flag= flag & settingScreen.clickOnFirmwareDetailsOption();
@@ -449,20 +449,16 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "ADD BUTTON":{
-					if(!testCase.getPlatform().contains("IOS")){
-						flag= flag & sensor.clickOnAddSensorButton();
-					}
+					flag= flag & sensor.clickOnAddSensorButton();
 					break;
 				}
 				}
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
-			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "SETUP BUTTON":{
-					if(!testCase.getPlatform().contains("IOS")){
-						flag= flag & sensor.clickOnSetUpButton();
-					}
+					flag= flag & sensor.clickOnSetUpButton();
 					break;
 				}
 				case "DONE":{
@@ -479,9 +475,7 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO":{
-					if(!testCase.getPlatform().contains("IOS")){
 						flag= flag & sensor.clickOnWatchHowToVideoButton();
-					}
 					break;
 				}
 				case "GET STARTED":{
@@ -497,9 +491,7 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WONT FIT AS SHOWN":{
-					if(!testCase.getPlatform().contains("IOS")){
-						flag= flag & sensor.clickOnWontFitAsShownButton();
-					}
+					flag= flag & sensor.clickOnWontFitAsShownButton();
 					break;
 				}
 				}
@@ -512,9 +504,7 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "DONE":{
-					if(!testCase.getPlatform().contains("IOS")){
-						flag= flag & sensor.clickOnDoneButton();
-					}
+				    flag= flag & sensor.clickOnDoneButton();
 					break;
 				}
 				}
@@ -522,6 +512,18 @@ public class SelectElementOnAScreen extends Keyword {
 					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Motion Sensor settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "DELETE SENSOR":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag= flag & bs.clickOnDeleteSensorButton();
+					break;
+				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("Mount Sensor")){
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 			}
 		} catch (Exception e) {
 			flag = false;

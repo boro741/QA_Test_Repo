@@ -89,12 +89,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnDeleteSensorButton() throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorButton")) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DASSensorSetting_Delete")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSetting_Delete");
 		} else {
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-					testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "DELETE");
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensorButton");
+			if(testCase.getPlatform().toUpperCase().contains("ANDROID") ){
+			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+			}else{
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Delete");
+			}
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSetting_Delete");
 		}
 	}
 
@@ -504,10 +507,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (this.isSensorsOptionVisible()) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
 			} else {
-				flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase,
-						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.SENSORS);
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
+				SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+				flag = flag & security.clickOnSensorButton();
 			}
 			return flag;
 		}
@@ -1079,7 +1080,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					} catch (Exception e) {
 					}
 				}
-				System.out.println("hi");
 				if(MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton")) {
 					MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdatingStatusForSensorNameUpdate",3);
 				}
