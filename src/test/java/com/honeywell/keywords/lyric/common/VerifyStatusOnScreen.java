@@ -729,6 +729,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "TEST MOTION SENSOR":
 		case "TEST ACCESS SENSOR":{
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -819,6 +820,7 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "SIGNAL STRENGTH":{
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "MOTION SENSOR":
 			case "DOOR SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "HIGH": {
@@ -865,6 +867,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
 				case "NO MOTION DETECTED":
 				case "MOTION DETECTED":{
 					if(sensor.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {

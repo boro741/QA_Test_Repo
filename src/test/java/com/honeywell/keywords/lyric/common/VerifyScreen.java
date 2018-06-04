@@ -499,16 +499,17 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "TEST MOTION SENSOR":
 			case "TEST ACCESS SENSOR":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				if(sensor.isTestSensorHeadingDisplayed()) {
 					Keyword.ReportStep_Pass(testCase,
-							"Test Access Sensor Screen is displayed");	
+							expectedScreen.get(0)+" is displayed");	
 				}
 				else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Test Access Sensor Screen is not displayed");
+							expectedScreen.get(0)+" is not displayed");
 				}
 				break;
 			}

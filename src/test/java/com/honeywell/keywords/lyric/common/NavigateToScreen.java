@@ -238,7 +238,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					if(security.isAppSettingsIconVisible(10)) {
-						security.clickOnAppSettingsIcon();
+						flag = flag & security.clickOnAppSettingsIcon();
 					}
 
 					flag = flag & security.clickOnSensorButton();
@@ -658,7 +658,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "CHOOSE LOCATION": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-		if (dasDIY.isBackButtonInCreateLocationScreenVisible()) {
+					if (dasDIY.isBackButtonInCreateLocationScreenVisible()) {
 						flag = flag & dasDIY.clickOnBackButtonInCreateLocationScreen();
 						break;
 					}
@@ -1002,6 +1002,19 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "MOTION SENSOR SETTINGS": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					Thread.sleep(5000);
+					if(security.isAppSettingsIconVisible(15)) {
+						flag = flag & security.clickOnAppSettingsIcon();
+					    LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
+						flag = flag & security.clickOnSensorButton();
+						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+						flag = flag &security.clickOnUserGivenSensorName(givenSensorName);
+
+					}
+					break;
+				}
 				case "SENSOR STATUS": {
 					SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
 					if (securityScreen.isSensorNoIssueVisible()) {
@@ -1077,9 +1090,17 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "TEST ACCESS SENSOR": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					sensor.clickOnAccessSensorHelpBack();
-					sensor.isTestSensorHeadingDisplayed();
+					flag = flag & sensor.clickOnAccessSensorHelpBack();
+					flag = flag & sensor.isTestSensorHeadingDisplayed();
 				}
+				}
+			}
+			else if(screen.get(1).equalsIgnoreCase("Motion Sensor Help")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "TEST MOTION SENSOR": 
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnMotionSensorHelpBack();
+					flag = flag & sensor.clickOnAccessSensorHelpBack();
 				}
 			}
 			else if(screen.get(1).equalsIgnoreCase("Test Access Sensor")) {
@@ -1090,7 +1111,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			else if(screen.get(1).equalsIgnoreCase("Access Sensor Settings")) {
+			else if(screen.get(1).equalsIgnoreCase("Access Sensor Settings")||screen.get(1).equalsIgnoreCase("MOTION Sensor Settings")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SECURITY SOLUTION CARD": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -1116,12 +1137,26 @@ public class NavigateToScreen extends Keyword {
 				case "ACCESS SENSOR OFF":{
 					SensorSettingScreen s = new SensorSettingScreen(testCase);
 					if(s.clickOnSensorStatusOffOnAccessSensorScreen()) {
-						flag=flag & s.checkSensorNameInSensorOffScreen(inputs);
+						String expectedSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+						flag=flag & s.checkSensorNameInSensorOffScreen(inputs,expectedSensorName);
 						flag=flag &s.checkSensorIsOffTextVisible();
 						if(flag) {
 							flag = flag & s.clickOnAccessSensorHelpBack();
 							Keyword.ReportStep_Pass(testCase, "SensorOff screen is displayed");
 						}
+					}
+					break;
+				}
+				case "MOTION SENSOR OFF":{
+					SensorSettingScreen s = new SensorSettingScreen(testCase);
+					if(s.clickOnSensorStatusOffOnAccessSensorScreen()) {
+						String expectedSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+						flag=flag & s.checkSensorNameInSensorOffScreen(inputs,expectedSensorName);
+						flag=flag & s.checkSensorIsOffTextVisible();
+						if(flag){
+							Keyword.ReportStep_Pass(testCase, "SensorOff screen is displayed");
+						}
+						flag = flag & s.clickOnMotionSensorHelpBack();
 					}
 					break;
 				}

@@ -1028,15 +1028,16 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return false;
 	}
 
+	
 	public boolean isSensorSignalStrengthAndTestOptionEnabled() {
 		boolean flag=true;
 		if(MobileUtils.clickOnElement(objectDefinition, testCase, "SignalStrengthOption")) {
 			if(testCase.getPlatform().contains("IOS")){
 				if(MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")){
 					flag=flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
-					return false;
-				}else{
 					return true;
+				}else{
+					return false;
 				}
 			}else{
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
@@ -1124,6 +1125,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		System.out.println(s);
 		if (this.verifyStatusOptionTextOnSensorSettingsScreen()) {
 			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
+			System.out.println(status);
 			return (status.equalsIgnoreCase(s));
 		} else {
 			return false;
