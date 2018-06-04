@@ -17,6 +17,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
@@ -229,6 +230,21 @@ public class NavigateToScreen extends Keyword {
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
 
+
+					break;
+				}
+				case "MOTION SENSOR SETTINGS": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if(security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+
+					flag = flag & security.clickOnSensorButton();
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+					flag = flag & security.clickOnUserGivenSensorName(givenSensorName);
+					inputs.setInputValue(DASInputVariables.SENSORTYPE,DASInputVariables.MOTIONSENSOR);
 
 					break;
 				}
@@ -1130,6 +1146,7 @@ public class NavigateToScreen extends Keyword {
 						System.out.println("NAvigated to "+screen.get(0));
 						Keyword.ReportStep_Pass(testCase, "NAvigated to "+screen.get(0));
 					}
+					break;
 				}
 				case "TEST SENSOR": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);

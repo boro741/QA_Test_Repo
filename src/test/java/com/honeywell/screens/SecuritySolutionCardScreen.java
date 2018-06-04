@@ -2,6 +2,7 @@ package com.honeywell.screens;
 
 import java.util.List;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.Keyword;
@@ -11,6 +12,8 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
+
+import io.appium.java_client.TouchAction;
 
 public class SecuritySolutionCardScreen extends MobileScreens {
 
@@ -381,16 +384,19 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnSensorButton() {
-		int i=5;
-		try {
-			while(i>0 && !MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton",5)){
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		try{
+		action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+		.release().perform();
+		
+			if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton",5)){
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
-				i--;
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to locate "+e.getMessage(),true);
 			return false;
-			
+
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorButton");
 	}

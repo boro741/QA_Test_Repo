@@ -35,11 +35,19 @@ public class MotionSensorActions extends Keyword {
 		try {
 			if (states.get(0).equalsIgnoreCase("Tampered")) {
 				DASSensorUtils.tamperMotionSensor(testCase, inputs);
-			} else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
+			} 
+			else if (states.get(0).equalsIgnoreCase("Tamper cleared")) {
+				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+			}
+			else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
 				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
 				DASSensorUtils sensorUtils = new DASSensorUtils();
 				sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
-			} else {
+			} 
+			else if (states.get(0).equalsIgnoreCase("enrolled")) {
+				DASSensorUtils.enrollMotionSensor(testCase, inputs);
+			}
+			else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 			}
 		} catch (Throwable e) {

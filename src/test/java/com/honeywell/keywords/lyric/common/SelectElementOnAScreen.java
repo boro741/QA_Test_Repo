@@ -386,7 +386,7 @@ public class SelectElementOnAScreen extends Keyword {
 
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")) {
+			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")||parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 
 				case "MODEL AND FIRMWARE DETAILS":{

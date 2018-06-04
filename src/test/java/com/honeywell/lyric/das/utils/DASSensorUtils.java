@@ -74,7 +74,19 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-
+	
+	
+	public static boolean enrollWindow(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("WINDOW_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.RSIContactSensorEnroll_Window();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
 	public static boolean openWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_OPENED_TIME",
@@ -101,6 +113,17 @@ public class DASSensorUtils {
 		return flag;
 	}
 
+	public static boolean enrollMotionSensor(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("MOTIONSENSOR_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.RSIMotionSensorEnroll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
 	public static boolean tamperWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -243,12 +266,7 @@ public class DASSensorUtils {
 								"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
 					/*
-					 * if (testCase.getMobileDriver().findElements(By.xpath(
-					 * "//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[contains(@value,'" +
-					 * sensorState + "')]")).size() > 0) { Keyword.ReportStep_Pass(testCase,
-					 * sensorName + " is in " + sensorState); sensorStateMatched = true; break; }
-					 */
-					if (MobileUtils.isMobElementExists("NAME", "RightButton", testCase)) {
+					 * if (MobileUtils.isMobElementExists("NAME", "RightButton", testCase)) {
 						MobileUtils.clickOnElement(testCase, "NAME", "RightButton");
 						if (MobileUtils.isMobElementExists("NAME", "Sensor Tamper", testCase)
 								&& MobileUtils.isMobElementExists("NAME", "Retry", testCase)) {
@@ -258,6 +276,12 @@ public class DASSensorUtils {
 
 						}
 					}
+					 * if (testCase.getMobileDriver().findElements(By.xpath(
+					 * "//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[contains(@value,'" +
+					 * sensorState + "')]")).size() > 0) { Keyword.ReportStep_Pass(testCase,
+					 * sensorName + " is in " + sensorState); sensorStateMatched = true; break; }
+					 */
+					
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);

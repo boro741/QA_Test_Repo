@@ -17,6 +17,9 @@ public class RelayConstants {
 	public static String RSI_Contact_Sesor_2_Tamper_OFF = "4:0"; // Door
 	public static String RSI_Contact_Sesor_2_Trip_ON = "5:1";    // Door
 	public static String RSI_Contact_Sesor_2_Trip_OFF = "5:0";   // Door
+	
+	public static String RSI_Motion_Sensor_1_Enroll_ON = "6:1";  // Motion
+	public static String RSI_Motion_Sensor_1_Enroll_OFF = "6:0";  // Motion
 	public static String RSI_Motion_Sensor_1_Tamper_ON = "7:1";  // Motion
 	public static String RSI_Motion_Sensor_1_Tamper_OFF = "7:0";  // Motion
 	public static String RSI_AllSensor_Trip_OFF = "0:0;1:0;2:0;3:0;4:0;5:0;6:0;7:0";

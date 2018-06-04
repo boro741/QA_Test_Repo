@@ -68,6 +68,13 @@ public class RelayUtils {
 		SerialDriverArduino.closePort();
 	}
 	
+	public static void RSIMotionSensorEnroll() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Enroll_ON);
+		Thread.sleep(3000);
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Enroll_OFF);
+		SerialDriverArduino.closePort();
+	}
 	public static void RSIMotionSensorTampered() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Tamper_ON);

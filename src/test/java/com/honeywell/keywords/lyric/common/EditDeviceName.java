@@ -127,6 +127,19 @@ public class EditDeviceName extends Keyword {
 				}
 
 			}
+			else if(parameters.get(0).equalsIgnoreCase("motion sensor")) {
+				String check = parameters.get(1);
+				switch(check.toUpperCase()){
+				case "NEW NAME":{
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					bs.RenameSensorName(givenSensorName);
+					break;
+				}
+				}
+
+			}
+			
 			else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")) {
 				String check = parameters.get(1);
 				switch(check.toUpperCase()){
