@@ -944,7 +944,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		if (this.verifyStatusOptionTextOnSensorSettingsScreen()) {
 			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
-			return (status.equalsIgnoreCase("Open") || status.equalsIgnoreCase("Closed") || status.equalsIgnoreCase("Off"));
+			return (status.equalsIgnoreCase("Open") || status.equalsIgnoreCase("Closed") || status.equalsIgnoreCase("Off")|| status.equalsIgnoreCase("Good") );
 		} else {
 			return false;
 		}

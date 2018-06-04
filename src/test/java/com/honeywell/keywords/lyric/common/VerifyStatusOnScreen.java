@@ -794,16 +794,18 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "MOTION SENSOR":
 			case "LIVING ROOM":
 			case "FRONT HALL":
 			case "BACK HALL":{
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "MOTION DETECTED": {
-					if(sensor.isMotionSensorStatusVisible(expectedScreen.get(0),expectedScreen.get(1))) {
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is "+(expectedScreen.get(1)));
+					
+					if(sensor.isMotionSensorStatusVisible(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"),expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")+" is "+(expectedScreen.get(1)));
 					}
 					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not "+(expectedScreen.get(1)));
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")+" is not "+(expectedScreen.get(1)));
 					}
 
 					break;
@@ -858,6 +860,27 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "MOTION SENSOR SETTINGS":{
+			BaseStationSettingsScreen sensor = new BaseStationSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "MOTION SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "NO MOTION DETECTED":
+				case "MOTION DETECTED":{
+					if(sensor.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "MOTION Sensor is "+(expectedScreen.get(1)+" after test signal"));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "MOTION Sensor is not "+(expectedScreen.get(1)+" after test signal"));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
 		case "SET UP ACCESSORIES":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "FRONT DOOR":{
@@ -865,6 +888,21 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "CONFIGURED": {
 					flag= flag & sensorSetting.isSensorConfigured(expectedScreen.get(0));
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "LIVING ROOM":
+			case "MOTION SENSOR":{
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+					flag= flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
 					}

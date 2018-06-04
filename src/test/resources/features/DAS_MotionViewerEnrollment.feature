@@ -1,7 +1,7 @@
 @MotionViewerEnrollment
 Feature: Verify Motion Viewer Enrolment Functionally
 
-@DASMotionSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo
+@DASMotionSensor_EnrollmentWithDefaultSensorNameWatchHow-ToVideo
 Scenario Outline: As a user I should be able to successfully enroll Access Sensor with default sensor name and video should play for assistance in sensor enrollment
  
 Given user launches and logs in to the Lyric application

@@ -1,4 +1,42 @@
+@MotionSensorSettings
+Feature: Verify Motion Viewer settings
+
 #Requirement :One DAS Panel and one OSMV should be configured
+@DASMotionViewerEnrollmentWithDefaultSensorNameWatchHow-ToVideo
+Scenario Outline: As a user I should be able to successfully enroll Access Sensor with default sensor name and video should play for assistance in sensor enrollment
+Given user launches and logs in to the Lyric application
+And user is set to <Mode> mode through CHIL
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user selects "Add button" from "Sensor List Settings" screen
+When user motion sensor "enrolled"
+And  user selects "SETUP button" from "Set Up Accessories" screen
+#Then user should be displayed with the "Sensor Overview" Screen
+#When user selects "Watch The How To video" from "Sensor Overview" screen
+#Then user should be displayed with the "Video clip" screen
+#When user navigates to "Sensor Overview" screen from the "Video clip" screen
+#When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Location> from "Name Sensor" screen
+Then user should be displayed with the "Mount Sensor" screen
+When user selects <Sensor Location Area> from "Mount Sensor" screen
+Then user should be displayed with the "Place Sensor" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor" screen
+Then user should see the <Sensor Location> status as "Motion NOT Detected" on the "Test Access Sensor"
+When user "SENSOR" detects "MOTION"
+Then user should see the <Sensor Location> status as "Motion Detected" on the "Test Access Sensor"
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should see the <Sensor Location> status as "Good" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "Good" on the "Sensor Status"
+Examples:
+|Mode|Sensor Location| Sensor Location Area|
+|Home | Living Room | In a Wall Corner|
+
 @DASOSMVStatusVerification 
   Scenario: As a user I want to view that all OSMV settings 
     Given user launches and logs in to the Lyric application 
@@ -87,8 +125,8 @@ Examples:
 |Home| Good |
 |Home| medium |
 |Home| Low|
-|Home|| OFF |
-|Home|| Low battery |
+|Home| OFF |
+|Home| Low battery |
 |Home| Cover Tampered|
 |Night| Good |
 |Night| medium |
@@ -204,21 +242,21 @@ And user should display the Battery status <Battery Status>
 Examples:
 |Mode| Battery Status |
 |Home| Good |
-|Home| OFFLINE| |
+|Home| OFFLINE|
 |Home| Low|
-|Home|| OFF |
+|Home| OFF |
 |Night| Good |
 |Night| OFFLINE |
 |Night| Low|
-|Away|| OFF |
+|Away| OFF |
 |Away| Good |
 |Away| OFFLINE |
 |Away| Low|
-|Away|| OFF |
+|Away| OFF |
 
 #Requirement :One DAS Panel and one OSMV should be configured and battery status should be in Low and OFFLINE
 @DASOSMVBatteryLowofflineStatusLowHelpScreenVerification
-Scenario Outline :AS a user I want to Verify OSMV Low and Offline Battery Help screen
+Scenario Outline: AS a user I want to Verify OSMV Low and Offline Battery Help screen
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
 Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
@@ -245,7 +283,7 @@ Examples:
 |Mode| 
 |Home|
 |Night|
-|Away||
+|Away|
 
 
 
@@ -369,8 +407,16 @@ Examples:
 
 #Requirement :One DAS Panel and one OSMV should be configured
 @DASDeleteOSMVVerification
-Scenario: As a user I should be able to delete OSMV configured to my DAS panel from my account through the Lyric application 
+Scenario Outline: As a user I should be able to delete OSMV configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
+When user navigates to "Motion Sensor Settings" screen from the "Security Solution card" screen
+When user selects "delete sensor" from "Motion Sensor Settings" screen
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "dismisses" the "Delete Sensor Confirmation" popup
+When user selects "delete sensor" from "Motion Sensor Settings" screen
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 And user is set to <Mode> through CHIL 
 When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 
 And user "deletes OSMV" by clicking on "delete" button
@@ -392,7 +438,7 @@ Examples:
 
 #Requirement :One DAS Panel and one OSMV should be configured
 @DASDeleteOSMVErrorpopupVerification
-Scenario: As a user I should be able to verify delete error pop up from my account through the Lyric application 
+Scenario Outline: As a user I should be able to verify delete error pop up from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL 
 When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 
@@ -415,7 +461,7 @@ Examples:
 
 #Requirement :One DAS Panel and one OSMV should be configured
 @DASDeleteOSMVPopupVerification @UIAutomated 
-Scenario: As a user I should be able to delete OSMV configured to my DAS panel from my account through the Lyric application 
+Scenario Outline: As a user I should be able to delete OSMV configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL 
 When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 
