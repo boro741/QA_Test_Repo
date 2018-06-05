@@ -14,6 +14,8 @@ import com.honeywell.lyric.relayutils.RelayUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SensorStatusScreen;
 
+import io.appium.java_client.MobileElement;
+
 public class DASSensorUtils {
 	private boolean flag = true;
 
@@ -74,8 +76,8 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
-	
+
+
 	public static boolean enrollWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -86,7 +88,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean openWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_OPENED_TIME",
@@ -123,7 +125,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean tamperWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -281,12 +283,40 @@ public class DASSensorUtils {
 					 * sensorState + "')]")).size() > 0) { Keyword.ReportStep_Pass(testCase,
 					 * sensorName + " is in " + sensorState); sensorStateMatched = true; break; }
 					 */
-					
+
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
 						break;
+					}
+				}else{
+					List<MobileElement> sensorNameList = testCase.getMobileDriver()
+							.findElements(By.xpath("//*[@name='Sensor_cell']//*[@name='Sensor_subTitle']"));
+					List<MobileElement> sensorStatusList = testCase.getMobileDriver()
+							.findElements(By.xpath("//*[@name='Sensor_cell']//*[@name='Sensor_value']"));
+					for(int k=0; k<=sensorNameList.size(); k++){
+						if (sensorNameList.get(k).getAttribute("value").equalsIgnoreCase(sensorName )){
+							if (states.contains("tamper cleared")) {
+								sensorStatusList.get(k).click();
+								try {
+									Thread.sleep(10000);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
+										LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+								Keyword.ReportStep_Pass(testCase,
+										"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
+							}else if(sensorStatusList.get(k).getAttribute("value").equalsIgnoreCase(states)){
+								Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
+								sensorStateMatched = true;
+								break;
+							}
+							
+							
+						}
+						
 					}
 				}
 			} else {

@@ -220,6 +220,10 @@ public class SensorSettingScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AccessSensorHelpBack");	
 	}
 
+	public boolean clickOnMotionSensorHelpBack() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");	
+	}
+
 	public boolean clickOnTestSensorBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");	
 	}
@@ -270,8 +274,7 @@ public class SensorSettingScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorStatusOptionValue");
 	}
 
-	public boolean checkSensorNameInSensorOffScreen(TestCaseInputs inputs) {
-		String expectedSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+	public boolean checkSensorNameInSensorOffScreen(TestCaseInputs inputs, String expectedSensorName ) {
 		String actualSensorName = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorNameTitleInOffScreen");
 		if(actualSensorName.equalsIgnoreCase(expectedSensorName)) {
 			System.out.println("Sensor Name is same in Off Screen");
@@ -294,10 +297,15 @@ public class SensorSettingScreen extends MobileScreens{
 	public boolean clickOnSetUpButton() {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
-			try{
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-				.release().perform();
+		try{
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
+
 
 				if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
 					MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
@@ -318,11 +326,11 @@ public class SensorSettingScreen extends MobileScreens{
 					}
 				}
 			}
-			catch (Exception e) {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to locate "+e.getMessage(),true);
-				return false;
+		}
+		catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to locate "+e.getMessage(),true);
+			return false;
 
-			}
 		}
 		return false;
 	}
@@ -482,6 +490,16 @@ public class SensorSettingScreen extends MobileScreens{
 			}
 		}
 		return false;
+	}
+	public boolean performOnlyInHome(){
+		boolean flag=true;
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInHomeModePopup")){
+			flag=flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInHomeModePopupAck");
+			return true;
+		}else{
+			return false;
+		}
+
 	}
 
 	/*

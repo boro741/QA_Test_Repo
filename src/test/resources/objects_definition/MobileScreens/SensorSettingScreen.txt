@@ -36,6 +36,8 @@ PleaseWaitForSignalStrengthandTest	xpath	//*[@text='Please wait.']					name	In p
 UpdatingStatusForSensorNameUpdate	xpath	//*[@text='Updating...']					xpath	//*[@value='Saving...']				
 DASSensorSettingNamingField	id	security_settings_edit_name					name	Sensor_Settings_0_1_textField_value				
 DASSensorSetting_Delete	id	delete_das_button					name	Delete				
+PerformOnlyInHomeModePopup							xpath	"//*[contains(@name,'performed only when Smart home security')]"				
+PerformOnlyInHomeModePopupAck							name	OK				
 PerformOnlyInModesPopup							name	You can perform this action only in Home or Off Mode				
 PerformOnlyInModesPopupAck							name	Ok				
 SensorSetting_NameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle

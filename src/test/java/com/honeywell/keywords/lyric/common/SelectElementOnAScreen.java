@@ -376,7 +376,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Test Access Sensor")){
+			else if(parameters.get(1).equalsIgnoreCase("Test Access Sensor")||parameters.get(1).equalsIgnoreCase("Test Motion Sensor")){
 				switch (parameters.get(0).toUpperCase()) {
 				case "SENSOR NOT WORKING":{
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -429,7 +429,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Access Sensor Help")){
+			else if(parameters.get(1).equalsIgnoreCase("Access Sensor Help")||parameters.get(1).equalsIgnoreCase("Motion Sensor Help")){
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "GET ADDITIONAL HELP":{

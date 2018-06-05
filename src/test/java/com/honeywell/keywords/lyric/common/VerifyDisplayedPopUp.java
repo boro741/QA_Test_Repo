@@ -42,6 +42,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 	public boolean keywordSteps() {
 
 		switch (expectedPopUp.get(0).toUpperCase()) {
+		case "PERFORM ONLY IN HOME MODE":{
+			SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+			flag = flag & sensorSetting.performOnlyInHome();
+			break;
+		}
 		case "CONTROLLER RESET CONFIRMATION": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			flag = flag & zwaveScreen.isFactoryResetPopupHeaderDisplayed()
