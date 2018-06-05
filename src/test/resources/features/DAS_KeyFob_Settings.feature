@@ -1,3 +1,27 @@
+@KeyfobSettings
+Feature: Test the enrollment and settings of keyfob
+
+@DAS_KeyFobEnrollment
+Scenario: 1- As a user I should be able to successfully enroll KeyFob and Assistance video 
+Given user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "KEYFOB list Settings" screen from the "Dashboard" screen
+Then user selects "Add button" from "Keyfob List Settings" screen
+When user press "enrollment" key from keyfob
+And user selects "SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Keyfob Overview" Screen 
+When user selects "WATCH THE HOW TO VIDEO" from "Keyfob Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Keyfob Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Keyfob Overview" screen
+Then user should be displayed with the "NAME KEYFOB" screen
+Then user edits the "Keyfob Sensor" name to "Keyfob"
+When user selects "Done" from "Configuration Success" screen
+Then user should see the "Keyfob" status as "Assigned" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with "keyfob" device on the "Keyfob list" screen
+
+
 #Requirement :One DAS Panel and one KeyFob should be configured
 @DASKeyFobStatusVerification 
   Scenario: As a user I want to view that all KeyFob settings 
@@ -76,28 +100,25 @@ Examples:
 
 #Requirement :One DAS Panel and one KeyFob should be configured
 @DASDeleteKeyFobVerification
-Scenario: As a user I should be able to delete KeyFob configured to my DAS panel from my account through the Lyric application 
+Scenario Outline: 5- As a user I should be able to delete KeyFob configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL 
-When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 
-And user "deletes KeyFob" by clicking on "delete" button
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "KeyFob" on the "sensors" screen
-Then user navigates to "Base Station Configuration" screen from the "Sensor" screen
-And user should not  displayed with the "Aware and Deter" and "Outdoor Motion Viewers On in Home Mode" options
+And user is set to <Mode> mode through CHIL 
+When user navigates to "Keyfob Settings" screen from the "Dashboard" screen 
+When user selects "delete sensor" from "Keyfob Settings" screen
+Then user should receive a "Delete keyfob Confirmation" popup
+And user "dismisses" the "Delete keyfob Confirmation" popup
+When user selects "delete sensor" from "Keyfob Settings" screen
+Then user should receive a "Delete Keyfob Confirmation" popup
+And user "accepts" the "Delete Keyfob Confirmation" popup
+Then user should not be displayed with "Keyfob" device on the "Keyfob list" screen
 Examples:
 |Mode|
 |Home|
-|OFF|
+#|OFF|
 
 #Requirement :One DAS Panel and one KeyFob should be configured
 @DASDeleteKeyFobPopupVerificationNightAwayOffline 
-Scenario: As a user I should be able to delete KeyFob configured to my DAS panel from my account through the Lyric application 
+Scenario Outline: As a user I should be able to delete KeyFob configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL 
 When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 

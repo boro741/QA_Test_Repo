@@ -372,6 +372,12 @@ public class PerformActionsOnPopUp extends Keyword {
 				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButton();
+				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

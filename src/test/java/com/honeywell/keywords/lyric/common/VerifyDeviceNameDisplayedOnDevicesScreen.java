@@ -16,13 +16,13 @@ import com.honeywell.screens.ZwaveScreen;
 public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+    private TestCaseInputs inputs;
 	private ArrayList<String> expectedDevice;
 	public boolean flag = true;
 
 	public VerifyDeviceNameDisplayedOnDevicesScreen(TestCases testCase, TestCaseInputs inputs,
 			ArrayList<String> expectedDevice) {
-		// this.inputs = inputs;
+	    this.inputs = inputs;
 		this.testCase = testCase;
 		this.expectedDevice = expectedDevice;
 	}
@@ -70,7 +70,7 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 
 			else if (expectedDevice.get(1).equalsIgnoreCase("Keyfob")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if (bs.isKeyfobPresentInKeyfobsList(expectedDevice.get(0))) {
+				if (bs.isKeyfobPresentInKeyfobsList(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"))) {
 					Keyword.ReportStep_Pass(testCase,
 							"Keyfob : '" + expectedDevice.get(0) + "' is present in the keyfob list");
 				} else {

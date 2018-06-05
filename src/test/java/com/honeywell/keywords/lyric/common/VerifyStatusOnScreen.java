@@ -890,7 +890,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "CONFIGURED": {
-					flag= flag & sensorSetting.isSensorConfigured(expectedScreen.get(0));
+					flag= flag & sensorSetting.isSensorConfigured(expectedScreen.get(0),expectedScreen.get(1));
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
 					}
@@ -905,7 +905,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "CONFIGURED": {
 					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
-					flag= flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+					flag= flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"),expectedScreen.get(1));
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
 					}
@@ -913,6 +913,21 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				}
 				break;
+			}
+			case "KEYFOB":{
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ASSIGNED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"));
+					flag= flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"),expectedScreen.get(1));
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			
 			}
 			default: {
 				flag = false;

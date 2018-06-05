@@ -386,9 +386,9 @@ public class SelectElementOnAScreen extends Keyword {
 
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")||parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
+			else if(parameters.get(1).equalsIgnoreCase("Keyfob settings")||parameters.get(1).equalsIgnoreCase("Window Access settings")
+					||parameters.get(1).equalsIgnoreCase("Door Access settings")||parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
 				switch (parameters.get(0).toUpperCase()) {
-
 				case "MODEL AND FIRMWARE DETAILS":{
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 					flag= flag & settingScreen.clickOnFirmwareDetailsOption();
@@ -404,15 +404,6 @@ public class SelectElementOnAScreen extends Keyword {
 					flag= flag & bs.clickOnSignalStrengthandTestOption();
 					break;
 				}
-				case "DELETE SENSOR":{
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag= flag & bs.clickOnDeleteSensorButton();
-					break;
-				}
-				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Window Access settings")) {
-				switch (parameters.get(0).toUpperCase()) {
 				case "DELETE SENSOR":{
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag= flag & bs.clickOnDeleteSensorButton();
@@ -445,7 +436,7 @@ public class SelectElementOnAScreen extends Keyword {
 
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Sensor List Settings")) {
+			else if(parameters.get(1).equalsIgnoreCase("Sensor List Settings")||parameters.get(1).equalsIgnoreCase("Keyfob List Settings")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "ADD BUTTON":{
@@ -471,7 +462,7 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0).toUpperCase()+" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Sensor Overview")) {
+			else if(parameters.get(1).equalsIgnoreCase("Sensor Overview")||parameters.get(1).equalsIgnoreCase("Keyfob Overview")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO":{
@@ -500,7 +491,7 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")) {
+			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")||parameters.get(1).equalsIgnoreCase("Configuration Success")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "DONE":{

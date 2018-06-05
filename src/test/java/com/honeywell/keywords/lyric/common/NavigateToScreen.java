@@ -484,6 +484,20 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "KEYFOB LIST SETTINGS":{
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					if(flag) {
+						System.out.println("Successfully navigated to Keyfob List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Keyfob List Settings Screen");
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -617,6 +631,7 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("VIDEO CLIP")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "KEYFOB OVERVIEW":
 				case "SENSOR OVERVIEW":{
 					if(!testCase.getPlatform().contains("IOS")){
 						MobileUtils.pressBackButton(testCase);

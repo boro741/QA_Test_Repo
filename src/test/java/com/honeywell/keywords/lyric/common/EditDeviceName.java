@@ -41,6 +41,16 @@ public class EditDeviceName extends Keyword {
 	@KeywordStep(gherkins = "^user edits the (.*) name to (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
+			if(parameters.get(0).equalsIgnoreCase("Keyfob Sensor")){
+				inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1",parameters.get(1));
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag  & sensor.editKeyfobName(parameters.get(1));
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Sensor Overview Screen is displayed");
+				}
+			}
+			else
 			if (parameters.get(0).equalsIgnoreCase("DAS Panel") || parameters.get(0).equalsIgnoreCase("Sensor")
 					|| parameters.get(0).equalsIgnoreCase("Keyfob")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

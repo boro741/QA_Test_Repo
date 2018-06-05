@@ -341,6 +341,33 @@ public class SensorSettingScreen extends MobileScreens{
 
 	}
 
+	public boolean isKEYFOBOverviewScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobOverview") && MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobOverviewImage");
+	}
+	
+	public boolean isKeyfobNamingScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNamingScreen") && MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNamingScreenDesc");
+	}
+	
+	public boolean editKeyfobName(String name) {
+		boolean flag= false;
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNamingScreenTextbox")){
+			flag=MobileUtils.setValueToElement(objectDefinition, testCase, "KeyfobNamingScreenTextbox",name);
+			
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
+			} else {
+				try {
+					MobileUtils.hideKeyboard(testCase.getMobileDriver());
+				} catch (Exception e) {
+					// Ignoring any exceptions because keyboard is sometimes not displayed on some
+					// Android devices.
+				}
+			}
+			return flag;
+		}
+		return false;
+	}
 	public boolean clickOnWatchHowToVideoButton() {
 
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "WatchHowToVideo");
@@ -465,16 +492,22 @@ public class SensorSettingScreen extends MobileScreens{
 		}
 		return false;
 	}
-	public boolean isSensorConfigured(String SensorName) {
+	public boolean isSensorConfigured(String SensorName,String state) {
+		if(state.toUpperCase().equals("ASSIGNED")){
+			state="Assigned";
+		}else if(state.toUpperCase().equals("CONFIGURED")){
+			state= "Configured";
+		}else{
+			System.out.println("input not handled");
+		}
 		String locator;
 		if(testCase.getPlatform().contains("IOS")){
 			locator="value";
 		}else{
 			locator="text";
 		}
-
-		if(MobileUtils.isMobElementExists("xpath", "//*[@"+locator+"='"+SensorName+"']", testCase,10)) {
-			System.out.println("The given Sensor Name is Configured "+SensorName);
+		if(MobileUtils.isMobElementExists("xpath", "//*[@"+locator+"='"+SensorName+"']/following-sibling::XCUIElementTypeStaticText[contains(@"+locator+",'"+state+"')]", testCase,10)) {
+			System.out.println(SensorName+ "is in "+state);
 			return true;
 		}
 		else {
