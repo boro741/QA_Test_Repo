@@ -7,7 +7,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 
 public class KeyfobActions extends Keyword {
@@ -34,16 +33,16 @@ public class KeyfobActions extends Keyword {
 	public boolean keywordSteps() {
 		try {
 			if(states.get(0).equalsIgnoreCase("home")){
-				System.out.println("home");
+				DASSensorUtils.setHomeViaKeyfob(testCase, inputs);
 			} else if(states.get(0).equalsIgnoreCase("away")){
-				System.out.println("away");
+				DASSensorUtils.setAwayViaKeyfob(testCase, inputs);
 			} else if(states.get(0).equalsIgnoreCase("off")){
-				System.out.println("off");
+				DASSensorUtils.setOffViaKeyfob(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("night")){
-				System.out.println("night");
+				DASSensorUtils.setNightViaKeyfob(testCase, inputs);
 			}
 			else if(states.get(0).equalsIgnoreCase("enrollment")){
-				System.out.println("home and away");
+				DASSensorUtils.enrollKeyfob(testCase, inputs);
 			}
 			else{
 				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");

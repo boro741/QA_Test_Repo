@@ -86,4 +86,33 @@ public class RelayUtils {
 		SerialDriverArduino.closePort();
 	}
 
+	public static void RSIKeyfobEnroll() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_Enroll_ON);
+		Thread.sleep(5000);
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_Enroll_OFF);
+		SerialDriverArduino.closePort();
+	}
+	
+	public static void Keyfob_Home() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_HOME);
+		SerialDriverArduino.closePort();
+	}
+	public static void Keyfob_Away() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_AWAY);
+		SerialDriverArduino.closePort();
+	}
+	public static void Keyfob_Night() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_NIGHT);
+		SerialDriverArduino.closePort();
+	}
+	public static void Keyfob_Off() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_OFF);
+		SerialDriverArduino.closePort();
+	}
+	
 }
