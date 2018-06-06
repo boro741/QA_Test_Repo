@@ -165,12 +165,12 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
-When user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-When user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-##And user creates a passcode if required
-##And user disables the passcode through CHIL
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <new device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -213,12 +213,12 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
-When user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-When user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-##And user creates a passcode if required
-##And user disables the passcode through CHIL
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <Default Device Name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
@@ -316,7 +316,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -359,7 +359,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -648,7 +648,7 @@ Then user should receive a "WiFi Connection timeout" popup
 And user clicks on "OK" button
 Then user should be displayed with the "Connect to Network" screen
 When user enters "valid" new network credentials and tries to join the network
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -707,7 +707,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -920,9 +920,9 @@ Then user navigates to "Connect to Network" screen from the "Register Base Stati
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 When user minimizes and maximizes the app
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user minimizes and maximizes the app
-Then user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
+When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 When user minimizes and maximizes the app
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user minimizes and maximizes the app
@@ -964,7 +964,7 @@ Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1041,7 +1041,7 @@ When user "dismisses" the "No Internet Connection" popup
 Then user should be displayed with "Connect to Network" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1086,7 +1086,7 @@ Then user should be displayed with the "Enter your Wi-Fi password" screen
 When user navigates to "Connect to Network" screen from the "Enter your Wi-Fi password" screen
 Then user selects "Lenovo VIBE X3" from "Connect to Network" screen
 When user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1121,7 +1121,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1173,7 +1173,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1199,7 +1199,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1236,7 +1236,7 @@ And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1256,7 +1256,7 @@ When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1298,7 +1298,7 @@ And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
@@ -1327,7 +1327,7 @@ And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
 When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password 
-Then user navigates to "Smart Home Security Success" screen from the "Connect to Network" screen
+Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
