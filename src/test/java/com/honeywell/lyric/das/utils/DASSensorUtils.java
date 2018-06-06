@@ -199,7 +199,59 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean enrollKeyfob(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("KEYFOB_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.RSIKeyfobEnroll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean setHomeViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("KEYFOB_HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.Keyfob_Home();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
+	public static boolean setAwayViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("KEYFOB_AWAY_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.Keyfob_Away();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	public static boolean setNightViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("KEYFOB_NIGHT_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.Keyfob_Night();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	public static boolean setOffViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("KEYFOB_OFF_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.Keyfob_Off();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 	public static List<WebElement> getSensorList(TestCases testCase) {
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		return sensorStatusScreen.getSensorList();

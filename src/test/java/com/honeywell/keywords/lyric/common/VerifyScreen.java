@@ -548,6 +548,24 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "KEYFOB OVERVIEW":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag  & sensor.isKEYFOBOverviewScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Keyfob Overview Screen is displayed");
+				}
+				break;
+			}
+			case "NAME KEYFOB":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag= flag  & sensor.isKEYFOBOverviewScreenDisplayed();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Keyfob Overview Screen is displayed");
+				}
+				break;
+			}
 			case "LOCATE SENSOR":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag= flag  & sensor.isLocateSensorScreenDisplayed();

@@ -65,3 +65,14 @@ MountSensorHeading							xpath	//*[@value='Mount Sensor']
 MotionSensor_SensorName							xpath	"//*[contains(@name,'by')]"				
 MotionSensor_SensorStatus_NotDetected							name	No Motion Detected				
 MotionSensor_SensorStatus_Detected							name	Motion Detected				
+KeyfobOverview							name	Use the Key Fob to change security modes with the touch of a button.				
+KeyfobOverviewImage							name	Know-Your-Keyfob				
+KeyfobOverviewGetStarted							name	RightButton				
+KeyfobNamingScreen							name	Name Key Fob				
+KeyfobNamingScreenDesc							name	Enter a name of your key fob				
+KeyfobNamingScreenTextbox							xpath	//XCUIElementTypeTextField				
+DeleteKeyfobPopupTitle							xpath	"//*[contains(@name,'Delete Key Fob')]"				
+DeleteKeyfobPopupMessage							xpath	"//*[contains(@name,'This will delete your Key Fob and you will not be able to access it any more.')]"				
+DeleteKeyfobPopupYes							name	YES				
+DeleteKeyfobPopupNo							name	NO				
+KeyFobOption							xpath	"//*[contains(@name,'Key Fob')]"				

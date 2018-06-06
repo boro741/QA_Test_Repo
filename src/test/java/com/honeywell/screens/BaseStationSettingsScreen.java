@@ -19,6 +19,8 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
+import io.appium.java_client.TouchAction;
+
 public class BaseStationSettingsScreen extends MobileScreens {
 
 	// String values used in the methods
@@ -93,7 +95,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSetting_Delete");
 		} else {
 			if(testCase.getPlatform().toUpperCase().contains("ANDROID") ){
-			LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
 			}else{
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Delete");
 			}
@@ -491,12 +493,20 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		case BaseStationSettingsScreen.KEYFOB: {
 			boolean flag = true;
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			try{
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+			}catch (Exception e) {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to scroll to locate keyfob",true);
+				return false;
+			}
 			if (this.isKeyFobOptionVisible()) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.KEYFOB);
+								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			}
 			return flag;
@@ -1028,16 +1038,16 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return false;
 	}
 
-	
+
 	public boolean isSensorSignalStrengthAndTestOptionEnabled() {
 		boolean flag=true;
 		if(MobileUtils.clickOnElement(objectDefinition, testCase, "SignalStrengthOption")) {
 			if(testCase.getPlatform().contains("IOS")){
 				if(MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")){
 					flag=flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
-					return true;
-				}else{
 					return false;
+				}else{
+					return true;
 				}
 			}else{
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
