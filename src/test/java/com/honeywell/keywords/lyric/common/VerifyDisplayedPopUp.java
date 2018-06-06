@@ -161,6 +161,17 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
+		case "CANCEL GEOFENCE": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			if (dasDIY.isCancelGeofencePopupTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+				return flag;
+			}
+			break;
+		}
 		case "NEW TO LYRIC CAMERA" : {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;

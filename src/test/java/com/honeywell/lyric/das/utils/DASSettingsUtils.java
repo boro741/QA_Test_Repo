@@ -322,4 +322,19 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromAmazonAlexaScreenToBaseStationConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 }

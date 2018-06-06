@@ -345,7 +345,29 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL GEOFENCE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isNoButtonInGeoFencePopupVisible()) {
+					flag = flag & dasDIY.clickOnNoButtonInGeoFencePopup();
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isYesButtonInGeoFencePopupVisible()) {
+					flag = flag & dasDIY.clickOnYesButtonInGeoFencePopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

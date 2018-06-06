@@ -149,7 +149,7 @@ public class ClickOnButton extends Keyword {
 					}
 				}
 				}
-			}    else if (expectedButton.get(0).equalsIgnoreCase("FIRMWARE UPDATE")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("FIRMWARE UPDATE")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "YES": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -158,6 +158,16 @@ public class ClickOnButton extends Keyword {
 						flag = flag & dasDIY.isFirmwareUpdatePopupVisible(20);
 						break;
 					}
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("CANCELS ENABLING GEOFENCE")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "CANCEL": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCancelButtonInGeoFenceScreenVisible()) {
+						flag = flag & dasDIY.clickOnCancelButtonInGeoFenceScreen();
+					}
+					break;
 				}
 				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("deletes sensor")) {

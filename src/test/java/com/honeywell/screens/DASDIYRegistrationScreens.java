@@ -957,15 +957,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
 	}
-	
+
 	public boolean isFirmwareUpdatePopupVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareUpdatePopupTitle", timeOut);
 	}
-	
+
 	public boolean isOKButtonInFirmwareUpdatePopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInFirmwareUpdatePopup");
 	}
-	
+
 	public boolean clickOnOKButtonInFirmwareUpdatePopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInFirmwareUpdatePopup");
 	}
@@ -1191,8 +1191,32 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInGeoFenceScreen");
 	}
 
-	public boolean isUseLocationInGeoFenceScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseLocationButtonInGeoFenceScreen");
+	public boolean clickOnCancelButtonInGeoFenceScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInGeoFenceScreen");
+	}
+
+	public boolean isCancelGeofencePopupTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelGeofencePopupTitle");
+	}
+
+	public boolean isNoButtonInGeoFencePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelGeofencePopup");
+	}
+
+	public boolean clickOnNoButtonInGeoFencePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInCancelGeofencePopup");
+	}
+
+	public boolean isYesButtonInGeoFencePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelGeofencePopup");
+	}
+
+	public boolean clickOnYesButtonInGeoFencePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelGeofencePopup");
+	}
+
+	public boolean isUpdateGeoFenceButtonInGeoFenceScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdateGeoFenceButtonInGeoFenceScreen");
 	}
 
 	public boolean isSaveButtonInGeoFenceScreenVisible() {
@@ -1247,12 +1271,73 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 	}
 
-	public boolean isSetUpButtonInAmazonAlexaScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+	public boolean isEnableButtonInAmazonAlexaVisible() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa", 5)) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa");
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		}
 	}
 
-	public boolean clickSetUpSkipButtonInAmazonAlexaScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+	public boolean clickOnEnableButtonInAmazonAlexaScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpButtonInAmazonAlexa");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		}
+	}
+
+	public boolean isSignInToAmazonAlexaScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignInToAmazonScreenTitle");
+	}
+
+	public boolean isEmailTextFieldInSignInToAmazonAlexaScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignInToAmazonEmailTextField");
+	}
+
+	public boolean isPasswordTextFieldInSignInToAmazonAlexaScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignInToAmazonPasswordTextField");
+	}
+
+	public boolean enterAmazonUserCredentials(String amazonUserName, String amazonPassword) {
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonEmailTextField",
+				amazonUserName);
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonPasswordTextField",
+				amazonPassword);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+			System.out.println("######dimensions.width:- " + dimensions.width);
+			System.out.println("######dimensions.height:- " + dimensions.height);
+			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
+			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
+			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			return flag;
+		} else {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "GoButtonInKeyboard");
+		}
+		return flag;
+	}
+
+	public boolean isAmazonAlexaScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaScreenTitle");
+	}
+
+	public boolean isAllowButtonInAmazonAlexaScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButtonInAmazonAlexaScreen");
+	}
+
+	public boolean clickOnAllowButtonInAmazonAlexaScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowButtonInAmazonAlexaScreen");
+	}
+
+	public boolean isAmazonAlexaSetUpCompletedScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaSetUpCompletedScreenTitle");
+	}
+
+	public boolean isFeatureSetUpCompletedScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FeatureSetUpCompletedScreenTitle");
 	}
 
 	public boolean isIncreaseSecurityPopupVisible() {

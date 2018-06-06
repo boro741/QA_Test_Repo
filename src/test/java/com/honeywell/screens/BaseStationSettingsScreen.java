@@ -72,6 +72,17 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlexaAppLink");
 	}
 
+	public boolean isSignOutButtonInAmazonAlexaScreenVisible(String labelSignOut) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag & MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.Button[@text='" + labelSignOut + "']", testCase);
+		} else {
+			flag = flag & MobileUtils.isMobElementExists("NAME", labelSignOut, testCase);
+		}
+		return flag;
+	}
+
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
@@ -94,9 +105,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DASSensorSetting_Delete")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSetting_Delete");
 		} else {
-			if(testCase.getPlatform().toUpperCase().contains("ANDROID") ){
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
-			}else{
+			} else {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Delete");
 			}
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSetting_Delete");
@@ -191,7 +202,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASBatteryStatus", 3);
 	}
 
-
 	public boolean isDASNameOptionVisibleOnBaseStationConfigurationScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTitle", 3);
 	}
@@ -229,7 +239,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.GEOFENCING);
+						BaseStationSettingsScreen.GEOFENCING);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingOption")
@@ -242,7 +252,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+						BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDelayOption")
@@ -255,7 +265,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VolumeOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.VOLUME);
+						BaseStationSettingsScreen.VOLUME);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(
@@ -263,14 +273,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				return (MobileUtils.getMobElement(objectDefinition, testCase, "VolumeCell").getText().equals("enabled")
 						? true
-								: false);
+						: false);
 			}
 
 		} else if (elementName.equals(BaseStationSettingsScreen.RESETWIFI)) {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationWiFiOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.RESETWIFI);
+						BaseStationSettingsScreen.RESETWIFI);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption")
@@ -284,7 +294,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.MOTIONDETECTION);
+						BaseStationSettingsScreen.MOTIONDETECTION);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionOption")
@@ -297,7 +307,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.NIGHTVISION);
+						BaseStationSettingsScreen.NIGHTVISION);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionOption")
@@ -310,7 +320,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.VIDEOQUALITY);
+						BaseStationSettingsScreen.VIDEOQUALITY);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityOption")
@@ -468,7 +478,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			}
 			if (this.isBaseStationConfigurationsOptionVisible()) {
@@ -485,7 +495,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+						BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EntryExitDelayOption");
 			}
 			return flag;
@@ -495,10 +505,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			boolean flag = true;
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
-			try{
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-			}catch (Exception e) {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to scroll to locate keyfob",true);
+			try {
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+			} catch (Exception e) {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not able to scroll to locate keyfob",
+						true);
 				return false;
 			}
 			if (this.isKeyFobOptionVisible()) {
@@ -506,7 +518,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			}
 			return flag;
@@ -530,7 +543,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.VOLUME);
+						BaseStationSettingsScreen.VOLUME);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
 			}
 			return flag;
@@ -543,7 +556,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.AMAZONALEXA);
+						BaseStationSettingsScreen.AMAZONALEXA);
 
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonAlexaOption");
 			}
@@ -557,7 +570,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.VIDEOSETTINGS);
+						BaseStationSettingsScreen.VIDEOSETTINGS);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoSettingsOption");
 			}
 			return flag;
@@ -569,7 +582,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.ZWAVEDEVICES);
+						BaseStationSettingsScreen.ZWAVEDEVICES);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
 			}
 			return flag;
@@ -621,8 +634,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean toggleCameraOnInHomeModeSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
 	}
-
-
 
 	public boolean verifyAlexaAppPlayStoreTitleIsVisible(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PlayStoreAppTitle", 15)) {
@@ -819,8 +830,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean verifyKeyfobNameOptionTextOnKeyfobSettingsScreen() {
 		if (this.isKeyfobNameOptionVisibleOnKeyfobSettingsScreen()) {
-			return (MobileUtils.getFieldValue(objectDefinition, testCase, "DASNameTitle")
-					.equalsIgnoreCase("Name"));
+			return (MobileUtils.getFieldValue(objectDefinition, testCase, "DASNameTitle").equalsIgnoreCase("Name"));
 		} else {
 			return false;
 		}
@@ -910,14 +920,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean verifySensorNameOptionTextOnSensorSettingsScreen() {
-		if(MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSetting_NameTitle")
-				.equalsIgnoreCase("Name")){
+		if (MobileUtils.getFieldValue(objectDefinition, testCase, "SensorSetting_NameTitle").equalsIgnoreCase("Name")) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-
 
 	public boolean toggleGeofencingSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingSwitch");
@@ -943,7 +951,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean verifyStatusOptionTextOnSensorSettingsScreen() {
 
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption")) {
 			System.out.println("Status is found");
 			return true;
 		}
@@ -954,14 +962,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		if (this.verifyStatusOptionTextOnSensorSettingsScreen()) {
 			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
-			return (status.equalsIgnoreCase("Open") || status.equalsIgnoreCase("Closed") || status.equalsIgnoreCase("Off")|| status.equalsIgnoreCase("Good") );
+			return (status.equalsIgnoreCase("Open") || status.equalsIgnoreCase("Closed")
+					|| status.equalsIgnoreCase("Off") || status.equalsIgnoreCase("Good"));
 		} else {
 			return false;
 		}
 	}
 
 	public boolean verifySignalStrengthOptionTextOnSensorSettingsScreen() {
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthOption",5)) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthOption", 5)) {
 			return true;
 		}
 		return false;
@@ -970,8 +979,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean verifyDeleteOptionOnSensorSettingsScreenVisible() {
 
 		try {
-			if(!testCase.getPlatform().contains("IOS")){
-				if(LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "DELETE")) {
+			if (!testCase.getPlatform().contains("IOS")) {
+				if (LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "DELETE")) {
 					System.out.println("Delete scroll");
 				}
 			}
@@ -979,25 +989,25 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			e.printStackTrace();
 		}
 
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "DASSensorSetting_Delete",5)) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DASSensorSetting_Delete", 5)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean isNameElementEnabled() {
-		boolean flag=true;
+		boolean flag = true;
 		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "DASSensorSettingNamingField");
-		if(testCase.getPlatform().contains("IOS")){
+		if (testCase.getPlatform().contains("IOS")) {
 			element.click();
-			if( MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")){
-				flag=flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
-			if(element.getAttribute("focused").equalsIgnoreCase("true")) {
+		} else {
+			if (element.getAttribute("focused").equalsIgnoreCase("true")) {
 				System.out.println(element.getText());
 				return true;
 			}
@@ -1006,31 +1016,33 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isDeleteElementClickable() {
-		boolean flag=true;
+		boolean flag = true;
 
-		WebElement  element ;
-		if(testCase.getPlatform().contains("IOS")){
+		WebElement element;
+		if (testCase.getPlatform().contains("IOS")) {
 			try {
-				//	flag= flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"value", "Delete");
+				// flag= flag &
+				// LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"value",
+				// "Delete");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			element = MobileUtils.getMobElement(objectDefinition, testCase, "DASSensorSetting_Delete");
 			element.click();
-			if(MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")){
-				flag=flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
+		} else {
 			try {
-				flag= flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"text", "DELETE");
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			element = MobileUtils.getMobElement(objectDefinition, testCase, "DASSensorSetting_Delete");
-			if(element.getAttribute("clickable").equalsIgnoreCase("true")) {
+			if (element.getAttribute("clickable").equalsIgnoreCase("true")) {
 				System.out.println(element.getText());
 				return true;
 			}
@@ -1038,30 +1050,31 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return false;
 	}
 
-
 	public boolean isSensorSignalStrengthAndTestOptionEnabled() {
-		boolean flag=true;
-		if(MobileUtils.clickOnElement(objectDefinition, testCase, "SignalStrengthOption")) {
-			if(testCase.getPlatform().contains("IOS")){
-				if(MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")){
-					flag=flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
+		boolean flag = true;
+		if (MobileUtils.clickOnElement(objectDefinition, testCase, "SignalStrengthOption")) {
+			if (testCase.getPlatform().contains("IOS")) {
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")) {
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
 					return false;
-				}else{
+				} else {
 					return true;
 				}
-			}else{
+			} else {
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 				fWait.pollingEvery(2, TimeUnit.SECONDS);
 				fWait.withTimeout(10, TimeUnit.SECONDS);
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
-						if(MobileUtils.isMobElementExists(objectDefinition, testCase, "PleaseWaitForSignalStrengthandTest")) {
+						if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+								"PleaseWaitForSignalStrengthandTest")) {
 							return false;
-						}else return true;
+						} else
+							return true;
 					}
 				});
-				if(isEventReceived) {
-					flag=false;
+				if (isEventReceived) {
+					flag = false;
 				}
 
 				flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "TestSensorTitle");
@@ -1071,49 +1084,51 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
+
 	public boolean RenameSensorName(String givenSensorName) {
-		boolean flag=true;
+		boolean flag = true;
 		SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "DASSensorSettingNamingField");
-		if(element!=null) {
-			String actualSensorName=element.getText();
-			String RenamedString = givenSensorName+" updated";
-			if(givenSensorName.equalsIgnoreCase(actualSensorName)){
+		if (element != null) {
+			String actualSensorName = element.getText();
+			String RenamedString = givenSensorName + " updated";
+			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
 				MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
 				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField", RenamedString);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 					flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
-					//TODO
+					// TODO
 				} else {
 					try {
 						MobileUtils.hideKeyboard(testCase.getMobileDriver());
 					} catch (Exception e) {
 					}
 				}
-				if(MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton")) {
-					MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdatingStatusForSensorNameUpdate",3);
+				if (MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton")) {
+					MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdatingStatusForSensorNameUpdate", 3);
 				}
-				flag=flag & security.clickOnUserGivenSensorName(RenamedString);
+				flag = flag & security.clickOnUserGivenSensorName(RenamedString);
 				MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
 				MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
-				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField", actualSensorName);
+				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField",
+						actualSensorName);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 					flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
-					//TODO
+					// TODO
 				} else {
 					try {
 						MobileUtils.hideKeyboard(testCase.getMobileDriver());
 					} catch (Exception e) {
 					}
 				}
-				if(MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton")) {
-					MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdatingStatusForSensorNameUpdate",3);
+				if (MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton")) {
+					MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdatingStatusForSensorNameUpdate", 3);
 				}
-				flag=flag & security.isSensorDisplayed(givenSensorName);
-				if(flag) {
+				flag = flag & security.isSensorDisplayed(givenSensorName);
+				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "renamed and reverted");
-				}else {
+				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed in renaming sensor");
 				}
 				return true;

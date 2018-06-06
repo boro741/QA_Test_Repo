@@ -37,8 +37,8 @@ public class EnterWiFiPassword extends Keyword {
 		dasDIY.enterWiFiPassword(expectedWiFiPassword.get(0));
 		if (dasDIY.isJoinButtonInConnectToNetworkScreenVisible()) {
 			dasDIY.clickOnJoinButtonInConnectToNetworkScreen();
-			DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SMART HOME SECURITY PROGRESS BAR", 5);
 		}
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SMART HOME SECURITY PROGRESS BAR", 5);
 		return flag;
 	}
 

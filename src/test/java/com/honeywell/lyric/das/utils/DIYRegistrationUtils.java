@@ -259,7 +259,7 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromEnableGeoFencingToGeoFence(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		if (dasDIY.isEnableButtonInGeoFencingScreenVisible()) {
+		if (dasDIY.isGeoFencingHeaderTitleVisible(10) && dasDIY.isEnableButtonInGeoFencingScreenVisible()) {
 			flag = flag & dasDIY.clickOnEnableButtonInGeoFencingScreen();
 			flag = flag & dasDIY.isGeoFenceScreenHeaderTitleVisible();
 		}
@@ -269,7 +269,7 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromGeoFenceToGeoFenceEnabled(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		if (dasDIY.isCancelButtonInGeoFenceScreenVisible() && dasDIY.isUseLocationInGeoFenceScreenVisible()
+		if (dasDIY.isCancelButtonInGeoFenceScreenVisible() && dasDIY.isUpdateGeoFenceButtonInGeoFenceScreenVisible()
 				&& dasDIY.isSaveButtonInGeoFenceScreenVisible()) {
 			flag = flag & dasDIY.clickOnSaveButtonInGeoFenceScreen();
 			flag = flag
@@ -285,14 +285,25 @@ public class DIYRegistrationUtils {
 		if (dasDIY.isGeoFenceEnabledScreenSubHeaderTitleVisible()
 				&& dasDIY.isSaveButtonGeoFenceEnabledScreenVisible()) {
 			flag = flag & dasDIY.clickOnSaveButtonGeoFenceEnabledScreen();
-			if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
-				flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-			}
+			flag = flag & dasDIY.isAmazonAlexaHeaderTitleVisible();
+			flag = flag & dasDIY.isSkipButtonInAmazonAlexaVisible();
+			flag = flag & dasDIY.isEnableButtonInAmazonAlexaVisible();
 		}
 		return flag;
 	}
 
 	public static boolean navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		flag = flag & dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+		if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
+			flag = flag & dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+		}
+		return flag;
+
+	}
+
+	public static boolean navigateFromEnableGeoFencingToEnableAmazonAlexa(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		flag = flag & dasDIY.isGeoFencingHeaderTitleVisible(5);
@@ -302,22 +313,11 @@ public class DIYRegistrationUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromEnableGeoFencingToEnableAmazonAlexa(TestCases testCase) {
-		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-		boolean flag = true;
-		flag = flag & dasDIY.isAmazonAlexaHeaderTitleVisible();
-		if (dasDIY.isSkipButtonInAmazonAlexaVisible()) {
-			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-		}
-		return flag;
-	}
-
 	public static boolean navigateFromEnableAmazonAlexaToDashboard(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
 			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-			System.out.println("**********Clicked on SKIP button in Amazon Alexa screen************");
 		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 
@@ -437,6 +437,26 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isAvialbleNetworkTypeDisplayed(availableNetworkType)) {
 			flag = flag & dasDIY.clickOnAvialbleNetworkType(availableNetworkType);
+		}
+		return flag;
+	}
+
+	public static boolean enableAmazonAlexa(TestCases testCase, TestCaseInputs inputs, String amazonUserName,
+			String amazonPassword) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isEnableButtonInAmazonAlexaVisible()) {
+			dasDIY.clickOnEnableButtonInAmazonAlexaScreen();
+			waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 3);
+			if (dasDIY.isSignInToAmazonAlexaScreenTitleVisible()
+					&& dasDIY.isEmailTextFieldInSignInToAmazonAlexaScreenVisible()
+					&& dasDIY.isPasswordTextFieldInSignInToAmazonAlexaScreenVisible()) {
+				dasDIY.enterAmazonUserCredentials(amazonUserName, amazonPassword);
+				waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 5);
+				if (dasDIY.isAmazonAlexaSetUpCompletedScreenTitleVisible() && dasDIY.isNextButtonVisible()) {
+					dasDIY.clickOnNextButton();
+				}
+			}
 		}
 		return flag;
 	}
