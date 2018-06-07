@@ -9,7 +9,7 @@ And user is set to <Mode> mode through CHIL
 When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
 Then user selects "Add button" from "Sensor List Settings" screen
 When user door "enrolled"
-And  user selects "SETUP button" from "Set Up Accessories" screen
+And  user selects "Access sensor SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen

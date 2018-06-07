@@ -75,4 +75,4 @@ DeleteKeyfobPopupTitle							xpath	"//*[contains(@name,'Delete Key Fob')]"
 DeleteKeyfobPopupMessage							xpath	"//*[contains(@name,'This will delete your Key Fob and you will not be able to access it any more.')]"				
 DeleteKeyfobPopupYes							name	YES				
 DeleteKeyfobPopupNo							name	NO				
-KeyFobOption							xpath	"//*[contains(@name,'Key Fob')]"				
+DoneButtonOnKeyboard							name	Done				

@@ -447,8 +447,10 @@ public class SelectElementOnAScreen extends Keyword {
 			else if(parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "SETUP BUTTON":{
-					flag= flag & sensor.clickOnSetUpButton();
+				case "MOTION SENSOR SETUP BUTTON":
+				case "ACCESS SENSOR SETUP BUTTON":
+				case "KEYFOB SETUP BUTTON":{
+					flag= flag & sensor.clickOnSetUpButton(parameters.get(0));
 					break;
 				}
 				case "DONE":{

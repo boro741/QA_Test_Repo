@@ -89,7 +89,7 @@ public class RelayUtils {
 	public static void RSIKeyfobEnroll() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_Enroll_ON);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Keyfob_1_Enroll_OFF);
 		SerialDriverArduino.closePort();
 	}
