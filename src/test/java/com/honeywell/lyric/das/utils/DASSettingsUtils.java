@@ -264,13 +264,21 @@ public class DASSettingsUtils {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			String keyfobName = "";
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
-			if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+			if(flag) {
+				System.out.println("Successfully navigated to Keyfob List Settings Screen");
+				Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
+			}
+			else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Did not navigated to Keyfob List Settings Screen");
+			}
+			if (!inputs.isInputAvailable("LOCATION1_DEVICE1_KEYFOB1")) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"No keyfob names were provided in the Requirement file");
 				return flag;
 			}
-			keyfobName = inputs.getInputValue("LOCATION1_KEYFOB1_NAME");
+			keyfobName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
 			flag = flag & bs.selectSensorFromSensorList(keyfobName);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);

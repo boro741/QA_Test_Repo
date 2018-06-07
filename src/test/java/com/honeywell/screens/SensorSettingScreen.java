@@ -294,7 +294,21 @@ public class SensorSettingScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorAddButton");
 	}
 
-	public boolean clickOnSetUpButton() {
+	public boolean clickOnSetUpButton(String SensorType) {
+		String locator;
+		String SensorName = null;
+		if(testCase.getPlatform().contains("IOS")){
+			locator="value";
+		}else{
+			locator="text";
+		}
+		if(SensorType.toLowerCase().contains("keyfob")){
+			SensorName="Key Fob";
+		}else if(SensorType.toLowerCase().contains("motion sensor")){
+			SensorName="Motion Sensor";
+		}else if(SensorType.toLowerCase().contains("access sensor")){
+			SensorName="Access Sensor";
+		}
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try{
@@ -304,7 +318,15 @@ public class SensorSettingScreen extends MobileScreens{
 			.release().perform();
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 			.release().perform();
-			if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
+
+			
+			if(testCase.getPlatform().toUpperCase().contains("IOS")){
+				if(MobileUtils.isMobElementExists("xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::*[contains(@name,'rightButton')]", testCase,10)){
+					return	MobileUtils.clickOnElement( testCase,"xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::*[contains(@name,'rightButton')]");
+				}else{
+					System.out.println("Unable to locate sensor with setup button");
+				}
+			} else if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
 
 
 				if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
@@ -344,18 +366,18 @@ public class SensorSettingScreen extends MobileScreens{
 	public boolean isKEYFOBOverviewScreenDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobOverview") && MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobOverviewImage");
 	}
-	
+
 	public boolean isKeyfobNamingScreenDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNamingScreen") && MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNamingScreenDesc");
 	}
-	
+
 	public boolean editKeyfobName(String name) {
 		boolean flag= false;
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNamingScreenTextbox")){
 			flag=MobileUtils.setValueToElement(objectDefinition, testCase, "KeyfobNamingScreenTextbox",name);
-			
+
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
 			} else {
 				try {
 					MobileUtils.hideKeyboard(testCase.getMobileDriver());

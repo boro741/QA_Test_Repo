@@ -8,7 +8,7 @@ And user is set to <Mode> through CHIL
 When user navigates to "KEYFOB INSTALLATION" screen from the "Dashboard" screen
 Then user navigates to "Set Up Accessories" screen from the "Sensors" screen
 When user triggers "KEYFOB" sensor
-And  user selects "SETUP button" from "Set Up Accessories" screen
+And  user selects "Keyfob SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch How-To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen

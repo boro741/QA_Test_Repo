@@ -16,7 +16,7 @@ DASNameTextbox	id	security_settings_edit_name	id	security_settings_edit_name	id	
 DASNameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	name	BaseStation_Settings_0_0	name	BaseStation_Settings_0_0	name	BaseStation_Settings_0_0
 DeleteDASButton	id	delete_das_button	id	delete_das_button	id	delete_das_button	name	Delete Base Station	name	Delete Base Station	name	Delete Base Station
 DeleteDASPopUpConfirmationTitle	xpath	//android.widget.TextView[@text='Delete Smart Home Security?']	xpath	//android.widget.TextView[@text='Delete Smart Home Security?']	xpath	//android.widget.TextView[@text='Delete Smart Home Security?']	name	Delete Smart Home Security	name	Delete Smart Home Security	name	Delete Smart Home Security
-DeleteKeyfobPopUpConfirmationTitle	xpath	//android.widget.TextView[@text='Delete Key Fob?']	xpath	//android.widget.TextView[@text='Delete Key Fob?']	xpath	//android.widget.TextView[@text='Delete Key Fob?']	xpath	"//*[contains(@value,'Delete Sensor')]"				
+DeleteKeyfobPopUpConfirmationTitle	xpath	//android.widget.TextView[@text='Delete Key Fob?']	xpath	//android.widget.TextView[@text='Delete Key Fob?']	xpath	//android.widget.TextView[@text='Delete Key Fob?']	xpath	"//*[contains(@value,'Delete Key Fob')]"	xpath	"//*[contains(@value,'Delete Key Fob')]"	xpath	"//*[contains(@value,'Delete Key Fob')]"
 DeleteSensorPopUpConfirmationTitle	xpath	//android.widget.TextView[@text='Delete Sensor?']	xpath	//android.widget.TextView[@text='Delete Sensor?']	xpath	//android.widget.TextView[@text='Delete Sensor?']	xpath	"//*[contains(@value,'Delete Sensor')]"				
 EntryExitDelayOption	xpath	//android.widget.TextView[@text='Entry/Exit Delay']	xpath	//android.widget.TextView[@text='Entry/Exit Delay']	xpath	//android.widget.TextView[@text='Entry/Exit Delay']	xpath	//XCUIElementTypeStaticText[@value='Entry/Exit Delay']	xpath	//XCUIElementTypeStaticText[@value='Entry/Exit Delay']	xpath	//XCUIElementTypeStaticText[@value='Entry/Exit Delay']
 EntryExitTable	id	das_settings_recyclerview	id	das_settings_recyclerview	id	das_settings_recyclerview	xpath	//XCUIElementTypeTable	xpath	//XCUIElementTypeTable	xpath	//XCUIElementTypeTable
@@ -69,5 +69,5 @@ PerformOnlyInModesPopup							name	You can perform this action only in Home or O
 PerformOnlyInModesPopupAck							name	Ok				
 SensorSetting_NameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle
 SensorSettingBatteryStatus	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	name	Sensor_Settings_0_4_value	name	Sensor_Settings_0_4_value	name	Sensor_Settings_0_4_value
-KeyFobOption							xpath	"//*[contains(@name,'Key Fob')]"				
+KeyFobOption							xpath	"//*[contains(@value,'Key Fob')]"				
 KeyfobNamingScreenTextbox							xpath	//XCUIElementTypeStaticText				
