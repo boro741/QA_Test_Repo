@@ -1,6 +1,10 @@
 @MotionSensorSettings
 Feature: Verify Motion Sensor settings
 
+
+Background:
+Given reset relay as precondition
+
 #Requirement :One DAS Panel and one motion sensor should be configured
 @DASMotionSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo @UIAutomated
 Scenario Outline: a - As a user I should be able to successfully enroll motion Sensor with default sensor name and video should play for assistance in sensor enrollment

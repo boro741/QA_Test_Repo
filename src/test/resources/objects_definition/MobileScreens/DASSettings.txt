@@ -71,3 +71,4 @@ SensorSetting_NameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//an
 SensorSettingBatteryStatus	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	xpath	//android.widget.TextView[@text='Battery']	name	Sensor_Settings_0_4_value	name	Sensor_Settings_0_4_value	name	Sensor_Settings_0_4_value
 KeyFobOption							xpath	"//*[contains(@value,'Key Fob')]"				
 KeyfobNamingScreenTextbox							xpath	//XCUIElementTypeStaticText				
+DoneButtonOnKeyboard							name	Done				

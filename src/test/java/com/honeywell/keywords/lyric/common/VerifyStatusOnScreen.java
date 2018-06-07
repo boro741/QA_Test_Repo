@@ -811,6 +811,18 @@ public class VerifyStatusOnScreen extends Keyword {
 
 					break;
 				}
+				case "NO MOTION DETECTED":
+                case "MOTION NOT DETECTED": {
+					
+					if(sensor.isMotionSensorStatusVisible(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"),expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")+" is "+(expectedScreen.get(1)));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")+" is not "+(expectedScreen.get(1)));
+					}
+
+					break;
+				}
 				}
 				break;
 			}
@@ -825,10 +837,10 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "HIGH": {
 					if(sensor.isSignalStrengthVisible(expectedScreen.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Door Sensor is Open and signal is "+(expectedScreen.get(1)));
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+"  signal is "+(expectedScreen.get(1)));
 					}
 					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Door Sensor is not Open");
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, expectedScreen.get(0)+" signal is not in "+expectedScreen.get(1));
 					}
 
 					break;

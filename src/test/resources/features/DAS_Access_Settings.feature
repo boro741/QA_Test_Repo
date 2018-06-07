@@ -238,7 +238,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASDeleteAccessSensorVerification
+@DASDeleteAccessSensorVerification @UIAutomated
 Scenario Outline: l- As a user I should be able to delete Access Sensor configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL 
