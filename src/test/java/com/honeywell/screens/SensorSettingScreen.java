@@ -164,6 +164,22 @@ public class SensorSettingScreen extends MobileScreens{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSignalStrengthButton");
 
 	}
+	
+	public boolean clickOnTestSignalStrengthForMotionSensor() {
+		try {
+			if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"text", "Get additional help");
+			}
+			else{
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name", "Get Additional Help");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestMotionSensorSignalStrengthButton");
+
+	}
 	public boolean isSignalStrengthScreenDisplayed() {
 		System.out.println("Entered into signl stren func");
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
@@ -322,30 +338,19 @@ public class SensorSettingScreen extends MobileScreens{
 			
 			if(testCase.getPlatform().toUpperCase().contains("IOS")){
 				if(MobileUtils.isMobElementExists("xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::*[contains(@name,'rightButton')]", testCase,10)){
+					System.out.println(MobileUtils.getMobElement(testCase,"xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::*[contains(@name,'rightButton')]").getAttribute("name"));
 					return	MobileUtils.clickOnElement( testCase,"xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::*[contains(@name,'rightButton')]");
 				}else{
 					System.out.println("Unable to locate sensor with setup button");
 				}
-			} else if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
-
-
-				if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
-					MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
-					return true;
+			} else {
+				System.out.println(MobileUtils.isMobElementExists("xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]", testCase,10));
+				if(MobileUtils.isMobElementExists("xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]", testCase,10)) {
+					return MobileUtils.clickOnElement(testCase,"xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]");
 				}
 				else {
-					try {
-						if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
-							LyricUtils.scrollToElementUsingExactAttributeValue(testCase ,"text" , "Set Up");
-						}
-					} catch (Exception e) {
-
-						e.printStackTrace();
-					}
-					if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorSetUpButton",15)) {
-						MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
-						return true;
-					}
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to locate setup button");
+					return false;
 				}
 			}
 		}
@@ -500,7 +505,7 @@ public class SensorSettingScreen extends MobileScreens{
 	public boolean isMotionSensorStatusVisible(String SensorName,String status) {
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensor_SensorName")) {
 			if(MobileUtils.getFieldValue(objectDefinition, testCase, "MotionSensor_SensorName").toUpperCase().contains(SensorName.toUpperCase())) {
-				if(status.toUpperCase().contains("NOT DETECTED")){
+				if(status.toUpperCase().contains("NOT DETECTED")||status.toUpperCase().contains("NO MOTION DETECTED")){
 					if(MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensor_SensorStatus_NotDetected")){
 						return true;
 					}else return false;
@@ -528,20 +533,12 @@ public class SensorSettingScreen extends MobileScreens{
 		}else{
 			locator="text";
 		}
-		if(MobileUtils.isMobElementExists("xpath", "//*[@"+locator+"='"+SensorName+"']/following-sibling::XCUIElementTypeStaticText[contains(@"+locator+",'"+state+"')]", testCase,10)) {
-			System.out.println(SensorName+ "is in "+state);
-			return true;
+		if(testCase.getPlatform().contains("IOS")){
+			return MobileUtils.isMobElementExists("xpath", "//*[@"+locator+"='"+SensorName+"']/following-sibling::XCUIElementTypeStaticText[contains(@"+locator+",'"+state+"')]", testCase,10);
 		}
 		else {
-			try {
-				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", SensorName);
-			} catch (Exception e) {
-
-				e.printStackTrace();
-			}
-			if(MobileUtils.isMobElementExists("xpath", "//*[@"+locator+"='"+SensorName+"']", testCase,10)) {
-				System.out.println("The given Sensor Name is Configured "+SensorName);
-				return true;
+			if(testCase.getPlatform().contains("ANDROID") ){
+				return MobileUtils.isMobElementExists("xpath", "//*[contains(@"+locator+",'"+SensorName+"')]/following-sibling::android.widget.LinearLayout/android.widget.TextView[contains(@text,'"+state+"')]", testCase,10);
 			}
 		}
 		return false;

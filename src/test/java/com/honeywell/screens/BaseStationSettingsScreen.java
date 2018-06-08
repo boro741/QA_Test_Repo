@@ -1097,8 +1097,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
 				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField", RenamedString);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-					flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
-					// TODO
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
 				} else {
 					try {
 						MobileUtils.hideKeyboard(testCase.getMobileDriver());
@@ -1114,8 +1113,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField",
 						actualSensorName);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-					flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
-					// TODO
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
 				} else {
 					try {
 						MobileUtils.hideKeyboard(testCase.getMobileDriver());

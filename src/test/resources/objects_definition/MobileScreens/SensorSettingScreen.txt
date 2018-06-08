@@ -61,10 +61,10 @@ ConfiguredText	id	sensor_configured_text					xpath	//*[@value='Configured']
 SensorNameInSetUpAccessories	id	sensor_name_title					xpath	"//*[contains(@name,'SetupAccessories_')]"				
 SensorNameDuplicatePopup							xpath	"//*[contains(@name,'Sensor name is already assigned.')]"				
 SensorNameDuplicatePopupAck							name	OK				
-MountSensorHeading							xpath	//*[@value='Mount Sensor']				
-MotionSensor_SensorName							xpath	"//*[contains(@name,'by')]"				
-MotionSensor_SensorStatus_NotDetected							name	No Motion Detected				
-MotionSensor_SensorStatus_Detected							name	Motion Detected				
+MountSensorHeading	xpath	//*[@text='Mount Sensor']					xpath	//*[@value='Mount Sensor']				
+MotionSensor_SensorName	id	by_sensor_name					xpath	"//*[contains(@name,'by')]"				
+MotionSensor_SensorStatus_NotDetected	xpath	//*[@text='No Motion Detected']					name	No Motion Detected				
+MotionSensor_SensorStatus_Detected	xpath	//*[@text='Motion Detected']					name	Motion Detected				
 KeyfobOverview							name	Use the Key Fob to change security modes with the touch of a button.				
 KeyfobOverviewImage							name	Know-Your-Keyfob				
 KeyfobOverviewGetStarted							name	RightButton				
@@ -76,3 +76,4 @@ DeleteKeyfobPopupMessage							xpath	"//*[contains(@name,'This will delete your 
 DeleteKeyfobPopupYes							name	YES				
 DeleteKeyfobPopupNo							name	NO				
 DoneButtonOnKeyboard							name	Done				
+TestMotionSensorSignalStrengthButton	id	sensor_range_test_motion					name	Test Signal Strength				

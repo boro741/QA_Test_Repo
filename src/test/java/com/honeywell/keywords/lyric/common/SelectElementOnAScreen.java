@@ -353,6 +353,16 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				if(parameters.get(0).toUpperCase().contains("DOOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(0));
+				}
+				else if(parameters.get(0).toUpperCase().contains("WINDOW")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(0));
+				}
+				else if(parameters.get(0).toUpperCase().contains("HALL")||parameters.get(0).toUpperCase().contains("LIVING ROOM")
+						||parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
+				}
 				flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
 			} else if (parameters.get(1).equalsIgnoreCase("Call")) {
@@ -429,7 +439,12 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "TEST SIGNAL STRENGTH":{
-					flag= flag & sensor.clickOnTestSignalStrength();
+					if(parameters.get(1).toUpperCase().contains("ACCESS")){
+						flag = flag & sensor.clickOnTestSignalStrength();
+					}
+					else if(parameters.get(1).toUpperCase().contains("MOTION SENSOR")){
+						flag= flag & sensor.clickOnTestSignalStrengthForMotionSensor();
+					}
 					break;
 				}
 
