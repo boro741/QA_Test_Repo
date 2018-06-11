@@ -619,6 +619,14 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "SET UP ACCESSORIES":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = sensor.isSetUpAccessoriesScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

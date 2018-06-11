@@ -77,3 +77,6 @@ DeleteKeyfobPopupYes							name	YES
 DeleteKeyfobPopupNo							name	NO				
 DoneButtonOnKeyboard							name	Done				
 TestMotionSensorSignalStrengthButton	id	sensor_range_test_motion					name	Test Signal Strength				
+CustomNameSensor	id	create_new_name_text										
+SetUpAccessoriesHeading	xpath	//*[@text='Set up accessories']										
+CancelSensorSetupPopup	xpath	"//*[contains(@text,'Cancel sensor setup')]"										

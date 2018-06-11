@@ -2,6 +2,7 @@ package com.honeywell.screens;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -48,25 +49,6 @@ public class SensorSettingScreen extends MobileScreens {
 		return false;
 	}
 
-	public boolean isDoorStatusVisible(String status) {
-		WebElement ele1 = MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorName");
-		if (ele1 != null) {
-			System.out.println("Entered door status checking func");
-			String s1 = ele1.getText();
-			System.out.println(s1);
-			if (s1.toUpperCase().contains("DOOR")) {
-				WebElement ele2 = MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorStatus");
-				if (ele2 != null) {
-					String s2 = ele2.getText();
-					System.out.println(s2);
-					if (s2.equalsIgnoreCase(status)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
 
 	public boolean clickOnSensorNotWorking() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
@@ -101,7 +83,7 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
@@ -335,11 +317,9 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				try {
 					TimeUnit.SECONDS.sleep(4);
@@ -349,11 +329,12 @@ public class SensorSettingScreen extends MobileScreens {
 				MobileUtils.clickOnElement(testCase, "XPATH", "//*[contains(@" + locator + ",'" + SensorName + "')]");
 				if (MobileUtils.isMobElementExists("xpath",
 						"//*[contains(@" + locator + ",'" + SensorName
-								+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
+						+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
 						testCase, 10)) {
 					return MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@" + locator + ",'" + SensorName
 							+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]");
 				} else {
+
 					System.out.println("Unable to locate sensor with setup button");
 				}
 			} else {
@@ -454,26 +435,6 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 
-	}
-
-	public boolean isWindowStatusVisible(String status) {
-		WebElement ele1 = MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorName");
-		if (ele1 != null) {
-			System.out.println("Entered door status checking func");
-			String s1 = ele1.getText();
-			System.out.println(s1);
-			if (s1.toUpperCase().contains("WINDOW")) {
-				WebElement ele2 = MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorStatus");
-				if (ele2 != null) {
-					String s2 = ele2.getText();
-					System.out.println(s2);
-					if (s2.equalsIgnoreCase(status)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	public boolean clickOnDoneButton() {
@@ -584,7 +545,95 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 
 	}
+	public boolean editSensorNameToCustom(String sensor,String customName,TestCaseInputs inputs) {
+		System.out.println("came inside edit sensor name to custom name");
 
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if(MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameSensor", customName)) {
+				//  ((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.KEYCODE_ENTER);
+
+				MobileUtils.clickOnCoordinate(testCase, 991, 1804);
+				//TODO
+				if(sensor.toUpperCase().contains("DOOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", customName);
+					System.out.println("After entering custom name"+inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+				}
+				else if(sensor.toUpperCase().contains("WINDOW")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", customName);
+					System.out.println("After entering custom name"+inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+
+				}
+				else if(sensor.toUpperCase().contains("HALL")||customName.toUpperCase().contains("LIVING ROOM")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", customName);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public boolean isCancelButtonDisplayed() {
+
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton",5);
+	}
+
+	public boolean isBackButtonDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton",5);
+	}
+	public boolean clickOnCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+	}
+
+	public boolean isSetUpAccessoriesScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpAccessoriesHeading",15);
+	}
+	
+	public boolean isDoorStatusVisible(String status,TestCaseInputs inputs) {
+		WebElement ele1=MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorName");
+		if(ele1!=null) {
+			System.out.println("Entered door status checking func");
+			String s1 = ele1.getText();
+			System.out.println(s1);
+			System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+			if(s1.toUpperCase().contains(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1").toUpperCase())) {
+				WebElement ele2=MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorStatus");
+				if(ele2!=null) {
+					String s2 = ele2.getText();
+					System.out.println(s2);
+					if(s2.equalsIgnoreCase(status)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public boolean isCancelSetUpPopUpVisible() {
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelSensorSetupPopup",5)){
+		return true;
+		}
+		return false;
+	}
+	public boolean isWindowStatusVisible(String status,TestCaseInputs inputs) {
+		WebElement ele1=MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorName");
+		if(ele1!=null) {
+			System.out.println("Entered door status checking func");
+			String s1 = ele1.getText();
+			System.out.println(s1);
+			if(s1.toUpperCase().contains(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1").toUpperCase())) {
+				WebElement ele2=MobileUtils.getMobElement(objectDefinition, testCase, "TestSensor_SensorStatus");
+				if(ele2!=null) {
+					String s2 = ele2.getText();
+					System.out.println(s2);
+					if(s2.equalsIgnoreCase(status)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	/*
 	 * public boolean isSensorConfigured(String SensorName) {
 	 * 

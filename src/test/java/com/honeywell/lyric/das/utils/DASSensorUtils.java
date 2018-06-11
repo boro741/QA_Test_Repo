@@ -264,7 +264,7 @@ public class DASSensorUtils {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 		} else if (sensor.equalsIgnoreCase("window")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-		} else if (sensor.equalsIgnoreCase("motion sensor") ||sensor.equalsIgnoreCase("Living Room") ||sensor.equalsIgnoreCase("front hall") ||sensor.equalsIgnoreCase("back hall")) {
+		} else if (sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");

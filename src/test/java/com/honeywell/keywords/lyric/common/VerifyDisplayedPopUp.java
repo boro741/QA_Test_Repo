@@ -223,6 +223,18 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
 			break;
 		}
+		case "CANCEL SENSOR SETUP":{
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			if(sensor.isCancelSetUpPopUpVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel Sensor popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+				return flag;
+			}
+			
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

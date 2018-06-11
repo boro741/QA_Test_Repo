@@ -214,7 +214,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SETUP")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SETUP")||expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
