@@ -359,8 +359,7 @@ public class SelectElementOnAScreen extends Keyword {
 				else if(parameters.get(0).toUpperCase().contains("WINDOW")) {
 					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(0));
 				}
-				else if(parameters.get(0).toUpperCase().contains("HALL")||parameters.get(0).toUpperCase().contains("LIVING ROOM")
-						||parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
+				else if(parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
 					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
 				}
 				flag = flag

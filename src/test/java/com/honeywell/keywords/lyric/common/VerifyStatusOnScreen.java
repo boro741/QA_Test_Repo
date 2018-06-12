@@ -864,11 +864,12 @@ public class VerifyStatusOnScreen extends Keyword {
 		}
 		case "SET UP ACCESSORIES":{
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "FRONT DOOR":{
+			case "DOOR SENSOR":
+			case "DOOR":{
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "CONFIGURED": {
-					flag= flag & sensorSetting.isSensorConfigured(expectedScreen.get(0),expectedScreen.get(1));
+					flag= flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"),expectedScreen.get(1));
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
 					}
@@ -877,7 +878,20 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			case "LIVING ROOM":
+			case "WINDOW SENSOR":
+			case "WINDOW":{
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					flag= flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"),expectedScreen.get(1));
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified "+expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
 			case "MOTION SENSOR":{
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {

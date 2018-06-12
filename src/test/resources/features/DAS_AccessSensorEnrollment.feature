@@ -27,15 +27,15 @@ Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
 When user door "Opened"
-Then user should see the <Sensor Location Area> status as <Access Status> on the "Test Access Sensor"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user door "closed"
-Then user should see the <Sensor Location Area> status as <Access Status Update> on the "Test Access Sensor"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
 When user selects "Done" from "Test Sensor" screen
-Then user should see the <Sensor Location Area> status as "configured" on the "Set Up Accessories"
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
 When user selects "Done" from "Set Up Accessories" screen
-Then user should see the <Sensor Location Area> status as "closed" on the "Sensor List"
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
 When user navigates to "Security Solution card" screen from the "Sensor List" screen
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
@@ -98,14 +98,14 @@ Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
 #When user <Sensor Location> "Opened"
-Then user should see the <Sensor Location Area> status as <Access Status Update> on the "Test Access Sensor"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 #When user <Sensor Location> "closed"
-Then user should see the <Sensor Location Area> status as <Access Status Update> on the "Test Access Sensor"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 When user selects "Done" from "Test Sensor" screen
 #And user should not display with "cancel" button and "Back" button
-Then user should see the <Sensor Location Area> status as "configured" on the "Set Up Accessories"
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
 When user selects "Done" from "Set Up Accessories" screen
-Then user should see the <Sensor Location Area> status as "closed" on the "Sensor List"
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
 When user navigates to "Security Solution card" screen from the "Sensor List" screen
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
@@ -116,7 +116,7 @@ And user "dismisses" the "Delete Sensor Confirmation" popup
 When user selects "delete sensor" from "<Access Sensor Settings> screen
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with <Sensor Location Area> device on the "sensor list" screen
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
  
  
 Examples:
@@ -219,7 +219,7 @@ And user "dismisses" the "Delete Sensor Confirmation" popup
 When user selects "delete sensor" from "<Access Sensor Settings> screen
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with <Sensor Location Area> device on the "sensor list" screen
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 
 Examples:
 |Mode |Sensor Location| Custom name| Access Status | Access Status Update |Access Sensor Settings|
@@ -230,61 +230,68 @@ Examples:
 
 
 @DASAccessSensorEnrollmentWithSensorNotWorkingAndIsWithInRange
-Scenario Outline: As a user I should be able to successfully enrol Access Sensor when sensor is not working but is within range
+Scenario Outline: As a user I should be able to successfully enroll Access Sensor when sensor is not working but is within range
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to "Sensors" screen from the "Dashboard" screen
-Then user navigates to "Set Up Accessories" screen from the "Sensors" screen
-When user triggers "ACCESS" sensor
+And user is set to <Mode> mode through CHIL
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user selects "Add button" from "Sensor List Settings" screen
+#When user triggers <Sensor Location> sensor
 And  user selects "SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen
-When user navigates to "Locate Sensor" screen from the "Sensor Overview" screen
+When user selects "Get Started" from "Sensor Overview" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <sensor location area> from "Name Sensor" screen
-Then user should be displayed with "Place Sensor" screen
+When user selects <Sensor Location Area> from "Name Sensor" screen
+Then user should be displayed with the "Place Sensor" screen
 When user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
-When user selects "Sensor Not Working?" from "Test Sensor" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
 Then user should be displayed with the "Access Sensor Help" screen
-And user should be displayed with "Get Additional Help" link
-When user select the "Get Additional Help" link
-Then user should navigates to "Honeywell help web portal" on goole chrome
-And user navigates to "Access Sensor Help" screen from "Honeywell Help web portal" screen
+When user selects "Get Additional Help" from "Access Sensor Help" screen
+#Then user should be displayed with the "Honeywell help web portal" screen
+And user navigates to "Access Sensor Help" screen from the "Honeywell Help web portal" screen
 When user selects "Test Signal Strength" from "Access Sensor Help" screen
 Then user should be displayed with the "Signal Strength" screen
-Then user should be displayed with the <Signal strength> status
+Then user should see the <Sensor Location> status as <Signal strength> on the "Signal Strength"
 And user navigates to "Test Sensor" screen from the "Test Signal Strength" screen
-Then user <Sensor Location> <Access Status>
-And user <Sensor Location> <Access Status Update>
-And user should not display with "cancel" button
-Then user navigates to "Set Up Accessories Configured" screen from the "Test Sensor" screen
-When user navigates to "Dashboard" screen from the "Set Up Accessories Configured" screen
-Then user should be displayed with "Security" device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+#When user <Sensor Location> "Opened"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+#When user <Sensor Location> "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to "Door Access settings" screen from the "Security Solution card" screen 
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
+Then user should not be displayed with <Sensor Location Area> device on the "sensor list" screen
 
+ 
 Examples:
 |Mode |Sensor Location| Sensor Location Area | Signal strength | Access Status | Access Status Update |
 |Home | Door |Front Door| High |  Opened | Closed |
-|Home | Door | Front Door| Medium |Opened | Closed |
-|Home | Door | Front Door| Low |Opened | Closed |
-|Home | Window |Front Door| High | Opened | Closed |
-|Home | Window |Front Door| Medium | Opened | Closed |
-|Home | Window |Front Door| Low | Opened | Closed |
-|OFF | Door |Front Door| High | Opened | Closed |
-| OFF | Door |Front Door| Medium | Opened | Closed |
+#|Home | Door | Front Door| Medium |Opened | Closed |
+#|Home | Door | Front Door| Low |Opened | Closed |
+#|Home | Window |Front Door| High | Opened | Closed |
+#|Home | Window |Front Door| Medium | Opened | Closed |
+#|Home | Window |Front Door| Low | Opened | Closed |
+#|OFF | Door |Front Door| High | Opened | Closed |
+#| OFF | Door |Front Door| Medium | Opened | Closed |
 | OFF | Door | Front Door| Low |Opened | Closed |
-| OFF | Window |Front Door| High | Opened | Closed |
-| OFF | Window |Front Door| Medium | Opened | Closed |
-| OFF | Window |Front Door| Low | Opened | Closed |
+#| OFF | Window |Front Door| High | Opened | Closed |
+#| OFF | Window |Front Door| Medium | Opened | Closed |
+#| OFF | Window |Front Door| Low | Opened | Closed |
 
 
 @DASAccessSensorEnrollmentWithSensorNotWorkingAndIsOutOfRange
