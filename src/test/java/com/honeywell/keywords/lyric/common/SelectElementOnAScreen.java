@@ -362,8 +362,8 @@ public class SelectElementOnAScreen extends Keyword {
 				else if(parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
 					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
 				}
-				flag = flag
-						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
+				/*flag = flag
+						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);*/
 			} else if (parameters.get(1).equalsIgnoreCase("Call")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CANCEL": {
@@ -479,7 +479,7 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Sensor Overview")||parameters.get(1).equalsIgnoreCase("Keyfob Overview")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				switch (parameters.get(0).toUpperCase()) {
+ 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO":{
 					flag= flag & sensor.clickOnWatchHowToVideoButton();
 					break;

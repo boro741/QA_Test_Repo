@@ -86,6 +86,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
+	
+	public boolean clickOnNavBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NavBackButton");
+	}
 
 	public boolean clickOnCancelButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
@@ -177,7 +181,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isBackButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", timeOut);
 	}
-
+	
+	public boolean isNavBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NavBackButton", 3);
+	}
+	
 	public boolean isBaseStationConfigurationsOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationConfigurationsOption", 3);
 	}

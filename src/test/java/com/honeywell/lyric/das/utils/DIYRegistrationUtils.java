@@ -132,13 +132,13 @@ public class DIYRegistrationUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromConnectToNetworkToSetUpAccessories(TestCases testCase) {
+	public static boolean navigateFromSmartHomeSecuritySuccessToSetUpAccessories(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
 			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(15)) {
-				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
+				//DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
 			}
 		}
 		return flag;

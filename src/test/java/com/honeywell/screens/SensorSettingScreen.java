@@ -2,7 +2,6 @@ package com.honeywell.screens;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -324,6 +323,8 @@ public class SensorSettingScreen extends MobileScreens {
 			.release().perform();
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 			.release().perform();
+			/*action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+					.release().perform();*/
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				try {
 					TimeUnit.SECONDS.sleep(4);
