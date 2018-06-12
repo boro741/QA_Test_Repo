@@ -260,7 +260,7 @@ public class DASSensorUtils {
 	public boolean verifySensorState(TestCases testCase, TestCaseInputs inputs, String sensor, String states) {
 		String sensorName = "";
 		String sensorState = "";
-		if (sensor.equalsIgnoreCase("door")) {
+		if (sensor.contains("Door")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 		} else if (sensor.equalsIgnoreCase("window")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");

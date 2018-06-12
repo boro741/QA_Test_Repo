@@ -1363,68 +1363,87 @@ Examples:
 
 @DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P2
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security Success" screen
-And user triggers "ACCESS" sensor
-Then user selects "SETUP button" from "Set Up Accessories" screen
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+#And user door "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
-When user selects "Watch How-To video" from "Sensor Overview" screen
+When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
 When user navigates to "Sensor Overview" screen from the "Video clip" screen
-Then user navigates to "Locate Sensor" screen from the "Sensor Overview" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <sensor location area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from "Name Sensor" screen
 Then user should be displayed with the "Place Sensor" screen
-And user navigates to "Place Sensor on location" screen from "Place Sensor" screen
-When user selects "Won't Fit As shown?" from "Place Sensor on location" screen
-Then user should be displayed with the "Video clip" screen
-When user navigates to "Place Sensor on location" screen from the "Video clip" screen
-And user navigates to "Test Sensor" screen from "Place Sensor on location" screen
-Then user <Sensor Location> <Access Status>
-And user <Sensor Location> <Access Status Update>
-When user navigates to "Set Up Accessories Configured" screen from the "Test Sensor" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+#When user door "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+#When user door "closed"
+#Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+#Then user should be displayed with the "Enable Geofencing" screen
+#When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+#Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+#When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+#And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+#Then user should be displayed with the "Dashboard" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
-And user "deletes sensor" by clicking on "delete" button
+#Then user should be displayed with "Security" device on the "dashboard" screen
+#And user should be displayed with <device name> device on the "dashboard" screen
+#When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+#Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Sensor List Settings" screen from the "Amazon Alexa Settings" screen
+Then user should see the <Sensor Location Area> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to <Access Sensor Settings> screen from the "Security Solution card" screen
+When user selects "delete sensor" from <Access Sensor Settings> screen
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
+When user selects "deletes sensor" from <Access Sensor Settings> screen
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
-When user navigates to "Base Station Configuration" screen from the "Sensor" screen
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
+When user navigates to "Base Station Configuration" screen from the "sensor list" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
+And user "dismisses" the "Delete DAS Confirmation" popup
+Then user "deletes DAS device" by clicking on "delete" button
+And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location | Sensor Location Area | Access Status | Access Status Update  |
-| Home			| Living Room		| Door           | Front Door           | Opened        | Closed                |
-| Home			| Living Room		| Door           | Back Door            | Opened        | Closed                |
-| Home			| Living Room		| Door           | Side Door            | Opened        | Closed                |
-| Home			| Living Room		| Window         | Living Room Window   | Opened        | Closed                |
-| Home			| Living Room		| Window         | Dining Room Window   | Opened        | Closed                |
-| Home			| Living Room		| Window         | Kitchen Window       | Opened        | Closed                |
-| Home			| Living Room		| Door           | Front Door           | Opened        | Closed                |
-| Home			| Living Room		| Door           | Back Door            | Opened        | Closed                |
-| Home			| Living Room		| Door           | Side Door            | Opened        | Closed                |
-| Home			| Living Room		| Window         | Living Room Window   | Opened        | Closed                |
-| Home			| Living Room		| Window         |Dining Room Window    | Opened        | Closed                |
-| Home			| Living Room		| Window         | Kitchen Window       | Opened        | Closed                |
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Sensor Settings		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door			| Front Door				| Open		| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window 		| Living Room Window 	| Open 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#incaserequired
+#| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window 		| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window			| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window			| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door			| Front Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door			| Back Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window			| Living Room Window 	| Opened			| Closed					| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window			| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window			| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P3
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name through DIY registration

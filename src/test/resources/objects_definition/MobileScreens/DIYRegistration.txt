@@ -84,10 +84,10 @@ FirmwareUpdatePopupTitle	XPATH	//*[@text='Update Required']	XPATH	//*[@text='Upd
 OKButtonInFirmwareUpdatePopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 SetUpAccessoriesScreenTitle	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
 SensorSetUpButton	ID	sensor_setup_text	ID	sensor_setup_text	ID	sensor_setup_text	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton
-OverviewScreenTitle	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	NAME	Here's how it works	NAME	Here's how it works	NAME	Here's how it works
+OverviewScreenTitle	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	NAME	How it Works	NAME	How it Works	NAME	How it Works
 InProgressLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress
 LocateSensorScreenTitle	XPATH	//*[@text='Locate Sensor']	XPATH	//*[@text='Locate Sensor']	XPATH	//*[@text='Locate Sensor']	NAME	Find the lit sensor	NAME	Find the lit sensor	NAME	Find the lit sensor
-NameSensorScreenTitle	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	NAME	Select sensor location	NAME	Select sensor location	NAME	Select sensor location
+NameSensorScreenTitle	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	XPATH	//*[@text='Name Sensor']	XPATH	//*[@value='Name Sensor']	XPATH	//*[@value='Name Sensor']	XPATH	//*[@value='Name Sensor']
 DoorOptionInNameSensorScreen	ID	door	ID	door	ID	door	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']	XPATH	//*[@value='Door']
 FrontDoorOptionInNameSensorScreen	XPATH	//*[@text='Front Door']	XPATH	//*[@text='Front Door']	XPATH	//*[@text='Front Door']	NAME	Front Door	NAME	Front Door	NAME	Front Door
 SavingSensorLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	Saving Sensor…	NAME	Saving Sensor…	NAME	Saving Sensor…

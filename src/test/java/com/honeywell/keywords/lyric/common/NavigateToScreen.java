@@ -577,6 +577,20 @@ public class NavigateToScreen extends Keyword {
 							& DASSettingsUtils.navigateFromAmazonAlexaScreenToBaseStationConfigurationScreen(testCase);
 					break;
 				}
+				case "SENSOR LIST SETTINGS": {
+					//flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag
+							& DASSettingsUtils.navigateFromAmazonAlexaScreenToSensorListScreen(testCase);
+					if (flag) {
+						System.out.println("Successfully navigated to Sensor List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Sensor List Settings Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Sensor List Settings Screen");
+					}
+					break;
+				}
 				}
 			}
 
@@ -824,10 +838,6 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromConnectToNetworkToSmartHomeSecuritySuccess(testCase);
 					break;
 				}
-				case "SET UP ACCESSORIES": {
-					flag = flag & DIYRegistrationUtils.navigateFromConnectToNetworkToSetUpAccessories(testCase);
-					break;
-				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -928,6 +938,10 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
 					flag = flag & DIYRegistrationUtils.navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(testCase);
+					break;
+				}
+				case "SET UP ACCESSORIES": {
+					flag = flag & DIYRegistrationUtils.navigateFromSmartHomeSecuritySuccessToSetUpAccessories(testCase);
 					break;
 				}
 				}
@@ -1329,6 +1343,11 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
 						}
 					}
+					break;
+				}
+				case "BASE STATION CONFIGURATION": {
+					flag = flag
+							& DASSettingsUtils.navigateFromSensoListScreenToBaseStationConfigurationScreen(testCase);
 					break;
 				}
 				}
