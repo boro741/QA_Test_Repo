@@ -214,7 +214,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SETUP")||expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SETUP")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -228,6 +228,25 @@ public class PerformActionsOnPopUp extends Keyword {
 				if (dasDIY.isYesButtonInCancelPopupVisible()) {
 					flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
 				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} 
+		else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag &  sensor.clickOnDismissCancelButton();
+				break;
+			}
+			case "ACCEPTS": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag &  sensor.clickOnConfirmCancelButton();
 				break;
 			}
 			default: {

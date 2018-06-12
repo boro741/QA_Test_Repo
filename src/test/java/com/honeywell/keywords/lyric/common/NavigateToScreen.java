@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
+import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
@@ -218,6 +219,73 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
+				
+				case "KEYFOB CONFIGURATION SUCCESS":{
+
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+					flag = flag & security.clickOnSensorButton();
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollKeyfob(testCase, inputs);
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnSetUpButton("keyfob");
+					flag= flag  & sensor.editKeyfobName("keyfob");
+					break;
+				
+				}
+				case "SENSOR OVERVIEW":{
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+
+					flag = flag & security.clickOnSensorButton();
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					break;
+				}
+				case "KEYFOB OVERVIEW":{
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollKeyfob(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("KEYFOB");
+					break;
+				}
+				case "NAME KEYFOB":{
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollKeyfob(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("KEYFOB");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
+				}
 				case "DOOR ACCESS SETTINGS": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
@@ -1099,6 +1167,7 @@ public class NavigateToScreen extends Keyword {
 					if (!testCase.getPlatform().contains("IOS")) {
 						MobileUtils.pressBackButton(testCase);
 					}
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Test Signal Strength")) {
@@ -1107,6 +1176,14 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					sensor.clickOnSignalStrengthBackButton();
 					sensor.isAccessSensorHelpScreenDisplayed();
+					break;
+				}
+				case "TEST SENSOR":{
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					sensor.clickOnBackButton();
+					Thread.sleep(3000);
+					sensor.clickOnBackButton();
+				break;	
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Access Sensor Help")) {
@@ -1115,20 +1192,24 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnAccessSensorHelpBack();
 					flag = flag & sensor.isTestSensorHeadingDisplayed();
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Motion Sensor Help")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "TEST MOTION SENSOR":
+				case "TEST MOTION SENSOR":{
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnMotionSensorHelpBack();
 					flag = flag & sensor.clickOnAccessSensorHelpBack();
+					break;
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Test Access Sensor")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACCESS SENSOR SETTINGS": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnTestSensorBack();
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Access Sensor Settings")
@@ -1232,6 +1313,12 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Sensor List")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DOOR ACCESS SETTINGS":{
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+					security.clickOnUserGivenSensorName(givenSensorName);
+					break;
+				}
 				case "SECURITY SOLUTION CARD": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -1242,6 +1329,7 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
 						}
 					}
+					break;
 				}
 				}
 			}else  if(screen.get(1).equalsIgnoreCase("Keyfob List")){
@@ -1253,6 +1341,7 @@ public class NavigateToScreen extends Keyword {
 					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+					break;
 				}
 				}
 			}

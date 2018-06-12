@@ -124,6 +124,33 @@ public class VerifyingAOption extends Keyword {
 			}
 
 		}
+		else if(expectedScreen.get(1).toUpperCase().equals("CANCEL SENSOR SETUP POPUP")){
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+			
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(sensor.isCancelSetUpPopUpVisible()) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel sensor popup is displayed");
+					return flag;
+
+				} else {
+					 Keyword.ReportStep_Pass(testCase, "Cancel Sensor popup is not displayed");
+				
+				}
+				
+				break;
+			
+			}
+			}
+			
+			}
 		return flag;
 	}
 

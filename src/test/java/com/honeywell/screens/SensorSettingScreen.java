@@ -113,6 +113,10 @@ public class SensorSettingScreen extends MobileScreens {
 		return (status.equalsIgnoreCase("Good") || status.equalsIgnoreCase("Low"));
 	}
 
+	public boolean isSensorListScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorAddButton");
+	}
+
 	public boolean isFirmwareDetailsDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle")
 				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle");
@@ -584,6 +588,13 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnCancelButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 	}
+	
+	public boolean clickOnConfirmCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton_Yes");
+	}
+	public boolean clickOnDismissCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton_No");
+	}
 
 	public boolean isSetUpAccessoriesScreenDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpAccessoriesHeading",15);
@@ -610,7 +621,7 @@ public class SensorSettingScreen extends MobileScreens {
 		return false;
 	}
 	public boolean isCancelSetUpPopUpVisible() {
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelSensorSetupPopup",5)){
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelSensorSetupPopup",5)||MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelKeyfobSetupPopup",5)){
 		return true;
 		}
 		return false;

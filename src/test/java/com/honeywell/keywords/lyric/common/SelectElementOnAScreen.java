@@ -482,11 +482,27 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO":{
-						flag= flag & sensor.clickOnWatchHowToVideoButton();
+					flag= flag & sensor.clickOnWatchHowToVideoButton();
 					break;
 				}
 				case "GET STARTED":{
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+				}
+				case "CANCEL":{
+					if(sensor.isCancelButtonDisplayed()) {
+						flag= flag & sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				case "BACK":{
+					flag=sensor.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
 				}
 				}
 				if(flag) {
@@ -507,7 +523,11 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Place Sensor")) {
+			else if(parameters.get(1).equalsIgnoreCase("Place Sensor")
+					||parameters.get(1).equalsIgnoreCase("Sensor Overview")
+					||parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					||parameters.get(1).equalsIgnoreCase("NAME Keyfob")
+					||parameters.get(1).equalsIgnoreCase("Configuration Success")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "CANCEL":{
@@ -516,10 +536,19 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "BACK":{
+					flag=sensor.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
 				}
 				if(flag) {
-					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
-					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
 				}
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")||parameters.get(1).equalsIgnoreCase("Configuration Success")) {
@@ -527,6 +556,13 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DONE":{
 				    flag= flag & sensor.clickOnDoneButton();
+					break;
+				}
+				case "CANCEL":{
+					if(sensor.isCancelButtonDisplayed()) {
+						Thread.sleep(3000);
+						sensor.clickOnCancelButton();
+					}
 					break;
 				}
 				}
