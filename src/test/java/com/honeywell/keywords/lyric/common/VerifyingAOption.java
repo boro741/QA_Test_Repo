@@ -15,6 +15,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.SensorSettingScreen;
 
 
 public class VerifyingAOption extends Keyword {
@@ -26,11 +27,11 @@ public class VerifyingAOption extends Keyword {
 
 	public VerifyingAOption(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
-		 this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
-		
+
 	}
-	
+
 	public boolean preCondition() throws KeywordException {
 		return flag;
 	}
@@ -41,10 +42,10 @@ public class VerifyingAOption extends Keyword {
 		JSONObject tempJSON= (JSONObject)LyricUtils.getLocationInformation(testCase, inputs);
 		long locationID=tempJSON.getLong("locationID");
 		if(expectedScreen.get(1).toUpperCase().equals("FR")){
-		switch (expectedScreen.get(0).toUpperCase()) {
-		
-		case "SHOULD BE DISPLAYED": {
-			SecondaryCardSettings  scs = new SecondaryCardSettings(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+
+			case "SHOULD BE DISPLAYED": {
+				SecondaryCardSettings  scs = new SecondaryCardSettings(testCase);
 				try {
 					if (scs.isFROptionAvailable(3)) {
 						Keyword.ReportStep_Pass(testCase,
@@ -60,42 +61,68 @@ public class VerifyingAOption extends Keyword {
 				}
 				break;
 			}
-		case "SHOULD NOT BE DISPLAYED":{
-			SecondaryCardSettings  scs = new SecondaryCardSettings(testCase);
-			try {
-				if (!scs.isFROptionAvailable(3)) {
-					Keyword.ReportStep_Pass(testCase,
-							"Facial Recognition Option is not present on the Secondary Cards screen");
-					
-					
-				} else {
+			case "SHOULD NOT BE DISPLAYED":{
+				SecondaryCardSettings  scs = new SecondaryCardSettings(testCase);
+				try {
+					if (!scs.isFROptionAvailable(3)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Facial Recognition Option is not present on the Secondary Cards screen");
+
+
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Facial Recognition Option is  present on the Secondary Cards screen but should not");
+					}
+				} catch (Exception e) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Facial Recognition Option is  present on the Secondary Cards screen but should not");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
-			} catch (Exception e) {
+				finally{
+					//Update to the location where FR will permit
+					FRUtils.updateLocationThroughCHIL(testCase, inputs,"{\"city\":\"Chicago Ridge\",\"state\":\"NY\",\"country\":\"US\",\"zipcode\":\"11747\"}",locationID);
+				}
+				break;
+
+			}
+
+
+
+			default: {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
 			}
-			finally{
-				//Update to the location where FR will permit
-				FRUtils.updateLocationThroughCHIL(testCase, inputs,"{\"city\":\"Chicago Ridge\",\"state\":\"NY\",\"country\":\"US\",\"zipcode\":\"11747\"}",locationID);
 			}
-			break;
-			
 		}
-			
-		
-		
-		default: {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
+		else if(expectedScreen.get(1).toUpperCase().equals("TEST SENSOR SCREEN CANCEL")){
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+
+			case "SHOULD NOT BE DISPLAYED": {
+				if(sensor.isCancelButtonDisplayed()){
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1)+" is displayed");
+				}
+				else {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not displayed");
+				}
+			}
+			}
+
 		}
-		}
-		}
-		else
-		{
-			flag=false;
+		else if(expectedScreen.get(1).toUpperCase().equals("TEST SENSOR SCREEN BACK")){
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+
+			case "SHOULD NOT BE DISPLAYED": {
+				if(sensor.isBackButtonDisplayed()) {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1)+" is displayed");
+				}
+				else {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not displayed");
+				}
+			}
+			}
+
 		}
 		return flag;
 	}

@@ -1,7 +1,7 @@
 @KeyfobSettings
 Feature: Test the enrollment and settings of keyfob
 
-@DAS_KeyFobEnrollment
+@DAS_KeyFobSettingPreCondition
 Scenario: 1- As a user I should be able to successfully enroll KeyFob and Assistance video 
 Given user launches and logs in to the Lyric application
 And user is set to "Home" mode through CHIL

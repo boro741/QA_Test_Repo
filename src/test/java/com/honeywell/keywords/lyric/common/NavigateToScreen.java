@@ -2,6 +2,7 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -530,7 +531,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1232,15 +1233,30 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("Sensor List")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SECURITY SOLUTION CARD": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					if (sensor.clickOnBackButton()) {
 						Keyword.ReportStep_Pass(testCase, "Navigated to Base station settings");
-						flag = flag & sensor.clickOnBackButton();
-						Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						if(!security.isAppSettingsIconVisible(10)) {
+							flag = flag & sensor.clickOnBackButton();
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						}
 					}
 				}
 				}
-			} else {
+			}else  if(screen.get(1).equalsIgnoreCase("Keyfob List")){
+				switch (screen.get(0).toUpperCase()) {
+				case "KEYFOB SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					String keyfobName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
+					flag = flag & bs.selectSensorFromSensorList(keyfobName);
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
+					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+				}
+				}
+			}
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

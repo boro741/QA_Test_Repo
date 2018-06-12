@@ -507,6 +507,21 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
+			else if(parameters.get(1).equalsIgnoreCase("Place Sensor")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL":{
+					if(sensor.isCancelButtonDisplayed()) {
+						sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				}
+				if(flag) {
+					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
+				}
+			}
 			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")||parameters.get(1).equalsIgnoreCase("Configuration Success")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
