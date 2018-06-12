@@ -52,6 +52,18 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SENSOR LIST":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				if (sensor.isSensorListScreenDisplayed()) {
+					Keyword.ReportStep_Pass(testCase,
+							" displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"not displayed with " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "NO ALARM": {
 				if (!DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)) {
 					Keyword.ReportStep_Pass(testCase,

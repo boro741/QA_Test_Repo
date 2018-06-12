@@ -29,7 +29,6 @@ Then user should not be displayed with "Keyfob" device on the "Keyfob list" scre
 Examples:
 |Mode |Custom name|
 |Home |Keyfob|
-
 #incaseerequied
 #|OFF |Keyfob|
 
@@ -37,45 +36,43 @@ Examples:
 Scenario Outline: Verify cancel functionality in all screens while enrolling a Key Fob
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
-When user navigates to "KEYFOB list Settings" screen from the "Dashboard" screen
-Then user selects "Add button" from "Keyfob List Settings" screen
-When user press "enrollment" key from keyfob
-When user navigates to the <PreScreen> screen 
-And user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "dismisses" the "Cancel Setup" popup
+When user navigates to <PreScreen> screen from the "Dashboard" screen 
+And user selects "cancel" from <PreScreen> screen
+Then user should receive a "CANCEL SENSOR SETUP" popup
+When user "dismisses" the "CANCEL SENSOR SETUP" popup
 Then user should be displayed with the <PreScreen> screen
-When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Set Up Accessories" screen without displaying any sensor
+And user selects "cancel" from <PreScreen> screen
+Then user should receive a "CANCEL SENSOR SETUP" popup
+When user "accepts" the "CANCEL SENSOR SETUP" popup
+Then user should be displayed with the "Set Up Accessories" screen
 		
 Examples:
 |Mode|PreScreen |
 |Home|Sensor Overview |
-|Home|Name Key Fob |
-|Home|Key Fob|
+|Home|NAME KEYFOB |
+|Home|KEYFOB Overview|
 
 #incaserequired 
-|OFF|Sensor Overview |
-| OFF |Name Key Fob |
-| OFF |Key Fob|
+#|OFF|Sensor Overview |
+#|OFF|Name Key Fob |
+#|OFF|Key Fob|
+
 
 @DASKeyFobEnrollmentVerifyBackArrowFunctionality
 Scenario Outline: Verify Back arrow functionality in all screens while enrolling a Key Fob
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to the <PreScreen> screen
-And user selects "Back arrow" from <PreScreen> screen
+And user is set to <Mode> mode through CHIL
+When user navigates to <PreScreen> screen from the "Dashboard" screen 
+And user selects "Back" from <PreScreen> screen
 Then user should be displayed with the <PostScreen> screen
 
 Examples:
 |Mode |PreScreen				 |PostScreen |
-|Home |Sensor Overview 			| Set up Accessories |
-|Home |Name Key Fob				| Sensor Overview |
-|Home |Key Fob				| Name Key Fob |
+#|Home |Sensor Overview 			| Set up Accessories |
+#|OFF |Name KeyFob				| KeyFob Overview |
+|Home |Keyfob Configuration Success			| Name KeyFob |
 
 #incaserequired
-|OFF |Sensor Overview 			| Set up Accessories |
-| OFF |Name Key Fob				| Sensor Overview |
-| OFF |Key Fob				| Name Key Fob |
+#|OFF |Sensor Overview 			| Set up Accessories |
+#| Home |Name Key Fob				| Sensor Overview |
+#| OFF |Key Fob				| Name Key Fob |
