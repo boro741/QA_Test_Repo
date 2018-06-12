@@ -443,7 +443,40 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnDoneButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		try {
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				try {
+					TimeUnit.SECONDS.sleep(4);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (MobileUtils.isMobElementExists("xpath",
+						"//XCUIElementTypeButton[contains(@name,'rightButton')]",
+						testCase, 10)) {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+				} else {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("xpath", "//android.widget.Button[contains(@text,'Set Up')]",
+						testCase, 10)) {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+				} else {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+				}
+			}
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not able to locate " + e.getMessage(),
+					true);
+			return false;
+
+		}
 	}
 
 	public boolean checkSensorNameNotInSensorList(String sensorName) {

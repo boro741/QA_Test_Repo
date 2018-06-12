@@ -53,8 +53,8 @@ Examples:
 |Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Setting screen|
 |Home | Door | Front Door| Opened | Closed |Door Access settings|
 |Home | Window | Living Room Window | Opened | Closed |Window Access settings|
-#|OFF | Door | Back Door| Opened | Closed |Door Access settings|
-#|OFF | Window |Dining Room Window | Opened | Closed |Window Access settings|
+|OFF | Door | Back Door| Opened | Closed |Door Access settings|
+|OFF | Window |Dining Room Window | Opened | Closed |Window Access settings|
 
 #incaserequired
 #|Home | Door | Back Door| Opened | Closed |
