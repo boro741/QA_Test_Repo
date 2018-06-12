@@ -300,6 +300,20 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
+				case "WINDOW ACCESS SETTINGS": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+
+					flag = flag & security.clickOnSensorButton();
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
+					security.clickOnUserGivenSensorName(givenSensorName);
+
+					break;
+				}
 				case "MOTION SENSOR SETTINGS": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");

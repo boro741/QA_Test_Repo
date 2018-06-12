@@ -1,13 +1,13 @@
 @AccessSensorEnrollment
 Feature: Verify Sensor Enrolment Functionally
 
-@1DASAccessSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo
+@DASAccessSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo
 Scenario Outline: a- As a user I should be able to successfully enrol Access Sensor with default sensor name and video should play for assistance in sensor enrolment 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
 When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
 Then user selects "Add button" from "Sensor List Settings" screen
-When user door "enrolled"
+When user <Sensor Location> access sensor "enrolled"
 And  user selects "Access sensor SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
@@ -26,9 +26,9 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
-When user door "Opened"
+When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
-When user door "closed"
+When user <Sensor Location> access sensor "closed"
 Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -39,25 +39,22 @@ Then user should see the <Sensor Location> status as "closed" on the "Sensor Lis
 When user navigates to "Security Solution card" screen from the "Sensor List" screen
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
-When user navigates to "Door Access settings" screen from the "Dashboard" screen 
-And user "deletes Access Sensor" by clicking on "delete" button
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to  <Access Setting screen> screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should be displayed with "Unable to delete sensor" pop up 
-When user selects the "OK" button
-Then user display with "Door Access settings" screen
-Then user should be displayed with "Access Sensor" on the "sensors" screen
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 
 Examples:
-|Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |
-|Home | Door | Front Door| Opened | Closed |
-|Home | Window | Living Room Window | Opened | Closed |
-|OFF | Door | Back Door| Opened | Closed |
-|OFF | Window |Dining Room Window | Opened | Closed |
+|Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Setting screen|
+|Home | Door | Front Door| Opened | Closed |Door Access settings|
+|Home | Window | Living Room Window | Opened | Closed |Window Access settings|
+#|OFF | Door | Back Door| Opened | Closed |Door Access settings|
+#|OFF | Window |Dining Room Window | Opened | Closed |Window Access settings|
 
 #incaserequired
 #|Home | Door | Back Door| Opened | Closed |
@@ -135,9 +132,8 @@ Examples:
 #|OFF| Window | Kitchen Window | Open | Closed |Window Access Settings|
 
 
-#@DASAccessSensorEnrollmentWithDuplicateSensorName
- 
-Scenario: As a user I should get a Sensor Name Already Assigned popup when I enrol Access Sensor with duplicate sensor name
+@DASAccessSensorEnrollmentWithDuplicateSensorName
+Scenario Outline: As a user I should get a Sensor Name Already Assigned popup when I enrol Access Sensor with duplicate sensor name
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
 When user navigates to "Sensor List Settings" screen from the "Dashboard" screen

@@ -486,6 +486,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "GET STARTED":{
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
 				}
 				case "CANCEL":{
 					if(sensor.isCancelButtonDisplayed()) {

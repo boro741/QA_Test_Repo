@@ -753,10 +753,10 @@ public class VerifyStatusOnScreen extends Keyword {
 				case "CLOSED":
 				case "OPEN": {
 					if (sensor.isWindowStatusVisible(expectedScreen.get(1), inputs)) {
-						Keyword.ReportStep_Pass(testCase, "Door Sensor is " + (expectedScreen.get(1)));
+						Keyword.ReportStep_Pass(testCase, "Window Sensor is " + (expectedScreen.get(1)));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
-								"Door Sensor is not " + (expectedScreen.get(1)));
+								"Window Sensor is not " + (expectedScreen.get(1)));
 					}
 
 					break;

@@ -2,7 +2,7 @@
 Feature: DAS Access Sensor
 As a user I want to check the functioning of Access sensor 
 
-@DASAccessSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo
+@DASAccessSensorEnrollment-Precondition
 Scenario Outline: a- As a user I should be able to successfully enrol Access Sensor with default sensor name and video should play for assistance in sensor enrolment 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL

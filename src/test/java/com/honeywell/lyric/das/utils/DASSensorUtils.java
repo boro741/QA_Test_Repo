@@ -298,6 +298,7 @@ public class DASSensorUtils {
 		boolean sensorStateMatched = false;
 		for (int i = 0; i < list.size(); i++) {
 			if (testCase.getPlatform().contains("IOS")) {
+				//Sensor status
 				if (testCase.getMobileDriver()
 						.findElements(By.xpath(
 								"//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[@value='" + sensorName + "']"))
@@ -342,7 +343,10 @@ public class DASSensorUtils {
 						sensorStateMatched = true;
 						break;
 					}
+					SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
+					flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
 				}else{
+					//Sensor list
 					List<MobileElement> sensorNameList = testCase.getMobileDriver()
 							.findElements(By.xpath("//*[@name='Sensor_cell']//*[@name='Sensor_subTitle']"));
 					List<MobileElement> sensorStatusList = testCase.getMobileDriver()
@@ -423,8 +427,6 @@ public class DASSensorUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Sensor: " + sensorName + " state expected is " + sensorState);
 		}
-		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
-		flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
 		return flag;
 	}
 }
