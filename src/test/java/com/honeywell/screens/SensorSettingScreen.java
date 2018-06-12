@@ -466,13 +466,11 @@ public class SensorSettingScreen extends MobileScreens {
 				// testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.KEYCODE_ENTER);
 
 				MobileUtils.clickOnCoordinate(testCase, 991, 1804);
-				// TODO
 				if (customName.toUpperCase().contains("DOOR")) {
 					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", customName);
 				} else if (customName.toUpperCase().contains("WINDOW")) {
 					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", customName);
-				} else if (customName.toUpperCase().contains("HALL")
-						|| customName.toUpperCase().contains("LIVING ROOM")) {
+				} else if (customName.toUpperCase().contains("MOTION SENSOR")) {
 					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", customName);
 				}
 

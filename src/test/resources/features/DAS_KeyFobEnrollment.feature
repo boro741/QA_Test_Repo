@@ -29,6 +29,7 @@ Then user should not be displayed with "Keyfob" device on the "Keyfob list" scre
 Examples:
 |Mode |Custom name|
 |Home |Keyfob|
+
 #incaseerequied
 #|OFF |Keyfob|
 
@@ -68,8 +69,8 @@ Then user should be displayed with the <PostScreen> screen
 
 Examples:
 |Mode |PreScreen				 |PostScreen |
-#|Home |Sensor Overview 			| Set up Accessories |
-#|OFF |Name KeyFob				| KeyFob Overview |
+|Home |Sensor Overview 			| Set up Accessories |
+|OFF |Name KeyFob				| KeyFob Overview |
 |Home |Keyfob Configuration Success			| Name KeyFob |
 
 #incaserequired
