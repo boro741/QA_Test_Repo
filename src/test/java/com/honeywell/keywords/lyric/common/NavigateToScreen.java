@@ -592,8 +592,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SENSOR LIST SETTINGS": {
-					//flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag
 							& DASSettingsUtils.navigateFromAmazonAlexaScreenToSensorListScreen(testCase);
 					if (flag) {

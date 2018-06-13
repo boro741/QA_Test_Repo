@@ -341,7 +341,6 @@ public class DASSensorUtils {
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
-						break;
 					}
 					SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 					flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);

@@ -40,7 +40,7 @@ When user navigates to "Security Solution card" screen from the "Sensor List" sc
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
-When user navigates to  <Access Setting screen> screen from the "Dashboard" screen 
+When user navigates to <Access Setting screen> screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
