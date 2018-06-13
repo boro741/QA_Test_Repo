@@ -391,7 +391,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnCancelButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			case "ACCEPTS": {

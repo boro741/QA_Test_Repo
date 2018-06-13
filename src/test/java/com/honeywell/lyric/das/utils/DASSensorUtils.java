@@ -260,7 +260,7 @@ public class DASSensorUtils {
 	public boolean verifySensorState(TestCases testCase, TestCaseInputs inputs, String sensor, String states) {
 		String sensorName = "";
 		String sensorState = "";
-		if (sensor.contains("Door")) {
+		if (sensor.equalsIgnoreCase("Door")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 		} else if (sensor.equalsIgnoreCase("window")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
@@ -341,7 +341,6 @@ public class DASSensorUtils {
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
-						break;
 					}
 					SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 					flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);

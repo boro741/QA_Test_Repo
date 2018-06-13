@@ -337,9 +337,6 @@ public class DASSettingsUtils {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			if (bs.isBackButtonVisible()) {
 				flag = flag & bs.clickOnBackButton();
-				if (bs.isBackButtonVisible()) {
-					flag = flag & bs.clickOnBackButton();
-				}
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 		} catch (Exception e) {

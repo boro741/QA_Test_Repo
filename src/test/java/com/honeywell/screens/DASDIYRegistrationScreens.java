@@ -477,19 +477,27 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isNextButtonVisible() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", 5)) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton");
-		} else {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean clickOnNextButton() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", 5)) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
-		} else {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean isLookingForBaseStationProgressBarVisible() {
@@ -1164,19 +1172,27 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isEnableButtonInGeoFencingScreenVisible() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen", 5)) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
-		} else {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean clickOnEnableButtonInGeoFencingScreen() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInGeoFencingScreen", 5)) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
-		} else {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInGeoFencingScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean isEnablingGeoFencingLoadingProgressBarVisible() {
@@ -1236,19 +1252,28 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isSaveButtonGeoFenceEnabledScreenVisible() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen", 5)) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen");
-		} else {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+			flag = flag
+					& MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean clickOnSaveButtonGeoFenceEnabledScreen() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen", 5)) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen");
-		} else {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInGeoFenceEnabledScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean isAmazonAlexaHeaderTitleVisible() {
@@ -1272,19 +1297,27 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isEnableButtonInAmazonAlexaVisible() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa", 5)) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa");
-		} else {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean clickOnEnableButtonInAmazonAlexaScreen() {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpButtonInAmazonAlexa", 5)) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpButtonInAmazonAlexa");
-		} else {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpButtonInAmazonAlexa");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
 		}
+		return flag;
 	}
 
 	public boolean isSignInToAmazonAlexaScreenTitleVisible() {

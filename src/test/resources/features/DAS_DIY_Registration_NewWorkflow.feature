@@ -1365,7 +1365,21 @@ Examples:
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration
 #Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 Given user launches and logs in to the Lyric application
-#And user door "enrolled"
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#And user <Sensor Location> access sensor "enrolled"
 When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
@@ -1384,37 +1398,38 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
-#When user door "Opened"
+#When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
-#When user door "closed"
-#Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+#When user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
 When user selects "Done" from "Test Sensor" screen
 Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
 When user selects "Done" from "Set Up Accessories" screen
-#Then user should be displayed with the "Enable Geofencing" screen
-#When user navigates to "Geofence" screen from the "Enable Geofencing" screen
-#Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
-#When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-#And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-#Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "Dashboard" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
-#Then user should be displayed with "Security" device on the "dashboard" screen
-#And user should be displayed with <device name> device on the "dashboard" screen
-#When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
-#Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
 When user navigates to "Sensor List Settings" screen from the "Amazon Alexa Settings" screen
-Then user should see the <Sensor Location Area> status as "closed" on the "Sensor List"
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
 When user navigates to "Security Solution card" screen from the "Sensor List" screen
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
-When user navigates to <Access Sensor Settings> screen from the "Security Solution card" screen
-When user selects "delete sensor" from <Access Sensor Settings> screen
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
-When user selects "deletes sensor" from <Access Sensor Settings> screen
+And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
@@ -1429,9 +1444,9 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Sensor Settings		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open		| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window 		| Living Room Window 	| Open 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+#| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
+| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| prabha@08				|
 #incaserequired
 #| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 #| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
