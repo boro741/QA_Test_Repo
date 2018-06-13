@@ -74,14 +74,12 @@ Examples:
 @DASKeyFobDuplicatenameVerification
 Scenario Outline:AS a user I want to verify duplicate name my KeyFob sensor through the application
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "KeyFob settings" screen from the "Dashboard"
-When user edits the "KeyFob1" for first keyfob
-Then user edits the "KeyFob1" for second keyfob
-And user navigates to "Sensors" screen from the "KeyFob" screen
-Then user should receive with "Sensor Name Already Assigned, Pleases Pleases give different name" pop up 
-And user should not displayed with "KeyFob1" name for second keyfob
-And user reverts back the "KeyFob" Sensor name through CHIL
+And user is set to <Mode> mode through CHIL
+When user navigates to "Keyfob list" screen from the "Dashboard" screen
+Then user edits the "keyfob" name to "configured door"
+Then user should receive a "Sensor Name Already Assigned, Pleases Pleases give different name" popup 
+Then user should be displayed with "second keyfob" device on the "keyfob settings" screen
+#And user reverts back the "KeyFob" Sensor name through CHIL
 Examples:
 |Mode|
 |Home|

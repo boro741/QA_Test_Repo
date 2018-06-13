@@ -235,6 +235,17 @@ public class VerifyDisplayedPopUp extends Keyword {
 			
 			break;
 		}
+		case "TIME OUT":{
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			if(sensor.isTimeOutErrorForDiscoveryDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "TimeOut popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "TimeOut popup is not displayed");
+				return flag;
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

@@ -1010,7 +1010,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
 		} else {
-			return MobileUtils.isMobElementExists("xpath", "//*[@value='" + availableSensorName + "']", testCase);
+			return MobileUtils.isMobElementExists("xpath", "//*[@name='" + availableSensorName + "']", testCase);
 		}
 	}
 
@@ -1018,7 +1018,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
 		} else {
-			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@value='" + availableSensorName + "']");
+			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@name='" + availableSensorName + "']");
 		}
 	}
 

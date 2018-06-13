@@ -804,6 +804,9 @@ public class VerifyStatusOnScreen extends Keyword {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "MOTION SENSOR":
+			case "WINDOW SENSOR":
+			case "WINDOW":
+			case "DOOR":
 			case "DOOR SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "HIGH": {
