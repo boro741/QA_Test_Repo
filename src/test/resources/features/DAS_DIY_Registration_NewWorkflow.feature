@@ -1446,7 +1446,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
 #| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
-| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| prabha@08				|
+| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
 #incaserequired
 #| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 #| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
