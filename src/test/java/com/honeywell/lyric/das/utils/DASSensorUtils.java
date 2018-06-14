@@ -21,7 +21,8 @@ public class DASSensorUtils {
 
 	public static boolean enrollDoor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("DOOR_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("DOOR_ENROLLED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIContactSensorEnroll_Door();
 		} catch (Exception e) {
@@ -77,10 +78,10 @@ public class DASSensorUtils {
 		return flag;
 	}
 
-
 	public static boolean enrollWindow(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("WINDOW_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("WINDOW_ENROLLED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIContactSensorEnroll_Window();
 		} catch (Exception e) {
@@ -117,7 +118,8 @@ public class DASSensorUtils {
 
 	public static boolean enrollMotionSensor(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("MOTIONSENSOR_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("MOTIONSENSOR_ENROLLED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIMotionSensorEnroll();
 		} catch (Exception e) {
@@ -199,10 +201,11 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean enrollKeyfob(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue("KEYFOB_ENROLLED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("KEYFOB_ENROLLED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			RelayUtils.RSIKeyfobEnroll();
 		} catch (Exception e) {
@@ -210,7 +213,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean setHomeViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("KEYFOB_HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -232,6 +235,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+
 	public static boolean setNightViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("KEYFOB_NIGHT_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -242,6 +246,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+
 	public static boolean setOffViaKeyfob(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("KEYFOB_OFF_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -252,12 +257,14 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+
 	public static List<WebElement> getSensorList(TestCases testCase) {
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		return sensorStatusScreen.getSensorList();
 	}
 
 	public boolean verifySensorState(TestCases testCase, TestCaseInputs inputs, String sensor, String states) {
+		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		String sensorName = "";
 		String sensorState = "";
 		if (sensor.equalsIgnoreCase("Door")) {
@@ -299,7 +306,7 @@ public class DASSensorUtils {
 		for (int i = 0; i < list.size(); i++) {
 			if (testCase.getPlatform().contains("IOS")) {
 				System.out.println("Sensor status");
-				//Sensor status
+				// Sensor status
 				if (testCase.getMobileDriver()
 						.findElements(By.xpath(
 								"//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[@value='" + sensorName + "']"))
@@ -323,16 +330,14 @@ public class DASSensorUtils {
 					}
 					/*
 					 * if (MobileUtils.isMobElementExists("NAME", "RightButton", testCase)) {
-						MobileUtils.clickOnElement(testCase, "NAME", "RightButton");
-						if (MobileUtils.isMobElementExists("NAME", "Sensor Tamper", testCase)
-								&& MobileUtils.isMobElementExists("NAME", "Retry", testCase)) {
-							MobileUtils.clickOnElement(testCase, "NAME", "Retry");
-						} else {
-							DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 1);
-
-						}
-					}
-					 * if (testCase.getMobileDriver().findElements(By.xpath(
+					 * MobileUtils.clickOnElement(testCase, "NAME", "RightButton"); if
+					 * (MobileUtils.isMobElementExists("NAME", "Sensor Tamper", testCase) &&
+					 * MobileUtils.isMobElementExists("NAME", "Retry", testCase)) {
+					 * MobileUtils.clickOnElement(testCase, "NAME", "Retry"); } else {
+					 * DASCommandControlUtils.waitForProgressBarToComplete(testCase,
+					 * "LOADING PROGRESS TEXT", 1);
+					 * 
+					 * } } if (testCase.getMobileDriver().findElements(By.xpath(
 					 * "//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[contains(@value,'" +
 					 * sensorState + "')]")).size() > 0) { Keyword.ReportStep_Pass(testCase,
 					 * sensorName + " is in " + sensorState); sensorStateMatched = true; break; }
@@ -343,17 +348,15 @@ public class DASSensorUtils {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
 					}
-					SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
-					flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
-				}else{
+				} else {
 					System.out.println("Sensor list");
-					//Sensor list
+					// Sensor list
 					List<MobileElement> sensorNameList = testCase.getMobileDriver()
 							.findElements(By.xpath("//*[@name='Sensor_cell']//*[@name='Sensor_subTitle']"));
 					List<MobileElement> sensorStatusList = testCase.getMobileDriver()
 							.findElements(By.xpath("//*[@name='Sensor_cell']//*[@name='Sensor_value']"));
-					for(int k=0; k<=sensorNameList.size(); k++){
-						if (sensorNameList.get(k).getAttribute("value").equalsIgnoreCase(sensorName )){
+					for (int k = 0; k < sensorNameList.size(); k++) {
+						if (sensorNameList.get(k).getAttribute("value").equalsIgnoreCase(sensorName)) {
 							if (states.contains("tamper cleared")) {
 								sensorStatusList.get(k).click();
 								try {
@@ -365,15 +368,12 @@ public class DASSensorUtils {
 										LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 								Keyword.ReportStep_Pass(testCase,
 										"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
-							}else if(sensorStatusList.get(k).getAttribute("value").equalsIgnoreCase(states)){
+							} else if (sensorStatusList.get(k).getAttribute("value").equalsIgnoreCase(states)) {
 								Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 								sensorStateMatched = true;
 								break;
 							}
-							
-							
 						}
-						
 					}
 				}
 			} else {
@@ -386,9 +386,9 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-											.getText());
+													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+													.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 							// MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
 							try {
@@ -412,13 +412,13 @@ public class DASSensorUtils {
 							.size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
-						break;
 					}
-
-				} else {
 
 				}
 			}
+		}
+		if (sensorStatusScreen.isSensorStatusVisible() && sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
+			flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
 		}
 		if (list.size() == 0) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "not able to read Sensor list");
