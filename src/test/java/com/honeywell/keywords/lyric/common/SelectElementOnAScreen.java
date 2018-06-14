@@ -351,15 +351,30 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.selectAvailableNetworkType(testCase, parameters.get(0));
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
-				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-				if(parameters.get(0).toUpperCase().contains("DOOR")) {
-					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(0));
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK":{
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag=settingScreen.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
 				}
-				else if(parameters.get(0).toUpperCase().contains("WINDOW")) {
-					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(0));
+				default:{
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+					if(parameters.get(0).toUpperCase().contains("DOOR")) {
+						inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(0));
+					}
+					else if(parameters.get(0).toUpperCase().contains("WINDOW")) {
+						inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(0));
+					}
+					else if(parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
+						inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
+					}
 				}
-				else if(parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
-					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
 				}
 				/*flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);*/
@@ -431,9 +446,7 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "GET ADDITIONAL HELP":{
-					if(!testCase.getPlatform().contains("IOS")){
-						flag= flag & sensor.clickOnGetAdditionalHelpButton();
-					}
+					flag= flag & sensor.clickOnGetAdditionalHelpButton();
 					break;
 				}
 				case "TEST SIGNAL STRENGTH":{
@@ -470,6 +483,16 @@ public class SelectElementOnAScreen extends Keyword {
 					flag= flag & sensor.clickOnSetUpButton(parameters.get(0));
 					break;
 				}
+				case "BACK":{
+					flag=sensor.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
 				case "DONE":{
 					Thread.sleep(3000);
 					flag= flag & sensor.clickOnDoneButton();
@@ -486,7 +509,7 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Sensor Overview")||parameters.get(1).equalsIgnoreCase("Keyfob Overview")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
- 				switch (parameters.get(0).toUpperCase()) {
+				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO":{
 					flag= flag & sensor.clickOnWatchHowToVideoButton();
 					break;
@@ -528,6 +551,16 @@ public class SelectElementOnAScreen extends Keyword {
 					flag= flag & sensor.clickOnWontFitAsShownButton();
 					break;
 				}
+				case "BACK":{
+					flag=sensor.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
 				default:{
 					flag=false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
@@ -541,7 +574,8 @@ public class SelectElementOnAScreen extends Keyword {
 			else if(parameters.get(1).equalsIgnoreCase("Place Sensor")
 					||parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					||parameters.get(1).equalsIgnoreCase("Keyfob Overview")
-					||parameters.get(1).equalsIgnoreCase("NAME Keyfob")) {
+					||parameters.get(1).equalsIgnoreCase("NAME Keyfob")
+					) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "CANCEL":{
@@ -569,12 +603,28 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
 				}
 			}
+			else if(parameters.get(1).equalsIgnoreCase("Locate Sensor")){
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK":{
+					flag=sensor.clickOnTestSensorBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				}
+
+			}
 			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")||parameters.get(1).equalsIgnoreCase("Configuration Success")
 					||parameters.get(1).equalsIgnoreCase("keyfob Configuration Success")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "DONE":{
-				    flag= flag & sensor.clickOnDoneButton();
+					flag= flag & sensor.clickOnDoneButton();
 					break;
 				}
 				case "CANCEL":{

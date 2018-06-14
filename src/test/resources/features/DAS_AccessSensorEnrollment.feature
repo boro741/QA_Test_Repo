@@ -354,16 +354,17 @@ Examples:
 @DASAccessSensorEnrollmentVerifyCancelFunctionality
 Scenario Outline: Verify cancel functionality in all screens while enrolling a Access Sensor
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to the <PreScreen> screen 
+And user is set to <Mode> mode through CHIL
+When user navigates to "SENSOR LIST SETTINGS" screen from the "Dashboard" screen
+When user navigates to <PreScreen> screen from the "Sensor List" screen
 And user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "dismisses" the "Cancel Setup" popup
+Then user should receive a "Cancel sensor Setup" popup
+When user "dismisses" the "Cancel sensor Setup" popup
 Then user should be displayed with the <PreScreen> screen
 When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Set Up Accessories" screen without displaying any sensor
+Then user should receive a "Cancel sensor Setup" popup
+When user "accepts" the "Cancel sensor Setup" popup
+Then user should be displayed with the "Set Up Accessories" screen
 		
 Examples:
 |Mode|PreScreen |
@@ -371,27 +372,27 @@ Examples:
 |Home|Locate Sensor |
 |Home|Name Sensor Location|
 |Home|Name sensor Default Name |
-|Home|Name sensor Custom name |
 |Home|Place Sensor|
 |Home|Place Sensor on Location|
-|Home|Test Sensor|
-|OFF|Sensor Overview |
-| OFF |Locate Sensor |
-| OFF |Name Sensor Location|
-| OFF |Name sensor Default Name |
-| OFF |Name sensor Custom name |
-| OFF |Place Sensor|
-| OFF |Place Sensor on Location|
-| OFF |Test Sensor|
+|Home|TEST ACCESS SENSOR|
+#Incaserequired 
+#|OFF|Sensor Overview |
+#| OFF |Locate Sensor |
+#| OFF |Name Sensor Location|
+#| OFF |Name sensor Default Name |
+#| OFF |Name sensor Custom name |
+#| OFF |Place Sensor|
+#| OFF |Place Sensor on Location|
+#| OFF |Test Sensor|
 
 
-@DASAccessSensorEnrollmentVerifyCancelFunctionalityAfterTestSensor
+@DASAccessSensorEnrollmentVerifyAutodismissofCancelFunctionalityAfterTestSensor
 Scenario Outline: Verify cancel functionality in all screens while enrolling a Access Sensor
 Given user launches and logs in to the Lyric application
-#And user is set to <Mode> mode through CHIL
+And user is set to <Mode> mode through CHIL
 When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
 Then user selects "Add button" from "Sensor List Settings" screen
-#When user door "enrolled"
+When user "door" access sensor "enrolled"
 And user selects "Access sensor SETUP button" from "Set Up Accessories" screen
 When user selects "Get Started" from "Sensor Overview" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
@@ -401,8 +402,8 @@ When user navigates to "Place Sensor on location" screen from the "Place Sensor"
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
 And user selects "cancel" from "Test Sensor" screen
 Then user should receive a "Cancel Sensor Setup" popup
-#When user door "Opened"
-#When user door "closed"
+When user "door" access sensor "OPENED"
+When user "door" access sensor "CLOSED"
 Then user "should not be displayed" with the "Cancel Sensor Setup popup" option
 Then user should see the "door" status as <Access Status Update> on the "Test Access Sensor"
 When user selects "Done" from "Test Sensor" screen
@@ -425,37 +426,41 @@ Examples:
 @DASAccessSensorEnrollmentVerifyBackArrowFunctionality
 Scenario Outline: Verify Back arrow functionality in all screens while enrolling a Access Sensor
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to the <PreScreen> screen
-And user selects "Back arrow" from <PreScreen> screen
+And user is set to <Mode> mode through CHIL
+When user navigates to "SENSOR LIST SETTINGS" screen from the "Dashboard" screen
+When user navigates to <PreScreen> screen from the "Sensor List" screen
+And user selects "Back" from <PreScreen> screen
 Then user should be displayed with the <PostScreen> screen
 
 Examples:
 |Mode|PreScreen				 |PostScreen |
 |Home|Sensor Overview 			| Set up Accessories |
-|Home|Locate Sensor 				|Sensor Overview |
-|Home|Name Sensor Location		| Location Sensor |
-|Home|Name sensor Default Name 	|Name Sensor Location|
-|Home|Name sensor Custom name 	| Name sensor Default Name |
-|Home|Place Sensor				| Name sensor Default Name |
-|Home|Place Sensor				| Name sensor Custom name | # Navigates from sensor Custom name
+|Home|Locate Sensor 			|Sensor Overview |
+|Home|Name Sensor Location		| Locate Sensor |
+|Home|Name sensor Default Name 		|Name Sensor Location|
+#|Home|Name sensor Custom name 		| Name sensor Default Name |
+|Home|Place Sensor			| Name sensor |
+#|Home|Place Sensor			| Name sensor Custom name | # Navigates from sensor Custom name
 |Home|Place Sensor on Location		| Place sensor |
 |Home|Access Sensor Install Help 	| Place Sensor on Location |	
-|Home|Test Sensor				| Place Sensor on Location|# Before verification
-|Home|Acces Sensor Help			| Test Sensor |
+|Home|Test ACCESS Sensor			| Place Sensor on Location|# Before verification
+|Home|Access Sensor Help			| Test Sensor |
 |Home|Signal Strength			| Access Sensor Help |
-|OFF|Sensor Overview 			| Set up Accessories |
-| OFF |Locate Sensor 				|Sensor Overview |
-| OFF |Name Sensor Location		| Location Sensor |
-| OFF |Name sensor Default Name 	|Name Sensor Location|
-| OFF |Name sensor Custom name 	| Name sensor Default Name |
-| OFF |Place Sensor				| Name sensor Default Name |
-| OFF |Place Sensor				| Name sensor Custom name | # Navigates from sensor Custom name
-| OFF |Place Sensor on Location		| Place sensor |
-| OFF |Access Sensor Install Help 	| Place Sensor on Location |	
-| OFF |Test Sensor				| Place Sensor on Location|# Before verification
-| OFF |Acces Sensor Help			| Test Sensor |
-| OFF |Signal Strength			| Access Sensor Help |
+
+
+#incaserequired
+#|OFF|Sensor Overview 			| Set up Accessories |
+#| OFF |Locate Sensor 			|Sensor Overview |
+#| OFF |Name Sensor Location		| Location Sensor |
+#| OFF |Name sensor Default Name 	|Name Sensor Location|
+#| OFF |Name sensor Custom name 	  	| Name sensor Default Name |
+#| OFF |Place Sensor			| Name sensor Default Name |
+#| OFF |Place Sensor			| Name sensor Custom name | # Navigates from sensor Custom name
+#| OFF |Place Sensor on Location		| Place sensor |
+#| OFF |Access Sensor Install Help 	| Place Sensor on Location |	
+#| OFF |Test Sensor			| Place Sensor on Location|# Before verification
+#| OFF |Acces Sensor Help		| Test Sensor |
+#| OFF |Signal Strength			| Access Sensor Help |
 
 @DASAccessSensorEnrollmentVerifyBackArrowFunctionalityAfterVerificationTestSensor
 Scenario Outline: Verify Back arrow functionality in Test Sensor screen after verification
