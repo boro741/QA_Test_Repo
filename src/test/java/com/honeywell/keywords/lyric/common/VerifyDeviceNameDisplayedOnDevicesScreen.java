@@ -68,7 +68,7 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 				}
 			}
 
-			else if (expectedDevice.get(1).equalsIgnoreCase("Keyfob")) {
+			else if (expectedDevice.get(1).equalsIgnoreCase("Keyfob")||expectedDevice.get(1).equalsIgnoreCase("Keyfob list")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.isKeyfobPresentInKeyfobsList(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"))) {
 					Keyword.ReportStep_Pass(testCase,

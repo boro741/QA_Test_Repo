@@ -232,11 +232,10 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollKeyfob(testCase, inputs);
-					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnSetUpButton("keyfob");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag  & sensor.editKeyfobName("keyfob");
 					break;
-				
 				}
 				case "SENSOR OVERVIEW":{
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
@@ -293,11 +292,9 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
-
 					break;
 				}
 				case "WINDOW ACCESS SETTINGS": {
@@ -307,11 +304,9 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
-
 					break;
 				}
 				case "MOTION SENSOR SETTINGS": {
@@ -974,13 +969,13 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "KEYFOB SETTINGS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+					if (!inputs.isInputAvailable("LOCATION1_DEVICE1_KEYFOB1")) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"No Keyfob names were provided in the Requirement file");
 						return flag;
 					}
-					flag = flag & bs.selectKeyfobFromKeyfobList(inputs.getInputValue("LOCATION1_KEYFOB1_NAME"));
+					flag = flag & bs.selectKeyfobFromKeyfobList(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"));
 					break;
 				}
 				default: {
@@ -1120,6 +1115,23 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "WINDOW ACCESS SETTINGS": {
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					Thread.sleep(5000);
+					if (security.isAppSettingsIconVisible(15)) {
+						security.clickOnAppSettingsIcon();
+
+						flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+								testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+								"Base Station Configuration");
+
+						flag = flag & security.clickOnSensorButton();
+						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
+						security.clickOnUserGivenSensorName(givenSensorName);
+
+					}
+					break;
+				}
 				case "MOTION SENSOR SETTINGS": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					Thread.sleep(5000);
@@ -1206,7 +1218,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "TEST SENSOR":{
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					sensor.clickOnBackButton();
+					sensor.clickOnSignalStrengthBackButton();
 					Thread.sleep(3000);
 					sensor.clickOnBackButton();
 				break;	

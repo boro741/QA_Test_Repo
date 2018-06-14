@@ -57,7 +57,6 @@ public class SelectElementOnAScreen extends Keyword {
 					while (flag == false) {
 						click.clickLiveStreamingArea();
 						flag = click.clickPauseStreaming();
-
 					}
 					break;
 				}
@@ -456,6 +455,10 @@ public class SelectElementOnAScreen extends Keyword {
 					flag= flag & sensor.clickOnAddSensorButton();
 					break;
 				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
 				}
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
@@ -471,6 +474,10 @@ public class SelectElementOnAScreen extends Keyword {
 					Thread.sleep(3000);
 					flag= flag & sensor.clickOnDoneButton();
 					break;
+				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
 				}
 				if(flag) {
@@ -504,6 +511,10 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
 				}
 				if(flag) {
 					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
@@ -517,6 +528,10 @@ public class SelectElementOnAScreen extends Keyword {
 					flag= flag & sensor.clickOnWontFitAsShownButton();
 					break;
 				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
 				}
 				if(flag) {
 					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
@@ -526,8 +541,7 @@ public class SelectElementOnAScreen extends Keyword {
 			else if(parameters.get(1).equalsIgnoreCase("Place Sensor")
 					||parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					||parameters.get(1).equalsIgnoreCase("Keyfob Overview")
-					||parameters.get(1).equalsIgnoreCase("NAME Keyfob")
-					||parameters.get(1).equalsIgnoreCase("Configuration Success")) {
+					||parameters.get(1).equalsIgnoreCase("NAME Keyfob")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "CANCEL":{
@@ -546,12 +560,17 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
 				}
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")||parameters.get(1).equalsIgnoreCase("Configuration Success")) {
+			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")||parameters.get(1).equalsIgnoreCase("Configuration Success")
+					||parameters.get(1).equalsIgnoreCase("keyfob Configuration Success")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "DONE":{
@@ -562,6 +581,16 @@ public class SelectElementOnAScreen extends Keyword {
 					if(sensor.isCancelButtonDisplayed()) {
 						Thread.sleep(3000);
 						sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				case "BACK":{
+					flag=sensor.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
 					}
 					break;
 				}

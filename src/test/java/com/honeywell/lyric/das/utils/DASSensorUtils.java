@@ -298,6 +298,7 @@ public class DASSensorUtils {
 		boolean sensorStateMatched = false;
 		for (int i = 0; i < list.size(); i++) {
 			if (testCase.getPlatform().contains("IOS")) {
+				System.out.println("Sensor status");
 				//Sensor status
 				if (testCase.getMobileDriver()
 						.findElements(By.xpath(
@@ -345,6 +346,7 @@ public class DASSensorUtils {
 					SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 					flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
 				}else{
+					System.out.println("Sensor list");
 					//Sensor list
 					List<MobileElement> sensorNameList = testCase.getMobileDriver()
 							.findElements(By.xpath("//*[@name='Sensor_cell']//*[@name='Sensor_subTitle']"));

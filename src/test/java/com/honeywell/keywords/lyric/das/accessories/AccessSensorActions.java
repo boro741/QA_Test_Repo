@@ -54,6 +54,10 @@ public class AccessSensorActions extends Keyword {
 				else if(states.get(1).equalsIgnoreCase("enrolled")){
 					DASSensorUtils.enrollDoor(testCase, inputs);
 				}
+				else if(states.get(1).equalsIgnoreCase("offline")){
+					System.out.println("Make door sensor offline");
+				}
+				
 				else{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
 				}	
@@ -77,6 +81,9 @@ public class AccessSensorActions extends Keyword {
 				}
 				else if(states.get(1).equalsIgnoreCase("enrolled")){
 					DASSensorUtils.enrollWindow(testCase, inputs);
+				}
+				else if(states.get(1).equalsIgnoreCase("offline")){
+					System.out.println("Make window sensor offline");
 				}
 				else{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");

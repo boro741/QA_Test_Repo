@@ -131,7 +131,7 @@ public class EditDeviceName extends Keyword {
 					case "NEW NAME":{
 						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-						bs.RenameSensorName(givenSensorName);
+						flag = flag & bs.RenameSensorName(givenSensorName);
 						break;
 					}
 					}
@@ -143,7 +143,7 @@ public class EditDeviceName extends Keyword {
 					case "NEW NAME":{
 						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-						bs.RenameSensorName(givenSensorName);
+						flag = flag & bs.RenameSensorName(givenSensorName);
 						break;
 					}
 					}
@@ -152,14 +152,14 @@ public class EditDeviceName extends Keyword {
 
 				else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")) {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					sensor.editSensorNameToCustom(parameters.get(0),parameters.get(1),inputs);
+					flag = flag & sensor.editSensorNameToCustom(parameters.get(0),parameters.get(1),inputs);
 				}
 				else if(parameters.get(0).toUpperCase().contains("DUPLICATE")) {
 					String check = parameters.get(1);
 					switch(check.toUpperCase()){
 					case "CUSTOM NAME":{
 						SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-						sensor.editSensorNameToCustom(parameters.get(0).substring(10),inputs);
+						flag = flag & sensor.editSensorNameToCustom(parameters.get(0).substring(10),inputs);
 						break;
 					}
 					}

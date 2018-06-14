@@ -343,6 +343,12 @@ public class SensorSettingScreen extends MobileScreens {
 					System.out.println("Unable to locate sensor with setup button");
 				}
 			} else {
+				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+				int startx = (dimensions.width * 20) / 100;
+				int starty = (dimensions.height * 62) / 100;
+				int endx = (dimensions.width * 22) / 100;
+				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				System.out.println(MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
 						+ SensorName
 						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]",
@@ -443,7 +449,40 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnDoneButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		try {
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				try {
+					TimeUnit.SECONDS.sleep(4);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (MobileUtils.isMobElementExists("xpath",
+						"//XCUIElementTypeButton[contains(@name,'rightButton')]",
+						testCase, 10)) {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+				} else {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("xpath", "//android.widget.Button[contains(@text,'Set Up')]",
+						testCase, 10)) {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+				} else {
+					return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+				}
+			}
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not able to locate " + e.getMessage(),
+					true);
+			return false;
+
+		}
 	}
 
 	public boolean checkSensorNameNotInSensorList(String sensorName) {
@@ -529,7 +568,13 @@ public class SensorSettingScreen extends MobileScreens {
 					+ "']/following-sibling::XCUIElementTypeStaticText[contains(@" + locator + ",'" + state + "')]",
 					testCase, 10);
 		} else {
-			if (testCase.getPlatform().contains("ANDROID")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+				int startx = (dimensions.width * 20) / 100;
+				int starty = (dimensions.height * 62) / 100;
+				int endx = (dimensions.width * 22) / 100;
+				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				return MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName
 						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.TextView[contains(@text,'"
 						+ state + "')]", testCase, 10);
@@ -549,32 +594,32 @@ public class SensorSettingScreen extends MobileScreens {
 
 	}
 	public boolean editSensorNameToCustom(String sensor,String customName,TestCaseInputs inputs) {
-		System.out.println("came inside edit sensor name to custom name");
+		boolean flag= false;
 
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if(MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameSensor", customName)) {
-				//  ((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.KEYCODE_ENTER);
-
 				MobileUtils.clickOnCoordinate(testCase, 991, 1804);
-				//TODO
-				if(sensor.toUpperCase().contains("DOOR")) {
-					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", customName);
-					System.out.println("After entering custom name"+inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
-				}
-				else if(sensor.toUpperCase().contains("WINDOW")) {
-					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", customName);
-					System.out.println("After entering custom name"+inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
-
-				}
-				else if(sensor.toUpperCase().contains("HALL")||customName.toUpperCase().contains("LIVING ROOM")) {
-					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", customName);
-				}
-
-				return true;
+				flag=true;
+			}
+		}else {
+			if(MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameSensor", customName)) {
+				MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
+				flag=true;
 			}
 		}
+		if(sensor.toUpperCase().contains("DOOR")) {
+			inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", customName);
+			System.out.println("After entering custom name"+inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+		}
+		else if(sensor.toUpperCase().contains("WINDOW")) {
+			inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", customName);
+			System.out.println("After entering custom name"+inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
 
-		return false;
+		}
+		else if(sensor.toUpperCase().contains("HALL")||customName.toUpperCase().contains("LIVING ROOM")) {
+			inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", customName);
+		}
+		return flag;
 	}
 	public boolean isCancelButtonDisplayed() {
 
@@ -641,6 +686,37 @@ public class SensorSettingScreen extends MobileScreens {
 					}
 				}
 			}
+		}
+		return false;
+	}
+	
+	public boolean isTimeOutErrorForDiscoveryDisplayed() {
+		System.out.println("Entered into time out popup verification");
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+		fWait.pollingEvery(5, TimeUnit.SECONDS);
+		fWait.withTimeout(10, TimeUnit.MINUTES);
+		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+			public Boolean apply(CustomDriver driver) {
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeOutErrorForDiscovery")) {
+					return true;
+				} else
+					return false;
+
+			}
+
+		});
+
+		if (isEventReceived) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean clickOnTimeOutOkPopup() {
+		// TODO Auto-generated method stub
+		if(isTimeOutErrorForDiscoveryDisplayed()) {
+			MobileUtils.clickOnElement(objectDefinition, testCase, "TimeOutOk");
+			return true;
 		}
 		return false;
 	}

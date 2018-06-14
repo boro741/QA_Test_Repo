@@ -5,6 +5,7 @@ public class RelayConstants {
 	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1411";
 	
 
+	public static String RSI_Contact_Sesor_1_SerialNO= "3508142677:1";//window
 	public static String RSI_Contact_Sesor_1_Enroll_ON = "0:1";  // Window
 	public static String RSI_Contact_Sesor_1_Enroll_OFF = "0:0";	// Window
 	public static String RSI_Contact_Sesor_1_Tamper_ON = "1:1";  // Window
