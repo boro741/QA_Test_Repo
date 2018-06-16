@@ -1,6 +1,15 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
+/*
+ import com.honeywell.account.information.*;
+import com.honeywell.commons.coreframework.*;
+import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.*;
+import com.honeywell.lyric.utils.*;
+import com.honeywell.screens.*;
+ */
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -1350,7 +1359,100 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Sensor List")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR OVERVIEW":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					break;
+				}
+				case "LOCATE SENSOR":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
+				}
+				case "NAME SENSOR LOCATION":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					break;
+				}
+				case "NAME SENSOR DEFAULT NAME":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					break;
+				}
+				case "PLACE SENSOR":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Door");
+					break;
+				}
+				case "PLACE SENSOR ON LOCATION":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Door");
+					flag= flag & sensor.clickOnNextButton();
+					break;
+				}
+				case "TEST ACCESS SENSOR":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Door");
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag & sensor.clickOnNextButton();
+					break;
+					
+				}
+				
+				case "SIGNAL STRENGTH":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Door");
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag & sensor.clickOnGetAdditionalHelpButton();
+					flag = flag & sensor.clickOnTestSignalStrength();
+				}
+				
+				case "ACCESS SENSOR INSTALL HELP":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Door");
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag & sensor.clickOnGetAdditionalHelpButton();
+				}
+				
 				case "DOOR ACCESS SETTINGS":{
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
@@ -1359,7 +1461,6 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SECURITY SOLUTION CARD": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					if (sensor.clickOnBackButton()) {
 						Keyword.ReportStep_Pass(testCase, "Navigated to Base station settings");
 						if(!security.isAppSettingsIconVisible(10)) {

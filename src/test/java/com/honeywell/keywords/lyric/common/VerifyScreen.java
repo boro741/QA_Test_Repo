@@ -502,6 +502,8 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "NAME SENSOR DEFAULT NAME":
+			case "NAME SENSOR LOCATION":
 			case "NAME SENSOR": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isNameSensorScreenTitleVisible()) {
@@ -607,6 +609,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "PLACE SENSOR ON LOCATION":
 			case "PLACE SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				sensor.isPlaceSensorScreenDisplayed();
