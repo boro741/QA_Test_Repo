@@ -1544,9 +1544,9 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
 #| Home			| Living Room		| Window 		| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
-#| Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+#| Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
 #| Home			| Living Room		| Window 		| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
 
 
@@ -1634,7 +1634,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
 
 @DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3
 Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
@@ -1698,7 +1698,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWhenFirmwareIsNotUpToDate		@P3
@@ -1946,7 +1946,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name		| device name		| Custom name	| Amazon username				| Amazon password		|
-| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com	| xyxyxyx				|
+| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com	| xyxyx				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P2
@@ -2181,6 +2181,48 @@ Examples:
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
 #Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 Given user launches and logs in to the Lyric application
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#And user <Sensor Location> access sensor "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Overview" Screen 
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects <Sensor Location Area> from "Name Sensor" screen
+Then user should be displayed with the "Place Sensor" screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+#When user <Sensor Location> access sensor "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+#When user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+#When user press "enrollment" key from keyfob
 And user selects "Keyfob SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Keyfob Overview" Screen 
 When user selects "WATCH THE HOW TO VIDEO" from "Keyfob Overview" screen
