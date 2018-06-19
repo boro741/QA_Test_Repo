@@ -66,22 +66,22 @@ MotionSensor_SensorName	id	by_sensor_name					xpath	"//*[contains(@name,'by')]"
 MotionSensor_SensorStatus_NotDetected	xpath	//*[@text='No Motion Detected']					name	No Motion Detected				
 MotionSensor_SensorStatus_Detected	xpath	//*[@text='Motion Detected']					name	Motion Detected				
 KeyfobOverview	xpath	//*[@text='Use the Key Fob to change security modes with the touch of a button.']					name	Use the Key Fob to change security modes with the touch of a button.				
-KeyfobOverviewImage	id	imageView2					ID	Know-Your-Keyfob	ID	Know-Your-Keyfob	ID	Know-Your-Keyfob
-KeyfobNamingScreen	xpath	//*[@text='Name Key Fob']					name	Name Key Fob				
+KeyfobOverviewImage	id	imageView2					name	Know-Your-Keyfob				
+KeyfobNamingScreen	xpath	//*[@text='Name key fob']					name	Name Key Fob				
 KeyfobNamingScreenDesc	xpath	//*[@text='Enter a Name of Your Key Fob']					name	Enter a name of your key fob				
 KeyfobNamingScreenTextbox	id	custom_generic_edit_sensor_naming					xpath	//XCUIElementTypeTextField				
-DeleteKeyfobPopupTitle	xpath	"//*[contains(@text,'Delete Key Fob')]"					xpath	"//*[contains(@name,'Delete Key Fob')]"				
-DeleteKeyfobPopupMessage	xpath	"//*[contains(@text,'This will delete your Key Fob. You will have to set up the Key Fob to use it again. Are you sure')]"					xpath	"//*[contains(@name,'This will delete your Key Fob and you will not be able to access it any more.')]"				
-DeleteKeyfobPopupYes	ID	button1					name	YES				
-DeleteKeyfobPopupNo	ID	button2					name	NO				
+DeleteKeyfobPopupTitle							xpath	"//*[contains(@name,'Delete Key Fob')]"				
+DeleteKeyfobPopupMessage							xpath	"//*[contains(@name,'This will delete your Key Fob and you will not be able to access it any more.')]"				
+DeleteKeyfobPopupYes							name	YES				
+DeleteKeyfobPopupNo							name	NO				
 DoneButtonOnKeyboard							name	Done				
 TestMotionSensorSignalStrengthButton	id	sensor_range_test_motion					name	Test Signal Strength				
 CustomNameSensor	id	create_new_name_text					xpath	//XCUIElementTypeTextField				
-SetUpAccessoriesHeading	xpath	//*[@text='Set Up Accessories']					xpath	//*[@value='Set Up Accessories']				
-CancelSensorSetupPopup	xpath	"//*[contains(@text,'Cancel Sensor Setup')]"					xpath	"//*[contains(@name,'Cancel Sensor Setup')]"				
+SetUpAccessoriesHeading	xpath	//*[@text='Set up accessories']					xpath	//*[@value='Set Up Accessories']				
+CancelSensorSetupPopup	xpath	"//*[contains(@text,'Cancel sensor setup')]"					xpath	"//*[contains(@name,'Cancel Sensor Setup')]"				
 CancelKeyfobSetupPopup	xpath	//*[@text='Cancel Keyfob Setup?']					xpath	"//*[contains(@name,'Cancel Key fob Setup')]"				
 CancelButton	id	diy_cancel_button					name	Cancel				
 CancelButton_Yes	id	button1					name	YES				
 CancelButton_No	id	button2					name	NO				
-TimeOutErrorForDiscovery	xpath	Smart Home Security is not in discovery mode										
-TimeOutOk	id	button1										
+TimeOutErrorForDiscovery	id	Smart Home Security is not in discovery mode					name	Smart home security not in discovery mode				
+TimeOutOk	id	button1					name	OK				

@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
@@ -77,6 +78,18 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Keyfob : '" + expectedDevice.get(0) + "' is not present in the keyfob list");
+				}
+			}
+			else if(expectedDevice.get(1).equalsIgnoreCase("Sensor List")) {
+				switch(expectedDevice.get(0).toUpperCase()) {
+				case "ACCESS SENSOR2":{
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					if(sensor.isGivenSensorNameDisplayed(inputs.getInputValue("SECOND_SENSORNAME"))) {
+						System.out.println("Sensor Name is already assigned.So previous name is available here");
+						Keyword.ReportStep_Pass(testCase,"Sensor Name is already assigned.So previous name is available here");
+					}
+					break;
+				}
 				}
 			}
 		} catch (Exception e) {

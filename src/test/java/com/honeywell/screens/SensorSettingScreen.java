@@ -1,5 +1,6 @@
 package com.honeywell.screens;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.opencv.core.Point;
@@ -26,6 +27,55 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public SensorSettingScreen(TestCases testCase) {
 		super(testCase, screenName);
+	}
+
+	public boolean isGivenSensorNameDisplayed(String givenSensorName) {
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<WebElement> sensorList;
+		if(testCase.getPlatform().contains("IOS")){
+			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		}else {
+			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		}		
+
+		for(WebElement sensor : sensorList) {
+			String actualSensorName=sensor.getText();
+			if(givenSensorName.equalsIgnoreCase(actualSensorName)){
+
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean assigningDuplicateSensorName(TestCaseInputs inputs) {
+		List<WebElement> sensorList;
+		if(testCase.getPlatform().contains("IOS")){
+			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		}else {
+			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		}		
+		String firstAccessSensorName = "";
+		int count=0;
+
+		for(WebElement sensor : sensorList) {
+			inputs.setInputValue("SECOND_SENSORNAME",sensor.getText());
+			if(count==1) {
+				sensor.click();
+				break;
+			}
+			firstAccessSensorName=sensor.getText();
+			count++;
+		}
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		if(bs.DuplicateSensorName(firstAccessSensorName)) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isTestSensorHeadingDisplayed() {
@@ -83,7 +133,7 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
@@ -136,10 +186,14 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnTestSignalStrength() {
+
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+				touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Get Additional Help");
 			}
 		} catch (Exception e) {
@@ -319,11 +373,11 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
 		}
-		try {
-			/*
-			 * touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
-			 * (dimension.getHeight() * .6)) .release().perform();
-			 */
+
+		try { /*
+		 * touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+		 * (dimension.getHeight() * .6)) .release().perform();
+		 */
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				WebElement eleImage = MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeTable");
 				int x = eleImage.getLocation().getX();
@@ -338,14 +392,14 @@ public class SensorSettingScreen extends MobileScreens {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				MobileUtils.clickOnElement(testCase, "XPATH", "//*[contains(@" + locator + ",'" + SensorName + "')]");
+				MobileUtils.clickOnElement(testCase, "XPATH", "//*[contains(@name, '_SectionHeader')]");
 				if (MobileUtils.isMobElementExists("xpath",
 						"//*[contains(@" + locator + ",'" + SensorName
-								+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
+						+ "')]/following-sibling::XCUIElementTypeButton[contains(@label,'rightButton')]",
 						testCase, 10)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
 							"//*[contains(@" + locator + ",'" + SensorName
-									+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]");
+							+ "')]/following-sibling::XCUIElementTypeButton[contains(@label,'rightButton')]");
 				} else {
 					System.out.println("#########X: " + x);
 					System.out.println("#########Y: " + y);
@@ -359,9 +413,10 @@ public class SensorSettingScreen extends MobileScreens {
 					}
 					MobileUtils.clickOnElement(testCase, "XPATH",
 							"//*[contains(@" + locator + ",'" + SensorName + "')]");
+					MobileUtils.clickOnElement(testCase, "XPATH", "//*[contains(@name, '_SectionHeader')]");
 					if (MobileUtils.isMobElementExists("xpath",
 							"//*[contains(@" + locator + ",'" + SensorName
-									+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
+							+ "')]/following-sibling::XCUIElementTypeButton[contains(@label,'rightButton')]",
 							testCase, 10)) {
 						flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@" + locator + ",'"
 								+ SensorName
@@ -480,9 +535,9 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				try {
 					TimeUnit.SECONDS.sleep(4);
@@ -611,7 +666,7 @@ public class SensorSettingScreen extends MobileScreens {
 				// testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 
 				touchAction.press(startx, starty).waitAction(MobileUtils.getDuration(2000)).moveTo(endx, endy)
-						.release();
+				.release();
 				touchAction.perform();
 
 				return MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName
@@ -776,12 +831,21 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnTimeOutOkPopup() {
-		// TODO Auto-generated method stub
 		if (isTimeOutErrorForDiscoveryDisplayed()) {
 			MobileUtils.clickOnElement(objectDefinition, testCase, "TimeOutOk");
 			return true;
 		}
 		return false;
+	}
+	public boolean isMountInaCornerScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,"MountInaCorner",10);
+	}
+
+	public boolean isMountInaWallScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,"MountInaWall",10);	
+	}
+	public boolean isSensorOffScreenDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,"SensorisOfflineText",10);	
 	}
 	/*
 	 * public boolean isSensorConfigured(String SensorName) {

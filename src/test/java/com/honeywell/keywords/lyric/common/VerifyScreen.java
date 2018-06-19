@@ -52,6 +52,11 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SENSOR OFF":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isSensorOffScreenDisplayed();
+				break;
+			}
 			case "SENSOR LIST":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				if (sensor.isSensorListScreenDisplayed()) {
@@ -639,6 +644,22 @@ public class VerifyScreen extends Keyword {
 				flag = sensor.isSetUpAccessoriesScreenDisplayed();
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+				}
+				break;
+			}
+			case "MOUNT IN A CORNER":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isMountInaCornerScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+				}
+				break;
+			}
+			case "MOUNT ON THE WALL":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isMountInaWallScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,  expectedScreen.get(0)+" is displayed");
 				}
 				break;
 			}

@@ -16,6 +16,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
@@ -69,6 +70,7 @@ public class VerifyStatusOnScreen extends Keyword {
 		}
 		case "SENSOR LIST":
 		case "SENSOR STATUS": {
+			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR":
 			case "DOOR": {
@@ -855,6 +857,8 @@ public class VerifyStatusOnScreen extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
+				case "GOOD":
+				case "COVER TAMPERED":
 				case "OFF":
 				case "NO MOTION DETECTED":
 				case "MOTION DETECTED": {
@@ -934,6 +938,21 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 
+			}
+			case "WINDOW ACCESS SETTINGS":
+			case "DOOR ACCESS SETTINGS":{
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "BATTERY": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if(bs.verifyBatteryStatusTextOnAccessSensorSettingsScreen(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Battery status is "+expectedScreen.get(1));
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Battery status is not "+expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
 			}
 			default: {
 				flag = false;

@@ -27,7 +27,7 @@ Then user should be displayed with "keyfob" device on the "Keyfob list" screen
   Scenario: 2- As a user I want to view that all KeyFob settings 
     Given user launches and logs in to the Lyric application 
      When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
-     Then user should be displayed with the following "Sensor Settings" options: 
+     Then user should be displayed with the following "Keyfob Settings" options: 
       | Settings                   |
       | Name                       | 
       | Model and Firmware Details |
@@ -41,9 +41,9 @@ And user is set to <Mode> mode through CHIL
  When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
 Then user edits the "keyfob" name to "new name"
 Then user navigates to "Base station configuration" screen from the "KeyFob" screen
-And user navigates to "Motion Viewer settings" screen from the "Base station configuration" screen
-Then user should be displayed with "KeyFob Name" sensor name on the "Motion Screen settings" screen
-And user reverts back the "KeyFob" Sensor name through CHIL
+And user navigates to "Keyfob list" screen from the "Base station configuration" screen
+Then user should be displayed with "KeyFob" device on the "Keyfob list" screen
+#And user reverts back the "KeyFob name" through CHIL
 Examples:
 |Mode|
 |Home|
@@ -86,18 +86,21 @@ Examples:
 |OFF|
 
 #Requirement :One DAS Panel and one KeyFob should be configured
-@DASKeyFobRenamePopUpVerification 
-Scenario Outline:AS a user I want to rename my KeyFob sensor through the application when in night, away, offline mode
+@DASKeyFobRenamePopUpVerification
+Scenario Outline: AS a user I want to rename my KeyFob sensor through the application when in night, away, offline mode
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-When user selects the "KeyFob" name
-Then user should display the "you can perform this action only in Home or Off mode" pop up 
+And user is set to <Mode> mode through CHIL
+Then user navigates to "Keyfob settings" screen from the "Dashboard" screen
+When user selects "Name Text Field" from "Keyfob settings" screen
+#Then user should display the "you can perform this action only in Home or Off mode" popup
+Then the following "sensor settings" options should be disabled:
+|Options|
+|Name field| 
 Examples:
 |Mode|
 |Night|
-|Away|
-|Offline|
+#|Away|
+#|Offline|
 
 
 #Requirement :One DAS Panel and one KeyFob should be configured
@@ -119,20 +122,21 @@ Examples:
 
 
 
-#Requirement :One DAS Panel and one KeyFob should be configured
+#Requirement:One DAS Panel and one KeyFob should be configured
 @DASDeleteKeyFobPopupVerificationNightAwayOffline 
 Scenario Outline: As a user I should be able to delete KeyFob configured to my DAS panel from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL 
-When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 
-And user "deletes KeyFob" by clicking on "delete" button
-And user "deletes sensor" by clicking on "delete" button
-Then user should be displayed the "you can perform this action only in Home or Off mode" pop up 
+And user is set to <Mode> mode through CHIL 
+When user navigates to "Keyfob settings" screen from the "Dashboard" screen 
+When user selects "delete sensor" from "Keyfob Settings" screen
+#Then user should be displayed the "you can perform this action only in Home or Off mode" pop up 
+Then the following "sensor settings" options should be disabled:
+|Options|
+|Delete|
 Examples:
 |Mode|
 |Night|
 |Away|
-|Offline|
 
 
 

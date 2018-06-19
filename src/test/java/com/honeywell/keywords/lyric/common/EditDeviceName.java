@@ -58,6 +58,9 @@ public class EditDeviceName extends Keyword {
 					if (bs.isDASNameTextBoxVisible(5)) {
 						flag = flag & bs.clearDASNameTextBox();
 						if (bs.setValueToDASNameTextBox(parameters.get(1))) {
+							if(parameters.get(0).equalsIgnoreCase("keyfob")) {
+								inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
+							}
 							Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
 						} else {
 							flag = false;
@@ -138,43 +141,44 @@ public class EditDeviceName extends Keyword {
 
 				}
 				else if(parameters.get(0).equalsIgnoreCase("motion sensor")) {
-					String check = parameters.get(1);
-					switch(check.toUpperCase()){
-					case "NEW NAME":{
-						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-						flag = flag & bs.RenameSensorName(givenSensorName);
-						break;
+					//Renaming Motion  sensor
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+						inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
 					}
-					}
-
 				}
-
-				else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")) {
-					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					flag = flag & sensor.editSensorNameToCustom(parameters.get(0),parameters.get(1),inputs);
-				}
-				else if(parameters.get(0).toUpperCase().contains("DUPLICATE")) {
-					String check = parameters.get(1);
-					switch(check.toUpperCase()){
-					case "CUSTOM NAME":{
+					else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")|| parameters.get(0).equalsIgnoreCase("MOTION")) {
 						SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-						flag = flag & sensor.editSensorNameToCustom(parameters.get(0).substring(10),inputs);
-						break;
+						flag = flag & sensor.editSensorNameToCustom(parameters.get(0),parameters.get(1),inputs);
 					}
+					else if(parameters.get(0).toUpperCase().contains("DUPLICATE NAME")) {
+						String check = parameters.get(1);
+						switch(check.toUpperCase()){
+						case "CUSTOM NAME":{
+							SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+							flag = flag & sensor.editSensorNameToCustom(parameters.get(0).substring(10),inputs);
+							break;
+						}
+						case "ACCESS SENSOR1":{
+							SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+							if(sensor.assigningDuplicateSensorName(inputs)) {
+								Keyword.ReportStep_Pass(testCase,"Name has Changed");
+							}
+							break;
+						}
+						}
 					}
+
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
-
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				return flag;
 		}
-		return flag;
-	}
 
-	@Override
-	@AfterKeyword
-	public boolean postCondition() throws KeywordException {
-		return flag;
+		@Override
+		@AfterKeyword
+		public boolean postCondition() throws KeywordException {
+			return flag;
+		}
 	}
-}
