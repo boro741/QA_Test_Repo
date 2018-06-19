@@ -24,11 +24,11 @@ public class DeviceInformation {
 	String locationName;
 	String statName;
 
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 
 	public DeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		// this.inputs=inputs;
+		this.inputs=inputs;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 	}
 

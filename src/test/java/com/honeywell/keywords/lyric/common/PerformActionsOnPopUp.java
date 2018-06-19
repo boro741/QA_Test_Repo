@@ -409,7 +409,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				flag = flag & bs.clickOnCancelButton();
+				flag = flag & bs.clickOnNoButton();
 				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}

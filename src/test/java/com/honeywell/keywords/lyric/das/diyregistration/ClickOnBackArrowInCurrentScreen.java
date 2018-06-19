@@ -72,6 +72,13 @@ public class ClickOnBackArrowInCurrentScreen extends Keyword {
 				}
 				break;
 			}
+			case "SET UP ACCESSORIES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isBackButtonInSetUpAccessoriesScreenVisible(20)) {
+					flag = flag & dasDIY.clickOnBackButtonInSetUpAccessoriesScreen();
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

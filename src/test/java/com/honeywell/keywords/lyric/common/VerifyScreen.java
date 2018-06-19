@@ -655,7 +655,7 @@ public class VerifyScreen extends Keyword {
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " displayed");
 		} else {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) + "not displayed");
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) + " not displayed");
 		}
 		return flag;
 	}

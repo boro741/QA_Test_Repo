@@ -83,7 +83,7 @@ public class ClearAllPushNotifications extends Keyword {
 		if (pressBack) {
 			DASNotificationUtils.closeNotifications(testCase);
 			testCase.getMobileDriver().launchApp();
-			//LyricUtils.verifyLoginSuccessful(testCase, inputs, false);
+			LyricUtils.verifyLoginSuccessful(testCase, inputs, false);
 		}
 		return flag;
 	}

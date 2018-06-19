@@ -83,13 +83,6 @@ public class DASSettingsUtils {
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isKeyfobPopUpTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Delete Keyfob Confirmation Pop Up Title is correctly displayed");
-			if (bs.isKeyfobDeletePopUpMessageVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Delete Keyfob Confirmation Pop Up message correctly displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Delete Keyfob Confirmation Pop Up message not correctly displayed.");
-			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -346,6 +339,21 @@ public class DASSettingsUtils {
 		return flag;
 	}
 	
+	public static boolean navigateFromKeyFobListScreenToBaseStationConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
 	public static boolean navigateFromAmazonAlexaScreenToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -362,6 +370,40 @@ public class DASSettingsUtils {
 	}
 	
 	public static boolean navigateFromAmazonAlexaScreenToSensorListScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			} else if(bs.isNavBackButtonVisible()) {
+				flag = flag & bs.clickOnNavBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromAmazonAlexaScreenToKeyFobListScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			} else if(bs.isNavBackButtonVisible()) {
+				flag = flag & bs.clickOnNavBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromKeyFobListScreenToSensorListScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

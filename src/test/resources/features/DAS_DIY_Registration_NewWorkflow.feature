@@ -1445,7 +1445,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-#| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
 | Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
 #incaserequired
 #| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
@@ -1462,152 +1462,243 @@ Examples:
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P3
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name through DIY registration
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security Success" screen
-And user triggers "ACCESS" sensor
-Then user selects "SETUP button" from "Set Up Accessories" screen
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#And user <Sensor Location> access sensor "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
-When user selects "Watch How-To video" from "Sensor Overview" screen
-Then user should be displayed with the "Video clip" screen
-When user navigates to "Sensor Overview" screen from the "Video clip" screen
-Then user navigates to "Locate Sensor" screen from the "Sensor Overview" screen
-Then user navigates to "Name Sensor" screen from the "Locate Sensor" screen
-When user navigates to "Custom Name Sensor" screen from the "Name Sensor" screen
-And user inputs <Custom name> in the "Custom Name Sensor" screen
-Then user should be displayed with the "Place Sensor" screen
-And user navigates to "Place Sensor on location" screen from "Place Sensor" screen
-When user selects "Won't Fit As shown?" from "Place Sensor on location" screen
-Then user should be displayed with the "Video clip" screen
-When user navigates to "Place Sensor on location" screen from the "Video clip" screen
-And user navigates to "Test Sensor" screen from "Place Sensor on location" screen
-Then user <Sensor Location> <Access Status>
-And user <Sensor Location> <Access Status Update>
-When user navigates to "Set Up Accessories Configured" screen from the "Test Sensor" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-#And user creates a passcode if required
-#And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
-When user navigates to "Base Station Configuration" screen from the "Sensor" screen
-And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
-When user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on the "dashboard" screen
-And user should not be displayed with <device name> device on the "dashboard" screen
-
-Examples:
-| location name	| device name		|Sensor Location | Sensor Location Area | Access Status | Access Status Update  | Custom name    |
-| Home			| Living Room		| Door           | Front Door           | Opened        | Closed                | Honeywell      |
-| Home			| Living Room		| Door           | Back Door            | Opened        | Closed                | Honeywell1     |
-| Home			| Living Room		| Door           | Side Door            | Opened        | Closed                | Honeywell12    |
-
-
-@DIYRegistrationWithAccessSensorEnrollmentByNavigatingToNotificationScreen		@P3     #Improvement
-Scenario Outline: As an user I should not get any push notifications during DIY Flow for the DAS panel in DIY registration
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security Success" screen
-And user triggers "ACCESS" sensor
-Then user selects "SETUP button" from "Set Up Accessories" screen
-Then user should be displayed with the "Sensor Overview" Screen 
-When user selects "Watch How-To video" from "Sensor Overview" screen
-Then user should be displayed with the "Video clip" screen
-When user navigates to "Sensor Overview" screen from the "Video clip" screen
-Then user navigates to "Locate Sensor" screen from the "Sensor Overview" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <sensor location area> from "Name Sensor" screen
+When user selects "Create Custom Name" from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+Then user edits the <Sensor Location> name to <Sensor Location Area>
 Then user should be displayed with the "Place Sensor" screen
-And user navigates to "Place Sensor on location" screen from "Place Sensor" screen
-When user selects "Won't Fit As shown?" from "Place Sensor on location" screen
-Then user should be displayed with the "Video clip" screen
-When user navigates to "Place Sensor on location" screen from the "Video clip" screen
-And user navigates to "Test Sensor" screen from "Place Sensor on location" screen
-Then user <Sensor Location> <Access Status>
-And user <Sensor Location> <Access Status Update>
-When user receives a "Sensor Close" push notification
-Then user navigates to "Set Up Accessories Configured" screen from the "Test Sensor" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-#And user creates a passcode if required
-#And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
-When user navigates to "Base Station Configuration" screen from the "Sensor" screen
-And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
-When user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on the "dashboard" screen
-And user should not be displayed with <device name> device on the "dashboard" screen
-
-Examples:
-| location name	| device name		|Sensor Location | Sensor Location Area | Access Status | Access Status Update  |
-| Home			| Living Room		| Door           | Front Door           | Opened        | Closed                |
-
-@DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3
-Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security Success" screen
-And user triggers "ACCESS" sensor
-When user selects "SETUP button" from "Set Up Accessories" screen
-Then user should be displayed with the "Sensor Overview" Screen
-When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "dismisses" the "Cancel Setup" popup
-Then user should be displayed with the "Sensor Overview" screen
-When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Set Up Accessories" screen
-When user clicks on back button
-Then user should be displayed with the "Set Up Accessories Configured" screen
-When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user enables "Amazon Alexa"
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+#Then user <Sensor Location> access sensor "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+#Then user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
 Then user should be displayed with the "Dashboard" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Base Station Configuration" screen from the "dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Sensor List Settings" screen from the "Amazon Alexa Settings" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "dismisses" the "Delete Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
+When user navigates to "Base Station Configuration" screen from the "sensor list" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
+And user "dismisses" the "Delete DAS Confirmation" popup
+Then user "deletes DAS device" by clicking on "delete" button
+And user should receive a "Delete DAS Confirmation" popup
+When user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
+
+
+Examples:
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+#| Home			| Living Room		| Window 		| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
+#| Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+#| Home			| Living Room		| Window 		| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
+
+
+@DIYRegistrationWithAccessSensorEnrollmentByNavigatingToNotificationScreen		@P3     #Improvement
+Scenario Outline: As an user I should not get any push notifications during DIY Flow for the DAS panel in DIY registration
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#And user <Sensor Location> access sensor "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Overview" Screen 
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects <Sensor Location Area> from "Name Sensor" screen
+Then user should be displayed with the "Place Sensor" screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user clears all push notifications
+#And user <Sensor Location> access sensor "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+And user should not receive a "Door Opened" push notification
+#When user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user should not receive a "Door Closed" push notification
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Sensor List Settings" screen from the "Amazon Alexa Settings" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "dismisses" the "Delete Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
+When user navigates to "Base Station Configuration" screen from the "sensor list" screen
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "dismisses" the "Delete DAS Confirmation" popup
+Then user "deletes DAS device" by clicking on "delete" button
+And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location | Sensor Location Area | Access Status | Access Status Update  |
-| Home			| Living Room		| Door           | Front Door           | Opened        | Closed                |
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
+
+@DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3
+Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#And user <Sensor Location> access sensor "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Overview" Screen
+When user "cancels sensor setup" by clicking on "cancel" button
+Then user should receive a "Cancel Sensor Setup" popup
+When user "dismisses" the "Cancel Sensor Setup" popup
+Then user should be displayed with the "Sensor Overview" screen
+When user "cancels sensor setup" by clicking on "cancel" button
+Then user should receive a "Cancel Sensor Setup" popup
+When user "accepts" the "Cancel Sensor Setup" popup
+Then user should be displayed with the "Set Up Accessories" screen
+When user clicks on the back arrow in the "Set Up Accessories" screen 
+Then user should be displayed with the "Enable Geofencing" screen
+Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
+When user "cancels enabling geofence" by clicking on "Cancel" button
+Then user should receive a "Cancel Geofence" popup
+When user "dismisses" the "Cancel Geofence" popup
+Then user should be displayed with the "Geofence" screen
+When user "cancels enabling geofence" by clicking on "Cancel" button
+Then user should receive a "Cancel Geofence" popup
+When user "accepts" the "Cancel Geofence" popup
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "Dashboard" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Base Station Configuration" screen from the "Amazon Alexa Settings" screen 
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "dismisses" the "Delete DAS Confirmation" popup
+Then user "deletes DAS device" by clicking on "delete" button
+And user should receive a "Delete DAS Confirmation" popup
+When user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
+
+
+Examples:
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxyx				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWhenFirmwareIsNotUpToDate		@P3
@@ -1631,7 +1722,7 @@ Then user should be displayed with the "Name Sensor" screen
 When user selects <sensor location area> from "Name Sensor" screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from "Place Sensor" screen
-When user selects "Won't Fit As shown?" from "Place Sensor on location" screen
+When user selects "Won't Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Video clip" screen
 When user navigates to "Place Sensor on location" screen from the "Video clip" screen
 And user navigates to "Test Sensor" screen from "Place Sensor on location" screen
@@ -1793,47 +1884,70 @@ Examples:
 
 @DIYRegistrationWithKeyFobEnrollment		@P2
 Scenario Outline: As a user I should be able to successfully enrol Key Fob through DIY
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security" screen
-When user triggers "KEYFOB" sensor
-And  user selects "SETUP button" from "Set Up Accessories" screen
-Then user should be displayed with the "Sensor Overview" Screen 
-When user selects "Watch How-To video" from "Sensor Overview" screen
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#Then user press "enrollment" key from keyfob
+When user selects "Keyfob SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Keyfob Overview" Screen 
+When user selects "WATCH THE HOW TO VIDEO" from "Keyfob Overview" screen
 Then user should be displayed with the "Video clip" screen
-When user navigates to "Sensor Overview" screen from the "Video clip" screen
-Then user navigates to "Name Key Fob" screen from the "Sensor Overview" screen
-And user inputs <Custom name> in the "Name Key Fob" screen
-Then user should be displayed with the "Key Fob" screen
-Then user navigates to "Set Up Accessories Configured" screen from the "Key Fob" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "Keyfob Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Keyfob Overview" screen
+Then user should be displayed with the "NAME KEYFOB" screen
+Then user edits the "Keyfob Sensor" name to <Custom name>
+When user selects "Done" from "Configuration Success" screen
+Then user should see the "Keyfob" status as "Assigned" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "Dashboard" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Keyfob" screen from the "Dashboard" screen
-And user "deletes keyfob" by clicking on "delete" button
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Keyfob List Settings" screen from the "Amazon Alexa Settings" screen
+Then user should be displayed with "keyfob" device on the "Keyfob list" screen
+When user navigates to "Keyfob Settings" screen from the "Keyfob list" screen 
+When user selects "delete sensor" from "Keyfob Settings" screen
 Then user should receive a "Delete keyfob Confirmation" popup
-And user "dismisses" the "Delete keyfob Confirmation" popup
-And user "deletes keyfob" by clicking on "delete" button
+When user "dismisses" the "Delete Keyfob Confirmation" popup
+When user selects "delete sensor" from "Keyfob Settings" screen
 Then user should receive a "Delete keyfob Confirmation" popup
-And user "accepts" the "Delete keyfob Confirmation" popup
-Then user should not be displayed with "keyfobs" on the "keyfob" screen
-When user navigates to "Base Station Configuration" screen from the "keyfob" screen
+And user "accepts" the "Delete Keyfob Confirmation" popup
+Then user should not be displayed with "Keyfob" device on the "Keyfob list" screen
+When user navigates to "Base Station Configuration" screen from the "Keyfob List" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
+And user "dismisses" the "Delete DAS Confirmation" popup
+Then user "deletes DAS device" by clicking on "delete" button
+And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		| Custom name   |
-| Home			| Living Room		| Honeywell     |
+| location name		| device name		| Custom name	| Amazon username				| Amazon password		|
+| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com	| xyxyxyx				|
+
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P2
 Scenario Outline: As a user I should be able to successfully enrol ISMV with default sensor name through DIY registration
@@ -2064,6 +2178,61 @@ Examples:
 
 
 @DIYRegistrationWithSensorBulkEnrollment    @P1
+Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
+And user selects "Keyfob SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Keyfob Overview" Screen 
+When user selects "WATCH THE HOW TO VIDEO" from "Keyfob Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Keyfob Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Keyfob Overview" screen
+Then user should be displayed with the "NAME KEYFOB" screen
+Then user edits the "Keyfob Sensor" name to <Custom name>
+When user selects "Done" from "Configuration Success" screen
+Then user should see the "Keyfob" status as "Assigned" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
+When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+#And user creates a passcode if required
+#And user disables the passcode through CHIL
+Then user should be displayed with "Security" device on the "dashboard" screen
+And user should be displayed with <device name> device on the "dashboard" screen
+When user navigates to "Keyfob List Settings" screen from the "dashboard" screen
+Then user should be displayed with "keyfob" device on the "Keyfob list" screen
+When user navigates to "Keyfob Settings" screen from the "Keyfob list" screen 
+When user selects "delete sensor" from "Keyfob Settings" screen
+Then user should receive a "Delete keyfob Confirmation" popup
+And user "accepts" the "Delete Keyfob Confirmation" popup
+Then user should not be displayed with "Keyfob" device on the "Keyfob list" screen
+When user navigates to "Sensor List Settings" screen from the "Keyfob list" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Sensor Confirmation" popup
+And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
+When user navigates to "Base Station Configuration" screen from the "sensor list" screen
+And user "deletes DAS device" by clicking on "delete" button
+Then user should receive a "Delete DAS Confirmation" popup
+And user "dismisses" the "Delete DAS Confirmation" popup
+Then user "deletes DAS device" by clicking on "delete" button
+And user should receive a "Delete DAS Confirmation" popup
+When user "accepts" the "Delete DAS Confirmation" popup
+Then user should not be displayed with "Security" device on the "dashboard" screen
+And user should not be displayed with <device name> device on the "dashboard" screen
+
+Examples:
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|
+
+
+@DIYRegistrationWithSensorBulkEnrollmentOld    @P1
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
