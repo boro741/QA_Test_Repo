@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.das.diyregistration;
 
 import com.honeywell.commons.coreframework.*;
-import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
 import java.util.ArrayList;

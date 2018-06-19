@@ -110,7 +110,7 @@ When user navigates to <Access Sensor Settings> screen from the "Security Soluti
 When user selects "delete sensor" from <Access Sensor Settings> screen
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "dismisses" the "Delete Sensor Confirmation" popup
-When user selects "delete sensor" from "<Access Sensor Settings> screen
+When user selects "delete sensor" from <Access Sensor Settings> screen
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen

@@ -288,19 +288,46 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isNoButtonInCancelPopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelSetUpPopup");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelSetUpPopup");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltNoButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltNoButtonInCancelSetUpPopup");
+		}
+		return flag;
 	}
 
 	public boolean clickOnNoButtonInCancelPopup() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInCancelSetUpPopup");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInCancelSetUpPopup");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltNoButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltNoButtonInCancelSetUpPopup");
+		}
+		return flag;
+
 	}
 
 	public boolean isYesButtonInCancelPopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelSetUpPopup");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelSetUpPopup");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltYesButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltYesButtonInCancelSetUpPopup");
+		}
+		return flag;
+
 	}
 
 	public boolean clickOnYesButtonInCancelPopup() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelSetUpPopup");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelSetUpPopup");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltYesButtonInCancelSetUpPopup")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltYesButtonInCancelSetUpPopup");
+		}
+		return flag;
+
 	}
 
 	public boolean isAvialbleLocationNameDisplayed(String availableLocation) {
@@ -980,6 +1007,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isSetUpAccessoriesScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpAccessoriesScreenTitle", timeOut);
+	}
+	
+	public boolean isBackButtonInSetUpAccessoriesScreenVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInSetUpAccessoriesScreen", timeOut);
+	}
+	
+	public boolean clickOnBackButtonInSetUpAccessoriesScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInSetUpAccessoriesScreen");
 	}
 
 	public boolean isSensorSetUpButtonVisible() {

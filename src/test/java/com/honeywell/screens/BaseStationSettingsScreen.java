@@ -19,8 +19,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
-import io.appium.java_client.TouchAction;
-
 public class BaseStationSettingsScreen extends MobileScreens {
 
 	// String values used in the methods
@@ -86,7 +84,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
-	
+
 	public boolean clickOnNavBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NavBackButton");
 	}
@@ -131,7 +129,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnNoButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
+		boolean flag = true;
+		if (MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
+		} else if (MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+		}
+		return flag;
 	}
 
 	public boolean clickOnYesButton() {
@@ -181,11 +185,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isBackButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", timeOut);
 	}
-	
+
 	public boolean isNavBackButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NavBackButton", 3);
 	}
-	
+
 	public boolean isBaseStationConfigurationsOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationConfigurationsOption", 3);
 	}
@@ -390,9 +394,16 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		List<WebElement> keyfobs = MobileUtils.getMobElements(objectDefinition, testCase, "KeyfobList");
 		boolean found = false;
 		for (WebElement keyfob : keyfobs) {
-			if (keyfob.getAttribute("text").equalsIgnoreCase(keyfobName)) {
-				found = true;
-				break;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (keyfob.getAttribute("text").equalsIgnoreCase(keyfobName)) {
+					found = true;
+					break;
+				}
+			} else {
+				if (keyfob.getAttribute("value").equalsIgnoreCase(keyfobName)) {
+					found = true;
+					break;
+				}
 			}
 		}
 		return found;
@@ -509,25 +520,22 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return flag;
 		}
 
-		case BaseStationSettingsScreen.KEYFOB: {
+		case BaseStationSettingsScreen.KEYFOB: {		
 			boolean flag = true;
-			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-			TouchAction action = new TouchAction(testCase.getMobileDriver());
-			try {
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
-			} catch (Exception e) {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not able to scroll to locate keyfob",
-						true);
-				return false;
-			}
 			if (this.isKeyFobOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 1");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			} else {
-				flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase,
+				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 2");
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
-
+				if (this.isKeyFobOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
+				}
+			}
+			if (this.isKeyFobOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 3");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			}
 			return flag;
@@ -536,10 +544,20 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		case BaseStationSettingsScreen.SENSORS: {
 			boolean flag = true;
 			if (this.isSensorsOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Sensors Visible @ 1");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
 			} else {
-				SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-				flag = flag & security.clickOnSensorButton();
+				Keyword.ReportStep_Pass(testCase, "Sensors Visible @ 2");
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+				if (this.isSensorsOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
+				}
+			}
+			if (this.isSensorsOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Sensors Visible @ 3");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
 			}
 			return flag;
 		}

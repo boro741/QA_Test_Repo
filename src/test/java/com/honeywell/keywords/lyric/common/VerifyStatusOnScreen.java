@@ -924,7 +924,6 @@ public class VerifyStatusOnScreen extends Keyword {
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ASSIGNED": {
-					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"));
 					flag = flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"),
 							expectedScreen.get(1));
 					if (flag) {

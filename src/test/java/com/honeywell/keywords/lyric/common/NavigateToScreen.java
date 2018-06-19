@@ -607,6 +607,18 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "KEYFOB LIST SETTINGS": {
+					flag = flag
+							& DASSettingsUtils.navigateFromAmazonAlexaScreenToKeyFobListScreen(testCase);
+					if (flag) {
+						System.out.println("Successfully navigated to Keyfob List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Keyfob List Settings Screen");
+					}
+					break;
+				}
 				}
 			}
 
@@ -1476,15 +1488,35 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}else  if(screen.get(1).equalsIgnoreCase("Keyfob List")){
+			}else  if(screen.get(1).equalsIgnoreCase("KEYFOB LIST")){
 				switch (screen.get(0).toUpperCase()) {
 				case "KEYFOB SETTINGS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					String keyfobName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
 					flag = flag & bs.selectSensorFromSensorList(keyfobName);
+					System.out.println("#############LOCATION1_NAME: " + inputs.getInputValue("LOCATION1_NAME"));
 					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+					System.out.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
+					break;
+				}
+				case "BASE STATION CONFIGURATION": {
+					flag = flag
+							& DASSettingsUtils.navigateFromKeyFobListScreenToBaseStationConfigurationScreen(testCase);
+					break;
+				}
+				case "SENSOR LIST SETTINGS": {
+					flag = flag
+							& DASSettingsUtils.navigateFromKeyFobListScreenToSensorListScreen(testCase);
+					if (flag) {
+						System.out.println("Successfully navigated to Sensor List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Sensor List Settings Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Sensor List Settings Screen");
+					}
 					break;
 				}
 				}

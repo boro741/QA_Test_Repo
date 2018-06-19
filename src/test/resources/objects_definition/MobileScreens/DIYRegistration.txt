@@ -11,7 +11,9 @@ CancelButton	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME
 CancelButtonInSetUp	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	XPATH	(//XCUIElementTypeButton[@name='Cancel'])[2]	XPATH	(//XCUIElementTypeButton[@name='Cancel'])[2]	XPATH	(//XCUIElementTypeButton[@name='Cancel'])[2]
 CancelPopupTitle	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?']	XPATH	//*[@text='Cancel Setup?']	NAME	Cancel Setup?	NAME	Cancel Setup?	NAME	Cancel Setup?
 YesButtonInCancelSetUpPopup	ID	button1	ID	button1	ID	button1	NAME	Yes	NAME	Yes	NAME	Yes
+AltYesButtonInCancelSetUpPopup	ID	button1	ID	button1	ID	button1	NAME	YES	NAME	YES	NAME	YES
 NoButtonInCancelSetUpPopup	ID	button2	ID	button2	ID	button2	NAME	No	NAME	No	NAME	No
+AltNoButtonInCancelSetUpPopup	ID	button2	ID	button2	ID	button2	NAME	NO	NAME	NO	NAME	NO
 WhatToExpectScreenHeaderTitle	XPATH	//*[@text='What To Expect']	XPATH	//*[@text='What To Expect']	XPATH	//*[@text='What To Expect']	XPATH	//*[@value='What To Expect']	XPATH	//*[@value='What To Expect']	XPATH	//*[@value='What To Expect']
 BackButtonInWhatToExpectScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
 SelectHomeLocation	XPATH	//android.widget.TextView[@text='Home']	XPATH	//android.widget.TextView[@text='Home']	XPATH	//android.widget.TextView[@text='Home']	NAME	Home	NAME	Home	NAME	Home
@@ -84,6 +86,7 @@ YesButtonInSmartHomeSecuritySuccessScreen	ID	horizontal_button_next	ID	horizonta
 FirmwareUpdatePopupTitle	XPATH	//*[@text='Update Required']	XPATH	//*[@text='Update Required']	XPATH	//*[@text='Update Required']	NAME	Update Required	NAME	Update Required	NAME	Update Required
 OKButtonInFirmwareUpdatePopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 SetUpAccessoriesScreenTitle	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@text='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']	XPATH	//*[@value='Set Up Accessories']
+BackButtonInSetUpAccessoriesScreen	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
 SensorSetUpButton	ID	sensor_setup_text	ID	sensor_setup_text	ID	sensor_setup_text	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton	NAME	SetupAccessories_1_0_rightButton
 OverviewScreenTitle	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	XPATH	//*[@text='Overview']	NAME	How it Works	NAME	How it Works	NAME	How it Works
 InProgressLoadingSpinnerText	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress

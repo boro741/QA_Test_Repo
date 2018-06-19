@@ -347,6 +347,7 @@ public class DASSensorUtils {
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
+						break;
 					}
 				} else {
 					System.out.println("Sensor list");

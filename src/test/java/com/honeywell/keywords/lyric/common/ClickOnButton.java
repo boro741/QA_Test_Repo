@@ -160,6 +160,16 @@ public class ClickOnButton extends Keyword {
 					}
 				}
 				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("CANCELS SENSOR SETUP")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "CANCEL": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isCancelButtonVisible()) {
+						flag = flag & dasDIY.clickOnCancelButton();
+					}
+					break;
+				}
+				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("CANCELS ENABLING GEOFENCE")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "CANCEL": {
