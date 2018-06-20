@@ -564,6 +564,15 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 		}
+		else if(expectedPopUp.get(1).equalsIgnoreCase("Time out")){
+			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCESPTS": {
+				flag = flag & settingScreen.clickOnTimeOutOkPopup();
+				break;
+			}
+			}
+		}
 		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

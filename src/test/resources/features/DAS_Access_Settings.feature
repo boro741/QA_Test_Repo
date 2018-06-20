@@ -363,27 +363,32 @@ Examples:
 |Mode|
 |Offline|
 
-#Requirement :One DAS Panel and one Access Sensor should be configured
-@DASAccessSensorBatteryStatusVerificationWithHomeAwayNightOffOfflineMode @NotAutomatable
-Scenario Outline: AS a user I want to Verify Access Sensor Battery status
-Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Door Access settings" screen from the "Dashboard"
-And user should display the Battery status <Battery Status>
+#Requirement :O ne DAS Panel and one Access Sensor should be configured
+@DASAccessSensorBatteryStatusVerificationWithHomeAwayNightOffMode
+Scenario Outline:AS a user I want to Verify Access Sensor Battery status
+Given user launches and logs in to the Lyric application
+And user is set to <Mode> mode through CHIL
+Then user navigates to <Access Sensor settings> screen from the "Dashboard" screen
+And user should see the "Battery" status as <Battery Status> on the <Access Sensor settings>
 Examples:
-|Mode| Battery Status |
-|Home| Good |
-|Home| OFFLINE|
-|Home| Low|
-|Home| OFF |
-|Night| Good |
-|Night| OFFLINE |
-|Night| Low|
-|Away| OFF |
-|Away| Good |
-|Away| OFFLINE |
-|Away| Low|
-|Away| OFF |
+|Mode| Battery Status |Access Sensor settings|
+|Home| Good |Door Access settings|
+#|Night| Good |Door Access settings|
+#|Away| Good |Door Access settings|
+#|OFF| Good |Door Access settings|
+#|Home| Good |Window Access settings|
+#|Night| Good |Window Access settings|
+#|Away| Good |Window Access settings|
+#|OFF| Good |Window Access settings|
+#incaserequired
+#|Home| Medium|Door Access settings |
+#|Home| Low|Door Access settings|
+#|Night| Medium |Door Access settings|
+#|Night| Low|Door Access settings|
+#|Away| Medium |Window Access settings|
+#|Away| Low|Window Access settings|
+#|OFF| Medium |Window Access settings|
+#|OFF| Low|Window Access settings|
 
 #Requirement :One DAS Panel and one Access Sensor should be configured and battery status should be in Low and OFFLINE
 @DASAccessSensorBatteryLowofflineStatusLowHelpScreenVerification @NotAutomatable
@@ -466,6 +471,20 @@ Examples:
 |Home|
 |OFF|
 
-
+#Requirement: One DAS Panel and two OSMV should be configured
+@DASAccessSensorDuplicatenameVerification
+Scenario Outline:AS a user I want to verify duplicate name my OSMV sensor through the application
+Given user launches and logs in to the Lyric application 
+And user is set to <Mode> mode through CHIL
+Then user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+When user edits the "access sensor1" name to "duplicate name"
+And user navigates to "Sensor List" screen from the "Motion Sensor Settings" screen
+#Then user should receive "Sensor Name Already Assigned, Pleases Pleases give different name" pop up 
+#Then 
+And user should be displayed with "ACCESS SENSOR2" device on the "Sensor List" screen
+Examples:
+|Mode|Motion sensor2|
+|Home|Front Door|
+#|OFF|
 
 

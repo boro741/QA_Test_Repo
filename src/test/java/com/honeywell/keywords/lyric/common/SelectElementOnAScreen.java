@@ -411,6 +411,15 @@ public class SelectElementOnAScreen extends Keyword {
 			else if(parameters.get(1).equalsIgnoreCase("Keyfob settings")||parameters.get(1).equalsIgnoreCase("Window Access settings")
 					||parameters.get(1).equalsIgnoreCase("Door Access settings")||parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
 				switch (parameters.get(0).toUpperCase()) {
+				case "OFF STATUS":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag= flag & bs.clickOnSensorStatusTextOnSensorSettingsScreen(parameters.get(0).toUpperCase());
+					if(flag) {
+						System.out.println("Successfully clicked on"+parameters.get(0));
+						Keyword.ReportStep_Pass(testCase,"Successfully clicked on"+parameters.get(0));
+					}
+					break;
+				}
 				case "MODEL AND FIRMWARE DETAILS":{
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 					flag= flag & settingScreen.clickOnFirmwareDetailsOption();
@@ -429,6 +438,15 @@ public class SelectElementOnAScreen extends Keyword {
 				case "DELETE SENSOR":{
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag= flag & bs.clickOnDeleteSensorButton();
+					break;
+				}
+				case "NAME TEXT FIELD":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag= flag & bs.clickOnNameTextField();
+					if(flag) {
+						System.out.println("Successfully clicked on"+parameters.get(0));
+						Keyword.ReportStep_Pass(testCase,"Successfully clicked on"+parameters.get(0));
+					}
 					break;
 				}
 				}
@@ -455,6 +473,16 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					else if(parameters.get(1).toUpperCase().contains("MOTION SENSOR")){
 						flag= flag & sensor.clickOnTestSignalStrengthForMotionSensor();
+					}
+					break;
+				}
+				case "BACK":{
+					flag=sensor.clickOnSensorSettingBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
 					}
 					break;
 				}
@@ -573,6 +601,8 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 			else if(parameters.get(1).equalsIgnoreCase("Place Sensor")
 					||parameters.get(1).equalsIgnoreCase("Sensor Overview")
+					||parameters.get(1).equalsIgnoreCase("MOUNT IN A CORNER")
+					||parameters.get(1).equalsIgnoreCase("MOUNT ON THE WALL")
 					||parameters.get(1).equalsIgnoreCase("Keyfob Overview")
 					||parameters.get(1).equalsIgnoreCase("NAME Keyfob")
 					) {
@@ -603,7 +633,7 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Locate Sensor")){
+			else if(parameters.get(1).equalsIgnoreCase("Locate Sensor")||parameters.get(1).equalsIgnoreCase("Signal Strength")){
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK":{
@@ -650,15 +680,7 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Motion Sensor settings")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "DELETE SENSOR":{
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag= flag & bs.clickOnDeleteSensorButton();
-					break;
-				}
-				}
-			}
+			
 			else if(parameters.get(1).equalsIgnoreCase("Mount Sensor")){
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 			}

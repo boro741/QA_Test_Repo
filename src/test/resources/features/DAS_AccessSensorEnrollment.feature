@@ -440,13 +440,12 @@ Examples:
 |Home|Name sensor Default Name 		|Name Sensor Location|
 #|Home|Name sensor Custom name 		| Name sensor Default Name |
 |Home|Place Sensor			| Name sensor |
-#|Home|Place Sensor			| Name sensor Custom name | # Navigates from sensor Custom name
 |Home|Place Sensor on Location		| Place sensor |
+#|Home|Place Sensor			| Name sensor Custom name | # Navigates from sensor Custom name
 |Home|Access Sensor Install Help 	| Place Sensor on Location |	
 |Home|Test ACCESS Sensor			| Place Sensor on Location|# Before verification
-|Home|Access Sensor Help			| Test Sensor |
 |Home|Signal Strength			| Access Sensor Help |
-
+|Home|Access Sensor Help			| Test ACCESS Sensor |
 
 #incaserequired
 #|OFF|Sensor Overview 			| Set up Accessories |
@@ -462,7 +461,19 @@ Examples:
 #| OFF |Acces Sensor Help		| Test Sensor |
 #| OFF |Signal Strength			| Access Sensor Help |
 
-@DASAccessSensorEnrollmentVerifyBackArrowFunctionalityAfterVerificationTestSensor
+
+@DASAccessSensorEnrollmentflowTimeoutpopupverification
+Scenario: verify timeout while Access Sensor Enrolment
+Given user launches and logs in to the Lyric application
+And user is set to "Home" mode through CHIL
+When user navigates to "SENSOR LIST SETTINGS" screen from the "Dashboard" screen
+When user navigates to "Sensor Overview" screen from the "Sensor List" screen
+Then user should receive a "Sensor enrollment Time out" popup
+When user "accepts" the "Time out" popup
+Then user should be displayed with the "Set up Accessories" screen
+
+
+@DASAccessSensorEnrollmentVerifyBackArrowFunctionalityAfterVerificationTestSensor @coveredAboveTestCase
 Scenario Outline: Verify Back arrow functionality in Test Sensor screen after verification
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
@@ -479,7 +490,7 @@ Examples:
 Scenario: verify push notification while Access Sensor Enrolment
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
-And user enrolled the "ISMV" , "OSMV", "MV" , "AccessSensor"
+And user enrolled the "AccessSensor"
 When user navigates to "Sensors" screen from the "Dashboard" screen
 Then user navigates to "Set Up Accessories" screen from the "Sensors" screen
 When user triggers "ACCESS" sensor
@@ -487,16 +498,5 @@ And  user selects "Access sensor SETUP button" from "Set Up Accessories" screen
 When user "Triggered" the "Access Sensor"
 Then user should not receive "Alerts" and "Push Notifications"
 
-@DASAccessSensorEnrollmentflowpushnotificationVerification
-Scenario: verify push notification while Access Sensor Enrolment
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to "Sensors" screen from the "Dashboard" screen
-Then user navigates to "Set Up Accessories" screen from the "Sensors" screen
-When user triggers "ACCESS" sensor
-And  user selects "Access sensor SETUP button" from "Set Up Accessories" screen
-When user "Triggered" the "Access Sensor"
-Then user should receive "Time out" pop up
-When user "accepts" the "Time out" pop up
-Then user should navigate to "Setup Accessories" screen
+
 

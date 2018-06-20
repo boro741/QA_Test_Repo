@@ -40,8 +40,8 @@ Examples:
 @DASOSMVStatusVerification 
   Scenario: As a user I want to view that all OSMV settings 
     Given user launches and logs in to the Lyric application 
-     When user navigates to "Motion Viewer settings" screen from the "Dashboard" screen 
-     Then user should be displayed with the following <Settings> options: 
+     When user navigates to "Motion SENSOR settings" screen from the "Dashboard" screen 
+     Then user should be displayed with the following "sensor Settings" options: 
       | Settings           |
       | Name               |  
       | Battery            | 
@@ -71,12 +71,12 @@ Examples:
 Scenario Outline:AS a user I want to rename my OSMV sensor through the application
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-When user edits the "OSMV" name to "OSMV Name"
-Then user navigates to "Base station configuration" screen from the "Motion Sensor" screen
-And user navigates to "Motion Viewer settings" screen from the "Base station configuration" screen
-Then user should be displayed with "OSMV Name" sensor name on the "Motion Screen settings" screen
-And user reverts back the "OSMV" Sensor name through CHIL
+Then user navigates to "Motion sensor settings" screen from the "Dashboard"
+When user edits the "Motion sensor" name to "New Name"
+Then user navigates to "Base station configuration" screen from the "Motion Sensor settings" screen
+And user navigates to "Motion sensor settings" screen from the "Base station configuration" screen
+Then user should be displayed with "New Name" device on the "Sensor" screen
+#And user reverts back the "sensor name" through CHIL
 Examples:
 |Mode|
 |Home|
@@ -98,14 +98,17 @@ Examples:
 |Home|
 |OFF|
 
-#Requirement :One DAS Panel and one OSMV should be configured
+#Requirement :O ne DAS Panel and one OSMV should be configured
 @DASOSMVRenamePopUpVerification 
 Scenario Outline:AS a user I want to rename my OSMV sensor through the application
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-When user selects the "OSMV" name
-Then user should display the "you can perform this action only in Home or Off mode" pop up 
+And user is set to <Mode> mode through CHIL
+Then user navigates to "Motion sensor settings" screen from the "Dashboard"
+When user selects "Name Text Field" from "Motion sensor settings" screen
+#Then user should display the "you can perform this action only in Home or Off mode" pop up
+Then the following "sensor settings" options should be disabled:
+|Options|
+|Name field|  
 Examples:
 |Mode|
 |Night|
@@ -117,67 +120,58 @@ Examples:
 @DASOSMVSensorStatusVerificationWithHomeAwayNightOffMode
 Scenario Outline:AS a user I want to Verify OSMV Battery status
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-And user should display the status <Sensor Status>
+And user is set to <Mode> mode through CHIL
+Then user navigates to "Motion sensor settings" screen from the "Dashboard"
+Then user should see the "motion sensor" status as <Sensor Status> on the "MOTION SENSOR SETTINGS"
 Examples:
 |Mode| Sensor Status |
 |Home| Good |
-|Home| medium |
-|Home| Low|
-|Home| OFF |
-|Home| Low battery |
+|Away| OFF |
 |Home| Cover Tampered|
 |Night| Good |
-|Night| medium |
-|Night| Low|
 |Night | Cover Tampered|
 |OFF| Good |
-|OFF| medium |
-|OFF| Low|
-|OFF|OFF |
 |OFF |Cover Tampered|
 
-#Requirement :One DAS Panel and one OSMV should be configured
+#Requirement:One DAS Panel and one OSMV should be configured
 @DASOSMVSensorStatusOFFVerificationWithHomeAwayNightOffMode
 Scenario Outline:AS a user I want to Verify OSMV Battery status OFF 
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-And user is set to "sensor status" as "OFF"
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-And user should display the status "OFF"
-When user selects the status "OFF"
-Then user should navigates to " OSMV OFF" screen
+#And user is set to <Mode> mode through CHIL
+#And user is set to "sensor status" as "OFF"
+Then user navigates to "Motion sensor settings" screen from the "Dashboard"
+Then user should see the "motion sensor" status as "off" on the "Motion sensor settings"
+When user selects "Off Status" from "Motion sensor settings" screen
+Then user should be displayed with the "Sensor Off" screen
 Examples:
 |Mode | 
 |Away |
 
 
-#Requirement :One DAS Panel and one OSMV should be configured and OSMV status cover tampered status
+#Requirement:One DAS Panel and one OSMV should be configured and OSMV status cover tampered status
 @DASOSMVStatusCoverTamperedVerificationHome
 Scenario Outline:AS a user I want to Verify OSMV Cover Tamper and Tamper restored status When base station status in Home and OFF mode
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 #OSMV back plate not closed
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-When user selects "Status Covered Tampered" 
-Then user should be displayed with "OSMV Cover Tampered" screen
-And User selects the "Clear Tamper" option 
+Then user navigates to "sensor settings" screen from the "Dashboard" screen
+When user selects "Status Covered Tampered" from "Motion sensor settings" screen
+Then user should be displayed with "sensor Cover Tamper" screen
+And User selects the "Clear Tamper" from "sensor Cover Tamper" screen
 #OSMV back plate not closed
-Then user should be displayed with "Sensor Tamper" pop up 
-When user selects the "OK" button 
-Then user should displayed with "OSMV Cover Tampered" screen
+Then user sholud receive a "Sensor Tamper" popup 
+When "ok" the "sensor tamper" popup
+Then user should displayed with "sensor Cover Tamper" screen
 And User selects the "Clear Tamper" option 
-Then user should be displayed with "Sensor Tamper" pop up 
-When user selects the "RETRY" button
+Then user sholud receive a "Sensor Tamper" popup 
+When "retry" the "sensor tamper" popup
 #OSMV back plate not closed
-Then user should displayed with "OSMV Cover Tampered" screen
-And User selects the "Clear Tamper" option 
-Then user should be displayed with "Sensor Tamper" pop up 
+Then user should displayed with "sensor Cover Tamper"" screen
+And User selects the "Clear Tamper" from "sensor Cover Tamper" screen
+Then user should receive a "Sensor Tamper" popup 
 #OSMV back plate closed
-When user selects the "RETRY" button
-Then user should navigates to "Motion Viewer Settings" screen
-And user should display with <Status update>
+When "retry" the "sensor tamper" popup
+And user should see the "motion sensor" status as <Status update> on "sensor status"
 Examples:
 |Mode| Status update |
 |Home| Good |
@@ -185,15 +179,18 @@ Examples:
 |Home| Low|
 
 
-#Requirement :One DAS Panel and one OSMV should be configured and OSMV status cover tampered status
+#Requirement:One DAS Panel and one OSMV should be configured and OSMV status cover tampered status
 @DASOSMVStatusCoverTamperedVerificationAwayNightoff
 Scenario Outline:AS a user I want to Verify OSMV Cover Taper status When base station status in Away, Night, OFF mode
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 #OSMV back plate not closed
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-When user selects "Status Covered Tampered" 
-Then user should display the "you can perform this action only in Home mode" pop up 
+Then user navigates to "Motion Sensor settings" screen from the "Dashboard"
+When user selects "SENSOR COVER TAMPERED" from "Motion Sensor settings" screen
+#Then user should display the "you can perform this action only in Home mode" pop up
+Then the following "sensor settings" options should be disabled:
+|Options|
+|COVER TAMPERED|
 Examples:
 |Mode|
 |Night|
@@ -232,27 +229,26 @@ Examples:
 |Mode|
 |Offline|
 
-#Requirement :One DAS Panel and one OSMV should be configured
+#Requirement:One DAS Panel and one OSMV should be configured
 @DASOSMVBatteryStatusVerificationWithHomeAwayNightOffOfflineMode
 Scenario Outline:AS a user I want to Verify OSMV Battery status
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" screen from the "Dashboard"
-And user should display the Battery status <Battery Status>
+And user is set to <Mode> mode through CHIL
+Then user navigates to "Motion sensor settings" screen from the "Dashboard" screen
+And user should see the "Battery" status as <Battery status> on the "Motion sensor setting"
 Examples:
 |Mode| Battery Status |
 |Home| Good |
 |Home| OFFLINE|
-|Home| Low|
+#|Home| Low|
 |Home| OFF |
 |Night| Good |
 |Night| OFFLINE |
-|Night| Low|
+#|Night| Low|
 |Away| OFF |
 |Away| Good |
 |Away| OFFLINE |
-|Away| Low|
-|Away| OFF |
+#|Away| Low|
 
 #Requirement :One DAS Panel and one OSMV should be configured and battery status should be in Low and OFFLINE
 @DASOSMVBatteryLowofflineStatusLowHelpScreenVerification

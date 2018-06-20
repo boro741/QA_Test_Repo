@@ -235,7 +235,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			
 			break;
 		}
-		case "TIME OUT":{
+		case "SENSOR ENROLLMENT TIME OUT":{
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			if(sensor.isTimeOutErrorForDiscoveryDisplayed()) {
 				Keyword.ReportStep_Pass(testCase, "TimeOut popup is displayed");
