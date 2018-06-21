@@ -140,16 +140,25 @@ public class EditDeviceName extends Keyword {
 					}
 
 				}
-				else if(parameters.get(0).equalsIgnoreCase("motion sensor")) {
+				/*else if(parameters.get(0).equalsIgnoreCase("motion sensor")) {
 					//Renaming Motion  sensor
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.setValueToDASNameTextBox( parameters.get(1))) {
 						inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
 					}
-				}
-					else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")|| parameters.get(0).equalsIgnoreCase("MOTION")) {
+				}*/
+					else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")|| parameters.get(0).equalsIgnoreCase("MOTION")|| parameters.get(0).equalsIgnoreCase("MOTION SENSOR")) {
 						SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 						flag = flag & sensor.editSensorNameToCustom(parameters.get(0),parameters.get(1),inputs);
+						if(parameters.get(0).toUpperCase().contains("DOOR")) {
+							inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(1));
+						}
+						else if(parameters.get(0).toUpperCase().contains("WINDOW")) {
+							inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(1));
+						}
+						else if(parameters.get(0).toUpperCase().contains("MOTION SENSOR")||parameters.get(0).toUpperCase().contains("MOTION")) {
+							inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
+						}
 					}
 					else if(parameters.get(0).toUpperCase().contains("DUPLICATE NAME")) {
 						String check = parameters.get(1);

@@ -58,8 +58,10 @@ public class DASSettingsUtils {
 		if (bs.isDeleteSensorPopUpTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up Title is correctly displayed");
 			if (inputs.getInputValue(DASInputVariables.SENSORTYPE).equals(DASInputVariables.MOTIONSENSOR)) {
+				Keyword.ReportStep_Pass(testCase, "Motion sensor delete");
 				flag = flag & bs.isMotionSensorDeletePopUpMessageVisible();
 			} else {
+				Keyword.ReportStep_Pass(testCase, "Access sensor delete");
 				flag = flag & bs.isAccessSensorDeletePopUpMessageVisible();
 			}
 

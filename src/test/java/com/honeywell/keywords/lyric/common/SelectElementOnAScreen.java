@@ -350,7 +350,26 @@ public class SelectElementOnAScreen extends Keyword {
 				if (dasDIY.isAddANetworkHeaderTitleVisible()) {
 					flag = flag & DIYRegistrationUtils.selectAvailableNetworkType(testCase, parameters.get(0));
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
+			}else if (parameters.get(1).equalsIgnoreCase("NAME MOTION SENSOR")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
+			}  
+
+			else if (parameters.get(1).toUpperCase().equals("NAME MOTION SENSOR CUSTOM NAME")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK":{
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag=settingScreen.clickOnCustomNameBack();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				}
+			}else if (parameters.get(1).toUpperCase().contains("NAME")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK":{
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
@@ -365,13 +384,13 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				default:{
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-					if(parameters.get(0).toUpperCase().contains("DOOR")) {
+					if(parameters.get(1).toUpperCase().contains("DOOR")) {
 						inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(0));
 					}
-					else if(parameters.get(0).toUpperCase().contains("WINDOW")) {
+					else if(parameters.get(1).toUpperCase().contains("WINDOW")) {
 						inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(0));
 					}
-					else if(parameters.get(0).toUpperCase().contains("MOTION SENSOR")) {
+					else if(parameters.get(1).toUpperCase().contains("MOTION SENSOR")) {
 						inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
 					}
 				}
@@ -508,7 +527,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "MOTION SENSOR SETUP BUTTON":
 				case "ACCESS SENSOR SETUP BUTTON":
 				case "KEYFOB SETUP BUTTON":{
-					flag= flag & sensor.clickOnSetUpButton(parameters.get(0));
+					flag= flag & sensor.clickOnSetUpButton(inputs,parameters.get(0));
 					break;
 				}
 				case "BACK":{
@@ -633,7 +652,9 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Locate Sensor")||parameters.get(1).equalsIgnoreCase("Signal Strength")){
+			else if(parameters.get(1).equalsIgnoreCase("Locate Sensor")||parameters.get(1).equalsIgnoreCase("Signal Strength")
+					||parameters.get(1).equalsIgnoreCase("Locate Motion Sensor")
+					||parameters.get(1).equalsIgnoreCase("Motion Sensor Signal Strength")){
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK":{
@@ -680,7 +701,7 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
-			
+
 			else if(parameters.get(1).equalsIgnoreCase("Mount Sensor")){
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 			}

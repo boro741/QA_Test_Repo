@@ -292,6 +292,8 @@ public class DASSensorUtils {
 			}
 		} else if (states.equalsIgnoreCase("cover tampered")) {
 			sensorState = "Cover Tampered";
+		}else if (states.equalsIgnoreCase("standby")) {
+			sensorState = "Standby";
 		} else if (states.equalsIgnoreCase("good")) {
 			sensorState = "Good";
 		} else if (states.equalsIgnoreCase("active")) {

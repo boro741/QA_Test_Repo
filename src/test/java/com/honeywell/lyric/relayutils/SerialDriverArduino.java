@@ -67,7 +67,7 @@ public class SerialDriverArduino /*extends SerialDriverCore*/ {
 		/*0  enroll 3
 		1 tamper 4
 		2 open 5*/
-		setrelay("5:1");
+		setrelay("5:0");
 	//	setrelay("");
 	//	setrelay("");
 	//	setrelay("0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0");
