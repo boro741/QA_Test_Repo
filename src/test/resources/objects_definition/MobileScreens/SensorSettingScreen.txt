@@ -67,7 +67,7 @@ MotionSensor_SensorStatus_NotDetected	xpath	//*[@text='No Motion Detected']					
 MotionSensor_SensorStatus_Detected	xpath	//*[@text='Motion Detected']					name	Motion Detected				
 KeyfobOverview	xpath	//*[@text='Use the Key Fob to change security modes with the touch of a button.']					name	Use the Key Fob to change security modes with the touch of a button.				
 KeyfobOverviewImage	id	imageView2					name	Know-Your-Keyfob				
-KeyfobNamingScreen	xpath	//*[@text='Name key fob']					name	Name Key Fob				
+KeyfobNamingScreen	xpath	//*[@text='Name Key Fob']					name	Name Key Fob				
 KeyfobNamingScreenDesc	xpath	//*[@text='Enter a Name of Your Key Fob']					name	Enter a name of your key fob				
 KeyfobNamingScreenTextbox	id	custom_generic_edit_sensor_naming					xpath	//XCUIElementTypeTextField				
 DeleteKeyfobPopupTitle							xpath	"//*[contains(@name,'Delete Key Fob')]"				

@@ -1407,6 +1407,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isFeatureSetUpCompletedScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FeatureSetUpCompletedScreenTitle");
 	}
+	
+	public boolean isSkipButtonInHoneywellMembershipScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
+	}
+	
+	public boolean clickOnSkipButtonInHoneywellMembershipScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
+	}
 
 	public boolean isIncreaseSecurityPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IncreaseSecurityPopup");

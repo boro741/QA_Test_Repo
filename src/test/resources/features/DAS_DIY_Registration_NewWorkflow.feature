@@ -728,8 +728,8 @@ Examples:
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -767,8 +767,8 @@ Examples:
       
 @DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by skiping geofencing and setting up alexa
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -813,7 +813,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyx.xyx@xyx.com				| xyxxyxxyx				|
+      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
 
 
 @DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@UIAutomated
@@ -1445,8 +1445,8 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
-| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 #incaserequired
 #| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 #| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
@@ -1544,10 +1544,10 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
-#| Home			| Living Room		| Window 		| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
-#| Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
-#| Home			| Living Room		| Window 		| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com	| xyxyxxyx				|
+| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+#| Home			| Living Room		| Window 		| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+#| Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+#| Home			| Living Room		| Window 		| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentByNavigatingToNotificationScreen		@P3     #Improvement
@@ -1634,7 +1634,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
 
 @DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3
 Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
@@ -1698,7 +1698,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| xyxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com	| xyxyx				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWhenFirmwareIsNotUpToDate		@P3
@@ -1946,7 +1946,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name		| device name		| Custom name	| Amazon username				| Amazon password		|
-| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com	| xyxyx				|
+| Home				| Living Room		| Keyfob			| xyxyx@xyx.com					| xyxyx					|
 
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P2

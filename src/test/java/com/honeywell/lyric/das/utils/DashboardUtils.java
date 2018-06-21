@@ -53,7 +53,6 @@ public class DashboardUtils {
 			if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 				return true;
 			} else {
-
 				return LyricUtils.closeCoachMarks(testCase);
 			}
 		}

@@ -455,6 +455,9 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
 					Dashboard ds = new Dashboard(testCase);
+					if(ds.isDoneButtonInWeatherForecastIsVisible()) {
+						ds.clickOnDoneButtonInWeatherForecast();
+					}
 					if (ds.isAddDeviceIconVisible(20)) {
 						flag = flag & ds.clickOnAddNewDeviceIcon();
 					} else if (ds.isAddDeviceIconBelowExistingDASDeviceVisible(10)) {
