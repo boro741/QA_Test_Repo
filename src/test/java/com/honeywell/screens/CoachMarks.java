@@ -72,6 +72,22 @@ public class CoachMarks extends MobileScreens {
 	public boolean clickOnGotitButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GotItButton");
 	}
+	
+	public boolean isNextButtonVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", timeOut, false);
+	}
+
+	public boolean clickOnNextButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NextButton");
+	}
+	
+	public boolean isDoneButtonVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButton", timeOut, false);
+	}
+
+	public boolean clickOnDoneButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
+	}
 
 	public String getCoachMarkHeaderText() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "CoachMarkHeader").getText();

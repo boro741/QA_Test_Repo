@@ -130,9 +130,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean clickOnNoButton() {
 		boolean flag = true;
-		if (MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButton")) {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NoButton");
-		} else if (MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton")) {
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 		}
 		return flag;

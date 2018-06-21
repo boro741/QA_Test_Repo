@@ -318,6 +318,9 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
 			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
+			if(dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
+				dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
+			}
 		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 
@@ -451,10 +454,13 @@ public class DIYRegistrationUtils {
 			if (dasDIY.isSignInToAmazonAlexaScreenTitleVisible()
 					&& dasDIY.isEmailTextFieldInSignInToAmazonAlexaScreenVisible()
 					&& dasDIY.isPasswordTextFieldInSignInToAmazonAlexaScreenVisible()) {
-				dasDIY.enterAmazonUserCredentials(amazonUserName, amazonPassword);
+				flag = flag & dasDIY.enterAmazonUserCredentials(amazonUserName, amazonPassword);
 				waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 5);
 				if (dasDIY.isAmazonAlexaSetUpCompletedScreenTitleVisible() && dasDIY.isNextButtonVisible()) {
-					dasDIY.clickOnNextButton();
+					flag = flag & dasDIY.clickOnNextButton();
+					if(dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
+						flag = flag & dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
+					}
 				}
 			}
 		}

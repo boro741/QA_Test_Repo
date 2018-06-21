@@ -120,7 +120,7 @@ CancelButtonInGeoFenceScreen	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_ca
 CancelGeofencePopupTitle							XPATH	"//*[contains(@name, 'Cancel geofence changes')]"	XPATH	"//*[contains(@name, 'Cancel geofence changes')]"	XPATH	"//*[contains(@name, 'Cancel geofence changes')]"
 YesButtonInCancelGeofencePopup							NAME	YES	NAME	YES	NAME	YES
 NoButtonInCancelGeofencePopup							NAME	NO	NAME	NO	NAME	NO
-GeoFenceScreenHeaderTitle	XPATH	//*[@text='Geofencing']	XPATH	//*[@text='Geofencing']	XPATH	//*[@text='Geofencing']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']
+GeoFenceScreenHeaderTitle	XPATH	//*[@text='Radius']	XPATH	//*[@text='Radius']	XPATH	//*[@text='Radius']	XPATH	//*[@value='Radius_GEOFENCE']	XPATH	//*[@value='Radius_GEOFENCE']	XPATH	//*[@value='Radius_GEOFENCE']
 UpdateGeoFenceButtonInGeoFenceScreen	ID	fragment_geofence_find_my_location	ID	fragment_geofence_find_my_location	ID	fragment_geofence_find_my_location	NAME	Update Geofence Center	NAME	Update Geofence Center	NAME	Update Geofence Center
 SaveButtonInGeoFenceScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	Save	NAME	Save	NAME	Save
 GeoFenceEnabledScreenHeaderTitle	XPATH	//*[@text='Geofence']	XPATH	//*[@text='Geofence']	XPATH	//*[@text='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']	XPATH	//*[@value='Geofence']
@@ -133,6 +133,7 @@ SignInToAmazonScreenTitle	XPATH	//*[@text='Sign in to Amazon']	XPATH	//*[@text='
 SignInToAmazonEmailTextField	ID	ap_email	ID	ap_email	ID	ap_email	XPATH	"//XCUIElementTypeTextField[contains(@value, 'Email')]"	XPATH	"//XCUIElementTypeTextField[contains(@value, 'Email')]"	XPATH	"//XCUIElementTypeTextField[contains(@value, 'Email')]"
 SignInToAmazonPasswordTextField	ID	ap_password	ID	ap_password	ID	ap_password	XPATH	//XCUIElementTypeSecureTextField[@value='Amazon password']	XPATH	//XCUIElementTypeSecureTextField[@value='Amazon password']	XPATH	//XCUIElementTypeSecureTextField[@value='Amazon password']
 AmazonAlexaSetUpCompletedScreenTitle	XPATH	//*[@text='Setup Completed']	XPATH	//*[@text='Setup Completed']	XPATH	//*[@text='Setup Completed']	XPATH	//*[@value='SetUp Completed']	XPATH	//*[@value='SetUp Completed']	XPATH	//*[@value='SetUp Completed']
+SkipButtonInHoneywellMembershipScreen	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	NAME	Skip	NAME	Skip	NAME	Skip
 IncreaseSecurityPopup	ID	title_security_txt	ID	title_security_txt	ID	title_security_txt	XPATH	//*[@value='Amazon Alexa']	XPATH	//*[@name='Before you can continue using Lyric…']	XPATH	//*[@name='Before you can continue using Lyric…']
 DontUseButtonInIncreaseSecurityPopup	ID	dont_use_txt	ID	dont_use_txt	ID	dont_use_txt						
 AddSecurityButtonInIncreaseSecurityPopup	ID	add_security_txt	ID	add_security_txt	ID	add_security_txt	NAME	Create Passcode	NAME	Create Passcode	NAME	Create Passcode
