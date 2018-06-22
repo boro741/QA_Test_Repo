@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 
 public class MotionSensorActions extends Keyword {
 
@@ -46,6 +47,12 @@ public class MotionSensorActions extends Keyword {
 			} 
 			else if (states.get(0).equalsIgnoreCase("enrolled")) {
 				DASSensorUtils.enrollMotionSensor(testCase, inputs);
+			}
+			else if (states.get(0).equalsIgnoreCase("Motion detected")) {
+				inputs.setInputValue("MOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+				System.out.println("Move the object in front of motion sensor");
+			}else if (states.get(0).equalsIgnoreCase("Motion not detected")) {
+				System.out.println("Do not move any object in front of motion sensor");
 			}
 			else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");

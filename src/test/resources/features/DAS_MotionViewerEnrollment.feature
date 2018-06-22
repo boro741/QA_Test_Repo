@@ -1,7 +1,7 @@
 @MotionViewerEnrollment
 Feature: Verify Motion Viewer Enrolment Functionally
 
-@DASMotionSensor_EnrollmentWithDefaultSensorNameWatchHow-ToVideo
+@DASMotionViewer_EnrollmentWithDefaultSensorNameWatchHow-ToVideo
 Scenario Outline: As a user I should be able to successfully enroll Access Sensor with default sensor name and video should play for assistance in sensor enrollment
  
 Given user launches and logs in to the Lyric application
@@ -57,7 +57,7 @@ Examples:
 #|Off | Living Room | Flat On a Wall |
 
 
-@DASMotionSensorEnrollmentWithCustomName
+@DASMotionViewerEnrollmentWithCustomName
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom sensor name
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
@@ -95,7 +95,7 @@ Examples:
 |OFF | Honeywell | Flat on a Wall     | Mount on the Wall |NO MOTION DETECTED |MOTION DETECTED |
 
 #REquirments: DAS panel configured and one sensor should be enrolled
-@DASMotionSensorEnrollmentWithCustomNameDuplicatePopUPVerification
+@DASMotionViewerEnrollmentWithCustomNameDuplicatePopUPVerification
 Scenario Outline: As a user I should be able Verify duplicate name pop up
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
@@ -116,7 +116,7 @@ Examples:
 |OFF|
 
 
-@DASMotionSensorEnrollmentByCancellingAndRetryingAgainWithCustomSensorName
+@DASMotionViewerEnrollmentByCancellingAndRetryingAgainWithCustomSensorName
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom sensor name after cancelling the enrollment and retrying again
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL

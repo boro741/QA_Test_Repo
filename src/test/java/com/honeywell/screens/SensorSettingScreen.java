@@ -16,6 +16,7 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
@@ -101,10 +102,32 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnSensorNotWorking() {
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
-
 	}
 
+	public boolean isMotionSensorHelpScreenDisplayed() {
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+		fWait.pollingEvery(5, TimeUnit.SECONDS);
+		fWait.withTimeout(2, TimeUnit.MINUTES);
+		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+			public Boolean apply(CustomDriver driver) {
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorHelpTitle")) {
+					return true;
+				} else
+					return false;
+
+			}
+
+		});
+
+		if (isEventReceived) {
+			return true;
+		}
+		return false;
+
+	}
+	
 	public boolean isAccessSensorHelpScreenDisplayed() {
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
@@ -286,6 +309,9 @@ public class SensorSettingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");
 	}
 
+	public boolean clickOnCustomNameBack() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CustomNameBack");
+	}
 	public boolean clickOnSensorSettingBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSettingBack");
 	}
@@ -357,7 +383,7 @@ public class SensorSettingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorAddButton");
 	}
 
-	public boolean clickOnSetUpButton(String SensorType) {
+	public boolean clickOnSetUpButton(TestCaseInputs inputs,String SensorType) {
 		String locator;
 		String SensorName = null;
 		boolean flag = true;
@@ -371,6 +397,7 @@ public class SensorSettingScreen extends MobileScreens {
 			SensorName = "Key Fob";
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
+			inputs.setInputValue(DASInputVariables.SENSORTYPE,DASInputVariables.MOTIONSENSOR);
 		} else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
 		}
@@ -525,7 +552,7 @@ public class SensorSettingScreen extends MobileScreens {
 				}
 				if (MobileUtils.isMobElementExists("xpath", "//XCUIElementTypeButton[contains(@name,'rightButton')]",
 						testCase, 10)) {
-					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpAccessoriesBack");
 				} else {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
@@ -533,7 +560,7 @@ public class SensorSettingScreen extends MobileScreens {
 			} else {
 				if (MobileUtils.isMobElementExists("xpath", "//android.widget.Button[contains(@text,'Set Up')]",
 						testCase, 10)) {
-					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpAccessoriesBack");
 				} else {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);

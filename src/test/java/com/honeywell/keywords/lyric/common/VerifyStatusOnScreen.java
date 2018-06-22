@@ -148,6 +148,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
+				case "STANDBY": 
 				case "GOOD": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),

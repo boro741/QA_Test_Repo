@@ -507,6 +507,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "NAME MOTION SENSOR DEFAULT NAME":
 			case "NAME SENSOR DEFAULT NAME":
 			case "NAME SENSOR LOCATION":
 			case "NAME SENSOR": {
@@ -565,6 +566,11 @@ public class VerifyScreen extends Keyword {
 				flag = flag & sensor.isAccessSensorHelpScreenDisplayed();
 				break;
 			}
+			case "MOTION SENSOR HELP": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag & sensor.isMotionSensorHelpScreenDisplayed();
+				break;
+			}
 			case "GET ADDITIONAL HELP ON ACCESS SENSOR HELP": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = flag & sensor.isGetAdditionalHelpOnSensorHelpDisplayed();
@@ -606,6 +612,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "LOCATE MOTION SENSOR":
 			case "LOCATE SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				sensor.isLocateSensorScreenDisplayed();

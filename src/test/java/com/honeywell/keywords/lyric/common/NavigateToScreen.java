@@ -85,6 +85,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASActivityLogsUtils.openActivityLogs(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
@@ -92,6 +96,10 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
@@ -144,6 +152,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Dimmer1");
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -178,6 +190,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("DIMMER SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -202,6 +218,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveIndividualDeviceSettings(testCase, inputs);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ZWAVE Utilities")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -223,6 +243,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & zwaveScreen.clickGeneralDeviceExclusionMenu();
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			}
 			// Navigation from Dashboard
@@ -241,7 +265,7 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollKeyfob(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("keyfob");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"keyfob");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag  & sensor.editKeyfobName("keyfob");
 					break;
@@ -258,7 +282,7 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					break;
 				}
 				case "KEYFOB OVERVIEW":{
@@ -274,7 +298,7 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollKeyfob(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("KEYFOB");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"KEYFOB");
 					break;
 				}
 				case "NAME KEYFOB":{
@@ -290,7 +314,7 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollKeyfob(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("KEYFOB");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"KEYFOB");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					break;
 				}
@@ -622,6 +646,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			}
 
@@ -731,6 +759,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -755,6 +787,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("WHAT TO EXPECT")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -771,6 +807,10 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnWatchHowToVideoLink();
 					}
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("VIDEO CLIP")) {
@@ -804,6 +844,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -821,6 +865,10 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnBackButtonInCreateLocationScreen();
 						break;
 					}
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("POWER BASE STATION")) {
@@ -850,6 +898,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromPowerBaseStationToDashboard(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("BASE STATION HELP")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -859,6 +911,10 @@ public class NavigateToScreen extends Keyword {
 						flag = flag & dasDIY.clickOnBackButtonInBaseStationHelpScreen();
 						break;
 					}
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("REGISTER BASE STATION")) {
@@ -874,6 +930,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SELECT BASE STATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -884,6 +944,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CONNECT TO NETWORK")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -892,6 +956,10 @@ public class NavigateToScreen extends Keyword {
 							"ALMOST DONE LOADING PROGRESS BAR TEXT", 3);
 					flag = flag & DIYRegistrationUtils.navigateFromConnectToNetworkToSmartHomeSecuritySuccess(testCase);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES")) {
@@ -907,6 +975,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromOverviewToLocateSensor(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("LOCATE SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -920,6 +992,10 @@ public class NavigateToScreen extends Keyword {
 				case "CHECK LOCATION SIGNAL": {
 					flag = flag & DIYRegistrationUtils.navigateFromCheckLocationToCheckLocationSignal(testCase);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHECK LOCATION SIGNAL")) {
@@ -935,12 +1011,20 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromPrepareSensorToPlaceAdhesiveStrips(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("PLACE ADHESIVE STRIPS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOUNT SENSOR": {
 					flag = flag & DIYRegistrationUtils.navigateFromPlaceAdhesiveStripsToMountSensor(testCase);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("MOUNT SENSOR")) {
@@ -949,6 +1033,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromMountSensorToSensorReady(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SENSOR READY")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -956,12 +1044,20 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromSensorReadyToSetUpAccConfigured(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SET UP ACCESSORIES CONFIGURED")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE GEOFENCING": {
 					flag = flag & DIYRegistrationUtils.navigateFromSetUpAccConfiguredToEnableGeoFencing(testCase);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE GEOFENCING")) {
@@ -981,12 +1077,20 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.navigateFromGeoFenceToGeoFenceEnabled(testCase);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE ENABLED")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ENABLE AMAZON ALEXA": {
 					flag = flag & DIYRegistrationUtils.navigateFromGeoFenceEnabledToEnableAmazonAlexa(testCase);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SMART HOME SECURITY SUCCESS")) {
@@ -1005,6 +1109,10 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					flag = flag & DIYRegistrationUtils.navigateFromEnableAmazonAlexaToDashboard(testCase);
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Keyfob")) {
@@ -1121,6 +1229,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Sensor Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1233,7 +1345,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Camera Settings Introduction")) {
@@ -1245,7 +1357,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Alarm")) {
@@ -1257,7 +1369,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Honeywell Help web portal")) {
@@ -1268,6 +1380,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Test Signal Strength")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1277,12 +1393,17 @@ public class NavigateToScreen extends Keyword {
 					sensor.isAccessSensorHelpScreenDisplayed();
 					break;
 				}
+				case "TEST MOTION SENSOR":
 				case "TEST SENSOR":{
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					sensor.clickOnSignalStrengthBackButton();
 					Thread.sleep(3000);
 					sensor.clickOnBackButton();
 				break;	
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Access Sensor Help")) {
@@ -1293,6 +1414,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensor.isTestSensorHeadingDisplayed();
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Motion Sensor Help")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1302,6 +1427,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensor.clickOnAccessSensorHelpBack();
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Test Access Sensor")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1309,6 +1438,10 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnTestSensorBack();
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Access Sensor Settings")
@@ -1366,6 +1499,10 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Locate Sensor")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1375,6 +1512,10 @@ public class NavigateToScreen extends Keyword {
 						System.out.println("NAvigated to " + screen.get(0));
 						Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
 					}
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Place Sensor")||screen.get(1).equalsIgnoreCase("Mount in a corner")||screen.get(1).equalsIgnoreCase("Mount on the wall")) {
@@ -1394,6 +1535,10 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
 					}
 					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0)+ " for "+screen.get(1));
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Access sensor Install help")) {
@@ -1422,46 +1567,102 @@ public class NavigateToScreen extends Keyword {
 				case "SENSOR OVERVIEW":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					break;
 				}
 				case "LOCATE SENSOR":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
+				}
+				case "LOCATE MOTION SENSOR":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
 					break;
 				}
 				case "NAME SENSOR LOCATION":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					flag= flag & sensor.clickOnNextButton();
+					break;
+				}
+				case "NAME MOTION SENSOR LOCATION":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnNextButton();
 					break;
 				}
 				case "NAME SENSOR DEFAULT NAME":{
 					flag= flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnNextButton();
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					break;
+				}
+				case "NAME MOTION SENSOR DEFAULT NAME":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
+				}
+				case "NAME MOTION SENSOR CUSTOM NAME":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Create Custom Name");
 					break;
 				}
 				case "NAME SENSOR CUSTOM NAME":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnNextButton();
-					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Create Custom Name");
 					break;
 				}
+				
+				case "MOUNT SENSOR":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag & sensor.clickOnNextButton();
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
+					break;
+				}
+				case "MOUNT ON THE WALL":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag & sensor.clickOnNextButton();
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
+					break;
+				}
+				case "MOUNT IN A CORNER":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag & sensor.clickOnNextButton();
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
+					DIYRegistrationUtils.selectAvailableSensorName(testCase, "In a Wall Corner");
+					break;
+				}
+				
 				case "PLACE SENSOR":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnNextButton();
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
@@ -1471,7 +1672,7 @@ public class NavigateToScreen extends Keyword {
 				case "PLACE SENSOR ON LOCATION":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnNextButton();
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
@@ -1482,7 +1683,7 @@ public class NavigateToScreen extends Keyword {
 				case "TEST ACCESS SENSOR":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnNextButton();
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
@@ -1493,10 +1694,41 @@ public class NavigateToScreen extends Keyword {
 					
 				}
 				
+				case "TEST MOTION SENSOR":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					flag = flag & DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag & sensor.clickOnNextButton();
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
+					flag= flag & sensor.clickOnNextButton();
+					break;
+				}
+				
+				case "MOTION SENSOR SIGNAL STRENGTH":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					flag = flag & DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag &sensor.isLocateSensorScreenDisplayed();
+					flag= flag & sensor.clickOnNextButton();
+					
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
+					
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag &sensor.isPlaceSensorScreenDisplayed();
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag &sensor.isTestSensorHeadingDisplayed();
+					flag= flag &sensor.clickOnSensorNotWorking();
+					flag= flag &sensor.isMotionSensorHelpScreenDisplayed();
+					flag = flag & sensor.clickOnTestSignalStrength();
+					flag= flag &sensor.isSignalStrengthScreenDisplayed();
+					break;
+				}
 				case "SIGNAL STRENGTH":{
 					flag= flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag = flag & DASSensorUtils.enrollDoor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag &sensor.isSensorOverviewScreenDisplayed();
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag &sensor.isLocateSensorScreenDisplayed();
@@ -1515,11 +1747,26 @@ public class NavigateToScreen extends Keyword {
 					flag= flag &sensor.isSignalStrengthScreenDisplayed();
 					break;
 				}
-				
+				case "MOTION SENSOR HELP":{
+					flag= flag & sensor.clickOnAddSensorButton();
+					flag = flag & DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
+					flag= flag &sensor.isLocateSensorScreenDisplayed();
+					flag= flag & sensor.clickOnNextButton();
+					
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
+					flag= flag &sensor.isPlaceSensorScreenDisplayed();
+					flag= flag & sensor.clickOnNextButton();
+					flag= flag &sensor.isTestSensorHeadingDisplayed();
+					flag= flag &sensor.clickOnSensorNotWorking();
+					flag= flag &sensor.isMotionSensorHelpScreenDisplayed();
+					break;
+				}
 				case "ACCESS SENSOR HELP":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
-					flag= flag & sensor.clickOnSetUpButton("access sensor");
+					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag &sensor.isSensorOverviewScreenDisplayed();
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag &sensor.isLocateSensorScreenDisplayed();
@@ -1543,7 +1790,7 @@ public class NavigateToScreen extends Keyword {
 					if(screen.get(0).toUpperCase().contains("DOOR")) {
 					 givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					}
-					else if(screen.get(0).toUpperCase().contains("MOTION")) {
+					else if(screen.get(0).toUpperCase().contains("MOTION SENSOR")) {
 						givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");	
 					}
 					else if(screen.get(0).toUpperCase().contains("WINDOW")) {
