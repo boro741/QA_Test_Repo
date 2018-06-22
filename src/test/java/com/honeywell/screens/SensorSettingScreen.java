@@ -558,6 +558,13 @@ public class SensorSettingScreen extends MobileScreens {
 					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 				}
 			} else {
+				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+				int startx = (dimensions.width * 20) / 100;
+				int starty = (dimensions.height * 62) / 100;
+				int endx = (dimensions.width * 22) / 100;
+				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				if (MobileUtils.isMobElementExists("xpath", "//android.widget.Button[contains(@text,'Set Up')]",
 						testCase, 10)) {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpAccessoriesBack");
@@ -663,17 +670,13 @@ public class SensorSettingScreen extends MobileScreens {
 					testCase, 10);
 		} else {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 				int startx = (dimensions.width * 20) / 100;
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
-				// testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-
-				touchAction.press(startx, starty).waitAction(MobileUtils.getDuration(2000)).moveTo(endx, endy)
-						.release();
-				touchAction.perform();
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 
 				return MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName
 						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.TextView[contains(@text,'"

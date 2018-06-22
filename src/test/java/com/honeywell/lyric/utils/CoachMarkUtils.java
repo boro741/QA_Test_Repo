@@ -241,12 +241,6 @@ public class CoachMarkUtils {
 		boolean flag = true;
 		CoachMarks cm = new CoachMarks(testCase);
 		int counter = 0;
-		/*if (cm.isGotitButtonVisible(5)) {
-			while (cm.isGotitButtonVisible(1) && counter < 5) {
-				flag = flag & cm.clickOnGotitButton();
-				counter++;
-			}
-		}*/
 		if (cm.isNextButtonVisible(1)) {
 			while (cm.isNextButtonVisible(1) && counter < 5) {
 				flag = flag & cm.clickOnNextButton();
