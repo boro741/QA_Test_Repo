@@ -384,7 +384,7 @@ public class SelectElementOnAScreen extends Keyword {
 				 * flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 				 * "SAVING SENSOR PROGRESS BAR", 1);
 				 */
-			} else if (parameters.get(1).toUpperCase().contains("NAME")) {
+			} else if (parameters.get(1).toUpperCase().equals("NAME SENSOR")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
@@ -521,6 +521,8 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "ADD BUTTON": {
 					flag = flag & sensor.clickOnAddSensorButton();
+					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+							 "LOADING SPINNER BAR", 1);
 					break;
 				}
 				default: {
@@ -566,7 +568,9 @@ public class SelectElementOnAScreen extends Keyword {
 							"Successfully clicked on " + parameters.get(0).toUpperCase() + " button");
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
-					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")) {
+					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview"))
+				{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO": {

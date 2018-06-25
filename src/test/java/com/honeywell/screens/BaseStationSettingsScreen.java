@@ -544,7 +544,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		case BaseStationSettingsScreen.SENSORS: {
 			boolean flag = true;
 			SecuritySolutionCardScreen secScreen =  new SecuritySolutionCardScreen(testCase);
-			secScreen.clickOnSensorButton();
+			flag = flag & secScreen.clickOnSensorButton();
 			return flag;
 		}
 

@@ -19,7 +19,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <Sensor Location Area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user selects "Wont Fit As shown" from "Place Sensor on location" screen
@@ -51,20 +51,20 @@ Then user should not be displayed with <Sensor Location> device on the "sensor l
 
 Examples:
 |Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Setting screen|
-|Home | Door | Front Door| Opened | Closed |Door Access settings|
-|Home | Window | Living Room Window | Opened | Closed |Window Access settings|
-|OFF | Door | Back Door| Opened | Closed |Door Access settings|
-|OFF | Window |Dining Room Window | Opened | Closed |Window Access settings|
+|Home | Door | Front Door| open | Closed |Door Access settings|
+|Home | Window | Living Room Window | open | Closed |Window Access settings|
+|OFF | Door | Back Door| open | Closed |Door Access settings|
+|OFF | Window |Dining Room Window | open | Closed |Window Access settings|
 
 #incaserequired
-#|Home | Door | Back Door| Opened | Closed |
-#|Home | Door | Side Door| Opened | Closed |
-#|Home | Window |Dining Room Window | Opened | Closed |
-#|Home | Window | Kitchen Window | Opened | Closed |
-#|OFF | Door | Front Door| Opened | Closed |
-#|OFF | Door | Side Door| Opened | Closed |
-#|OFF | Window | Living Room Window | Opened | Closed |
-#|OFF| Window | Kitchen Window | Opened | Closed |
+#|Home | Door | Back Door| open | Closed |
+#|Home | Door | Side Door| open | Closed |
+#|Home | Window |Dining Room Window | open | Closed |
+#|Home | Window | Kitchen Window | open | Closed |
+#|OFF | Door | Front Door| open | Closed |
+#|OFF | Door | Side Door| open | Closed |
+#|OFF | Window | Living Room Window | open | Closed |
+#|OFF| Window | Kitchen Window | open | Closed |
 
 
 @DASAccessSensorEnrollmentWithCustomSensorName
@@ -95,7 +95,7 @@ Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
 Then user <Sensor Location> access sensor "Opened"
-Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 Then user <Sensor Location> access sensor "closed"
 Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 When user selects "Done" from "Test Sensor" screen
@@ -118,10 +118,10 @@ Then user should not be displayed with <Sensor Location> device on the "sensor l
  
 Examples:
 |Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Sensor Settings|
-#|Home | Door |Honeywell| Opened | Closed |Door Access Settings|
-#|Home | Window |Honeywell1 | Opened| Closed |Window Access Settings|
-#|OFF | Door | Honeywell2| Opened | Closed |Door Access Settings|
-|OFF | Window | Honeywell3 | Opened | Closed |Window Access Settings|
+|Home | Door |Honeywell| open | Closed |Door Access Settings|
+|Home | Window |Honeywell1 | open| Closed |Window Access Settings|
+|OFF | Door | Honeywell2| open | Closed |Door Access Settings|
+|OFF | Window | Honeywell3 | open | Closed |Window Access Settings|
 
 
 @DASAccessSensorEnrollmentWithDuplicateSensorName @SpecificAccountRequired
@@ -144,12 +144,12 @@ And user selects "Door" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-Then user edits the "Duplicate Door" name to "custom name"
+Then user names the "Duplicate Door" to "custom name"
 Then user should receive a "Sensor Name Already Assigned" popup
 Examples:
 |Mode |
 |Home|
-#|OFF|
+|OFF|
 
 @DASAccessSensorEnrollmentByCancellingAndRetryingAgainWithCustomSensorName
 Scenario Outline: As a user I should be able to successfully enroll Access Sensor with custom sensor name after cancelling the enrollment and retrying again
@@ -210,10 +210,10 @@ Then user should not be displayed with <Sensor Location> device on the "sensor l
 
 Examples:
 |Mode |Sensor Location| Custom name| Access Status | Access Status Update |Access Sensor Settings|
-|Home | Door | Honeywell | Opened | Closed |Door Access Settings|
-|Home | Window | Honeywell1 | Opened | Closed |Window Access Settings|
-|OFF | Door | Honeywell2 | Opened | Closed |Door Access Settings|
-|OFF | Window | Honeywell3 | Opened | Closed |Window Access Settings|
+|Home | Door | Honeywell | open | Closed |Door Access Settings|
+|Home | Window | Honeywell1 | open | Closed |Window Access Settings|
+|OFF | Door | Honeywell2 | open | Closed |Door Access Settings|
+|OFF | Window | Honeywell3 | open | Closed |Window Access Settings|
 
 
 @DASAccessSensorEnrollmentWithSensorNotWorkingAndIsWithInRange
@@ -229,7 +229,7 @@ When user selects "Get Started" from "Sensor Overview" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <Sensor Location Area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
@@ -240,7 +240,7 @@ Then user should be displayed with the "Signal Strength" screen
 Then user should see the <Sensor Location> status as <Signal strength> on the "Signal Strength"
 And user navigates to "Test Sensor" screen from the "Test Signal Strength" screen
 When user <Sensor Location> access sensor "Opened"
-Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user <Sensor Location> access sensor "closed"
 Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -264,44 +264,44 @@ Then user should not be displayed with <Sensor Location> device on the "sensor l
  
 Examples:
 |Mode |Sensor Location| Sensor Location Area | Signal strength | Access Status | Access Status Update |Access settings|
-|Home | Door |Front Door| High |  Opened | Closed |Door Access settings|
-#|Home | Door | Front Door| Medium |Opened | Closed |Door Access settings|
-#|Home | Door | Front Door| Low |Opened | Closed |Door Access settings|
-|OFF | Window |Kitchen Window| High | Opened | Closed |Window Access settings|
-#|OFF | Window | Kitchen Window| Medium | Opened | Closed |Window Access settings|
-#|OFF | Window | Kitchen Window| Low | Opened | Closed |Window Access settings|
+|Home | Door |Front Door| High |  open | Closed |Door Access settings|
+#|Home | Door | Front Door| Medium |open | Closed |Door Access settings|
+#|Home | Door | Front Door| Low |open | Closed |Door Access settings|
+|OFF | Window |Kitchen Window| High | open | Closed |Window Access settings|
+#|OFF | Window | Kitchen Window| Medium | open | Closed |Window Access settings|
+#|OFF | Window | Kitchen Window| Low | open | Closed |Window Access settings|
 
 #Incaserequired
-#|Home | Door |Back Door| High |  Opened | Closed |
-#|Home | Door | Back Door| Medium |Opened | Closed |
-#|Home | Door | Back Door| Low |Opened | Closed |
-#|Home | Door |Side Door| High |  Opened | Closed |
-#|Home | Door | Side Door| Medium |Opened | Closed |
-#|Home | Door | Side Door| Low |Opened | Closed |
-#|Home | Window |Living Room Window| High | Opened | Closed |
-#|Home | Window |Living Room Window| Medium | Opened | Closed |
-#|Home | Window |Living Room Window| Low | Opened | Closed |
-#|Home | Window |Dining Room Window| High | Opened | Closed |
-#|Home | Window | Dining Room Window| Medium | Opened | Closed |
-#|Home | Window | Dining Room Window| Low | Opened | Closed |
-#|Home | Window |Kitchen Window| High | Opened | Closed |
-#|Home | Window | Kitchen Window| Medium | Opened | Closed |
-#|Home | Window | Kitchen Window| Low | Opened | Closed |
-#|OFF | Door |Front Door| High |  Opened | Closed |
-#|OFF | Door | Front Door| Medium |Opened | Closed |
-#|OFF | Door | Front Door| Low |Opened | Closed |
-#|OFF | Door |Back Door| High |  Opened | Closed |
-#|OFF | Door | Back Door| Medium |Opened | Closed |
-#|OFF | Door | Back Door| Low |Opened | Closed |
-#|OFF | Door |Side Door| High |  Opened | Closed |
-#|OFF | Door | Side Door| Medium |Opened | Closed |
-#|OFF | Door | Side Door| Low |Opened | Closed |
-#|OFF | Window |Living Room Window| High | Opened | Closed |
-#|OFF | Window |Living Room Window| Medium | Opened | Closed |
-#|OFF | Window |Living Room Window| Low | Opened | Closed |
-#|OFF | Window |Dining Room Window| High | Opened | Closed |
-#|OFF | Window | Dining Room Window| Medium | Opened | Closed |
-#|OFF | Window | Dining Room Window| Low | Opened | Closed |
+#|Home | Door |Back Door| High |  open | Closed |
+#|Home | Door | Back Door| Medium |open | Closed |
+#|Home | Door | Back Door| Low |open | Closed |
+#|Home | Door |Side Door| High |  open | Closed |
+#|Home | Door | Side Door| Medium |open | Closed |
+#|Home | Door | Side Door| Low |open | Closed |
+#|Home | Window |Living Room Window| High | open | Closed |
+#|Home | Window |Living Room Window| Medium | open | Closed |
+#|Home | Window |Living Room Window| Low | open | Closed |
+#|Home | Window |Dining Room Window| High | open | Closed |
+#|Home | Window | Dining Room Window| Medium | open | Closed |
+#|Home | Window | Dining Room Window| Low | open | Closed |
+#|Home | Window |Kitchen Window| High | open | Closed |
+#|Home | Window | Kitchen Window| Medium | open | Closed |
+#|Home | Window | Kitchen Window| Low | open | Closed |
+#|OFF | Door |Front Door| High |  open | Closed |
+#|OFF | Door | Front Door| Medium |open | Closed |
+#|OFF | Door | Front Door| Low |open | Closed |
+#|OFF | Door |Back Door| High |  open | Closed |
+#|OFF | Door | Back Door| Medium |open | Closed |
+#|OFF | Door | Back Door| Low |open | Closed |
+#|OFF | Door |Side Door| High |  open | Closed |
+#|OFF | Door | Side Door| Medium |open | Closed |
+#|OFF | Door | Side Door| Low |open | Closed |
+#|OFF | Window |Living Room Window| High | open | Closed |
+#|OFF | Window |Living Room Window| Medium | open | Closed |
+#|OFF | Window |Living Room Window| Low | open | Closed |
+#|OFF | Window |Dining Room Window| High | open | Closed |
+#|OFF | Window | Dining Room Window| Medium | open | Closed |
+#|OFF | Window | Dining Room Window| Low | open | Closed |
 
 
 @DASAccessSensorEnrollmentWithSensorNotWorkingAndIsOutOfRange
@@ -317,7 +317,7 @@ When user navigates to "Locate Sensor" screen from the "Sensor Overview" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <sensor location area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with "Place Sensor" screen
 When user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
@@ -419,7 +419,7 @@ Examples:
  
  
 #In case required
-#| OFF |Test Sensor | Opened | Closed |
+#| OFF |Test Sensor | open | Closed |
 
 
 

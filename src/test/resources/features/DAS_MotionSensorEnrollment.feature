@@ -79,7 +79,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user names the "MOTION" name to <Custom name>
+And user names the "MOTION" name <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 Then user selects <Mount Sensor Name> from "Mount Sensor" screen
 Then user should be displayed with the <Place Sensor> screen
@@ -157,7 +157,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user names the "MOTION" name to <Custom name>
+And user names the "MOTION" name <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 Then user selects <Mount Sensor Name> from "Mount Sensor" screen
 #And user selects "cancel" from <Place Sensor> screen
@@ -170,7 +170,7 @@ Then user should be displayed with the "Locate Sensor" Screen
 Then user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user names the "MOTION" name to <Custom name>
+And user names the "MOTION" to <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 When user selects <Mount Sensor Name> from "Mount Sensor" screen
 Then user should be displayed with the <Place Sensor> screen
