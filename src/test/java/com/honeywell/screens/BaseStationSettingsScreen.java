@@ -543,22 +543,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		case BaseStationSettingsScreen.SENSORS: {
 			boolean flag = true;
-			if (this.isSensorsOptionVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Sensors Visible @ 1");
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
-			} else {
-				Keyword.ReportStep_Pass(testCase, "Sensors Visible @ 2");
-				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
-				if (this.isSensorsOptionVisible()) {
-					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
-				}
-			}
-			if (this.isSensorsOptionVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Sensors Visible @ 3");
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
-			}
+			SecuritySolutionCardScreen secScreen =  new SecuritySolutionCardScreen(testCase);
+			secScreen.clickOnSensorButton();
 			return flag;
 		}
 

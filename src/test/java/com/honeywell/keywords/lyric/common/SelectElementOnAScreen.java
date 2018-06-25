@@ -552,8 +552,12 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & sensor.clickOnDoneButton();
 					break;
 				}
-				default: {
-					flag = false;
+				case "HELP":{
+					flag= flag & sensor.clickOnSensorHelpButton();
+					break;
+				}
+				default:{
+					flag=false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
 				}
@@ -709,6 +713,19 @@ public class SelectElementOnAScreen extends Keyword {
 
 			else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+			}
+			else if(parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GET ADDITIONAL HELP":{
+					flag= flag & sensor.clickOnGetAdditionalHelpButton();
+					break;
+				}
+				}
+				if(flag) {
+					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

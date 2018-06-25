@@ -427,9 +427,9 @@ Examples:
 @DASmotionSensorSensorStatusVerificationWithHomeAwayNightOffMode
 Scenario Outline:AS a user I want to Verify motion sensor Battery status
 Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Sensor settings" screen from the "Dashboard"
-And user should display the status <Sensor Status>
+And user is set to <Mode> mode through CHIL
+Then user navigates to "MOTION SENSOR SETTINGS" screen from the "Dashboard" screen
+Then user should see the "motion sensor" status as <Sensor Status> on the "MOTION SENSOR SETTINGS"
 Examples:
 |Mode| Sensor Status |
 |Home| Good |

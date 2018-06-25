@@ -259,7 +259,7 @@ And user "dismisses" the "Delete Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Sensor Confirmation" popup
 And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with <Sensor Location Area> device on the "sensor list" screen
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 
  
 Examples:

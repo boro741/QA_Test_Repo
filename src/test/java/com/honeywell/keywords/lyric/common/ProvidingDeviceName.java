@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -40,6 +41,14 @@ public class ProvidingDeviceName extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (parameters.get(0).toUpperCase()) {
+			
+			case "MOTION SENSOR":{
+					//Naming Motion  sensor
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+						inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
+					}
+			}
 			case "DIMMER":
 			case "SWITCH": {
 				DASZwaveUtils.waitForNamingScreen(testCase);
