@@ -352,9 +352,9 @@ public class NavigateToScreen extends Keyword {
 
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+					Keyword.ReportStep_Pass(testCase, "About to click sensor name "+givenSensorName);
 					flag = flag & security.clickOnUserGivenSensorName(givenSensorName);
 					inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
-
 					break;
 				}
 				case "ACTIVITY HISTORY": {
@@ -1374,6 +1374,8 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Honeywell Help web portal")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "SENSOR PAIRING HELP":
+				case "MOTION SENSOR HELP":
 				case "ACCESS SENSOR HELP": {
 					if (!testCase.getPlatform().contains("IOS")) {
 						MobileUtils.pressBackButton(testCase);
@@ -1395,6 +1397,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "TEST MOTION SENSOR":
 				case "TEST SENSOR":{
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					sensor.clickOnSignalStrengthBackButton();
 					Thread.sleep(3000);
@@ -1422,6 +1425,7 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("Motion Sensor Help")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "TEST MOTION SENSOR":{
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnMotionSensorHelpBack();
 					flag = flag & sensor.clickOnAccessSensorHelpBack();
@@ -1702,6 +1706,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
 					flag= flag & sensor.clickOnNextButton();
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					break;
 				}
 				
@@ -1845,6 +1850,15 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Did not navigated to Sensor List Settings Screen");
 					}
+					break;
+				}
+				}
+			}
+			else if (screen.get(1).equalsIgnoreCase("SENSOR PAIRING HELP")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SET UP ACCESSORIES": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnBackButton();
 					break;
 				}
 				}

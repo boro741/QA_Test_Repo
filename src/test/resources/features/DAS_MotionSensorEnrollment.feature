@@ -79,7 +79,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user edits the "MOTION" name to <Custom name>
+And user names the "MOTION" name to <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 Then user selects <Mount Sensor Name> from "Mount Sensor" screen
 Then user should be displayed with the <Place Sensor> screen
@@ -157,7 +157,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user edits the "MOTION" name to <Custom name>
+And user names the "MOTION" name to <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 Then user selects <Mount Sensor Name> from "Mount Sensor" screen
 #And user selects "cancel" from <Place Sensor> screen
@@ -170,7 +170,7 @@ Then user should be displayed with the "Locate Sensor" Screen
 Then user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user edits the "MOTION" name to <Custom name>
+And user names the "MOTION" name to <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 When user selects <Mount Sensor Name> from "Mount Sensor" screen
 Then user should be displayed with the <Place Sensor> screen
@@ -229,12 +229,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Test Sensor" screen from the <Place Sensor> screen
 When user selects "Sensor Not Working" from "Test Motion Sensor" screen
 Then user should be displayed with the "Motion Sensor Help" screen
-#When user selects "Get Additional Help" from "Motion Sensor Help" screen
+#When user selects "Get Additional Help" from "Motion Sensor Help" screen   # can be run for Android
 #Then user should be displayed with the "Honeywell help web portal" 
 #And user navigates to "Motion Sensor Help" screen from "Honeywell Help web portal" screen
 When user selects "Test Signal Strength" from "Motion Sensor Help" screen
 Then user should be displayed with the "Signal Strength" screen
-Then user should see the <Sensor Location> status as <Signal strength> on the "Signal Strength"
+Then user should see the <Sensor Name> status as <Signal strength> on the "Signal Strength"
 And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
@@ -363,9 +363,9 @@ And user selects "MOTION SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Sensor" Screen
 Then user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 When user selects "Living Room" from "Name Sensor" screen
-Then user should be displayed with the "Name Sensor" screen
-When user selects "In a wall Corner" from "Name Sensor" screen
-Then user should be displayed with the "In a Wall Corner" screen
+Then user should be displayed with the "Mount Sensor" screen   
+When user selects "In a wall Corner" from "Mount Sensor" screen
+Then user should be displayed with the "Mount in a Corner" screen
 And user navigates to "Test Sensor" screen from the "MOUNT In a Corner" screen
 And user selects "cancel" from "Test Sensor" screen
 Then user should receive a "Cancel Sensor Setup" popup

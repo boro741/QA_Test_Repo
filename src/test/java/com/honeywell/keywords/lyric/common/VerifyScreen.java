@@ -670,6 +670,14 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "SENSOR PAIRING HELP": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag & sensor.isSensorPairingScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,  expectedScreen.get(0)+"screen is displayed");
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

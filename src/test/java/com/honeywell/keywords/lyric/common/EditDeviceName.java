@@ -135,15 +135,7 @@ public class EditDeviceName extends Keyword {
 					break;
 				}
 				}
-
 			}
-			/*
-			 * else if(parameters.get(0).equalsIgnoreCase("motion sensor")) { //Renaming
-			 * Motion sensor BaseStationSettingsScreen bs = new
-			 * BaseStationSettingsScreen(testCase); if (bs.setValueToDASNameTextBox(
-			 * parameters.get(1))) { inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1",
-			 * parameters.get(1)); } }
-			 */
 			else if (parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")
 					|| parameters.get(0).equalsIgnoreCase("MOTION")
 					|| parameters.get(0).equalsIgnoreCase("MOTION SENSOR")) {

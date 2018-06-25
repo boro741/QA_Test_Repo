@@ -150,7 +150,33 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 			
-			}
+			}else if(expectedScreen.get(1).toUpperCase().equals("DONE")){
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE DISPLAYED": {
+				
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(sensor.isDoneButtonVisible()==false) {
+						flag = true;
+						 Keyword.ReportStep_Pass(testCase, "Done button is not displayed");
+						return flag;
+
+					} else {
+						flag=false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Done button is displayed");
+					}
+					
+					break;
+				
+				}
+				}
+				
+				}
 		return flag;
 	}
 

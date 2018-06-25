@@ -92,3 +92,5 @@ SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"
 MountInaCorner	xpath	//*[@text='Mount in a Corner']					name	Mount in a corner				
 MountInaWall	xpath	//*[@text='Mount on the wall']					name	Mount on the wall				
 SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										
+SensorHelpButton	id	sensor_help_text										
+SensorPairingHelpScreenTitle	id	//*[@text='Sensor Pairing Help']										
