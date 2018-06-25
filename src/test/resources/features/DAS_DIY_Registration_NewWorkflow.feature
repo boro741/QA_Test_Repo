@@ -1391,7 +1391,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <Sensor Location Area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user selects "Wont Fit As shown" from "Place Sensor on location" screen
@@ -1580,7 +1580,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <Sensor Location Area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user selects "Wont Fit As shown" from "Place Sensor on location" screen
@@ -1719,7 +1719,7 @@ Then user navigates to "Locate Sensor" screen from the "Sensor Overview" screen
 When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <sensor location area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from "Place Sensor" screen
 When user selects "Won't Fit As shown" from "Place Sensor on location" screen
@@ -2207,7 +2207,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <Sensor Location Area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user selects "Wont Fit As shown" from "Place Sensor on location" screen
@@ -2271,8 +2271,8 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|
-
+#| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|
+| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| Keyfob			|
 
 @DIYRegistrationWithSensorBulkEnrollmentOld    @P1
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration

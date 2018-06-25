@@ -889,6 +889,8 @@ public class VerifyStatusOnScreen extends Keyword {
 							inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"), expectedScreen.get(1));
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -904,6 +906,8 @@ public class VerifyStatusOnScreen extends Keyword {
 							inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"), expectedScreen.get(1));
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -919,6 +923,8 @@ public class VerifyStatusOnScreen extends Keyword {
 							inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"), expectedScreen.get(1));
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -933,6 +939,8 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}

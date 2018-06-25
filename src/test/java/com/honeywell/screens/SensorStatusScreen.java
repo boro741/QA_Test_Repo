@@ -30,7 +30,7 @@ public class SensorStatusScreen extends MobileScreens {
 	}
 
 	public boolean isAddButtonNotVisibleInSensorStatusScreen() {
-		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "AddButton")) {
+		if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "AddButton", 5)) {
 			return true;
 		} else {
 			return false;
