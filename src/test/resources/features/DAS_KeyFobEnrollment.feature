@@ -49,12 +49,12 @@ Then user should be displayed with the "Set Up Accessories" screen
 		
 Examples:
 |Mode|PreScreen |
-|Home|Sensor Overview |
+|Home|Sensor Keyfob Overview |
 |Home|NAME KEYFOB |
 |Home|KEYFOB Overview|
 
 #incaserequired 
-#|OFF|Sensor Overview |
+#|OFF|Sensor Keyfob Overview |
 #|OFF|Name Key Fob |
 #|OFF|Key Fob|
 
@@ -69,7 +69,7 @@ Then user should be displayed with the <PostScreen> screen
 
 Examples:
 |Mode |PreScreen				 |PostScreen |
-|Home |Sensor Overview 			| Set up Accessories |
+|Home |Sensor Keyfob Overview 			| Set up Accessories |
 |OFF |Name KeyFob				| KeyFob Overview |
 |Home |Keyfob Configuration Success			| Name KeyFob |
 

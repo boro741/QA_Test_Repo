@@ -41,13 +41,31 @@ public class ProvidingDeviceName extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (parameters.get(0).toUpperCase()) {
-			
+			case "DOOR":
+			case "DOOR SENSOR":{
+				//Naming Door sensor
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(1));
+				}
+				break;
+			}
+			case "WINDOW":
+			case "WINDOW SENSOR":{
+				//Naming Window  sensor
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(1));
+				}
+				break;
+			}
 			case "MOTION SENSOR":{
-					//Naming Motion  sensor
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.setValueToDASNameTextBox( parameters.get(1))) {
-						inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
-					}
+				//Naming Motion  sensor
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
+				}
+				break;
 			}
 			case "DIMMER":
 			case "SWITCH": {

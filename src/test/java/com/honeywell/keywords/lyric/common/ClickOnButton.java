@@ -65,6 +65,7 @@ public class ClickOnButton extends Keyword {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "CANCEL": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					if (dasDIY.isCancelButtonVisible()) {
 						flag = flag & dasDIY.clickOnCancelButton();
 					}

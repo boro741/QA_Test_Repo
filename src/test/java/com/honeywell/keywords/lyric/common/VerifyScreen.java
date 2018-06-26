@@ -587,6 +587,7 @@ public class VerifyScreen extends Keyword {
 				flag = flag & sensor.isFirmwareDetailsDisplayed();
 				break;
 			}
+			case "SENSOR KEYFOB OVERVIEW":
 			case "SENSOR OVERVIEW": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = flag & sensor.isSensorOverviewScreenDisplayed();

@@ -261,6 +261,9 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
 					flag = flag & security.clickOnSensorButton();
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
@@ -277,12 +280,31 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
 					flag = flag & security.clickOnSensorButton();
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
 					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
+					break;
+				}
+				case "SENSOR KEYFOB OVERVIEW":{
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (security.isAppSettingsIconVisible(10)) {
+						security.clickOnAppSettingsIcon();
+					}
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
+					flag = flag & security.clickOnSensorButton();
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag= flag & sensor.clickOnAddSensorButton();
+					DASSensorUtils.enrollKeyfob(testCase, inputs);
+					flag= flag & sensor.clickOnSetUpButton(inputs,"keyfob");
 					break;
 				}
 				case "KEYFOB OVERVIEW":{
@@ -325,6 +347,9 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
@@ -337,6 +362,9 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 					security.clickOnUserGivenSensorName(givenSensorName);
@@ -349,7 +377,9 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						flag = flag & security.clickOnAppSettingsIcon();
 					}
-
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
 					flag = flag & security.clickOnSensorButton();
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 					Keyword.ReportStep_Pass(testCase, "About to click sensor name "+givenSensorName);
@@ -1604,7 +1634,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "NAME SENSOR DEFAULT NAME":{
 					flag= flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollMotionSensor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs);
 					flag= flag & sensor.clickOnSetUpButton(inputs,"access sensor");
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag & sensor.clickOnNextButton();

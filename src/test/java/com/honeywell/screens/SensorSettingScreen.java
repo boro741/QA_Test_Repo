@@ -3,7 +3,6 @@ package com.honeywell.screens;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -17,6 +16,7 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.relayutils.RelayConstants;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -389,8 +389,8 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnSetUpButton(TestCaseInputs inputs,String SensorType) {
 		String locator;
 		String SensorName = null;
+		String serialNo = null;
 		boolean flag = true;
-		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().contains("IOS")) {
 			locator = "value";
 		} else {
@@ -404,6 +404,21 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
 		}
+		if (SensorType.toLowerCase().contains("keyfob")) {
+			SensorName = "Key Fob";
+			serialNo=RelayConstants.RSI_Keyfob_1_SerialNO;
+		} else if (SensorType.toLowerCase().contains("motion sensor")) {
+			SensorName = "Motion Sensor";
+			serialNo=RelayConstants.RSI_Motion_Sensor_1_SerialNO;
+			inputs.setInputValue(DASInputVariables.SENSORTYPE,DASInputVariables.MOTIONSENSOR);
+		} else if (SensorType.toLowerCase().contains("door access sensor")) {
+			serialNo=RelayConstants.RSI_Contact_Sensor_2_SerialNO;
+			SensorName = "Access Sensor";
+		}else if (SensorType.toLowerCase().contains("window access sensor")) {
+			serialNo=RelayConstants.RSI_Contact_Sensor_1_SerialNO;
+			SensorName = "Access Sensor";
+		}
+		
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
@@ -415,6 +430,8 @@ public class SensorSettingScreen extends MobileScreens {
 							&& counter < 10) {
 						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 						.release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
 						try {
 							TimeUnit.SECONDS.sleep(3);
 						} catch (InterruptedException e) {
@@ -422,35 +439,40 @@ public class SensorSettingScreen extends MobileScreens {
 						}
 						System.out.println(counter);
 						Keyword.ReportStep_Pass(testCase, "Count to scroll "+counter);
-						WebElement eleHelpText = MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeTable");
-						int x = eleHelpText.getLocation().x;
-						int y = eleHelpText.getLocation().y;
-				/*		touchAction.press(x + 30, y + 300).waitAction(MobileUtils.getDuration(3000))
-						.moveTo(x + 30, -100).release().perform();
-						try {
-							TimeUnit.SECONDS.sleep(5);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						System.out.println("first scroll ");
-						touchAction.press(x + 30, y + 300).waitAction(MobileUtils.getDuration(3000))
-						.moveTo(x + 30, -100).release().perform();
-						try {
-							TimeUnit.SECONDS.sleep(3);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						System.out.println("second scroll ");
-				*/		if (MobileUtils.isMobElementExists("xpath",
+						
+						
+						if(MobileUtils.isMobElementExists("xpath",
 								"//*[contains(@" + locator + ",'" + SensorName
-								+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
-								testCase, 10)) {
+								+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]",testCase,10)){
 							MobileUtils.clickOnElement(testCase,"xpath","//*[contains(@" + locator
 									+ ",'" + SensorName
-									+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]");
-							Keyword.ReportStep_Pass(testCase, "Clicked on set up button");
-							System.out.println("Clicked on set up button");
+									+ "')]");
+							Keyword.ReportStep_Pass(testCase, "Clicked on sensor");
+							if (MobileUtils.clickOnElement(testCase,"xpath",
+									"//*[contains(@" + locator + ",'" + SensorName
+									+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]"
+									)) {
+								System.out.println("located sensor with serial number");
+								
+								if (MobileUtils.isMobElementExists("xpath",
+										"//*[contains(@" + locator + ",'" + SensorName
+										+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
+										testCase, 10)) {
+								
+									MobileUtils.clickOnElement(testCase,"xpath","//*[contains(@" + locator
+											+ ",'" + SensorName
+											+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]");
+									Keyword.ReportStep_Pass(testCase, "Clicked on set up button");
+									System.out.println("Clicked on set up button");
+								}
+							}else {
+								System.out.println("not able to locate sensor with serial number");
+							}
+						}else {
+							System.out.println("not able to locate sensor with serial number");
 						}
+						
+					
 						counter++;
 					}
 				} else {
@@ -699,17 +721,8 @@ public class SensorSettingScreen extends MobileScreens {
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
-<<<<<<< Updated upstream
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-=======
-				// testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-
-				touchAction.press(startx, starty).waitAction(MobileUtils.getDuration(2000)).moveTo(endx, endy)
-				.release();
-				touchAction.perform();
->>>>>>> Stashed changes
-
 				return MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName
 						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.TextView[contains(@text,'"
 						+ state + "')]", testCase, 10);

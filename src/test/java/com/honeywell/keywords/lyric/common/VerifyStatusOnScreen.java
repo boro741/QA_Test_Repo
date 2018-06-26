@@ -64,6 +64,11 @@ public class VerifyStatusOnScreen extends Keyword {
 					return false;
 				}
 			}
+			default:{
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+			}
 			}
 
 			break;
@@ -98,6 +103,11 @@ public class VerifyStatusOnScreen extends Keyword {
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
 							expectedScreen.get(1));
 					break;
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				if (flag) {
@@ -135,6 +145,11 @@ public class VerifyStatusOnScreen extends Keyword {
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
 							expectedScreen.get(1));
 					break;
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				if (flag) {
@@ -179,6 +194,11 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					break;
 				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase,
@@ -188,6 +208,11 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
 				}
 				break;
+			}
+			default:{
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedScreen.get(0).toUpperCase() + " is not handled");
 			}
 			}
 			break;
@@ -205,6 +230,11 @@ public class VerifyStatusOnScreen extends Keyword {
 					flag = securityScreen.isSensorNoIssueVisible();
 					break;
 				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase,
@@ -213,6 +243,11 @@ public class VerifyStatusOnScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
 				}
+			}
+			default:{
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedScreen.get(0).toUpperCase() + " is not handled ");
 			}
 			}
 		}
@@ -260,12 +295,22 @@ public class VerifyStatusOnScreen extends Keyword {
 						}
 						break;
 					}
+					default:{
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					}
 					}
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
 				}
 				break;
+			}
+			default:{
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedScreen.get(0).toUpperCase() + " is not handled ");
 			}
 			}
 			break;
@@ -313,6 +358,11 @@ public class VerifyStatusOnScreen extends Keyword {
 											+ " instead found to be " + currentStatus);
 						}
 						break;
+					}
+					default:{
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
 					}
 					}
 				} else {

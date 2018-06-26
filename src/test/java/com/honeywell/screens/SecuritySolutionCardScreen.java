@@ -392,6 +392,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 					.release().perform();
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton", 5)) {
+				Keyword.ReportStep_Pass(testCase, "not able to locate Sensor menu");
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						"Base Station Configuration");
