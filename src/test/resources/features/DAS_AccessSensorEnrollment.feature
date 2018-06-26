@@ -442,7 +442,7 @@ Examples:
 |Home|Place Sensor			| Name sensor |
 |Home|Place Sensor on Location		| Place sensor |
 #|Home|Place Sensor			| Name sensor Custom name | # Navigates from sensor Custom name
-|Home|Access Sensor Install Help 	| Place Sensor on Location |	
+|Home|Access Sensor Help 	| Place Sensor on Location |	
 |Home|Test ACCESS Sensor			| Place Sensor on Location|# Before verification
 |Home|Signal Strength			| Access Sensor Help |
 |Home|Access Sensor Help			| Test ACCESS Sensor |

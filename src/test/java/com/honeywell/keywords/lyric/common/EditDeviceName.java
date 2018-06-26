@@ -48,16 +48,40 @@ public class EditDeviceName extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Sensor Overview Screen is displayed");
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("DAS Panel") || parameters.get(0).equalsIgnoreCase("Sensor")
-					|| parameters.get(0).equalsIgnoreCase("Keyfob")) {
+			}else if(parameters.get(0).equalsIgnoreCase("Keyfob")){
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isKeyfobNameTextBoxVisible(5)) {
+					flag = flag & bs.clearKeyfobNameTextBox();
+					if (bs.setValueToKeyfobNameTextBox(parameters.get(1))) {
+							inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
+						Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to set " + parameters.get(1) + " to the textbox");
+					}
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
+					} else {
+						try {
+							MobileUtils.hideKeyboard(testCase.getMobileDriver());
+						} catch (Exception e) {
+							// Ignoring any exceptions because keyboard is sometimes not displayed on some
+							// Android devices.
+						}
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");
+				}
+			}
+			else if (parameters.get(0).equalsIgnoreCase("DAS Panel") || parameters.get(0).equalsIgnoreCase("Sensor")
+					) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				if (bs.isDASNameTextBoxVisible(5)) {
 					flag = flag & bs.clearDASNameTextBox();
 					if (bs.setValueToDASNameTextBox(parameters.get(1))) {
-						if (parameters.get(0).equalsIgnoreCase("keyfob")) {
-							inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
-						}
 						Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
 					} else {
 						flag = false;

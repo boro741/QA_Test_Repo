@@ -2,13 +2,16 @@
 Feature: DAS Access Sensor
 As a user I want to check the functioning of Access sensor 
 
+Background:
+Given reset relay as precondition
+
 @DASAccessSensorEnrollment-Precondition
 Scenario Outline: a- As a user I should be able to successfully enrol Access Sensor with default sensor name and video should play for assistance in sensor enrolment 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
 When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
 Then user selects "Add button" from "Sensor List Settings" screen
-When user door "enrolled"
+When user <Sensor Location> access sensor "enrolled"
 And  user selects "Access sensor SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
@@ -20,25 +23,23 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 And user selects <Sensor Location> from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-When user selects <Sensor Location Area> from "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
 Then user should be displayed with the "Place Sensor" screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
-When user door "Opened"
-Then user should see the <Sensor Location Area> status as <Access Status> on the "Test Access Sensor"
-When user door "closed"
-Then user should see the <Sensor Location Area> status as <Access Status Update> on the "Test Access Sensor"
+When user <Sensor Location> access sensor "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+When user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
 When user selects "Done" from "Test Sensor" screen
-#And user should not display with "cancel" button and "Back" button
-Then user should see the <Sensor Location Area> status as "configured" on the "Set Up Accessories"
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
 When user selects "Done" from "Set Up Accessories" screen
-Then user should see the <Sensor Location Area> status as "closed" on the "Sensor List"
-When user navigates to "Security Solution card" screen from the "Sensor List" screen
-When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
 Examples:
 |Mode|Sensor Location| Sensor Location Area | Access Status | Access Status Update |Access Sensor Settings|
 |Home | Door |Front Door| Open | Closed |Door Access Settings|
@@ -123,7 +124,7 @@ Examples:
 @DASAccessSensorStatusOFFVerificationWithHomeOffMode @UIAutomated
 Scenario Outline: g- As a user I want to Verify Access Sensor Battery status OFF 
 Given user is set to "Home" mode through CHIL
-And user door "opened"
+When user "door" access sensor "opened"
 And user launches and logs in to the Lyric application
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
 When user switches from "Home" to <Switch to Mode>
@@ -141,7 +142,7 @@ Examples:
 @DASAccessSensorStatusOFFVerificationWithAwayNightMode @UIAutomated
 Scenario Outline: h- AS a user I want to Verify Access Sensor Battery status OFF 
 And user is set to "Home" mode through CHIL
-And user door "opened"
+When user "door" access sensor "opened"
 Given user launches and logs in to the Lyric application 
 And user navigates to "Security Solution card" screen from the "Dashboard" screen 
 When user switches from "Home" to <Mode>
@@ -163,7 +164,7 @@ Examples:
 @DASAccessSensorSignalStrengthAndTestVerificationGetAdditionlHelp @UIAutomated
 Scenario Outline: i- As a user I want to Verify Access Sensor SignalStrengthAndTest in Home or OFF mode and assistance link
 Given user launches and logs in to the Lyric application 
-And user door "opened"
+And user "door" access sensor "opened"
 And user is set to <Mode> mode through CHIL
 Then user navigates to "Door Access settings" screen from the "Dashboard" screen
 When user selects "Signal Strength and Test" from "Door Access settings" screen
@@ -180,7 +181,7 @@ Then user should be displayed with the "Signal Strength" screen
 Then user should see the "door sensor" status as <Signal strength> on the "Signal Strength"
 And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
 Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
-Then user door "closed"
+When user "door" access sensor "closed"
 Then user should see the "door sensor" status as <Access Status Update> on the "Test Access Sensor"
 Then user navigates to "Access sensor Settings" screen from the "Test Access Sensor" screen
 Then user should see the "door sensor" status as <Access Status Update> on the "Access sensor Settings"
@@ -198,8 +199,8 @@ Examples:
 Scenario Outline: j- AS a user I want to Verify Access Sensor Cover Tamper and Tamper restored status When base station status in Home and OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> mode through CHIL
-And user door <State>
-And user door "tampered"
+When user "door" access sensor <State>
+When user "door" access sensor "tampered"
 Then user navigates to "Door Access settings" screen from the "Dashboard" screen
 When user selects "Sensor Cover Tampered" from "Door Access settings" screen
 Then user should be displayed with the "Sensor Cover Tamper" screen
@@ -210,7 +211,7 @@ Then user should be displayed with the "Sensor Cover Tamper" screen
 When user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 And user should receive a "Sensor Tamper" popup 
 When user "RETRY" the "Sensor Tamper" popup
-And user door "tamper cleared"
+When user "door" access sensor "tamper cleared"
 When user "RETRY" the "Sensor Tamper" popup
 And user should see the "door sensor" status as <Status> on the "Access sensor Settings"
 Examples:

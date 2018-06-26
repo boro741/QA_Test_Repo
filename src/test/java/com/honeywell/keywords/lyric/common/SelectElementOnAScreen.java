@@ -466,12 +466,21 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "DELETE SENSOR": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnDeleteSensorButton();
+					if( parameters.get(1).equalsIgnoreCase("Keyfob settings")){
+						flag = flag & bs.clickOnDeleteKeyfobSensorButton();
+					}else {
+						flag = flag & bs.clickOnDeleteSensorButton();
+					}
 					break;
 				}
 				case "NAME TEXT FIELD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.clickOnNameTextField();
+					if( parameters.get(1).equalsIgnoreCase("Keyfob settings")){
+						flag = flag & bs.clickOnKeyfobNameTextField();
+					}else{
+						flag = flag & bs.clickOnNameTextField();
+					}
+					
 					if (flag) {
 						System.out.println("Successfully clicked on" + parameters.get(0));
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on" + parameters.get(0));
@@ -522,7 +531,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "ADD BUTTON": {
 					flag = flag & sensor.clickOnAddSensorButton();
 					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
-							 "LOADING SPINNER BAR", 1);
+							"LOADING SPINNER BAR", 1);
 					break;
 				}
 				default: {
@@ -570,7 +579,7 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
 					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview"))
-				{
+			{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO": {

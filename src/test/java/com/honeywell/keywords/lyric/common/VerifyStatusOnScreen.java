@@ -791,7 +791,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					if (sensor.isDoorStatusVisible(expectedScreen.get(1), inputs)) {
 						Keyword.ReportStep_Pass(testCase, "Door Sensor is " + (expectedScreen.get(1)));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Door Sensor is not " + (expectedScreen.get(1)));
 					}
 
@@ -808,7 +808,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					if (sensor.isWindowStatusVisible(expectedScreen.get(1), inputs)) {
 						Keyword.ReportStep_Pass(testCase, "Window Sensor is " + (expectedScreen.get(1)));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Window Sensor is not " + (expectedScreen.get(1)));
 					}
 
@@ -825,7 +825,7 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")
 								+ " is " + (expectedScreen.get(1)));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " is not "
 										+ (expectedScreen.get(1)));
 					}
@@ -867,7 +867,7 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase,
 								expectedScreen.get(0) + "  signal is " + (expectedScreen.get(1)));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								expectedScreen.get(0) + " signal is not in " + expectedScreen.get(1));
 					}
 

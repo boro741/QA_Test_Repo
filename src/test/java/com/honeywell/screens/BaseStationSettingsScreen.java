@@ -115,6 +115,19 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSetting_Delete");
 		}
 	}
+	
+	public boolean clickOnDeleteKeyfobSensorButton() throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobDelete")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "KeyfobDelete");
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+			} else {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Delete");
+			}
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "KeyfobDelete");
+		}
+	}
 
 	public boolean clickOnModelAndFirmwareOptionsOnBaseStationConfigurationScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ModelAndFirmwareDetails");
@@ -226,6 +239,25 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASNameTextbox", timeOut);
 	}
 
+	
+	public boolean isKeyfobNameTextBoxVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNameTextField", timeOut);
+	}
+	
+	public boolean clickOnKeyfobNameTextField() {
+		if(MobileUtils.clickOnElement(objectDefinition, testCase, "KeyfobNameTextField")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean clearKeyfobNameTextBox() {
+		return MobileUtils.clearTextField(objectDefinition, testCase, "KeyfobNameTextField");
+	}
+	
+	public boolean setValueToKeyfobNameTextBox(String value) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "KeyfobNameTextField", value);
+	}
 	public boolean isDeleteDASDevicePopUpTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteDASPopUpConfirmationTitle", 3);
 	}
@@ -543,6 +575,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		case BaseStationSettingsScreen.SENSORS: {
 			boolean flag = true;
+			flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+					testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+					"Base Station Configuration");
 			SecuritySolutionCardScreen secScreen =  new SecuritySolutionCardScreen(testCase);
 			flag = flag & secScreen.clickOnSensorButton();
 			return flag;
@@ -1026,6 +1061,25 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 		return false;
 	}
+	public boolean isKeyfobNameElementEnabled() {
+		boolean flag = true;
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "KeyfobNameLabel");
+		if (testCase.getPlatform().contains("IOS")) {
+			element.click();
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			if (element.getAttribute("focused").equalsIgnoreCase("true")) {
+				System.out.println(element.getText());
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean isDeleteElementClickable() {
 		boolean flag = true;
@@ -1054,6 +1108,41 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				e.printStackTrace();
 			}
 			element = MobileUtils.getMobElement(objectDefinition, testCase, "DASSensorSetting_Delete");
+			if (element.getAttribute("clickable").equalsIgnoreCase("true")) {
+				System.out.println(element.getText());
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isKeyfobDeleteElementClickable() {
+		boolean flag = true;
+
+		WebElement element;
+		if (testCase.getPlatform().contains("IOS")) {
+			try {
+				// flag= flag &
+				// LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"value",
+				// "Delete");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			element = MobileUtils.getMobElement(objectDefinition, testCase, "KeyfobDelete");
+			element.click();
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			try {
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "DELETE");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			element = MobileUtils.getMobElement(objectDefinition, testCase, "KeyfobDelete");
 			if (element.getAttribute("clickable").equalsIgnoreCase("true")) {
 				System.out.println(element.getText());
 				return true;

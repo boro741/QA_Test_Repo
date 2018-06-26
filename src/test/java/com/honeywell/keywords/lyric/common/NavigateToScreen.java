@@ -252,7 +252,7 @@ public class NavigateToScreen extends Keyword {
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
-				
+
 				case "KEYFOB CONFIGURATION SUCCESS":{
 
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
@@ -340,52 +340,12 @@ public class NavigateToScreen extends Keyword {
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					break;
 				}
+				case "MOTION SENSOR SETTINGS":
+				case "WINDOW ACCESS SETTINGS":
 				case "DOOR ACCESS SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (security.isAppSettingsIconVisible(10)) {
-						security.clickOnAppSettingsIcon();
-					}
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					flag = flag & security.clickOnSensorButton();
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-					security.clickOnUserGivenSensorName(givenSensorName);
+					DASSensorUtils.navigateToSensorTypeSettingsFromDashboard(screen.get(0).toUpperCase(),inputs,testCase);
 					break;
-				}
-				case "WINDOW ACCESS SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (security.isAppSettingsIconVisible(10)) {
-						security.clickOnAppSettingsIcon();
-					}
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					flag = flag & security.clickOnSensorButton();
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-					security.clickOnUserGivenSensorName(givenSensorName);
-					break;
-				}
-				case "MOTION SENSOR SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (security.isAppSettingsIconVisible(10)) {
-						flag = flag & security.clickOnAppSettingsIcon();
-					}
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					flag = flag & security.clickOnSensorButton();
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-					Keyword.ReportStep_Pass(testCase, "About to click sensor name "+givenSensorName);
-					flag = flag & security.clickOnUserGivenSensorName(givenSensorName);
-					inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
-					break;
+
 				}
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);
@@ -1191,8 +1151,8 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase,"Successfully navigated to "+screen.get(0));
 						}
 					}
-						
-				break;
+
+					break;
 				}
 				default: {
 					flag = false;
@@ -1301,53 +1261,10 @@ public class NavigateToScreen extends Keyword {
 
 			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "MOTION SENSOR SETTINGS":
+				case "WINDOW ACCESS SETTINGS":
 				case "DOOR ACCESS SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					Thread.sleep(5000);
-					if (security.isAppSettingsIconVisible(15)) {
-						security.clickOnAppSettingsIcon();
-
-						flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-								testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								"Base Station Configuration");
-
-						flag = flag & security.clickOnSensorButton();
-						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-						security.clickOnUserGivenSensorName(givenSensorName);
-
-					}
-					break;
-				}
-				case "WINDOW ACCESS SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					Thread.sleep(5000);
-					if (security.isAppSettingsIconVisible(15)) {
-						security.clickOnAppSettingsIcon();
-
-						flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-								testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								"Base Station Configuration");
-
-						flag = flag & security.clickOnSensorButton();
-						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-						security.clickOnUserGivenSensorName(givenSensorName);
-
-					}
-					break;
-				}
-				case "MOTION SENSOR SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					Thread.sleep(5000);
-					if (security.isAppSettingsIconVisible(15)) {
-						flag = flag & security.clickOnAppSettingsIcon();
-						LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-								testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								"Base Station Configuration");
-						flag = flag & security.clickOnSensorButton();
-						String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-						flag = flag & security.clickOnUserGivenSensorName(givenSensorName);
-
-					}
+					DASSensorUtils.navigateToSensorTypeSettingsFromSecuritySolutionCard(screen.get(0).toUpperCase(), inputs, testCase);
 					break;
 				}
 				case "SENSOR STATUS": {
@@ -1432,7 +1349,7 @@ public class NavigateToScreen extends Keyword {
 					sensor.clickOnSignalStrengthBackButton();
 					Thread.sleep(3000);
 					sensor.clickOnBackButton();
-				break;	
+					break;	
 				}
 				default: {
 					flag = false;
@@ -1516,8 +1433,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SENSOR LIST": {
 					MobileUtils.hideKeyboard(testCase.getMobileDriver());
-				    SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				    sensor.clickOnBackButton();
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					sensor.clickOnBackButton();
 					break;
 				}
 				case "MOTION SENSOR OFF": {
@@ -1665,7 +1582,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Create Custom Name");
 					break;
 				}
-				
+
 				case "MOUNT SENSOR":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollMotionSensor(testCase, inputs);
@@ -1692,7 +1609,7 @@ public class NavigateToScreen extends Keyword {
 					DIYRegistrationUtils.selectAvailableSensorName(testCase, "In a Wall Corner");
 					break;
 				}
-				
+
 				case "PLACE SENSOR":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					DASSensorUtils.enrollDoor(testCase, inputs);
@@ -1725,9 +1642,9 @@ public class NavigateToScreen extends Keyword {
 					flag= flag & sensor.clickOnNextButton();
 					flag= flag & sensor.clickOnNextButton();
 					break;
-					
+
 				}
-				
+
 				case "TEST MOTION SENSOR":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					flag = flag & DASSensorUtils.enrollMotionSensor(testCase, inputs);
@@ -1739,17 +1656,17 @@ public class NavigateToScreen extends Keyword {
 					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					break;
 				}
-				
+
 				case "MOTION SENSOR SIGNAL STRENGTH":{
 					flag= flag & sensor.clickOnAddSensorButton();
 					flag = flag & DASSensorUtils.enrollMotionSensor(testCase, inputs);
 					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
 					flag= flag &sensor.isLocateSensorScreenDisplayed();
 					flag= flag & sensor.clickOnNextButton();
-					
+
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
-					
+
 					flag= flag & sensor.clickOnNextButton();
 					flag= flag &sensor.isPlaceSensorScreenDisplayed();
 					flag= flag & sensor.clickOnNextButton();
@@ -1768,7 +1685,7 @@ public class NavigateToScreen extends Keyword {
 					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag= flag &sensor.isLocateSensorScreenDisplayed();
 					flag= flag & sensor.clickOnNextButton();
-					
+
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Door");
 					DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Door");
 					flag= flag &sensor.isPlaceSensorScreenDisplayed();
@@ -1788,7 +1705,7 @@ public class NavigateToScreen extends Keyword {
 					flag= flag & sensor.clickOnSetUpButton(inputs,"motion sensor");
 					flag= flag &sensor.isLocateSensorScreenDisplayed();
 					flag= flag & sensor.clickOnNextButton();
-					
+
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Front Hall");
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, "Flat on a Wall");
 					flag= flag &sensor.isPlaceSensorScreenDisplayed();
@@ -1823,7 +1740,7 @@ public class NavigateToScreen extends Keyword {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					String givenSensorName="";
 					if(screen.get(0).toUpperCase().contains("DOOR")) {
-					 givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+						givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					}
 					else if(screen.get(0).toUpperCase().contains("MOTION SENSOR")) {
 						givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");	

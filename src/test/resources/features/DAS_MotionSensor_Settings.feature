@@ -6,7 +6,7 @@ Background:
 Given reset relay as precondition
 
 #Requirement :One DAS Panel and one motion sensor should be configured
-@DASMotionSensorEnrollmentWithDefaultSensorNameWatchHow-ToVideo @UIAutomated
+@DASMotionSensorSettings-Precondition @UIAutomated
 Scenario Outline: a - As a user I should be able to successfully enroll motion Sensor with default sensor name and video should play for assistance in sensor enrollment
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
