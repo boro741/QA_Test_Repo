@@ -19,7 +19,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 public class DeviceInformation {
 
-	private JSONObject deviceInformation;
+	private static JSONObject deviceInformation;
 	private TestCases testCase;
 	String locationName;
 	String statName;
@@ -56,6 +56,14 @@ public class DeviceInformation {
 		}
 	}
 
+	public String getLocationID() throws Exception {
+		if (deviceInformation != null) {
+			return deviceInformation.getString("deviceID");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+	}
+	
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
 		if (deviceInformation != null) {
@@ -204,6 +212,40 @@ public class DeviceInformation {
 			throw new Exception("Sensor Name: '" + sensorName + "' not found in configured sensors");
 		} else {
 			throw new Exception("Device Information not found");
+		}
+	}
+	
+	public ArrayList<String> getDASSensorIDsInADevice() throws Exception {
+		ArrayList<String> lstSensorID = new ArrayList<String>();
+		if (this.deviceInformation != null) {
+			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
+			for (int i = 0; i < sensors.length(); i++) {
+				JSONObject sensor = sensors.getJSONObject(i);
+				   if(!sensor.isNull("id"))
+				      lstSensorID.add(sensor.getString("id").toString());
+				
+			}
+			return lstSensorID;
+			
+		} else {
+			throw new Exception("getDASSensorIDsInADevice:Sensor Information not found");
+		}
+	}
+	
+	public ArrayList<String> getDASKeyFobsIDInADevice() throws Exception {
+		ArrayList<String> lstKeyFobID = new ArrayList<String>();
+		if (this.deviceInformation != null) {
+			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
+			for (int i = 0; i < keyfobs.length(); i++) {
+				JSONObject keyfob = keyfobs.getJSONObject(i);
+				   if(!keyfob.isNull("id"))
+					   lstKeyFobID.add(keyfob.getString("id").toString());
+				
+			}
+			return lstKeyFobID;
+			
+		} else {
+			throw new Exception("getDASKeyFobsInADevice:KeyFob Information not found");
 		}
 	}
 

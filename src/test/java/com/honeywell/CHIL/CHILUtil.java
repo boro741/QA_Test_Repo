@@ -7,8 +7,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -20,6 +22,9 @@ import com.honeywell.lyric.das.utils.DASUtils;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.microsoft.azure.sdk.iot.device.*;
+
+
 
 public class CHILUtil implements AutoCloseable {
 
@@ -617,6 +622,110 @@ public class CHILUtil implements AutoCloseable {
 
 		}
 		return result;
+	}
+	
+	public int deleteSensor(long locationID,String deviceID,String sensorID,int partitionID) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = " ";
+			url = chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID+"/partitions/"+partitionID+"/Sensors/"+sensorID;
+			try {
+				result = doDeleteRequest(url).getResponseCode();
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
+
+		}
+		return result;
+	}
+	
+	public int deleteKeyfob(long locationID,String deviceID,String keyFobID,int partitionID) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = " ";
+			url = chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID+"/partitions/"+partitionID+"/Keyfobs/"+keyFobID;
+			try {
+				result = doDeleteRequest(url).getResponseCode();
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
+
+		}
+		return result;
+	}
+	
+	public int postSensor(long locationID,String deviceID,int partitionID,String serialNumber) throws Exception{
+		int result = -1;
+		String headerData=" ";
+		String url = " ";
+		
+		
+		if (isConnected) {
+			
+			
+		    headerData = String.format("{\"SerialNo\":\"%s\",\"Name\":\"%s\",\"ResponseType\":\"Perimeter\",\"Sensitivity\":\"0\",\"Chime\":\"sensor\"}",serialNumber,"Sensor"+new Random().nextInt(200));
+			
+			url = chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID+"/partitions/"+partitionID+"/Sensors";
+			try {
+				result = doPostRequest(url,headerData).getResponseCode();
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
+			
+
+		}
+		return result;
+	}
+
+	
+	public int postSensorDiscovery(long locationID,String deviceID,boolean isEnabled) throws Exception{
+		int result = -1;
+		String headerData=" ";
+		String url = " ";
+		
+		
+		if (isConnected) {
+			
+			// enable sensor
+			if(isEnabled)
+			    headerData = String.format("{\"mode\":\"Sensor\",\"TimeOut\":30,\"Id\":null}");
+			else
+				headerData = String.format("{\"mode\":\"Disable\",\"TimeOut\":30,\"Id\":null}");
+				
+				url = chilURL + "api/v3/locations/"+locationID+"/devices/"+deviceID+"/Discovery?partitionid=1";
+				try {
+					result = doPostRequest(url,headerData).getResponseCode();
+				} catch (IOException e) {
+					throw new Exception(e.getMessage());
+				}
+		}
+					return result;
+	}
+
+	public void FeedDataIntoIOTHub(String deviceID,String payload,String xappUrl,String from,String method) throws Exception{
+		DeviceClient client = null;
+		try {
+			String iotHubConString="";
+			if(chilURL.contains("childev")) {
+				iotHubConString="HostName=granite-dev-das01-iothub.azure-devices.net;DeviceId=B82CA0000740;SharedAccessKey=5mWRiN796NreGeCFgQqLzpmcymQW0c0pqkWUr+FrVXs=";
+			}
+			
+			client = new DeviceClient(iotHubConString, IotHubClientProtocol.HTTPS);
+			client.open();
+			
+			Message message = new Message(payload.getBytes(Charset.forName("ASCII")));
+			message.setProperty("x-app-url", xappUrl);
+            message.setProperty("deviceId", deviceID);
+            message.setProperty("from",from);
+            message.setProperty("mac", deviceID);
+            message.setProperty("method",method);
+            message.setProperty("cor", "B82CA0000456-54387");
+            message.setProperty("seq", "-1");
+            client.sendEventAsync(message, new EventCallback(), message);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
 	}
 	public int createTimeScheduleWithSpecificNumberOfPeriods_EMEA(TestCaseInputs inputs, long locationID,
 			String deviceID) {
