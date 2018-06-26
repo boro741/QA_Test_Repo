@@ -1,4 +1,4 @@
-package com.honeywell.keywords.jasper.chil;
+package com.honeywell.keywords.flycatcher.Ventialtion;
 
 import java.util.ArrayList;
 
@@ -41,34 +41,29 @@ public class ChangeVentilationModeusingChil extends Keyword {
 			CHILUtil chUtil = new CHILUtil(inputs);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String deviceID=statInfo.getDeviceID();
-			String systemMode="";
-			if (exampleData.get(0).equalsIgnoreCase("Heat")) {
-				systemMode="Heat";
-				
-			}
-			else if(exampleData.get(0).equalsIgnoreCase("Cool"))
-			{
-				systemMode="Cool";
+			String VentilationMode="";
+			if (exampleData.get(0).equalsIgnoreCase("On")) {
+				VentilationMode="On";
 			}
 			else if(exampleData.get(0).equalsIgnoreCase("Off"))
 			{
-				systemMode="Off";
+				VentilationMode="off";
 			}
 			else if(exampleData.get(0).equalsIgnoreCase("Auto"))
 			{
-				systemMode="Auto";
+				VentilationMode="Auto";
 			}
 			try {
 				if (chUtil.getConnection()) {
 					
-					if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
-							deviceID,systemMode) == 200) {
+					if (chUtil.changeVentilationMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
+							deviceID,VentilationMode) == 200) {
 						Keyword.ReportStep_Pass(testCase,
-								"Change System Mode Using CHIL : Successfully changed system mode to "+ systemMode +" through CHIL");
+								"Change Ventilation Mode Using CHIL : Successfully changed Ventilation mode to "+ VentilationMode +" through CHIL");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Change System Mode Using CHIL : Failed to change system mode to "+ systemMode +" through CHIL");
+								"Change Ventilation Mode Using CHIL : Failed to change Ventilation mode to "+ VentilationMode +" through CHIL");
 					}
 				}
 			} catch (Exception e) {
