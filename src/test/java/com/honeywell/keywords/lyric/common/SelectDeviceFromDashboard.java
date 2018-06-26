@@ -61,10 +61,6 @@ public class SelectDeviceFromDashboard extends Keyword {
 		{
 			deviceToBeSelected = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
 		}
-		
-		{
-			deviceToBeSelected = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
-		}
 		if (DashboardUtils.selectDeviceFromDashboard(testCase, deviceToBeSelected)) {
 			Keyword.ReportStep_Pass(testCase, "Successfully selected device : " + deviceToBeSelected);
 		} else {
