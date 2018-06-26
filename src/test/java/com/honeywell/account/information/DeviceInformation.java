@@ -56,14 +56,6 @@ public class DeviceInformation {
 		}
 	}
 
-	public String getLocationID() throws Exception {
-		if (deviceInformation != null) {
-			return deviceInformation.getString("deviceID");
-		} else {
-			throw new Exception("Device Information not found");
-		}
-	}
-	
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
 		if (deviceInformation != null) {
