@@ -94,3 +94,4 @@ MountInaWall	xpath	//*[@text='Mount on the wall']					name	Mount on the wall
 SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										
 SensorHelpButton	id	sensor_help_text										
 SensorPairingHelpScreenTitle	id	//*[@text='Sensor Pairing Help']										
+SensorsScreenTitle	XPATH	//*[@text='Sensors']	XPATH	//*[@text='Sensors']	XPATH	//*[@text='Sensors']						

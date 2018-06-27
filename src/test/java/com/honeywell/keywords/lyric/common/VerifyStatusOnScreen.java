@@ -834,7 +834,6 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				case "NO MOTION DETECTED":
 				case "MOTION NOT DETECTED": {
-
 					if (sensor.isMotionSensorStatusVisible(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"),
 							expectedScreen.get(1))) {
 						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")

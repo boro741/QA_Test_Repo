@@ -3,7 +3,7 @@ GlobalDrawerButton	XPATH	//android.widget.ImageButton[@content-desc='Global Draw
 GlobalDrawerIconList	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text						
 DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	XPATH	//XCUIElementTypeStaticText[@label='title']	XPATH	//XCUIElementTypeStaticText[@label='title']	XPATH	//XCUIElementTypeStaticText[@label='title']
 DashboardIconStatus	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	NAME	subTitle_Security	NAME	subTitle_Security	NAME	subTitle_Security
-DoneButtonInWeatherForecast	XPATH	//*[@text='Done']	XPATH	//*[@text='Done']	XPATH	//*[@text='Done']	NAME	Done	NAME	Done	NAME	Done
+DoneButtonInWeatherForecast	ID	btn_positive_got_it	ID	btn_positive_got_it	ID	btn_positive_got_it	NAME	Done	NAME	Done	NAME	Done
 GotItButtonInWeatherForecast	XPATH	//*[@text='Got It']	XPATH	//*[@text='Got It']	XPATH	//*[@text='Got It']	NAME	Got It	NAME	Got It	NAME	Got It
 AddNewDeviceIcon	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	NAME	Add New Device	NAME	Add New Device	NAME	Add New Device
 AddNewDeviceIconBelowExistingDevice	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	NAME	Add New Device	NAME	Add New Device	NAME	Add New Device

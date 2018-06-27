@@ -402,10 +402,6 @@ public class SelectElementOnAScreen extends Keyword {
 
 				}
 				}
-				/*
-				 * flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
-				 * "SAVING SENSOR PROGRESS BAR", 1);
-				 */
 			} else if (parameters.get(1).equalsIgnoreCase("Call")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CANCEL": {
@@ -466,21 +462,21 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "DELETE SENSOR": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if( parameters.get(1).equalsIgnoreCase("Keyfob settings")){
+					if (parameters.get(1).equalsIgnoreCase("Keyfob settings")) {
 						flag = flag & bs.clickOnDeleteKeyfobSensorButton();
-					}else {
+					} else {
 						flag = flag & bs.clickOnDeleteSensorButton();
 					}
 					break;
 				}
 				case "NAME TEXT FIELD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if( parameters.get(1).equalsIgnoreCase("Keyfob settings")){
+					if (parameters.get(1).equalsIgnoreCase("Keyfob settings")) {
 						flag = flag & bs.clickOnKeyfobNameTextField();
-					}else{
+					} else {
 						flag = flag & bs.clickOnNameTextField();
 					}
-					
+
 					if (flag) {
 						System.out.println("Successfully clicked on" + parameters.get(0));
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on" + parameters.get(0));
@@ -530,8 +526,7 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "ADD BUTTON": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
-							"LOADING SPINNER BAR", 1);
+					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					break;
 				}
 				default: {
@@ -563,12 +558,12 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & sensor.clickOnDoneButton();
 					break;
 				}
-				case "HELP":{
-					flag= flag & sensor.clickOnSensorHelpButton();
+				case "HELP": {
+					flag = flag & sensor.clickOnSensorHelpButton();
 					break;
 				}
-				default:{
-					flag=false;
+				default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
 				}
@@ -578,8 +573,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
-					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview"))
-			{
+					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO": {
@@ -725,19 +719,24 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 
 			else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
-				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-			}
-			else if(parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")
+						&& parameters.get(0).equals("In a Wall Corner")) {
+					String selectedMountSensorValue = parameters.get(0).replace("In a Wall Corner", "In a wall Corner");
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, selectedMountSensorValue);
+				} else {
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "GET ADDITIONAL HELP":{
-					flag= flag & sensor.clickOnGetAdditionalHelpButton();
+				case "GET ADDITIONAL HELP": {
+					flag = flag & sensor.clickOnGetAdditionalHelpButton();
 					break;
 				}
 				}
-				if(flag) {
-					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
-					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+				if (flag) {
+					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 			}
 		} catch (Exception e) {

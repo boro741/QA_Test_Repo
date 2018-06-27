@@ -2,13 +2,16 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
+import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -37,98 +40,99 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should not be displayed with \"(.*)\" device on the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 		Dashboard dashBordScreen = new Dashboard(testCase);
-		switch (expectedDevice.get(1).toUpperCase()){
-		case "DASHBOARD":{
+		switch (expectedDevice.get(1).toUpperCase()) {
+		case "DASHBOARD": {
 			if (!dashBordScreen.isDevicePresentOnDashboard(expectedDevice.get(0))) {
 				Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
 			} else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedDevice.get(0) + " displayed");
 			}
 			break;
 		}
-		case "ZWAVE DEVICES":{
-			ZwaveScreen zwaveScreen =new ZwaveScreen(testCase);
-			switch (expectedDevice.get(0).toUpperCase()){
-			case "SWITCH":{
-				if(!zwaveScreen.isSwitchSettingOnZwaveDevicesDisplayed()){
+		case "ZWAVE DEVICES": {
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			switch (expectedDevice.get(0).toUpperCase()) {
+			case "SWITCH": {
+				if (!zwaveScreen.isSwitchSettingOnZwaveDevicesDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
-				}else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedDevice.get(0) + " displayed");
 				}
 				break;
 			}
-			case "DIMMER":{
-				if(!zwaveScreen.isDimmerSettingOnZwaveDevicesDisplayed()){
+			case "DIMMER": {
+				if (!zwaveScreen.isDimmerSettingOnZwaveDevicesDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
-				}else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedDevice.get(0) + " displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedDevice.get(0) + " displayed");
 				}
 				break;
 			}
 			}
 			break;
 		}
-		case "SENSOR LIST":{
+		case "SENSOR LIST": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-			switch (expectedDevice.get(0).toUpperCase()){
-			case "DOOR":{
+			switch (expectedDevice.get(0).toUpperCase()) {
+			case "DOOR": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-				if(sensor.checkSensorNameNotInSensorList(sensorName)==false)
-				{
-					Keyword.ReportStep_Pass(testCase, "Sensor "+sensorName+"is not in sensor list");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor "+sensorName+"is in sensor list");
+				if (sensor.checkSensorNameNotInSensorList(sensorName) == false) {
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sensor " + sensorName + "is in sensor list");
 				}
 				break;
 			}
-			case "WINDOW":{
+			case "WINDOW": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-				if(sensor.checkSensorNameNotInSensorList(sensorName)==false)
-				{
-					Keyword.ReportStep_Pass(testCase, "Sensor "+sensorName+"is not in sensor list");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor "+sensorName+"is in sensor list");
+				if (sensor.checkSensorNameNotInSensorList(sensorName) == false) {
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sensor " + sensorName + "is in sensor list");
 				}
 				break;
 			}
-			case "MOTION SENSOR":{
+			case "MOTION SENSOR": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-				if(sensor.checkSensorNameNotInSensorList(sensorName)==false)
-				{
-					Keyword.ReportStep_Pass(testCase, "Sensor "+sensorName+"is not in sensor list");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor "+sensorName+"is in sensor list");
+				if ((sensor.checkSensorNameNotInSensorList(sensorName) == false)
+						&& (sensor.isSensorsScreenTitleVisible()) && (sensor.isSensorListScreenDisplayed())) {
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sensor " + sensorName + "is in sensor list");
+					flag = flag & DIYRegistrationUtils.deleteSensorThroughCHIL(testCase, inputs, sensorName);
 				}
 				break;
 			}
 			}
 			break;
 		}
-		case "KEYFOB LIST":{
+		case "KEYFOB LIST": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-			switch (expectedDevice.get(0).toUpperCase()){
-			case "KEYFOB":{
+			switch (expectedDevice.get(0).toUpperCase()) {
+			case "KEYFOB": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
-				if(sensor.checkSensorNameNotInSensorList(sensorName)==false)
-				{
-					Keyword.ReportStep_Pass(testCase, "Sensor "+sensorName+"is not in sensor list");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor "+sensorName+"is in sensor list");
+				if (sensor.checkSensorNameNotInSensorList(sensorName) == false) {
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sensor " + sensorName + "is in sensor list");
 				}
 				break;
 			}
 			}
 			break;
 		}
-		default:{
-			Keyword.ReportStep_Fail(testCase,FailType.FALSE_POSITIVE, "Input "+expectedDevice.get(1).toUpperCase()+" not handled");
+		default: {
+			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,
+					"Input " + expectedDevice.get(1).toUpperCase() + " not handled");
 		}
 		}
 		return flag;

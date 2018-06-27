@@ -1371,6 +1371,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonEmailTextField",
 				amazonUserName);
+		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SignInToAmazonPasswordTextField");
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonPasswordTextField",
 				amazonPassword);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

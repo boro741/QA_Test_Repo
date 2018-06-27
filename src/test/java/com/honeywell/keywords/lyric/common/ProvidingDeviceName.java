@@ -59,9 +59,11 @@ public class ProvidingDeviceName extends Keyword {
 				}
 				break;
 			}
+			case "MOTION":
 			case "MOTION SENSOR":{
 				//Naming Motion  sensor
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clearDASNameTextBox();
 				if (bs.setValueToDASNameTextBox( parameters.get(1))) {
 					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
 				}
