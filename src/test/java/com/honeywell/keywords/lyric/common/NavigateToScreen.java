@@ -328,7 +328,6 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -338,55 +337,11 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					break;
 				}
+				case "MOTION SENSOR SETTINGS":
+				case "WINDOW ACCESS SETTINGS":
 				case "DOOR ACCESS SETTINGS": {
-					DASSensorUtils.navigateToSensorTypeSettingsFromDashboard(screen.get(0).toUpperCase(), inputs,
-							testCase);
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (security.isAppSettingsIconVisible(10)) {
-						security.clickOnAppSettingsIcon();
-					}
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					flag = flag & security.clickOnSensorButton();
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-					security.clickOnUserGivenSensorName(givenSensorName);
+					DASSensorUtils.navigateToSensorTypeSettingsFromDashboard(screen.get(0).toUpperCase(),inputs,testCase);
 					break;
-				}
-				case "WINDOW ACCESS SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (security.isAppSettingsIconVisible(10)) {
-						security.clickOnAppSettingsIcon();
-					}
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					flag = flag & security.clickOnSensorButton();
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-					security.clickOnUserGivenSensorName(givenSensorName);
-					break;
-				}
-				case "MOTION SENSOR SETTINGS": {
-					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (security.isAppSettingsIconVisible(10)) {
-						flag = flag & security.clickOnAppSettingsIcon();
-					}
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					flag = flag & security.clickOnSensorButton();
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-					Keyword.ReportStep_Pass(testCase, "About to click sensor name " + givenSensorName);
-					flag = flag & security.clickOnUserGivenSensorName(givenSensorName);
-					inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
-					break;
-
 				}
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);

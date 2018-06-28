@@ -7,7 +7,8 @@ public class DASInputVariables {
 	public static final String SENSORID = "sensorid";
 	public static final String SENSORRESPONSETYPE = "sensorresponsetype";
 	public static final String SENSORNAME = "sensorname";
-	public static final String SENSORTYPE = "sensortype";
+	public static final String ACCESSSENSORTYPE = "accesssensortype";
+	public static final String MOTIONSENSORTYPE = "motionsensortype";
 	public static final String MOTIONSENSOR = "motionsensor";
 	public static final String ACCESSSENSOR = "accesssensor";
 	public static final String KEYFOBNAME = "keyfobname";

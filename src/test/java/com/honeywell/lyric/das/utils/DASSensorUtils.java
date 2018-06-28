@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.relayutils.RelayUtils;
-import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -309,6 +308,7 @@ public class DASSensorUtils {
 		List<WebElement> list;
 
 		list = DASSensorUtils.getSensorList(testCase);
+		System.out.println("########list.size(): " + list.size());
 		boolean sensorStateMatched = false;
 		for (int i = 0; i < list.size(); i++) {
 			if (testCase.getPlatform().contains("IOS")) {
@@ -410,7 +410,7 @@ public class DASSensorUtils {
 						Keyword.ReportStep_Pass(testCase,
 								"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
-					if (MobileUtils.isMobElementExists("ID", "action_button", testCase)) {
+					if (MobileUtils.isMobElementExists("ID", "action_button", testCase, 5)) {
 						MobileUtils.clickOnElement(testCase, "ID", "action_button");
 						DASCommandControlUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS TEXT", 2);
 					}
@@ -466,7 +466,7 @@ public class DASSensorUtils {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					inputs.setInputValue(DASInputVariables.SENSORTYPE,DASInputVariables.MOTIONSENSOR);
+					inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE,DASInputVariables.MOTIONSENSOR);
 					flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
 					break;
 				}

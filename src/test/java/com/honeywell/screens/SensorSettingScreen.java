@@ -15,7 +15,6 @@ import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.relayutils.RelayConstants;
 import com.honeywell.lyric.utils.DASInputVariables;
@@ -36,7 +35,7 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
-
+		System.out.println("##########givenSensorName: " + givenSensorName);
 		List<WebElement> sensorList;
 		if (testCase.getPlatform().contains("IOS")) {
 			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
@@ -433,9 +432,10 @@ public class SensorSettingScreen extends MobileScreens {
 			SensorName = "Key Fob";
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
-			inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
+			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
 		} else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
+			inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
 		}
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
@@ -443,7 +443,7 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
 			serialNo = RelayConstants.RSI_Motion_Sensor_1_SerialNO;
-			inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
+			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
 		} else if (SensorType.toLowerCase().contains("door access sensor")) {
 			serialNo = RelayConstants.RSI_Contact_Sensor_2_SerialNO;
 			SensorName = "Access Sensor";
@@ -520,6 +520,8 @@ public class SensorSettingScreen extends MobileScreens {
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				System.out.println(MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
 						+ SensorName
@@ -757,6 +759,7 @@ public class SensorSettingScreen extends MobileScreens {
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				return MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName

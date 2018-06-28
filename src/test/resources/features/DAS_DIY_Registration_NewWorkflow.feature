@@ -1428,11 +1428,11 @@ Then user should see the <Sensor Location> status as "closed" on the "Sensor Sta
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
 When user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "sensor list" screen
 And user "deletes DAS device" by clicking on "delete" button
@@ -1527,11 +1527,11 @@ Then user should see the <Sensor Location> status as "closed" on the "Sensor Sta
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
 When user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "sensor list" screen
 And user "deletes DAS device" by clicking on "delete" button
@@ -1618,11 +1618,11 @@ Then user should see the <Sensor Location> status as "closed" on the "Sensor Sta
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
 When user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "sensor list" screen
 And user "deletes DAS device" by clicking on "delete" button
@@ -1743,11 +1743,11 @@ Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
 When user navigates to "Sensor Settings" screen from the "Dashboard" screen
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with "sensors" on the "sensors" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
@@ -1831,11 +1831,11 @@ Then user should see the "Motion sensor" status as "Standby" on the "Sensor Stat
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
 When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "dismisses" the "Delete Motion Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "accepts" the "Delete Motion Sensor Confirmation" popup
 Then user should not be displayed with "Motion sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
@@ -1922,11 +1922,11 @@ Then user should see the "Motion sensor" status as "Standby" on the "Sensor Stat
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
 When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "dismisses" the "Delete Motion Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "accepts" the "Delete Motion Sensor Confirmation" popup
 Then user should not be displayed with "Motion sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
@@ -2336,8 +2336,8 @@ Then user should see the <Sensor Location> status as "closed" on the "Sensor Sta
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
 When user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 When user should see the "Motion sensor" status as "Standby" on the "Sensor List"
 Then user navigates to "Security Solution card" screen from the "Sensor List" screen
@@ -2346,18 +2346,12 @@ Then user should see the "Motion sensor" status as "Standby" on the "Sensor Stat
 When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
 When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "accepts" the "Delete Motion Sensor Confirmation" popup
 Then user should not be displayed with "Motion sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
-And user "dismisses" the "Delete DAS Confirmation" popup
-Then user "deletes DAS device" by clicking on "delete" button
-And user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen

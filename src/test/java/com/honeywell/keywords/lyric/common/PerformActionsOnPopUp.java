@@ -236,17 +236,16 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} 
-		else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag = flag &  sensor.clickOnDismissCancelButton();
+				flag = flag & sensor.clickOnDismissCancelButton();
 				break;
 			}
 			case "ACCEPTS": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag = flag &  sensor.clickOnConfirmCancelButton();
+				flag = flag & sensor.clickOnConfirmCancelButton();
 				break;
 			}
 			default: {
@@ -386,7 +385,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Access Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -397,6 +396,27 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Motion Sensor Confirmation")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnCancelButton();
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButton();
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
@@ -551,7 +571,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if(expectedPopUp.get(1).equalsIgnoreCase("SENSOR TAMPER")){
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SENSOR TAMPER")) {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "OK": {
@@ -563,8 +583,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		}
-		else if(expectedPopUp.get(1).equalsIgnoreCase("Time out")){
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Time out")) {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "ACCEPTS": {
@@ -572,8 +591,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		}
-		else {
+		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}
