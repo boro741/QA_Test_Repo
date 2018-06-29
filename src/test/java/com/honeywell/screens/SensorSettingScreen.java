@@ -436,6 +436,9 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
 			inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
+			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
+			SensorName = "Access Sensor";
+			System.out.println("###########Access Sensor Serial No: " + serialNo);
 		}
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
@@ -444,6 +447,7 @@ public class SensorSettingScreen extends MobileScreens {
 			SensorName = "Motion Sensor";
 			serialNo = RelayConstants.RSI_Motion_Sensor_1_SerialNO;
 			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
+			System.out.println("###########Motion Sensor Serial No: " + serialNo);
 		} else if (SensorType.toLowerCase().contains("door access sensor")) {
 			serialNo = RelayConstants.RSI_Contact_Sensor_2_SerialNO;
 			SensorName = "Access Sensor";
@@ -748,7 +752,13 @@ public class SensorSettingScreen extends MobileScreens {
 		} else {
 			locator = "text";
 		}
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().contains("IOS")) {
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
 			return MobileUtils.isMobElementExists("xpath", "//*[@" + locator + "='" + SensorName
 					+ "']/following-sibling::XCUIElementTypeStaticText[contains(@" + locator + ",'" + state + "')]",
 					testCase, 10);

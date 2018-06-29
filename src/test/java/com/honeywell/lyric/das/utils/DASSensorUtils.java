@@ -309,15 +309,17 @@ public class DASSensorUtils {
 
 		list = DASSensorUtils.getSensorList(testCase);
 		System.out.println("########list.size(): " + list.size());
+		System.out.println("########sensorName: " + sensorName);
+		System.out.println("########sensorState: " + sensorState);
 		boolean sensorStateMatched = false;
 		for (int i = 0; i < list.size(); i++) {
 			if (testCase.getPlatform().contains("IOS")) {
-				System.out.println("Sensor status");
 				// Sensor status
 				if (testCase.getMobileDriver()
 						.findElements(By.xpath(
 								"//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[@value='" + sensorName + "']"))
 						.size() > 0) {
+					System.out.println("Sensor status");
 					if (states.contains("tamper cleared")) {
 						if (MobileUtils.isMobElementExists("xpath",
 								"//*[contains(@name,'SensorStatus_" + i + "_Image')]", testCase, 10)) {
@@ -335,20 +337,6 @@ public class DASSensorUtils {
 						Keyword.ReportStep_Pass(testCase,
 								"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 					}
-					/*
-					 * if (MobileUtils.isMobElementExists("NAME", "RightButton", testCase)) {
-					 * MobileUtils.clickOnElement(testCase, "NAME", "RightButton"); if
-					 * (MobileUtils.isMobElementExists("NAME", "Sensor Tamper", testCase) &&
-					 * MobileUtils.isMobElementExists("NAME", "Retry", testCase)) {
-					 * MobileUtils.clickOnElement(testCase, "NAME", "Retry"); } else {
-					 * DASCommandControlUtils.waitForProgressBarToComplete(testCase,
-					 * "LOADING PROGRESS TEXT", 1);
-					 * 
-					 * } } if (testCase.getMobileDriver().findElements(By.xpath(
-					 * "//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[contains(@value,'" +
-					 * sensorState + "')]")).size() > 0) { Keyword.ReportStep_Pass(testCase,
-					 * sensorName + " is in " + sensorState); sensorStateMatched = true; break; }
-					 */
 
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
