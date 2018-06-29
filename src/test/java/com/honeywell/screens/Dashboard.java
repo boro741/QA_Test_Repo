@@ -36,8 +36,8 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);
 	}
 	
-	public boolean isDoneButtonInWeatherForecastIsVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInWeatherForecast");
+	public boolean isDoneButtonInWeatherForecastIsVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInWeatherForecast", timeOut);
 	}
 	
 	public boolean clickOnDoneButtonInWeatherForecast() {

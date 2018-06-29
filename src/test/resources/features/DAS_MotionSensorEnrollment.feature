@@ -79,7 +79,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user names the "MOTION" name <Custom name>
+And user names the "MOTION" to <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 Then user selects <Mount Sensor Name> from "Mount Sensor" screen
 Then user should be displayed with the <Place Sensor> screen
@@ -136,7 +136,6 @@ Then user should display with "Sensor Name Already Assigned, Pleases Pleases giv
 Examples:
 |Mode |
 |Home|
-
 #Incaserequired
 |OFF|
 
@@ -157,7 +156,7 @@ When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
 When user selects "Create Custom Name" from "Name Sensor" screen
 Then user should be displayed with the "Name Sensor" screen
-And user names the "MOTION" name <Custom name>
+And user names the "MOTION" to <Custom name>
 Then user should be displayed with the "Mount Sensor" screen
 Then user selects <Mount Sensor Name> from "Mount Sensor" screen
 #And user selects "cancel" from <Place Sensor> screen
@@ -303,7 +302,6 @@ Examples:
 |Mode |Sensor Name| Mount Sensor Name | Place Sensor | 
 |Home | Front Hall |  In a Wall Corner | Mount in a Corner | 
 |OFF | Back Hall |   Flat on a Wall     | Mount on the Wall |
-
 #incaserequried 
 |Home | Front Hall  | Flat on a Wall     | Mount on the Wall |
 |Home | Back Hall |  In a Wall Corner | Mount in a Corner | 
@@ -339,10 +337,9 @@ Examples:
 |Home| Name Motion Sensor Custom name|
 |Home| Mount Sensor|
 |Home|Mount in a Corner| 
-|Home| Mount on the wall| 
-|Home|Test Motion Sensor| # Before verification
-
-
+|Home| Mount on the wall|
+# Before verification
+|Home|Test Motion Sensor|
 #Incaserequired
 #|OFF| Locate Sensor |
 #|OFF| Name Sensor Default name|
@@ -405,10 +402,10 @@ Examples:
 |Home| Mount Sensor				| Name Motion Sensor Default Name |
 ##|Home| Mount Sensor				| Name Motion Sensor Custom Name |
 |Home|Mount in a Corner				| Mount Sensor 	|
-|Home|Test Sensor				| Mount in a Corner |# Before verification
+# Before verification
+|Home|Test Sensor				| Mount in a Corner |
 |Home|Motion Sensor Help			| TEST MOTION SENSOR |
 |Home|Motion Sensor Signal Strength			| Motion Sensor Help |
-
 #incaserequired
 #|OFF|Locate Sensor 				| Set up Accessories |
 #|OFF|Name sensor Default Name 	| Locate Sensor|
@@ -422,7 +419,7 @@ Examples:
 
 
 @DASMotionSensorEnrollmentflowpushnotificationVerification
-Scenario Outline: verify push notification while Access Sensor Enrolment
+Scenario: verify push notification while Access Sensor Enrolment
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
 And user enrolled the "MV"

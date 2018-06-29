@@ -27,6 +27,7 @@ import com.honeywell.lyric.utils.ADBUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.account.information.LocationInformation;
 
 public class DIYRegistrationUtils {
@@ -138,7 +139,8 @@ public class DIYRegistrationUtils {
 		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
 			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(15)) {
-				//DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP BUTTON", 1);
+				// DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP
+				// BUTTON", 1);
 			}
 		}
 		return flag;
@@ -275,6 +277,17 @@ public class DIYRegistrationUtils {
 			flag = flag
 					& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING GEOFENCE PROGRESS BAR", 1);
 			flag = flag & dasDIY.isGeoFenceEnabledScreenHeaderTitleVisible(15);
+		} else {
+			flag = false;
+			if (dasDIY.isUpdateGeoFenceButtonInGeoFenceScreenVisible()
+					&& dasDIY.isSaveButtonInGeoFenceScreenVisible()) {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Cancel button is not displayed in Geofence screen");
+				flag = flag & dasDIY.clickOnSaveButtonInGeoFenceScreen();
+				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+						"SAVING GEOFENCE PROGRESS BAR", 1);
+				flag = flag & dasDIY.isGeoFenceEnabledScreenHeaderTitleVisible(15);
+			}
 		}
 		return flag;
 	}
@@ -318,7 +331,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
 			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-			if(dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
+			if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
 				dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
 			}
 		}
@@ -458,7 +471,7 @@ public class DIYRegistrationUtils {
 				waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 5);
 				if (dasDIY.isAmazonAlexaSetUpCompletedScreenTitleVisible() && dasDIY.isNextButtonVisible()) {
 					flag = flag & dasDIY.clickOnNextButton();
-					if(dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
+					if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
 						flag = flag & dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
 					}
 				}
@@ -515,6 +528,35 @@ public class DIYRegistrationUtils {
 					}
 				}
 			}
+		}
+		return flag;
+	}
+
+	public static boolean deleteSensorThroughCHIL(TestCases testCase, TestCaseInputs inputs, String sensorName) {
+		boolean flag = true;
+		try {
+			System.out.println("%%%%%%%%%%%%sensorName: " + sensorName);
+			@SuppressWarnings("resource")
+			CHILUtil chUtil = new CHILUtil(inputs);
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
+			DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+			if (chUtil.getConnection()) {
+				try {
+					String sensorID = deviceInfo.getDASSensorID(sensorName);
+					System.out.println("%%%%%%%%%%%%sensorID: " + sensorID);
+					int result = chUtil.deleteSensor(locInfo.getLocationID(), deviceInfo.getDASSensorID(sensorName),
+							sensorName, 1);
+					if (result == 200) {
+						Keyword.ReportStep_Pass(testCase, "Successfully deleted DAS Device");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+				}
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}

@@ -204,7 +204,7 @@ public class DeviceInformation {
 	}
 
 	public String getDASSensorID(String sensorName) throws Exception {
-		if (deviceInformation != null) {
+		if (this.deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -590,12 +589,15 @@ public class LyricUtils {
 				if (sm.isFeatureTweaksVisible()) {
 					flag = flag & sm.clickOnFeatureTweaks();
 					flag = flag & sm.clickOnSetAccessibilityToggle();
+					flag = flag & sm.clickOnSetDasDIYV2Toggle();
 					flag = flag & sm.clickOnNavigateUp();
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Unable to find Feature tweaks to set Accessibility");
 					return false;
 				}
+			} else {
+				flag = flag & sm.clickOnSetDasDIYV2Toggle();
 			}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
@@ -682,7 +684,6 @@ public class LyricUtils {
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
-
 		return flag;
 	}
 
