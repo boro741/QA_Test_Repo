@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DASCommandControlUtils;
+import com.honeywell.lyric.relayutils.RelayUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 
@@ -64,23 +65,27 @@ public class SwitchDASStatesUsingKeyFob extends Keyword {
 		if (!flag) {
 			return flag;
 		}
+		try{
 		if (states.get(1).equalsIgnoreCase("Home")) {
-			//flag = flag & DASCommandControlUtils.changeStatus(testCase, "Home", inputs);
+			RelayUtils.Keyfob_Home();
 			inputs.setInputValue("HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "HOME_TIME " + inputs.getInputValue("HOME_TIME"));
 		} else if (states.get(1).equalsIgnoreCase("Night")) {
-			//flag = flag & DASCommandControlUtils.changeStatus(testCase, "Night", inputs);
+			RelayUtils.Keyfob_Night();
 			inputs.setInputValue("NIGHT_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "NIGHT_TIME " + inputs.getInputValue("NIGHT_TIME"));
 		} else if (states.get(1).equalsIgnoreCase("Away")) {
-			//flag = flag & DASCommandControlUtils.changeStatus(testCase, "Away", inputs);
+			RelayUtils.Keyfob_Away();
 			inputs.setInputValue("AWAY_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			System.out.println("#########AWAY_TIME: " + inputs.getInputValue("AWAY_TIME"));
 			Keyword.ReportStep_Pass(testCase, "AWAY_TIME " + inputs.getInputValue("AWAY_TIME"));
 		} else if (states.get(1).equalsIgnoreCase("Off")) {
-			//flag = flag & DASCommandControlUtils.changeStatus(testCase, "Off", inputs);
+			RelayUtils.Keyfob_Off();
 			inputs.setInputValue("OFF_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 			Keyword.ReportStep_Pass(testCase, "OFF_TIME " + inputs.getInputValue("OFF_TIME"));
+		}
+		}catch(Exception e){
+			System.out.println("Excpetion occured");
 		}
 
 		return flag;

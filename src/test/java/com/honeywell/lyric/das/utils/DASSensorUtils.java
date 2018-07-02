@@ -314,22 +314,28 @@ public class DASSensorUtils {
 		boolean sensorStateMatched = false;
 		for (int i = 0; i < list.size(); i++) {
 			if (testCase.getPlatform().contains("IOS")) {
-				// Sensor status
 				if (testCase.getMobileDriver()
 						.findElements(By.xpath(
 								"//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[@value='" + sensorName + "']"))
 						.size() > 0) {
 					System.out.println("Sensor status");
+					// Sensor status
 					if (states.contains("tamper cleared")) {
 						if (MobileUtils.isMobElementExists("xpath",
 								"//*[contains(@name,'SensorStatus_" + i + "_Image')]", testCase, 10)) {
 							MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
-							// MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
+							//code to click on clear tamper
+
+							SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+							flag = flag & settingScreen.clickOnClearCoverTamperOption();
 							try {
 								Thread.sleep(10000);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
+							}
+							if(settingScreen.isSensorTamperClearPopupDisplayed()){
+								flag = flag & settingScreen.clickOnOkTamperClearPopup();
 							}
 						}
 						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
@@ -382,9 +388,9 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-													.getText());
+											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+											.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 							// MobileUtils.clickOnElement(fieldObjects, testCase, "BackToViewList");
 							try {
@@ -426,100 +432,99 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	//NAVIGATION FROM DASHBOARD To SENSOR
-		public static boolean navigateToSensorTypeSettingsFromDashboard(String SensorType,TestCaseInputs inputs,TestCases testCase){
-			boolean flag=false;
-			SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
-			try {
-				switch(SensorType){
-				case "DOOR ACCESS SETTINGS":{
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							"Base Station Configuration");
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
-					break;
-				}
-				case "WINDOW ACCESS SETTINGS":{
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
-					break;
-				}
-				case "MOTION SENSOR SETTINGS":{
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-					inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE,DASInputVariables.MOTIONSENSOR);
-					flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
-					break;
-				}
-				default: {
-					System.out.println("Input not handled");
-					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,"Input not handled -"+SensorType);
-					break;
-				}
-
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+	public static boolean navigateToSensorTypeSettingsFromDashboard(String SensorType,TestCaseInputs inputs,TestCases testCase){
+		boolean flag=false;
+		SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+		try {
+			switch(SensorType){
+			case "DOOR ACCESS SETTINGS":{
+				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Base Station Configuration");
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+				break;
 			}
-			return flag;
-		}
-		
-		//NAVIGATION FROM DASHBOARD To SENSOR
-				public static boolean navigateToSensorTypeSettingsFromSecuritySolutionCard(String SensorType,TestCaseInputs inputs,TestCases testCase){
-					boolean flag=false;
-					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
-					try {
-						switch(SensorType){
-						case "DOOR ACCESS SETTINGS":{
-							SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-							if (security.isAppSettingsIconVisible(15)) {
-								flag = security.clickOnAppSettingsIcon();
-							}
-							flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-									testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-									"Base Station Configuration");
-							BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-							flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-							flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
-							break;
-						}
-						case "WINDOW ACCESS SETTINGS":{
-							SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-							if (security.isAppSettingsIconVisible(15)) {
-								flag = security.clickOnAppSettingsIcon();
-							}
-							BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-							flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-							flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
-							break;
-						}
-						case "MOTION SENSOR SETTINGS":{
-							SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
-							if (security.isAppSettingsIconVisible(15)) {
-								flag = security.clickOnAppSettingsIcon();
-							}
-							BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-							flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-							flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
-							break;
-						}
-						default: {
-							System.out.println("Input not handled");
-							Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,"Input not handled -"+SensorType);
-							break;
-						}
+			case "WINDOW ACCESS SETTINGS":{
+				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
+				break;
+			}
+			case "MOTION SENSOR SETTINGS":{
+				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE,DASInputVariables.MOTIONSENSOR);
+				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+				break;
+			}
+			default: {
+				System.out.println("Input not handled");
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,"Input not handled -"+SensorType);
+				break;
+			}
 
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return flag;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	//NAVIGATION FROM DASHBOARD To SENSOR
+	public static boolean navigateToSensorTypeSettingsFromSecuritySolutionCard(String SensorType,TestCaseInputs inputs,TestCases testCase){
+		boolean flag=false;
+		SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+		try {
+			switch(SensorType){
+			case "DOOR ACCESS SETTINGS":{
+				SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+				if (security.isAppSettingsIconVisible(15)) {
+					flag = security.clickOnAppSettingsIcon();
 				}
+
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Base Station Configuration");
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+				break;
+			}
+			case "WINDOW ACCESS SETTINGS":{
+				SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+				if (security.isAppSettingsIconVisible(15)) {
+					flag = security.clickOnAppSettingsIcon();
+				}
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
+				break;
+			}
+			case "MOTION SENSOR SETTINGS":{
+				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE,DASInputVariables.MOTIONSENSOR);
+				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+				break;
+			}
+			default: {
+				System.out.println("Input not handled");
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,"Input not handled -"+SensorType);
+				break;
+			}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 }

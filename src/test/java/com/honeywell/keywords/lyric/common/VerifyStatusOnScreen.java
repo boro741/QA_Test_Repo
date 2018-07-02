@@ -224,10 +224,24 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ISSUE": {
 					flag = securityScreen.isSensorIssueVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+					}
 					break;
 				}
 				case "NO ISSUE": {
 					flag = securityScreen.isSensorNoIssueVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+					}
 					break;
 				}
 				default:{
@@ -236,13 +250,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase,
-							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
-				}
+				break;
 			}
 			default:{
 				flag = false;
@@ -250,6 +258,8 @@ public class VerifyStatusOnScreen extends Keyword {
 						expectedScreen.get(0).toUpperCase() + " is not handled ");
 			}
 			}
+			
+			break;
 		}
 		case "DIMMER PRIMARY CARD": {
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -730,6 +740,10 @@ public class VerifyStatusOnScreen extends Keyword {
 				 */
 				break;
 			}
+		/*	case "ENTRY DELAY":{
+				
+				break;
+			}*/
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
