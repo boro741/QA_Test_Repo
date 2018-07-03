@@ -49,6 +49,15 @@ public class PerformInBackground extends Keyword {
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 			if (chUtil.getConnection()) {
+				if(states.get(0).equalsIgnoreCase("opens window with app")){
+					try{
+						DASSensorUtils.openWindow(testCase, inputs);
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+					}
+				}
 				if(states.get(0).equalsIgnoreCase("opens door with app")){
 					try{
 						DASSensorUtils.openDoor(testCase, inputs);
