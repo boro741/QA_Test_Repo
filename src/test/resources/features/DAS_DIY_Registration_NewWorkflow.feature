@@ -138,7 +138,6 @@ Examples:
       | This is to test max characterss	| Home				|
       
 
-#Reauire a new account to execute
 @DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@UIAutomated	
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -191,6 +190,7 @@ Examples:
 #     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
 
 
+#Reauire a new account to execute
 @DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@UIAutomated
 Scenario Outline: As a user I want to verify default location name and default base station name
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -2236,6 +2236,7 @@ Examples:
 | Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      |
 
 
+#WithoutISMVAndOSMV
 @DIYRegistrationWithSensorBulkEnrollment    @P1			@UIAutomated
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -2360,6 +2361,7 @@ Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	| Sensor Name    	| Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | 
 | Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|  Front Hall     	| In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      |
 
+#Includes ISMV and OSMV
 @DIYRegistrationWithSensorBulkEnrollmentOld    @P1
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted

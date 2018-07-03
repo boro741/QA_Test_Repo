@@ -36,6 +36,14 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);
 	}
 	
+	public boolean isCloseButtonInHoneywellRatingPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseButtonInHoneywellRatingPopup", timeOut);
+	}
+	
+	public boolean clickOnCloseButtonInHoneywellRatingPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButtonInHoneywellRatingPopup");
+	}
+	
 	public boolean isDoneButtonInWeatherForecastIsVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInWeatherForecast", timeOut);
 	}

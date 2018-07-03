@@ -523,6 +523,8 @@ public class DIYRegistrationUtils {
 						flag = flag & dasDIY.clickOnDeleteLocationButton();
 						if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
 							flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully Deleted Location: " + inputs.getInputValue("LOCATION1_NAME"));
 							flag = flag & dasDIY.isAddNewDeviceScreenVisible(10);
 						}
 					}

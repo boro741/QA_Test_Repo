@@ -52,7 +52,7 @@ Then user should receive a "Location services" popup
 And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen 
 
-@DIYWhenNoBaseStationsAreAvailable	@UIAutomated		@Doesn'tRequireAnyBaseStationsForExecution
+@DIYWhenNoBaseStationsAreAvailable123	@UIAutomated		@Doesn'tRequireAnyBaseStationsForExecution
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen

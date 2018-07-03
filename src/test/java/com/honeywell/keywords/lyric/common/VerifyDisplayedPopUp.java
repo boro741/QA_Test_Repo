@@ -135,6 +135,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isCustomLocationNameExistsErrorPopupTitleVisible();
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Custom Location Name exists error popup message is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Custom Location Name exists error popup message is not displayed");
+			}
 			break;
 		}
 		case "EXISTING BASE STATION ERROR": {
@@ -147,6 +154,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isCustomBaseStationNameIsEmptyErrorPopupTitleVisible();
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Custom base station name is empty error popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Custom base station name is empty error popup is not displayed");
+			}
 			break;
 		}
 		case "BASE STATION NOT FOUND": {

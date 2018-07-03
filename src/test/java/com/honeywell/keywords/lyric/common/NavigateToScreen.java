@@ -340,7 +340,8 @@ public class NavigateToScreen extends Keyword {
 				case "MOTION SENSOR SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
 				case "DOOR ACCESS SETTINGS": {
-					DASSensorUtils.navigateToSensorTypeSettingsFromDashboard(screen.get(0).toUpperCase(),inputs,testCase);
+					DASSensorUtils.navigateToSensorTypeSettingsFromDashboard(screen.get(0).toUpperCase(), inputs,
+							testCase);
 					break;
 				}
 				case "ACTIVITY HISTORY": {
@@ -465,6 +466,11 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
 					Dashboard ds = new Dashboard(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (ds.isCloseButtonInHoneywellRatingPopupVisible(5)) {
+							ds.clickOnCloseButtonInHoneywellRatingPopup();
+						}
+					}
 					if (ds.isDoneButtonInWeatherForecastIsVisible(20)) {
 						ds.clickOnDoneButtonInWeatherForecast();
 					}
@@ -768,6 +774,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SMART HOME SECURITY": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
 					break;
 				}
