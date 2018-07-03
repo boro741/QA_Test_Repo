@@ -768,6 +768,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SMART HOME SECURITY": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
 					break;
 				}

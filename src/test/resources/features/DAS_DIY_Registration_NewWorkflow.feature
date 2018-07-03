@@ -138,7 +138,6 @@ Examples:
       | This is to test max characterss	| Home				|
       
 
-#Reauire a new account to execute
 @DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@UIAutomated	
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -191,6 +190,7 @@ Examples:
 #     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
 
 
+#Reauire a new account to execute
 @DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@UIAutomated
 Scenario Outline: As a user I want to verify default location name and default base station name
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
