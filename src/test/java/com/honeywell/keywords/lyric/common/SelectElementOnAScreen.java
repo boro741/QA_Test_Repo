@@ -522,6 +522,27 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			}
+			else if (parameters.get(1).equalsIgnoreCase("Security Settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MANAGE ALERTS": {
+					BaseStationSettingsScreen click = new BaseStationSettingsScreen(testCase);
+					
+						if(!click.isManageAlertExist()) {
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Manage Alerts Element does not exist");
+						}
+						flag= click.clickOnManageAlerts();
+					
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Manage Alerts is selected from Security Settings");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Error in selecting Manage Alerts");
+					}
+					break;
+				}
+				
+				}
+			}
 			else if(parameters.get(1).equalsIgnoreCase("Mount Sensor")){
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 			}

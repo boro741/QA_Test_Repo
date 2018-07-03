@@ -11,6 +11,8 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -205,6 +207,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 		case "SENSOR TAMPER":{
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
+			break;
+		}
+		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME AND OFF MODE ON CLICKING BASE STATION VOLUME":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag=flag& bs.isPerformInModePopupVisible();
+            
 			break;
 		}
 		default: {

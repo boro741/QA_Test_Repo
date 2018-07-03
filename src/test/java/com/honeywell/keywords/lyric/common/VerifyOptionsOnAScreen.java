@@ -1,7 +1,15 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import org.apache.log4j.spi.LocationInfo;
+import org.json.JSONObject;
+import org.python.antlr.ast.Assert;
+
+import com.google.errorprone.annotations.Var;
+import com.honeywell.CHIL.CHILUtil;
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -10,7 +18,11 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
+import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -41,6 +53,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with the following (.*) options:$")
 	public boolean keywordSteps() throws KeywordException {
+		CHILUtil chUtil = null;
+		DeviceInformation deviceInfo=null;
+		
+		try {
+			chUtil = new CHILUtil(inputs);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		switch (expectedScreen.get(0).toUpperCase()) {
 		
 		case "ENTRYDELAY":{
@@ -140,6 +161,168 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		
+		case "ALERTS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			ArrayList<String> lstData = new ArrayList<String>();
+			for (int i = 0; i < data.getSize(); i++)
+			{
+				lstData.add(data.getData(i, "Alerts"));
+			}
+			
+				if(lstData.contains("Doors and Windows")) {
+					//Check for sensor and if not present add
+					 deviceInfo = new DeviceInformation(testCase, inputs);
+						try {
+							ArrayList<String> getDASSensors=deviceInfo.getDASSensorIDsInADevice();
+							if(getDASSensors.size()<=0) {
+								try {
+								if (chUtil.getConnection()) {
+									String serialNumber=java.util.UUID.randomUUID().toString();
+									serialNumber=serialNumber.substring(0, serialNumber.indexOf("-")+2).replace("-",":");
+									String payload="{\"config\":{\"identifiers\":{\"id\":\"Sensor Serial No\",\"serialNumber\":\"Sensor Serial No\",\"shortAddress\":\"BridgeId\",\"macAddress\":\"3234454\"},\"modelName\":\"Model name\",\"versions\":{\"hardware\":\"1.0.0\",\"swPackage\":\"1.0.0\"},\"encryptionKey\":\"000102030405060708090A0B0C0D0E0F\",\"expand\":{\"PeripheralConnectedToInterface\":[{\"identifiers\":{\"id\":\"7\"}}],\"PeripheralAssignedDevice\":[{\"identifiers\":{\"id\":\"00158D000052DC20:1\"},\"type\":\"Input\",\"_subType_id\":[\"889\",\"Contact\"],\"supervisionInterval\":\"PT30M\",\"extension\":[{\"name\":\"isomPIRConfig\",\"sensitivity\":50}]}]},\"extension\":[{\"name\":\"wiselinkPeripheralInfo\",\"RadioCycleValue\":10,\"FastCycleValue\":1,\"NonceKey\":\"000000000000000000000000000000000\",\"ClientID\":\"8787\"}]},\"state\":{\"commState\":{\"state\":[\"normal\"],\"linkQuality\":100},\"batteryState\":{\"state\":[\"normal\"],\"batteryLevel\":60}}}";
+									payload= payload.replace("Sensor Serial No", serialNumber).replace("BridgeId",String.valueOf(new Random().nextInt(100)));
+									if(chUtil.postSensorDiscovery(LyricUtils.locationID,deviceInfo.getDeviceID(), true)==202) {
+										Keyword.ReportStep_Pass(testCase, "Sensor Discovery enabled through CHIL");
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to enable Sensor through CHIL");
+									}	
+									
+									chUtil.FeedDataIntoIOTHub(deviceInfo.getDeviceID().replace("LSC-", ""),payload,"POST ISOM/DeviceMgmt/Peripherals/fullEntity","DAS","D-Change");
+								     Thread.sleep(5000);
+									getDASSensors=deviceInfo.getDASSensorIDsInADevice();
+									if (chUtil.postSensor(LyricUtils.locationID, deviceInfo.getDeviceID(), 1,serialNumber) == 202) {
+										Keyword.ReportStep_Pass(testCase, "Sensor Created through CHIL");
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to create Sensor through CHIL");
+									}
+									if(chUtil.postSensorDiscovery(LyricUtils.locationID,deviceInfo.getDeviceID(), false)==202) {
+										Keyword.ReportStep_Pass(testCase, "Sensor Discovery disabled through CHIL");
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to disable Sensor through CHIL");
+									}	
+									
+								}
+								}
+								catch (Exception e) {
+									// TODO Auto-generated catch block
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+								}
+								
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							flag = false;
+							e.printStackTrace();
+						}
+						try {
+							if(!bs.clickOnBackButton()) {
+								Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
+										"Manage Alerts: Unable to navigate to Back Screen after sensor creation");
+							}
+							if(!bs.clickOnManageAlerts()) {
+								Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
+										"Manage Alerts: Unable to click on Manage Alerts Screen after sensor creation");
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					
+				}
+				else if(!lstData.contains("Doors and Windows")) {
+					///check for sensor in chil get and delete
+					 deviceInfo = new DeviceInformation(testCase, inputs);
+						try {
+							
+							ArrayList<String> getDASSensors=deviceInfo.getDASSensorIDsInADevice();
+							if(getDASSensors.size()>0) {
+								for (String sensorID : getDASSensors){ 
+								try {
+								if (chUtil.getConnection()) {
+									if (chUtil.deleteSensor(LyricUtils.locationID, deviceInfo.getDeviceID(), sensorID, 1) == 202) {
+										Keyword.ReportStep_Pass(testCase, "Sensor deleted through CHIL");
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to delete Sensor through CHIL");
+									}
+									
+								}
+								}
+								catch (Exception e) {
+									// TODO Auto-generated catch block
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+								}
+								}
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							flag = false;
+							e.printStackTrace();
+						}
+						
+						//This will execute when the requirement file does not have Doors and Windows data
+							try {
+								if(!bs.clickOnBackButton()) {
+									Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
+											"Manage Alerts: Unable to navigate to Back Screen after sensor creation");
+								}
+								if(!bs.clickOnManageAlerts()) {
+									Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
+											"Manage Alerts: Unable to click on Manage Alerts Screen after sensor creation");
+								}
+								if (!bs.isDoorAndWindowsToggleVisible()) {
+									Keyword.ReportStep_Pass(testCase,
+											"Manage Alerts: Doors and Windows is not present on the DAS Manage Alerts screen for without sensors");
+								}
+								else {
+									Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
+											"Manage Alerts: Doors and Windows is not present on the DAS Manage Alerts screen for without sensors");
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+							}
+								
+						}
+					
+				
+			
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Alerts");
+				
+				try {
+					if (bs.isElementEnabled(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Manage Alerts: '" + fieldTobeVerified + "' is present on the DAS Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alerts: '" + fieldTobeVerified + "' is not present on the DAS Manage Alerts screen");
+					}
+					
+					
+				
+				
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		
 		case "ENTRY-EXIT DELAY": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
