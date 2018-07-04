@@ -562,7 +562,6 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
-
 				case "GLOBAL DRAWER": {
 					Thread.sleep(5000);
 					Dashboard ds = new Dashboard(testCase);
@@ -662,7 +661,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1284,7 +1283,16 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-
+			else if (screen.get(1).equalsIgnoreCase("Alarm Security Solution Card")){
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
+					alarmScreen.clickOnAlarm_NavigateBack();
+					break;
+				}
+				
+				}
+			}
 			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION SENSOR SETTINGS":
@@ -1310,6 +1318,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();
@@ -1809,7 +1818,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					System.out
-							.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+					.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
 					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
 					break;
 				}

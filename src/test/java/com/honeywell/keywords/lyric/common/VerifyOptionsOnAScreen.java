@@ -72,6 +72,21 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & check.AlarmInSecsCounter();
 					break;
 				}
+				case "ENTRY DELAY SWITCH TO HOME":{
+					System.out.println("Inside entry delay switch to home ");
+					flag = flag & check.isSwitchToHomeExists();
+					break;
+				}
+				case "ENTRY DELAY SWITCH TO NIGHT":{
+					System.out.println("Inside entry delay switch to night ");
+					flag = flag & check.isSwitchToNightExists();
+					break;
+				}
+				case "ENTRY DELAY ATTENTION":{
+					System.out.println("Inside entry delay attention ");
+					flag = flag & check.isAttentionButtonExists();
+					break;
+				}
 				}
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase, "The "+parameter+"has found");
