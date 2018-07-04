@@ -15,7 +15,6 @@ import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.relayutils.RelayConstants;
 import com.honeywell.lyric.utils.DASInputVariables;
@@ -31,8 +30,12 @@ public class SensorSettingScreen extends MobileScreens {
 		super(testCase, screenName);
 	}
 
-	public boolean clickOnUserGivenSensorName(String givenSensorName) {
+	public boolean isSensorsScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorsScreenTitle");
+	}
 
+	public boolean clickOnUserGivenSensorName(String givenSensorName) {
+		System.out.println("##########givenSensorName: " + givenSensorName);
 		List<WebElement> sensorList;
 		if (testCase.getPlatform().contains("IOS")) {
 			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
@@ -44,14 +47,16 @@ public class SensorSettingScreen extends MobileScreens {
 			String actualSensorName = sensor.getText();
 			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				sensor.click();
-				Keyword.ReportStep_Pass(testCase, "Clicked on "+givenSensorName);
+				Keyword.ReportStep_Pass(testCase, "Clicked on " + givenSensorName);
 				return true;
 			}
 		}
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate sensor named "+givenSensorName);
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Failed to locate sensor named " + givenSensorName);
 		return false;
 
 	}
+
 	public boolean isGivenSensorNameDisplayed(String givenSensorName) {
 		try {
 			Thread.sleep(6000);
@@ -179,7 +184,7 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+					.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
@@ -230,7 +235,7 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "GetAdditionalHelpButton");
-		}else {
+		} else {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "GetAdditionalHelpButton");
 		}
 	}
@@ -244,7 +249,7 @@ public class SensorSettingScreen extends MobileScreens {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 				touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-				.release().perform();
+						.release().perform();
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Get Additional Help");
 			}
 		} catch (Exception e) {
@@ -339,6 +344,7 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnCustomNameBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CustomNameBack");
 	}
+
 	public boolean clickOnSensorSettingBack() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSettingBack");
 	}
@@ -406,13 +412,13 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnAddSensorButton() {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorAddButton",5)) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorAddButton", 5)) {
 			Keyword.ReportStep_Pass(testCase, "Located Add button");
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorAddButton");
 	}
 
-	public boolean clickOnSetUpButton(TestCaseInputs inputs,String SensorType) {
+	public boolean clickOnSetUpButton(TestCaseInputs inputs, String SensorType) {
 		String locator;
 		String SensorName = null;
 		String serialNo = null;
@@ -426,23 +432,27 @@ public class SensorSettingScreen extends MobileScreens {
 			SensorName = "Key Fob";
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
-			inputs.setInputValue(DASInputVariables.SENSORTYPE,DASInputVariables.MOTIONSENSOR);
+			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
 		} else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
+			inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
+			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
+			SensorName = "Access Sensor";
+			System.out.println("###########Access Sensor Serial No: " + serialNo);
 		}
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
-			serialNo=RelayConstants.RSI_Keyfob_1_SerialNO;
+			serialNo = RelayConstants.RSI_Keyfob_1_SerialNO;
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
-			serialNo=RelayConstants.RSI_Motion_Sensor_1_SerialNO;
-			serialNo="289407656";
-			inputs.setInputValue(DASInputVariables.SENSORTYPE,DASInputVariables.MOTIONSENSOR);
+			serialNo = RelayConstants.RSI_Motion_Sensor_1_SerialNO;
+			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
+			System.out.println("###########Motion Sensor Serial No: " + serialNo);
 		} else if (SensorType.toLowerCase().contains("door access sensor")) {
-			serialNo=RelayConstants.RSI_Contact_Sensor_2_SerialNO;
+			serialNo = RelayConstants.RSI_Contact_Sensor_2_SerialNO;
 			SensorName = "Access Sensor";
-		}else if (SensorType.toLowerCase().contains("window access sensor")) {
-			serialNo=RelayConstants.RSI_Contact_Sensor_1_SerialNO;
+		} else if (SensorType.toLowerCase().contains("window access sensor")) {
+			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
 		}
 
@@ -455,50 +465,53 @@ public class SensorSettingScreen extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeTable", testCase)) {
 					while ((MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeTable", testCase))
 							&& counter < 10) {
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						try {
 							TimeUnit.SECONDS.sleep(3);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 						System.out.println(counter);
-						Keyword.ReportStep_Pass(testCase, "Count to scroll "+counter);
+						Keyword.ReportStep_Pass(testCase, "Count to scroll " + counter);
 
-
-						if(MobileUtils.isMobElementExists("xpath",
+						if (MobileUtils.isMobElementExists("xpath",
 								"//*[contains(@" + locator + ",'" + SensorName
-								+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]",testCase,10)){
-							MobileUtils.clickOnElement(testCase,"xpath","//*[contains(@" + locator
-									+ ",'" + SensorName
-									+ "')]");
+										+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+										+ serialNo + "')]",
+								testCase, 10)) {
+							MobileUtils.clickOnElement(testCase, "xpath",
+									"//*[contains(@" + locator + ",'" + SensorName + "')]");
 							Keyword.ReportStep_Pass(testCase, "Clicked on sensor");
-							if (MobileUtils.clickOnElement(testCase,"xpath",
+							if (MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@" + locator + ",'" + SensorName
-									+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]"
-									)) {
+											+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+											+ serialNo + "')]")) {
 								System.out.println("located sensor with serial number");
 
-								if (MobileUtils.isMobElementExists("xpath",
-										"//*[contains(@" + locator + ",'" + SensorName
-										+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
+								if (MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
+										+ SensorName
+										+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+										+ serialNo
+										+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]",
 										testCase, 10)) {
 
-									MobileUtils.clickOnElement(testCase,"xpath","//*[contains(@" + locator
-											+ ",'" + SensorName
-											+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"+serialNo+"')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]");
+									MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@" + locator + ",'"
+											+ SensorName
+											+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+											+ serialNo
+											+ "')]/following-sibling::XCUIElementTypeButton[contains(@name,'rightButton')]");
 									Keyword.ReportStep_Pass(testCase, "Clicked on set up button");
 									System.out.println("Clicked on set up button");
 								}
-							}else {
+							} else {
 								System.out.println("not able to locate sensor with serial number");
 							}
-						}else {
+						} else {
 							System.out.println("not able to locate sensor with serial number");
 						}
-
 
 						counter++;
 					}
@@ -511,6 +524,8 @@ public class SensorSettingScreen extends MobileScreens {
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				System.out.println(MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
 						+ SensorName
@@ -614,9 +629,9 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+					.release().perform();
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+					.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				try {
 					TimeUnit.SECONDS.sleep(4);
@@ -737,7 +752,13 @@ public class SensorSettingScreen extends MobileScreens {
 		} else {
 			locator = "text";
 		}
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().contains("IOS")) {
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			.release().perform();
 			return MobileUtils.isMobElementExists("xpath", "//*[@" + locator + "='" + SensorName
 					+ "']/following-sibling::XCUIElementTypeStaticText[contains(@" + locator + ",'" + state + "')]",
 					testCase, 10);
@@ -748,6 +769,7 @@ public class SensorSettingScreen extends MobileScreens {
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;
 				int endy = (dimensions.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				return MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName
@@ -931,20 +953,18 @@ public class SensorSettingScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText", 10);
 	}
 
-
 	public boolean isSensorPairingScreenDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorPairingHelpScreenTitle");
 
 	}
 
 	public boolean isDoneButtonVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButton",4);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButton", 4);
 	}
 
 	public boolean clickOnSensorHelpButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase,"SensorHelpButton");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorHelpButton");
 	}
-
 
 	/*
 	 * public boolean isSensorConfigured(String SensorName) {

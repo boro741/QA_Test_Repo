@@ -21,16 +21,22 @@ public class DASSettingsUtils {
 			String message, locator = "";
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locator = "xpath";
-				/*message = "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";*/
-				message = "//android.widget.TextView[@text='This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" +
-						" and all related accessories']";
+				/*
+				 * message =
+				 * "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
+				 * + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
+				 */
+				message = "//android.widget.TextView[@text='This will delete " + "\""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" + " and all related accessories']";
 			} else {
 				locator = "name";
-				/*message = "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";*/
-				message = "  This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" +
-						" and all related accessories.";
+				/*
+				 * message =
+				 * "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \""
+				 * + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";
+				 */
+				message = "  This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
+						+ " and all related accessories.";
 			}
 
 			// message =" This will delete your Smart Home Security and all the connected
@@ -52,30 +58,64 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean verifyDeleteSensorConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean verifyDeleteAccessSensorConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isDeleteSensorPopUpTitleVisible()) {
-			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up Title is correctly displayed");
-			if (inputs.getInputValue(DASInputVariables.SENSORTYPE).equals(DASInputVariables.MOTIONSENSOR)) {
-				Keyword.ReportStep_Pass(testCase, "Motion sensor delete");
-				flag = flag & bs.isMotionSensorDeletePopUpMessageVisible();
-			} else {
-				Keyword.ReportStep_Pass(testCase, "Access sensor delete");
+			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up Title is displayed");
+			System.out.println(
+					"###########ACCESSSENSORTYPE: " + inputs.getInputValue(DASInputVariables.ACCESSSENSORTYPE));
+			System.out.println("###########ACCESSSENSOR: " + DASInputVariables.ACCESSSENSOR);
+			if (inputs.getInputValue(DASInputVariables.ACCESSSENSORTYPE).equals(DASInputVariables.ACCESSSENSOR)) {
 				flag = flag & bs.isAccessSensorDeletePopUpMessageVisible();
-			}
-
-			if (flag) {
-				Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up message correctly displayed");
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Delete Sensor Confirmation Pop Up message not correctly displayed.");
+						"Delete Access Sensor Confirmation Pop Up is incorrect");
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase,
+						"Delete Access Sensor Confirmation Pop Up message is correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete Access Sensor Confirmation Pop Up message is incorrect");
 			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Delete Sensor Confirmation Pop Up not displayed");
+					"Delete Sensor Confirmation Pop Up is not displayed");
+		}
+		return flag;
+	}
+
+	public static boolean verifyDeleteMotionSensorConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		if (bs.isDeleteSensorPopUpTitleVisible()) {
+			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up Title is displayed");
+			System.out.println(
+					"###########MOTIONSENSORTYPE: " + inputs.getInputValue(DASInputVariables.MOTIONSENSORTYPE));
+			System.out.println("###########ACCESSSENSOR: " + DASInputVariables.MOTIONSENSOR);
+			if (inputs.getInputValue(DASInputVariables.MOTIONSENSORTYPE).equals(DASInputVariables.MOTIONSENSOR)) {
+				flag = flag & bs.isMotionSensorDeletePopUpMessageVisible();
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete Motion Sensor Confirmation Pop Up is incorrect");
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase,
+						"Delete Motion Sensor Confirmation Pop Up message is correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete Motion Sensor Confirmation Pop Up message is incorrect");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Delete Sensor Confirmation Pop Up is not displayed");
 		}
 		return flag;
 	}
@@ -235,10 +275,10 @@ public class DASSettingsUtils {
 			}
 			if (inputs.isInputAvailable("LOCATION1_ACCESSSENSOR1_NAME")) {
 				sensorName = inputs.getInputValue("LOCATION1_ACCESSSENSOR1_NAME");
-				inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.ACCESSSENSOR);
+				inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
 			} else {
 				sensorName = inputs.getInputValue("LOCATION1_MOTIONSENSOR1_NAME");
-				inputs.setInputValue(DASInputVariables.SENSORTYPE, DASInputVariables.MOTIONSENSOR);
+				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
 			}
 			flag = flag & bs.selectSensorFromSensorList(sensorName);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
@@ -259,11 +299,10 @@ public class DASSettingsUtils {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			String keyfobName = "";
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
-			if(flag) {
+			if (flag) {
 				System.out.println("Successfully navigated to Keyfob List Settings Screen");
 				Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
-			}
-			else {
+			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Did not navigated to Keyfob List Settings Screen");
 			}
@@ -325,7 +364,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromSensoListScreenToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -340,7 +379,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromKeyFobListScreenToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -355,7 +394,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromAmazonAlexaScreenToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
@@ -370,14 +409,14 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromAmazonAlexaScreenToSensorListScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			if (bs.isBackButtonVisible()) {
 				flag = flag & bs.clickOnBackButton();
-			} else if(bs.isNavBackButtonVisible()) {
+			} else if (bs.isNavBackButtonVisible()) {
 				flag = flag & bs.clickOnNavBackButton();
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
@@ -387,14 +426,14 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromAmazonAlexaScreenToKeyFobListScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			if (bs.isBackButtonVisible()) {
 				flag = flag & bs.clickOnBackButton();
-			} else if(bs.isNavBackButtonVisible()) {
+			} else if (bs.isNavBackButtonVisible()) {
 				flag = flag & bs.clickOnNavBackButton();
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
@@ -404,14 +443,14 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromKeyFobListScreenToSensorListScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			if (bs.isBackButtonVisible()) {
 				flag = flag & bs.clickOnBackButton();
-			} else if(bs.isNavBackButtonVisible()) {
+			} else if (bs.isNavBackButtonVisible()) {
 				flag = flag & bs.clickOnNavBackButton();
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);

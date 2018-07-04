@@ -44,7 +44,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 	public boolean keywordSteps() {
 
 		switch (expectedPopUp.get(0).toUpperCase()) {
-		case "PERFORM ONLY IN HOME MODE":{
+		case "PERFORM ONLY IN HOME MODE": {
 			SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 			flag = flag & sensorSetting.performOnlyInHome();
 			break;
@@ -92,8 +92,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUp(testCase, inputs);
 			break;
 		}
-		case "DELETE SENSOR CONFIRMATION": {
-			flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUp(testCase, inputs);
+		case "DELETE ACCESS SENSOR CONFIRMATION": {
+			flag = flag & DASSettingsUtils.verifyDeleteAccessSensorConfirmationPopUp(testCase, inputs);
+			break;
+		}
+		case "DELETE MOTION SENSOR CONFIRMATION": {
+			flag = flag & DASSettingsUtils.verifyDeleteMotionSensorConfirmationPopUp(testCase, inputs);
 			break;
 		}
 		case "DELETE KEYFOB CONFIRMATION": {
@@ -133,6 +137,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isCustomLocationNameExistsErrorPopupTitleVisible();
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Custom Location Name exists error popup message is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Custom Location Name exists error popup message is not displayed");
+			}
 			break;
 		}
 		case "EXISTING BASE STATION ERROR": {
@@ -145,6 +156,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isCustomBaseStationNameIsEmptyErrorPopupTitleVisible();
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Custom base station name is empty error popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Custom base station name is empty error popup is not displayed");
+			}
 			break;
 		}
 		case "BASE STATION NOT FOUND": {
@@ -174,7 +192,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
-		case "NEW TO LYRIC CAMERA" : {
+		case "NEW TO LYRIC CAMERA": {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;
 		}
@@ -193,7 +211,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 		case "SWITCH TO AWAY": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			flag = flag & sc.isSwitchToAwayPopupVisible(5);
-			if(flag) {
+			if (flag) {
 				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
 			} else {
 				flag = false;
@@ -205,7 +223,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 		case "SWITCH TO NIGHT": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			flag = flag & sc.isSwitchToNightPopupVisible(5);
-			if(flag) {
+			if (flag) {
 				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
 			} else {
 				flag = false;
@@ -220,11 +238,12 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & sc.isUnableToConnectToBaseStationAlertVisible();
 			break;
 		}
-		case "SENSOR TAMPER":{
+		case "SENSOR TAMPER": {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
 			break;
 		}
+
 
 		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME AND OFF MODE ON CLICKING BASE STATION VOLUME":{
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -233,21 +252,23 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
             
 
-		case "CANCEL SENSOR SETUP":{
+		
+		case "CANCEL SENSOR SETUP": {
+
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-			if(sensor.isCancelSetUpPopUpVisible()) {
+			if (sensor.isCancelSetUpPopUpVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Cancel Sensor popup is displayed");
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
 				return flag;
 			}
-			
+
 			break;
 		}
-		case "SENSOR ENROLLMENT TIME OUT":{
+		case "SENSOR ENROLLMENT TIME OUT": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-			if(sensor.isTimeOutErrorForDiscoveryDisplayed()) {
+			if (sensor.isTimeOutErrorForDiscoveryDisplayed()) {
 				Keyword.ReportStep_Pass(testCase, "TimeOut popup is displayed");
 			} else {
 				flag = false;

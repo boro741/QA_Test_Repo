@@ -220,6 +220,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isNoButtonInCancelPopupVisible()) {
 					flag = flag & dasDIY.clickOnNoButtonInCancelPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"NO button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -227,6 +231,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isYesButtonInCancelPopupVisible()) {
 					flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"YES button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -236,17 +244,16 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} 
-		else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag = flag &  sensor.clickOnDismissCancelButton();
+				flag = flag & sensor.clickOnDismissCancelButton();
 				break;
 			}
 			case "ACCEPTS": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag = flag &  sensor.clickOnConfirmCancelButton();
+				flag = flag & sensor.clickOnConfirmCancelButton();
 				break;
 			}
 			default: {
@@ -261,6 +268,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInCustomLocationNameExistsErrorPopupTitleVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInCustomLocationNameExistsErrorPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -271,6 +282,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInCustomLocationNameExistsErrorPopupTitleVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInCustomLocationNameExistsErrorPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -281,6 +296,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInCustomBaseNameExistsErrorPopupTitleVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInCustomBaseNameExistsErrorPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -291,6 +310,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInInvalidZipCodePopupVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInInvalidZipCodePopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -306,6 +329,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInBaseStationNotFoundPopupVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInBaseStationNotFoundPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -315,6 +342,10 @@ public class PerformActionsOnPopUp extends Keyword {
 					flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 							"BASE STATION PROGRESS BAR", 1);
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Retry button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -330,6 +361,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInQRCodeScanningFailurePopupVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -345,6 +380,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInWiFiConnectionFailedPopupVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInWiFiConnectionFailedPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -360,6 +399,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isOKButtonInFirmwareUpdatePopupVisible()) {
 					flag = flag & dasDIY.clickOnOKButtonInFirmwareUpdatePopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -370,6 +413,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isNoButtonInGeoFencePopupVisible()) {
 					flag = flag & dasDIY.clickOnNoButtonInGeoFencePopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"NO button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -377,6 +424,10 @@ public class PerformActionsOnPopUp extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isYesButtonInGeoFencePopupVisible()) {
 					flag = flag & dasDIY.clickOnYesButtonInGeoFencePopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"YES button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
@@ -386,7 +437,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Access Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -397,6 +448,27 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnYesButton();
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Motion Sensor Confirmation")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnCancelButton();
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButton();
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
@@ -547,11 +619,15 @@ public class PerformActionsOnPopUp extends Keyword {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 				if (sc.isOKButtonInUnableToConnectToBaseStationAlertVisible()) {
 					flag = flag & sc.clickOnOKButtonInUnableToConnectToBaseStationAlert();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
 			}
-		} else if(expectedPopUp.get(1).equalsIgnoreCase("SENSOR TAMPER")){
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SENSOR TAMPER")) {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "OK": {
@@ -563,8 +639,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		}
-		else if(expectedPopUp.get(1).equalsIgnoreCase("Time out")){
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Time out")) {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "ACCEPTS": {
@@ -572,8 +647,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		}
-		else {
+		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

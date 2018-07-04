@@ -52,12 +52,12 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SENSOR OFF":{
+			case "SENSOR OFF": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				sensor.isSensorOffScreenDisplayed();
 				break;
 			}
-			case "SENSOR LIST":{
+			case "SENSOR LIST": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				if (sensor.isSensorListScreenDisplayed()) {
 					Keyword.ReportStep_Pass(testCase,
@@ -467,6 +467,11 @@ public class VerifyScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+					if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
+						if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
+							dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+						}
+					}
 				}
 				break;
 			}
@@ -606,10 +611,9 @@ public class VerifyScreen extends Keyword {
 			}
 			case "NAME KEYFOB": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag  & sensor.isKeyfobNamingScreenDisplayed();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"Keyfob Overview Screen is displayed");
+				flag = flag & sensor.isKeyfobNamingScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Keyfob Overview Screen is displayed");
 				}
 				break;
 			}
@@ -647,27 +651,27 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "SET UP ACCESSORIES":{
+			case "SET UP ACCESSORIES": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = sensor.isSetUpAccessoriesScreenDisplayed();
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed");
 				}
 				break;
 			}
-			case "MOUNT IN A CORNER":{
+			case "MOUNT IN A CORNER": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				sensor.isMountInaCornerScreenDisplayed();
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed");
 				}
 				break;
 			}
-			case "MOUNT ON THE WALL":{
+			case "MOUNT ON THE WALL": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				sensor.isMountInaWallScreenDisplayed();
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase,  expectedScreen.get(0)+" is displayed");
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed");
 				}
 				break;
 			}
@@ -675,7 +679,7 @@ public class VerifyScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = flag & sensor.isSensorPairingScreenDisplayed();
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase,  expectedScreen.get(0)+"screen is displayed");
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}
 				break;
 			}

@@ -40,3 +40,6 @@ LoadingProgressBar	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In 
 SensorButton	XPATH	"//*[contains(@text,'Sensors')]"					XPATH	"//*[contains(@value,'Sensors')]"				
 SensorName	id	sensor_name					Xpath	//XCUIElementTypeStaticText				
 SecuritySettingsTitle	XPATH	//*[@text='Security settings']					XPATH	//*[@value='Security Settings']				
+SensorName	ID	sensor_name	ID	sensor_name	ID	sensor_name	Xpath	//XCUIElementTypeStaticText				
+			
+

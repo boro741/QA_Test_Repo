@@ -2,7 +2,7 @@
 Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
-@DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1
+@DIYRegistrationWhenSingleBaseStationIsAvailable123	 	@P1
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application

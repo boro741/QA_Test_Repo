@@ -1,4 +1,4 @@
- package com.honeywell.keywords.lyric.common;
+package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
@@ -53,8 +53,8 @@ public class ClickOnButton extends Keyword {
 					if (zs.isFixAllEnabled()) {
 						flag = flag & zs.clickOnFixAll();
 						flag = flag & zs.clickOnFixAllPopupCancel();
-						flag = flag & zs.clickOnFixAll(); 
-						flag = flag & zs.clickOnFixAllPopupConfirm(); 
+						flag = flag & zs.clickOnFixAll();
+						flag = flag & zs.clickOnFixAllPopupConfirm();
 						flag = flag & zs.clickOnFixAllPopupAccept();
 					} else {
 						Keyword.ReportStep_Pass(testCase, "No device found to be offline");
@@ -68,6 +68,10 @@ public class ClickOnButton extends Keyword {
 					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					if (dasDIY.isCancelButtonVisible()) {
 						flag = flag & dasDIY.clickOnCancelButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
@@ -78,19 +82,26 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isCancelButtonInWiFiScreenVisible()) {
 						flag = flag & dasDIY.clickOnCancelButtonInWiFiScreen();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
 				}
-			}  else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS CANCEL SETUP")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "BACK ARROW": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isCancelButtonInRegisterBaseStationVisible()) {
 						flag = flag & dasDIY.clickOnCancelButtonInRegisterBaseStationScreen();
 						flag = flag & dasDIY.isCancelPopupVisible();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
-
 					break;
 				}
 				}
@@ -100,9 +111,14 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
 						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+								"BASE STATION PROGRESS BAR", 1);
 						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Refresh button not displayed in : " + expectedButton.get(0));
 					}
 				}
 				}
@@ -114,6 +130,10 @@ public class ClickOnButton extends Keyword {
 						flag = flag & dasDIY.clickOnCancelButtonInRegisterBaseStationScreen();
 						flag = flag & dasDIY.isCancelPopupVisible();
 						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
 				}
 				}
@@ -125,6 +145,10 @@ public class ClickOnButton extends Keyword {
 						flag = flag & dasDIY.clickOnAddANetworkButton();
 						flag = flag & dasDIY.isAddANetworkHeaderTitleVisible();
 						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Add Network button not displayed in : " + expectedButton.get(0));
 					}
 				}
 				}
@@ -134,19 +158,28 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isCancelButtonInEnterSSIDScreenVisible()) {
 						flag = flag & dasDIY.clickOnCancelButtonInEnterSSIDScreen();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
 				}
-			}   else if (expectedButton.get(0).equalsIgnoreCase("VIEWS SELECT BASE STATION SCREEN")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("VIEWS SELECT BASE STATION SCREEN")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "REFRESH": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
 						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+								"BASE STATION PROGRESS BAR", 1);
 						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
 						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Refresh button not displayed in : " + expectedButton.get(0));
 					}
 				}
 				}
@@ -158,6 +191,10 @@ public class ClickOnButton extends Keyword {
 						flag = flag & dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
 						flag = flag & dasDIY.isFirmwareUpdatePopupVisible(20);
 						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Yes button not displayed in : " + expectedButton.get(0));
 					}
 				}
 				}
@@ -167,6 +204,10 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isCancelButtonVisible()) {
 						flag = flag & dasDIY.clickOnCancelButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
@@ -177,6 +218,10 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isCancelButtonInGeoFenceScreenVisible()) {
 						flag = flag & dasDIY.clickOnCancelButtonInGeoFenceScreen();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
@@ -195,8 +240,13 @@ public class ClickOnButton extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isRefereshButtonInSelectBaseStationScreenVisible()) {
 						flag = flag & dasDIY.clickOnRefereshButtonInSelectBaseStationScreen();
-						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
+						flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+								"BASE STATION PROGRESS BAR", 1);
 						flag = flag & dasDIY.isMultipleBaseStationsScreenSubHeaderTitleVisible();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Refresh button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
@@ -208,6 +258,10 @@ public class ClickOnButton extends Keyword {
 					if (dasDIY.isAddANetworkButtonVisible()) {
 						flag = flag & dasDIY.clickOnAddANetworkButton();
 						flag = flag & dasDIY.isAddANetworkHeaderTitleVisible();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Add Network button not displayed in : " + expectedButton.get(0));
 					}
 					break;
 				}
@@ -234,8 +288,7 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
-			}
-			else if (expectedButton.get(0).equalsIgnoreCase("downloads the Alexa app")) {
+			} else if (expectedButton.get(0).equalsIgnoreCase("downloads the Alexa app")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "ALEXA APP": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -243,8 +296,7 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
-			}
-			else {
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Invalid Input: " + expectedButton.get(1));

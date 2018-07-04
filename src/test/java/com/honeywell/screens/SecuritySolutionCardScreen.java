@@ -414,14 +414,13 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
-
 		List<WebElement> sensorList;
 		if (testCase.getPlatform().contains("IOS")) {
 			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
 		} else {
 			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
 		}
-
+		System.out.println("##########sensorList.size(): " + sensorList.size());
 		for (WebElement sensor : sensorList) {
 			String actualSensorName = sensor.getText();
 			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {

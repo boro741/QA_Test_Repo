@@ -823,6 +823,11 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
 					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
+					try {
+						Thread.sleep(3000);
+					} catch(InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
@@ -1371,6 +1376,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonEmailTextField",
 				amazonUserName);
+		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SignInToAmazonPasswordTextField");
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonPasswordTextField",
 				amazonPassword);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

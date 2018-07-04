@@ -98,6 +98,10 @@ public class GuerrillaMailUtils {
 			notificationMailFrom = "lyricstage@honeywell.com";
 		} else if (environment.equalsIgnoreCase("CHIL DAS(Test)")) {
 			notificationMailFrom = "lyric@honeywell.com";
+		} else if(environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")){
+			notificationMailFrom = "honeywellhomessupport@honeywell.com";
+		}else{
+			System.out.println("Environment not handled");
 		}
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		httpPost = new HttpPost(String.format(apiAddr, "set_email_user"));
@@ -228,9 +232,10 @@ public class GuerrillaMailUtils {
 			notificationMailFrom = "lyricstage@honeywell.com";
 		} else if (environment.equalsIgnoreCase("CHIL DAS(Test)")) {
 			notificationMailFrom = "lyric@honeywell.com";
-		} else if (environment.equalsIgnoreCase("ChilDas(QA)")){
+		} else if (environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")){
 			notificationMailFrom = "honeywellhomes@honeywell.com";
 		}
+		System.out.println(notificationMailFrom);
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		httpPost = new HttpPost(String.format(apiAddr, "set_email_user"));
 		formparams.add(new BasicNameValuePair("email_user", emailAddress));
@@ -335,8 +340,8 @@ public class GuerrillaMailUtils {
 			notificationMailFrom = "lyricstage@honeywell.com";
 		} else if (environment.equalsIgnoreCase("Chil Das(Test)")) {
 			notificationMailFrom = "lyric@honeywell.com";
-		} else if (environment.equalsIgnoreCase("Chil Das(QA)")) {
-			notificationMailFrom = "lyric@honeywell.com";
+		} else if (environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")) {
+			notificationMailFrom = "honeywellhomessupport@honeywell.com";
 		}
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		httpPost = new HttpPost(String.format(apiAddr, "set_email_user"));
@@ -390,6 +395,9 @@ public class GuerrillaMailUtils {
 			// Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Exception:
 			// "+e.getMessage());
 			flag = false;
+		}
+		if(!flag){
+		 Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"confirm mail from user and environment");
 		}
 		return flag;
 	};
@@ -531,7 +539,7 @@ public class GuerrillaMailUtils {
 			useractivationLinkstart = extractedLink.indexOf("https://passwordresetqastage");
 			extractedLink = extractedLink.substring(useractivationLinkstart);
 			useractivationLinkEnd = extractedLink.indexOf("\"");
-		} else if (environment.equalsIgnoreCase("Chil Das(QA)")) {
+		} else if (environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")) {
 			useractivationLinkstart = extractedLink.indexOf("https://passwordresetdasqa");
 			extractedLink = extractedLink.substring(useractivationLinkstart);
 			useractivationLinkEnd = extractedLink.indexOf("\"");
@@ -595,7 +603,7 @@ public class GuerrillaMailUtils {
 			useractivationLinkstart = extractedLink.indexOf("https://passwordresetqastage");
 			extractedLink = extractedLink.substring(useractivationLinkstart);
 			useractivationLinkEnd = extractedLink.indexOf("\"");
-		} else if (environment.equalsIgnoreCase("Chil Das(QA)")) {
+		} else if (environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")) {
 			useractivationLinkstart = extractedLink.indexOf("https://passwordresetdasqa");
 			extractedLink = extractedLink.substring(useractivationLinkstart);
 			useractivationLinkEnd = extractedLink.indexOf("\"");

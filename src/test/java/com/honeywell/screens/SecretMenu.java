@@ -25,34 +25,57 @@ public class SecretMenu extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FeatureTweaks");
 	}
 
-	
 	public boolean isCHILFRTweakOptionAvailable() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FRTweak", 3);
 	}
 
 	public boolean clickOnFRTweak() {
-		return MobileUtils.switchonElementAndroidOnly(objectDefinition, testCase, "FRTweak",true);
+		return MobileUtils.switchonElementAndroidOnly(objectDefinition, testCase, "FRTweak", true);
 	}
-	
 
 	public boolean clickOnNavigateUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackArrow");
 	}
 
 	public boolean clickOnSetAccessibilityToggle() {
-		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_subTitle")).size()>0){
+		if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_subTitle")).size() > 0) {
 			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes_subTitle");
-		}else if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size()>0){
+		} else if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size() > 0) {
 			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
 		}
 
-		if(testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_toggle")).size()>0){
+		if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_toggle")).size() > 0) {
 			return true;
-		}else{
-			MobileElement ele =testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).get(1);
+		} else {
+			MobileElement ele = testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).get(1);
 			return MobileUtils.clickOnElement(testCase, ele, "Accessibility Attribute enable/Disbale");
 
 		}
+	}
+
+	public boolean clickOnSetDasDIYV2Toggle() {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (testCase.getMobileDriver().findElement(By.xpath("//*[@text = 'New DAS Enrollment']"))
+					.getAttribute("checked").equals("false")) {
+				testCase.getMobileDriver().findElement(By.xpath("//*[@text = 'New DAS Enrollment']")).click();
+			}
+		} else {
+			if (testCase.getMobileDriver().findElements(By.name("DasDIYV2_subTitle")).size() > 0) {
+				testCase.getMobileDriver().scrollTo("DasDIYV2_subTitle");
+			} else if (testCase.getMobileDriver().findElements(By.name("DasDIYV2")).size() > 0) {
+				testCase.getMobileDriver().scrollTo("DasDIYV2");
+			}
+
+			if (testCase.getMobileDriver().findElements(By.name("DasDIYV2_toggle")).size() > 0) {
+				return flag;
+			} else {
+				MobileElement ele = testCase.getMobileDriver().findElements(By.name("DasDIYV2")).get(1);
+				flag = flag & MobileUtils.clickOnElement(testCase, ele, "DasDIYV2 Attribute enable/Disbale");
+
+			}
+		}
+		return flag;
 	}
 
 	public boolean isWebServerURLVisible() {
