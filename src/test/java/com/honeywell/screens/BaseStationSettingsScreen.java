@@ -785,12 +785,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean toggleCameraOnInHomeModeSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
 	}
-<<<<<<< HEAD
-	
-	
-
-=======
->>>>>>> origin/master
 
 	public boolean verifyAlexaAppPlayStoreTitleIsVisible(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PlayStoreAppTitle", 15)) {

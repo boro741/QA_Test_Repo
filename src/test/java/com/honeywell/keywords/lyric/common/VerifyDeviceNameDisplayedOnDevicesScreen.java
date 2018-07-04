@@ -99,8 +99,6 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 		return flag;
 	}
 
-	
-	
 	@Override
 	@AfterKeyword
 	public boolean postCondition() {

@@ -2,12 +2,6 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import org.apache.log4j.spi.LocationInfo;
-import org.json.JSONObject;
-import org.python.antlr.ast.Assert;
-
-import com.google.errorprone.annotations.Var;
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.bddinterface.DataTable;

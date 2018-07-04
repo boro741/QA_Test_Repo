@@ -254,7 +254,6 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 		
 		case "CANCEL SENSOR SETUP": {
-
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			if (sensor.isCancelSetUpPopUpVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Cancel Sensor popup is displayed");

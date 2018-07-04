@@ -741,12 +741,6 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 			
 			else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
-
-
-				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-			}
-			else if(parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
-
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")
 						&& parameters.get(0).equals("In a Wall Corner")) {
 					String selectedMountSensorValue = parameters.get(0).replace("In a Wall Corner", "In a wall Corner");
@@ -755,7 +749,6 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
-
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "GET ADDITIONAL HELP": {
