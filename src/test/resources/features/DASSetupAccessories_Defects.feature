@@ -7,20 +7,22 @@ Feature: Verify Sensor enrolment and settings functionality
 @DASSetUpAccessoriesScreenVerificationWithOutSensorBroadCasting
 Scenario Outline: As a user I should be verify Set up accessories screen with out sensor broadcasting
 Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to "Set Up Accessories" screen from the "Dashboard" screen
-Then user should not display with "Done" option
-When user selects the "Help" option 
-Then user should display with "Sensor Pairing Help" screen 
-When user selects the "Get Additional Help" option from "Sensor Paring Help" screen
-Then user should navigates to "www.youhome.honeywell.com" portal 
-And user navigates to "Sensor Pairing Help" screen from "www.youhome.honeywell.com" portal 
-And user navigates to "Set Up Accessories" screen from "Sensor Pairing Help" screen
-Then user should not display with "Done" option
+#And user is set to <Mode> mode through CHIL
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user selects "Add button" from "Sensor List Settings" screen
+#When user motion sensor "enrolled"
+#Then user "should not be displayed" with the "Done" option
+When user selects "Help" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Pairing Help" screen 
+When user selects "Get Additional Help" from "Sensor Pairing Help" screen
+#Then user should navigates to "Honeywell Help web portal portal" 
+And user navigates to "Sensor Pairing Help" screen from the "Honeywell Help web portal" screen 
+And user navigates to "Set Up Accessories" screen from the "Sensor Pairing Help" screen
+Then user "should not be displayed" with the "Done" option
 Examples:
 |Mode|
 |Home|
-|OFF|
+#|OFF|
 
 
 #Requirements: DAS panel should be configured and KeyFob, OSMV, ISMV, Motion Viewer, Access sensors should be in broadcasting mode 

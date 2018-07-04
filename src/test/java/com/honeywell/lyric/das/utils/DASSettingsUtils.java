@@ -58,8 +58,10 @@ public class DASSettingsUtils {
 		if (bs.isDeleteSensorPopUpTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Delete Sensor Confirmation Pop Up Title is correctly displayed");
 			if (inputs.getInputValue(DASInputVariables.SENSORTYPE).equals(DASInputVariables.MOTIONSENSOR)) {
+				Keyword.ReportStep_Pass(testCase, "Motion sensor delete");
 				flag = flag & bs.isMotionSensorDeletePopUpMessageVisible();
 			} else {
+				Keyword.ReportStep_Pass(testCase, "Access sensor delete");
 				flag = flag & bs.isAccessSensorDeletePopUpMessageVisible();
 			}
 
@@ -83,13 +85,6 @@ public class DASSettingsUtils {
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isKeyfobPopUpTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Delete Keyfob Confirmation Pop Up Title is correctly displayed");
-			if (bs.isKeyfobDeletePopUpMessageVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Delete Keyfob Confirmation Pop Up message correctly displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Delete Keyfob Confirmation Pop Up message not correctly displayed.");
-			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -264,13 +259,21 @@ public class DASSettingsUtils {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			String keyfobName = "";
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
-			if (!inputs.isInputAvailable("LOCATION1_KEYFOB1_NAME")) {
+			if(flag) {
+				System.out.println("Successfully navigated to Keyfob List Settings Screen");
+				Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
+			}
+			else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Did not navigated to Keyfob List Settings Screen");
+			}
+			if (!inputs.isInputAvailable("LOCATION1_DEVICE1_KEYFOB1")) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"No keyfob names were provided in the Requirement file");
 				return flag;
 			}
-			keyfobName = inputs.getInputValue("LOCATION1_KEYFOB1_NAME");
+			keyfobName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
 			flag = flag & bs.selectSensorFromSensorList(keyfobName);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
@@ -316,6 +319,102 @@ public class DASSettingsUtils {
 				flag = flag & bs.clickOnBackButton();
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromSensoListScreenToBaseStationConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromKeyFobListScreenToBaseStationConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromAmazonAlexaScreenToBaseStationConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromAmazonAlexaScreenToSensorListScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			} else if(bs.isNavBackButtonVisible()) {
+				flag = flag & bs.clickOnNavBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromAmazonAlexaScreenToKeyFobListScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			} else if(bs.isNavBackButtonVisible()) {
+				flag = flag & bs.clickOnNavBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromKeyFobListScreenToSensorListScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			} else if(bs.isNavBackButtonVisible()) {
+				flag = flag & bs.clickOnNavBackButton();
+			}
+			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

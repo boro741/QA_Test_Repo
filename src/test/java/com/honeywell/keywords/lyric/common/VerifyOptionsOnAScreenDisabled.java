@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.SensorSettingScreen;
 
 public class VerifyOptionsOnAScreenDisabled extends Keyword {
 
@@ -121,17 +122,39 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
+		case "KEYFOB SETTINGS":
 		case "SENSOR SETTINGS":{
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
 				if (fieldTobeVerified.equalsIgnoreCase("Name field")) {
-					if (bs.isNameElementEnabled()) {
+					if(expectedScreen.get(0).equalsIgnoreCase("KEYFOB SETTINGS")){
+						if (bs.isKeyfobNameElementEnabled()) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Name field is enabled");
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Name field is disabled");
+						}
+					}else{
+
+						if (bs.isNameElementEnabled()) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Name field is enabled");
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Name field is disabled");
+						}
+					}
+				}else if(fieldTobeVerified.equalsIgnoreCase("Cover Tampered")) {
+					SensorSettingScreen sensor  = new SensorSettingScreen(testCase);
+					if (sensor.isSensorTamperedScreenDisplayed()) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Name field is enabled");
-					} else {
-						Keyword.ReportStep_Pass(testCase, "Name field is disabled");
+								"Delete should not clickable in away/night mode");
+					}
+					else {
+						Keyword.ReportStep_Pass(testCase, "Cover Tampered field is disabled");
 					}
 				}
 				else if(fieldTobeVerified.equalsIgnoreCase("Signal strength and test")) {
@@ -145,13 +168,26 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 					}
 				}
 				else if(fieldTobeVerified.equalsIgnoreCase("Delete")) {
-					if (bs.isDeleteElementClickable()) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Delete should not clickable in away/night mode");
-					}
-					else {
-						Keyword.ReportStep_Pass(testCase, "Delete field is disabled");
+
+
+					if(expectedScreen.get(0).equalsIgnoreCase("KEYFOB SETTINGS")){
+						if (bs.isKeyfobDeleteElementClickable()){
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Delete should not clickable in away/night mode");
+						}
+						else {
+							Keyword.ReportStep_Pass(testCase, "Delete field is disabled");
+						}
+					}else{
+						if (bs.isDeleteElementClickable()) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Delete should not clickable in away/night mode");
+						}
+						else {
+							Keyword.ReportStep_Pass(testCase, "Delete field is disabled");
+						}
 					}
 				}
 

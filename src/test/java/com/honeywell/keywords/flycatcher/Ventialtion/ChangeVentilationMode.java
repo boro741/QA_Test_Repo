@@ -1,7 +1,6 @@
-package com.honeywell.keywords.jasper.Setpoint;
+package com.honeywell.keywords.flycatcher.Ventialtion;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -11,7 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperAdhocOverride;
 
 public class ChangeVentilationMode extends Keyword {
 
@@ -42,38 +40,29 @@ public class ChangeVentilationMode extends Keyword {
 			String mode = exampleData.get(0);
 			String expectedMode = " ";
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			List<String> allowedModes = statInfo.getAllowedModes();
-			if (mode.equalsIgnoreCase("Heat")) {
-				if (allowedModes.contains("Heat")) {
-					expectedMode = "Heat";
+			String allowedModes = statInfo.getThermoStatVentilationMode();
+			if (mode.equalsIgnoreCase("On")) {
+				if (!allowedModes.contains("On")) {
+					expectedMode = "On";
 				} else {
 					Keyword.ReportStep_Pass(testCase,
-							"Change System Mode : Cannot change system mode to heat because theremostat does not support heat mode");
-					return true;
-				}
-			} else if (mode.equalsIgnoreCase("Cool")) {
-				if (allowedModes.contains("Cool")) {
-					expectedMode = "Cool";
-				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Change System Mode : Cannot change system mode to cool because theremostat does not support cool mode");
+							"Change Ventilation Mode : Mode is already in On");
 					return true;
 				}
 			} else if (mode.equalsIgnoreCase("Auto")) {
-				if (allowedModes.contains("Auto")) {
+				if (!allowedModes.equalsIgnoreCase("Auto")) {
 					expectedMode = "Auto";
 				} else {
 					Keyword.ReportStep_Pass(testCase,
-							"Change System Mode : Cannot change system mode to auto because theremostat does not support auto mode");
+							"Change Ventilation Mode : Mode is already in Auto");
 					return true;
 				}
-			} else if (mode.equalsIgnoreCase("Off")) {
-				if (allowedModes.contains("Off")) {
-					expectedMode = "Off";
+			} else if (mode.equalsIgnoreCase("off")) {
+				if (!allowedModes.contains("off")) {
+					expectedMode = "off";
 				} else {
-					flag = false;
-					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Change System Mode : Allowed modes does not have Off");
+					Keyword.ReportStep_Pass(testCase,
+							"Change Ventilation Mode : Mode is already in Off");
 					return true;
 				}
 			} else {
@@ -81,7 +70,7 @@ public class ChangeVentilationMode extends Keyword {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Invalid input : " + mode);
 			}
-			flag = flag & JasperAdhocOverride.changeSystemMode(testCase, inputs, expectedMode);
+			flag = flag & FlyCatcherVentialtion.changeVentilationMode(testCase, inputs, expectedMode);
 		} catch (Exception e){
 
 		}

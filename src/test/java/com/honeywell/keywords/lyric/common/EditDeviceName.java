@@ -41,8 +41,42 @@ public class EditDeviceName extends Keyword {
 	@KeywordStep(gherkins = "^user edits the (.*) name to (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(0).equalsIgnoreCase("DAS Panel") || parameters.get(0).equalsIgnoreCase("Sensor")
-					|| parameters.get(0).equalsIgnoreCase("Keyfob")) {
+			if (parameters.get(0).equalsIgnoreCase("Keyfob Sensor")) {
+				inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag & sensor.editKeyfobName(parameters.get(1));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Sensor Overview Screen is displayed");
+				}
+			}else if(parameters.get(0).equalsIgnoreCase("Keyfob")){
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isKeyfobNameTextBoxVisible(5)) {
+					flag = flag & bs.clearKeyfobNameTextBox();
+					if (bs.setValueToKeyfobNameTextBox(parameters.get(1))) {
+							inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
+						Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to set " + parameters.get(1) + " to the textbox");
+					}
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
+					} else {
+						try {
+							MobileUtils.hideKeyboard(testCase.getMobileDriver());
+						} catch (Exception e) {
+							// Ignoring any exceptions because keyboard is sometimes not displayed on some
+							// Android devices.
+						}
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");
+				}
+			}
+			else if (parameters.get(0).equalsIgnoreCase("DAS Panel") || parameters.get(0).equalsIgnoreCase("Sensor")
+					) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				if (bs.isDASNameTextBoxVisible(5)) {
@@ -94,69 +128,64 @@ public class EditDeviceName extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Switch")||parameters.get(0).equalsIgnoreCase("Dimmer")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Switch") || parameters.get(0).equalsIgnoreCase("Dimmer")) {
 				ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 				if (zwaveScreen.isEditNamingFieldDisplayed()) {
 					flag = flag & zwaveScreen.editNameToSwitch(parameters.get(1));
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						flag = flag & zwaveScreen.saveEditedNameToSwitch();
-						inputs.setInputValue("DEVICE_NAME_TO_REVERT",parameters.get(1));
+						inputs.setInputValue("DEVICE_NAME_TO_REVERT", parameters.get(1));
 					} else {
 						flag = flag & zwaveScreen.saveEditedNameToSwitchOnAndroid();
-						inputs.setInputValue("DEVICE_NAME_TO_REVERT",parameters.get(1));
-						if(parameters.get(0).equalsIgnoreCase("Switch")){
+						inputs.setInputValue("DEVICE_NAME_TO_REVERT", parameters.get(1));
+						if (parameters.get(0).equalsIgnoreCase("Switch")) {
 							flag = flag & zwaveScreen.ClickSwitchSettingFromZwaveDevices();
-						}else if(parameters.get(0).equalsIgnoreCase("Dimmer")){
+						} else if (parameters.get(0).equalsIgnoreCase("Dimmer")) {
 							flag = flag & zwaveScreen.ClickDimmerSettingFromZwaveDevices();
 						}
 					}
-				}else{
+				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to locate the naming text field");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Unable to locate the naming text field");
 				}
-			}
-			else if(parameters.get(0).equalsIgnoreCase("Access Sensor")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Access Sensor")) {
 				String check = parameters.get(1);
-				switch(check.toUpperCase()){
-				case "NEW NAME":{
+				switch (check.toUpperCase()) {
+				case "NEW NAME": {
 					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					bs.RenameSensorName(givenSensorName);
+					flag = flag & bs.RenameSensorName(givenSensorName);
 					break;
 				}
 				}
-
 			}
-			else if(parameters.get(0).equalsIgnoreCase("motion sensor")) {
-				String check = parameters.get(1);
-				switch(check.toUpperCase()){
-				case "NEW NAME":{
-					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					bs.RenameSensorName(givenSensorName);
-					break;
+			else if (parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")
+					|| parameters.get(0).equalsIgnoreCase("MOTION")
+					|| parameters.get(0).equalsIgnoreCase("MOTION SENSOR")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag & sensor.editSensorNameToCustom(parameters.get(0), parameters.get(1), inputs);
+				if (parameters.get(0).toUpperCase().contains("DOOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(1));
+				} else if (parameters.get(0).toUpperCase().contains("WINDOW")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(1));
+				} else if (parameters.get(0).toUpperCase().contains("MOTION SENSOR")
+						|| parameters.get(0).toUpperCase().contains("MOTION")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(1));
 				}
-				}
-
-			}
-			
-			else if(parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")) {
+			} else if (parameters.get(0).toUpperCase().contains("DUPLICATE NAME")) {
 				String check = parameters.get(1);
-				switch(check.toUpperCase()){
-				case "CUSTOM NAME":{
+				switch (check.toUpperCase()) {
+				case "CUSTOM NAME": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					sensor.editSensorNameToCustom(parameters.get(0),inputs);
+					flag = flag & sensor.editSensorNameToCustom(parameters.get(0).substring(10), inputs);
 					break;
 				}
-				}
-
-			}
-			else if(parameters.get(0).toUpperCase().contains("DUPLICATE")) {
-				String check = parameters.get(1);
-				switch(check.toUpperCase()){
-				case "CUSTOM NAME":{
+				case "ACCESS SENSOR1": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					sensor.editSensorNameToCustom(parameters.get(0).substring(10),inputs);
+					if (sensor.assigningDuplicateSensorName(inputs)) {
+						Keyword.ReportStep_Pass(testCase, "Name has Changed");
+					}
 					break;
 				}
 				}

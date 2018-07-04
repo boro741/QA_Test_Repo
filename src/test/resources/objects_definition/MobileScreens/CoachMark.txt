@@ -2,3 +2,5 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 GotItButton	id	btn_positive_got_it	id	btn_positive_got_it	id	btn_positive_got_it	xpath	//*[@name='Got It']	xpath	//*[@name='Got It']	xpath	//*[@name='Got It']
 CoachMarkHeader	id	textView_title	id	textView_title	id	textView_title						
 CoachMarkDescription	id	textView_subtitle	id	textView_subtitle	id	textView_subtitle						
+NextButton	XPATH	//*[@text='Next']	XPATH	//*[@text='Next']	XPATH	//*[@text='Next']	NAME	Next	NAME	Next	NAME	Next
+DoneButton	XPATH	//*[@text='Done']	XPATH	//*[@text='Done']	XPATH	//*[@text='Done']	NAME	Done	NAME	Done	NAME	Done

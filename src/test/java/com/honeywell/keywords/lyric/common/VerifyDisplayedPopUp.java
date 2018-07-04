@@ -44,6 +44,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 	public boolean keywordSteps() {
 
 		switch (expectedPopUp.get(0).toUpperCase()) {
+		case "PERFORM ONLY IN HOME MODE":{
+			SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+			flag = flag & sensorSetting.performOnlyInHome();
+			break;
+		}
 		case "CONTROLLER RESET CONFIRMATION": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
 			flag = flag & zwaveScreen.isFactoryResetPopupHeaderDisplayed()
@@ -158,6 +163,17 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & dasDIY.isWiFiConnectionFailedPopupVisible();
 			break;
 		}
+		case "CANCEL GEOFENCE": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			if (dasDIY.isCancelGeofencePopupTitleVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+				return flag;
+			}
+			break;
+		}
 		case "NEW TO LYRIC CAMERA" : {
 			flag = flag & DASCameraUtils.verifyNewToLyricPopUp(testCase);
 			break;
@@ -209,10 +225,35 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
 			break;
 		}
+
 		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME AND OFF MODE ON CLICKING BASE STATION VOLUME":{
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag=flag& bs.isPerformInModePopupVisible();
+			break;
+		}
             
+
+		case "CANCEL SENSOR SETUP":{
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			if(sensor.isCancelSetUpPopUpVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel Sensor popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel popup is not displayed");
+				return flag;
+			}
+			
+			break;
+		}
+		case "SENSOR ENROLLMENT TIME OUT":{
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+			if(sensor.isTimeOutErrorForDiscoveryDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "TimeOut popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "TimeOut popup is not displayed");
+				return flag;
+			}
 			break;
 		}
 		default: {

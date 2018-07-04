@@ -1,6 +1,7 @@
 package com.honeywell.screens;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -379,6 +380,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnOKButtonInUnableToConnectToBaseStationAlert() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
 	}
+
 	public boolean clickOnAppSettingsIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AppSettingsIcon");
 	}
@@ -386,17 +388,27 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnSensorButton() {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
-		try{
-		action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-		.release().perform();
-		
-			if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton",5)){
-				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "Base Station Configuration");
+		try {
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+					.release().perform();
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton", 5)) {
+				Keyword.ReportStep_Pass(testCase, "not able to locate Sensor menu");
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Base Station Configuration");
+			}else{
+				Keyword.ReportStep_Pass(testCase, "Located Sensor menu");
 			}
-		}catch (Exception e) {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Not able to locate "+e.getMessage(),true);
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not able to locate " + e.getMessage(),
+					true);
 			return false;
 
+		}
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorButton");
 	}
@@ -404,42 +416,45 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
 
 		List<WebElement> sensorList;
-		if(testCase.getPlatform().contains("IOS")){
+		if (testCase.getPlatform().contains("IOS")) {
 			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
-		}else {
+		} else {
 			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
-		}		
+		}
 
-		for(WebElement sensor : sensorList) {
-			String actualSensorName=sensor.getText();
-			if(givenSensorName.equalsIgnoreCase(actualSensorName)){
+		for (WebElement sensor : sensorList) {
+			String actualSensorName = sensor.getText();
+			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				sensor.click();
+				Keyword.ReportStep_Pass(testCase, "Clicked on "+givenSensorName);
 				return true;
 			}
 		}
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate sensor named "+givenSensorName);
 		return false;
 
 	}
 
 	public boolean isSensorDisplayed(String givenSensorName) {
 		List<WebElement> sensorList;
-		if(testCase.getPlatform().contains("IOS")){
+		if (testCase.getPlatform().contains("IOS")) {
 			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
-		}else {
+		} else {
 			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
-		}		
+		}
 
-		for(WebElement sensor : sensorList) {
-			String actualSensorName=sensor.getText();
-			if(givenSensorName.equalsIgnoreCase(actualSensorName)){
+		for (WebElement sensor : sensorList) {
+			String actualSensorName = sensor.getText();
+			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				return true;
 			}
 		}
 		return false;
 
 	}
+
 	public boolean isSecuritySettingsTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecuritySettingsTitle",10);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecuritySettingsTitle", 10);
 
 	}
 }

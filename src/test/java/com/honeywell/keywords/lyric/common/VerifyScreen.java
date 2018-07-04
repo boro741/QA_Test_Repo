@@ -22,6 +22,7 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -51,8 +52,25 @@ public class VerifyScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "NO ALARM":{
-				if (!DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
+			case "SENSOR OFF":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isSensorOffScreenDisplayed();
+				break;
+			}
+			case "SENSOR LIST":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				if (sensor.isSensorListScreenDisplayed()) {
+					Keyword.ReportStep_Pass(testCase,
+							" displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"not displayed with " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "NO ALARM": {
+				if (!DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Not displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -62,38 +80,35 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "PAUSED STREAMING":{
+			case "PAUSED STREAMING": {
 				AlarmScreen check = new AlarmScreen(testCase);
 				boolean b = check.isPlayStreamingVisible();
-				if(b) {
+				if (b) {
 					Keyword.ReportStep_Pass(testCase, "Paused Streaming is displayed");
-				}
-				else {
+				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Paused Streaming is not displayed");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Paused Streaming is not displayed");
 				}
-			break;
+				break;
 			}
 			case "ALARM HISTORY": {
 				AlarmScreen click = new AlarmScreen(testCase);
-				flag= flag & click.isAlarmHistoryDisplayed();
-				if(flag) {
+				flag = flag & click.isAlarmHistoryDisplayed();
+				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Alarm History is Displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Settings Introduction page is not displayed");
 				}
-				 else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Camera Settings Introduction page is not displayed");
-					}
 				break;
 			}
 			case "CALL": {
 				AlarmScreen click = new AlarmScreen(testCase);
-				flag=click.isCallScreenDisplayed();
-				if(flag){
-					Keyword.ReportStep_Pass(testCase,expectedScreen.get(0).toUpperCase() +"is displayed");
-				}else {
+				flag = click.isCallScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0).toUpperCase() + "is displayed");
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Not in expected screen " + expectedScreen.get(0).toUpperCase());
@@ -260,7 +275,8 @@ public class VerifyScreen extends Keyword {
 			}
 			case "WHAT TO EXPECT": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if (dasDIY.isWhatToExpectScreenHeaderTitleVisible() && dasDIY.isBackArrowInWhatToExpectScreenVisible()) {
+				if (dasDIY.isWhatToExpectScreenHeaderTitleVisible()
+						&& dasDIY.isBackArrowInWhatToExpectScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -344,7 +360,8 @@ public class VerifyScreen extends Keyword {
 			}
 			case "BASE STATION HELP": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if (dasDIY.isBaseStationHelpHeaderTitleVisible() && dasDIY.isBackButtonInBaseStationHelpScreenVisible()) {
+				if (dasDIY.isBaseStationHelpHeaderTitleVisible()
+						&& dasDIY.isBackButtonInBaseStationHelpScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -430,7 +447,7 @@ public class VerifyScreen extends Keyword {
 			case "SMART HOME SECURITY SUCCESS": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
-						"ALMOST DONE LOADING PROGRESS BAR TEXT", 3);
+						"ALMOST DONE LOADING PROGRESS BAR TEXT", 5);
 				if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
@@ -453,6 +470,31 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "GEOFENCE": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isGeoFenceScreenHeaderTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "DASHBOARD": {
+				Dashboard d = new Dashboard(testCase);
+				if (d.isGlobalDrawerButtonVisible(20)
+						&& (d.isAddDeviceIconVisible(10) || d.isAddDeviceIconBelowExistingDASDeviceVisible(10))) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "CHECK LOCATION": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isCheckLocationScreenTitleVisible()) {
@@ -465,6 +507,9 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "NAME MOTION SENSOR DEFAULT NAME":
+			case "NAME SENSOR DEFAULT NAME":
+			case "NAME SENSOR LOCATION":
 			case "NAME SENSOR": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isNameSensorScreenTitleVisible()) {
@@ -499,87 +544,138 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "TEST ACCESS SENSOR":{
+			case "TEST MOTION SENSOR":
+			case "TEST ACCESS SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				if(sensor.isTestSensorHeadingDisplayed()) {
-					Keyword.ReportStep_Pass(testCase,
-							"Test Access Sensor Screen is displayed");	
-				}
-				else {
+				if (sensor.isTestSensorHeadingDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed");
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Test Access Sensor Screen is not displayed");
+							expectedScreen.get(0) + " is not displayed");
 				}
 				break;
 			}
-			case "SIGNAL STRENGTH":{
+			case "SIGNAL STRENGTH": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag & sensor.isSignalStrengthScreenDisplayed();
+				flag = flag & sensor.isSignalStrengthScreenDisplayed();
 				break;
 			}
-			case "ACCESS SENSOR HELP":{
+			case "ACCESS SENSOR HELP": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag &sensor.isAccessSensorHelpScreenDisplayed();
+				flag = flag & sensor.isAccessSensorHelpScreenDisplayed();
 				break;
 			}
-			case "GET ADDITIONAL HELP ON ACCESS SENSOR HELP":{
+			case "MOTION SENSOR HELP": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag &sensor.isGetAdditionalHelpOnSensorHelpDisplayed();
+				flag = flag & sensor.isMotionSensorHelpScreenDisplayed();
 				break;
 			}
-			case "SENSOR COVER TAMPER":{
+			case "GET ADDITIONAL HELP ON ACCESS SENSOR HELP": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag  &sensor.isSensorTamperedScreenDisplayed();
+				flag = flag & sensor.isGetAdditionalHelpOnSensorHelpDisplayed();
 				break;
 			}
-			case "MODEL AND FIRMWARE DETAILS":{
+			case "SENSOR COVER TAMPER": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag  &  sensor.isModelDetailsDisplayed();
-				flag= flag  &  sensor.isFirmwareDetailsDisplayed();
+				flag = flag & sensor.isSensorTamperedScreenDisplayed();
 				break;
 			}
-			case "SENSOR OVERVIEW":{
+			case "MODEL AND FIRMWARE DETAILS": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag  & sensor.isSensorOverviewScreenDisplayed();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"Sensor Overview Screen is displayed");
+				flag = flag & sensor.isModelDetailsDisplayed();
+				flag = flag & sensor.isFirmwareDetailsDisplayed();
+				break;
+			}
+			case "SENSOR OVERVIEW": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag & sensor.isSensorOverviewScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Sensor Overview Screen is displayed");
 				}
 				break;
 			}
-			case "LOCATE SENSOR":{
+			case "SENSOR KEYFOB OVERVIEW":
+			case "KEYFOB OVERVIEW": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag  & sensor.isLocateSensorScreenDisplayed();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"Locate Sensor Screen is displayed");
+				flag = flag & sensor.isKEYFOBOverviewScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Keyfob Overview Screen is displayed");
 				}
 				break;
 			}
-			case "PLACE SENSOR":{
+			case "NAME KEYFOB": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag=flag & sensor.isPlaceSensorScreenDisplayed();
+				flag= flag  & sensor.isKeyfobNamingScreenDisplayed();
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase,
-							"Place Sensor Screen is displayed");
+							"Keyfob Overview Screen is displayed");
 				}
 				break;
 			}
-			case "ACCESS SENSOR INSTALL HELP":{
+			case "LOCATE MOTION SENSOR":
+			case "LOCATE SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag= flag  & sensor.isAccessSensorInstallHelpScreenDisplayed();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"AccessSensorInstallHelp Screen is displayed");
+				sensor.isLocateSensorScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Locate Sensor Screen is displayed");
 				}
 				break;
 			}
-			case "MOUNT SENSOR":{
+			case "PLACE SENSOR ON LOCATION":
+			case "PLACE SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				flag=sensor.isMountSensorScreenDisplayed();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"Mount Sensor Screen is displayed");
+				sensor.isPlaceSensorScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Place Sensor Screen is displayed");
+				}
+				break;
+			}
+			case "ACCESS SENSOR INSTALL HELP": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isAccessSensorInstallHelpScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "AccessSensorInstallHelp Screen is displayed");
+				}
+				break;
+			}
+			case "MOUNT SENSOR": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = sensor.isMountSensorScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Mount Sensor Screen is displayed");
+				}
+				break;
+			}
+			case "SET UP ACCESSORIES":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = sensor.isSetUpAccessoriesScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+				}
+				break;
+			}
+			case "MOUNT IN A CORNER":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isMountInaCornerScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is displayed");
+				}
+				break;
+			}
+			case "MOUNT ON THE WALL":{
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				sensor.isMountInaWallScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,  expectedScreen.get(0)+" is displayed");
+				}
+				break;
+			}
+			case "SENSOR PAIRING HELP": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag & sensor.isSensorPairingScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,  expectedScreen.get(0)+"screen is displayed");
 				}
 				break;
 			}
@@ -593,11 +689,10 @@ public class VerifyScreen extends Keyword {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
-		if(flag){
-			Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" displayed");
-		}else{
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					expectedScreen.get(0) + "not displayed");
+		if (flag) {
+			Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " displayed");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(0) + " not displayed");
 		}
 		return flag;
 	}

@@ -111,7 +111,6 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 
 	public String getDailerValue() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			System.out.println("" + MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getTagName());
 			return MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getTagName();
 		} else {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "SystemModeButton").getAttribute("value");			
@@ -125,6 +124,44 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public boolean IsCloseButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelOption",timeOut);
 	}
-
+	
+	public boolean ClickOnMoreButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "MoreButton");
+	}
+	
+	public boolean isMoreButtonVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MoreButton",3);
+	}
+	
+	public boolean isVentilationIconVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VentilationButton",3);
+	}
+	
+	public boolean ClickOnVentilationButton()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationButton");
+	}
+	
+	public boolean changeVentilationModeToOff()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationOffActiveButton");
+	}
+	
+	public boolean changeVentilationModeToOn()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationOnActiveButton");
+	}
+	
+	public boolean changeVentilationModeToAuto()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationAutoActiveButton");
+	}
+	
+	public String getVentialtionMode(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "VentilationButton").getTagName();
+	}
 
 }

@@ -4,13 +4,16 @@ TestSensor_SensorName	id	is_sensor_name					Xpath	"//*[contains(@value,'is curre
 TestSensor_SensorStatus	id	walk_test_sensor_status					Xpath	"//*[contains(@value,'is currently')]/following-sibling:: XCUIElementTypeStaticText"				
 SensorNotWorkingButton	id	horizontal_link_text					Xpath	"//*[contains(@name,'Sensor Not Working')]"				
 AccessSensorHelpTitle	xpath	//*[@text='Access Sensor Help']					Xpath	//*[@value='Access Sensor Help']				
+MotionSensorHelpTitle	xpath	//*[@text='Motion Sensor Help']					Xpath	//*[@value='Motion Sensor Help']				
 GetAdditionalHelpButton	xpath	//*[@text='Get additional help']					name	Get Additional Help				
 TestSignalStrengthButton	id	sensor_range_test					name	Test Signal Strength				
-SignalStrengthHeading	xpath	//*[@text='Signal strength']					Xpath	//*[@value='Signal Strength']				
+SignalStrengthHeading	xpath	//*[@text='Signal Strength']					Xpath	//*[@value='Signal Strength']				
 SignalStrengthStatus	id	signal_strength_view					name	Sensor_Range_Test_1_0_subTitle				
 SignalStrengthBackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
 AccessSensorHelpBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
 TestSensorBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
+SetUpAccessoriesBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
+CustomNameBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	nav bar back	name	nav bar back	name	nav bar back
 SensorSettingBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
 SensorListBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
 DoneButton							name	RightButton				
@@ -36,6 +39,8 @@ PleaseWaitForSignalStrengthandTest	xpath	//*[@text='Please wait.']					name	In p
 UpdatingStatusForSensorNameUpdate	xpath	//*[@text='Updating...']					xpath	//*[@value='Saving...']				
 DASSensorSettingNamingField	id	security_settings_edit_name					name	Sensor_Settings_0_1_textField_value				
 DASSensorSetting_Delete	id	delete_das_button					name	Delete				
+PerformOnlyInHomeModePopup							xpath	"//*[contains(@name,'performed only when Smart home security')]"				
+PerformOnlyInHomeModePopupAck							name	OK				
 PerformOnlyInModesPopup							name	You can perform this action only in Home or Off Mode				
 PerformOnlyInModesPopupAck							name	Ok				
 SensorSetting_NameTitle	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	xpath	//android.widget.TextView[@text='Name']	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle	name	Sensor_Settings_0_1_subTitle
@@ -44,7 +49,7 @@ SensorSettingBatteryStatusValue	id	settings_hint_view					name	Sensor_Settings_0
 SensorAddButton	id	diy_cancel_button					name	Add				
 SensorSetUpButton	id	sensor_setup_text					xpath	"//*[contains(@name,'_rightButton')]"				
 SensorOverviewHeading	xpath	//*[@text='Sensor Overview']					xpath	//*[@value='Sensor Overview']				
-SensorHowitWorks	xpath	//*[@text='How it Works']					xpath	"//*[contains(@name,'how it works')]"				
+SensorHowitWorks	xpath	//*[@text='How it Works']					xpath	"//*[contains(@name,'How it Works')]"				
 WatchHowToVideo	xpath	//*[@text='Watch How-To Video']					name	Watch How-To Video				
 GetStarted	id	horizontal_button_next					Name	RightButton				
 LocateSensorHeading	xpath	//*[@text='Locate Sensor']					xpath	//*[@value='Locate Sensor']				
@@ -59,7 +64,33 @@ ConfiguredText	id	sensor_configured_text					xpath	//*[@value='Configured']
 SensorNameInSetUpAccessories	id	sensor_name_title					xpath	"//*[contains(@name,'SetupAccessories_')]"				
 SensorNameDuplicatePopup							xpath	"//*[contains(@name,'Sensor name is already assigned.')]"				
 SensorNameDuplicatePopupAck							name	OK				
-MountSensorHeading							xpath	//*[@value='Mount Sensor']				
-MotionSensor_SensorName							xpath	"//*[contains(@name,'by')]"				
-MotionSensor_SensorStatus_NotDetected							name	No Motion Detected				
-MotionSensor_SensorStatus_Detected							name	Motion Detected				
+MountSensorHeading	xpath	//*[@text='Mount Sensor']					xpath	//*[@value='Mount Sensor']				
+MotionSensor_SensorName	id	by_sensor_name					xpath	"//*[contains(@name,'by')]"				
+MotionSensor_SensorStatus_NotDetected	xpath	//*[@text='No Motion Detected']					name	No Motion Detected				
+MotionSensor_SensorStatus_Detected	xpath	//*[@text='Motion Detected']					name	Motion Detected				
+KeyfobOverview	xpath	//*[@text='Use the Key Fob to change security modes with the touch of a button.']					name	Use the Key Fob to change security modes with the touch of a button.				
+KeyfobOverviewImage	id	imageView2					name	Know-Your-Keyfob				
+KeyfobNamingScreen	xpath	//*[@text='Name Key Fob']					name	Name Key Fob				
+KeyfobNamingScreenDesc	xpath	//*[@text='Enter a Name of Your Key Fob']					name	Enter a name of your key fob				
+KeyfobNamingScreenTextbox	id	custom_generic_edit_sensor_naming					xpath	//XCUIElementTypeTextField				
+DeleteKeyfobPopupTitle							xpath	"//*[contains(@name,'Delete Key Fob')]"				
+DeleteKeyfobPopupMessage							xpath	"//*[contains(@name,'This will delete your Key Fob and you will not be able to access it any more.')]"				
+DeleteKeyfobPopupYes							name	YES				
+DeleteKeyfobPopupNo							name	NO				
+DoneButtonOnKeyboard							name	Done				
+TestMotionSensorSignalStrengthButton	id	sensor_range_test_motion					name	Test Signal Strength				
+CustomNameSensor	id	create_new_name_text					xpath	//XCUIElementTypeTextField				
+SetUpAccessoriesHeading	xpath	//*[@text='Set Up Accessories']					xpath	//*[@value='Set Up Accessories']				
+CancelSensorSetupPopup	xpath	"//*[contains(@text,'Cancel Sensor Setup')]"					xpath	"//*[contains(@name,'Cancel Sensor Setup')]"				
+CancelKeyfobSetupPopup	xpath	//*[@text='Cancel Keyfob Setup?']					xpath	"//*[contains(@name,'Cancel Key fob Setup')]"				
+CancelButton	id	diy_cancel_button					name	Cancel				
+CancelButton_Yes	id	button1					name	YES				
+CancelButton_No	id	button2					name	NO				
+TimeOutErrorForDiscovery	id	Smart Home Security is not in discovery mode					name	Smart home security not in discovery mode				
+TimeOutOk	id	button1					name	OK				
+SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										
+MountInaCorner	xpath	//*[@text='Mount in a Corner']					name	Mount in a corner				
+MountInaWall	xpath	//*[@text='Mount on the wall']					name	Mount on the wall				
+SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										
+SensorHelpButton	id	sensor_help_text										
+SensorPairingHelpScreenTitle	id	//*[@text='Sensor Pairing Help']										

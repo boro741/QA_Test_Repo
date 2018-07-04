@@ -23,7 +23,6 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SensorSettingScreen;
-import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -58,7 +57,6 @@ public class SelectElementOnAScreen extends Keyword {
 					while (flag == false) {
 						click.clickLiveStreamingArea();
 						flag = click.clickPauseStreaming();
-
 					}
 					break;
 				}
@@ -352,10 +350,62 @@ public class SelectElementOnAScreen extends Keyword {
 				if (dasDIY.isAddANetworkHeaderTitleVisible()) {
 					flag = flag & DIYRegistrationUtils.selectAvailableNetworkType(testCase, parameters.get(0));
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("NAME SENSOR")) {
+			} else if (parameters.get(1).equalsIgnoreCase("NAME MOTION SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-				flag = flag
-						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SAVING SENSOR PROGRESS BAR", 1);
+				inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
+			}
+
+			else if (parameters.get(1).toUpperCase().equals("NAME MOTION SENSOR CUSTOM NAME")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag = settingScreen.clickOnCustomNameBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).toUpperCase().equals("DOOR")
+					|| parameters.get(1).toUpperCase().equals("WINDOW")
+					|| parameters.get(1).toUpperCase().equals("MOTION SENSOR")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				if (parameters.get(1).toUpperCase().equals("DOOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_DOORSENSOR1", parameters.get(0));
+				} else if (parameters.get(1).toUpperCase().equals("WINDOW")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1", parameters.get(0));
+				} else if (parameters.get(1).toUpperCase().equals("MOTION SENSOR")) {
+					inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
+				}
+				/*
+				 * flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+				 * "SAVING SENSOR PROGRESS BAR", 1);
+				 */
+			} else if (parameters.get(1).toUpperCase().equals("NAME SENSOR")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag = settingScreen.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+
+				}
+				}
+				/*
+				 * flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+				 * "SAVING SENSOR PROGRESS BAR", 1);
+				 */
 			} else if (parameters.get(1).equalsIgnoreCase("Call")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CANCEL": {
@@ -375,153 +425,305 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Test Access Sensor")){
+			} else if (parameters.get(1).equalsIgnoreCase("Test Access Sensor")
+					|| parameters.get(1).equalsIgnoreCase("Test Motion Sensor")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "SENSOR NOT WORKING":{
+				case "SENSOR NOT WORKING": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-					flag= flag & sensor.clickOnSensorNotWorking();
+					flag = flag & sensor.clickOnSensorNotWorking();
 					break;
 				}
 
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Door Access settings")||parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Keyfob settings")
+					|| parameters.get(1).equalsIgnoreCase("Window Access settings")
+					|| parameters.get(1).equalsIgnoreCase("Door Access settings")
+					|| parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
 				switch (parameters.get(0).toUpperCase()) {
-
-				case "MODEL AND FIRMWARE DETAILS":{
-					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
-					flag= flag & settingScreen.clickOnFirmwareDetailsOption();
-					break;
-				}
-				case "SENSOR COVER TAMPERED":{
-					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
-					flag= flag & settingScreen.clickOnSensorCoverTamperOption();
-					break;
-				}
-				case "SIGNAL STRENGTH AND TEST":{
+				case "OFF STATUS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag= flag & bs.clickOnSignalStrengthandTestOption();
-					break;
-				}
-				case "DELETE SENSOR":{
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag= flag & bs.clickOnDeleteSensorButton();
-					break;
-				}
-				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Window Access settings")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "DELETE SENSOR":{
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag= flag & bs.clickOnDeleteSensorButton();
-					break;
-				}
-				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Sensor Cover Tamper")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "CLEAR TAMPER":{
-					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
-					flag= flag & settingScreen.clickOnClearCoverTamperOption();
-					break;
-				}
-				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Access Sensor Help")){
-				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				switch (parameters.get(0).toUpperCase()) {
-				case "GET ADDITIONAL HELP":{
-					if(!testCase.getPlatform().contains("IOS")){
-						flag= flag & sensor.clickOnGetAdditionalHelpButton();
+					flag = flag & bs.clickOnSensorStatusTextOnSensorSettingsScreen(parameters.get(0).toUpperCase());
+					if (flag) {
+						System.out.println("Successfully clicked on" + parameters.get(0));
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on" + parameters.get(0));
 					}
 					break;
 				}
-				case "TEST SIGNAL STRENGTH":{
-					flag= flag & sensor.clickOnTestSignalStrength();
+				case "MODEL AND FIRMWARE DETAILS": {
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
+					break;
+				}
+				case "SENSOR COVER TAMPERED": {
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag = flag & settingScreen.clickOnSensorCoverTamperOption();
+					break;
+				}
+				case "SIGNAL STRENGTH AND TEST": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.clickOnSignalStrengthandTestOption();
+					break;
+				}
+				case "DELETE SENSOR": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if( parameters.get(1).equalsIgnoreCase("Keyfob settings")){
+						flag = flag & bs.clickOnDeleteKeyfobSensorButton();
+					}else {
+						flag = flag & bs.clickOnDeleteSensorButton();
+					}
+					break;
+				}
+				case "NAME TEXT FIELD": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if( parameters.get(1).equalsIgnoreCase("Keyfob settings")){
+						flag = flag & bs.clickOnKeyfobNameTextField();
+					}else{
+						flag = flag & bs.clickOnNameTextField();
+					}
+					
+					if (flag) {
+						System.out.println("Successfully clicked on" + parameters.get(0));
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on" + parameters.get(0));
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Sensor Cover Tamper")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLEAR TAMPER": {
+					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					flag = flag & settingScreen.clickOnClearCoverTamperOption();
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Access Sensor Help")
+					|| parameters.get(1).equalsIgnoreCase("Motion Sensor Help")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GET ADDITIONAL HELP": {
+					flag = flag & sensor.clickOnGetAdditionalHelpButton();
+					break;
+				}
+				case "TEST SIGNAL STRENGTH": {
+					if (parameters.get(1).toUpperCase().contains("ACCESS")) {
+						flag = flag & sensor.clickOnTestSignalStrength();
+					} else if (parameters.get(1).toUpperCase().contains("MOTION SENSOR")) {
+						flag = flag & sensor.clickOnTestSignalStrengthForMotionSensor();
+					}
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
 					break;
 				}
 
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Sensor List Settings")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Sensor List Settings")
+					|| parameters.get(1).equalsIgnoreCase("Keyfob List Settings")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "ADD BUTTON":{
-					flag= flag & sensor.clickOnAddSensorButton();
+				case "ADD BUTTON": {
+					flag = flag & sensor.clickOnAddSensorButton();
+					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+							"LOADING SPINNER BAR", 1);
 					break;
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "SETUP BUTTON":{
-					flag= flag & sensor.clickOnSetUpButton();
+				case "MOTION SENSOR SETUP BUTTON":
+				case "ACCESS SENSOR SETUP BUTTON":
+				case "KEYFOB SETUP BUTTON": {
+					flag = flag & sensor.clickOnSetUpButton(inputs, parameters.get(0));
 					break;
 				}
-				case "DONE":{
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				case "DONE": {
 					Thread.sleep(3000);
-					flag= flag & sensor.clickOnDoneButton();
+					flag = flag & sensor.clickOnDoneButton();
 					break;
 				}
+				case "HELP":{
+					flag= flag & sensor.clickOnSensorHelpButton();
+					break;
 				}
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0).toUpperCase()+" button");
+				default:{
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Sensor Overview")) {
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully clicked on " + parameters.get(0).toUpperCase() + " button");
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
+					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview"))
+			{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "WATCH THE HOW TO VIDEO":{
-						flag= flag & sensor.clickOnWatchHowToVideoButton();
+				case "WATCH THE HOW TO VIDEO": {
+					flag = flag & sensor.clickOnWatchHowToVideoButton();
 					break;
 				}
-				case "GET STARTED":{
-					flag= flag & sensor.clickOnGetStartedFromSensorOverview();
+				case "GET STARTED": {
+					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
+				}
+				case "CANCEL": {
+					if (sensor.isCancelButtonDisplayed()) {
+						flag = flag & sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
 				}
-				if(flag) {
-					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
-					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+ " button");
+				if (flag) {
+					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Place Sensor on location")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Place Sensor on location")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "WONT FIT AS SHOWN":{
-					flag= flag & sensor.clickOnWontFitAsShownButton();
+				case "WONT FIT AS SHOWN": {
+					flag = flag & sensor.clickOnWontFitAsShownButton();
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
+				}
+				if (flag) {
+					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Place Sensor")
+					|| parameters.get(1).equalsIgnoreCase("Sensor Overview")
+					|| parameters.get(1).equalsIgnoreCase("MOUNT IN A CORNER")
+					|| parameters.get(1).equalsIgnoreCase("MOUNT ON THE WALL")
+					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					|| parameters.get(1).equalsIgnoreCase("NAME Keyfob")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL": {
+					if (sensor.isCancelButtonDisplayed()) {
+						sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
+					|| parameters.get(1).equalsIgnoreCase("Signal Strength")
+					|| parameters.get(1).equalsIgnoreCase("Locate Motion Sensor")
+					|| parameters.get(1).equalsIgnoreCase("Motion Sensor Signal Strength")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					flag = sensor.clickOnTestSensorBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
 					break;
 				}
 				}
-				if(flag) {
-					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+
+			} else if (parameters.get(1).equalsIgnoreCase("Test Sensor")
+					|| parameters.get(1).equalsIgnoreCase("Configuration Success")
+					|| parameters.get(1).equalsIgnoreCase("keyfob Configuration Success")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "DONE": {
+					flag = flag & sensor.clickOnDoneButton();
+					break;
+				}
+				case "CANCEL": {
+					if (sensor.isCancelButtonDisplayed()) {
+						Thread.sleep(3000);
+						sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				}
+				if (flag) {
+					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Test Sensor")) {
-				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				switch (parameters.get(0).toUpperCase()) {
-				case "DONE":{
-				    flag= flag & sensor.clickOnDoneButton();
-					break;
-				}
-				}
-				if(flag) {
-					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
-					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
-				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("Motion Sensor settings")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "DELETE SENSOR":{
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					flag= flag & bs.clickOnDeleteSensorButton();
-					break;
-				}
-				}
-			}
+
 			else if (parameters.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
@@ -543,8 +745,23 @@ public class SelectElementOnAScreen extends Keyword {
 				
 				}
 			}
-			else if(parameters.get(1).equalsIgnoreCase("Mount Sensor")){
+			
+			else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
+
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+			}
+			else if(parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GET ADDITIONAL HELP":{
+					flag= flag & sensor.clickOnGetAdditionalHelpButton();
+					break;
+				}
+				}
+				if(flag) {
+					System.out.println("Successfully clicked on "+parameters.get(0)+" button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on "+parameters.get(0)+" button");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

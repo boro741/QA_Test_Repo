@@ -41,24 +41,6 @@ public class JasperSystemMode {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Verify System Mode : Thermostat is not in " + expectedMode + " mode in the app");
 		}
-
-		/*
-		 * String isEventReceived1 = fWait.until(new
-		 * Function<CustomDriver, String>() { public String
-		 * apply(CustomDriver driver) { String changedMode = "";
-		 * ThermostatInformation statInfo = new ThermostatInformation(testCase,
-		 * inputs); if (statInfo.getThermoStatMode().equals(expectedMode)) {
-		 * changedMode = statInfo.getThermoStatMode(); return changedMode; }
-		 * else { return null; } } });
-		 * 
-		 * if (isEventReceived1.equals(expectedMode)) {
-		 * Keyword.ReportStep_Pass(testCase,
-		 * "Verify System Mode : Thermostat Mode is " + expectedMode +
-		 * "ing in CHIL"); } else { flag = false;
-		 * Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-		 * "Verify System Mode : Thermostat Mode is not in " + expectedMode +
-		 * "ing in CHIL"); }
-		 */
 		return flag;
 	}
 

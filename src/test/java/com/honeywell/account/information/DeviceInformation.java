@@ -24,11 +24,11 @@ public class DeviceInformation {
 	String locationName;
 	String statName;
 
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 
 	public DeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		// this.inputs=inputs;
+		this.inputs=inputs;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 	}
 
@@ -129,6 +129,17 @@ public class DeviceInformation {
 		}
 		return allowedModes;
 	}
+	
+	public String getThermoStatVentilationMode() throws Exception {
+		String VentilationMode = "";
+		if (deviceInformation != null) {
+			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("ventilationModeSettings").getString("changeableValues");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return VentilationMode;
+	}
+	
 
 	public HashMap<String, String> getDeviceMaxMinSetPoints() throws Exception {
 		HashMap<String, String> setPoints = new HashMap<String, String>();

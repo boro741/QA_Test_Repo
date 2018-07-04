@@ -236,6 +236,25 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		} 
+		else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL SENSOR SETUP")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag &  sensor.clickOnDismissCancelButton();
+				break;
+			}
+			case "ACCEPTS": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				flag = flag &  sensor.clickOnConfirmCancelButton();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("EXISTING LOCATION ERROR")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON OK IN": {
@@ -345,12 +364,34 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL GEOFENCE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isNoButtonInGeoFencePopupVisible()) {
+					flag = flag & dasDIY.clickOnNoButtonInGeoFencePopup();
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isYesButtonInGeoFencePopupVisible()) {
+					flag = flag & dasDIY.clickOnYesButtonInGeoFencePopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.clickOnCancelButton();
-				flag = flag & DASSettingsUtils.verifyDeleteDASConfirmationPopUpIsNotDisplayed(testCase);
+				flag = flag & DASSettingsUtils.verifyDeleteSensorConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			case "ACCEPTS": {
@@ -368,7 +409,13 @@ public class PerformActionsOnPopUp extends Keyword {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				flag = flag & bs.clickOnCancelButton();
+				flag = flag & bs.clickOnNoButton();
+				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clickOnYesButton();
 				flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
@@ -513,6 +560,15 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			case "RETRY": {
 				flag = flag & settingScreen.clickOnRetryTamperClearPopup();
+				break;
+			}
+			}
+		}
+		else if(expectedPopUp.get(1).equalsIgnoreCase("Time out")){
+			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				flag = flag & settingScreen.clickOnTimeOutOkPopup();
 				break;
 			}
 			}
