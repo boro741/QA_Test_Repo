@@ -1,6 +1,10 @@
 package com.honeywell.keywords.lyric.das.pushnotifications;
 
+import java.time.Duration;
 import java.util.ArrayList;
+
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -9,12 +13,15 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
 import com.honeywell.screens.AlarmScreen;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.MultiTouchAction;
+import io.appium.java_client.TouchAction;
 
 public class ActionOnPushNotification extends Keyword {
 
@@ -68,8 +75,8 @@ public class ActionOnPushNotification extends Keyword {
 				}	
 			}
 			else {
-				MobileElement element=MobileUtils.getMobElement(testCase,"xpath", locatorValue);
-				MobileUtils.longPress(testCase, element, 10);
+				alarmScreen.swipe(locatorValue);
+				flag=alarmScreen.clickswitchToNightOnNotification();
 				flag=alarmScreen.clickOnSwitchToNight();
 			}
 			return flag;
@@ -94,8 +101,8 @@ public class ActionOnPushNotification extends Keyword {
 				}
 			}
 			else {
-				MobileElement element=MobileUtils.getMobElement(testCase,"xpath", locatorValue);
-				MobileUtils.longPress(testCase, element, 10);
+				alarmScreen.swipe(locatorValue);
+				flag=alarmScreen.clickswitchToHomeOnNotification();
 				flag=alarmScreen.clickOnSwitchToHome();
 
 			}
@@ -189,7 +196,6 @@ public class ActionOnPushNotification extends Keyword {
 
 		return flag;
 	}
-
 
 	@Override
 	@AfterKeyword

@@ -689,6 +689,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					}
 					break;
 				}
+				
 				}
 				/*
 				 * }else{ flag=false; Keyword.ReportStep_Fail(testCase,
@@ -740,10 +741,15 @@ public class VerifyStatusOnScreen extends Keyword {
 				 */
 				break;
 			}
-		/*	case "ENTRY DELAY":{
-				
+		    case "ENTRY DELAY":{
+				//TODO
 				break;
-			}*/
+		    }
+			
+			case "ATTENTION":{
+				//TODO
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");

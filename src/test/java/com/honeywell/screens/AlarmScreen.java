@@ -265,7 +265,14 @@ public class AlarmScreen extends MobileScreens {
 				action2 = action2.press(NotificationStartX+rightsidePoint,NotificationStartY).moveTo(rightsidePoint,0).release();
 				action.add(action1).add(action2).perform();
 				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
-			} 
+			} else {
+				NotificationStartX= notificationLocation.getSize().getWidth()/2;
+				action1 = action1.press(NotificationStartX,NotificationStartY).moveTo(-80,0).release();
+				action1.perform();
+				action1.tap(NotificationStartX,NotificationStartY).release().perform();
+				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
+			
+			}
 		}
 		catch(Exception e) {
 			System.out.println("Fix it");
@@ -566,6 +573,20 @@ public class AlarmScreen extends MobileScreens {
 			System.out.println("Id needed for inspecting Entry Delay Counter");
 		}
 
+		return false;
+	}
+	public boolean isSwitchToNightExists() {
+  		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")){
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isAttentionButtonExists() {
+	
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AttentionButton")) {
+		return true;
+	}
 		return false;
 	}
 }
