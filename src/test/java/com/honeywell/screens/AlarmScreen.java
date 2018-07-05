@@ -493,9 +493,9 @@ public class AlarmScreen extends MobileScreens {
 			else {
 				String actualSensorName = MobileUtils.getAttribute(testCase, element, "name");
 				System.out.println(actualSensorName);
-				actualSensorName.toUpperCase();
-				expectedSensorName.toUpperCase();
-				if(actualSensorName.contains(expectedSensorName)) {
+				;
+				;
+				if(actualSensorName.toUpperCase().contains(expectedSensorName.toUpperCase())) {
 					System.out.println("EntryDelay subtitle found");
 					return true;
 				}
