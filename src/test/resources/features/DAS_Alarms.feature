@@ -155,9 +155,9 @@ Given user is set to "Home" mode through CHIL
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm @P2
     Scenario:As a user when I open the door I should be able to switch to Night from door open push notification on my arrival to home after closing the door
       Given user launches and logs in to the Lyric application
+      Given user is set to "Away" mode through CHIL
         And user clears all push notifications
        When user navigates to "Security Solution card" screen from the "Dashboard" screen
-        And user switches from "Home" to "Away"
         And timer ends on user device
         And user "opens door with app" in background
         And user "door" access sensor "closed"
@@ -246,7 +246,7 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
       And user "door" access sensor "closed"
       
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm @P1
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm_duplicate @P1
     Scenario:As a user when I open the door in away mode I should be able to switch to Night from door open push notification and close the door in entry delay waiting should be shown no alarm
     Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
