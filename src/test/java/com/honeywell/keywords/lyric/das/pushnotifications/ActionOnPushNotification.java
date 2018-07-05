@@ -62,7 +62,7 @@ public class ActionOnPushNotification extends Keyword {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locatorValue = "//*[@text='" + notification + "']";
 			} else {
-				locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
+				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
@@ -88,7 +88,7 @@ public class ActionOnPushNotification extends Keyword {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locatorValue = "//*[@text='" + notification + "']";
 			} else {
-				locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
+				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
@@ -180,7 +180,7 @@ public class ActionOnPushNotification extends Keyword {
 			locatorValue = "//*[@text='" + notification + "']";
 
 		} else {
-			locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
+			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
 		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 10)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
