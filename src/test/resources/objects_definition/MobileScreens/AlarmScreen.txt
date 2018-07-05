@@ -1,6 +1,6 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 Alarm_Title	id	alarm_toolbar_heading					name	Alarm				
-Alarm_NaviigateBack	xpath	//*[@content-desc='Navigate Up']					name	BACK				
+Alarm_NaviigateBack	xpath	//*[@content-desc='Navigate Up']					name	nav bar back				
 Alarm_Subtitle	id	alarm_toolbar_sub_heading					name	Alarm_Navigation_Subtitle				
 AlarmLiveStream_progress	id	alarms_live_view					name	Progress				
 AlarmDismissButton	id	lyricButton_dismiss_alarm					name	Dismiss Alarm				

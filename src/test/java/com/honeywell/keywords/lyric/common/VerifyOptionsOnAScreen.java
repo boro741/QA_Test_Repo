@@ -131,6 +131,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The"+parameter+"has not found");
 				}
+				flag=true;
 			}
 			break;
 		}
