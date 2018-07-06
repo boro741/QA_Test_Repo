@@ -156,6 +156,27 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "CAMERA SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Settings");
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the DAS Settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Settings: '" + fieldTobeVerified + "' is not present on the DAS Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
 		case "ENTRY-EXIT DELAY": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {

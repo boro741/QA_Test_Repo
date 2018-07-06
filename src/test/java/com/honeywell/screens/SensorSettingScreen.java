@@ -752,19 +752,18 @@ public class SensorSettingScreen extends MobileScreens {
 		} else {
 			locator = "text";
 		}
-		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		if (testCase.getPlatform().contains("IOS")) {
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+			action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+					.release().perform();
+			action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+					.release().perform();
 			return MobileUtils.isMobElementExists("xpath", "//*[@" + locator + "='" + SensorName
 					+ "']/following-sibling::XCUIElementTypeStaticText[contains(@" + locator + ",'" + state + "')]",
 					testCase, 10);
 		} else {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 				int startx = (dimensions.width * 20) / 100;
 				int starty = (dimensions.height * 62) / 100;
 				int endx = (dimensions.width * 22) / 100;

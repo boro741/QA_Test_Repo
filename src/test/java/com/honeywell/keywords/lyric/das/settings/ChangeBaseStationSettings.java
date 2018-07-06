@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -35,74 +36,101 @@ public class ChangeBaseStationSettings extends Keyword {
 	@KeywordStep(gherkins = "^user changes the (.*) to (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(0).equalsIgnoreCase("Base Station Volume"))
-			{
+			if (parameters.get(0).equalsIgnoreCase("Base Station Volume")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.VOLUME);
 				String value = parameters.get(1).split("%")[0].split("~")[1];
-				if(bs.setValueToVolumeSlider(value))
-				{
+				if (bs.setValueToVolumeSlider(value)) {
 					Keyword.ReportStep_Pass(testCase, "Successfully set the volume to " + parameters.get(1));
-				}
-				else
-				{
+				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set the volume to: " + parameters.get(1));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to set the volume to: " + parameters.get(1));
 				}
-			}
-			else if(parameters.get(0).equalsIgnoreCase("Geofencing Status"))
-			{
+			} else if (parameters.get(0).equalsIgnoreCase("Geofencing Status")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if(parameters.get(1).equalsIgnoreCase("ON"))
-				{
-					if(bs.isGeofencingSwitchEnabled(testCase))
-					{
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isGeofencingSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");
-					}
-					else
-					{
+					} else {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
-				}
-				else if(parameters.get(1).equalsIgnoreCase("OFF"))
-				{
-					if(!bs.isGeofencingSwitchEnabled(testCase))
-					{
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isGeofencingSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Geofence is already disabled on the settings page");
-					}
-					else
-					{
+					} else {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
-			}
-			else if(parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode"))
-			{
+			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if(parameters.get(1).equalsIgnoreCase("ON"))
-				{
-					if(bs.isCameraOnInHomeModeSwitchEnabled(testCase))
-					{
-						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is already enabled on the settings page");
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera On in Home Mode is already enabled on the settings page");
+					} else {
+						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
 					}
-					else
-					{
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera On in Home Mode is already disabled on the settings page");
+					} else {
 						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
 					}
 				}
-				else if(parameters.get(1).equalsIgnoreCase("OFF"))
-				{
-					if(!bs.isCameraOnInHomeModeSwitchEnabled(testCase))
-					{
-						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is already disabled on the settings page");
+			} else if (parameters.get(0).equalsIgnoreCase("CAMERA STATUS ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status On/Off Alerts is already enabled in the DAS Camera settings page");
+					} else {
+						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
 					}
-					else
-					{
-						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status On/Off Alerts is already disabled in the DAS Camera settings page");
+					} else {
+						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION EVENT ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is already enabled in the DAS Camera settings page");
+					} else {
+						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is already disabled in the DAS Camera settings page");
+					} else {
+						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND EVENT ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Alerts is already enabled in the DAS Camera settings page");
+					} else {
+						flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Alerts is already disabled in the DAS Camera settings page");
+					} else {
+						flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
 					}
 				}
 			}
-					
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

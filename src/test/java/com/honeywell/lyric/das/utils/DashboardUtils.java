@@ -65,6 +65,57 @@ public class DashboardUtils {
 		return f;
 	}
 
+	public static boolean selectCameraDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,
+			boolean... closeCoachMarks) throws Exception {
+		List<WebElement> dashboardIconText = null;
+		Dashboard d = new Dashboard(testCase);
+		CoachMarks cm = new CoachMarks(testCase);
+		if (d.areDevicesVisibleOnDashboard(25)) {
+			dashboardIconText = d.getDashboardDeviceNameElements();
+		}
+		boolean f = false;
+		List<String> availableDevices = new ArrayList<String>();
+		for (WebElement e : dashboardIconText) {
+			String displayedText = null;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				displayedText = e.getText();
+			} else {
+				try {
+					if ((e.getAttribute("visible").equals("true")) && (e.getAttribute("value").trim() != null)
+							&& (!e.getAttribute("value").trim().isEmpty()))
+						displayedText = e.getAttribute("value");
+				} catch (Exception e1) {
+				}
+			}
+			availableDevices.add(displayedText);
+			if (displayedText.equals(deviceToBeSelected)) {
+				e.click();
+				f = true;
+				break;
+			} else {
+				if (d.areDevicesVisibleOnDashboard()) {
+					d.clickOnDeviceOnDashbaord();
+					f = true;
+					break;
+				}
+			}
+		}
+		if (cm.isGotitButtonVisible(1)) {
+			if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
+				return true;
+			} else {
+				return LyricUtils.closeCoachMarks(testCase);
+			}
+		}
+		if (f) {
+			Keyword.ReportStep_Pass(testCase, "Successfully selected " + deviceToBeSelected + " device from Dashboard");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Failed to select " + deviceToBeSelected + " device from Dashboard");
+		}
+		return f;
+	}
+
 	public static boolean navigateToDashboardFromAnyScreen(TestCases testCase) {
 		boolean flag = true;
 		try {

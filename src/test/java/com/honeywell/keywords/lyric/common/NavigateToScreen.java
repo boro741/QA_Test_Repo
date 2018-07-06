@@ -505,6 +505,16 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 					break;
 				}
+				// Navigate from 'Dashboard' to 'Camera Settings'
+				case "CAMERA SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'DAS Camera Settings Manage Alerts Screen'
+				case "MANAGE ALERTS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
 				case "BASE STATION CONFIGURATION": {
@@ -772,6 +782,12 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SMART HOME SECURITY": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
+					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					break;
+				}
+				case "C1 WI-FI SECURITY CAMERA": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
