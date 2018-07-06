@@ -1,40 +1,38 @@
 @DashbboardandSolutionCard
-Feature : As an user I want to verify the Dashboard and primary card for JapserNA , JasperEMEA, HB and Spruce 
+Feature: As an user I want to verify the Dashboard and primary card for JapserNA , JasperEMEA, HB and Spruce 
 
 #Dashboard view 
 
 #HB, Spruce and JasperNA
 @ViewDashboard
-Scenario Outline: Aa an user I want to verify the Dashboard view with respective system modes 
+Scenario Outline: As an user I want to verify the Dashboard view with respective system modes 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user navigates to "Dashboard" screen
 Then user should be displayed with "Thermostat stat name" with "XX INSIDE" tempr 
 And user should be displayed with enabled "UP stepper" and "Down stepper"
-And suer should be displayed with setpoint value respective setpoint vlaue 
-And suer should be displayed with the respective <Mode> Color 
-
-Exampels :
-|Mode |
+And user should be displayed with setpoint value respective setpoint vlaue 
+And user should be displayed with the respective <Mode> Color 
+Examples:
+|Mode|
 |Cool| 
-|Heat |
-|Auto |
+|Heat|
+|Auto|
 |Cool only|
 |Heat Only|
 
 #JasperEMEA
 @ViewDashboardEMEA
-Scenario Outline: Aa an user I want to verify the Dashboard view with system modes 
+Scenario Outline: As an user I want to verify the Dashboard view with system modes 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user navigates to "Dashboard" screen
 Then user should be displayed with "Thermostat stat name" with "XX INSIDE" tempr 
 And user should be displayed with enabled "UP stepper" and "Down stepper"
-And suer should be displayed with setpoint value respective setpoint vlaue 
-And suer should be displayed with the respective <Mode> Color 
-
-Exampels :
-|Mode |
+And user should be displayed with setpoint value respective setpoint vlaue 
+And user should be displayed with the respective <Mode> Color 
+Examples:
+|Mode|
 |Heat |
 
 #HB, Spruce, JasperNA, JasperEMEA
@@ -44,10 +42,9 @@ Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user navigates to "Dashboard" screen 
 Then user should be displayed with disabled "UP stepper" and "Down stepper"
-And suer should be displayed with setpoint value "--" 
-And suer should be displayed with "xx INSIDE" tempr with "OFF" status 
-
-Exampels :
+And user should be displayed with setpoint value "--" 
+And user should be displayed with "xx INSIDE" tempr with "OFF" status 
+Examples:
 |Mode |
 |OFF |
 
@@ -62,10 +59,9 @@ When user navigates to "SolutionCard" screen
 Then user should displayed with "greyed out" indoor tempr value 
 And user should be displayed with "Thermostat is OFF" status 
 And user should be displayed with disabled "UP stepper" and "Down stepper"
-And uer should be displayed with setpoint value "--" 
-And user Should be displayed with enabled "FAN mode " "System mode" and "Schedule" icons 
-
-Exampels :
+And user should be displayed with setpoint value "--" 
+And user Should be displayed with enabled "FAN mode " "System mode" and "Schedule" icons
+Examples:
 |Mode |
 |Cool| 
 |Heat |
@@ -83,10 +79,9 @@ When user navigates to "SolutionCard" screen
 Then user should displayed with "greyed out" indoor tempr value 
 And user should be displayed with "Thermostat is OFF" status 
 And user should be displayed with disabled "UP stepper" and "Down stepper"
-And uer should be displayed with setpoint value "--" 
+And user should be displayed with setpoint value "--" 
 And user Should be displayed with enabled "System mode" and "Schedule" icons 
-
-Exampels :
+Examples:
 |Mode |
 |Heat |
 
@@ -99,10 +94,9 @@ When user navigates to "SolutionCard" screen
 Then user should displayed with "greyed out" indoor tempr value 
 And user should be displayed with "Thermostat is OFF" status 
 And user should be displayed with disabled "UP stepper" and "Down stepper"
-And uer should be displayed with setpoint value "--" 
+And user should be displayed with setpoint value "--" 
 And user Should be displayed with enabled "System mode" and "Schedule" icons 
-
-Exampels :
+Examples:
 |Mode |
 |OFF |
 
@@ -110,7 +104,7 @@ Exampels :
 
 #HB, Spruce, JasperNA, JasperEMEA
 @Offlineverficationdashbaordsolutioncard
-Scenario outline : As an user I want to verify the SolutionCard and dashboard with offline 
+Scenario Outline: As an user I want to verify the SolutionCard and dashboard with offline 
 Given user launches and "Offline" 
 Then user launches and logs in to the lyric application 
 When user navigates to "Dashboard" 
@@ -132,7 +126,7 @@ And user should not receivce any "Push notification" of stat
 
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolandHeatMode
-Scenario outline : As an user I want to verify the Systemode info option when both cool and heat configured 
+Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen
@@ -157,7 +151,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled
-Scenario outline : As an user I want to verify the Systemode info option when both cool and heat configured with auto mode enabled
+Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured with auto mode enabled
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen
@@ -181,7 +175,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolOnly
-Scenario outline : As an user I want to verify the Systemmode info option when cool only configured 
+Scenario Outline: As an user I want to verify the Systemmode info option when cool only configured 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen
@@ -201,7 +195,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithHeatOnly
-Scenario outline : As an user I want to verify the Systemmode info option when heat only configured 
+Scenario Outline: As an user I want to verify the Systemmode info option when heat only configured 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen
@@ -221,7 +215,7 @@ Examples:
 
 #JasperEMEA
 @SystemModeInfoscreenwithHeatOnlyEMEA
-Scenario outline : As an user I want to verify the Systemmode info option when heat  configured 
+Scenario Outline: As an user I want to verify the Systemmode info option when heat  configured 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen
@@ -243,7 +237,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithbothcoolandheatCancelfunctionality
-Scenario outline : As an user I want to verify the system mode when cancel option while switch between Cool , heat, off 
+Scenario Outline: As an user I want to verify the system mode when cancel option while switch between Cool , heat, off 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "system mode" screen 
@@ -256,7 +250,6 @@ When user selects 'X' button
 Then user should be navigates to "SolutionCard" with out update of <SystemMode>
 When user navigates to "Dashboard" screen
 Then user should be displayed with <Mode>
-
 Examples:
 |Mode| systemmode | 
 |Cool| Heat | 
@@ -271,7 +264,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithbothcoolandheatandautoenabledCancelfunctionality
-Scenario outline : As an user I want to verify the system mode when cancel option while switch between Cool , heat, off , auto
+Scenario Outline: As an user I want to verify the system mode when cancel option while switch between Cool , heat, off , auto
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "system mode" screen 
@@ -284,7 +277,6 @@ When user selects 'X' button
 Then user should be navigates to "SolutionCard" with out update of <SystemMode>
 When user navigates to "Dashboard" screen
 Then user should be displayed with <Mode>
-
 Examples:
 |Mode| systemmode | 
 |Cool| Heat | 
@@ -306,7 +298,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionality
-Scenario outline : As an user I want to verify the system mode when cancel option while switch Heat only 
+Scenario Outline: As an user I want to verify the system mode when cancel option while switch Heat only 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "system mode" screen 
@@ -319,7 +311,6 @@ When user selects 'X' button
 Then user should be navigates to "SolutionCard" with out update of <SystemMode>
 When user navigates to "Dashboard" screen
 Then user should be displayed with <Mode>
-
 Examples:
 |Mode| systemmode | 
 |Heat| Heat | 
@@ -329,7 +320,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithcoolonlyCancelfunctionality
-Scenario outline : As an user I want to verify the system mode when cancel option while switch between cool only
+Scenario Outline: As an user I want to verify the system mode when cancel option while switch between cool only
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "system mode" screen 
@@ -342,7 +333,6 @@ When user selects 'X' button
 Then user should be navigates to "SolutionCard" with out update of <SystemMode>
 When user navigates to "Dashboard" screen
 Then user should be displayed with <Mode>
-
 Examples:
 |Mode| systemmode | 
 |Cool | Cool| 
@@ -352,7 +342,7 @@ Examples:
 
 #JasperEMEA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA
-Scenario outline : As an user I want to verify the system mode when cancel option while switch Heat only 
+Scenario Outline: As an user I want to verify the system mode when cancel option while switch Heat only 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "system mode" screen 
@@ -365,7 +355,6 @@ When user selects 'X' button
 Then user should be navigates to "SolutionCard" with out update of <SystemMode>
 When user navigates to "Dashboard" screen
 Then user should be displayed with <Mode>
-
 Examples:
 |Mode| systemmode | 
 |Heat| Heat | 
@@ -377,7 +366,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionbothcoolandheat
-Scenario outline : As an user I want to verify the system mode save option while switch between cool, heat and off
+Scenario Outline: As an user I want to verify the system mode save option while switch between cool, heat and off
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "System Mode" screen 
@@ -392,7 +381,6 @@ And user should be displayed with respective setpoint
 When user navigates to "Dashboard" screen
 Then user should be displayed with <SystemMode>
 And user should be displayed with respective setpoint 
-
 Examples:
 |Mode | SystemMode| 
 |Cool | Cool |
@@ -407,7 +395,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionbothcoolandheatandauto
-Scenario outline : As an user I want to verify the system mode save option while switch between cool, heat, off, auto
+Scenario Outline: As an user I want to verify the system mode save option while switch between cool, heat, off, auto
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "System Mode" screen 
@@ -422,7 +410,6 @@ And user should be displayed with respective setpoint
 When user navigates to "Dashboard" screen
 Then user should be displayed with <SystemMode>
 And user should be displayed with respective setpoint 
-
 Examples:
 |Mode | SystemMode| 
 |Cool | Cool |
@@ -444,7 +431,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctioncoolonly
-Scenario outline : As an user I want to verify the system mode save option while switch between cool, off
+Scenario Outline: As an user I want to verify the system mode save option while switch between cool, off
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "System Mode" screen 
@@ -459,7 +446,6 @@ And user should be displayed with respective setpoint
 When user navigates to "Dashboard" screen
 Then user should be displayed with <SystemMode>
 And user should be displayed with respective setpoint 
-
 Examples:
 |Mode | SystemMode| 
 |Cool | Cool |
@@ -469,7 +455,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionHeatonly
-Scenario outline : As an user I want to verify the system mode save option while switch between heat, off
+Scenario Outline: As an user I want to verify the system mode save option while switch between heat, off
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "System Mode" screen 
@@ -484,7 +470,6 @@ And user should be displayed with respective setpoint
 When user navigates to "Dashboard" screen
 Then user should be displayed with <SystemMode>
 And user should be displayed with respective setpoint 
-
 Examples:
 |Mode | SystemMode| 
 |Heat | Heat |
@@ -495,7 +480,7 @@ Examples:
 
 #JasperEMEA
 @SystemModeswitchSAVEfunctionEMEA
-Scenario outline : As an user I want to verify the system mode save option while switch between heat, off
+Scenario Outline: As an user I want to verify the system mode save option while switch between heat, off
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "System Mode" screen 
@@ -510,7 +495,6 @@ And user should be displayed with respective setpoint
 When user navigates to "Dashboard" screen
 Then user should be displayed with <SystemMode>
 And user should be displayed with respective setpoint 
-
 Examples:
 |Mode | SystemMode| 
 |Heat | Heat |
@@ -522,7 +506,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @FanOptionInfoOption
-Scenario outline : As an user I want to verify the Fan mode info option 
+Scenario Outline: As an user I want to verify the Fan mode info option 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "Fan Mode" screen 
@@ -534,7 +518,6 @@ And user should be displayed with following description :
 |ON - FAN IS ALWAY ON |
 When user selects "BACK" button 
 Then user should be navigates to "Fan Mode" screen 
-
 Examples:
 |Mode | 
 |Cool |
@@ -547,7 +530,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @FanModeSwitchcancelfunction
-Scenario outline : As an user I want to verify the Fan mode cancel option while switch between Auto, circulate and ON
+Scenario Outline: As an user I want to verify the Fan mode cancel option while switch between Auto, circulate and ON
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "Fan Mode" screen 
@@ -557,7 +540,6 @@ And user should be displayed with respective <FanMode> description
 When user selects 'X' button 
 Then user should be navigates to "SolutionCard" with out update of <FanMode>
 And user should be display with <Mode>
-
 Examples:
 |Mode |  FanMode | 
 |Cool | Auto |
@@ -581,7 +563,7 @@ Examples:
 
 #HB, Spruce, JasperNA
 @FanModeSwitchSAVEfunction
-Scenario outline : As an user I want to verify the Fan mode save option while switch between Auto, circulate and ON
+Scenario Outline: As an user I want to verify the Fan mode save option while switch between Auto, circulate and ON
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "Fan Mode" screen 
@@ -590,7 +572,6 @@ Then user should be displayed with "Blue Tick" mark on selected option
 And user should be displayed with respective <FanMode> description 
 When user selecte the "SAVE" button 
 Then user should be navigates to "SolutionCard" with updated of <FanMode> "icon"
-
 Examples:
 |Mode |  FanMode | 
 |Cool | Auto |
@@ -614,12 +595,12 @@ Examples:
 
 #JasperEMEA
 @FaModeOptionONEMEA
-Scenario outline : As an user I want to verify the Fan mode option for JasperEMEA
+Scenario Outline: As an user I want to verify the Fan mode option for JasperEMEA
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user navigates "SolutionCard"
 And user should not be displayed with "FAN" icon 
-Exaples : 
+Examples: 
 |Mode| 
 |Heat |
 |OFF |
@@ -628,7 +609,7 @@ Exaples :
 
 #HB, Spruce, JasperNA
 @SetTemperatureSolutionCardMAXandMIN
-Scenario outline : As an user I want to verify the Max qnd Min temper throguh TAP on stepper
+Scenario Outline: As an user I want to verify the Max qnd Min temper throguh TAP on stepper
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen 
@@ -641,8 +622,7 @@ When user selects the "MIN"  set temperate through taping on "Down stepper"
 Then user should be displayed with "MIN" set temperater on "SolutionCard"
 When user navigates to "Dashboard"
 Then user should be displayed with "MIN" set temperater on "Dashboard"
-
-Examples :
+Examples:
 |Mode|
 |Cool|
 |Heat|
@@ -652,7 +632,7 @@ Examples :
 #HB, Spruce, JasperNA
 #requirment : Should be in NO schedule stat
 @SetTemperatureSolutionCardMAXandMINWhenNoschedule
-Scenario outline : As an user I want to verify the Max and Min temper throguh TAP on stepper when no schedule
+Scenario Outline: As an user I want to verify the Max and Min temper throguh TAP on stepper when no schedule
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen 
@@ -665,8 +645,7 @@ When user selects the "MIN"  set temperate through taping on "Down stepper"
 Then user should be displayed with "MIN" set temperater on "SolutionCard"
 When user navigates to "Dashboard"
 Then user should be displayed with "MIN" set temperater on "Dashboard"
-
-Examples :
+Examples:
 |Mode|
 |Cool|
 |Heat|
@@ -675,7 +654,7 @@ Examples :
 
 #JasperEMEA
 @SetTemperatureSolutionCardMAXandMINEMEA
-Scenario outline : As an user I want to verify the Max and Min temper through TAP on stepper
+Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen 
@@ -688,8 +667,7 @@ When user selects the "MIN"  set temperate through taping on "Down stepper"
 Then user should be displayed with "MIN" set temperater on "SolutionCard"
 When user navigates to "Dashboard"
 Then user should be displayed with "MIN" set temperater on "Dashboard"
-
-Examples :
+Examples:
 |Mode|
 |Heat|
 
@@ -697,7 +675,7 @@ Examples :
 
 #HB, Spruce, JasperNA
 @SetTemperatureDashboardMAXandMIN
-Scenario outline : As an user I want to verify the Max and Min temper through TAP on stepper
+Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "Dashboard" screen 
@@ -710,8 +688,7 @@ When user selects the "MIN"  set temperate through taping on "Down stepper"
 Then user should be displayed with "MIN" set temperater on "Dashboard"
 When user navigates to "SolutionCard"
 Then user should be displayed with "MIN" set temperater on "SolutionCard"
-
-Examples :
+Examples:
 |Mode|
 |Cool|
 |Heat|
@@ -721,7 +698,7 @@ Examples :
 #HB, Spruce, JasperNA
 #Requirement : When no schedule stat
 @SetTemperatureDashboardMAXandMINWhenNoschedule
-Scenario outline : As an user I want to verify the Max and Min temper through TAP on stepper when no schedudle
+Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper when no schedudle
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "Dashboard" screen 
@@ -734,8 +711,7 @@ When user selects the "MIN"  set temperate through taping on "Down stepper"
 Then user should be displayed with "MIN" set temperater on "Dashboard"
 When user navigates to "SolutionCard"
 Then user should be displayed with "MIN" set temperater on "SolutionCard"
-
-Examples :
+Examples:
 |Mode|
 |Cool|
 |Heat|
@@ -745,7 +721,7 @@ Examples :
 
 #JasperEMEA
 @SetTemperatureDashboardMAXandMINEMEA
-Scenario outline : As an user I want to verify the Max and Min temper through TAP on stepper
+Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user navigates to "SolutionCard" screen 
@@ -758,8 +734,7 @@ When user selects the "MIN"  set temperate through taping on "Down stepper"
 Then user should be displayed with "MIN" set temperater on "Dashboard"
 When user navigates to "SolutionCard"
 Then user should be displayed with "MIN" set temperater on "SolutionCard"
-
-Examples :
+Examples:
 |Mode|
 |Heat|
 
@@ -780,7 +755,7 @@ And user should be displayed with "Thermostat is OFF" status
 And user should be displayed with disabled "UP stepper" and "Down stepper"
 And suer should be displayed with setpoint value "--" 
 And user should be displayed with "Humidity xx" above "Thermostat is OFF" status
-Examples :
+Examples:
 |Mode| 
 |OFF|
 
@@ -798,7 +773,7 @@ Then user should displayed with "greyed out" indoor tempr value
 And user should be displayed with "Thermostat is OFF" status 
 And user should be displayed with disabled "UP stepper" and "Down stepper"
 And suer should be displayed with setpoint value "--" 
-Examples :
+Examples:
 |Mode| 
 |OFF|
 
@@ -901,20 +876,20 @@ Examples:
 |Smart network switch            |
 
 
-Feature: 
+#Feature: As an user I want to change the AutoChangeover option for JapserNA , JasperEMEA, HB and Spruce
 #AutoChangeover
 
 #HB, Spruce, JaperNA
+@DashboardandsolutioncardAutochangeover
 Scenario:As an user  i want to view the option for automode 
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
 When user selects mode icon in solution card 
 Then verify user provided with auto mode option in set mode screen
 
-#HB, Spruce, JaperNA
-Scenario Outline: // negative case
-As an user 
-i should not shown with the option for automode 
+#HB, Spruce, JaperNA - negative case
+@DashboardandsolutioncardAutoModeNegative
+Scenario Outline: As an user i should not shown with the option for automode 
 Given Stat with <system>
 And Autochangeover enabled in stat
 When user selects mode icon in solution card 
@@ -924,10 +899,9 @@ Examples:
 |Heat  |
 |Cool  |
 
-#HB, Spruce, JaperNA
-Scenario Outline: // negative case
-As an user 
-i should not shown with the option for automode
+#HB, Spruce, JaperNA // negative case
+@DashboardandsolutioncardAutoModeNegative1
+Scenario Outline: As an user i should not shown with the option for automode
 Given Stat with <system>
 And Autochangeover disabled in stat
 When user selects mode icon in solution card 
@@ -939,6 +913,7 @@ Examples:
 |Heat Cool|
 
 #HB, Spruce, JaperNA
+@DashboardandsolutioncardAutoModewithMutliOS
 Scenario Outline:As an user i want to set the stat with automode 
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
@@ -953,6 +928,7 @@ Examples:
 |Invite|iOS          |
 
 #HB, Spruce, JaperNA
+@DashboardandsolutioncardCheckSetpointInSchedule
 Scenario Outline:As an user i want the Heat setpoint should be always less than the cool setpoint in configure scheduling screens  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
@@ -973,6 +949,7 @@ And set points within maximum and minimum range
 Then verify Heat setpoint should be always less than the cool setpoint
 
 #HB, Spruce, JaperNA
+@DashboardandsolutioncardCheckSetpointInVacationSettings
 Scenario Outline:As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
@@ -984,7 +961,7 @@ Then verify Heat setpoint should be always less than the cool setpoint
 
 #JasperNA, HB, Spruce
 @Dashboardandsolutioncardoach-markverification
-Scenario: AS a user I want to verify Dashboard & Solutioncard coach-mark
+Scenario Outline: AS a user I want to verify Dashboard & Solutioncard coach-mark
 Given user set to <Mode> through CHIL
 And user launches and logs in to the lyric application 
 And user navigates to "Dashboard"
@@ -1041,7 +1018,7 @@ Examples:
 
 #JasperEMEA
 @Dashboardandsolutioncardoach-markverificationEMEA
-Scenario: AS a user I want to verify Dashboard & Solutioncard coach-mark
+Scenario Outline: AS a user I want to verify Dashboard & Solutioncard coach-mark
 Given user set to <Mode> through CHIL
 And user launches and logs in to the lyric application 
 And user navigates to "Dashboard"
@@ -1092,15 +1069,15 @@ Examples:
 
 #Dashboard order 
 @Dashboardorderwithallsolutions
-Given user configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
-And user launches and logs in to the lyric application
-When user  navigates to "Dashboard"
-Then user should displayed with "alphanumeric order"
+Scenario Outline:  user configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
+Given user launches and logs in to the lyric application
+Then user  navigates to "Dashboard"
+When user should displayed with "alphanumeric order"
 
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatbothcoolandheat
-Scenario outline: As an user I want to verify Emergency heat on solution card when both heat and cool  mode configured
+Scenario Outline: As an user I want to verify Emergency heat on solution card when both heat and cool  mode configured
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user enables the "Emergency Heat" under settings
@@ -1131,7 +1108,7 @@ Examples:
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatHeatonly
-Scenario outline: As an user I want to verify Emergency heat on solution card when heat only mode configured
+Scenario Outline: As an user I want to verify Emergency heat on solution card when heat only mode configured
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user enables the "Emergency Heat" under settings
@@ -1150,12 +1127,11 @@ Examples:
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatCoolonly
-Scenario outline: As an user I want to verify Emergency heat on solution card when cool only mode configured
+Scenario Outline: As an user I want to verify Emergency heat on solution card when cool only mode configured
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user should not displayed with "Emergency Heat" under settings
 And user should not  displayed with "Emergencey heat" on "Solutioncard"
-
 Examples:
 |Mode | 
 |Cool only |
@@ -1165,12 +1141,11 @@ Examples:
 #JasperEMEA
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatHeatonly
-Scenario outline: As an user I want to verify Emergency heat on solution card 
+Scenario Outline: As an user I want to verify Emergency heat on solution card 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user should not displayed with "Emergency Heat" under settings
 And user should not  displayed with "Emergencey heat" on "Solutioncard"
-
 Examples:
 |Mode | 
 |Heat only |
