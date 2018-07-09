@@ -77,7 +77,6 @@ public class ActionOnPushNotification extends Keyword {
 			else {
 				alarmScreen.swipe(locatorValue);
 				flag=alarmScreen.clickswitchToNightOnNotification();
-				flag=alarmScreen.clickOnSwitchToNight();
 			}
 			return flag;
 		}
@@ -103,8 +102,6 @@ public class ActionOnPushNotification extends Keyword {
 			else {
 				alarmScreen.swipe(locatorValue);
 				flag=alarmScreen.clickswitchToHomeOnNotification();
-				flag=alarmScreen.clickOnSwitchToHome();
-
 			}
 			return flag;
 		}

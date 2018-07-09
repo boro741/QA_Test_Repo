@@ -524,7 +524,7 @@ public class AlarmScreen extends MobileScreens {
 		}
 		else {
 
-			String locatorValue ="//XCUIElementTypeStaticText[@name=\""+expectedLocationName+"\"]";
+			String locatorValue ="//XCUIElementTypeStaticText[@value='"+expectedLocationName+"']";
 			if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 5)) {
 				Keyword.ReportStep_Pass(testCase, "'" + locatorValue + "' is Present");
 				return true;
