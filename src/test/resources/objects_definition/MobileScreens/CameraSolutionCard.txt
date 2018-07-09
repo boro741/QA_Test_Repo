@@ -3,3 +3,4 @@ BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='andr
 CameraOnButton	ID	on	ID	on	ID	on	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']
 CameraOffButton	ID	off	ID	off	ID	off	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']
 AppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
+LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View

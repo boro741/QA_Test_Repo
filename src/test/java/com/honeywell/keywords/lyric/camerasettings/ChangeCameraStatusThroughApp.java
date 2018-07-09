@@ -9,7 +9,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.Dashboard;
 
@@ -41,11 +43,16 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 			switch (expectedOption.get(0).toUpperCase()) {
 			case "ON": {
 				if (currentCameraStatus.contains("ON") || currentCameraStatus.contains("on")) {
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is ON");
 					break;
 				} else {
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is OFF and turning it to ON");
 					flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					if (cs.isAppSettingsIconVisible() && cs.isCameraOnButtonVisible(10)) {
 						cs.clickOnCameraOnButton();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase, "Camera status is turned ON");
 						if (cs.isBackButtonInCameraSolutionCardScreenVisible()) {
 							cs.clickOnBackButtonInCameraSolutionCardScreen();
 						}
@@ -55,11 +62,16 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 			}
 			case "OFF": {
 				if (currentCameraStatus.contains("OFF") || currentCameraStatus.contains("off")) {
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is OFF");
 					break;
 				} else {
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is ON and turning it to OFF");
 					flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					if (cs.isAppSettingsIconVisible() && cs.isCameraOffButtonVisible(10)) {
 						cs.clickOnCameraOffButton();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase, "Camera status is turned OFF");
 						if (cs.isBackButtonInCameraSolutionCardScreenVisible()) {
 							cs.clickOnBackButtonInCameraSolutionCardScreen();
 						}

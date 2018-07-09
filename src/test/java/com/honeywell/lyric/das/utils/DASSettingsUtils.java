@@ -265,8 +265,44 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
-			if(cs.isManageAlertsVisible(5)) {
-				cs.clickOnManageAlerts();
+			if(cs.isManageAlertsLabelVisible(5)) {
+				cs.clickOnManageAlertsLabel();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Navigate from Dashboard to Camera Motion Detection Settings Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen method navigates from
+	 * the dashboard to the Manage alerts screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			if(cs.isMotionDetectionLabelVisible(5)) {
+				cs.clickOnMotionDetectionLabel();
 			}
 		} catch (Exception e) {
 			flag = false;

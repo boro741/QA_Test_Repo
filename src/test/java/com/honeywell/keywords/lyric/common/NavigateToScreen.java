@@ -33,6 +33,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -466,10 +467,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
 					Dashboard ds = new Dashboard(testCase);
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (ds.isCloseButtonInHoneywellRatingPopupVisible(5)) {
-							ds.clickOnCloseButtonInHoneywellRatingPopup();
-						}
+					if (ds.isCloseButtonInHoneywellRatingPopupVisible(5)) {
+						ds.clickOnCloseButtonInHoneywellRatingPopup();
 					}
 					if (ds.isDoneButtonInWeatherForecastIsVisible(20)) {
 						ds.clickOnDoneButtonInWeatherForecast();
@@ -510,9 +509,15 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
 					break;
 				}
-				// Navigate from 'Dashboard' to 'DAS Camera Settings Manage Alerts Screen'
+				// Navigate from 'Dashboard' to 'Camera Settings Manage Alerts Screen'
 				case "MANAGE ALERTS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'
+				case "MOTION DETECTION SETTINGS": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
@@ -671,7 +676,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1298,18 +1303,45 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("Alarm Security Solution Card")){
+			} else if (screen.get(1).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
+						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MOTION DETECTION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isMotionDetectionLabelVisible(20)) {
+						cs.clickOnMotionDetectionLabel();
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+
+			} else if (screen.get(1).equalsIgnoreCase("Alarm Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					AlarmScreen alarmScreen = new AlarmScreen(testCase);
 					alarmScreen.clickOnAlarm_NavigateBack();
 					break;
 				}
-				
+
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
+			} else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION SENSOR SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
@@ -1834,7 +1866,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					System.out
-					.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+							.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
 					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
 					break;
 				}

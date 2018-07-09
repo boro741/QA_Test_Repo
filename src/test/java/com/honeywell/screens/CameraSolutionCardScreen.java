@@ -39,4 +39,8 @@ public class CameraSolutionCardScreen extends MobileScreens {
 	public boolean clickOnCameraOffButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOffButton");
 	}
+	
+	public boolean isLoadingSpinnerVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
+	}
 }

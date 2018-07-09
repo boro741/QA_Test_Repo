@@ -169,7 +169,7 @@ public class Dashboard extends MobileScreens {
 		String cameraStatus = null;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus", timeOut)) {
 			cameraStatus = MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
-			System.out.println("######cameraStatus: " + cameraStatus);
+			System.out.println("######Current Camera Status is: " + cameraStatus);
 		}
 		return cameraStatus;
 	}

@@ -165,18 +165,20 @@ Examples:
 		|Upgrade| 
       
       
-@EnableDisableMotionDetection        @P2         @UIAutomatable 
+@CameraSettingsEnableDisableMotionDetection        @P2         @UIAutomatable 
 Scenario: As a user I should be able to enable or disable motion detection
-Given user camera is in "on" 
-And motion detection is "enabled" on user camera through CHIL
-When user launches and logs in to the Lyric application 
-And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+#Given user camera is in "on" 
+#And motion detection is "enabled" on user camera through CHIL
+#When user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
+And user camera is set to "on"
+When user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
 And user changes the "Motion Detection" to "Off"
 Then "Motion Detection" value should be updated to "Off" on "Motion Detection Settings" screen
-And user should be displayed with the following "Motion Detection" options disabled:
-| Settings | 
-| Motion Detection Zone| 
-| Motion Sensitivity   |
+And the following "Motion Detection" options should be disabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
 When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
 Then "Motion Detection" value should be updated to "Off" on "Camera Settings" screen
 When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
@@ -184,10 +186,11 @@ And user changes the "Motion Detection" to "On"
 Then "Motion Detection" value should be updated to "On" on "Motion Detection Settings" screen
 When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
 Then "Motion Detection" value should be updated to "On" on "Camera Settings" screen
-And user should be displayed with the following "Motion Detection" options enabled:
-| Settings | 
-| Motion Detection Zone| 
-| Motion Sensitivity   |
+When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
+And the following "Motion Detection" options should be enabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
 #login with different mobiles for the status of configured options to verify the settings as user account level 
   	
   	
@@ -200,7 +203,7 @@ And user navigates to "Motion Detection Settings" screen from the "Dashboard" sc
 Then user should be displayed with "zone 1" as the default zone
 And user verifies that the entire snapshot is selected as the motion detection zone
 Then user "should be able" to draw on "zone 1"
-When user selects "zone 2" from the "Motion Detection Settings" screen
+When user selects "zone 2" from "Motion Detection Settings" screen
 And user "enables" detection in "zone 2"
 Then user "should be able" to draw on "zone 2"
 #login with different mobiles for the status of configured options to verify the settings as user account level
@@ -212,7 +215,7 @@ Given user camera is set to "on" through CHIL
 And motion detection is "enabled" on user camera through CHIL
 When user launches and logs in to the Lyric application 
 And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
-When user selects <Zone> from the "Motion Detection Settings" screen
+When user selects <Zone> from "Motion Detection Settings" screen
 #Fail to load screenshot
 Then user should be shown with "Loading spinner"
 And user should be shown with "Retry"
@@ -221,75 +224,83 @@ Then user should be shown with "Unable to take the snapshot"
      
      
 #Applicable only to C1
-@VerifyMotionSensitivitySettingsC1     @P2        @UIAutomatable
+@VerifyCameraMotionSensitivitySettingsC1     @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to set motion sensitivity on camera C1 to Off,Low, Normal and High
-Given user camera is set to "on" through CHIL
-And motion detection is "enabled" on user camera through CHIL
-When user launches and logs in to the Lyric application 
-And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
-When user selects <Zone> from the "Motion Detection Settings" screen 
-Then user should be displayed with the following "Motion Sensitivity Settings" options:
-| Settings | 
-| Off      | 
-| Low      |
-| Normal   | 
-| High     |
- When user changes the "Motion Sensitivity" to "Off"
- Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
-And "no" motion detection changes should be reported
+#Given user camera is set to "on" through CHIL
+#And motion detection is "enabled" on user camera through CHIL
+#When user launches and logs in to the Lyric application 
+#And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+Given user launches and logs in to the Lyric application
+And user camera is set to "on"
+When user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+Then user changes the "Motion Detection" to "On"
+When user selects <Zone> from "Motion Detection Settings" screen 
+#Then user should be displayed with the following "Motion Sensitivity Settings" options:
+| MotionSensitivityOptionsSettings	| 
+| Off      							| 
+| Low      							|
+| Normal   							| 
+| High     							|
+When user changes the "Motion Sensitivity" to "Off"
+Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
+#And "no" motion detection changes should be reported
 When user changes the "Motion Sensitivity" to "Low"
 Then "Motion Sensitivity" value should be updated to "Low" on "Motion Detection Settings" screen
-And "low" motion detection changes should be reported
+#And "low" motion detection changes should be reported
 When user changes the "Motion Sensitivity" to "medium"
 Then "Motion Sensitivity" value should be updated to "medium" on "Motion Detection Settings" screen
-And "medium" motion detection changes should be reported
+#And "medium" motion detection changes should be reported
 When user changes the "Motion Sensitivity" to "high"
 Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
-And "high" motion detection changes should be reported
+#And "high" motion detection changes should be reported
 Examples:
-		|Zone   |
- 		|Zone1  |
-		|Zone2  |
+		| Zone		|
+ #		| Zone1		|
+		| Zone 2		|
       
       
 #Applicable only to C2
-@VerifyMotionSensitivitySettingsC2         @P2        @UIAutomatable
+@VerifyCameraMotionSensitivitySettingsC2        @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to set motion sensitivity on camera C2 to Off,Low, Normal and High
-Given user camera is set to "on" through CHIL
-And motion detection is "enabled" on user camera through CHIL
-When user launches and logs in to the Lyric application 
-And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
-When user selects <Zone> from the "Motion Detection Settings" screen 
+#Given user camera is set to "on" through CHIL
+#And motion detection is "enabled" on user camera through CHIL
+#When user launches and logs in to the Lyric application 
+#And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+Given user launches and logs in to the Lyric application
+And user camera is set to "on"
+When user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+Then user changes the "Motion Detection" to "On"
+When user selects <Zone> from "Motion Detection Settings" screen 
 Then user should be displayed with the following "Motion Sensitivity Settings" options:
-| Settings | 
-| Off      | 
-| Low      |
-| Normal   | 
-| High     |
+| MotionSensitivityOptionsSettings	| 
+| Off      							| 
+| Low      							|
+| Normal   							| 
+| High     							|
 When user changes the "Motion Sensitivity" to "Off"
 Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
-And "no" motion detection changes should be reported
+#And "no" motion detection changes should be reported
 When user changes the "Motion Sensitivity" to "Low"
 Then "Motion Sensitivity" value should be updated to "Low" on "Motion Detection Settings" screen
-And "low" motion detection changes should be reported
+#And "low" motion detection changes should be reported
 When user changes the "Motion Sensitivity" to "medium"
 Then "Motion Sensitivity" value should be updated to "medium" on "Motion Detection Settings" screen
-And "medium" motion detection changes should be reported
+#And "medium" motion detection changes should be reported
 When user changes the "Motion Sensitivity" to "high"
 Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
-And "high" motion detection changes should be reported
+#And "high" motion detection changes should be reported
 Examples:
-		|Zone   |
-		|Zone1  |
- 		|Zone2  |
-		|Zone3  |
-		|Zone4  |
+		| Zone		|
+ 		| Zone1		|
+		| Zone 2		|
+		| Zone 3		|
+		| Zone 4		|
   
     
 @VerifyMultipleZonesOverlapError  @P3        @NotAutomatable
 Scenario: As a user I want to verify sensitivity area on my zones should not overlap
 Given user camera is set to "on" through CHIL
-And "motion detection" is "enabled" on user camera through CHIL
+And "Motion Detection" is "enabled" on user camera through CHIL
 And "motion sensitivity" is "high" on user camera through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
@@ -301,7 +312,7 @@ Then user should be displayed with "Error-Zones overlap" popup
 @VerifyOutsideZonesWarningMessage      @P3        @NotAutomatable
 Scenario: As a user I should be shown with warning message if any area on my zones is not covered for my confirmation
 Given user camera is set to "on" through CHIL
-And "motion detection" is "enabled" on camera through CHIL
+And "Motion Detection" is "enabled" on camera through CHIL
 And "motion sensitivity" is "high" on camera through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen

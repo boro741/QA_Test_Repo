@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.CameraSettingsScreen;
 
 public class NavigateBackAndForthInAScreen extends Keyword {
@@ -20,8 +21,7 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 	public boolean flag = true;
 	public DataTable data;
 
-	public NavigateBackAndForthInAScreen(TestCases testCase, TestCaseInputs inputs,
-			ArrayList<String> expectedOption) {
+	public NavigateBackAndForthInAScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedOption) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.expectedOption = expectedOption;
@@ -38,7 +38,16 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		switch (expectedOption.get(0).toUpperCase()) {
 		case "MANAGE ALERTS": {
-			cs.navigateBackAndForth(testCase);
+			cs.navigateBackAndForthInManageAlertsScreen(testCase);
+			break;
+		}
+		case "MOTION DETECTION SETTINGS": {
+			cs.navigateBackAndForthInMotionDetectionScreen(testCase);
+			break;
+		}
+		default: {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid option: " + expectedOption.get(0));
 		}
 		}
 		return flag;
