@@ -284,6 +284,7 @@ public class CameraSettingsScreen extends MobileScreens {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInManageAlertsScreen");
 			if (isCameraSettingsHeaderTitleVisible(20) && isManageAlertsLabelVisible(10)) {
 				flag = flag & clickOnManageAlertsLabel();
+				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 			}
 		}
 		return flag;
