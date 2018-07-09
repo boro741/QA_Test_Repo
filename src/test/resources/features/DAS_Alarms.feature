@@ -1904,6 +1904,9 @@ Given user is set to "Home" mode through CHIL
       |  entry delay live stream               |
       |  entry delay alarm in secs text        |
       |  entry delay alarm in secs counter     |
+      |  entry delay switch to home            | 
+      |  entry delay switch to night           |
+      |  entry delay attention                 |
     And user is set to "home" mode through CHIL
 
     @AlarmScreenValidation  @P1

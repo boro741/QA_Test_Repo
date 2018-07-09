@@ -41,7 +41,7 @@ public class SensorStatusScreen extends MobileScreens {
 		if (!testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.isMobElementExists("id", "sensor_issue_priority_text", testCase);
 		} else {
-			return MobileUtils.isMobElementExists("xpath", "//*[@value='Sensor Status']", testCase);
+			return MobileUtils.isMobElementExists("xpath", "//*[@value='Sensor_Status_SECURITY']", testCase);
 		}
 	}
 
