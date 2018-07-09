@@ -16,10 +16,12 @@ public class MembershipCheckout extends Keyword  {
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
-
-	public MembershipCheckout(TestCases testCase, TestCaseInputs inputs) {
+	public ArrayList<String> parameters;
+	
+	public MembershipCheckout(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.inputs = inputs;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -29,15 +31,18 @@ public class MembershipCheckout extends Keyword  {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user enters payment details and pay$")
+	@KeywordStep(gherkins = "^user enters (.*) payment details and selects pay now option$")
 	public boolean keywordSteps() throws KeywordException{
 		
 		MembershipCheckoutScreen mcs = new MembershipCheckoutScreen(testCase);
+		
+		if (parameters.get(0).equalsIgnoreCase("valid")) {
 		flag = flag & mcs.EnterCheckoutValues(testCase, inputs);
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
 		}
 		return flag;
 	}

@@ -20,9 +20,12 @@ public class MembershipComplete extends Keyword  {
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 
-	public MembershipComplete(TestCases testCase, TestCaseInputs inputs) {
+public ArrayList<String> parameters;
+	
+	public MembershipComplete(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.inputs = inputs;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -32,23 +35,23 @@ public class MembershipComplete extends Keyword  {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user clicks done button in the subscription complete screen$")
+	@KeywordStep(gherkins = "^When user selects (.*) option from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException{
 		
 		MembershipCompleteScreen mcs = new MembershipCompleteScreen(testCase);
 		flag = flag & mcs.ClickDoneButton(testCase, inputs);
 		
 		//Below code is to cancel the created subscription explictly
-		TestCaseInputs inputs = new TestCaseInputs();
-		CHILUtil util;
+		//TestCaseInputs inputs = new TestCaseInputs();
+		//CHILUtil util;
 		
-		try {
-			util = new CHILUtil(inputs);
-			int result  = util.getStripeCustomerAndDeleteSubscription("cus_CMJcPyC6ULPICF", "sk_test_EiqRnwdUj64PX5nfRV9nCumB");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//try {
+			//util = new CHILUtil(inputs);
+			//int result  = util.getStripeCustomerAndDeleteSubscription("cus_CMJcPyC6ULPICF", "sk_test_EiqRnwdUj64PX5nfRV9nCumB");
+		//} catch (Exception e1) {
+			//// TODO Auto-generated catch block
+			//e1.printStackTrace();
+		//}
 		
 		
 		try {

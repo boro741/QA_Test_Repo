@@ -16,10 +16,12 @@ public class MembershipDetails extends Keyword  {
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
-
-	public MembershipDetails(TestCases testCase, TestCaseInputs inputs) {
+	public ArrayList<String> parameters;
+	
+	public MembershipDetails(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.inputs = inputs;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class MembershipDetails extends Keyword  {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user accepts the checkout view$")
+	@KeywordStep(gherkins = "^user selects (.*) option from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException{
 		
 		MembershipDetailsScreen mds = new MembershipDetailsScreen(testCase);
