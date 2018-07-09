@@ -728,8 +728,8 @@ Examples:
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@UIAutomated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
+#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -737,11 +737,11 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
-When user scans the QR code by showing it to the base station camera
-Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "Lenovo VIBE X3" from "Connect to Network" screen
-And user inputs "vibex888" as the WiFi Password 
+When user navigates to "Register Base Station" screen from the "Power Base Station" screen
+Then user scans the QR code by showing it to the base station camera
+When user navigates to "Connect to Network" screen from the "Register Base Station" screen
+And user selects "Lenovo VIBE X3" from "Connect to Network" screen
+When user inputs "vibex888" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -857,7 +857,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyx.xyx@xyx.com				| xyxyxxyx				|
+      | Home                                    | Living Room                     | xyxyxyxyx@xyx.com				| xyxyxyx				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@UIAutomated

@@ -35,27 +35,27 @@ public class Dashboard extends MobileScreens {
 	public boolean isProgressBarVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);
 	}
-	
+
 	public boolean isCloseButtonInHoneywellRatingPopupVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseButtonInHoneywellRatingPopup", timeOut);
 	}
-	
+
 	public boolean clickOnCloseButtonInHoneywellRatingPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButtonInHoneywellRatingPopup");
 	}
-	
+
 	public boolean isDoneButtonInWeatherForecastIsVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInWeatherForecast", timeOut);
 	}
-	
+
 	public boolean clickOnDoneButtonInWeatherForecast() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInWeatherForecast");
 	}
-	
+
 	public boolean isGotItButtonInWeatherForecastIsVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GotItButtonInWeatherForecast");
 	}
-	
+
 	public boolean clickOnGotItButtonInWeatherForecast() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GotItButtonInWeatherForecast");
 	}
@@ -107,11 +107,15 @@ public class Dashboard extends MobileScreens {
 	}
 
 	public boolean areDevicesVisibleOnDashboard(int timeOut) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
 	}
 
 	public boolean areDevicesVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3);
+	}
+
+	public boolean clickOnDeviceOnDashbaord() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardIconText");
 	}
 
 	public boolean isDevicePresentOnDashboard(String deviceName) {
@@ -159,6 +163,15 @@ public class Dashboard extends MobileScreens {
 
 	public String getSecurityStatusLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
+	}
+
+	public String getCameraStatus(int timeOut) {
+		String cameraStatus = null;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus", timeOut)) {
+			cameraStatus = MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
+			System.out.println("######Current Camera Status is: " + cameraStatus);
+		}
+		return cameraStatus;
 	}
 
 	public String getZwaveDeviceStatus(String expectedDevice) {

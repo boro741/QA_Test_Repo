@@ -21,6 +21,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -481,6 +482,14 @@ public class SelectElementOnAScreen extends Keyword {
 						System.out.println("Successfully clicked on" + parameters.get(0));
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on" + parameters.get(0));
 					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				default: {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					cs.selectZone(parameters.get(0));
 					break;
 				}
 				}

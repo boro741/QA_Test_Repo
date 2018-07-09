@@ -9,6 +9,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.PrimaryCard;
 
 public class DASSettingsUtils {
@@ -198,6 +199,110 @@ public class DASSettingsUtils {
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Navigate from Dashboard to Camera Settings Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToCameraSettingsScreen method navigates from
+	 * the dashboard to the Camera Settings screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToCameraSettingsScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Camera");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Navigate from Dashboard to Manage Alerts Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToManageAlertsScreen method navigates from
+	 * the dashboard to the Manage alerts screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToManageAlertsScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			if(cs.isManageAlertsLabelVisible(5)) {
+				cs.clickOnManageAlertsLabel();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Navigate from Dashboard to Camera Motion Detection Settings Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen method navigates from
+	 * the dashboard to the Manage alerts screen by clicking on the Global Drawer option
+	 * and clicking on the camera name on the secondary card settings
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			if(cs.isMotionDetectionLabelVisible(5)) {
+				cs.clickOnMotionDetectionLabel();
 			}
 		} catch (Exception e) {
 			flag = false;

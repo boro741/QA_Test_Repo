@@ -2,6 +2,8 @@ package com.honeywell.keywords.lyric.das.settings;
 
 import java.util.ArrayList;
 
+import org.openqa.selenium.Dimension;
+
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -10,7 +12,11 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
+
+import io.appium.java_client.TouchAction;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -35,74 +41,209 @@ public class ChangeBaseStationSettings extends Keyword {
 	@KeywordStep(gherkins = "^user changes the (.*) to (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(0).equalsIgnoreCase("Base Station Volume"))
-			{
+			if (parameters.get(0).equalsIgnoreCase("Base Station Volume")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.VOLUME);
 				String value = parameters.get(1).split("%")[0].split("~")[1];
-				if(bs.setValueToVolumeSlider(value))
-				{
+				if (bs.setValueToVolumeSlider(value)) {
 					Keyword.ReportStep_Pass(testCase, "Successfully set the volume to " + parameters.get(1));
-				}
-				else
-				{
+				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set the volume to: " + parameters.get(1));
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to set the volume to: " + parameters.get(1));
 				}
-			}
-			else if(parameters.get(0).equalsIgnoreCase("Geofencing Status"))
-			{
+			} else if (parameters.get(0).equalsIgnoreCase("Geofencing Status")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if(parameters.get(1).equalsIgnoreCase("ON"))
-				{
-					if(bs.isGeofencingSwitchEnabled(testCase))
-					{
-						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings Screen");
+					} else {
+						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
-					else
-					{
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofence is already disabled on the settings Screen");
+					} else {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
-				else if(parameters.get(1).equalsIgnoreCase("OFF"))
-				{
-					if(!bs.isGeofencingSwitchEnabled(testCase))
-					{
-						Keyword.ReportStep_Pass(testCase, "Geofence is already disabled on the settings page");
-					}
-					else
-					{
-						flag = flag & bs.toggleGeofencingSwitch(testCase);
-					}
-				}
-			}
-			else if(parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode"))
-			{
+			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if(parameters.get(1).equalsIgnoreCase("ON"))
-				{
-					if(bs.isCameraOnInHomeModeSwitchEnabled(testCase))
-					{
-						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is already enabled on the settings page");
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera On in Home Mode is already enabled on the settings Screen");
+					} else {
+						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
 					}
-					else
-					{
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera On in Home Mode is already disabled on the settings Screen");
+					} else {
 						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
 					}
 				}
-				else if(parameters.get(1).equalsIgnoreCase("OFF"))
-				{
-					if(!bs.isCameraOnInHomeModeSwitchEnabled(testCase))
-					{
-						Keyword.ReportStep_Pass(testCase, "Camera On in Home Mode is already disabled on the settings page");
+			} else if (parameters.get(0).equalsIgnoreCase("CAMERA STATUS ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status On/Off Alerts is already enabled in the Camera settings Screen");
+					} else {
+						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status On/Off Alerts is enabled in the Camera settings Screen");
 					}
-					else
-					{
-						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status On/Off Alerts is already disabled in the Camera settings Screen");
+					} else {
+						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status On/Off Alerts is disabled in the Camera settings Screen");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION EVENT ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is already enabled in the Camera settings Screen");
+					} else {
+						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is enabled in the Camera settings Screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is already disabled in the Camera settings Screen");
+					} else {
+						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is disabled in the Camera settings Screen");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND EVENT ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Alerts is already enabled in the Camera settings Screen");
+					} else {
+						flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Alerts is enabled in the Camera settings Screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Alerts is already disabled in the Camera settings Screen");
+					} else {
+						flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Alerts is disabled in the Camera settings Screen");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION DETECTION")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Motion Detection Toggle is already enabled in the Camera Motion Detection Screen");
+					} else {
+						flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Motion Detection Toggle is already disabled in the Camera Motion Detection Screen");
+					} else {
+						flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION SENSITIVITY")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+
+				} else {
+					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+							.release().perform();
+					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+							.release().perform();
+				}
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Sensitivity Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Motion Sensitivity Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Sensitivity Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Motion Sensitivity Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("MEDIUM")) {
+					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Sensitivity Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Motion Sensitivity Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Sensitivity Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Motion Sensitivity Status is not set to: " + parameters.get(1));
+						}
 					}
 				}
 			}
-					
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
