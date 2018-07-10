@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.MembershipCheckoutScreen;
 
 public class MembershipCheckout extends Keyword  {
@@ -35,8 +36,9 @@ public class MembershipCheckout extends Keyword  {
 	public boolean keywordSteps() throws KeywordException{
 		
 		MembershipCheckoutScreen mcs = new MembershipCheckoutScreen(testCase);
+		String PaymentValue = parameters.get(0);
 		
-		if (parameters.get(0).equalsIgnoreCase("valid")) {
+		if (PaymentValue.equalsIgnoreCase("valid")) {
 		flag = flag & mcs.EnterValidCheckoutValues(testCase, inputs);
 		try {
 			Thread.sleep(10000);
@@ -44,7 +46,7 @@ public class MembershipCheckout extends Keyword  {
 			e.printStackTrace();
 		}
 		}
-		else if (parameters.get(0).equalsIgnoreCase("invalid"))
+		else if (PaymentValue.equalsIgnoreCase("invalid"))
 		{
 			flag = flag & mcs.EnterInValidCheckoutValues(testCase, inputs);
 			try {
@@ -52,6 +54,12 @@ public class MembershipCheckout extends Keyword  {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+		else
+		{
+			flag = false;
+		Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Invalid input : " + PaymentValue);
 		}
 		return flag;
 	}
