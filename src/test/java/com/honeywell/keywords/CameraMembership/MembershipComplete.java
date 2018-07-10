@@ -35,7 +35,7 @@ public ArrayList<String> parameters;
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^When user selects (.*) option from the (.*) screen$")
+	@KeywordStep(gherkins = "^user selects (.*) option from the (.*) screen$")
 	public boolean keywordSteps() throws KeywordException{
 		
 		MembershipCompleteScreen mcs = new MembershipCompleteScreen(testCase);

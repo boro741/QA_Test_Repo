@@ -37,12 +37,21 @@ public class MembershipCheckout extends Keyword  {
 		MembershipCheckoutScreen mcs = new MembershipCheckoutScreen(testCase);
 		
 		if (parameters.get(0).equalsIgnoreCase("valid")) {
-		flag = flag & mcs.EnterCheckoutValues(testCase, inputs);
+		flag = flag & mcs.EnterValidCheckoutValues(testCase, inputs);
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		}
+		else if (parameters.get(0).equalsIgnoreCase("invalid"))
+		{
+			flag = flag & mcs.EnterInValidCheckoutValues(testCase, inputs);
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		return flag;
 	}
