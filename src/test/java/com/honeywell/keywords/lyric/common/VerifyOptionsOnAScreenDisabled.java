@@ -129,6 +129,8 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 		}
 		case "MOTION DETECTION": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "Options");
 				if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION ZONE")) {
@@ -141,10 +143,13 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 					}
 				} else if (fieldToBeVerified.equalsIgnoreCase("MOTION SENSITIVITY")) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						action.press(10, (int) (dimension.getHeight() * .9))
 								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
@@ -157,6 +162,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 					}
 				}
 			}
+			break;
 		}
 
 		case "KEYFOB SETTINGS":

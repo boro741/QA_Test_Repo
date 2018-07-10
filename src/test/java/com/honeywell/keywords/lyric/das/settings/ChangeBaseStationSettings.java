@@ -93,18 +93,34 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase,
-								"Camera Status On/Off Alerts is enabled in the Camera settings Screen");
+						if (cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Camera Status On/Off Alerts is enabled in the Camera settings Screen");
+						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Camera Status On/Off Alerts is already disabled in the Camera settings Screen");
+						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Camera Status On/Off Alerts is enabled in the Camera settings Screen");
+							flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Camera Status On/Off Alerts is disabled in the Camera settings Screen");
+							}
+						}
 					} else {
 						flag = flag & cs.toggleCameraStatusONOFFAlertsSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase,
-								"Camera Status On/Off Alerts is disabled in the Camera settings Screen");
+						if (!cs.isCameraStatusONOFFAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Camera Status On/Off Alerts is disabled in the Camera settings Screen");
+						}
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("MOTION EVENT ALERTS")) {
@@ -116,18 +132,34 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase,
-								"Motion Event Alerts is enabled in the Camera settings Screen");
+						if (cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is already enabled in the Camera settings Screen");
+						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!cs.isMotionEventAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Motion Event Alerts is already disabled in the Camera settings Screen");
+						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is enabled in the Camera settings Screen");
+							flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Motion Event Alerts is disabled in the Camera settings Screen");
+							}
+						}
 					} else {
 						flag = flag & cs.toggleMotionEventAlertsSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase,
-								"Motion Event Alerts is disabled in the Camera settings Screen");
+						if (!cs.isMotionEventAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is disabled in the Camera settings Screen");
+						}
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("SOUND EVENT ALERTS")) {
@@ -146,11 +178,25 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (!cs.isSoundEventAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Sound Event Alerts is already disabled in the Camera settings Screen");
+						flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Sound Event Alerts is enabled in the Camera settings Screen");
+							flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Sound Event Alerts is disabled in the Camera settings Screen");
+							}
+						}
 					} else {
 						flag = flag & cs.toggleSoundEventsAlertsSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase,
-								"Sound Event Alerts is disabled in the Camera settings Screen");
+						if (!cs.isSoundEventAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Sound Event Alerts is disabled in the Camera settings Screen");
+						}
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("MOTION DETECTION")) {
@@ -159,19 +205,44 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Camera Motion Detection Toggle is already enabled in the Camera Motion Detection Screen");
+						flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+							flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Camera Motion Detection Toggle is enabled in the Camera Motion Detection Screen");
+							}
+						}
 					} else {
 						flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+						if (cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Camera Motion Detection Toggle is already disabled in the Camera Motion Detection Screen");
+						flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+							flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+							}
+						}
 					} else {
 						flag = flag & cs.toggleCameraMotionDetectionSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+						if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+						}
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("MOTION SENSITIVITY")) {

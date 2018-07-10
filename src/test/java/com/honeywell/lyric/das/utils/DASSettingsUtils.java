@@ -303,6 +303,7 @@ public class DASSettingsUtils {
 			}
 			if(cs.isMotionDetectionLabelVisible(5)) {
 				cs.clickOnMotionDetectionLabel();
+				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
 			}
 		} catch (Exception e) {
 			flag = false;
