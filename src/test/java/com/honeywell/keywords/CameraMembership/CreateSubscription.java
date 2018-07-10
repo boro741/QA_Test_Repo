@@ -20,6 +20,7 @@ public class CreateSubscription extends Keyword  {
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
+	public String plan;
 
 	public CreateSubscription(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
@@ -35,9 +36,9 @@ public class CreateSubscription extends Keyword  {
 	
 
 	@Override
-	@KeywordStep(gherkins = "^user subscribes to a (.*) plan$")
+	@KeywordStep(gherkins = "^user selects (.*) plan from the (.*) screen and selects (.*)$")
 	public boolean keywordSteps() throws KeywordException{
-		
+			
 		HoneywellMembershipScreen hm = new HoneywellMembershipScreen(testCase);
 		if (parameters.get(0).equalsIgnoreCase("Monthly")) {
 			flag = flag & hm.clickOnMonthlyPlan(testCase, inputs);
@@ -51,6 +52,7 @@ public class CreateSubscription extends Keyword  {
 
 		return flag;
 	}
+	
 	
 	@Override
 	@AfterKeyword
