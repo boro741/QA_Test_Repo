@@ -21,6 +21,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
@@ -1323,6 +1324,7 @@ public class NavigateToScreen extends Keyword {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isMotionDetectionLabelVisible(20)) {
 						cs.clickOnMotionDetectionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
 					break;
 				}

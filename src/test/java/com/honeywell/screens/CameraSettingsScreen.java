@@ -181,13 +181,33 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isMotionDetectionZoneEnabled() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionZoneVisible");
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionZoneVisible")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionZoneVisible")
+						.getAttribute("enabled").equalsIgnoreCase("true")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionZoneVisible");
+		}
+		return flag;
 	}
 
 	public boolean isMotionSensitivityEnabled() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionSensitivityVisible")
+						.getAttribute("enabled").equalsIgnoreCase("true")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
 				System.out.println("########value: " + MobileUtils
@@ -206,10 +226,9 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isCameraMotionDetectionStatusYES(TestCases testCase) {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionStatus")) {
-			System.out.println("#####" + MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionStatus")
-					.getAttribute("value"));
-			if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionStatus").getAttribute("value")
-					.equalsIgnoreCase("ON")) {
+			System.out
+					.println("#####" + MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionStatus"));
+			if (MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionStatus").equalsIgnoreCase("ON")) {
 				return flag;
 			} else {
 				flag = false;
@@ -284,7 +303,6 @@ public class CameraSettingsScreen extends MobileScreens {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInManageAlertsScreen");
 			if (isCameraSettingsHeaderTitleVisible(20) && isManageAlertsLabelVisible(10)) {
 				flag = flag & clickOnManageAlertsLabel();
-				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 			}
 		}
 		return flag;
@@ -304,8 +322,7 @@ public class CameraSettingsScreen extends MobileScreens {
 			if (isCameraSettingsHeaderTitleVisible(20) && isMotionDetectionLabelVisible(10)) {
 				flag = flag & clickOnMotionDetectionLabel();
 				System.out.println("#########Motion Detection screen is displayed");
-				
-				
+
 			}
 		}
 		return flag;

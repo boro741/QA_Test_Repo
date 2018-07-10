@@ -255,7 +255,7 @@ Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection
 #And "high" motion detection changes should be reported
 Examples:
 		| Zone		|
- #		| Zone1		|
+ 		| Zone1		|
 		| Zone 2		|
       
       
