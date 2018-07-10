@@ -41,18 +41,16 @@ public ArrayList<String> parameters;
 		MembershipCompleteScreen mcs = new MembershipCompleteScreen(testCase);
 		flag = flag & mcs.ClickDoneButton(testCase, inputs);
 		
-		//Below code is to cancel the created subscription explictly
-		//TestCaseInputs inputs = new TestCaseInputs();
-		//CHILUtil util;
+		//Below code is to cancel the created subscription explicitly from CHIL
+		TestCaseInputs inputs = new TestCaseInputs();
+		CHILUtil util;
 		
-		//try {
-			//util = new CHILUtil(inputs);
-			//int result  = util.getStripeCustomerAndDeleteSubscription("cus_CMJcPyC6ULPICF", "sk_test_EiqRnwdUj64PX5nfRV9nCumB");
-		//} catch (Exception e1) {
-			//// TODO Auto-generated catch block
-			//e1.printStackTrace();
-		//}
-		
+		try {
+			util = new CHILUtil(inputs);
+			int result  = util.getStripeCustomerAndDeleteSubscription("cus_CMJcPyC6ULPICF", "sk_test_EiqRnwdUj64PX5nfRV9nCumB");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		try {
 			Thread.sleep(5000);
