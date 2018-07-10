@@ -52,7 +52,7 @@ public class ActionOnPushNotification extends Keyword {
 		switch(exampleData.get(0).toUpperCase()){
 		case "MOTION DETECTED":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-			notification = "Motion Dectected by Camera \""+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+"\".";
+			notification = "Motion Detected by Camera \""+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+"\".";
 			break;
 		}
 		case "SWITCH TO NIGHT FROM DOOR OPEN":{
