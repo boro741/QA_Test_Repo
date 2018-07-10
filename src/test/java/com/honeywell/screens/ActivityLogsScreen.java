@@ -61,7 +61,8 @@ public class ActivityLogsScreen extends MobileScreens {
 					// MobileElement activityLogUpElement = null;
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
-						driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
+						//driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
+						action.tap(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON))).release().perform();
 					}
 				} catch (NoSuchElementException e) {
 
@@ -112,7 +113,9 @@ public class ActivityLogsScreen extends MobileScreens {
 					// MobileElement activityLogDownElement = null;
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).isEnabled()) {
-						driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).click();
+						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
+						action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+						
 					}
 				} catch (NoSuchElementException e) {
 					flag = false;
