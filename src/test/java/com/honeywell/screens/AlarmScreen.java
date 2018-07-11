@@ -546,7 +546,6 @@ public class AlarmScreen extends MobileScreens {
 		return false;
 	}
 	public boolean AlarmInSecsCounter(){
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "AlarmWillSoundInSeconds");
 			if(element!=null) {
 				String value1=element.getText();
@@ -568,11 +567,6 @@ public class AlarmScreen extends MobileScreens {
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Entry Delay is not happening");
 				}
 			}
-		}
-		else {
-			System.out.println("Id needed for inspecting Entry Delay Counter");
-		}
-
 		return false;
 	}
 	public boolean isSwitchToNightExists() {
