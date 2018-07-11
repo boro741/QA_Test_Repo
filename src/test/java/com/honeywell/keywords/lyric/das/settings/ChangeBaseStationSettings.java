@@ -344,14 +344,14 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+					if (!cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Camera Sound Detection Toggle is already disabled in the Camera Sound Detection Screen");
-						flag = flag & cs.isCameraSoundDetectionSwitchEnabled(testCase);
+						flag = flag & cs.toggleCameraSoundDetectionSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (cs.toggleCameraSoundDetectionSwitch(testCase)) {
+						if (cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned ON");
-							flag = flag & cs.isCameraSoundDetectionSwitchEnabled(testCase);
+							flag = flag & cs.toggleCameraSoundDetectionSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (!cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned OFF");

@@ -1317,9 +1317,9 @@ public class NavigateToScreen extends Keyword {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
 						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
-						if (cs.isCameraSettingsHeaderTitleVisible(10) && cs.isSoundDetectionLabelVisible(1)) {
+						if (cs.isCameraSettingsHeaderTitleVisible(20) && cs.isSoundDetectionLabelVisible(1)) {
 							cs.clickOnSoundDetectionLabel();
-							if (cs.isSoundDetectionScreenHeaderTitleVisible(10)) {
+							if (cs.isSoundDetectionScreenHeaderTitleVisible(20)) {
 								return flag;
 							} else {
 								flag = false;
@@ -1333,12 +1333,30 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInSoundDetectionSettingsScreen()) {
+						cs.clickOnBackButtonInSoundDetectionSettingsScreen();
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isMotionDetectionLabelVisible(20)) {
 						cs.clickOnMotionDetectionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				case "SOUND DETECTION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isSoundDetectionLabelVisible(20)) {
+						cs.clickOnSoundDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
 					break;

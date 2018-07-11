@@ -223,6 +223,98 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Motion Sensitivity Status is not displayed");
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isCameraSoundDetectionSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !cs.isCameraSoundDetectionSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isCameraSoundDetectionStatusYES(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Status is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Status is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !cs.isCameraSoundDetectionStatusYES(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Status is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Status is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("off")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("low")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("medium")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("high")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sound Sensitivity Status is not displayed");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
