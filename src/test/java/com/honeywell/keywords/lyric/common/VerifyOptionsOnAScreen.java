@@ -98,7 +98,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"The " + parameter + " has not found");
 				}
-				flag=true;
+				flag = true;
 
 			}
 			break;
@@ -472,10 +472,19 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				int startx = (dimension.width * 20) / 100;
+				int starty = (dimension.height * 62) / 100;
+				int endx = (dimension.width * 22) / 100;
+				int endy = (dimension.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			} else {
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
 				try {

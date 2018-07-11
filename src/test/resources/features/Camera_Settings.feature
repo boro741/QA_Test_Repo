@@ -182,12 +182,20 @@ And the following "Motion Detection" options should be disabled:
 When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
 Then "Motion Detection" value should be updated to "Off" on "Camera Settings" screen
 When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
-And user changes the "Motion Detection" to "On"
+Then the following "Motion Detection" options should be disabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
+When user changes the "Motion Detection" to "On"
 Then "Motion Detection" value should be updated to "On" on "Motion Detection Settings" screen
+And the following "Motion Detection" options should be enabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
 When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
 Then "Motion Detection" value should be updated to "On" on "Camera Settings" screen
 When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
-And the following "Motion Detection" options should be enabled:
+Then the following "Motion Detection" options should be enabled:
 | Options 					| 
 | Motion Detection Zone		| 
 | Motion Sensitivity   		|
@@ -235,7 +243,7 @@ And user camera is set to "on"
 When user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
 Then user changes the "Motion Detection" to "On"
 When user selects <Zone> from "Motion Detection Settings" screen 
-#Then user should be displayed with the following "Motion Sensitivity Settings" options:
+Then user should be displayed with the following "Motion Sensitivity Settings" options:
 | MotionSensitivityOptionsSettings	| 
 | Off      							| 
 | Low      							|
@@ -255,7 +263,7 @@ Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection
 #And "high" motion detection changes should be reported
 Examples:
 		| Zone		|
- 		| Zone1		|
+		| Zone 1		|
 		| Zone 2		|
       
       
@@ -291,7 +299,7 @@ Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection
 #And "high" motion detection changes should be reported
 Examples:
 		| Zone		|
- 		| Zone1		|
+ 		| Zone 1		|
 		| Zone 2		|
 		| Zone 3		|
 		| Zone 4		|
@@ -325,25 +333,36 @@ When user "confirms" outside zone "warning" popup
 Then user should be displayed with "Camera settings" screen
      
 
-@EnableDisableSoundDetection     @P2        @UIAutomatable 
+@CameraSettingsEnableDisableSoundDetection     @P2        @UIAutomatable 
 Scenario: As a user I should be able to enable or sound detection so that i restrict events on sound detection on demand basics
-Given user camera is in "on" 
-And motion detection is "enabled" on user camera through CHIL
-When user launches and logs in to the Lyric application 
-And user navigates to "Sound Detection Settings" screen from the "Dashboard" screen
+#Given user camera is in "on" 
+#And motion detection is "enabled" on user camera through CHIL
+#When user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
+And user camera is set to "on"
+When user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
+Then user changes the "Motion Detection" to "On"
+And user navigates to "Sound Detection Settings" screen from the "Motion Detection Settings" screen
 And user changes the "Sound Detection" to "Off"
 Then "Sound Detection" value should be updated to "Off" on "Sound Detection Settings" screen
-And user should be displayed with the following "Sound Detection" options disabled:
+And the following "Sound Detection" options should be disabled:
 | Settings				| 
 | Sound Sensitivity		|
 When user navigates to "Camera Settings" screen from the "Sound Detection Settings" screen
 Then "Sound Detection" value should be updated to "Off" on "Camera Settings" screen
 When user navigates to "Sound Detection Settings" screen from the "Camera Settings" screen
-And user changes the "Sound Detection" to "On"
+Then the following "Sound Detection" options should be disabled:
+| Settings				| 
+| Sound Sensitivity		|
+When user changes the "Sound Detection" to "On"
 Then "Sound Detection" value should be updated to "On" on "Sound Detection Settings" screen
+And the following "Sound Detection" options should be enabled:
+| Settings				| 
+| Sound Sensitivity		|
 When user navigates to "Camera Settings" screen from the "Sound Detection Settings" screen
 Then "Sound Detection" value should be updated to "On" on "Camera Settings" screen
-And user should be displayed with the following "Sound Detection" options enabled:
+When user navigates to "Sound Detection Settings" screen from the "Camera Settings" screen
+Then the following "Sound Detection" options should be enabled:
 | Settings				| 
 | Sound Sensitivity		|
 #login with different mobiles for the status of configured options to verify the settings as user account level 

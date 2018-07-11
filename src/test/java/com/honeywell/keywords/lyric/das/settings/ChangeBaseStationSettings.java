@@ -250,7 +250,12 @@ public class ChangeBaseStationSettings extends Keyword {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
+					int startx = (dimension.width * 20) / 100;
+					int starty = (dimension.height * 62) / 100;
+					int endx = (dimension.width * 22) / 100;
+					int endy = (dimension.height * 35) / 100;
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
 					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 							.release().perform();

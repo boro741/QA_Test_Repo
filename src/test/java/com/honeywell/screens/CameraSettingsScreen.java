@@ -361,8 +361,36 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean selectZone(String zoneToBeSelected) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "", testCase)) {
-
+			if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text= '" + zoneToBeSelected + "']",
+					testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//android.widget.TextView[@text= '" + zoneToBeSelected + "']")
+							.getAttribute("checked").equalsIgnoreCase("true")) {
+				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is already selected");
+			} else {
+				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is unselected");
+				MobileUtils.clickOnElement(testCase, "XPATH",
+						"//android.widget.TextView[@text= '" + zoneToBeSelected + "']");
+				Keyword.ReportStep_Pass(testCase, "Clicked on the zone: " + zoneToBeSelected);
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableOrDisableDetectionZone")) {
+					Keyword.ReportStep_Pass(testCase, "Enable Detection Zone button is displayed");
+					if (MobileUtils.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
+							.getAttribute("checked").equalsIgnoreCase("false")) {
+						Keyword.ReportStep_Pass(testCase,
+								"Enable Detection Zone button is: " + MobileUtils
+										.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
+										.getAttribute("checked"));
+						MobileUtils.clickOnElement(objectDefinition, testCase, "EnableOrDisableDetectionZone");
+						if (MobileUtils.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
+								.getAttribute("checked").equalsIgnoreCase("true")) {
+							Keyword.ReportStep_Pass(testCase,
+									"Enable Detection Zone button is changed to: " + MobileUtils
+											.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
+											.getAttribute("checked"));
+						}
+					}
+				}
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name = '" + zoneToBeSelected + "']",
@@ -376,7 +404,7 @@ public class CameraSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is unselected");
 				MobileUtils.clickOnElement(testCase, "XPATH",
 						"//XCUIElementTypeButton[@name = '" + zoneToBeSelected + "']");
-				Keyword.ReportStep_Pass(testCase, "Clicked on the zone; " + zoneToBeSelected);
+				Keyword.ReportStep_Pass(testCase, "Clicked on the zone: " + zoneToBeSelected);
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableOrDisableDetectionZone")) {
 					Keyword.ReportStep_Pass(testCase, "Enable Detection Zone button is displayed");
 					if (MobileUtils.getFieldValue(objectDefinition, testCase, "EnableOrDisableDetectionZone")
@@ -402,7 +430,11 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isMotionSensitivityOptionVisible(String motionSensitivityOption) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
+			if (MobileUtils.isMobElementExists("ID", motionSensitivityOption.toLowerCase(), testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_subTitle" + "']",
@@ -442,7 +474,30 @@ public class CameraSettingsScreen extends MobileScreens {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
+			if (motionSensitivityStatus.equalsIgnoreCase("medium")) {
+				motionSensitivityStatus = "normal";
+			}
+			if (MobileUtils.isMobElementExists("XPATH", "//*[contains(@resource-id,'"
+					+ motionSensitivityStatus.toLowerCase()
+					+ "')]/android.widget.LinearLayout[1]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					testCase)) {
+				return flag;
+			} else {
+				int startx = (dimension.width * 20) / 100;
+				int starty = (dimension.height * 62) / 100;
+				int endx = (dimension.width * 22) / 100;
+				int endy = (dimension.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				if (MobileUtils.isMobElementExists("XPATH", "//*[contains(@resource-id,'"
+						+ motionSensitivityStatus.toLowerCase()
+						+ "')]/android.widget.LinearLayout[1]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+						testCase, 5)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
@@ -487,7 +542,40 @@ public class CameraSettingsScreen extends MobileScreens {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
+			int counter = 0;
+			if (motionSensitivityStatus.equalsIgnoreCase("medium")) {
+				motionSensitivityStatus = "normal";
+			}
+			if (MobileUtils.isMobElementExists("XPATH", "//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/"
+					+ motionSensitivityStatus.toLowerCase() + "\'" + "]", testCase)) {
+				while ((MobileUtils
+						.isMobElementExists("XPATH",
+								"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/"
+										+ motionSensitivityStatus.toLowerCase() + "\'" + "]",
+								testCase))
+						&& counter < 5) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@resource-id=" + "\'"
+							+ "com.honeywell.android.lyric:id/" + motionSensitivityStatus.toLowerCase() + "\'" + "]");
+					System.out.println("########Click No: " + counter);
+					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					if (MobileUtils.isMobElementExists("XPATH", "//*[contains(@resource-id,'"
+							+ motionSensitivityStatus.toLowerCase()
+							+ "')]/android.widget.LinearLayout[1]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+							testCase)) {
+						break;
+					} else {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					}
+					counter++;
+				}
+			} else {
+				flag = false;
+			}
 		} else {
 			int counter = 0;
 			if ((MobileUtils.isMobElementExists("XPATH",
