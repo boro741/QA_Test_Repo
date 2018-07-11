@@ -29,7 +29,7 @@ import com.honeywell.screens.ZwaveScreen;
 public class VerifyScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public ArrayList<String> expectedScreen;
 	public boolean flag = true;
 	public DataTable data;
@@ -37,7 +37,7 @@ public class VerifyScreen extends Keyword {
 
 	public VerifyScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
 	}
 
@@ -683,6 +683,15 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "COMFORT DEVICE": {
+				Dashboard  ds = new Dashboard(testCase);
+				flag = flag & ds.VerifyComfortDeviceStatusInDashBoard(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+				
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -701,6 +710,7 @@ public class VerifyScreen extends Keyword {
 		return flag;
 	}
 
+	
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {
