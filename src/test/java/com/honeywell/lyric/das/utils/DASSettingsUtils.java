@@ -227,7 +227,7 @@ public class DASSettingsUtils {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
-			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
