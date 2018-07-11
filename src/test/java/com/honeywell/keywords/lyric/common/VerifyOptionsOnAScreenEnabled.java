@@ -84,6 +84,35 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			}
 			break;
 		}
+		case "SOUND DETECTION": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				if (fieldToBeVerified.equalsIgnoreCase("SOUND SENSITIVITY")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					if (cs.isSoundSensitivityEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity section is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity section is enabled");
+					}
+				}
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

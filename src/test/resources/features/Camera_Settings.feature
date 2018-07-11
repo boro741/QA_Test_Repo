@@ -346,24 +346,24 @@ And user navigates to "Sound Detection Settings" screen from the "Motion Detecti
 And user changes the "Sound Detection" to "Off"
 Then "Sound Detection" value should be updated to "Off" on "Sound Detection Settings" screen
 And the following "Sound Detection" options should be disabled:
-| Settings				| 
+| Options				| 
 | Sound Sensitivity		|
 When user navigates to "Camera Settings" screen from the "Sound Detection Settings" screen
 Then "Sound Detection" value should be updated to "Off" on "Camera Settings" screen
 When user navigates to "Sound Detection Settings" screen from the "Camera Settings" screen
 Then the following "Sound Detection" options should be disabled:
-| Settings				| 
+| Options				|
 | Sound Sensitivity		|
 When user changes the "Sound Detection" to "On"
 Then "Sound Detection" value should be updated to "On" on "Sound Detection Settings" screen
 And the following "Sound Detection" options should be enabled:
-| Settings				| 
+| Options				| 
 | Sound Sensitivity		|
 When user navigates to "Camera Settings" screen from the "Sound Detection Settings" screen
 Then "Sound Detection" value should be updated to "On" on "Camera Settings" screen
 When user navigates to "Sound Detection Settings" screen from the "Camera Settings" screen
 Then the following "Sound Detection" options should be enabled:
-| Settings				| 
+| Options				|
 | Sound Sensitivity		|
 #login with different mobiles for the status of configured options to verify the settings as user account level 
   	
