@@ -1313,6 +1313,21 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "SOUND DETECTION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
+						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
+						if (cs.isCameraSettingsHeaderTitleVisible(10) && cs.isSoundDetectionLabelVisible(1)) {
+							cs.clickOnSoundDetectionLabel();
+							if (cs.isSoundDetectionScreenHeaderTitleVisible(10)) {
+								return flag;
+							} else {
+								flag = false;
+							}
+						}
+						break;
+					}
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));

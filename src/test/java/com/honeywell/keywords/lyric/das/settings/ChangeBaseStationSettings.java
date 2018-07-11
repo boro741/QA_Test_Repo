@@ -319,6 +319,53 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Sound Detection Toggle is already enabled in the Camera Sound Detection Screen");
+						flag = flag & cs.toggleCameraSoundDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned OFF");
+							flag = flag & cs.toggleCameraSoundDetectionSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Camera Sound Detection Toggle is enabled in the Camera Motion Detection Screen");
+							}
+						}
+					} else {
+						flag = flag & cs.toggleCameraSoundDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraMotionDetectionSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Sound Detection Toggle is already disabled in the Camera Sound Detection Screen");
+						flag = flag & cs.isCameraSoundDetectionSwitchEnabled(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.toggleCameraSoundDetectionSwitch(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned ON");
+							flag = flag & cs.isCameraSoundDetectionSwitchEnabled(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned OFF");
+							}
+						}
+					} else {
+						flag = flag & cs.toggleCameraSoundDetectionSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraSoundDetectionSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is turned OFF");
+						}
+					}
+				}
+
 			}
 		} catch (Exception e) {
 			flag = false;

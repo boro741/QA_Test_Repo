@@ -42,8 +42,6 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean clickOnMotionDetectionLabel() {
 		boolean flag = true;
 		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "MotionDetectionLabel");
-		// CameraUtils.waitForProgressBarToComplete(testCase, "RETRY IN LOADING SNAPSHOT
-		// SPINNER", 2);
 		return flag;
 	}
 
@@ -53,6 +51,28 @@ public class CameraSettingsScreen extends MobileScreens {
 
 	public boolean clickOnBackButtonInMotionDetectionSettingsScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInMotionDetectionScreen");
+	}
+	
+	public boolean isSoundDetectionLabelVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionLabel", timeOut);
+	}
+
+	public boolean clickOnSoundDetectionLabel() {
+		boolean flag = true;
+		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SoundDetectionLabel");
+		return flag;
+	}
+	
+	public boolean isSoundDetectionScreenHeaderTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionScreenHeaderTitle", timeOut);
+	}
+
+	public boolean isBackButtonVisibleInSoundDetectionSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInSoundDetectionScreen");
+	}
+
+	public boolean clickOnBackButtonInSoundDetectionSettingsScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInSoundDetectionScreen");
 	}
 
 	public boolean isLoadingSnapshotSpinnerVisible() {
@@ -605,6 +625,58 @@ public class CameraSettingsScreen extends MobileScreens {
 				}
 			} else {
 				flag = false;
+			}
+		}
+		return flag;
+	}
+	
+	public boolean isCameraSoundDetectionSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundDetectionSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundDetectionSwitch").getAttribute("value")
+						.equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Camera Motion Detection Switch");
+		}
+	}
+
+	public boolean toggleCameraSoundDetectionSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SoundDetectionSwitch");
+	}
+
+	public boolean isSoundSensitivityEnabled() {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionSensitivityVisible")
+						.getAttribute("enabled").equalsIgnoreCase("true")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
+				System.out.println("########value: " + MobileUtils
+						.getMobElement(objectDefinition, testCase, "MotionSensitivityVisible").getAttribute("value"));
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionSensitivityVisible")
+						.getAttribute("value").equalsIgnoreCase("enabled")) {
+					return flag;
+				} else {
+					flag = false;
+				}
 			}
 		}
 		return flag;
