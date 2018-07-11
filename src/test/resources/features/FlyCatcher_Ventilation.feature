@@ -4,7 +4,7 @@ I want to change Ventialtion settings
 So that my stat will turn on ,Off or autom mode to maintain my comfortable indoor temperature
 
 @ChangeStatVantilationMode
-Scenario Outline: To change stat mode based on my indoor temperature for systems
+Scenario Outline: To change Ventilation mode based on my Preference
 As an user 
 I want to change ventialtion mode based on my prefernce
 So that my stat will turn on ,Off or autom mode to maintain my comfortable indoor temperature
@@ -12,29 +12,29 @@ So that my stat will turn on ,Off or autom mode to maintain my comfortable indoo
 Given  user has <Mode> Vantilation mode
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
-When user changes Vantilation mode to <To mode>
+When user changes Vantilation mode to <To mode> with "Default" value
 Then verify Vantilation mode is changed to <To mode>
-And user logs out of the app
+#And user logs out of the app
 Examples:
 |Mode |To mode|
-|Off  |On     |
-|Off  |Auto   | 
-|On   |Auto   |
-|On   |Off    |
-|Auto |On     |
-|Auto |Off    |
+|Off  |On    |
+#|Off  |Auto  | 
+#|On   |Auto   |
+#|On   |Off    |
+#|Auto |On     |
+#|Auto |Off    |
 
 
-@RunVentilationWhenAuto-On
-Scenario Outline: To verify Run Ventilation mode is enable in Auto/Off mode
+@RunVentilationWhenAuto_On
+Scenario Outline: To verify Run Ventilation mode is enable_disabled in Auto_On_Off mode
 As an user 
 I want to know if Run ventilation is enable during auto/off mode 
-so that i can start my timer 
+so that i can start my timer
 
 Given user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
-When user changes Vantilation mode to <To mode>
-Then Verify run ventilation is <Run Ventilation>
+When user changes Vantilation mode to <To mode> with "Default" value
+Then Verify run ventilation is <Run Ventilation> in <To mode>
 
 Examples:
 |To mode |Run Ventilation|
@@ -43,26 +43,21 @@ Examples:
 |Auto|Enabled|
 
 @StartVentilationTimer
-Scenario Outline: To Set Ventialtion timer for Auto and On mode
+Scenario Outline: To Set Ventialtion timer for Auto and Off mode
 As an user 
 I want to know if ventilation timer can be started 
 so that Ventilation mode wil be enabled during that time period
-
 Given  user has "On" Vantilation mode
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
-And user changes Vantilation mode to <To mode>
-When user navigates to "Ventilation Timer" screen from the "Ventilation Mode" screen
-And User Sets the Timer <Mintues>
-And User tap on "Save"
-And Verify Timer is "displayed" and set to <Mintues>
+And user changes Vantilation mode to <To mode> with <Minutes> value
+And Ventilation Timer is Set to <Minutes>
 # And Verify Timer is displayed on the Stat
 
 Examples:
-|To mode |Mintues|
-|Off  | 20     |
-|Auto|20|
-
+|To mode |Minutes|
+|Off  | 160     |
+#|Auto|20|
 
 @StopVentilationTimer
 Scenario Outline: To stop the Ventialtion timer for Auto and On mode
@@ -70,16 +65,15 @@ As an user
 I want to know stop ventilation timer
 so that Ventilation can be turned off
 
-Given User sets Ventilation Timer <Mintues>
+Given user sets Ventilation Timer <Minutes>
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
 And user changes Vantilation mode to <To mode> 
-And user navigates to "Ventilation Timer" screen from the "Ventilation Mode" screen
 Then User tap on "Stop timer"
 And Verify Timer is "Stopped"
 # And Verify Timer is Stopped on the Stat
 Examples:
-|To mode |Mintues|
+|To mode |Minutes|
 |Off  | 20     |
 |Auto|20|
 
@@ -94,11 +88,11 @@ Given user has "OFF" Vantilation mode
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
 And user navigates to "Ventilation Timer" screen from the "Ventilation Mode" screen
-When user <Control Buttons> the timer <Mintues>
+When user <Control Buttons> the timer <Minutes>
 And user taps on "Save"
-Then Verify Timer is "displayed" and set to <Mintues>
+Then Verify Timer is "displayed" and set to <Minutes>
 Examples:
-|Control Buttons|Mintues|
+|Control Buttons|Minutes|
 |Increment |20     |
 |Increment|40|
 |Increment|60|

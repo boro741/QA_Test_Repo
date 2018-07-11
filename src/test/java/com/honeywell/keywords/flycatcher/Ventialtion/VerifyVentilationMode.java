@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 
 
 public class VerifyVentilationMode extends Keyword {
@@ -72,6 +73,7 @@ public class VerifyVentilationMode extends Keyword {
 						"Invalid input : " + mode);
 			}
 			flag = flag & FlyCatcherVentialtion.verifyVentilationMode(testCase, inputs, expectedMode);
+			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 		} catch( Exception e){
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,

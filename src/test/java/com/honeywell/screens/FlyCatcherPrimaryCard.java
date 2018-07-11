@@ -1,6 +1,8 @@
 package com.honeywell.screens;
 
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
@@ -124,44 +126,91 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public boolean IsCloseButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelOption",timeOut);
 	}
-	
+
 	public boolean ClickOnMoreButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MoreButton");
 	}
-	
+
 	public boolean isMoreButtonVisible()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MoreButton",3);
 	}
-	
+
 	public boolean isVentilationIconVisible()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VentilationButton",3);
 	}
-	
+
 	public boolean ClickOnVentilationButton()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationButton");
 	}
-	
+
 	public boolean changeVentilationModeToOff()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationOffActiveButton");
 	}
-	
+
 	public boolean changeVentilationModeToOn()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationOnActiveButton");
 	}
-	
+
 	public boolean changeVentilationModeToAuto()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationAutoActiveButton");
 	}
-	
+
 	public String getVentialtionMode(){
 		return MobileUtils.getMobElement(objectDefinition, testCase, "VentilationButton").getTagName();
 	}
+
+	public boolean VentilationTimerOnModes(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RunVentialtionButton");
+	}
+
+	public boolean ClickVentilationTimer(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "RunVentialtionButton");
+	}
+
+	public boolean ClickEditVentTimer(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationEditTimer");
+	}
+
+	public boolean ClickStartVentTimer(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationTimerStart");
+	}
+
+	public boolean ClickCancelVentTimer(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VentilationTimerCancel");
+	}
+
+	public int getTimerPickerValue(){
+		String timervalueString = MobileUtils.getFieldValue(objectDefinition, testCase, "VentilationTimerPicker");
+		int timervalue = Integer.parseInt(timervalueString);
+		return timervalue;
+	}
+
+	public int[] getPickercordinates(){
+		Point pointValue1 = MobileUtils.getMobElement(objectDefinition, testCase, "VentilationTimerPicker").getLocation();
+		int startx = pointValue1.getX();
+		int starty = pointValue1.getY();
+		return new  int[] {startx,starty};
+
+	}
+
+	public int getVentilationTimeValue(){
+		int TimerValue = 0;
+		String ele = MobileUtils.getFieldValue(objectDefinition, testCase, "VentilationTimerValue");
+		TimerValue = Integer.parseInt(ele);
+		return TimerValue;
+	}
+	
+	public boolean isVentilationTimerText()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VentilationTimerValue",3);
+	}
+
 
 }
