@@ -113,6 +113,30 @@ public class Dashboard extends MobileScreens {
 	public boolean areDevicesVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3);
 	}
+	
+	public boolean areDeviceTempVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceCurrentTempValue", timeOut);
+	}
+
+	public boolean areDeviceTempVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceCurrentTempValue", 3);
+	}
+	
+	public boolean areDeviceTempUpVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp", timeOut);
+	}
+
+	public boolean areDeviceTempUpVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp", 3);
+	}
+	
+	public boolean areDeviceTempDownVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", timeOut);
+	}
+
+	public boolean areDeviceTempDownVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", 3);
+	}
 
 	public boolean clickOnDeviceOnDashbaord() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardIconText");
@@ -266,6 +290,70 @@ public class Dashboard extends MobileScreens {
 				}
 			}
 		}
+		return flag;
+	}
+	
+	public boolean VerifyComfortDeviceStatusInDashBoard(String expectedDevice) {
+		boolean flag = true;
+		if (this.areDevicesVisibleOnDashboard(10) && this.areDeviceTempVisibleOnDashboard(10)) {
+			
+			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
+					"DashboardIconText");
+			for (int i = 0; i <= dashboardIconText.size(); i++) {
+				String displayedText = "";
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					displayedText = dashboardIconText.get(i).getText();
+				} else {
+					try {
+						displayedText = dashboardIconText.get(i).getAttribute("value");
+					} catch (Exception e1) {
+					}
+				}
+				
+				flag = flag & displayedText.toUpperCase().contains(expectedDevice);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Device name matches on Dashboard");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device name was not matches in Dashboard");
+				}				
+			}		
+		}
+		
+		if(this.areDeviceTempUpVisibleOnDashboard(10))
+		{
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,
+					"Stat Temp Stepper Up icon is displayed on Dashboard");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Temp Stepper Up icon is not displayed on Dashboard");
+		}	
+		
+		if(this.areDeviceTempDownVisibleOnDashboard(10))
+		{
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,
+					"Stat Temp Stepper Down icon is displayed on Dashboard");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Temp Stepper Down icon is not displayed on Dashboard");
+		}	
+		
+		if(this.areDeviceTempVisibleOnDashboard(10))
+		{
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,
+					"Stat Temp values is displayed on Dashboard");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Temp values icon is not displayed on Dashboard");
+		}	
+		
 		return flag;
 	}
 }
