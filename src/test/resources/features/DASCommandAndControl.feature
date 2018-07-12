@@ -5,7 +5,7 @@ Feature: DAS Command And Control
 #Background:
 # Given reset relay as precondition
 
-@CommandControlviewSecuritysolutioncard		@UIAutomated
+@CommandControlviewSecuritysolutioncard123		@UIAutomated
 Scenario: As a user I want to see all modes in my securitysolution card 
 Given user launches and logs in to the Lyric application
 When user is set to "Home" mode through CHIL

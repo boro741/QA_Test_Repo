@@ -55,8 +55,9 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
 				return MobileUtils.isMobElementExists("NAME", securityState, testCase);
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase)) {
-					return MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase);
+				System.out.println("//XCUIElementTypeCell[@value='" + securityState + "']");
+				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']", testCase)) {
+					return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']", testCase);
 				} else {
 					flag = false;
 				}
