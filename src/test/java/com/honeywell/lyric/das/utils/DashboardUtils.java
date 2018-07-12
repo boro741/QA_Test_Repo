@@ -28,7 +28,7 @@ public class DashboardUtils {
 		if (d.areDevicesVisibleOnDashboard(25)) {
 			dashboardIconText = d.getDashboardDeviceNameElements();
 		}
-		boolean f = false;
+		boolean flag = false;
 		List<String> availableDevices = new ArrayList<String>();
 		for (WebElement e : dashboardIconText) {
 			String displayedText = null;
@@ -45,7 +45,7 @@ public class DashboardUtils {
 			availableDevices.add(displayedText);
 			if (displayedText.equals(deviceToBeSelected)) {
 				e.click();
-				f = true;
+				flag = true;
 				break;
 			}
 		}
@@ -56,13 +56,13 @@ public class DashboardUtils {
 				return LyricUtils.closeCoachMarks(testCase);
 			}
 		}
-		if (f) {
+		if (flag) {
 			Keyword.ReportStep_Pass(testCase, "Successfully selected " + deviceToBeSelected + " device from Dashboard");
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Failed to select " + deviceToBeSelected + " device from Dashboard");
 		}
-		return f;
+		return flag;
 	}
 
 	public static boolean selectCameraDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,
