@@ -50,7 +50,9 @@ public class FlyCatcherVentialtion {
 					Keyword.ReportStep_Pass(testCase,
 							"Venitilation Mode set to " + expectedMode);
 					return true;
-				}else{					
+				}else{
+					flag = flag && fly.ClickVentilationTimer();
+					flag = flag && fly.ClickEditVentTimer();
 					FlyCatcherVentialtion fl = new FlyCatcherVentialtion();
 					fl.SetVentilationTimer(testCase, inputs, TimerValue);
 				}
@@ -85,8 +87,6 @@ public class FlyCatcherVentialtion {
 		boolean flag = true;
 		int picker_value = 0;
 		FlyCatcherPrimaryCard fly = new  FlyCatcherPrimaryCard(testCase);
-		flag = flag && fly.ClickVentilationTimer();	
-		flag = flag && fly.ClickEditVentTimer();
 		picker_value = fly.getTimerPickerValue();
 		int expected_value = Integer.parseInt(TimerValue);
 //		int[] pickervalues = fly.getPickercordinates();
@@ -95,6 +95,14 @@ public class FlyCatcherVentialtion {
 			while (picker_value < expected_value && i < 9){
 				if (fly.getTimerPickerValue() != expected_value ){
 					testCase.getMobileDriver().swipe(530, 976, 530, 850, 1000);
+					i++;
+				} else{
+					break;
+				}
+			}
+			while (picker_value > expected_value && i < 9){
+				if (fly.getTimerPickerValue() != expected_value ){
+					testCase.getMobileDriver().swipe(530, 850, 530,976, 1000);
 					i++;
 				} else{
 					break;

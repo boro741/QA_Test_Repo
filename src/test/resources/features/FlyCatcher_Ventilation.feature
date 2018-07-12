@@ -9,7 +9,8 @@ As an user
 I want to change ventialtion mode based on my prefernce
 So that my stat will turn on ,Off or autom mode to maintain my comfortable indoor temperature
 
-Given  user has <Mode> Vantilation mode
+Given user Resets Ventilation Timer
+And user has <Mode> Vantilation mode
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
 When user changes Vantilation mode to <To mode> with "Default" value
@@ -31,7 +32,8 @@ As an user
 I want to know if Run ventilation is enable during auto/off mode 
 so that i can start my timer
 
-Given user launches and logs in to the Lyric application
+Given user Resets Ventilation Timer 
+And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
 When user changes Vantilation mode to <To mode> with "Default" value
 Then Verify run ventilation is <Run Ventilation> in <To mode>
@@ -47,7 +49,8 @@ Scenario Outline: To Set Ventialtion timer for Auto and Off mode
 As an user 
 I want to know if ventilation timer can be started 
 so that Ventilation mode wil be enabled during that time period
-Given  user has "On" Vantilation mode
+Given user Resets Ventilation Timer 
+And user has "On" Vantilation mode
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
 And user changes Vantilation mode to <To mode> with <Minutes> value
@@ -65,17 +68,16 @@ As an user
 I want to know stop ventilation timer
 so that Ventilation can be turned off
 
-Given user sets Ventilation Timer <Minutes>
+Given user sets Ventilation Timer "80"
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
-And user changes Vantilation mode to <To mode> 
-Then User tap on "Stop timer"
-And Verify Timer is "Stopped"
+When user <TimerStatus> Ventilation Timer to <Minutes>
+And Verify ventilation Timer is <TimerStatus> at <Minutes>
 # And Verify Timer is Stopped on the Stat
 Examples:
-|To mode |Minutes|
-|Off  | 20     |
-|Auto|20|
+|TimerStatus|Minutes|
+|Stops|0|
+#|Edits|180|
 
 
 @VentilationTimerIncreamentalof20
@@ -87,7 +89,6 @@ so on tpaing Incrementing or decrementing timer increases or reduces 20
 Given user has "OFF" Vantilation mode
 And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
-And user navigates to "Ventilation Timer" screen from the "Ventilation Mode" screen
 When user <Control Buttons> the timer <Minutes>
 And user taps on "Save"
 Then Verify Timer is "displayed" and set to <Minutes>

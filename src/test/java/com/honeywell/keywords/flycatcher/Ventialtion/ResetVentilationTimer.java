@@ -12,7 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 
-public class SetVentilationTimerUsingChil extends Keyword {
+public class ResetVentilationTimer extends Keyword {
 
 
 
@@ -20,11 +20,10 @@ public class SetVentilationTimerUsingChil extends Keyword {
 	private TestCaseInputs inputs;
 	ArrayList<String> exampleData;
 	public boolean flag = true;
-	public SetVentilationTimerUsingChil(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public ResetVentilationTimer(TestCases testCase, TestCaseInputs inputs) {
 		super("Set Ventilation Timer");
 		this.inputs = inputs;
 		this.testCase = testCase;
-		this.exampleData = exampleData;
 	}
 
 	@Override
@@ -34,7 +33,7 @@ public class SetVentilationTimerUsingChil extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user sets Ventilation Timer \"(.+)\"$")
+	@KeywordStep(gherkins = "^user Resets Ventilation Timer$")
 	public boolean keywordSteps() {
 		try 
 		{
@@ -42,17 +41,17 @@ public class SetVentilationTimerUsingChil extends Keyword {
 			CHILUtil chUtil = new CHILUtil(inputs);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String deviceID=statInfo.getDeviceID();
-			int VentilationTimer = Integer.parseInt(exampleData.get(0));
 			try {
 				if (chUtil.getConnection()) {
-					if (chUtil.SetVentilationTimer(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
-							deviceID,VentilationTimer) == 400) {
+					
+					if (chUtil.ResetVentilationTimer(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
+							deviceID) == 400) {
 						Keyword.ReportStep_Pass(testCase,
-								"Ventilation Timer Using CHIL : Successfully set Ventilation Timer to "+ VentilationTimer +" through CHIL");
+								"Ventilation Timer Using CHIL : Successfully Retset Ventilation Timer through CHIL");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"entilation Timer Using CHIL : Failed to set Ventilation Timer to  "+ VentilationTimer +" through CHIL");
+								"entilation Timer Using CHIL : Failed to Retset Ventilation Timer through CHIL");
 					}
 				}
 			} catch (Exception e) {
@@ -83,12 +82,12 @@ public class SetVentilationTimerUsingChil extends Keyword {
 			} else {
 				flag = false;
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Set Ventilation Timer : Keyword failed during execution");
+						"Reset Ventilation Timer : Keyword failed during execution");
 			}
 		} catch (Exception e) {
 			flag = false;
 			ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Set Ventilation Timer : Error Occured while executing post-condition : " + e.getMessage());
+					"Reset Ventilation Timer : Error Occured while executing post-condition : " + e.getMessage());
 		}
 		return flag;
 	}

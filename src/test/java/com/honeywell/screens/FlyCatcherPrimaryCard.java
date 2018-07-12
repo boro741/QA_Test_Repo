@@ -211,6 +211,13 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VentilationTimerValue",3);
 	}
-
-
+	
+	public boolean ClickStopTimer(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "StopTimerButton");
+	}
+	
+	public boolean isStopTimerVissible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StopTimerButton");
+	}
+	
 }
