@@ -16,6 +16,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
@@ -106,7 +107,7 @@ public class LogoutOfLyric extends Keyword {
 								fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
 								try {
 									WebElement logoutElement = fWait.until(ExpectedConditions
-											.visibilityOfElementLocated(By.xpath("//*[@label='logout_subTitle']")));
+											.visibilityOfElementLocated(By.xpath("//*[@label='Logout']")));
 									if (logoutElement != null) {
 										logoutElement.click();
 										success = true;
@@ -120,7 +121,7 @@ public class LogoutOfLyric extends Keyword {
 								}
 							}
 						} else {
-							element = testCase.getMobileDriver().scrollTo("logout_subTitle");
+							element = testCase.getMobileDriver().scrollTo("Logout");
 							if (element != null) {
 								element.click();
 								ReportStep_Pass(testCase, "Clicked on Logout option");
