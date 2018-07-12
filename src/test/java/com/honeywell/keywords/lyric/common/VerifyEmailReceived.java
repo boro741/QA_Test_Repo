@@ -55,19 +55,23 @@ public class VerifyEmailReceived extends Keyword {
 			}
 			if(subject!=null){
 				String mailContent= GuerrillaMailUtils.FetchMailContent(testCase, subject, inputs.getInputValue("USERID"), 0,inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT));
-				if(mailContent.contains(expectedContent)){
-					if(link.get(0).equalsIgnoreCase("Alarm")){
-						if(expectedContent1!=null && mailContent.contains(expectedContent1)){
-							Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Mail content mismatched"+ " Expected -"+expectedContent+" but found -"+mailContent);
-						}
+				if(link.get(0).equalsIgnoreCase("Alarm")){
+					if(mailContent.contains(expectedContent)&& mailContent.contains(expectedContent1)){
+						Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ " Expected -"+expectedContent+" but found -"+mailContent);
 					}
-					Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
+				}
+				else if(link.get(0).equalsIgnoreCase("Alarm cancelled")){
+					if(mailContent.contains(expectedContent)){
+						Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ " Expected -"+expectedContent+" but found -"+mailContent);
+					}
 				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Mail content mismatched"+ " Expected -"+expectedContent+" but found -"+mailContent);
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"INPUT NOT HANDLED");
 				}
 			}
 		} catch (TimeoutException e) {

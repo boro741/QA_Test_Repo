@@ -26,6 +26,9 @@ import io.appium.java_client.TouchAction;
 public class AlarmScreen extends MobileScreens {
 	private TestCases testCase;
 	private static final String screenName = "AlarmScreen";
+	// Locator values used in the methods
+		public static final String ACTIVITYLOGSCROLLUPICON = "icon_arch";
+		public static final String ACTIVITYLOGSCROLLDOWNICON = "icon_arrow_up";
 
 
 	public AlarmScreen(TestCases testCase) {
@@ -127,14 +130,15 @@ public class AlarmScreen extends MobileScreens {
 		}
 		// For IOS device
 		else {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp")) {
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "AcitvityLogScrollUp");
-			} else {
 				try {
 					// MobileElement activityLogUpElement = null;
 					CustomDriver driver = testCase.getMobileDriver();
-					if (driver.findElement(By.name("ACTIVITYLOGSCROLLUPICON")).isEnabled()) {
-						driver.findElement(By.name("ACTIVITYLOGSCROLLUPICON")).click();
+					History_BottomArrow =driver.findElement(By.name("icon_arrow_up"));
+					Alarm = driver.findElement(By.name("Alarm_Navigation_Title"));//MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
+					if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
+						System.out.println(History_BottomArrow.getLocation().getY());
+						System.out.println(Alarm.getLocation().getY());
+						action.press(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).getLocation().getX(),driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).getLocation().getY()).moveTo(0, Alarm.getLocation().getY()).release().perform();
 					}
 				}
 
@@ -142,7 +146,6 @@ public class AlarmScreen extends MobileScreens {
 
 					throw new Exception(e + "Activity log scroll up icon is not displayed");
 				}
-			}
 		}
 		return flag;
 
