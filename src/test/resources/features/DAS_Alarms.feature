@@ -838,14 +838,13 @@ Given user is set to "Home" mode through CHIL
     #on observing intruder in premises
      Given user sets the entry/exit timer to "60" seconds
        And user launches and logs in to the Lyric application
-  #     And user clears all push notifications
+       And user clears all push notifications
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user is set to "Night" mode through CHIL
-      And user "window" access sensor "opened"
-   #    And user "door" access sensor "opened"
-   #    And timer lapse "60" seconds
-   #   When user selects "Attention" from "Entry Delay" screen
-   #   Then user should be displayed with the "Alarm" screen
+       And user "door" access sensor "opened"
+       And timer lapse "60" seconds
+      When user selects "Attention" from "Entry Delay" screen
+      Then user should be displayed with the "Alarm" screen
        And user navigates to "alarm history" screen from the "alarm" screen
       Then verify the following alarm history:
        | Elements                 |
@@ -872,41 +871,34 @@ Given user is set to "Home" mode through CHIL
      And user clears all push notifications
      And user is set to "Night" mode through CHIL
      When user "opens door with app" in background
-     And timer ends on user device
-     When user "door" access sensor "is not closed"
+     And timer lapse "60" seconds
+    # When user "door" access sensor "is not closed"
+     And timer lapse "60" seconds  
+     #no action taken 
      When user selects the "Alarm" push notification
      Then user should be displayed with the "Alarm" screen
      When user selects "dismiss alarm" from "alarm" screen
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
-     When user "opens" activity log
-     Then verify the following activity log:
-       | Elements                       |
-       | DOOR SENSOR ALARM AT NIGHT MODE|
-       | ALARM AT NIGHT MODE            |
-       | Alarm Dismissed                |
-       |Switched to Home by app         |
-      When user "closes" activity log
-      And user "door" access sensor "closed"
+     
  
-   @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications @P4 #N
+   @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications @P4 #N @NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to <Mode>
       And timer ends on user device
-     Then user status should be set to <Mode>
-     When user "opens door with app" in foreground
-      And user selects the "Switch to Home from Door Open" push notification
+     When user "door" access sensor "opened with app in foreground"
+      And user selects the "Switch to Home from Door Open" push notification with app in foreground
      Then user status should be set to "Home"
      Examples:
      |Mode   |
      |Away   |
-     |Night  |
+ #    |Night  |
      
   
- @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications @P4 #N
+ @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications @P4 #N @NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -915,7 +907,7 @@ Given user is set to "Home" mode through CHIL
       And timer ends on user device
      Then user status should be set to <Mode>
      When user navigates to <Other Screen> from the "Security Solution card" screen
-      And user "opens door with app" in foreground
+      And user "door" access sensor "opened with app in foreground"
      When user selects the "Switch to Home from Door Open" push notification
      Then user status should be set to "Home"
      Examples:
@@ -929,7 +921,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |Same Location Camera(any) device screen|
      |Night  |Different Location                     |
      
-     @Doorsensor_Armed_OpenDoor_ForeGround_ClosedDoor_SwitchingToNight_FromPushNotifications @P4 #N
+     @Doorsensor_Armed_OpenDoor_ForeGround_ClosedDoor_SwitchingToNight_FromPushNotifications @P4 #N @NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -948,7 +940,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |
      
   
- @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_ClosedDoor_SwitchingToNightFromPushNotifications @P4 #N
+ @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_ClosedDoor_SwitchingToNightFromPushNotifications @P4 #N @NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to night from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -973,7 +965,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |Different Location                     |
      
      
-    @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToNight_FromPushNotifications_DoorClosed @P4 #N
+    @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToNight_FromPushNotifications_DoorClosed @P4 #N @NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -993,7 +985,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |
      
   
- @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications_DoorClosed @P4 #N
+ @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications_DoorClosed @P4 #N @NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1033,14 +1025,6 @@ Given user is set to "Home" mode through CHIL
    	 #view in full screen
      When user selects "dismiss alarm" from "alarm" screen
      Then user status should be set to "Home"
-      And user "opens" activity log
-      Then verify the following activity log:
-       | Elements                 | 
-       | Window Alarm At Away Mode|
-       | ALARM AT AWAY MODE       |
-       | Alarm Dismissed          |
-       | Switched to Home by app  |
-      And user "closes" activity log
       And user "window" access sensor "closed"
       
       
@@ -1076,13 +1060,6 @@ Given user is set to "Home" mode through CHIL
    	 Then user should be displayed with the "Alarm" screen
      When user selects "dismiss alarm" from "alarm" screen
      Then user status should be set to "Home"
-     And user "opens" activity log
-     Then verify the following activity log:
-     | Elements                 | 
-      | ALARM AT AWAY MODE       |
-      | Alarm Dismissed          |
-      | Switched to Home by app  |
-     And user "closes" activity log
      And user "window" access sensor "closed"
      
      @WindowSensor_OpenAfterNightModeExitDelay @P2
@@ -1097,13 +1074,6 @@ Given user is set to "Home" mode through CHIL
    	 Then user should be displayed with the "Alarm" screen
      When user selects "dismiss alarm" from "alarm" screen
      Then user status should be set to "Home"
-     And user "opens" activity log
-      Then verify the following activity log:
-     | Elements                 | 
-      | ALARM AT Night MODE       |
-      | Alarm Dismissed          |
-      | Switched to Home by app  |
-     And user "closes" activity log 
      And user "window" access sensor "closed"
      
   
@@ -1122,14 +1092,6 @@ Given user is set to "Home" mode through CHIL
       And user navigates to "Security Solution card" screen from the "Dashboard" screen
       When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "door" access sensor "tamper restored"
-     When user "opens" activity log
-     Then verify the following activity log:
-       | Elements                 | 
-       |DOOR SENSOR TAMPERED AT AWAY MODE|
-       |DOOR SENSOR ALARM AT AWAY MODE |
-       |DOOR SENSOR TAMPER CLEARED AT AWAY MODE|
-     And user "closes" activity log
-     
      
      @DoorSensor_TamperDuringNightModeExitDelay @P4
       Scenario: 36 As a user when the door is tampered in Night exit delay I should be notified with alarm
@@ -1143,12 +1105,6 @@ Given user is set to "Home" mode through CHIL
    	 And user navigates to "Security Solution card" screen from the "Dashboard" screen
    	 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
    	  When user "door" access sensor "tamper restored"
-    When user "opens" activity log
-      Then verify the following activity log:
-       | Elements                 | 
-       |DOOR SENSOR TAMPERED AT NIGHT MODE|
-       |DOOR SENSOR ALARM AT NIGHT MODE |
-       |DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|
       
        @DoorSensor_TamperAfterAwayModeExitDelay @P2
       Scenario: 37 As a user when the DOOR is tampered After Away exit delay I should be notified with alarm 
@@ -1160,7 +1116,6 @@ Given user is set to "Home" mode through CHIL
       When user selects the "Alarm" push notification
    	 Then user should be displayed with the "Alarm" screen
    	 When user selects "dismiss alarm" from "alarm" screen
-   	  And user navigates to "Security Solution card" screen from the "Dashboard" screen
    	  When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      When user "door" access sensor "tamper restored"
      When user "opens" activity log
@@ -1203,13 +1158,6 @@ Given user is set to "Home" mode through CHIL
    	  And user navigates to "Security Solution card" screen from the "Dashboard" screen
    	   When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "window" access sensor "Tamper Restored"
-     When user "opens" activity log
-     Then verify the following activity log:
-       | Elements                 | 
-       |WINDOW SENSOR TAMPERED AT AWAY MODE|
-       |WINDOW SENSOR ALARM AT AWAY MODE |
-       |WINDOW SENSOR TAMPER CLEARED AT AWAY MODE|
-       And user "closes" activity log
        
         @WindowSensor_TamperDuringNightModeExitDelay @P4
       Scenario: 40 As a user when the window is tampered in Night exit delay I should be notified with alarm 
@@ -1221,12 +1169,7 @@ Given user is set to "Home" mode through CHIL
       When user selects "dismiss alarm" from "alarm" screen
       When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "window" access sensor "Tamper Restored"
-     When user "opens" activity log
-      Then verify the following activity log:
-       | Elements                 | 
-       |WINDOW SENSOR TAMPERED AT NIGHT MODE|
-       |WINDOW SENSOR ALARM AT NIGHT MODE |
-       |WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE|
+     
        
       @WindowSensor_TamperAfterAwayModeExitDelay @P2
       Scenario: 41 As a user when the window is tampered after Away exit delay I should be notified with alarm 

@@ -71,7 +71,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ALARM": {
 					AlarmScreen open = new AlarmScreen(testCase);
-					open.openAlarmHistory();
+					open.closeAlarmHistory();
 					break;
 				}
 				default: {
