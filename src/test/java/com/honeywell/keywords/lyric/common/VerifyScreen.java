@@ -20,6 +20,7 @@ import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -684,13 +685,20 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "COMFORT DEVICE": {
-				Dashboard  ds = new Dashboard(testCase);
+				Dashboard ds = new Dashboard(testCase);
 				flag = flag & ds.VerifyComfortDeviceStatusInDashBoard(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed in DashBoard");
 				}
 				break;
-				
+			}
+			case "CAMERA SETTINGS": {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				flag = flag & cs.isCameraSettingsHeaderTitleVisible(20);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
 			}
 			default: {
 				flag = false;
@@ -710,7 +718,6 @@ public class VerifyScreen extends Keyword {
 		return flag;
 	}
 
-	
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {

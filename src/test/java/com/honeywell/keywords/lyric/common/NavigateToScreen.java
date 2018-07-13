@@ -521,6 +521,18 @@ public class NavigateToScreen extends Keyword {
 							.navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(testCase);
 					break;
 				}
+				// Navigate from 'Dashboard' to 'Camera Night Vision Settings Screen'
+				case "NIGHT VISION SETTINGS": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
+				case "VIDEO QUALITY SETTINGS": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
 				// Author: Pratik P. Lalseta (H119237)
 				case "BASE STATION CONFIGURATION": {
@@ -1343,6 +1355,26 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInNightVisionSettingsScreen()) {
+						cs.clickOnBackButtonVisibleInNightVisionSettingsScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("VIDEO QUALITY SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInVideoQualitySettingsScreen()) {
+						cs.clickOnBackButtonVisibleInVideoQualitySettingsScreen();
+					}
+					break;
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
@@ -1357,6 +1389,22 @@ public class NavigateToScreen extends Keyword {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isSoundDetectionLabelVisible(20)) {
 						cs.clickOnSoundDetectionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				case "NIGHT VISION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isNightVisionLabelVisible(20)) {
+						cs.clickOnNightVisionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				case "VIDEO QUALITY SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isVideoQualityLabelVisible(20)) {
+						cs.clickOnVideoQualityLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
 					break;

@@ -75,6 +75,42 @@ public class CameraSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInSoundDetectionScreen");
 	}
 
+	public boolean isNightVisionLabelVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionLabel", timeOut);
+	}
+
+	public boolean clickOnNightVisionLabel() {
+		boolean flag = true;
+		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionLabel");
+		return flag;
+	}
+
+	public boolean isBackButtonVisibleInNightVisionSettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInNigthVisionScreen");
+	}
+
+	public boolean clickOnBackButtonVisibleInNightVisionSettingsScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInNigthVisionScreen");
+	}
+
+	public boolean isVideoQualityLabelVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityLabel", timeOut);
+	}
+
+	public boolean clickOnVideoQualityLabel() {
+		boolean flag = true;
+		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityLabel");
+		return flag;
+	}
+
+	public boolean isBackButtonVisibleInVideoQualitySettingsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInVideoQualityScreen");
+	}
+
+	public boolean clickOnBackButtonVisibleInVideoQualitySettingsScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInVideoQualityScreen");
+	}
+
 	public boolean isLoadingSnapshotSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSnapshotSpinner");
 	}
@@ -173,7 +209,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean toggleSoundEventsAlertsSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SoundEventAlertsSwitch");
 	}
-	
+
 	public boolean isCameraMotionDetectionSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionSwitch", 20)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -630,6 +666,38 @@ public class CameraSettingsScreen extends MobileScreens {
 		return flag;
 	}
 
+	public boolean isSoundDetectionSectionIsEnabled(TestCases testCase) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionSection", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundDetectionSection")
+						.getAttribute("enabled").equalsIgnoreCase("TRUE")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundDetectionSection").getAttribute("value")
+						.equalsIgnoreCase("disabled")) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[contains(@name, '_subTitle') and @value='Sound Detection']/parent::XCUIElementTypeCell",
+					testCase)
+					&& MobileUtils.getMobElement(testCase, "XPATH",
+							"//*[contains(@name, '_subTitle') and @value='Sound Detection']/parent::XCUIElementTypeCell")
+							.getAttribute("value").equalsIgnoreCase("enabled")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
 	public boolean isCameraSoundDetectionSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -648,7 +716,7 @@ public class CameraSettingsScreen extends MobileScreens {
 				}
 			}
 		} else {
-			throw new Exception("Could not find Camera Motion Detection Switch");
+			throw new Exception("Could not find Camera Sound Detection Switch");
 		}
 	}
 
@@ -854,5 +922,351 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 		}
 		return flag;
+	}
+
+	public boolean isNightVisionOptionVisible(String nightVisionOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[starts-with(@content-desc,'" + nightVisionOption
+							+ "')]/android.widget.RelativeLayout/android.widget.TextView",
+					testCase)
+					&& MobileUtils
+							.getFieldValue(testCase, "XPATH",
+									"//*[starts-with(@content-desc,'" + nightVisionOption
+											+ "')]/android.widget.RelativeLayout/android.widget.TextView")
+							.equalsIgnoreCase(nightVisionOption)) {
+				return flag;
+			} else {
+				System.out.println(MobileUtils.getFieldValue(testCase, "XPATH", "//*[starts-with(@content-desc,'"
+						+ nightVisionOption + "')]/android.widget.RelativeLayout/android.widget.TextView"));
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@name='" + nightVisionOption.toLowerCase() + "_subTitle" + "']",
+					testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//XCUIElementTypeStaticText[@name='" + nightVisionOption.toLowerCase()
+											+ "_subTitle" + "']")
+							.getAttribute("value").equalsIgnoreCase(nightVisionOption.toLowerCase())) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isNightVisionStatusSetToExpectedInCameraSettingsScreen(TestCases testCase,
+			String nightVisionStatus) {
+		boolean flag = true;
+
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[starts-with(@content-desc, 'Night Vision')]/android.widget.LinearLayout/android.widget.TextView",
+					testCase)
+					&& MobileUtils.getFieldValue(testCase, "XPATH",
+							"//*[starts-with(@content-desc, 'Night Vision')]/android.widget.LinearLayout/android.widget.TextView")
+							.equalsIgnoreCase(nightVisionStatus)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
+					testCase)
+					&& MobileUtils.getMobElement(testCase, "XPATH",
+							"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
+							.getAttribute("value").equalsIgnoreCase(nightVisionStatus)) {
+				System.out.println("#####" + MobileUtils.getMobElement(testCase, "XPATH",
+						"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
+						.getAttribute("value"));
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isNightVisionStatusSetToExpectedInNightVisionScreen(TestCases testCase, String nightVisionStatus) {
+		boolean flag = true;
+		System.out.println("#########nightVisionStatus: " + nightVisionStatus);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[starts-with(@content-desc,'" + nightVisionStatus
+							+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
+							+ "']/XCUIElementTypeImage[contains(@name, '" + nightVisionStatus.toLowerCase() + "_Image"
+							+ "')]",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean setNightVisionStatusToExpected(TestCases testCase, String nightVisionStatus) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			int counter = 0;
+			if (MobileUtils.isMobElementExists("XPATH", "//*[starts-with(@content-desc, '" + nightVisionStatus
+					+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '" + nightVisionStatus + "']",
+					testCase)) {
+				while ((MobileUtils.isMobElementExists("XPATH",
+						"//*[starts-with(@content-desc, '" + nightVisionStatus
+								+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+								+ nightVisionStatus + "']",
+						testCase)) && counter < 5) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"//*[starts-with(@content-desc, '" + nightVisionStatus
+									+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+									+ nightVisionStatus + "']");
+					System.out.println("########Click No: " + counter);
+					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					if (MobileUtils.isMobElementExists("XPATH", "//*[starts-with(@content-desc,'" + nightVisionStatus
+							+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+							testCase)) {
+						break;
+					}
+					counter++;
+				}
+			} else {
+				flag = false;
+			}
+		} else {
+			int counter = 0;
+			if ((MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name= '" + nightVisionStatus.toLowerCase() + "_cell" + "']", testCase))) {
+				while ((MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeCell[@name= '" + nightVisionStatus.toLowerCase() + "_cell" + "']", testCase))
+						&& counter < 5) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"//XCUIElementTypeCell[@name= '" + nightVisionStatus.toLowerCase() + "_cell" + "']");
+					System.out.println("########Click No: " + counter);
+					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					if (MobileUtils.isMobElementExists("XPATH",
+							"//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
+									+ "']/XCUIElementTypeImage[contains(@name, '" + nightVisionStatus.toLowerCase()
+									+ "_Image" + "')]",
+							testCase)) {
+						break;
+					}
+					counter++;
+				}
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isVideoQualityOptionVisible(String videoQualityOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[starts-with(@content-desc,'" + videoQualityOption
+							+ "')]/android.widget.RelativeLayout/android.widget.TextView",
+					testCase)
+					&& MobileUtils
+							.getFieldValue(testCase, "XPATH",
+									"//*[starts-with(@content-desc,'" + videoQualityOption
+											+ "')]/android.widget.RelativeLayout/android.widget.TextView")
+							.equalsIgnoreCase(videoQualityOption)) {
+				return flag;
+			} else {
+				System.out.println(MobileUtils.getFieldValue(testCase, "XPATH", "//*[starts-with(@content-desc,'"
+						+ videoQualityOption + "')]/android.widget.RelativeLayout/android.widget.TextView"));
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@name='" + videoQualityOption + "_subTitle" + "']", testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//XCUIElementTypeStaticText[@name='" + videoQualityOption + "_subTitle" + "']")
+							.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isVideoQualityStatusSetToExpectedInCameraSettingsScreen(TestCases testCase,
+			String videoQualityOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[starts-with(@content-desc, 'Video Quality')]/android.widget.LinearLayout/android.widget.TextView",
+					testCase)
+					&& MobileUtils.getFieldValue(testCase, "XPATH",
+							"//*[starts-with(@content-desc, 'Video Quality')]/android.widget.LinearLayout/android.widget.TextView")
+							.equalsIgnoreCase(videoQualityOption)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
+					testCase)
+					&& MobileUtils.getMobElement(testCase, "XPATH",
+							"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
+							.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
+				System.out.println("#####" + MobileUtils.getMobElement(testCase, "XPATH",
+						"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
+						.getAttribute("value"));
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isVideoQualityStatusSetToExpectedInVideoQualityScreen(TestCases testCase,
+			String videoQualityOption) {
+		boolean flag = true;
+		System.out.println("#########nightVisionStatus: " + videoQualityOption);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[starts-with(@content-desc,'" + videoQualityOption
+							+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name='" + videoQualityOption + "_cell"
+							+ "']/XCUIElementTypeImage[contains(@name, '" + videoQualityOption + "_Image" + "')]",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean setVideoQualityStatusToExpected(TestCases testCase, String videoQualityOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			int counter = 0;
+			if (MobileUtils.isMobElementExists("XPATH", "//*[starts-with(@content-desc, '" + videoQualityOption
+					+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '" + videoQualityOption + "']",
+					testCase)) {
+				while ((MobileUtils.isMobElementExists("XPATH",
+						"//*[starts-with(@content-desc, '" + videoQualityOption
+								+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+								+ videoQualityOption + "']",
+						testCase)) && counter < 5) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"//*[starts-with(@content-desc, '" + videoQualityOption
+									+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+									+ videoQualityOption + "']");
+					System.out.println("########Click No: " + counter);
+					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					if (MobileUtils.isMobElementExists("XPATH", "//*[starts-with(@content-desc,'" + videoQualityOption
+							+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+							testCase)) {
+						break;
+					}
+					counter++;
+				}
+			} else {
+				flag = false;
+			}
+		} else {
+			int counter = 0;
+			if ((MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name= '" + videoQualityOption + "_cell" + "']", testCase))) {
+				while ((MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeCell[@name= '" + videoQualityOption + "_cell" + "']", testCase))
+						&& counter < 5) {
+					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+							"//XCUIElementTypeCell[@name= '" + videoQualityOption + "_cell" + "']");
+					System.out.println("########Click No: " + counter);
+					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					if (MobileUtils.isMobElementExists("XPATH",
+							"//XCUIElementTypeCell[@name='" + videoQualityOption + "_cell"
+									+ "']/XCUIElementTypeImage[contains(@name, '" + videoQualityOption + "_Image"
+									+ "')]",
+							testCase)) {
+						break;
+					}
+					counter++;
+				}
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isCameraMicrophoneSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraMicrophoneSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraMicrophoneSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraMicrophoneSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+		} else {
+			throw new Exception("Could not find Camera Microphone Switch");
+		}
+	}
+
+	public boolean toggleCameraMicroPhoneSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraMicrophoneSwitch");
+	}
+
+	public boolean isTurnOffCameraMicrophonePopupHeaderTitleVisible(TestCases testCase) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TurnOffCameraMicrophonePopupHeaderTitle");
+	}
+
+	public boolean isTurnOffCameraMicrophonePopupMsgVisible(TestCases testCase) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TurnOffCameraMicrophonePopupMsg");
+	}
+
+	public boolean isCANCELButtonInTurnOffCameraMicrophonePopupVisible(TestCases testCase) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CANCELButtonInTurnOffCameraMicrophonePopup");
+	}
+
+	public boolean clickOnCANCELButtonInTurnOffCameraMicrophonePopup(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CANCELButtonInTurnOffCameraMicrophonePopup");
+	}
+
+	public boolean isOKButtonInTurnOffCameraMicrophonePopupVisible(TestCases testCase) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInTurnOffCameraMicrophonePopup");
+	}
+
+	public boolean clickOnOKButtonInTurnOffCameraMicrophonePopup(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInTurnOffCameraMicrophonePopup");
 	}
 }
