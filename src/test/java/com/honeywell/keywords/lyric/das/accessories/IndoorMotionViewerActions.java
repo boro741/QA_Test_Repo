@@ -35,13 +35,13 @@ public class IndoorMotionViewerActions extends Keyword {
 	public boolean keywordSteps() {
 		try {
 			if (states.get(0).equalsIgnoreCase("Tampered")) {
-				DASSensorUtils.tamperMotionSensor(testCase, inputs);
+				DASSensorUtils.tamperISMV(testCase, inputs);
 			} 
 			else if (states.get(0).equalsIgnoreCase("Tamper cleared")) {
-				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+				DASSensorUtils.tamperClearISMV(testCase, inputs);
 			}
 			else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
-				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+				DASSensorUtils.tamperClearISMV(testCase, inputs);
 				DASSensorUtils sensorUtils = new DASSensorUtils();
 				sensorUtils.verifySensorState(testCase, inputs, "ISMV", "tamper cleared");
 			} 

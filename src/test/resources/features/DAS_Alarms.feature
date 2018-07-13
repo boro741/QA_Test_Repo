@@ -1972,6 +1972,7 @@ Given user is set to "Home" mode through CHIL
       #And user mobile screen is locked
      When user indoor motion viewer "Tampered"
      And user is set to "HOME" mode through CHIL
+      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
    	  When user indoor motion viewer "Tamper Restored"
      When user "opens" activity log
       Then verify the following activity log:
