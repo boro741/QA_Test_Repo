@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 
@@ -264,7 +265,8 @@ public class ChangeBaseStationSettings extends Keyword {
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Sensitivity Status is already set to: " + parameters.get(1));
 					} else {
 						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
@@ -278,7 +280,8 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Sensitivity Status is already set to: " + parameters.get(1));
 					} else {
 						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
@@ -292,7 +295,8 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("MEDIUM")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Sensitivity Status is already set to: " + parameters.get(1));
 					} else {
 						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
@@ -306,7 +310,8 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is already: " + parameters.get(1));
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Sensitivity Status is already set to: " + parameters.get(1));
 					} else {
 						flag = flag & cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
@@ -366,6 +371,127 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 
+			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					if (cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Night Vision Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setNightVisionStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Night Vision Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Night Vision Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Night Vision Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setNightVisionStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Night Vision Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Night Vision Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Night Vision Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setNightVisionStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Night Vision Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Night Vision Status is not set to: " + parameters.get(1));
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					if (cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Video Quality Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setVideoQualityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Video Quality Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Video Quality Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					if (cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Video Quality Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setVideoQualityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Video Quality Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Video Quality Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					if (cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Video Quality Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & cs.setVideoQualityStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Video Quality Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Video Quality Status is not set to: " + parameters.get(1));
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("CAMERA MICROPHONE")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", parameters.get(0));
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Microphone Toggle is already enabled in the Camera Settings Screen");
+						flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Microphone Toggle is turned OFF");
+							flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+						}
+					} else {
+						flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Microphone Toggle is already disabled in the Camera Settings Screen");
+						flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Microphone Toggle is turned ON");
+							flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+						}
+					} else {
+						flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

@@ -315,6 +315,152 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Sound Sensitivity Status is not displayed");
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
+					&& parameters.get(2).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Night Vision Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag
+							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag
+							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag
+							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Night Vision Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY")
+					&& parameters.get(2).equalsIgnoreCase("VIDEO QUALITY SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag & cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					flag = flag & cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					flag = flag & cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Video Quality Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag
+							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					flag = flag
+							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					flag = flag
+							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Video Quality Status is not displayed");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

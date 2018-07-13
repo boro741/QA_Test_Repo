@@ -9,7 +9,7 @@ Scenario: As a user I want to verify that all JasperNA Settings options are avai
 Given user launches and logs in to the Lyric application 
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Thermostat Settings" options: 
-      | Settings					| 
+      | Settings						| 
       | Manage Alerts				|
       | Set filter reminder			|
       |	Set Up Homekit & Siri		|
@@ -26,13 +26,13 @@ Scenario: As a user I want to verify that all JasperNA Settings options are avai
 Given user launches and logs in to the Lyric application 
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Thermostat Settings" options: 
-      | Settings					| 
+      | Settings						| 
       | Manage Alerts				|
       | Set filter reminder			|
       |	Set Up Homekit & Siri		|
-      | Optimizer				|
+      | Optimizer					|
       | Emergency heat				|
-      | Reset Wi-Fi				| 
+      | Reset Wi-Fi					| 
       | Thermostat Configuration 	| 
 
 
@@ -42,13 +42,13 @@ Scenario: As a user I want to verify that all HBB Settings options are available
 Given user launches and logs in to the Lyric application 
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Thermostat Settings" options: 
-      | Settings					|
+      | Settings						|
       | Manage Alerts				|
       | Fine Tune					|
       | Set filter reminder			|
       | Frost Protection Mode		|
       | Humidification				|
-      | Dehumidification			|
+      | Dehumidification				|
       | Adaptive recovery			|	
       | Ventilation					|
       | Emergency heat				| 
@@ -71,9 +71,9 @@ And following "Indoor Temperature Alert" option should be displayed
 When user changes the "Indoor Temperature Alert" to "OFF"
 Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Alerts" screen
 	  
-      | Options          		 | 
-      | Email for enabled alerts | 
-      | Alert for this range     |
+      | Options						| 
+      | Email for enabled alerts		| 
+      | Alert for this range			|
       
  
 #JasperNA, JasperEMEA, HB_Spruce     
@@ -104,7 +104,7 @@ And user should be able to receive push notification for Above range
 And user should be displayed with "Indoor Temperature" message on "Activity History" history screen
 
 | Options	| 
-| Below 	| 
+| Below 		| 
 | Above		|
 
 
@@ -131,9 +131,9 @@ Then "Indoor Humidity Alert" value should be updated to "ON" on "Thermostat Sett
 And following "Indoor Humidity Alert" option should be displayed
 When user changes the "Indoor Humidity Alert" to "OFF"
 Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts" screen
-	  | Options					 | 
-      | Email for enabled alerts | 
-      | Alert for this range     |
+	  | Options						| 
+      | Email for enabled alerts		| 
+      | Alert for this range			|
 
 #HB_Srpuce
 @ChangeAlertForThisRangeforHumididty
@@ -151,10 +151,8 @@ Then user should be able to select "Above Humidity Range"
 And user should be able to receive push notification for Above range
 And user should be displayed with "Indoor Humidity" message on "Activity History" history screen
 
-
-
 | Options	| 
-| Below 	| 
+| Below 		| 
 | Above		|
 
 
@@ -176,15 +174,15 @@ Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
 And user changes the "Set Filter Reminder" to "ON"
 Then the following "Set Filter Reminder" options should be disabled
-		| Options   				| 
+		| Options   					| 
 	    |Replace Filter Every 		| 
-    	|Filter Last Replaced  		| 
+    		|Filter Last Replaced  		| 
       	|Next Scheduled Reminder 	| 
  
 
  #JasperNA, HB-Spruce
 @changeReplacefilterandFilterLastReplacedOptions
-Scenario: As a user I should be able to set options Replace filter and Filter Last Replaced
+Scenario Outline: As a user I should be able to set options Replace filter and Filter Last Replaced
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
 And user changes the "Set Filter Reminder" to "ON"
@@ -222,7 +220,7 @@ Then user should not display "Setup Homekit & Siri" option
 
 #JasperNA, JasperEMEA, HB_Spruce
 @SetupHomekitAndSiriiOS
- Scenario: As a user i should be able to set homekit and siri using Custom location.
+ Scenario Outline: As a user i should be able to set homekit and siri using Custom location.
  Given user launches and logs in to the Lyric application 
  When user navigates to "Setup Homekit & Siri" screen from the "Dashboard" screen 
  Then user should be displayed with the "Looking for Device" Spinner
@@ -245,12 +243,12 @@ Then user should not display "Setup Homekit & Siri" option
  And user should be displayed with the "Identify" Option 
  
  Examples:
- 		|Custom Location	|
+ 		|Custom Location		|
       	| My Room			|
         
  #JasperNA, JasperEMEA, HB_Spruce
  @SetupHomekitAndSiriiOS
- Scenario: As a user i should be able to set homekit and siri using default location.
+ Scenario Outline: As a user i should be able to set homekit and siri using default location.
  Given user launches and logs in to the Lyric application 
  When user navigates to "Setup Homekit & Siri" screen from the "Dashboard" screen 
  Then user should be displayed with the "Looking for Device" Spinner
@@ -304,8 +302,8 @@ When user taps on "Learn how to setup homekit"
  Then user should be displayed with the "Setup Homekit & Siri" screen
 
 
-LYR-24321
-HomeKitMultilocationaccuont
+#LYR-24321
+#HomeKitMultilocationaccuont
 
 # Comfort settings 
 
@@ -351,7 +349,7 @@ Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" 
 
 #JasperNA, HB_Spruce
 @Autochangeoverwhenheatonlyoracoolonlyenabled
-Scenario: As a user I should not be able view Auto changeover when heatonly or coolonly enabled on my thermostat
+Scenario Outline: As a user I should not be able view Auto changeover when heatonly or coolonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 And user should not be displayed with "Auto Changeover" when <Modes> Are enabled in device
@@ -363,7 +361,7 @@ Examples:
 
 #JasperNA, HB_Spruce
 @EmergencyHeatwhencoolonlyenabled
-Scenario: As a user I should not be able view Auto changeover when coolonly enabled on my thermostat
+Scenario Outline: As a user I should not be able view Auto changeover when coolonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 And user should not be displayed with "EmergencyHeat" when <Mode> is enabled in device
@@ -374,7 +372,7 @@ Examples:
 
 #JasperNA, HB_Spruce
 @EmergencyHeatwhenHeatonlyenabled
-Scenario: As a user I should not be able view Auto changeover when Heatonly enabled on my thermostat
+Scenario Outline: As a user I should not be able view Auto changeover when Heatonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 And user should be displayed with "EmergencyHeat" when <Mode> is enabled in device
@@ -395,7 +393,7 @@ Then "Frost Protection Mode" value should be updated to "OFF" on "Thermostat Set
 #Hardware settings 
 
 
-HB_Spruce
+#HB_Spruce
 @HBBSpruceEnableHumidification
 Scenario: As a user I should be able to enable or disable Humidification on my thermostat
 Given user launches and logs in to the Lyric application
@@ -434,9 +432,9 @@ Scenario: As a user I should be able to view options for Sound
 Given user launches and logs in to the Lyric application
 When user navigates to "Sound" screen from the "Dashboard" screen
 Then the following "Sound" options should be displayed
-		| Options   | 
+		| Options	| 
 	    | Off 		| 
-    	| Low   	| 
+    		| Low   		| 
       	| Normal  	| 
 
 #HB_Spruce	  
@@ -669,17 +667,17 @@ Given user device is offline
 And user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 Then the following "Thermostat Settings" options should be disabled:
-      | Options				| 
-      | Adaptive recovery	|	
-      | Ventilation			|
-      | Emergency heat		| 
-      | Auto chnageover		|
-      | Fine tune			|
-      |Frost Protection Mode|
-      | Humidification		|
-      | Dehumdification		|
-      |Sleep Brightness Mode|
-      | Sound				|
+      | Options					| 
+      | Adaptive recovery		|	
+      | Ventilation				|
+      | Emergency heat			| 
+      | Auto chnageover			|
+      | Fine tune				|
+      | Frost Protection Mode	|
+      | Humidification			|
+      | Dehumdification			|
+      | Sleep Brightness Mode	|
+      | Sound					|
 
 #JasperEMEA
 @JasperEmeaSettingsDisabled
@@ -690,7 +688,7 @@ And user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 Then the following "Thermostat Settings" options should be disabled:
       |  Options			| 
       | Optimise			|	
-      | Ventilation			|
+      | Ventilation		|
      
 
 #JasperNA, JasperEMEA, HB_Spruce  

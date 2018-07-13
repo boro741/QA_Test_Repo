@@ -193,6 +193,35 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
+		case "CAMERA SETTINGS": {
+			try {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				for (int i = 0; i < data.getSize(); i++) {
+					String fieldToBeVerified = data.getData(i, "Options");
+					if (fieldToBeVerified.equalsIgnoreCase("SOUND DETECTION")) {
+						if (!cs.isSoundDetectionSectionIsEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Sound Detection section is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sound Detection section is enabled");
+						}
+					} else if (fieldToBeVerified.equalsIgnoreCase("CAMERA MICROPHONE")) {
+						if (!cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Microphone switch is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera Microphone switchis enabled");
+						}
+					}
+				}
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			}
+			break;
+		}
 		case "KEYFOB SETTINGS":
 		case "SENSOR SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

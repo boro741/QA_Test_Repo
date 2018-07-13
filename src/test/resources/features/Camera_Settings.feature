@@ -406,90 +406,117 @@ When user enables the "Camera Microphone"
 Then user should be displayed with "Sound Sensitivity" to "Low"
       
         
-@VerifyNightVisionSettings        @P2        @UIAutomatable
+@CameraSettingsVerifyNightVisionSettings        @P2        @UIAutomatable
 Scenario: As a user I should be able to set my Night Vision Settings so that my camera works even in night 
-Given user launches and logs in to the Lyric application 
+Given user launches and logs in to the Lyric application
 When user navigates to "Night Vision Settings" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Night Vision Settings" options: 
-| Settings | 
-| Auto     | 
-| On       | 
-| Off      | 
-When user selects "Auto" from "Night Vision Settings" screen 
-Then "Night Vision" value should be updated to "Auto" on "Night Vision Settings" screen 
+| NightVisionSettingsOptions		| 
+| Auto							| 
+| On								| 
+| Off							| 
+When user changes the "Night Vision Settings" to "Auto"
+Then "Night Vision" value should be updated to "Auto" on "Night Vision Settings" screen
 When user navigates to "Camera Settings" screen from the "Night Vision Settings" screen 
 Then "Night Vision" value should be updated to "Auto" on "Camera Settings" screen
 When user navigates to "Night Vision Settings" screen from the "Camera Settings" screen
 Then user should be displayed with the following "Night Vision Settings" options: 
-| Settings | 
-| Auto     | 
-| On       | 
-| Off      | 
-When user selects "On" from "Night Vision Settings" screen 
-Then "Night Vision" value should be updated to "On" on "Night Vision Settings" screen 
+| NightVisionSettingsOptions		| 
+| Auto							| 
+| On								| 
+| Off							|
+And "Night Vision" value should be updated to "Auto" on "Night Vision Settings" screen
+When user changes the "Night Vision Settings" to "On"
+Then "Night Vision" value should be updated to "On" on "Night Vision Settings" screen
 When user navigates to "Camera Settings" screen from the "Night Vision Settings" screen 
 Then "Night Vision" value should be updated to "On" on "Camera Settings" screen
 When user navigates to "Night Vision Settings" screen from the "Camera Settings" screen
 Then user should be displayed with the following "Night Vision Settings" options: 
-| Settings | 
-| Auto     | 
-| On       | 
-| Off      | 
-When user selects "Off" from "Night Vision Settings" screen 
-Then "Night Vision" value should be updated to "Off" on "Night Vision Settings" screen 
+| NightVisionSettingsOptions		| 
+| Auto							| 
+| On								| 
+| Off							|
+And "Night Vision" value should be updated to "On" on "Night Vision Settings" screen
+When user changes the "Night Vision Settings" to "Off"
+Then "Night Vision" value should be updated to "Off" on "Night Vision Settings" screen
 When user navigates to "Camera Settings" screen from the "Night Vision Settings" screen 
 Then "Night Vision" value should be updated to "Off" on "Camera Settings" screen
+When user navigates to "Night Vision Settings" screen from the "Camera Settings" screen
+Then user should be displayed with the following "Night Vision Settings" options: 
+| NightVisionSettingsOptions		| 
+| Auto							| 
+| On								| 
+| Off							|
+And "Night Vision" value should be updated to "Off" on "Night Vision Settings" screen
 #login with different mobiles for the status of configured options to verify the settings as user account level
   
   
-@VerifyVideoQualitySettings      @P2        @UIAutomatable
+@CameraSettingsVerifyVideoQualitySettings      @P2        @UIAutomatable
 Scenario: As a user I should be able to set my Video Quality Settings based on my network connection
 Given user launches and logs in to the Lyric application 
 When user navigates to "Video Quality Settings" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Video Quality Settings" options: 
-| Settings | 
-| Auto     | 
-| Low      | 
-| High     | 
-When user selects "Auto" from "Video Quality Settings" screen
+| VideoQualitySettingsOptions	| 
+| Auto     						| 
+| Low      						| 
+| High     						| 
+When user changes the "Video Quality Settings" to "Auto"
 Then "Video Quality" value should be updated to "Auto" on "Video Quality Settings" screen 
 When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
 Then "Video Quality" value should be updated to "Auto" on "Camera Settings" screen
 When user navigates to "Video Quality Settings" screen from the "Camera Settings" screen
 Then user should be displayed with the following "Video Quality Settings" options: 
-| Settings | 
-| Auto     | 
-| Low      | 
-| High     | 
-When user selects "Low" from "Night Vision Settings" screen 
+| VideoQualitySettingsOptions	| 
+| Auto     						| 
+| Low      						| 
+| High     						|
+And "Video Quality" value should be updated to "Auto" on "Video Quality Settings" screen
+When user changes the "Video Quality Settings" to "Low" 
 Then "Video Quality" value should be updated to "Low" on "Video Quality Settings" screen 
 When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
 Then "Video Quality" value should be updated to "Low" on "Camera Settings" screen
 When user navigates to "Video Quality Settings" screen from the "Camera Settings" screen
 Then user should be displayed with the following "Video Quality Settings" options: 
-| Settings | 
-| Auto     | 
-| Low      | 
-| High     | 
-When user selects "High" from "Video Quality Settings" screen 
+| VideoQualitySettingsOptions	| 
+| Auto     						| 
+| Low      						| 
+| High     						| 
+And "Video Quality" value should be updated to "Low" on "Video Quality Settings" screen
+When user changes the "Video Quality Settings" to "High"
 Then "Video Quality" value should be updated to "High" on "Video Quality Settings" screen 
 When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
 Then "Video Quality" value should be updated to "High" on "Camera Settings" screen
+When user navigates to "Video Quality Settings" screen from the "Camera Settings" screen
+Then user should be displayed with the following "Video Quality Settings" options: 
+| VideoQualitySettingsOptions	| 
+| Auto     						| 
+| Low      						| 
+| High     						|
+And "Video Quality" value should be updated to "High" on "Video Quality Settings" screen
 #login with different mobiles for the status of configured options to verify the settings as user account level
      
       
-@EnableDisableCameraMicrophone     @P2        @UIAutomatable
+@CameraSettingsEnableDisableCameraMicrophone     @P2        @UIAutomatable
 Scenario: As a user I should be able to turn off microphone on my demand to not listen the happenings in my premise and also shown with warning message on turning microphone off disables sound alert
-Given user camera is set to "on" through CHIL
-When user launches and logs in to the Lyric application
+#Given user camera is set to "on" through CHIL
+#When user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
+And user camera is set to "on"
 And user navigates to "Camera Settings" screen from the "Dashboard" screen
-And user disables the "Camera Microphone"
-Then user should be displayed with "Warning" popup
-When user "cancels" the "warning" popup
-Then user should be retained in "Camera Settings" screen
-When user "confirms" the "warning" popup
-Then user should be displayed with "Camera Microphone" disabled
-And user should be displayed with "Sound Detection" grayed out
+And user changes the "Camera Microphone" to "OFF"
+Then user should receive a "Turn Off Microphone" popup
+When user "cancels" the "Turn Off Microphone" popup
+Then user should be displayed with the "Camera Settings" screen
+When user changes the "Camera Microphone" to "OFF"
+Then user should receive a "Turn Off Microphone" popup
+When user "confirms" the "Turn Off Microphone" popup
+#Then user should be displayed with "Camera Microphone" disabled
+#And user should be displayed with "Sound Detection" grayed out
+Then the following "Camera Settings" options should be disabled:
+| Options				| 
+| Sound Detection		|
+| Camera Microphone		|
+
 
   
 @EnableDisableCameraLED     @P2        @NotAutomatable
@@ -538,8 +565,8 @@ Examples:
 		|State  |
 		|On     |
 		|Off    |
-		|Offline|
-		|Upgrade| 
+#		|Offline|
+#		|Upgrade| 
       
       
 @DeleteCameraNoBilling      @P2        @UIAutomatable
@@ -556,8 +583,8 @@ Examples:
 		|State  |
 		|On     |
 		|Off    |
-		|Offline|
-		|Upgrade|
+#		|Offline|
+#		|Upgrade|
       
       
 @DeleteCameraWithBilling       @P2        @UIAutomatable

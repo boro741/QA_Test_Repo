@@ -504,6 +504,47 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "NIGHT VISION SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "NightVisionSettingsOptions");
+				try {
+					if (cs.isNightVisionOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Night Vision screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
+								+ fieldToBeVerified + "' is not present in the list of Options in Night Vision screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "VIDEO QUALITY SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "VideoQualitySettingsOptions");
+				try {
+					if (cs.isVideoQualityOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Video Quality screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Security State: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Video Quality screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
 		case "SECURITY MODE": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
