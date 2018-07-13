@@ -46,7 +46,7 @@ public class IndoorMotionViewerActions extends Keyword {
 				sensorUtils.verifySensorState(testCase, inputs, "ISMV", "tamper cleared");
 			} 
 			else if (states.get(0).equalsIgnoreCase("enrolled")) {
-				DASSensorUtils.enrollMotionSensor(testCase, inputs);
+				//DASSensorUtils.enrollMotionSensor(testCase, inputs);
 			}
 			else if (states.get(0).equalsIgnoreCase("Motion detected")) {
 				inputs.setInputValue("MOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
