@@ -3,37 +3,31 @@ Feature: As an user I want to verify the Dashboard and primary card for JapserNA
 
 #Dashboard view 
 
-#HB, Spruce and JasperNA
+#HB, Spruce and JasperNA - Heat and Cool system
 @ViewDashboard
-Scenario Outline: As an user I want to verify the Dashboard view with respective system modes 
+Scenario Outline: As an user I want to verify the COMFORT DEVICE on Dashboard with system modes 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user navigates to "Dashboard" screen
-Then user should be displayed with "Thermostat stat name" with "XX INSIDE" tempr 
-And user should be displayed with enabled "UP stepper" and "Down stepper"
-And user should be displayed with setpoint value respective setpoint vlaue 
-And user should be displayed with the respective <Mode> Color 
+Then user has <Mode> system mode
+And user should be displayed with the "COMFORT DEVICE" screen
+And user logs out of the app
 Examples:
 |Mode|
 |Cool| 
 |Heat|
-|Auto|
-|Cool only|
-|Heat Only|
+|Off|
+
 
 #JasperEMEA
 @ViewDashboardEMEA
-Scenario Outline: As an user I want to verify the Dashboard view with system modes 
+Scenario Outline: As an user I want to verify the COMFORT DEVICE on Dashboard with system modes 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
-When user navigates to "Dashboard" screen
-Then user should be displayed with "Thermostat stat name" with "XX INSIDE" tempr 
-And user should be displayed with enabled "UP stepper" and "Down stepper"
-And user should be displayed with setpoint value respective setpoint vlaue 
-And user should be displayed with the respective <Mode> Color 
+And user should be displayed with the "COMFORT DEVICE" screen
+And user logs out of the app
 Examples:
 |Mode|
-|Heat |
+|Heat|
+|Off|
 
 #HB, Spruce, JasperNA, JasperEMEA
 @ViewDashboardOFF

@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 
 import io.appium.java_client.MobileElement;
@@ -126,35 +127,71 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO HOME": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to HOME";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to HOME";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO AWAY": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to Away";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Away";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO NIGHT": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to Night";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Night";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO OFF": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to OFF";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to OFF";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "ALARM": {
@@ -188,7 +225,9 @@ public class ActionOnPushNotification extends Keyword {
 					"'" + notification + "' Push Notification not present");
 			DASNotificationUtils.closeNotifications(testCase);
 			testCase.getMobileDriver().launchApp();
+			LyricUtils.verifyLoginSuccessful(testCase, inputs, false);
 			Keyword.ReportStep_Pass(testCase, "Launching app to continue testing");
+			
 		}
 
 		return flag;
