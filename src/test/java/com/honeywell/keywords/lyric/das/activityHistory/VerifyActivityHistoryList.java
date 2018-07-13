@@ -11,8 +11,10 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AlarmScreen;
 import com.honeywell.account.information.LocationInformation;
 
 public class VerifyActivityHistoryList extends Keyword {
@@ -64,6 +66,14 @@ public class VerifyActivityHistoryList extends Keyword {
 					inputs.setInputValue("USERID", inputs.getInputValue("INVITEDUSER"));
 				}
 				switch (dataTable.getData(i, "Elements").trim().toUpperCase()) {
+				case "INDOOR MOTION VIEWER CLIP":{
+					expectedActivityHeader = "Motion detected";
+					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+					deviceLocationTime = inputs.getInputValue("INDOORMOTION_DETECTED_TIME");
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
+					flag= alarmScreen.isMotionDetectedVideoClipDisplayed();
+					break;
+				}
 				case "MOTION SENSOR TAMEPERED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";

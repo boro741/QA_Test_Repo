@@ -1881,95 +1881,106 @@ Given user is set to "Home" mode through CHIL
    
     @MotionViewer_AwayMode_SwitchingToHomeFromEntryDelay @P1
     Scenario: As a user when motion detected after exit delay I should be able to switch to home from entry delay screen (check clip in activity log)
+   Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
-      And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
-    And user switches from "Home" to "Away"
-     When timer ends on user device
-    And user <type> motion viewer detects motion
+     And timer ends on user device
+     When user "indoor motion viewer" detects "motion"
 	 When user selects "Switch to Home" from "Entry delay" screen
-	 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 	 Then user status should be set to "Home"
      And user "opens" activity log
       Then verify the following activity log:
        | Elements                 | 
-       | ISMV motion detected at Away mode|
+       | Indoor motion viewer clip|
        | Switched to Home by app |
       And user "closes" activity log
-      When user MotionViewer "closed"
+       Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
+     When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+     Then user should see the "ISMV" status as "Standby" on the "Sensor Status"
       
-      @MotionViewer_AwayMode_SwitchingToNightFromPushNotification @P2
+      @MotionViewer_AwayMode_SwitchingToNightFromEntryDelayThroughPushNotification @P2
       Scenario: As a user when motion detected after exit delay I should be able to switch to night from entry delay screen  (check clip in activity log)
-      Given user launches and logs in to the Lyric application
-      And user clears all push notifications
+      Given user is set to "Away" mode through CHIL
+     Given user launches and logs in to the Lyric application
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      When user switches from "Home" to "Away"
-      When timer ends on user device
-      # And user mobile screen is locked
-      And user "ismv" motion viewer detects motion
+     And timer ends on user device
+     When user "indoor motion viewer" detects "motion"
       When user selects the "ISMV motion detected" push notification
       #  Then user should be displayed with "Mobile locked" screen
       When user selects "Switch to Night" from "Entry delay" screen
-	   And user navigates to "Security Solution card" screen from the "Dashboard" screen 
    #  When user enters "Mobile Passcode" 
       When timer ends on user device
 	 Then user status should be set to "Night"
      When user "opens" activity log
       Then verify the following activity log:
        | Elements                 | 
-       | ISMV motion detected at Away mode|
+       | Indoor motion viewer clip|
        | Switched to Night by app |
+       And user "closes" activity log
+        Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
+     When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+     Then user should see the "ISMV" status as "Standby" on the "Sensor Status"
+       
+        
       
       @MotionViewer_OpenAfterAwayExitDelay_AttentionFromEntryDelay @P2
       Scenario: As a user when ISMV motion is detected in Away mode and attention from entry delay screen is selected on seeing mischeif activity, system should trigger alarm   (check clip in alarm history)
-      Given user launches and logs in to the Lyric application
-      And user clears all push notifications
+      Given user is set to "Away" mode through CHIL
+     Given user launches and logs in to the Lyric application
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      When user switches from "Home" to "Away"
-      When timer ends on user device
-      And user "ismv" motion viewer detects motion
+     And timer ends on user device
+     When user "indoor motion viewer" detects "motion"
      When user selects "Attention" from "Entry delay" screen
 	  Then user should be displayed with the "Alarm" screen
      Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
      Then user receives a "Alarm cancelled" email
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
       Then verify the following activity log:
        | Elements                 | 
-       | ISMV motion detected at Away mode|
-       | ISMV motion Alarm|
+       | Indoor motion viewer clip|
        | Switched to Home by app |
        
        
     @MotionViewer_OpenAfterAwayExitDelay_AlarmWhenNoActionOnEntryDelay @P1
     Scenario: As a user when ISMV motion is detected in Away mode and no action taken from entry delay screen, system should alarm  
      Given user is set to "Away" mode through CHIL
-     And user launches and logs in to the Lyric application
-     And user clears all push notifications
-     And user navigates to "Security Solution card" screen from the "Dashboard" screen
+     Given user launches and logs in to the Lyric application
+     When user navigates to "Security Solution card" screen from the "Dashboard" screen
      And timer ends on user device
-     #And user minimizes the application
-     #user should be treated as intruder in this scenario
-      And user "ismv" motion viewer detects motion
-      And timer ends on user device
+     When user "indoor motion viewer" detects "motion"
+     When user selects "no options" from "Entry delay" screen
      Then user should be displayed with the "Alarm" screen
      When user selects "dismiss alarm" from "alarm" screen
-      Then user should be displayed with the "Security Solution card" screen
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
-     Then verify the following activity log:
+      Then verify the following activity log:
        | Elements                 | 
-        | ISMV motion detected at Away mode|
-         | ISMV motion Alarm|
-       | Alarm Dismissed |
-       | Switched to Home by app|
+       | Indoor motion viewer clip|
+       | Switched to Home by app |
      And user "closes" activity log
+     
+     
+     @MotionViewerSensor_TamperDuringNightModeExitDelay @P4
+    Scenario: As a user when the Indoor MotionViewer is tampered in Night exit delay I should be notified with alarm
+    Given user sets the entry/exit timer to "60" seconds
+      And user is set to "Night" mode through CHIL
+     And user launches and logs in to the Lyric application
+      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+       #And user minimizes the application
+      #And user mobile screen is locked
+     When user indoor motion viewer "Tampered"
+     And user is set to "HOME" mode through CHIL
+   	  When user indoor motion viewer "Tamper Restored"
+     When user "opens" activity log
+      Then verify the following activity log:
+       | Elements                 | 
+       |Indoor motion viewer TAMPERED AT NIGHT MODE|
+       |Indoor motion viewer TAMPER CLEARED AT NIGHT MODE|
        
       
-     @MotionViewer_VideoClip @P2
+     @MotionViewer_VideoClip @P2 @Pending
      Scenario: As a user when motion detected after exit delay irrespective of exit timer , I should have clips generated for 30sec (landscape, download)
      Given user sets the entry/exit timer to <timerValue> seconds
       And user is set to "Away" mode through CHIL
@@ -1982,26 +1993,7 @@ Given user is set to "Home" mode through CHIL
       And user should be played with video of 5 seconds prealert
     
      
-     @MotionViewerAlarm_ClipGenerated_EntryDelay_Alarm  @P1
-    Scenario: As a user I should be able to view the clip generated in motion viewer 
-     Given user is set to "Away" mode through CHIL
-     And user launches and logs in to the Lyric application
-     And user clears all push notifications
-     When  user motion viewer triggered
-     And system went into alarm mode
-     Then view video clips generated for alarm on Activity history screen
-     #only 1 video should be played
-     When user selects "dismiss alarm" from alarm screen
-     Then view video clips generated for entry delay on Activity log screen
-     And user navigates to "Security Solution card" screen from the "Dashboard" screen
-     Then user status should be set to "Home"
-      Then view video clips generated for entry delay on Activity log screen
-     Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
-     When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     Then user should see the "ISMV" status as "Inactive" on the "Sensor Status"
-     # verify alarm history events
-     
-     @MotionViewerAlarm_Clipgenerated_Offline  @P2
+     @MotionViewerAlarm_Clipgenerated_Offline  @P2 @notAutomatablePanelOffline
     Scenario: As a user I should be able to view the clip generated in indoor motion viewer during panel offline
      Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
@@ -2026,7 +2018,7 @@ Given user is set to "Home" mode through CHIL
      # verify alarm history events
      
      
-    @ISMV_OSMV_MotionDetectedInAwayModeAtSameTime @P4 
+    @ISMV_OSMV_MotionDetectedInAwayModeAtSameTime @P4 @notusecase
     Scenario: As a user when motion detected by ISMV and OSMV after exit delay at same time then user should be able to shown ISMV name in entry delay screen
    # Trigger 2 ISMV or OSMV sensor, entry delay screen should show 1st sensor only till entry delay completes
       Given user is set to "Away" mode through CHIL
@@ -2053,26 +2045,7 @@ Given user is set to "Home" mode through CHIL
       Then verify no waiting screen is displayed
       
       
-    @MotionViewerSensor_TamperDuringNightModeExitDelay @P4
-    Scenario: As a user when the Indoor MotionViewer is tampered in Night exit delay I should be notified with alarm
-    Given user sets the entry/exit timer to "60" seconds
-      And user is set to "Night" mode through CHIL
-     And user launches and logs in to the Lyric application
-      And user clears all push notifications
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
-       #And user minimizes the application
-      #And user mobile screen is locked
-     When user MotionViewer "Tampered"
-      #When user selects the "Alarm" push notification
-   	 Then user should be displayed with the "Alarm" screen
-   	  When user MotionViewer "Tamper Restored"
-     When user selects "dismiss alarm" from "alarm" screen
-     When user "opens" activity log
-      Then verify the following activity log:
-       | Elements                 | 
-       |MotionViewer SENSOR TAMPERED AT NIGHT MODE|
-       |MotionViewer SENSOR ALARM AT NIGHT MODE |
-       |MotionViewer SENSOR TAMPER CLEARED AT NIGHT MODE|
+    
        
        
        @AwayMode_MotiondetectedByOSMV_DoorOpened_MotiondetectedByMotionSensor_MotiondetectedByISMV_WindowOpened @P1

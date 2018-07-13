@@ -205,6 +205,31 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean tamperISMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("ISMV_TAMPERED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			//TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	public static boolean tamperClearISMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("ISMV_TAMPER_CLEARED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			//TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 	public static boolean enrollKeyfob(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -277,7 +302,10 @@ public class DASSensorUtils {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		} else if (sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-		} else {
+		} else if (sensor.equalsIgnoreCase("ISMV")) {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+		} 
+		else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
 		}
 
@@ -338,10 +366,31 @@ public class DASSensorUtils {
 								flag = flag & settingScreen.clickOnOkTamperClearPopup();
 							}
 						}
-						inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
-								LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-						Keyword.ReportStep_Pass(testCase,
-								"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
+						if (sensor.equalsIgnoreCase("Door")) {
+							inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
+									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							Keyword.ReportStep_Pass(testCase,
+									"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
+						} else if (sensor.equalsIgnoreCase("window")) {
+							inputs.setInputValue("WINDOW_TAMPER_CLEARED_TIME",
+									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							Keyword.ReportStep_Pass(testCase,
+									"WINDOW_TAMPER_CLEARED_TIME " + inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME"));
+						} else if (sensor.equalsIgnoreCase("motion sensor")) {
+							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+							inputs.setInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME",
+									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							Keyword.ReportStep_Pass(testCase,
+									"MOTIONSENSOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
+						} else if (sensor.equalsIgnoreCase("INDOOR motion viewer")) {
+							sensorState="Standby";
+							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+							inputs.setInputValue("ISMV_TAMPER_CLEARED_TIME",
+									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							Keyword.ReportStep_Pass(testCase,
+									"ISMV_TAMPER_CLEARED_TIME " + inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME"));
+						} 
+						
 					}
 
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i

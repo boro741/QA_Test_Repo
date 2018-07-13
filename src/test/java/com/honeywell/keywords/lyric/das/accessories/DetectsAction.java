@@ -49,6 +49,13 @@ public class DetectsAction extends Keyword {
 				}else {
 					flag=false;
 				}
+			}else if (parameters.get(0).equalsIgnoreCase("indoor motion viewer")) {
+				if (parameters.get(1).equalsIgnoreCase("Motion")) {
+					inputs.setInputValue("INDOORMOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					System.out.println("Move the object in front of indoor motion viewer");
+				}else {
+					flag=false;
+				}
 			}
 			if (flag) {
 				Keyword.ReportStep_Pass(testCase,"Detected motion");
