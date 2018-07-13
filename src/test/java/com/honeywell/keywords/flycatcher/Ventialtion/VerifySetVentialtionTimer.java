@@ -10,17 +10,17 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.FlyCatcherPrimaryCard;
 
-public class ChangeVentilationMode extends Keyword {
-
-
+public class VerifySetVentialtionTimer extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	ArrayList<String> exampleData;
 	public boolean flag = true;
 
-	public ChangeVentilationMode(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public VerifySetVentialtionTimer(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		super("Change Ventilation Mode");
 		this.inputs = inputs;
 		this.testCase = testCase;
@@ -34,44 +34,27 @@ public class ChangeVentilationMode extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user changes Vantilation mode to \"(.+)\" with \"(.+) value$")
+	@KeywordStep(gherkins = "^Ventilation Timer is Set to \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			String mode = exampleData.get(0);
-			String expectedMode = " ";
-			String TimerValue = exampleData.get(1);
+			int ExpectedtimerValue = Integer.parseInt(exampleData.get(0));
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String allowedModes = statInfo.getThermoStatVentilationMode();
-			if (mode.equalsIgnoreCase("On")) {
-				if (!allowedModes.contains("On")) {
-					expectedMode = "On";
-				} else {
+			int ventilationsTimer = statInfo.getVentilationTimerValue();
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase); 
+			if (fly.isVentilationTimerText()){
+				int AppValue = fly.getVentilationTimeValue();
+				if ( AppValue == ventilationsTimer && ExpectedtimerValue == AppValue){
 					Keyword.ReportStep_Pass(testCase,
-							"Change Ventilation Mode : Mode is already in On");
+							"Ventialtion timer Value is changed to " + ExpectedtimerValue);
 					return true;
 				}
-			} else if (mode.equalsIgnoreCase("Auto")) {
-				if (!allowedModes.equalsIgnoreCase("Auto")) {
-					expectedMode = "Auto";
-				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Change Ventilation Mode : Mode is already in Auto");
-					return true;
-				}
-			} else if (mode.equalsIgnoreCase("off")) {
-				if (!allowedModes.contains("off")) {
-					expectedMode = "off";
-				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Change Ventilation Mode : Mode is already in Off");
-					return true;
-				}
-			} else {
+			} else{
 				flag = false;
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Invalid input : " + mode);
+				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						" Ventilation timer is not displayed ");
 			}
-			flag = flag & FlyCatcherVentialtion.changeVentilationMode(testCase, inputs, expectedMode,TimerValue);
+			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+
 		} catch (Exception e){
 
 		}
@@ -88,14 +71,13 @@ public class ChangeVentilationMode extends Keyword {
 	@Override
 	@AfterKeyword
 	public boolean postCondition() {
-
 		try {
 			if (flag) {
-				ReportStep_Pass(testCase, "Change System Mode : Keyword successfully executed");
+				ReportStep_Pass(testCase, "Verify Vewntilation Timer value : Keyword successfully executed");
 			} else {
 				flag = false;
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Change System Mode : Keyword failed during execution");
+						"Verify Vewntilation Timer value : Keyword failed during execution");
 			}
 		} catch (Exception e) {
 			flag = false;

@@ -962,6 +962,48 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
+	
+	public int SetVentilationTimer(long locationID, String deviceID, int VentilationTimer) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/device/%s/ventilation/settings", locationID, deviceID);
+				String headerData = String.format("{\"ventilationBoostTimer\":\"%s\",\"ventilationBoostTimerReset\":\"%s\"}", VentilationTimer,"false");
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int ResetVentilationTimer(long locationID, String deviceID) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/device/%s/ventilation/settings", locationID, deviceID);
+				System.out.println("url : " + url);
+				String headerData = String.format("{\"ventilationBoostTimer\":\"%s\",\"ventilationBoostTimerReset\":\"%s\"}", 0,true);
+				System.out.println("headerData : " + headerData);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	
 	public int setCoolThermostatStatus(long locationID, String deviceID) {
 		int result = -1;
 		try {

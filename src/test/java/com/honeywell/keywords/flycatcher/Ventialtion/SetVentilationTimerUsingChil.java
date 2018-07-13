@@ -2,6 +2,7 @@ package com.honeywell.keywords.flycatcher.Ventialtion;
 
 import java.util.ArrayList;
 
+import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -11,7 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 
-public class ChangeVentilationMode extends Keyword {
+public class SetVentilationTimerUsingChil extends Keyword {
 
 
 
@@ -19,9 +20,8 @@ public class ChangeVentilationMode extends Keyword {
 	private TestCaseInputs inputs;
 	ArrayList<String> exampleData;
 	public boolean flag = true;
-
-	public ChangeVentilationMode(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
-		super("Change Ventilation Mode");
+	public SetVentilationTimerUsingChil(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+		super("Set Ventilation Timer");
 		this.inputs = inputs;
 		this.testCase = testCase;
 		this.exampleData = exampleData;
@@ -34,44 +34,32 @@ public class ChangeVentilationMode extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user changes Vantilation mode to \"(.+)\" with \"(.+) value$")
+	@KeywordStep(gherkins = "^user sets Ventilation Timer \"(.+)\"$")
 	public boolean keywordSteps() {
-		try {
-			String mode = exampleData.get(0);
-			String expectedMode = " ";
-			String TimerValue = exampleData.get(1);
+		try 
+		{
+			@SuppressWarnings("resource")
+			CHILUtil chUtil = new CHILUtil(inputs);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String allowedModes = statInfo.getThermoStatVentilationMode();
-			if (mode.equalsIgnoreCase("On")) {
-				if (!allowedModes.contains("On")) {
-					expectedMode = "On";
-				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Change Ventilation Mode : Mode is already in On");
-					return true;
+			String deviceID=statInfo.getDeviceID();
+			int VentilationTimer = Integer.parseInt(exampleData.get(0));
+			try {
+				if (chUtil.getConnection()) {
+					if (chUtil.SetVentilationTimer(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
+							deviceID,VentilationTimer) == 400) {
+						Keyword.ReportStep_Pass(testCase,
+								"Ventilation Timer Using CHIL : Successfully set Ventilation Timer to "+ VentilationTimer +" through CHIL");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+								"entilation Timer Using CHIL : Failed to set Ventilation Timer to  "+ VentilationTimer +" through CHIL");
+					}
 				}
-			} else if (mode.equalsIgnoreCase("Auto")) {
-				if (!allowedModes.equalsIgnoreCase("Auto")) {
-					expectedMode = "Auto";
-				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Change Ventilation Mode : Mode is already in Auto");
-					return true;
-				}
-			} else if (mode.equalsIgnoreCase("off")) {
-				if (!allowedModes.contains("off")) {
-					expectedMode = "off";
-				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Change Ventilation Mode : Mode is already in Off");
-					return true;
-				}
-			} else {
+			} catch (Exception e) {
 				flag = false;
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Invalid input : " + mode);
+						"Error Occured : " + e.getMessage());
 			}
-			flag = flag & FlyCatcherVentialtion.changeVentilationMode(testCase, inputs, expectedMode,TimerValue);
 		} catch (Exception e){
 
 		}
@@ -91,16 +79,16 @@ public class ChangeVentilationMode extends Keyword {
 
 		try {
 			if (flag) {
-				ReportStep_Pass(testCase, "Change System Mode : Keyword successfully executed");
+				ReportStep_Pass(testCase, "Reset Ventilation Timer : Keyword successfully executed");
 			} else {
 				flag = false;
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Change System Mode : Keyword failed during execution");
+						"Set Ventilation Timer : Keyword failed during execution");
 			}
 		} catch (Exception e) {
 			flag = false;
 			ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Change System Mode : Error Occured while executing post-condition : " + e.getMessage());
+					"Set Ventilation Timer : Error Occured while executing post-condition : " + e.getMessage());
 		}
 		return flag;
 	}

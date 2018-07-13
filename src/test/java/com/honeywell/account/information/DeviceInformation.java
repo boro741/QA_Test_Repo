@@ -129,7 +129,7 @@ public class DeviceInformation {
 		}
 		return allowedModes;
 	}
-	
+
 	public String getThermoStatVentilationMode() throws Exception {
 		String VentilationMode = "";
 		if (deviceInformation != null) {
@@ -139,7 +139,17 @@ public class DeviceInformation {
 		}
 		return VentilationMode;
 	}
-	
+
+	public int getVentilationTimerValue() throws Exception {
+		int VentilationTimerValue = 0;
+		if (deviceInformation != null) {
+			VentilationTimerValue = deviceInformation.getJSONObject("settings").getJSONObject("ventilationModeSettings").getInt("ventilationBoostTimer");
+		}else{
+			throw new Exception("Device Information not found");
+		}
+		return VentilationTimerValue;
+	}
+
 
 	public HashMap<String, String> getDeviceMaxMinSetPoints() throws Exception {
 		HashMap<String, String> setPoints = new HashMap<String, String>();
@@ -469,7 +479,7 @@ public class DeviceInformation {
 		}
 		return heatSetPoints;
 	}
-	
+
 	public String getCurrentSchedulePeriod() {
 		String schedulePeriod = "";
 		if (deviceInformation != null) {
@@ -489,7 +499,7 @@ public class DeviceInformation {
 		}
 		return schedulePeriod;
 	}
-	
+
 	public String getThermostatSetPointsStatus() {
 		String status = "";
 		if (getThermostatType().equalsIgnoreCase("Jasper")) {
@@ -539,7 +549,7 @@ public class DeviceInformation {
 		}
 		return startTime;
 	}
-	
+
 	public boolean isVacationRunning() {
 		boolean status;
 		if (deviceInformation != null) {
@@ -556,7 +566,7 @@ public class DeviceInformation {
 		}
 		return status;
 	}
-	
+
 	public String getVacationEndTime() {
 		String endTime = "";
 		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
