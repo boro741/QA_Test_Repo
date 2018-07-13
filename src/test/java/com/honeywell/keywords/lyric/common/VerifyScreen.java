@@ -687,7 +687,7 @@ public class VerifyScreen extends Keyword {
 				Dashboard  ds = new Dashboard(testCase);
 				flag = flag & ds.VerifyComfortDeviceStatusInDashBoard(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed in DashBoard");
 				}
 				break;
 				

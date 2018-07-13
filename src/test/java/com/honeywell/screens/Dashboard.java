@@ -299,7 +299,7 @@ public class Dashboard extends MobileScreens {
 			
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
 					"DashboardIconText");
-			for (int i = 0; i <= dashboardIconText.size(); i++) {
+			for (int i = 0; i < dashboardIconText.size(); i++) {
 				String displayedText = "";
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					displayedText = dashboardIconText.get(i).getText();
@@ -310,7 +310,7 @@ public class Dashboard extends MobileScreens {
 					}
 				}
 				
-				flag = flag & displayedText.toUpperCase().contains(expectedDevice);
+				flag = flag & displayedText.contains(expectedDevice);
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase,
 							"Device name matches on Dashboard");
