@@ -138,7 +138,7 @@ public class AlarmScreen extends MobileScreens {
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
 						System.out.println(History_BottomArrow.getLocation().getY());
 						System.out.println(Alarm.getLocation().getY());
-						action.press(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).getLocation().getX(),driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).getLocation().getY()).moveTo(0, Alarm.getLocation().getY()).release().perform();
+						action.press(History_BottomArrow.getLocation().getX(),History_BottomArrow.getLocation().getY()).moveTo(0, -History_BottomArrow.getLocation().getY()+Alarm.getLocation().getY()).release().perform();
 					}
 				}
 
@@ -149,6 +149,40 @@ public class AlarmScreen extends MobileScreens {
 		}
 		return flag;
 
+	}
+	
+	public boolean closeAlarmHistory() throws Exception {
+		boolean flag = true;
+		WebElement activityDay = null;
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			activityDay = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollDown");
+			action = action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+			if (action != null) {
+				Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to close activity logs");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollDown")) {
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "AcitvityLogScrollDown");
+			} else {
+				try {
+					// MobileElement activityLogDownElement = null;
+					CustomDriver driver = testCase.getMobileDriver();
+					if (driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).isEnabled()) {
+						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
+						action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+						Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
+					}
+				} catch (NoSuchElementException e) {
+					flag = false;
+					throw new Exception(e + "Activity log scroll down icon is not displayed");
+				}
+			}
+		}
+		return flag;
 	}
 
 
