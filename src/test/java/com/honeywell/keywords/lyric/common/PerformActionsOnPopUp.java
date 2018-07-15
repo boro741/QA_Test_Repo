@@ -615,6 +615,28 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible()) {
+					flag = flag & bs.clickOnCancelButtonInGeofenceSettingsPopup();
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isGeofencePopUpVisible() && bs.isOKButtonInGeofenceSettingsPopupVisible()) {
+					flag = flag & bs.clickOnOKButtonInGeofenceSettingsPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("UNABLE TO CONNECT TO BASE STATION")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON OK IN": {

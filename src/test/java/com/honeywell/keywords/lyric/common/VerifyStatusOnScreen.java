@@ -15,11 +15,14 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
+import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -53,21 +56,40 @@ public class VerifyStatusOnScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(2).toUpperCase()) {
 		case "CAMERA SOLUTION CARD":
-		case "CAMERA": {
+		case "CAMERA":{
 			CameraScreen camStatus = new CameraScreen(testCase);
-			String value = expectedScreen.get(1).toUpperCase();
-			switch (value) {
-			case "ON": {
-				if (camStatus.isCameraToggleisOn(testCase)) {
-					return true;
-				} else {
-					return false;
+			String value=expectedScreen.get(1).toUpperCase();
+			
+			if(!camStatus.isCameraToggleButtonExists(testCase)) {
+				String cameraName = inputs.getInputValue("LOCATION1_CAMERA1_NAME");
+				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+				try {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, cameraName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					
 				}
 			}
-			default:{
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+			
+			switch(value) {
+			case "ON":{				
+				
+				
+				if(camStatus.isCameraToggleisOn(testCase)) {					
+					return flag;
+				}
+				else { 
+					return flag;
+				}			
+				
+			}
+			case "OFF":{
+				if(camStatus.isCameraToggleisOff(testCase)) {
+					return flag;
+				}
+				else { 
+					return flag;
+				}				
 			}
 			}
 

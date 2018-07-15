@@ -10,7 +10,11 @@ import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.SecondaryCardSettings;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class DASSettingsUtils {
 
@@ -193,13 +197,11 @@ public class DASSettingsUtils {
 	 */
 	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase) {
 		boolean flag = true;
-		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-			if (pc.isCogIconVisible()) {
-				flag = flag & pc.clickOnCogIcon();
-			}
+			Thread.sleep(2000);
+			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
@@ -207,6 +209,143 @@ public class DASSettingsUtils {
 		return flag;
 	}
 	
+	public static boolean navigateFromDashboardScreenToSecuritySolutionCardScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			Thread.sleep(2000);
+			
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromSecuritySettingsToSecuritySolutionCard(TestCases testCase) {
+		boolean flag = true;
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+
+		try {
+			if (bs.isBackButtonVisible()) {
+				flag = flag & bs.clickOnBackButton();
+			} else {
+				flag = false;
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromSecuritySolutionCardToCameraSolutionCard(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		SecuritySolutionCardScreen securityScreen = new SecuritySolutionCardScreen(testCase);
+
+		try {
+
+			if (securityScreen.isBackButtonVisible()) {
+				flag = flag & securityScreen.clickOnBackButton();
+
+				if (inputs.isInputAvailable("LOCATION1_CAMERA1_NAME")) {
+					String cameraName = inputs.getInputValue("LOCATION1_CAMERA1_NAME");
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, cameraName);
+				} else {
+					flag = false;
+				}
+
+			} else {
+				flag = false;
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean EnableGlobalGeofence(TestCases testCase) {
+		boolean flag = true;
+		Dashboard d = new Dashboard(testCase);
+		SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+		GeofenceSettings geoScreen = new GeofenceSettings(testCase);
+		try {
+			if (d.isGlobalDrawerButtonVisible()) {
+				flag = flag & d.clickOnGlobalDrawerButton();
+				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");			
+			}				
+
+			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on global geofence toggle");
+			}
+			Thread.sleep(3000);
+
+			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on global geofence alert toggle");
+			}
+			
+			Thread.sleep(2000);
+
+			if (geoScreen.isclickOnBackButtonVisible()) {
+				flag = flag & geoScreen.clickOnBackButton();
+				Thread.sleep(2000);
+				if (sc.isclickOnBackButtonVisible()) {
+					flag = flag & sc.clickOnBackButton();
+				}
+
+			}
+
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	public static boolean DisableGlobalGeofence(TestCases testCase) {
+		boolean flag = true;
+		Dashboard d = new Dashboard(testCase);
+		SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+
+		GeofenceSettings geoScreen = new GeofenceSettings(testCase);
+		try {
+			if (d.isGlobalDrawerButtonVisible()) {
+				flag = flag & d.clickOnGlobalDrawerButton();
+				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");			
+			}		
+			Thread.sleep(3000);
+
+			
+			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION)) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on global geofence toggle");
+			}
+
+			
+			Thread.sleep(3000);
+			if (geoScreen.isclickOnBackButtonVisible()) {
+				flag = flag & geoScreen.clickOnBackButton();
+
+				if (sc.isclickOnBackButtonVisible()) {
+					flag = flag & sc.clickOnBackButton();
+				}
+				
+			}
+
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 	/**
 	 * <h1>Navigate from Dashboard to Camera Settings Screen</h1>
 	 * <p>

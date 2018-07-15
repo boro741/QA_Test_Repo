@@ -18,6 +18,10 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 
 import io.appium.java_client.TouchAction;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.GeofenceSettings;
+
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -68,7 +72,50 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
+			}else if (parameters.get(0).equalsIgnoreCase("Geofencing Option")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					flag = flag & DASSettingsUtils.EnableGlobalGeofence(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					Thread.sleep(2000);
+					if (bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");
+					} else {
+						flag = flag & bs.toggleGeofencingSwitch(testCase);
+					}
+
+					flag = flag & DASSettingsUtils.navigateFromSecuritySettingsToSecuritySolutionCard(testCase);
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					Thread.sleep(3000);
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					Thread.sleep(2000);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					Thread.sleep(2000);
+					if (!bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofence is already disabled on the settings page");
+					} else {
+						flag = flag & bs.toggleGeofencingSwitch(testCase);
+					}
+
+
+				} else if (parameters.get(1).equalsIgnoreCase("ON when Global Geofence disabled")) {
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					Thread.sleep(2000);
+					flag = flag & DASSettingsUtils.DisableGlobalGeofence(testCase);
+					Thread.sleep(2000);
+					if (!bs.isGeofencingSwitchEnabled(testCase)) {
+						bs.toggleGeofencingSwitch(testCase);
+						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");						
+						
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + "Failed to disable Geofence settings when Global geofence got disabled");
+					}
+
+				}
+			}  else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {

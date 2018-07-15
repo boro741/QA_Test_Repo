@@ -91,6 +91,18 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Paused Streaming is not displayed");
 				}
 				break;
+			}case "Feature Setup Completed":{
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				boolean b = bs.isFeatureSetupScreenDisplayed();
+				if(b) {
+					Keyword.ReportStep_Pass(testCase, "Feature Setup Completed is displayed");
+
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Feature Setup Completed is not displayed");
+				}
+			break;
 			}
 			case "ALARM HISTORY": {
 				AlarmScreen click = new AlarmScreen(testCase);

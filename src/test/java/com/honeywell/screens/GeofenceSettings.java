@@ -68,5 +68,13 @@ public class GeofenceSettings extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SecondaryCardSettings");
 	}
-
+	
+	public boolean isclickOnBackButtonVisible()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton",3);
+	}
+	
+	public boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
 }

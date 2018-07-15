@@ -747,6 +747,29 @@ public class SelectElementOnAScreen extends Keyword {
 					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
+			}else if(parameters.get(1).equalsIgnoreCase("Setup Amazon Alexa")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "Sign In":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSignInVisible()) {
+						flag= flag & bs.clickOnAmazonSignInButton();
+
+					}
+					break;
+				}
+				}
+			}
+			else if(parameters.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "Sign Out":{
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSignOutVisible()) {
+						flag= flag & bs.clickOnAmazonSignOutVisible();
+							Thread.sleep(3000);
+					}
+					break;
+				}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
