@@ -47,10 +47,10 @@ public class CreateScheduleWithMinMaxValues extends Keyword {
 			if (exampleData.get(0).equalsIgnoreCase("Geofence")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
 				inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "Yes");
-			} else if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
-			} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			}

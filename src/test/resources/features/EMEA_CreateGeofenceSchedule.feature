@@ -202,7 +202,7 @@ Examples:
 |Away|
 
 @EMEA_CreateGeofenceScheduleInOffMode
-Scenario : As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
+Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "Geofence" schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application

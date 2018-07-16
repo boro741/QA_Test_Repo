@@ -7,11 +7,11 @@ Feature: Jasper,Sprouce and Flycatcher Scheduling
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value for systems 
 Given user thermostat is set to <scheduling> schedule  
 And user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
+And user navigates to "SCHEDULING" screen from the "Dashboard" screen
 When user creates <ScheduleType> schedule with default schedule value
-Then  <ScheduleType> scheduling gets activated
-And user navigates to "Primary card" screen from the "Scheduling" screen
-Then user is displayed with "Following scheduling"
+Then <ScheduleType> scheduling gets activated
+#And user navigates to "Primary card" screen from the "Scheduling" screen
+#Then user is displayed with "Following scheduling"
 
     Examples: 
       | scheduling| ScheduleType |
@@ -49,25 +49,24 @@ Examples:
 @JasperNA_TempretureBandwidthforEachPeriod 
 Scenario Outline: As a user i want to verify Tempreture bandwidth limit for each period
 Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
-Given user thermostat is set to <ScheduleType> schedule
+Given user thermostat is set to "time based" schedule
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
-Then user should be displayed with <ScheduleType> with <Temperature> Range
-
+Then user displayed temperature within the maximum and minimum range
 
 Examples: 
 |ScheduleType       | Temperature   | 
 |Same Every Day     | Above Maximum | 
-|Same Every Day     | Below Minimum | 
-|Same Every Day     | At Maximum    | 
-|Same Every Day     | At Minimum    | 
-|Same Every Day     | within range  |
-|Different On Weekdays     | Above Maximum | 
-|Different On Weekdays     | Below Minimum | 
-|Different On Weekdays     | At Maximum    | 
-|Different On Weekdays     | At Minimum    | 
-|Different On Weekdays     | within range  | 
+#|Same Every Day     | Below Minimum | 
+#|Same Every Day     | At Maximum    | 
+#|Same Every Day     | At Minimum    | 
+#|Same Every Day     | within range  |
+#|Different On Weekdays     | Above Maximum | 
+#|Different On Weekdays     | Below Minimum | 
+#|Different On Weekdays     | At Maximum    | 
+#|Different On Weekdays     | At Minimum    | 
+#|Different On Weekdays     | within range  | 
 
 
 @JasperNA_TimerClockIsInCrementalOf10mins
@@ -108,7 +107,7 @@ Examples:
 | Atleast 3 period|Tap to set|
 | All periods     |Triage Screen|
 
-JapserNA_CopyScheduleToMulitpleStat
+@JapserNA_CopyScheduleToMulitpleStat
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
@@ -176,7 +175,7 @@ Examples:
 |Cool Only|
 
 @NA_CreateGeofenceScheduleInOffMode
-Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
+Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "Geofence" schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application
