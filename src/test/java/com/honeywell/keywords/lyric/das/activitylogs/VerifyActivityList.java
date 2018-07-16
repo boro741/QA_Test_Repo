@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AlarmScreen;
 import com.honeywell.account.information.LocationInformation;
 
 public class VerifyActivityList extends Keyword {
@@ -61,6 +62,26 @@ public class VerifyActivityList extends Keyword {
 					inputs.setInputValue("USERID", inputs.getInputValue("INVITEDUSER"));
 				}
 				switch (dataTable.getData(i, "Elements").trim().toUpperCase()) {
+				case "INDOOR MOTION VIEWER TAMEPERED AT AWAY MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("ISMV_TAMPERED_TIME");
+					break;
+				}
+				case "INDOOR MOTION VIEWER TAMEPER CLEARED AT AWAY MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper cleared";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME");
+					break;
+				}
+				case "INDOOR MOTION VIEWER CLIP":{
+					expectedActivityHeader = "Motion detected";
+					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+					deviceLocationTime = inputs.getInputValue("INDOORMOTION_DETECTED_TIME");
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
+					flag= alarmScreen.isMotionDetectedVideoClipDisplayed();
+					break;
+				}
 				case "MOTION SENSOR TAMEPERED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";

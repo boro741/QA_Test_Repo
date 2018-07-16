@@ -27,8 +27,8 @@ public class AlarmScreen extends MobileScreens {
 	private TestCases testCase;
 	private static final String screenName = "AlarmScreen";
 	// Locator values used in the methods
-		public static final String ACTIVITYLOGSCROLLUPICON = "icon_arch";
-		public static final String ACTIVITYLOGSCROLLDOWNICON = "icon_arrow_up";
+	public static final String ACTIVITYLOGSCROLLUPICON = "icon_arch";
+	public static final String ACTIVITYLOGSCROLLDOWNICON = "icon_arrow_up";
 
 
 	public AlarmScreen(TestCases testCase) {
@@ -130,27 +130,35 @@ public class AlarmScreen extends MobileScreens {
 		}
 		// For IOS device
 		else {
-				try {
-					// MobileElement activityLogUpElement = null;
-					CustomDriver driver = testCase.getMobileDriver();
-					History_BottomArrow =driver.findElement(By.name("icon_arrow_up"));
-					Alarm = driver.findElement(By.name("Alarm_Navigation_Title"));//MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
-					if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
-						System.out.println(History_BottomArrow.getLocation().getY());
-						System.out.println(Alarm.getLocation().getY());
-						action.press(History_BottomArrow.getLocation().getX(),History_BottomArrow.getLocation().getY()).moveTo(0, -History_BottomArrow.getLocation().getY()+Alarm.getLocation().getY()).release().perform();
-					}
+			try {
+				// MobileElement activityLogUpElement = null;
+				CustomDriver driver = testCase.getMobileDriver();
+				History_BottomArrow =driver.findElement(By.name("icon_arrow_up"));
+				Alarm = driver.findElement(By.name("Alarm_Navigation_Title"));//MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
+				if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
+					action.press(History_BottomArrow.getLocation().getX(),History_BottomArrow.getLocation().getY()).moveTo(0, -History_BottomArrow.getLocation().getY()+Alarm.getLocation().getY()).release().perform();
 				}
+			}
 
-				catch (NoSuchElementException e) {
+			catch (NoSuchElementException e) {
 
-					throw new Exception(e + "Activity log scroll up icon is not displayed");
-				}
+				throw new Exception(e + "Activity log scroll up icon is not displayed");
+			}
 		}
 		return flag;
 
 	}
-	
+
+	public boolean isMotionDetectedVideoClipDisplayed(){
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectedClip")){
+			Keyword.ReportStep_Pass(testCase, "Successfully LOCATED LOCATE MOTION VIDEO CLIP");
+			return true;
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to LOCATE MOTION VIDEO CLIP");
+		}
+		return false;
+	}
+
 	public boolean closeAlarmHistory() throws Exception {
 		boolean flag = true;
 		WebElement activityDay = null;
@@ -308,7 +316,7 @@ public class AlarmScreen extends MobileScreens {
 				action1.perform();
 				action1.tap(NotificationStartX,NotificationStartY).release().perform();
 				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
-			
+
 			}
 		}
 		catch(Exception e) {
@@ -583,41 +591,41 @@ public class AlarmScreen extends MobileScreens {
 		return false;
 	}
 	public boolean AlarmInSecsCounter(){
-			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "AlarmWillSoundInSeconds");
-			if(element!=null) {
-				String value1=element.getText();
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				String value2=element.getText();
-
-				if(Math.abs(Integer.parseInt(value2)-Integer.parseInt(value1))>0) {
-
-					Keyword.ReportStep_Pass(testCase, "Entry Delay is happening");
-					return true;
-				}
-				else {
-
-					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Entry Delay is not happening");
-				}
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "AlarmWillSoundInSeconds");
+		if(element!=null) {
+			String value1=element.getText();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+
+			String value2=element.getText();
+
+			if(Math.abs(Integer.parseInt(value2)-Integer.parseInt(value1))>0) {
+
+				Keyword.ReportStep_Pass(testCase, "Entry Delay is happening");
+				return true;
+			}
+			else {
+
+				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Entry Delay is not happening");
+			}
+		}
 		return false;
 	}
 	public boolean isSwitchToNightExists() {
-  		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")){
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")){
 			return true;
 		}
 		return false;
 	}
 
 	public boolean isAttentionButtonExists() {
-	
+
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AttentionButton")) {
-		return true;
-	}
+			return true;
+		}
 		return false;
 	}
 }

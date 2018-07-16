@@ -56,11 +56,12 @@ public class VerifyEmailReceived extends Keyword {
 			if(subject!=null){
 				String mailContent= GuerrillaMailUtils.FetchMailContent(testCase, subject, inputs.getInputValue("USERID"), 0,inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT));
 				if(link.get(0).equalsIgnoreCase("Alarm")){
+					System.out.println(mailContent.contains(expectedContent));
 					if(mailContent.contains(expectedContent)&& mailContent.contains(expectedContent1)){
 						Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Mail content mismatched"+ " Expected -"+expectedContent+" but found -"+mailContent);
+								"Mail content mismatched"+ " Expected -"+expectedContent+" and "+expectedContent1+" but found -"+mailContent );
 					}
 				}
 				else if(link.get(0).equalsIgnoreCase("Alarm cancelled")){

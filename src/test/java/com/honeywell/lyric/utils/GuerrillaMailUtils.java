@@ -234,7 +234,12 @@ public class GuerrillaMailUtils {
 			notificationMailFrom = "lyric@honeywell.com";
 		} else if(environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")){
 			notificationMailFrom = "honeywellhomessupport@honeywell.com";
-		}else{
+		} else if(environment.equalsIgnoreCase("CHILInt(Azure)")){
+			notificationMailFrom = "honeywellhomessupport@honeywell.com";
+		}
+		
+		
+		else{
 			System.out.println("Environment not handled");
 		}
 		System.out.println(notificationMailFrom);
