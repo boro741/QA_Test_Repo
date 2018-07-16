@@ -33,17 +33,17 @@ public class VerifyScheduleIsCreated extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify \"(.+)\" schedule gets created successfully$")
+	@KeywordStep(gherkins = "^\"(.+)\" scheduling gets activated$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (exampleData.get(0).equalsIgnoreCase("no")) {
 				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "no schedule");
 				
-			} else if (exampleData.get(0).equalsIgnoreCase("everyday")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
 				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "time");
 				
-			} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				inputs.setInputValueWithoutTarget(InputVariables.TYPE_OF_TIME_SCHEDULE,
 						InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "time");

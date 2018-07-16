@@ -129,15 +129,19 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnSwitchToGeofenceButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToGeofencingButton");
 	}
+	
+	public boolean isSwitchToTimeScheduleButtonVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToTimeScheduleButton",timeOut);
+	}
 
 	public boolean clickOnSwitchToTimeScheduleButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToTimeScheduleButton");
+		return MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='Switch to Time Scheduling']");
 	}
 
 	public boolean clickOnTimeOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeOption");
 	}
-
+	
 	public boolean clickOnTimeScheduleButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeScheduleButton");
 	}
@@ -189,10 +193,8 @@ public class SchedulingScreen extends MobileScreens {
 	public String getCoolSetPointChooserSetPointsValue() {
 		String string;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			string =  MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser")
-					.findElement(By.id("scheduling_period_temp_point")).getText();
+			string =  MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser").get(0).getText();
 		} else {
-//			string =  MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPoints").getAttribute("value");
 			string = testCase.getMobileDriver().findElements(By.name("coolTemperatureLabel")).get(0).getText();
 		}
 		return string;
@@ -200,8 +202,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public WebElement getCoolSetPointDownButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser")
-					.findElement(By.id("scheduling_temp_chooser_down"));
+			 return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(0);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("coolTemparatureLowerButton")).get(0);
 		}
@@ -216,7 +217,7 @@ public class SchedulingScreen extends MobileScreens {
 		String string;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			string = MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
-					+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]");
+					+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView[1]");
 		} else {
 			string =  MobileUtils.getMobElement(testCase, "name", "Everyday_" + periodName + "_CoolTemperature")
 					.getAttribute("value");
@@ -226,18 +227,17 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getCoolSetPointsOfGivenWeekdayPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
-				+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]");
+				+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView[1]");
 	}
 
 	public String getCoolSetPointsOfGivenWeekendPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
-				+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[1]");
+				+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView[1]");
 	}
 
 	public WebElement getCoolSetPointUpButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser")
-					.findElement(By.id("scheduling_temp_chooser_up"));
+			  return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature increasing']").get(0);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton")).get(0);
 		}
@@ -312,20 +312,18 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getHeatSetPointChooserSetPointsValue() {
-		String string;
+		String string; 
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			string =  MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
-					.findElement(By.id("scheduling_period_temp_point")).getText();
+			string = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
 		} else {
-			string = testCase.getMobileDriver().findElements(By.name("heatTemperatureLabel")).get(0).getText();
+			string = testCase.getMobileDriver().findElements(By.name("heatTemperatureLabel")).get(1).getText();
 		}
 		return string;
 	}
 
 	public WebElement getHeatSetPointDownButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
-					.findElement(By.id("scheduling_temp_chooser_down"));
+			return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(1);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("heatTemparatureLowerButton")).get(0);
 		}
@@ -339,7 +337,7 @@ public class SchedulingScreen extends MobileScreens {
 	public String getHeatSetPointsOfGivenEverydayPeriod(String periodName) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
-					+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]");
+					+ "_Everyday')]//android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView[2]");
 		} else {
 			return MobileUtils.getMobElement(testCase, "name", "Everyday_" + periodName + "_HeatTemperature")
 					.getAttribute("value");
@@ -348,18 +346,17 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getHeatSetPointsOfGivenWeekdayPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
-				+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]");
+				+ "_Monday - Friday')]//android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView[2]");
 	}
 
 	public String getHeatSetPointsOfGivenWeekendPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath", "//*[contains(@content-desc,'" + periodName
-				+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.TextView[2]");
+				+ "_Saturday - Sunday')]//android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView[2]");
 	}
 
 	public WebElement getHeatSetPointUpButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
-					.findElement(By.id("scheduling_temp_chooser_up"));
+			return  MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature increasing']").get(1);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(0);
 		}
@@ -367,8 +364,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public WebElement getHeatSetPointUpButton(int index) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser")
-					.findElement(By.id("scheduling_temp_chooser_up"));
+			return testCase.getMobileDriver().findElements(By.name("stat_temp_stepper_up")).get(index);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(index);
 		}
@@ -1126,7 +1122,5 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
-
-
 
 }

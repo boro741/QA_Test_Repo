@@ -28,7 +28,7 @@ public class VerifyTemperatureWithinRange extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify temperature is set within the maximum and minimum range$")
+	@KeywordStep(gherkins = "^user displayed temperature within the maximum and minimum range$")
 	public boolean keywordSteps() throws KeywordException {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		try {

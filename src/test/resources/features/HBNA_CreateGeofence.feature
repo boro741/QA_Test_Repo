@@ -207,7 +207,7 @@ Examples:
 
 
 @NA_CreateGeofenceScheduleInOffMode
-Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
+Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "Geofence" schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application
@@ -216,4 +216,3 @@ When user creates "Time Based" schedule with default schedule value
 Then <scheduling> scheduling gets activated on Tapping Confirm
 And user navigates to "Primary card" screen from the "Scheduling" screen
 Then user is displayed with "System is Off" on the screen
-

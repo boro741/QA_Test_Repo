@@ -5,19 +5,19 @@ AlertErrorButton							ID	OK	ID	OK	ID	OK
 AwayTemperatureHeaderMultiTemperature	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'away')]"	NAME	What temperatures do you prefer when you're away from home?	NAME	What temperatures do you prefer when you're away from home?	NAME	What temperatures do you prefer when you're away from home?
 AwayTemperatureHeaderSingleTemperature	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	NAME	What temperature do you prefer when you're away from home?	NAME	What temperature do you prefer when you're away from home?	NAME	What temperature do you prefer when you're away from home?
 BackButton	XPATH	//*[@content-desc='Navigate Up']	XPATH	//*[@content-desc='Navigate Up']	XPATH	//*[@content-desc='Navigate Up']	NAME	Back	NAME	Back	NAME	Back
-CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
+CancelChangeButton	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
 CheckBox	ID	text1	ID	text1	ID	text1	NAME	CopyScheduleCheckbox	NAME	CopyScheduleCheckbox	NAME	CopyScheduleCheckbox
 CloseButton	XPATH	//android.widget.ImageButton[@content-desc='Global Close']	XPATH	//android.widget.ImageButton[@content-desc='Global Close']	XPATH	//android.widget.ImageButton[@content-desc='Global Close']	NAME	Back	NAME	Back	NAME	Back
-ConfirmChangeButton	ID	button1	ID	button1	ID	button1	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
+ConfirmChangeButton	XPATH	//*[@text='CONFIRM CHANGE']	XPATH	//*[@text='CONFIRM CHANGE']	XPATH	//*[@text='CONFIRM CHANGE']	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
 ConfirmDeleteButton	XPATH	//*[@text='Delete']	XPATH	//*[@text='Delete']	XPATH	//*[@text='Delete']	NAME	DELETE	NAME	DELETE	NAME	DELETE
 ConfirmDeletePopup							NAME	Confirm Delete	NAME	Confirm Delete	NAME	Confirm Delete
 CoolDecrement							NAME	coolTemparatureLowerButton	NAME	coolTemparatureLowerButton	NAME	coolTemparatureLowerButton
 CoolIncrement							NAME	coolTemparatureUpperButton	NAME	coolTemparatureUpperButton	NAME	coolTemparatureUpperButton
-CoolSetPointChooser	ID	cooling_chooser	ID	cooling_chooser	ID	cooling_chooser						
+CoolSetPointChooser	ID	current_temp_value	ID	current_temp_value	ID	current_temp_value						
 CoolSetPoints							NAME	coolTemperatureLabel	NAME	coolTemperatureLabel	NAME	coolTemperatureLabel
 CopyButton	XPATH	//*[@text='Copy']	XPATH	//*[@text='Copy']	XPATH	//*[@text='Copy']	NAME	Copy	NAME	Copy	NAME	Copy
-CreateNewTimeScheduleButton	XPATH	//android.widget.TextView[@text='Create new time schedule']	XPATH	//android.widget.TextView[@text='Create new time schedule']	XPATH	//android.widget.TextView[@text='Create new time schedule']	NAME	Create new time schedule	NAME	Create new time schedule	NAME	Create new time schedule
-CreateScheduleButton	XPATH	//android.widget.Button[@text='CREATE SCHEDULE']	XPATH	//android.widget.Button[@text='CREATE SCHEDULE']	XPATH	//android.widget.Button[@text='CREATE SCHEDULE']	ID	Create Schedule	ID	Create Schedule	ID	Create Schedule
+CreateNewTimeScheduleButton	XPATH	//android.widget.TextView[@text='Create New Time Schedule']	XPATH	//android.widget.TextView[@text='Create New Time Schedule']	XPATH	//android.widget.TextView[@text='Create New Time Schedule']	NAME	Create new time schedule	NAME	Create new time schedule	NAME	Create new time schedule
+CreateScheduleButton	ID	btn_create_schedule	ID	btn_create_schedule	ID	btn_create_schedule	ID	Create Schedule	ID	Create Schedule	ID	Create Schedule
 CreateSleepSettings	XPATH	//android.widget.TextView[@text='Create Sleep Settings']	XPATH	//android.widget.TextView[@text='Create Sleep Settings']	XPATH	//android.widget.TextView[@text='Create Sleep Settings']	XPATH	//*[@name='Geofence_Sleep']	XPATH	//*[@name='Geofence_Sleep']	XPATH	//*[@name='Geofence_Sleep']
 CrossButton	XPATH	//android.view.ViewGroup/android.widget.ImageButton	XPATH	//android.view.ViewGroup/android.widget.ImageButton	XPATH	//android.view.ViewGroup/android.widget.ImageButton	NAME	btn close normal	NAME	btn close normal	NAME	btn close normal
 DoneButton	XPATH	//android.widget.Button[@text='DONE']	XPATH	//android.widget.Button[@text='DONE']	XPATH	//android.widget.Button[@text='DONE']	ID	Done	ID	Done	ID	Done
@@ -45,7 +45,7 @@ GeofenceSleepHeat							NAME	Geofence_Sleep_HeatTemperature	NAME	Geofence_Sleep_
 GeofenceSleepStartTime	ID	start_time_chooser	ID	start_time_chooser	ID	start_time_chooser	NAME	GeofenceSchedule_StartTime_value	NAME	GeofenceSchedule_StartTime_value	NAME	GeofenceSchedule_StartTime_value
 HeatDecrement							NAME	heatTemparatureLowerButton	NAME	heatTemparatureLowerButton	NAME	heatTemparatureLowerButton
 HeatIncrement							NAME	heatTemparatureUpperButton	NAME	heatTemparatureUpperButton	NAME	heatTemparatureUpperButton
-HeatSetPointChooser	ID	heating_chooser	ID	heating_chooser	ID	heating_chooser						
+HeatSetPointChooser	ID	current_temp_value	ID	current_temp_value	ID	current_temp_value						
 HeatSetPoints							NAME	heatTemperatureLabel	NAME	heatTemperatureLabel	NAME	heatTemperatureLabel
 HomeTemperatureHeaderMultiTemperature	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'at home')]"	NAME	What temperatures do you prefer when you're at home?	NAME	What temperatures do you prefer when you're at home?	NAME	What temperatures do you prefer when you're at home?
 HomeTemperatureHeaderSingleTemperature	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	NAME	What temperature do you prefer when you're at home?	NAME	What temperature do you prefer when you're at home?	NAME	What temperature do you prefer when you're at home?
@@ -65,7 +65,7 @@ ScheduleDayHeader	ID	header_view	ID	header_view	ID	header_view	NAME	Time_Schedul
 ScheduleEditCancelButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	Cancel	NAME	Cancel	NAME	Cancel
 ScheduleOffButton	XPATH	//android.widget.TextView[@text='Turn schedule off']	XPATH	//android.widget.TextView[@text='Turn schedule off']	XPATH	//android.widget.TextView[@text='Turn schedule off']	NAME	Turn schedule off	NAME	Turn schedule off	NAME	Turn schedule off
 ScheduleOffOverlay	ID	pause_icon	ID	pause_icon	ID	pause_icon	NAME	icon_scheduleOff-large	NAME	icon_scheduleOff-large	NAME	icon_scheduleOff-large
-ScheduleOptionsButton	ID	fragment_edit_schedule	ID	fragment_edit_schedule	ID	fragment_edit_schedule	NAME	Navigation_Right_Bar_Item	NAME	Navigation_Right_Bar_Item	NAME	Navigation_Right_Bar_Item
+ScheduleOptionsButton	ID	actionbar_schedule_options_textview	ID	actionbar_schedule_options_textview	ID	actionbar_schedule_options_textview	NAME	Navigation_Right_Bar_Item	NAME	Navigation_Right_Bar_Item	NAME	Navigation_Right_Bar_Item
 SchedulePeriodCoolSetPoint	ID	scheduling_period_cooling_point	ID	scheduling_period_cooling_point	ID	scheduling_period_cooling_point						
 SchedulePeriodHeatSetPoint	ID	scheduling_period_heating_point	ID	scheduling_period_heating_point	ID	scheduling_period_heating_point						
 SchedulePeriodTime	ID	scheduling_period_time	ID	scheduling_period_time	ID	scheduling_period_time	XPATH	"//*[contains(@name,'Everyday') and contains(@name,'_Time')]"	XPATH	"//*[contains(@name,'Everyday') and contains(@name,'_Time')]"	XPATH	"//*[contains(@name,'Everyday') and contains(@name,'_Time')]"
@@ -77,7 +77,7 @@ selectvalueten	XPATH	//*[@index='9']	XPATH	//*[@index='9']	XPATH	//*[@index='9']
 SkipButton	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	NAME	Skip	NAME	Skip	NAME	Skip
 SkipSleepButton	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	NAME	Skip	NAME	Skip	NAME	Skip
 SwitchToGeofencingButton	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	NAME	Switch to geofencing	NAME	Switch to geofencing	NAME	Switch to geofencing
-SwitchToTimeScheduleButton	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	NAME	Switch to time schedule	NAME	Switch to time schedule	NAME	Switch to time schedule
+SwitchToTimeScheduleButton	XPATH	//*[@text='Switch to Time Scheduling']	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	NAME	Switch to time schedule	NAME	Switch to time schedule	NAME	Switch to time schedule
 TimeAM	ID	am_label	ID	am_label	ID	am_label	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']
 TimeAMPM							xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"	xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"	xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"
 TimeChooser	ID	start_time_chooser	ID	start_time_chooser	ID	start_time_chooser	NAME	TimeSchedule_StartTime_value	NAME	TimeSchedule_StartTime_value	NAME	TimeSchedule_StartTime_value
@@ -87,7 +87,7 @@ TimeMinutes							XPATH	//XCUIElementTypePickerWheel[2]	XPATH	//XCUIElementTypeP
 TimeOption	XPATH	//android.widget.TextView[@text='Time']	XPATH	//android.widget.TextView[@text='Time']	XPATH	//android.widget.TextView[@text='Time']	NAME	Time	NAME	Time	NAME	Time
 TimePicker	ID	radial_picker	ID	radial_picker	ID	radial_picker						
 TimePM	ID	pm_label	ID	pm_label	ID	pm_label	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']
-TimeScheduleButton	ID	action_btn_schedule	ID	action_btn_schedule	ID	action_btn_schedule	ID	iconScheduling	ID	iconScheduling	ID	iconScheduling
+TimeScheduleButton	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//android.widget.TextView[@text='SCHEDULE']	ID	iconScheduling	ID	iconScheduling	ID	iconScheduling
 ToolbarSubtitle	ID	toolbar_spinner_item_actionbar_subtitle	ID	toolbar_spinner_item_actionbar_subtitle	ID	toolbar_spinner_item_actionbar_subtitle	NAME	Title_Subtitle	NAME	Title_Subtitle	NAME	Title_Subtitle
 ToolbarTitle	ID	toolbar_title	ID	toolbar_title	ID	toolbar_title	NAME	Location Name with Subtitle	NAME	Location Name with Subtitle	NAME	Location Name with Subtitle
 UseGeofencingButton	ID	schedule_geo_fence_use_geo_fence	ID	schedule_geo_fence_use_geo_fence	ID	schedule_geo_fence_use_geo_fence	NAME	USE GEOFENCING	NAME	USE GEOFENCING	NAME	USE GEOFENCING
@@ -140,9 +140,9 @@ PMLabel	ID	pm_label	ID	pm_label	ID	pm_label
 WeekdaySchedulePeriodTitle	XPATH	"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout[1]/android.widget.TextView"""	XPATH	"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout[1]/android.widget.TextView"""	XPATH	"//*[contains(@content-desc,'_Monday - Friday')]/android.widget.LinearLayout[1]/android.widget.TextView"""	XPATH	"//*[contains(@name,'Monday - Friday_') and contains(@name,'_Time')]"	XPATH	"//*[contains(@name,'Monday - Friday_') and contains(@name,'_Time')]"	XPATH	"//*[contains(@name,'Monday - Friday_') and contains(@name,'_Time')]"
 WeekendSchedulePeriodTitle	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[1]/android.widget.TextView"""	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[1]/android.widget.TextView"""	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[1]/android.widget.TextView"""	XPATH	"//*[contains(@name,'Saturday - Sunday_') and contains(@name,'_Time')]"	XPATH	"//*[contains(@name,'Saturday - Sunday_') and contains(@name,'_Time')]"	XPATH	"//*[contains(@name,'Saturday - Sunday_') and contains(@name,'_Time')]"
 PeriodEditScreenTitle	XPATH	//*[@text='When do you want the temperature to change?']	XPATH	//*[@text='When do you want the temperature to change?']	XPATH	//*[@text='When do you want the temperature to change?']	XPATH	//UIAStaticText[@value='When do you want the temperature to change?']	XPATH	//UIAStaticText[@value='When do you want the temperature to change?']	XPATH	//UIAStaticText[@value='When do you want the temperature to change?']
-EverydayText	XPATH	//*[@text='Every Day']	XPATH	//*[@text='Every Day']	XPATH	//*[@text='Every Day']						
-WeekdayText	XPATH	//*[@text='Monday - Friday']	XPATH	//*[@text='Monday - Friday']	XPATH	//*[@text='Monday - Friday']						
-WeekendText	XPATH	//*[@text='Saturday - Sunday']	XPATH	//*[@text='Saturday - Sunday']	XPATH	//*[@text='Saturday - Sunday']						
+EverydayText	XPATH	//*[@text='EVERY DAY']	XPATH	//*[@text='EVERY DAY']	XPATH	//*[@text='EVERY DAY']						
+WeekdayText	XPATH	//*[@text='MONDAY - FRIDAY']	XPATH	//*[@text='MONDAY - FRIDAY']	XPATH	//*[@text='MONDAY - FRIDAY']						
+WeekendText	XPATH	//*[@text='SATURDAY - SUNDAY']	XPATH	//*[@text='SATURDAY - SUNDAY']	XPATH	//*[@text='SATURDAY - SUNDAY']						
 WeekendSchedulePeriodTimes	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]"	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]"	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]"						
 WeekendSchedulePeriodSetPoints	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[2]/android.widget.TextView"	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[2]/android.widget.TextView"	XPATH	"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout[2]/android.widget.TextView"						
 EverydayScheduleTitleAndPeriodTime							XPATH	"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Everyday') and contains(@name,'_Time')]"
