@@ -590,6 +590,32 @@ public class CHILUtil implements AutoCloseable {
 
 	}
 	
+	public int userArrived(long locationID, int userID, int geofenceID) throws Exception
+	{
+		if (isConnected) {
+			String url = chilURL+ String.format("api/locations/%s/GeoFence/%s/GangMember/%s/GeoFenceEvent", locationID,
+					geofenceID, userID);
+		    String headerData ="{\"type\":\"UserArrived\"}";
+			return doPostRequest(url, headerData).getResponseCode();
+		}
+		else {
+			throw new Exception("Not connected to CHIL");
+		}
+	}
+	
+	public int userDeparted(long locationID, int userID, int geofenceID) throws Exception
+	{
+		if (isConnected) {
+			String url = chilURL+ String.format("api/locations/%s/GeoFence/%s/GangMember/%s/GeoFenceEvent", locationID,
+							geofenceID, userID);
+			String headerData ="{\"type\":\"UserDeparted\"}";
+			return doPostRequest(url, headerData).getResponseCode();
+		}
+		else {
+			throw new Exception("Not connected to CHIL");
+		}
+	}
+	
 	public int deleteDevice(long locationID, String deviceID, boolean isDasDevice) throws Exception {
 		int result = -1;
 		if (isConnected) {

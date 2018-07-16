@@ -16,6 +16,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
+import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
 
@@ -278,6 +279,15 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 
 			break;
+		}case "GEOFENCING":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.isGeofencePopUpVisible();
+			break;
+		}
+		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME OR OFF MODE":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.isPerformOnlyInModesPopupForGeofence();
+			return flag;
 		}
 		default: {
 			flag = false;

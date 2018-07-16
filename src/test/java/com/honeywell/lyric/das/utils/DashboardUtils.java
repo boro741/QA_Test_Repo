@@ -17,6 +17,8 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SchedulingScreen;
+import com.honeywell.screens.CameraScreen;
+
 
 public class DashboardUtils {
 
@@ -120,6 +122,7 @@ public class DashboardUtils {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			CameraScreen camScr = new CameraScreen(testCase);
 			SchedulingScreen sch = new SchedulingScreen(testCase);
 			Dashboard d = new Dashboard(testCase);
 			if (d.isGlobalDrawerButtonVisible()) {
@@ -135,6 +138,8 @@ public class DashboardUtils {
 						flag = flag & bs.clickOnBackButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
+					}else if(camScr.isBackButtonVisible(2)){
+						flag = flag & camScr.clickOnBackButton();
 					} else if (sch.IsSaveButtonVisible(5)) {
 						flag = flag & sch.clickOnSaveButton();
 					}

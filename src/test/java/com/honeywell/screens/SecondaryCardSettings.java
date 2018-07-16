@@ -17,13 +17,13 @@ public class SecondaryCardSettings extends MobileScreens {
 	public static final String HOMEKITUSERS = "HomeKit Users";
 	public static final String ZWAVEDEVICES = "Z-Wave Devices";
 	public static final String ADDNEWDEVICE = "Add New Device";
-	public static final String ABOUTTHEAPP= "About the app";
+	public static final String ABOUTTHEAPP = "About the app";
 	public static final String EDITACCOUNT = "Edit Account";
 	public static final String MESSAGES = "Activity History";
 	public static final String LOGOUT = "Logout";
 	public static final String ADDRESSDETAILS = "Address";
 	public static final String MEMBERSHIPSUBSCRIPTION = "Honeywell Membership";
-	
+
 	public SecondaryCardSettings(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -53,9 +53,9 @@ public class SecondaryCardSettings extends MobileScreens {
 		case SecondaryCardSettings.LOGOUT:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "LogoutOption");
 		case SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION:
-			return MobileUtils.clickOnElement(objectDefinition, testCase, 
+			return MobileUtils.clickOnElement(objectDefinition, testCase,
 
-"HoneywellMembershipOption");
+					"HoneywellMembershipOption");
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",
@@ -68,23 +68,28 @@ public class SecondaryCardSettings extends MobileScreens {
 		}
 	}
 
-	public boolean areSecondaryCardSettingsVisible()
-	{
+	public boolean isclickOnBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", 3);
+	}
+
+	public boolean clickOnBackButton() {
+
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+
+	public boolean areSecondaryCardSettingsVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecondaryCardSettings", 3);
 	}
-	
-	public boolean areSecondaryCardSettingsVisible(int timeOut)
-	{
+
+	public boolean areSecondaryCardSettingsVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecondaryCardSettings", timeOut);
 	}
-	
-	public boolean isFROptionAvailable(int timeOut)
-	{
+
+	public boolean isFROptionAvailable(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FaceRecognitionOption", timeOut);
 	}
-	
-	public List<WebElement> getSecondaryCardSettings()
-	{
+
+	public List<WebElement> getSecondaryCardSettings() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "SecondaryCardSettings");
 	}
 }

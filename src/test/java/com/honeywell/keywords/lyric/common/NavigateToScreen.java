@@ -1978,6 +1978,37 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
+			}else if(screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				// Navigate from 'Amzon Alexa Settings' to 'Setup Amzon Alexa screen'
+				// Author: Gautham (H138526)
+				case "SETUP AMAZON ALEXA": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSetUpButtonVisible()) {
+						flag = flag & bs.clickOnAmazonSetUpButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
+				case "SECURITY SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isBackButtonVisible()) {
+						flag = flag & bs.clickOnBackButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				break;
+				}
+				
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
