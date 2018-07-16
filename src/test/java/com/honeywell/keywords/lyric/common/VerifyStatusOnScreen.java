@@ -17,6 +17,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
