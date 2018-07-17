@@ -37,6 +37,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -525,6 +526,12 @@ public class NavigateToScreen extends Keyword {
 				case "NIGHT VISION SETTINGS": {
 					flag = flag & DASSettingsUtils
 							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase);
+					break;
+				}
+				case "SCHEDULING":{
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
+					flag = flag & scheduleScreen.clickOnTimeScheduleButton();
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
