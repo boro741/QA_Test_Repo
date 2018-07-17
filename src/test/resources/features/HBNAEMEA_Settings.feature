@@ -76,12 +76,10 @@ Scenario: As a user I should be able to enable or disable Indoor Temperature Ale
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
 And user changes the "Indoor Temperature Alert" to "ON"
-Then "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alert" screen
+Then "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
 And user should be displayed with the following "Indoor Temperature Alert" options:
 	| IndoorTempAlertOptions			| 
 	| Alert for this range			|
-Then "Indoor Temperature Alert" value should be updated to "ON" on "Thermostat Settings" screen
-And following "Indoor Temperature Alert" option should be displayed
 When user changes the "Indoor Temperature Alert" to "OFF"
 Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Alerts" screen
       
@@ -103,20 +101,19 @@ Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Aler
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Temperature Alert" to "ON"
-And user clicks on " Alert for this Range" option
-Then user should be displayed with Following Options
-And when user Clicks on "Below Range"
-Then user should be able to select "Below temperature Range"
-And user should be able to receive push notification for below range
+Then user changes the "Indoor Temperature Alert" to "ON"
+And user clicks on "Alert for this range" option
+Then user should be displayed with the following "Alert for this range" options:
+	| AlertTempRange		| 
+	| Below 				| 
+	| Above				|
+And when user clicks on "Below Range"
+Then user should be able to select "Below Temperature Range"
+And user receives a "Below Temperature Range" push notification
 And when user Clicks on "Above Range"
-Then user should be able to select "Above temperature Range"
-And user should be able to receive push notification for Above range
+Then user should be able to select "Above Temperature Range"
+And user receives a "Above Temperature Range" push notification
 And user should be displayed with "Indoor Temperature" message on "Activity History" history screen
-
-| Options	| 
-| Below 		| 
-| Above		|
 
 
 #InvalidScenario
