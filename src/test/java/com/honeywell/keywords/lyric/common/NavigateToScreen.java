@@ -2016,6 +2016,20 @@ public class NavigateToScreen extends Keyword {
 				break;
 				}
 				
+			}else if(screen.get(1).equalsIgnoreCase("SCHEDULING")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PRIMARY CARD": {
+					SchedulingScreen scheduleScreen=  new SchedulingScreen(testCase);
+					flag = flag & scheduleScreen.clickOnCloseButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				break;
+				}
+				
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
