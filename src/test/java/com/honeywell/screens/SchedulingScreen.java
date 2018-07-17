@@ -280,7 +280,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public List<WebElement> getEverydayScheduleTitleAndPeriodTimeElements() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "	");
+		return MobileUtils.getMobElements(objectDefinition, testCase, "EverydayScheduleTitleAndPeriodTime");
 	}
 
 	public WebElement getEverydaySleepElement() {
@@ -316,7 +316,7 @@ public class SchedulingScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			string = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
 		} else {
-			string = testCase.getMobileDriver().findElements(By.name("heatTemperatureLabel")).get(1).getText();
+			string = testCase.getMobileDriver().findElement(By.name("Dialer")).getText();
 		}
 		return string;
 	}
@@ -331,7 +331,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public List<MobileElement> getHeatSetPointsElements() {
 //		return MobileUtils.getMobElements(objectDefinition, testCase, "heatTemperatureLabel");
-		return testCase.getMobileDriver().findElements(By.name("heatTemperatureLabel"));
+		return testCase.getMobileDriver().findElements(By.name("Dialer"));
 	}
 
 	public String getHeatSetPointsOfGivenEverydayPeriod(String periodName) {

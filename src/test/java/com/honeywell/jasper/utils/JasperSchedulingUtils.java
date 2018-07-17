@@ -1024,7 +1024,7 @@ public class JasperSchedulingUtils {
 						}
 						if (ss.isTimeChooserHeaderVisible(5)) {
 							Keyword.ReportStep_Pass(testCase,
-									"Time chooser header is shown correctly: When do you want the temperature to change?");
+									"Time chooser header is shown correctly");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1032,7 +1032,7 @@ public class JasperSchedulingUtils {
 						}
 						if (ss.isTempChooserHeaderVisible(5)) {
 							Keyword.ReportStep_Pass(testCase,
-									"Temp chooser header is shown correctly: What temperature is preferred during this time?");
+									"Temp chooser header is shown correctly");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -12200,6 +12200,8 @@ public class JasperSchedulingUtils {
 				}
 			}
 		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Exception occurred : " + e.getMessage());
 			flag = false;
 		}
 		return flag;

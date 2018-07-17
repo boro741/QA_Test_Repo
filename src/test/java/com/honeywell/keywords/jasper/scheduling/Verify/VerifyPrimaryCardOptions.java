@@ -42,7 +42,7 @@ public class VerifyPrimaryCardOptions extends Keyword {
 	public boolean keywordSteps() {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		for (int i = 0; i < dataTable.getSize(); i++) {
-			switch (dataTable.getData(i, "Features")) {
+			switch (dataTable.getData(i, "Elements")) {
 			case "Indoor Temperature":
 				flag = flag & JasperSchedulingVerifyUtils.verifyIndoorTemperature(testCase, inputs);
 				break;
