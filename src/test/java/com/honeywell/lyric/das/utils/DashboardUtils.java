@@ -19,7 +19,6 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.CameraScreen;
 
-
 public class DashboardUtils {
 
 	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,
@@ -49,6 +48,12 @@ public class DashboardUtils {
 				e.click();
 				flag = true;
 				break;
+			} else {
+				if (d.areDevicesVisibleOnDashboard()) {
+					d.clickOnDeviceOnDashbaord();
+					flag = true;
+					break;
+				}
 			}
 		}
 		if (cm.isGotitButtonVisible(1)) {
@@ -138,7 +143,7 @@ public class DashboardUtils {
 						flag = flag & bs.clickOnBackButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
-					}else if(camScr.isBackButtonVisible(2)){
+					} else if (camScr.isBackButtonVisible(2)) {
 						flag = flag & camScr.clickOnBackButton();
 					} else if (sch.IsSaveButtonVisible(5)) {
 						flag = flag & sch.clickOnSaveButton();

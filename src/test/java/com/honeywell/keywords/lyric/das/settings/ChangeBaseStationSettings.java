@@ -21,7 +21,7 @@ import io.appium.java_client.TouchAction;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.GeofenceSettings;
-
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -72,7 +72,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("Geofencing Option")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Geofencing Option")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -99,7 +99,6 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 
-
 				} else if (parameters.get(1).equalsIgnoreCase("ON when Global Geofence disabled")) {
 					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 					Thread.sleep(2000);
@@ -107,15 +106,16 @@ public class ChangeBaseStationSettings extends Keyword {
 					Thread.sleep(2000);
 					if (!bs.isGeofencingSwitchEnabled(testCase)) {
 						bs.toggleGeofencingSwitch(testCase);
-						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");						
-						
+						Keyword.ReportStep_Pass(testCase, "Geofence is already enabled on the settings page");
+
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + "Failed to disable Geofence settings when Global geofence got disabled");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: "
+								+ "Failed to disable Geofence settings when Global geofence got disabled");
 					}
 
 				}
-			}  else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
@@ -537,6 +537,57 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					} else {
 						flag = flag & cs.toggleCameraMicroPhoneSwitch(testCase);
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("INDOOR TEMPERATURE ALERT")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Thermostat Indoor Temperature Alert Toggle is already enabled in the Manage Alerts Screen");
+						flag = flag & ts.toggleThermostatIndoorTempAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Temperature Alert Toggle is turned OFF");
+							flag = flag & ts.toggleThermostatIndoorTempAlertSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Thermostat Indoor Temperature Alert Toggle is enabled in the Manage Alerts Screen");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatIndoorTempAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Temperature Alert Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Thermostat Indoor Temperature Alert Toggle is already disabled in the Manage Alerts Screen");
+						flag = flag & ts.toggleThermostatIndoorTempAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Temperature Alert Toggle is turned ON");
+							flag = flag & ts.toggleThermostatIndoorTempAlertSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Thermostat Indoor Temperature Alert Toggle is disabled in the Manage Alerts Screen");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatIndoorTempAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Temperature Alert Toggle is turned OFF");
+						}
 					}
 				}
 			}

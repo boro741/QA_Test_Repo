@@ -47,7 +47,7 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 					break;
 				} else {
 					Keyword.ReportStep_Pass(testCase, "Camera Current status is OFF and turning it to ON");
-					flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Camera");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					if (cs.isAppSettingsIconVisible() && cs.isCameraOnButtonVisible(10)) {
 						cs.clickOnCameraOnButton();
@@ -66,7 +66,7 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 					break;
 				} else {
 					Keyword.ReportStep_Pass(testCase, "Camera Current status is ON and turning it to OFF");
-					flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Camera");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					if (cs.isAppSettingsIconVisible() && cs.isCameraOffButtonVisible(10)) {
 						cs.clickOnCameraOffButton();
