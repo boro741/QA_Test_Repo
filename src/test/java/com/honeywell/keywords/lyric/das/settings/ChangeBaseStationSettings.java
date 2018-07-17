@@ -20,7 +20,6 @@ import com.honeywell.screens.CameraSettingsScreen;
 import io.appium.java_client.TouchAction;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
 public class ChangeBaseStationSettings extends Keyword {

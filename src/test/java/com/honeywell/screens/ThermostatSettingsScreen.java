@@ -49,8 +49,6 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					.getFieldValue(testCase, "ID", "alert_title_layout").equalsIgnoreCase(indoorTempAlertOption)) {
 				return flag;
 			} else {
-				System.out.println(MobileUtils.getFieldValue(testCase, "XPATH", "//*[starts-with(@content-desc,'"
-						+ indoorTempAlertOption + "')]/android.widget.RelativeLayout/android.widget.TextView"));
 				flag = false;
 			}
 		} else {
