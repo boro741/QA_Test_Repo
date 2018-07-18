@@ -45,7 +45,7 @@ public class VerifyThermostatNameandTemperature extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with \\\"(.*)\\\" with \\\"(.*)\\\" temperature$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.*)\" with \"(.*)\" temperature$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(1).toUpperCase()) {
 		case "XX INSIDE": {

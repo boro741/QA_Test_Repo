@@ -66,8 +66,15 @@ public class PrimaryCard extends MobileScreens {
 			
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "ModeButton");
 		}
+         public boolean clickOnFanButton() {
+			
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "FanButton");
+		}
 		public boolean isChangeModeScreenDisplayed() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeModeTitle");
+		}
+		public boolean isChangeFanScreenDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeFanTitle");
 		}
 		public boolean clickOnInfoButton() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "InfoButton");
@@ -75,10 +82,14 @@ public class PrimaryCard extends MobileScreens {
 
 		public boolean isModeInfoScreenDisplayed() {
 
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "InformationTitle") && MobileUtils.clickOnElement(objectDefinition, testCase, "ChangeModeTitle") ;
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "InformationTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeModeTitle") ;
 			
 		}
+		public boolean isFanInfoScreenDisplayed() {
 
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "InformationTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeFanTitle") ;
+			
+		}
 		public boolean isAutoModeDefinitionVisible() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoModeDefinition",5);
 		}
@@ -94,8 +105,15 @@ public class PrimaryCard extends MobileScreens {
 		public boolean isSystemOffModeDefinitionVisible() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemOffModeDefinition",5);
 		}
-
-
+		public boolean isAutoFanDefinitionVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoFanDefinition",5);
+		}
+		public boolean isCirculateFanDefinitionVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CirculateFanDefinition",5);
+		}
+		public boolean isOnFanDefinitionVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnFanDefinition",5);
+		}
 	
 }
 
