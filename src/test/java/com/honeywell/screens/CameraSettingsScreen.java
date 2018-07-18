@@ -120,7 +120,6 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RetryInLoadingSnapshotSpinner")) {
 			WebElement retryLoadingSpinnerVisibilityStatus = MobileUtils.getMobElement(objectDefinition, testCase,
 					"RetryInLoadingSnapshotSpinner");
-			System.out.println("########" + retryLoadingSpinnerVisibilityStatus.getAttribute("visible"));
 			if (retryLoadingSpinnerVisibilityStatus.getAttribute("visible").equals("false")) {
 				return flag;
 			} else {
@@ -266,8 +265,6 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
-				System.out.println("########value: " + MobileUtils
-						.getMobElement(objectDefinition, testCase, "MotionSensitivityVisible").getAttribute("value"));
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionSensitivityVisible")
 						.getAttribute("value").equalsIgnoreCase("enabled")) {
 					return flag;
@@ -294,9 +291,6 @@ public class CameraSettingsScreen extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//*[contains(@name,'_subTitle') and @value='Motion Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
 						testCase)) {
-					System.out.println("#####" + MobileUtils.getMobElement(testCase, "XPATH",
-							"//*[contains(@name,'_subTitle') and @value='Motion Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-							.getAttribute("value"));
 					if (MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name,'_subTitle') and @value='Motion Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
 							.getAttribute("value").equalsIgnoreCase("ON")) {
@@ -367,9 +361,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean navigateBackAndForthInMotionDetectionScreen(TestCases testCase) {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInMotionDetectionScreen")) {
-			System.out.println("#########Back button in Motion Detection screen is displayed");
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInMotionDetectionScreen");
-			System.out.println("#########Clicked on Back button in Motion Detection screen");
 			if (isAreasOutsideZonesWarningPopupHeaderTitleDisplayed()
 					&& isAreasOutsideZonesWarningPopupMsgDisplayed()) {
 				Keyword.ReportStep_Pass(testCase, "Area Outside Zone Warning Popup is displayed");
@@ -377,8 +369,6 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 			if (isCameraSettingsHeaderTitleVisible(20) && isMotionDetectionLabelVisible(10)) {
 				flag = flag & clickOnMotionDetectionLabel();
-				System.out.println("#########Motion Detection screen is displayed");
-
 			}
 		}
 		return flag;
@@ -727,7 +717,6 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isCameraSoundDetectionStatusYES(TestCases testCase) {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionStatus")) {
-			System.out.println("#####" + MobileUtils.getFieldValue(objectDefinition, testCase, "SoundDetectionStatus"));
 			if (!MobileUtils.getFieldValue(objectDefinition, testCase, "SoundDetectionStatus")
 					.equalsIgnoreCase("OFF")) {
 				return flag;
@@ -739,9 +728,6 @@ public class CameraSettingsScreen extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//*[contains(@name,'_subTitle') and @value='Sound Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
 						testCase)) {
-					System.out.println("#####" + MobileUtils.getMobElement(testCase, "XPATH",
-							"//*[contains(@name,'_subTitle') and @value='Sound Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-							.getAttribute("value"));
 					if (MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name,'_subTitle') and @value='Sound Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
 							.getAttribute("value").equalsIgnoreCase("ON")) {
@@ -770,8 +756,6 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundSensitivityVisible")) {
-				System.out.println("########value: " + MobileUtils
-						.getMobElement(objectDefinition, testCase, "SoundSensitivityVisible").getAttribute("value"));
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundSensitivityVisible")
 						.getAttribute("value").equalsIgnoreCase("enabled")) {
 					return flag;
@@ -938,8 +922,6 @@ public class CameraSettingsScreen extends MobileScreens {
 							.equalsIgnoreCase(nightVisionOption)) {
 				return flag;
 			} else {
-				System.out.println(MobileUtils.getFieldValue(testCase, "XPATH", "//*[starts-with(@content-desc,'"
-						+ nightVisionOption + "')]/android.widget.RelativeLayout/android.widget.TextView"));
 				flag = false;
 			}
 		} else {
@@ -981,9 +963,6 @@ public class CameraSettingsScreen extends MobileScreens {
 					&& MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
 							.getAttribute("value").equalsIgnoreCase(nightVisionStatus)) {
-				System.out.println("#####" + MobileUtils.getMobElement(testCase, "XPATH",
-						"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-						.getAttribute("value"));
 				return flag;
 			} else {
 				flag = false;
@@ -994,7 +973,6 @@ public class CameraSettingsScreen extends MobileScreens {
 
 	public boolean isNightVisionStatusSetToExpectedInNightVisionScreen(TestCases testCase, String nightVisionStatus) {
 		boolean flag = true;
-		System.out.println("#########nightVisionStatus: " + nightVisionStatus);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[starts-with(@content-desc,'" + nightVisionStatus
@@ -1087,8 +1065,6 @@ public class CameraSettingsScreen extends MobileScreens {
 							.equalsIgnoreCase(videoQualityOption)) {
 				return flag;
 			} else {
-				System.out.println(MobileUtils.getFieldValue(testCase, "XPATH", "//*[starts-with(@content-desc,'"
-						+ videoQualityOption + "')]/android.widget.RelativeLayout/android.widget.TextView"));
 				flag = false;
 			}
 		} else {
@@ -1127,9 +1103,6 @@ public class CameraSettingsScreen extends MobileScreens {
 					&& MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
 							.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
-				System.out.println("#####" + MobileUtils.getMobElement(testCase, "XPATH",
-						"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-						.getAttribute("value"));
 				return flag;
 			} else {
 				flag = false;
@@ -1141,7 +1114,6 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isVideoQualityStatusSetToExpectedInVideoQualityScreen(TestCases testCase,
 			String videoQualityOption) {
 		boolean flag = true;
-		System.out.println("#########nightVisionStatus: " + videoQualityOption);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[starts-with(@content-desc,'" + videoQualityOption

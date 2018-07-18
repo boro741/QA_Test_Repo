@@ -17,7 +17,7 @@ Then user should be displayed with the following "Leak Detector  Settings" optio
 
 #Manage Alerts 
 
-@EnableDisableIndoorTemperatureAlert
+@EnableDisableIndoorTemperatureAlertInWLDSettings
 Scenario: As a user I should be able to enable or disable Indoor Temperature Alert on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -45,7 +45,7 @@ Then "Email Notifications" value should be updated to "OFF" on "Manage Alerts" s
 When user creates "Alerts"
 Then user should not receive "Email Alert"
   
-@ChangeAlertForThisRangeforTemperature
+@WLDChangeAlertForThisRangeforTemperature
 Scenario: As a user I should be able to change Alert For This Range on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -117,7 +117,7 @@ Then user should be navigates to "SolutionCard"
 
 
 @SetEmailContacts
-Scenario: As a user I should be able set email contacts on my WLD
+Scenario Outline: As a user I should be able set email contacts on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Email Contacts" screen from the "Dashboard" screen
 And user inputs<Email Id>

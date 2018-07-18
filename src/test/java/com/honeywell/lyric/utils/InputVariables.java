@@ -225,6 +225,7 @@ public class InputVariables {
 	
 	public static final String EDIT_GEOFENCE_SCHEDULE = "editGeofenceSchedule";
 
+	public static String THERMOSTAT_CURRENT_TEMPERATURE = "thermostatCurrentTemperatureValue";
 
 }
 

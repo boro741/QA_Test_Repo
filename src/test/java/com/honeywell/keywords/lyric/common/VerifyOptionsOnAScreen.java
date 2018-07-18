@@ -18,6 +18,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -167,11 +168,32 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				try {
 					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
 						Keyword.ReportStep_Pass(testCase,
-								"Settings: '" + fieldTobeVerified + "' is present on the DAS Settings screen");
+								"Settings: '" + fieldTobeVerified + "' is present on the Camera Settings screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Settings: '" + fieldTobeVerified + "' is not present on the DAS Settings screen");
+								"Settings: '" + fieldTobeVerified + "' is not present on the Camera Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		case "THERMOSTAT SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "ThermostatSettings");
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+								+ "' is not present on the Thermostat Settings screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -566,7 +588,49 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
+		case "INDOOR TEMPERATURE ALERT": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "IndoorTempAlertOptions");
+				try {
+					if (ts.isThermostatIndoorTempAlertOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Temperature Alert Options: '" + fieldToBeVerified
+								+ "' is present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Temperature Alert Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "ALERT FOR THIS RANGE": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AlertTempRangeOptions");
+				try {
+					if (ts.isThermostatIndoorTempAlertRangeOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Temperature Alert Range Options: '"
+								+ fieldToBeVerified
+								+ "' is present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Temperature Alert Range Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

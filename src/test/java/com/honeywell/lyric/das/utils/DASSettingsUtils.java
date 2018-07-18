@@ -8,6 +8,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
+import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
@@ -201,21 +202,21 @@ public class DASSettingsUtils {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			Thread.sleep(2000);
-			
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromDashboardScreenToSecuritySolutionCardScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			Thread.sleep(2000);
-			
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
@@ -275,8 +276,8 @@ public class DASSettingsUtils {
 		try {
 			if (d.isGlobalDrawerButtonVisible()) {
 				flag = flag & d.clickOnGlobalDrawerButton();
-				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");			
-			}				
+				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");
+			}
 
 			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
 				flag = false;
@@ -290,7 +291,7 @@ public class DASSettingsUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Could not click on global geofence alert toggle");
 			}
-			
+
 			Thread.sleep(2000);
 
 			if (geoScreen.isclickOnBackButtonVisible()) {
@@ -318,18 +319,16 @@ public class DASSettingsUtils {
 		try {
 			if (d.isGlobalDrawerButtonVisible()) {
 				flag = flag & d.clickOnGlobalDrawerButton();
-				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");			
-			}		
+				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");
+			}
 			Thread.sleep(3000);
 
-			
 			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION)) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Could not click on global geofence toggle");
 			}
 
-			
 			Thread.sleep(3000);
 			if (geoScreen.isclickOnBackButtonVisible()) {
 				flag = flag & geoScreen.clickOnBackButton();
@@ -337,7 +336,7 @@ public class DASSettingsUtils {
 				if (sc.isclickOnBackButtonVisible()) {
 					flag = flag & sc.clickOnBackButton();
 				}
-				
+
 			}
 
 		} catch (Exception e) {
@@ -346,12 +345,13 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+
 	/**
 	 * <h1>Navigate from Dashboard to Camera Settings Screen</h1>
 	 * <p>
 	 * The navigateFromDashboardScreenToCameraSettingsScreen method navigates from
-	 * the dashboard to the Camera Settings screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * the dashboard to the Camera Settings screen by clicking on the Global Drawer
+	 * option and clicking on the camera name on the secondary card settings
 	 * </p>
 	 *
 	 * @param testCase
@@ -377,12 +377,43 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
+	/**
+	 * <h1>Navigate from Dashboard to Camera Settings Screen</h1>
+	 * 
+	 * The navigateFromDashboardScreenToThermostatSettingsScreen method navigates
+	 * from the dashboard to the Thermostat Settings screen by clicking on the
+	 * camera name in the dashboard
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToThermostatSettingsScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Laundry Room");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
 	/**
 	 * <h1>Navigate from Dashboard to Manage Alerts Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToManageAlertsScreen method navigates from
-	 * the dashboard to the Manage alerts screen by clicking on the Global Drawer option
+	 * The navigateFromDashboardScreenToManageAlertsScreen method navigates from the
+	 * dashboard to the Manage alerts screen by clicking on the Global Drawer option
 	 * and clicking on the camera name on the secondary card settings
 	 * </p>
 	 *
@@ -394,17 +425,24 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToManageAlertsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToManageAlertsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Honeywell Hone");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isThermostatCurrentTemperatureVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Current Temperature is displayed in Primary card screen");
+				inputs.setInputValue(InputVariables.THERMOSTAT_CURRENT_TEMPERATURE,
+						pc.getThermostatCurrentTemperatureValue());
+				System.out.println("############THERMOSTAT_CURRENT_TEMPERATURE: "
+						+ inputs.getInputValue(InputVariables.THERMOSTAT_CURRENT_TEMPERATURE));
+			}
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
-			if(cs.isManageAlertsLabelVisible(5)) {
+			if (cs.isManageAlertsLabelVisible(5)) {
 				cs.clickOnManageAlertsLabel();
 			}
 		} catch (Exception e) {
@@ -413,13 +451,14 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Navigate from Dashboard to Camera Motion Detection Settings Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen method navigates from
-	 * the dashboard to the Camera Motion Detection screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * The navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen method
+	 * navigates from the dashboard to the Camera Motion Detection screen by
+	 * clicking on the Global Drawer option and clicking on the camera name on the
+	 * secondary card settings
 	 * </p>
 	 *
 	 * @param testCase
@@ -440,7 +479,7 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
-			if(cs.isMotionDetectionLabelVisible(5)) {
+			if (cs.isMotionDetectionLabelVisible(5)) {
 				cs.clickOnMotionDetectionLabel();
 				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
 			}
@@ -450,13 +489,14 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Navigate from Dashboard to Camera Night Vision Settings Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToCameraNightVisionSettingsScreen method navigates from
-	 * the dashboard to the Camera Night Vision screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * The navigateFromDashboardScreenToCameraNightVisionSettingsScreen method
+	 * navigates from the dashboard to the Camera Night Vision screen by clicking on
+	 * the Global Drawer option and clicking on the camera name on the secondary
+	 * card settings
 	 * </p>
 	 *
 	 * @param testCase
@@ -477,7 +517,7 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
-			if(cs.isNightVisionLabelVisible(5)) {
+			if (cs.isNightVisionLabelVisible(5)) {
 				cs.clickOnNightVisionLabel();
 				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
 			}
@@ -487,13 +527,14 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Navigate from Dashboard to Camera Video Quality Settings Screen</h1>
 	 * <p>
-	 * The navigateFromDashboardScreenToCameraVideoQualitySettingsScreen method navigates from
-	 * the dashboard to the Camera Video Quality screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * The navigateFromDashboardScreenToCameraVideoQualitySettingsScreen method
+	 * navigates from the dashboard to the Camera Video Quality screen by clicking
+	 * on the Global Drawer option and clicking on the camera name on the secondary
+	 * card settings
 	 * </p>
 	 *
 	 * @param testCase
@@ -514,7 +555,7 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
-			if(cs.isVideoQualityLabelVisible(5)) {
+			if (cs.isVideoQualityLabelVisible(5)) {
 				cs.clickOnVideoQualityLabel();
 				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
 			}

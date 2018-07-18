@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 public class VerifyValueOnAScreen extends Keyword {
 
@@ -460,6 +461,30 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Video Quality Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("INDOOR TEMPERATURE ALERT")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatIndoorTempAlertSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Temperature Alert Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatIndoorTempAlertSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Temperature Alert Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Thermostat Indoor Temperature Alert is not displayed");
 				}
 			}
 		} catch (Exception e) {
