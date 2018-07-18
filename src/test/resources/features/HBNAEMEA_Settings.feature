@@ -112,10 +112,10 @@ Then user should be displayed with the following "Alert for this range" options:
 	| Below 						| 
 	| Above						|
 And user taps on "Below Range"
-Then user should be able to select "Below Temperature Range"
+Then user selects "Below Temperature Range" from "Manage Alerts" screen
 And user receives a "Below Temperature Range" push notification
 And user taps on "Above Range"
-Then user should be able to select "Above Temperature Range"
+Then user selects "Above Temperature Range" from "Manage Alerts" screen
 And user receives a "Above Temperature Range" push notification
 And user should be displayed with "Indoor Temperature" message on "Activity History" history screen
 
