@@ -1824,6 +1824,12 @@ public class JasperSchedulingUtils {
 					Keyword.ReportStep_Pass(testCase, "Successfully deleted all the periods");
 					return flag;
 				}
+
+				if (ss.isNoScheduleTextVisible(10)){
+					flag = flag && ss.clickOnBackButton();
+					Keyword.ReportStep_Pass(testCase, "Successfully deleted all the periods");
+					return flag;
+				}
 			}
 			if (inputs.getInputValue(InputVariables.ADD_PERIOD).equalsIgnoreCase("Yes")) {
 				JasperSchedulingUtils.addPeriodEMEADefaultCase(testCase, inputs);
@@ -10632,7 +10638,7 @@ public class JasperSchedulingUtils {
 		boolean flag = true;
 		try {
 			SchedulingScreen ss = new SchedulingScreen(testCase);
-			flag = flag & viewScheduleOnPrimaryCard(testCase);
+			//			flag = flag & viewScheduleOnPrimaryCard(testCase);
 
 			if (ss.isCreateScheduleButtonVisible(5)) {
 				flag = flag & ss.clickOnCreateScheduleButton();
@@ -13361,28 +13367,14 @@ public class JasperSchedulingUtils {
 							}
 							inputs.setInputValue(InputVariables.PERIOD_NAME_NA, InputVariables.WEEKDAY_SLEEP);
 						} else if (mode.equals("Wake_Weekend")) {
-							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-							TouchAction action = new TouchAction(testCase.getMobileDriver());
-							action.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+							//							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+							//							TouchAction action = new TouchAction(testCase.getMobileDriver());
+							//							action.press(10, (int) (dimension.getHeight() * .5))
+							//							.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekendWakeElement();
-								} else {
-									if (!ss.isWeekendWakeElementVisible(5)) {
-										try {
-											testCase.getMobileDriver().scrollTo("Saturday - Sunday_Wake");
-										} catch (Exception e3) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element Wake_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekendWakeElement();
-								}
-							} catch (NoSuchElementException e) {
+							//							try {
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
@@ -13398,7 +13390,36 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Create Schedule : Could not find element Wake_Saturday-Sunday");
 								}
+								//									element = ss.getWeekendWakeElement();
+							} else {
+								if (!ss.isWeekendWakeElementVisible(5)) {
+									try {
+										testCase.getMobileDriver().scrollTo("Saturday - Sunday_Wake");
+									} catch (Exception e3) {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Create Schedule : Could not find element Wake_Saturday-Sunday");
+									}
+								}
+								element = ss.getWeekendWakeElement();
 							}
+							//							} catch (NoSuchElementException e) {
+							//								try {
+							//									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							//										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+							//										int startx = (dimensions.width * 20) / 100;
+							//										int starty = (dimensions.height * 62) / 100;
+							//										int endx = (dimensions.width * 22) / 100;
+							//										int endy = (dimensions.height * 35) / 100;
+							//										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+							//										element = ss.getWeekendWakeElement();
+							//									}
+							//								} catch (NoSuchElementException e1) {
+							//									flag = false;
+							//									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							//											"Create Schedule : Could not find element Wake_Saturday-Sunday");
+							//								}
+							//							}
 
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
@@ -13820,8 +13841,8 @@ public class JasperSchedulingUtils {
 								+ " period ***************");
 					}
 				}
-				if (ss.isDoneButtonVisible(10)) {
-					flag = flag & ss.clickOnDoneButton();
+				if (ss.IsSaveButtonVisible(10)) {
+					flag = flag & ss.clickOnSaveButton();
 				}
 				if (ss.isConfirmChangeButtonVisible(10)) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -14084,6 +14105,7 @@ public class JasperSchedulingUtils {
 
 		return flag;
 	}
+
 	public static boolean clickOnDeleteIconForSelectedPeriodNA(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		String periodToSelect = null;

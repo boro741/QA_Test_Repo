@@ -53,12 +53,12 @@ public class CreateDefaultTimeBasedScheduleByDeletingMultiplePeriods extends Key
 				inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "TWO");
 			} else if (exampleData.get(1).equalsIgnoreCase("Atleast 3 period")) {
 				inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "THREE");
-			} else if (exampleData.get(1).equalsIgnoreCase("All 4 periods")) {
+			} else if (exampleData.get(1).equalsIgnoreCase("All periods")) {
 				inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "FOUR");
 			}
 			inputs.setInputValue(InputVariables.DELETE_MULTIPLE_PERIODS, "Yes");
 
-			if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+			if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
@@ -98,7 +98,7 @@ public class CreateDefaultTimeBasedScheduleByDeletingMultiplePeriods extends Key
 				inputs.setInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT, temp);
 
 				flag = flag & JasperSchedulingUtils.createTimeBasedScheduleWithDefaultValues(testCase, inputs);
-			} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
