@@ -1,3 +1,4 @@
+
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
@@ -2035,7 +2036,22 @@ public class NavigateToScreen extends Keyword {
 				break;
 				}
 				
-			} else {
+			} 
+			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SOLUTION CARD": {
+			Dashboard sensorScreen = new Dashboard(testCase);
+					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+					
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
@@ -2053,3 +2069,5 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 }
+
+

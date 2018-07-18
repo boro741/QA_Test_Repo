@@ -1,3 +1,4 @@
+
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -656,6 +658,40 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "THERMOSTAT DASHBOARD":{
+				Dashboard thermo = new Dashboard(testCase);
+					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					flag = flag & thermo.isUpStepperDisplayed();
+					flag = flag & thermo.isDownStepperDisplayed();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is successfully displayed");
+					}
+					else {
+
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Not Displayed with " + expectedScreen.get(0).toUpperCase());
+					}
+					
+					break;
+				}
+				case "THERMOSTAT SOLUTION CARD":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.isThermostatSolutionCardDisplayed();
+					break;
+				}
+				case "CHANGE MODE":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.isChangeModeScreenDisplayed();
+					
+					break;
+				}
+				case "MODE INFO":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.isModeInfoScreenDisplayed();
+					
+					break;
+				}
 			case "MOUNT SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = sensor.isMountSensorScreenDisplayed();

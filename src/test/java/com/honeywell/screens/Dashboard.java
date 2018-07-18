@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 
 public class Dashboard extends MobileScreens {
 
@@ -356,4 +359,89 @@ public class Dashboard extends MobileScreens {
 		
 		return flag;
 	}
+	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue) {
+
+		String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatName");
+		if(expectedValue.equalsIgnoreCase(actualValue)) {
+			System.out.println("Same name as given ");
+			return true;
+		}
+			return false;
+		}
+		public boolean isTemperatureNotDisplayed() {
+			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+			if(status.equals("--"))
+			{
+			return true;
+		}
+			return false;
+	}
+		public boolean isOffStatusVisible() {
+			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
+			if(status.toUpperCase().contains("OFF"))
+			{
+			return true;
+		}
+			return false;
+		}
+		public boolean isThermostatTemperatureDisplayed(TestCaseInputs inputs) {
+
+			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String chilDeviceIndoorTemperature = statInfo.getIndoorTemperature();
+			System.out.println("Indoor temperature "+chilDeviceIndoorTemperature);
+			
+			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+				System.out.println("Temperature is  given ");
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		public boolean isUserExpectedTemperatureDisplayed() {
+
+			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+
+			
+			if(actualValue.contains("--")==false) {
+				System.out.println("Temperature is  given ");
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		public boolean NavigatetoThermostatDashboard() {
+			if(MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")){
+				 CoachMarkUtils.closeCoachMarks(testCase);
+				 return true;
+			}
+			return false;
+		}
+		public boolean isUpStepperDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpStepper");
+		}
+
+		public boolean isDownStepperDisplayed() {
+
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper");
+		}
+		public boolean isUPStepperElementEnabled() {
+			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "UpStepper");
+			if(element.isEnabled())
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public boolean isDownStepperElementEnabled() {
+			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "DownStepper");
+			if(element.isEnabled())
+			{
+				return true;
+			}
+			return false;
+		}
 }

@@ -1113,6 +1113,40 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "THERMOSTAT DASHBOARD":
+		{
+		 Dashboard dash = new Dashboard(testCase);
+		
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "INSIDE TEMPERATURE":
+			{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
+				{
+					if(dash.isOffStatusVisible())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+					}
+					break;	
+				}
+				
+				
+				
+				}
+				break;
+			}
+			
+			}
+			break;
+		}
+			
+
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");
