@@ -22,6 +22,7 @@ import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwavePrimardCardScreen;
@@ -98,6 +99,37 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			}
 
+			break;
+		}
+		case "THERMOSTAT SOLUTION CARD":
+		{PrimaryCard dash = new PrimaryCard(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "INSIDE TEMPERATURE":
+			{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
+				{
+					if(dash.isOffStatusVisibleOnSolutionCard())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+					}
+					break;	
+				}
+				
+				
+				
+				}
+				break;
+			}
+			
+			}
+			
 			break;
 		}
 		case "SENSOR LIST":

@@ -17,6 +17,9 @@ import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
 
+import com.honeywell.screens.PrimaryCard;
+
+
 import io.appium.java_client.TouchAction;
 
 public class VerifyOptionsOnAScreenEnabled extends Keyword {
@@ -114,9 +117,46 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			}
 			break;
 		}
+
+		
+
+		case "THERMOSTAT ICONS":{
+
+			PrimaryCard thermo = new PrimaryCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				System.out.println(fieldToBeVerified);
+				if (fieldToBeVerified.equalsIgnoreCase("mode")) {
+					if(thermo.isModeElementEnabled()) {
+
+						Keyword.ReportStep_Pass(testCase, "Mode Element is enabled");
+					}
+					else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Schedule Element is not enabled");
+					}
+					
+				}
+				else if (fieldToBeVerified.equalsIgnoreCase("schedule")) {
+					if(thermo.isScheduleElementEnabled()) {
+
+						Keyword.ReportStep_Pass(testCase, "Schedule Element is enabled");
+					}
+					else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Schedule Element is not enabled");
+					}
+				}
+			}
+			break;
+			
+		}
 		case "THERMOSTAT":{
 
-	    Dashboard thermo = new Dashboard(testCase);
+			Dashboard thermo = new Dashboard(testCase);
+
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "Options");
 				System.out.println(fieldToBeVerified);
