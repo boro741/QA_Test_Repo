@@ -113,4 +113,31 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
+
+	public boolean clickOnBelowTempAlertRangeOption(String indoorTempAlertRangeOption) {
+		boolean flag = true;
+		String expectedTempAlertRangeOption = indoorTempAlertRangeOption.contains(" ")
+				? indoorTempAlertRangeOption.split(" ")[0]
+				: indoorTempAlertRangeOption;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/fragment_high_low_alert_setting_"
+							+ expectedTempAlertRangeOption.toLowerCase() + "_spinner" + "\'" + "]"
+							+ "/android.widget.LinearLayout/android.widget.TextView[@resource-id=" + "\'"
+							+ "com.honeywell.android.lyric:id/list_item_lyric_spinner_text'" + "]",
+					testCase)) {
+				MobileUtils.clickOnElement(testCase, "XPATH",
+						"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/fragment_high_low_alert_setting_"
+								+ expectedTempAlertRangeOption.toLowerCase() + "_spinner" + "\'" + "]"
+								+ "/android.widget.LinearLayout/android.widget.TextView[@resource-id=" + "\'"
+								+ "com.honeywell.android.lyric:id/list_item_lyric_spinner_text'" + "]");
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+
+		}
+		return flag;
+	}
 }
