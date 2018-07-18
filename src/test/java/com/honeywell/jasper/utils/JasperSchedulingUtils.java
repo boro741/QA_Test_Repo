@@ -1995,8 +1995,10 @@ public class JasperSchedulingUtils {
 			SchedulingScreen ss = new SchedulingScreen(testCase);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = devInfo.getAllowedModes();
-			if (testCase.getMobileDriver().findElements(By.name("icon_add_period")) != null) {
-				element = testCase.getMobileDriver().findElement(By.name("icon_add_period"));
+			SchedulingScreen sScreen = new SchedulingScreen(testCase);
+			
+			if (sScreen.getSchedulePeriodbuttons() != null) {
+				element = sScreen.getSchedulePeriodbutton();
 				Keyword.ReportStep_Pass(testCase, " ");
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Setting time and set points for new period ***************");
@@ -2004,7 +2006,6 @@ public class JasperSchedulingUtils {
 				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					tempPeriod = String.valueOf(rn.nextInt((3 - 1) + 1) + 1);
-					System.out.println(tempPeriod);
 					if (ss.isEverydayTimeVisible(5)) {
 						schedule_period_time = ss.getEverydayTimeElements();
 					} else {
@@ -2042,7 +2043,7 @@ public class JasperSchedulingUtils {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to locate Weekday Time list");
 						}
-						element = testCase.getMobileDriver().findElements(By.name("icon_add_period")).get(0);
+						element = sScreen.getSchedulePeriodbutton();
 						initialPeriodSize = weekdaySchedule_period_time.size();
 					} else {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -2071,10 +2072,10 @@ public class JasperSchedulingUtils {
 							if (size > 1) {
 								element = ss.getAddImageElements().get(1);
 							} else {
-								element = ss.getAddImageElements().get(0);
+								element = sScreen.getSchedulePeriodbutton();
 							}
 						} else {
-							element = testCase.getMobileDriver().findElements(By.name("icon_add_period")).get(1);
+							element = sScreen.getSchedulePeriodbuttons().get(1);
 						}
 
 						initialPeriodSize = weekendSchedule_period_time.size();
@@ -2718,8 +2719,8 @@ public class JasperSchedulingUtils {
 				int i = Integer.parseInt(hours);
 				hours = Integer.toString(i);
 				if (ss.isTimeHoursVisible(5)) {
-					String hoursspit = time.split(":")[0];
-					flag = flag & ss.setValueToTimeHoursPicker(hoursspit);
+					//String hoursspit = time.split(":")[0];
+					flag = flag & ss.setValueToTimeHoursPicker(hours);
 				}
 				if (ss.isTimeMinutesVisible(5)) {
 					flag = flag & ss.setValueToTimeMinutesPicker(minutes);
@@ -2732,20 +2733,20 @@ public class JasperSchedulingUtils {
 						flag = false;
 					}
 				} else if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooserEndTime")) {
-					if (!ss.getTimeScheduleEndTimeValue().equalsIgnoreCase("false")) {
+				//	if (!ss.getTimeScheduleEndTimeValue().equalsIgnoreCase("false")) {
 						if (!ss.clickOnTimeScheduleEndTime()) {
 							flag = false;
 						}
-					} else {
+				/*	} else {
 						if (!ss.clickOnStartButton()) {
 							flag = false;
 						}
-					}
+					}*/
 				} else {
 					flag = flag & ss.clickOnElementFromObjectDefinitions(locatorValueinObjectDefinition);
 				}
 				if (verifySetPeriodTime) {
-					flag = flag & verifySetPeriodTime(testCase, time, locatorValueinObjectDefinition);
+					flag = flag & verifySetPeriodTime(testCase, i+":"+minutes+" "+ampm, locatorValueinObjectDefinition);
 				}
 			}
 
@@ -2759,15 +2760,14 @@ public class JasperSchedulingUtils {
 
 	public static boolean setTimeSchedulePeriodTimeAndSetPoints(TestCases testCase, TestCaseInputs inputs,
 			HashMap<String, String> periodTimeandSetPoint, WebElement element) {
+		SchedulingScreen sScreen = new SchedulingScreen(testCase);
 		boolean flag = true;
 		try {
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			String jasperStatType = devInfo.getJasperDeviceType();
 			try {
-				String elementDesc = element.getAttribute("name");
-				//				element = testCase.getMobileDriver().findElement(By.name("icon_add_period"));
-				element.click();
-				Keyword.ReportStep_Pass(testCase, "Successfully click on : " + elementDesc);
+				sScreen.clickOnAddPeriodButton();
+				Keyword.ReportStep_Pass(testCase, "Successfully click on : Add period");
 			} catch (Exception e) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -5830,7 +5830,9 @@ public class JasperSchedulingUtils {
 	}
 
 	public static boolean setHeatStepper(TestCases testCase, TestCaseInputs inputs, String targetHeatTemp, int index) {
+		
 		boolean flag = true;
+		try{
 		String heatSetPoint = " ";
 		WebElement heatUp = null;
 		WebElement heatDown = null;
@@ -5892,6 +5894,9 @@ public class JasperSchedulingUtils {
 			heatScroller = scroller.intValue();
 		}
 		flag = flag & setValueToScroller(testCase, heatScroller, heatUp, heatDown);
+		}catch(Exception e){
+			System.out.println("Exception occured"+e.getMessage());
+		}
 		return flag;
 	}
 

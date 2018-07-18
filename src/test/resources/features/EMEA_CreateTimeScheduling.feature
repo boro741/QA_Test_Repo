@@ -19,6 +19,21 @@ As a user I want to create an time based scheduling
  #     | time based | Same Every Day        | 
  #     | no         | Different On Weekdays | 
  #     | time based | Different On Weekdays | 
+ 
+ @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641
+  Scenario Outline: To create EMEA schedule by setting up with new period with new time value for both time format
+  As an user
+  I want to create Everyday schedule by adding new period for both time format
+  Given user thermostat is set to "no" schedule 
+    Given user launches and logs in to the Lyric application
+      And user navigates to "Scheduling" screen from the "Dashboard" screen
+     When user creates <ScheduleType> schedule by adding period to the default schedule values
+     Then <ScheduleType> scheduling gets activated
+  
+    Examples: 
+      | ScheduleType          | 
+      | Same Every Day        | 
+      | Different On Weekdays | 
   
   @JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3
   Scenario Outline: As a user i want to be prompted with an option to Cancel overriding Geofence Schedule
@@ -75,19 +90,7 @@ As a user I want to create an time based scheduling
      When user creates "Same Every Day" schedule by changing the time values
      Then user should be displayed "Same Every Day" schedule with timer field incremental of "10 minutes"
   
-  @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1
-  Scenario Outline: To create EMEA schedule by setting up with new period with new time value for both time format
-  As an user
-  I want to create Everyday schedule by adding new period for both time format
-    Given user launches and logs in to the Lyric application
-      And user selects "Jasper device" from the dashboard
-     When user creates <ScheduleType> schedule by adding New period to the default schedule values
-     Then <ScheduleType> scheduling gets activated
   
-    Examples: 
-      | ScheduleType          | 
-      | Same Every Day        | 
-      | Different On Weekdays | 
       
 @JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays @JasperEmeaScheduleP4
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
