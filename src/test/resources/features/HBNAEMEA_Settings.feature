@@ -102,15 +102,19 @@ Scenario: As a user I should be able to change Alert For This Range on my thermo
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
 Then user changes the "Indoor Temperature Alert" to "ON"
-And user clicks on "Alert for this range" option
+And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Temperature Alert" options:
+	| IndoorTempAlertOptions			| 
+	| Alert for this range			|
+When user selects "Alert for this range" from "Manage Alerts" screen
 Then user should be displayed with the following "Alert for this range" options:
-	| AlertTempRange		| 
-	| Below 				| 
-	| Above				|
-And when user clicks on "Below Range"
+	| AlertTempRangeOptions		| 
+	| Below 						| 
+	| Above						|
+And user taps on "Below Range"
 Then user should be able to select "Below Temperature Range"
 And user receives a "Below Temperature Range" push notification
-And when user Clicks on "Above Range"
+And user taps on "Above Range"
 Then user should be able to select "Above Temperature Range"
 And user receives a "Above Temperature Range" push notification
 And user should be displayed with "Indoor Temperature" message on "Activity History" history screen

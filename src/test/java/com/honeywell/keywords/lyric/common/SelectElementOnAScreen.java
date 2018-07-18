@@ -24,6 +24,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -747,25 +748,34 @@ public class SelectElementOnAScreen extends Keyword {
 					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
-			}else if(parameters.get(1).equalsIgnoreCase("Setup Amazon Alexa")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Setup Amazon Alexa")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "Sign In":{
+				case "SIGN IN": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isAmazonSignInVisible()) {
-						flag= flag & bs.clickOnAmazonSignInButton();
+						flag = flag & bs.clickOnAmazonSignInButton();
 
 					}
 					break;
 				}
 				}
-			}
-			else if(parameters.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+			} else if (parameters.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "Sign Out":{
+				case "SIGN OUT": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isAmazonSignOutVisible()) {
-						flag= flag & bs.clickOnAmazonSignOutVisible();
-							Thread.sleep(3000);
+						flag = flag & bs.clickOnAmazonSignOutVisible();
+						Thread.sleep(3000);
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("MANAGE ALERTS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "ALERT FOR THIS RANGE": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if(ts.isThermostatTempAlertRangeVisible()) {
+						flag = flag & ts.clickOnThermostatTempAlertRange();
 					}
 					break;
 				}

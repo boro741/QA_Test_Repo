@@ -45,8 +45,9 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean isThermostatIndoorTempAlertOptionVisible(String indoorTempAlertOption) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("ID", "alert_title_layout", testCase) && MobileUtils
-					.getFieldValue(testCase, "ID", "alert_title_layout").equalsIgnoreCase(indoorTempAlertOption)) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorTempAlertTitle")
+					&& MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatIndoorTempAlertTitle")
+							.equalsIgnoreCase(indoorTempAlertOption)) {
 				return flag;
 			} else {
 				flag = false;
@@ -61,6 +62,49 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					&& MobileUtils
 							.getMobElement(testCase, "XPATH",
 									"//XCUIElementTypeStaticText[@value='" + indoorTempAlertOption + "']")
+							.getAttribute("visible").equalsIgnoreCase("true")) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isThermostatTempAlertRangeVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatTempAlertRange");
+	}
+
+	public boolean clickOnThermostatTempAlertRange() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatTempAlertRange");
+	}
+
+	public boolean isThermostatIndoorTempAlertRangeOptionVisible(String indoorTempAlertRangeOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/fragment_high_low_alert_"
+							+ indoorTempAlertRangeOption.toLowerCase() + "_text" + "\'" + "]",
+					testCase)
+					&& MobileUtils.getFieldValue(testCase, "XPATH",
+							"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/fragment_high_low_alert_"
+									+ indoorTempAlertRangeOption.toLowerCase() + "_text" + "\'" + "]")
+							.equalsIgnoreCase(indoorTempAlertRangeOption)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@value='" + indoorTempAlertRangeOption + "']", testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//XCUIElementTypeStaticText[@value='" + indoorTempAlertRangeOption + "']")
+							.getAttribute("value").equalsIgnoreCase(indoorTempAlertRangeOption)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//XCUIElementTypeStaticText[@value='" + indoorTempAlertRangeOption + "']")
 							.getAttribute("visible").equalsIgnoreCase("true")) {
 				return flag;
 			} else {

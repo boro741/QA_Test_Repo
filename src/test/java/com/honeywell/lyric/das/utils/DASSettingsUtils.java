@@ -8,6 +8,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
+import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
@@ -424,13 +425,20 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToManageAlertsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToManageAlertsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
 			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Honeywell Hone");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isThermostatCurrentTemperatureVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Current Temperature is displayed in Primary card screen");
+				inputs.setInputValue(InputVariables.THERMOSTAT_CURRENT_TEMPERATURE,
+						pc.getThermostatCurrentTemperatureValue());
+				System.out.println("############THERMOSTAT_CURRENT_TEMPERATURE: "
+						+ inputs.getInputValue(InputVariables.THERMOSTAT_CURRENT_TEMPERATURE));
+			}
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}

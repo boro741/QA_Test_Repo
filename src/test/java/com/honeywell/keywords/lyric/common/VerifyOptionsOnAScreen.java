@@ -594,13 +594,35 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				String fieldToBeVerified = data.getData(i, "IndoorTempAlertOptions");
 				try {
 					if (ts.isThermostatIndoorTempAlertOptionVisible(fieldToBeVerified)) {
-						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldToBeVerified
+						Keyword.ReportStep_Pass(testCase, "Indoor Temperature Alert Options: '" + fieldToBeVerified
 								+ "' is present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Temperature Alert Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "ALERT FOR THIS RANGE": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AlertTempRangeOptions");
+				try {
+					if (ts.isThermostatIndoorTempAlertRangeOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Temperature Alert Range Options: '"
 								+ fieldToBeVerified
-								+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+								+ "' is present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Temperature Alert Range Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;

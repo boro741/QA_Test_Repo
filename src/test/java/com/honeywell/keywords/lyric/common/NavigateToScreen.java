@@ -518,7 +518,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Manage Alerts Screen'
 				case "MANAGE ALERTS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'

@@ -45,7 +45,7 @@ Then "Email Notifications" value should be updated to "OFF" on "Manage Alerts" s
 When user creates "Alerts"
 Then user should not receive "Email Alert"
   
-@ChangeAlertForThisRangeforTemperature
+@WLDChangeAlertForThisRangeforTemperature
 Scenario: As a user I should be able to change Alert For This Range on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen

@@ -48,11 +48,6 @@ public class TaponElement extends Keyword {
 					expectedLocator.get(0) + " input not handled");
 		}
 		}
-		/*} else {
-			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Scenario steps failed already, hence skipping the verification");
-		}*/
 		return flag;
 	}
 

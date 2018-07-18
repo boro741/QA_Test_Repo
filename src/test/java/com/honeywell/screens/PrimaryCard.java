@@ -27,4 +27,12 @@ public class PrimaryCard extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
-}
+	
+	public boolean isThermostatCurrentTemperatureVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatCurrentTemperature");
+	}
+	
+	public String getThermostatCurrentTemperatureValue() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatCurrentTemperature");
+	}
+ }
