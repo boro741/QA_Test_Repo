@@ -15,6 +15,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.Dashboard;
 
 import io.appium.java_client.TouchAction;
 
@@ -113,6 +114,40 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			}
 			break;
 		}
+		case "THERMOSTAT":{
+
+	    Dashboard thermo = new Dashboard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				System.out.println(fieldToBeVerified);
+				if (fieldToBeVerified.equalsIgnoreCase("UP STEPPER")) {
+					if(thermo.isUPStepperElementEnabled()) {
+
+						Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
+					}
+					else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"UP Stepper Element is not enabled");
+					}
+					
+				}
+				else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
+					if(thermo.isDownStepperElementEnabled()) {
+
+						Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
+					}
+					else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Down Stepper Element is not enabled");
+					}
+				}
+			}
+			break;
+			
+		}
+
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -11,11 +12,14 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SensorSettingScreen;
+
 
 
 public class VerifyingAOption extends Keyword {
@@ -177,6 +181,38 @@ public class VerifyingAOption extends Keyword {
 				}
 				
 				}
+			else if(expectedScreen.get(1).toUpperCase().equals("RESPECTIVE SETPOINT VALUE")){
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+			Dashboard thermo  = new Dashboard(testCase);
+				if(thermo.isUserExpectedTemperatureDisplayed()) {
+					System.out.println("User Expected Temperature is Displayed");
+					Keyword.ReportStep_Pass(testCase,"User Expected Temperature is Displayed" );
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"User Expected Temperature is not Displayed");
+				}
+					
+					break;
+				
+				}
+				case "SHOULD NOT BE DISPLAYED": {
+					System.out.println("inside");
+					Dashboard dash = new Dashboard(testCase);
+					if(dash.isTemperatureNotDisplayed()){
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not displayed");
+					}
+					else {
+					
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1)+" is displayed");
+					}
+					break;
+				}
+				}	
+			}
+			
+		
 		return flag;
 	}
 
