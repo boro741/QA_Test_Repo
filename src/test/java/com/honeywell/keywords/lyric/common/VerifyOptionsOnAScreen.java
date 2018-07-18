@@ -589,6 +589,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+
 		case "INDOOR TEMPERATURE ALERT": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -632,6 +633,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+
 
 		case "MODE INFO":{
 			System.out.println("Inside Verifing mode info");
@@ -679,7 +681,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 				}
 			}
-			
 
 			break;
 		}

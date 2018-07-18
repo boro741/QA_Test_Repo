@@ -28,6 +28,7 @@ public class PrimaryCard extends MobileScreens {
 	}
 
 
+
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
@@ -93,6 +94,7 @@ public class PrimaryCard extends MobileScreens {
 		public boolean isSystemOffModeDefinitionVisible() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemOffModeDefinition",5);
 		}
+
 
 	
 }
