@@ -3,57 +3,72 @@ Feature: As an user I want to verify the Dashboard and primary card for JapserNA
 
 #Dashboard view 
 
-#HB, Spruce and JasperNA - Heat and Cool system
-@ViewDashboard
-Scenario Outline: As an user I want to verify the COMFORT DEVICE on Dashboard with system modes 
+#HB, Spruce and JasperNA
+@ViewDashboard @DashbboardandSolutionCard_P1
+Scenario Outline: As an user I want to verify the Dashboard view with respective system modes 
 Given user launches and logs in to the Lyric application
 Then user has <Mode> system mode
-And user should be displayed with the "COMFORT DEVICE" screen
-And user logs out of the app
+And user should be displayed with the "Thermostat Dashboard" screen
+Then user should be displayed with "Thermostat name" with "XX INSIDE" temperature 
+Then the following "Thermostat" options should be enabled:
+ |Options|
+ |Up Stepper|
+ |Down Stepper|
+And user "should be displayed" with the "respective setpoint value" option
+####And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
 |Cool| 
 |Heat|
-|Off|
+|Auto|
 
+#incaserequired 
+#|Cool only|
+#|Heat Only|
 
 #JasperEMEA
-@ViewDashboardEMEA
-Scenario Outline: As an user I want to verify the COMFORT DEVICE on Dashboard with system modes 
+@ViewDashboardEMEA @DashbboardandSolutionCard_P1
+Scenario Outline: As an user I want to verify the Dashboard view with system modes 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user should be displayed with the "COMFORT DEVICE" screen
-And user logs out of the app
+Then user has <Mode> system mode
+And user should be displayed with the "Thermostat Dashboard" screen
+Then user should be displayed with "Thermostat name" with "XX INSIDE" temperature 
+Then the following "Thermostat" options should be enabled:
+ |Options|
+ |Up Stepper|
+ |Down Stepper|
+And user "should be displayed" with the "respective setpoint value" option
+####And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
-|Heat|
-|Off|
+|Heat |
 
-#HB, Spruce, JasperNA, JasperEMEA
-@ViewDashboardOFF
-Scenario Outline: Aa an user I want to verify the Dashboard view with "OFF" mode 
+@ViewDashboardOFF @DashbboardandSolutionCard_P1
+Scenario Outline: As a user I want to verify the Dashboard view with "OFF" mode 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user navigates to "Dashboard" screen 
-Then user should be displayed with disabled "UP stepper" and "Down stepper"
-And user should be displayed with setpoint value "--" 
-And user should be displayed with "xx INSIDE" tempr with "OFF" status 
+#Then user has <Mode> system mode
+When user should be displayed with the "thermostat Dashboard" screen 
+And the following "Thermostat" options should be disabled:
+|Options|
+|UP stepper|
+|Down stepper|
+Then user "should not be displayed" with the "respective setpoint value" option
+And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" screen  
 Examples:
 |Mode |
 |OFF |
 
 #SolutionCard view 
 
-#HB, Spruce and JasperNA
+#JasperNA
 @ViewSolutionCard
 Scenario Outline: Aa an user I want to verify the SolutionCard view with respective system modes 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user navigates to "SolutionCard" screen
-Then user should displayed with "greyed out" indoor tempr value 
-And user should be displayed with "Thermostat is OFF" status 
-And user should be displayed with disabled "UP stepper" and "Down stepper"
-And user should be displayed with setpoint value "--" 
+Then user should displayed with "Current" indoor tempr value 
+And user should be displayed with "UP stepper" and "Down stepper"
+And user should be displayed with respective setpoint value 
 And user Should be displayed with enabled "FAN mode " "System mode" and "Schedule" icons
 Examples:
 |Mode |
@@ -63,6 +78,24 @@ Examples:
 |Cool only|
 |Heat Only|
 
+#HB, Spruce
+@ViewSolutionCard
+Scenario Outline: Aa an user I want to verify the SolutionCard view with respective system modes 
+Given user launches and logs in to the Lyric application
+Then user is set to <Mode> through CHIL
+When user navigates to "SolutionCard" screen
+Then user should displayed with "Current" indoor tempr value 
+And user should be displayed with "HUMIDITY XX" tempr value 
+And user should be displayed with "UP stepper" and "Down stepper"
+And user should be displayed with respective setpoint value 
+And user Should be displayed with enabled "FAN mode " "System mode" and "Schedule" icons
+Examples:
+|Mode |
+|Cool| 
+|Heat |
+|Auto |
+|Cool only|
+|Heat Only|
 
 #JasperEMEA
 @ViewSolutionCardEMEA
@@ -118,48 +151,49 @@ And user should not receivce any "Push notification" of stat
 
 #System mode cancel functionality 
 
+#Requirements : Auto mode should be disabled 
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolandHeatMode
 Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen
-When user selects the "Mode" button
-Then user should navigates to "System Mode" screen 
-When suer selects the "Info" button on top right corener 
-Then user should navigates to "Mode Info" screen 
-And user should be displayed with following description:
-#If auto mode enabled
-|AUTO - AUTOMATICALLY SELECTS HEAT OR COOL BASED ON THE INDOOR |
-#If not enabled auto mode should not display 
-|HEAT USER HOT AIR TO REACH TARGET TEMPERATURE |
-|COOL - USER COOL AIR TO REACH TARGET TEMPERATURE|
-|OFF - BOTH THE HEATING AND COOLING SYSTEMS WILL REMAIN OFF |
-When user selects "BACK" button 
-Then user should be navigates to "System Mode" screen 
+Then user has <Mode> system mode
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+When user selects "Info" from "Change mode" screen
+Then user should be displayed with the "Mode Info" screen
+And user should be displayed with the following "Mode Info" options:
+|Options|
+|HEAT - HEAT TO REACH TARGET TEMPERATURE|
+|COOL - COOL TO REACH TARGET TEMPERATURE|
+|OFF - TURN SYSTEM OFF|
+When user selects "BACK" from "mode info" screen
+Then user should be displayed with the "Change mode" screen
 Examples:
 |Mode | 
 |Cool |
 |Heat |
 |OFF |
 
+#Requirements : Auto mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled
 Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured with auto mode enabled
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen
-When user selects the "Mode" button
-Then user should navigates to "System Mode" screen 
-When suer selects the "Info" button on top right corener 
-Then user should navigates to "Mode Info" screen 
-And user should be displayed with following description:
-|AUTO - AUTOMATICALLY SELECTS HEAT OR COOL BASED ON THE INDOOR |
-|HEAT USER HOT AIR TO REACH TARGET TEMPERATURE |
-|COOL - USER COOL AIR TO REACH TARGET TEMPERATURE|
-|OFF - BOTH THE HEATING AND COOLING SYSTEMS WILL REMAIN OFF |
-When user selects "BACK" button 
-Then user should be navigates to "System Mode" screen 
+Then user has <Mode> system mode
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+When user selects "Info" from "Change mode" screen
+Then user should be displayed with the "Mode Info" screen
+And user should be displayed with the following "Mode Info" options:
+|Options|
+|AUTO - COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE|
+|HEAT - HEAT TO REACH TARGET TEMPERATURE|
+|COOL - COOL TO REACH TARGET TEMPERATURE|
+|OFF  - TURN SYSTEM OFF|
+When user selects "BACK" from "Mode Info" screen
+Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
 |Cool |
@@ -167,41 +201,46 @@ Examples:
 |Auto | 
 |OFF |
 
+#Requirements : Cool only mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolOnly
 Scenario Outline: As an user I want to verify the Systemmode info option when cool only configured 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen
-When user selects the "Mode" button
-Then user should navigates to "System Mode" screen 
-When suer selects the "Info" button on top right corner 
-Then user should navigates to "Mode Info" screen 
-And user should be displayed with following description:
-|COOL - USER COOL AIR TO REACH TARGET TEMPERATURE|
-|OFF - BOTH THE HEATING AND COOLING SYSTEMS WILL REMAIN OFF |
-When user selects "BACK" button 
-Then user should be navigates to "System Mode" screen 
+Then user has <Mode> system mode
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+When user selects "Info" from "Change mode" screen
+Then user should be displayed with the "Mode Info" screen
+And user should be displayed with the following "Mode Info" options:
+|Options|
+|COOL - COOL TO REACH TARGET TEMPERATURE|
+|OFF  - TURN SYSTEM OFF|
+When user selects "BACK" from "Mode Info" screen
+Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
 |Cool only| 
 |OFF|
 
+
+#Requirements : Heat only mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithHeatOnly
 Scenario Outline: As an user I want to verify the Systemmode info option when heat only configured 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen
-When user selects the "Mode" button
-Then user should navigates to "System Mode" screen 
-When suer selects the "Info" button on top right corner 
-Then user should navigates to "Mode Info" screen 
-And user should be displayed with following description:
-|HEAT USER HOT AIR TO REACH TARGET TEMPERATURE |
-|OFF - BOTH THE HEATING AND COOLING SYSTEMS WILL REMAIN OFF |
-When user selects "BACK" button 
-Then user should be navigates to "System Mode" screen 
+Then user has <Mode> system mode
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+When user selects "Info" from "Change mode" screen
+Then user should be displayed with the "Mode Info" screen
+And user should be displayed with the following "Mode Info" options:
+|Options|
+|HEAT - HEAT TO REACH TARGET TEMPERATURE|
+|OFF  - TURN SYSTEM OFF|
+When user selects "BACK" from "Mode Info" screen
+Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
 |Heat only |
@@ -211,17 +250,18 @@ Examples:
 @SystemModeInfoscreenwithHeatOnlyEMEA
 Scenario Outline: As an user I want to verify the Systemmode info option when heat  configured 
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen
-When user selects the "Mode" button
-Then user should navigates to "System Mode" screen 
-When suer selects the "Info" button on top right corner 
-Then user should navigates to "Mode Info" screen 
-And user should be displayed with following description:
-|HEAT USER HOT AIR TO REACH TARGET TEMPERATURE |
-|OFF -  HEATING  SYSTEMS WILL REMAIN OFF |
-When user selects "BACK" button 
-Then user should be navigates to "System Mode" screen 
+Then user has <Mode> system mode
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+When user selects "Info" from "Change mode" screen
+Then user should be displayed with the "Mode Info" screen
+And user should be displayed with the following "Mode Info" options:
+|Options|
+|HEAT - HEAT TO REACH TARGET TEMPERATURE|
+|OFF  - TURN SYSTEM OFF|
+When user selects "BACK" from "Mode Info" screen
+Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
 |Heat |

@@ -1,3 +1,4 @@
+
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -676,7 +678,43 @@ public class SelectElementOnAScreen extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
+			} 
+
+			else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MODE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnModeButton();
+					
+					break;
+				}
+				
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "INFO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnInfoButton();
+					
+					break;
+				}
+				
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Mode info")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnBackButton();
+					
+					break;
+				}
+				
+				}
+			}
+			
+			else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
 					|| parameters.get(1).equalsIgnoreCase("Signal Strength")
 					|| parameters.get(1).equalsIgnoreCase("Locate Motion Sensor")
 					|| parameters.get(1).equalsIgnoreCase("Motion Sensor Signal Strength")) {

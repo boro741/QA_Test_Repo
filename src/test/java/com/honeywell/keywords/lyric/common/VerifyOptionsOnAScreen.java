@@ -16,6 +16,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 
@@ -566,7 +567,55 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
+		case "MODE INFO":{
+			System.out.println("Inside Verifing mode info");
+			PrimaryCard thermo = new PrimaryCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if(fieldTobeVerified.equalsIgnoreCase("AUTO - COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE")) {
+					if(thermo.isAutoModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("HEAT - HEAT TO REACH TARGET TEMPERATURE")) {
+					if(thermo.isHeatModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("COOL - COOL TO REACH TARGET TEMPERATURE")) {
+					if(thermo.isCoolModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("OFF - TURN SYSTEM OFF")) {
+					if(thermo.isSystemOffModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+			}
+			
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
