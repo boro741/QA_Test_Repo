@@ -312,20 +312,14 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getHeatSetPointChooserSetPointsValue() {
-		String string; 
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			string = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
-		} else {
-			string = testCase.getMobileDriver().findElement(By.name("Dialer")).getText();
-		}
-		return string;
+		return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser").getText();
 	}
 
 	public WebElement getHeatSetPointDownButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(1);
 		} else {
-			return testCase.getMobileDriver().findElements(By.name("heatTemparatureLowerButton")).get(0);
+			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
 		}
 	}
 
@@ -366,7 +360,7 @@ public class SchedulingScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return testCase.getMobileDriver().findElements(By.name("stat_temp_stepper_up")).get(index);
 		} else {
-			return testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(index);
+			return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(index);
 		}
 	}
 
@@ -773,6 +767,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isTempChooserHeaderVisible(int timeOut) {
+		//TODO
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TempChooserHeader", timeOut);
 	}
 
@@ -781,6 +776,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isTimeChooserHeaderVisible(int timeOut) {
+		//TODO
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeChooserHeader", timeOut);
 	}
 
@@ -1082,6 +1078,10 @@ public class SchedulingScreen extends MobileScreens {
 	public List<WebElement> getSchedulePeriodbuttons()
 	{
 		return MobileUtils.getMobElements(objectDefinition, testCase, "AddPeriodButton");
+	}
+	public WebElement getSchedulePeriodbutton()
+	{
+		return MobileUtils.getMobElement(objectDefinition, testCase, "AddPeriodButton");
 	}
 	public boolean isAddPeriodButtonVisible(int timeOut)
 	{
