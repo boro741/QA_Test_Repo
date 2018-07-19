@@ -176,7 +176,7 @@ public class SelectElementOnAScreen extends Keyword {
 					
 					break;
 				}
-				case "AUTO": {
+				case "AUTOMODE": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if(thermo.clickOnAutoButton())
 					{

@@ -24,8 +24,13 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
+
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
+
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -325,6 +330,9 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			
+			
+			
 			case "CONFIRM YOUR ZIP CODE": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isConfirmYourAddressZipCodeTitleVisible()) {
@@ -660,7 +668,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "THERMOSTAT DASHBOARD":{
 				Dashboard thermo = new Dashboard(testCase);
-					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),inputs);
 					flag = flag & thermo.isUpStepperDisplayed();
 					flag = flag & thermo.isDownStepperDisplayed();
 					if(flag) {
@@ -677,7 +685,7 @@ public class VerifyScreen extends Keyword {
 				}
 				case "THERMOSTAT SOLUTION CARD":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isThermostatSolutionCardDisplayed();
+					thermo.isThermostatSolutionCardDisplayed(inputs);
 					break;
 				}
 				case "CHANGE MODE":{
