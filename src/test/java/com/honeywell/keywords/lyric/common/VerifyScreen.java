@@ -18,6 +18,7 @@ import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -659,7 +660,9 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "THERMOSTAT DASHBOARD":{
+				flag=true;
 				Dashboard thermo = new Dashboard(testCase);
+				flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					flag = flag & thermo.isUpStepperDisplayed();
 					flag = flag & thermo.isDownStepperDisplayed();

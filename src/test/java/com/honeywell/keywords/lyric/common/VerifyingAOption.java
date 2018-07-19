@@ -183,7 +183,6 @@ public class VerifyingAOption extends Keyword {
 				
 				}
 			else if(expectedScreen.get(1).toUpperCase().equals("RESPECTIVE SETPOINT VALUE")){
-				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "SHOULD BE DISPLAYED": {
 			Dashboard thermo  = new Dashboard(testCase);
@@ -198,8 +197,11 @@ public class VerifyingAOption extends Keyword {
 					break;
 				
 				}
-				case "SHOULD NOT BE DISPLAYED": {
-					System.out.println("inside");
+				}	
+			}
+			else if(expectedScreen.get(1).toUpperCase().equals("--")){
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
 					Dashboard dash = new Dashboard(testCase);
 					if(dash.isTemperatureNotDisplayed()){
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not displayed");
@@ -210,7 +212,7 @@ public class VerifyingAOption extends Keyword {
 					}
 					break;
 				}
-				}	
+				}
 			}
 			else if(expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON SELECTED FAN")){
 		

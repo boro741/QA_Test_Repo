@@ -52,8 +52,8 @@ And the following "Thermostat" options should be disabled:
 |Options|
 |UP stepper|
 |Down stepper|
-Then user "should not be displayed" with the "respective setpoint value" option
-And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" screen  
+#Then user "should be displayed" with the "--" option
+And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" 
 Examples:
 |Mode |
 |OFF |
