@@ -37,7 +37,7 @@ public class VerifyScheduleIsCreated extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (exampleData.get(0).equalsIgnoreCase("no")) {
-				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "no schedule");
+				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "no");
 				
 			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);

@@ -3,7 +3,7 @@ Feature: Jasper,Sprouce and Flycatcher Scheduling
 	As a user I want to create an time based scheduling
 
 
-@JasperNA_CreateNAScheduleSinglestatwithDefaultvalue
+@JasperNA_CreateNAScheduleSinglestatwithDefaultvalue @Automated
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value for systems 
 Given user thermostat is set to <scheduling> schedule  
 And user launches and logs in to the Lyric application
@@ -15,12 +15,12 @@ Then <ScheduleType> scheduling gets activated
 
     Examples: 
       | scheduling| ScheduleType |
-      | no        | Same Every Day|
+#      | no        | Same Every Day|
       | time based        | Same Every Day|
       | no| Different On Weekdays|
-      | time based| Different On Weekdays|
+#      | time based| Different On Weekdays|
       
-@JasperNA_CancelToRetainExisitngscheduling
+@JasperNA_CancelToRetainExisitngscheduling @Automated
 Scenario Outline: As a user i want to be prompted with an option to Cancel overriding Geofence Schedule
 Given user thermostat is set to "geofence based" schedule
 And user launches and logs in to the Lyric application
@@ -33,7 +33,7 @@ Examples:
 | Same Every Day|
 | Different On Weekdays|
 
-@JasperNA_ConfirmToCreateNewSchedule
+@JasperNA_ConfirmToCreateNewSchedule @Automated
 Scenario Outline: As a user i want to be prompted with an option to Confirm and Create new Schedule
 Given user thermostat is set to "geofence based" schedule
 And user launches and logs in to the Lyric application
@@ -46,7 +46,7 @@ Examples:
 | Same Every Day|
 | Different On Weekdays|
 
-@JasperNA_TempretureBandwidthforEachPeriod 
+@JasperNA_TempretureBandwidthforEachPeriod @Automated
 Scenario Outline: As a user i want to verify Tempreture bandwidth limit for each period
 Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
 Given user thermostat is set to "time based" schedule
@@ -57,12 +57,12 @@ Then user displayed temperature within the maximum and minimum range
 
 Examples: 
 |ScheduleType       | Temperature   | 
-|Same Every Day     | Above Maximum | 
+|Same Every Day     | Above Maximum |
 #|Same Every Day     | Below Minimum | 
 #|Same Every Day     | At Maximum    | 
 #|Same Every Day     | At Minimum    | 
 #|Same Every Day     | within range  |
-#|Different On Weekdays     | Above Maximum | 
+|Different On Weekdays     | Above Maximum | 
 #|Different On Weekdays     | Below Minimum | 
 #|Different On Weekdays     | At Maximum    | 
 #|Different On Weekdays     | At Minimum    | 
@@ -77,35 +77,33 @@ When user creates "Same Every Day" schedule by changing the time values
 Then user should be displayed "Same Every Day" schedule with timer field incremental of "10 minutes"
   
 
-@JasperNA_DeletingDefaultPeriodSameEveryDay
+@JasperNA_DeletingDefaultPeriodSameEveryDay @Automated
 Scenario Outline: As a user I want to delete period in Same Every Day Time based schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-And user creates "Same Every Day" schedule with default schedule value	
-When user deletes <Periods> from the Schdeule 
-Then user is displayed with <Period Value> on the screen
+When user creates "Same Every Day" schedule by deleting <Periods> from the default schedule values 	
+Then <Period Value> scheduling gets activated
 
 Examples: 
 | Periods |Period Value|
-| Atleast 1 period|Tap to set|
-| Atleast 2 period|Tap to set|
-| Atleast 3 period|Tap to set|
-| All periods     |No Schedule|
+#| Atleast 1 period|Same Every Day|
+#| Atleast 2 period|Same Every Day|
+#| Atleast 3 period|Same Every Day|
+#| All periods     |No|
 
-@JasperNA_DeletingDefaultPeriodDifferentOnWeekdays
+@JasperNA_DeletingDefaultPeriodDifferentOnWeekdays @Automated
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-And user creates "Different On Weekdays" schedule with default schedule value
-When user deletes <Periods> from the Schdeule
-Then user is displayed with <Period Value> on deleted period
+When user creates "Different On Weekdays" schedule by deleting <Periods> from the default schedule values
+Then <Period Value> scheduling gets activated
 
 Examples: 
 | Periods |Period Value|
-| Atleast 1 period|Tap to set|
-| Atleast 2 period|Tap to set|
-| Atleast 3 period|Tap to set|
-| All periods     |Triage Screen|
+| Atleast 1 period|Different On Weekdays|
+#| Atleast 2 period|Different On Weekdays|
+#| Atleast 3 period|Different On Weekdays|
+#| All periods     |No|
 
 @JapserNA_CopyScheduleToMulitpleStat
 # Given Account has a Location with Multiple Stats
@@ -140,25 +138,25 @@ Examples:
 |Different On Weekdays     |
 |Different On Weekdays     |
 
-@JasperNA_CreateTimeBasedScheduleInOffMode
+@JasperNA_CreateTimeBasedScheduleInOffMode @Automated
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
-Given user thermostat is set to "Geofence" schedule
+Given user thermostat is set to "geofence based" schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates <ScheduleType> schedule with default schedule value
 Then  <ScheduleType> scheduling gets activated
-And user navigates to "Primary card" screen from the "Scheduling" screen
-Then user is displayed with "System is Off" on the screen
+#And user navigates to "Primary card" screen from the "Scheduling" screen
+#Then user is displayed with "System is Off" on the screen
 
     Examples: 
       | scheduling| ScheduleType |
       | no        | Same Every Day|
-      | time based        | Same Every Day|
-      | Geofence |Same Every Day|
-      | no| Different On Weekdays|
+#      | time based        | Same Every Day|
+#      | Geofence |Same Every Day|
+#      | no| Different On Weekdays|
       | time based| Different On Weekdays|
-      |Geofence|Different On Weekdays|
+#      |Geofence|Different On Weekdays|
       
 @JasperNA_WhenHeat/CoolOnly
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 

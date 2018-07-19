@@ -1122,5 +1122,6 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
+	
 
 }
