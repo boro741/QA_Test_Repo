@@ -132,6 +132,21 @@ public class SelectElementOnAScreen extends Keyword {
 					
 					break;
 				}
+				case "SAVE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnSaveButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
 				case "HEAT": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if(thermo.clickOnHeatButton())

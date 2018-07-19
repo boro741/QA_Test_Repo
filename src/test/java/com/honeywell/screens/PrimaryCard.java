@@ -103,7 +103,7 @@ public class PrimaryCard extends MobileScreens {
 				MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",5)&&
 						MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleButton",5)){
 			WebElement element =MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
-			String temp=element.getAttribute("text");
+			String temp=element.getText();
 			System.out.println(temp);
 			inputs.setInputValue("temperature",temp);
 					return true;
@@ -286,8 +286,8 @@ public class PrimaryCard extends MobileScreens {
 	}
 	public boolean checkCurrentMode(String expectedValue) {
 
-		WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton");
-		String value=ele.getAttribute("name");
+		WebElement element=MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton");
+		String value=element.getAttribute("name");
 		System.out.println(value);
 		if(expectedValue.contains(value.toUpperCase())) {
 			return true;
@@ -299,7 +299,7 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isThermostatTemperatureNotChangedinPrimaryCard(TestCaseInputs inputs) {
 		WebElement element =MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
-		String temp=element.getAttribute("text");
+		String temp=element.getText();
 		System.out.println(temp);
 		String temp2=inputs.getInputValue("temperature");
 		if(temp.equals(temp2))
@@ -314,7 +314,40 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isThermostatTemperatureNotChangedinDashboardCard(TestCaseInputs inputs) {
 		WebElement element =MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
-		String temp=element.getAttribute("text");
+		String temp=element.getText();
+		System.out.println(temp);
+		String temp2=inputs.getInputValue("temperature");
+		if(temp.equals(temp2))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public boolean clickOnSaveButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButton");
+	}
+
+	public boolean isThermostatTemperatureChangedinPrimaryCard(TestCaseInputs inputs) {
+		WebElement element =MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
+		String temp=element.getText();
+		System.out.println(temp);
+		String temp2=inputs.getInputValue("temperature");
+		if(temp.equals(temp2))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public boolean isThermostatTemperatureChangedinDashboardCard(TestCaseInputs inputs) {
+		WebElement element =MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
+		String temp=element.getText();
 		System.out.println(temp);
 		String temp2=inputs.getInputValue("temperature");
 		if(temp.equals(temp2))

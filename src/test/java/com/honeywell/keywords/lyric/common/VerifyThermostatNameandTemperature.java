@@ -107,6 +107,45 @@ public class VerifyThermostatNameandTemperature extends Keyword {
 			
 			break;
 		}
+		case "CHANGE IN": {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SET POINT VALUE IN PRIMARY CARD": {
+			PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isThermostatTemperatureChangedinPrimaryCard(inputs);
+				if(flag) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							 expectedScreen.get(0)+"is not "+expectedScreen.get(1));
+					
+				}
+				else {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+"is "+expectedScreen.get(0));
+					
+				}
+				break;
+			}
+			case "SET POINT VALUE IN DASHBOARD": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.isThermostatTemperatureChangedinDashboardCard(inputs);
+					if(flag) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								 expectedScreen.get(0)+"is not "+expectedScreen.get(1));
+						
+					}
+					else {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+"is "+expectedScreen.get(0));
+						
+					}
+					break;
+				}
+			}
+			
+			
+			
+			
+			break;
+		}
 		
 		}
 		return flag;
