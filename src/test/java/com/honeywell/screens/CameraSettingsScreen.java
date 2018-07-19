@@ -251,7 +251,11 @@ public class CameraSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
-
+	
+	public boolean isCameraSetingsOptionVisible(String settingOptions) {
+		return MobileUtils.isMobElementExists("XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']" , testCase);
+	}
+	
 	public boolean isMotionSensitivityEnabled() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

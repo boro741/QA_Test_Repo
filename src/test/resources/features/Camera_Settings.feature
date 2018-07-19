@@ -50,12 +50,13 @@ And the following "Camera Settings" options should be enabled:
 @CameraSettingsCameraOn   @P1        @UIAutomatable
 Scenario: As a user I should be able to configure camera settings when my camera is in on state 
 #Given user Camera is in On
-Given user DAS camera is set to "on" through CHIL
-And user launches and logs in to the Lyric application
+#Given user camera is set to "on" through CHIL
+Given user launches and logs in to the Lyric application
+#And user camera is set to "ON"
 When user navigates to "Camera Settings" screen from the "Dashboard" screen
 Then the following "Camera Settings" options should be enabled:
 | Options             | 
-| Camera mode         |
+| Camera Mode         |
 | Manage Alerts       |
 | Motion Detection    |
 | Sound Detection     |

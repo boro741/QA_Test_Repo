@@ -48,72 +48,100 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 	@KeywordStep(gherkins = "^the following \"(.*)\" options should be enabled:$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
-		case "MOTION DETECTION": {
+		case "CAMERA SETTINGS": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-			TouchAction action = new TouchAction(testCase.getMobileDriver());
-			CameraUtils.waitForProgressBarToComplete(testCase, "RETRY IN LOADING SNAPSHOT SPINNER", 5);
+//			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+//			TouchAction action = new TouchAction(testCase.getMobileDriver());
+//			CameraUtils.waitForProgressBarToComplete(testCase, "RETRY IN LOADING SNAPSHOT SPINNER", 5);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "Options");
-				if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION ZONE")) {
-					if (cs.isMotionDetectionZoneEnabled()) {
-						Keyword.ReportStep_Pass(testCase, "Motion Detection Zone section is enabled");
+				if (fieldToBeVerified.equalsIgnoreCase("Camera Mode")) {
+					if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Camera Mode section is enabled");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Motion Detection Zone section is disabled");
+								"Camera Mode section is disabled");
 					}
-				} else if (fieldToBeVerified.equalsIgnoreCase("MOTION SENSITIVITY")) {
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						int startx = (dimension.width * 20) / 100;
-						int starty = (dimension.height * 62) / 100;
-						int endx = (dimension.width * 22) / 100;
-						int endy = (dimension.height * 35) / 100;
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-					}
-					if (cs.isMotionSensitivityEnabled()) {
-						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is enabled");
+			}else if (fieldToBeVerified.equalsIgnoreCase("Manage Alerts")) {
+					if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Manage Alerts section is enabled");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Motion Sensitivity section is disabled");
+								"Manage Alerts section is disabled");
 					}
+			} else if (fieldToBeVerified.equalsIgnoreCase("Motion Detection")) {
+				if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+					Keyword.ReportStep_Pass(testCase, "Motion Detection section is enabled");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Motion Detection section is disabled");
 				}
+		}else if (fieldToBeVerified.equalsIgnoreCase("Sound Detection")) {
+				if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+					Keyword.ReportStep_Pass(testCase, "Sound Detection section is enabled");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sound Detection section is disabled");
+				}
+		}else if (fieldToBeVerified.equalsIgnoreCase("Night Vision")) {
+				if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+					Keyword.ReportStep_Pass(testCase, "Night Vision section is enabled");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Night Vision section is disabled");
+				}
+		}else if (fieldToBeVerified.equalsIgnoreCase("Video Quality")) {
+					if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality  section is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality  section is disabled");
+					}
+		}else if (fieldToBeVerified.equalsIgnoreCase("Camera LED")) {
+						if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+							Keyword.ReportStep_Pass(testCase, "Camera LED  section is enabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera LED  section is disabled");
+						}
+		}else if (fieldToBeVerified.equalsIgnoreCase("Camera Microphone")) {
+							if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+								Keyword.ReportStep_Pass(testCase, "Camera Microphone  section is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Camera Microphone  section is disabled");
+							}
+		}else if (fieldToBeVerified.equalsIgnoreCase("Camera Configuration")) {
+		    Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			int startx = (dimension.width * 20) / 100;
+			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+	        action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+			}else {
+				int startx = (dimension.width * 20) / 100;
+			int starty = (dimension.height * 62) / 100;
+			int endx = (dimension.width * 22) / 100;
+			int endy = (dimension.height * 35) / 100;
+			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			}
-			break;
+								if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
+									Keyword.ReportStep_Pass(testCase, "Camera Configuration  section is enabled");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Camera Configuration  section is disabled");
+								}
 		}
-		case "SOUND DETECTION": {
-			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-			TouchAction action = new TouchAction(testCase.getMobileDriver());
-			for (int i = 0; i < data.getSize(); i++) {
-				String fieldToBeVerified = data.getData(i, "Options");
-				if (fieldToBeVerified.equalsIgnoreCase("SOUND SENSITIVITY")) {
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						int startx = (dimension.width * 20) / 100;
-						int starty = (dimension.height * 62) / 100;
-						int endx = (dimension.width * 22) / 100;
-						int endy = (dimension.height * 35) / 100;
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-					}
-					if (cs.isSoundSensitivityEnabled()) {
-						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity section is enabled");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Sound Sensitivity section is enabled");
-					}
-				}
 			}
 			break;
 		}
