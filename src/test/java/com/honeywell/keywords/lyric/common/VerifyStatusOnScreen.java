@@ -1147,15 +1147,18 @@ public class VerifyStatusOnScreen extends Keyword {
 		}
 		case "THERMOSTAT DASHBOARD":
 		{
+			System.out.println("Inside case");
 		 Dashboard dash = new Dashboard(testCase);
 		
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "INSIDE TEMPERATURE":
 			{
+				System.out.println("Inside temp case");
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OFF":
 				{
-					if(dash.isOffStatusVisible())
+					System.out.println("Inside off case");
+					if(dash.isOffStatusVisible(inputs))
 					{
 						Keyword.ReportStep_Pass(testCase,
 								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
