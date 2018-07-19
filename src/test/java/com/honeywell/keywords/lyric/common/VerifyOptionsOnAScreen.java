@@ -105,6 +105,43 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "MODE":
+		{
+			for (int i = 0; i < data.getSize(); i++)
+			{
+			PrimaryCard card=new PrimaryCard(testCase);
+			String parameter = data.getData(i, "Options");
+			switch (parameter.toUpperCase()) {
+			case "HEAT":
+			{
+				flag = flag & card.isHeatModeVisible();
+				break;
+				
+			}
+			case "COOL":
+			{
+				flag = flag & card.isCoolModeVisible();
+				break;
+			}
+			case "OFF":
+			{
+				flag = flag & card.isOffModeVisible();
+				break;
+			}
+			
+			}
+		
+		if (flag) {
+			Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameter + "has not found");
+		}
+		flag = true;
+		}
+			break;
+		
+		}
+		
 		case "ALARM": {
 			AlarmScreen check = new AlarmScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {

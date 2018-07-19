@@ -190,7 +190,95 @@ public class PrimaryCard extends MobileScreens {
 				return true;
 			}
 		}
+		if(mode.equals("Auto"))
+		{
+			MobileElement element=MobileUtils.getMobElement(objectDefinition, testCase, "AutoMode");
+		     if(element.isSelected())
+			{
+				return true;
+			}
+		}
 		return false;
+	}
+
+	public Boolean clickOnHeatButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HeatMode");
+		
+	}
+
+	public Boolean clickOnCoolButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CoolMode");
+		
+	}
+
+	public Boolean clickOnOffButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OffMode");
+		
+	}
+
+	public Boolean clickOnAutoButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoMode");
+		
+		
+	}
+
+	public boolean isNewSetModeDisplayed(TestCaseInputs inputs) {
+		String mode=inputs.getInputValue("SystemMode");
+		System.out.println(mode);
+		if(mode.equals("COOL"))
+		{
+			
+			MobileElement element=MobileUtils.getMobElement(objectDefinition, testCase, "CoolMode");
+		     if(element.isSelected())
+			{
+				return true;
+			}
+		}
+		if(mode.equals("HEAT"))
+		{
+			MobileElement element=MobileUtils.getMobElement(objectDefinition, testCase, "HeatMode");
+		     if(element.isSelected())
+			{
+				return true;
+			}
+		}
+		if(mode.equals("OFF"))
+		{
+			MobileElement element=MobileUtils.getMobElement(objectDefinition, testCase, "OffMode");
+		     if(element.isSelected())
+			{
+				return true;
+			}
+		}
+		if(mode.equals("AUTO"))
+		{
+			MobileElement element=MobileUtils.getMobElement(objectDefinition, testCase, "Auto");
+		     if(element.isSelected())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isAutoDefinitionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoModeDescription");
+	}
+
+	public boolean isHeatDefinitionVisibleOnChangeModeScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatModeDescription");
+	}
+
+	public boolean isOffDefinitionVisibleOnChangeModeScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OffModeDescription");
+	}
+
+	public boolean isCoolDefinitionVisibleOnChangeModeScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoolModeDescription");
+	}
+
+	public Boolean clickOnXButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "XButton");	
 	}
 		
 

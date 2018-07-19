@@ -276,22 +276,24 @@ Then user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
 Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user should be displayed with the "thermostat Solution Card" screen
-And user should be displayed with the following <Mode> options: 
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
 |Options|
 |Heat|
 |Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
-#And user selects <SystemMode> from "change Mode" Screen
-#Then user should be displayed with "Blue Tick" mark on selected option 
-#And user should be displayed with respective <SystemMode> description 
-#When user selects 'X' button 
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "X BUTTON" from "Change Mode" Screen
 #Then user should be navigates to "SolutionCard" with out update of <SystemMode>
 #When user navigates to "Dashboard" screen
 #Then user should be displayed with <Mode>
 Examples:
-|Mode|
-|Cool| 
+|Mode|SystemMode|
+|Cool|Off|
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionality

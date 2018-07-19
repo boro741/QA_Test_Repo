@@ -23,8 +23,10 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.PrimaryCard;
+
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -95,7 +97,105 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
+			} 
+			else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MODE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnModeButton();
+					
+					break;
+				}
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+				inputs.setInputValue("SystemMode", parameters.get(0).toUpperCase());
+				switch (parameters.get(0).toUpperCase()) {
+				case "INFO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnInfoButton();
+					
+					break;
+				}
+				case "X BUTTON": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnXButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				case "HEAT": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnHeatButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					break;
+				}
+				case "COOL": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnCoolButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					break;
+				}
+				case "OFF": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnOffButton())
+					{
+						Thread.sleep(10);
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				case "AUTO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnAutoButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				}
+			}
+				
+		
+				else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRMS ATTENTION": {
 					flag = DASCameraUtils.clickOnAttention(testCase);
@@ -692,17 +792,7 @@ public class SelectElementOnAScreen extends Keyword {
 				
 				}
 			}
-			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "INFO": {
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnInfoButton();
-					
-					break;
-				}
-				
-				}
-			}
+			
 			else if (parameters.get(1).equalsIgnoreCase("Mode info")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
