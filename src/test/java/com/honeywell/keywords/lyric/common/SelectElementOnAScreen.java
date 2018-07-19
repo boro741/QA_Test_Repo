@@ -21,8 +21,11 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -484,6 +487,14 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				default: {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					cs.selectZone(parameters.get(0));
+					break;
+				}
+				}
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Cover Tamper")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CLEAR TAMPER": {
@@ -667,7 +678,43 @@ public class SelectElementOnAScreen extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
+			} 
+
+			else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MODE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnModeButton();
+					
+					break;
+				}
+				
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "INFO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnInfoButton();
+					
+					break;
+				}
+				
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("Mode info")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnBackButton();
+					
+					break;
+				}
+				
+				}
+			}
+			
+			else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
 					|| parameters.get(1).equalsIgnoreCase("Signal Strength")
 					|| parameters.get(1).equalsIgnoreCase("Locate Motion Sensor")
 					|| parameters.get(1).equalsIgnoreCase("Motion Sensor Signal Strength")) {
@@ -759,6 +806,38 @@ public class SelectElementOnAScreen extends Keyword {
 				if (flag) {
 					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Setup Amazon Alexa")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "SIGN IN": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSignInVisible()) {
+						flag = flag & bs.clickOnAmazonSignInButton();
+
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "SIGN OUT": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSignOutVisible()) {
+						flag = flag & bs.clickOnAmazonSignOutVisible();
+						Thread.sleep(3000);
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("MANAGE ALERTS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "ALERT FOR THIS RANGE": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if(ts.isThermostatTempAlertRangeVisible()) {
+						flag = flag & ts.clickOnThermostatTempAlertRange();
+					}
+					break;
+				}
 				}
 			}
 		} catch (Exception e) {

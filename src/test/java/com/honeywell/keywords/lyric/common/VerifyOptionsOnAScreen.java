@@ -1,9 +1,9 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
-import java.util.Random;
-import com.honeywell.CHIL.CHILUtil;
-import com.honeywell.account.information.DeviceInformation;
+
+import org.openqa.selenium.Dimension;
+
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -19,8 +19,16 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
+
+import io.appium.java_client.TouchAction;
+import java.util.Random;
+import com.honeywell.CHIL.CHILUtil;
+import com.honeywell.account.information.DeviceInformation;
 
 public class VerifyOptionsOnAScreen extends Keyword {
 
@@ -87,13 +95,29 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & check.AlarmInSecsCounter();
 					break;
 				}
+				case "ENTRY DELAY SWITCH TO HOME": {
+					System.out.println("Inside entry delay switch to home ");
+					flag = flag & check.isSwitchToHomeExists();
+					break;
 				}
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase, "The "+parameter+"has found");
+				case "ENTRY DELAY SWITCH TO NIGHT": {
+					System.out.println("Inside entry delay switch to night ");
+					flag = flag & check.isSwitchToNightExists();
+					break;
 				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The "+parameter+" has not found");
+				case "ENTRY DELAY ATTENTION": {
+					System.out.println("Inside entry delay attention ");
+					flag = flag & check.isAttentionButtonExists();
+					break;
 				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"The " + parameter + " has not found");
+				}
+				flag = true;
 
 			}
 			break;
@@ -125,12 +149,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				}
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase, "The "+parameter+"has found");
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameter + "has not found");
 				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The"+parameter+"has not found");
-				}
+				flag = true;
 			}
 			break;
 		}
@@ -155,8 +179,533 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
-		case "ALERTS": {
+		case "CAMERA SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Settings");
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Camera Settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Settings: '" + fieldTobeVerified + "' is not present on the Camera Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		case "THERMOSTAT SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "ThermostatSettings");
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+								+ "' is not present on the Thermostat Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		case "ENTRY-EXIT DELAY": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				try {
+					if (bs.verifyParticularEntryExitDelayOptionVisible(data.getData(i, "Delays"))) {
+						Keyword.ReportStep_Pass(testCase, "Option: '" + data.getData(i, "Delays")
+						+ "' is present on the Entry/Exit Delay screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option: '"
+								+ data.getData(i, "Delays") + "' is not present on the Entry/Exit Delay screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		case "BASE STATION CONFIGURATION": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
+					if (bs.verifyDASNameOptionTextOnBaseStationConfigurationScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Name' DAS Option is present on the Base Station Configurations Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Name' DAS Option is not displayed on the Base Station Configurations Screen");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
+					if (bs.verifyBatteryOptionTextOnBaseStationConfigurationScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Battery' DAS Option is present on the Base Station Configurations Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Battery' DAS Option is not displayed on the Base Station Configurations Screen");
+					}
+
+					if (bs.verifyBatteryStatusTextOnBaseStationConfigurationScreen()) {
+						Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Battery Status' is not correctly displayed");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
+					if (bs.verifyModelAndFirmwareDetailsOptionTextOnBaseStationConfigurationScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Model and Firmware Details' Option is present on the Base Station Configurations Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Model and Firmware Details' Option is not displayed on the Base Station Configurations Screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + data.getData(i, "Settings"));
+				}
+			}
+			break;
+		}
+
+		case "SENSOR SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			SensorSettingScreen sensorSettingScreen = new SensorSettingScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
+					if (bs.verifySensorNameOptionTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Name' Sensor Option is present on the Sensors Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Name' Sensor Option is not displayed on the Sensor Settings Screen");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
+					if (bs.verifyStatusOptionTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Status' Option is not displayed on the Sensor Settings Screen");
+					}
+					if (bs.verifySensorStatusTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase, "'Sensor Status' is correctly displayed");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Sensor Status' is not correctly displayed");
+					}
+
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
+					if (bs.verifySignalStrengthOptionTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Signal Strength And Test' Option is present on the Sensors Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Signal Strength And Test' Option is not displayed on the Sensor Settings Screen");
+					}
+				}
+
+				else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
+					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase, "'Battery' Option is present on the Sensor Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Battery' Option is not displayed on the Sensor Settings Screen");
+					}
+
+					if (sensorSettingScreen.verifyBatteryStatusTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Battery Status' is not correctly displayed");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
+					if (bs.verifyModelAndFirmwareDetailsOptionTextOnSensorSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Model and Firmware Details' Option is present on the Sensor Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Model and Firmware Details' Option is not displayed on the Sensor Settings Screen");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Delete")) {
+					if (bs.verifyDeleteOptionOnSensorSettingsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "'Delete' Option is present on the Sensor Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Delete' Option is not displayed on the Sensor Settings Screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + data.getData(i, "Settings"));
+				}
+			}
+			break;
+		}
+
+		case "KEYFOB SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
+					if (bs.verifyKeyfobNameOptionTextOnKeyfobSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Name' Keyfob Option is present on the Keyfob Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Name' Keyfob Option is not displayed on the Keyfob Settings Screen");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
+					if (bs.verifyModelAndFirmwareDetailsOptionTextOnKeyfobSettingsScreen()) {
+						Keyword.ReportStep_Pass(testCase,
+								"'Model and Firmware Details' Option is present on the Keyfob Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Model and Firmware Details' Option is not displayed on the Keyfob Settings Screen");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Delete")) {
+					if (bs.verifyDeleteOptionOnSensorSettingsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "'Delete' Option is present on the Sensor Settings Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"'Delete' Option is not displayed on the Sensor Settings Screen");
+					}
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + data.getData(i, "Settings"));
+				}
+			}
+			break;
+		}
+
+		case "PANEL MODEL AND FIRMWARE DETAILS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
+					if (bs.verifyDASModelDetailsOnModelAndFirmwareDetailsPage()) {
+						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Model Details are not displayed correctly");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
+					if (bs.verifyDASFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
+						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Firmware Details are not displayed correctly");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + data.getData(i, "Settings"));
+				}
+			}
+			break;
+		}
+		case "KEYFOB MODEL AND FIRMWARE DETAILS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
+					if (bs.verifyKeyfobModelDetailsOnModelAndFirmwareDetailsPage()) {
+						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Model Details are not displayed correctly");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
+					if (bs.verifyKeyfobFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
+						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Firmware Details are not displayed correctly");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + data.getData(i, "Settings"));
+				}
+			}
+			break;
+		}
+		case "SENSOR MODEL AND FIRMWARE DETAILS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
+					if (bs.verifySensorModelDetailsOnModelAndFirmwareDetailsPage()) {
+						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Model Details are not displayed correctly");
+					}
+				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
+					if (bs.verifySensorFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
+						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Firmware Details are not displayed correctly");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + data.getData(i, "Settings"));
+				}
+			}
+			break;
+		}
+		case "VIDEO SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Settings");
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Video Setting: '" + fieldTobeVerified + "' is present on the Video Settings screen");
+					} else {
+						flag = false;
+
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Video Setting: '"
+								+ fieldTobeVerified + "' is not present on the Video Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		case "MOTION SENSITIVITY SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				int startx = (dimension.width * 20) / 100;
+				int starty = (dimension.height * 62) / 100;
+				int endx = (dimension.width * 22) / 100;
+				int endy = (dimension.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			} else {
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+			}
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
+				try {
+					if (cs.isMotionSensitivityOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldToBeVerified
+								+ "' is present on the Motion Sensitivity Options section in Motion Detection screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
+								+ fieldToBeVerified
+								+ "' is not present on the Motion Sensitivity Options section in Motion Detection screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "NIGHT VISION SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "NightVisionSettingsOptions");
+				try {
+					if (cs.isNightVisionOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Night Vision screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
+								+ fieldToBeVerified + "' is not present in the list of Options in Night Vision screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "VIDEO QUALITY SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "VideoQualitySettingsOptions");
+				try {
+					if (cs.isVideoQualityOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Video Quality screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Security State: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Video Quality screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+		case "SECURITY MODE": {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "SecurityStates");
+				try {
+					if (sc.isSecurityStateVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldTobeVerified
+								+ "' is present on the Security Solutions Card screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
+								+ fieldTobeVerified + "' is not present on the Security Solutions Card screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+			break;
+		}
+
+		case "INDOOR TEMPERATURE ALERT": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "IndoorTempAlertOptions");
+				try {
+					if (ts.isThermostatIndoorTempAlertOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Temperature Alert Options: '" + fieldToBeVerified
+								+ "' is present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Temperature Alert Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "ALERT FOR THIS RANGE": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AlertTempRangeOptions");
+				try {
+					if (ts.isThermostatIndoorTempAlertRangeOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Temperature Alert Range Options: '"
+								+ fieldToBeVerified
+								+ "' is present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Temperature Alert Range Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+
+
+		case "MODE INFO":{
+			System.out.println("Inside Verifing mode info");
+			PrimaryCard thermo = new PrimaryCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if(fieldTobeVerified.equalsIgnoreCase("AUTO - COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE")) {
+					if(thermo.isAutoModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("HEAT - HEAT TO REACH TARGET TEMPERATURE")) {
+					if(thermo.isHeatModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("COOL - COOL TO REACH TARGET TEMPERATURE")) {
+					if(thermo.isCoolModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("OFF - TURN SYSTEM OFF")) {
+					if(thermo.isSystemOffModeDefinitionVisible()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+			}
+
+			break;
+		}
+			case "ALERTS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			ArrayList<String> lstData = new ArrayList<String>();
 			for (int i = 0; i < data.getSize(); i++)
@@ -316,323 +865,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
-		case "ENTRY-EXIT DELAY": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				try {
-					if (bs.verifyParticularEntryExitDelayOptionVisible(data.getData(i, "Delays"))) {
-						Keyword.ReportStep_Pass(testCase, "Option: '" + data.getData(i, "Delays")
-						+ "' is present on the Entry/Exit Delay screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option: '"
-								+ data.getData(i, "Delays") + "' is not present on the Entry/Exit Delay screen");
-					}
-				} catch (Exception e) {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-				}
-
-			}
-			break;
-		}
-		case "BASE STATION CONFIGURATION": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
-					if (bs.verifyDASNameOptionTextOnBaseStationConfigurationScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Name' DAS Option is present on the Base Station Configurations Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Name' DAS Option is not displayed on the Base Station Configurations Screen");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
-					if (bs.verifyBatteryOptionTextOnBaseStationConfigurationScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Battery' DAS Option is present on the Base Station Configurations Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Battery' DAS Option is not displayed on the Base Station Configurations Screen");
-					}
-
-					if (bs.verifyBatteryStatusTextOnBaseStationConfigurationScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Battery Status' is not correctly displayed");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
-					if (bs.verifyModelAndFirmwareDetailsOptionTextOnBaseStationConfigurationScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Model and Firmware Details' Option is present on the Base Station Configurations Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Model and Firmware Details' Option is not displayed on the Base Station Configurations Screen");
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
-
-		case "SENSOR SETTINGS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			SensorSettingScreen sensorSettingScreen = new SensorSettingScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
-					if (bs.verifySensorNameOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Name' Sensor Option is present on the Sensors Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Name' Sensor Option is not displayed on the Sensor Settings Screen");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Status")) {
-					if (bs.verifyStatusOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Status' Option is present on the Sensors Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Status' Option is not displayed on the Sensor Settings Screen");
-					}
-					if (bs.verifySensorStatusTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Sensor Status' is correctly displayed");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Sensor Status' is not correctly displayed");
-					}
-
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Signal Strength And Test")) {
-					if (bs.verifySignalStrengthOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Signal Strength And Test' Option is present on the Sensors Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Signal Strength And Test' Option is not displayed on the Sensor Settings Screen");
-					}
-				}
-
-				else if (data.getData(i, "Settings").equalsIgnoreCase("Battery")) {
-					if (bs.verifyBatteryOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Battery' Option is present on the Sensor Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Battery' Option is not displayed on the Sensor Settings Screen");
-					}
-
-					if (sensorSettingScreen.verifyBatteryStatusTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase, "'Battery Status' is correctly displayed");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Battery Status' is not correctly displayed");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
-					if (bs.verifyModelAndFirmwareDetailsOptionTextOnSensorSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Model and Firmware Details' Option is present on the Sensor Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Model and Firmware Details' Option is not displayed on the Sensor Settings Screen");
-					}
-				}
-				else if (data.getData(i, "Settings").equalsIgnoreCase("Delete")) {
-					if (bs.verifyDeleteOptionOnSensorSettingsScreenVisible()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Delete' Option is present on the Sensor Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Delete' Option is not displayed on the Sensor Settings Screen");
-					}
-				}
-				else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
-
-		case "KEYFOB SETTINGS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Name")) {
-					if (bs.verifyKeyfobNameOptionTextOnKeyfobSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Name' Keyfob Option is present on the Keyfob Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Name' Keyfob Option is not displayed on the Keyfob Settings Screen");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Model and Firmware Details")) {
-					if (bs.verifyModelAndFirmwareDetailsOptionTextOnKeyfobSettingsScreen()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Model and Firmware Details' Option is present on the Keyfob Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Model and Firmware Details' Option is not displayed on the Keyfob Settings Screen");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Delete")) {
-					if (bs.verifyDeleteOptionOnSensorSettingsScreenVisible()) {
-						Keyword.ReportStep_Pass(testCase,
-								"'Delete' Option is present on the Sensor Settings Screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"'Delete' Option is not displayed on the Sensor Settings Screen");
-					}
-				}else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
-
-		case "PANEL MODEL AND FIRMWARE DETAILS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
-					if (bs.verifyDASModelDetailsOnModelAndFirmwareDetailsPage()) {
-						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Model Details are not displayed correctly");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
-					if (bs.verifyDASFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
-						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Firmware Details are not displayed correctly");
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
-		case "KEYFOB MODEL AND FIRMWARE DETAILS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
-					if (bs.verifyKeyfobModelDetailsOnModelAndFirmwareDetailsPage()) {
-						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Model Details are not displayed correctly");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
-					if (bs.verifyKeyfobFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
-						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Firmware Details are not displayed correctly");
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
-		case "SENSOR MODEL AND FIRMWARE DETAILS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				if (data.getData(i, "Settings").equalsIgnoreCase("Model Details")) {
-					if (bs.verifySensorModelDetailsOnModelAndFirmwareDetailsPage()) {
-						Keyword.ReportStep_Pass(testCase, "Model Details are displayed correctly");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Model Details are not displayed correctly");
-					}
-				} else if (data.getData(i, "Settings").equalsIgnoreCase("Firmware Details")) {
-					if (bs.verifySensorFirmwareDetailsOnModelAndFirmwareDetailsPage()) {
-						Keyword.ReportStep_Pass(testCase, "Firmware Details are displayed correctly");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Firmware Details are not displayed correctly");
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input: " + data.getData(i, "Settings"));
-				}
-			}
-			break;
-		}
-		case "VIDEO SETTINGS": {
-			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				String fieldTobeVerified = data.getData(i, "Settings");
-				try {
-					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Video Setting: '" + fieldTobeVerified + "' is present on the Video Settings screen");
-					} else {
-						flag = false;
-
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Video Setting: '" + fieldTobeVerified + "' is not present on the Video Settings screen");
-					}
-				} catch (Exception e) {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-				}
-
-			}
-			break;
-		}
-		case "SECURITY MODE": {
-			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				String fieldTobeVerified = data.getData(i, "SecurityStates");
-				try {
-					if (sc.isSecurityStateVisible(fieldTobeVerified)) {
-						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldTobeVerified
-								+ "' is present on the Security Solutions Card screen");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security State: '"
-								+ fieldTobeVerified + "' is not present on the Security Solutions Card screen");
-					}
-				} catch (Exception e) {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-				}
-
-			}
-			break;
-		}
-
+	
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

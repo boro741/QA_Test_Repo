@@ -11,12 +11,13 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
+import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
 
@@ -275,6 +276,29 @@ public class VerifyDisplayedPopUp extends Keyword {
 				return flag;
 			}
 			break;
+		}
+		case "TURN OFF MICROPHONE": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			if (cs.isTurnOffCameraMicrophonePopupHeaderTitleVisible(testCase)
+					&& cs.isTurnOffCameraMicrophonePopupMsgVisible(testCase)) {
+				Keyword.ReportStep_Pass(testCase, "Turn Off Camera Micrphone Popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Turn Off Camera Micrphone Popup is not displayed");
+				return flag;
+			}
+
+			break;
+		}case "GEOFENCING":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.isGeofencePopUpVisible();
+			break;
+		}
+		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME OR OFF MODE":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag = flag & bs.isPerformOnlyInModesPopupForGeofence();
+			return flag;
 		}
 		default: {
 			flag = false;
