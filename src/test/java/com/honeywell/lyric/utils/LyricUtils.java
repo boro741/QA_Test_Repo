@@ -601,9 +601,10 @@ public class LyricUtils {
 							"Unable to find Feature tweaks to set Accessibility");
 					return false;
 				}
-			} else {
-				flag = flag & sm.clickOnSetDasDIYV2Toggle();
-			}
+			} 
+//			else {
+//				flag = flag & sm.clickOnSetDasDIYV2Toggle();
+//			}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
