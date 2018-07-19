@@ -76,6 +76,15 @@ public class VerifyScheduleOFF extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF status not displayed on primarycard");
 						}
 					}break;
+					case "SCHEDULE OFF STATUS NOT DISPLAYED": {
+						SchedulingScreen psoff = new SchedulingScreen(testCase);
+						flag = flag & psoff.isScheduleOffStatusVisible(4);		
+						if(!flag){
+							Keyword.ReportStep_Pass(testCase, "Schedule OFF Status not displayed on primarycard");
+						}else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF status displayed on primarycard");
+						}
+					}break;
 					case "FOLLOWING SCHEDULE": {
 						SchedulingScreen FollowingS = new SchedulingScreen(testCase);
 						flag = flag & FollowingS.isFollowingSchedulesVisible(2);

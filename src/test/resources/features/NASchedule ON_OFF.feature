@@ -2,7 +2,7 @@
 Feature: As an user I want to turn schedule OFF or ON so that I can run schedule whenever I want to apply set points automatically 
 
 
-@ScheduleOFFONNA
+@ScheduleOFFONNA @Automated --LYR-29388
 Scenario Outline:Schedule OFF ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 #As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
 Given user has <Mode> system mode
@@ -21,7 +21,7 @@ And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 |Mode | scheduling |
 |Cool|geofence based|
-#|Heat|geofence based|
+|Heat|geofence based|
 #|Auto|geofence based|
 #|Cool|time based    |
 #|Heat|time based    |
@@ -35,7 +35,7 @@ Examples:
 
 
 
-@ScheduleOFFONNAtimebase
+@ScheduleOFFONNAtimebase  @Automated --	LYR-29389
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 #As an user I want to turn schedule ON while running time base schedule   
 Given user has <Mode> system mode
@@ -52,6 +52,7 @@ Then user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
 Then Verify the <Schedule status> on the "PRIMARY CARD" screen
+
 Examples:
 |Mode | scheduling | Schedule status |
 |Cool|time based |following schedule |
