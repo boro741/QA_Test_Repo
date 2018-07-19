@@ -200,6 +200,7 @@ Examples:
 |Auto | 
 |OFF |
 
+#in case required
 #Requirements : Cool only mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolOnly
@@ -222,7 +223,7 @@ Examples:
 |Cool only| 
 |OFF|
 
-
+#in case required
 #Requirements : Heat only mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithHeatOnly
@@ -523,11 +524,12 @@ Then user should be displayed with the "Change fan" screen
 Examples:
 |Mode | 
 #|Cool |
-|Heat |
-#|Heat only |
-#|Cool only| 
+|Heat | 
 #|Auto | 
 #|OFF |
+#in case required
+#|Heat only |
+#|Cool only|
 
 
 #HB, Spruce, JasperNA
@@ -539,75 +541,82 @@ And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DAS
 When user selects "Fan" from "Thermostat Solution Card" screen
 Then user should be displayed with the "Change Fan" screen 
 When user selects <FanMode> from "Change Fan" screen
-Then user "should be displayed" with the "Blue Tick mark on selected" option 
-And user should be displayed with respective <FanMode> description 
-When user selects 'X' button 
-Then user should be navigates to "SolutionCard" with out update of <FanMode>
-And user should be display with <Mode>
+Then user "should be displayed" with the "Blue Tick mark on selected Fan" option 
+And user should be displayed with the <FanMode> description 
+When user selects "X" from "Change Fan" screen
+Then user should be displayed with the "Thermostat Solution Card" screen
+And user "should not be updated" with the <FanMode> option
 Examples:
 |Mode |  FanMode | 
-|Cool | Auto |
-|Cool | Circulate |
-|Cool | ON | 
-|Heat | Auto |
-|Heat | Circulate |
-|Heat | ON | 
-|Heat only | Auto |
-|Heat only | Circulate |
-|Heat only | ON | 
-|Cool only | Auto |
-|Cool only | Circulate |
-|Cool only | ON | 
-|Auto | Auto |
-|Auto | Circulate |
-|Auto | ON | 
-|OFF | Auto |
-|OFF | Circulate |
-|OFF | ON | 
+|Cool | Auto Fan|
+#|Cool | Circulate |
+#|Cool | ON | 
+|Heat | Auto Fan|
+#|Heat | Circulate |
+|Heat | ON |
+#|Auto | Auto Fan|
+#|Auto | Circulate |
+#|Auto | ON | 
+#|OFF | Auto Fan|
+#|OFF | Circulate |
+#|OFF | ON |  
+
+#in case required
+#|Heat only | Auto Fan|
+#|Heat only | Circulate |
+#|Heat only | ON | 
+#|Cool only | Auto Fan|
+#|Cool only | Circulate |
+#|Cool only | ON | 
 
 #HB, Spruce, JasperNA
 @FanModeSwitchSAVEfunction
 Scenario Outline: As an user I want to verify the Fan mode save option while switch between Auto, circulate and ON
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "Fan Mode" screen 
-When user selects the <FanMode> 
-Then user should be displayed with "Blue Tick" mark on selected option 
-And user should be displayed with respective <FanMode> description 
-When user selecte the "SAVE" button 
-Then user should be navigates to "SolutionCard" with updated of <FanMode> "icon"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Fan" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change Fan" screen 
+When user selects <FanMode> from "Change Fan" screen
+Then user "should be displayed" with the "Blue Tick mark on selected Fan" option 
+And user should be displayed with the <FanMode> description 
+When user selects "SAVE" from "Change Fan" screen
+Then user should be displayed with the "Thermostat Solution Card" screen
+And user "should be updated" with the <FanMode> option
 Examples:
 |Mode |  FanMode | 
-|Cool | Auto |
-|Cool | Circulate |
-|Cool | ON | 
-|Heat | Auto |
-|Heat | Circulate |
+#|Cool | Auto Fan|
+#|Cool | Circulate |
+#|Cool | ON | 
+|Heat | Auto Fan|
+#|Heat | Circulate |
 |Heat | ON | 
-|Heat only | Auto |
-|Heat only | Circulate |
-|Heat only | ON | 
-|Cool only | Auto |
-|Cool only | Circulate |
-|Cool only | ON | 
-|Auto | Auto |
-|Auto | Circulate |
-|Auto | ON | 
-|OFF | Auto |
+#|Auto | Auto Fan|
+#|Auto | Circulate |
+#|Auto | ON | 
+#|OFF | Auto Fan|
 |OFF | Circulate |
-|OFF | ON | 
+#|OFF | ON | 
+
+#in case required
+#|Heat only | Auto Fan|
+#|Heat only | Circulate |
+#|Heat only | ON | 
+#|Cool only | Auto Fan|
+#|Cool only | Circulate |
+#|Cool only | ON | 
 
 #JasperEMEA
-@FaModeOptionONEMEA
+@FanModeOptionONEMEA
 Scenario Outline: As an user I want to verify the Fan mode option for JasperEMEA
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user navigates "SolutionCard"
-And user should not be displayed with "FAN" icon 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And user "should not be displayed" with the "FAN" option
 Examples: 
 |Mode| 
 |Heat |
-|OFF |
+#|OFF |
 
 #Setpoint values SolutionCard
 

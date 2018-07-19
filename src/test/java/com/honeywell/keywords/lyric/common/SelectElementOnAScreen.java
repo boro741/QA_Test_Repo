@@ -685,33 +685,90 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "MODE": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnModeButton();
+					flag=flag&thermo.clickOnModeButton();
 					
 					break;
 				}
-				
+				case "FAN":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnFanButton();
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 			}
 			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "INFO": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnInfoButton();
+					flag=flag&thermo.clickOnInfoButton();
 					
 					break;
 				}
 				
 				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
 			}
-			else if (parameters.get(1).equalsIgnoreCase("Mode info")) {
+			else if (parameters.get(1).equalsIgnoreCase("Change Fan")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "INFO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnInfoButton();
+					
+					break;
+				}
+				case "AUTO FAN":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnAutoFanButton();
+					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
+					System.out.println(inputs.getInputValue("SelectedFanMode"));
+					break;
+				}
+				case "CIRCULATE":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnCirculateFanButton();
+					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
+					break;
+				}
+				case "ON":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnONFanButton();
+					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
+					break;
+				}
+				case "X":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnXButton();
+					break;
+				}
+				case "SAVE":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnSaveButton();
+					break;
+				}
+				
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
+			}
+			
+			else if (parameters.get(1).equalsIgnoreCase("Mode info")||parameters.get(1).equalsIgnoreCase("Fan info")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnBackButton();
+					flag=flag&thermo.clickOnBackButton();
 					
 					break;
 				}
 				
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 			}
 			
@@ -731,6 +788,9 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 
 			} else if (parameters.get(1).equalsIgnoreCase("Test Sensor")
