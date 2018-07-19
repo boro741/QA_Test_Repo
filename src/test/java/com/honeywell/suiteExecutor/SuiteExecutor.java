@@ -19,32 +19,21 @@ public class SuiteExecutor {
 				// "aterbuild:aterbuild@123",
 				"--useXCUITest", "true", 
 				//"--deviceCloudProviderCredentials", "PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.lalseta@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
-				"--appToInstall", "Android:402001075,IOS:4200382", 
-				"--groups",
-				
-				/**********START DAS CAMERA SETTINGS WORKFLOW**********/
-				
-				//"CameraSettingsManageAlertsDisabled",
-				//"CameraSettingsEnableDisableMotionDetection",
-				//"VerifyCameraMotionSensitivitySettingsC1",
-				//"VerifyCameraMotionSensitivitySettingsC2",
-				//"CameraSettingsEnableDisableSoundDetection",
-				//"CameraSettingsVerifyNightVisionSettings",
-				//"CameraSettingsVerifyVideoQualitySettings",
-				"CameraSettingsEnableDisableCameraMicrophone",
-				
-				/**********END CAMERA SETTINGS WORKFLOW**********/
-				
-				};
-		
-		//commandLineArguments = new String[] { "--updatekeywordcatalogue" };
 
-			try {
-				SuiteUtils suiteUtils = SuiteUtils.getTestSuite(commandLineArguments);
-				suiteUtils.executeSuite();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+
+				"--appToInstall", "Android:400000043,IOS:402", 
+				"--groups", 
+				"CameraSettingsCameraOn"
+				
+		};
+
+		// ============= Executes the Suite created from the Suite Configuration
+		// JSON file =============
+		try {
+			SuiteUtils suiteUtils = SuiteUtils.getTestSuite(commandLineArguments);
+			suiteUtils.executeSuite();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
