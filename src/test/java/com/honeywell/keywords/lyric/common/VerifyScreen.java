@@ -677,18 +677,30 @@ public class VerifyScreen extends Keyword {
 				}
 				case "THERMOSTAT SOLUTION CARD":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isThermostatSolutionCardDisplayed();
+					flag = flag & thermo.isThermostatSolutionCardDisplayed();
 					break;
 				}
 				case "CHANGE MODE":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isChangeModeScreenDisplayed();
+					flag = flag & thermo.isChangeModeScreenDisplayed();
+					
+					break;
+				}
+				case "CHANGE FAN":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.isChangeFanScreenDisplayed();
 					
 					break;
 				}
 				case "MODE INFO":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isModeInfoScreenDisplayed();
+					flag = flag & thermo.isModeInfoScreenDisplayed();
+					
+					break;
+				}
+				case "FAN INFO":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.isFanInfoScreenDisplayed();
 					
 					break;
 				}

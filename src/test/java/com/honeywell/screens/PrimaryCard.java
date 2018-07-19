@@ -53,7 +53,39 @@ public class PrimaryCard extends MobileScreens {
  
 
 
-	
+
+	public boolean isThermostatSolutionCardDisplayed() {
+
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton",5)&&
+				MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",5)&&
+						MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleButton",5)){
+					return true;
+				}
+		else {
+			return false;
+		}
+	   }
+	public boolean isFanModeElementEnabled() {
+			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "Fanmode");
+		
+			if(element.isEnabled())
+			{
+				return true;
+			}
+			return false;
+		}
+		public boolean clickOnModeButton() {
+			
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ModeButton");
+		}
+         public boolean clickOnFanButton() {
+			
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "FanButton");
+		}
+		public boolean isChangeModeScreenDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeModeTitle");
+		}
+
 		public boolean isChangeFanScreenDisplayed() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeFanTitle");
 		}
@@ -86,36 +118,17 @@ public class PrimaryCard extends MobileScreens {
 		public boolean isSystemOffModeDefinitionVisible() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemOffModeDefinition",5);
 		}
-		public boolean isAutoFanDefinitionVisible() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoFanDefinition",5);
+		public boolean isAutoFanDefinitionVisibleOnInfoScreen() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoFanDefinitionOnInfoScreen",5);
 		}
-		public boolean isCirculateFanDefinitionVisible() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CirculateFanDefinition",5);
+		public boolean isCirculateFanDefinitionVisibleOnInfoScreen() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CirculateFanDefinitionOnInfoScreen",5);
 		}
-		public boolean isOnFanDefinitionVisible() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnFanDefinition",5);
+		public boolean isOnFanDefinitionVisibleOnInfoScreen() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnFanDefinitionOnInfoScreen",5);
 		}
+
 	
-
-	public boolean isThermostatSolutionCardDisplayed() {
-
-		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton",5)&&
-				MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",5)&&
-						MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleButton",5)){
-					return true;
-				}
-		else {
-			return false;
-		}
-	   }
-		public boolean isFanModeElementEnabled() {
-			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "Fanmode");
-			if(element.isEnabled())
-			{
-				return true;
-			}
-			return false;
-		}
 		public boolean isModeElementEnabled() {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton");
 			if(element.isEnabled())
@@ -154,13 +167,7 @@ public class PrimaryCard extends MobileScreens {
 		public boolean isOffModeVisible() {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OffMode");
 		}
-     public boolean clickOnModeButton() {
-			
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "ModeButton");
-		}
-     public boolean isChangeModeScreenDisplayed() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeModeTitle");
-		}
+   
 
 	public boolean isSetModeDisplayed(TestCaseInputs inputs) {
 		DeviceInformation statInfo = new DeviceInformation(testCase,inputs);
@@ -192,6 +199,75 @@ public class PrimaryCard extends MobileScreens {
 		}
 		return false;
 	}
+		
+
+		public boolean clickOnAutoFanButton() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoFanButton");
+		}
+		public boolean clickOnCirculateFanButton() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CirculateFanButton");
+		}
+		public boolean clickOnONFanButton() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "OnFanButton");
+		}
+		public boolean clickOnXButton() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "XButton");
+		}
+		
+		public boolean isAutoFanElementSelected() {
+			WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "AutoFanButton");
+		   if(ele.isSelected()) {
+			   return true;
+		   }
+	   return false;
+		}
+		public boolean isCirculateFanElementSelected() {
+			WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "CirculateFanButton");
+		   if(ele.isSelected()) {
+			   return true;
+		   }
+	    return false;
+		}
+		public boolean isONFanElementSelected() {
+			WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "OnFanButton");
+		   if(ele.isSelected()) {
+			   return true;
+		   }
+		return false;
+		}
+
+		public boolean isAutoFanDefinitionVisibleOnChangeFanScreen() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoFanDefinitionOnChangeFanScreen",5);
+		
+		}
+		public boolean isCirculateFanDefinitionVisibleOnChangeFanScreen() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CirculateFanDefinitionOnChangeFanScreen",5);
+		
+		}
+		public boolean isOnFanDefinitionVisibleOnChangeFanScreen() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnFanDefinitionOnChangeFanScreen",5);
+		
+		}
+
+		public boolean checkCurrentFanMode(String expectedValue) {
+
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "FanButton");
+			String value=ele.getAttribute("name");
+			System.out.println(value);
+			if(expectedValue.contains(value.toUpperCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		public boolean clickOnSaveButton() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButton");
+		}
+		public boolean isFanButtonVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",8);
+		}
 		
 
 }
