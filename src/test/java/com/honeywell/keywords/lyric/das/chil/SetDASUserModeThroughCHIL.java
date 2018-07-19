@@ -171,7 +171,7 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(), "Off",
 								testCase);
 						if (result == 202) {
-							Keyword.ReportStep_Pass(testCase, "Base station is set to Night Mode");
+							Keyword.ReportStep_Pass(testCase, "Base station is set to OFF Mode");
 							try {
 								if (testCase.getMobileDriver() == null) {
 									return flag;

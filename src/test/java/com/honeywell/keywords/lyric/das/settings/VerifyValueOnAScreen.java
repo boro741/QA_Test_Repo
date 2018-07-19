@@ -11,6 +11,8 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 public class VerifyValueOnAScreen extends Keyword {
 
@@ -109,11 +111,8 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 
 				}
-			}
-			
-			else if(parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")
-					&& parameters.get(2).equalsIgnoreCase("Video Settings"))
-			{
+			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")
+					&& parameters.get(2).equalsIgnoreCase("Video Settings")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
@@ -133,8 +132,361 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isCameraMotionDetectionSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Motion Detection Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !cs.isCameraMotionDetectionSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Motion Detection Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Motion detection status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isCameraMotionDetectionStatusYES(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Status is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Motion Detection Status is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !cs.isCameraMotionDetectionStatusYES(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Status is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Motion Detection Status is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Motion detection status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION SENSITIVITY")
+					&& parameters.get(2).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("off")) {
+					flag = flag & cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("low")) {
+					flag = flag & cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("medium")) {
+					flag = flag & cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("high")) {
+					flag = flag & cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Motion Sensitivity Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isCameraSoundDetectionSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !cs.isCameraSoundDetectionSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isCameraSoundDetectionStatusYES(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Status is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Status is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !cs.isCameraSoundDetectionStatusYES(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Detection Status is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Detection Status is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("off")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("low")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("medium")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("high")) {
+					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sound Sensitivity Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
+					&& parameters.get(2).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Night Vision Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag
+							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag
+							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag
+							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Night Vision Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY")
+					&& parameters.get(2).equalsIgnoreCase("VIDEO QUALITY SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag & cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					flag = flag & cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					flag = flag & cs.isVideoQualityStatusSetToExpectedInVideoQualityScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Video Quality Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag
+							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Night Vision status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					flag = flag
+							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					flag = flag
+							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Video Quality status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Video Quality Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("INDOOR TEMPERATURE ALERT")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatIndoorTempAlertSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Temperature Alert Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatIndoorTempAlertSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Temperature Alert Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Thermostat Indoor Temperature Alert is not displayed");
+				}
 			}
-
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

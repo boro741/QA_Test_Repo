@@ -170,6 +170,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return flag;
 	}
 
+	public boolean clickOnAmazonSetUpButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonSetupOption");
+	}
+
+	public boolean isAmazonSetUpButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonSetupOption", 3);
+	}
+
 	public String getEntryExitTimerValueFromSecuritySettingsScreen() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTimerValue").getAttribute("text");
@@ -200,6 +208,26 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isAmazonAlexaOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaOption", 3);
+	}
+
+	public boolean isAlexaSetUpOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonSetupButton", 3);
+	}
+
+	public boolean isAmazonAlexaEmailIdVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonEmailID", 3);
+	}
+
+	public boolean isAmazonAlexaPasswordVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonPassword", 3);
+	}
+
+	public boolean isAmazonSignInVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonSignInButton", 3);
+	}
+
+	public boolean isAmazonSignOutVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaSignOutButton", 3);
 	}
 
 	public boolean isBackButtonVisible() {
@@ -287,6 +315,58 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isDeleteSensorPopUpVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorPopUpConfirmationTitle", 3);
+	}
+
+	public boolean isGeofencePopUpVisible() {
+		// Check Geofence settings for global geofence verification pop up is visible
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingOptionPopUpForGlobalGeofence", 3);
+	}
+
+	public boolean isOKButtonInGeofenceSettingsPopupVisible() {
+		// OK button visible in pop up
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceOptionPopUpOKButton");
+	}
+
+	public boolean clickOnOKButtonInGeofenceSettingsPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceOptionPopUpOKButton");
+	}
+
+	public boolean isCancelButtonInGeofenceSettingsPopupVisible() {
+		// OK button visible in pop up
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceOptionPopUpCANCELButton");
+	}
+
+	public boolean clickOnCancelButtonInGeofenceSettingsPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceOptionPopUpCANCELButton");
+	}
+
+	public boolean cliclOnAlexaSetUpOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonSetupButton");
+	}
+
+	public boolean clickOnAmazonSignInButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonSignInButton");
+	}
+
+	public boolean setEmailAddressValue(String value) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "AmazonEmailID", value);
+	}
+
+	public boolean setPasswordValue(String value) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "AmazonPassword", value);
+	}
+
+	public boolean isFeatureSetupScreenDisplayed() {
+		Boolean b = MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaFeatureSetupScreen");
+
+		if (b) {
+			Keyword.ReportStep_Pass(testCase, "AmazonAlexaFeatureSetupScreen Screen is displayed");
+		}
+		return b;
+	}
+
+	public boolean clickOnAmazonSignOutVisible() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonAlexaSignOutButton");
 	}
 
 	public boolean isElementEnabled(String elementName) throws Exception {
@@ -1029,7 +1109,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		} else {
 			attribute = "value";
 		}
-		if (settingName.equalsIgnoreCase("Key Fob") || settingName.equalsIgnoreCase("Sensors")) {
+		if (settingName.equalsIgnoreCase("Key Fob") || settingName.equalsIgnoreCase("Sensors")
+				|| settingName.equalsIgnoreCase("Adaptive Recovery")) {
 			return LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, attribute, settingName);
 		} else {
 				
@@ -1194,8 +1275,26 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 		return false;
 	}
+
+	public boolean isPerformOnlyInModesPopupForGeofence() {
+		boolean flag = true;
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingOption");
+		if (testCase.getPlatform().contains("IOS")) {
+			element.click();
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "PerformOnlyInModesPopup")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "PerformOnlyInModesPopupAck");
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			element.click();
+			// TODO: Need to read Toast message pop up once merged code is available.
+			return true;
+		}
+	}
 	
-	public boolean isPerformInModePopupVisible() {
+		public boolean isPerformInModePopupVisible() {
 		boolean flag=false;
 		if(testCase.getPlatform().contains("Android")){
 			if (this.isVolumeOptionVisible()) {
@@ -1229,6 +1328,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return false;
 		}
 	}
+
 
 	public boolean isDeleteElementClickable() {
 		boolean flag = true;

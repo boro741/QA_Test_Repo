@@ -57,8 +57,7 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Exception"+e.getMessage());
 					}
-				}
-				if(states.get(0).equalsIgnoreCase("opens door with app")){
+				}else if(states.get(0).equalsIgnoreCase("opens door with app")){
 					try{
 						DASSensorUtils.openDoor(testCase, inputs);
 					}catch(Exception e){

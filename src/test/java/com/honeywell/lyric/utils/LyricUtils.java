@@ -594,7 +594,7 @@ public class LyricUtils {
 				if (sm.isFeatureTweaksVisible()) {
 					flag = flag & sm.clickOnFeatureTweaks();
 					flag = flag & sm.clickOnSetAccessibilityToggle();
-					flag = flag & sm.clickOnSetDasDIYV2Toggle();
+					//flag = flag & sm.clickOnSetDasDIYV2Toggle();
 					flag = flag & sm.clickOnNavigateUp();
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -602,7 +602,7 @@ public class LyricUtils {
 					return false;
 				}
 			} 
-//			else {
+//				else {
 //				flag = flag & sm.clickOnSetDasDIYV2Toggle();
 //			}
 			if (sm.isWebServerURLVisible()) {

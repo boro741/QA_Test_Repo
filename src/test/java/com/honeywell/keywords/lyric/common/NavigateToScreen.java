@@ -1,3 +1,4 @@
+
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
@@ -33,8 +35,10 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -69,7 +73,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "ALARM": {
 					AlarmScreen open = new AlarmScreen(testCase);
-					open.openAlarmHistory();
+					open.closeAlarmHistory();
 					break;
 				}
 				default: {
@@ -466,10 +470,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD NEW DEVICE DASHBOARD": {
 					Dashboard ds = new Dashboard(testCase);
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (ds.isCloseButtonInHoneywellRatingPopupVisible(5)) {
-							ds.clickOnCloseButtonInHoneywellRatingPopup();
-						}
+					if (ds.isCloseButtonInHoneywellRatingPopupVisible(5)) {
+						ds.clickOnCloseButtonInHoneywellRatingPopup();
 					}
 					if (ds.isDoneButtonInWeatherForecastIsVisible(20)) {
 						ds.clickOnDoneButtonInWeatherForecast();
@@ -503,6 +505,45 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Camera Settings'
+				case "CAMERA SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Thermostat Settings'
+				case "THERMOSTAT SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Manage Alerts Screen'
+				case "MANAGE ALERTS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'
+				case "MOTION DETECTION SETTINGS": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Camera Night Vision Settings Screen'
+				case "NIGHT VISION SETTINGS": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase);
+					break;
+				}
+				case "SCHEDULING":{
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
+					flag = flag & scheduleScreen.clickOnTimeScheduleButton();
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
+				case "VIDEO QUALITY SETTINGS": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
@@ -562,7 +603,6 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
-
 				case "GLOBAL DRAWER": {
 					Thread.sleep(5000);
 					Dashboard ds = new Dashboard(testCase);
@@ -773,6 +813,12 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SMART HOME SECURITY": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
+					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					break;
+				}
+				case "C1 WI-FI SECURITY CAMERA": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
@@ -1283,9 +1329,115 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
+			} else if (screen.get(1).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
+						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
+					}
+					break;
+				}
+				case "SOUND DETECTION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
+						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
+						if (cs.isCameraSettingsHeaderTitleVisible(20) && cs.isSoundDetectionLabelVisible(1)) {
+							cs.clickOnSoundDetectionLabel();
+							if (cs.isSoundDetectionScreenHeaderTitleVisible(20)) {
+								return flag;
+							} else {
+								flag = false;
+							}
+						}
+						break;
+					}
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInSoundDetectionSettingsScreen()) {
+						cs.clickOnBackButtonInSoundDetectionSettingsScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInNightVisionSettingsScreen()) {
+						cs.clickOnBackButtonVisibleInNightVisionSettingsScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("VIDEO QUALITY SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isBackButtonVisibleInVideoQualitySettingsScreen()) {
+						cs.clickOnBackButtonVisibleInVideoQualitySettingsScreen();
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MOTION DETECTION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isMotionDetectionLabelVisible(20)) {
+						cs.clickOnMotionDetectionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				case "SOUND DETECTION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isSoundDetectionLabelVisible(20)) {
+						cs.clickOnSoundDetectionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				case "NIGHT VISION SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isNightVisionLabelVisible(20)) {
+						cs.clickOnNightVisionLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				case "VIDEO QUALITY SETTINGS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isVideoQualityLabelVisible(20)) {
+						cs.clickOnVideoQualityLabel();
+						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
 
-			else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
+			} else if (screen.get(1).equalsIgnoreCase("Alarm Security Solution Card")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
+					alarmScreen.clickOnAlarm_NavigateBack();
+					break;
+				}
+
+				}
+			} else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION SENSOR SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
@@ -1310,6 +1462,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();
@@ -1838,7 +1991,67 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else {
+			}else if(screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				// Navigate from 'Amzon Alexa Settings' to 'Setup Amzon Alexa screen'
+				// Author: Gautham (H138526)
+				case "SETUP AMAZON ALEXA": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSetUpButtonVisible()) {
+						flag = flag & bs.clickOnAmazonSetUpButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
+				case "SECURITY SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isBackButtonVisible()) {
+						flag = flag & bs.clickOnBackButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				break;
+				}
+				
+			}else if(screen.get(1).equalsIgnoreCase("SCHEDULING")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PRIMARY CARD": {
+					SchedulingScreen scheduleScreen=  new SchedulingScreen(testCase);
+					flag = flag & scheduleScreen.clickOnCloseButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				break;
+				}
+				
+			} 
+			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SOLUTION CARD": {
+			Dashboard sensorScreen = new Dashboard(testCase);
+					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+					
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
@@ -1856,3 +2069,5 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 }
+
+

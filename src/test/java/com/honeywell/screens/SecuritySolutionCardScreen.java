@@ -43,20 +43,21 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (securityState.equalsIgnoreCase("Night")) {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//android.widget.ImageView[@content-desc='" + NIGHTSECURITYSTATEINANDROID + "']", testCase);
+						"//android.widget.LinearLayout[@content-desc='" + NIGHTSECURITYSTATEINANDROID + "']", testCase);
 			} else if (securityState.equalsIgnoreCase("OFF")) {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//android.widget.ImageView[@content-desc='" + OFFSECURITYSTATEINANDROID + "']", testCase);
+						"//android.widget.LinearLayout[@content-desc='" + OFFSECURITYSTATEINANDROID + "']", testCase);
 			} else {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//android.widget.ImageView[@content-desc='" + securityState + "']", testCase);
+						"//android.widget.LinearLayout[@content-desc='" + securityState + "']", testCase);
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
 				return MobileUtils.isMobElementExists("NAME", securityState, testCase);
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase)) {
-					return MobileUtils.isMobElementExists("XPATH", "//*[@value='" + securityState + "']", testCase);
+				System.out.println("//XCUIElementTypeCell[@value='" + securityState + "']");
+				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']", testCase)) {
+					return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']", testCase);
 				} else {
 					flag = false;
 				}
@@ -70,13 +71,13 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (securityState.equalsIgnoreCase("Night")) {
 				return MobileUtils.clickOnElement(testCase, "XPATH",
-						"//android.widget.ImageView[@content-desc='" + NIGHTSECURITYSTATEINANDROID + "']");
+						"//android.widget.LinearLayout[@content-desc='" + NIGHTSECURITYSTATEINANDROID + "']");
 			} else if (securityState.equalsIgnoreCase("OFF")) {
 				return MobileUtils.clickOnElement(testCase, "XPATH",
-						"//android.widget.ImageView[@content-desc='" + OFFSECURITYSTATEINANDROID + "']");
+						"//android.widget.LinearLayout[@content-desc='" + OFFSECURITYSTATEINANDROID + "']");
 			} else {
 				return MobileUtils.clickOnElement(testCase, "XPATH",
-						"//android.widget.ImageView[@content-desc='" + securityState + "']");
+						"//android.widget.LinearLayout[@content-desc='" + securityState + "']");
 			}
 		} else {
 			if (securityState == "Home") {

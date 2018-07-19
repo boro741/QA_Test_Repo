@@ -26,9 +26,11 @@ import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
 import io.appium.java_client.TouchAction;
+
 import java.util.Random;
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
+
 
 public class VerifyOptionsOnAScreen extends Keyword {
 
@@ -65,33 +67,32 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			e1.printStackTrace();
 		}
 		switch (expectedScreen.get(0).toUpperCase()) {
-
-		case "ENTRYDELAY":{
+		case "ENTRYDELAY": {
 			AlarmScreen check = new AlarmScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Elements");
-				switch(parameter.toUpperCase()) {
-				case "ENTRY DELAY WITH DOOR OPEN TITLE":{
+				switch (parameter.toUpperCase()) {
+				case "ENTRY DELAY WITH DOOR OPEN TITLE": {
 					flag = flag & check.isEntryDelayTitleVisible();
 					break;
 				}
-				case "ENTRY DELAY WITH SENSOR NAME":{
+				case "ENTRY DELAY WITH SENSOR NAME": {
 					flag = flag & check.isEntryDelaySubTitleVisible(inputs);
 					break;
 				}
-				case "ENTRY DELAY SUBTITLE AS LOCATION NAME":{
+				case "ENTRY DELAY SUBTITLE AS LOCATION NAME": {
 					flag = flag & check.isEntryDelayLocationVisible(inputs);
 					break;
 				}
-				case "ENTRY DELAY LIVE STREAM":{
+				case "ENTRY DELAY LIVE STREAM": {
 					flag = flag & check.verifyLiveStreamingProgress();
 					break;
-				} 
-				case "ENTRY DELAY ALARM IN SECS TEXT  ":{
+				}
+				case "ENTRY DELAY ALARM IN SECS TEXT  ": {
 					flag = flag & check.isAlarmWillSoundInTextVisible();
 					break;
 				}
-				case "ENTRY DELAY ALARM IN SECS COUNTER":{
+				case "ENTRY DELAY ALARM IN SECS COUNTER": {
 					flag = flag & check.AlarmInSecsCounter();
 					break;
 				}
@@ -122,29 +123,29 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		case "ALARM":{
+		case "ALARM": {
 			AlarmScreen check = new AlarmScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Elements");
-				switch(parameter.toUpperCase()) {
-				case "ALARM TITLE":{
+				switch (parameter.toUpperCase()) {
+				case "ALARM TITLE": {
 					flag = flag & check.isAlarmTitleVisible();
 					break;
 				}
-				case "ALARM SUBTITLE":{
+				case "ALARM SUBTITLE": {
 					flag = flag & check.isAlarmLocationVisible(inputs);
 					break;
 				}
-				case "ALARM LIVE STREAM":{
+				case "ALARM LIVE STREAM": {
 					flag = flag & check.verifyLiveStreamingProgress();
 
 					break;
 				}
-				case "ALARM NAVIGATE BACK BUTTON":{
+				case "ALARM NAVIGATE BACK BUTTON": {
 					flag = flag & check.isAlarm_NavigatebackVisible();
 					break;
 				}
-				case "CALL":{
+				case "CALL": {
 					flag = flag & check.isCallButtonVisible();
 					break;
 				}
@@ -227,7 +228,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				try {
 					if (bs.verifyParticularEntryExitDelayOptionVisible(data.getData(i, "Delays"))) {
 						Keyword.ReportStep_Pass(testCase, "Option: '" + data.getData(i, "Delays")
-						+ "' is present on the Entry/Exit Delay screen");
+								+ "' is present on the Entry/Exit Delay screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option: '"
@@ -287,7 +288,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
 		case "SENSOR SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			SensorSettingScreen sensorSettingScreen = new SensorSettingScreen(testCase);
@@ -369,7 +369,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
 		case "KEYFOB SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -399,7 +398,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"'Delete' Option is not displayed on the Sensor Settings Screen");
 					}
-				}else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Invalid Input: " + data.getData(i, "Settings"));
@@ -407,7 +406,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
 		case "PANEL MODEL AND FIRMWARE DETAILS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -502,6 +500,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Video Setting: '"
 								+ fieldTobeVerified + "' is not present on the Video Settings screen");
+
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -585,7 +584,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
-
 			}
 			break;
 		}
@@ -705,6 +703,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 
 			break;
 		}
+
 			case "ALERTS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			ArrayList<String> lstData = new ArrayList<String>();
@@ -866,6 +865,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			break;
 		}
 	
+
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

@@ -1,6 +1,10 @@
 package com.honeywell.keywords.lyric.das.pushnotifications;
 
+import java.time.Duration;
 import java.util.ArrayList;
+
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -9,12 +13,16 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.MultiTouchAction;
+import io.appium.java_client.TouchAction;
 
 public class ActionOnPushNotification extends Keyword {
 
@@ -43,9 +51,13 @@ public class ActionOnPushNotification extends Keyword {
 		LocationInformation locInfo = new LocationInformation(testCase, inputs);
 		DASNotificationUtils.openNotifications(testCase);
 		switch(exampleData.get(0).toUpperCase()){
+		case "ISMV MOTION DETECTED":{
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMTOIONVIEWER1");
+			notification = "Motion detected by Motion Viewer \""+ sensorName+"\"";
+			break;
+		}
 		case "MOTION DETECTED":{
-			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-			notification = "Motion Dectected by Camera \""+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+"\".";
+			notification = "Motion Detected by Camera \""+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+"\".";
 			break;
 		}
 		case "SWITCH TO NIGHT FROM DOOR OPEN":{
@@ -55,7 +67,7 @@ public class ActionOnPushNotification extends Keyword {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locatorValue = "//*[@text='" + notification + "']";
 			} else {
-				locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
+				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
@@ -68,9 +80,8 @@ public class ActionOnPushNotification extends Keyword {
 				}	
 			}
 			else {
-				MobileElement element=MobileUtils.getMobElement(testCase,"xpath", locatorValue);
-				MobileUtils.longPress(testCase, element, 10);
-				flag=alarmScreen.clickOnSwitchToNight();
+				alarmScreen.swipe(locatorValue);
+				flag=alarmScreen.clickswitchToNightOnNotification();
 			}
 			return flag;
 		}
@@ -81,7 +92,7 @@ public class ActionOnPushNotification extends Keyword {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locatorValue = "//*[@text='" + notification + "']";
 			} else {
-				locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
+				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
@@ -94,10 +105,8 @@ public class ActionOnPushNotification extends Keyword {
 				}
 			}
 			else {
-				MobileElement element=MobileUtils.getMobElement(testCase,"xpath", locatorValue);
-				MobileUtils.longPress(testCase, element, 10);
-				flag=alarmScreen.clickOnSwitchToHome();
-
+				alarmScreen.swipe(locatorValue);
+				flag=alarmScreen.clickswitchToHomeOnNotification();
 			}
 			return flag;
 		}
@@ -122,35 +131,71 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO HOME": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to HOME";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to HOME";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO AWAY": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to Away";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Away";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO NIGHT": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to Night";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Night";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "SET TO OFF": {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+						+ " to OFF";
+				/*
+				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
+			} else {
+				notification = locInfo.getUserFirstName() + " set Security "
+						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to OFF";
+				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();*/
 			}
+			System.out.println("############notification: " + notification);
 			break;
 		}
 		case "ALARM": {
@@ -173,7 +218,7 @@ public class ActionOnPushNotification extends Keyword {
 			locatorValue = "//*[@text='" + notification + "']";
 
 		} else {
-			locatorValue = "//XCUIElementTypeCell[contains(@name,'" + notification + "')]";
+			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
 		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 10)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
@@ -184,12 +229,13 @@ public class ActionOnPushNotification extends Keyword {
 					"'" + notification + "' Push Notification not present");
 			DASNotificationUtils.closeNotifications(testCase);
 			testCase.getMobileDriver().launchApp();
+			LyricUtils.verifyLoginSuccessful(testCase, inputs, false);
 			Keyword.ReportStep_Pass(testCase, "Launching app to continue testing");
+			
 		}
 
 		return flag;
 	}
-
 
 	@Override
 	@AfterKeyword

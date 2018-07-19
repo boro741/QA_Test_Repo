@@ -10,6 +10,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCommandControlUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class VerifyUserStatus extends Keyword {
@@ -35,6 +36,14 @@ public class VerifyUserStatus extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user status should be set to \"(.*)\"$")
 	public boolean keywordSteps() {
+		flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"User status is not set to " + status.get(0)+"due to error in navigating to security solution card screen");
+		}
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		String currentStatus = sc.getCurrentSecurityState();
 		System.out.println("#############currentStatus: " + currentStatus);

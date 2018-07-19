@@ -34,11 +34,12 @@ public class ChangeVentilationMode extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user changes Vantilation mode to \"(.+)\"$")
+	@KeywordStep(gherkins = "^user changes Vantilation mode to \"(.+)\" with \"(.+) value$")
 	public boolean keywordSteps() {
 		try {
 			String mode = exampleData.get(0);
 			String expectedMode = " ";
+			String TimerValue = exampleData.get(1);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String allowedModes = statInfo.getThermoStatVentilationMode();
 			if (mode.equalsIgnoreCase("On")) {
@@ -70,7 +71,7 @@ public class ChangeVentilationMode extends Keyword {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Invalid input : " + mode);
 			}
-			flag = flag & FlyCatcherVentialtion.changeVentilationMode(testCase, inputs, expectedMode);
+			flag = flag & FlyCatcherVentialtion.changeVentilationMode(testCase, inputs, expectedMode,TimerValue);
 		} catch (Exception e){
 
 		}

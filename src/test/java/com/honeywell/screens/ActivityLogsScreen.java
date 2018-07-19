@@ -53,6 +53,7 @@ public class ActivityLogsScreen extends MobileScreens {
 			activityArrow = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollUp");
 			panelState = MobileUtils.getMobElement(objectDefinition, testCase, "PanelState");
 			action = action.press(activityArrow).moveTo(panelState).release().perform();
+			Keyword.ReportStep_Pass(testCase, "Successfully opened activity logs");
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp")) {
 				return MobileUtils.clickOnElement(objectDefinition, testCase, "AcitvityLogScrollUp");
@@ -61,7 +62,9 @@ public class ActivityLogsScreen extends MobileScreens {
 					// MobileElement activityLogUpElement = null;
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
-						driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
+						//driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
+						action.tap(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON))).release().perform();
+						Keyword.ReportStep_Pass(testCase, "Successfully opened activity logs");
 					}
 				} catch (NoSuchElementException e) {
 
@@ -112,7 +115,9 @@ public class ActivityLogsScreen extends MobileScreens {
 					// MobileElement activityLogDownElement = null;
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).isEnabled()) {
-						driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).click();
+						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
+						action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+						Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
 					}
 				} catch (NoSuchElementException e) {
 					flag = false;

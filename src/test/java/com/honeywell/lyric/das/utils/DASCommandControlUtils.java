@@ -103,7 +103,7 @@ public class DASCommandControlUtils {
 					try {
 						switch (elementProgressBar) {
 						case "TIMER PROGRESS BAR": {
-							if (sc.isCountDownTimerVisible()) {
+							if (sc.isCountDownTimerVisible() && sc.isSwitchingToTextVisible()) {
 								System.out.println("Waiting for timer progress bar loading spinner to disappear");
 								return false;
 							} else {

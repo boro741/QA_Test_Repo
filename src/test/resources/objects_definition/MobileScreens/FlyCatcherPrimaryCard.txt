@@ -34,11 +34,14 @@ LocationNameIOS							name	Location Name	name	Location Name	name	Location Name
 MoreButton	XPATH	//*[@text='MORE']	XPATH	//*[@text='MORE']	XPATH	//*[@text='MORE']	ID	more	ID	more	ID	more
 PriorityButton							ID	PRIORITY	ID	PRIORITY	ID	PRIORITY
 VentilationButton	XPATH	//*[@text='VENTILATION']	XPATH	//*[@text='VENTILATION']	XPATH	//*[@text='VENTILATION']	ID	VENTILATION	ID	VENTILATION	ID	VENTILATION
-VentilationOnActiveButton	XPATH	//*[@text='ON']	XPATH	//*[@text='ON']	XPATH	//*[@text='ON']	ID	ventilation on active	ID	ventilation on active	ID	ventilation on active
-VentilationAutoActiveButton	XPATH	//*[@text='AUTO']	XPATH	//*[@text='AUTO']	XPATH	//*[@text='AUTO']	ID	ventilation auto active	ID	ventilation auto active	ID	ventilation auto active
-VentilationOffActiveButton	XPATH	//*[@text='OFF']	XPATH	//*[@text='OFF']	XPATH	//*[@text='OFF']	ID	ventilation off active	ID	ventilation off active	ID	ventilation off active
+VentilationOnActiveButton	XPATH	//*[@text='ON']	XPATH	//*[@text='ON']	XPATH	//*[@text='ON']	ID	ON	ID	ON	ID	ON
+VentilationAutoActiveButton	XPATH	//*[@text='AUTO']	XPATH	//*[@text='AUTO']	XPATH	//*[@text='AUTO']	ID	AUTO	ID	AUTO	ID	AUTO
+VentilationOffActiveButton	XPATH	//*[@text='OFF']	XPATH	//*[@text='OFF']	XPATH	//*[@text='OFF']	ID	OFF	ID	OFF	ID	OFF
 RunVentialtionButton	ID	btn_run_ventilation_now	ID	btn_run_ventilation_now	ID	btn_run_ventilation_now	ID	Run Ventilation Now	ID	Run Ventilation Now	ID	Run Ventilation Now
 StopTimerButton	ID	btn_stop_timer	ID	btn_stop_timer	ID	btn_stop_timer	ID	Stop Timer	ID	Stop Timer	ID	Stop Timer
-VentilationTimerCancel	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	ID	temp stepper down	ID	temp stepper down	ID	temp stepper down
-VentilationTimerStart	XPATH	//*[@text='START']	XPATH	//*[@text='START']	XPATH	//*[@text='START']	ID	temp stepper up	ID	temp stepper up	ID	temp stepper up
-VentilationEditTimer	ID	btn_save_timer	ID	btn_save_timer	ID	btn_save_timer						
+VentilationTimerCancel	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	ID	CANCEL	ID	CANCEL	ID	CANCEL
+VentilationTimerStart	XPATH	//*[@text='START']	XPATH	//*[@text='START']	XPATH	//*[@text='START']	ID	START	ID	START	ID	START
+VentilationEditTimer	ID	btn_save_timer	ID	btn_save_timer	ID	btn_save_timer	ID	Edit Timer	ID	Edit Timer	ID	Edit Timer
+VentilationTimerPicker	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText						
+VentilationTimerValue	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text						
+CloseVentilationTimer	XPATH	//*[@text='Navigate up']	ID	Navigate up	ID	Navigate up						

@@ -49,7 +49,7 @@ public class CreateDefaultTimeBasedScheduleThroughGeofence extends Keyword {
 		} else {
 			inputs.setInputValueWithoutTarget("ConfirmTimeShedule", "false");
 		}
-		if (exampleData.get(1).equalsIgnoreCase("Everyday")) {
+		if (exampleData.get(1).equalsIgnoreCase("Same Every Day")) {
 			defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 			inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
@@ -88,7 +88,7 @@ public class CreateDefaultTimeBasedScheduleThroughGeofence extends Keyword {
 			inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT, temp);
 			inputs.setInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT, temp);
 			flag = flag & JasperSchedulingUtils.createTimeBasedScheduleWithDefaultValues(testCase, inputs);
-		} else if (exampleData.get(1).equalsIgnoreCase("Weekday and Weekend")) {
+		} else if (exampleData.get(1).equalsIgnoreCase("Different On Weekdays")) {
 			defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 			inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);

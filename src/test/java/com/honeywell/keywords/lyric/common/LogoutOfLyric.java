@@ -122,6 +122,7 @@ public class LogoutOfLyric extends Keyword {
 								}
 							}
 						} else {
+
 							element = testCase.getMobileDriver().findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 									+ "new UiSelector().text(\"Logout\"));"));
 							if (element != null) {

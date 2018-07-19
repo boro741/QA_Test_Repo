@@ -43,54 +43,59 @@ public class VerifyPushNotificationNotReceived extends Keyword {
 		if (exampleData.get(0).equalsIgnoreCase("DOOR OPENED")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("DOOR CLOSED")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("DOOR CLOSED")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " closed at " + inputs.getInputValue("LOCATION1_NAME");
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("WINDOW OPENED")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("WINDOW OPENED")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("WINDOW CLOSED")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("WINDOW CLOSED")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 			notification = sensorName + " closed at " + inputs.getInputValue("LOCATION1_NAME");
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("SET TO HOME")) {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Home by " + locInfo.getUserFirstName();
+		} else if (exampleData.get(0).equalsIgnoreCase("SET TO HOME")) {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
+						+ locInfo.getUserFirstName();
 			}
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("SET TO AWAY")) {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Away by " + locInfo.getUserFirstName();
+		} else if (exampleData.get(0).equalsIgnoreCase("SET TO AWAY")) {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
+						+ locInfo.getUserFirstName();
 			}
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("SET TO NIGHT")) {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Night by " + locInfo.getUserFirstName();
+		} else if (exampleData.get(0).equalsIgnoreCase("SET TO NIGHT")) {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Night by "
+						+ locInfo.getUserFirstName();
 			}
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("SET TO OFF")) {
-			if(inputs.getInputValue("LOCATION1_DEVICE1_NAME")!="Security"){
-				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
-			}else{
-				notification = "Security "+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+" set to Off by " + locInfo.getUserFirstName();
+		} else if (exampleData.get(0).equalsIgnoreCase("SET TO OFF")) {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
+				notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Off by "
+						+ locInfo.getUserFirstName();
+			} else {
+				notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Off by "
+						+ locInfo.getUserFirstName();
 			}
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("ALARM")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("ALARM")) {
 			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME");
-		}
-		else if (exampleData.get(0).equalsIgnoreCase("ALARM DISMISSED")) {
-			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME")+" Cancelled by "+locInfo.getUserFirstName();
-		}
-		else {
+		} else if (exampleData.get(0).equalsIgnoreCase("ALARM DISMISSED")) {
+			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME") + " Cancelled by "
+					+ locInfo.getUserFirstName();
+		} else if (exampleData.get(0).equalsIgnoreCase("GEOFENCE AWAY")) {
+			notification = "Geofence crossed. Everyone is away from '" + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+					+ "'.";
+		} else if (exampleData.get(0).equalsIgnoreCase("GEOFENCE HOME")) {
+			notification = "Geofence crossed. " + inputs.getInputValue("USER_NAME") + " has arrived at '"
+					+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + "'.";
+		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input");
 			DASNotificationUtils.closeNotifications(testCase);

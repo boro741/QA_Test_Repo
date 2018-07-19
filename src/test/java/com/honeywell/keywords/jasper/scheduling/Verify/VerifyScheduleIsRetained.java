@@ -35,16 +35,16 @@ public class VerifyScheduleIsRetained extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify \"(.+)\" schedule is retained$")
+	@KeywordStep(gherkins = "^\"(.+)\" scheduling is retained$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (exampleData.get(0).equalsIgnoreCase("Geofence")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED, InputVariables.GEOFENCE_BASED_SCHEDULE);
 
-			} else if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED, InputVariables.EVERYDAY_SCHEDULE);
 
-			} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE_RETAINED, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 
 			}

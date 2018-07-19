@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 
 public class Dashboard extends MobileScreens {
 
@@ -35,27 +38,27 @@ public class Dashboard extends MobileScreens {
 	public boolean isProgressBarVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);
 	}
-	
+
 	public boolean isCloseButtonInHoneywellRatingPopupVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseButtonInHoneywellRatingPopup", timeOut);
 	}
-	
+
 	public boolean clickOnCloseButtonInHoneywellRatingPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButtonInHoneywellRatingPopup");
 	}
-	
+
 	public boolean isDoneButtonInWeatherForecastIsVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInWeatherForecast", timeOut);
 	}
-	
+
 	public boolean clickOnDoneButtonInWeatherForecast() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInWeatherForecast");
 	}
-	
+
 	public boolean isGotItButtonInWeatherForecastIsVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GotItButtonInWeatherForecast");
 	}
-	
+
 	public boolean clickOnGotItButtonInWeatherForecast() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GotItButtonInWeatherForecast");
 	}
@@ -107,11 +110,39 @@ public class Dashboard extends MobileScreens {
 	}
 
 	public boolean areDevicesVisibleOnDashboard(int timeOut) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", timeOut);
 	}
 
 	public boolean areDevicesVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3);
+	}
+	
+	public boolean areDeviceTempVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceCurrentTempValue", timeOut);
+	}
+
+	public boolean areDeviceTempVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceCurrentTempValue", 3);
+	}
+	
+	public boolean areDeviceTempUpVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp", timeOut);
+	}
+
+	public boolean areDeviceTempUpVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp", 3);
+	}
+	
+	public boolean areDeviceTempDownVisibleOnDashboard(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", timeOut);
+	}
+
+	public boolean areDeviceTempDownVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", 3);
+	}
+
+	public boolean clickOnDeviceOnDashbaord() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardIconText");
 	}
 
 	public boolean isDevicePresentOnDashboard(String deviceName) {
@@ -159,6 +190,15 @@ public class Dashboard extends MobileScreens {
 
 	public String getSecurityStatusLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
+	}
+
+	public String getCameraStatus(int timeOut) {
+		String cameraStatus = null;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus", timeOut)) {
+			cameraStatus = MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
+			System.out.println("######Current Camera Status is: " + cameraStatus);
+		}
+		return cameraStatus;
 	}
 
 	public String getZwaveDeviceStatus(String expectedDevice) {
@@ -255,4 +295,153 @@ public class Dashboard extends MobileScreens {
 		}
 		return flag;
 	}
+	
+	public boolean VerifyComfortDeviceStatusInDashBoard(String expectedDevice) {
+		boolean flag = true;
+		if (this.areDevicesVisibleOnDashboard(10) && this.areDeviceTempVisibleOnDashboard(10)) {
+			
+			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
+					"DashboardIconText");
+			for (int i = 0; i < dashboardIconText.size(); i++) {
+				String displayedText = "";
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					displayedText = dashboardIconText.get(i).getText();
+				} else {
+					try {
+						displayedText = dashboardIconText.get(i).getAttribute("value");
+					} catch (Exception e1) {
+					}
+				}
+				
+				flag = flag & displayedText.contains(expectedDevice);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Device name matches on Dashboard");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device name was not matches in Dashboard");
+				}				
+			}		
+		}
+		
+		if(this.areDeviceTempUpVisibleOnDashboard(10))
+		{
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,
+					"Stat Temp Stepper Up icon is displayed on Dashboard");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Temp Stepper Up icon is not displayed on Dashboard");
+		}	
+		
+		if(this.areDeviceTempDownVisibleOnDashboard(10))
+		{
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,
+					"Stat Temp Stepper Down icon is displayed on Dashboard");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Temp Stepper Down icon is not displayed on Dashboard");
+		}	
+		
+		if(this.areDeviceTempVisibleOnDashboard(10))
+		{
+			flag = true;
+			Keyword.ReportStep_Pass(testCase,
+					"Stat Temp values is displayed on Dashboard");
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Temp values icon is not displayed on Dashboard");
+		}	
+		
+		return flag;
+	}
+	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue) {
+
+		String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatName");
+		if(expectedValue.equalsIgnoreCase(actualValue)) {
+			System.out.println("Same name as given ");
+			return true;
+		}
+			return false;
+		}
+		public boolean isTemperatureNotDisplayed() {
+			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+			if(status.equals("--"))
+			{
+			return true;
+		}
+			return false;
+	}
+		public boolean isOffStatusVisible() {
+			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
+			if(status.toUpperCase().contains("OFF"))
+			{
+			return true;
+		}
+			return false;
+		}
+		public boolean isThermostatTemperatureDisplayed(TestCaseInputs inputs) {
+
+			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String chilDeviceIndoorTemperature = statInfo.getIndoorTemperature();
+			System.out.println("Indoor temperature "+chilDeviceIndoorTemperature);
+			
+			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+				System.out.println("Temperature is  given ");
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		public boolean isUserExpectedTemperatureDisplayed() {
+
+			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+
+			
+			if(actualValue.contains("--")==false) {
+				System.out.println("Temperature is  given ");
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		public boolean NavigatetoThermostatDashboard() {
+			if(MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")){
+				 CoachMarkUtils.closeCoachMarks(testCase);
+				 return true;
+			}
+			return false;
+		}
+		public boolean isUpStepperDisplayed() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpStepper");
+		}
+
+		public boolean isDownStepperDisplayed() {
+
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper");
+		}
+		public boolean isUPStepperElementEnabled() {
+			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "UpStepper");
+			if(element.isEnabled())
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public boolean isDownStepperElementEnabled() {
+			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "DownStepper");
+			if(element.isEnabled())
+			{
+				return true;
+			}
+			return false;
+		}
 }

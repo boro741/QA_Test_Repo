@@ -17,6 +17,7 @@ import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 import com.honeywell.lyric.utils.LyricUtils;
+
 import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {

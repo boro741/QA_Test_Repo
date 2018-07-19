@@ -2,8 +2,8 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 GlobalDrawerButton	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	XPATH	//android.widget.ImageButton[@content-desc='Global Drawer']	name	menu	name	menu	name	menu
 GlobalDrawerIconList	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text						
 DashboardIconText	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	XPATH	//XCUIElementTypeStaticText[@label='title']	XPATH	//XCUIElementTypeStaticText[@label='title']	XPATH	//XCUIElementTypeStaticText[@label='title']
-DashboardIconStatus	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	NAME	subTitle_Security	NAME	subTitle_Security	NAME	subTitle_Security
-CloseButtonInHoneywellRatingPopup	ID	btn_close	ID	btn_close	ID	btn_close	XPATH	//*[@value='Not Now']	XPATH	//*[@value='Not Now']	XPATH	//*[@value='Not Now']
+DashboardIconStatus	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	id	dashboard_device_secondary_text	XPATH	"//*[contains(@name, 'subTitle')]"	XPATH	"//*[contains(@name, 'subTitle')]"	XPATH	"//*[contains(@name, 'subTitle')]"
+CloseButtonInHoneywellRatingPopup	ID	btn_close	ID	btn_close	ID	btn_close	NAME	Not Now	NAME	Not Now	NAME	Not Now
 DoneButtonInWeatherForecast	ID	btn_positive_got_it	ID	btn_positive_got_it	ID	btn_positive_got_it	NAME	Done	NAME	Done	NAME	Done
 GotItButtonInWeatherForecast	XPATH	//*[@text='Got It']	XPATH	//*[@text='Got It']	XPATH	//*[@text='Got It']	NAME	Got It	NAME	Got It	NAME	Got It
 AddNewDeviceIcon	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	NAME	Add New Device	NAME	Add New Device	NAME	Add New Device
@@ -20,3 +20,14 @@ SettingsIconInSecurityScreen							NAME	appSettingsIcon	NAME	appSettingsIcon	NAM
 LocationDropDownButton							NAME	Location Name	NAME	Location Name	NAME	Location Name
 LocationDropDownList							NAME	Navigation_Drop_Down_Title_cell	NAME	Navigation_Drop_Down_Title_cell	NAME	Navigation_Drop_Down_Title_cell
 LocationName							NAME	Location Name	NAME	Location Name	NAME	Location Name
+DeviceView	id	device_view	id	device_view	id	device_view						
+StatTempStepperDown	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down						
+StatTempStepperUp	id	stat_temp_stepper_up	id	stat_temp_stepper_up	id	stat_temp_stepper_up						
+DeviceCurrentTempValue	id	current_temp_value	id	current_temp_value	id	current_temp_value						
+ThermostatName	id	dashboard_device_name										
+ThermostatTemperature	id	dashboard_device_secondary_text										
+UpStepper	id	stat_temp_stepper_up										
+DownStepper	id	stat_temp_stepper_down										
+UserExpectedTemperature	id	current_temp_value										
+												
+												

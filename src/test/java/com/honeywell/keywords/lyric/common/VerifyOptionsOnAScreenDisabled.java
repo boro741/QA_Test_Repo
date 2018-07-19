@@ -2,6 +2,8 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
+import org.openqa.selenium.Dimension;
+
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -12,7 +14,11 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SensorSettingScreen;
+
+import io.appium.java_client.TouchAction;
 
 public class VerifyOptionsOnAScreenDisabled extends Keyword {
 
@@ -37,7 +43,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^the following (.*) options should be disabled:$")
+	@KeywordStep(gherkins = "^the following \"(.*)\" options should be disabled:$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
 		case "SECURITY SETTINGS": {
@@ -122,78 +128,194 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
+		case "MOTION DETECTION": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION ZONE")) {
+					if (cs.isMotionDetectionZoneEnabled()) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Detection Zone section is enabled");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Motion Detection Zone section is disabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("MOTION SENSITIVITY")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					if (!cs.isMotionSensitivityEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity section is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "SOUND DETECTION": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				if (fieldToBeVerified.equalsIgnoreCase("SOUND SENSITIVITY")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					if (!cs.isSoundSensitivityEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity section is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Sensitivity section is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "CAMERA SETTINGS": {
+			try {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				for (int i = 0; i < data.getSize(); i++) {
+					String fieldToBeVerified = data.getData(i, "Options");
+					if (fieldToBeVerified.equalsIgnoreCase("SOUND DETECTION")) {
+						if (!cs.isSoundDetectionSectionIsEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Sound Detection section is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sound Detection section is enabled");
+						}
+					} else if (fieldToBeVerified.equalsIgnoreCase("CAMERA MICROPHONE")) {
+						if (!cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Microphone switch is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera Microphone switchis enabled");
+						}
+					}
+				}
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			}
+			break;
+		}
 		case "KEYFOB SETTINGS":
-		case "SENSOR SETTINGS":{
+		case "SENSOR SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
 				if (fieldTobeVerified.equalsIgnoreCase("Name field")) {
-					if(expectedScreen.get(0).equalsIgnoreCase("KEYFOB SETTINGS")){
+					if (expectedScreen.get(0).equalsIgnoreCase("KEYFOB SETTINGS")) {
 						if (bs.isKeyfobNameElementEnabled()) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Name field is enabled");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Name field is enabled");
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Name field is disabled");
 						}
-					}else{
+					} else {
 
 						if (bs.isNameElementEnabled()) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Name field is enabled");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Name field is enabled");
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Name field is disabled");
 						}
 					}
-				}else if(fieldTobeVerified.equalsIgnoreCase("Cover Tampered")) {
-					SensorSettingScreen sensor  = new SensorSettingScreen(testCase);
+				} else if (fieldTobeVerified.equalsIgnoreCase("Cover Tampered")) {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					if (sensor.isSensorTamperedScreenDisplayed()) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Delete should not clickable in away/night mode");
-					}
-					else {
+					} else {
 						Keyword.ReportStep_Pass(testCase, "Cover Tampered field is disabled");
 					}
-				}
-				else if(fieldTobeVerified.equalsIgnoreCase("Signal strength and test")) {
-					if(bs.isSensorSignalStrengthAndTestOptionEnabled()) {
+				} else if (fieldTobeVerified.equalsIgnoreCase("Signal strength and test")) {
+					if (bs.isSensorSignalStrengthAndTestOptionEnabled()) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Signal strength and test is enabled");
-					}
-					else {
+					} else {
 						Keyword.ReportStep_Pass(testCase, "Signal strength and test field is disabled");
 					}
-				}
-				else if(fieldTobeVerified.equalsIgnoreCase("Delete")) {
+				} else if (fieldTobeVerified.equalsIgnoreCase("Delete")) {
 
-
-					if(expectedScreen.get(0).equalsIgnoreCase("KEYFOB SETTINGS")){
-						if (bs.isKeyfobDeleteElementClickable()){
+					if (expectedScreen.get(0).equalsIgnoreCase("KEYFOB SETTINGS")) {
+						if (bs.isKeyfobDeleteElementClickable()) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Delete should not clickable in away/night mode");
-						}
-						else {
+						} else {
 							Keyword.ReportStep_Pass(testCase, "Delete field is disabled");
 						}
-					}else{
+					} else {
 						if (bs.isDeleteElementClickable()) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Delete should not clickable in away/night mode");
-						}
-						else {
+						} else {
 							Keyword.ReportStep_Pass(testCase, "Delete field is disabled");
 						}
 					}
 				}
+				
 
 			}
 			break;
 		}
+		case "THERMOSTAT":
+		{
+			Dashboard dash=new Dashboard(testCase);
+		
+			for (int i = 0; i < data.getSize(); i++) {
+			
+		String fieldTobeVerified = data.getData(i, "Options");
+		if (fieldTobeVerified.equalsIgnoreCase("UP stepper")) {
+			if (dash.isUPStepperElementEnabled()){
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"UP Stepper option is enabled");
+			} else {
+				Keyword.ReportStep_Pass(testCase, "UPstepper Option is disabled");
+			}
+		} else if (fieldTobeVerified.equalsIgnoreCase("Down stepper")) {
+			if (dash.isDownStepperElementEnabled()) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Down stepper Option is enabled");
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Down stepper Option is disabled");
+			}
+		}
+		}
+			
+		break;
+	}
+		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

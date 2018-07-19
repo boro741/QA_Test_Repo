@@ -67,22 +67,15 @@ public class SerialDriverArduino /*extends SerialDriverCore*/ {
 		/*0  enroll 3
 		1 tamper 4
 		2 open 5*/
-		setrelay("5:0");
-	//	setrelay("");
-	//	setrelay("");
 	//	setrelay("0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0");
-	/*	Thread.sleep(5000);
-		setrelay("0:0,1:0,2:0,3:1");
-		Thread.sleep(5000);
-		setrelay("0:0,1:0,2:0,3:0");*/
-		//resetrelay("0:0,1:0,2:0");
-		closePort();
-		System.out.println("executed");
+	//	Thread.sleep(5000);
+	//resetrelay("0:0,1:0,2:0");
+	//	closePort();
 	}
 	public static void setrelay(String ch) throws Exception {
 		try {
 			serialPort1.writeString(ch);
-			Thread.sleep(30);
+			TimeUnit.SECONDS.sleep(5);
 			System.out.println("Sent com port command "+ ch);
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());

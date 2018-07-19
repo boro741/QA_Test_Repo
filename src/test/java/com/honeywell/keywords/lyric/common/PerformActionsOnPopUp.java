@@ -9,11 +9,13 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -613,6 +615,28 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		}else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible()) {
+					flag = flag & bs.clickOnCancelButtonInGeofenceSettingsPopup();
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isGeofencePopUpVisible() && bs.isOKButtonInGeofenceSettingsPopupVisible()) {
+					flag = flag & bs.clickOnOKButtonInGeofenceSettingsPopup();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("UNABLE TO CONNECT TO BASE STATION")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON OK IN": {
@@ -645,6 +669,37 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "ACCEPTS": {
 				flag = flag & settingScreen.clickOnTimeOutOkPopup();
 				break;
+			}
+			}
+		}  else if (expectedPopUp.get(1).equalsIgnoreCase("TURN OFF MICROPHONE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CANCELS": {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (cs.isCANCELButtonInTurnOffCameraMicrophonePopupVisible(testCase)) {
+					flag = flag & cs.clickOnCANCELButtonInTurnOffCameraMicrophonePopup(testCase);
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"NO button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			case "CONFIRMS": {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (cs.isOKButtonInTurnOffCameraMicrophonePopupVisible(testCase)) {
+					flag = flag & cs.clickOnOKButtonInTurnOffCameraMicrophonePopup(testCase);
+					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"YES button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
 			}
 			}
 		} else {

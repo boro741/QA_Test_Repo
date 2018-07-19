@@ -2,22 +2,26 @@
 Feature: Camera Membership
 As a user I want to subscribe to plans offered by Honeywell for my camera clips.
 
-@SubscribeToStandardMothlySubscription
-  Scenario: As a user I want to subscibe for a standard monthly subscription plan for my first C1 camera
-      When user launches and logs in to the Lyric application
-      When user navigates to "HONEYWELL MEMBERSHIP" screen from the "DASHBOARD" screen
-      And user subscribes to a "Monthly" plan
-      And user accepts the checkout view
-      And user enters payment details and pay
-	  And user clicks done button in the subscription complete screen
-	  And user logs out of the app
-	  
-@SubscribeToStandardAnnualSubscription
-  Scenario: As a user I want to subscibe for a standard monthly subscription plan for my first C1 camera
-      When user launches and logs in to the Lyric application
-      When user navigates to "HONEYWELL MEMBERSHIP" screen from the "DASHBOARD" screen
-      And user subscribes to a "Annual" plan
-      And user accepts the checkout view
-      And user enters payment details and pay
-	  And user clicks done button in the subscription complete screen
-	  And user logs out of the app
+@Membersip_StandardMonthly_FromHoneywellMembershipScreen
+Scenario: As a user I should be able to purchase a standard monthly subscription from Membership Menu
+		Given user launches and logs in to the Lyric application
+		When user navigates to "Honeywell Membership" screen from the "dashboard" screen
+		And user selects "Monthly" plan from the "Honeywell Membership" screen and selects "Start Membership"
+		And user selects "Proceed To Checkout" option from the "Membership Details" screen
+		And user enters "valid" payment details and selects pay now option
+		And user selects "Done" option from the "Summary" screen
+		Then user navigates to "Honeywell Membership" screen from the "dashboard" screen
+		#And user is able to view an active "Monthly" subscription selected
+
+@Membersip_StandardAnnaul_FromHoneywellMembershipScreen
+Scenario: As a user I should be able to purchase a standard Annaul subscription from Membership Menu
+		Given user launches and logs in to the Lyric application
+		When user navigates to "Honeywell Membership" screen from the "dashboard" screen
+		And user selects "Annual" plan from the "Honeywell Membership" screen and selects "Start Membership" 
+		And user selects "Proceed To Checkout" option from the "Membership Details" screen
+		And user enters "valid" payment details and selects pay now option
+		And user selects "Done" option from the "Summary" screen
+		Then user navigates to "Honeywell Membership" screen from the "dashboard" screen
+		#And user is able to view the an active "Annual" subscription selected
+
+	

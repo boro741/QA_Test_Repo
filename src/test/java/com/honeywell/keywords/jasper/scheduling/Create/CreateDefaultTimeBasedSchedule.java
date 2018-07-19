@@ -43,7 +43,7 @@ public class CreateDefaultTimeBasedSchedule extends Keyword {
 		DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 		String jasperStatType = devInfo.getJasperDeviceType();
 		String temp = " ";
-		if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+		if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 			defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 			inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, "Time");
@@ -82,7 +82,7 @@ public class CreateDefaultTimeBasedSchedule extends Keyword {
 			inputs.setInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT, temp);
 			inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT, temp);
 			flag = flag & JasperSchedulingUtils.createTimeBasedScheduleWithDefaultValues(testCase, inputs);
-		} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 			defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 			inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, "Time");

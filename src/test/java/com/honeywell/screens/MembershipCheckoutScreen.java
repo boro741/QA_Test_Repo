@@ -17,20 +17,29 @@ public class MembershipCheckoutScreen extends MobileScreens {
 		super(testCase, screenName);
 	}
 	
-	public boolean EnterCheckoutValues(TestCases testCase, TestCaseInputs inputs) {
+	public boolean EnterValidCheckoutValues(TestCases testCase, TestCaseInputs inputs) {
 		
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCheckout");
-		//if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CardNumber")) {
-			
-			boolean flag = true;
-			flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardNumber", "5555 5555 5555 4444");
-			flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardHolderName", "new");
-			flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Expiration", "05/23");
-			flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Cvc", "123");
-			flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Zip", "10001");
-			flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "PayNow");
-			return flag;
-		//}
-		//return false;
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardNumber", "5555 5555 5555 4444");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardHolderName", "new");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Expiration", "05/23");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Cvc", "123");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Zip", "10001");
+		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "PayNow");
+		return flag;
+	}
+	
+	public boolean EnterInValidCheckoutValues(TestCases testCase, TestCaseInputs inputs) {
+		
+		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCheckout");
+		boolean flag = true;
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardNumber", "4000 0000 0000 0069");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardHolderName", "new");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Expiration", "05/23");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Cvc", "123");
+		flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "Zip", "10001");
+		flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "PayNow");
+		return flag;
 	}
 }

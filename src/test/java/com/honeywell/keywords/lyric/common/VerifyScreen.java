@@ -1,3 +1,4 @@
+
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
@@ -20,16 +21,18 @@ import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public ArrayList<String> expectedScreen;
 	public boolean flag = true;
 	public DataTable data;
@@ -37,7 +40,7 @@ public class VerifyScreen extends Keyword {
 
 	public VerifyScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
 	}
 
@@ -90,6 +93,18 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Paused Streaming is not displayed");
 				}
 				break;
+			}case "Feature Setup Completed":{
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				boolean b = bs.isFeatureSetupScreenDisplayed();
+				if(b) {
+					Keyword.ReportStep_Pass(testCase, "Feature Setup Completed is displayed");
+
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Feature Setup Completed is not displayed");
+				}
+			break;
 			}
 			case "ALARM HISTORY": {
 				AlarmScreen click = new AlarmScreen(testCase);
@@ -643,6 +658,40 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "THERMOSTAT DASHBOARD":{
+				Dashboard thermo = new Dashboard(testCase);
+					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					flag = flag & thermo.isUpStepperDisplayed();
+					flag = flag & thermo.isDownStepperDisplayed();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is successfully displayed");
+					}
+					else {
+
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Not Displayed with " + expectedScreen.get(0).toUpperCase());
+					}
+					
+					break;
+				}
+				case "THERMOSTAT SOLUTION CARD":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.isThermostatSolutionCardDisplayed();
+					break;
+				}
+				case "CHANGE MODE":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.isChangeModeScreenDisplayed();
+					
+					break;
+				}
+				case "MODE INFO":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.isModeInfoScreenDisplayed();
+					
+					break;
+				}
 			case "MOUNT SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = sensor.isMountSensorScreenDisplayed();
@@ -678,6 +727,22 @@ public class VerifyScreen extends Keyword {
 			case "SENSOR PAIRING HELP": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = flag & sensor.isSensorPairingScreenDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "COMFORT DEVICE": {
+				Dashboard ds = new Dashboard(testCase);
+				flag = flag & ds.VerifyComfortDeviceStatusInDashBoard(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed in DashBoard");
+				}
+				break;
+			}
+			case "CAMERA SETTINGS": {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				flag = flag & cs.isCameraSettingsHeaderTitleVisible(20);
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}

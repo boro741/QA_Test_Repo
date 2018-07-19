@@ -17,10 +17,12 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwavePrimardCardScreen;
@@ -55,14 +57,40 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "CAMERA SOLUTION CARD":
 		case "CAMERA": {
 			CameraScreen camStatus = new CameraScreen(testCase);
-			String value = expectedScreen.get(1).toUpperCase();
-			switch (value) {
-			case "ON": {
-				if (camStatus.isCameraToggleisOn(testCase)) {
-					return true;
-				} else {
-					return false;
+			String value=expectedScreen.get(1).toUpperCase();
+			
+			if(!camStatus.isCameraToggleButtonExists(testCase)) {
+				String cameraName = inputs.getInputValue("LOCATION1_CAMERA1_NAME");
+				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+				try {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, cameraName);
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					
 				}
+			}
+			
+			switch(value) {
+			case "ON":{				
+				
+				
+				if(camStatus.isCameraToggleisOn(testCase)) {					
+					return flag;
+				}
+				else { 
+					return flag;
+				}			
+				
+			}
+			case "OFF":{
+				if(camStatus.isCameraToggleisOff(testCase)) {
+					return flag;
+				}
+				else { 
+					return flag;
+				}				
 			}
 			default:{
 				flag = false;
@@ -71,6 +99,37 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			}
 
+			break;
+		}
+		case "THERMOSTAT SOLUTION CARD":
+		{PrimaryCard dash = new PrimaryCard(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "INSIDE TEMPERATURE":
+			{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
+				{
+					if(dash.isOffStatusVisibleOnSolutionCard())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+					}
+					break;	
+				}
+				
+				
+				
+				}
+				break;
+			}
+			
+			}
+			
 			break;
 		}
 		case "SENSOR LIST":
@@ -165,6 +224,53 @@ public class VerifyStatusOnScreen extends Keyword {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "STANDBY": 
 				case "GOOD": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					if (flag) {
+						System.out.println("Good is found");
+					}
+					break;
+				}
+				case "ACTIVE": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					if (flag) {
+						System.out.println("Active is found");
+					}
+					break;
+				}
+				case "OFF": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "COVER TAMPERED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+				}
+				break;
+			}
+			case "ISMV": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "STANDBY": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
 							expectedScreen.get(1));
@@ -689,6 +795,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					}
 					break;
 				}
+				
 				}
 				/*
 				 * }else{ flag=false; Keyword.ReportStep_Fail(testCase,
@@ -740,10 +847,15 @@ public class VerifyStatusOnScreen extends Keyword {
 				 */
 				break;
 			}
-		/*	case "ENTRY DELAY":{
-				
+		    case "ENTRY DELAY":{
+				//TODO
 				break;
-			}*/
+		    }
+			
+			case "ATTENTION":{
+				//TODO
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
@@ -1033,6 +1145,40 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "THERMOSTAT DASHBOARD":
+		{
+		 Dashboard dash = new Dashboard(testCase);
+		
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "INSIDE TEMPERATURE":
+			{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
+				{
+					if(dash.isOffStatusVisible())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+					}
+					break;	
+				}
+				
+				
+				
+				}
+				break;
+			}
+			
+			}
+			break;
+		}
+			
+
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");

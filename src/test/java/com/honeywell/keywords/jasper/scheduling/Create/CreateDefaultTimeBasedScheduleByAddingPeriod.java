@@ -47,7 +47,7 @@ public class CreateDefaultTimeBasedScheduleByAddingPeriod extends Keyword {
 			String temp = " ";
 			Double maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
 			Double minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
-			if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+			if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
@@ -92,7 +92,7 @@ public class CreateDefaultTimeBasedScheduleByAddingPeriod extends Keyword {
 					inputs.setInputValue(InputVariables.ADD_PERIOD_HEAT_SETPOINT, temp);
 				}
 				flag = flag & JasperSchedulingUtils.createTimeBasedScheduleWithDefaultValues(testCase, inputs);
-			} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);

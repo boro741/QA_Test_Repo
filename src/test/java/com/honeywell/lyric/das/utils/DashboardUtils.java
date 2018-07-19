@@ -17,10 +17,62 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SchedulingScreen;
+import com.honeywell.screens.CameraScreen;
 
 public class DashboardUtils {
 
 	public static boolean selectDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,
+			boolean... closeCoachMarks) throws Exception {
+		List<WebElement> dashboardIconText = null;
+		Dashboard d = new Dashboard(testCase);
+		CoachMarks cm = new CoachMarks(testCase);
+		if (d.areDevicesVisibleOnDashboard(25)) {
+			dashboardIconText = d.getDashboardDeviceNameElements();
+		}
+		boolean flag = false;
+		List<String> availableDevices = new ArrayList<String>();
+		for (WebElement e : dashboardIconText) {
+			String displayedText = null;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				displayedText = e.getText();
+			} else {
+				try {
+					if ((e.getAttribute("visible").equals("true")) && (e.getAttribute("value").trim() != null)
+							&& (!e.getAttribute("value").trim().isEmpty()))
+						displayedText = e.getAttribute("value");
+				} catch (Exception e1) {
+				}
+			}
+			availableDevices.add(displayedText);
+			if (displayedText.equals(deviceToBeSelected)) {
+				e.click();
+				flag = true;
+				break;
+			} else {
+				if (d.areDevicesVisibleOnDashboard()) {
+					d.clickOnDeviceOnDashbaord();
+					flag = true;
+					break;
+				}
+			}
+		}
+		if (cm.isGotitButtonVisible(1)) {
+			if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
+				return true;
+			} else {
+				return LyricUtils.closeCoachMarks(testCase);
+			}
+		}
+		if (flag) {
+			Keyword.ReportStep_Pass(testCase, "Successfully selected " + deviceToBeSelected + " device from Dashboard");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Failed to select " + deviceToBeSelected + " device from Dashboard");
+		}
+		return flag;
+	}
+
+	public static boolean selectCameraDeviceFromDashboard(TestCases testCase, String deviceToBeSelected,
 			boolean... closeCoachMarks) throws Exception {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
@@ -47,6 +99,12 @@ public class DashboardUtils {
 				e.click();
 				f = true;
 				break;
+			} else {
+				if (d.areDevicesVisibleOnDashboard()) {
+					d.clickOnDeviceOnDashbaord();
+					f = true;
+					break;
+				}
 			}
 		}
 		if (cm.isGotitButtonVisible(1)) {
@@ -69,6 +127,7 @@ public class DashboardUtils {
 		boolean flag = true;
 		try {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			CameraScreen camScr = new CameraScreen(testCase);
 			SchedulingScreen sch = new SchedulingScreen(testCase);
 			Dashboard d = new Dashboard(testCase);
 			if (d.isGlobalDrawerButtonVisible()) {
@@ -84,6 +143,8 @@ public class DashboardUtils {
 						flag = flag & bs.clickOnBackButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
+					} else if (camScr.isBackButtonVisible(2)) {
+						flag = flag & camScr.clickOnBackButton();
 					} else if (sch.IsSaveButtonVisible(5)) {
 						flag = flag & sch.clickOnSaveButton();
 					}

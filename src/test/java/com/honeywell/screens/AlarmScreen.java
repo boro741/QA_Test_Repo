@@ -26,6 +26,9 @@ import io.appium.java_client.TouchAction;
 public class AlarmScreen extends MobileScreens {
 	private TestCases testCase;
 	private static final String screenName = "AlarmScreen";
+	// Locator values used in the methods
+	public static final String ACTIVITYLOGSCROLLUPICON = "icon_arch";
+	public static final String ACTIVITYLOGSCROLLDOWNICON = "icon_arrow_up";
 
 
 	public AlarmScreen(TestCases testCase) {
@@ -127,25 +130,67 @@ public class AlarmScreen extends MobileScreens {
 		}
 		// For IOS device
 		else {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp")) {
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "AcitvityLogScrollUp");
-			} else {
-				try {
-					// MobileElement activityLogUpElement = null;
-					CustomDriver driver = testCase.getMobileDriver();
-					if (driver.findElement(By.name("ACTIVITYLOGSCROLLUPICON")).isEnabled()) {
-						driver.findElement(By.name("ACTIVITYLOGSCROLLUPICON")).click();
-					}
+			try {
+				// MobileElement activityLogUpElement = null;
+				CustomDriver driver = testCase.getMobileDriver();
+				History_BottomArrow =driver.findElement(By.name("icon_arrow_up"));
+				Alarm = driver.findElement(By.name("Alarm_Navigation_Title"));//MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
+				if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
+					action.press(History_BottomArrow.getLocation().getX(),History_BottomArrow.getLocation().getY()).moveTo(0, -History_BottomArrow.getLocation().getY()+Alarm.getLocation().getY()).release().perform();
 				}
+			}
 
-				catch (NoSuchElementException e) {
+			catch (NoSuchElementException e) {
 
-					throw new Exception(e + "Activity log scroll up icon is not displayed");
-				}
+				throw new Exception(e + "Activity log scroll up icon is not displayed");
 			}
 		}
 		return flag;
 
+	}
+
+	public boolean isMotionDetectedVideoClipDisplayed(){
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectedClip")){
+			Keyword.ReportStep_Pass(testCase, "Successfully LOCATED LOCATE MOTION VIDEO CLIP");
+			return true;
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to LOCATE MOTION VIDEO CLIP");
+		}
+		return false;
+	}
+
+	public boolean closeAlarmHistory() throws Exception {
+		boolean flag = true;
+		WebElement activityDay = null;
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			activityDay = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollDown");
+			action = action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+			if (action != null) {
+				Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to close activity logs");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollDown")) {
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "AcitvityLogScrollDown");
+			} else {
+				try {
+					// MobileElement activityLogDownElement = null;
+					CustomDriver driver = testCase.getMobileDriver();
+					if (driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).isEnabled()) {
+						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
+						action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+						Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
+					}
+				} catch (NoSuchElementException e) {
+					flag = false;
+					throw new Exception(e + "Activity log scroll down icon is not displayed");
+				}
+			}
+		}
+		return flag;
 	}
 
 
@@ -265,7 +310,14 @@ public class AlarmScreen extends MobileScreens {
 				action2 = action2.press(NotificationStartX+rightsidePoint,NotificationStartY).moveTo(rightsidePoint,0).release();
 				action.add(action1).add(action2).perform();
 				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
-			} 
+			} else {
+				NotificationStartX= notificationLocation.getSize().getWidth()/2;
+				action1 = action1.press(NotificationStartX,NotificationStartY).moveTo(-80,0).release();
+				action1.perform();
+				action1.tap(NotificationStartX,NotificationStartY).release().perform();
+				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
+
+			}
 		}
 		catch(Exception e) {
 			System.out.println("Fix it");
@@ -361,7 +413,7 @@ public class AlarmScreen extends MobileScreens {
 			}
 		}
 		else {
-			String locatorValue ="//XCUIElementTypeStaticText[@name=\""+expectedLocationName+"\"]";
+			String locatorValue ="//XCUIElementTypeStaticText[@value=\""+expectedLocationName+"\"]";
 			if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 10)) {
 				System.out.println("AlarmLocation is found");
 
@@ -486,9 +538,9 @@ public class AlarmScreen extends MobileScreens {
 			else {
 				String actualSensorName = MobileUtils.getAttribute(testCase, element, "name");
 				System.out.println(actualSensorName);
-				actualSensorName.toUpperCase();
-				expectedSensorName.toUpperCase();
-				if(actualSensorName.contains(expectedSensorName)) {
+				;
+				;
+				if(actualSensorName.toUpperCase().contains(expectedSensorName.toUpperCase())) {
 					System.out.println("EntryDelay subtitle found");
 					return true;
 				}
@@ -517,7 +569,7 @@ public class AlarmScreen extends MobileScreens {
 		}
 		else {
 
-			String locatorValue ="//XCUIElementTypeStaticText[@name=\""+expectedLocationName+"\"]";
+			String locatorValue ="//XCUIElementTypeStaticText[@value='"+expectedLocationName+"']";
 			if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 5)) {
 				Keyword.ReportStep_Pass(testCase, "'" + locatorValue + "' is Present");
 				return true;
@@ -539,33 +591,41 @@ public class AlarmScreen extends MobileScreens {
 		return false;
 	}
 	public boolean AlarmInSecsCounter(){
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "AlarmWillSoundInSeconds");
-			if(element!=null) {
-				String value1=element.getText();
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "AlarmWillSoundInSeconds");
+		if(element!=null) {
+			String value1=element.getText();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-				String value2=element.getText();
+			String value2=element.getText();
 
-				if(Math.abs(Integer.parseInt(value2)-Integer.parseInt(value1))>0) {
+			if(Math.abs(Integer.parseInt(value2)-Integer.parseInt(value1))>0) {
 
-					Keyword.ReportStep_Pass(testCase, "Entry Delay is happening");
-					return true;
-				}
-				else {
+				Keyword.ReportStep_Pass(testCase, "Entry Delay is happening");
+				return true;
+			}
+			else {
 
-					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Entry Delay is not happening");
-				}
+				Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Entry Delay is not happening");
 			}
 		}
-		else {
-			System.out.println("Id needed for inspecting Entry Delay Counter");
+		return false;
+	}
+	public boolean isSwitchToNightExists() {
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")){
+			return true;
 		}
+		return false;
+	}
 
+	public boolean isAttentionButtonExists() {
+
+		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "AttentionButton")) {
+			return true;
+		}
 		return false;
 	}
 }
