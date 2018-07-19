@@ -256,6 +256,13 @@ public class CameraSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists("XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']" , testCase);
 	}
 	
+	
+/* Method to click on any element from camera settings screen*/
+	public boolean clickONCameraSetingsOption(String settingOptions) {
+		return MobileUtils.clickOnElement(testCase,"XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']");
+	}
+	
+	
 	public boolean isMotionSensitivityEnabled() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

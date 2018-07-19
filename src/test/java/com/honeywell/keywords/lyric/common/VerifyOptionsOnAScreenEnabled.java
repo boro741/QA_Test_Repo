@@ -124,9 +124,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 		    Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-			int startx = (dimension.width * 20) / 100;
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-	        action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 			}else {
 				int startx = (dimension.width * 20) / 100;
 			int starty = (dimension.height * 62) / 100;
