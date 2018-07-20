@@ -1189,12 +1189,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendWakeElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -1243,12 +1238,7 @@ public class JasperSchedulingUtils {
 							} else {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendAwayElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -1295,12 +1285,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendHomeElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -1347,12 +1332,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendSleepElement();
 									}
 
@@ -1506,6 +1486,8 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									scrollForAndroidScreen(testCase);
+									scrollForAndroidScreen(testCase);
 									element = ss.getWeekend1Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -1527,12 +1509,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend1Element();
 									}
 								} catch (NoSuchElementException e1) {
@@ -1558,6 +1535,12 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+									int startx = (dimensions.width * 20) / 100;
+									int starty = (dimensions.height * 62) / 100;
+									int endx = (dimensions.width * 22) / 100;
+									int endy = (dimensions.height * 35) / 100;
+									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 									element = ss.getWeekend2Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -1579,12 +1562,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend2Element();
 									}
 
@@ -1610,6 +1588,12 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+									int startx = (dimensions.width * 20) / 100;
+									int starty = (dimensions.height * 62) / 100;
+									int endx = (dimensions.width * 22) / 100;
+									int endy = (dimensions.height * 35) / 100;
+									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 									element = ss.getWeekend3Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -1631,12 +1615,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend3Element();
 									}
 								} catch (NoSuchElementException e1) {
@@ -1661,6 +1640,12 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+									int startx = (dimensions.width * 20) / 100;
+									int starty = (dimensions.height * 62) / 100;
+									int endx = (dimensions.width * 22) / 100;
+									int endy = (dimensions.height * 35) / 100;
+									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 									element = ss.getWeekend4Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -1682,12 +1667,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend4Element();
 									}
 
@@ -2002,7 +1982,7 @@ public class JasperSchedulingUtils {
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = devInfo.getAllowedModes();
 			SchedulingScreen sScreen = new SchedulingScreen(testCase);
-			
+
 			if (sScreen.getSchedulePeriodbuttons() != null) {
 				element = sScreen.getSchedulePeriodbutton();
 				Keyword.ReportStep_Pass(testCase, " ");
@@ -2621,7 +2601,7 @@ public class JasperSchedulingUtils {
 	public static boolean setPeriodTime(TestCases testCase, String time, String locatorValueinObjectDefinition,
 			boolean isValidTime, boolean verifySetPeriodTime) {
 		SchedulingScreen ss = new SchedulingScreen(testCase);
-
+		System.out.println("hii");
 		boolean flag = true;
 		try {
 			String timeToSet = " ";
@@ -2674,9 +2654,9 @@ public class JasperSchedulingUtils {
 				time24hours = date24Format.format(date12Format.parse(time));
 				if (ss.isAMPMLabelVisible(3) || ss.isAMLabelVisible(3) || ss.isAMPMLabelVisible(3)) {
 					if (ampm.equalsIgnoreCase("AM")) {
-						ampm = "A.M.";
+						ampm = "AM";
 					} else {
-						ampm = "P.M.";
+						ampm = "PM";
 					}
 					timeToSet = hours + ":" + minutes + ampm;
 					invalidTime = hours + ":" + "25" + ampm;
@@ -2689,11 +2669,15 @@ public class JasperSchedulingUtils {
 						if (ss.setValueToTimePicker(timeToSet)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Set Period Time : Successfully set time " + timeToSet + " to time picker");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Set Period Time : Failed to set time " + timeToSet + " to time picker");
-						}
+						} else
+							if (ss.setHoursValueToTimePickerAndroid(hours) && ss.setMinsValueToTimePickerAndroid(minutes) && ss.setAMPMTimeFormatValueToTimePickerAndroid(ampm)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Set Period Time : Successfully set time " + timeToSet + " to time picker");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Set Period Time : Failed to set time " + timeToSet + " to time picker");
+							}
 						flag = flag & ss.clickOnOkButton();
 					}
 				} else {
@@ -2739,11 +2723,11 @@ public class JasperSchedulingUtils {
 						flag = false;
 					}
 				} else if (locatorValueinObjectDefinition.equalsIgnoreCase("TimeChooserEndTime")) {
-				//	if (!ss.getTimeScheduleEndTimeValue().equalsIgnoreCase("false")) {
-						if (!ss.clickOnTimeScheduleEndTime()) {
-							flag = false;
-						}
-				/*	} else {
+					//	if (!ss.getTimeScheduleEndTimeValue().equalsIgnoreCase("false")) {
+					if (!ss.clickOnTimeScheduleEndTime()) {
+						flag = false;
+					}
+					/*	} else {
 						if (!ss.clickOnStartButton()) {
 							flag = false;
 						}
@@ -5836,70 +5820,69 @@ public class JasperSchedulingUtils {
 	}
 
 	public static boolean setHeatStepper(TestCases testCase, TestCaseInputs inputs, String targetHeatTemp, int index) {
-		
 		boolean flag = true;
 		try{
-		String heatSetPoint = " ";
-		WebElement heatUp = null;
-		WebElement heatDown = null;
-		int heatScroller = 0;
-		SchedulingScreen ss = new SchedulingScreen(testCase);
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			try {
-				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
-				heatUp = ss.getHeatSetPointUpButton();
-				heatDown = ss.getHeatSetPointDownButton();
-			} catch (NoSuchElementException e) {
+			String heatSetPoint = " ";
+			WebElement heatUp = null;
+			WebElement heatDown = null;
+			int heatScroller = 0;
+			SchedulingScreen ss = new SchedulingScreen(testCase);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				try {
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-						int startx = (dimensions.width * 20) / 100;
-						int starty = (dimensions.height * 62) / 100;
-						int endx = (dimensions.width * 22) / 100;
-						int endy = (dimensions.height * 35) / 100;
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
-						heatUp = ss.getHeatSetPointUpButton();
-						heatDown = ss.getHeatSetPointDownButton();
-					}
-				} catch (NoSuchElementException e1) {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find the heat stepper");
-				}
-			}
-		} else {
-			int size = ss.getHeatSetPointsElements().size();
-
-			if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
-					&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
-				heatUp = ss.getHeatSetPointUpButton();
-				heatDown = ss.getHeatSetPointDownButton();
-
-
-			} else {
-				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
-						&& (size > 1)) {
-					heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
-					heatUp = ss.getHeatIncrementElements().get(1);
-					heatDown = ss.getHeatDecrementElements().get(1);
-				} else {
 					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+					heatUp = ss.getHeatSetPointUpButton();
+					heatDown = ss.getHeatSetPointDownButton();
+				} catch (NoSuchElementException e) {
+					try {
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+							heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+							heatUp = ss.getHeatSetPointUpButton();
+							heatDown = ss.getHeatSetPointDownButton();
+						}
+					} catch (NoSuchElementException e1) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to find the heat stepper");
+					}
+				}
+			} else {
+				int size = ss.getHeatSetPointsElements().size();
 
-					heatUp = ss.getHeatSetPointUpButton(index);
+				if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
+						&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
+					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+					heatUp = ss.getHeatSetPointUpButton();
 					heatDown = ss.getHeatSetPointDownButton();
 
+
+				} else {
+					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
+							&& (size > 1)) {
+						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+						heatUp = ss.getHeatIncrementElements().get(1);
+						heatDown = ss.getHeatDecrementElements().get(1);
+					} else {
+						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+
+						heatUp = ss.getHeatSetPointUpButton(index);
+						heatDown = ss.getHeatSetPointDownButton();
+
+					}
 				}
 			}
-		}
-		if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
-			Double temp = Double.parseDouble(heatSetPoint);
-			heatScroller = temp.intValue() - Integer.parseInt(targetHeatTemp);
-		} else {
-			Double scroller = (Double.parseDouble(heatSetPoint) - Double.parseDouble(targetHeatTemp)) * 2;
-			heatScroller = scroller.intValue();
-		}
-		flag = flag & setValueToScroller(testCase, heatScroller, heatUp, heatDown);
+			if (inputs.getInputValue(InputVariables.UNITS).equals(GlobalVariables.FAHRENHEIT)) {
+				Double temp = Double.parseDouble(heatSetPoint);
+				heatScroller = temp.intValue() - Integer.parseInt(targetHeatTemp);
+			} else {
+				Double scroller = (Double.parseDouble(heatSetPoint) - Double.parseDouble(targetHeatTemp)) * 2;
+				heatScroller = scroller.intValue();
+			}
+			flag = flag & setValueToScroller(testCase, heatScroller, heatUp, heatDown);
 		}catch(Exception e){
 			System.out.println("Exception occured"+e.getMessage());
 		}
@@ -7339,6 +7322,8 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Displayed Schedule : Monday-Friday text not displayed on schedule screen");
 					}
+
+					scrollForAndroidScreen(testCase);
 					if (ss.isWeekendTextVisible(5)) {
 						try {
 							ss.getWeekendText();
@@ -7653,13 +7638,8 @@ public class JasperSchedulingUtils {
 							}
 
 						}
-						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-						dimensions = testCase.getMobileDriver().manage().window().getSize();
-						int startx = (dimensions.width * 20) / 100;
-						int starty = (dimensions.height * 62) / 100;
-						int endx = (dimensions.width * 22) / 100;
-						int endy = (dimensions.height * 35) / 100;
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+
+						scrollForAndroidScreen(testCase);
 
 						List<WebElement> weekendschedule_periodtimes = ss.getWeekendSchedulePeriodTimesElements();
 						List<WebElement> weekendschedule_periodsetPoint = ss
@@ -10554,6 +10534,16 @@ public class JasperSchedulingUtils {
 		return flag;
 	}
 
+	private static void scrollForAndroidScreen(TestCases testCase) {
+		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+		dimensions = testCase.getMobileDriver().manage().window().getSize();
+		int startx = (dimensions.width * 20) / 100;
+		int starty = (dimensions.height * 62) / 100;
+		int endx = (dimensions.width * 22) / 100;
+		int endy = (dimensions.height * 35) / 100;
+		testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+	}
+
 	public static boolean verifyScheduleRetained(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true, scheduleRetainedFlag = true;
 		SchedulingScreen ss = new SchedulingScreen(testCase);
@@ -12526,12 +12516,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendWakeElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -12579,12 +12564,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendAwayElement();
 									}
 
@@ -12632,12 +12612,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendHomeElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -12684,12 +12659,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendSleepElement();
 									}
 
@@ -12799,6 +12769,7 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									scrollForAndroidScreen(testCase);
 									element = ss.getWeekend1Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -12820,12 +12791,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend1Element();
 									}
 								} catch (NoSuchElementException e1) {
@@ -12873,12 +12839,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend2Element();
 									}
 
@@ -12926,12 +12887,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend3Element();
 									}
 								} catch (NoSuchElementException e1) {
@@ -12978,12 +12934,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekend4Element();
 									}
 
@@ -13377,12 +13328,7 @@ public class JasperSchedulingUtils {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendWakeElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -13459,12 +13405,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendAwayElement();
 									}
 
@@ -13512,12 +13453,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendHomeElement();
 									}
 								} catch (NoSuchElementException e1) {
@@ -13564,12 +13500,7 @@ public class JasperSchedulingUtils {
 							} catch (NoSuchElementException e) {
 								try {
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-										int startx = (dimensions.width * 20) / 100;
-										int starty = (dimensions.height * 62) / 100;
-										int endx = (dimensions.width * 22) / 100;
-										int endy = (dimensions.height * 35) / 100;
-										testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+										scrollForAndroidScreen(testCase);
 										element = ss.getWeekendSleepElement();
 									}
 
@@ -13680,12 +13611,7 @@ public class JasperSchedulingUtils {
 						} else if (mode.equals("5")) {
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-									int startx = (dimensions.width * 20) / 100;
-									int starty = (dimensions.height * 62) / 100;
-									int endx = (dimensions.width * 22) / 100;
-									int endy = (dimensions.height * 35) / 100;
-									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+									scrollForAndroidScreen(testCase);
 									element = ss.getWeekend1Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -13716,12 +13642,7 @@ public class JasperSchedulingUtils {
 						} else if (mode.equals("6")) {
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-									int startx = (dimensions.width * 20) / 100;
-									int starty = (dimensions.height * 62) / 100;
-									int endx = (dimensions.width * 22) / 100;
-									int endy = (dimensions.height * 35) / 100;
-									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+									scrollForAndroidScreen(testCase);
 									element = ss.getWeekend2Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -13751,12 +13672,7 @@ public class JasperSchedulingUtils {
 						} else if (mode.equals("7")) {
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-									int startx = (dimensions.width * 20) / 100;
-									int starty = (dimensions.height * 62) / 100;
-									int endx = (dimensions.width * 22) / 100;
-									int endy = (dimensions.height * 35) / 100;
-									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+									scrollForAndroidScreen(testCase);
 									element = ss.getWeekend3Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -13786,12 +13702,7 @@ public class JasperSchedulingUtils {
 						} else if (mode.equals("8")) {
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-									int startx = (dimensions.width * 20) / 100;
-									int starty = (dimensions.height * 62) / 100;
-									int endx = (dimensions.width * 22) / 100;
-									int endy = (dimensions.height * 35) / 100;
-									testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+									scrollForAndroidScreen(testCase);
 									element = ss.getWeekend4Element();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
