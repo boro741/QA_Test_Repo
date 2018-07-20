@@ -17,6 +17,7 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 
@@ -52,7 +53,7 @@ public class VerifyThermostatNameandTemperature extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "THERMOSTAT NAME": {
 			Dashboard thermo = new Dashboard(testCase);
-				flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),inputs);
 				flag = flag & thermo.isThermostatTemperatureDisplayed(inputs);
 				if(flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+"is "+expectedScreen.get(1));
@@ -71,6 +72,7 @@ public class VerifyThermostatNameandTemperature extends Keyword {
 			
 			break;
 		}
+		
 		}
 		return flag;
 	}

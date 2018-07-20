@@ -359,7 +359,7 @@ public class Dashboard extends MobileScreens {
 		
 		return flag;
 	}
-	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue) {
+	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue,TestCaseInputs inputs) {
 
 		 WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatName");
 		 String actualValue =ele.getText();

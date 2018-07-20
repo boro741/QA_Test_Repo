@@ -40,6 +40,7 @@ public class VerifyDescription extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the (.*) description$")
 	public boolean keywordSteps() throws KeywordException {
 		
+
 		if(expectedScreen.get(0).equalsIgnoreCase("AUTO FAN")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			flag = flag & thermo.isAutoFanDefinitionVisibleOnChangeFanScreen();
@@ -53,6 +54,29 @@ public class VerifyDescription extends Keyword {
 		else if(expectedScreen.get(0).equalsIgnoreCase("ON")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			flag = flag & thermo.isOnFanDefinitionVisibleOnChangeFanScreen();
+		}
+
+
+	else if(expectedScreen.get(0).equalsIgnoreCase("AUTOMODE")) {
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
+			flag = flag & thermo1.isAutoDefinitionVisible();
+			
+		}
+		else if(expectedScreen.get(0).equalsIgnoreCase("HEAT")) {
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
+			flag = flag & thermo1.isHeatDefinitionVisibleOnChangeModeScreen();
+			
+		}
+		else if(expectedScreen.get(0).equalsIgnoreCase("OFF")) {
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
+			flag = flag & thermo1.isOffDefinitionVisibleOnChangeModeScreen();
+			
+		}
+		else if(expectedScreen.get(0).equalsIgnoreCase("COOL")) {
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
+			flag = flag & thermo1.isCoolDefinitionVisibleOnChangeModeScreen();
+
+
 			
 		}
 		if(flag) {
@@ -62,8 +86,17 @@ public class VerifyDescription extends Keyword {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
 			
 		}
+
+		
 		return flag;
-	}
+		
+		
+
+
+	
+}
+	
+
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {

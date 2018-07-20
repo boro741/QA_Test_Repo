@@ -684,10 +684,12 @@ public class LyricUtils {
 	 *         description have been performed successfully. Returns 'false' if any
 	 *         of the operations mentioned in the description fails.
 	 */
-	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs,
-			boolean... closeCoachMarks) {
+	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs,boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
+
+
+
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
@@ -696,6 +698,7 @@ public class LyricUtils {
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
+
 		return flag;
 	}
 

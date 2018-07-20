@@ -1,5 +1,9 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon
+<<<<<<< HEAD												
+ThermostatCurrentTemperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature						
+=======												
+>>>>>>> a1ac7f20dcd50a57123ae8d3d477d7842a6557d7												
 ModeButton	xpath	//*[@text='MODE']										
 FanButton	xpath	//*[@text='FAN']										
 ScheduleButton	xpath	//*[@text='SCHEDULE']										
@@ -22,4 +26,9 @@ AutoFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS WHILE HEATING OR CO
 CirculateFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS INTERMITTENTLY TO CIRCULATE AIR']										
 OnFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS CONTINUOUSLY']										
 XButton	xpath	//android.widget.ImageButton[@content-desc='Navigate up']										
+SaveButton	id	save_action_sheet_btn										
+AutoMode	xpath	//*[@text='Auto']										
+HeatMode	xpath	//*[@text='Heat']										
+CoolMode	xpath	//*[@text='Cool']										
+OffMode	xpath	//*[@text='Off']										
 SaveButton	id	save_action_sheet_btn										
