@@ -21,6 +21,10 @@ import com.honeywell.screens.Dashboard;
 
 import com.honeywell.screens.PrimaryCard;
 
+
+import com.honeywell.screens.PrimaryCard;
+
+
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SensorSettingScreen;
 
@@ -134,151 +138,6 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		else if(expectedScreen.get(1).toUpperCase().equals("AUTOMODE")){
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD NOT BE UPDATED": {
-				System.out.println("Inside Should not be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
-				}
-				else {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
-					
-				}
-				break;
-			}
-			case "SHOULD BE UPDATED": {
-				System.out.println("Inside Should be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
-					
-				}
-				else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
-					
-				}
-				break;
-			}
-
-			}
-		
-		}
-		else if(expectedScreen.get(1).toUpperCase().equals("COOL")){
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD NOT BE UPDATED": {
-				System.out.println("Inside Should not be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
-				}
-				else {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
-					
-				}
-				break;
-			}
-			case "SHOULD BE UPDATED": {
-				System.out.println("Inside Should be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
-					
-				}
-				else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
-					
-				}
-				break;
-			}
-			}
-		
-		}
-		else if(expectedScreen.get(1).toUpperCase().equals("HEAT")){
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD NOT BE UPDATED": {
-				System.out.println("Inside Should not be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
-				}
-				else {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
-					
-				}
-				break;
-			}
-			case "SHOULD BE UPDATED": {
-				System.out.println("Inside Should be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
-					
-				}
-				else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
-					
-				}
-				break;
-			}
-			}
-		
-		}
-		else if(expectedScreen.get(1).toUpperCase().equals("OFF")){
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD NOT BE UPDATED": {
-				System.out.println("Inside Should not be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
-				}
-				else {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
-					
-				}
-				break;
-			}
-			case "SHOULD BE UPDATED": {
-				System.out.println("Inside Should be updated");
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag=thermo.checkCurrentMode(expectedScreen.get(1).toUpperCase());
-				if(flag) {
-					flag=true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
-					
-				}
-				else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
-					
-				}
-				break;
-			}
-			}
-		
-		}
 			
 			
 		
@@ -367,7 +226,6 @@ public class VerifyingAOption extends Keyword {
 				
 				}
 			else if(expectedScreen.get(1).toUpperCase().equals("RESPECTIVE SETPOINT VALUE")){
-				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "SHOULD BE DISPLAYED": {
 			Dashboard thermo  = new Dashboard(testCase);
@@ -382,8 +240,11 @@ public class VerifyingAOption extends Keyword {
 					break;
 				
 				}
-				case "SHOULD NOT BE DISPLAYED": {
-					System.out.println("inside");
+				}	
+			}
+			else if(expectedScreen.get(1).toUpperCase().equals("--")){
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
 					Dashboard dash = new Dashboard(testCase);
 					if(dash.isTemperatureNotDisplayed()){
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not displayed");
@@ -394,9 +255,146 @@ public class VerifyingAOption extends Keyword {
 					}
 					break;
 				}
-				}	
+				}
 			}
+			else if(expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON SELECTED FAN")){
+		
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					String currentlySelectedFanMode = inputs.getInputValue("SelectedFanMode");
+					System.out.println("Currently Selected fan mode "+currentlySelectedFanMode);
+			    if(currentlySelectedFanMode.equalsIgnoreCase("AUTO")) {
 			
+			    	flag = flag & thermo.isAutoFanElementSelected();
+				}
+			    else if(currentlySelectedFanMode.equalsIgnoreCase("CIRCULATE")) {
+					
+			    	flag = flag & thermo.isCirculateFanElementSelected();
+				}
+			    else if(currentlySelectedFanMode.equalsIgnoreCase("ON")) {
+					
+			    	flag = flag & thermo.isONFanElementSelected();
+				}
+				}
+				break;
+				}
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is present for "+inputs.getInputValue("SelectedFanMode"));
+				}
+			}
+			else if(expectedScreen.get(1).toUpperCase().equals("AUTO FAN")){
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE UPDATED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.checkCurrentFanMode(expectedScreen.get(1).toUpperCase());
+					if(flag) {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
+					}
+					else {
+						flag=true;
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
+						
+					}
+					break;
+				}
+				case "SHOULD BE UPDATED":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.checkCurrentFanMode(expectedScreen.get(1).toUpperCase());
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			
+			}
+			else if(expectedScreen.get(1).toUpperCase().equals("CIRCULATE")){
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE UPDATED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.checkCurrentFanMode(expectedScreen.get(1).toUpperCase());
+					if(flag) {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
+					}
+					else {
+						flag=true;
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
+						
+					}
+					break;
+				}
+				case "SHOULD BE UPDATED":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.checkCurrentFanMode(expectedScreen.get(1).toUpperCase());
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			
+			}
+			else if(expectedScreen.get(1).toUpperCase().equals("ON")){
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE UPDATED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.checkCurrentFanMode(expectedScreen.get(1).toUpperCase());
+					if(flag) {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is updated");
+					}
+					else {
+						flag=true;
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not updated");
+						
+					}
+					break;
+				}
+				case "SHOULD BE UPDATED":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.checkCurrentFanMode(expectedScreen.get(1).toUpperCase());
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			
+			}
+			else if(expectedScreen.get(1).toUpperCase().equals("FAN")){
+				
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE DISPLAYED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=thermo.isFanButtonVisible();
+					if(flag) {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+" is displayed");
+					}
+					else {
+						flag=true;
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is not displayed");
+						
+					}
+					break;
+				}
+				}
+			}
 		
 		return flag;
 	}

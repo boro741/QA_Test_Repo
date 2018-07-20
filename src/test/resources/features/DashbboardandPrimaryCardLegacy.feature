@@ -52,8 +52,8 @@ And the following "Thermostat" options should be disabled:
 |Options|
 |UP stepper|
 |Down stepper|
-Then user "should not be displayed" with the "respective setpoint value" option
-And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" screen  
+Then user "should be displayed" with the "--" option
+And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" 
 Examples:
 |Mode |
 |OFF |
@@ -71,7 +71,7 @@ And the following "Thermostat" options should be enabled:
 |Options|
 |UP stepper|
 |Down stepper|
-Then user should be displayed with "Current Temperature value" with "indoor" temperature
+Then user "should be displayed" with the "respective setpoint value" option
 And the following "Thermostat icons" options should be enabled:
 |Options|
 |mode| 
@@ -97,7 +97,7 @@ And the following "Thermostat" options should be enabled:
 |Options|
 |UP stepper|
 |Down stepper|
-Then user should be displayed with "Current Temperature value" with "indoor" temperature
+Then user "should be displayed" with the "respective setpoint value" option
 And the following "Thermostat icons" options should be enabled:
 |Options|
 |mode| 
@@ -200,6 +200,7 @@ Examples:
 |Auto | 
 |OFF |
 
+#in case required
 #Requirements : Cool only mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolOnly
@@ -222,7 +223,7 @@ Examples:
 |Cool only| 
 |OFF|
 
-
+#in case required
 #Requirements : Heat only mode should enabled
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithHeatOnly
@@ -268,7 +269,7 @@ Examples:
 
 
 
-#HB, Spruce, JasperNA #sangeetha
+#HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithbothcoolandheatandautoenabledCancelfunctionality
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch between Cool , heat, off , auto
 Given user has <Mode> system mode
@@ -288,34 +289,12 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X BUTTON" from "Change Mode" Screen
-Then user "Should not be updated" with the <SystemMode> option
-And user should be displayed with "set Point value in primary card" with "no change in" temperature
-Then user Navigates to "Dashboard" screen from the "Thermostat Solution Card" screen
-And user should be displayed with "set Point value in dashboard" with "no change in" temperature
-
+Then user "should not be updated" with <SystemMode> option
 Examples:
 |Mode|SystemMode|
-|Cool|AutoMode|
-|Cool| Heat | 
-|Cool| AutoMode | 
-|Cool | Cool| 
-|Cool | OFF| 
-|Heat| Heat | 
-|Heat| AutoMode | 
-|Heat | Cool| 
-|Heat | OFF| 
-|OFF| Heat | 
-|OFF | Cool| 
-|OFF | OFF| 
-|OFF| AutoMode | 
-|Auto | Cool| 
-|Auto | OFF| 
-|Auto | AutoMode| 
+|Cool|Off|
 
-
-
-
-#HB, Spruce, JasperNA #sangeetha
+#HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionality
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch Heat only 
 Given user has <Mode> system mode
@@ -335,22 +314,17 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X BUTTON" from "Change Mode" Screen
-Then user "Should not be updated" with the <SystemMode> option
-And user should be displayed with "set Point value in primary card" with "no change in" temperature
-Then user Navigates to "Dashboard" screen from the "Thermostat Solution Card" screen
-And user should be displayed with "set Point value in dashboard" with "no change in" temperature
-
+Then user "should not be updated" with <SystemMode> option
 Examples:
-|Mode| SystemMode | 
+|Mode| systemmode | 
 |Heat| Heat | 
 |Heat | OFF| 
 |OFF| Heat | 
 |OFF | OFF| 
 
-#HB, Spruce, JasperNA #sangeetha
+#HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithcoolonlyCancelfunctionality
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch between cool only
-Given user launches and logs in to the Lyric application
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
@@ -368,21 +342,16 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X BUTTON" from "Change Mode" Screen
-Then user "Should not be updated" with the <SystemMode> option
-And user should be displayed with "set Point value in primary card" with "no change in" temperature
-Then user Navigates to "Dashboard" screen from the "Thermostat Solution Card" screen
-And user should be displayed with "set Point value in dashboard" with "no change in" temperature
-
+Then user "should not be updated" with <SystemMode> option
 Examples:
-|Mode| SystemMode | 
+|Mode| systemmode | 
 |Cool | Cool| 
 |Cool | OFF| 
 |OFF | Cool| 
 |OFF | OFF| 
 
-#JasperEMEA #sangeetha
+#JasperEMEA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA
-Scenario Outline: As an user I want to verify the system mode when cancel option while switch Heat only 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
@@ -400,22 +369,17 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X BUTTON" from "Change Mode" Screen
-Then user "Should not be updated" with the <SystemMode> option
-And user should be displayed with "set Point value in primary card" with "no change in" temperature
-Then user Navigates to "Dashboard" screen from the "Thermostat Solution Card" screen
-And user should be displayed with "set Point value in dashboard" with "no change in" temperature
-
-
+Then user "should not be updated" with <SystemMode> option
 Examples:
-|Mode| SystemMode | 
+|Mode| systemmode | 
 |Heat| Heat | 
 |Heat | OFF| 
 |OFF| Heat | 
 |OFF | OFF| 
 
-#SYSTEM MODE SAVE 
+#SYSTEM MODE SAVE
 
-#HB, Spruce, JasperNA #sangeetha
+#HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionbothcoolandheat
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, heat and off
 Given user has <Mode> system mode
@@ -433,12 +397,9 @@ And user should be displayed with the following "Mode" options:
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
 And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
-Then user "Should be updated" with the <SystemMode> option
-
-And user should be displayed with respective setpoint 
-When user navigates to "Dashboard" screen
-Then user should be displayed with <SystemMode>
-And user should be displayed with respective setpoint 
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should not be updated" with <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Cool | Cool |
@@ -451,43 +412,47 @@ Examples:
 |OFF |Heat |
 |OFF | OFF |
 
-#HB, Spruce, JasperNA  #sangeetha
+#HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionbothcoolandheatandauto
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, heat, off, auto
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "System Mode" screen 
-And user should be displayed with "Auto" Cool" "Heat" and "OFF" options
-And user should be displayed with "Blue Tick" mark on selected option
-When user selects the <SystemMode> 
-Then user should be displayed with "Blue Tick" mark on selected option 
-And user should be displayed with respective <SystemMode> description 
-When user selects the "SAVE" button 
-Then user should be navigates to "SolutionCard" with updated of <SystemMode> "icon"
-And user should be displayed with respective setpoint 
-When user navigates to "Dashboard" screen
-Then user should be displayed with <SystemMode>
-And user should be displayed with respective setpoint 
+Given user has <Mode> system mode
+Then user launches and logs in to the Lyric application
+And user should be displayed with the "thermostat Dashboard" Screen
+Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+When user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+|Options|
+|Heat|
+|Cool|
+|Off|
+Then user "should be displayed" with the "Blue Tick mark on selected mode" option
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "X BUTTON" from "Change Mode" Screen
+Then user "should not be updated" with <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Cool | Cool |
 |Cool |Heat |
 |Cool | OFF |
-|Cool | AutoMode |
+|Cool | auto |
 |Heat | Cool |
 |Heat |Heat |
 |Heat | OFF |
-|Heat | AutoMode |
+|Heat | auto |
 |OFF | Cool |
 |OFF |Heat |
 |OFF | OFF |
-|OFF | AutoMode |
+|OFF | auto |
 |auto | Cool |
 |auto |Heat |
 |auto | OFF |
-|auto | AutoMode |
+|auto | auto |
 
-#HB, Spruce, JasperNA #sangeetha
+#HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctioncoolonly
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, off
 Given user launches and logs in to the Lyric application
@@ -584,11 +549,12 @@ Then user should be displayed with the "Change fan" screen
 Examples:
 |Mode | 
 #|Cool |
-|Heat |
-#|Heat only |
-#|Cool only| 
+|Heat | 
 #|Auto | 
 #|OFF |
+#in case required
+#|Heat only |
+#|Cool only|
 
 
 #HB, Spruce, JasperNA
@@ -600,75 +566,82 @@ And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DAS
 When user selects "Fan" from "Thermostat Solution Card" screen
 Then user should be displayed with the "Change Fan" screen 
 When user selects <FanMode> from "Change Fan" screen
-Then user "should be displayed" with the "Blue Tick mark on selected" option 
-And user should be displayed with respective <FanMode> description 
-When user selects 'X' button 
-Then user should be navigates to "SolutionCard" with out update of <FanMode>
-And user should be display with <Mode>
+Then user "should be displayed" with the "Blue Tick mark on selected Fan" option 
+And user should be displayed with the <FanMode> description 
+When user selects "X" from "Change Fan" screen
+Then user should be displayed with the "Thermostat Solution Card" screen
+And user "should not be updated" with the <FanMode> option
 Examples:
 |Mode |  FanMode | 
-|Cool | Auto |
-|Cool | Circulate |
-|Cool | ON | 
-|Heat | Auto |
-|Heat | Circulate |
-|Heat | ON | 
-|Heat only | Auto |
-|Heat only | Circulate |
-|Heat only | ON | 
-|Cool only | Auto |
-|Cool only | Circulate |
-|Cool only | ON | 
-|Auto | Auto |
-|Auto | Circulate |
-|Auto | ON | 
-|OFF | Auto |
-|OFF | Circulate |
-|OFF | ON | 
+|Cool | Auto Fan|
+#|Cool | Circulate |
+#|Cool | ON | 
+|Heat | Auto Fan|
+#|Heat | Circulate |
+|Heat | ON |
+#|Auto | Auto Fan|
+#|Auto | Circulate |
+#|Auto | ON | 
+#|OFF | Auto Fan|
+#|OFF | Circulate |
+#|OFF | ON |  
+
+#in case required
+#|Heat only | Auto Fan|
+#|Heat only | Circulate |
+#|Heat only | ON | 
+#|Cool only | Auto Fan|
+#|Cool only | Circulate |
+#|Cool only | ON | 
 
 #HB, Spruce, JasperNA
 @FanModeSwitchSAVEfunction
 Scenario Outline: As an user I want to verify the Fan mode save option while switch between Auto, circulate and ON
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "Fan Mode" screen 
-When user selects the <FanMode> 
-Then user should be displayed with "Blue Tick" mark on selected option 
-And user should be displayed with respective <FanMode> description 
-When user selecte the "SAVE" button 
-Then user should be navigates to "SolutionCard" with updated of <FanMode> "icon"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Fan" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change Fan" screen 
+When user selects <FanMode> from "Change Fan" screen
+Then user "should be displayed" with the "Blue Tick mark on selected Fan" option 
+And user should be displayed with the <FanMode> description 
+When user selects "SAVE" from "Change Fan" screen
+Then user should be displayed with the "Thermostat Solution Card" screen
+And user "should be updated" with the <FanMode> option
 Examples:
 |Mode |  FanMode | 
-|Cool | Auto |
-|Cool | Circulate |
-|Cool | ON | 
-|Heat | Auto |
-|Heat | Circulate |
+#|Cool | Auto Fan|
+#|Cool | Circulate |
+#|Cool | ON | 
+|Heat | Auto Fan|
+#|Heat | Circulate |
 |Heat | ON | 
-|Heat only | Auto |
-|Heat only | Circulate |
-|Heat only | ON | 
-|Cool only | Auto |
-|Cool only | Circulate |
-|Cool only | ON | 
-|Auto | Auto |
-|Auto | Circulate |
-|Auto | ON | 
-|OFF | Auto |
+#|Auto | Auto Fan|
+#|Auto | Circulate |
+#|Auto | ON | 
+#|OFF | Auto Fan|
 |OFF | Circulate |
-|OFF | ON | 
+#|OFF | ON | 
+
+#in case required
+#|Heat only | Auto Fan|
+#|Heat only | Circulate |
+#|Heat only | ON | 
+#|Cool only | Auto Fan|
+#|Cool only | Circulate |
+#|Cool only | ON | 
 
 #JasperEMEA
-@FaModeOptionONEMEA
+@FanModeOptionONEMEA
 Scenario Outline: As an user I want to verify the Fan mode option for JasperEMEA
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user navigates "SolutionCard"
-And user should not be displayed with "FAN" icon 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And user "should not be displayed" with the "FAN" option
 Examples: 
 |Mode| 
 |Heat |
-|OFF |
+#|OFF |
 
 #Setpoint values SolutionCard
 

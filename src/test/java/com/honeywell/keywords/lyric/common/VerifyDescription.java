@@ -40,56 +40,55 @@ public class VerifyDescription extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the (.*) description$")
 	public boolean keywordSteps() throws KeywordException {
 		
-		if(expectedScreen.get(0).equalsIgnoreCase("AUTOMODE")) {
+
+		if(expectedScreen.get(0).equalsIgnoreCase("AUTO FAN")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
-			flag = flag & thermo.isAutoDefinitionVisible();
-			if(flag) {
-				Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" description is present");
-			}
-			else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
+			flag = flag & thermo.isAutoFanDefinitionVisibleOnChangeFanScreen();
 			
 		}
+		else if(expectedScreen.get(0).equalsIgnoreCase("CIRCULATE")) {
+			PrimaryCard thermo = new PrimaryCard(testCase);
+			flag = flag & thermo.isCirculateFanDefinitionVisibleOnChangeFanScreen();
+			
+		}
+		else if(expectedScreen.get(0).equalsIgnoreCase("ON")) {
+			PrimaryCard thermo = new PrimaryCard(testCase);
+			flag = flag & thermo.isOnFanDefinitionVisibleOnChangeFanScreen();
+
+		if(expectedScreen.get(0).equalsIgnoreCase("AUTO")) {
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
+			flag = flag & thermo.isAutoDefinitionVisible();
+			
 		}
 		else if(expectedScreen.get(0).equalsIgnoreCase("HEAT")) {
-			PrimaryCard thermo = new PrimaryCard(testCase);
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo.isHeatDefinitionVisibleOnChangeModeScreen();
-			if(flag) {
-				Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" description is present");
-			}
-			else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
-			
-		}
 			
 		}
 		else if(expectedScreen.get(0).equalsIgnoreCase("OFF")) {
-			PrimaryCard thermo = new PrimaryCard(testCase);
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo.isOffDefinitionVisibleOnChangeModeScreen();
-			if(flag) {
-				Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" description is present");
-			}
-			else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
-			
-		}
 			
 		}
 		else if(expectedScreen.get(0).equalsIgnoreCase("COOL")) {
-			PrimaryCard thermo = new PrimaryCard(testCase);
+			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo.isCoolDefinitionVisibleOnChangeModeScreen();
-			if(flag) {
-				Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" description is present");
-			}
-			else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
+
 			
 		}
+		if(flag) {
+			Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" description is present");
+		}
+		else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
 			
 		}
-		
+		}
 		return flag;
+		
+		
 	}
+	
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {
