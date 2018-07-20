@@ -18,15 +18,27 @@ public class SuiteExecutor {
 				// "--jira_credentials",
 				// "aterbuild:aterbuild@123",
 				"--useXCUITest", "true", 
-				//"--deviceCloudProviderCredentials", "PCloudy::pratik.lalseta@honeywell.com:b5rjy3trvc2992yxzbzbtns9,Perfecto::pratik.lalseta@honeywell.com:Password1,TestObject_IOS::pratik.lalseta@honeywell.com:C2EA3CFC50A14D309F37661CDD60003C",
-
-
-				"--appToInstall", "Android:400000043,IOS:402", 
-				"--groups", 
-				"CameraSettingsCameraOn"
+				"--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
+				"--appToInstall", "Android:Lyric_Develop_Daily_Android_402001109,IOS:4200382", 
+				"--groups",
 				
-		};
+				/**********START DAS CAMERA SETTINGS WORKFLOW**********/
+				
+				
+				//"CameraSettingsManageAlertsDisabled",
+				//"CameraSettingsEnableDisableMotionDetection",
+				//"VerifyCameraMotionSensitivitySettingsC1",
+				//"VerifyCameraMotionSensitivitySettingsC2",
+				//"CameraSettingsEnableDisableSoundDetection",
+				//"CameraSettingsVerifyNightVisionSettings",
+				//"CameraSettingsVerifyVideoQualitySettings",
+				//"CameraSettingsEnableDisableCameraMicrophone",
+				"ViewSolutionCard",         
+				//"ViewSolutionCardEMEA",
+				
+				/**********END CAMERA SETTINGS WORKFLOW**********/
 
+		};
 		// ============= Executes the Suite created from the Suite Configuration
 		// JSON file =============
 		try {
