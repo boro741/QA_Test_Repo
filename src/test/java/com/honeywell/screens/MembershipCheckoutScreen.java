@@ -24,13 +24,7 @@ public class MembershipCheckoutScreen extends MobileScreens {
 		
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCheckout");
 		boolean flag = true;
-		
-		//flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardNumber", "4000 0000 0000 0069");
-		//flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardHolderNameField", "new");
-		//flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CardExpirationField", "05/23");
-		//flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "CVCField", "123");
-		//flag = flag & MobileUtils.setValueToElement(fieldObjects, testCase, "ZipcodeField", "10001");
-		
+			
         WebElement Expdate = MobileUtils.getMobElement(objectDefinition, testCase, "CardExpirationField");
         Expdate.click();
         Expdate.sendKeys("0924");
@@ -53,7 +47,7 @@ public class MembershipCheckoutScreen extends MobileScreens {
         
         WebElement Name = MobileUtils.getMobElement(objectDefinition, testCase, "CardHolderNameField");
         Name.click();
-        Name.sendKeys("HARI");
+        Name.sendKeys("Test Card");
         
         MobileUtils.hideKeyboard(testCase.getMobileDriver());
         
