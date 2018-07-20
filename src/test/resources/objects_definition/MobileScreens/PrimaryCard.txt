@@ -1,12 +1,6 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon
-<<<<<<< HEAD
-<<<<<<< 2e159f3e1de366947f48bf119a02227b3f378a34
-BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']						
 ThermostatCurrentTemperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature						
-=======
-=======
->>>>>>> 70046fa91bc9972598b3377e1e6c209f0c88a6d1
 ModeButton	xpath	//*[@text='MODE']										
 FanButton	xpath	//*[@text='FAN']										
 ScheduleButton	xpath	//*[@text='SCHEDULE']										
@@ -17,9 +11,21 @@ AutoModeDefinition	xpath	//*[@text='Cool or heat as needed to reach target tempe
 HeatModeDefinition	xpath	//*[@text='Heat to reach target temperature']										
 CoolModeDefinition	xpath	//*[@text='Cool to reach target temperature']										
 SystemOffModeDefinition	xpath	//*[@text='Turn system off']										
-<<<<<<< HEAD
 BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']										
->>>>>>> Completed  testcase in Android.
-=======
-BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']										
->>>>>>> 70046fa91bc9972598b3377e1e6c209f0c88a6d1
+ChangeFanTitle	xpath	//*[@text='Change Fan']										
+AutoFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs while heating or cooling']										
+CirculateFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs intermittently to circulate air']										
+OnFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs continuously']										
+AutoFanButton	xpath	//*[@text='Auto']										
+CirculateFanButton	xpath	//*[@text='Circulate']										
+OnFanButton	xpath	//*[@text='On']										
+AutoFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS WHILE HEATING OR COOLING']										
+CirculateFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS INTERMITTENTLY TO CIRCULATE AIR']										
+OnFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS CONTINUOUSLY']										
+XButton	xpath	//android.widget.ImageButton[@content-desc='Navigate up']										
+SaveButton	id	save_action_sheet_btn										
+AutoMode	xpath	//*[@text='Auto']										
+HeatMode	xpath	//*[@text='Heat']										
+CoolMode	xpath	//*[@text='Cool']										
+OffMode	xpath	//*[@text='Off']										
+												

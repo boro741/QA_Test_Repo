@@ -231,7 +231,7 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isNewSetModeDisplayed(TestCaseInputs inputs) {
 		String mode=inputs.getInputValue("SystemMode");
-		System.out.println(mode);
+		
 		if(mode.equals("COOL"))
 		{
 			
@@ -339,7 +339,6 @@ public class PrimaryCard extends MobileScreens {
 
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "FanButton");
 			String value=ele.getAttribute("name");
-			System.out.println(value);
 			if(expectedValue.contains(value.toUpperCase())) {
 				return true;
 			}
@@ -355,8 +354,20 @@ public class PrimaryCard extends MobileScreens {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",8);
 		}
 
+		public boolean checkCurrentMode(String expectedValue) {
+	
 		
+
+		WebElement element=MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton");
+		String value=element.getAttribute("name");
+		if(expectedValue.contains(value.toUpperCase())) {
+			return true;
+		}else
+		{
+			return false;
+		}
 		
+		}	
 
 }
 

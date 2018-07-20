@@ -117,7 +117,22 @@ public class SelectElementOnAScreen extends Keyword {
 					
 					break;
 				}
-				case "X BUTTON": {
+				case "SAVE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnSaveButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				case "X": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if(thermo.clickOnXButton())
 					{
@@ -800,20 +815,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			}
 
-			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "INFO": {
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag=flag&thermo.clickOnInfoButton();
-					
-					break;
-				}
-				
-				}
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
-				}
-			}
+			
 			else if (parameters.get(1).equalsIgnoreCase("Change Fan")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "INFO": {

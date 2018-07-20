@@ -359,7 +359,7 @@ public class Dashboard extends MobileScreens {
 		
 		return flag;
 	}
-	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue) {
+	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue,TestCaseInputs inputs) {
 
 		String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatName");
 		if(expectedValue.equalsIgnoreCase(actualValue)) {
