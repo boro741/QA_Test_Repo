@@ -537,7 +537,6 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
 					break;
 
-				// Navigate from 'Dashboard' to 'Camera Settings Manage Alerts Screen'
 
 				}
 				

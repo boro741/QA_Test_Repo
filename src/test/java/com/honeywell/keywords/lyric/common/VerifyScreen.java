@@ -670,12 +670,8 @@ public class VerifyScreen extends Keyword {
 			case "THERMOSTAT DASHBOARD":{
 				flag=true;
 				Dashboard thermo = new Dashboard(testCase);
-
-					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),inputs);
-
 				flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),inputs);
-
 					flag = flag & thermo.isUpStepperDisplayed();
 					flag = flag & thermo.isDownStepperDisplayed();
 					if(flag) {
@@ -692,8 +688,6 @@ public class VerifyScreen extends Keyword {
 				}
 				case "THERMOSTAT SOLUTION CARD":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-
-					thermo.isThermostatSolutionCardDisplayed();
 
 					flag = flag & thermo.isThermostatSolutionCardDisplayed();
 
