@@ -86,7 +86,7 @@ Then <Period Value> scheduling gets activated
 
 Examples: 
 | Periods |Period Value|
-#| Atleast 1 period|Same Every Day|
+| Atleast 1 period|Same Every Day|
 #| Atleast 2 period|Same Every Day|
 #| Atleast 3 period|Same Every Day|
 #| All periods     |No|

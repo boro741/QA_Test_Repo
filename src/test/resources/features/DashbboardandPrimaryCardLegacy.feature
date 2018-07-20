@@ -15,12 +15,12 @@ Then the following "Thermostat" options should be enabled:
  |Up Stepper|
  |Down Stepper|
 And user "should be displayed" with the "respective setpoint value" option
-####And user should be displayed with respective <Mode> Color 
+#And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
 |Cool| 
-|Heat|
-|Auto|
+#|Heat|
+#|Auto|
 
 #incaserequired 
 #|Cool only|
@@ -59,7 +59,7 @@ Examples:
 |OFF |
 
 
-#HB, Spruce and JasperNA #sangeetha
+#HB, Spruce and JasperNA
 @ViewSolutionCard @DashbboardandSolutionCard_P1
 Scenario Outline: As an user I want to verify the SolutionCard view with respective system modes 
 Given user has <Mode> system mode
@@ -80,7 +80,7 @@ Examples:
 |Mode |
 |Cool| 
 |Heat |
-|Auto |
+#|Auto |
 #|Cool only|
 #|Heat Only|
 
@@ -106,7 +106,7 @@ Examples:
 |Mode |
 |Heat |
 
-#HB, Spruce, JasperNA, JasperEMEA. #sangeetha
+#HB, Spruce, JasperNA, JasperEMEA.
 @ViewSolutionCardOFF @DashbboardandSolutionCard_P1
 Scenario Outline: As an user I want to verify the SolutionCard view with "OFF" mode 
 Given user has <Mode> system mode
@@ -171,8 +171,8 @@ Then user should be displayed with the "Change mode" screen
 Examples:
 |Mode | 
 |Cool |
-|Heat |
-|OFF |
+#|Heat |
+#|OFF |
 
 #Requirements : Auto mode should enabled
 #HB, Spruce, JasperNA
@@ -195,10 +195,10 @@ When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
-|Cool |
-|Heat |
+#|Cool |
+#|Heat |
 |Auto | 
-|OFF |
+#|OFF |
 
 #in case required
 #Requirements : Cool only mode should enabled
@@ -265,7 +265,7 @@ Then user should be displayed with the "Change mode" screen
 Examples:
 |Mode | 
 |Heat |
-|OFF|
+#|OFF|
 
 
 
