@@ -688,9 +688,7 @@ public class VerifyScreen extends Keyword {
 				}
 				case "THERMOSTAT SOLUTION CARD":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-
 					flag = flag & thermo.isThermostatSolutionCardDisplayed();
-
 					break;
 				}
 				case "CHANGE MODE":{

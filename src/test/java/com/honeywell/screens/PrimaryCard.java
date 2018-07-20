@@ -298,8 +298,6 @@ public class PrimaryCard extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "OnFanButton");
 		}
 
-		
-
 		public boolean clickOnXButton() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "XButton");
 		}
