@@ -290,9 +290,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 		case "THERMOSTAT":
 		{
 			Dashboard dash=new Dashboard(testCase);
-		
 			for (int i = 0; i < data.getSize(); i++) {
-			
 		String fieldTobeVerified = data.getData(i, "Options");
 		if (fieldTobeVerified.equalsIgnoreCase("UP stepper")) {
 			if (dash.isUPStepperElementEnabled()){
