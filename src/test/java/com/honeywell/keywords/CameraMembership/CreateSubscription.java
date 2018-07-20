@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.HoneywellMembershipScreen;
 
 public class CreateSubscription extends Keyword  {
@@ -49,10 +50,14 @@ public class CreateSubscription extends Keyword  {
 			flag = flag & hm.clickOnAnnualPlan(testCase, inputs);
 			Keyword.ReportStep_Pass(testCase, "monthly plan subscription success");
 		}
-
+		else
+		{
+			flag = false;
+		Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Invalid input " + parameters.get(0));
+		}
 		return flag;
 	}
-	
 	
 	@Override
 	@AfterKeyword
