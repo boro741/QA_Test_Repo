@@ -2,6 +2,9 @@
 package com.honeywell.screens;
 
 
+import java.util.HashMap;
+
+import org.omg.CORBA.Current;
 import org.openqa.selenium.WebElement;
 
 
@@ -98,7 +101,12 @@ public class PrimaryCard extends MobileScreens {
 
 		public boolean isModeInfoScreenDisplayed() {
 
+			if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "InformationTitle") && MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeModeTitle") ;
+			}
+			else {
+				return MobileUtils.isMobElementExists(objectDefinition, testCase, "InformationTitle");
+			}
 			
 		}
 		public boolean isFanInfoScreenDisplayed() {
@@ -362,6 +370,7 @@ public class PrimaryCard extends MobileScreens {
 		}
 
 
+
 		public boolean checkCurrentMode(String expectedValue) {
 	
 		
@@ -378,5 +387,134 @@ public class PrimaryCard extends MobileScreens {
 		}	
 
 
+		public boolean setMaxTemperatureByTappingUpStepper(TestCaseInputs inputs) {
+			boolean flag=true;
+			String maxSetPoint="";
+			int maxSetPointInt=0;
+			String currentSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 maxSetPoint= setPoints.get("MaxHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 maxSetPoint= setPoints.get("MaxCool");
+			}
+			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);
+			
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
+			currentSetPoint = ele.getText();
+			
+			while(Integer.parseInt(currentSetPoint)<maxSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
+				currentSetPoint = ele.getText();
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return flag;
+		}
+
+		public boolean isMaxTemperatureVisibleOnSolutionCard(TestCaseInputs inputs) {
+			String currentSetPoint="";
+			boolean flag=true;
+			int maxSetPointInt=0;
+			String maxSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 maxSetPoint= setPoints.get("MaxHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 maxSetPoint= setPoints.get("MaxCool");
+			}
+
+			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
+			currentSetPoint = ele.getText();
+			if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
+				return true;
+			}
+			return false;
+		}
+
+		public boolean setMinTemperatureByTappingDownStepper(TestCaseInputs inputs) {
+			boolean flag=true;
+			String minSetPoint="";
+			int minSetPointInt=0;
+			String currentSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 minSetPoint= setPoints.get("MinHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 minSetPoint= setPoints.get("MinCool");
+			}
+			minSetPointInt=(int)Float.parseFloat(minSetPoint);
+			System.out.println(minSetPointInt);
+			
+			WebElement ele1=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
+			currentSetPoint = ele1.getText();
+			
+			while(Integer.parseInt(currentSetPoint)>minSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
+				currentSetPoint = ele1.getText();
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return flag;
+		}
+		public boolean isMinTemperatureVisibleOnSolutionCard(TestCaseInputs inputs) {
+			String currentSetPoint="";
+			boolean flag=true;
+			int minSetPointInt=0;
+			String minSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 minSetPoint= setPoints.get("MinHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 minSetPoint= setPoints.get("MinCool");
+			}
+
+			minSetPointInt=(int)Float.parseFloat(minSetPoint);
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
+			currentSetPoint = ele.getText();
+			if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
+				return true;
+			}
+			return false;
+		}
 }
 

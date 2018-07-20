@@ -477,4 +477,64 @@ public class Dashboard extends MobileScreens {
 			}
 			return false;
 		}
+
+		public boolean isMaxTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
+			String currentSetPoint="";
+			boolean flag=true;
+			int maxSetPointInt=0;
+			String maxSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 maxSetPoint= setPoints.get("MaxHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 maxSetPoint= setPoints.get("MaxCool");
+			}
+
+			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
+			currentSetPoint = ele.getText();
+			if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
+				System.out.println("Max temp is same in dashboard");
+				return true;
+			}
+			return false;
+		}
+
+		public boolean isMinTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
+			String currentSetPoint="";
+			boolean flag=true;
+			int minSetPointInt=0;
+			String minSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 minSetPoint= setPoints.get("MinHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 minSetPoint= setPoints.get("MinCool");
+			}
+
+			minSetPointInt=(int)Float.parseFloat(minSetPoint);
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
+			currentSetPoint = ele.getText();
+			if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
+				System.out.println("Max temp is same in dashboard");
+				return true;
+			}
+			return false;
+		}
 }

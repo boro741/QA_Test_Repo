@@ -52,11 +52,7 @@ And the following "Thermostat" options should be disabled:
 |Options|
 |UP stepper|
 |Down stepper|
-<<<<<<< HEAD
 Then user "should be displayed" with the "--" option
-=======
-#Then user "should be displayed" with the "--" option
->>>>>>> a1ac7f20dcd50a57123ae8d3d477d7842a6557d7
 And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" 
 Examples:
 |Mode |
@@ -662,26 +658,36 @@ Examples:
 #Setpoint values SolutionCard
 
 #HB, Spruce, JasperNA
-@SetTemperatureSolutionCardMAXandMIN
+@SetTemperatureSolutionCardMAX
 Scenario Outline: As an user I want to verify the Max qnd Min temper throguh TAP on stepper
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Solution Card" option
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Dashboard" option
+
+
+
+#HB, Spruce, JasperNA
+@SetTemperatureSolutionCardMIN
+Scenario Outline: As an user I want to verify the Max qnd Min temper throguh TAP on stepper
+Given user has <Mode> system mode
+Given user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MIN set temperature on Solution Card" option
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
 |Mode|
 |Cool|
-|Heat|
-|Cool only|
-|Heat only|
+#|Heat|
+#in case required
+#|Cool only|
+#|Heat only|
+
 
 #HB, Spruce, JasperNA
 #requirment : Should be in NO schedule stat
@@ -850,7 +856,7 @@ Examples:
 
 #Multistats
 
-
+@Not Automatable
 @SetTemperatureSolutionCardFromJasperNA
 Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user 
@@ -873,6 +879,7 @@ Examples:
 |Heat only|
 |Cool only|
 
+@Not Automatable
 @SetTemperatureFromHBB 
 Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user 
@@ -892,6 +899,7 @@ Examples:
 |Cool |
 |Auto |
 
+@Not Automatable
 @SetTemperatureFromEMEA
 Scenario Outline:To set temperature for location with multistat with time format 24/12hr 
 As an user 
@@ -908,7 +916,7 @@ And Verify the "Stat1" widget on the location dashboard for set temperature
 
 
 #network error
-
+@Not Automatable
 #HB, Spruce, JasperNA, JasperEMEA
 @NetworkdownSolutionCard&SolutionCard
 Scenario Outline:To get error messages on network down in primary card
@@ -928,6 +936,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA, JasperEMEA
+@Not Automatable
 @NetworkdownDashboard&SolutionCard
 Scenario Outline:To get error messages on network down in location Dashboard
 As an user
@@ -948,6 +957,7 @@ Examples:
 #Feature: As an user I want to change the AutoChangeover option for JapserNA , JasperEMEA, HB and Spruce
 #AutoChangeover
 
+#Requirement : One account with  Auto mode enabled
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardAutochangeover
 Scenario:As an user  i want to view the option for automode 

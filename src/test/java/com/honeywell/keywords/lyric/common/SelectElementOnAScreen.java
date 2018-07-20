@@ -804,6 +804,18 @@ public class SelectElementOnAScreen extends Keyword {
 					
 					break;
 				}
+				case "MAX SET TEMPERATURE BY TAPING ON UP STEPPER":{
+
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.setMaxTemperatureByTappingUpStepper(inputs);
+					break;
+				}
+				case "MIN SET TEMPERATURE BY TAPING ON DOWN STEPPER":{
+
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.setMinTemperatureByTappingDownStepper(inputs);
+					break;
+				}
 				case "FAN":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag=flag&thermo.clickOnFanButton();
