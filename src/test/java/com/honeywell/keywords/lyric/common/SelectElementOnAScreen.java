@@ -1015,7 +1015,6 @@ public class SelectElementOnAScreen extends Keyword {
 							flag = flag & option.clickOnScheduleOptionsButton();
 							if (flag) 
 							{
-							System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 							}else 
 							{
@@ -1024,7 +1023,6 @@ public class SelectElementOnAScreen extends Keyword {
 							}
 						}else
 						{
-						System.out.println(parameters.get(0) + " button disabled");
 						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " button disabled ");
 						}
 						break;
@@ -1035,14 +1033,13 @@ public class SelectElementOnAScreen extends Keyword {
 						flag = flag & Schoffoverlay.clickOnScheduleOffOverlay();
 						if (flag) 
 						{
-							System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " screen");
 						}else 
 						{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to click: " + parameters.get(1));
-						}
-					}break;
+						}break;
+					}
 					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
@@ -1061,14 +1058,12 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & scheoff.clickOnScheduleOffButton();
 					if (flag) 
 				{
-						System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}else 
 				{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click: " + parameters.get(1));
-				}
-					break;
+				}break;
 				}
 				default: {
 					flag = false;

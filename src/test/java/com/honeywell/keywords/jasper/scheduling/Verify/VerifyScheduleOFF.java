@@ -57,8 +57,8 @@ public class VerifyScheduleOFF extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "Schedule OFF Overlay disappear");
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF overlay not disappeared");
-					}
-				}break;
+					}break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + parameters.get(0));

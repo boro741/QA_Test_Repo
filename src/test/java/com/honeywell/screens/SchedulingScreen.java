@@ -55,14 +55,14 @@ public class SchedulingScreen extends MobileScreens {
 	}
 	
 	public boolean isScheduleOptionsElementEnabled() {
+		boolean flag =true;
 		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "ScheduleOptionsButton");
-	//	element.getAttribute("enabled");
 		if(element.isEnabled())
 		{
-			return true;
-		}
+			return flag;
+		}else
 		return false;
-	}
+		}
 
 	public boolean clickOnCopyButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CopyButton");
@@ -1178,15 +1178,6 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingAway");
 	}
 	
-//	public String getUsingAwaysValue() {
-//		String string; 
-//		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-//			string = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
-//		} else {
-//			string = testCase.getMobileDriver().findElement(By.name("Dialer")).getText();
-//		}
-//		return string;
-//	}
 	public boolean isUsingHomeVisible(int timeOut){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingHome", timeOut);
 	}
