@@ -45,7 +45,6 @@ public class VerifyScheduleOFF extends Keyword {
 					SchedulingScreen OverLay = new SchedulingScreen(testCase);
 					flag = flag & OverLay.isScheduleOffOverlayVisible(10);
 					if(flag){
-						System.out.println("Successfully schedule overlay " + parameters.get(0) + "screen");
 						Keyword.ReportStep_Pass(testCase, "Schedule OFF Overlay displayed");
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF overlay not displayed");
