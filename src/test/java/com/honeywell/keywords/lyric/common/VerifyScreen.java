@@ -693,7 +693,7 @@ public class VerifyScreen extends Keyword {
 				case "THERMOSTAT SOLUTION CARD":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
 
-					thermo.isThermostatSolutionCardDisplayed(inputs);
+					thermo.isThermostatSolutionCardDisplayed();
 
 					flag = flag & thermo.isThermostatSolutionCardDisplayed();
 
