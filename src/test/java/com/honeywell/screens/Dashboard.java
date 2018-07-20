@@ -361,7 +361,8 @@ public class Dashboard extends MobileScreens {
 	}
 	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue,TestCaseInputs inputs) {
 
-		String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatName");
+		 WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatName");
+		 String actualValue =ele.getText();
 		if(expectedValue.equalsIgnoreCase(actualValue)) {
 			System.out.println("Same name as given ");
 			return true;
@@ -369,27 +370,46 @@ public class Dashboard extends MobileScreens {
 			return false;
 		}
 		public boolean isTemperatureNotDisplayed() {
-			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "TemperatureInOffModeForIOS");
 			if(status.equals("--"))
 			{
 			return true;
 		}
 			return false;
 	}
-		public boolean isOffStatusVisible() {
+		public boolean isOffStatusVisible(TestCaseInputs inputs) {
+			
+			if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
 			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
-			if(status.toUpperCase().contains("OFF"))
-			{
-			return true;
-		}
-			return false;
+			  if(status.toUpperCase().contains("OFF"))
+			 {
+			   return true;
+		     }
+			 else {
+				return false;
+			 }
+			}
+			else {
+				String thermostatname=inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+				WebElement ele=MobileUtils.getMobElement(testCase,"xpath", "//XCUIElementTypeStaticText[@name='subTitle_"+thermostatname+"']");
+				String status=ele.getText();
+				  if(status.toUpperCase().contains("OFF"))
+					 {
+					   return true;
+				     }
+					 else {
+						return false;
+					 }
+			}
 		}
 		public boolean isThermostatTemperatureDisplayed(TestCaseInputs inputs) {
-
-			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
+			
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String chilDeviceIndoorTemperature = statInfo.getIndoorTemperature();
 			System.out.println("Indoor temperature "+chilDeviceIndoorTemperature);
+
+		if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
+			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");	
 			
 			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
 				System.out.println("Temperature is  given ");
@@ -398,6 +418,19 @@ public class Dashboard extends MobileScreens {
 			else {
 				return false;
 			}
+		}
+		else {
+			String thermostatname=inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+			WebElement ele=MobileUtils.getMobElement(testCase,"xpath", "//XCUIElementTypeStaticText[@name='subTitle_"+thermostatname+"']");
+			String actualValue=ele.getText();
+			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+				System.out.println("Temperature is  given ");
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 		}
 		public boolean isUserExpectedTemperatureDisplayed() {
 
@@ -420,12 +453,12 @@ public class Dashboard extends MobileScreens {
 			return false;
 		}
 		public boolean isUpStepperDisplayed() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpStepper");
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpStepper",8);
 		}
 
 		public boolean isDownStepperDisplayed() {
 
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper");
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper",8);
 		}
 		public boolean isUPStepperElementEnabled() {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "UpStepper");

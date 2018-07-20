@@ -377,6 +377,24 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen ac = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+				flag = flag & ac.clickONCameraSetingsOption("Camera Configuration");
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 
 	/**
 	 * <h1>Navigate from Dashboard to Camera Settings Screen</h1>

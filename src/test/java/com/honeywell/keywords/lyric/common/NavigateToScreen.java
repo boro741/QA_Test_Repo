@@ -536,8 +536,24 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
 					break;
-				}
+
 				// Navigate from 'Dashboard' to 'Camera Settings Manage Alerts Screen'
+
+				}
+				
+				/* Method to navigate to camera configuration screen from dashboard */
+				case "CAMERA CONFIGURATION" : {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
+					break;
+				}
+				
+				// Navigate from 'Dashboard' to 'Thermostat Settings'
+				case "THERMOSTAT SETTINGS": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Manage Alerts Screen'
+
 				case "MANAGE ALERTS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;

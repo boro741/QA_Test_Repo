@@ -52,7 +52,11 @@ And the following "Thermostat" options should be disabled:
 |Options|
 |UP stepper|
 |Down stepper|
+<<<<<<< HEAD
 Then user "should be displayed" with the "--" option
+=======
+#Then user "should be displayed" with the "--" option
+>>>>>>> a1ac7f20dcd50a57123ae8d3d477d7842a6557d7
 And user should see the "Inside temperature" status as "OFF" on the "thermostat dashboard" 
 Examples:
 |Mode |

@@ -53,8 +53,11 @@ public class PrimaryCard extends MobileScreens {
  
 
 
+ 
+ 
 
-	public boolean isThermostatSolutionCardDisplayed(TestCaseInputs inputs) {
+	public boolean isThermostatSolutionCardDisplayed() {
+
 
 		if(MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton",5)&&
 				MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",5)&&
@@ -283,11 +286,7 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isCoolDefinitionVisibleOnChangeModeScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoolModeDescription");
 	}
-
-	public Boolean clickOnXButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "XButton");	
-	}
-		
+	
 
 		public boolean clickOnAutoFanButton() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoFanButton");
@@ -298,7 +297,13 @@ public class PrimaryCard extends MobileScreens {
 		public boolean clickOnONFanButton() {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "OnFanButton");
 		}
+
 		
+
+		public boolean clickOnXButton() {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "XButton");
+		}
+
 		
 		public boolean isAutoFanElementSelected() {
 			WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "AutoFanButton");
@@ -339,6 +344,10 @@ public class PrimaryCard extends MobileScreens {
 
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "FanButton");
 			String value=ele.getAttribute("name");
+
+
+			System.out.println(value);
+
 			if(expectedValue.contains(value.toUpperCase())) {
 				return true;
 			}
@@ -354,6 +363,7 @@ public class PrimaryCard extends MobileScreens {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton",8);
 		}
 
+
 		public boolean checkCurrentMode(String expectedValue) {
 	
 		
@@ -368,6 +378,7 @@ public class PrimaryCard extends MobileScreens {
 		}
 		
 		}	
+
 
 }
 

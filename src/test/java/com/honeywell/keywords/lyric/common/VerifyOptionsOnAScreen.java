@@ -673,7 +673,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 
 
 		case "MODE INFO":{
-			System.out.println("Inside Verifing mode info");
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
@@ -717,6 +716,45 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								+ " is not present on the "+expectedScreen.get(0));
 					}
 				}
+			}
+
+			break;
+		}
+		case "FAN INFO":{
+			PrimaryCard thermo = new PrimaryCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if(fieldTobeVerified.equalsIgnoreCase("AUTO - FAN RUNS WHILE HEATING OR COOLING")) {
+					if(thermo.isAutoFanDefinitionVisibleOnInfoScreen()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("CIRCULATE - FAN RUNS INTERMITTENTLY TO CIRCULATE AIR")) {
+					if(thermo.isCirculateFanDefinitionVisibleOnInfoScreen()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+				else if(fieldTobeVerified.equalsIgnoreCase("ON - FAN RUNS CONTINUOUSLY")) {
+					if(thermo.isOnFanDefinitionVisibleOnInfoScreen()){
+						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
+								+ "' is present on the "+expectedScreen.get(0));
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
+								+ " is not present on the "+expectedScreen.get(0));
+					}
+				}
+			
 			}
 
 			break;
