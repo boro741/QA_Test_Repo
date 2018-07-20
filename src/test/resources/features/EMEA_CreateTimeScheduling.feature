@@ -16,9 +16,9 @@ As a user I want to create an time based scheduling
     Examples: 
       | scheduling | ScheduleType          | 
       | no         | Same Every Day        | 
- #     | time based | Same Every Day        | 
- #     | no         | Different On Weekdays | 
- #     | time based | Different On Weekdays | 
+      | time based | Same Every Day        | 
+      | no         | Different On Weekdays | 
+      | time based | Different On Weekdays | 
  
  @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641
   Scenario Outline: To create EMEA schedule by setting up with new period with new time value for both time format

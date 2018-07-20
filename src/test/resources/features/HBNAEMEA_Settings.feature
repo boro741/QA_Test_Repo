@@ -34,7 +34,7 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | Manage Alerts				|
       | Set Filter Reminder			|
       |	Set up HomeKit & Siri		|
-      | Optimise						|
+      | Optimise					|
       | Set filter reminder			|
       |	Set Up Homekit & Siri		|
       | Optimizer					|
