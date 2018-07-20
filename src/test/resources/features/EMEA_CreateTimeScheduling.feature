@@ -16,8 +16,8 @@ As a user I want to create an time based scheduling
     Examples: 
       | scheduling | ScheduleType          | 
       | no         | Same Every Day        | 
-      | time based | Same Every Day        | 
-      | no         | Different On Weekdays | 
+   #   | time based | Same Every Day        | 
+   #   | no         | Different On Weekdays | 
       | time based | Different On Weekdays | 
  
  @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641
@@ -33,7 +33,7 @@ As a user I want to create an time based scheduling
     Examples: 
       | ScheduleType          | 
       | Same Every Day        | 
-      | Different On Weekdays | 
+   #   | Different On Weekdays | 
   
   @JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3
   Scenario Outline: As a user i want to be prompted with an option to Cancel overriding Geofence Schedule
@@ -59,7 +59,7 @@ As a user I want to create an time based scheduling
     Examples: 
       | ScheduleType          | 
       | Same Every Day        | 
-      | Different On Weekdays | 
+ #     | Different On Weekdays | 
   
   @JasperEMEA_TempretureBandwidthforEachPeriod @JasperEmeaScheduleP3
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for each period
