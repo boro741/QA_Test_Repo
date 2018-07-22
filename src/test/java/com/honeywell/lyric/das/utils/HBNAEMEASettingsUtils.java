@@ -140,17 +140,14 @@ public class HBNAEMEASettingsUtils {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 		int thermostatCurrentTempValue = Integer.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE"));
-		System.out.println("########thermostatCurrentTempValue: " + thermostatCurrentTempValue);
 		Random r = new Random();
 
 		if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 			int belowValue = 0, belowValueApp = 0, aboveValueApp = 0;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				System.out.println("########Degree: " + String.valueOf(degree));
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
 					belowValueApp = Integer.parseInt(ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
 							.split(String.valueOf(degree))[0]);
-					System.out.println("######belowValueApp: " + belowValueApp);
 					if (belowValueApp != thermostatCurrentTempValue) {
 						Keyword.ReportStep_Pass(testCase,
 								"Below Temperature value: " + belowValueApp
@@ -180,11 +177,9 @@ public class HBNAEMEASettingsUtils {
 												belowValueApp = Integer.parseInt(
 														ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
 																.split(String.valueOf(degree))[0]);
-												System.out.println("######belowValueApp: " + belowValueApp);
 												if ((belowValueApp == thermostatCurrentTempValue)) {
 													do {
 														belowValue = r.nextInt((98 - 39) + 1) + 39;
-														System.out.println("######belowValue: " + belowValue);
 													} while (belowValue < thermostatCurrentTempValue);
 													if (ts.isBelowAboveTempAlertRangeOptionVisible(
 															alertBelowTempRangeOption)) {
@@ -192,14 +187,8 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf(degree))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																.split(String.valueOf(degree))[0]);
-														System.out.println("######belowValueApp: " + belowValueApp);
 														if (belowValueApp >= aboveValueApp) {
 															flag = false;
-															System.out.println(
-																	"Displayed Below Temperature value in the app: "
-																			+ belowValueApp
-																			+ " and displayed Above Temperature value in the app: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Fail(testCase,
 																	FailType.FUNCTIONAL_FAILURE,
 																	"Displayed Below Temperature value in the app: "
@@ -207,11 +196,6 @@ public class HBNAEMEASettingsUtils {
 																			+ " and displayed Above Temperature value in the app: "
 																			+ aboveValueApp);
 														} else {
-															System.out.println(
-																	"[BeforeChange]Displayed Below Temperature value: "
-																			+ belowValueApp
-																			+ " and displayed Above Temperature value: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[BeforeChange]Displayed Below Temperature value: "
 																			+ belowValueApp
@@ -220,8 +204,6 @@ public class HBNAEMEASettingsUtils {
 														}
 														ts.clickOnBelowAboveTempAlertRangeOption(
 																alertBelowTempRangeOption);
-														System.out.println("######String.valueOf(belowValue): "
-																+ String.valueOf(belowValue));
 														try {
 															Keyword.ReportStep_Pass(testCase,
 																	"Scroll to Below Temperature value: " + belowValue);
@@ -247,11 +229,6 @@ public class HBNAEMEASettingsUtils {
 																	.split(String.valueOf(degree))[0]);
 															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																	.split(String.valueOf(degree))[0]);
-															System.out.println(
-																	"[AfterChange]Displayed Below Temperature value is: "
-																			+ belowValueApp
-																			+ " and Displayed Above Temperature value is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[AfterChange]Displayed Below Temperature value is: "
 																			+ belowValueApp
@@ -285,10 +262,8 @@ public class HBNAEMEASettingsUtils {
 						try {
 							do {
 								belowValue = r.nextInt((98 - 39) + 1) + 39;
-								System.out.println("######belowValue: " + belowValue);
 							} while (belowValue <= thermostatCurrentTempValue);
 							ts.clickOnBelowAboveTempAlertRangeOption(alertBelowTempRangeOption);
-							System.out.println("######String.valueOf(belowValue): " + String.valueOf(belowValue));
 							try {
 								Keyword.ReportStep_Pass(testCase, "Scroll to Below Temperature value: " + belowValue);
 								element = testCase.getMobileDriver().scrollTo(String.valueOf(belowValue));
@@ -308,8 +283,6 @@ public class HBNAEMEASettingsUtils {
 										.parseInt(ts.getBelowTempRangeValue().split(String.valueOf(degree))[0]);
 								aboveValueApp = Integer
 										.parseInt(ts.getAboveTempRangeValue().split(String.valueOf(degree))[0]);
-								System.out.println("[AfterChange]Displayed Below Temperature value is: " + belowValueApp
-										+ " and Above value is shown: " + aboveValueApp);
 								Keyword.ReportStep_Pass(testCase, "[AfterChange]Displayed Below Temperature value is: "
 										+ belowValueApp + " and Above value is shown: " + aboveValueApp);
 							}
@@ -328,20 +301,17 @@ public class HBNAEMEASettingsUtils {
 			} else {
 
 				// iOS
-				System.out.println("########Degree: " + String.valueOf(degree));
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
 
 					belowValueApp = Integer
 							.parseInt(ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption).split(",")[0]
 									.replaceAll("\u00B0", ""));
-					System.out.println("######belowValueApp: " + belowValueApp);
 					if (belowValueApp != thermostatCurrentTempValue) {
 						Keyword.ReportStep_Pass(testCase,
 								"Below Temperature value: " + belowValueApp
 										+ " is not equal to current thermostat temperature value: "
 										+ thermostatCurrentTempValue + ". Updating Below Temperature value: "
 										+ belowValueApp + " to " + thermostatCurrentTempValue);
-						// ts.clickOnBelowAboveTempAlertRangeOption(alertBelowTempRangeOption);
 						try {
 							Keyword.ReportStep_Pass(testCase,
 									"Scroll to Below Temperature value: " + thermostatCurrentTempValue);
@@ -377,11 +347,9 @@ public class HBNAEMEASettingsUtils {
 												belowValueApp = Integer.parseInt(
 														ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
 																.split(String.valueOf(degree))[0]);
-												System.out.println("######belowValueApp: " + belowValueApp);
 												if ((belowValueApp == thermostatCurrentTempValue)) {
 													do {
 														belowValue = r.nextInt((98 - 39) + 1) + 39;
-														System.out.println("######belowValue: " + belowValue);
 													} while (belowValue < thermostatCurrentTempValue);
 													if (ts.isBelowAboveTempAlertRangeOptionVisible(
 															alertBelowTempRangeOption)) {
@@ -389,14 +357,8 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf(degree))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																.split(String.valueOf(degree))[0]);
-														System.out.println("######belowValueApp: " + belowValueApp);
 														if (belowValueApp >= aboveValueApp) {
 															flag = false;
-															System.out.println(
-																	"Displayed Below Temperature value in the app: "
-																			+ belowValueApp
-																			+ " and displayed Above Temperature value in the app: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Fail(testCase,
 																	FailType.FUNCTIONAL_FAILURE,
 																	"Displayed Below Temperature value in the app: "
@@ -404,11 +366,6 @@ public class HBNAEMEASettingsUtils {
 																			+ " and displayed Above Temperature value in the app: "
 																			+ aboveValueApp);
 														} else {
-															System.out.println(
-																	"[BeforeChange]Displayed Below Temperature value: "
-																			+ belowValueApp
-																			+ " and displayed Above Temperature value: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[BeforeChange]Displayed Below Temperature value: "
 																			+ belowValueApp
@@ -417,8 +374,6 @@ public class HBNAEMEASettingsUtils {
 														}
 														ts.clickOnBelowAboveTempAlertRangeOption(
 																alertBelowTempRangeOption);
-														System.out.println("######String.valueOf(belowValue): "
-																+ String.valueOf(belowValue));
 														try {
 															Keyword.ReportStep_Pass(testCase,
 																	"Scroll to Below Temperature value: " + belowValue);
@@ -444,11 +399,6 @@ public class HBNAEMEASettingsUtils {
 																	.split(String.valueOf(degree))[0]);
 															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																	.split(String.valueOf(degree))[0]);
-															System.out.println(
-																	"[AfterChange]Displayed Below Temperature value is: "
-																			+ belowValueApp
-																			+ " and Displayed Above Temperature value is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[AfterChange]Displayed Below Temperature value is: "
 																			+ belowValueApp
@@ -482,10 +432,8 @@ public class HBNAEMEASettingsUtils {
 						try {
 							do {
 								belowValue = r.nextInt((98 - 39) + 1) + 39;
-								System.out.println("######belowValue: " + belowValue);
 							} while (belowValue <= thermostatCurrentTempValue);
 							ts.clickOnBelowAboveTempAlertRangeOption(alertBelowTempRangeOption);
-							System.out.println("######String.valueOf(belowValue): " + String.valueOf(belowValue));
 							try {
 								Keyword.ReportStep_Pass(testCase, "Scroll to Below Temperature value: " + belowValue);
 								element = testCase.getMobileDriver().scrollTo(String.valueOf(belowValue));
@@ -505,8 +453,6 @@ public class HBNAEMEASettingsUtils {
 										.parseInt(ts.getBelowTempRangeValue().split(String.valueOf(degree))[0]);
 								aboveValueApp = Integer
 										.parseInt(ts.getAboveTempRangeValue().split(String.valueOf(degree))[0]);
-								System.out.println("[AfterChange]Displayed Below Temperature value is: " + belowValueApp
-										+ " and Above value is shown: " + aboveValueApp);
 								Keyword.ReportStep_Pass(testCase, "[AfterChange]Displayed Below Temperature value is: "
 										+ belowValueApp + " and Above value is shown: " + aboveValueApp);
 							}
@@ -527,11 +473,9 @@ public class HBNAEMEASettingsUtils {
 		} else {
 			double belowValue = 0, belowValueApp = 0, aboveValueApp = 0;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				System.out.println("########Degree: " + String.valueOf(degree));
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
 					belowValueApp = Integer.parseInt(ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
 							.split(String.valueOf(degree))[0]);
-					System.out.println("######belowValueApp: " + belowValueApp);
 					if (belowValueApp != thermostatCurrentTempValue) {
 						Keyword.ReportStep_Pass(testCase,
 								"Below Temperature value: " + belowValueApp
@@ -561,12 +505,10 @@ public class HBNAEMEASettingsUtils {
 												belowValueApp = Integer.parseInt(
 														ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
 																.split(String.valueOf(degree))[0]);
-												System.out.println("######belowValueApp: " + belowValueApp);
 												if ((belowValueApp == thermostatCurrentTempValue)) {
 													do {
 														belowValue = (r.nextInt((365 - 40) + 1) + 40) / 10.0;
 														belowValue = Math.round(belowValue * 2) / 2.0;
-														System.out.println("######belowValue: " + belowValue);
 													} while (belowValue < thermostatCurrentTempValue);
 													if (ts.isBelowAboveTempAlertRangeOptionVisible(
 															alertBelowTempRangeOption)) {
@@ -574,14 +516,8 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf(degree))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																.split(String.valueOf(degree))[0]);
-														System.out.println("######belowValueApp: " + belowValueApp);
 														if (belowValueApp >= aboveValueApp) {
 															flag = false;
-															System.out.println(
-																	"Displayed Below Temperature value in app is: "
-																			+ belowValueApp
-																			+ " Displayed Below Temperature value in app is "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Fail(testCase,
 																	FailType.FUNCTIONAL_FAILURE,
 																	"Displayed Below Temperature value in app is: "
@@ -589,11 +525,6 @@ public class HBNAEMEASettingsUtils {
 																			+ " Displayed Below Temperature value in app is "
 																			+ aboveValueApp);
 														} else {
-															System.out.println(
-																	"[BeforeChange] Below Temperature value is: "
-																			+ belowValueApp
-																			+ " and Above Temperature value is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[BeforeChange] Below Temperature value is: "
 																			+ belowValueApp
@@ -602,8 +533,6 @@ public class HBNAEMEASettingsUtils {
 														}
 														ts.clickOnBelowAboveTempAlertRangeOption(
 																alertBelowTempRangeOption);
-														System.out.println("######String.valueOf(belowValue): "
-																+ String.valueOf(belowValue));
 														try {
 															Keyword.ReportStep_Pass(testCase,
 																	"Scroll to Below Temperature value: " + belowValue);
@@ -629,11 +558,6 @@ public class HBNAEMEASettingsUtils {
 																	.split(String.valueOf(degree))[0]);
 															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																	.split(String.valueOf(degree))[0]);
-															System.out.println(
-																	"[AfterChange] Displayed Below Temperature value is: "
-																			+ belowValueApp
-																			+ " and Above Temperature value is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[AfterChange] Displayed Below Temperature value is: "
 																			+ belowValueApp
@@ -668,10 +592,8 @@ public class HBNAEMEASettingsUtils {
 							do {
 								belowValue = (r.nextInt((365 - 40) + 1) + 40) / 10.0;
 								belowValue = Math.round(belowValue * 2) / 2.0;
-								System.out.println("######belowValue: " + belowValue);
 							} while (belowValue <= thermostatCurrentTempValue);
 							ts.clickOnBelowAboveTempAlertRangeOption(alertBelowTempRangeOption);
-							System.out.println("######String.valueOf(belowValue): " + String.valueOf(belowValue));
 							try {
 								Keyword.ReportStep_Pass(testCase, "Scroll to Below Temperature value: " + belowValue);
 								element = testCase.getMobileDriver().scrollTo(String.valueOf(belowValue));
@@ -691,8 +613,6 @@ public class HBNAEMEASettingsUtils {
 										.parseInt(ts.getBelowTempRangeValue().split(String.valueOf(degree))[0]);
 								aboveValueApp = Integer
 										.parseInt(ts.getAboveTempRangeValue().split(String.valueOf(degree))[0]);
-								System.out.println("[AfterChange]Displayed Below Temperature value is: " + belowValueApp
-										+ " and Displayed Above Temperature value is: " + aboveValueApp);
 								Keyword.ReportStep_Pass(testCase,
 										"[AfterChange]Displayed Below Temperature value is: " + belowValueApp
 												+ " and Displayed Above Temperature value is: " + aboveValueApp);
@@ -739,17 +659,14 @@ public class HBNAEMEASettingsUtils {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 		int thermostatCurrentTempValue = Integer.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE"));
-		System.out.println("########thermostatCurrentTempValue: " + thermostatCurrentTempValue);
 		Random r = new Random();
 
 		if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 			int aboveValue = 0, belowValueApp = 0, aboveValueApp = 0;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				System.out.println("########Degree: " + String.valueOf(degree));
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
 					aboveValueApp = Integer.parseInt(ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
 							.split(String.valueOf(degree))[0]);
-					System.out.println("######aboveValueApp: " + aboveValueApp);
 					if (aboveValueApp != thermostatCurrentTempValue) {
 						Keyword.ReportStep_Pass(testCase,
 								"Above Temperature value: " + aboveValueApp
@@ -779,11 +696,9 @@ public class HBNAEMEASettingsUtils {
 												aboveValueApp = Integer.parseInt(
 														ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
 																.split(String.valueOf(degree))[0]);
-												System.out.println("######aboveValueApp: " + aboveValueApp);
 												if ((aboveValueApp == thermostatCurrentTempValue)) {
 													do {
 														aboveValue = r.nextInt((99 - 40) + 1) + 40;
-														System.out.println("######belowValue: " + aboveValue);
 													} while (aboveValue > thermostatCurrentTempValue);
 													if (ts.isBelowAboveTempAlertRangeOptionVisible(
 															alertAboveTempRangeOption)) {
@@ -791,14 +706,8 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf(degree))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																.split(String.valueOf(degree))[0]);
-														System.out.println("######belowValueApp: " + belowValueApp);
 														if (belowValueApp >= aboveValueApp) {
 															flag = false;
-															System.out.println(
-																	"Displayed Below Temperature value in the app is: "
-																			+ belowValueApp
-																			+ " and Displayed Above Temperature value in the app is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Fail(testCase,
 																	FailType.FUNCTIONAL_FAILURE,
 																	"Displayed Below Temperature value in the app is: "
@@ -806,11 +715,6 @@ public class HBNAEMEASettingsUtils {
 																			+ " and Displayed Above Temperature value in the app is: "
 																			+ aboveValueApp);
 														} else {
-															System.out.println(
-																	"[BeforeChange]Below Temperature value displayed is: "
-																			+ belowValueApp
-																			+ " and Above Temperature value displayed is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[BeforeChange]Below Temperature value displayed is: "
 																			+ belowValueApp
@@ -819,8 +723,6 @@ public class HBNAEMEASettingsUtils {
 														}
 														ts.clickOnBelowAboveTempAlertRangeOption(
 																alertAboveTempRangeOption);
-														System.out.println("######String.valueOf(aboveValue): "
-																+ String.valueOf(aboveValue));
 														try {
 															Keyword.ReportStep_Pass(testCase,
 																	"Scroll to Above Temperature value: " + aboveValue);
@@ -846,11 +748,6 @@ public class HBNAEMEASettingsUtils {
 																	.split(String.valueOf(degree))[0]);
 															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																	.split(String.valueOf(degree))[0]);
-															System.out.println(
-																	"[AfterChange]Below Temperature value displayed is: "
-																			+ belowValueApp
-																			+ " and Above Temperature value displayed is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[AfterChange]Below Temperature value displayed is: "
 																			+ belowValueApp
@@ -884,10 +781,8 @@ public class HBNAEMEASettingsUtils {
 						try {
 							do {
 								aboveValue = r.nextInt((99 - 40) + 1) + 40;
-								System.out.println("######aboveValue: " + aboveValue);
 							} while (aboveValue > thermostatCurrentTempValue);
 							ts.clickOnBelowAboveTempAlertRangeOption(alertAboveTempRangeOption);
-							System.out.println("######String.valueOf(aboveValue): " + String.valueOf(aboveValue));
 							try {
 								Keyword.ReportStep_Pass(testCase, "Scroll to Above Temperature value: " + aboveValue);
 								element = testCase.getMobileDriver().scrollTo(String.valueOf(aboveValue));
@@ -907,8 +802,6 @@ public class HBNAEMEASettingsUtils {
 										.parseInt(ts.getBelowTempRangeValue().split(String.valueOf(degree))[0]);
 								aboveValueApp = Integer
 										.parseInt(ts.getAboveTempRangeValue().split(String.valueOf(degree))[0]);
-								System.out.println("[AfterChange]Below Temperature value displayed is: " + belowValueApp
-										+ " and Above Temperature value displayed is: " + aboveValueApp);
 								Keyword.ReportStep_Pass(testCase,
 										"[AfterChange]Below Temperature value displayed is: " + belowValueApp
 												+ " and Above Temperature value displayed is: " + aboveValueApp);
@@ -932,11 +825,9 @@ public class HBNAEMEASettingsUtils {
 		} else {
 			double aboveValue = 0, belowValueApp = 0, aboveValueApp = 0;
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				System.out.println("########Degree: " + String.valueOf(degree));
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
 					belowValueApp = Integer.parseInt(ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
 							.split(String.valueOf(degree))[0]);
-					System.out.println("######belowValueApp: " + belowValueApp);
 					if (belowValueApp != thermostatCurrentTempValue) {
 						Keyword.ReportStep_Pass(testCase,
 								"Above Temperature value: " + aboveValueApp
@@ -967,12 +858,10 @@ public class HBNAEMEASettingsUtils {
 												aboveValueApp = Integer.parseInt(
 														ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
 																.split(String.valueOf(degree))[0]);
-												System.out.println("######belowValueApp: " + belowValueApp);
 												if ((aboveValueApp == thermostatCurrentTempValue)) {
 													do {
 														aboveValue = (r.nextInt((370 - 45) + 1) + 45) / 10.0;
 														aboveValue = Math.round(aboveValue * 2) / 2.0;
-														System.out.println("######aboveValue: " + aboveValue);
 													} while (aboveValue > thermostatCurrentTempValue);
 													if (ts.isBelowAboveTempAlertRangeOptionVisible(
 															alertAboveTempRangeOption)) {
@@ -980,15 +869,8 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf(degree))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																.split(String.valueOf(degree))[0]);
-														System.out.println("######belowValueApp: " + belowValueApp);
-														System.out.println("######aboveValueApp: " + aboveValueApp);
 														if (belowValueApp >= aboveValueApp) {
 															flag = false;
-															System.out.println(
-																	"Displayed Below Temperature value in the app is: "
-																			+ belowValueApp
-																			+ " and displayed Above Temperature value in the app is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Fail(testCase,
 																	FailType.FUNCTIONAL_FAILURE,
 																	"Displayed Below Temperature value in the app is: "
@@ -996,11 +878,6 @@ public class HBNAEMEASettingsUtils {
 																			+ " and displayed Above Temperature value in the app is: "
 																			+ aboveValueApp);
 														} else {
-															System.out.println(
-																	"[BeforeChange]Displayed Below Temperature value is: "
-																			+ belowValueApp
-																			+ " and displayed Above Temperature value is: "
-																			+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[BeforeChange]Displayed Below Temperature value is: "
 																			+ belowValueApp
@@ -1009,8 +886,6 @@ public class HBNAEMEASettingsUtils {
 														}
 														ts.clickOnBelowAboveTempAlertRangeOption(
 																alertAboveTempRangeOption);
-														System.out.println("######String.valueOf(aboveValue): "
-																+ String.valueOf(aboveValue));
 														try {
 															Keyword.ReportStep_Pass(testCase,
 																	"Scroll to Above Temperature value: " + aboveValue);
@@ -1036,9 +911,6 @@ public class HBNAEMEASettingsUtils {
 																	.split(String.valueOf(degree))[0]);
 															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																	.split(String.valueOf(degree))[0]);
-															System.out.println("[AfterChange] Below value is shown: "
-																	+ belowValueApp + " and Above value is shown: "
-																	+ aboveValueApp);
 															Keyword.ReportStep_Pass(testCase,
 																	"[AfterChange] Below value is shown: "
 																			+ belowValueApp
@@ -1073,10 +945,8 @@ public class HBNAEMEASettingsUtils {
 							do {
 								aboveValue = (r.nextInt((370 - 45) + 1) + 45) / 10.0;
 								aboveValue = Math.round(aboveValue * 2) / 2.0;
-								System.out.println("######aboveValue: " + aboveValue);
 							} while (aboveValue > thermostatCurrentTempValue);
 							ts.clickOnBelowAboveTempAlertRangeOption(alertAboveTempRangeOption);
-							System.out.println("######String.valueOf(aboveValue): " + String.valueOf(aboveValue));
 							try {
 								Keyword.ReportStep_Pass(testCase, "Scroll to Above Temperature value: " + aboveValue);
 								element = testCase.getMobileDriver().scrollTo(String.valueOf(aboveValue));
@@ -1096,8 +966,6 @@ public class HBNAEMEASettingsUtils {
 										.parseInt(ts.getBelowTempRangeValue().split(String.valueOf(degree))[0]);
 								aboveValueApp = Integer
 										.parseInt(ts.getAboveTempRangeValue().split(String.valueOf(degree))[0]);
-								System.out.println("[AfterChange]Displayed Below Temperature value is: " + belowValueApp
-										+ " and displayed Above Temperature value is: " + aboveValueApp);
 								Keyword.ReportStep_Pass(testCase,
 										"[AfterChange]Displayed Below Temperature value is: " + belowValueApp
 												+ " and displayed Above Temperature value is: " + aboveValueApp);
@@ -1143,10 +1011,6 @@ public class HBNAEMEASettingsUtils {
 								String expectedBelowTempAlert = "Alert: The temperature in your home is lower than "
 										+ inputs.getInputValue("INDOORTEMP_BELOW_VALUE") + ".0"
 										+ String.valueOf(degree);
-								System.out.println("#######alertTitle" + i + ": " + listAlertTitles.get(i).getText());
-								System.out.println("#######alertMsg" + j + ": " + listAlertMsgs.get(j).getText());
-								System.out
-										.println("#######tempValue: " + inputs.getInputValue("INDOORTEMP_BELOW_VALUE"));
 								if (listAlertTitles.get(i).getText().contains(expectedBelowTempAlert)
 										&& listAlertMsgs.get(j).getText().contains(expectedBelowTempAlert)) {
 									Keyword.ReportStep_Pass(testCase, "Below Temperature Alert Message is displayed: "
@@ -1164,10 +1028,6 @@ public class HBNAEMEASettingsUtils {
 								String expectedAboveTempAlert = "Alert: The temperature in your home is higher than "
 										+ inputs.getInputValue("INDOORTEMP_ABOVE_VALUE") + ".0"
 										+ String.valueOf(degree);
-								System.out.println("#######alertTitle" + i + ": " + listAlertTitles.get(i).getText());
-								System.out.println("#######alertMsg" + j + ": " + listAlertMsgs.get(j).getText());
-								System.out
-										.println("#######tempValue: " + inputs.getInputValue("INDOORTEMP_ABOVE_VALUE"));
 								if (listAlertTitles.get(i).getText().contains(expectedAboveTempAlert)
 										&& listAlertMsgs.get(j).getText().contains(expectedAboveTempAlert)) {
 									Keyword.ReportStep_Pass(testCase, "Above Temperature Alert Message is displayed: "
@@ -1211,11 +1071,9 @@ public class HBNAEMEASettingsUtils {
 		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 		int thermostatCurrentHumidityValue = Integer
 				.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDITY_VALUE"));
-		System.out.println("########thermostatCurrentHumidityValue: " + thermostatCurrentHumidityValue);
 		// thermostatCurrentHumidityValue = Math.round((thermostatCurrentHumidityValue +
 		// 9) / 10 * 10);
 		thermostatCurrentHumidityValue = Math.round((thermostatCurrentHumidityValue - 5) / 10 * 10);
-		System.out.println("########thermostatCurrentHumidityValue: " + thermostatCurrentHumidityValue);
 		Random r = new Random();
 
 		int belowValue = 0, belowValueApp = 0, aboveValueApp = 0;
@@ -1223,7 +1081,6 @@ public class HBNAEMEASettingsUtils {
 			if (ts.isBelowAboveHumidityAlertRangeOptionVisible(alertBelowHumidityRangeOption)) {
 				belowValueApp = Integer
 						.parseInt(ts.getBelowAboveHumidityAlertRangeValue(alertBelowHumidityRangeOption).split("%")[0]);
-				System.out.println("######belowValueApp: " + belowValueApp);
 				if (belowValueApp != thermostatCurrentHumidityValue) {
 					Keyword.ReportStep_Pass(testCase,
 							"Below Humidity value: " + belowValueApp
@@ -1253,39 +1110,25 @@ public class HBNAEMEASettingsUtils {
 											belowValueApp = Integer.parseInt(ts
 													.getBelowAboveHumidityAlertRangeValue(alertBelowHumidityRangeOption)
 													.split("%")[0]);
-											System.out.println("######belowValueApp: " + belowValueApp);
 											if ((belowValueApp == thermostatCurrentHumidityValue)) {
 												do {
 													belowValue = r.nextInt((90 - 5) + 1) + 5;
-													System.out.println("######belowValue: " + belowValue);
 												} while (belowValue < thermostatCurrentHumidityValue);
 												belowValue = Math.round((belowValue + 9) / 10 * 10);
-												System.out.println("#####Rounded to nearest 10th Below Humidity value: "
-														+ belowValue);
 												if (ts.isBelowAboveHumidityAlertRangeOptionVisible(
 														alertBelowHumidityRangeOption)) {
 													belowValueApp = Integer.parseInt(ts.getBelowHumidityRangeValue()
 															.split(String.valueOf("%"))[0]);
 													aboveValueApp = Integer.parseInt(ts.getAboveHumidityRangeValue()
 															.split(String.valueOf("%"))[0]);
-													System.out.println("######belowValueApp: " + belowValueApp);
 													if (belowValueApp >= aboveValueApp) {
 														flag = false;
-														System.out.println("Displayed Below Humidity value in the app: "
-																+ belowValueApp
-																+ " and displayed Above Temperature value in the app: "
-																+ aboveValueApp);
 														Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 																"Displayed Below Humidity value in the app: "
 																		+ belowValueApp
 																		+ " and displayed Above Humidity value in the app: "
 																		+ aboveValueApp);
 													} else {
-														System.out.println(
-																"[BeforeChange]Displayed Below Humidity value: "
-																		+ belowValueApp
-																		+ " and displayed Above Humidity value: "
-																		+ aboveValueApp);
 														Keyword.ReportStep_Pass(testCase,
 																"[BeforeChange]Displayed Below Humidity value: "
 																		+ belowValueApp
@@ -1294,8 +1137,6 @@ public class HBNAEMEASettingsUtils {
 													}
 													ts.clickOnBelowAboveHumidityAlertRangeOption(
 															alertBelowHumidityRangeOption);
-													System.out.println("######String.valueOf(belowValue): "
-															+ String.valueOf(belowValue));
 													try {
 														Keyword.ReportStep_Pass(testCase,
 																"Scroll to Below Humidity value: " + belowValue);
@@ -1320,11 +1161,6 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf("%"))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveHumidityRangeValue()
 																.split(String.valueOf("%"))[0]);
-														System.out.println(
-																"[AfterChange]Displayed Below Humidity value is: "
-																		+ belowValueApp
-																		+ " and Displayed Above Humidity value is: "
-																		+ aboveValueApp);
 														Keyword.ReportStep_Pass(testCase,
 																"[AfterChange]Displayed Below Humidity value is: "
 																		+ belowValueApp
@@ -1358,12 +1194,9 @@ public class HBNAEMEASettingsUtils {
 					try {
 						do {
 							belowValue = r.nextInt((90 - 5) + 1) + 5;
-							System.out.println("######belowValue: " + belowValue);
 						} while (belowValue < thermostatCurrentHumidityValue);
 						belowValue = Math.round((belowValue + 9) / 10 * 10);
-						System.out.println("#####Rounded to nearest 10th Below Humidity value: " + belowValue);
 						ts.clickOnBelowAboveHumidityAlertRangeOption(alertBelowHumidityRangeOption);
-						System.out.println("######String.valueOf(belowValue): " + String.valueOf(belowValue));
 						try {
 							Keyword.ReportStep_Pass(testCase, "Scroll to Below Humidity value: " + belowValue);
 							element = testCase.getMobileDriver().scrollTo(String.valueOf(belowValue));
@@ -1383,8 +1216,6 @@ public class HBNAEMEASettingsUtils {
 									.parseInt(ts.getBelowHumidityRangeValue().split(String.valueOf("%"))[0]);
 							aboveValueApp = Integer
 									.parseInt(ts.getAboveHumidityRangeValue().split(String.valueOf("%"))[0]);
-							System.out.println("[AfterChange]Displayed Below Humidity value is: " + belowValueApp
-									+ " and Above Humidity value is shown: " + aboveValueApp);
 							Keyword.ReportStep_Pass(testCase, "[AfterChange]Displayed Below Humidity value is: "
 									+ belowValueApp + " and Above Humidity value is shown: " + aboveValueApp);
 						}
@@ -1429,18 +1260,14 @@ public class HBNAEMEASettingsUtils {
 		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 		int thermostatCurrentHumidityValue = Integer
 				.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDITY_VALUE"));
-		System.out.println("########thermostatCurrentHumidityValue: " + thermostatCurrentHumidityValue);
 		thermostatCurrentHumidityValue = Math.round((thermostatCurrentHumidityValue - 5) / 10 * 10);
-		System.out.println("########thermostatCurrentHumidityValue: " + thermostatCurrentHumidityValue);
 		int updatedThermostatCurrentHumidityValue = (thermostatCurrentHumidityValue + 10);
-		System.out.println("########updatedThermostatCurrentHumidityValue: " + updatedThermostatCurrentHumidityValue);
 
 		int belowValueApp = 0, aboveValueApp = 0;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (ts.isBelowAboveHumidityAlertRangeOptionVisible(alertAboveHumidityRangeOption)) {
 				aboveValueApp = Integer
 						.parseInt(ts.getBelowAboveHumidityAlertRangeValue(alertAboveHumidityRangeOption).split("%")[0]);
-				System.out.println("######aboveValueApp: " + aboveValueApp);
 				if (aboveValueApp != thermostatCurrentHumidityValue) {
 					Keyword.ReportStep_Pass(testCase,
 							"Above Humidity value: " + aboveValueApp
@@ -1466,21 +1293,13 @@ public class HBNAEMEASettingsUtils {
 								if (ts.isBelowAboveHumidityAlertRangeOptionVisible(alertAboveHumidityRangeOption)) {
 									belowValueApp = Integer.parseInt(ts.getBelowHumidityRangeValue().split("%")[0]);
 									aboveValueApp = Integer.parseInt(ts.getAboveHumidityRangeValue().split("%")[0]);
-									System.out.println("######belowValueApp: " + belowValueApp);
-									System.out.println("######aboveValueApp: " + aboveValueApp);
 									if (belowValueApp >= aboveValueApp) {
 										flag = false;
-										System.out.println("Displayed Below Humidity value in the app is: "
-												+ belowValueApp + " and Displayed Above Humidity value in the app is: "
-												+ aboveValueApp);
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Displayed Below Humidity value in the app is: " + belowValueApp
 														+ " and Displayed Above Humidity value in the app is: "
 														+ aboveValueApp);
 									} else {
-										System.out.println(
-												"[BeforeChange]Below Humidity value displayed is: " + belowValueApp
-														+ " and Above Humidity value displayed is: " + aboveValueApp);
 										Keyword.ReportStep_Pass(testCase,
 												"[BeforeChange]Below Humidity value displayed is: " + belowValueApp
 														+ " and Above Humidity value displayed is: " + aboveValueApp);
@@ -1503,7 +1322,6 @@ public class HBNAEMEASettingsUtils {
 									+ " is equal to current thermostat humidity value: "
 									+ thermostatCurrentHumidityValue + ". Updating Above Humidity value: "
 									+ aboveValueApp + " to a new value lower than " + thermostatCurrentHumidityValue);
-					System.out.println("#####Rounded to nearest 10th value: " + updatedThermostatCurrentHumidityValue);
 					ts.clickOnBelowAboveHumidityAlertRangeOption(alertAboveHumidityRangeOption);
 					try {
 						Keyword.ReportStep_Pass(testCase,
@@ -1581,7 +1399,6 @@ public class HBNAEMEASettingsUtils {
 			if (ts.isActivityHistoryAlertTitleVisible() && ts.isActivityHistoryAlertMsgVisible()) {
 				listAlertMsgs = ts.getActivityHistoryAlertMsgsList();
 				for (int i = 0; i < listAlertMsgs.size(); i++) {
-					System.out.println("##########i: " + i);
 					if (indoorHumidityAlertRangeOption.contains("Below") && ts.isActivityHistoryAlertTimeVisible()) {
 						if (ts.getActivityHistoryAlertTime().equalsIgnoreCase("A moment ago")
 								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("one minute ago")
@@ -1590,9 +1407,6 @@ public class HBNAEMEASettingsUtils {
 								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("4 minutes ago")) {
 							String expectedBelowHumidityAlert = "Low humidity! Your home’s humidity level is less than "
 									+ inputs.getInputValue("INDOORHUMIDITY_BELOW_VALUE") + "%.";
-							System.out.println("#######alertMsg" + i + ": " + listAlertMsgs.get(i).getText());
-							System.out
-									.println("#######tempValue: " + inputs.getInputValue("INDOORHUMIDITY_BELOW_VALUE"));
 							if (listAlertMsgs.get(i).getText().equalsIgnoreCase(expectedBelowHumidityAlert)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Below Humidity Alert Message is displayed: " + listAlertMsgs.get(i).getText());
@@ -1610,9 +1424,6 @@ public class HBNAEMEASettingsUtils {
 								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("4 minutes ago")) {
 							String expectedAboveHumidityAlert = "High Humidity! Your home’s humidity level is over "
 									+ inputs.getInputValue("INDOORHUMIDITY_ABOVE_VALUE") + "%.";
-							System.out.println("#######alertMsg: " + listAlertMsgs.get(i).getText());
-							System.out
-									.println("#######tempValue: " + inputs.getInputValue("INDOORHUMIDITY_ABOVE_VALUE"));
 							if (listAlertMsgs.get(i).getText().equalsIgnoreCase(expectedAboveHumidityAlert)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Above Humidity Alert Message is displayed: " + listAlertMsgs.get(i).getText());
@@ -1655,13 +1466,14 @@ public class HBNAEMEASettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean verifyDeleteThermostatDeviceConfirmationPopUpIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 		if (ts.isDeleteThermostatDevicePopupTitleVisible()) {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete Thermostat Device Confirmation Pop Up displayed");
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Delete Thermostat Device Confirmation Pop Up displayed");
 		} else {
 			Keyword.ReportStep_Pass(testCase, "Delete Thermostat Device Confirmation Pop Up not displayed");
 		}
