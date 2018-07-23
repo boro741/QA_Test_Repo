@@ -44,4 +44,17 @@ VentilationTimerStart	XPATH	//*[@text='START']	XPATH	//*[@text='START']	XPATH	//
 VentilationEditTimer	ID	btn_save_timer	ID	btn_save_timer	ID	btn_save_timer	ID	Edit Timer	ID	Edit Timer	ID	Edit Timer
 VentilationTimerPicker	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText						
 VentilationTimerValue	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text						
-CloseVentilationTimer	XPATH	//*[@text='Navigate up']	ID	Navigate up	ID	Navigate up						
+CloseOption	XPATH	//*[@text='Navigate up']	ID	Navigate up	ID	Navigate up						
+HumidifyButton	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']						
+CurrentHumidityPercentage	ID	current_humidity	ID	current_humidity	ID	current_humidity						
+TargetPercentage	ID	progress_percentage	ID	progress_percentage	ID	progress_percentage						
+HumIncrementButton	ID	progress_seek_bar_right_icon	ID	progress_seek_bar_right_icon	ID	progress_seek_bar_right_icon						
+HumDecrementButton	ID	progress_seek_bar_left_icon	ID	progress_seek_bar_left_icon	ID	progress_seek_bar_left_icon						
+SaveHumidification	ID	save_humidification	ID	save_humidification	ID	save_humidification						
+HumOption	ID	actionbar_options_textview	ID	actionbar_options_textview	ID	actionbar_options_textview						
+DisableHumOption	XPATH	//*[@text='Disable Humidification']	XPATH	//*[@text='Disable Humidification']	XPATH	//*[@text='Disable Humidification']						
+WindowProtectionOption	XPATH	//*[@text='Set Window Protection']	XPATH	//*[@text='Set Window Protection']	XPATH	//*[@text='Set Window Protection']						
+SaveOption	XPATH	//*[@text='Save']	XPATH	//*[@text='Save']	XPATH	//*[@text='Save']						
+HelpOption	XPATH	//*[@text='Help']	XPATH	//*[@text='Help']	XPATH	//*[@text='Help']						
+OverlayIcon	ID	overlay_icon	ID	overlay_icon	ID	overlay_icon						
+SeekBar	ID	seek_bar	ID	seek_bar	ID	seek_bar						
