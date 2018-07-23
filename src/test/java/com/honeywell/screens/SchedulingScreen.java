@@ -727,7 +727,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isPeriodEditScreenTitleVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PeriodEditScreenTitle", timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeChooserHeader", timeOut);
 	}
 
 	public boolean isPMLabelVisible(int timeOut) {

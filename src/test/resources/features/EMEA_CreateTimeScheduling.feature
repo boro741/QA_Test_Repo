@@ -16,8 +16,8 @@ As a user I want to create an time based scheduling
     Examples: 
       | scheduling | ScheduleType          | 
       | no         | Same Every Day        | 
-      | time based | Same Every Day        | 
-      | no         | Different On Weekdays | 
+   #   | time based | Same Every Day        | 
+   #   | no         | Different On Weekdays | 
       | time based | Different On Weekdays | 
  
  @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641
@@ -33,7 +33,7 @@ As a user I want to create an time based scheduling
     Examples: 
       | ScheduleType          | 
       | Same Every Day        | 
-      | Different On Weekdays | 
+   #   | Different On Weekdays | 
   
   @JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3
   Scenario Outline: As a user i want to be prompted with an option to Cancel overriding Geofence Schedule
@@ -46,7 +46,7 @@ As a user I want to create an time based scheduling
     Examples: 
       | ScheduleType          | 
       | Same Every Day        | 
-      | Different On Weekdays | 
+   #   | Different On Weekdays | 
   
   @JasperEMEA_ConfirmToCreateNewSchedule @JasperEmeaScheduleP2
   Scenario Outline: As a user i want to be prompted with an option to Confirm and Create new Schedule
@@ -58,7 +58,7 @@ As a user I want to create an time based scheduling
   
     Examples: 
       | ScheduleType          | 
-      | Same Every Day        | 
+  #    | Same Every Day        | 
       | Different On Weekdays | 
   
   @JasperEMEA_TempretureBandwidthforEachPeriod @JasperEmeaScheduleP3
@@ -67,23 +67,22 @@ As a user I want to create an time based scheduling
     Given user thermostat is set to <ScheduleType> schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
-     Then user should be displayed with <ScheduleType> with <Temperature> Range
+      When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
   
     Examples: 
       | ScheduleType          | Temperature   | 
       | Same Every Day        | Above Maximum | 
-      | Same Every Day        | Below Minimum | 
-      | Same Every Day        | At Maximum    | 
+   #   | Same Every Day        | Below Minimum | 
+   #   | Same Every Day        | At Maximum    | 
       | Same Every Day        | At Minimum    | 
-      | Same Every Day        | within range  | 
-      | Different On Weekdays | Above Maximum | 
-      | Different On Weekdays | Below Minimum | 
-      | Different On Weekdays | At Maximum    | 
-      | Different On Weekdays | At Minimum    | 
+   #   | Same Every Day        | within range  | 
+   #   | Different On Weekdays | Above Maximum | 
+   #   | Different On Weekdays | Below Minimum | 
+   #   | Different On Weekdays | At Maximum    | 
+    #  | Different On Weekdays | At Minimum    | 
       | Different On Weekdays | within range  | 
   
-  @JasperEMEA_TimerClockIsInCrementalOf15mins @JasperEmeaScheduleP2
+  @JasperEMEA_TimerClockIsInCrementalOf15mins @JasperEmeaScheduleP2 @Pending
   Scenario: As a user i want to verify if Timer clock in Each period is incremental of 15mins
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -96,49 +95,50 @@ As a user I want to create an time based scheduling
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-And user creates "Different On Weekdays" schedule with default schedule value
-When user deletes <Periods> from the Schdeule
-Then Periods are Rearranged in Chronology order 
+And user creates "Different On Weekdays" schedule by deleting <Periods> from the default schedule values
+#Then Periods are Rearranged in Chronology order 
 
 Examples: 
 | Periods |
 | Atleast 1 period|
-| Atleast 2 period|
+#| Atleast 2 period|
 
 @JasperEMEA_CanCreateMaximumOfSixPeriods @JasperEmeaScheduleP4
   Scenario Outline: To create EMEA schedule with Maximum of 6 periods
   As an user
   I want to create Everyday schedule by adding new period for both time format
     Given user launches and logs in to the Lyric application
-      And user selects "Jasper device" from the dashboard
-     When user creates <ScheduleType> schedule by adding <Periods> to the default schedule values
-     Then <ScheduleType> scheduling gets activated
-     And User is displayed with <Periods>
+      And user navigates to "Scheduling" screen from the "Dashboard" screen
+	When user creates "Same Every Day" schedule by adding <Number of Periods> period to the default schedule values
+     Then "Same Every Day" scheduling gets activated
+   #  And User is displayed with <Number of Periods> periods
      
 Examples: 
-| Periods |
-|  5th period|
-|  6th period|
+| Number of Periods |
+|  5|
+|  6|
 
 @JasperEMEA_CreateTimeBasedScheduleInOffMode @JasperEmeaScheduleP3
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
-Given user thermostat is set to "Geofence" schedule
+Given user thermostat is set to <scheduling> schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates <ScheduleType> schedule with default schedule value
-Then  <ScheduleType> scheduling gets activated
+Then <ScheduleType> scheduling gets activated
 And user navigates to "Primary card" screen from the "Scheduling" screen
-Then user is displayed with "System is Off" on the screen
-
+#Then user is displayed with "System is Off" on the screen
+Then user verifies the following on the primary card:
+      | Elements                               | 
+     |Following schedule|
     Examples: 
       | scheduling| ScheduleType |
       | no        | Same Every Day|
-      | time based        | Same Every Day|
-      | no| Different On Weekdays|
-      | time based| Different On Weekdays|
+   #   | time based        | Same Every Day|
+   #   | no| Different On Weekdays|
+   #   | time based| Different On Weekdays|
 
-@JasperEMEA_CreateTimeBasedScheduleInOffMode @JasperEmeaScheduleP4
+@JasperEMEA_CopyTimeBasedScheduleInOffMode @JasperEmeaScheduleP4
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application
