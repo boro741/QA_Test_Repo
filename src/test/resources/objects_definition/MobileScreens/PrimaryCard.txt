@@ -1,20 +1,17 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon
-<<<<<<< HEAD												
+CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon											
 ThermostatCurrentTemperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature						
-=======												
->>>>>>> a1ac7f20dcd50a57123ae8d3d477d7842a6557d7												
-ModeButton	xpath	//*[@text='MODE']										
-FanButton	xpath	//*[@text='FAN']										
+ModeButton	xpath	//*[@text='MODE']					id	MODE				
+FanButton	xpath	//*[@text='FAN']					id	FAN				
 ScheduleButton	xpath	//*[@text='SCHEDULE']										
-ChangeModeTitle	xpath	//*[@text='Change Mode']										
-InfoButton	xpath	//*[@text='Info']										
-InformationTitle	xpath	//*[@text='Information']										
-AutoModeDefinition	xpath	//*[@text='Cool or heat as needed to reach target temperature']										
-HeatModeDefinition	xpath	//*[@text='Heat to reach target temperature']										
-CoolModeDefinition	xpath	//*[@text='Cool to reach target temperature']										
-SystemOffModeDefinition	xpath	//*[@text='Turn system off']										
-BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']										
+ChangeModeTitle	xpath	//*[@text='Change Mode']					id	Location Name				
+InfoButton	xpath	//*[@text='Info']					id	Navigation_Right_Bar_Item				
+InformationTitle	xpath	//*[@text='Information']					id	Location Name				
+AutoModeDefinition	xpath	//*[@text='Cool or heat as needed to reach target temperature']					id	AUTO Cool or heat as needed to reach target temperature				
+HeatModeDefinition	xpath	//*[@text='Heat to reach target temperature']					id	HEAT Heat to reach target temperature				
+CoolModeDefinition	xpath	//*[@text='Cool to reach target temperature']					id	COOL Cool to reach target temperature				
+SystemOffModeDefinition	xpath	//*[@text='Turn system off']					id	OFF Turn system off				
+BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']					id	Back				
 ChangeFanTitle	xpath	//*[@text='Change Fan']										
 AutoFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs while heating or cooling']										
 CirculateFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs intermittently to circulate air']										
@@ -32,3 +29,6 @@ HeatMode	xpath	//*[@text='Heat']
 CoolMode	xpath	//*[@text='Cool']										
 OffMode	xpath	//*[@text='Off']										
 SaveButton	id	save_action_sheet_btn										
+CurrentSetPoint	id	current_temp_value										
+StatTempStepperUp	id	stat_temp_stepper_up										
+StatTempStepperDown	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down						

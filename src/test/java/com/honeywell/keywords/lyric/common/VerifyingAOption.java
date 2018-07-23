@@ -607,6 +607,72 @@ public class VerifyingAOption extends Keyword {
 				}
 			}
 
+
+			else if (expectedScreen.get(1).equalsIgnoreCase("MAX set temperature on SOLUTION CARD")) {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.isMaxTemperatureVisibleOnSolutionCard(inputs);
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			}
+			else if (expectedScreen.get(1).equalsIgnoreCase("MIN set temperature on SOLUTION CARD")) {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.isMinTemperatureVisibleOnSolutionCard(inputs);
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			}
+			else if (expectedScreen.get(1).equalsIgnoreCase("MAX set temperature on DASHBOARD")) {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					Dashboard thermo = new Dashboard(testCase);
+					flag=flag&thermo.isMaxTemperatureVisibleOnDashBoard(inputs);
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			}
+			else if (expectedScreen.get(1).equalsIgnoreCase("MIN set temperature on DASHBOARD")) {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					Dashboard thermo = new Dashboard(testCase);
+					flag=flag&thermo.isMinTemperatureVisibleOnDashBoard(inputs);
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			}
+
 		
 		return flag;
 
