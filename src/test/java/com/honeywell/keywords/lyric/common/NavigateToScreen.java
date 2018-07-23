@@ -2117,13 +2117,34 @@ public class NavigateToScreen extends Keyword {
 					
 					break;
 				}
+				break;
+				}
+			} else if(screen.get(1).equalsIgnoreCase("PRIMARY CARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SCHEDULING": {
+					SchedulingScreen ss=  new SchedulingScreen(testCase);
+					flag = flag & ss.clickOnTimeScheduleButton();
+					if (flag) 
+					{
+							System.out.println("Successfully clicked on " + screen.get(0) + " button");
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
+					}else 
+					{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to select schedule icon: " + screen.get(1));
+					}
+						break;
+					}
+				
+				
+				default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}
+			break;
 				}
 			}
-			else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
-			}
-
+			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

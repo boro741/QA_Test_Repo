@@ -53,6 +53,16 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isScheduleOptionsVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOptionsButton", timeOut);
 	}
+	
+	public boolean isScheduleOptionsElementEnabled() {
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "ScheduleOptionsButton");
+	//	element.getAttribute("enabled");
+		if(element.isEnabled())
+		{
+			return true;
+		}
+		return false;
+	}
 
 	public boolean clickOnCopyButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CopyButton");
@@ -1140,6 +1150,66 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
+<<<<<<< 811da89796f76ef53f1a8baf1d19102af24de8fa
 
+=======
+	public boolean isScheduleOffStatusVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffStatus", timeOut);
+	}
+	
+	public boolean clickOnScheduleOffStatus(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffStatus");
+	}
+	
+	
+	public boolean isFollowingSchedulesVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FollowingSchedule", timeOut);
+	}
+	
+	public boolean clickOnFollowingSchedules(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FollowingSchedule");
+	}
+	
+	public boolean isUsingAwayVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingAway", timeOut);
+	}
+	
+	public boolean clickOnUsingAway(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingAway");
+	}
+	
+//	public String getUsingAwaysValue() {
+//		String string; 
+//		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+//			string = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
+//		} else {
+//			string = testCase.getMobileDriver().findElement(By.name("Dialer")).getText();
+//		}
+//		return string;
+//	}
+	public boolean isUsingHomeVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingHome", timeOut);
+	}
+	
+	public boolean clickOnUsingHome(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingHome");
+	}
+	
+	public boolean isUsingSleepVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingSleep", timeOut);
+	}
+	
+	public boolean clickOnUsingSleep(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingSleep");
+	}
+	
+	public boolean isScheduleOffButtonVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffButton");
+	}
+	
+	public boolean clickOnScheduleOffButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffButton");
+	}
+>>>>>>> LYR-29402 - ScheduleOFFONEMEA
 
 }

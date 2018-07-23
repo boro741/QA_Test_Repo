@@ -26,7 +26,11 @@ import com.honeywell.screens.CameraSettingsScreen;
 
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.PrimaryCard;
+<<<<<<< 811da89796f76ef53f1a8baf1d19102af24de8fa
 
+=======
+import com.honeywell.screens.SchedulingScreen;
+>>>>>>> LYR-29402 - ScheduleOFFONEMEA
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -996,11 +1000,87 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
+			}//Schedule screen
+			else if (parameters.get(1).equalsIgnoreCase("Scheduling")) 
+			{
+					switch (parameters.get(0).toUpperCase()) 
+					{
+					case "OPTION": 
+					{
+						SchedulingScreen option = new SchedulingScreen(testCase);
+						flag = flag & option.isScheduleOptionsVisible(4);
+						flag = flag & option.isScheduleOptionsElementEnabled();
+						if(flag)
+						{
+							flag = flag & option.clickOnScheduleOptionsButton();
+							if (flag) 
+							{
+							System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+							}else 
+							{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click: " + parameters.get(1));
+							}
+						}else
+						{
+						System.out.println(parameters.get(0) + " button disabled");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " button disabled ");
+						}
+						break;
+					}
+					case "SCHEDULE OFF OVERLAY":
+					{
+						SchedulingScreen Schoffoverlay = new SchedulingScreen(testCase);
+						flag = flag & Schoffoverlay.clickOnScheduleOffOverlay();
+						if (flag) 
+						{
+							System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " screen");
+						}else 
+						{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click: " + parameters.get(1));
+						}
+					}break;
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
+					}
+					}
+				}
+		 // select schedule off from option action sheet 
+		else if (parameters.get(1).equalsIgnoreCase("Option")) 
+		{
+				switch (parameters.get(0).toUpperCase()) 
+				{
+				case "SCHEDULE OFF": 
+				{
+					SchedulingScreen scheoff = new SchedulingScreen(testCase);
+					flag = flag & scheoff.isScheduleOffButtonVisible();
+					flag = flag & scheoff.clickOnScheduleOffButton();
+					if (flag) 
+				{
+						System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}else 
+				{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+				}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
+				}
+				}
 			}
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-		}
+			}catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			}
+	
 		return flag;
 	}
 
