@@ -174,7 +174,7 @@ And user navigates to "Dashboard" screen from the "Leak Detector Configuration" 
 Then user should be displayed with "Test WLD Name" device on the "dashboard" screen 
 And user reverts back the "WLD device name" through CHIL
 
-@RenameThermostatwithDuplicatename
+@RenameWLDThermostatWithDuplicatename
 Scenario: As a user I want to get a error message when i eneter a duplicate name for my thermostat
 Given user launches and logs in to the Lyric application 
 And user navigates to "Leak Detector Configuration" screen from the "Dashboard" screen 

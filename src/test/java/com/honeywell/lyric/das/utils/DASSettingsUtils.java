@@ -8,7 +8,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
-import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
@@ -16,6 +15,7 @@ import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 public class DASSettingsUtils {
 
@@ -377,7 +377,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
@@ -447,16 +447,18 @@ public class DASSettingsUtils {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+
+		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
+
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Honeywell Hone");
+			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "AUSAB705B");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-			if (pc.isThermostatCurrentTemperatureVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Thermostat Current Temperature is displayed in Primary card screen");
-				inputs.setInputValue(InputVariables.THERMOSTAT_CURRENT_TEMPERATURE,
-						pc.getThermostatCurrentTemperatureValue());
-				System.out.println("############THERMOSTAT_CURRENT_TEMPERATURE: "
-						+ inputs.getInputValue(InputVariables.THERMOSTAT_CURRENT_TEMPERATURE));
+
+			if (pc.isThermostatCurrentHumidityValueVisible(inputs, 20)) {
+				Keyword.ReportStep_Pass(testCase, "Humidity Value is displayed in Primary card screen");
 			}
+
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
@@ -832,6 +834,81 @@ public class DASSettingsUtils {
 				flag = flag & bs.clickOnNavBackButton();
 			}
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate from Activity History to Manage Alerts Screen</h1>
+	 * <p>
+	 * The navigateFromActivityHistoryScreenToManageAlertsScreen method navigates
+	 * from the Activity History to the Manage alerts screen
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromActivityHistoryScreenToManageAlertsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		if (pc.isBackButtonVisible()) {
+			pc.clickOnBackButton();
+			if (pc.isBackButtonVisible()) {
+				pc.clickOnBackButton();
+				try {
+					flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "AUSAB705B");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					if (pc.isCogIconVisible()) {
+						flag = flag & pc.clickOnCogIcon();
+					}
+					if (cs.isManageAlertsLabelVisible(5)) {
+						cs.clickOnManageAlertsLabel();
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Navigate from Dashboard to Thermostat Configuration Screen</h1>
+	 * 
+	 * The navigateFromDashboardScreenToThermostatConfigurationScreen method navigates
+	 * from the dashboard to the Thermostat Configuration screen by clicking on the
+	 * camera name in the dashboard
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToThermostatConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		try {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			PrimaryCard pc = new PrimaryCard(testCase);
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Thermostathu");
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.THERMOSTATCONFIGURATION);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

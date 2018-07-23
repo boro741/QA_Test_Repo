@@ -104,7 +104,7 @@ public class Dashboard extends MobileScreens {
 	public boolean clickOnAddDeviceIconBelowExistingDASDevice() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice");
 	}
-
+	
 	public boolean clickOnGlobalDrawerButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}

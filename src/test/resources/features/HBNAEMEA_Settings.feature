@@ -101,23 +101,33 @@ Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Aler
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-Then user changes the "Indoor Temperature Alert" to "ON"
-And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
-And user should be displayed with the following "Indoor Temperature Alert" options:
+#Then user changes the "Indoor Temperature Alert" to "ON"
+#And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+#And user should be displayed with the following "Indoor Temperature Alert" options:
 	| IndoorTempAlertOptions			| 
 	| Alert for this range			|
-When user selects "Alert for this range" from "Manage Alerts" screen
-Then user should be displayed with the following "Alert for this range" options:
+#When user selects "Temperature Alert for this range" from "Manage Alerts" screen
+#Then user should be displayed with the following "Temperature Alert for this range" options:
 	| AlertTempRangeOptions		| 
 	| Below 						| 
 	| Above						|
-And user taps on "Below Range"
-Then user selects "Below Temperature Range" from "Manage Alerts" screen
-And user receives a "Below Temperature Range" push notification
-And user taps on "Above Range"
-Then user selects "Above Temperature Range" from "Manage Alerts" screen
-And user receives a "Above Temperature Range" push notification
-And user should be displayed with "Indoor Temperature" message on "Activity History" history screen
+When user selects "Below Temperature Range" from "Manage Alerts" screen
+Then user receives a "Below Temperature Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Temperature Alert" options:
+	| TempRangeAlertMsg		|
+	| Below					|
+When user navigates to "Manage Alerts" screen from the "Activity History" screen
+Then user should be displayed with the following "Indoor Temperature Alert" options:
+	| IndoorTempAlertOptions			| 
+	| Alert for this range			|
+When user selects "Temperature Alert for this range" from "Manage Alerts" screen
+And user selects "Above Temperature Range" from "Manage Alerts" screen
+Then user receives a "Above Temperature Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Temperature Alert" options:
+	| TempRangeAlertMsg		|
+	| Above					|
 
 
 #InvalidScenario
@@ -153,18 +163,33 @@ Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts"
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Humidity Alert" to "ON"
-And user clicks on " Alert for this Range" option
-Then user should be displayed with Following Options
-And when user Clicks on "Below Range"
-Then user should be able to select "Below Humidity Range"
-And user should be able to receive push notification for below range
-And when user Clicks on "Above Range"
-And user should be displayed with "Indoor Humidity" message on "Activity History" history screen
-
-| Options	| 
-| Below 		| 
-| Above		|
+Then user changes the "Indoor Humidity Alert" to "ON"
+And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Humidity Alert" options:
+	| IndoorHumidityAlertOptions			| 
+	| Alert for this range				|
+When user selects "Humidity Alert for this range" from "Manage Alerts" screen
+Then user should be displayed with the following "Humidity Alert for this range" options:
+	| AlertHumidityRangeOptions		| 
+	| Below 							| 
+	| Above							|
+When user selects "Below Humidity Range" from "Manage Alerts" screen
+Then user receives a "Below Humidity Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Humidity Alert" options:
+	| HumidityRangeAlertMsg		|
+	| Below						|
+When user navigates to "Manage Alerts" screen from the "Activity History" screen
+Then user should be displayed with the following "Indoor Humidity Alert" options:
+	| IndoorHumidityAlertOptions			| 
+	| Alert for this range				|
+When user selects "Humidity Alert for this range" from "Manage Alerts" screen
+And user selects "Above Humidity Range" from "Manage Alerts" screen
+Then user receives a "Above Humidity Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Humidity Alert" options:
+	| HumidityRangeAlertMsg		|
+	| Above						|
 
 
 #Set Filter Reminder 
@@ -577,8 +602,9 @@ And user navigates to "Dashboard" screen from the "Thermostat Configuration" scr
 Then user should be displayed with "Test Thermostat Name" device on the "dashboard" screen 
 And user reverts back the "Thermostat device name" through CHIL
 
+#InvalidScenario
 #JasperNA, JAsperEMEA, HB_Spruce
-@RenameThermostatwithDuplicatename			@P3			@UIAutomatable
+@RenameThermostatWithDuplicatename			@P3			@UIAutomatable
 Scenario: As a user I want to get a error message when i eneter a duplicate name for my thermostat
 Given user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
@@ -604,13 +630,13 @@ And user should be displayed with "Cooling Stages"
  
 
 #JasperNA, JAsperEMEA, HB_Spruce
-@DismissDeletePopupJasperNAEMEAHB			@P3			@UIAutomatable
+@DismissDeletePopupJasperNAEMEAHB			@P4			@UIAutomatable
 Scenario: As a user I should be able to dismiss the delete poup for my Japer NA device from my account through the Lyric application
 Given user launches and logs in to the Lyric application 
-When user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
+When user navigates to "Thermostat Configuration" screen from the "Dashboard" screen
 And user "deletes thermostat" by clicking on "delete" button
-Then user should receive a "Delete Device Confirmation" popup
-And user "dismisses" the "Delete Device Confirmation" popup
+Then user should receive a "Delete Thermostat Device Confirmation" popup
+And user "dismisses" the "Delete Thermostat Device Confirmation" popup
 
 
 #Offline

@@ -44,6 +44,7 @@ import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -95,18 +96,15 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} 
-			else if(screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD"))
-					{
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					PrimaryCard sensorScreen = new PrimaryCard(testCase);
 					flag = flag & sensorScreen.clickOnBackButton();
 				}
 				}
-				
-					}
-					else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
+
+			} else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
@@ -118,21 +116,20 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} 
-			 else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "THERMOSTAT SOLUTION CARD": {
-						Dashboard sensorScreen = new Dashboard(testCase);
-						flag = flag & sensorScreen.NavigatetoThermostatDashboard();
-						
-						break;
-					}
-					default: {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-					}
-					}
-				}else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SOLUTION CARD": {
+					Dashboard sensorScreen = new Dashboard(testCase);
+					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -537,16 +534,12 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
 					break;
-
-
 				}
-				
 				/* Method to navigate to camera configuration screen from dashboard */
-				case "CAMERA CONFIGURATION" : {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
+				case "CAMERA CONFIGURATION": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase);
 					break;
 				}
-				
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
 				case "THERMOSTAT SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase);
@@ -558,6 +551,11 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
+				// Navigate from 'Dashboard' to 'Thermostat Configuration'
+				case "THERMOSTAT CONFIGURATION": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'
 				case "MOTION DETECTION SETTINGS": {
 					flag = flag & DASSettingsUtils
@@ -566,35 +564,38 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Camera Night Vision Settings Screen'
 				case "NIGHT VISION SETTINGS": {
-					flag = flag & DASSettingsUtils
-							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase);
 					break;
 				}
-				case "SCHEDULING":{
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				case "SCHEDULING": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
 					flag = flag & scheduleScreen.clickOnTimeScheduleButton();
 					break;
 				}
-				case "HUMIDIFICATION":{
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				case "HUMIDIFICATION": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
-					if (fly.isHumButtonVisible()){
+					if (fly.isHumButtonVisible()) {
 						flag = flag && fly.ClickOnHumButton();
-					} else{
+					} else {
 						flag = flag && fly.ClickOnMoreButton();
 						flag = flag && fly.ClickOnHumButton();
 					}
 					break;
 				}
-				case "Window Protection":{
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				case "Window Protection": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
-					if (fly.isHumButtonVisible()){
+					if (fly.isHumButtonVisible()) {
 						flag = flag && fly.ClickOnHumButton();
 						flag = flag && fly.ClickOnHumOptionButton();
 						flag = flag && fly.ClickOnWindowProtectionButton();
-					} else{
+					} else {
 						flag = flag && fly.ClickOnMoreButton();
 						flag = flag && fly.ClickOnHumButton();
 						flag = flag && fly.ClickOnHumOptionButton();
@@ -604,8 +605,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
 				case "VIDEO QUALITY SETTINGS": {
-					flag = flag & DASSettingsUtils
-							.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
@@ -764,7 +765,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2024,7 +2025,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					System.out
-					.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+							.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
 					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
 					break;
 				}
@@ -2053,7 +2054,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}else if(screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+			} else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				// Navigate from 'Amzon Alexa Settings' to 'Setup Amzon Alexa screen'
 				// Author: Gautham (H138526)
@@ -2081,13 +2082,13 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 
-			}else if(screen.get(1).equalsIgnoreCase("SCHEDULING")) {
+			} else if (screen.get(1).equalsIgnoreCase("SCHEDULING")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PRIMARY CARD": {
-					SchedulingScreen scheduleScreen=  new SchedulingScreen(testCase);
+					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
 					flag = flag & scheduleScreen.clickOnCloseButton();
 					break;
 				}
@@ -2095,8 +2096,8 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
-				}				
+					break;
+				}
 			}
 
 			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
@@ -2104,22 +2105,64 @@ public class NavigateToScreen extends Keyword {
 				case "THERMOSTAT SOLUTION CARD": {
 					Dashboard sensorScreen = new Dashboard(testCase);
 					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
-
 					break;
 				}
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT DASHBOARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnBackButton();
-					
 					break;
 				}
 				}
-			}
-			else {
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SOLUTION CARD": {
+					Dashboard sensorScreen = new Dashboard(testCase);
+					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ACTIVITY HISTORY": {
+					Dashboard dScreen = new Dashboard(testCase);
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					PrimaryCard pc = new PrimaryCard(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						if (pc.isBackButtonVisible()) {
+							pc.clickOnBackButton();
+							if (dScreen.clickOnGlobalDrawerButton()) {
+								SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+								if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MESSAGES)) {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Could not click on Activity history menu from Global drawer");
+								} else {
+									// Fetching Messages
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not click on Global drawer menu from dashboard");
+							}
+							break;
+						}
+					}
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ACTIVITY HISTORY")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MANAGE ALERTS": {
+					DASSettingsUtils.navigateFromActivityHistoryScreenToManageAlertsScreen(testCase, inputs);
+				}
+				}
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

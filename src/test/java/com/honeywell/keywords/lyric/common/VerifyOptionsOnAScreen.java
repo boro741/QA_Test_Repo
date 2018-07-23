@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -626,7 +627,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
 		case "INDOOR TEMPERATURE ALERT": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -648,7 +648,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		case "ALERT FOR THIS RANGE": {
+		case "TEMPERATURE ALERT FOR THIS RANGE": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "AlertTempRangeOptions");
@@ -670,50 +670,127 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
-
-		case "MODE INFO":{
+		case "INDOOR HUMIDITY ALERT": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "IndoorHumidityAlertOptions");
+				try {
+					if (ts.isThermostatIndoorHumidityAlertOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Humidity Alert Options: '" + fieldToBeVerified
+								+ "' is present in the list of Options when Indoor Humidity Alert toggle switch is enabled in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Humidity Alert Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Humidity Alert toggle switch is enabled in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "HUMIDITY ALERT FOR THIS RANGE": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AlertHumidityRangeOptions");
+				try {
+					if (ts.isThermostatIndoorHumidityAlertRangeOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Indoor Humidity Alert Range Options: '"
+								+ fieldToBeVerified
+								+ "' is present in the list of Options when Indoor Humidity Alert Range is selected in Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Indoor Humidity Alert Range Options: '" + fieldToBeVerified
+										+ "' is not present in the list of Options when Indoor Humidity Alert Range is selected in Manage Alerts screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "TEMPERATURE ALERT": {
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "TempRangeAlertMsg");
+				try {
+					HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+					if (HBNAEMEASettingsUtils.verifyIndoorTempRangeAlertInActivityHistoryScreen(testCase, inputs,
+							fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Alert for the set '" + fieldToBeVerified
+								+ "' temperature is present in Activity History screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Alert for the set '"
+								+ fieldToBeVerified + "' temperature is not present in Activity History screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "HUMIDITY ALERT": {
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "HumidityRangeAlertMsg");
+				try {
+					HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+					if (HBNAEMEASettingsUtils.verifyIndoorHumidityRangeAlertInActivityHistoryScreen(testCase, inputs,
+							fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Alert for the set '" + fieldToBeVerified
+								+ "' humidity is present in Activity History screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Alert for the set '"
+								+ fieldToBeVerified + "' humidity is not present in Activity History screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "MODE INFO": {
+			System.out.println("Inside Verifing mode info");
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
-				if(fieldTobeVerified.equalsIgnoreCase("AUTO - COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE")) {
-					if(thermo.isAutoModeDefinitionVisible()){
-						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
-								+ "' is present on the "+expectedScreen.get(0));
+				if (fieldTobeVerified.equalsIgnoreCase("AUTO - COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE")) {
+					if (thermo.isAutoModeDefinitionVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
-								+ " is not present on the "+expectedScreen.get(0));
+				} else if (fieldTobeVerified.equalsIgnoreCase("HEAT - HEAT TO REACH TARGET TEMPERATURE")) {
+					if (thermo.isHeatModeDefinitionVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
-				}
-				else if(fieldTobeVerified.equalsIgnoreCase("HEAT - HEAT TO REACH TARGET TEMPERATURE")) {
-					if(thermo.isHeatModeDefinitionVisible()){
-						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
-								+ "' is present on the "+expectedScreen.get(0));
+				} else if (fieldTobeVerified.equalsIgnoreCase("COOL - COOL TO REACH TARGET TEMPERATURE")) {
+					if (thermo.isCoolModeDefinitionVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
-								+ " is not present on the "+expectedScreen.get(0));
-					}
-				}
-				else if(fieldTobeVerified.equalsIgnoreCase("COOL - COOL TO REACH TARGET TEMPERATURE")) {
-					if(thermo.isCoolModeDefinitionVisible()){
-						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
-								+ "' is present on the "+expectedScreen.get(0));
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
-								+ " is not present on the "+expectedScreen.get(0));
-					}
-				}
-				else if(fieldTobeVerified.equalsIgnoreCase("OFF - TURN SYSTEM OFF")) {
-					if(thermo.isSystemOffModeDefinitionVisible()){
-						Keyword.ReportStep_Pass(testCase,  fieldTobeVerified
-								+ "' is present on the "+expectedScreen.get(0));
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, fieldTobeVerified
-								+ " is not present on the "+expectedScreen.get(0));
+				} else if (fieldTobeVerified.equalsIgnoreCase("OFF - TURN SYSTEM OFF")) {
+					if (thermo.isSystemOffModeDefinitionVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
 				}
 			}

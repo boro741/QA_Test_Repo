@@ -2585,7 +2585,6 @@ public class JasperSchedulingUtils {
 	public static boolean setPeriodTime(TestCases testCase, String time, String locatorValueinObjectDefinition,
 			boolean isValidTime, boolean verifySetPeriodTime) {
 		SchedulingScreen ss = new SchedulingScreen(testCase);
-		System.out.println("hii");
 		boolean flag = true;
 		try {
 			String timeToSet = " ";

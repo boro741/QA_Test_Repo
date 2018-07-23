@@ -589,6 +589,57 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Thermostat Indoor Humidity Alert Toggle is already enabled in the Manage Alerts Screen");
+						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Humidity Alert Toggle is turned OFF");
+							flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Thermostat Indoor Humidity Alert Toggle is enabled in the Manage Alerts Screen");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Humidity Alert Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Thermostat Indoor Humidity Alert Toggle is already disabled in the Manage Alerts Screen");
+						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Humidity Alert Toggle is turned ON");
+							flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Thermostat Indoor Humidity Alert Toggle is disabled in the Manage Alerts Screen");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Thermostat Indoor Humidity Alert Toggle is turned OFF");
+						}
+					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
