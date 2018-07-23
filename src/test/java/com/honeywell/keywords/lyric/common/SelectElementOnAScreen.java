@@ -26,11 +26,8 @@ import com.honeywell.screens.CameraSettingsScreen;
 
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.PrimaryCard;
-<<<<<<< 811da89796f76ef53f1a8baf1d19102af24de8fa
 
-=======
 import com.honeywell.screens.SchedulingScreen;
->>>>>>> LYR-29402 - ScheduleOFFONEMEA
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;

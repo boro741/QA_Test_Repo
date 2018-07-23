@@ -1150,9 +1150,6 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
-<<<<<<< 811da89796f76ef53f1a8baf1d19102af24de8fa
-
-=======
 	public boolean isScheduleOffStatusVisible(int timeOut){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffStatus", timeOut);
 	}
@@ -1201,6 +1198,5 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnScheduleOffButton(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffButton");
 	}
->>>>>>> LYR-29402 - ScheduleOFFONEMEA
 
 }
