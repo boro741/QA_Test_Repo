@@ -101,13 +101,13 @@ Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Aler
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-#Then user changes the "Indoor Temperature Alert" to "ON"
-#And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
-#And user should be displayed with the following "Indoor Temperature Alert" options:
+Then user changes the "Indoor Temperature Alert" to "ON"
+And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Temperature Alert" options:
 	| IndoorTempAlertOptions			| 
 	| Alert for this range			|
-#When user selects "Temperature Alert for this range" from "Manage Alerts" screen
-#Then user should be displayed with the following "Temperature Alert for this range" options:
+When user selects "Temperature Alert for this range" from "Manage Alerts" screen
+Then user should be displayed with the following "Temperature Alert for this range" options:
 	| AlertTempRangeOptions		| 
 	| Below 						| 
 	| Above						|
