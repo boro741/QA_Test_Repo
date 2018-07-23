@@ -454,7 +454,6 @@ public class DASSettingsUtils {
 
 		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
-		System.out.println("#########" + inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));

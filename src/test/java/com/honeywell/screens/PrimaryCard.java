@@ -55,6 +55,17 @@ public class PrimaryCard extends MobileScreens {
 				inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
 						humidityPercentageInPrimaryCardScreen);
 			}
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"HumidityValueFromTheScrollListInPrimaryCardScreen", 30)) {
+			humidityPercentageInPrimaryCardScreen = MobileUtils
+					.getMobElement(objectDefinition, testCase, "HumidityValueFromTheScrollListInPrimaryCardScreen")
+					.getText();
+			humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
+			if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
+				inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
+						humidityPercentageInPrimaryCardScreen);
+			}
+
 		}
 		return flag;
 	}
