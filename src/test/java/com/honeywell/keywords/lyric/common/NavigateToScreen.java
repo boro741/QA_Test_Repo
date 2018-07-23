@@ -532,12 +532,12 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Camera Settings'
 				case "CAMERA SETTINGS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase, inputs);
 					break;
 				}
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
@@ -546,7 +546,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Manage Alerts Screen'
-
 				case "MANAGE ALERTS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
@@ -559,13 +558,13 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'
 				case "MOTION DETECTION SETTINGS": {
 					flag = flag & DASSettingsUtils
-							.navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(testCase);
+							.navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Camera Night Vision Settings Screen'
 				case "NIGHT VISION SETTINGS": {
 					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase);
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase, inputs);
 					break;
 				}
 				case "SCHEDULING": {
@@ -606,7 +605,7 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
 				case "VIDEO QUALITY SETTINGS": {
 					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase);
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'

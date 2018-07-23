@@ -86,7 +86,7 @@ Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Aler
  
 #InvalidScenario
 #JasperNA, JasperEMEA, HB_Spruce     
-@EnableDisableEmailForEnabledAlerts		@P3		@UIAutomatable
+@EnableDisableEmailForEnabledAlerts		@P3
 Scenario: As a user I should be able to enable or disable Email For Enabled Alerts on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -132,7 +132,7 @@ Then user should be displayed with the following "Temperature Alert" options:
 
 #InvalidScenario
 #HB_Srpuce
-@HBBEnableDisableEmailForEnabledAlertsforHumidity		@P2		@UIAutomatable
+@HBBEnableDisableEmailForEnabledAlertsforHumidity		@P2
 Scenario: As a user I should be able to enable or disable Email For Enabled Alerts for Humidity on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -149,14 +149,13 @@ Then "Email For Enabled Alerts" value should be updated to "OFF" on "Manage Aler
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Humidity Alert" to "ON"
-Then "Indoor Humidity Alert" value should be updated to "ON" on "Thermostat Settings" screen
-And following "Indoor Humidity Alert" option should be displayed
+Then user changes the "Indoor Humidity Alert" to "ON"
+And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Humidity Alert" options:
+	| IndoorHumidityAlertOptions			| 
+	| Alert for this range				|
 When user changes the "Indoor Humidity Alert" to "OFF"
 Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts" screen
-	  | Options						| 
-      | Email for enabled alerts		| 
-      | Alert for this range			|
 
 #HB_Srpuce
 @ChangeAlertForThisRangeforHumidity		@P1		@UIAutomatable		@--xrayid:ATER-44521
@@ -604,7 +603,7 @@ And user reverts back the "Thermostat device name" through CHIL
 
 #InvalidScenario
 #JasperNA, JAsperEMEA, HB_Spruce
-@RenameThermostatWithDuplicatename			@P3			@UIAutomatable
+@RenameThermostatWithDuplicatename			@P3
 Scenario: As a user I want to get a error message when i eneter a duplicate name for my thermostat
 Given user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 

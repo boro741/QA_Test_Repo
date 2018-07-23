@@ -362,11 +362,12 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToCameraSettingsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToCameraSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -378,12 +379,15 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen ac = new CameraSettingsScreen(testCase);
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			;
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -450,9 +454,10 @@ public class DASSettingsUtils {
 
 		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
-
+		System.out.println("#########" + inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "AUSAB705B");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 
 			if (pc.isThermostatCurrentHumidityValueVisible(inputs, 20)) {
@@ -489,12 +494,15 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			;
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -527,12 +535,15 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToCameraNightVisionSettingsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToCameraNightVisionSettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			;
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -565,12 +576,15 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
-			flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "Camera");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			;
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -866,7 +880,9 @@ public class DASSettingsUtils {
 			if (pc.isBackButtonVisible()) {
 				pc.clickOnBackButton();
 				try {
-					flag = flag & DashboardUtils.selectCameraDeviceFromDashboard(testCase, "AUSAB705B");
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					;
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					if (pc.isCogIconVisible()) {
 						flag = flag & pc.clickOnCogIcon();
@@ -882,13 +898,13 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Navigate from Dashboard to Thermostat Configuration Screen</h1>
 	 * 
-	 * The navigateFromDashboardScreenToThermostatConfigurationScreen method navigates
-	 * from the dashboard to the Thermostat Configuration screen by clicking on the
-	 * camera name in the dashboard
+	 * The navigateFromDashboardScreenToThermostatConfigurationScreen method
+	 * navigates from the dashboard to the Thermostat Configuration screen by
+	 * clicking on the camera name in the dashboard
 	 *
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase
