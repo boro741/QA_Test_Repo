@@ -192,10 +192,15 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getCoolSetPointChooserSetPointsValue() {
 		String string;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			string =  MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser").get(0).getText();
-		} else {
-			string = testCase.getMobileDriver().findElements(By.name("coolTemperatureLabel")).get(0).getText();
+		List<WebElement> ele = MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser");
+		if (ele.size() > 1){
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				string =  MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser").get(0).getText();
+			} else {
+				string = testCase.getMobileDriver().findElements(By.name("coolTemperatureLabel")).get(0).getText();
+			}
+		}else{
+			string =  MobileUtils.getMobElement(objectDefinition, testCase, "CoolSetPointChooser").getText();
 		}
 		return string;
 	}
@@ -311,8 +316,17 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement");
 	}
 
-	public String getHeatSetPointChooserSetPointsValue() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser").getText();
+	public String getHeatSetPointChooserSetPointsValue() {	
+		List<WebElement> ele = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser");
+		if (ele.size() > 1){
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return  MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
+			} else {
+				return testCase.getMobileDriver().findElements(By.name("HeatSetPointChooser")).get(1).getText();
+			} 
+		}else{
+			return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatSetPointChooser").getText();
+		}
 	}
 
 	public WebElement getHeatSetPointDownButton() {
@@ -1126,6 +1140,6 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
-	
+
 
 }

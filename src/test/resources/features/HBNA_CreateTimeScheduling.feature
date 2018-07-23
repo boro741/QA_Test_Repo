@@ -17,7 +17,7 @@ Then <ScheduleType> scheduling gets activated
       | scheduling| ScheduleType |
 #      | no        | Same Every Day|
       | time based        | Same Every Day|
-      | no| Different On Weekdays|
+#      | no| Different On Weekdays|
 #      | time based| Different On Weekdays|
       
 @JasperNA_CancelToRetainExisitngscheduling @Automated
@@ -172,13 +172,13 @@ Examples:
 |Heat Only|
 |Cool Only|
 
-@NA_CreateGeofenceScheduleInOffMode
+@NA_CreateTimeBasedScheduleInOffMode
 Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
-Given user thermostat is set to "Geofence" schedule
+Given user thermostat is set to "geofence based" schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Time Based" schedule with default schedule value
-Then <scheduling> scheduling gets activated on Tapping Confirm
-And user navigates to "Primary card" screen from the "Scheduling" screen
-Then user is displayed with "System is Off" on the screen
+When  user selects "Confirm" option while creating "Same Every Day" schedule with default schedule value
+Then "Same Every Day" scheduling gets activated
+#And user navigates to "Primary card" screen from the "Scheduling" screen
+#Then user is displayed with "System is Off" on the screen
