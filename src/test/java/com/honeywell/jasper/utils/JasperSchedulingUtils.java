@@ -2008,12 +2008,7 @@ public class JasperSchedulingUtils {
 					if (Integer.parseInt(tempPeriod) <= 4) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							while (!ss.isWeekday1ElementVisible(5)) {
-								Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-								int startx = (dimensions.width * 20) / 100;
-								int starty = (dimensions.height * 62) / 100;
-								int endx = (dimensions.width * 22) / 100;
-								int endy = (dimensions.height * 35) / 100;
-								testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
+								scrollUpForAndroidScreen(testCase);
 							}
 
 						} else {
@@ -2170,13 +2165,7 @@ public class JasperSchedulingUtils {
 						.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 					if (Integer.parseInt(tempPeriod) <= 4) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-							int startx = (dimensions.width * 20) / 100;
-							int starty = (dimensions.height * 62) / 100;
-							int endx = (dimensions.width * 22) / 100;
-							int endy = (dimensions.height * 35) / 100;
-							testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
-
+							scrollUpForAndroidScreen(testCase);
 						} else {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
@@ -2330,12 +2319,7 @@ public class JasperSchedulingUtils {
 							.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 						if (Integer.parseInt(tempPeriod) <= 4) {
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-								Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-								int startx = (dimensions.width * 20) / 100;
-								int starty = (dimensions.height * 62) / 100;
-								int endx = (dimensions.width * 22) / 100;
-								int endy = (dimensions.height * 35) / 100;
-								testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
+								scrollUpForAndroidScreen(testCase);
 
 							} else {
 								Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -5950,13 +5934,8 @@ public class JasperSchedulingUtils {
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 
 				if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
-					dimensions = testCase.getMobileDriver().manage().window().getSize();
-					startx = (dimensions.width * 20) / 100;
-					starty = (dimensions.height * 62) / 100;
-					endx = (dimensions.width * 22) / 100;
-					endy = (dimensions.height * 35) / 100;
-					testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
-					testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
+					scrollUpForAndroidScreen(testCase);
+					scrollUpForAndroidScreen(testCase);
 					List<WebElement> weekdayschedule_period_title = ss.getWeekdaySchedulePeriodTitleElements();
 
 					for (int i = 1; i <= (weekdayschedule_period_title.size()); i++) {
@@ -6236,12 +6215,8 @@ public class JasperSchedulingUtils {
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
-					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-					int startx = (dimensions.width * 20) / 100;
-					int starty = (dimensions.height * 62) / 100;
-					int endx = (dimensions.width * 22) / 100;
-					int endy = (dimensions.height * 35) / 100;
-					testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
+					scrollUpForAndroidScreen(testCase);
+					scrollUpForAndroidScreen(testCase);
 					List<WebElement> weekdayschedule_period_title = ss.getWeekdaySchedulePeriodTitleElements();
 					for (int i = 1; i <= (weekdayschedule_period_title.size()); i++) {
 						if (weekdayschedule_period_title.get(i - 1).getText()
@@ -6417,7 +6392,7 @@ public class JasperSchedulingUtils {
 
 		if (ss.isPeriodEditScreenTitleVisible(5)) {
 			Keyword.ReportStep_Pass(testCase,
-					"Period edit screen is shown: When do you want the temperature to change?");
+					"Period edit screen is shown");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Period edit screen is not shown");
@@ -6444,20 +6419,10 @@ public class JasperSchedulingUtils {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
-				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-				int startx = (dimensions.width * 20) / 100;
-				int starty = (dimensions.height * 62) / 100;
-				int endx = (dimensions.width * 22) / 100;
-				int endy = (dimensions.height * 35) / 100;
-				testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
+				scrollUpForAndroidScreen(testCase);
 				if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
 				} else {
-					dimensions = testCase.getMobileDriver().manage().window().getSize();
-					startx = (dimensions.width * 20) / 100;
-					starty = (dimensions.height * 62) / 100;
-					endx = (dimensions.width * 22) / 100;
-					endy = (dimensions.height * 35) / 100;
-					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					scrollForAndroidScreen(testCase);
 				}
 			} else {
 				schedule_period_time = ss.getSchedulePeriodTimeElements();
@@ -6718,7 +6683,7 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										if (tempTimeInputs.equalsIgnoreCase(tempTime)
+										if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 												&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period 1's expected time and heat set point are shown correctly: "
@@ -6765,7 +6730,7 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										if (tempTimeInputs.equalsIgnoreCase(tempTime)
+										if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 												&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period 2's expected time and heat set point are shown correctly: "
@@ -6812,7 +6777,7 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										if (tempTimeInputs.equalsIgnoreCase(tempTime)
+										if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 												&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period 3's expected time and heat set point are shown correctly: "
@@ -6859,7 +6824,7 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										if (tempTimeInputs.equalsIgnoreCase(tempTime)
+										if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 												&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period 4's expected time and heat set point are shown correctly: "
@@ -6906,7 +6871,7 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										if (tempTimeInputs.equalsIgnoreCase(tempTime)
+										if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 												&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period 5's expected time and heat set point are shown correctly: "
@@ -6953,7 +6918,7 @@ public class JasperSchedulingUtils {
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[Exception] Error message: " + e.getMessage());
 										}
-										if (tempTimeInputs.equalsIgnoreCase(tempTime)
+										if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 												&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period 6's expected time and heat set point are shown correctly: "
@@ -7323,23 +7288,7 @@ public class JasperSchedulingUtils {
 								"Verify Displayed Schedule : Monday-Friday text not displayed on schedule screen");
 					}
 
-					scrollForAndroidScreen(testCase);
-					if (ss.isWeekendTextVisible(5)) {
-						try {
-							ss.getWeekendText();
-							Keyword.ReportStep_Pass(testCase,
-									"Verify Displayed Schedule : Saturday-Sunday text displayed on schedule screen");
-						} catch (NoSuchElementException e) {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Verify Displayed Schedule : Saturday-Sunday text not displayed on schedule screen");
-						}
-
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify Displayed Schedule : Saturday-Sunday text not displayed on schedule screen");
-					}
+					
 
 					// start//////////////////////////
 					if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
@@ -7402,7 +7351,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekday]Period 1's expected weekday time and heat set point are shown correctly: "
@@ -7446,7 +7395,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekday]Period 2's expected weekday time and heat set point are shown correctly: "
@@ -7490,7 +7439,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekday]Period 3's expected weekday time and heat set point are shown correctly: "
@@ -7534,7 +7483,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekday]Period 4's expected weekday time and heat set point are shown correctly: "
@@ -7578,7 +7527,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekday]Period 5's expected weekday time and heat set point are shown correctly: "
@@ -7622,7 +7571,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekday]Period 6's expected weekday time and heat set point are shown correctly: "
@@ -7640,6 +7589,23 @@ public class JasperSchedulingUtils {
 						}
 
 						scrollForAndroidScreen(testCase);
+						scrollForAndroidScreen(testCase);
+						if (ss.isWeekendTextVisible(5)) {
+							try {
+								ss.getWeekendText();
+								Keyword.ReportStep_Pass(testCase,
+										"Verify Displayed Schedule : Saturday-Sunday text displayed on schedule screen");
+							} catch (NoSuchElementException e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Verify Displayed Schedule : Saturday-Sunday text not displayed on schedule screen");
+							}
+
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Displayed Schedule : Saturday-Sunday text not displayed on schedule screen");
+						}
 
 						List<WebElement> weekendschedule_periodtimes = ss.getWeekendSchedulePeriodTimesElements();
 						List<WebElement> weekendschedule_periodsetPoint = ss
@@ -7697,7 +7663,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekend]Period 1's expected Weekend time and heat set point are shown correctly: "
@@ -7741,7 +7707,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekend]Period 2's expected Weekend time and heat set point are shown correctly: "
@@ -7785,7 +7751,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekend]Period 3's expected Weekend time and heat set point are shown correctly: "
@@ -7829,7 +7795,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekend]Period 4's expected Weekend time and heat set point are shown correctly: "
@@ -7875,7 +7841,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekend]Period 5's expected weekday time and heat set point are shown correctly: "
@@ -7919,7 +7885,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"[Weekend]Period 6's expected weekend time and heat set point are shown correctly: "
@@ -8587,7 +8553,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (tempTimeInputs.equalsIgnoreCase(tempTime)
+									if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 											&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period 1's expected time and heat set point are shown correctly: "
@@ -8630,7 +8596,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (tempTimeInputs.equalsIgnoreCase(tempTime)
+									if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 											&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period 2's expected time and heat set point are shown correctly: "
@@ -8673,7 +8639,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (tempTimeInputs.equalsIgnoreCase(tempTime)
+									if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 											&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period 3's expected time and heat set point are shown correctly: "
@@ -8716,7 +8682,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (tempTimeInputs.equalsIgnoreCase(tempTime)
+									if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 											&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period 4's expected time and heat set point are shown correctly: "
@@ -8759,7 +8725,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (tempTimeInputs.equalsIgnoreCase(tempTime)
+									if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 											&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period 5's expected time and heat set point are shown correctly: "
@@ -8802,7 +8768,7 @@ public class JasperSchedulingUtils {
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[Exception] Error message: " + e.getMessage());
 									}
-									if (tempTimeInputs.equalsIgnoreCase(tempTime)
+									if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 											&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period 6's expected time and heat set point are shown correctly: "
@@ -9764,7 +9730,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 1's expected weekday time and heat set point are shown correctly: "
@@ -9807,7 +9773,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 2's expected weekday time and heat set point are shown correctly: "
@@ -9850,7 +9816,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 3's expected weekday time and heat set point are shown correctly: "
@@ -9893,7 +9859,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 4's expected weekday time and heat set point are shown correctly: "
@@ -9961,7 +9927,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 1's expected Weekend time and heat set point are shown correctly: "
@@ -10004,7 +9970,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 2's expected Weekend time and heat set point are shown correctly: "
@@ -10047,7 +10013,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 3's expected Weekend time and heat set point are shown correctly: "
@@ -10090,7 +10056,7 @@ public class JasperSchedulingUtils {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Exception] Error message: " + e.getMessage());
 								}
-								if (tempTimeInputs.equalsIgnoreCase(tempTime)
+								if (tempTimeInputs.trim().equalsIgnoreCase(tempTime.trim())
 										&& tempHeatSetPointFromInputs.equalsIgnoreCase(tempHeatSetPointApp)) {
 									Keyword.ReportStep_Pass(testCase,
 											"Period 4's expected Weekend time and heat set point are shown correctly: "
@@ -10544,6 +10510,14 @@ public class JasperSchedulingUtils {
 		testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 	}
 
+	private static void scrollUpForAndroidScreen(TestCases testCase) {
+		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+		int startx = (dimensions.width * 20) / 100;
+		int starty = (dimensions.height * 62) / 100;
+		int endx = (dimensions.width * 22) / 100;
+		int endy = (dimensions.height * 35) / 100;
+		testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
+		}
 	public static boolean verifyScheduleRetained(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true, scheduleRetainedFlag = true;
 		SchedulingScreen ss = new SchedulingScreen(testCase);
