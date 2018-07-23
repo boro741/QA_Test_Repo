@@ -8,7 +8,6 @@ import org.omg.CORBA.Current;
 import org.openqa.selenium.WebElement;
 
 
-import org.openqa.selenium.WebElement;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.TestCaseInputs;
