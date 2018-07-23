@@ -2114,8 +2114,6 @@ public class NavigateToScreen extends Keyword {
 				case "THERMOSTAT DASHBOARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnBackButton();
-					
-					break;
 				}
 				break;
 				}

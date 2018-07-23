@@ -344,7 +344,15 @@ public class PrimaryCard extends MobileScreens {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnFanDefinitionOnChangeFanScreen",5);
 		
 		}
-
+		public boolean isVacationStatusVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatus");
+		
+		}
+		public boolean clickOnVacationStatus() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatus");
+		
+		}
+		
 		public boolean checkCurrentFanMode(String expectedValue) {
 
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "FanButton");
