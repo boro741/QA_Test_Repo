@@ -7288,7 +7288,7 @@ public class JasperSchedulingUtils {
 								"Verify Displayed Schedule : Monday-Friday text not displayed on schedule screen");
 					}
 
-					
+
 
 					// start//////////////////////////
 					if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
@@ -10517,7 +10517,7 @@ public class JasperSchedulingUtils {
 		int endx = (dimensions.width * 22) / 100;
 		int endy = (dimensions.height * 35) / 100;
 		testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
-		}
+	}
 	public static boolean verifyScheduleRetained(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true, scheduleRetainedFlag = true;
 		SchedulingScreen ss = new SchedulingScreen(testCase);
@@ -14085,6 +14085,225 @@ public class JasperSchedulingUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate the Period delete icon");
 		}
 
+		return flag;
+	}
+
+	public static boolean createGeofenceBasedScheduleWithDefaultValues(TestCases testCase, TestCaseInputs inputs,
+			boolean createScheduleUsingUseGeofenceButton) {
+		boolean flag = true;
+		try {
+			SchedulingScreen schl = new SchedulingScreen(testCase);
+
+			if (schl.isCreateScheduleButtonVisible(10)) {
+				flag = flag & schl.clickOnCreateScheduleButton();
+			} else {
+				if (schl.isScheduleOffOverlayVisible(10)) {
+					if (!schl.clickOnScheduleOffOverlay()) {
+						flag = false;
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
+					}
+				}
+				flag = flag & schl.clickOnScheduleOptionsButton();
+				if (schl.isSwitchToGeofenceButtonVisible(10)) {
+					flag = flag & schl.clickOnSwitchToGeofenceButton();
+				}
+			}
+
+			if (createScheduleUsingUseGeofenceButton) {
+				flag = flag && schl.clickOnUseGeofencingText();
+			} else {
+				flag = flag && schl.clickOnLearnMoreButton();
+			}
+			Keyword.ReportStep_Pass(testCase, " ");
+			Keyword.ReportStep_Pass(testCase, "*************** Verifying set points for Home period ***************");
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			List<String> allowedModes = statInfo.getAllowedModes();
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (schl.isHomeTemperatureHeaderMultiTemperatureVisible(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to home set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to home set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperatures do you prefer when you're at home" +
+					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to home set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to home set points page"
+					 * ); }
+					 */
+				}
+				flag = flag & verifyCoolStepperValue(testCase, inputs,
+						inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT), "");
+				flag = flag & verifyHeatStepperValue(testCase, inputs,
+						inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT), "");
+
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (schl.isHomeTemperatureHeaderSingleTemperatureVisible(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to home set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to home set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperature do you prefer when you're at home" +
+					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to home set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to home set points page"
+					 * ); }
+					 */
+				}
+				flag = flag & verifyHeatStepperValue(testCase, inputs,
+						inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT), "");
+			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (schl.isHomeTemperatureHeaderSingleTemperatureVisible(10)) {
+					Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to home set points page");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Create Schedule : Failed to navigate to home set points page");
+				}
+				flag = flag & verifyCoolStepperValue(testCase, inputs,
+						inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT), "");
+			}
+			flag = flag & schl.clickOnNextButton();
+			Keyword.ReportStep_Pass(testCase,
+					"*************** Completed verifying set points for Home period ***************");
+			Keyword.ReportStep_Pass(testCase, " ");
+			Keyword.ReportStep_Pass(testCase, "*************** Verifying set points for Away period ***************");
+			String coolSetPoint = "";
+			String heatSetPoint = "";
+			if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (schl.isAwayTemperatureHeaderMultiTemperatureVisble(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to away set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to away set points page");
+					}
+				}
+				coolSetPoint = schl.getCoolSetPointChooserSetPointsValue();
+				flag = flag & verifyCoolStepperValue(testCase, inputs, coolSetPoint,
+						inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
+				heatSetPoint = schl.getHeatSetPointChooserSetPointsValue();
+				flag = flag & verifyHeatStepperValue(testCase, inputs, heatSetPoint,
+						inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
+			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (schl.isAwayTemperatureHeaderSingleTemperatureVisble(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to away set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to away set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperatures do you prefer when you're away from home"
+					 * + "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to away set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to away set points page"
+					 * ); }
+					 */
+				}
+				heatSetPoint = schl.getHeatSetPointChooserSetPointsValue();
+				flag = flag & verifyHeatStepperValue(testCase, inputs, heatSetPoint,
+						inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
+			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+				if (testCase.getPlatform().contains("ANDROID")) {
+					if (schl.isAwayTemperatureHeaderSingleTemperatureVisble(10)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Create Schedule : Successfully navigated to away set points page");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Schedule : Failed to navigate to away set points page");
+					}
+				} else {
+					/*
+					 * if (MobileUtils.isMobElementExists("name",
+					 * "What temperature do you prefer when you're away from home" +
+					 * "\u003F", testCase, 5)) { Keyword.ReportStep_Pass(testCase,
+					 * "Create Schedule : Successfully navigated to away set points page"
+					 * ); } else { flag = false; Keyword.ReportStep_Fail(testCase,
+					 * FailType.FUNCTIONAL_FAILURE,
+					 * "Create Schedule : Failed to navigate to away set points page"
+					 * ); }
+					 */
+				}
+				coolSetPoint = schl.getCoolSetPointChooserSetPointsValue();
+				flag = flag & verifyCoolStepperValue(testCase, inputs, coolSetPoint,
+						inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT));
+			}
+			flag = flag & schl.clickOnNextButton();
+			Keyword.ReportStep_Pass(testCase,
+					"*************** Completed verifying set points for Away period ***************");
+			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					flag = flag & schl.clickOnSkipButton();
+				} else {
+					flag = flag & schl.clickOnNoButton();
+				}
+
+			} else {
+				Keyword.ReportStep_Pass(testCase, " ");
+				Keyword.ReportStep_Pass(testCase,
+						"*************** Verifying time and set points for Sleep period ***************");
+				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+					flag = flag & schl.clickOnYesButton();
+				}
+				flag = flag & verifySetPeriodTime(testCase,
+						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME), "GeofenceSleepStartTime");
+				flag = flag & verifySetPeriodTime(testCase,
+						inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME), "GeofenceSleepEndTime");
+				if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+					flag = flag & verifyCoolStepperValue(testCase, inputs,
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT), "");
+					flag = flag & verifyHeatStepperValue(testCase, inputs,
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT), "");
+				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+					flag = flag & verifyHeatStepperValue(testCase, inputs,
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT), "");
+				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
+					flag = flag & verifyCoolStepperValue(testCase, inputs,
+							inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT), "");
+				}
+				flag = flag & schl.clickOnNextButton();
+				Keyword.ReportStep_Pass(testCase,
+						"*************** Completed verifying time and set points for Sleep period ***************");
+			}
+			// flag = flag & JasperUtils.verifyCreatedSchedule(testCase, inputs,
+			// "Geofence");
+			if (schl.isDoneButtonVisible(10)) {
+				flag = flag &  schl.clickOnDoneButton();
+			}
+			if (schl.isSkipButtonVisible(10)) {
+				flag = flag & schl.clickOnSkipButton();
+			}
+		} catch (Exception e) {
+
+		}
 		return flag;
 	}
 
