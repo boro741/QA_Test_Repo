@@ -308,9 +308,9 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 			if (indoorTempAlertRangeOption.contains("Below")) {
-				
+
 			} else if (indoorTempAlertRangeOption.equals("Above")) {
-				
+
 			}
 		}
 		return flag;
@@ -707,5 +707,129 @@ public class ThermostatSettingsScreen extends MobileScreens {
 
 	public boolean clickOnOKButtonInDeleteThermostatDevice() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInDeleteThermostatDevicePopup");
+	}
+
+	public boolean isSetFilterReminderLabelVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetFilterReminderLabel", timeOut);
+	}
+
+	public boolean clickOnSetFilterReminderLabel() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SetFilterReminderLabel");
+	}
+
+	public boolean isThermostatSetFilterReminderSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatSetFilterReminderSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatSetFilterReminderSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatSetFilterReminderSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Set Filter Reminder Switch");
+		}
+	}
+
+	public boolean toggleSetFilterReminderSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatSetFilterReminderSwitch");
+	}
+
+	public boolean isSetFilterReminderOptionsVisible(String setFilterReminderOptions) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[@text='" + setFilterReminderOptions + "']", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("XPath",
+					"//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + setFilterReminderOptions
+							+ "']",
+					testCase);
+		}
+	}
+	
+	public boolean isThermostatFineTuneSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatFineTuneSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatFineTuneSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatFineTuneSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Set Fine Tune Switch");
+		}
+	}
+
+	public boolean toggleThermostatFineTuneSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatFineTuneSwitch");
+	}
+	
+	public boolean isThermostatAdaptiveRecoverySwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatAdaptiveRecoverySwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAdaptiveRecoverySwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAdaptiveRecoverySwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Adaptive Recovery Switch");
+		}
+	}
+
+	public boolean toggleThermostatAdaptiveRecoverySwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatAdaptiveRecoverySwitch");
+	}
+	
+	public boolean isThermostatOptimiseSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatOptimiseSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatOptimiseSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatOptimiseSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Set Fine Tune Switch");
+		}
+	}
+
+	public boolean toggleThermostatOptimiseSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatOptimiseSwitch");
 	}
 }

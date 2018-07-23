@@ -143,7 +143,6 @@ When user changes the "Email For Enabled Alerts" to "OFF"
 Then "Email For Enabled Alerts" value should be updated to "OFF" on "Manage Alerts" screen
 
 
-
 #HB_Srpuce
 @HBBEnableDisableIndoorHumidityAlert		@P2		@UIAutomatable
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my thermostat
@@ -198,29 +197,36 @@ Then user should be displayed with the following "Humidity Alert" options:
 Scenario: As a user I should be able to enable or disable Set Filter Reminder option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
-And user changes the "Set Filter Reminder" to "ON"
-Then "Set Filter Reminder" value should be updated to "ON" on "Set Filter Reminder" screen
-When user changes the "Set Filter Reminder" to  "OFF"
-Then "Set Filter Reminder" value should be updated to "OFF" on "Set Filter Reminder" screen
+And user changes the "Set Filter Reminder Switch" to "ON"
+Then "Set Filter Reminder Switch" value should be updated to "ON" on "Set Filter Reminder" screen
+When user changes the "Set Filter Reminder Switch" to "OFF"
+Then "Set Filter Reminder Switch" value should be updated to "OFF" on "Set Filter Reminder" screen
+     
      
 @VerifySetFilterReminderOptions		@P2		@UIAutomatable
 Scenario: As a user I should be able to view options for Set Filter Reminder
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
-And user changes the "Set Filter Reminder" to "ON"
-Then the following "Set Filter Reminder" options should be disabled
-		| Options   					| 
-	    |Replace Filter Every 		| 
-    		|Filter Last Replaced  		| 
-      	|Next Scheduled Reminder 	| 
- 
+And user changes the "Set Filter Reminder Switch" to "ON"
+Then the following "Set Filter Reminder" options should be enabled:
+		| SetFilterReminderOptions		| 
+	    | Replace Filter Every			| 
+    		| Filter Last Replaced			| 
+      	| Next Scheduled Reminder		|
+When user changes the "Set Filter Reminder Switch" to "OFF"
+Then the following "Set Filter Reminder" options should be disabled:
+		| SetFilterReminderOptions		| 
+	    | Replace Filter Every			| 
+    		| Filter Last Replaced			| 
+      	| Next Scheduled Reminder		|
 
- #JasperNA, HB-Spruce
+
+#JasperNA, HB-Spruce
 @ChangeReplacefilterandFilterLastReplacedOptions		@P2		@NotAutomatable
 Scenario: As a user I should be able to set options Replace filter and Filter Last Replaced
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
-And user changes the "Set Filter Reminder" to "ON"
+And user changes the "Set Filter Reminder Switch" to "ON"
 And user selects <Replace filter value as month> from "Set Filter Reminder" screen
 Then "Replace Filter Every" value should be updated to <replace filter Every value> on "Set Filter Reminder" screen
 When user selects "Filter Last Replaced " from "set filter reminder" screen
@@ -320,9 +326,9 @@ Scenario: As a user I should be able to enable or disable Fine Tune option on my
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 And user changes the "Fine Tune" to "ON"
-Then "Fine Tune" value should be updated to "ON" on "Set Filter Reminder" screen
+Then "Fine Tune" value should be updated to "ON" on "Thermostat Settings" screen
 When user changes the "Fine Tune" to  "OFF"
-Then "Fine Tune" value should be updated to "OFF" on "Set Filter Reminder" screen 
+Then "Fine Tune" value should be updated to "OFF" on "Thermostat Settings" screen 
 
 #HB_Spruce, JasperNA
 @EnableDisableAdaptiverecovery		@P2		@UIAutomatable

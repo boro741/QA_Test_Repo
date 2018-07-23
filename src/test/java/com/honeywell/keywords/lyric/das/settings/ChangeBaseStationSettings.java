@@ -598,8 +598,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Thermostat Indoor Humidity Alert Toggle is turned OFF");
+							Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Humidity Alert Toggle is turned OFF");
 							flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
@@ -611,8 +610,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Thermostat Indoor Humidity Alert Toggle is turned ON");
+							Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Humidity Alert Toggle is turned ON");
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
@@ -622,8 +620,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Thermostat Indoor Humidity Alert Toggle is turned ON");
+							Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Humidity Alert Toggle is turned ON");
 							flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
@@ -635,8 +632,185 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & ts.toggleThermostatIndoorHumidityAlertSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (!ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Thermostat Indoor Humidity Alert Toggle is turned OFF");
+							Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Humidity Alert Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SET FILTER REMINDER SWITCH")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is already enabled");
+						flag = flag & ts.toggleSetFilterReminderSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is turned OFF");
+							flag = flag & ts.toggleSetFilterReminderSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleSetFilterReminderSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is already disabled");
+						flag = flag & ts.toggleSetFilterReminderSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is turned ON");
+							flag = flag & ts.toggleSetFilterReminderSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleSetFilterReminderSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatSetFilterReminderSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("FINE TUNE")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Fine Tune Switch is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatFineTuneSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is turned OFF");
+							flag = flag & ts.toggleThermostatFineTuneSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatFineTuneSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Fine Tune Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatFineTuneSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is turned ON");
+							flag = flag & ts.toggleThermostatFineTuneSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatFineTuneSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatFineTuneSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Fine Tune Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("ADAPTIVE RECOVERY")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Adaptive Recovery Switch is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatAdaptiveRecoverySwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is turned OFF");
+							flag = flag & ts.toggleThermostatAdaptiveRecoverySwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatAdaptiveRecoverySwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Adaptive Recovery Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatAdaptiveRecoverySwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is turned ON");
+							flag = flag & ts.toggleThermostatAdaptiveRecoverySwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatAdaptiveRecoverySwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("OPTIMISE")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Optimise Switch is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatOptimiseSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Optimise Switch is turned OFF");
+							flag = flag & ts.toggleThermostatOptimiseSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Optimise Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatOptimiseSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Optimise Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Optimise Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatOptimiseSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Optimise Switch is turned ON");
+							flag = flag & ts.toggleThermostatOptimiseSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Optimise Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatOptimiseSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatOptimiseSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Optimise Toggle is turned OFF");
 						}
 					}
 				}

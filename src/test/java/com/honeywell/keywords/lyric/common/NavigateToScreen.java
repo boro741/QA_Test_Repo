@@ -542,7 +542,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
 				case "THERMOSTAT SETTINGS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Manage Alerts Screen'
@@ -553,6 +553,11 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Thermostat Configuration'
 				case "THERMOSTAT CONFIGURATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Set Filter Reminder Screen'
+				case "SET FILTER REMINDER": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSetFilterReminderScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'

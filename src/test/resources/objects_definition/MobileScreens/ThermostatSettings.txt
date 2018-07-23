@@ -21,3 +21,8 @@ DeleteThermostatButton	ID	btn_stat_delete	ID	btn_stat_delete	ID	btn_stat_delete	
 DeleteThermostatDevicePopupTitle	XPATH	//*[@text='Delete device']	XPATH	//*[@text='Delete device']	XPATH	//*[@text='Delete device']	XPATH	//*[@value='Delete']	XPATH	//*[@value='Delete']	XPATH	//*[@value='Delete']
 CancelButtonInDeleteThermostatDevicePopup	ID	button2	ID	button2	ID	button2	NAME	NO	NAME	NO	NAME	NO
 OKButtonInDeleteThermostatDevicePopup	ID	button1	ID	button1	ID	button1	NAME	YES	NAME	YES	NAME	YES
+SetFilterReminderLabel	XPATH	//*[@text='Set Filter Reminder']	XPATH	//*[@text='Set Filter Reminder']	XPATH	//*[@text='Set Filter Reminder']	XPATH	//*[@value='Set Filter Reminder']	XPATH	//*[@value='Set Filter Reminder']	XPATH	//*[@value='Set Filter Reminder']
+ThermostatSetFilterReminderSwitch	XPATH	//android.widget.Switch[@content-desc='Filter Reminder']	XPATH	//android.widget.Switch[@content-desc='Filter Reminder']	XPATH	//android.widget.Switch[@content-desc='Filter Reminder']						
+ThermostatFineTuneSwitch	XPATH	//android.widget.Switch[@content-desc='Fine Tune']	XPATH	//android.widget.Switch[@content-desc='Fine Tune']	XPATH	//android.widget.Switch[@content-desc='Fine Tune']						
+ThermostatAdaptiveRecoverySwitch	XPATH	//android.widget.Switch[@content-desc='Adaptive Recovery']	XPATH	//android.widget.Switch[@content-desc='Adaptive Recovery']	XPATH	//android.widget.Switch[@content-desc='Adaptive Recovery']						
+ThermostatOptimiseSwitch	XPATH	//android.widget.Switch[@content-desc='Optimise']	XPATH	//android.widget.Switch[@content-desc='Optimise']	XPATH	//android.widget.Switch[@content-desc='Optimise']						

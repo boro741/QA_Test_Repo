@@ -415,11 +415,16 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToThermostatSettingsScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToThermostatSettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
+		
+		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
 		try {
-			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Laundry Room");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -435,8 +440,8 @@ public class DASSettingsUtils {
 	 * <h1>Navigate from Dashboard to Manage Alerts Screen</h1>
 	 * <p>
 	 * The navigateFromDashboardScreenToManageAlertsScreen method navigates from the
-	 * dashboard to the Manage alerts screen by clicking on the Global Drawer option
-	 * and clicking on the camera name on the secondary card settings
+	 * dashboard to the Manage alerts screen by clicking on the device name on the
+	 * secondary card settings and tap on Manage Alerts option
 	 * </p>
 	 *
 	 * @param testCase
@@ -468,6 +473,53 @@ public class DASSettingsUtils {
 			}
 			if (cs.isManageAlertsLabelVisible(5)) {
 				cs.clickOnManageAlertsLabel();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate from Dashboard to Set Filter Reminder Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToSetFilterReminderScreen method navigates
+	 * from the dashboard to the Set Filter Reminder screen by clicking on the
+	 * device name on the secondary card settings and tap on Set Filter Reminder
+	 * option
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToSetFilterReminderScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+
+		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
+			if (pc.isThermostatCurrentHumidityValueVisible(inputs, 20)) {
+				Keyword.ReportStep_Pass(testCase, "Humidity Value is displayed in Primary card screen");
+			}
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			if (ts.isSetFilterReminderLabelVisible(5)) {
+				ts.clickOnSetFilterReminderLabel();
 			}
 		} catch (Exception e) {
 			flag = false;
