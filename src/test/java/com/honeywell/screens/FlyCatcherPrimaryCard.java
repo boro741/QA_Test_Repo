@@ -1,8 +1,11 @@
 package com.honeywell.screens;
 
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
@@ -188,7 +191,7 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 
 	public int getTimerPickerValue(){
 		String timervalueString = MobileUtils.getFieldValue(objectDefinition, testCase, "VentilationTimerPicker");
-		int timervalue = Integer.parseInt(timervalueString);
+		int timervalue = Integer.parseInt(timervalueString.replaceAll(" MINUTES", ""));
 		return timervalue;
 	}
 
@@ -216,8 +219,92 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "StopTimerButton");
 	}
 	
-	public boolean isStopTimerVissible(){
+	public boolean isStopTimerVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StopTimerButton");
+	}
+	
+	public boolean isCloseOtpionVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseOption");
+	}
+	
+	public boolean ClickOnCloseOption(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseOption");
+	}
+	
+	public boolean isHumButtonVisible(int timeout){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HumidifyButton",timeout);
+	}
+	
+	public boolean isHumButtonVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HumidifyButton");
+	}
+	public boolean ClickOnHumButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumidifyButton");
+	}
+	
+	public boolean ClickOnIncrementButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumIncrementButton");
+	}
+	
+	public boolean ClickOnDecrementButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumDecrementButton");
+	}
+	
+	public boolean ClickOnSaveOptionButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveOption");
+	}
+	
+	public boolean ClickOnHelpOptionButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HelpOption");
+	}
+	
+	public String getCurrentHumidityValue() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			List<WebElement> ele = MobileUtils.getMobElements(objectDefinition, testCase, "CurrentHumidityPercentage");
+			return ele.get(0).getText();
+		} else {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "CurrentHumidityPercentage").getAttribute("value");			
+		}
+	}	
+	
+	public String getTargetHumidityValue() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "TargetPercentage").getText();
+		} else {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "TargetPercentage").getAttribute("value");			
+		}
+	}
+	
+	public boolean isOverlayIconVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OverlayIcon");
+	}
+	
+	public boolean isOverlayIconVisible(int Timeout){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OverlayIcon" ,Timeout);
+	}
+	
+	public boolean ClickOnOverlayIconButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OverlayIcon");
+	}
+	
+	public boolean isHumOptionVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HumOption");
+	}
+	
+	public boolean ClickOnHumOptionButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumOption");
+	}
+	
+	public boolean ClickOnDisableHumOptionButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DisableHumOption");
+	}
+	
+	public WebElement getSeekBarElement() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SeekBar");
+	}
+	
+	public boolean ClickOnWindowProtectionButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "WindowProtectionOption");
 	}
 	
 }

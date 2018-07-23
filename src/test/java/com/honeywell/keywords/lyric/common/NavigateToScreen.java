@@ -38,6 +38,7 @@ import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -575,6 +576,32 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & scheduleScreen.clickOnTimeScheduleButton();
 					break;
 				}
+				case "HUMIDIFICATION":{
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+					if (fly.isHumButtonVisible()){
+						flag = flag && fly.ClickOnHumButton();
+					} else{
+						flag = flag && fly.ClickOnMoreButton();
+						flag = flag && fly.ClickOnHumButton();
+					}
+					break;
+				}
+				case "Window Protection":{
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+					if (fly.isHumButtonVisible()){
+						flag = flag && fly.ClickOnHumButton();
+						flag = flag && fly.ClickOnHumOptionButton();
+						flag = flag && fly.ClickOnWindowProtectionButton();
+					} else{
+						flag = flag && fly.ClickOnMoreButton();
+						flag = flag && fly.ClickOnHumButton();
+						flag = flag && fly.ClickOnHumOptionButton();
+						flag = flag && fly.ClickOnWindowProtectionButton();
+					}
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
 				case "VIDEO QUALITY SETTINGS": {
 					flag = flag & DASSettingsUtils
@@ -737,7 +764,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1997,7 +2024,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					System.out
-							.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+					.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
 					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
 					break;
 				}
@@ -2056,7 +2083,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				break;
 				}
-				
+
 			}else if(screen.get(1).equalsIgnoreCase("SCHEDULING")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PRIMARY CARD": {
@@ -2069,15 +2096,15 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				break;
-				}
-				
+				}				
 			}
+
 			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SOLUTION CARD": {
-			Dashboard sensorScreen = new Dashboard(testCase);
+					Dashboard sensorScreen = new Dashboard(testCase);
 					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
-					
+
 					break;
 				}
 				}

@@ -1,7 +1,6 @@
-package com.honeywell.keywords.flycatcher.Ventialtion;
+package com.honeywell.keywords.flycatcher.Humidifier;
 
 import java.util.ArrayList;
-
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -12,18 +11,17 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 
-public class Edit_StopVentilationTimer extends Keyword {
+public class VerifyHumStatus extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	ArrayList<String> exampleData;
 	public boolean flag = true;
 
-	public Edit_StopVentilationTimer(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
-		super("Edit Stop Ventilation Mode");
-		this.inputs = inputs;
+	public VerifyHumStatus(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -33,37 +31,27 @@ public class Edit_StopVentilationTimer extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user \"(.+)\" Ventilation Timer to \"(.+)\"$")
+	@KeywordStep(gherkins = "^Verify if humidification \"(.+)\" in stat$")
 	public boolean keywordSteps() {
 		try {
-			String TimerCondition = exampleData.get(0);
-			String TimerValue = exampleData.get(1);
-			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase); 
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String ventilationstatus = statInfo.getThermoStatVentilationMode();
-			if (ventilationstatus != null){
-				if (fly.isVentilationIconVisible()){
-					flag = flag && fly.ClickOnVentilationButton();
-				} else{
-					flag = flag && fly.ClickOnMoreButton();
-					flag = flag && fly.ClickOnVentilationButton();
+			String getHumidifierValue = statInfo.getThermoStatHumidificationSettings();
+			if (getHumidifierValue.equalsIgnoreCase("Auto") && exampleData.get(0).equalsIgnoreCase("Enabled")){
+				if (!fly.isOverlayIconVisible(30)){
+					Keyword.ReportStep_Pass(testCase, "Humidifier is " + exampleData.get(0));
+					flag =  true;
 				}
-				if (TimerCondition.equalsIgnoreCase("Edits")){
-					flag = flag && fly.ClickEditVentTimer();
-					FlyCatcherVentialtion fl = new FlyCatcherVentialtion();
-					fl.SetVentilationTimer(testCase, inputs, TimerValue);
-				}else{
-					if (fly.isStopTimerVisible()){
-						flag = flag && fly.ClickStopTimer();
-					}
+			}else if (getHumidifierValue.equalsIgnoreCase("Off") && exampleData.get(0).equalsIgnoreCase("Disabled")){
+				if (fly.isOverlayIconVisible(30)){
+					Keyword.ReportStep_Pass(testCase, "Humidifier is " + exampleData.get(0));
+					flag =  true;
 				}
-			}else {
-				flag = false;
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						" Ventilation Mode is disabled in thermostat ");
 			}
 		} catch (Exception e){
-
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
@@ -81,18 +69,19 @@ public class Edit_StopVentilationTimer extends Keyword {
 
 		try {
 			if (flag) {
-				ReportStep_Pass(testCase, "Edit Ventilation Timer : Keyword successfully executed");
+				ReportStep_Pass(testCase, "Verify Humidifier Status : Keyword successfully executed");
 			} else {
 				flag = false;
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Change System Mode : Keyword failed during execution");
+						"Verify Humidifier Status : Keyword failed during execution");
 			}
 		} catch (Exception e) {
 			flag = false;
 			ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Change System Mode : Error Occured while executing post-condition : " + e.getMessage());
+					"Verify Humidifier Status : Error Occured while executing post-condition : " + e.getMessage());
 		}
 		return flag;
 	}
 
 }
+
