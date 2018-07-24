@@ -100,7 +100,19 @@ public class NavigateToScreen extends Keyword {
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
+
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
+
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					flag = flag & sensorScreen.clickOnBackButton();
+					break;
+				}
+				case "THERMOSTAT SETTINGS":{
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					if(sensorScreen.isCogIconVisible()) {
+					flag = flag & sensorScreen.clickOnCogIcon();
+					}
+
 					break;
 				}
 				default: {
@@ -841,7 +853,8 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
+			} 
+			else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ADD NEW DEVICE GLOBAL DRAWER": {
 					SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -2141,7 +2154,8 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+			} 
+			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);
@@ -2166,6 +2180,12 @@ public class NavigateToScreen extends Keyword {
 							break;
 						}
 					}
+				}
+				case "THERMOSTAT SOLUTION CARD": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.clickOnBackButton();
+					
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ACTIVITY HISTORY")) {
