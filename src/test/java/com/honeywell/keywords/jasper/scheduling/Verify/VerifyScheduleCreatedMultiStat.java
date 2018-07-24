@@ -80,8 +80,9 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 				if (str != null && !str.isEmpty()) {
 					inputs.setInputValue("LOCATION1_DEVICE1_NAME", str);
 					if (!inputs.getInputValue("LOCATION1_DEVICE1_NAME").equals(device1Name)) {
-						flag = flag && Dashboard.selectLocationFromDashBoard(testCase,
-								inputs.getInputValue("LOCATION2_NAME"));
+						Dashboard dashBoardScreen=  new Dashboard(testCase);
+						flag = flag && dashBoardScreen.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
+						
 						flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
 								inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 						if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
