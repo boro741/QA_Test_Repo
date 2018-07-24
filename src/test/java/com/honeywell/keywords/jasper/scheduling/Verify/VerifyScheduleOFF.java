@@ -111,7 +111,6 @@ public class VerifyScheduleOFF extends Keyword {
 					case "VACATION STATUS NA": {
 						PrimaryCard VacationStatus = new PrimaryCard(testCase);
 						//flag = flag & VacationStatus.isVacationStatusVisible();
-						System.out.println("Waiting for vacation to start");
 						FluentWait<String> fWait = new FluentWait<String>(" ");
 						fWait.pollingEvery(30, TimeUnit.SECONDS);
 						fWait.withTimeout(15, TimeUnit.MINUTES);
