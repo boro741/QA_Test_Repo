@@ -486,6 +486,122 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Thermostat Indoor Temperature Alert is not displayed");
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Humidity Alert Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Humidity Alert Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatIndoorHumidityAlertSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Humidity Alert Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Humidity Alert Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Thermostat Indoor Humidity Alert is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SET FILTER REMINDER SWITCH")
+					&& parameters.get(2).equalsIgnoreCase("SET FILTER REMINDER")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatSetFilterReminderSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Set Filter Reminder Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatSetFilterReminderSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Set Filter Reminder Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Set Filter Reminder Switch is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("FINE TUNE")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatFineTuneSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Fine Tune Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatFineTuneSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Fine Tune Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Fine Tune Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Fine Tune Switch is not displayed in the Thermostat Settings Screen");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("ADAPTIVE RECOVERY")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Adaptive Recovery Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatAdaptiveRecoverySwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Adaptive Recovery Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Adaptive Recovery Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Adaptive Recovery Switch is not displayed in the Thermostat Settings Screen");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("OPTIMISE")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatOptimiseSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Optimise Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Optimise Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatOptimiseSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Optimise Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Optimise Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Optimise Switch is not displayed in the Thermostat Settings Screen");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

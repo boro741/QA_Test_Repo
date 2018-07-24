@@ -29,9 +29,6 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 
-import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.PrimaryCard;
-
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 

@@ -104,7 +104,7 @@ public class Dashboard extends MobileScreens {
 	public boolean clickOnAddDeviceIconBelowExistingDASDevice() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice");
 	}
-
+	
 	public boolean clickOnGlobalDrawerButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
@@ -457,9 +457,9 @@ public class Dashboard extends MobileScreens {
 		}
 
 		public boolean isDownStepperDisplayed() {
-
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper",8);
 		}
+		
 		public boolean isUPStepperElementEnabled() {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "UpStepper");
 			if(element.isEnabled())
@@ -480,7 +480,7 @@ public class Dashboard extends MobileScreens {
 
 		public boolean isMaxTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
 			String currentSetPoint="";
-			boolean flag=true;
+			boolean flag = true;
 			int maxSetPointInt=0;
 			String maxSetPoint="";
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -503,14 +503,16 @@ public class Dashboard extends MobileScreens {
 			currentSetPoint = ele.getText();
 			if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
 				System.out.println("Max temp is same in dashboard");
-				return true;
+				return flag;
+			} else {
+				flag = false;
 			}
-			return false;
+			return flag;
 		}
 
 		public boolean isMinTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
 			String currentSetPoint="";
-			boolean flag=true;
+			boolean flag = true;
 			int minSetPointInt=0;
 			String minSetPoint="";
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -533,8 +535,10 @@ public class Dashboard extends MobileScreens {
 			currentSetPoint = ele.getText();
 			if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
 				System.out.println("Max temp is same in dashboard");
-				return true;
+				return flag;
+			} else {
+				flag = false;
 			}
-			return false;
+			return flag;
 		}
 }

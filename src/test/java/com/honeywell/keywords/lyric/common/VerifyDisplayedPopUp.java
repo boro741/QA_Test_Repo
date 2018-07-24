@@ -11,6 +11,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -288,6 +289,10 @@ public class VerifyDisplayedPopUp extends Keyword {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.isPerformOnlyInModesPopupForGeofence();
 			return flag;
+		}
+		case "DELETE THERMOSTAT DEVICE CONFIRMATION": {
+			flag = flag & HBNAEMEASettingsUtils.verifyDeleteThermostatDeviceConfirmationPopUp(testCase, inputs);
+			break;
 		}
 		default: {
 			flag = false;
