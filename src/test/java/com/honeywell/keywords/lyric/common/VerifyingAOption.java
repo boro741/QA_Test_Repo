@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -12,21 +11,11 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import com.honeywell.screens.Dashboard;
-
-
-import com.honeywell.screens.PrimaryCard;
-
-
-import com.honeywell.screens.PrimaryCard;
-
-
-
 import com.honeywell.screens.PrimaryCard;
 
 import com.honeywell.screens.SecondaryCardSettings;

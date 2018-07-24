@@ -754,7 +754,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					testCase);
 		}
 	}
-	
+
 	public boolean isThermostatFineTuneSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatFineTuneSwitch", 20)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -780,7 +780,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean toggleThermostatFineTuneSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatFineTuneSwitch");
 	}
-	
+
 	public boolean isThermostatAdaptiveRecoverySwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatAdaptiveRecoverySwitch", 20)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -806,7 +806,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean toggleThermostatAdaptiveRecoverySwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatAdaptiveRecoverySwitch");
 	}
-	
+
 	public boolean isThermostatOptimiseSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatOptimiseSwitch", 20)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -831,5 +831,26 @@ public class ThermostatSettingsScreen extends MobileScreens {
 
 	public boolean toggleThermostatOptimiseSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatOptimiseSwitch");
+	}
+
+	public boolean isThermostatAutoChangeOverSwitchEnabled(TestCases testCase, String fieldToBeVerified)
+			throws Exception {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.Switch[@content-desc='" + fieldToBeVerified + "']", testCase)
+					&& (MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//android.widget.Switch[@content-desc='" + fieldToBeVerified + "']")
+							.getText().equalsIgnoreCase("ON"))) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			
+			//iOS
+		}
+		return flag;
 	}
 }

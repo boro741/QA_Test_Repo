@@ -96,14 +96,6 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
-					PrimaryCard sensorScreen = new PrimaryCard(testCase);
-					flag = flag & sensorScreen.clickOnBackButton();
-				}
-				}
-
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -537,12 +529,14 @@ public class NavigateToScreen extends Keyword {
 				}
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
 				case "THERMOSTAT SETTINGS": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToThermostatSettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Manage Alerts Screen'
@@ -557,7 +551,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Set Filter Reminder Screen'
 				case "SET FILTER REMINDER": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSetFilterReminderScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToSetFilterReminderScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Camera Motion Detection Settings Screen'
@@ -568,8 +563,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Camera Night Vision Settings Screen'
 				case "NIGHT VISION SETTINGS": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase, inputs);
 					break;
 				}
 				case "SCHEDULING": {
@@ -609,8 +604,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Camera Video Quality Settings Screen'
 				case "VIDEO QUALITY SETTINGS": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Base Station Configuration'
@@ -2117,6 +2112,18 @@ public class NavigateToScreen extends Keyword {
 				case "THERMOSTAT DASHBOARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnBackButton();
+					break;
+				}
+				case "THERMOSTAT SETTINGS": {
+					PrimaryCard pc = new PrimaryCard(testCase);
+					if (pc.isCogIconVisible()) {
+						flag = flag & pc.clickOnCogIcon();
+						break;
+					}
+				}
+				case "DASHBOARD": {
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					flag = flag & sensorScreen.clickOnBackButton();
 					break;
 				}
 				}

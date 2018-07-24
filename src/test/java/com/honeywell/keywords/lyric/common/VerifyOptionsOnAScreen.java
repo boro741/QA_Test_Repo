@@ -129,7 +129,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				flag = flag & card.isOffModeVisible();
 				break;
 			}
-			
+			case "AUTO":
+			{
+				flag = flag & card.isAutoModeVisible();
+				break;
+				
+			}
 			}
 		
 		if (flag) {

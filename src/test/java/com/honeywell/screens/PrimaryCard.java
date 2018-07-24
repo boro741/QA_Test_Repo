@@ -142,6 +142,10 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isOffModeVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OffMode");
 	}
+	
+	public boolean isAutoModeVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoMode");
+	}
 
 	public boolean isSetModeDisplayed(TestCaseInputs inputs) {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);

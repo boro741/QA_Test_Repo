@@ -311,7 +311,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 
 			break;
 		}
-		
+
 		case "SET FILTER REMINDER": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -339,6 +339,29 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Set Filter Reminder:" + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+
+		case "THERMOSTAT SETTINGS": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "ThermostatSettingsOption");
+				if (fieldToBeVerified.equalsIgnoreCase("AUTO CHANGEOVER")) {
+					try {
+						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase, fieldToBeVerified)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover:" + fieldToBeVerified + " is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Auto Changeover:" + fieldToBeVerified + " is enabled");
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured: " + e.getMessage());
 					}
 				}
 			}

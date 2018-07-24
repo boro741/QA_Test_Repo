@@ -360,8 +360,37 @@ Then "Emergency Heat" value should be updated to "ON" on "Thermostat Settings" s
 When user changes the "Emergency Heat" to "OFF"
 Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen
 
+@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled	@P2		@UIAutomatable
+Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
+Given user launches and logs in to the Lyric application
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+| Options	|
+| Auto		|
+| Heat		|
+| Cool		|
+| Off		|
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption		|
+		| Auto Changeover				|
+		
+Examples:
+| SystemMode		| 
+#| Cool			|
+| Heat			|
+
 #JasperNA, HB_Spruce
-@Autochangeoverwhenheatonlyoracoolonlyenabled		@P2		@UIAutomatable
+@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled123		@P2		@UIAutomatable
 Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -685,7 +714,7 @@ Given user device is offline
 And user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 Then the following "Thermostat Settings" options should be disabled:
-      |  Options			| 
+      | Options			| 
       | Optimise			|	
       | Ventilation		|
      
