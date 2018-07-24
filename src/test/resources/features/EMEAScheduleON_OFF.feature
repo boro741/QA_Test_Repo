@@ -150,7 +150,7 @@ Examples:
 Scenario: As an user I want to turn schedule ON So that my vaction will be back   
 #Schedule ON the stat with systems Heat for Temperture scale Celsius and for time format 24 12hr 
 Given user has "Heat" system mode
-Then user thermostat is set to <scheduling> schedule 
+Then user thermostat is set to <scheduling> schedule
 And user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When vacation mode is EMEA "active"
@@ -166,9 +166,10 @@ Then verify the "Schedule off Status" on the "PRIMARY CARD" screen
 When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
 Then user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+Examples:
 | scheduling |
-|time based|
-#|geofence based | 
+| time based |
+#| geofence based | 
 
 @ScheduleONOFFEMEAswitchingmodes
 Scenario Outline:Schedule ON OFF status while switching modes to off and from off for Temperture scale CelsiusFahrenheit and for time format 2412hr
