@@ -1,39 +1,41 @@
-FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon
-ThermostatCurrentTemperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature						
-ModeButton	xpath	//*[@text='MODE']					id	MODE				
-FanButton	xpath	//*[@text='FAN']					id	FAN				
-ScheduleButton	xpath	//*[@text='SCHEDULE']										
-ChangeModeTitle	xpath	//*[@text='Change Mode']					id	Location Name				
-InfoButton	xpath	//*[@text='Info']					id	Navigation_Right_Bar_Item				
-InformationTitle	xpath	//*[@text='Information']					id	Location Name				
-AutoModeDefinition	xpath	//*[@text='Cool or heat as needed to reach target temperature']					id	AUTO Cool or heat as needed to reach target temperature				
-HeatModeDefinition	xpath	//*[@text='Heat to reach target temperature']					id	HEAT Heat to reach target temperature				
-CoolModeDefinition	xpath	//*[@text='Cool to reach target temperature']					id	COOL Cool to reach target temperature				
-SystemOffModeDefinition	xpath	//*[@text='Turn system off']					id	OFF Turn system off				
-BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']					id	Back				
-ChangeFanTitle	xpath	//*[@text='Change Fan']										
-AutoFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs while heating or cooling']										
-CirculateFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs intermittently to circulate air']										
-OnFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs continuously']										
-AutoFanButton	xpath	//*[@text='Auto']										
-CirculateFanButton	xpath	//*[@text='Circulate']										
-OnFanButton	xpath	//*[@text='On']										
-AutoFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS WHILE HEATING OR COOLING']										
-CirculateFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS INTERMITTENTLY TO CIRCULATE AIR']										
-OnFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS CONTINUOUSLY']										
-XButton	xpath	//android.widget.ImageButton[@content-desc='Navigate up']										
-SaveButton	id	save_action_sheet_btn										
-AutoMode	xpath	//*[@text='Auto']										
-HeatMode	xpath	//*[@text='Heat']										
-CoolMode	xpath	//*[@text='Cool']										
-OffMode	xpath	//*[@text='Off']										
-CurrentSetPoint	id	current_temp_value										
-StatTempStepperUp	id	stat_temp_stepper_up										
-StatTempStepperDown	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down						
-HumidityValueInPrimaryCardScreen	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view1']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view1']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view1']						
-HumidityValueFromTheScrollListInPrimaryCardScreen	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view2']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view2']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view2']						
-AutoModeDescription	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE']						
-HeatModeDescription	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']						
-OffModeDescription	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']						
-CoolModeDescription	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']						
+FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value	
+CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon	
+ThermostatCurrentTemperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature							
+ModeButton	xpath	//*[@text='MODE']	xpath	//*[@text='MODE']	xpath	//*[@text='MODE']	id	MODE	id	MODE	id	MODE	
+FanButton	xpath	//*[@text='FAN']	xpath	//*[@text='FAN']	xpath	//*[@text='FAN']	id	FAN	id	FAN	id	FAN	
+ScheduleButton	xpath	//*[@text='SCHEDULE']	xpath	//*[@text='SCHEDULE']	xpath	//*[@text='SCHEDULE']							
+ChangeModeTitle	xpath	//*[@text='Change Mode']	xpath	//*[@text='Change Mode']	xpath	//*[@text='Change Mode']	id	Location Name	id	Location Name	id	Location Name	
+InfoButton	xpath	//*[@text='Info']	xpath	//*[@text='Info']	xpath	//*[@text='Info']	id	Navigation_Right_Bar_Item	id	Navigation_Right_Bar_Item	id	Navigation_Right_Bar_Item	
+InformationTitle	xpath	//*[@text='Information']	xpath	//*[@text='Information']	xpath	//*[@text='Information']	id	Location Name	id	Location Name	id	Location Name	
+AutoModeDefinition	xpath	//*[@text='Cool or heat as needed to reach target temperature']	xpath	//*[@text='Cool or heat as needed to reach target temperature']	xpath	//*[@text='Cool or heat as needed to reach target temperature']	id	AUTO Cool or heat as needed to reach target temperature	id	AUTO Cool or heat as needed to reach target temperature	id	AUTO Cool or heat as needed to reach target temperature	
+HeatModeDefinition	xpath	//*[@text='Heat to reach target temperature']	xpath	//*[@text='Heat to reach target temperature']	xpath	//*[@text='Heat to reach target temperature']	id	HEAT Heat to reach target temperature	id	HEAT Heat to reach target temperature	id	HEAT Heat to reach target temperature	
+CoolModeDefinition	xpath	//*[@text='Cool to reach target temperature']	xpath	//*[@text='Cool to reach target temperature']	xpath	//*[@text='Cool to reach target temperature']	id	COOL Cool to reach target temperature	id	COOL Cool to reach target temperature	id	COOL Cool to reach target temperature	
+SystemOffModeDefinition	xpath	//*[@text='Turn system off']	xpath	//*[@text='Turn system off']	xpath	//*[@text='Turn system off']	id	OFF Turn system off	id	OFF Turn system off	id	OFF Turn system off	
+BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	id	Back	id	Back	id	Back	
+ChangeFanTitle	xpath	//*[@text='Change Fan']	xpath	//*[@text='Change Fan']	xpath	//*[@text='Change Fan']							
+AutoFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs while heating or cooling']	xpath	//*[@text='Fan runs while heating or cooling']	xpath	//*[@text='Fan runs while heating or cooling']							
+CirculateFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs intermittently to circulate air']	xpath	//*[@text='Fan runs intermittently to circulate air']	xpath	//*[@text='Fan runs intermittently to circulate air']							
+OnFanDefinitionOnInfoScreen	xpath	//*[@text='Fan runs continuously']	xpath	//*[@text='Fan runs continuously']	xpath	//*[@text='Fan runs continuously']							
+AutoFanButton	xpath	//*[@text='Auto']	xpath	//*[@text='Auto']	xpath	//*[@text='Auto']							
+CirculateFanButton	xpath	//*[@text='Circulate']	xpath	//*[@text='Circulate']	xpath	//*[@text='Circulate']							
+OnFanButton	xpath	//*[@text='On']	xpath	//*[@text='On']	xpath	//*[@text='On']							
+AutoFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS WHILE HEATING OR COOLING']	xpath	//*[@text='FAN RUNS WHILE HEATING OR COOLING']	xpath	//*[@text='FAN RUNS WHILE HEATING OR COOLING']							
+CirculateFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS INTERMITTENTLY TO CIRCULATE AIR']	xpath	//*[@text='FAN RUNS INTERMITTENTLY TO CIRCULATE AIR']	xpath	//*[@text='FAN RUNS INTERMITTENTLY TO CIRCULATE AIR']							
+OnFanDefinitionOnChangeFanScreen	xpath	//*[@text='FAN RUNS CONTINUOUSLY']	xpath	//*[@text='FAN RUNS CONTINUOUSLY']	xpath	//*[@text='FAN RUNS CONTINUOUSLY']							
+XButton	xpath	//android.widget.ImageButton[@content-desc='Navigate up']	xpath	//android.widget.ImageButton[@content-desc='Navigate up']	xpath	//android.widget.ImageButton[@content-desc='Navigate up']							
+SaveButton	id	save_action_sheet_btn	id	save_action_sheet_btn	id	save_action_sheet_btn							
+AutoMode	xpath	//*[@text='Auto']	xpath	//*[@text='Auto']	xpath	//*[@text='Auto']							
+HeatMode	xpath	//*[@text='Heat']	xpath	//*[@text='Heat']	xpath	//*[@text='Heat']							
+CoolMode	xpath	//*[@text='Cool']	xpath	//*[@text='Cool']	xpath	//*[@text='Cool']							
+OffMode	xpath	//*[@text='Off']	xpath	//*[@text='Off']	xpath	//*[@text='Off']							
+SaveButton	id	save_action_sheet_btn	id	save_action_sheet_btn	id	save_action_sheet_btn							
+CurrentSetPoint	id	current_temp_value	id	current_temp_value	id	current_temp_value							
+StatTempStepperUp	id	stat_temp_stepper_up	id	stat_temp_stepper_up	id	stat_temp_stepper_up							
+StatTempStepperDown	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down							
+VacationStatus	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	NAME	Adhoc_Hold_Status	NAME	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status
+HumidityValueInPrimaryCardScreen	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view1']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view1']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view1']							
+HumidityValueFromTheScrollListInPrimaryCardScreen	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view2']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view2']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/scrolling_text_view2']				IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value	
+AutoModeDescription	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE']				appSettingsIcon	name	appSettingsIcon	
+HeatModeDescription	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']							
+OffModeDescription	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']							
+CoolModeDescription	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']							
