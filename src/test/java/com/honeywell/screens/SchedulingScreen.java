@@ -30,10 +30,13 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
+	public boolean IsDoneButtonVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButton",timeOut);
+	}
+
 	public boolean IsSaveButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SaveButton",timeOut);
 	}
-
 	public boolean clickOnCancelChangeButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelChangeButton");
 	}
@@ -145,7 +148,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnSwitchToTimeScheduleButton() {
-		return MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='Switch to Time Scheduling']");
+		return MobileUtils.clickOnElement(objectDefinition, testCase,"SwitchToTimeScheduleButton");
 	}
 
 	public boolean clickOnTimeOption() {
