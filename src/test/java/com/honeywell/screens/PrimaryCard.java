@@ -16,6 +16,7 @@ public class PrimaryCard extends MobileScreens {
 
 	private static final String screenName = "PrimaryCard";
 
+
 	public PrimaryCard(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -43,32 +44,33 @@ public class PrimaryCard extends MobileScreens {
 	public String getThermostatCurrentTemperatureValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatCurrentTemperature");
 	}
-
 	public boolean isThermostatCurrentHumidityValueVisible(TestCaseInputs inputs, int timeOut) {
-		boolean flag = true;
-		String humidityPercentageInPrimaryCardScreen = null;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "HumidityValueInPrimaryCardScreen", 30)) {
-			humidityPercentageInPrimaryCardScreen = MobileUtils
-					.getMobElement(objectDefinition, testCase, "HumidityValueInPrimaryCardScreen").getText();
-			humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
-			if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
-				inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
-						humidityPercentageInPrimaryCardScreen);
-			}
-		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
-				"HumidityValueFromTheScrollListInPrimaryCardScreen", 30)) {
-			humidityPercentageInPrimaryCardScreen = MobileUtils
-					.getMobElement(objectDefinition, testCase, "HumidityValueFromTheScrollListInPrimaryCardScreen")
-					.getText();
-			humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
-			if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
-				inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
-						humidityPercentageInPrimaryCardScreen);
-			}
+        boolean flag = true;
+        String humidityPercentageInPrimaryCardScreen = null;
+        if (MobileUtils.isMobElementExists(objectDefinition, testCase, "HumidityValueInPrimaryCardScreen", 30)) {
+                        humidityPercentageInPrimaryCardScreen = MobileUtils
+                                                        .getMobElement(objectDefinition, testCase, "HumidityValueInPrimaryCardScreen").getText();
+                        humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
+                        if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
+                                        inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
+                                                                        humidityPercentageInPrimaryCardScreen);
+                        }
+        } else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+                                        "HumidityValueFromTheScrollListInPrimaryCardScreen", 30)) {
+                        humidityPercentageInPrimaryCardScreen = MobileUtils
+                                                        .getMobElement(objectDefinition, testCase, "HumidityValueFromTheScrollListInPrimaryCardScreen")
+                                                        .getText();
+                        humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
+                        if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
+                                        inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
+                                                                        humidityPercentageInPrimaryCardScreen);
+                        }
 
-		}
-		return flag;
-	}
+        }
+        return flag;
+}
+
+	
 
 	public boolean isChangeFanScreenDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeFanTitle");
@@ -80,9 +82,8 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isThermostatSolutionCardDisplayed() {
 
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton", 5)
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton", 5)
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleButton", 5)) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton")
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleButton")) {
 			return true;
 		} else {
 			return false;
@@ -323,6 +324,7 @@ public class PrimaryCard extends MobileScreens {
 		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "AutoFanButton");
 		if (ele.isSelected()) {
 			return true;
+
 		}
 		return false;
 	}
@@ -396,143 +398,235 @@ public class PrimaryCard extends MobileScreens {
 			return true;
 		} else {
 			return false;
-		}
+       }	
 	}
+
+		public boolean setMaxTemperatureByTappingUpStepper(TestCaseInputs inputs) {
+			boolean flag=true;
+			String maxSetPoint="";
+			float maxSetPointFloat=0;
+			int maxSetPointInt=0;
+			boolean  systemIsCelsius=false;
+			String currentSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 maxSetPoint= setPoints.get("MaxHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 maxSetPoint= setPoints.get("MaxCool");
+			}
+			 if(maxSetPoint.contains(".")) {
+	        	   systemIsCelsius=true;
+				maxSetPointFloat=Float.parseFloat(maxSetPoint);
+	           }
+	           else {
+	   			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);	   
+	           }
+			
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
+			currentSetPoint = ele.getText();
+		if(systemIsCelsius==false) {	
+			while(Integer.parseInt(currentSetPoint)<maxSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
+				currentSetPoint = ele.getText();
+			}
+		}
+		else {
+			while(Float.parseFloat(currentSetPoint)<maxSetPointFloat) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
+				currentSetPoint = ele.getText();
+			}
+		}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return flag;
+		}
+	
 
 	public boolean clickOnSaveButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButton");
 	}
 
-	public boolean setMaxTemperatureByTappingUpStepper(TestCaseInputs inputs) {
-		boolean flag = true;
-		String maxSetPoint = "";
-		int maxSetPointInt = 0;
-		String currentSetPoint = "";
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		String currentSystemMode = statInfo.getThermoStatMode();
-		HashMap<String, String> setPoints = new HashMap<String, String>();
-		try {
-			setPoints = statInfo.getDeviceMaxMinSetPoints();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (currentSystemMode.toUpperCase().contains("HEAT")) {
-			maxSetPoint = setPoints.get("MaxHeat");
-		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
-			maxSetPoint = setPoints.get("MaxCool");
-		}
-		maxSetPointInt = (int) Float.parseFloat(maxSetPoint);
 
-		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "CurrentSetPoint");
-		currentSetPoint = ele.getText();
 
-		while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
-			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
+		public boolean isMaxTemperatureVisibleOnSolutionCard(TestCaseInputs inputs) {
+			String currentSetPoint="";
+			int maxSetPointInt=0;
+			float maxSetPointFloat=0;
+			String maxSetPoint="";
+			boolean  systemIsCelsius=false;
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 maxSetPoint= setPoints.get("MaxHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 maxSetPoint= setPoints.get("MaxCool");
+			}
+           if(maxSetPoint.contains(".")) {
+        	   systemIsCelsius=true;
+			maxSetPointFloat=Float.parseFloat(maxSetPoint);
+           }
+           else {
+   			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);	   
+           }
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
 			currentSetPoint = ele.getText();
-		}
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return flag;
+			if(systemIsCelsius==false) {
+			if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
+				return true;
+			}
+			}
+			else {
+				if(maxSetPointFloat==(Float.parseFloat(currentSetPoint))) {
+					return true;
+				}
+			}
+			return false;
+		
+	
 	}
 
-	public boolean isMaxTemperatureVisibleOnSolutionCard(TestCaseInputs inputs) {
-		String currentSetPoint = "";
-		boolean flag = true;
-		int maxSetPointInt = 0;
-		String maxSetPoint = "";
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		String currentSystemMode = statInfo.getThermoStatMode();
-		HashMap<String, String> setPoints = new HashMap<String, String>();
-		try {
-			setPoints = statInfo.getDeviceMaxMinSetPoints();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (currentSystemMode.toUpperCase().contains("HEAT")) {
-			maxSetPoint = setPoints.get("MaxHeat");
-		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
-			maxSetPoint = setPoints.get("MaxCool");
-		}
 
-		maxSetPointInt = (int) Float.parseFloat(maxSetPoint);
-		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "CurrentSetPoint");
-		currentSetPoint = ele.getText();
-		if (maxSetPointInt == (Integer.parseInt(currentSetPoint))) {
-			return flag;
-		} else {
-			flag = false;
-		}
-		return flag;
-	}
-
-	public boolean setMinTemperatureByTappingDownStepper(TestCaseInputs inputs) {
-		boolean flag = true;
-		String minSetPoint = "";
-		int minSetPointInt = 0;
-		String currentSetPoint = "";
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		String currentSystemMode = statInfo.getThermoStatMode();
-		HashMap<String, String> setPoints = new HashMap<String, String>();
-		try {
-			setPoints = statInfo.getDeviceMaxMinSetPoints();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (currentSystemMode.toUpperCase().contains("HEAT")) {
-			minSetPoint = setPoints.get("MinHeat");
-		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
-			minSetPoint = setPoints.get("MinCool");
-		}
-		minSetPointInt = (int) Float.parseFloat(minSetPoint);
-		System.out.println(minSetPointInt);
-
-		WebElement ele1 = MobileUtils.getMobElement(objectDefinition, testCase, "CurrentSetPoint");
-		currentSetPoint = ele1.getText();
-
-		while (Integer.parseInt(currentSetPoint) > minSetPointInt) {
-			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
+		public boolean setMinTemperatureByTappingDownStepper(TestCaseInputs inputs) {
+			boolean flag=true;
+			String minSetPoint="";
+			int minSetPointInt=0;	
+			float minSetPointFloat=0;
+			boolean  systemIsCelsius=false;
+			String currentSetPoint="";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 minSetPoint= setPoints.get("MinHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 minSetPoint= setPoints.get("MinCool");
+			} 
+			if(minSetPoint.contains(".")) {
+	        	   systemIsCelsius=true;
+	   			minSetPointFloat=Float.parseFloat(minSetPoint);
+	              }
+	              else {
+	      			minSetPointInt=(int)Float.parseFloat(minSetPoint);	   
+	              }
+			
+			WebElement ele1=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
 			currentSetPoint = ele1.getText();
-		}
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return flag;
-	}
-
-	public boolean isMinTemperatureVisibleOnSolutionCard(TestCaseInputs inputs) {
-		String currentSetPoint = "";
-		boolean flag = true;
-		int minSetPointInt = 0;
-		String minSetPoint = "";
-		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-		String currentSystemMode = statInfo.getThermoStatMode();
-		HashMap<String, String> setPoints = new HashMap<String, String>();
-		try {
-			setPoints = statInfo.getDeviceMaxMinSetPoints();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (currentSystemMode.toUpperCase().contains("HEAT")) {
-			minSetPoint = setPoints.get("MinHeat");
-		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
-			minSetPoint = setPoints.get("MinCool");
-		}
-
-		minSetPointInt = (int) Float.parseFloat(minSetPoint);
-		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "CurrentSetPoint");
-		currentSetPoint = ele.getText();
-		if (minSetPointInt == (Integer.parseInt(currentSetPoint))) {
+			if(systemIsCelsius==false) {
+			while(Integer.parseInt(currentSetPoint)>minSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
+				currentSetPoint = ele1.getText();
+			}
+			}
+			else {
+				while(Float.parseFloat(currentSetPoint)>minSetPointFloat) {
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
+					currentSetPoint = ele1.getText();
+				}
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			return flag;
-		} else {
-			flag = false;
+		} 
+
+
+		public boolean isMinTemperatureVisibleOnSolutionCard(TestCaseInputs inputs) {
+			String currentSetPoint="";
+			int minSetPointInt=0;
+			String minSetPoint="";
+			boolean systemIsCelsius=false;
+			float minSetPointFloat=0;
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			String currentSystemMode=statInfo.getThermoStatMode();
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints=statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(currentSystemMode.toUpperCase().contains("HEAT")) {
+				 minSetPoint= setPoints.get("MinHeat");
+			}
+			else if(currentSystemMode.toUpperCase().contains("COOL")){
+				 minSetPoint= setPoints.get("MinCool");
+			}
+			  if(minSetPoint.contains(".")) {
+	        	   systemIsCelsius=true;
+				minSetPointFloat=Float.parseFloat(minSetPoint);
+	           }
+	           else {
+	   			minSetPointInt=(int)Float.parseFloat(minSetPoint);	   
+	           }
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"CurrentSetPoint");
+			currentSetPoint = ele.getText();
+			if(systemIsCelsius==false) {
+			if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
+				return true;
+			}
+			}
+			else {
+				if(minSetPointFloat==(Float.parseFloat(currentSetPoint))) {
+					return true;
+				}
+			}
+			return false;
 		}
-		return flag;
-	}
+		public boolean autoModeButtonVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoMode");
+		}
+		public boolean disableAutoChangeOver(TestCaseInputs inputs) {
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "AutoChangeOverToggle");
+			String status=ele.getText();
+			if(status.equals("OFF")) {
+				return true;
+			}
+			else {
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoChangeOverToggle");
+			}
+		}
+
+		public boolean enableAutoChangeOver(TestCaseInputs inputs) {
+			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "AutoChangeOverToggle");
+			String status=ele.getText();
+			if(status.equals("ON")) {
+				return true;
+			}
+			else {
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoChangeOverToggle");
+			}
+		}		
+	  
+
+
+
+
+
 
 	public boolean isFanButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton", 8);

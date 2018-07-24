@@ -6,7 +6,7 @@ Feature: As an user I want to verify the Dashboard and primary card for JapserNA
 #HB, Spruce and JasperNA
 @ViewDashboard @DashbboardandSolutionCard_P1
 Scenario Outline: As an user I want to verify the Dashboard view with respective system modes 
-Given user has <Mode> system mode
+#Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "Thermostat Dashboard" screen
 Then user should be displayed with "Thermostat name" with "XX INSIDE" temperature 
@@ -15,7 +15,7 @@ Then the following "Thermostat" options should be enabled:
  |Up Stepper|
  |Down Stepper|
 And user "should be displayed" with the "respective setpoint value" option
-#And user should be displayed with respective <Mode> Color 
+####And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
 |Cool| 
@@ -74,12 +74,12 @@ And the following "Thermostat" options should be enabled:
 Then user "should be displayed" with the "respective setpoint value" option
 And the following "Thermostat icons" options should be enabled:
 |Options|
-|mode| 
-|Schedule| 
+|UP stepper|
+|Down stepper|
 Examples:
 |Mode |
 |Cool| 
-|Heat |
+#|Heat |
 #|Auto |
 #|Cool only|
 #|Heat Only|
@@ -100,8 +100,8 @@ And the following "Thermostat" options should be enabled:
 Then user "should be displayed" with the "respective setpoint value" option
 And the following "Thermostat icons" options should be enabled:
 |Options|
-|mode| 
-|Schedule| 
+|UP stepper|
+|Down stepper|
 Examples:
 |Mode |
 |Heat |
@@ -572,6 +572,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA
+@FanModeSwitchcancelfunction #lavanya
 Scenario Outline: As an user I want to verify the Fan mode cancel option while switch between Auto, circulate and ON
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -656,29 +657,40 @@ Examples:
 |Heat |
 #|OFF |
 
-#Setpoint values SolutionCard   
+
+#Setpoint values SolutionCard
 
 #HB, Spruce, JasperNA
-@SetTemperatureSolutionCardMAXandMIN
-Scenario Outline: As an user I want to verify the Max qnd Min temper throguh TAP on stepper
+@SetTemperatureSolutionCardMAX
+Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Solution Card" option
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Dashboard" option
+
+
+
+#HB, Spruce, JasperNA
+@SetTemperatureSolutionCardMIN
+Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
+Given user has <Mode> system mode
+Given user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MIN set temperature on Solution Card" option
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
 |Mode|
 |Cool|
-|Heat|
-|Cool only|
-|Heat only|
+#|Heat|
+#in case required
+#|Cool only|
+#|Heat only|
+
 
 #HB, Spruce, JasperNA
 #requirment : Should be in NO schedule stat
@@ -704,25 +716,34 @@ Examples:
 |Heat only|
 
 #JasperEMEA
-@SetTemperatureSolutionCardMAXandMINEMEA
-Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper
+@SetTemperatureSolutionCardMAXEMEA
+Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+#When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+#Then user "should be displayed" with the "MAX set temperature on Solution Card" option
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Dashboard" option
 Examples:
 |Mode|
 |Heat|
 
+
+#JasperEMEA
+@SetTemperatureSolutionCardMINEMEA
 #Setpoint value Dashboard
+Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
+Given user has <Mode> system mode
+Given user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MIN set temperature on Solution Card" option
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MIN set temperature on Dashboard" option
+Examples:
+|Mode|
+|Heat|
 
 #HB, Spruce, JasperNA
 @SetTemperatureDashboardMAXandMIN
@@ -846,8 +867,7 @@ Examples:
 
 
 #Multistats
-
-
+@Not Automatable
 @SetTemperatureSolutionCardFromJasperNA
 Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user 
@@ -870,6 +890,7 @@ Examples:
 |Heat only|
 |Cool only|
 
+@Not Automatable
 @SetTemperatureFromHBB 
 Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user 
@@ -889,6 +910,7 @@ Examples:
 |Cool |
 |Auto |
 
+@Not Automatable
 @SetTemperatureFromEMEA
 Scenario Outline:To set temperature for location with multistat with time format 24/12hr 
 As an user 
@@ -906,6 +928,7 @@ And Verify the "Stat1" widget on the location dashboard for set temperature
 
 #network error
 
+@Not Automatable
 #HB, Spruce, JasperNA, JasperEMEA
 @NetworkdownSolutionCard&SolutionCard
 Scenario Outline:To get error messages on network down in primary card
@@ -925,6 +948,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA, JasperEMEA
+@Not Automatable
 @NetworkdownDashboard&SolutionCard
 Scenario Outline:To get error messages on network down in location Dashboard
 As an user
@@ -945,40 +969,62 @@ Examples:
 #Feature: As an user I want to change the AutoChangeover option for JapserNA , JasperEMEA, HB and Spruce
 #AutoChangeover
 
+#Requirement : One account with  Auto mode enabled
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardAutochangeover
-Scenario:As an user  i want to view the option for automode 
-#Requirement : One account with  Auto mode enabled
-Scenario:As an user  i want to view the option for automode 
-Given Stat with Heat Cool system
-When user selects mode icon in solution card 
-Then verify user provided with auto mode option in set mode screen
-
-
-#HB, Spruce, JaperNA - negative case
-@DashboardandsolutioncardAutoModeNegative
-Scenario Outline: As an user i should not shown with the option for automode 
-Given Stat with <system>
-And Autochangeover enabled in stat
-When user selects mode icon in solution card 
-Then verify user not provided with auto mode option in set mode screen
+Scenario Outline:As an user  i want to view the option for automode 
+Given user has <Mode> system mode
+Then user launches and logs in to the Lyric application
+When user should be displayed with the "thermostat Dashboard" screen 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change Mode" screen 
+Then user "should be provided" with the "automode" option
 Examples:
-|system|
+|Mode|
 |Heat  |
 |Cool  |
+
+
+#HB, Spruce, JaperNA
+#Requirement : One account with  Auto mode enabled
+@DashboardandsolutioncardAutoModeCheckingFromPrimaryCard
+Scenario Outline: As an user i should not shown with the option for automode 
+Given user has <Mode> system mode
+Then user launches and logs in to the Lyric application
+When user should be displayed with the "thermostat Dashboard" screen 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And user navigates to "THERMOSTAT SETTINGS" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "disables auto change over" with the "thermostat settings" option
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT SETTINGS" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user "should not be displayed" with the "Auto Mode description" option 
+When user selects "X" from "Change Mode" Screen
+And user navigates to "THERMOSTAT SETTINGS" screen from the "THERMOSTAT SOLUTION CARD" screen
+Then user "enables auto change over" with the "thermostat settings" option
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT SETTINGS" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user "should be displayed" with the "Auto Mode description" option 
+Examples:
+|Mode|
+|Heat  |
+#|Cool  |
 
 #HB, Spruce, JaperNA // negative case
+#Requirement :Auto mode should be disabled
 @DashboardandsolutioncardAutoModeNegative1
 Scenario Outline: As an user i should not shown with the option for automode
-Given Stat with <system>
-And Autochangeover disabled in stat
-When user selects mode icon in solution card 
-Then verify user not provided with auto mode option in set mode screen
+Given user has <Mode> system mode
+Then user launches and logs in to the Lyric application
+When user should be displayed with the "thermostat Dashboard" screen 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change Mode" screen 
+Then user "should not be provided" with the "automode" option
 Examples:
-|system|
+|Mode|
 |Heat  |
 |Cool  |
-|Heat Cool|
 
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardAutoModewithMutliOS
@@ -1142,6 +1188,7 @@ Given user launches and logs in to the lyric application
 Then user  navigates to "Dashboard"
 When user should displayed with "alphanumeric order"
 
+#Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatbothcoolandheat
@@ -1150,7 +1197,7 @@ Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user enables the "Emergency Heat" under settings
 Then user should be displayed with "Heat" Mode
-And user should be displayed with "Emergencey heat" on "Solutioncard"
+And user should be displayed with "Emergency heat" on "Solutioncard"
 When user switch the <SystemMode> 
 Then user should not be displayed "Emergency heat" on "SolutionCard"
 And user should be displayed with disabled "Emergency heat" option under settings
@@ -1173,31 +1220,29 @@ Examples:
 |OFF | OFF |
 |OFF | auto|
 
+
+#Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatHeatonly
 Scenario Outline: As an user I want to verify Emergency heat on solution card when heat only mode configured
-Given user has <Mode> system mode
-Then user launches and logs in to the Lyric application
-And user should be displayed with the "thermostat Dashboard" Screen
-Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-When user should be displayed with the "thermostat Solution Card" screen
-And user navigates to "THERMOSTAT SETTINGS" screen from the "THERMOSTAT SOLUTION CARD" screen
-When user selects "Emergency Heat" from "THERMOSTAT SETTINGS" Screen
-And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT SETTINGS" screen
-Then user "should be updated" with the "HEAT" option
-When user selects "Mode" from "Thermostat Solution Card" screen
-And user selects <SystemMode> from "change Mode" Screen
-When user selects "save" from "Change Mode" Screen
-And user navigates to "THERMOSTAT SETTINGS" screen from the "THERMOSTAT SOLUTION CARD" screen
-And user "should be disabled" with the "Emergency heat" option 
-Examples:
-|Mode | SystemMode|
-#|Heat only | OFF |
-#|Heat only | Heat only  | 
-|OFF | OFF |
-#|OFF| Heat only  | 
 
+Given user launches and logs in to the Lyric application
+Then user is set to <Mode> through CHIL
+When user enables the "Emergency Heat" under settings
+Then user should be displayed with "Heat" Mode
+And user should be displayed with "Emergencey heat" on "Solutioncard"
+When user switch the <SystemMode> 
+Then user should not be displayed "Emergency heat" on "SolutionCard"
+And user should be displayed with disabled "Emergency heat" option under settings
+Examples:
+|Mode | systemMode|
+|Heat only | OFF |
+|Heat only | Heat only  | 
+|OFF | OFF |
+|OFF| Heat only  | 
+
+#Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatCoolonly
@@ -1234,7 +1279,4 @@ Examples:
 |Mode | 
 #|Heat only |
 |OFF| 
-
-
-
 
