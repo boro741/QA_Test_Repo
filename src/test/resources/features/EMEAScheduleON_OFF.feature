@@ -147,7 +147,7 @@ Examples:
 
 
 @ScheduleOFFONVacationEMEA @Automated --LYR-29406
-Scenario: As an user I want to turn schedule ON So that my vaction will be back   
+Scenario Outline: As an user I want to turn schedule ON So that my vaction will be back   
 #Schedule ON the stat with systems Heat for Temperture scale Celsius and for time format 24 12hr 
 Given user has "Heat" system mode
 Then user thermostat is set to <scheduling> schedule
