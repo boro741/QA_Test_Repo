@@ -18,7 +18,7 @@ As a user I want to create an time based scheduling
       | no         | Same Every Day        | 
    #   | time based | Same Every Day        | 
    #   | no         | Different On Weekdays | 
-      | time based | Different On Weekdays | 
+   #   | time based | Different On Weekdays | 
  
  @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641
   Scenario Outline: To create EMEA schedule by setting up with new period with new time value for both time format
@@ -138,7 +138,7 @@ Then user verifies the following on the primary card:
    #   | no| Different On Weekdays|
    #   | time based| Different On Weekdays|
 
-@JasperEMEA_CopyTimeBasedScheduleInOffMode @JasperEmeaScheduleP4
+@JasperEMEA_CopyTimeBasedScheduleInOffMode @NonAutomated
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application
