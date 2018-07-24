@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream													
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value	
 CogIcon	id	action_settings	id	action_settings	id	action_settings	name	appSettingsIcon	name	appSettingsIcon	name	appSettingsIcon	
 ThermostatCurrentTemperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature	ID	view_thermostat_current_temperature							
@@ -39,3 +40,4 @@ AutoModeDescription	XPATH	//android.widget.TextView[@text='COOL OR HEAT AS NEEDE
 HeatModeDescription	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='HEAT TO REACH TARGET TEMPERATURE']							
 OffModeDescription	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']	XPATH	//android.widget.TextView[@text='COOL TO REACH TARGET TEMPERATURE']							
 CoolModeDescription	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']	XPATH	//android.widget.TextView[@text='TURN SYSTEM OFF']							
+EmergencyHeatToggle	xpath	//android.widget.Switch[@content-desc='Emergency Heat']											

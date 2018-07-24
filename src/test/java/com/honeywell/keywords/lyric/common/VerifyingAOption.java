@@ -14,10 +14,8 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
-
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
-
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SensorSettingScreen;
 
@@ -634,6 +632,22 @@ public class VerifyingAOption extends Keyword {
 				case "SHOULD BE DISPLAYED": {
 					Dashboard thermo = new Dashboard(testCase);
 					flag=flag&thermo.isMaxTemperatureVisibleOnDashBoard(inputs);
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
+						}
+					else {
+						flag=false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(1)+"Value is not updated");
+					}
+					break;
+				}
+				}
+			}
+			else if (expectedScreen.get(1).equalsIgnoreCase("Emergency heat")) {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISABLED": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.isEmergencyHeatOptionDisabled();
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1)+" is updated");
 						}

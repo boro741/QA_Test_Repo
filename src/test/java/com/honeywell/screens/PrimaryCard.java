@@ -372,7 +372,22 @@ public class PrimaryCard extends MobileScreens {
 		} else {
 			return false;
 		}
-	}
+
+		}
+
+		public void clickOnEmergencyHeatButton() {
+			WebElement element1= MobileUtils.getMobElement(objectDefinition, testCase, "EmergencyHeatToggle");
+			if(element1.getText().equalsIgnoreCase("off"))
+					{
+				MobileUtils.clickOnElement(objectDefinition, testCase, "EmergencyHeatToggle");
+					}
+			else
+			{
+				MobileUtils.clickOnElement(objectDefinition, testCase, "EmergencyHeatToggle");
+			}
+			
+		}	
+
 
 	public boolean checkCurrentMode(String expectedValue) {
 		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton");
@@ -521,5 +536,17 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isFanButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton", 8);
+	}
+
+	public boolean isEmergencyHeatOptionDisabled() {
+		WebElement element1= MobileUtils.getMobElement(objectDefinition, testCase, "EmergencyHeatToggle");
+		if(element1.getText().equalsIgnoreCase("off"))
+				{
+			return true;
+				}
+		else
+		{
+			return false;
+		}
 	}
 }
