@@ -2154,8 +2154,30 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+
+			} else if(screen.get(1).equalsIgnoreCase("PRIMARY CARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SCHEDULING": {
+						SchedulingScreen ss=  new SchedulingScreen(testCase);
+						flag = flag & ss.clickOnTimeScheduleButton();
+						if (flag) 
+						{
+								Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
+						}else 
+						{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to select schedule icon: " + screen.get(1));
+						}
+						break;
+					}
+				
+					
+					default: {
+		 				flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+					}break;
+		 			}
+			}else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);
@@ -2198,9 +2220,7 @@ public class NavigateToScreen extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
-
-
-		} catch (Exception e) {
+			} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

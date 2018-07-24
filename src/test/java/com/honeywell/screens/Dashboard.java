@@ -13,7 +13,6 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 
 public class Dashboard extends MobileScreens {
