@@ -53,6 +53,16 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isScheduleOptionsVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOptionsButton", timeOut);
 	}
+	
+	public boolean isScheduleOptionsElementEnabled() {
+		boolean flag =true;
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "ScheduleOptionsButton");
+		if(element.isEnabled())
+		{
+			return flag;
+		}else
+		return false;
+		}
 
 	public boolean clickOnCopyButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CopyButton");
@@ -1140,6 +1150,53 @@ public class SchedulingScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAway");
 	}
-
+	public boolean isScheduleOffStatusVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffStatus", timeOut);
+	}
+	
+	public boolean clickOnScheduleOffStatus(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffStatus");
+	}
+	
+	
+	public boolean isFollowingSchedulesVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FollowingSchedule", timeOut);
+	}
+	
+	public boolean clickOnFollowingSchedules(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FollowingSchedule");
+	}
+	
+	public boolean isUsingAwayVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingAway", timeOut);
+	}
+	
+	public boolean clickOnUsingAway(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingAway");
+	}
+	
+	public boolean isUsingHomeVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingHome", timeOut);
+	}
+	
+	public boolean clickOnUsingHome(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingHome");
+	}
+	
+	public boolean isUsingSleepVisible(int timeOut){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsingSleep", timeOut);
+	}
+	
+	public boolean clickOnUsingSleep(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsingSleep");
+	}
+	
+	public boolean isScheduleOffButtonVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffButton");
+	}
+	
+	public boolean clickOnScheduleOffButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffButton");
+	}
 
 }

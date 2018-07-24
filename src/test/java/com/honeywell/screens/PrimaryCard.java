@@ -303,10 +303,21 @@ public class PrimaryCard extends MobileScreens {
 			return false;
 		}
 	}
+		public boolean isVacationStatusVisible() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatus");
+		
+		}
+		public boolean clickOnVacationStatus() {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatus");
+		
+		}
+		
+
 
 	public boolean clickOnXButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "XButton");
 	}
+
 
 	public boolean isAutoFanElementSelected() {
 		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "AutoFanButton");

@@ -1,213 +1,288 @@
-@ScheduleON/OFF
-Feature: 
-As an user 
-I want to turn schedule OFF or ON 
-So that I can run schedule whenever I want to apply set points automatically 
+@ScheduleON_OFF
+Feature: As an user I want to turn schedule OFF or ON so that I can run schedule whenever I want to apply set points automatically 
 
 
-#JapserNA
-@ScheduleOFFNA 
-Scenario Outline:Schedule OFF the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-As an user 
-I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule   
-Given user launches and login to application
-Then user set to <Mode>
-And user Stat with <Schedule>
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-And Verify the "Schedule off" status on the solution card 
+@ScheduleOFFONNA @Automated --LYR-29388
+Scenario Outline:As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule 
+#Schedule OFF ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+
 Examples:
-|Mode |Schedule         |
-|Cool|Geofence schedule|
-|Heat|Geofence schedule|
-|Auto|Geofence schedule|
-|Heat only|Geofence schedule|
-|Cool only|Geofence schedule|
-|Cool|Time schedule    |
-|Cool|Time schedule    |
-|Heat|Time schedule    |
-|Auto|Time schedule    |
-|Heat only|Time schedule    |
-|Cool only|Time schedule    |
-|Cool||Time schedule    |
+|Mode | scheduling |
+|Cool|geofence based|
+|Heat|geofence based|
+#|Auto|geofence based|
+#|Cool|time based    |
+#|Heat|time based    |
+#|Auto|time based    |
+
+#incaserequired
+#|Heat only|geofence based|
+#|Cool only|geofence based|
+#|Heat only|time based    |
+#|Cool only|time based    |
 
 
-#JapserNA
-@ScheduleONNAtimebase
-Scenario Outline:Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
+
+@ScheduleOFFONNAtimebase  @Automated --	LYR-29389
+Scenario Outline:As an user I want to turn schedule ON while running time base schedule   
+#Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the <Schedule status> on the "PRIMARY CARD" screen
+
+Examples:
+|Mode | scheduling | Schedule status |
+|Cool|time based |following schedule |
+#|Heat|time based | following schedule |
+#|Auto|time based  | following schedule |
+
+#incaserequired
+#|Heat only|time based  | following schedule |
+#|Cool only|time based  | following schedule |
+
+@ScheduleONOFFNAgeofencebase
+Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence based 
+#Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the <Schedule status> on the "PRIMARY CARD" screen
+
+Examples:
+|MODE|scheduel|Schedule status | 
+|Cool|geofence based|Using Home Settings|
+|Cool|geofence based|Using Away Settings|
+|Cool|geofence based|Using Sleep Settings |
+|Heat|geofence based|Using Home Settings|
+|Heat|geofence based|Using Away Settings|
+|Heat|geofence based|Using Sleep Settings |
+|Auto|geofence based|Using Home Settings |
+|Auto|geofence based|Using Away Settings |
+|Auto|geofence based|Using Sleep Settings |
+
+#Incaserequried
+|Heat only|geofence based|Using Home Settings |
+|Heat only|geofence based|Using Away Settings |
+|Heat only|geofence based|Using Sleep Settings |
+|Cool only|geofence based|Using Home Settings|
+|Cool only|geofence based|Using Away Settings |
+|Cool only|geofence based|Using Sleep Settings |
+
+
+@ScheduleOFFAdhocOverrideNAtimebaseGeofence
+Scenario Outline:As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
+#Schedule OFF the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user launches and logs in to the Lyric application
+And user activates <Adhocoverride>
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the <Adhocoverride update> on the "PRIMARY CARD" screen
+Examples:
+|Mode|Schedule | Adhocoverride    |Adhocoverride update |
+|Heat| time based| Temporary |Temporary |
+|Heat| time based| Permanent |Permanent |
+|Cool| time based| Temporary |Temporary |
+|Cool| time based| Permanent |Permanent |
+|auto| time based| Temporary |Temporary |
+|auto| time based| Permanent |Permanent |
+|Heat|geofence based| Temporary |Temporary |
+|Cool|geofence based| Temporary |Temporary |
+|auto|geofence based| Temporary |Temporary |
+
+#incaserequired
+|Cool only| time based| Temporary |Temporary |
+|Cool only | time based| Permanent |Permanent |
+|Heat only| time based| Temporary |Temporary |
+|Heat only | time based| Permanent |Permanent |
+|Cool only|geofence based| Temporary |Temporary |
+|Heat only|geofence based| Temporary |Temporary |
+
+@ScheduleONNAadhocoverrideTimebase
+Scenario Outline:Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 As an user 
 I want to turn schedule ON from OFF
 So that schedule will be turned back to follow schedule 
-  Given user launches and login to application 
-Then user set to <Mode>
-And user Stat with <Schedule>
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the "schedule OFF" overlay in the schedule screen
-When user TAP on the "Schedule OFF" overlay 
-Then Verify the "schedule OFF" overlay disappeared in the schedule screen
-And Verify the "Following schedule" status on the solution card 
-Examples:
-|Mode |Schedule         |
-|Cool|Time schedule    |
-|Cool|Time schedule    |
-|Heat|Time schedule    |
-|Auto|Time schedule    |
-|Heat only|Time schedule    |
-|Cool only|Time schedule    |
-|Cool||Time schedule    |
-
-#JapserNA
-@ScheduleONNAgeofencebase
-Scenario Outline:Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-As an user 
-I want to turn schedule ON from OFF
-So that schedule will be turned back to follow schedule 
-  Given user launches and login to application 
-Then user set to <Mode>
-And user Stat with <Schedule>
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-When user TAP on the "Schedule OFF" overlay 
-Then Verify the "USING" <PERIOD> SETTINGS" status on the solution card 
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user activates <Adhocoverride>
+And user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+And user deactivates <Adhocoverride>
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 
 Examples:
-|MODE|scheduel|period | 
-|Heat|Geofence schedule|Home|
-|Heat|Geofence schedule|sleep|
-|Heat|Geofence schedule|away |
-|Auto|Geofence schedule|Home |
-|Auto|Geofence schedule|sleep |
-|Auto|Geofence schedule|way |
-|Heat only|Geofence schedule|Home/ |
-|Heat only|Geofence schedule|sleep |
-|Heat only|Geofence schedule|way |
-|Cool only|Geofence schedule|Home|
-|Cool only|Geofence schedule|sleepy |
-|Cool only|Geofence schedule|away |
+|Mode|Schedule | Adhocoverride   | Schedule status |
+|Heat| time based| Temporary | following schedule |
+|Cool| time based| Temporary | following schedule |
+|auto| time based| Temporary | following schedule |
+|Cool only| time based| Temporary |following schedule |
+|Heat only| time based| Temporary |following schedule |
 
-
-@ScheduleOFFAdhocOverrideNAtimebase
-Scenario Outline:Schedule OFF the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr  
-As an user 
-I want to turn schedule OFF 
-So that I will be able to turned off schedule whenever I don't want to run schedule  
-  Given user launches and login to application 
-Then user set to <Mode>
-And user stat with <schedule> 
-And user Stat with <AdhocOverride>
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-And Verify the "Schedule off" status on the solution card 
-Examples:
-|Mode|Schedule | Ahocoverride    |
-|Heat| Time schedule| Temporary |
-|Heat| Time schedule| Permanent |
-|Cool| Time schedule| Temporary |
-|Cool| Time schedule| Permanent |
-|auto| Time schedule| Temporary |
-|auto| Time schedule| Permanent |
-|Cool only| Time schedule| Temporary |
-|Cool only | Time schedule| Permanent |
-|Heat only| Time schedule| Temporary |
-|Heat only | Time schedule| Permanent |
-|Heat|Geofence schedule| Temporary |
-|Heat|Geofence schedule| Permanent |
-|Cool|Geofence schedule| Temporary |
-|Cool|Geofence schedule| Permanent |
-|auto|Geofence schedule| Temporary |
-|auto|Geofence schedule| Permanent |
-|Cool only|Geofence schedule| Temporary |
-|Cool only |Geofence schedule| Permanent |
-|Heat only|Geofence schedule| Temporary |
-|Heat only |Geofence schedule| Permanent |
-
-@ScheduleONNAadhocoverride
-Scenario Outline:Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-As an user 
-I want to turn schedule ON from OFF
-So that schedule will be turned back to follow schedule 
-  Given user launches and login to application 
-Then user set to <Mode>
-And user Stat with <Schedule>
-And user Stat with <AdhocOverride>
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-When user TAP on the "Schedule OFF" overlay 
-Then Verify the <AhocOverride> status on "SolutionCard"
+@ScheduleONNAadhocoverrideGeofence
+Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to follow schedule 
+#Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user activates <Adhocoverride>
+And user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+And user deactivates <Adhocoverride>
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 
 Examples:
-|Mode|Schedule | Ahocoverride    |
-|Heat|Geofence schedule| Temporary |
-|Heat|Geofence schedule| Permanent |
-|Cool|Geofence schedule| Temporary |
-|Cool|Geofence schedule| Permanent |
-|auto|Geofence schedule| Temporary |
-|auto|Geofence schedule| Permanent |
-|Cool only|Geofence schedule| Temporary |
-|Cool only |Geofence schedule| Permanent |
-|Heat only|Geofence schedule| Temporary |
-|Heat only |Geofence schedule| Permanent |
-|Heat| Time schedule| Temporary |
-|Heat| Time schedule| Permanent |
-|Cool| Time schedule| Temporary |
-|Cool| Time schedule| Permanent |
-|auto| Time schedule| Temporary |
-|auto| Time schedule| Permanent |
-|Cool only| Time schedule| Temporary |
-|Cool only | Time schedule| Permanent |
-|Heat only| Time schedule| Temporary |
-|Heat only | Time schedule| Permanent |
+|Heat|geofence based| Temporary | Using Home Settings|
+|Heat|geofence based| Temporary | Using Away Settings|
+|Heat|geofence based| Temporary | Using Sleep Settings|
+|Cool|geofence based| Temporary |Using Home Settings|
+|Cool|geofence based| Temporary |Using Away Settings|
+|Cool|geofence based| Temporary |Using Sleep Settings|
+|auto|geofence based| Temporary |Using Home Settings|
+|auto|geofence based| Temporary |Using Away Settings|
+|auto|geofence based| Temporary |Using Sleep Settings|
+
+#Incaserequired
+|Cool only|geofence based| Temporary |Using Home Settings|
+|Cool only |geofence based| Temporary |Using Away Settings|
+|Cool only|geofence based| Temporary |Using Sleep Settings|
+|Heat only|geofence based| Temporary |Using Home Settings|
+|Heat only |geofence based| Temporary |Using Away Settings|
+|Heat only |geofence based| Temporary |Using Sleep Settings|
 
 
-
-
-
-@ScheduleOFFVacationNA 
-Scenario Outline:Schedule OFF for stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr 
-As an user 
-I want to turn schedule OFF while vacation is active 
-So that I will be able to turned off schedule whenever I don't want to run schedule    
-  Given user launches and login to application 
-Then user set to <Mode>
-And user Stat with "Vacation"
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-And Verify the "Schedule off" status on the solution card 
-
-Examples:
-|Mode|
-|Cool|
-|Heat|
-|Auto|
-|Cool only|
-|Heat Only|
-
-
-
-@ScheduleONNAVacationNA 
-Scenario Outline:Schedule ON the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr 
-As an user 
-I want to turn schedule ON 
-So that my vaction will be back   
-  Given user launches and login to application 
-Then user set to <Mode>
-And user Stat with "Vacation"
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-When user TAP on the "Schedule OFF" overlay 
-Then Verify the "Vacation" status on "SolutionCard"
+@ScheduleOFFVacationNA @Automated -- LYR-29393
+Scenario Outline: As an user  I want to turn schedule OFF while vacation is active  So that I will be able to turned off schedule whenever I don't want to run schedule
+#Schedule OFF for stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr     
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And vacation mode is "active"
+And Verify the "Vacation status NA" on the "PRIMARY CARD" screen
+Then user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user selects "Schedule OFF overlay" from "Scheduling" screen
+Then Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+And user navigates to "primary card" screen from the "SCHEDULING" screen
+And vacation mode is "disable"
 
 Examples:
-|Mode|
-|Cool|
-|Heat|
-|Auto|
-|Cool only|
-|Heat Only|
+|Mode| scheduling | 
+|Cool| time based |
+#|Heat| time base |
+#|Auto| time based |
+#|Cool|geofence based |
+#|Heat| geofence based |
+#|Auto| geofence based |
+
+#incaserequired
+#|Cool only| time based |
+#|Heat Only|time based |
+#|Cool only| geofence based |
+#|Heat Only| geofence based |
 
 
-@ScheduleON/OFFNAswitchingmodes
-Scenario Outline:Schedule ON/OFF status while switching modes to off and from off for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
+
+@ScheduleONOFFNAVacationNA @Automated --LYR-29394
+Scenario Outline:As an user I want to turn schedule ON So that my vaction will be back  
+#Schedule ON the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When vacation mode is "active"
+Then Verify the "Vacation status NA" on the "PRIMARY CARD" screen
+And user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Vacation status NA" on the "PRIMARY CARD" screen 
+And vacation mode is "disable"
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+Examples:
+|Mode| scheduling | 
+|Cool| time based |
+#|Heat| time based |
+#|Auto| time based |
+#|Cool|geofence based |
+#|Heat| geofence based |
+#|Auto| geofence based |
+
+#incaserequired
+#|Cool only| time based |
+#|Heat Only| time based |
+#|Cool only| geofence based |
+#|Heat Only| geofence based |
+
+
+@ScheduleONOFFNAswitchingmodes
+Scenario Outline:Schedule ON OFF status while switching modes to off and from off for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user launches and login to application 
 Then user set to <Mode>
 And user Stat with <AdhocOverride>
@@ -225,7 +300,7 @@ Then user TAP on the "Schedule OFF" overlay on "Schedule" screen
 When user changes the <UMode> from "OFF"
 Then user should be displayed with <Adhocoverride> status on "SolutionCard"
 
-Examples :
+Examples:
 |Mode| Adocoverride | UMode | 
 |Cool | Temporary | Cool |
 |Cool | Temporary | Heat |
@@ -254,68 +329,3 @@ Examples :
 | Auto | Vacation | Cool |
 | Auto | Vacation | Heat |
 | Auto | Vacation | Auto |
-
-#Negative scenario
-@ScheduleON/OFFEMEANA 
-Scenario Outline:Schedule ON/OFF when there is no schedule for stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-Given Stat with <Condition>
-Then Verify there is no option to Schedule ON/OFF
-Examples:
-|Condition   |
-|No schedule |
-|Stat Offline|
-
-
-
-@ScheduleONMultistatEMEANA 
-Scenario Outline:Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr 
-As an user 
-I want to turn schedule ON from OFF 
-So that I can run schedule whenever I want to apply set automatically   
-Given Stat1 with <Schedule>
-When User turns schedule ON in the stat1 from schedule screen 
-Then Verify the schedule OFF overlay disappeared in the schedule screen for stat1
-And Verify the status on the solution card for following schedule for stat1
-And Verify schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location
-Examples:
-|Schedule         |
-|Time schedule    |
-|Geofence schedule| 
-
-
-@ScheduleOFFMultistatEMEANA 
-Scenario Outline:Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-As an user 
-I want to turn schedule OFF from ON 
-So that I can run schedule whenever I want to apply set automatically   
-Given Stat1 with <Schedule>
-When User turns schedule OFF in the stat1 from schedule screen 
-Then Verify the schedule OFF overlay in the schedule screen for stat1
-And Verify the status on the solution card for schedule OFF for stat1
-And Verify schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location
-Examples:
-|Schedule         |
-|Time schedule    |
-|Geofence schedule| 
-
-
-@ErrormessageScheduleON/OFFEMEANA
-Scenario Outline:To get error messages on Schedule ON/OFF for stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-As an user
-I want to get error message while attempt to Schedule ON/OFF  
-So that I will get notified on system unavailability
-Given With the <Condition>
-When Schedule ON/OFF from schedule screen   
-Then Verify the error message
-Examples:
-|Condition                       |
-|Mobile internet(3G/wifi) is down|
-|Mobile in Airplane mode         |
-|Mobile with low signal(3G/wifi) |
-|CHIL down                       |
-|Switching between the network   |
-|Smart network switch            |
-
-Schedule on/off specific time , 
-
-

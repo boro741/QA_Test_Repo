@@ -2653,14 +2653,14 @@ public class JasperSchedulingUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Set Period Time : Successfully set time " + timeToSet + " to time picker");
 						} else
-							if (ss.setHoursValueToTimePickerAndroid(hours) && ss.setMinsValueToTimePickerAndroid(minutes) && ss.setAMPMTimeFormatValueToTimePickerAndroid(ampm)) {
+						/*if (ss.setHoursValueToTimePickerAndroid(hours) && ss.setMinsValueToTimePickerAndroid(minutes) && ss.setAMPMTimeFormatValueToTimePickerAndroid(ampm)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Set Period Time : Successfully set time " + timeToSet + " to time picker");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Set Period Time : Failed to set time " + timeToSet + " to time picker");
-							}
+							}*/
 						flag = flag & ss.clickOnOkButton();
 					}
 				} else {

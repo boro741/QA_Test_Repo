@@ -2095,6 +2095,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
+
 					break;
 				}
 			}
@@ -2177,6 +2178,7 @@ public class NavigateToScreen extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
+
 
 		} catch (Exception e) {
 			flag = false;
