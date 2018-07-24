@@ -1814,6 +1814,14 @@ public class JasperSchedulingUtils {
 			if (inputs.getInputValue(InputVariables.ADD_PERIOD).equalsIgnoreCase("Yes")) {
 				JasperSchedulingUtils.addPeriodEMEADefaultCase(testCase, inputs);
 			}
+			if(inputs.getInputValue("ADD_PERIOD_NUMBER").equals("6")){
+				scrollForAndroidScreen(testCase);
+				inputs.setInputValue("ADD_PERIOD_HEAT_SETPOINT",inputs.getInputValue("ADD_PERIOD_6_HEAT_SETPOINT"));
+				JasperSchedulingUtils.addPeriodEMEADefaultCase(testCase, inputs);
+				
+			}
+			
+			
 
 			if (ss.IsSaveButtonVisible(10)) {
 				flag = flag & ss.clickOnSaveButton();
@@ -2739,8 +2747,12 @@ public class JasperSchedulingUtils {
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			String jasperStatType = devInfo.getJasperDeviceType();
 			try {
+				if(element!=null){
+					element.click();
+				}else {
 				sScreen.clickOnAddPeriodButton();
 				Keyword.ReportStep_Pass(testCase, "Successfully click on : Add period");
+				}
 			} catch (Exception e) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
