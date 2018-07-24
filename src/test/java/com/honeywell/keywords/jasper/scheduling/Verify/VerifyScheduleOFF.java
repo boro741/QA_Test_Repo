@@ -14,9 +14,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 
@@ -114,6 +111,31 @@ public class VerifyScheduleOFF extends Keyword {
 						FluentWait<String> fWait = new FluentWait<String>(" ");
 						fWait.pollingEvery(30, TimeUnit.SECONDS);
 						fWait.withTimeout(15, TimeUnit.MINUTES);
+						Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+						public Boolean apply(String a) {
+								try {
+									if (VacationStatus.isVacationStatusVisible()) {
+										return true;
+									} else {
+										return false;
+									}
+								} catch (Exception e) {
+									return false;
+								}
+							}
+						});
+						if(isEventReceived)
+						{
+						Keyword.ReportStep_Pass(testCase, "Vacation status displayed");
+						}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Vacation status not displayed");
+						}break;
+					}
+					case "VACATION STATUS EMEA": {
+						PrimaryCard VacationStatus = new PrimaryCard(testCase);
+						FluentWait<String> fWait = new FluentWait<String>(" ");
+						fWait.pollingEvery(30, TimeUnit.SECONDS);
+						fWait.withTimeout(10, TimeUnit.MINUTES);
 						Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 						public Boolean apply(String a) {
 								try {

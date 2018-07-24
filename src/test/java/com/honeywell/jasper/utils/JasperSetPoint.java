@@ -251,6 +251,26 @@ public class JasperSetPoint {
 		return roundOffTime;
 	}
 
+	
+	public static String roundOffTimeToTheNearest10minutes(TestCases testCase, String time) {
+		String roundOffTime = " ";
+		try {
+			SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Calendar c = Calendar.getInstance();
+			c.setTime(vacationDateFormat.parse(time));
+			int minutes = c.get(Calendar.MINUTE);
+			int mod = minutes % 10;
+			int diff = 10 - mod;
+			c.add(Calendar.MINUTE, diff);
+			c.set(Calendar.SECOND, 0);
+			roundOffTime = vacationDateFormat.format(c.getTime());
+		} catch (Exception e) {
+			roundOffTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return roundOffTime;
+	}
 
 	/**
 	 * <p>

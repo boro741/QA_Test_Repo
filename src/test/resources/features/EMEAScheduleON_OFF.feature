@@ -87,7 +87,7 @@ Examples:
 
 
 
-@ScheduleOFFAdhocOverrideNAtimebase
+@ScheduleOFFAdhocOverridetimebase
 Scenario Outline:Schedule OFF the stat with systems Heat for Temperture scale Celsius and for time format 24 12hr  
 #As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
 Given user launches and login to application 
@@ -102,7 +102,6 @@ Examples:
 |Heat| time base| Temporary |
 |Heat| time base| Permanent |
 |Heat|geofence based | Temporary |
-|Heat|geofence based| Permanent |
 
 
 @ScheduleONNAadhocoverride
@@ -120,7 +119,6 @@ Then Verify the <AhocOverride> status on "SolutionCard"
 Examples:
 |Mode|Schedule | Ahocoverride    |
 |Heat|geofence based| Temporary |
-|Heat|geofence based| Permanent |
 |Heat| time base| Temporary |
 |Heat| time base| Permanent |
 
@@ -131,7 +129,7 @@ Given user has "Heat" system mode
 Then user thermostat is set to <scheduling> schedule 
 And user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-And vacation mode is "active"
+And vacation mode is EMEA "active"
 And Verify the "Vacation status EMEA" on the "PRIMARY CARD" screen
 Then user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 When user selects "Option" from "Scheduling" screen
@@ -143,19 +141,19 @@ And user navigates to "primary card" screen from the "SCHEDULING" screen
 And vacation mode is "disable"
 Examples:
 | scheduling |
-|time base|
-|geofence based | 
+|time based|
+#|geofence based | 
 
 
 
-@ScheduleOFFONNAVacationEMEA @Automated --LYR-29406
+@ScheduleOFFONVacationEMEA @Automated --LYR-29406
 Scenario: As an user I want to turn schedule ON So that my vaction will be back   
 #Schedule ON the stat with systems Heat for Temperture scale Celsius and for time format 24 12hr 
 Given user has "Heat" system mode
 Then user thermostat is set to <scheduling> schedule 
 And user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When vacation mode is "active"
+When vacation mode is EMEA "active"
 Then Verify the "Vacation status EMEA" on the "PRIMARY CARD" screen
 And user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 When user selects "Option" from "Scheduling" screen
@@ -169,8 +167,8 @@ When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
 Then user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 | scheduling |
-|time base|
-|geofence based | 
+|time based|
+#|geofence based | 
 
 @ScheduleONOFFEMEAswitchingmodes
 Scenario Outline:Schedule ON OFF status while switching modes to off and from off for Temperture scale CelsiusFahrenheit and for time format 2412hr
