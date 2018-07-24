@@ -123,10 +123,6 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOptionsButton");
 	}
 
-	public boolean clickOnScheduleOverlay() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffOverlay");
-	}
-
 	public boolean clickOnSkipButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButton");
 	}
@@ -762,10 +758,6 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isScheduleOffOverlayVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffOverlay", timeOut);
-	}
-
-	public boolean isScheduleOverlayVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffOverlay", timeOut);
 	}
 
