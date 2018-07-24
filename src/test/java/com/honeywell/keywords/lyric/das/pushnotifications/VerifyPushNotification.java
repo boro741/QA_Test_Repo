@@ -11,7 +11,10 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
+import com.honeywell.lyric.utils.GlobalVariables;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.account.information.LocationInformation;
 
 public class VerifyPushNotification extends Keyword {
@@ -20,6 +23,8 @@ public class VerifyPushNotification extends Keyword {
 	private TestCaseInputs inputs;
 	private ArrayList<String> exampleData;
 	public boolean flag = true;
+	public static final int d = 176;
+	public static final char degree = (char) d;
 
 	public VerifyPushNotification(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
@@ -36,6 +41,7 @@ public class VerifyPushNotification extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user receives a \"(.+)\" push notification$")
 	public boolean keywordSteps() throws KeywordException {
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		String notification = "";
 		String sensorName = "";
 		LocationInformation locInfo = new LocationInformation(testCase, inputs);
@@ -185,17 +191,62 @@ public class VerifyPushNotification extends Keyword {
 			break;
 		}
 		case "AWAY": {
-
 			notification = "Geofence crossed. Everyone is away from '" + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 					+ "'.";
-
 			break;
 		}
 		case "HOME": {
-
-			notification = "Geofence crossed. "+inputs.getInputValue("USER_NAME")+" has arrived at '"
+			notification = "Geofence crossed. " + inputs.getInputValue("USER_NAME") + " has arrived at '"
 					+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + "'.";
 
+			break;
+		}
+		case "BELOW TEMPERATURE RANGE ALERT": {
+			try {
+				if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+					notification = "Alert: The temperature in your home is lower than "
+							+ inputs.getInputValue("INDOORTEMP_BELOW_VALUE") + ".0 " + String.valueOf(degree) + "F";
+				} else {
+
+				}
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error message: " + e.getMessage());
+			}
+			break;
+		}
+		case "ABOVE TEMPERATURE RANGE ALERT": {
+			try {
+				if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+					notification = "Alert: The temperature in your home is higher than "
+							+ inputs.getInputValue("INDOORTEMP_ABOVE_VALUE") + ".0 " + String.valueOf(degree) + "F";
+				} else {
+
+				}
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error message: " + e.getMessage());
+			}
+			break;
+		}
+		case "BELOW HUMIDITY RANGE ALERT": {
+			try {
+				notification = "Low humidity! Your home’s humidity level is less than "
+						+ inputs.getInputValue("INDOORHUMIDITY_BELOW_VALUE") + "%.";
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error message: " + e.getMessage());
+			}
+			break;
+		}
+		case "ABOVE HUMIDITY RANGE ALERT": {
+			try {
+				notification = "High Humidity! Your home’s humidity level is over "
+						+ inputs.getInputValue("INDOORHUMIDITY_ABOVE_VALUE") + "%.";
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error message: " + e.getMessage());
+			}
 			break;
 		}
 		default: {
@@ -207,6 +258,9 @@ public class VerifyPushNotification extends Keyword {
 		}
 		flag = flag & sc.verifyIfPushNotificationIsVisible(notification);
 		DASNotificationUtils.closeNotifications(testCase);
+		testCase.getMobileDriver().launchApp();
+		LyricUtils.verifyLoginSuccessful(testCase, inputs, false);
+		Keyword.ReportStep_Pass(testCase, "Launching app to continue testing");
 		return flag;
 	}
 
