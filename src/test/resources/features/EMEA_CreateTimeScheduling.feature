@@ -115,7 +115,7 @@ Examples:
      
 Examples: 
 | Number of Periods |
-|  5|
+#|  5|
 |  6|
 
 @JasperEMEA_CreateTimeBasedScheduleInOffMode @JasperEmeaScheduleP3
@@ -158,15 +158,14 @@ Examples:
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user selects "CopyStatst" stats while creating <ScheduleType> schedule with default schedule value
-Then <ScheduleType> scheduling gets activated in <CopyStatst> stats
+When user creates default <ScheduleType> schedule value <CopyStats> stats
+Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
 
 Examples: 
-|ScheduleType       |  CopyStatst |
-|Same Every Day     | None|
-|Same Every Day     | All|
-|Same Every Day     | Selected|
-|Different On Weekdays     |None |
-|Different On Weekdays     |All |
-|Different On Weekdays     |Selected|
+|ScheduleType       |  CopyStats |  VerifyCopyStats |
+#|Same Every Day     | without copying schedule to other|not copied to other|
+|Same Every Day     | by copying schedule to all|copied to all other|
+#|Same Every Day     | by copying schedule to selected|copied to selected|
+#|Different On Weekdays     |without copying schedule to other |not copied to other|
+#|Different On Weekdays     |by copying schedule to all |copied to all other|
+#|Different On Weekdays     |by copying schedule to selected|copied to selected|

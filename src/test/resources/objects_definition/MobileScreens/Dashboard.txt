@@ -17,9 +17,6 @@ SplashScreen	id	splash_screen_layout	id	splash_screen_layout	id	splash_screen_la
 ProgressBar	xpath	//android.widget.ProgressBar	xpath	//android.widget.ProgressBar	xpath	//android.widget.ProgressBar						
 SecurityTitleInDashboardScreen	XPATH	//android.widget.TextView[@text='Security']	XPATH	//android.widget.TextView[@text='Security']	XPATH	//android.widget.TextView[@text='Security']	NAME	subTitle_Security	NAME	subTitle_Security	NAME	subTitle_Security
 SettingsIconInSecurityScreen							NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
-LocationDropDownButton							NAME	Location Name	NAME	Location Name	NAME	Location Name
-LocationDropDownList							NAME	Navigation_Drop_Down_Title_cell	NAME	Navigation_Drop_Down_Title_cell	NAME	Navigation_Drop_Down_Title_cell
-LocationName							NAME	Location Name	NAME	Location Name	NAME	Location Name
 DeviceView	id	device_view	id	device_view	id	device_view						
 StatTempStepperDown	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down						
 StatTempStepperUp	id	stat_temp_stepper_up	id	stat_temp_stepper_up	id	stat_temp_stepper_up						
@@ -30,3 +27,6 @@ UpStepper	id	stat_temp_stepper_up	id	stat_temp_stepper_up	id	stat_temp_stepper_u
 DownStepper	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	temp stepper down				
 UserExpectedTemperature	id	current_temp_value	id	current_temp_value	id	current_temp_value	id	Dialer				
 TemperatureInOffModeForIOS							id	--				
+LocationDropDownButton	id	toolbar_location_spinner					NAME	Location Name	NAME	Location Name	NAME	Location Name
+LocationName	id	toolbar_spinner_item_actionbar_title					NAME	Location Name	NAME	Location Name	NAME	Location Name
+LocationDropDownList	id	toolbar_spinner_item_dropdown_title					NAME	Navigation_Drop_Down_Title_subTitle	NAME	Navigation_Drop_Down_Title_subTitle	NAME	Navigation_Drop_Down_Title_cell

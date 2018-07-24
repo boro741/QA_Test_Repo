@@ -48,10 +48,14 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 			locationName = inputs.getInputValue("LOCATION2_NAME");
 			deviceName = inputs.getInputValue("LOCATION2_DEVICE1_NAME");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			Dashboard.selectLocationFromDashBoard(testCase,inputs.getInputValue("LOCATION2_NAME"));
+			Dashboard dashBoardScreen=  new Dashboard(testCase);
+			dashBoardScreen.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
+			inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
+			inputs.setInputValue("LOCATION1_DEVICE1_NAME", inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
-			inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
+			System.out.println(inputs.getInputValue("LOCATION1_NAME"));
+			System.out.println(inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			for (int i = 1; i <=locInfo.getDeviceCountOfLocation(); i++) {
 				String str = inputs.getInputValue("LOCATION2_DEVICE" + i + "_NAME");
@@ -89,10 +93,10 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 			if (exampleData.get(0).equalsIgnoreCase("Geofence")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
 				inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "Yes");
-			} else if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
-			} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			}

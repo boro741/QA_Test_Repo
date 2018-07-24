@@ -235,15 +235,15 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "DashboardIconText");
 	}
 
-	public static boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
+	public boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
 		boolean flag = true;
-		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
 		WebElement element = null;
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationSpinner", 5)) {
-			element = MobileUtils.getMobElement(fieldObjects, testCase, "LocationSpinner");
+		System.out.println("");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationDropDownButton")) {
+			element = MobileUtils.getMobElement(objectDefinition, testCase, "LocationName");
 		}
 		if (element != null) {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			/*if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationNameIOS", 5)) {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "LocationNameIOS").getAttribute("value")
@@ -267,14 +267,14 @@ public class Dashboard extends MobileScreens {
 						}
 					}
 				}
-			} else {
+			} else {*/
 				if (element.getText().equalsIgnoreCase(locationToBeSelected)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Select Location From DashBoard : User is already in location : " + locationToBeSelected);
 				} else {
 					boolean f = false;
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
-					List<WebElement> locNames = MobileUtils.getMobElements(fieldObjects, testCase, "LocationDropDown");
+					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropDownButton");
+					List<WebElement> locNames = MobileUtils.getMobElements(objectDefinition, testCase, "LocationDropDownList");
 					for (WebElement ele : locNames) {
 						if (ele.getText().equalsIgnoreCase(locationToBeSelected)) {
 							ele.click();
@@ -292,7 +292,7 @@ public class Dashboard extends MobileScreens {
 								"Select Location From DashBoard : Failed to select location : " + locationToBeSelected);
 					}
 				}
-			}
+			//}
 		}
 		return flag;
 	}
