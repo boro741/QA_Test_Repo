@@ -365,7 +365,6 @@ public class Dashboard extends MobileScreens {
 		 WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatName");
 		 String actualValue =ele.getText();
 		if(expectedValue.equalsIgnoreCase(actualValue)) {
-			System.out.println("Same name as given ");
 			return true;
 		}
 			return false;
@@ -407,13 +406,10 @@ public class Dashboard extends MobileScreens {
 			
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String chilDeviceIndoorTemperature = statInfo.getIndoorTemperature();
-			System.out.println("Indoor temperature "+chilDeviceIndoorTemperature);
 
 		if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
 			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");	
-			
 			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
-				System.out.println("Temperature is  given ");
 				return true;
 			}
 			else {
@@ -425,7 +421,6 @@ public class Dashboard extends MobileScreens {
 			WebElement ele=MobileUtils.getMobElement(testCase,"xpath", "//XCUIElementTypeStaticText[@name='subTitle_"+thermostatname+"']");
 			String actualValue=ele.getText();
 			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
-				System.out.println("Temperature is  given ");
 				return true;
 			}
 			else {
@@ -439,7 +434,6 @@ public class Dashboard extends MobileScreens {
 
 			
 			if(actualValue.contains("--")==false) {
-				System.out.println("Temperature is  given ");
 				return true;
 			}
 			else {
@@ -483,7 +477,9 @@ public class Dashboard extends MobileScreens {
 			String currentSetPoint="";
 			boolean flag = true;
 			int maxSetPointInt=0;
+			float maxSetPointFloat=0;
 			String maxSetPoint="";
+			boolean  systemIsCelsius=false;
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String currentSystemMode=statInfo.getThermoStatMode();
 			HashMap<String, String> setPoints = new HashMap<String, String>();
@@ -498,24 +494,36 @@ public class Dashboard extends MobileScreens {
 			else if(currentSystemMode.toUpperCase().contains("COOL")){
 				 maxSetPoint= setPoints.get("MaxCool");
 			}
-
-			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);
+			 if(maxSetPoint.contains(".")) {
+	        	   systemIsCelsius=true;
+				maxSetPointFloat=Float.parseFloat(maxSetPoint);
+	           }
+	           else {
+	   			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);	   
+	           }
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
 			currentSetPoint = ele.getText();
-			if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
-				System.out.println("Max temp is same in dashboard");
-				return flag;
-			} else {
-				flag = false;
-			}
-			return flag;
+			
+			if(systemIsCelsius==false) {
+				if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
+					return true;
+				}
+				}
+				else {
+					if(maxSetPointFloat==(Float.parseFloat(currentSetPoint))) {
+						return true;
+					}
+				}
+			return false;
 		}
 
 		public boolean isMinTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
 			String currentSetPoint="";
 			boolean flag = true;
 			int minSetPointInt=0;
+			float minSetPointFloat=0;
 			String minSetPoint="";
+			boolean  systemIsCelsius=false;
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String currentSystemMode=statInfo.getThermoStatMode();
 			HashMap<String, String> setPoints = new HashMap<String, String>();
@@ -530,16 +538,28 @@ public class Dashboard extends MobileScreens {
 			else if(currentSystemMode.toUpperCase().contains("COOL")){
 				 minSetPoint= setPoints.get("MinCool");
 			}
-
-			minSetPointInt=(int)Float.parseFloat(minSetPoint);
+			 if(minSetPoint.contains(".")) {
+	        	   systemIsCelsius=true;
+				minSetPointFloat=Float.parseFloat(minSetPoint);
+	           }
+	           else {
+	   			minSetPointInt=(int)Float.parseFloat(minSetPoint);	   
+	           }
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
 			currentSetPoint = ele.getText();
-			if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
-				System.out.println("Max temp is same in dashboard");
-				return flag;
-			} else {
-				flag = false;
-			}
-			return flag;
+
+			if(systemIsCelsius==false) {
+				if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
+					return true;
+				}
+				}
+				else {
+					if(minSetPointFloat==(Float.parseFloat(currentSetPoint))) {
+						return true;
+					}
+				}
+			return false;
 		}
+
+		
 }
