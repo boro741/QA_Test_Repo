@@ -1,0 +1,2 @@
+Include Group	Group Name	Combine	Platform-Type-OS-Version	Name	Location	Environment	Test Data
+	Vacations_VerifyStartAndEndDate		Android-Device-Android-8.0	Nexus	Local	Production	"AcquisitionType=Specific, TestData='USERID=chilprod@grr.la,PASSWORD=Password1,PASSCODE=6390,LOCATION1_NAME=Test2,LOCATION1_DEVICE1_NAME=Jasper'"

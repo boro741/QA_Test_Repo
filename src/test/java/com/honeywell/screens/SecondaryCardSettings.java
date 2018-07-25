@@ -23,6 +23,7 @@ public class SecondaryCardSettings extends MobileScreens {
 	public static final String LOGOUT = "Logout";
 	public static final String ADDRESSDETAILS = "Address";
 	public static final String MEMBERSHIPSUBSCRIPTION = "Honeywell Membership";
+	public static final String VACATION = "Vacation";
 
 	public SecondaryCardSettings(TestCases testCase) {
 		super(testCase, screenName);
@@ -56,6 +57,8 @@ public class SecondaryCardSettings extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase,
 
 					"HoneywellMembershipOption");
+		case SecondaryCardSettings.VACATION:
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOption");
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",
