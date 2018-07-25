@@ -139,6 +139,26 @@ public class DeviceInformation {
 		}
 		return VentilationMode;
 	}
+	
+	public String getThermoStatHumidificationSettings() throws Exception {
+		String VentilationMode = "";
+		if (deviceInformation != null) {
+			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings").getJSONObject("changeableValues").getString("mode");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return VentilationMode;
+	}
+	
+	public int getHumidifierValue() throws Exception {
+		int HumidifierValue = 0;
+		if (deviceInformation != null) {
+			HumidifierValue = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings").getJSONObject("changeableValues").getInt("setpoint");
+		}else{
+			throw new Exception("Device Information not found");
+		}
+		return HumidifierValue;
+	}
 
 	public int getVentilationTimerValue() throws Exception {
 		int VentilationTimerValue = 0;

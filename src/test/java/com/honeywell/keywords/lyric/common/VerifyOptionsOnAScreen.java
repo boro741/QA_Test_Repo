@@ -650,7 +650,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-
 		case "INDOOR TEMPERATURE ALERT": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -713,7 +712,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
 			}
-
 			break;
 		}
 		case "HUMIDITY ALERT FOR THIS RANGE": {

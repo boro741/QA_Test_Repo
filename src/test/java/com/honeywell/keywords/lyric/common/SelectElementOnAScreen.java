@@ -1068,6 +1068,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			}
+
 						else if (parameters.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
@@ -1101,3 +1102,6 @@ public class SelectElementOnAScreen extends Keyword {
 		return flag;
 	}
 }
+
+
+

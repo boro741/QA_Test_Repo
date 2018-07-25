@@ -48,6 +48,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String IOSENTRYEXITTABLELOCATORVALUE = "//XCUIElementTypeCell";
 	public static final String ANDROIDTICKMARKLOCATORVALUE = "list_item_lyric_image_view";
 	public static final String IOSTICKMARKLOCATORVALUE = "//XCUIElementTypeImage";
+	public static final String THERMOSTATCONFIGURATION = "Thermostat Configuration";
 
 	public BaseStationSettingsScreen(TestCases testCase) {
 		super(testCase, screenName);

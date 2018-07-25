@@ -455,12 +455,6 @@ public class LyricUtils {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						return d.isGlobalDrawerButtonVisible(5);
 					} else {
-						if (inputs.isRunningOn("SauceLabs")) {
-							if (os.isRootedDevicePopupVisible(1)) {
-								os.clickAcceptOnRootedDevicePopup();
-							}
-							
-						}
 						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
 							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 								return true;
@@ -513,11 +507,6 @@ public class LyricUtils {
 		OSPopUps os = new OSPopUps(testCase);
 		LoginScreen ls = new LoginScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			
-			if (ls.isSkipButtonVisible()) {
-				flag = flag & ls.clickOnSkipIntroButton();
-			}
-			
 			if (os.isAllowButtonVisible(5)) {
 				flag = flag & os.clickOnAllowButton();
 			}
@@ -689,21 +678,19 @@ public class LyricUtils {
 	 *         description have been performed successfully. Returns 'false' if any
 	 *         of the operations mentioned in the description fails.
 	 */
-	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs,boolean... closeCoachMarks) {
+	public static boolean launchAndLoginToApplication(TestCases testCase, TestCaseInputs inputs,
+			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-
-
-
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+	/*	flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
-
+		*/
 		return flag;
 	}
 

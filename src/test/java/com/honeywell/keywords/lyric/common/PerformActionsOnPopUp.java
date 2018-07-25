@@ -14,6 +14,7 @@ import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
@@ -21,6 +22,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -702,6 +704,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("DELETE THERMOSTAT DEVICE CONFIRMATION")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				flag = flag & ts.clickOnCancelButtonInDeleteThermostatDevice();
+				flag = flag & HBNAEMEASettingsUtils.verifyDeleteThermostatDeviceConfirmationPopUpIsNotDisplayed(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

@@ -203,6 +203,7 @@ public class InputVariables {
 	public static String IS_INDOORTEMP_LOWER_THAN_ORIGINAL = "isIndoorTempLowerThanOriginal";
 	public static String INDOORTEMP_BELOW_VALUE = "indoorTempBelowValue";
 	public static String INDOORTEMP_ABOVE_VALUE = "indoorTempAboveValue";
+	public static String CURRENT_THERMOSTAT_TEMP_VALUE = "indoorThermostatCurrentTemp";
 
 	public static String INDOORHUMIDITY_ALERT_STATUS = "indoorHumiditypAlertStatus";
 	public static String INDOORHUMIDITY_PUSH_NOTIFICATION_STATUS = "indoorHumidityPushNotificationStatus";
@@ -224,8 +225,6 @@ public class InputVariables {
 	public static String VERIFY_SET_PERIOD_TIME = "verifySetPeriodTime";
 	
 	public static final String EDIT_GEOFENCE_SCHEDULE = "editGeofenceSchedule";
-
-	public static String THERMOSTAT_CURRENT_TEMPERATURE = "thermostatCurrentTemperatureValue";
 
 }
 

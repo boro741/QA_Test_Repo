@@ -2,7 +2,6 @@ package com.honeywell.CHIL;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -11,7 +10,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -993,8 +991,46 @@ public class CHILUtil implements AutoCloseable {
 		try {
 			if (isConnected) {
 				String url = chilURL
-						+ String.format("api/locations/%s/devices/%s/Settings/VentilationMode", locationID, deviceID);
+						+ String.format("api/locations/%s/devices/%s/Settings/	", locationID, deviceID);
 				String headerData = String.format("{\"changeableValues\":\"%s\"}", VentilationMode);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int setHumidificationValue(long locationID, String deviceID, String HumidificationValue) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/Settings/humidifier", locationID, deviceID);
+				String headerData = String.format("{\"changeableValues\":{\"mode\":\"%s\",\"setPoint\":\"%s\"}}", "Auto",HumidificationValue);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int setHumidificationstatus(long locationID, String deviceID, String HumidificationStatus) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/Settings/humidifier", locationID, deviceID);
+				String headerData = String.format("{\"changeableValues\":{\"mode\":\"%s\",\"setPoint\":\"%s\"}}", HumidificationStatus,30);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1032,9 +1068,7 @@ public class CHILUtil implements AutoCloseable {
 			if (isConnected) {
 				String url = chilURL
 						+ String.format("api/locations/%s/device/%s/ventilation/settings", locationID, deviceID);
-				System.out.println("url : " + url);
 				String headerData = String.format("{\"ventilationBoostTimer\":\"%s\",\"ventilationBoostTimerReset\":\"%s\"}", 0,true);
-				System.out.println("headerData : " + headerData);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {

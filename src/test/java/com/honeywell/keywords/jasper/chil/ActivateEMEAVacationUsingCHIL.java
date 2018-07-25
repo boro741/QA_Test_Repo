@@ -19,14 +19,14 @@ import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
 
 
-public class ActivateVacationUsingCHIL extends Keyword {
+public class ActivateEMEAVacationUsingCHIL extends Keyword {
 
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> exampleData;
 
-	public ActivateVacationUsingCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public ActivateEMEAVacationUsingCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.exampleData = exampleData;
@@ -39,7 +39,7 @@ public class ActivateVacationUsingCHIL extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^vacation mode is \"(.+)\"$")
+	@KeywordStep(gherkins = "^vacation mode is EMEA \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			@SuppressWarnings("resource")
@@ -56,48 +56,20 @@ public class ActivateVacationUsingCHIL extends Keyword {
 				setPoints = statInfo.getDeviceMaxMinSetPoints();
 				Double maxHeat;
 				Double minHeat;
-				Double maxCool;
-				Double minCool;
-				if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-					maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
-					minHeat = Double.parseDouble(setPoints.get("MinHeat"));
-					maxCool = Double.parseDouble(setPoints.get("MaxCool"));
-					minCool = Double.parseDouble(setPoints.get("MinCool"));
-					coolSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool, minCool));
-					heatSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat, minHeat));
-				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-					maxCool = Double.parseDouble(setPoints.get("MaxCool"));
-					minCool = Double.parseDouble(setPoints.get("MinCool"));
-					coolSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool, minCool));
-					heatSetPoints = 0;
-				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				if (allowedModes.contains("Heat")) {
 					maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
 					minHeat = Double.parseDouble(setPoints.get("MinHeat"));
 					heatSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat, minHeat));
-					coolSetPoints = 0;
-				}
+							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat, minHeat));	
+				}	
 				if (statInfo.getThermostatUnits().equalsIgnoreCase("Celsius")) {
-					if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-						coolSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(coolSetPoints)));
+					if (allowedModes.contains("Heat")) {
 						heatSetPoints = Integer.parseInt(
 								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(heatSetPoints)));
-					} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-						coolSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(coolSetPoints)));
-						heatSetPoints = 0;
-					} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
-						heatSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(heatSetPoints)));
-						coolSetPoints = 0;
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
-				String startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
+				String startTime = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, currentUTCTime);
 				String endTime = JasperSetPoint.addDaysToDate(null, startTime, 7);
 
 				if (chUtil.getConnection()) {

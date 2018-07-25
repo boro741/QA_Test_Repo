@@ -113,7 +113,7 @@ public class FlyCatcherVentialtion {
 			flag = true;
 		} else {
 			Keyword.ReportStep_Pass(testCase,
-					"Ventilation timer is set to " + TimerValue);
+					"Ventilation timer is Already set to " + TimerValue);
 			flag = true;
 		}
 		flag = flag && fly.ClickStartVentTimer();
