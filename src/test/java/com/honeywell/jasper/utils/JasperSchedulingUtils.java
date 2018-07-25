@@ -86,8 +86,8 @@ public class JasperSchedulingUtils {
 			if (ss.isCreateScheduleButtonVisible(5)) {
 				flag = flag & ss.clickOnCreateScheduleButton();
 			} else {
-				if (ss.isScheduleOverlayVisible(5)) {
-					if (!ss.clickOnScheduleOverlay()) {
+				if (ss.isScheduleOffOverlayVisible(5)){
+					if (!ss.clickOnScheduleOffOverlay()) {
 						flag = false;
 					} else {
 						Keyword.ReportStep_Pass(testCase, "Existing schedule is resumed");
