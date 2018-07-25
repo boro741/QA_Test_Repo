@@ -17,6 +17,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 
 public class ActivateVacationUsingCHIL extends Keyword {
@@ -49,51 +50,48 @@ public class ActivateVacationUsingCHIL extends Keyword {
 			long locationID = locInfo.getLocationID();
 			String deviceID = statInfo.getDeviceID();
 			if (exampleData.get(0).equalsIgnoreCase("active")) {
-				int coolSetPoints = 0;
-				int heatSetPoints = 0;
+				
 				List<String> allowedModes = statInfo.getAllowedModes();
 				HashMap<String, String> setPoints = new HashMap<String, String>();
 				setPoints = statInfo.getDeviceMaxMinSetPoints();
-				Double maxHeat;
-				Double minHeat;
-				Double maxCool;
-				Double minCool;
+				 CHILUtil.thermostatUnit=statInfo.getThermostatUnits();
+			
 				if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-					maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
-					minHeat = Double.parseDouble(setPoints.get("MinHeat"));
-					maxCool = Double.parseDouble(setPoints.get("MaxCool"));
-					minCool = Double.parseDouble(setPoints.get("MinCool"));
-					coolSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool, minCool));
-					heatSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat, minHeat));
+					CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+					CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+					CHILUtil.maxCool = Double.parseDouble(setPoints.get("MaxCool"));
+					CHILUtil.minCool = Double.parseDouble(setPoints.get("MinCool"));
+					CHILUtil.coolSetPoints = Integer.parseInt(
+							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, CHILUtil.maxCool, CHILUtil.minCool));
+					CHILUtil.heatSetPoints = Integer.parseInt(
+							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, CHILUtil.maxHeat, CHILUtil.minHeat));
 				} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-					maxCool = Double.parseDouble(setPoints.get("MaxCool"));
-					minCool = Double.parseDouble(setPoints.get("MinCool"));
-					coolSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxCool, minCool));
-					heatSetPoints = 0;
+					CHILUtil.maxCool = Double.parseDouble(setPoints.get("MaxCool"));
+					CHILUtil.minCool = Double.parseDouble(setPoints.get("MinCool"));
+					CHILUtil.coolSetPoints = Integer.parseInt(
+							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, CHILUtil.maxCool, CHILUtil.minCool));
+					CHILUtil.heatSetPoints = 0;
 				} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
-					maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
-					minHeat = Double.parseDouble(setPoints.get("MinHeat"));
-					heatSetPoints = Integer.parseInt(
-							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat, minHeat));
-					coolSetPoints = 0;
+					CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+					CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+					CHILUtil.heatSetPoints = Integer.parseInt(
+							JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, CHILUtil.maxHeat, CHILUtil.minHeat));
+					CHILUtil.coolSetPoints = 0;
 				}
 				if (statInfo.getThermostatUnits().equalsIgnoreCase("Celsius")) {
 					if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-						coolSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(coolSetPoints)));
-						heatSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(heatSetPoints)));
+						CHILUtil.coolSetPoints = Integer.parseInt(
+								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.coolSetPoints)));
+						CHILUtil.heatSetPoints = Integer.parseInt(
+								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.heatSetPoints)));
 					} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
-						coolSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(coolSetPoints)));
-						heatSetPoints = 0;
+						CHILUtil.coolSetPoints = Integer.parseInt(
+								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.coolSetPoints)));
+						CHILUtil.heatSetPoints = 0;
 					} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
-						heatSetPoints = Integer.parseInt(
-								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(heatSetPoints)));
-						coolSetPoints = 0;
+						CHILUtil.heatSetPoints = Integer.parseInt(
+								JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.heatSetPoints)));
+						CHILUtil.coolSetPoints = 0;
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
@@ -102,7 +100,7 @@ public class ActivateVacationUsingCHIL extends Keyword {
 
 				if (chUtil.getConnection()) {
 					int result = chUtil.enableVacation(locationID, deviceID, startTime, endTime,
-							statInfo.getThermostatUnits(), coolSetPoints, heatSetPoints);
+							statInfo.getThermostatUnits(), CHILUtil.coolSetPoints, CHILUtil.heatSetPoints);
 					if (result == 200) {
 						Keyword.ReportStep_Pass(testCase,
 								"Activate Vacation Using CHIL : Successfully activated vacation using CHIL");

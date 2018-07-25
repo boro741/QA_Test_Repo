@@ -14,3 +14,4 @@ AddressOption	xpath	"//android.widget.TextView[contains(@text,'Address')]"					x
 FaceRecognitionOption	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']						
 HomeAddress	xpath	//android.widget.TextView[@text='Home Address']	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']						
 HoneywellMembershipOption	xpath	"//android.widget.TextView[contains(@text,'Honeywell Membership')]"
+VacationOption	xpath	//android.widget.TextView[@text='Vacation']	xpath	//android.widget.TextView[@text='Vacation']	xpath	//android.widget.TextView[@text='Vacation']						

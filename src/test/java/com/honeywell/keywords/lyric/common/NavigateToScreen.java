@@ -714,6 +714,25 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "VACATION":{
+					Dashboard dScreen = new Dashboard(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.VACATION)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Activity history menu from Global drawer");
+						} else {
+							// Fetching Messages
+							sc.selectOptionFromSecondarySettings(SecondaryCardSettings.VACATION);
+							// Keyword.ReportStep_Pass(testCase,"Honeywell Membership page opened.");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));

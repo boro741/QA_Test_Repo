@@ -43,6 +43,13 @@ public class CHILUtil implements AutoCloseable {
 	private String sessionID;
 	private TestCaseInputs inputs;
 	public static String chapiDeviceId;
+		public static int coolSetPoints = 0;
+	public static int heatSetPoints = 0;
+	public static Double maxHeat;
+	public static Double minHeat;
+	public static Double maxCool;
+	public static Double minCool;
+	public static String thermostatUnit="";
 
 	public CHILUtil(TestCaseInputs inputs) throws Exception {
 		String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
