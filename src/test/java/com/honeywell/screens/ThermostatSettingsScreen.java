@@ -847,8 +847,6 @@ public class ThermostatSettingsScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-
-			// XCUIElementTypeStaticText[@value='Auto Changeover']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
 							+ "']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']",
@@ -883,8 +881,39 @@ public class ThermostatSettingsScreen extends MobileScreens {
 				}
 			}
 		} else {
-			throw new Exception("Could not find Set Fine Tune Switch");
+			throw new Exception("Could not find Emergency Heat Switch");
 		}
+	}
+
+	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase, String fieldToBeVerified)
+			throws Exception {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.Switch[@content-desc='" + fieldToBeVerified + "']", testCase)
+					&& (MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//android.widget.Switch[@content-desc='" + fieldToBeVerified + "']")
+							.getText().equalsIgnoreCase("ON"))) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+							+ "']/following-sibling::XCUIElementTypeSwitch[@name='emergencyHeat_toggle']",
+					testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+									+ "']/following-sibling::XCUIElementTypeSwitch[@name='emergencyHeat_toggle']")
+							.getAttribute("value").equalsIgnoreCase("1")) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	public boolean toggleThermostatEmergencyHeatSwitch(TestCases testCase) {

@@ -690,25 +690,21 @@ public class VerifyScreen extends Keyword {
 			case "CHANGE MODE": {
 				PrimaryCard thermo = new PrimaryCard(testCase);
 				flag = flag & thermo.isChangeModeScreenDisplayed();
-
 				break;
 			}
 			case "CHANGE FAN": {
 				PrimaryCard thermo = new PrimaryCard(testCase);
 				flag = flag & thermo.isChangeFanScreenDisplayed();
-
 				break;
 			}
 			case "MODE INFO": {
 				PrimaryCard thermo = new PrimaryCard(testCase);
 				flag = flag & thermo.isModeInfoScreenDisplayed();
-
 				break;
 			}
 			case "FAN INFO": {
 				PrimaryCard thermo = new PrimaryCard(testCase);
 				flag = flag & thermo.isFanInfoScreenDisplayed();
-
 				break;
 			}
 			case "MOUNT SENSOR": {

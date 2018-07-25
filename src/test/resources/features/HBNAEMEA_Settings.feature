@@ -361,7 +361,7 @@ When user changes the "Emergency Heat" to "OFF"
 Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen
 
 @AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled	@P2		@UIAutomatable
-Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
+Scenario Outline: As a user I should not be able view Auto changeover when heatonly or coolonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -387,31 +387,66 @@ Then the following "Thermostat Settings" options should be disabled:
 Examples:
 | SystemMode		|
 | Cool			|
-#| Heat			|
+| Heat			|
 
 
 #JasperNA, HB_Spruce
-@EmergencyHeatwhencoolonlyenabled		@P2		@UIAutomatable
+@EmergencyHeatWhenCoolOnlyIsEnabled		@P2		@UIAutomatable
 Scenario Outline: As a user I should not be able view Auto changeover when cool only enabled on my thermostat
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user should not be displayed with "Emergency Heat" when <Mode> is enabled in device
-
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+| Options	|
+| Auto		|
+| Heat		|
+| Cool		|
+| Off		|
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption		|
+		| Emergency Heat					|
+		
 Examples:
-|Modes		|
-|Cool Only	|
+| SystemMode		|
+| Cool			|
 
 #JasperNA, HB_Spruce
-@EmergencyHeatwhenHeatonlyenabled		@P2		@UIAutomatable
+@EmergencyHeatWhenHeatOnlyIsEnabled		@P2		@UIAutomatable
 Scenario Outline: As a user I should not be able view Auto changeover when Heat only enabled on my thermostat
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user should be displayed with "Emergency Heat" when <Mode> is enabled in device
-And user should be displayed with "EmergencyHeat" when <Mode> is enabled in device
-
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+| Options	|
+| Auto		|
+| Heat		|
+| Cool		|
+| Off		|
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption		|
+		| Emergency Heat					|
+		
 Examples:
-|Modes		|
-|Heat Only	|
+| SystemMode		|
+| Heat			|
 
 #HB_Spruce
 @HBBSpruceEnableFrostProtectionMode		@P2		@UIAutomatable

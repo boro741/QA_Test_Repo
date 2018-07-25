@@ -96,14 +96,54 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("thermostat settings")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MODE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnModeButton();
+					break;
+				}
+				case "RESUME": {
+					AlarmScreen click = new AlarmScreen(testCase);
+					click.clickPlayStreaming();
+					break;
+				}
+				case "SWITCH TO HOME": {
+					DASAlarmUtils.clickOnSwitchToHome(testCase, inputs);
+					int i = 0;
+					while (i < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)) {
+						System.out.println("Waiting for dismiss alarm request to complete");
+					}
+					break;
+				}
+				case "SWITCH TO NIGHT": {
+					DASAlarmUtils.clickOnSwitchToNight(testCase, inputs);
+					break;
+				}
+				case "ATTENTION": {
+					DASAlarmUtils.clickOnAttention(testCase, inputs);
+					break;
+				}
+				case "NO OPTIONS": {
+					DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
+					break;
+				}
+				case "FAN": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.clickOnFanButton();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("thermostat settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "EMERGENCY HEAT": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					thermo.clickOnEmergencyHeatButton();
-
 					break;
 				}
 				}
@@ -113,52 +153,44 @@ public class SelectElementOnAScreen extends Keyword {
 				case "INFO": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					thermo.clickOnInfoButton();
-
 					break;
 				}
 				case "SAVE": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if (thermo.clickOnSaveButton()) {
-						Keyword.ReportStep_Pass(testCase,
-								" The item " + parameters.get(0).toUpperCase() + "is selected");
+						Keyword.ReportStep_Pass(testCase, "Clicked on the button: " + parameters.get(0).toUpperCase());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								" The item " + parameters.get(0).toUpperCase() + "is not selected");
+								"Button: " + parameters.get(0).toUpperCase() + " is not selected");
 					}
-
-					break;
 				}
 				case "X": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if (thermo.clickOnXButton()) {
-						Keyword.ReportStep_Pass(testCase,
-								" The item " + parameters.get(0).toUpperCase() + "is selected");
+						Keyword.ReportStep_Pass(testCase, "Clcked on the icon: " + parameters.get(0).toUpperCase());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								" The item " + parameters.get(0).toUpperCase() + "is not selected");
+								"Icon: " + parameters.get(0).toUpperCase() + " is not selected");
 					}
-
 					break;
 				}
 				case "HEAT": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if (thermo.clickOnHeatButton()) {
-						Keyword.ReportStep_Pass(testCase,
-								" The item " + parameters.get(0).toUpperCase() + "is selected");
+						Keyword.ReportStep_Pass(testCase, "Mode: " + parameters.get(0).toUpperCase() + " is selected");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								" The item " + parameters.get(0).toUpperCase() + "is not selected");
+								"Mode: " + parameters.get(0).toUpperCase() + " is not selected");
 					}
 					break;
 				}
 				case "COOL": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if (thermo.clickOnCoolButton()) {
-						Keyword.ReportStep_Pass(testCase,
-								" The item " + parameters.get(0).toUpperCase() + "is selected");
+						Keyword.ReportStep_Pass(testCase, "Mode: " + parameters.get(0).toUpperCase() + " is selected");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								" The item " + parameters.get(0).toUpperCase() + "is not selected");
+								"Mode: " + parameters.get(0).toUpperCase() + " is not selected");
 					}
 					break;
 				}
@@ -166,31 +198,25 @@ public class SelectElementOnAScreen extends Keyword {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if (thermo.clickOnOffButton()) {
 						Thread.sleep(10);
-						Keyword.ReportStep_Pass(testCase,
-								" The item " + parameters.get(0).toUpperCase() + "is selected");
+						Keyword.ReportStep_Pass(testCase, "Mode: " + parameters.get(0).toUpperCase() + " is selected");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								" The item " + parameters.get(0).toUpperCase() + "is not selected");
+								"Mode: " + parameters.get(0).toUpperCase() + " is not selected");
 					}
-
 					break;
 				}
 				case "AUTO": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					if (thermo.clickOnAutoButton()) {
-						Keyword.ReportStep_Pass(testCase,
-								" The item " + parameters.get(0).toUpperCase() + "is selected");
+						Keyword.ReportStep_Pass(testCase, "Mode: " + parameters.get(0).toUpperCase() + "is selected");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								" The item " + parameters.get(0).toUpperCase() + "is not selected");
+								"Mode: " + parameters.get(0).toUpperCase() + "is not selected");
 					}
-
 					break;
 				}
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRMS ATTENTION": {
 					flag = DASCameraUtils.clickOnAttention(testCase);
@@ -213,7 +239,6 @@ public class SelectElementOnAScreen extends Keyword {
 				case "PAUSE": {
 					AlarmScreen click = new AlarmScreen(testCase);
 					flag = click.clickPauseStreaming();
-
 					break;
 				}
 				case "RESUME": {
@@ -452,9 +477,7 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("NAME MOTION SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
-			}
-
-			else if (parameters.get(1).toUpperCase().equals("NAME MOTION SENSOR CUSTOM NAME")) {
+			} else if (parameters.get(1).toUpperCase().equals("NAME MOTION SENSOR CUSTOM NAME")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
@@ -498,7 +521,6 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				default: {
 					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Call")) {
@@ -528,7 +550,6 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & sensor.clickOnSensorNotWorking();
 					break;
 				}
-
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Keyfob settings")
 					|| parameters.get(1).equalsIgnoreCase("Window Access settings")
@@ -575,7 +596,6 @@ public class SelectElementOnAScreen extends Keyword {
 					} else {
 						flag = flag & bs.clickOnNameTextField();
 					}
-
 					if (flag) {
 						System.out.println("Successfully clicked on" + parameters.get(0));
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on" + parameters.get(0));
@@ -773,19 +793,27 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Unable to click on " + parameters.get(0) + " button");
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
+					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "MODE": {
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.clickOnModeButton();
+				case "WATCH THE HOW TO VIDEO": {
+					flag = flag & sensor.clickOnWatchHowToVideoButton();
 					break;
 				}
-				case "FAN": {
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.clickOnFanButton();
+				case "GET STARTED": {
+					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
+					break;
+				}
+				case "CANCEL": {
+					if (sensor.isCancelButtonDisplayed()) {
+						flag = flag & sensor.clickOnCancelButton();
+					}
 					break;
 				}
 				case "MAX SET TEMPERATURE BY TAPING ON UP STEPPER": {
@@ -798,6 +826,79 @@ public class SelectElementOnAScreen extends Keyword {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.setMinTemperatureByTappingDownStepper(inputs);
 					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
+				}
+				if (flag) {
+					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Place Sensor on location")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "WONT FIT AS SHOWN": {
+					flag = flag & sensor.clickOnWontFitAsShownButton();
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
+				}
+				}
+				if (flag) {
+					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Place Sensor")
+					|| parameters.get(1).equalsIgnoreCase("Sensor Overview")
+					|| parameters.get(1).equalsIgnoreCase("MOUNT IN A CORNER")
+					|| parameters.get(1).equalsIgnoreCase("MOUNT ON THE WALL")
+					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					|| parameters.get(1).equalsIgnoreCase("NAME Keyfob")) {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL": {
+					if (sensor.isCancelButtonDisplayed()) {
+						sensor.clickOnCancelButton();
+					}
+					break;
+				}
+				case "BACK": {
+					flag = sensor.clickOnSensorSettingBack();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
 				}
 				if (flag) {
