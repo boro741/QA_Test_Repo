@@ -42,12 +42,12 @@ public class TaponElement extends Keyword {
 		}
 		case "BELOW RANGE": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
-			ts.clickOnBelowTempAlertRangeOption(expectedLocator.get(0));
+			ts.clickOnBelowAboveTempAlertRangeOption(expectedLocator.get(0));
 			break;
 		}
 		case "ABOVE RANGE": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
-			ts.clickOnBelowTempAlertRangeOption(expectedLocator.get(0));
+			ts.clickOnBelowAboveTempAlertRangeOption(expectedLocator.get(0));
 			break;
 		}
 		default: {

@@ -110,7 +110,7 @@ public class ActivateVacationUsingCHIL extends Keyword {
 								"Activate Vacation Using CHIL : Failed to activate vacation using CHIL");
 					}
 				}
-			} else if (exampleData.get(0).equalsIgnoreCase("yet to set")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("disable")) {
 				if (chUtil.getConnection()) {
 					int result = chUtil.disableVacation(locationID, deviceID);
 					if (result == 200) {

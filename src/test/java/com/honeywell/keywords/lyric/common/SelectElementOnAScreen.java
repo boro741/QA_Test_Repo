@@ -23,8 +23,11 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.PrimaryCard;
+
+import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
@@ -95,7 +98,132 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
+			} 
+			else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MODE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnModeButton();
+					
+					break;
+				}
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("thermostat settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "EMERGENCY HEAT": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnEmergencyHeatButton();
+					
+					break;
+				}
+				}
+			}
+			
+			
+			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+				inputs.setInputValue("SystemMode", parameters.get(0).toUpperCase());
+				switch (parameters.get(0).toUpperCase()) {
+				case "INFO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					thermo.clickOnInfoButton();
+					
+					break;
+				}
+				case "SAVE": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnSaveButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				case "X": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnXButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				case "HEAT": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnHeatButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					break;
+				}
+				case "COOL": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnCoolButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					break;
+				}
+				case "OFF": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnOffButton())
+					{
+						Thread.sleep(10);
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				case "AUTO": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					if(thermo.clickOnAutoButton())
+					{
+						Keyword.ReportStep_Pass(testCase,
+								" The item " + parameters.get(0).toUpperCase() + "is selected");
+					}
+					else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" The item " + parameters.get(0).toUpperCase()+ "is not selected");
+					}
+					
+					break;
+				}
+				}
+			}
+				
+		
+				else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRMS ATTENTION": {
 					flag = DASCameraUtils.clickOnAttention(testCase);
@@ -685,33 +813,81 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "MODE": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnModeButton();
+					flag=flag&thermo.clickOnModeButton();
 					
 					break;
 				}
-				
+				case "FAN":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnFanButton();
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 			}
-			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+
+			
+			
+			
+			else if (parameters.get(1).equalsIgnoreCase("Change Fan")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "INFO": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnInfoButton();
+					flag=flag&thermo.clickOnInfoButton();
 					
+					break;
+				}
+				case "AUTO FAN":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnAutoFanButton();
+					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
+					System.out.println(inputs.getInputValue("SelectedFanMode"));
+					break;
+				}
+				case "CIRCULATE":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnCirculateFanButton();
+					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
+					break;
+				}
+				case "ON":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnONFanButton();
+					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
+					break;
+				}
+				case "X":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnXButton();
+					break;
+				}
+				case "SAVE":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.clickOnSaveButton();
 					break;
 				}
 				
 				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
 			}
-			else if (parameters.get(1).equalsIgnoreCase("Mode info")) {
+			
+			else if (parameters.get(1).equalsIgnoreCase("Mode info")||parameters.get(1).equalsIgnoreCase("Fan info")) {
+
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnBackButton();
+					flag=flag&thermo.clickOnBackButton();
 					
 					break;
 				}
 				
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 			}
 			
@@ -731,6 +907,9 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
 
 			} else if (parameters.get(1).equalsIgnoreCase("Test Sensor")
@@ -818,8 +997,101 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
+			}//Schedule screen
+			else if (parameters.get(1).equalsIgnoreCase("Scheduling")) 
+			{
+					switch (parameters.get(0).toUpperCase()) 
+					{
+					case "OPTION": 
+					{
+						SchedulingScreen option = new SchedulingScreen(testCase);
+						flag = flag & option.isScheduleOptionsVisible(4);
+						flag = flag & option.isScheduleOptionsElementEnabled();
+						if(flag)
+						{
+							flag = flag & option.clickOnScheduleOptionsButton();
+							if (flag) 
+							{
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+							}else 
+							{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click: " + parameters.get(1));
+							}
+						}else
+						{
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " button disabled ");
+						}
+						break;
+					}
+					case "SCHEDULE OFF OVERLAY":
+					{
+						SchedulingScreen Schoffoverlay = new SchedulingScreen(testCase);
+						flag = flag & Schoffoverlay.clickOnScheduleOffOverlay();
+						if (flag) 
+						{
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " screen");
+						}else 
+						{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click: " + parameters.get(1));
+						}break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
+					}
+					}
+				}
+		 // select schedule off from option action sheet 
+		else if (parameters.get(1).equalsIgnoreCase("Option")) 
+		{
+				switch (parameters.get(0).toUpperCase()) 
+				{
+				case "SCHEDULE OFF": 
+				{
+					SchedulingScreen scheoff = new SchedulingScreen(testCase);
+					flag = flag & scheoff.isScheduleOffButtonVisible();
+					flag = flag & scheoff.clickOnScheduleOffButton();
+					if (flag) 
+				{
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}else 
+				{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click: " + parameters.get(1));
+				}break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
+				}
+				}
 			}
-		} catch (Exception e) {
+
+						else if (parameters.get(1).equalsIgnoreCase("Security Settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "MANAGE ALERTS": {
+					BaseStationSettingsScreen click = new BaseStationSettingsScreen(testCase);
+					
+						if(!click.isManageAlertExist()) {
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Manage Alerts Element does not exist");
+						}
+						flag= click.clickOnManageAlerts();
+					
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Manage Alerts is selected from Security Settings");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Error in selecting Manage Alerts");
+					}
+					break;
+				}
+				
+				}
+		}
+		}
+		catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
@@ -832,3 +1104,6 @@ public class SelectElementOnAScreen extends Keyword {
 		return flag;
 	}
 }
+
+
+

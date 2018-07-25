@@ -2,3 +2,4 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 StartMembership	ID	start_trial										
 MonthlyButton	xpath	//android.widget.RelativeLayout[@index='0']										
 AnnualButton	xpath	//android.widget.RelativeLayout[@index='1']										
+ManageMembership	xpath	//*[@text='Manage Membership']

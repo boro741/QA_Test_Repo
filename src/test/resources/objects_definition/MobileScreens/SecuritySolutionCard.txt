@@ -38,5 +38,8 @@ ClearTamperButton							NAME	RightButton	NAME	RightButton	NAME	RightButton
 UnableToConnectToBaseStationAlert	XPATH	//*[@text='Failed to switch mode']	XPATH	//*[@text='Failed to switch mode']	XPATH	//*[@text='Failed to switch mode']	NAME	Alert	NAME	Alert	NAME	Alert
 LoadingProgressBar	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress
 SensorButton	XPATH	"//*[contains(@text,'Sensors')]"					XPATH	"//*[contains(@value,'Sensors')]"				
-SensorName	ID	sensor_name	ID	sensor_name	ID	sensor_name	Xpath	//XCUIElementTypeStaticText				
+SensorName	id	sensor_name					Xpath	//XCUIElementTypeStaticText				
 SecuritySettingsTitle	XPATH	//*[@text='Security settings']					XPATH	//*[@value='Security Settings']				
+SensorName	ID	sensor_name	ID	sensor_name	ID	sensor_name	Xpath	//XCUIElementTypeStaticText				
+			
+

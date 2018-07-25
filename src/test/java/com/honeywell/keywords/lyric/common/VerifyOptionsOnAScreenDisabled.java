@@ -17,6 +17,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -282,40 +283,90 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						}
 					}
 				}
-				
 
 			}
 			break;
 		}
-		case "THERMOSTAT":
-		{
-			Dashboard dash=new Dashboard(testCase);
-		
+		case "THERMOSTAT": {
+			Dashboard dash = new Dashboard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-			
-		String fieldTobeVerified = data.getData(i, "Options");
-		if (fieldTobeVerified.equalsIgnoreCase("UP stepper")) {
-			if (dash.isUPStepperElementEnabled()){
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"UP Stepper option is enabled");
-			} else {
-				Keyword.ReportStep_Pass(testCase, "UPstepper Option is disabled");
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("UP stepper")) {
+					if (dash.isUPStepperElementEnabled()) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "UP Stepper option is enabled");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "UPstepper Option is disabled");
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Down stepper")) {
+					if (dash.isDownStepperElementEnabled()) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Down stepper Option is enabled");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Down stepper Option is disabled");
+					}
+				}
 			}
-		} else if (fieldTobeVerified.equalsIgnoreCase("Down stepper")) {
-			if (dash.isDownStepperElementEnabled()) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Down stepper Option is enabled");
-			} else {
-				Keyword.ReportStep_Pass(testCase, "Down stepper Option is disabled");
+
+			break;
+		}
+
+		case "SET FILTER REMINDER": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "SetFilterReminderOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("REPLACE FILTER EVERY")) {
+					if (!ts.isSetFilterReminderOptionsVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder:" + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Set Filter Reminder:" + fieldToBeVerified + " is enabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("FILTER LAST REPLACED")) {
+					if (!ts.isSetFilterReminderOptionsVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder:" + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Set Filter Reminder:" + fieldToBeVerified + " is enabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("NEXT SCHEDULED REMINDER")) {
+					if (!ts.isSetFilterReminderOptionsVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Set Filter Reminder:" + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Set Filter Reminder:" + fieldToBeVerified + " is enabled");
+					}
+				}
 			}
+			break;
 		}
+
+		case "THERMOSTAT SETTINGS": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "ThermostatSettingsOption");
+				if (fieldToBeVerified.equalsIgnoreCase("AUTO CHANGEOVER")) {
+					try {
+						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase, fieldToBeVerified)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover:" + fieldToBeVerified + " is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Auto Changeover:" + fieldToBeVerified + " is enabled");
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured: " + e.getMessage());
+					}
+				}
+			}
+			break;
 		}
-			
-		break;
-	}
-		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

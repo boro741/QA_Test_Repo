@@ -4,14 +4,14 @@ As an user i want to Create and Edit Geofence Schedule
 so that my home temperature will get set automatically based on geofence settings
 
 @NA_CreateGeofenceSchedule
-  Scenario: As a user i want to create an Geofence schdeule with Defualt values(Home/Away settings)
+  Scenario: As a user i want to create an Geofence schdeule with Defualt values Home_Away settings
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates "Geofence based" schedule with default schedule value
+     When user creates "Geofence based" scheduling with default values "With" sleep settings
      Then "Geofence based" scheduling gets activated
-      And user navigates to "Primary card" screen from the "Scheduling" screen
-      And user is displayed with "Using Away/Home settings"
+#      And user navigates to "Primary card" screen from the "Scheduling" screen
+#      And user is displayed with "Using Away/Home settings"
   
   @NA_SleepSettings
   Scenario Outline: As a user i want to Add/Edit Geofence Sleep Settings 

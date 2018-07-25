@@ -34,7 +34,7 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | Manage Alerts				|
       | Set Filter Reminder			|
       |	Set up HomeKit & Siri		|
-      | Optimise						|
+      | Optimise					|
       | Set filter reminder			|
       |	Set Up Homekit & Siri		|
       | Optimizer					|
@@ -86,7 +86,7 @@ Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Aler
  
 #InvalidScenario
 #JasperNA, JasperEMEA, HB_Spruce     
-@EnableDisableEmailForEnabledAlerts		@P3		@UIAutomatable
+@EnableDisableEmailForEnabledAlerts		@P3
 Scenario: As a user I should be able to enable or disable Email For Enabled Alerts on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -106,23 +106,33 @@ And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts
 And user should be displayed with the following "Indoor Temperature Alert" options:
 	| IndoorTempAlertOptions			| 
 	| Alert for this range			|
-When user selects "Alert for this range" from "Manage Alerts" screen
-Then user should be displayed with the following "Alert for this range" options:
+When user selects "Temperature Alert for this range" from "Manage Alerts" screen
+Then user should be displayed with the following "Temperature Alert for this range" options:
 	| AlertTempRangeOptions		| 
 	| Below 						| 
 	| Above						|
-And user taps on "Below Range"
-Then user selects "Below Temperature Range" from "Manage Alerts" screen
-And user receives a "Below Temperature Range" push notification
-And user taps on "Above Range"
-Then user selects "Above Temperature Range" from "Manage Alerts" screen
-And user receives a "Above Temperature Range" push notification
-And user should be displayed with "Indoor Temperature" message on "Activity History" history screen
+When user selects "Below Temperature Range" from "Manage Alerts" screen
+Then user receives a "Below Temperature Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Temperature Alert" options:
+	| TempRangeAlertMsg		|
+	| Below					|
+When user navigates to "Manage Alerts" screen from the "Activity History" screen
+Then user should be displayed with the following "Indoor Temperature Alert" options:
+	| IndoorTempAlertOptions			| 
+	| Alert for this range			|
+When user selects "Temperature Alert for this range" from "Manage Alerts" screen
+And user selects "Above Temperature Range" from "Manage Alerts" screen
+Then user receives a "Above Temperature Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Temperature Alert" options:
+	| TempRangeAlertMsg		|
+	| Above					|
 
 
 #InvalidScenario
 #HB_Srpuce
-@HBBEnableDisableEmailForEnabledAlertsforHumidity		@P2		@UIAutomatable
+@HBBEnableDisableEmailForEnabledAlertsforHumidity		@P2
 Scenario: As a user I should be able to enable or disable Email For Enabled Alerts for Humidity on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -133,38 +143,51 @@ When user changes the "Email For Enabled Alerts" to "OFF"
 Then "Email For Enabled Alerts" value should be updated to "OFF" on "Manage Alerts" screen
 
 
-
 #HB_Srpuce
 @HBBEnableDisableIndoorHumidityAlert		@P2		@UIAutomatable
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Humidity Alert" to "ON"
-Then "Indoor Humidity Alert" value should be updated to "ON" on "Thermostat Settings" screen
-And following "Indoor Humidity Alert" option should be displayed
+Then user changes the "Indoor Humidity Alert" to "ON"
+And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Humidity Alert" options:
+	| IndoorHumidityAlertOptions			| 
+	| Alert for this range				|
 When user changes the "Indoor Humidity Alert" to "OFF"
 Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts" screen
-	  | Options						| 
-      | Email for enabled alerts		| 
-      | Alert for this range			|
 
 #HB_Srpuce
 @ChangeAlertForThisRangeforHumidity		@P1		@UIAutomatable		@--xrayid:ATER-44521
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Humidity Alert" to "ON"
-And user clicks on " Alert for this Range" option
-Then user should be displayed with Following Options
-And when user Clicks on "Below Range"
-Then user should be able to select "Below Humidity Range"
-And user should be able to receive push notification for below range
-And when user Clicks on "Above Range"
-And user should be displayed with "Indoor Humidity" message on "Activity History" history screen
-
-| Options	| 
-| Below 		| 
-| Above		|
+Then user changes the "Indoor Humidity Alert" to "ON"
+And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Humidity Alert" options:
+	| IndoorHumidityAlertOptions			| 
+	| Alert for this range				|
+When user selects "Humidity Alert for this range" from "Manage Alerts" screen
+Then user should be displayed with the following "Humidity Alert for this range" options:
+	| AlertHumidityRangeOptions		| 
+	| Below 							| 
+	| Above							|
+When user selects "Below Humidity Range" from "Manage Alerts" screen
+Then user receives a "Below Humidity Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Humidity Alert" options:
+	| HumidityRangeAlertMsg		|
+	| Below						|
+When user navigates to "Manage Alerts" screen from the "Activity History" screen
+Then user should be displayed with the following "Indoor Humidity Alert" options:
+	| IndoorHumidityAlertOptions			| 
+	| Alert for this range				|
+When user selects "Humidity Alert for this range" from "Manage Alerts" screen
+And user selects "Above Humidity Range" from "Manage Alerts" screen
+Then user receives a "Above Humidity Range Alert" push notification
+When user navigates to "Activity History" screen from the "Thermostat Settings" screen
+Then user should be displayed with the following "Humidity Alert" options:
+	| HumidityRangeAlertMsg		|
+	| Above						|
 
 
 #Set Filter Reminder 
@@ -174,29 +197,36 @@ And user should be displayed with "Indoor Humidity" message on "Activity History
 Scenario: As a user I should be able to enable or disable Set Filter Reminder option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
-And user changes the "Set Filter Reminder" to "ON"
-Then "Set Filter Reminder" value should be updated to "ON" on "Set Filter Reminder" screen
-When user changes the "Set Filter Reminder" to  "OFF"
-Then "Set Filter Reminder" value should be updated to "OFF" on "Set Filter Reminder" screen
+And user changes the "Set Filter Reminder Switch" to "ON"
+Then "Set Filter Reminder Switch" value should be updated to "ON" on "Set Filter Reminder" screen
+When user changes the "Set Filter Reminder Switch" to "OFF"
+Then "Set Filter Reminder Switch" value should be updated to "OFF" on "Set Filter Reminder" screen
+     
      
 @VerifySetFilterReminderOptions		@P2		@UIAutomatable
 Scenario: As a user I should be able to view options for Set Filter Reminder
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
-And user changes the "Set Filter Reminder" to "ON"
-Then the following "Set Filter Reminder" options should be disabled
-		| Options   					| 
-	    |Replace Filter Every 		| 
-    		|Filter Last Replaced  		| 
-      	|Next Scheduled Reminder 	| 
- 
+And user changes the "Set Filter Reminder Switch" to "ON"
+Then the following "Set Filter Reminder" options should be enabled:
+		| SetFilterReminderOptions		| 
+	    | Replace Filter Every			| 
+    		| Filter Last Replaced			| 
+      	| Next Scheduled Reminder		|
+When user changes the "Set Filter Reminder Switch" to "OFF"
+Then the following "Set Filter Reminder" options should be disabled:
+		| SetFilterReminderOptions		| 
+	    | Replace Filter Every			| 
+    		| Filter Last Replaced			| 
+      	| Next Scheduled Reminder		|
 
- #JasperNA, HB-Spruce
+
+#JasperNA, HB-Spruce
 @ChangeReplacefilterandFilterLastReplacedOptions		@P2		@NotAutomatable
 Scenario: As a user I should be able to set options Replace filter and Filter Last Replaced
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
-And user changes the "Set Filter Reminder" to "ON"
+And user changes the "Set Filter Reminder Switch" to "ON"
 And user selects <Replace filter value as month> from "Set Filter Reminder" screen
 Then "Replace Filter Every" value should be updated to <replace filter Every value> on "Set Filter Reminder" screen
 When user selects "Filter Last Replaced " from "set filter reminder" screen
@@ -296,9 +326,9 @@ Scenario: As a user I should be able to enable or disable Fine Tune option on my
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 And user changes the "Fine Tune" to "ON"
-Then "Fine Tune" value should be updated to "ON" on "Set Filter Reminder" screen
+Then "Fine Tune" value should be updated to "ON" on "Thermostat Settings" screen
 When user changes the "Fine Tune" to  "OFF"
-Then "Fine Tune" value should be updated to "OFF" on "Set Filter Reminder" screen 
+Then "Fine Tune" value should be updated to "OFF" on "Thermostat Settings" screen 
 
 #HB_Spruce, JasperNA
 @EnableDisableAdaptiverecovery		@P2		@UIAutomatable
@@ -330,8 +360,37 @@ Then "Emergency Heat" value should be updated to "ON" on "Thermostat Settings" s
 When user changes the "Emergency Heat" to "OFF"
 Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen
 
+@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled	@P2		@UIAutomatable
+Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
+Given user launches and logs in to the Lyric application
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+| Options	|
+| Auto		|
+| Heat		|
+| Cool		|
+| Off		|
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption		|
+		| Auto Changeover				|
+		
+Examples:
+| SystemMode		| 
+#| Cool			|
+| Heat			|
+
 #JasperNA, HB_Spruce
-@Autochangeoverwhenheatonlyoracoolonlyenabled		@P2		@UIAutomatable
+@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled123		@P2		@UIAutomatable
 Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -577,8 +636,9 @@ And user navigates to "Dashboard" screen from the "Thermostat Configuration" scr
 Then user should be displayed with "Test Thermostat Name" device on the "dashboard" screen 
 And user reverts back the "Thermostat device name" through CHIL
 
+#InvalidScenario
 #JasperNA, JAsperEMEA, HB_Spruce
-@RenameThermostatwithDuplicatename			@P3			@UIAutomatable
+@RenameThermostatWithDuplicatename			@P3
 Scenario: As a user I want to get a error message when i eneter a duplicate name for my thermostat
 Given user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
@@ -604,13 +664,13 @@ And user should be displayed with "Cooling Stages"
  
 
 #JasperNA, JAsperEMEA, HB_Spruce
-@DismissDeletePopupJasperNAEMEAHB			@P3			@UIAutomatable
+@DismissDeletePopupJasperNAEMEAHB			@P4			@UIAutomatable
 Scenario: As a user I should be able to dismiss the delete poup for my Japer NA device from my account through the Lyric application
 Given user launches and logs in to the Lyric application 
-When user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
+When user navigates to "Thermostat Configuration" screen from the "Dashboard" screen
 And user "deletes thermostat" by clicking on "delete" button
-Then user should receive a "Delete Device Confirmation" popup
-And user "dismisses" the "Delete Device Confirmation" popup
+Then user should receive a "Delete Thermostat Device Confirmation" popup
+And user "dismisses" the "Delete Thermostat Device Confirmation" popup
 
 
 #Offline
@@ -654,7 +714,7 @@ Given user device is offline
 And user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 Then the following "Thermostat Settings" options should be disabled:
-      |  Options			| 
+      | Options			| 
       | Optimise			|	
       | Ventilation		|
      

@@ -23,6 +23,7 @@ import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.LoginScreen;
+
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -121,6 +122,7 @@ public class LogoutOfLyric extends Keyword {
 								}
 							}
 						} else {
+
 							element = testCase.getMobileDriver().findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 									+ "new UiSelector().text(\"Logout\"));"));
 							if (element != null) {

@@ -53,7 +53,7 @@ public class Edit_StopVentilationTimer extends Keyword {
 					FlyCatcherVentialtion fl = new FlyCatcherVentialtion();
 					fl.SetVentilationTimer(testCase, inputs, TimerValue);
 				}else{
-					if (fly.isStopTimerVissible()){
+					if (fly.isStopTimerVisible()){
 						flag = flag && fly.ClickStopTimer();
 					}
 				}

@@ -38,11 +38,17 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String NIGHTVISION = "Night Vision";
 	public static final String VIDEOQUALITY = "Video Quality";
 	public static final String ZWAVEDEVICES = "Z-Wave Devices";
+	public static final String SECURITYMODECHANGE = "Security Mode Change";
+	public static final String DOORANDWINDOWS = "Doors and Windows";
+	public static final String CAMERASTATUS = "Camera Status";
+	public static final String MOTIONEVENT = "Motion Event";
+	public static final String EMAILNOTIFICATIONS = "Email Notifications";
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
 	public static final String IOSENTRYEXITTABLELOCATORVALUE = "//XCUIElementTypeCell";
 	public static final String ANDROIDTICKMARKLOCATORVALUE = "list_item_lyric_image_view";
 	public static final String IOSTICKMARKLOCATORVALUE = "//XCUIElementTypeImage";
+	public static final String THERMOSTATCONFIGURATION = "Thermostat Configuration";
 
 	public BaseStationSettingsScreen(TestCases testCase) {
 		super(testCase, screenName);
@@ -460,6 +466,81 @@ public class BaseStationSettingsScreen extends MobileScreens {
 						.equals("enabled") ? true : false);
 			}
 		}
+		else if (elementName.equals(BaseStationSettingsScreen.SECURITYMODECHANGE)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeChange", 5)) {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+								BaseStationSettingsScreen.SECURITYMODECHANGE);
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChange")
+						.getAttribute("enabled"));
+			} 
+			else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChange").getText()
+						.equals("enabled") ? true : false);
+			}
+		}
+		else if (elementName.equals(BaseStationSettingsScreen.DOORANDWINDOWS)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorsAndWindows", 5)) {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+								BaseStationSettingsScreen.DOORANDWINDOWS);
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "DoorsAndWindows")
+						.getAttribute("enabled"));
+			} 
+			else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "DoorsAndWindows").getText()
+						.equals("enabled") ? true : false);
+			}
+		}
+		else if (elementName.equals(BaseStationSettingsScreen.CAMERASTATUS)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatus", 5)) {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+								BaseStationSettingsScreen.CAMERASTATUS);
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "CameraStatus")
+						.getAttribute("enabled"));
+			} 
+			else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "CameraStatus").getText()
+						.equals("enabled") ? true : false);
+			}
+		}
+		else if (elementName.equals(BaseStationSettingsScreen.MOTIONEVENT)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionEvent", 5)) {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+								BaseStationSettingsScreen.MOTIONEVENT);
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionEvent")
+						.getAttribute("enabled"));
+			} 
+			else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "MotionEvent").getText()
+						.equals("enabled") ? true : false);
+			}
+		}
+		else if (elementName.equals(BaseStationSettingsScreen.EMAILNOTIFICATIONS)) {
+			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotifications", 5)) {
+				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+								BaseStationSettingsScreen.EMAILNOTIFICATIONS);
+			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "EmailNotifications")
+						.getAttribute("enabled"));
+			} 
+			else {
+				return (MobileUtils.getMobElement(objectDefinition, testCase, "EmailNotifications").getText()
+						.equals("enabled") ? true : false);
+			}
+		}
 
 		else {
 			throw new Exception("Invalid Input : " + elementName);
@@ -468,6 +549,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isEntryExitDelaySettingsOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3);
+	}
+	
+	public boolean isDoorAndWindowsToggleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorsAndWindows", 5);
 	}
 
 	public boolean isEntryExitDelaySettingsOptionVisible(int timeOut) {
@@ -851,6 +936,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		} else {
 			flag = false;
 		}
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareLastUpdatedDate")) {
+			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareLastUpdatedDate").getText()
+					.toUpperCase().contains("LAST UPDATED ON"));
+		} else {
+			flag = false;
+		}
 		return flag;
 	}
 
@@ -1023,8 +1114,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				|| settingName.equalsIgnoreCase("Adaptive Recovery")) {
 			return LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, attribute, settingName);
 		} else {
+				
 			return LyricUtils.scrollToElementUsingExactAttributeValue(testCase, attribute, settingName);
+			
 		}
+		
 	}
 
 	public boolean verifyParticularEntryExitDelayOptionVisible(String option) throws Exception {
@@ -1200,6 +1294,42 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return true;
 		}
 	}
+	
+		public boolean isPerformInModePopupVisible() {
+		boolean flag=false;
+		if(testCase.getPlatform().contains("Android")){
+			if (this.isVolumeOptionVisible()) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
+			} else {
+				try {
+					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+									BaseStationSettingsScreen.VOLUME);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					flag=false;
+					e.printStackTrace();
+				}
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
+				String toastMessageText=LyricUtils.getToastMessage(testCase);
+				if(toastMessageText.contains("You can perform this action only in Home") && toastMessageText.contains("or Off Mode.")) {
+					flag=true;
+					Keyword.ReportStep_Pass(testCase, "You can perform in home popup is seen");
+				}
+				else {
+					flag=false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed in validating You can perform in Home or Off mode popup");
+				}
+			}
+			
+			return flag;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 
 	public boolean isDeleteElementClickable() {
 		boolean flag = true;
@@ -1363,6 +1493,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean clickOnSignalStrengthandTestOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SignalStrengthOption");
+	}
+	
+	public boolean isManageAlertExist() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ManageAlerts");
+	}
+	
+	public boolean clickOnManageAlerts() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ManageAlerts");
 	}
 
 	public boolean verifySensorStatusAfterTestSignalStrength(String s) {

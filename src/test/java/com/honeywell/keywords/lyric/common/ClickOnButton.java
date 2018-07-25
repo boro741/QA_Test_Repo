@@ -13,6 +13,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class ClickOnButton extends Keyword {
@@ -293,6 +294,16 @@ public class ClickOnButton extends Keyword {
 				case "ALEXA APP": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnAlexaAppButton();
+					break;
+				}
+				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES THERMOSTAT")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if(ts.isDeleteThermostatButtonVisible()) {
+						flag = flag & ts.clickOnDeleteThermostatButton();
+					}
 					break;
 				}
 				}

@@ -42,14 +42,14 @@ public class CHILUtil implements AutoCloseable {
 	private String bodyToken;
 	private String sessionID;
 	private TestCaseInputs inputs;
-	public static int coolSetPoints = 0;
+	public static String chapiDeviceId;
+		public static int coolSetPoints = 0;
 	public static int heatSetPoints = 0;
 	public static Double maxHeat;
 	public static Double minHeat;
 	public static Double maxCool;
 	public static Double minCool;
 	public static String thermostatUnit="";
-	
 
 	public CHILUtil(TestCaseInputs inputs) throws Exception {
 		String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
@@ -643,6 +643,21 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
+	public int deleteDeviceHub(long locationID) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = " ";
+			url = chilURL + "api/locations/" + locationID + "/Devices/" + chapiDeviceId+ "/hub";
+			try {
+						result = doDeleteRequest(url).getResponseCode();
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
+
+		}
+		return result;
+	}
+	
 	public int deleteLocation(long locationID) throws Exception {
 		int result = -1;
 		if (isConnected) {
@@ -983,8 +998,46 @@ public class CHILUtil implements AutoCloseable {
 		try {
 			if (isConnected) {
 				String url = chilURL
-						+ String.format("api/locations/%s/devices/%s/Settings/VentilationMode", locationID, deviceID);
+						+ String.format("api/locations/%s/devices/%s/Settings/	", locationID, deviceID);
 				String headerData = String.format("{\"changeableValues\":\"%s\"}", VentilationMode);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int setHumidificationValue(long locationID, String deviceID, String HumidificationValue) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/Settings/humidifier", locationID, deviceID);
+				String headerData = String.format("{\"changeableValues\":{\"mode\":\"%s\",\"setPoint\":\"%s\"}}", "Auto",HumidificationValue);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int setHumidificationstatus(long locationID, String deviceID, String HumidificationStatus) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/Settings/humidifier", locationID, deviceID);
+				String headerData = String.format("{\"changeableValues\":{\"mode\":\"%s\",\"setPoint\":\"%s\"}}", HumidificationStatus,30);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1022,9 +1075,7 @@ public class CHILUtil implements AutoCloseable {
 			if (isConnected) {
 				String url = chilURL
 						+ String.format("api/locations/%s/device/%s/ventilation/settings", locationID, deviceID);
-				System.out.println("url : " + url);
 				String headerData = String.format("{\"ventilationBoostTimer\":\"%s\",\"ventilationBoostTimerReset\":\"%s\"}", 0,true);
-				System.out.println("headerData : " + headerData);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1170,6 +1221,63 @@ public class CHILUtil implements AutoCloseable {
 
 	}
 	
+	public int RegisterAndActivateCamera(long locationID, String deviceID, TestCases testCase)
+	{
+		HttpURLConnection result;
+		int result1 = -1;
+		String deviceType = "C1";
+		String name = "Certificate C1 Camera";
+		String mac = "74DA38B86396";
+		String certificate = "-----BEGIN CERTIFICATE-----MIIDJjCCAsugAwIBAgIIBEzqqdIM5bwwCgYIKoZIzj0EAwIwWTELMAkGA1UEBhMCVVMxJTAjBgNVBAoMHEhvbmV5d2VsbCBJbnRlcm5hdGlvbmFsIEluYy4xDDAKBgNVBAsMA0FDUzEVMBMGA1UEAwwMU2hhcmVkIFFBIENBMCAXDTE3MDEwNjExNDA0M1oYDzk5OTkwMjAxMDAwMDAwWjCBjDELMAkGA1UEBhMCVVMxJTAjBgNVBAoMHEhvbmV5d2VsbCBJbnRlcm5hdGlvbmFsIEluYy4xCzAJBgNVBAsMAkMxMUkwRwYDVQQDDEAzMTMzOEMwQUI2QTVEOTRDMDdFQjFCMEE2NjlFQUE5NERBNTYxMUE1Q0NEMjVCRjNBQjVBNEJEMUJDQjFEOTBGMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmpwvFDyqziYlPAuQzaQ6C1GtEfqwuWfQxT7kQZqnUacBL6Nd7d03JIG6rPohITnclPzgT5e53PeEBfeRWDILPqOCAUUwggFBMDwGCCsGAQUFBwEBBDAwLjAsBggrBgEFBQcwAYYgaHR0cDovL3FocHBraS5ob25leXdlbGwuY29tL29jc3AwHQYDVR0OBBYEFLe/0jghGBODIpATNg8iIRj9b0xiMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUigo7HXBqSQk3b40Axd8hqEVvrg0wSQYDVR0gBEIwQDA+BgwrBgEEAYGkBgIBAQEwLjAsBggrBgEFBQcCARYgaHR0cHM6Ly9xaHBwa2kuaG9uZXl3ZWxsLmNvbS9jcHMwQAYDVR0fBDkwNzA1oDOgMYYvaHR0cDovL3FocHBraS5ob25leXdlbGwuY29tL2NybC9TaGFyZWRRQUNBMi5jcmwwDgYDVR0PAQH/BAQDAgOIMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMCMAoGCCqGSM49BAMCA0kAMEYCIQDiMBQaEIgFwqtMXV1jWDs2w8eDZVizoJXzACHZ02Zy2gIhAID4akK42b7xoQYXNi6lk6Ynab57jyEH/NTMnPHupMqI-----END CERTIFICATE-----";
+		
+		try {
+			getConnection();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		//Register Camera
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/hub", locationID);
+				String headerData = String.format(
+						"{\"DeviceId\": \"%s\",\"DeviceTypes\": \"%s\",\"Name\": \"%s\",\"mac\": \"%s\"}", deviceID, deviceType, name, mac);
+				try {
+					result = doPostRequest(url, headerData);
+					
+					if (result.getResponseCode() == HttpURLConnection.HTTP_CREATED || result.getResponseCode() == HttpURLConnection.HTTP_OK)
+					{
+						BufferedReader br = new BufferedReader(new InputStreamReader((result.getInputStream())));
+											StringBuilder sb = new StringBuilder();
+											String output;
+											while ((output = br.readLine()) != null) {
+											sb.append(output);
+											}
+											String JsonString = sb.toString();
+											
+								            JSONObject obj = new JSONObject(JsonString);
+								            
+								            String registrationId = (String) obj.get("RegistrationId");
+								            chapiDeviceId = (String) obj.get("CHAPIdeviceID");
+								            
+								        	String url1 = chilURL
+													+ String.format("provisioning/api/devices/activate");
+											String headerData1 = String.format(
+													"{\"deviceId\": \"%s\",\"registrationId\": \"%s\",\"certificate\": \"%s\"}", deviceID, registrationId, certificate);
+											result1 = doPostRequest(url1, headerData1).getResponseCode();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		//Get Location
+		return result1;
+	}
 	public int getStripeCustomerAndDeleteSubscription(String stripeCustomerId, String stripePrivateKey) 
 
 			throws MalformedURLException, IOException {

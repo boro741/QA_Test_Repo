@@ -11,11 +11,14 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
+import com.honeywell.lyric.utils.LyricUtils;
+
 import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -243,6 +246,16 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
 			break;
 		}
+
+
+		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME AND OFF MODE ON CLICKING BASE STATION VOLUME":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag=flag& bs.isPerformInModePopupVisible();
+			break;
+		}
+            
+
+		
 		case "CANCEL SENSOR SETUP": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			if (sensor.isCancelSetUpPopUpVisible()) {
@@ -288,6 +301,10 @@ public class VerifyDisplayedPopUp extends Keyword {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & bs.isPerformOnlyInModesPopupForGeofence();
 			return flag;
+		}
+		case "DELETE THERMOSTAT DEVICE CONFIRMATION": {
+			flag = flag & HBNAEMEASettingsUtils.verifyDeleteThermostatDeviceConfirmationPopUp(testCase, inputs);
+			break;
 		}
 		default: {
 			flag = false;

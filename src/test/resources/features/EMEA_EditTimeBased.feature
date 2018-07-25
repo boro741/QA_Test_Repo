@@ -99,10 +99,7 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user selects view by "Different On Weekdays"
      When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
-     Then user should be displayed <ScheduleType> schedule with temperature value incremental by 1F for fahrenheit and 0.5C for celsius
-      And "EditedDays" are grouped separately
   
     Examples: 
       | ScheduleType          | Temperature   | 
@@ -141,3 +138,4 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
       And user is displayed with "Tap on Resume" screen
      When user selects "Tap on Resume" from "Scheduling" screen
      Then user should be displayed with "Scheduling" screen
+     

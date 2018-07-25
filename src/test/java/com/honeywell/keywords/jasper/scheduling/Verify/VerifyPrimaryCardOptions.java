@@ -66,8 +66,14 @@ public class VerifyPrimaryCardOptions extends Keyword {
 					this.fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 30)) {
 						Keyword.ReportStep_Pass(testCase, "Scheduling status displayed");
-						String currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
-								.getAttribute("label");
+						String currentText=null;
+						if(testCase.getPlatform().toUpperCase().equals("IOS")){
+							currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+									.getAttribute("label");
+						}else{
+							currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+									.getText();
+						}
 						System.out.println(currentText);
 						if (currentText.equals("Following Schedule")) {
 							Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
@@ -126,7 +132,7 @@ public class VerifyPrimaryCardOptions extends Keyword {
 							"Verify Primary Card Elements : Weather Icon not present on the Primary Card");
 				}
 				break;
-				
+
 			case "Temperature":
 				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "WLDDismissIcon", 5)) {
 					if (!MobileUtils.clickOnElement(fieldObjects, testCase, "WLDDismissIcon")) {
