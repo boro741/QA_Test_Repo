@@ -54,18 +54,18 @@ public class JasperSchedulingVerifyUtils {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
 							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
-							for (WebElement setpoints : schedule_heatsetpoints) {
-								if (setpoints != null) {
-									if (Double.parseDouble(setpoints.getText()) <= maxHeat
-											&& Double.parseDouble(setpoints.getText()) >= minHeat) {
+							for (int i=0;i<=schedule_heatsetpoints.size()-1;i++) {
+								if (schedule_heatsetpoints != null) {
+									if (Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) <= maxHeat
+											&& Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(setpoints.getText())
+												"Set Point value: " + Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(setpoints.getText())
+														+ Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -73,18 +73,18 @@ public class JasperSchedulingVerifyUtils {
 						}
 						if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
 							schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
-							for (WebElement setpoints : schedule_coolsetpoints) {
-								if (setpoints != null) {
-									if (Double.parseDouble(setpoints.getText()) <= maxCool
-											&& Double.parseDouble(setpoints.getText()) >= minCool) {
+							for (int i=0;i<=schedule_coolsetpoints.size()-1;i++) {
+								if (schedule_coolsetpoints != null) {
+									if (Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) <= maxCool
+											&& Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) >= minCool) {
 										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(setpoints.getText())
+												"Set Point value: " + Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(setpoints.getText())
+														+ Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
