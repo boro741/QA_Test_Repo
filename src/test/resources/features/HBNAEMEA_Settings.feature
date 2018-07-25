@@ -14,13 +14,9 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | Set Filter Reminder			|
       |	Set up HomeKit & Siri		|
       | Adaptive Recovery			|	
-      | Set filter reminder			|
-      |	Set Up Homekit & Siri		|
-      | Adaptive recovery			|	
+      | Auto Changeover				|
       | Ventilation					|
-      | Emergency heat				| 
-      | Auto changeover				|
-      | Auto chnageover				|
+      | Emergency Heat				| 
       | Reset Wi-Fi					| 
       | Thermostat Configuration 	| 
 
@@ -33,12 +29,10 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | ThermostatSettings			|
       | Manage Alerts				|
       | Set Filter Reminder			|
+      | Optimise						|
       |	Set up HomeKit & Siri		|
-      | Optimise					|
-      | Set filter reminder			|
-      |	Set Up Homekit & Siri		|
       | Optimizer					|
-      | Emergency heat				|
+      | Emergency Heat				|
       | Reset Wi-Fi					| 
       | Thermostat Configuration 	| 
 
@@ -51,18 +45,15 @@ When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 Then user should be displayed with the following "Thermostat Settings" options: 
       | ThermostatSettings			|
       | Manage Alerts				|
-      | Fine Tune					|
       | Set Filter Reminder			|
-      | Set filter reminder			|
-      | Frost Protection Mode		|
+      | Fine Tune					|
+      | Adaptive Recovery			|
+      | Auto Changeover				|
+      | Ventilation					|
       | Humidification				|
       | Dehumidification				|
-      | Adaptive Recovery			|	
-      | Adaptive recovery			|	
-      | Ventilation					|
-      | Emergency heat				| 
-      | Auto changeover				|
-      | Auto chnageover				|
+      | Frost Protection				|
+      | Emergency Heat				|
       | Sleep Brightness Mode		|
       | Sound						|
       | Reset Wi-Fi					| 
