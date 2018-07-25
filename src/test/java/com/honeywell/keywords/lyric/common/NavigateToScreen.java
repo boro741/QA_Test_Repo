@@ -28,6 +28,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
@@ -100,9 +101,7 @@ public class NavigateToScreen extends Keyword {
 					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
-
 					PrimaryCard sensorScreen = new PrimaryCard(testCase);
 					flag = flag & sensorScreen.clickOnBackButton();
 					break;
@@ -2164,8 +2163,27 @@ public class NavigateToScreen extends Keyword {
 				}
 					break;
 				}
-			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+			} else if (screen.get(1).equalsIgnoreCase("PRIMARY CARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SCHEDULING": {
+					SchedulingScreen ss = new SchedulingScreen(testCase);
+					flag = flag & ss.clickOnTimeScheduleButton();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to select schedule icon: " + screen.get(1));
+					}
+					break;
+				}
 
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);
@@ -2194,7 +2212,6 @@ public class NavigateToScreen extends Keyword {
 				case "THERMOSTAT SOLUTION CARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnBackButton();
-
 					break;
 				}
 				}
@@ -2202,7 +2219,24 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
 					DASSettingsUtils.navigateFromActivityHistoryScreenToManageAlertsScreen(testCase, inputs);
+					break;
 				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION SCREEN")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
 				}
 			}
 

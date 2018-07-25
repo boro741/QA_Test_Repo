@@ -859,6 +859,17 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("FROST PROTECTION MODE")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.FROSTPROTECTION);
+				String value = parameters.get(1).split("%")[0].split("~")[1];
+				if (ts.setValueToHumiditySlider(value)) {
+					Keyword.ReportStep_Pass(testCase, "Successfully set the Frost proection to " + parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to set the Frost proection to: " + parameters.get(1));
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

@@ -441,14 +441,39 @@ Examples:
 
 #HB_Spruce
 @HBBSpruceEnableFrostProtectionMode		@P2		@UIAutomatable
-Scenario: As a user I should be able to enable or disable Frost Protection Mode on my thermostat
+Scenario Outline: As a user I should be able to enable or disable Frost Protection Mode on my thermostat
+#Given user launches and logs in to the Lyric application
+#When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+#And user changes the " Mode" to "ON"
+#Then "Frost Protection Mode" value should be updated to "ON" on "Thermostat Settings" screen
+#When user changes the "Frost Protection Mode" to "OFF"
+#Then "Frost Protection Mode" value should be updated to "OFF" on "Thermostat Settings" screen
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user changes the "Frost Protection Mode" to "ON"
-Then "Frost Protection Mode" value should be updated to "ON" on "Thermostat Settings" screen
-When user changes the "Frost Protection Mode" to "OFF"
-Then "Frost Protection Mode" value should be updated to "OFF" on "Thermostat Settings" screen
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+And user changes the "Frost Protection Mode" to "~0%"
+When user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+Then "Frost Protection Mode" value should be updated to "~0%" on "Thermostat Settings" screen
+When user changes the "Frost Protection Mode" to "~50%"
+And user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+Then "Frost Protection Mode" value should be updated to "~50%" on "Thermostat Settings" screen
+When user changes the "Frost Protection Mode" to "~100%"
+And user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+Then "Frost Protection Mode" value should be updated to "~100%" on "Thermostat Settings" screen
 #Hardware settings 
+
+Examples:
+| SystemMode		|
+| Cool			|
 
 
 #HB_Spruce
