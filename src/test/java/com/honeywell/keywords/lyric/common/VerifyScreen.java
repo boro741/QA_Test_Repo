@@ -18,14 +18,20 @@ import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
+
+import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
+
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -325,6 +331,9 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			
+			
+			
 			case "CONFIRM YOUR ZIP CODE": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isConfirmYourAddressZipCodeTitleVisible()) {
@@ -659,8 +668,10 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "THERMOSTAT DASHBOARD":{
+				flag=true;
 				Dashboard thermo = new Dashboard(testCase);
-					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),inputs);
 					flag = flag & thermo.isUpStepperDisplayed();
 					flag = flag & thermo.isDownStepperDisplayed();
 					if(flag) {
@@ -677,18 +688,30 @@ public class VerifyScreen extends Keyword {
 				}
 				case "THERMOSTAT SOLUTION CARD":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isThermostatSolutionCardDisplayed();
+					flag = flag & thermo.isThermostatSolutionCardDisplayed();
 					break;
 				}
 				case "CHANGE MODE":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isChangeModeScreenDisplayed();
+					flag = flag & thermo.isChangeModeScreenDisplayed();
+					
+					break;
+				}
+				case "CHANGE FAN":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.isChangeFanScreenDisplayed();
 					
 					break;
 				}
 				case "MODE INFO":{
 					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.isModeInfoScreenDisplayed();
+					flag = flag & thermo.isModeInfoScreenDisplayed();
+					
+					break;
+				}
+				case "FAN INFO":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.isFanInfoScreenDisplayed();
 					
 					break;
 				}

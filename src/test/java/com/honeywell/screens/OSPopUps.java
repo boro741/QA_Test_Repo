@@ -87,5 +87,13 @@ public class OSPopUps extends MobileScreens {
 	public boolean clickOnIgnoreButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "IgnoreButton");
 	}
+	
+	public boolean isRootedDevicePopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RootedDevicePopup", timeOut, false);
+	}
+	
+	public boolean clickAcceptOnRootedDevicePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "RootedDevicePopup");
+	}
 
 }

@@ -129,7 +129,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnSwitchToGeofenceButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToGeofencingButton");
 	}
-	
+
 	public boolean isSwitchToTimeScheduleButtonVisible(int timeOut){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToTimeScheduleButton",timeOut);
 	}
@@ -141,7 +141,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnTimeOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeOption");
 	}
-	
+
 	public boolean clickOnTimeScheduleButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeScheduleButton");
 	}
@@ -202,14 +202,14 @@ public class SchedulingScreen extends MobileScreens {
 
 	public WebElement getCoolSetPointDownButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			 return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(0);
+			return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(0);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("coolTemparatureLowerButton")).get(0);
 		}
 	}
 
 	public List<MobileElement> getCoolSetPointsElements() {
-//		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPoints");
+		//		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPoints");
 		return testCase.getMobileDriver().findElements(By.name("coolTemperatureLabel"));
 	}
 
@@ -237,7 +237,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public WebElement getCoolSetPointUpButton() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			  return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature increasing']").get(0);
+			return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature increasing']").get(0);
 		} else {
 			return testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton")).get(0);
 		}
@@ -316,15 +316,11 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointDownButton() {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(1);
-		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
-		}
+		return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
 	}
 
 	public List<MobileElement> getHeatSetPointsElements() {
-//		return MobileUtils.getMobElements(objectDefinition, testCase, "heatTemperatureLabel");
+		//		return MobileUtils.getMobElements(objectDefinition, testCase, "heatTemperatureLabel");
 		return testCase.getMobileDriver().findElements(By.name("Dialer"));
 	}
 
@@ -349,19 +345,11 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointUpButton() {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return  MobileUtils.getMobElements(testCase, "xpath","//android.widget.ImageButton[@content-desc='Temperature increasing']").get(1);
-		} else {
-			return testCase.getMobileDriver().findElements(By.name("heatTemparatureUpperButton")).get(0);
-		}
+		return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
 	}
 
 	public WebElement getHeatSetPointUpButton(int index) {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return testCase.getMobileDriver().findElements(By.name("stat_temp_stepper_up")).get(index);
-		} else {
-			return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(index);
-		}
+		return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
 	}
 
 	public String getPeriodName(String locatorValue) {
@@ -905,6 +893,22 @@ public class SchedulingScreen extends MobileScreens {
 
 	public boolean setValueToTimePicker(String value) {
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "TimePicker", value);
+	}
+	public boolean setHoursValueToTimePickerAndroid(String value) {
+		MobileUtils.clickOnElement(objectDefinition, testCase, "TimeHours");
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "TimeHours", "8");
+	}
+
+	public boolean setMinsValueToTimePickerAndroid(String value) {
+		MobileUtils.clickOnElement(objectDefinition, testCase, "TimeMinutes");
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "TimeMinutes", value);
+	}
+	public boolean setAMPMTimeFormatValueToTimePickerAndroid(String value) {
+		if(value.toUpperCase().contains("A.M.")){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeAM");
+		}else{
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "TimePM");
+		}
 	}
 
 	public boolean isWhenImHomeTextVisible(int timeOut) {
