@@ -1,6 +1,7 @@
 package com.honeywell.lyric.utils;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,6 +60,9 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import org.bytedeco.javacpp.*;
+import static org.bytedeco.javacpp.lept.*;
+import static org.bytedeco.javacpp.tesseract.*;
 
 public class LyricUtils {
 
@@ -80,6 +84,7 @@ public class LyricUtils {
 	 * 
 	 *         Modified On: 21/02/2018 by Surendar
 	 */
+	public static long locationID=0;
 	public static String takeScreenShot(String path, WebDriver driver) {
 		String scrName = "#";
 		if (driver == null) {
@@ -123,7 +128,7 @@ public class LyricUtils {
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
 
 			if (chUtil.getConnection()) {
-				long locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				 locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
 
 				if (locationID == -1) {
 					return jsonObject;
@@ -205,7 +210,7 @@ public class LyricUtils {
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
 
 			if (chUtil.getConnection()) {
-				long locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				 locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
 
 				if (locationID == -1) {
 					return jsonObject;
@@ -1139,6 +1144,40 @@ public class LyricUtils {
 					+ e.getMessage());
 		}
 	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	public static String getToastMessage(TestCases testCase) {
+		
+        String fileName= takeScreenShot(
+				System.getProperty("user.dir") + File.separator + "ToastMessages", testCase.getMobileDriver());
+		String str = "";
+		BytePointer outText;
+        TessBaseAPI api = new TessBaseAPI();
+
+        if (api.Init(".", "ENG") != 0) {
+            System.err.println("Could not initialize tesseract.");
+            System.exit(1);
+        }		
+        String fileNamePath=System.getProperty("user.dir") + File.separator + "ToastMessages"+File.separator+fileName;
+        PIX image = pixRead(fileNamePath);
+        api.SetImage(image);
+
+        // Get OCR result
+        outText = api.GetUTF8Text();
+        str = outText.getString();
+//        System.out.println("OCR output:\n" + str);
+
+        // Destroy used object and release memory
+        api.End();
+        outText.deallocate();
+        pixDestroy(image);
+		return str;
+	}
+	
+	
 
 	/**
 	 * <h1>Verify Device Displayed On Dashboard</h1>

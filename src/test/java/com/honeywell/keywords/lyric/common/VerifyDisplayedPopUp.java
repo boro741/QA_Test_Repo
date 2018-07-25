@@ -17,6 +17,8 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
+import com.honeywell.lyric.utils.LyricUtils;
+
 import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -244,6 +246,16 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed();
 			break;
 		}
+
+
+		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME AND OFF MODE ON CLICKING BASE STATION VOLUME":{
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			flag=flag& bs.isPerformInModePopupVisible();
+			break;
+		}
+            
+
+		
 		case "CANCEL SENSOR SETUP": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			if (sensor.isCancelSetUpPopUpVisible()) {

@@ -97,7 +97,9 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 								"Away", testCase);
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to Away Mode");
+                            
 							try {
+								Thread.sleep(15000);
 								if (testCase.getMobileDriver() == null) {
 									return flag;
 								} else {
@@ -125,6 +127,7 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not set base station in AWAY MODE : " + result);
 						}
+						
 						break;
 					}
 					case "NIGHT": {
@@ -133,6 +136,7 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						if (result == 202) {
 							Keyword.ReportStep_Pass(testCase, "Base station is set to Night Mode");
 							try {
+								Thread.sleep(15000);
 								if (testCase.getMobileDriver() == null) {
 									return flag;
 								} else {
@@ -160,6 +164,7 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not set base station in NIGHT MODE : " + result);
 						}
+						
 						break;
 					}
 					case "OFF": {

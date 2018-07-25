@@ -24,6 +24,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.LoginScreen;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
@@ -121,7 +122,9 @@ public class LogoutOfLyric extends Keyword {
 								}
 							}
 						} else {
-							element = testCase.getMobileDriver().scrollTo("Logout");
+
+							element = testCase.getMobileDriver().findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+									+ "new UiSelector().text(\"Logout\"));"));
 							if (element != null) {
 								element.click();
 								ReportStep_Pass(testCase, "Clicked on Logout option");
