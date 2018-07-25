@@ -26,4 +26,14 @@ public class MembershipDetailsScreen extends MobileScreens {
 		}
 		return false;
 	}
+	
+	public boolean clickOnUnsubscribe(TestCases testCase, TestCaseInputs inputs) {
+		
+		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCancel");
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "Unsubscribe")) {
+			MobileUtils.clickOnElement(fieldObjects, testCase, "Unsubscribe");
+			return true;
+		}
+		return false;
+	}
 }

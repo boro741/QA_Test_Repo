@@ -38,6 +38,16 @@ public class HoneywellMembershipScreen extends MobileScreens {
 			MobileUtils.clickOnElement(fieldObjects, testCase, "StartMembership");
 			return true;
 		}
+		
 		return true;
 	}
+	public boolean clickOnManageMembership(TestCases testCase, TestCaseInputs inputs)
+		{
+			fieldObjects = MobileUtils.loadObjectFile(testCase, "HoneywellMembership");
+			if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ManageMembership")) {
+				MobileUtils.clickOnElement(fieldObjects, testCase, "ManageMembership");
+				return true;
+			}
+		return true;
+		}
 }
