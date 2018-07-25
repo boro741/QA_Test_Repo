@@ -10091,7 +10091,7 @@ public class JasperSchedulingUtils {
 
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Completed verifying time based schedule on Primary Card **************************");
-		} else if (scheduleType.equalsIgnoreCase("geofence")) {
+		} else if (scheduleType.equalsIgnoreCase("Geofence based")) {
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying goefence based schedule on Primary Card **************************");
 
@@ -10201,7 +10201,7 @@ public class JasperSchedulingUtils {
 					if (tempHeatSetPointFromInputs.contains(".0")) {
 						tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 					}
-					if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+					if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 						Keyword.ReportStep_Pass(testCase,
 								"[HomeSettings] Home set point is shown correctly in solution card: "
 										+ tempHeatSetPointApp);
@@ -10220,7 +10220,7 @@ public class JasperSchedulingUtils {
 						if (tempHeatSetPointFromInputs.contains(".0")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
-						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -10276,7 +10276,7 @@ public class JasperSchedulingUtils {
 											+ " is not shown correctly in solution card: " + SleepStartTime);
 						}
 						if (SleepEndTime
-								.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME))) {
+								.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME).replaceAll("^0*", ""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep End time is shown correctly in solution card: "
 											+ SleepEndTime);
@@ -10296,7 +10296,7 @@ public class JasperSchedulingUtils {
 						if (tempHeatSetPointFromInputs.contains(".0")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
-						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Away set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -14308,8 +14308,8 @@ public class JasperSchedulingUtils {
 			}
 			// flag = flag & JasperUtils.verifyCreatedSchedule(testCase, inputs,
 			// "Geofence");
-			if (schl.isDoneButtonVisible(10)) {
-				flag = flag &  schl.clickOnDoneButton();
+			if (schl.IsSaveButtonVisible(10)) {
+				flag = flag &  schl.clickOnSaveButton();
 			}
 			if (schl.isSkipButtonVisible(10)) {
 				flag = flag & schl.clickOnSkipButton();

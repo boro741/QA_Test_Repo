@@ -41,16 +41,14 @@ public class VerifyScheduleIsCreated extends Keyword {
 				
 			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
-				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "time");
+				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "time based");
 				
 			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 				inputs.setInputValueWithoutTarget(InputVariables.TYPE_OF_TIME_SCHEDULE,
 						InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
-				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "time");
-				
-			} else if (exampleData.get(0).equalsIgnoreCase("geofence")) {
-				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "geofence");
-				
+				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "time based");
+			} else if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
+				flag = flag & JasperSchedulingUtils.verifyDisplayedScheduleOnPrimaryCard(testCase, inputs, "Geofence based");
 			}
 		} catch (Exception e) {
 			flag = false;

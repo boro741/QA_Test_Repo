@@ -14,19 +14,13 @@ so that my home temperature will get set automatically based on geofence setting
 #      And user is displayed with "Using Away/Home settings"
   
   @NA_SleepSettings
-  Scenario Outline: As a user i want to Add/Edit Geofence Sleep Settings 
-    Given "Geofence" Schedule <Sleep Option> sleep Settings
+  Scenario: As a user i want to Add_Edit Geofence Sleep Settings 
+    Given User thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user <Condition> sleep settings in Geofence Schedule
-     Then user is displayed with <Edit Sleep Value> sleep settings
-  
-    Examples: 
-      | Sleep Option | Condition | 
-      | With         | Edit      | 
-      | With Out     | New       | 
-      | With         | Delete    | 
-  
+     When user creates "Geofence based" scheduling with default values "With" sleep settings
+     Then "Geofence based" scheduling gets activated
+
   @NA_EditGeofenceWithTemperature
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for  Home,Sleep and Away settings
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
@@ -39,10 +33,10 @@ so that my home temperature will get set automatically based on geofence setting
     Examples: 
       | Temperature   | 
       | Above Maximum | 
-      | Below Minimum | 
-      | At Maximum    | 
-      | At Minimum    | 
-      | within range  | 
+#      | Below Minimum | 
+#      | At Maximum    | 
+#      | At Minimum    | 
+#      | within range  | 
   
   @NA_EditGeofenceSetpointsWhenAutoChnageOverEnabled
   Scenario Outline: As a User i want to Edit set point when Auto change over is enabled so that my 
