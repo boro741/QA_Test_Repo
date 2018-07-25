@@ -1089,7 +1089,9 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				
 				}
-		} catch (Exception e) {
+		}
+		}
+		catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
