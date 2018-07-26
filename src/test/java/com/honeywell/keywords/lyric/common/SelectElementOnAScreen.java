@@ -23,14 +23,14 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
-
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.PrimaryCard;
-
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
+
+
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -99,16 +99,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} 
-			else if (parameters.get(1).equalsIgnoreCase("Thermostat Solution Card")) {
-				switch (parameters.get(0).toUpperCase()) {
-				case "MODE": {
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					thermo.clickOnModeButton();
-					
-					break;
-				}
-				}
-			}
+
 			else if (parameters.get(1).equalsIgnoreCase("thermostat settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "EMERGENCY HEAT": {
@@ -822,9 +813,24 @@ public class SelectElementOnAScreen extends Keyword {
 					flag=flag&thermo.clickOnFanButton();
 					break;
 				}
+				case "MAX SET TEMPERATURE BY TAPING ON UP STEPPER":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.setMaxTemperatureByTappingUpStepper(inputs);
+					
+					break;
+				}
+				case "MIN SET TEMPERATURE BY TAPING ON DOWN STEPPER":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.setMinTemperatureByTappingDownStepper(inputs);
+					break;
+				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
+				}
+				else {
+
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Successfully clicked on " + parameters.get(0) + " button");
 				}
 			}
 
@@ -843,7 +849,6 @@ public class SelectElementOnAScreen extends Keyword {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag=flag&thermo.clickOnAutoFanButton();
 					inputs.setInputValue("SelectedFanMode",parameters.get(0).toUpperCase());
-					System.out.println(inputs.getInputValue("SelectedFanMode"));
 					break;
 				}
 				case "CIRCULATE":{

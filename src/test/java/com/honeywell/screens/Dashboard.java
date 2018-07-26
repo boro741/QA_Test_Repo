@@ -429,9 +429,9 @@ public class Dashboard extends MobileScreens {
 		}
 		public boolean isUserExpectedTemperatureDisplayed() {
 
-			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+			WebElement expectedTemp = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");
 
-			
+			 String actualValue=expectedTemp.getText();
 			if(actualValue.contains("--")==false) {
 				return true;
 			}

@@ -14,7 +14,7 @@ Then the following "Thermostat" options should be enabled:
  |Options|
  |Up Stepper|
  |Down Stepper|
-And user "should be displayed" with the "respective setpoint value" option
+And user "should be displayed" with the "respective setpoint value in dashboard" option
 ####And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
@@ -37,7 +37,7 @@ Then the following "Thermostat" options should be enabled:
  |Options|
  |Up Stepper|
  |Down Stepper|
-And user "should be displayed" with the "respective setpoint value" option
+And user "should be displayed" with the "respective setpoint value in dashboard" option
 ####And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
@@ -67,11 +67,7 @@ Then user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
 Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user should be displayed with the "thermostat Solution Card" screen
-And the following "Thermostat" options should be enabled:
-|Options|
-|UP stepper|
-|Down stepper|
-Then user "should be displayed" with the "respective setpoint value" option
+Then user "should be displayed" with the "respective setpoint value in Solution Card" option
 And the following "Thermostat icons" options should be enabled:
 |Options|
 |UP stepper|
@@ -85,7 +81,7 @@ Examples:
 #|Heat Only|
 
 
-#JasperEMEA. #sangeetha
+#JasperEMEA
 @ViewSolutionCardEMEA @DashbboardandSolutionCard_P1
 Scenario Outline: As an user I want to verify the SolutionCard view with system modes 
 Given user has <Mode> system mode
@@ -93,11 +89,7 @@ Then user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
 Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user should be displayed with the "thermostat Solution Card" screen
-And the following "Thermostat" options should be enabled:
-|Options|
-|UP stepper|
-|Down stepper|
-Then user "should be displayed" with the "respective setpoint value" option
+Then user "should be displayed" with the "respective setpoint value in Solution Card" option
 And the following "Thermostat icons" options should be enabled:
 |Options|
 |UP stepper|
@@ -114,12 +106,8 @@ Then user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
 Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user should be displayed with the "thermostat Solution Card" screen
-And the following "Thermostat" options should be disabled:
-|Options|
-|UP stepper|
-|Down stepper|
-Then user "should not be displayed" with the "respective setpoint value" option
-And user should see the "Inside temperature" status as "OFF" on the "thermostat solution card" screen  
+Then user "should be displayed" with the "--" option
+And user should see the "Inside temperature" status as "OFF" on the "thermostat solution card" 
 Examples:
 |Mode |
 |OFF |
@@ -191,7 +179,7 @@ And user should be displayed with the following "Mode Info" options:
 |AUTO - COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE|
 |HEAT - HEAT TO REACH TARGET TEMPERATURE|
 |COOL - COOL TO REACH TARGET TEMPERATURE|
-|OFF  - TURN SYSTEM OFF|
+|OFF - TURN SYSTEM OFF|
 When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
@@ -216,7 +204,7 @@ Then user should be displayed with the "Mode Info" screen
 And user should be displayed with the following "Mode Info" options:
 |Options|
 |COOL - COOL TO REACH TARGET TEMPERATURE|
-|OFF  - TURN SYSTEM OFF|
+|OFF - TURN SYSTEM OFF|
 When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
@@ -239,7 +227,7 @@ Then user should be displayed with the "Mode Info" screen
 And user should be displayed with the following "Mode Info" options:
 |Options|
 |HEAT - HEAT TO REACH TARGET TEMPERATURE|
-|OFF  - TURN SYSTEM OFF|
+|OFF - TURN SYSTEM OFF|
 When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
@@ -260,7 +248,7 @@ Then user should be displayed with the "Mode Info" screen
 And user should be displayed with the following "Mode Info" options:
 |Options|
 |HEAT - HEAT TO REACH TARGET TEMPERATURE|
-|OFF  - TURN SYSTEM OFF|
+|OFF - TURN SYSTEM OFF|
 When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
@@ -285,15 +273,15 @@ And user should be displayed with the following "Mode" options:
 |Heat|
 |Cool|
 |Off|
-Then user "should be displayed" with the "Blue Tick mark on selected mode" option
-And user selects <SystemMode> from "change Mode" Screen
-Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
-And user should be displayed with the <SystemMode> description 
-When user selects "X" from "Change Mode" Screen
-Then user "should not be updated" with <SystemMode> option
+#Then user "should be displayed" with the "Blue Tick mark on selected mode" option
+#And user selects <SystemMode> from "change Mode" Screen
+#Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+#And user should be displayed with the <SystemMode> description 
+#When user selects "X" from "Change Mode" Screen
+#Then user "should not be updated" with <SystemMode> option
 Examples:
-|Mode|SystemMode|
-|Cool|Off|
+|Mode|
+|Heat|
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionality
@@ -455,7 +443,7 @@ Examples:
 |auto | auto |
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSAVEfunctioncoolonly  #sangeetha 
+@SystemModeswitchSAVEfunctioncoolonly
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -483,7 +471,7 @@ Examples:
 |OFF | OFF |
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSAVEfunctionHeatonly  #sangeetha
+@SystemModeswitchSAVEfunctionHeatonly
 Scenario Outline: As an user I want to verify the system mode save option while switch between heat, off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -512,7 +500,7 @@ Examples:
 
 
 #JasperEMEA
-@SystemModeswitchSAVEfunctionEMEA #sangeetha
+@SystemModeswitchSAVEfunctionEMEA
 Scenario Outline: As an user I want to verify the system mode save option while switch between heat, off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -542,7 +530,7 @@ Examples:
 
 
 
-###lavanya
+
 #HB, Spruce, JasperNA
 @FanOptionInfoOption
 Scenario Outline: As an user I want to verify the Fan mode info option
@@ -572,7 +560,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA
-@FanModeSwitchcancelfunction #lavanya
+@FanModeSwitchcancelfunction
 Scenario Outline: As an user I want to verify the Fan mode cancel option while switch between Auto, circulate and ON
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -587,10 +575,10 @@ Then user should be displayed with the "Thermostat Solution Card" screen
 And user "should not be updated" with the <FanMode> option
 Examples:
 |Mode |  FanMode | 
-|Cool | Auto Fan|
+#|Cool | Auto Fan|
 #|Cool | Circulate |
 #|Cool | ON | 
-|Heat | Auto Fan|
+#|Heat | Auto Fan|
 #|Heat | Circulate |
 |Heat | ON |
 #|Auto | Auto Fan|
@@ -626,15 +614,15 @@ Examples:
 |Mode |  FanMode | 
 #|Cool | Auto Fan|
 #|Cool | Circulate |
-#|Cool | ON | 
-|Heat | Auto Fan|
+|Cool | ON | 
+#|Heat | Auto Fan|
 #|Heat | Circulate |
-|Heat | ON | 
+#|Heat | ON | 
 #|Auto | Auto Fan|
 #|Auto | Circulate |
 #|Auto | ON | 
 #|OFF | Auto Fan|
-|OFF | Circulate |
+#|OFF | Circulate |
 #|OFF | ON | 
 
 #in case required
@@ -651,7 +639,7 @@ Scenario Outline: As an user I want to verify the Fan mode option for JasperEMEA
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-And user "should not be displayed" with the "FAN" option
+And user "SHOULD BE DISPLAYED" with the "FAN" option
 Examples: 
 |Mode| 
 |Heat |
@@ -664,19 +652,33 @@ Examples:
 @SetTemperatureSolutionCardMAX
 Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Dashboard" option
-
+Examples:
+|Mode|scheduling|
+|Heat|geofence based|
+#|Cool|geofence based|
+#|Heat|time based|
+|Cool|time based|
+|Heat|no|
+|Cool|no|
+#in case required
+#|Cool only|geofence based|
+#|Heat only|time based|
+#|Cool only|time based|
+#|Heat only|geofence based|
 
 
 #HB, Spruce, JasperNA
 @SetTemperatureSolutionCardMIN
 Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
@@ -684,57 +686,42 @@ Then user "should be displayed" with the "MIN set temperature on Solution Card" 
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
-|Mode|
-|Cool|
-#|Heat|
+|Mode|scheduling|
+|Heat|geofence based|
+|Cool|geofence based|
+|Heat|time based|
+|Cool|time based|
+|Heat|no|
+|Cool|no|
 #in case required
-#|Cool only|
-#|Heat only|
-
-
-#HB, Spruce, JasperNA
-#requirment : Should be in NO schedule stat
-@SetTemperatureSolutionCardMAXandMINWhenNoschedule
-Scenario Outline: As an user I want to verify the Max and Min temper throguh TAP on stepper when no schedule
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
-Examples:
-|Mode|
-|Cool|
-|Heat|
-|Cool only|
-|Heat only|
+#|Cool only|geofence based|
+#|Heat only|time based|
+#|Cool only|time based|
+#|Heat only|geofence based|
 
 #JasperEMEA
 @SetTemperatureSolutionCardMAXEMEA
 Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-#When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
-#Then user "should be displayed" with the "MAX set temperature on Solution Card" option
+When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Dashboard" option
 Examples:
-|Mode|
-|Heat|
-
+|Mode|scheduling|
+|Heat|geofence based|
+|Heat|time based|
+|Heat|no|
 
 #JasperEMEA
 @SetTemperatureSolutionCardMINEMEA
 #Setpoint value Dashboard
 Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
@@ -742,73 +729,12 @@ Then user "should be displayed" with the "MIN set temperature on Solution Card" 
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
-|Mode|
-|Heat|
+|Mode|scheduling|
+#|Heat|geofence based|
+#|Heat|time based|
+|Heat|no|
 
-#HB, Spruce, JasperNA
-@SetTemperatureDashboardMAXandMIN
-Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "Dashboard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
-When user navigates to "SolutionCard"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-Examples:
-|Mode|
-|Cool|
-|Heat|
-|Cool only|
-|Heat only|
 
-#HB, Spruce, JasperNA
-#Requirement : When no schedule stat
-@SetTemperatureDashboardMAXandMINWhenNoschedule
-Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper when no schedudle
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "Dashboard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
-When user navigates to "SolutionCard"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-Examples:
-|Mode|
-|Cool|
-|Heat|
-
-|Cool only|
-|Heat only|
-
-#JasperEMEA
-@SetTemperatureDashboardMAXandMINEMEA
-Scenario Outline: As an user I want to verify the Max and Min temper through TAP on stepper
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
-When user navigates to "SolutionCard"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-Examples:
-|Mode|
-|Heat|
 
 #OFF Mode Dashboard and primary card 
 
@@ -983,7 +909,7 @@ Then user "should be provided" with the "automode" option
 Examples:
 |Mode|
 |Heat  |
-|Cool  |
+#|Cool  |
 
 
 #HB, Spruce, JaperNA
@@ -1024,8 +950,9 @@ Then user "should not be provided" with the "automode" option
 Examples:
 |Mode|
 |Heat  |
-|Cool  |
+#|Cool  |
 
+#Not Automatable
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardAutoModewithMutliOS
 Scenario Outline:As an user i want to set the stat with automode 
@@ -1041,26 +968,7 @@ Examples:
 |Invite|android      |
 |Invite|iOS          |
 
-#HB, Spruce, JaperNA
-@DashboardandsolutioncardCheckSetpointInSchedule
-Scenario Outline:As an user i want the Heat setpoint should be always less than the cool setpoint in configure scheduling screens  
-Given Stat with Heat Cool system
-And Autochangeover enabled in stat
-When user selects  time based scheduling 
-And selects following <schedule option>
-|schedule option        |
-|Time based schedule    |
-|Geofence based schedule|
-And selects following <schedule type>
-|schedule type|
-|Everyday     |
-|Weekday      |
-And user <configure> schedule points
-|Configure|
-|Create   |
-|Edit     | 
-And set points within maximum and minimum range                               
-Then verify Heat setpoint should be always less than the cool setpoint
+
 
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardCheckSetpointInVacationSettings

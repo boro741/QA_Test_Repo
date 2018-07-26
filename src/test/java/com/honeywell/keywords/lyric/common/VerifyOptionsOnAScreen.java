@@ -779,7 +779,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			break;
 		}
 		case "MODE INFO": {
-			System.out.println("Inside Verifing mode info");
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
