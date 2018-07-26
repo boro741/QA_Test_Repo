@@ -187,6 +187,25 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					}
 
 				}
+				else if (fieldToBeVerified.equalsIgnoreCase("UP STEPPER")) {
+                    if (thermo.isUPStepperElementEnabled()) {
+                                    Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
+                    } else {
+                                    flag = false;
+                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                    "UP Stepper Element is not enabled");
+                    }
+                } 
+	 			else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
+                    if (thermo.isDownStepperElementEnabled()) {
+
+                                    Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
+                    } else {
+                                    flag = false;
+                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                    "Down Stepper Element is not enabled");
+                    }
+    }
 				break;
 			}
 		}
