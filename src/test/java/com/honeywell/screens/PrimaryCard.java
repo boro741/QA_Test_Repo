@@ -753,9 +753,27 @@ public class PrimaryCard extends MobileScreens {
 			return false;
 		}
 		public boolean autoModeButtonVisible() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoMode");
+			if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
+				  return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoMode");
+				}
+				else {
+
+				try {
+					WebElement element=testCase.getMobileDriver().findElement(By.xpath("//*[@value='AUTO']"));
+					if(element!=null) {
+					return true;
+					}
+                 }
+               catch(Exception e) {
+                	System.out.println("Auto mode Element is not found!");
+                }
+
+				}
+			return false;
 		}
 		public boolean disableAutoChangeOver(TestCaseInputs inputs) {
+			
+		if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "AutoChangeOverToggle");
 			String status=ele.getText();
 			if(status.equals("OFF")) {
@@ -764,9 +782,25 @@ public class PrimaryCard extends MobileScreens {
 			else {
 				return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoChangeOverToggle");
 			}
+			}
+			else {
+				WebElement element=testCase.getMobileDriver().findElement(By.xpath("//*[@name='autoChangeOver_toggle']"));
+				if(element!=null) {
+					String elementisOnorOff=element.getAttribute("value");
+					if(elementisOnorOff.equals("0")) {
+						return true;
+					}
+					else {
+				      element.click();
+				      return true;
+					}
+				}
+			}
+		return false;
 		}
 
 		public boolean enableAutoChangeOver(TestCaseInputs inputs) {
+			if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
 			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "AutoChangeOverToggle");
 			String status=ele.getText();
 			if(status.equals("ON")) {
@@ -775,6 +809,21 @@ public class PrimaryCard extends MobileScreens {
 			else {
 				return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoChangeOverToggle");
 			}
+			}
+			else {
+				WebElement element=testCase.getMobileDriver().findElement(By.xpath("//*[@name='autoChangeOver_toggle']"));
+				if(element!=null) {
+					String elementisOnorOff=element.getAttribute("value");
+					if(elementisOnorOff.equals("1")) {
+						return true;
+					}
+					else {
+				      element.click();
+				      return true;
+					}
+				}
+			}
+		return false;
 		}		
 	  
 

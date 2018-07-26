@@ -97,7 +97,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
-					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD") || screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")){
+					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")){
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 
@@ -107,20 +107,6 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensorScreen.clickOnBackButton();
 					break;
 				}
-				case "THERMOSTAT SETTINGS":{
-					PrimaryCard sensorScreen = new PrimaryCard(testCase);
-					if(sensorScreen.isCogIconVisible()) {
-					flag = flag & sensorScreen.clickOnCogIcon();
-					}
-
-					break;
-				}
-				case "THERMOSTAT SOLUTION CARD": {
-					Dashboard sensorScreen = new Dashboard(testCase);
-					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
-
-					break;
-				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -128,7 +114,24 @@ public class NavigateToScreen extends Keyword {
 				
 			} 
 				}
-					
+			else if(screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+				switch (screen.get(0).toUpperCase()) {
+			      case "THERMOSTAT SETTINGS":{
+				PrimaryCard sensorScreen = new PrimaryCard(testCase);
+				if(sensorScreen.isCogIconVisible()) {
+				flag = flag & sensorScreen.clickOnCogIcon();
+				}
+
+				break;
+			   }
+			    case "THERMOSTAT SOLUTION CARD": {
+				Dashboard sensorScreen = new Dashboard(testCase);
+				flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+
+				break;
+			  }
+			}
+			}		
 			else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {

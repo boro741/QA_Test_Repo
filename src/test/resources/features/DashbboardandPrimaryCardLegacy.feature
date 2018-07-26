@@ -639,7 +639,7 @@ Scenario Outline: As an user I want to verify the Fan mode option for JasperEMEA
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-And user "should not be displayed" with the "FAN" option
+And user "SHOULD BE DISPLAYED" with the "FAN" option
 Examples: 
 |Mode| 
 |Heat |
@@ -652,19 +652,33 @@ Examples:
 @SetTemperatureSolutionCardMAX
 Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Dashboard" option
-
+Examples:
+|Mode|scheduling|
+|Heat|geofence based|
+#|Cool|geofence based|
+#|Heat|time based|
+|Cool|time based|
+|Heat|no|
+|Cool|no|
+#in case required
+#|Cool only|geofence based|
+#|Heat only|time based|
+#|Cool only|time based|
+#|Heat only|geofence based|
 
 
 #HB, Spruce, JasperNA
 @SetTemperatureSolutionCardMIN
 Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
@@ -672,57 +686,42 @@ Then user "should be displayed" with the "MIN set temperature on Solution Card" 
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
-|Mode|
-|Cool|
-#|Heat|
+|Mode|scheduling|
+|Heat|geofence based|
+|Cool|geofence based|
+|Heat|time based|
+|Cool|time based|
+|Heat|no|
+|Cool|no|
 #in case required
-#|Cool only|
-#|Heat only|
-
-
-#HB, Spruce, JasperNA
-#requirment : Should be in NO schedule stat
-@SetTemperatureSolutionCardMAXandMINWhenNoschedule
-Scenario Outline: As an user I want to verify the Max and Min temper throguh TAP on stepper when no schedule
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user navigates to "SolutionCard" screen 
-When user selects the "MAX"  set temperate through taping on "UP stepper"
-Then user should be displayed with "MAX" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MAX" set temperater on "Dashboard"
-When user navigates to "SolutionCard" screen 
-When user selects the "MIN"  set temperate through taping on "Down stepper"
-Then user should be displayed with "MIN" set temperater on "SolutionCard"
-When user navigates to "Dashboard"
-Then user should be displayed with "MIN" set temperater on "Dashboard"
-Examples:
-|Mode|
-|Cool|
-|Heat|
-|Cool only|
-|Heat only|
+#|Cool only|geofence based|
+#|Heat only|time based|
+#|Cool only|time based|
+#|Heat only|geofence based|
 
 #JasperEMEA
 @SetTemperatureSolutionCardMAXEMEA
 Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-#When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
-#Then user "should be displayed" with the "MAX set temperature on Solution Card" option
+When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+Then user "should be displayed" with the "MAX set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Dashboard" option
 Examples:
-|Mode|
-|Heat|
-
+|Mode|scheduling|
+|Heat|geofence based|
+|Heat|time based|
+|Heat|no|
 
 #JasperEMEA
 @SetTemperatureSolutionCardMINEMEA
 #Setpoint value Dashboard
 Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
 Given user has <Mode> system mode
+Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
@@ -730,8 +729,10 @@ Then user "should be displayed" with the "MIN set temperature on Solution Card" 
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
-|Mode|
-|Heat|
+|Mode|scheduling|
+#|Heat|geofence based|
+#|Heat|time based|
+|Heat|no|
 
 
 
@@ -908,7 +909,7 @@ Then user "should be provided" with the "automode" option
 Examples:
 |Mode|
 |Heat  |
-|Cool  |
+#|Cool  |
 
 
 #HB, Spruce, JaperNA
@@ -949,8 +950,9 @@ Then user "should not be provided" with the "automode" option
 Examples:
 |Mode|
 |Heat  |
-|Cool  |
+#|Cool  |
 
+#Not Automatable
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardAutoModewithMutliOS
 Scenario Outline:As an user i want to set the stat with automode 

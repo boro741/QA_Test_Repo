@@ -819,6 +819,11 @@ public class SelectElementOnAScreen extends Keyword {
 					
 					break;
 				}
+				case "MIN SET TEMPERATURE BY TAPING ON DOWN STEPPER":{
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag=flag&thermo.setMinTemperatureByTappingDownStepper(inputs);
+					break;
+				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
