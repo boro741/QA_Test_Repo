@@ -12,7 +12,8 @@ public class MembershipPopupScreen extends MobileScreens {
 
 	private static final String screenName = "MembershipPopup";
 	private static HashMap<String, MobileObject> fieldObjects;
-
+	public boolean flag;
+	
 	public MembershipPopupScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -20,20 +21,22 @@ public class MembershipPopupScreen extends MobileScreens {
 	public boolean clickOnPopupDone(TestCases testCase, TestCaseInputs inputs) {
 		
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCancel");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "Done")) {
-			MobileUtils.clickOnElement(fieldObjects, testCase, "Done");
-			return true;
-		}
-		return false;
+		
+		flag = (MobileUtils.isMobElementExists(fieldObjects, testCase, "Done")?
+				MobileUtils.clickOnElement(fieldObjects, testCase, "Done"):
+				false);
+		
+		return flag;
 	}
 	
 	public boolean clickOnPopupOk(TestCases testCase, TestCaseInputs inputs) {
 		
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCancel");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "Ok")) {
-			MobileUtils.clickOnElement(fieldObjects, testCase, "Ok");
-			return true;
-		}
-		return false;
+		
+		flag = (MobileUtils.isMobElementExists(fieldObjects, testCase, "Ok")?
+				MobileUtils.clickOnElement(fieldObjects, testCase, "Ok"):
+				false);
+		
+		return flag;
 	}
 }
