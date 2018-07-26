@@ -3,7 +3,7 @@ Feature: Edit Geofence based scheduling
 As an user i want to Create and Edit Geofence Schedule 
 so that my home temperature will get set automatically based on geofence settings
 
-@NA_CreateGeofenceSchedule
+@NA_CreateGeofenceSchedule @Automated
   Scenario: As a user i want to create an Geofence schdeule with Defualt values Home_Away settings
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -13,36 +13,30 @@ so that my home temperature will get set automatically based on geofence setting
 #      And user navigates to "Primary card" screen from the "Scheduling" screen
 #      And user is displayed with "Using Away/Home settings"
   
-  @NA_SleepSettings
-  Scenario Outline: As a user i want to Add/Edit Geofence Sleep Settings 
-    Given "Geofence" Schedule <Sleep Option> sleep Settings
+  @NA_SleepSettings @Automated
+  Scenario: As a user i want to Add_Edit Geofence Sleep Settings 
+    Given User thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user <Condition> sleep settings in Geofence Schedule
-     Then user is displayed with <Edit Sleep Value> sleep settings
-  
-    Examples: 
-      | Sleep Option | Condition | 
-      | With         | Edit      | 
-      | With Out     | New       | 
-      | With         | Delete    | 
-  
-  @NA_EditGeofenceWithTemperature
+     When user creates "Geofence based" scheduling with default values "With Out" sleep settings
+     Then "Geofence based" scheduling gets activated
+
+  @NA_EditGeofenceWithTemperature @Automated
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for  Home,Sleep and Away settings
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
-    Given user thermostat is set to <ScheduleType> schedule
+    Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
      When user creates "Geofence based" schedule by setting temperature value to <Temperature>
-     Then user should be displayed "Geofence based" schedule with temperature value incremental by 1F for fahrenheit and 0.5C for celsius
+     Then user displayed temperature within the maximum and minimum range
   
     Examples: 
       | Temperature   | 
       | Above Maximum | 
-      | Below Minimum | 
-      | At Maximum    | 
-      | At Minimum    | 
-      | within range  | 
+#      | Below Minimum | 
+#      | At Maximum    | 
+#      | At Minimum    | 
+#      | within range  | 
   
   @NA_EditGeofenceSetpointsWhenAutoChnageOverEnabled
   Scenario Outline: As a User i want to Edit set point when Auto change over is enabled so that my 

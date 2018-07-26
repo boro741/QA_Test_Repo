@@ -13,8 +13,8 @@ import io.appium.java_client.MobileElement;
 
 public class SchedulingScreen extends MobileScreens {
 
-	public static final String WHENIMHOMELOCATOR = "//*[@text='When I" + "\u2019" + "m Home']";
-	public static final String WHENIMAWAYLOCATOR = "//*[@text='When I" + "\u2019" + "m Away']";
+	public static final String WHENIMHOMELOCATOR = "//*[@text='WHEN I" + "\u2019" + "M HOME']";
+	public static final String WHENIMAWAYLOCATOR = "//*[@text='WHEN I" + "\u2019" + "M AWAY']";
 
 	private static final String screenName = "ScheduleScreen";
 
@@ -201,8 +201,8 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getCoolSetPointChooserSetPointsValue() {
 		String string;
-		List<WebElement> ele = MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser");
-		if (ele.size() > 1){
+		List<WebElement> CoolElement = MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser");
+		if (CoolElement.size() > 1){
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				string =  MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPointChooser").get(0).getText();
 			} else {
@@ -326,8 +326,8 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getHeatSetPointChooserSetPointsValue() {	
-		List<WebElement> ele = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser");
-		if (ele.size() > 1){
+		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser");
+		if (HeatElement.size() > 1){
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return  MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
 			} else {
@@ -339,7 +339,16 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointDownButton() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
+		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement");
+		if (HeatElement.size() > 1){
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return  MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement").get(1);
+			} else {
+				return testCase.getMobileDriver().findElements(By.name("HeatDecrement")).get(1);
+			} 
+		}else{
+			return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
+		}
 	}
 
 	public List<MobileElement> getHeatSetPointsElements() {
@@ -368,7 +377,16 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointUpButton() {
-		return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
+		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement");
+		if (HeatElement.size() > 1){
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return  MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(1);
+			} else {
+				return testCase.getMobileDriver().findElements(By.name("HeatIncrement")).get(1);
+			} 
+		}else{
+			return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
+		}
 	}
 
 	public WebElement getHeatSetPointUpButton(int index) {
@@ -911,7 +929,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean setValueToTimePicker(String value) {
-		return MobileUtils.setValueToElement(objectDefinition, testCase, "TimePicker", value);
+			return MobileUtils.setValueInPicker(testCase, objectDefinition, "TimePicker", value);
 	}
 	public boolean setHoursValueToTimePickerAndroid(String value) {
 		MobileUtils.clickOnElement(objectDefinition, testCase, "TimeHours");
