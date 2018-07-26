@@ -1,7 +1,7 @@
 @EMEABoilerScheduling
 Feature: As a user I want to create an time based schedule periods to turn on/off the EMEA Boiler
 
-@EMEABoilerTimeSchedulewithDefaultvalue
+@EMEABoilerTimeSchedulewithDefaultvalue @P1
   Scenario Outline: As a user I want to create an Time based schedule with default schedule periods to boiler
     Given user launches and logs in to the Lyric application
       And user navigates to "Boiler Dashboard" screen from the "Dashboard" screen
@@ -15,7 +15,7 @@ Feature: As a user I want to create an time based schedule periods to turn on/of
       | time based | Everyday Schedule     | 
       | time based | Weekday & Weekend     | 
   
-@EMEABoilerTimeSchedulewithGeoBoostEnbaled
+@EMEABoilerTimeSchedulewithGeoBoostOption @P1
   Scenario Outline: As a user I want to create an Time based schedule with default schedule periods to boiler
     Given user launches and logs in to the Lyric application
       And user navigates to "Boiler Dashboard" screen from the "Dashboard" screen
@@ -28,23 +28,9 @@ Feature: As a user I want to create an time based schedule periods to turn on/of
       | scheduling | ScheduleType          | GeoBoost |
       | time based | Everyday Schedule     | enable	  |
       | time based | Weekday & Weekend     | enable   |
-      
-      
-@EMEABoilerTimeSchedulewithGeoBoostDisabled
-  Scenario Outline: As a user I want to create an Time based schedule with default schedule periods to boiler
-    Given user launches and logs in to the Lyric application
-      And user has set "Enable" for geo boost option
-     Then user navigates to "Boiler Dashboard" screen from the "Dashboard" screen
-      And user navigates to "Scheduling" screen from the "Boiler Dashboard" screen
-     When user creates <ScheduleType> schedule with default schedule value and enable <GeoBoost> options
-     Then <ScheduleType> scheduling gets activated
-      And user navigates to "Boiler Dashboard" screen from the "Scheduling" screen
-     Then user is displayed with "Scheduled Heating At"
-    Examples: 
-      | scheduling | ScheduleType          | GeoBoost |
       | time based | Everyday Schedule     | disable  |
       | time based | Weekday & Weekend     | disable  |
-  
+       
   
 @EMEABoiler_TimerClockIsInCrementalOf10mins
   Scenario: As a user i want to verify if Timer clock in Each period is incremental of 10 mins
