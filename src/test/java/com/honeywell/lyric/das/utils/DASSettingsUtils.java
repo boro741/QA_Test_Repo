@@ -419,9 +419,13 @@ public class DASSettingsUtils {
 			TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
-		
+
 		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
+		if (inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE") != null) {
+			Keyword.ReportStep_Pass(testCase, "Current Thermostat Temperature value is: "
+					+ inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE"));
+		}
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
@@ -459,13 +463,18 @@ public class DASSettingsUtils {
 
 		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
+		if (inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE") != null) {
+			Keyword.ReportStep_Pass(testCase, "Current Thermostat Temperature value is: "
+					+ inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE"));
+		}
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 
 			if (pc.isThermostatCurrentHumidityValueVisible(inputs, 20)) {
-				Keyword.ReportStep_Pass(testCase, "Humidity Value is displayed in Primary card screen");
+				Keyword.ReportStep_Pass(testCase, "Humidity Value displayed in Primary card screen is: "
+						+ inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDITY_VALUE"));
 			}
 
 			if (pc.isCogIconVisible()) {
@@ -506,13 +515,18 @@ public class DASSettingsUtils {
 
 		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
+		if (inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE") != null) {
+			Keyword.ReportStep_Pass(testCase, "Current Thermostat Temperature value is: "
+					+ inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE"));
+		}
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 
 			if (pc.isThermostatCurrentHumidityValueVisible(inputs, 20)) {
-				Keyword.ReportStep_Pass(testCase, "Humidity Value is displayed in Primary card screen");
+				Keyword.ReportStep_Pass(testCase, "Humidity Value displayed in Primary card screen is: "
+						+ inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDITY_VALUE"));
 			}
 
 			if (pc.isCogIconVisible()) {

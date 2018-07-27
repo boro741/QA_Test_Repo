@@ -814,6 +814,62 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("EMERGENCY HEAT")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Emergency Heat is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is turned OFF");
+							flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Emergency Heat Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is turned ON");
+							flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("FROST PROTECTION MODE")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.FROSTPROTECTION);
+				String value = parameters.get(1).split("%")[0].split("~")[1];
+				if (ts.setValueToHumiditySlider(value)) {
+					Keyword.ReportStep_Pass(testCase, "Successfully set the Frost proection to " + parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to set the Frost proection to: " + parameters.get(1));
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

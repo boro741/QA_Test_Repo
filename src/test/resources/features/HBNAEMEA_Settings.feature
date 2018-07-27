@@ -14,13 +14,9 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | Set Filter Reminder			|
       |	Set up HomeKit & Siri		|
       | Adaptive Recovery			|	
-      | Set filter reminder			|
-      |	Set Up Homekit & Siri		|
-      | Adaptive recovery			|	
+      | Auto Changeover				|
       | Ventilation					|
-      | Emergency heat				| 
-      | Auto changeover				|
-      | Auto chnageover				|
+      | Emergency Heat				| 
       | Reset Wi-Fi					| 
       | Thermostat Configuration 	| 
 
@@ -33,12 +29,10 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | ThermostatSettings			|
       | Manage Alerts				|
       | Set Filter Reminder			|
+      | Optimise						|
       |	Set up HomeKit & Siri		|
-      | Optimise					|
-      | Set filter reminder			|
-      |	Set Up Homekit & Siri		|
       | Optimizer					|
-      | Emergency heat				|
+      | Emergency Heat				|
       | Reset Wi-Fi					| 
       | Thermostat Configuration 	| 
 
@@ -51,18 +45,15 @@ When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 Then user should be displayed with the following "Thermostat Settings" options: 
       | ThermostatSettings			|
       | Manage Alerts				|
-      | Fine Tune					|
       | Set Filter Reminder			|
-      | Set filter reminder			|
-      | Frost Protection Mode		|
+      | Fine Tune					|
+      | Adaptive Recovery			|
+      | Auto Changeover				|
+      | Ventilation					|
       | Humidification				|
       | Dehumidification				|
-      | Adaptive Recovery			|	
-      | Adaptive recovery			|	
-      | Ventilation					|
-      | Emergency heat				| 
-      | Auto changeover				|
-      | Auto chnageover				|
+      | Frost Protection				|
+      | Emergency Heat				|
       | Sleep Brightness Mode		|
       | Sound						|
       | Reset Wi-Fi					| 
@@ -149,7 +140,7 @@ Scenario: As a user I should be able to enable or disable Indoor Humidity Alert 
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
 Then user changes the "Indoor Humidity Alert" to "ON"
-And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And "Indoor Humidity Alert" value should be updated to "ON" on "Manage Alerts" screen
 And user should be displayed with the following "Indoor Humidity Alert" options:
 	| IndoorHumidityAlertOptions			| 
 	| Alert for this range				|
@@ -331,7 +322,7 @@ When user changes the "Fine Tune" to  "OFF"
 Then "Fine Tune" value should be updated to "OFF" on "Thermostat Settings" screen 
 
 #HB_Spruce, JasperNA
-@EnableDisableAdaptiverecovery		@P2		@UIAutomatable
+@EnableDisableAdaptiveRecovery		@P2		@UIAutomatable
 Scenario: As a user I should be able to enable or disable Adaptive recovery on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -361,7 +352,7 @@ When user changes the "Emergency Heat" to "OFF"
 Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen
 
 @AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled	@P2		@UIAutomatable
-Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
+Scenario Outline: As a user I should not be able view Auto changeover when heatonly or coolonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -385,56 +376,104 @@ Then the following "Thermostat Settings" options should be disabled:
 		| Auto Changeover				|
 		
 Examples:
-| SystemMode		| 
-#| Cool			|
+| SystemMode		|
+| Cool			|
 | Heat			|
 
-#JasperNA, HB_Spruce
-@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled123		@P2		@UIAutomatable
-Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
-Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user should not be displayed with "Auto Changeover" when <Modes> Are enabled in device
-
-Examples:
-|Modes		|
-|Heat Only	|
-|Cool Only	|
 
 #JasperNA, HB_Spruce
-@EmergencyHeatwhencoolonlyenabled		@P2		@UIAutomatable
+@EmergencyHeatWhenCoolOnlyIsEnabled		@P2		@UIAutomatable
 Scenario Outline: As a user I should not be able view Auto changeover when cool only enabled on my thermostat
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user should not be displayed with "Emergency Heat" when <Mode> is enabled in device
-And user should not be displayed with "EmergencyHeat" when <Mode> is enabled in device
-
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+| Options	|
+| Auto		|
+| Heat		|
+| Cool		|
+| Off		|
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption		|
+		| Emergency Heat					|
+		
 Examples:
-|Modes		|
-|Cool Only	|
+| SystemMode		|
+| Cool			|
 
 #JasperNA, HB_Spruce
-@EmergencyHeatwhenHeatonlyenabled		@P2		@UIAutomatable
+@EmergencyHeatWhenHeatOnlyIsEnabled		@P2		@UIAutomatable
 Scenario Outline: As a user I should not be able view Auto changeover when Heat only enabled on my thermostat
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user should be displayed with "Emergency Heat" when <Mode> is enabled in device
-And user should be displayed with "EmergencyHeat" when <Mode> is enabled in device
-
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen 
+And user should be displayed with the following "Mode" options: 
+| Options	|
+| Auto		|
+| Heat		|
+| Cool		|
+| Off		|
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption		|
+		| Emergency Heat					|
+		
 Examples:
-|Modes		|
-|Heat Only	|
+| SystemMode		|
+| Heat			|
 
 #HB_Spruce
 @HBBSpruceEnableFrostProtectionMode		@P2		@UIAutomatable
-Scenario: As a user I should be able to enable or disable Frost Protection Mode on my thermostat
+Scenario Outline: As a user I should be able to enable or disable Frost Protection Mode on my thermostat
+#Given user launches and logs in to the Lyric application
+#When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+#And user changes the " Mode" to "ON"
+#Then "Frost Protection Mode" value should be updated to "ON" on "Thermostat Settings" screen
+#When user changes the "Frost Protection Mode" to "OFF"
+#Then "Frost Protection Mode" value should be updated to "OFF" on "Thermostat Settings" screen
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user changes the "Frost Protection Mode" to "ON"
-Then "Frost Protection Mode" value should be updated to "ON" on "Thermostat Settings" screen
-When user changes the "Frost Protection Mode" to "OFF"
-Then "Frost Protection Mode" value should be updated to "OFF" on "Thermostat Settings" screen
+And user should be displayed with the "thermostat Dashboard" Screen
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with the "thermostat Solution Card" screen
+When user selects "Mode" from "Thermostat Solution Card" screen
+Then user should be displayed with the "Change mode" screen
+And user selects <SystemMode> from "change Mode" Screen
+Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
+And user should be displayed with the <SystemMode> description 
+When user selects "save" from "Change Mode" Screen
+Then user "should be updated" with the <SystemMode> option
+When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
+And user changes the "Frost Protection Mode" to "~0%"
+When user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+Then "Frost Protection Mode" value should be updated to "~0%" on "Thermostat Settings" screen
+When user changes the "Frost Protection Mode" to "~50%"
+And user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+Then "Frost Protection Mode" value should be updated to "~50%" on "Thermostat Settings" screen
+When user changes the "Frost Protection Mode" to "~100%"
+And user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+Then "Frost Protection Mode" value should be updated to "~100%" on "Thermostat Settings" screen
 #Hardware settings 
+
+Examples:
+| SystemMode		|
+| Cool			|
 
 
 #HB_Spruce
