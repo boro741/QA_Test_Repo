@@ -58,6 +58,13 @@ public class SuiteExecutor {
     				/**Jasper EMEA-Scheduling**/
     				"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
     				"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+    				"JasperEMEA_CancelToRetainExisitngscheduling",
+    				"JasperEMEA_ConfirmToCreateNewSchedule",
+    				"JasperEMEA_TempretureBandwidthforEachPeriod",
+    				"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
+    				"JasperEMEA_CanCreateMaximumOfSixPeriods",
+    				"JasperEMEA_CreateTimeBasedScheduleInOffMode",
+    				"JasperEMEA_CopyScheduleToMulitpleStat",
     				
                     };
        	 try {
