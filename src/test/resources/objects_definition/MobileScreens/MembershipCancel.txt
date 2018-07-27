@@ -2,3 +2,4 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 Done	XPATH	//*[@text='Done']
 Cancel	XPATH	//*[@text='CANCEL']									
 Unsubscribe	XPATH	//*[@text='Unsubscribe']																				
+Ok	XPATH	//*[@text='OK']
