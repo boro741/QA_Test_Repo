@@ -150,7 +150,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			{
 				flag = flag & card.isAutoModeVisible();
 				break;
-				
 			}
 			}
 		

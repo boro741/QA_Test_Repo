@@ -369,46 +369,45 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean isThermostatIndoorHumidityAlertOptionVisible(String indoorHumidityAlertOption) {
 		boolean flag = true;
 		List<WebElement> listAlertTitles = new ArrayList<>();
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorHumidityAlertTitle")) {
-				listAlertTitles = MobileUtils.getMobElements(objectDefinition, testCase,
-						"ThermostatIndoorHumidityAlertTitle");
-				if (listAlertTitles.size() > 1) {
-					Keyword.ReportStep_Pass(testCase,
-							"Total number of Alert for this range options displayed in the screen is: "
-									+ listAlertTitles.size());
-					for (WebElement ele : listAlertTitles) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorHumidityAlertTitle")) {
+			listAlertTitles = MobileUtils.getMobElements(objectDefinition, testCase,
+					"ThermostatIndoorHumidityAlertTitle");
+			if (listAlertTitles.size() > 1) {
+				Keyword.ReportStep_Pass(testCase,
+						"Total number of Alert for this range options displayed in the screen is: "
+								+ listAlertTitles.size());
+				for (WebElement ele : listAlertTitles) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (ele.getText().equalsIgnoreCase(indoorHumidityAlertOption)) {
 							return flag;
 						} else {
 							flag = false;
 						}
+					} else {
+						if (ele.getAttribute("value").equalsIgnoreCase(indoorHumidityAlertOption)) {
+							return flag;
+						} else {
+							flag = false;
+						}
 					}
-				} else {
+				}
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (listAlertTitles.get(0).getText().equalsIgnoreCase(indoorHumidityAlertOption)) {
 						return flag;
 					} else {
 						flag = false;
 					}
+				} else {
+					if (listAlertTitles.get(0).getAttribute("value").equalsIgnoreCase(indoorHumidityAlertOption)) {
+						return flag;
+					} else {
+						flag = false;
+					}
 				}
-			} else {
-				flag = false;
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[@value='" + indoorHumidityAlertOption + "']", testCase)
-					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@value='" + indoorHumidityAlertOption + "']")
-							.getAttribute("value").equalsIgnoreCase(indoorHumidityAlertOption)
-					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@value='" + indoorHumidityAlertOption + "']")
-							.getAttribute("visible").equalsIgnoreCase("true")) {
-				return flag;
-			} else {
-				flag = false;
-			}
+			flag = false;
 		}
 		return flag;
 	}
@@ -848,9 +847,47 @@ public class ThermostatSettingsScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-			
-			//iOS
+
+			// XCUIElementTypeStaticText[@value='Auto Changeover']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+							+ "']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']",
+					testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+									+ "']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']")
+							.getAttribute("value").equalsIgnoreCase("1")) {
+				return flag;
+			} else {
+				flag = false;
+			}
 		}
 		return flag;
+	}
+
+	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Set Fine Tune Switch");
+		}
+	}
+
+	public boolean toggleThermostatEmergencyHeatSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch");
 	}
 }

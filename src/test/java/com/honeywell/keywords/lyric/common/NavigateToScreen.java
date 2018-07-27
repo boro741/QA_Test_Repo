@@ -97,7 +97,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SWITCH PRIMARY CARD")
-					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")){
+					|| screen.get(1).equalsIgnoreCase("DIMMER PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 
@@ -111,28 +111,24 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				
-			} 
+
 				}
-			else if(screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
-			      case "THERMOSTAT SETTINGS":{
-				PrimaryCard sensorScreen = new PrimaryCard(testCase);
-				if(sensorScreen.isCogIconVisible()) {
-				flag = flag & sensorScreen.clickOnCogIcon();
+				case "THERMOSTAT SETTINGS": {
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					if (sensorScreen.isCogIconVisible()) {
+						flag = flag & sensorScreen.clickOnCogIcon();
+					}
+					break;
 				}
-
-				break;
-			   }
-			    case "THERMOSTAT SOLUTION CARD": {
-				Dashboard sensorScreen = new Dashboard(testCase);
-				flag = flag & sensorScreen.NavigatetoThermostatDashboard();
-
-				break;
-			  }
-			}
-			}		
-			else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+				case "THERMOSTAT SOLUTION CARD": {
+					Dashboard sensorScreen = new Dashboard(testCase);
+					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -713,7 +709,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "VACATION":{
+				case "VACATION": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -729,7 +725,7 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
 					}
-					
+
 					break;
 				}
 				default: {
@@ -871,8 +867,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
+			} else if (screen.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ADD NEW DEVICE GLOBAL DRAWER": {
 					SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -2127,11 +2122,9 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 
-
 					break;
 				}
-			}
-        else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT DASHBOARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
@@ -2151,31 +2144,27 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}  else if(screen.get(1).equalsIgnoreCase("PRIMARY CARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SCHEDULING": {
-						SchedulingScreen ss=  new SchedulingScreen(testCase);
-						flag = flag & ss.clickOnTimeScheduleButton();
-						if (flag) 
-						{
-								Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
-						}else 
-						{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Failed to select schedule icon: " + screen.get(1));
-						}
-						break;
+					SchedulingScreen ss = new SchedulingScreen(testCase);
+					flag = flag & ss.clickOnTimeScheduleButton();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to select schedule icon: " + screen.get(1));
 					}
-				
-					
-					default: {
-		 				flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-					}break;
-		 			}
-			}
-			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+					break;
+				}
 
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 
 				switch (screen.get(0).toUpperCase()) {
 				case "ACTIVITY HISTORY": {
@@ -2205,7 +2194,7 @@ public class NavigateToScreen extends Keyword {
 				case "THERMOSTAT SOLUTION CARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnBackButton();
-					
+
 					break;
 				}
 				}
@@ -2215,13 +2204,13 @@ public class NavigateToScreen extends Keyword {
 					DASSettingsUtils.navigateFromActivityHistoryScreenToManageAlertsScreen(testCase, inputs);
 				}
 				}
-			} 
-			
+			}
+
 			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
-			} catch (Exception e) {
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

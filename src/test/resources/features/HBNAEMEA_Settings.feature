@@ -149,7 +149,7 @@ Scenario: As a user I should be able to enable or disable Indoor Humidity Alert 
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
 Then user changes the "Indoor Humidity Alert" to "ON"
-And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
+And "Indoor Humidity Alert" value should be updated to "ON" on "Manage Alerts" screen
 And user should be displayed with the following "Indoor Humidity Alert" options:
 	| IndoorHumidityAlertOptions			| 
 	| Alert for this range				|
@@ -331,7 +331,7 @@ When user changes the "Fine Tune" to  "OFF"
 Then "Fine Tune" value should be updated to "OFF" on "Thermostat Settings" screen 
 
 #HB_Spruce, JasperNA
-@EnableDisableAdaptiverecovery		@P2		@UIAutomatable
+@EnableDisableAdaptiveRecovery		@P2		@UIAutomatable
 Scenario: As a user I should be able to enable or disable Adaptive recovery on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -385,21 +385,10 @@ Then the following "Thermostat Settings" options should be disabled:
 		| Auto Changeover				|
 		
 Examples:
-| SystemMode		| 
-#| Cool			|
-| Heat			|
+| SystemMode		|
+| Cool			|
+#| Heat			|
 
-#JasperNA, HB_Spruce
-@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled123		@P2		@UIAutomatable
-Scenario Outline: As a user I should not be able view Auto changeover when heatvonly or coolvonly enabled on my thermostat
-Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user should not be displayed with "Auto Changeover" when <Modes> Are enabled in device
-
-Examples:
-|Modes		|
-|Heat Only	|
-|Cool Only	|
 
 #JasperNA, HB_Spruce
 @EmergencyHeatwhencoolonlyenabled		@P2		@UIAutomatable
@@ -407,7 +396,6 @@ Scenario Outline: As a user I should not be able view Auto changeover when cool 
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
 And user should not be displayed with "Emergency Heat" when <Mode> is enabled in device
-And user should not be displayed with "EmergencyHeat" when <Mode> is enabled in device
 
 Examples:
 |Modes		|

@@ -96,18 +96,19 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Paused Streaming is not displayed");
 				}
 				break;
-			}case "Feature Setup Completed":{
+			}
+			case "Feature Setup Completed": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				boolean b = bs.isFeatureSetupScreenDisplayed();
-				if(b) {
+				if (b) {
 					Keyword.ReportStep_Pass(testCase, "Feature Setup Completed is displayed");
 
-				}else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Feature Setup Completed is not displayed");
 				}
-			break;
+				break;
 			}
 			case "ALARM HISTORY": {
 				AlarmScreen click = new AlarmScreen(testCase);
@@ -328,9 +329,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			
-			
-			
+
 			case "CONFIRM YOUR ZIP CODE": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isConfirmYourAddressZipCodeTitleVisible()) {
@@ -664,54 +663,54 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "THERMOSTAT DASHBOARD":{
-				flag=true;
+			case "THERMOSTAT DASHBOARD": {
+				flag = true;
 				Dashboard thermo = new Dashboard(testCase);
 				flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),inputs);
-					flag = flag & thermo.isUpStepperDisplayed();
-					flag = flag & thermo.isDownStepperDisplayed();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" is successfully displayed");
-					}
-					else {
+				flag = flag & thermo.isThermostatNameCorrectlyDisplayed(inputs.getInputValue("LOCATION1_DEVICE1_NAME"),
+						inputs);
+				flag = flag & thermo.isUpStepperDisplayed();
+				flag = flag & thermo.isDownStepperDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is successfully displayed");
+				} else {
 
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Not Displayed with " + expectedScreen.get(0).toUpperCase());
-					}
-					
-					break;
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Not Displayed with " + expectedScreen.get(0).toUpperCase());
 				}
-				case "THERMOSTAT SOLUTION CARD":{
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.isThermostatSolutionCardDisplayed();
-					break;
-				}
-				case "CHANGE MODE":{
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.isChangeModeScreenDisplayed();
-					
-					break;
-				}
-				case "CHANGE FAN":{
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.isChangeFanScreenDisplayed();
-					
-					break;
-				}
-				case "MODE INFO":{
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.isModeInfoScreenDisplayed();
-					
-					break;
-				}
-				case "FAN INFO":{
-					PrimaryCard thermo = new PrimaryCard(testCase);
-					flag = flag & thermo.isFanInfoScreenDisplayed();
-					
-					break;
-				}
+
+				break;
+			}
+			case "THERMOSTAT SOLUTION CARD": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isThermostatSolutionCardDisplayed();
+				break;
+			}
+			case "CHANGE MODE": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isChangeModeScreenDisplayed();
+
+				break;
+			}
+			case "CHANGE FAN": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isChangeFanScreenDisplayed();
+
+				break;
+			}
+			case "MODE INFO": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isModeInfoScreenDisplayed();
+
+				break;
+			}
+			case "FAN INFO": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isFanInfoScreenDisplayed();
+
+				break;
+			}
 			case "MOUNT SENSOR": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = sensor.isMountSensorScreenDisplayed();
