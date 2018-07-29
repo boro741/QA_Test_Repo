@@ -12,7 +12,6 @@ Then user selects "schedule off" from "Option" screen
 And verify the "schedule off overlay" on the "Scheduling" screen
 When user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
-
 Examples:
 |Mode | scheduling |
 |Cool|geofence based|
@@ -28,7 +27,8 @@ Examples:
 #|Heat only|time based    |
 #|Cool only|time based    |
 
-@ScheduleONHBtimebase
+@ScheduleONOFFHBtimebase
+Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr time base schedule
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
 And user launches and logs in to the Lyric application
@@ -41,32 +41,60 @@ Then verify the "Schedule off Status not displayed" on the "PRIMARY CARD" screen
 When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
 Then user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the "Schedule status not displayed" on the "PRIMARY CARD" screen
 Examples:
-|Mode |Schedule|
-|Cool|Time schedule    |
-|Cool|Time schedule    |
-|Heat|Time schedule    |
-|Auto|Time schedule    |
-|Heat only|Time schedule    |
-|Cool only|Time schedule    |
-|Cool||Time schedule    |
+|Mode |scheduling	|
+|Cool|time based     |
+#|Heat|time based     |
+#|Auto|time based     |
+
+#Incaserequried
+#|Heat only|time based   |
+#|Cool only|time based    |
 
 
-@ScheduleONHBgeofencebase
-Scenario Outline:Schedule ON the stat   with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
-Given user launches and login to application 
-Then user set to <Mode>
-And user Stat with <Schedule>
-When User "turns schedule off" the schedule from schedule screen
-Then Verify the schedule OFF overlay in the schedule screen
-When user TAP on the "Schedule OFF" overlay 
-Then Verify the "schedule OFF" overlay disappeared in the schedule screen
 
+@ScheduleONOFFHBgeofencebase
+Scenario Outline: Schedule ON the stat   with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user thermostat set <Period> with <Geofence>
+And user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And Verify the "Schedule status not displayed" on the "PRIMARY CARD" screen
+Then user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then verify the "Schedule off Status not displayed" on the "PRIMARY CARD" screen 
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
+Then Verify the "Schedule status not displayed" on the "PRIMARY CARD" screen
 Examples:
-|Cool|Geofence schedule|period | 
-|Heat|Geofence schedule|Home|
-|Heat|Geofence schedule|sleep|
-|Heat|Geofence schedule|away |
+|Mode|scheduling	|Geofence   |Period |
+|Cool|Without sleep geofence based|UserArrived | Home|
+|Cool|geofence based|UserArrived |Sleep|
+|Cool|Without sleep geofence based|UserDeparted |Away|
+#|Heat|Without sleep geofence based|UserArrived |Home|
+#|Heat|Without sleep geofence based|UserDeparted |Away|
+#|Heat|geofence based|UserArrived | Sleep|
+#|Auto|geofence based|UserArrived |Sleep|
+#|Auto|Without sleep geofence based|UserArrived |Home|
+#|Auto|Without sleep geofence based|UserDeparted |Away|
+
+#Incaserequried
+#|Heat only|Without sleep geofence based|UserArrived |Home|
+#|Heat only|Without sleep geofence based|UserDeparted |Away|
+#|Heat only|geofence based|UserArrived |Sleep|
+#|Cool only|Without sleep geofence based|UserArrived |Home|
+#|Cool only|Without sleep geofence based|UserDeparted |Away|
+#|Cool only|geofence based|UserArrived |Sleep|
+
+
 
 @ScheduleONOFFHBswitchingmodes
 Scenario Outline:Schedule ON OFF status while switching modes to off and from off for Temperture scale Celsius Fahrenheit and for time format 24 12hr
