@@ -29,13 +29,13 @@ public class SuiteExecutor {
                     
                     /**Jasper NA-DashbboardandSolutionCard**/
     				"ViewDashboard",
-    				"ViewDashboardOFF",
+    	/*			"ViewDashboardOFF",
     				"ViewSolutionCard",
     				"ViewSolutionCardOFF",
     				"SystemModeInfoscreenwithCoolandHeatMode",
     				"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
     				
-    				/**Jasper NA-Scheduling**/
+    				*//**Jasper NA-Scheduling**//*
     				"JasperNA_CreateNAScheduleSinglestatwithDefaultvalue",
     				"JasperNA_CancelToRetainExisitngscheduling",
     				"JasperNA_ConfirmToCreateNewSchedule",
@@ -44,27 +44,20 @@ public class SuiteExecutor {
     				"JasperNA_DeletingDefaultPeriodDifferentOnWeekdays",
     				"JasperNA_CreateTimeBasedScheduleInOffMode",
 
-    				/**Jasper NA - Settings**/
-    				/*"VerifyJasperNASettings",
+    				*//**Jasper NA - Settings**//*
+    				"VerifyJasperNASettings",
     				"VerifyJasperNAEMEASpruceSettings",
     				"VerifyHBBSettings",
-    				"EnableDisableIndoorTemperatureAlert",*/
+    				"EnableDisableIndoorTemperatureAlert",
     				
-    				/**Jasper EMEA-Dashboard&Solutioncard**/
+    				*//**Jasper EMEA-Dashboard&Solutioncard**//*
     				"ViewDashboardEMEA",
     				"ViewSolutionCardEMEA",
     				"SystemModeInfoscreenwithHeatOnlyEMEA",
     				
-    				/**Jasper EMEA-Scheduling**/
+    				*//**Jasper EMEA-Scheduling**//*
     				"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
-    				"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
-    				"JasperEMEA_CancelToRetainExisitngscheduling",
-    				"JasperEMEA_ConfirmToCreateNewSchedule",
-    				"JasperEMEA_TempretureBandwidthforEachPeriod",
-    				"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
-    				"JasperEMEA_CanCreateMaximumOfSixPeriods",
-    				"JasperEMEA_CreateTimeBasedScheduleInOffMode",
-    				"JasperEMEA_CopyScheduleToMulitpleStat",
+    				"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",*/
     				
                     };
        	 try {
