@@ -685,16 +685,18 @@ public class JasperSchedulingVerifyUtils {
 							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 							for (WebElement setpoints : schedule_heatsetpoints) {
 								if (setpoints != null) {
-									if (Double.parseDouble(setpoints.getText()) <= maxHeat
-											&& Double.parseDouble(setpoints.getText()) >= minHeat) {
+									System.out.println(setpoints.getText().replace("°", ""));
+									
+									if (Double.parseDouble(setpoints.getText().replace("°", "")) <= maxHeat
+											&& Double.parseDouble(setpoints.getText().replace("°", "")) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(setpoints.getText())
+												"Set Point value: " + Double.parseDouble(setpoints.getText().replace("°", ""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(setpoints.getText())
+														+ Double.parseDouble(setpoints.getText().replace("°", ""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}

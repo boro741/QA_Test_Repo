@@ -4,14 +4,12 @@ As an user i want to Create and Edit Geofence Schedule
 so that my home temperature will get set automatically based on geofence settings
 
 @EMEA_CreateGeofenceSchedule
-  Scenario: As a user i want to create an Geofence schdeule with Defualt values(Home/Away settings)
+  Scenario: As a user i want to create an Geofence schdeule with Defualt values for Home Away settings
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates "Geofence based" schedule with "Use Geofence"
+       When user creates "Geofence based" scheduling with default values "Without" sleep settings
      Then "Geofence based" scheduling gets activated
-      And user navigates to "Primary card" screen from the "Scheduling" screen
-      And user is displayed with "Using Away/Home settings"
 
       @EMEA_CreateNewGeofenceSchedulewithExistingGeofence
   Scenario: As a user i want to create New Geofence schdeule when user already running on Geofence Schedule 
@@ -22,53 +20,37 @@ so that my home temperature will get set automatically based on geofence setting
      Then "Geofence based" scheduling gets activated
       And user navigates to "Primary card" screen from the "Scheduling" screen
       And user is displayed with "Using Away/Home settings"
+      
+    
+    
   
   @EMEA_SleepSettings
-  Scenario Outline: As a user i want to Add/Edit Geofence Sleeo Settings 
-    Given "Geofence" Schedule <Sleep Option> sleep Settings
+  Scenario: As a user i want to Add Edit Geofence Sleeo Settings 
+    Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user <Condition> sleep settings in Geofence Schedule
-     Then user is displayed with <Edit Sleep Value> sleep settings
+      When user creates "Geofence based" scheduling with default values "With" sleep settings
+    Then "Geofence based" scheduling gets activated
   
-    Examples: 
-      | Sleep Option | Condition | 
-      | With         | Edit      | 
-      | With Out     | New       | 
-      | With         | Delete    | 
+   
   
   @EMEA_EditGeofenceWithTemperature
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for  Home,Sleep and Away settings
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
-    Given user thermostat is set to <ScheduleType> schedule
+     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
      When user creates "Geofence based" schedule by setting temperature value to <Temperature>
-     Then user should be displayed "Geofence based" schedule with temperature value incremental by 1F for fahrenheit and 0.5C for celsius
+     Then user displayed temperature within the maximum and minimum range
   
     Examples: 
       | Temperature   | 
       | Above Maximum | 
-      | Below Minimum | 
-      | At Maximum    | 
-      | At Minimum    | 
-      | within range  | 
-  
-  @EMEA_EditGeofenceSetpointsWhenAutoChnageOverEnabled
-  Scenario Outline: As a User i want to Edit set point when Auto change over is enabled so that my 
-  cool set point is always greater than or equal to heat set point
-  
-    Given user launches and logs in to the Lyric application
-      And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates "Geofence based" schedule by setting temperature value to <Temperature>
-      And user selects <Geofence Periods> settings to edit
-     Then Periods cool set point is always greater than or equal to heat set point
-  
-    Examples: 
-      | Geofence Periods | 
-      | Home             | 
-      | Sleep            | 
-      | Away             | 
+#      | Below Minimum | 
+#      | At Maximum    | 
+#      | At Minimum    | 
+#      | within range  |  
+ 
   
   @JasperEMEA_TimerClockIsInCrementalOf15mins
   Scenario Outline: As a user i want to verify if Sleep settings timer is incremental of 15mins
@@ -113,30 +95,24 @@ so that my home temperature will get set automatically based on geofence setting
 
 @EMEA_CreateGeofenceScheduleInOffMode
 Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
-Given user thermostat is set to "Geofence" schedule
+Given user thermostat is set to "time based" schedule
 And  user has "Off" system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates <scheduling> schedule with default schedule value
+When user creates "Geofence based" scheduling with default values "With" sleep settings
 Then <scheduling> scheduling gets activated
-And user navigates to "Primary card" screen from the "Scheduling" screen
-Then user is displayed with "System is Off" on the screen
 
     Examples: 
       | scheduling| 
-      | time based|
       | Geofence |
-      |No|
 
 @EMEA_CreateGeonceScheduleInLearnMode
 Scenario: As a user i want to create an Geofence schdeule from Learn More
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates "Geofence based" schedule with "Learn More"
-     Then <Geofence based> scheduling gets activated
- And user navigates to "Primary card" screen from the "Scheduling" screen
-      And user is displayed with "Using Away/Home settings"
+     When  user creates "Geofence based" schedule using "Learn more" option by editing sleep setting values and default home and away values
+     Then "Geofence based" scheduling gets activated
       
       @EMEA_CreateGeonceScheduleInLearnModeWhenUserSkipsGeofence
 Scenario: As a user i want to create an Geofence schdeule from Learn More
@@ -201,13 +177,3 @@ Examples:
 |Home|
 |Away|
 
-@EMEA_CreateGeofenceScheduleInOffMode
-Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
-Given user thermostat is set to "Geofence" schedule
-And  user has "Off" system mode
-And user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Time Based" schedule with default schedule value
-Then <scheduling> scheduling gets activated on Tapping Confirm
-And user navigates to "Primary card" screen from the "Scheduling" screen
-Then user is displayed with "System is Off" on the screen

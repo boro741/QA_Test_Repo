@@ -16,8 +16,8 @@ import io.appium.java_client.android.AndroidElement;
 
 public class SchedulingScreen extends MobileScreens {
 
-	public static final String WHENIMHOMELOCATOR = "//*[@text='WHEN I" + "\u2019" + "M HOME']";
-	public static final String WHENIMAWAYLOCATOR = "//*[@text='WHEN I" + "\u2019" + "M AWAY']";
+	public static final String WHENIMHOMELOCATOR = "//*[@text='When I" + "\u2019" + "m Home']";
+	public static final String WHENIMAWAYLOCATOR = "//*[@text='When I" + "\u2019" + "m Away']";
 
 	private static final String screenName = "ScheduleScreen";
 

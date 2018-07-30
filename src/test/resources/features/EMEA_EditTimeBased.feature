@@ -5,24 +5,26 @@ I want to Edit Time schedule
 so that i can change Time and Set points of individual periods and Days 
 
 
-@EMEA_AtleastOnePeriodInGroupDay
+@EMEA_AtleastOnePeriodNotDeletableInGroupDay
 Scenario: Verify User should have atleast one schedule period in set of grouped days 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
-     And user navigates to "Scheduling" screen from the "Dashboard" screen
+     And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
      And user selects view by "Grouped Days"
      When user tries to delete "All Periods" in EMEA schedule screen
-     Then user should have atleast "One" schedule period in "Grouped days" view
+     And user navigates to "Scheduling" screen from the "DASHBOARD" screen
+     Then verify user should have atleast "One" schedule period in "Grouped days" view
 
 
 @EMEA_AtleastTwoPeriodInGroupDay
 Scenario: Verify User should have atleast two schedule period in set of individual days 
     Given user has "time schedule" with "1 Period"
      And user launches and logs in to the Lyric application
-     And user navigates to "Scheduling" screen from the "Dashboard" screen
+     And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
      And user selects view by "Individual days"
      When user tries to delete "All Periods" in EMEA schedule screen
-     And user should have atleast "Two" schedule period in "Individual days" view
+     And user navigates to "Scheduling" screen from the "DASHBOARD" screen
+     And verify user should have atleast "Two" schedule period in "Individual days" view
 
 @EMEA_EndtimeTimeschedulePeriod
 Scenario Outline:Verify User should not be allowed to edit end time of last period in a day 

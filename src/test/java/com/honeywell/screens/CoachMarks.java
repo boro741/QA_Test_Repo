@@ -30,27 +30,27 @@ public class CoachMarks extends MobileScreens {
 			"Use Attention when you see a intruder or something suspicious in your home. This will sound in home siren to deter intruders" };
 
 	public static final String[] ThermostatDashboardCoachMarkHeaders = new String[] { "Access More Information",
-	"Quick Controls" };
+	"Quick Controls","Outside temperature" };
 	public static final String[] ThermostatDashboardCoachMarkDescriptions = new String[] {
 			"Access controls and options for any device by tapping on the device name.",
-			"Quickly change the temperature that your thermostat is set to" };
+			"Quickly change the temperature at which your thermostat is set","Tap to see today's forecast." };
 	
-	public static final String[] NASolutionCardCoachMarkHeaders = new String[] { "Indoor Temperature Reading", "Temp Stepper",
+	public static final String[] NASolutionCardCoachMarkHeaders = new String[] { "Indoor temperature reading", "Temp stepper",
 			"Mode", "Fan","Schedule" };
 	public static final String[] NASolutionCardCoachMarkDescriptions = new String[] {
-			"Displays current temperature in your home",
-			"Change the temperature that your thermostat is set to.",
-			"Change thermostat mode between Heat, Cool, Auto and Off",
-			"Change the fan mode your system is using",
+			"Displays the current temperature in your home",
+			"Change the temperature at which your thermostat is set.",
+			"Change thermostat mode.",
+			"Change the fan mode that your system is using",
 			"View, edit or create a new schedule for your thermostat"};
 	
-	public static final String[] EMEASolutionCardCoachMarkHeaders = new String[] { "Indoor Temperature Reading", "Temp Stepper",
+	public static final String[] EMEASolutionCardCoachMarkHeaders = new String[] { "Indoor temperature reading", "Temp stepper",
 			"Mode","Schedule" };
 	public static final String[] EMEASolutionCardCoachMarkDescriptions = new String[] {
-			"Displays current temperature in your home",
-			"Change the temperature that your thermostat is set to.",
-			"Change thermostat mode between Heat, Cool, Auto and Off",
-			"View, edit or create a new schedule for your thermostat"};
+			"Displays the current temperature in your home",
+			"Change the temperature at which your thermostat is set.",
+			"Change thermostat mode.","View, edit or create a new schedule for your thermostat"};
+	
 
 	
 
@@ -142,7 +142,70 @@ public class CoachMarks extends MobileScreens {
 							"Thermostat Dashboard Coach Mark Description " + (i + 1)
 									+ "  is not correctly displayed on the dashboard");
 				}
-				flag = flag & this.clickOnGotitButton();
+				if(i==0){
+					if(MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Back Button displayed!");
+					}
+					else{
+						Keyword.ReportStep_Pass(testCase,"Back Button is not displayed!");
+					}
+					flag = flag & this.clickOnNextButton();
+				}
+				else if(i==CoachMarks.ThermostatDashboardCoachMarkHeaders.length-1){
+					
+						if(MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton")){
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Next Button displayed!");
+						}
+						else{
+							Keyword.ReportStep_Pass(testCase,"Next Button is not displayed!");
+						}
+						flag = flag & this.clickOnDoneButton();
+				}
+				else{
+					int temp=i-1;
+					flag = flag & this.clickOnBackButton();
+					//Checking i-1 Coach mark
+					if (this.getCoachMarkHeaderText().equalsIgnoreCase(CoachMarks.ThermostatDashboardCoachMarkHeaders[temp])) {
+						Keyword.ReportStep_Pass(testCase,
+								"Thermostat Dashboard Coach Mark " + (temp + 1) + " Header is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Thermostat Dashboard Coach Mark Header  "
+								+ (temp + 1) + " is not correctly displayed on the dashboard");
+					}
+					if (this.getCoachMarkDescription().equalsIgnoreCase(CoachMarks.ThermostatDashboardCoachMarkDescriptions[temp])) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Dashboard Coach Mark " + (temp + 1)
+								+ " Description is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Dashboard Coach Mark Description " + (temp + 1)
+										+ "  is not correctly displayed on the dashboard");
+					}
+					temp=temp+2;
+					flag = flag & this.clickOnGotitButton();
+					flag = flag & this.clickOnGotitButton();
+					//Checking i+1 Coach mark
+					if (this.getCoachMarkHeaderText().equalsIgnoreCase(CoachMarks.ThermostatDashboardCoachMarkHeaders[temp])) {
+						Keyword.ReportStep_Pass(testCase,
+								"Thermostat Dashboard Coach Mark " + (temp + 1) + " Header is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Thermostat Dashboard Coach Mark Header  "
+								+ (temp + 1) + " is not correctly displayed on the dashboard");
+					}
+					if (this.getCoachMarkDescription().equalsIgnoreCase(CoachMarks.ThermostatDashboardCoachMarkDescriptions[temp])) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Dashboard Coach Mark " + (temp + 1)
+								+ " Description is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Dashboard Coach Mark Description " + (temp + 1)
+										+ "  is not correctly displayed on the dashboard");
+					}
+				}
 			}
 
 			break;
@@ -155,6 +218,10 @@ public class CoachMarks extends MobileScreens {
 		}
 
 		return flag;
+	}
+
+private boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
 
 //	@SuppressWarnings("unused")
@@ -236,7 +303,73 @@ public class CoachMarks extends MobileScreens {
 							"NA thermostat Solution Card Coach Mark Description " + (i + 1)
 									+ "  is not correctly displayed on the dashboard");
 				}
-				flag = flag & this.clickOnGotitButton();
+				if(i==0){
+					if(MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Back Button displayed!");
+					}
+					else{
+						Keyword.ReportStep_Pass(testCase,"Back Button is not displayed!");
+					}
+					flag = flag & this.clickOnNextButton();
+				}
+				else if(i==CoachMarks.NASolutionCardCoachMarkHeaders.length-1){
+					
+						if(MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton")){
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Next Button displayed!");
+						}
+						else{
+							Keyword.ReportStep_Pass(testCase,"Next Button is not displayed!");
+						}
+						flag = flag & this.clickOnDoneButton();
+				}
+				else{
+					int temp=i-1;
+					flag = flag & this.clickOnBackButton();
+					//Checking i-1 Coach mark
+					if (this.getCoachMarkHeaderText().equalsIgnoreCase(CoachMarks.NASolutionCardCoachMarkHeaders[temp])) {
+						Keyword.ReportStep_Pass(testCase,
+								"NASolutionCard Coach Mark " + (temp + 1) + " Header is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "NASolutionCard Coach Mark Header  "
+								+ (temp + 1) + " is not correctly displayed on the dashboard");
+					}
+					if (this.getCoachMarkDescription().equalsIgnoreCase(CoachMarks.NASolutionCardCoachMarkDescriptions[temp])) {
+						Keyword.ReportStep_Pass(testCase, "NASolutionCard Coach Mark " + (temp + 1)
+								+ " Description is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"NASolutionCard Coach Mark Description " + (temp + 1)
+										+ "  is not correctly displayed on the dashboard");
+					}
+					temp=temp+2;
+					flag = flag & this.clickOnGotitButton();
+					flag = flag & this.clickOnGotitButton();
+					//Checking i+1 Coach mark
+					if (this.getCoachMarkHeaderText().equalsIgnoreCase(CoachMarks.NASolutionCardCoachMarkHeaders[temp])) {
+						Keyword.ReportStep_Pass(testCase,
+								"NASolutionCard Coach Mark " + (temp + 1) + " Header is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "NASolutionCard Coach Mark Header  "
+								+ (temp + 1) + " is not correctly displayed on the dashboard");
+					}
+					if (this.getCoachMarkDescription().equalsIgnoreCase(CoachMarks.NASolutionCardCoachMarkDescriptions[temp])) {
+						Keyword.ReportStep_Pass(testCase, "NASolutionCard Coach Mark " + (temp + 1)
+								+ " Description is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"NASolutionCard Coach Mark Description " + (temp + 1)
+										+ "  is not correctly displayed on the dashboard");
+						
+					}
+					
+				}
+						
 			}
 			break;
 		}
@@ -263,7 +396,73 @@ public class CoachMarks extends MobileScreens {
 							"EMEA thermostat Solution Card Coach Mark Description " + (i + 1)
 									+ "  is not correctly displayed on the dashboard");
 				}
-				flag = flag & this.clickOnGotitButton();
+				if(i==0){
+					if(MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Back Button displayed!");
+					}
+					else{
+						Keyword.ReportStep_Pass(testCase,"Back Button is not displayed!");
+					}
+					flag = flag & this.clickOnNextButton();
+				}
+				else if(i==CoachMarks.EMEASolutionCardCoachMarkHeaders.length-1){
+					
+						if(MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton")){
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Next Button displayed!");
+						}
+						else{
+							Keyword.ReportStep_Pass(testCase,"Next Button is not displayed!");
+						}
+						flag = flag & this.clickOnDoneButton();
+				}
+				else{
+					int temp=i-1;
+					flag = flag & this.clickOnBackButton();
+					//Checking i-1 Coach mark
+					if (this.getCoachMarkHeaderText().equalsIgnoreCase(CoachMarks.EMEASolutionCardCoachMarkHeaders[temp])) {
+						Keyword.ReportStep_Pass(testCase,
+								"EMEASolutionCard Coach Mark " + (temp + 1) + " Header is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "EMEASolutionCard Coach Mark Header  "
+								+ (temp + 1) + " is not correctly displayed on the dashboard");
+					}
+					if (this.getCoachMarkDescription().equalsIgnoreCase(CoachMarks.EMEASolutionCardCoachMarkDescriptions[temp])) {
+						Keyword.ReportStep_Pass(testCase, "EMEASolutionCard Coach Mark " + (temp + 1)
+								+ " Description is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"EMEASolutionCard Coach Mark Description " + (temp + 1)
+										+ "  is not correctly displayed on the dashboard");
+					}
+					temp=temp+2;
+					flag = flag & this.clickOnGotitButton();
+					flag = flag & this.clickOnGotitButton();
+					//Checking i+1 Coach mark
+					if (this.getCoachMarkHeaderText().equalsIgnoreCase(CoachMarks.EMEASolutionCardCoachMarkHeaders[temp])) {
+						Keyword.ReportStep_Pass(testCase,
+								"EMEASolutionCard Coach Mark " + (temp + 1) + " Header is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "EMEASolutionCard Coach Mark Header  "
+								+ (temp + 1) + " is not correctly displayed on the dashboard");
+					}
+					if (this.getCoachMarkDescription().equalsIgnoreCase(CoachMarks.EMEASolutionCardCoachMarkDescriptions[temp])) {
+						Keyword.ReportStep_Pass(testCase, "EMEASolutionCard Coach Mark " + (temp + 1)
+								+ " Description is correctly displayed on the dashboard");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"EMEASolutionCard Coach Mark Description " + (temp + 1)
+										+ "  is not correctly displayed on the dashboard");
+						
+					}
+					
+				}
+						
 			}
 			break;
 		}
