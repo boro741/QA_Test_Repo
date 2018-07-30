@@ -4,14 +4,14 @@ As an user
 I want to Edit Time schedule
 so that i can change Time and Set points of individual periods and Days 
 
-@NA_GroupEditedDays
+@NA_GroupEditedDays @automated
   Scenario Outline: As a User i want to Edit my Individual days so that those days are grouped
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user selects "SINGLE DAY" view
      When user edits the schedule periods of <EditedDays>
-      And user selects "GROUPD DAY" view
+      And user selects "Grouped days" view
      Then <EditedDays> are grouped separately
   
     Examples: 
@@ -23,15 +23,13 @@ so that i can change Time and Set points of individual periods and Days
       | Five days  | 
       | Six days   | 
   
-  @NA_EditTempratureInSchedule
+  @NA_EditTempratureInSchedule @automated
   Scenario Outline: As a User i want to Edit Temperature value for period and those days are grouped
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user selects view by "Different On Weekdays"
      When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
-     Then user should be displayed <ScheduleType> schedule with temperature value incremental by 1F for fahrenheit and 0.5C for celsius
-      And "EditedDays" are grouped separately
+     Then verify temperature is incremental by 1F for fahrenheit and 0.5C for celsius
   
     Examples: 
       | ScheduleType          | Temperature   | 
@@ -46,37 +44,36 @@ so that i can change Time and Set points of individual periods and Days
       | Different On Weekdays | At Minimum    | 
       | Different On Weekdays | within range  | 
   
-  @NA_EditSetpointsWhenAutoChnageOverEnabled
+  @NA_EditSetpointsWhenAutoChnageOverEnabled @automated
   Scenario Outline: As a User i want to Edit set point when Auto chnage over is enabled so that my 
   cool set point is always greater than or equal to heat set point
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user selects view by "SINGLE DAY"
      When user creates <ScheduleType> schedule with default schedule value
      Then Periods cool set point is always greater than or equal to heat set point
-      And user selects view by "GROUPD DAY"
-      And "EditedDays" are grouped separately
+      And <ScheduleType> scheduling gets activated
   
     Examples: 
       | ScheduleType          | 
       | Same Every Day        | 
-      | Different On Weekdays | 
-  
-  @NA_PeriodTimeShouldNotOverlap
+      | Different On Weekdays |  
+      
+  @NA_PeriodTimeShouldNotOverlap @automating
   Scenario: As a User i want to edit my period so that each period is independent,On overlap Schule period is removed
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user creates "Time Based" schedule with default schedule value
-     When user edits "Wake" period by changing time value to "06 00 AM"
-      And user edits "Away" period by changing time value to "06 00 AM"
-     Then user should be displayed <ScheduleType> schedule with "Wake" time as "Tap to set"
+      And user creates "Same Every Day" schedule with default schedule value
+      And user selects "SINGLE DAY" view
+     When user edit "Wake" period by changing time value to "06 00 AM"
+      And user edit "Away" period by changing time value to "06 00 AM"
+     Then user should be displayed "Wake" time as "Tap to set"
   
   @NA_DeletePerioConfirmdAlert
   Scenario: As a User i want be shown with confirm pop so that i will be alerted of deleting period 
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user creates "Time Based" schedule with default schedule value
+      And user creates "Same Every Day" schedule with default schedule value
       And user selects view by "SINGLE DAY"
      When user edit Time schedule by deleting "Atleast 1 period"
      Then user should be displayed with confirm pop for period deletion
@@ -115,7 +112,7 @@ so that i can change Time and Set points of individual periods and Days
       | Turn oFF Schedule       | Tap on Resume       | 
   
   @NA_ResumeSchedule
-  Scenario : As a user i want an Options to resume Schdeule
+  Scenario: As a user i want an Options to resume Schdeule
     Given user thermostat is set to "Time Based" schedule  
       And user selects "Turn OFF Schedule " option on "Scheduling" 
       And user launches and logs in to the Lyric application
@@ -125,7 +122,7 @@ so that i can change Time and Set points of individual periods and Days
      Then user should be displayed with "Scheduling" screen
   
   @NA_DeletingCurrentPeriodDifferentOnWeekdays
-  Scenario : As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
+  Scenario: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user creates "Different On Weekdays" schedule with default schedule value

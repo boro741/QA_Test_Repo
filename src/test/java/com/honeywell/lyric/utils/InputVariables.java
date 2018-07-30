@@ -214,7 +214,7 @@ public class InputVariables {
 	public static String EXPECTING_FILTERREMINDER_PUSH_NOTIFICATION = "expectingFilterReminderPushNotification";
 
 	public static String SHOW_VIEW_TYPE = "showViewType";
-	public static String INDIVIDUAL_TYPE = "Individual Days";
+	public static String INDIVIDUAL_TYPE = "SINGLE DAY";
 	public static String GROUP_TYPE = "Group Days";
 
 	public static String SCHEDULE_DAY_EDITED = "scheduleDayEdited";

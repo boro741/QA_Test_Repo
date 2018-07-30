@@ -9,7 +9,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 
 public class VerifyAutoChangeOverLogic extends Keyword {
 
@@ -29,12 +28,10 @@ public class VerifyAutoChangeOverLogic extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify cool set point is always greater than or equal to heat set point$")
+	@KeywordStep(gherkins = "^Periods cool set point is always greater than or equal to heat set point$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			flag = flag & JasperSchedulingVerifyUtils.verifyAutoChangeOverLogic(testCase, inputs);
-
-			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
