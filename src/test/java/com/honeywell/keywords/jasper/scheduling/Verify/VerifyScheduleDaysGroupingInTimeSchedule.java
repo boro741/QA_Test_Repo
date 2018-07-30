@@ -33,7 +33,7 @@ public class VerifyScheduleDaysGroupingInTimeSchedule extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify Time schedule grouped with edited \"(.+)\" separately and remaining separately$")
+	@KeywordStep(gherkins = "^\"(.+)\" are grouped separately$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (exampleData.get(0).equalsIgnoreCase("One Day")) {

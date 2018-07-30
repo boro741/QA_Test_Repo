@@ -82,7 +82,7 @@ public class JasperSchedulingUtils {
 		boolean flag = true;
 		try {
 			SchedulingScreen ss = new SchedulingScreen(testCase);
-			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+//			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 			if (ss.isCreateScheduleButtonVisible(5)) {
 				flag = flag & ss.clickOnCreateScheduleButton();
 			} else {
@@ -102,6 +102,8 @@ public class JasperSchedulingUtils {
 				flag = flag & ss.clickOnUseGeofencingText();
 			} else {
 				flag = flag & ss.clickOnLearnMoreButton();
+				flag = flag & ss.clickOnGetStartedButton();
+				flag = flag & ss.clickOnSaveButton();
 			}
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
@@ -255,8 +257,8 @@ public class JasperSchedulingUtils {
 			}
 			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
 			// "Geofence");
-			if (ss.isDoneButtonVisible(5)) {
-				flag = flag & ss.clickOnDoneButton();
+			if (ss.IsSaveButtonVisible(10)) {
+				flag = flag & ss.clickOnSaveButton();
 			}
 
 			if (inputs.getInputValue(InputVariables.ALL_STAT_COPYING).equals("Yes")) {
@@ -2733,13 +2735,12 @@ public class JasperSchedulingUtils {
 
 	public static boolean setTimeSchedulePeriodTimeAndSetPoints(TestCases testCase, TestCaseInputs inputs,
 			HashMap<String, String> periodTimeandSetPoint, WebElement element) {
-		SchedulingScreen sScreen = new SchedulingScreen(testCase);
 		boolean flag = true;
 		try {
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			String jasperStatType = devInfo.getJasperDeviceType();
 			try {
-				sScreen.clickOnAddPeriodButton();
+				element.click();
 				Keyword.ReportStep_Pass(testCase, "Successfully click on : Add period");
 			} catch (Exception e) {
 				flag = false;
@@ -10301,7 +10302,7 @@ public class JasperSchedulingUtils {
 						if (tempHeatSetPointFromInputs.contains(".0")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
-						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Away set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
