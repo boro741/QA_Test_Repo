@@ -34,15 +34,12 @@ public class ViewTimeScheduleByIndividualOrGroupedDays extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects view by \"(.+)\"$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" view$")
 	public boolean keywordSteps() throws KeywordException {
-		SchedulingScreen s = new SchedulingScreen(testCase);
 		try {
-			if (s.isTimeScheduleButtonVisible(10)) {
-				s.clickOnTimeScheduleButton();
-				if (exampleData.get(0).equalsIgnoreCase("Individual days")) {
-					flag = flag & JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-					inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "Individual Days");
+				if (exampleData.get(0).equalsIgnoreCase("SINGLE DAY")) {
+					flag = flag & JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
+					inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "SINGLE DAY");
 
 				} else if (exampleData.get(0).equalsIgnoreCase("Grouped days")) {
 					flag = flag & JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
@@ -52,10 +49,6 @@ public class ViewTimeScheduleByIndividualOrGroupedDays extends Keyword {
 					flag = false;
 					ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Inputs not handled");
 				}
-			}else{
-				flag = false;
-				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "User not in the Thermostat Primary Card");
-			}
 
 		} catch (Exception e) {
 			flag = false;

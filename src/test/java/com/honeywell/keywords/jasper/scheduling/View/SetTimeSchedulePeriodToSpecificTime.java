@@ -38,11 +38,11 @@ public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 	@BeforeKeyword
 	public boolean preCondition() throws KeywordException {
 
-		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-		}
+//		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+//		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE DAY")) {
+//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
+//		}
 		return flag;
 	}
 
@@ -62,7 +62,7 @@ public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 				}
 				inputs.setInputValue(InputVariables.SCHEDULE_DAY_EDITED, "Everyday");
 
-			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE DAY")) {
 				if (inputs.getInputValue(InputVariables.SCHEDULE_DAY_EDITED).isEmpty()
 						|| inputs.getInputValue(InputVariables.SCHEDULE_DAY_EDITED) == null) {
 					tempDays = days[rn.nextInt((6 - 0) + 1) + 0];
@@ -186,8 +186,6 @@ public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 						}
 					}
 					flag = flag & JasperSchedulingEditUtils.editTimeBasedSchedule(testCase, inputs, schedulePeriodToSelect, 1);
-
-					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 				}
 			}
 		}catch (Exception e) {

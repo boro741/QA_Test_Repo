@@ -1,4 +1,6 @@
-package com.honeywell.keywords.jasper.scheduling.Verify;
+package com.honeywell.keywords.jasper.Vacation;
+
+import java.util.ArrayList;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -8,17 +10,19 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
+import com.honeywell.jasper.utils.JasperVacation;
+import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.VacationHoldScreen;
 
-public class VerifyAutoChangeOverLogic extends Keyword {
-
+public class NoVacationForHBBDevice extends Keyword {
+	
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 
-	public VerifyAutoChangeOverLogic(TestCases testCase, TestCaseInputs inputs) {
+	public NoVacationForHBBDevice(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.inputs = inputs;
+		this.inputs=inputs;
 	}
 
 	@Override
@@ -28,16 +32,11 @@ public class VerifyAutoChangeOverLogic extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^Periods cool set point is always greater than or equal to heat set point$")
+	@KeywordStep(gherkins = "^user with HBB is not listed under the review vacation settings in the location$")
 	public boolean keywordSteps() throws KeywordException {
-		try {
-			flag = flag & JasperSchedulingVerifyUtils.verifyAutoChangeOverLogic(testCase, inputs);
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Error Occured : " + e.getMessage());
-		}
-		return flag;
+		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+			
+	   return flag;
 	}
 
 	@Override
@@ -46,3 +45,4 @@ public class VerifyAutoChangeOverLogic extends Keyword {
 		return true;
 	}
 }
+

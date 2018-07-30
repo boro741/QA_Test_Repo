@@ -49,7 +49,7 @@ HeatSetPointChooser	ID	current_temp_value	ID	current_temp_value	ID	current_temp_
 HeatSetPoints							NAME	heatTemperatureLabel	NAME	heatTemperatureLabel	NAME	heatTemperatureLabel
 HomeTemperatureHeaderMultiTemperature	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperatures do you prefer when') and contains(@text,'at home')]"	NAME	What temperatures do you prefer when you're at home?	NAME	What temperatures do you prefer when you're at home?	NAME	What temperatures do you prefer when you're at home?
 HomeTemperatureHeaderSingleTemperature	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	NAME	What temperature do you prefer when you're at home?	NAME	What temperature do you prefer when you're at home?	NAME	What temperature do you prefer when you're at home?
-LearnMoreButton	XPATH	//*[@text='LEARN MORE']	XPATH	//*[@text='LEARN MORE']	XPATH	//*[@text='LEARN MORE']	NAME	LEARN MORE	NAME	LEARN MORE	NAME	LEARN MORE
+LearnMoreButton	XPATH	//*[@text='Learn More']	XPATH	//*[@text='Learn More']	XPATH	//*[@text='Learn More']	NAME	LEARN MORE	NAME	LEARN MORE	NAME	LEARN MORE
 LocationOption	XPATH	//android.widget.TextView[@text='Location']	XPATH	//android.widget.TextView[@text='Location']	XPATH	//android.widget.TextView[@text='Location']	NAME	Location	NAME	Location	NAME	Location
 NextButton	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	NAME	NEXT	NAME	NEXT	NAME	NEXT
 NoButton							NAME	NO	NAME	NO	NAME	NO
@@ -75,7 +75,7 @@ selectvaluesix	XPATH	//*[@index='5']	XPATH	//*[@index='5']	XPATH	//*[@index='5']
 selectvalueten	XPATH	//*[@index='9']	XPATH	//*[@index='9']	XPATH	//*[@index='9']	XPATH	//*[@value='6 oêclock']	XPATH	//*[@value='6 oêclock']	XPATH 	//*[@value='6 oêclock']
 SkipButton	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	XPATH	//*[@text='Skip']	NAME	Skip	NAME	Skip	NAME	Skip
 SkipSleepButton	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	XPATH	//*[@text='SKIP']	NAME	Skip	NAME	Skip	NAME	Skip
-SwitchToGeofencingButton	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	NAME	Switch to geofencing	NAME	Switch to geofencing	NAME	Switch to geofencing
+SwitchToGeofencingButton	XPATH	//*[@text='Switch to Geofencing']	XPATH	//*[@text='Switch to geofencing']	XPATH	//*[@text='Switch to geofencing']	NAME	Switch to geofencing	NAME	Switch to geofencing	NAME	Switch to geofencing
 SwitchToTimeScheduleButton	XPATH	//*[@text='Switch to Time Scheduling']	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	NAME	Switch to time schedule	NAME	Switch to time schedule	NAME	Switch to time schedule
 TimeAM	ID	mdtp_am_label	ID	am_label	ID	am_label	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']
 TimeAMPM							XPATH	//XCUIElementTypePickerWheel[3]	xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"	xpath	"//*[contains(@value,'AM') or contains(@value,'PM')]"
@@ -156,6 +156,7 @@ UseMyAwaySettingsText	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='U
 SchedulingPeriodSleepStartTime	id	scheduling_period_startEnd_time	id	scheduling_period_startEnd_time	id	scheduling_period_startEnd_time						
 GeofenceCoolHeatTemperature							NAME	Geofence_Cool_HeatTemperature	NAME	Geofence_Cool_HeatTemperature	NAME	Geofence_Cool_HeatTemperature
 NavigationLeftBarItem							NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item	NAME	Navigation_Left_Bar_Item
+<<<<<<< HEAD												
 EverydayText	XPATH	//*[@text='Every Day']	XPATH	//*[@text='Every Day']	XPATH	//*[@text='Every Day']	xPATH	//*[@value='Everyday']	xPATH	//*[@value='Everyday']	xPATH	//*[@value='Everyday']
 WeekdayText	XPATH	//*[@text='Monday - Friday']	XPATH	//*[@text='Monday - Friday']	XPATH	//*[@text='Monday - Friday']						
 WeekendText	XPATH	//*[@text='Saturday - Sunday']	XPATH	//*[@text='Saturday - Sunday']	XPATH	//*[@text='Saturday - Sunday']						
@@ -176,4 +177,7 @@ UseMyHomeSettingsText	XPATH	//*[@text='Use My Home Settings']	XPATH	//*[@text='U
 UseMySleepSettingsText	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	NAME	Use My Sleep Settings				
 UseMyAwaySettingsText	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	NAME	Use My Away Settings	NAME	Using Away Settings	NAME	Using Away Settings
 ConfirmChangeButton	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//*[@text='CONFIRM CHANGE']	XPATH	//*[@text='CONFIRM CHANGE']	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
-ScheduleOffOverlay	ID	pause_icon	ID	pause_icon	ID	pause_icon	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.
+ScheduleOffOverlay	XPATH	//*[@text='Schedule is off. Tap to resume.']	XPATH	//*[@text='Schedule is off. Tap to resume.']	XPATH	//*[@text='Schedule is off. Tap to resume.']	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.
+GetStartedButton	Xpath	//*[@text='Get Started']	XPATH	//*[@text='Get Started']	XPATH	//*[@text='Get Started']						
+												
+												

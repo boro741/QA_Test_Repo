@@ -32,7 +32,7 @@ public class VerifyTemperatureFieldIntervalsForEditedPeriodInTimeSchedule extend
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify edited period temperature is incremental by 1F for fahrenheit and 0.5C for celsius$")
+	@KeywordStep(gherkins = "^user should be displayed with edited period temperature is incremental by 1F for fahrenheit and 0.5C for celsius$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
