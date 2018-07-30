@@ -3,7 +3,7 @@ Feature: As an user I want to turn schedule OFF or ON so that I can run schedule
 
 
 @ScheduleOFFONNA @Automated --LYR-29388
-Scenario Outline:As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule 
+Scenario Outline: As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule 
 #Schedule OFF ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -68,8 +68,11 @@ Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule
 #Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
+And user thermostat set <Period> with <Geofence>
 And user launches and logs in to the Lyric application
-Then user navigates to "Scheduling" screen from the "Dashboard" screen
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And Verify the <Schedule status> on the "PRIMARY CARD" screen
+Then user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 When user selects "Option" from "Scheduling" screen
 Then user selects "schedule off" from "Option" screen
 And verify the "schedule off overlay" on the "Scheduling" screen
@@ -82,24 +85,24 @@ When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
 Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 
 Examples:
-|MODE|scheduel|Schedule status | 
-|Cool|geofence based|Using Home Settings|
-|Cool|geofence based|Using Away Settings|
-|Cool|geofence based|Using Sleep Settings |
-|Heat|geofence based|Using Home Settings|
-|Heat|geofence based|Using Away Settings|
-|Heat|geofence based|Using Sleep Settings |
-|Auto|geofence based|Using Home Settings |
-|Auto|geofence based|Using Away Settings |
-|Auto|geofence based|Using Sleep Settings |
+|Mode|scheduling	|Schedule status	 |Geofence   |Period |
+|Cool|Without sleep geofence based|Using Home Settings|UserArrived | Home|
+|Cool|geofence based|Using Sleep Settings |UserArrived |Sleep|
+|Cool|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
+#|Heat|Without sleep geofence based|Using Home Settings|UserArrived |Home|
+#|Heat|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
+#|Heat|geofence based|Using Sleep Settings |UserArrived | Sleep|
+#|Auto|geofence based|Using Sleep Settings |UserArrived |Sleep|
+#|Auto|Without sleep geofence based|Using Home Settings |UserArrived |Home|
+#|Auto|Without sleep geofence based|Using Away Settings |UserDeparted |Away|
 
 #Incaserequried
-|Heat only|geofence based|Using Home Settings |
-|Heat only|geofence based|Using Away Settings |
-|Heat only|geofence based|Using Sleep Settings |
-|Cool only|geofence based|Using Home Settings|
-|Cool only|geofence based|Using Away Settings |
-|Cool only|geofence based|Using Sleep Settings |
+#|Heat only|Without sleep geofence based|Using Home Settings |UserArrived |Home|
+#|Heat only|Without sleep geofence based|Using Away Settings |UserDeparted |Away|
+#|Heat only|geofence based|Using Sleep Settings |UserArrived |Sleep|
+#|Cool only|Without sleep geofence based|Using Home Settings|UserArrived |Home|
+#|Cool only|Without sleep geofence based|Using Away Settings |UserDeparted |Away|
+#|Cool only|geofence based|Using Sleep Settings |UserArrived |Sleep|
 
 
 @ScheduleOFFAdhocOverrideNAtimebaseGeofence @Automatable
@@ -175,8 +178,11 @@ Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule
 #Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
+And user thermostat set has <Geofence>
 And user activates <Adhocoverride>
 And user launches and logs in to the Lyric application
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And Verify the "Vacation status NA" on the "PRIMARY CARD" screen
 Then user navigates to "Scheduling" screen from the "Dashboard" screen
 When user selects "Option" from "Scheduling" screen
 Then user selects "schedule off" from "Option" screen
@@ -191,23 +197,24 @@ When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
 Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 
 Examples:
-|Heat|geofence based| Temporary | Using Home Settings|
-|Heat|geofence based| Temporary | Using Away Settings|
-|Heat|geofence based| Temporary | Using Sleep Settings|
-|Cool|geofence based| Temporary |Using Home Settings|
-|Cool|geofence based| Temporary |Using Away Settings|
-|Cool|geofence based| Temporary |Using Sleep Settings|
-|auto|geofence based| Temporary |Using Home Settings|
-|auto|geofence based| Temporary |Using Away Settings|
-|auto|geofence based| Temporary |Using Sleep Settings|
+|Mode | Scheduling | Adhocoverride | Schedule status |Geofence | 
+|Heat|geofence based| Temporary | Using Home Settings| UserArrived |
+|Heat|geofence based| Temporary | Using Away Settings| UserDeparted |
+#|Heat|geofence based| Temporary | Using Sleep Settings|
+|Cool|geofence based| Temporary |Using Home Settings| UserArrived |
+|Cool|geofence based| Temporary |Using Away Settings| UserDeparted |
+#|Cool|geofence based| Temporary |Using Sleep Settings|
+|auto|geofence based| Temporary |Using Home Settings| UserArrived |
+|auto|geofence based| Temporary |Using Away Settings|UserDeparted |
+#|auto|geofence based| Temporary |Using Sleep Settings|
 
 #Incaserequired
-|Cool only|geofence based| Temporary |Using Home Settings|
-|Cool only |geofence based| Temporary |Using Away Settings|
-|Cool only|geofence based| Temporary |Using Sleep Settings|
-|Heat only|geofence based| Temporary |Using Home Settings|
-|Heat only |geofence based| Temporary |Using Away Settings|
-|Heat only |geofence based| Temporary |Using Sleep Settings|
+#|Cool only|geofence based| Temporary |Using Home Settings|
+#|Cool only |geofence based| Temporary |Using Away Settings|
+#|Cool only|geofence based| Temporary |Using Sleep Settings|
+#|Heat only|geofence based| Temporary |Using Home Settings|
+#|Heat only |geofence based| Temporary |Using Away Settings|
+#|Heat only |geofence based| Temporary |Using Sleep Settings|
 
 
 @ScheduleOFFVacationNA @Automated -- LYR-29393
@@ -281,7 +288,7 @@ Examples:
 
 
 @ScheduleONOFFNAswitchingmodes @Automatable
-Scenario Outline:Schedule ON OFF status while switching modes to off and from off for Temperture scale Celsius Fahrenheit and for time format 24 12hr
+Scenario Outline: Schedule ON OFF status while switching modes to off and from off for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
 And user Stat with <AdhocOverride>

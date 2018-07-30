@@ -44,13 +44,16 @@ Examples:
 | scheduling | Schedule status |
 |time based | following schedule |
 
-@ScheduleONOFFEMEAgeofencebase
-Scenario Outline:Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
-#As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence based 
-Given user has “Heat” system mode
+@ScheduleONOFFEMEAgeofencebase Automated --	LYR-29400
+Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence based 
+#Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
+Given user has "Heat" system mode
 Then user thermostat is set to <scheduling> schedule 
+And user thermostat set <Period> with <Geofence>
 And user launches and logs in to the Lyric application
-Then user navigates to "Scheduling" screen from the "Dashboard" screen
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And Verify the <Schedule status> on the "PRIMARY CARD" screen
+Then user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 When user selects "Option" from "Scheduling" screen
 Then user selects "schedule off" from "Option" screen
 And verify the "schedule off overlay" on the "Scheduling" screen
@@ -62,10 +65,10 @@ And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
 Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
-| scheduling | Schedule status |
-|geofence based|Using Home Settings|
-|geofence based|Using Away Settings|
-|geofence based|Using Sleep Settings|
+|scheduling	|Schedule status	 |Geofence   |Period |
+|Without sleep geofence based|Using Home Settings|UserArrived |Home|
+|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
+|geofence based|Using Sleep Settings |UserArrived | Sleep|
 
 #JapserEMEA
 @ScheduleONEMEAgeofencebase

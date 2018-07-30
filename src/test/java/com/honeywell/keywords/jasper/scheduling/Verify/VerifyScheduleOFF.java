@@ -45,7 +45,7 @@ public class VerifyScheduleOFF extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "SCHEDULE OFF OVERLAY": {
 					SchedulingScreen OverLay = new SchedulingScreen(testCase);
-					flag = flag & OverLay.isScheduleOffOverlayVisible(10);
+					flag = flag & OverLay.isScheduleOffOverlayVisible(8);
 					if(flag){
 						Keyword.ReportStep_Pass(testCase, "Schedule OFF Overlay displayed");
 					}else{
@@ -69,7 +69,7 @@ public class VerifyScheduleOFF extends Keyword {
 					switch (parameters.get(0).toUpperCase()) {
 					case "SCHEDULE OFF STATUS": {
 						SchedulingScreen psoff = new SchedulingScreen(testCase);
-						flag = flag & psoff.isScheduleOffStatusVisible(120);	
+						flag = flag & psoff.isScheduleOffStatusVisible(60);	
 						if(flag){
 							Keyword.ReportStep_Pass(testCase, "Schedule OFF Status displayed on primarycard");
 						}else{
@@ -77,37 +77,61 @@ public class VerifyScheduleOFF extends Keyword {
 						}break;
 					}
 					case "SCHEDULE OFF STATUS NOT DISPLAYED": {
-						SchedulingScreen psoff = new SchedulingScreen(testCase);
-						flag = flag & psoff.isScheduleOffStatusVisible(4);		
-						if(!flag){
+						SchedulingScreen psoff = new SchedulingScreen(testCase);	
+						if(!psoff.isScheduleOffStatusVisible(4)){
 							Keyword.ReportStep_Pass(testCase, "Schedule OFF Status not displayed on primarycard");
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF status displayed on primarycard");
-						}break;
+						}
+						break;
+					}
+					case "SCHEDULE STATUS NOT DISPLAYED": {
+						SchedulingScreen schedulestatus = new SchedulingScreen(testCase);	
+						if(!schedulestatus.isUsingAwayVisible(2) || !schedulestatus.isUsingHomeVisible(2) || !schedulestatus.isUsingSleepVisible(2) || !schedulestatus.isFollowingSchedulesVisible(2)){
+							Keyword.ReportStep_Pass(testCase, "Schedule Status not displayed on primarycard");
+						}else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule status displayed on primarycard");
+						}
+						break;
 					}
 					case "FOLLOWING SCHEDULE": {
 						SchedulingScreen FollowingS = new SchedulingScreen(testCase);
 						flag = flag & FollowingS.isFollowingSchedulesVisible(2);
-						if(flag){
-							System.out.println("Successfully " + parameters.get(0));
+						if(flag)
 							Keyword.ReportStep_Pass(testCase, "Following Schedule displayed");
-						}else{
+						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Scheudle not displayed");
-						}break;
+						break;
 					}
-					case "SETTINGS": {
-						SchedulingScreen UsingS = new SchedulingScreen(testCase);
-						if(UsingS.isUsingHomeVisible(10) || UsingS.isUsingSleepVisible(10) || UsingS.isUsingAwayVisible(10)) 
-						{
-							System.out.println("Using Period " + parameters.get(0));
-							Keyword.ReportStep_Pass(testCase, "Geofence period status");
-						}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Geofence period status not displayed");
-						}break;
+					case "USING HOME SETTINGS": {
+						SchedulingScreen HOME = new SchedulingScreen(testCase);
+						flag = flag & HOME.isUsingHomeVisible(10);
+						if(flag)
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+						else
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+						break;
+					}
+					case "USING AWAY SETTINGS": {
+						SchedulingScreen Away = new SchedulingScreen(testCase);
+						flag = flag & Away.isUsingAwayVisible(10);
+						if(flag)
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+						else
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+						break;
+					}
+					case "USING SLEEP SETTINGS": {
+						SchedulingScreen SLEEP = new SchedulingScreen(testCase);
+						flag = flag & SLEEP.isUsingSleepVisible(10);
+						if(flag)
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+						else 
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+						break;
 					}
 					case "VACATION STATUS NA": {
 						PrimaryCard VacationStatus = new PrimaryCard(testCase);
-						//flag = flag & VacationStatus.isVacationStatusVisible();
 						FluentWait<String> fWait = new FluentWait<String>(" ");
 						fWait.pollingEvery(30, TimeUnit.SECONDS);
 						fWait.withTimeout(15, TimeUnit.MINUTES);
@@ -150,11 +174,10 @@ public class VerifyScheduleOFF extends Keyword {
 							}
 						});
 						if(isEventReceived)
-						{
 						Keyword.ReportStep_Pass(testCase, "Vacation status displayed");
-						}else{
+						else
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Vacation status not displayed");
-						}break;
+						break;
 					}
 					
 					default: {

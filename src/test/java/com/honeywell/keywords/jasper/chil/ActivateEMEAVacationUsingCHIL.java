@@ -69,7 +69,7 @@ public class ActivateEMEAVacationUsingCHIL extends Keyword {
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
-				String startTime = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, currentUTCTime);
+				String startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
 				String endTime = JasperSetPoint.addDaysToDate(null, startTime, 7);
 
 				if (chUtil.getConnection()) {
