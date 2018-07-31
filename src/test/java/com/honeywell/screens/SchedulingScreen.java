@@ -397,7 +397,7 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointUpButton(int index) {
-		return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
+		return  MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
 	}
 
 	public String getPeriodName(String locatorValue) {
@@ -1057,6 +1057,9 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getGeofenceSleepSubTitleText() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceSleepSubTitle").getAttribute("value");
+	}
+	public String getGeofenceSleepSubTitleTimeText() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "GeofenceSleepSubTitle").get(1).getAttribute("value");
 	}
 
 	public boolean isViewByIndividualDaysVisible(int timeOut) {

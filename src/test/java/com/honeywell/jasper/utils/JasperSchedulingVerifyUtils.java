@@ -34,7 +34,7 @@ import io.appium.java_client.TouchAction;
 public class JasperSchedulingVerifyUtils {
 
 	public static boolean verifyTemperatureWithInRange(TestCases testCase, TestCaseInputs inputs) {
-
+System.out.println("FIXX");
 		boolean flag = true;
 		try {
 			List<WebElement> schedule_heatsetpoints, schedule_coolsetpoints, schedule_period_time = null;
@@ -93,8 +93,8 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						if (ss.isGeofenceHomeCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceHomeCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
+									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
 												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
@@ -109,81 +109,81 @@ public class JasperSchedulingVerifyUtils {
 						}
 						if (ss.isGeofenceHomeHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceHomeHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceSleepCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
+									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceSleepHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceAwayCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
+									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceAwayHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
@@ -705,49 +705,51 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						if (ss.isGeofenceHomeHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceHomeHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
+							System.out.println(heatSetPoint.getAttribute("value").replaceAll("˚",""));
+							System.out.println(Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")));
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceSleepHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceAwayHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value"))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
