@@ -767,6 +767,27 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "SOUND": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "SoundOptions");
+				try {
+					if (ts.isThermostatSoundOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Sound Option: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Sound Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Sound Option: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Sound Screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
 		case "MODE INFO": {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -975,8 +996,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							}
 								
 						}
-					
-				
 			
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Alerts");
@@ -999,6 +1018,26 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
 
+			}
+			break;
+		}
+		case "THERMOSTAT CONFIGURATION": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "ThermostatConfigurationOptions");
+				try {
+					if (ts.verifyParticularThermostatConfigurationVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Configuration screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+								+ "' is not present on the Thermostat Configuration screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
 			}
 			break;
 		}

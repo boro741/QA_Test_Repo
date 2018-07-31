@@ -152,13 +152,13 @@ Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts"
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-Then user changes the "Indoor Humidity Alert" to "ON"
-And "Indoor Temperature Alert" value should be updated to "ON" on "Manage Alerts" screen
-And user should be displayed with the following "Indoor Humidity Alert" options:
+#Then user changes the "Indoor Humidity Alert" to "ON"
+#And "Indoor Humidity Alert" value should be updated to "ON" on "Manage Alerts" screen
+#And user should be displayed with the following "Indoor Humidity Alert" options:
 	| IndoorHumidityAlertOptions			| 
 	| Alert for this range				|
-When user selects "Humidity Alert for this range" from "Manage Alerts" screen
-Then user should be displayed with the following "Humidity Alert for this range" options:
+#When user selects "Humidity Alert for this range" from "Manage Alerts" screen
+#Then user should be displayed with the following "Humidity Alert for this range" options:
 	| AlertHumidityRangeOptions		| 
 	| Below 							| 
 	| Above							|
@@ -234,10 +234,10 @@ And user should be able to receive push notification for filter reminder once
 #Homekit -- only for iOS , spruce , NA, EMEA
 
 @SetupHomekitHB		@P2		@UIAutomatable
- Scenario: As a user i should verify Homekit option should not display for HB
- Given user launches and logs in to the Lyric application 
- When user navigates to "HB settings" Screen
-Then user should not display "Setup Homekit & Siri" option 
+Scenario: As a user i should verify Homekit option should not display for HB
+Given user launches and logs in to the Lyric application
+When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+Then user should not be displayed with "Set up HomeKit and Siri" device on the "Thermostat Settings" screen
 
 
 #JasperNA, JasperEMEA, HB_Spruce
@@ -461,13 +461,13 @@ When user selects "save" from "Change Mode" Screen
 Then user "should be updated" with the <SystemMode> option
 When user navigates to "Thermostat Settings" screen from the "thermostat solution card" screen
 And user changes the "Frost Protection Mode" to "~0%"
-When user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+When user navigates to "Thermostat Settings" screen from the "Frost Protection" screen
 Then "Frost Protection Mode" value should be updated to "~0%" on "Thermostat Settings" screen
 When user changes the "Frost Protection Mode" to "~50%"
-And user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+And user navigates to "Thermostat Settings" screen from the "Frost Protection" screen
 Then "Frost Protection Mode" value should be updated to "~50%" on "Thermostat Settings" screen
 When user changes the "Frost Protection Mode" to "~100%"
-And user navigates to "Thermostat Settings" screen from the "Frost Protection Screen" screen
+And user navigates to "Thermostat Settings" screen from the "Frost Protection" screen
 Then "Frost Protection Mode" value should be updated to "~100%" on "Thermostat Settings" screen
 #Hardware settings 
 
@@ -480,62 +480,74 @@ Examples:
 @HBBSpruceEnableHumidification		@P2		@UIAutomatable
 Scenario: As a user I should be able to enable or disable Humidification on my thermostat
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+When user navigates to "Thermostat Humidification" screen from the "Dashboard" screen
 And user changes the "Humidification" to "ON"
+Then "Humidification" value should be updated to "ON" on "Thermostat Humidification" screen
+When user navigates to "Thermostat Settings" screen from the "Thermostat Humidification" screen
 Then "Humidification" value should be updated to "ON" on "Thermostat Settings" screen
+When user navigates to "Thermostat Humidification" screen from the "Thermostat Settings" screen
 When user changes the "Humidification" to "OFF"
+Then "Humidification" value should be updated to "OFF" on "Thermostat Humidification" screen
+When user navigates to "Thermostat Settings" screen from the "Thermostat Humidification" screen
 Then "Humidification" value should be updated to "OFF" on "Thermostat Settings" screen
 
 #HB_Spruce
 @HBBSpruceEnableDeHumidification		@P2		@UIAutomatable
 Scenario: As a user I should be able to enable or disable DeHumidification on my thermostat
 Given user launches and logs in to the Lyric application
-When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user changes the "DeHumidification" to "ON"
-Then "DeHumidification" value should be updated to "ON" on "Thermostat Settings" screen
-When user changes the "DeHumidification" to "OFF"
-Then "DeHumidification" value should be updated to "OFF" on "Thermostat Settings" screen
-
+When user navigates to "Thermostat Dehumidification" screen from the "Dashboard" screen
+And user changes the "Dehumidification" to "ON"
+Then "Dehumidification" value should be updated to "ON" on "Thermostat Dehumidification" screen
+When user navigates to "Thermostat Settings" screen from the "Thermostat Dehumidification" screen
+Then "Dehumidification" value should be updated to "ON" on "Thermostat Settings" screen
+When user navigates to "Thermostat Dehumidification" screen from the "Thermostat Settings" screen
+When user changes the "Dehumidification" to "OFF"
+Then "Dehumidification" value should be updated to "OFF" on "Thermostat Dehumidification" screen
+When user navigates to "Thermostat Settings" screen from the "Thermostat Dehumidification" screen
+Then "Dehumidification" value should be updated to "OFF" on "Thermostat Settings" screen
 
 #HB_Spruce
 @HBBIncreaseDecreaseSleepBrightnessMode 		@P2		@UIAutomatable 
 Scenario: As a user I should be able to increase or decrease Sleep Brightness Mode option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Sleep Brightness Mode" screen from the "Dashboard" screen
-And user changes the "Sleep Brightness Mode" to "50%"
-Then "Sleep Brightness Mode" value should be updated to "50%" on "Sleep Brightness Mode" screen
-And "Sleep Brightness Mode" value should be updated to "50%" on "Thermostat Settings" screen
-When user changes the "Sleep Brightness Mode" to  "OFF"
-Then "Sleep Brightness Mode" value should be updated to "OFF" on "Sleep Brightness Mode" screen  
-And "Sleep Brightness Mode" value should be updated to "OFF" on "Thermostat Settings" screen
+And user changes the "Sleep Brightness" to "~100%"
+Then "Sleep Brightness" value should be updated to "~100%" on "Sleep Brightness Mode" screen
+When user navigates to "Thermostat Settings" screen from the "Sleep Brightness Mode" screen
+And "Sleep Brightness" value should be updated to "~100%" on "Thermostat Settings" screen
+When user navigates to "Sleep Brightness Mode" screen from the "Thermostat Settings" screen
+And user changes the "Sleep Brightness" to "~0%"
+Then "Sleep Brightness" value should be updated to "Off" on "Sleep Brightness Mode" screen
+When user navigates to "Thermostat Settings" screen from the "Sleep Brightness Mode" screen
+Then "Sleep Brightness" value should be updated to "Off" on "Thermostat Settings" screen
 
 #HB_Spruce
 @HBBverifySoundOptions		@P2		@UIAutomatable
 Scenario: As a user I should be able to view options for Sound
 Given user launches and logs in to the Lyric application
 When user navigates to "Sound" screen from the "Dashboard" screen
-Then the following "Sound" options should be displayed
-		| Options	| 
-	    | Off 		| 
-    		| Low   		| 
-      	| Normal  	| 
+Then user should be displayed with the following "Sound" options: 
+		| SoundOptions	| 
+	    | Low 			| 
+    		| Normal   		| 
+      	| Off	  		| 
 
 #HB_Spruce	  
- @HBBchangeSoundsettings		@P2		@UIAutomatable
- Scenario: As a user I should be able to set options for Sound
- Given user launches and logs in to the Lyric application
- When user navigates to "Sound" screen from the "Dashboard" screen
- And user changes the "Sound" to "OFF"
- And user navigates to "Thermostat Settings" Screen from "Sound" Screen
- Then "Sound" value should be updated to "OFF" on "Thermostat Settings" screen 
- When user navigates to "Sound" screen from the "Dashboard" screen
- And user changes the "Sound" to "Low"
- And user navigates to "Thermostat Settings" Screen from "Sound" Screen
- Then "Sound" value should be updated to "Low" on "Thermostat Settings" screen 
- When user navigates to "Sound" screen from the "Dashboard" screen
- And user changes the "Sound" to "Normal"
- And user navigates to "Thermostat Settings" Screen from "Sound" Screen
- Then "Sound" value should be updated to "Normal" on "Thermostat Settings" screen
+@HBBchangeSoundsettings		@P2		@UIAutomatable
+Scenario: As a user I should be able to set options for Sound
+Given user launches and logs in to the Lyric application
+When user navigates to "Sound" screen from the "Dashboard" screen
+And user changes the "Sound" to "Off"
+And user navigates to "Thermostat Settings" Screen from the "Sound" Screen
+Then "Sound" value should be updated to "Off" on "Thermostat Settings" screen 
+When user navigates to "Sound" screen from the "Thermostat Settings" screen
+And user changes the "Sound" to "Low"
+And user navigates to "Thermostat Settings" Screen from the "Sound" Screen
+Then "Sound" value should be updated to "Low" on "Thermostat Settings" screen 
+When user navigates to "Sound" screen from the "Thermostat Settings" screen
+And user changes the "Sound" to "Normal"
+And user navigates to "Thermostat Settings" Screen from the "Sound" Screen
+Then "Sound" value should be updated to "Normal" on "Thermostat Settings" screen
 
 #Rest wi-fi
 
@@ -694,12 +706,14 @@ Then user should be displayed with "Duplicate name error" Popup
 #Precondition: User has set Heating System, Heating Stages, Cooling Stages in Thermostat
 Scenario: As a user I want to View my thermostat Configuration details
 Given user launches and logs in to the Lyric application 
-And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
-Then user should be displayed with "Thermostat Name"
-And user should be displayed with "Firmware Details"
-And user should be displayed with "Heating System"
-And user should be displayed with "Heating Stages"
-And user should be displayed with "Cooling Stages"
+And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen
+Then user should be displayed with the following "Thermostat Configuration" options:
+	| ThermostatConfigurationOptions			|
+	| NAME									|
+	| Firmware Version						|
+	| Heating System							|
+	| Heating Stages							|
+	| Cooling Stages							|
  
 
 #JasperNA, JAsperEMEA, HB_Spruce
@@ -771,12 +785,11 @@ Then the following "Thermostat Settings" options should be Enabled:
       | Thermostat Configuration| 
 
 #JaseprNA, HB_Spruce
-@TogglebetweenEmergencyheatandAutoChangeOver			@P2			@UIAutomatable
+@TogglebetweenEmergencyHeatAndAutoChangeOver			@P2			@UIAutomatable
 Scenario: As a user I should be able to Toggle between Emergency heat and Auto ChangeOver
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
-And user changes has "Emergency heat" Enabled
-Then user should be displyed with "Auto Change Over disabled"
-When user changes has "Auto Change Over" to "Enabled"
-When user changes has "Auto Change Over" to  "Enabled"
-Then user should be displyed with "Emergency heat disabled" 
+And user changes the "Emergency Heat" to "ON"
+Then "Auto Changeover" value should be updated to "OFF" on "Thermostat Settings" screen
+When user changes the "Auto Changeover" to "ON"
+Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen

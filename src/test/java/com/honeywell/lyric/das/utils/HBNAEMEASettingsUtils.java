@@ -1073,7 +1073,9 @@ public class HBNAEMEASettingsUtils {
 				.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDITY_VALUE"));
 		// thermostatCurrentHumidityValue = Math.round((thermostatCurrentHumidityValue +
 		// 9) / 10 * 10);
+		System.out.println("###########thermostatCurrentHumidityValue1: " + thermostatCurrentHumidityValue);
 		thermostatCurrentHumidityValue = Math.round((thermostatCurrentHumidityValue - 5) / 10 * 10);
+		System.out.println("###########thermostatCurrentHumidityValue2: " + thermostatCurrentHumidityValue);
 		Random r = new Random();
 
 		int belowValue = 0, belowValueApp = 0, aboveValueApp = 0;
@@ -1232,8 +1234,161 @@ public class HBNAEMEASettingsUtils {
 				}
 			}
 		} else {
+			if (ts.isBelowAboveHumidityAlertRangeOptionVisible(alertBelowHumidityRangeOption)) {
+				belowValueApp = Integer
+						.parseInt(ts.getBelowAboveHumidityAlertRangeValue(alertBelowHumidityRangeOption).split("%")[0]
+								.replaceAll("\u00B0", ""));
+				System.out.println("#######belowValueApp: " + belowValueApp);
+				if (belowValueApp != thermostatCurrentHumidityValue) {
+					Keyword.ReportStep_Pass(testCase,
+							"Below Humidity value: " + belowValueApp
+									+ " is not equal to current thermostat Humidity value: "
+									+ thermostatCurrentHumidityValue + ". Updating Below Humidity value: "
+									+ belowValueApp + " to " + thermostatCurrentHumidityValue);
+					ts.clickOnBelowAboveHumidityAlertRangeOption(alertBelowHumidityRangeOption);
+					try {
+						Keyword.ReportStep_Pass(testCase,
+								"Scroll to Below Humidity value: " + thermostatCurrentHumidityValue);
+						flag = ts.setHumidiityValueForHumidityRange(alertBelowHumidityRangeOption, thermostatCurrentHumidityValue);
+						if (flag) {
+							//element.click();
+							Keyword.ReportStep_Pass(testCase,
+									"Below Humidity value is set to: " + thermostatCurrentHumidityValue);
+							belowValueApp = Integer.parseInt(ts
+									.getBelowAboveHumidityAlertRangeValue(alertBelowHumidityRangeOption).split("%")[0]);
+							if ((belowValueApp == thermostatCurrentHumidityValue) && (ts.isBackButtonVisible(1))) {
+								ts.clickOnBackButton();
+								waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+								if (ts.isManageAlertsLabelVisible(10)) {
+									ts.clickOnManageAlertsLabel();
+									if (ts.isThermostatHumidityAlertRangeVisible()) {
+										ts.clickOnThermostatHumidityAlertRange();
+										if (ts.isBelowAboveHumidityAlertRangeOptionVisible(
+												alertBelowHumidityRangeOption)) {
+											belowValueApp = Integer.parseInt(ts
+													.getBelowAboveHumidityAlertRangeValue(alertBelowHumidityRangeOption)
+													.split("%")[0]);
+											if ((belowValueApp == thermostatCurrentHumidityValue)) {
+												do {
+													belowValue = r.nextInt((90 - 5) + 1) + 5;
+												} while (belowValue < thermostatCurrentHumidityValue);
+												belowValue = Math.round((belowValue + 9) / 10 * 10);
+												if (ts.isBelowAboveHumidityAlertRangeOptionVisible(
+														alertBelowHumidityRangeOption)) {
+													belowValueApp = Integer.parseInt(ts.getBelowHumidityRangeValue()
+															.split(String.valueOf("%"))[0]);
+													aboveValueApp = Integer.parseInt(ts.getAboveHumidityRangeValue()
+															.split(String.valueOf("%"))[0]);
+													if (belowValueApp >= aboveValueApp) {
+														flag = false;
+														Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+																"Displayed Below Humidity value in the app: "
+																		+ belowValueApp
+																		+ " and displayed Above Humidity value in the app: "
+																		+ aboveValueApp);
+													} else {
+														Keyword.ReportStep_Pass(testCase,
+																"[BeforeChange]Displayed Below Humidity value: "
+																		+ belowValueApp
+																		+ " and displayed Above Humidity value: "
+																		+ aboveValueApp);
+													}
+													ts.clickOnBelowAboveHumidityAlertRangeOption(
+															alertBelowHumidityRangeOption);
+													try {
+														Keyword.ReportStep_Pass(testCase,
+																"Scroll to Below Humidity value: " + belowValue);
+														element = testCase.getMobileDriver()
+																.scrollTo(String.valueOf(belowValue));
+														if (element != null) {
+															element.click();
+															inputs.setInputValue("INDOORHUMIDITY_BELOW_VALUE",
+																	belowValue);
+															Keyword.ReportStep_Pass(testCase,
+																	"Below Humidity value is set to: "
+																			+ inputs.getInputValue(
+																					"INDOORHUMIDITY_BELOW_VALUE"));
+														}
+													} catch (Exception e) {
+														flag = false;
+														Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+																"Error message: " + e.getMessage());
+													}
+													if (ts.isIndoorHumidityRangeValueVisible()) {
+														belowValueApp = Integer.parseInt(ts.getBelowHumidityRangeValue()
+																.split(String.valueOf("%"))[0]);
+														aboveValueApp = Integer.parseInt(ts.getAboveHumidityRangeValue()
+																.split(String.valueOf("%"))[0]);
+														Keyword.ReportStep_Pass(testCase,
+																"[AfterChange]Displayed Below Humidity value is: "
+																		+ belowValueApp
+																		+ " and Displayed Above Humidity value is: "
+																		+ aboveValueApp);
+													}
+													if (ts.isBackButtonVisible(1)) {
+														ts.clickOnBackButton();
+														waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR",
+																3);
+													}
 
-			// iOS
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error message: " + e.getMessage());
+					}
+				} else {
+					Keyword.ReportStep_Pass(testCase,
+							"Below Humidity value: " + belowValueApp
+									+ " is equal to current thermostat humidity value: "
+									+ thermostatCurrentHumidityValue + ". Updating Below humidity value: "
+									+ belowValueApp + " to a new value greater than " + thermostatCurrentHumidityValue);
+					try {
+						do {
+							belowValue = r.nextInt((90 - 5) + 1) + 5;
+						} while (belowValue < thermostatCurrentHumidityValue);
+						belowValue = Math.round((belowValue + 9) / 10 * 10);
+						ts.clickOnBelowAboveHumidityAlertRangeOption(alertBelowHumidityRangeOption);
+						try {
+							Keyword.ReportStep_Pass(testCase, "Scroll to Below Humidity value: " + belowValue);
+							element = testCase.getMobileDriver().scrollTo(String.valueOf(belowValue));
+							if (element != null) {
+								element.click();
+								inputs.setInputValue("INDOORHUMIDITY_BELOW_VALUE", belowValue);
+								Keyword.ReportStep_Pass(testCase, "Below Humidity value is set to: "
+										+ inputs.getInputValue("INDOORHUMIDITY_BELOW_VALUE"));
+							}
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+						if (ts.isIndoorHumidityRangeValueVisible()) {
+							belowValueApp = Integer
+									.parseInt(ts.getBelowHumidityRangeValue().split(String.valueOf("%"))[0]);
+							aboveValueApp = Integer
+									.parseInt(ts.getAboveHumidityRangeValue().split(String.valueOf("%"))[0]);
+							Keyword.ReportStep_Pass(testCase, "[AfterChange]Displayed Below Humidity value is: "
+									+ belowValueApp + " and Above Humidity value is shown: " + aboveValueApp);
+						}
+						if (ts.isBackButtonVisible(1)) {
+							ts.clickOnBackButton();
+							waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+						}
+
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error message: " + e.getMessage());
+					}
+				}
+			}
 		}
 		return flag;
 	}
@@ -1476,6 +1631,42 @@ public class HBNAEMEASettingsUtils {
 					"Delete Thermostat Device Confirmation Pop Up displayed");
 		} else {
 			Keyword.ReportStep_Pass(testCase, "Delete Thermostat Device Confirmation Pop Up not displayed");
+		}
+		return flag;
+	}
+
+	public static boolean verifyThermostatHumidificationValueInHumidificationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		String currentThermostatHumdificationValue = ts
+				.getThermostatHumidificationValueInHumidificationScreen(testCase);
+		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE",
+				currentThermostatHumdificationValue);
+		if (inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE") != null) {
+			Keyword.ReportStep_Pass(testCase, "Current Thermostat Humidification value is: "
+					+ inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE"));
+			return flag;
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
+	public static boolean verifyThermostatDehumidificationValueInDehumidificationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		String currentThermostatDehumdificationValue = ts
+				.getThermostatDehumidificationValueInHumidificationScreen(testCase);
+		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE",
+				currentThermostatDehumdificationValue);
+		if (inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE") != null) {
+			Keyword.ReportStep_Pass(testCase, "Current Thermostat Dehumidification value is: "
+					+ inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE"));
+			return flag;
+		} else {
+			flag = false;
 		}
 		return flag;
 	}
