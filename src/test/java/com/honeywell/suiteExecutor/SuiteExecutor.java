@@ -29,13 +29,13 @@ public class SuiteExecutor {
                     
                     /**Jasper NA-DashbboardandSolutionCard**/
     				"ViewDashboard",
-    	/*			"ViewDashboardOFF",
+    				"ViewDashboardOFF",
     				"ViewSolutionCard",
     				"ViewSolutionCardOFF",
     				"SystemModeInfoscreenwithCoolandHeatMode",
     				"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
     				
-    				*//**Jasper NA-Scheduling**//*
+    				/**Jasper NA-Scheduling**/
     				"JasperNA_CreateNAScheduleSinglestatwithDefaultvalue",
     				"JasperNA_CancelToRetainExisitngscheduling",
     				"JasperNA_ConfirmToCreateNewSchedule",
@@ -44,20 +44,20 @@ public class SuiteExecutor {
     				"JasperNA_DeletingDefaultPeriodDifferentOnWeekdays",
     				"JasperNA_CreateTimeBasedScheduleInOffMode",
 
-    				*//**Jasper NA - Settings**//*
+    				/**Jasper NA - Settings**/
     				"VerifyJasperNASettings",
     				"VerifyJasperNAEMEASpruceSettings",
     				"VerifyHBBSettings",
     				"EnableDisableIndoorTemperatureAlert",
     				
-    				*//**Jasper EMEA-Dashboard&Solutioncard**//*
+    				/**Jasper EMEA-Dashboard&Solutioncard**/
     				"ViewDashboardEMEA",
     				"ViewSolutionCardEMEA",
     				"SystemModeInfoscreenwithHeatOnlyEMEA",
     				
-    				*//**Jasper EMEA-Scheduling**//*
+    				/**Jasper EMEA-Scheduling**/
     				"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
-    				"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",*/
+    				"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
     				
                     };
        	 try {
@@ -73,11 +73,18 @@ public class SuiteExecutor {
 		if(commandLineArguments[0].equalsIgnoreCase("iOS")){
 	       	 commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
 	                    "--publishResult",
-	                    "--requirementFileName","Requirement_file_Android.txt",
+	                    "--useXCUITest", "true",
+	                    "--requirementFileName","Requirement_file_iOS.txt",
 	                    "--testrunname","Smoketest-"+appName+"",
 	                    "--appToInstall","IOS:1,Android:"+appName+"",
 	                    "--groups",
 	                    
+	                    "ViewDashboard",
+	                	"ViewDashboardOFF",
+	                	"ViewSolutionCard",
+	                	"ViewSolutionCardOFF",
+	                	"SystemModeInfoscreenwithCoolandHeatMode",
+	                	"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
 
 	                    };
 	       	 try {
