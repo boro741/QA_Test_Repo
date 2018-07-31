@@ -23,7 +23,7 @@ public class SuiteExecutor {
        	 commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
                     "--publishResult",
                     "--requirementFileName","Requirement_file_ComfortSettings_Android.txt",
-                    "--testrunname","Smoketest-"+appName+"",
+                    "--testrunname","DLS-"+appName+"",
                     "--appToInstall","IOS:1,Android:"+appName+"",
                     "--groups",
                     
@@ -46,9 +46,16 @@ public class SuiteExecutor {
 
     				/**Jasper NA - Settings**/
     				"VerifyJasperNASettings",
-    				"VerifyJasperNAEMEASpruceSettings",
-    				"VerifyHBBSettings",
+    				//"VerifyJasperNAEMEASpruceSettings",
+    				//"VerifyHBBSettings",
     				"EnableDisableIndoorTemperatureAlert",
+    				
+    				/** NA Schedule ON/OFF**/
+    				"ScheduleOFFONNA",
+                    "ScheduleOFFONNAtimebase",
+                    "ScheduleOFFVacationNA",
+                    "ScheduleONOFFNAVacationNA",
+                    "ScheduleONOFFNAgeofencebase",
     				
     				/**Jasper EMEA-Dashboard&Solutioncard**/
     				"ViewDashboardEMEA",
@@ -58,6 +65,18 @@ public class SuiteExecutor {
     				/**Jasper EMEA-Scheduling**/
     				"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
     				"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+    	                
+                    /** EMEA Schedule ON/OFF**/
+                    "ScheduleOFFONEMEA",
+                    "ScheduleOFFONEMEAtimebase",
+                    "ScheduleOFFVacationEMEA",
+                    "ScheduleOFFONVacationEMEA",
+                    "ScheduleONOFFEMEAgeofencebase",
+                    
+                    /** HBB Schedule ON/OFF**/
+                    "ScheduleONOFFHB",
+                    "ScheduleONOFFHBtimebase",
+                    "ScheduleONOFFHBgeofencebase",
     				
                     };
        	 try {
@@ -75,8 +94,8 @@ public class SuiteExecutor {
 	                    "--publishResult",
 	                    "--useXCUITest", "true",
 	                    "--requirementFileName","Requirement_file_iOS.txt",
-	                    "--testrunname","Smoketest-"+appName+"",
-	                    "--appToInstall","IOS:1,Android:"+appName+"",
+	                    "--testrunname","DLS-"+appName+"",
+	                    "--appToInstall","IOS:"+appName+",Android:1",
 	                    "--groups",
 	                    
 	                    "ViewDashboard",
