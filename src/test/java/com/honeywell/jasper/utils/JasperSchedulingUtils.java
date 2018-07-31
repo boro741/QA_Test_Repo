@@ -10209,7 +10209,7 @@ public class JasperSchedulingUtils {
 							tempHeatSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
-						if (tempHeatSetPointFromInputs.contains(".0")) {
+						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
 						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
@@ -10329,11 +10329,11 @@ public class JasperSchedulingUtils {
 				if (ss.isGeofenceHomeHeatElementVisible(5)) {
 					homeHeatSetPointIOS = ss.getGeofenceHomeHeatElement();
 					tempHeatSetPointApp = homeHeatSetPointIOS.getAttribute("value");
-					if (tempHeatSetPointApp.contains(".0")) {
+					if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
 						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 					}
 					tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
-					if (tempHeatSetPointFromInputs.contains(".0")) {
+					if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 						tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 					}
 					if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
@@ -10349,11 +10349,11 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
 						sleepHeatSetPointIOS = ss.getGeofenceSleepHeatElement();
 						tempHeatSetPointApp = sleepHeatSetPointIOS.getAttribute("value");
-						if (tempHeatSetPointApp.contains(".0")) {
+						if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
 							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
-						if (tempHeatSetPointFromInputs.contains(".0")) {
+						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
 						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
@@ -10444,11 +10444,11 @@ public class JasperSchedulingUtils {
 					} else {
 						awayHeatSetPointIOS = ss.getGeofenceAwayHeatElement();
 						tempHeatSetPointApp = awayHeatSetPointIOS.getAttribute("value");
-						if (tempHeatSetPointApp.contains(".0")) {
+						if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
 							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
-						if (tempHeatSetPointFromInputs.contains(".0")) {
+						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
 						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
@@ -14265,11 +14265,7 @@ public class JasperSchedulingUtils {
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed verifying set points for Away period ***************");
 			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					flag = flag & schl.clickOnSkipButton();
-				} else {
-					flag = flag & schl.clickOnNoButton();
-				}
 
 			} else {
 				Keyword.ReportStep_Pass(testCase, " ");
