@@ -1377,4 +1377,16 @@ public class CHILUtil implements AutoCloseable {
 					return result;
 				}
 	
+	public int putThermostatDeviceName(long locationID, String deviceID, String deviceNameToBePut) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/devices/%s", locationID, deviceID);
+			String headerData = String.format("{\"OnboardDeviceName\": \"%s\",\"name\": \"Security\"}",
+					deviceNameToBePut);
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
 }

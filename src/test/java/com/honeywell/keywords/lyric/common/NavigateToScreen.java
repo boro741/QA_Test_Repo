@@ -558,25 +558,25 @@ public class NavigateToScreen extends Keyword {
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Dehumidification Screen'
 				case "THERMOSTAT DEHUMIDIFICATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatDehumidificationScreen(testCase,
-							inputs);
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToThermostatDehumidificationScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Sound Screen'
 				case "SOUND": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSoundScreen(testCase,
-							inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSoundScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Sound Brightness Mode Screen'
 				case "SLEEP BRIGHTNESS MODE": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase,
-							inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Configuration'
 				case "THERMOSTAT CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
+							inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Set Filter Reminder Screen'
@@ -2240,23 +2240,42 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "THERMOSTAT HUMIDIFICATION": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
-					flag = flag &ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.HUMIDIFICATION);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.HUMIDIFICATION);
 					break;
 				}
 				case "THERMOSTAT DEHUMIDIFICATION": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
-					flag = flag &ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.DEHUMIDIFICATION);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.DEHUMIDIFICATION);
 					break;
 				}
 				case "SLEEP BRIGHTNESS MODE": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
-					flag = flag &ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SLEEPBRIGHTNESSMODE);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SLEEPBRIGHTNESSMODE);
 					break;
 				}
 				case "SOUND": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
-					flag = flag &ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SOUND);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SOUND);
 					break;
+				}
+				case "DASHBOARD": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					PrimaryCard pc = new PrimaryCard(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (ts.isThermostatSettingsHeaderTitleVisible(10) && ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (pc.isCogIconVisible() && pc.isBackButtonVisible()) {
+							pc.clickOnBackButton();
+							HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							flag = flag & d.isGlobalDrawerButtonVisible();
+						}
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ACTIVITY HISTORY")) {

@@ -683,7 +683,7 @@ Scenario: As a user I want to rename my thermostat through the application
 Given user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
 When user edits the "Thermostat" name to "Test Thermostat Name" 
-And user navigates to "Dashboard" screen from the "Thermostat Configuration" screen 
+And user navigates to "Dashboard" screen from the "Thermostat Settings" screen 
 Then user should be displayed with "Test Thermostat Name" device on the "dashboard" screen 
 And user reverts back the "Thermostat device name" through CHIL
 

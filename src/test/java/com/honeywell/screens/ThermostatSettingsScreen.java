@@ -646,11 +646,27 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isBackButtonVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", timeOut);
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			return flag;
+		} else if (MobileUtils.isMobElementExists("NAME", "Back", testCase)) {
+			return flag;
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean clickOnBackButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		} else if (MobileUtils.isMobElementExists("NAME", "Back", testCase)) {
+			MobileUtils.clickOnElement(testCase, "NAME", "Back");
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean isActivityHistoryAlertTimeVisible() {
@@ -1620,5 +1636,38 @@ public class ThermostatSettingsScreen extends MobileScreens {
 
 	public boolean isThermostatEmergencyHeatSwitchVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch", 3);
+	}
+
+	public boolean isThermostatNameTextBoxVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatNameTextbox", timeOut);
+	}
+
+	public boolean clearThermostatNameTextBox() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clearTextField(objectDefinition, testCase, "ThermostatNameTextbox");
+		} else {
+			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[1]/XCUIElementTypeTextField"))
+					.clear();
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatNameTextbox");
+		}
+	}
+
+	public boolean setValueToThermostatNameTextBox(String value) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "ThermostatNameTextbox", value);
+			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+			System.out.println("######dimensions.width:- " + dimensions.width);
+			System.out.println("######dimensions.height:- " + dimensions.height);
+			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
+			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
+			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+		} else {
+			flag = flag & MobileUtils.setValueToElement(testCase, "XPATH",
+					"//XCUIElementTypeCell[1]/XCUIElementTypeTextField", value);
+			MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonInIOSKeyboard");
+		}
+		return flag;
 	}
 }
