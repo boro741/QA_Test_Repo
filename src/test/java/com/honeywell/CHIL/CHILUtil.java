@@ -50,6 +50,10 @@ public class CHILUtil implements AutoCloseable {
 	public static Double maxCool;
 	public static Double minCool;
 	public static String thermostatUnit="";
+	public static String startTime="";
+	public static String endTime="";
+	public static int setPointInPrimaryCard=0;
+	public static int setPointInVacationCard=0;
 
 	public CHILUtil(TestCaseInputs inputs) throws Exception {
 		String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);

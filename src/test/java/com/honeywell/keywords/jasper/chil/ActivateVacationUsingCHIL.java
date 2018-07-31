@@ -95,11 +95,11 @@ public class ActivateVacationUsingCHIL extends Keyword {
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
-				String startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
-				String endTime = JasperSetPoint.addDaysToDate(null, startTime, 7);
+			 CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
+			 CHILUtil.endTime = JasperSetPoint.addDaysToDate(null, CHILUtil.startTime, 7);
 
 				if (chUtil.getConnection()) {
-					int result = chUtil.enableVacation(locationID, deviceID, startTime, endTime,
+					int result = chUtil.enableVacation(locationID, deviceID, CHILUtil.startTime, CHILUtil.endTime,
 							statInfo.getThermostatUnits(), CHILUtil.coolSetPoints, CHILUtil.heatSetPoints);
 					if (result == 200) {
 						Keyword.ReportStep_Pass(testCase,

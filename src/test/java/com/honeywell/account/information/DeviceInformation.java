@@ -55,6 +55,12 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
+	
+	public String getVacationHeatSetPoint() {
+		
+		return deviceInformation.getJSONObject("vacationHold").getString("heatSetpoint");
+		
+	}
 
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
