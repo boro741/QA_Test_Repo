@@ -833,6 +833,28 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Status is not displayed");
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatAutoChangeOverSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Auto Changeover Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatAutoChangeOverSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Auto Changeover Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Auto Changeover Switch is not displayed in the Thermostat Settings Screen");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

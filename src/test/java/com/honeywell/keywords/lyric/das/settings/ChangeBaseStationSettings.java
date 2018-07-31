@@ -1030,6 +1030,51 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Auto Changeover is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned OFF");
+							flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Auto Changeover Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned ON");
+							flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Toggle is turned OFF");
+						}
+					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

@@ -14,6 +14,8 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
+import io.appium.java_client.TouchAction;
+
 public class ThermostatSettingsScreen extends MobileScreens {
 
 	private static final String screenName = "ThermostatSettings";
@@ -810,6 +812,21 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			}
 			return flag;
 		}
+		case BaseStationSettingsScreen.EMERGENCYHEAT: {
+			boolean flag = true;
+			if (this.isThermostatEmergencyHeatSwitchVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Emergency Heat Switch Visible @ 1");
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Emergency Heat Switch Visible @ 2");
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						BaseStationSettingsScreen.EMERGENCYHEAT);
+			}
+			if (this.isThermostatEmergencyHeatSwitchVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Emergency Heat Switch Visible @ 3");
+			}
+			return flag;
+		}
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",
@@ -977,6 +994,56 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatOptimiseSwitch");
 	}
 
+	public boolean isThermostatAutoChangeOverSwitchEnabled(TestCases testCase) throws Exception {
+		boolean flag = true;
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			} else {
+				int startx = (dimension.width * 20) / 100;
+				int starty = (dimension.height * 62) / 100;
+				int endy = (dimension.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, endy, startx, starty, 1000);
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			} else {
+				action.press(0, -(int) (dimension.getHeight() * .9)).moveTo(10, (int) (dimension.getHeight() * .6))
+						.release().perform();
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean toggleThermostatAutoChangeOverSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch");
+	}
+
 	public boolean isThermostatAutoChangeOverSwitchEnabled(TestCases testCase, String fieldToBeVerified)
 			throws Exception {
 		boolean flag = true;
@@ -1009,25 +1076,43 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch", 20)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch").getText()
 						.equalsIgnoreCase("ON")) {
-					return true;
+					return flag;
 				} else {
-					return false;
+					flag = false;
 				}
 			} else {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")
-						.getAttribute("value").equalsIgnoreCase("1")) {
-					return true;
+				flag = flag & this.selectOptionFromThermostatSettings(BaseStationSettingsScreen.EMERGENCYHEAT);
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return flag;
 				} else {
-					return false;
+					flag = false;
 				}
 			}
 		} else {
-			throw new Exception("Could not find Emergency Heat Switch");
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			} else {
+				flag = flag & this.selectOptionFromThermostatSettings(BaseStationSettingsScreen.EMERGENCYHEAT);
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
 		}
+		return flag;
 	}
 
 	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase, String fieldToBeVerified)
@@ -1531,5 +1616,9 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			return MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeStaticText[@value='" + settingOption + "']", testCase);
 		}
+	}
+
+	public boolean isThermostatEmergencyHeatSwitchVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch", 3);
 	}
 }
