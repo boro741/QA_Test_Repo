@@ -3,7 +3,7 @@ Feature: Edit Geofence based scheduling
 As an user i want to Create and Edit Geofence Schedule 
 so that my home temperature will get set automatically based on geofence settings
 
-@EMEA_CreateGeofenceSchedule
+@EMEA_CreateGeofenceSchedule @Automated
   Scenario: As a user i want to create an Geofence schdeule with Defualt values for Home Away settings
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -11,20 +11,15 @@ so that my home temperature will get set automatically based on geofence setting
        When user creates "Geofence based" scheduling with default values "Without" sleep settings
      Then "Geofence based" scheduling gets activated
 
-      @EMEA_CreateNewGeofenceSchedulewithExistingGeofence
-  Scenario: As a user i want to create New Geofence schdeule when user already running on Geofence Schedule 
-    Given user thermostat is set to "Geofence" schedule
+      @EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule @Automated
+  Scenario: As a user i want to create New Geofence schdeule when user already running on time based Schedule 
+    Given user thermostat is set to "time based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates "Geofence based" schedule with "Use Geofence"
+     When user creates "Geofence based" scheduling with default values "Without" sleep settings
      Then "Geofence based" scheduling gets activated
-      And user navigates to "Primary card" screen from the "Scheduling" screen
-      And user is displayed with "Using Away/Home settings"
       
-    
-    
-  
-  @EMEA_SleepSettings
+  @EMEA_SleepSettings @Automated
   Scenario: As a user i want to Add Edit Geofence Sleeo Settings 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -32,9 +27,7 @@ so that my home temperature will get set automatically based on geofence setting
       When user creates "Geofence based" scheduling with default values "With" sleep settings
     Then "Geofence based" scheduling gets activated
   
-   
-  
-  @EMEA_EditGeofenceWithTemperature
+  @EMEA_EditGeofenceWithTemperature @Automated
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for  Home,Sleep and Away settings
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
      Given user thermostat is set to "No" schedule
@@ -93,7 +86,7 @@ so that my home temperature will get set automatically based on geofence setting
       | Switch to Time based | Time based schedule | 
       | Turn  Schedule oFF   | Tap on Resume       | 
 
-@EMEA_CreateGeofenceScheduleInOffMode
+@EMEA_CreateGeofenceScheduleInOffMode @Automated
 Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "time based" schedule
 And  user has "Off" system mode
@@ -106,7 +99,7 @@ Then <scheduling> scheduling gets activated
       | scheduling| 
       | Geofence |
 
-@EMEA_CreateGeonceScheduleInLearnMode
+@EMEA_CreateGeonceScheduleInLearnMode  @Automated
 Scenario: As a user i want to create an Geofence schdeule from Learn More
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -125,19 +118,18 @@ Scenario: As a user i want to create an Geofence schdeule from Learn More
       And user is displayed with "Using Away/Home settings"
 
      
-     @EMEA_CopyScheduleToMulitpleStat
+     @EMEA_CopyGeofenceScheduleToMulitpleStat  @Automated
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user selects "CopyStatst" stats while creating "Geofence" schedule with default schedule value
-Then "Geofence" scheduling gets activated in <CopyStatst> stats
+When user creates default <ScheduleType> schedule value <CopyStats> stats
+Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
   
   Examples: 
- |CopyStatst |
-| None|
-|All|
-| Selected|
+|ScheduleType       |  CopyStats |  VerifyCopyStats |
+#|Geofence based  | without copying schedule to other|not copied to other|
+|Geofence based     | by copying schedule to all|copied to all other|
+#|Geofence based    | by copying schedule to selected|copied to selected|
 
 @EMEA_CopyScheduleWhenStatOffline
 # Given Account has a Location with Multiple Stats and Offline stats
@@ -147,7 +139,7 @@ And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user selects "CopyStatst" stats while creating "Geofence" schedule with default schedule value
 Then Offline Stat should't be displayed
 
-@EMEA_CreateGeofenceWithEdiotingHome_Sleep_AwaySettings
+@EMEA_CreateGeofenceWithEditingHome_Sleep_AwaySettings
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application

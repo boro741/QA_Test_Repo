@@ -82,7 +82,10 @@ public class JasperSchedulingUtils {
 		boolean flag = true;
 		try {
 			SchedulingScreen ss = new SchedulingScreen(testCase);
-//			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			//flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			if (ss.isTimeScheduleButtonVisible(10)) {
+				flag = flag & ss.clickOnTimeScheduleButton();
+			} 
 			if (ss.isCreateScheduleButtonVisible(5)) {
 				flag = flag & ss.clickOnCreateScheduleButton();
 			} else {
@@ -10083,7 +10086,7 @@ public class JasperSchedulingUtils {
 
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Completed verifying time based schedule on Primary Card **************************");
-		} else if (scheduleType.equalsIgnoreCase("Geofence based")) {
+		} else if (scheduleType.equalsIgnoreCase("Geofence based")||scheduleType.equalsIgnoreCase("Geofence")) {
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying goefence based schedule on Primary Card **************************");
 
