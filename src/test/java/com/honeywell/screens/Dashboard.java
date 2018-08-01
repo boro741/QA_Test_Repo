@@ -97,7 +97,6 @@ public class Dashboard extends MobileScreens {
 	public boolean isAddDeviceIconBelowExistingDASDeviceVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice",
 				timeOut, false);
-
 	}
 
 	public boolean clickOnAddDeviceIconBelowExistingDASDevice() {

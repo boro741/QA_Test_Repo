@@ -1,5 +1,7 @@
 package com.honeywell.lyric.das.utils;
 
+import org.openqa.selenium.Dimension;
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
@@ -16,6 +18,8 @@ import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+
+import io.appium.java_client.TouchAction;
 
 public class DASSettingsUtils {
 
@@ -366,8 +370,7 @@ public class DASSettingsUtils {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
-			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
-					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -391,6 +394,19 @@ public class DASSettingsUtils {
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+					action.press(10, (int) (dimension.getHeight() * .9))
+							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+				} else {
+					int startx = (dimension.width * 20) / 100;
+					int starty = (dimension.height * 62) / 100;
+					int endx = (dimension.width * 22) / 100;
+					int endy = (dimension.height * 35) / 100;
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				}
 				flag = flag & ac.clickONCameraSetingsOption("Camera Configuration");
 			}
 		} catch (Exception e) {
