@@ -28,7 +28,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
-
+import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -758,6 +758,30 @@ public class VerifyScreen extends Keyword {
 			case "CAMERA SETTINGS": {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				flag = flag & cs.isCameraSettingsHeaderTitleVisible(20);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "GEOFENCING SCHEDULE":{
+				SchedulingScreen schl = new SchedulingScreen(testCase);
+				flag = flag & schl.isUseGeofencingTextVisible(5);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "TIME BASED SCHEDULE":{
+				SchedulingScreen schl = new SchedulingScreen(testCase);
+				flag = flag & schl.isEverydayScheduleButtonVisible(10);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "TAP ON RESUME":{
+				SchedulingScreen schl = new SchedulingScreen(testCase);
+				flag = flag & schl.clickOnScheduleOffOverlay();
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}

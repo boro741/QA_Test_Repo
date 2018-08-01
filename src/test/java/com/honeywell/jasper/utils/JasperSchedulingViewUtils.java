@@ -60,7 +60,7 @@ public class JasperSchedulingViewUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean selectAnySchedulePeriodOfADay(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
