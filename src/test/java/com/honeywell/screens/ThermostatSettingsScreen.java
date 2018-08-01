@@ -507,14 +507,20 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (indoorHumidityAlertRangeOption.contains("Below")) {
-				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BelowHumidityRangePicker")) {
+				if (testCase.getMobileDriver()
+						.findElement(By
+								.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[1]"))
+						.isEnabled()) {
 					return flag;
 				} else {
 					flag = false;
 				}
 			} else {
 				if (indoorHumidityAlertRangeOption.contains("Above")) {
-					if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AboveHumidityRangePicker")) {
+					if (testCase.getMobileDriver()
+							.findElement(By.xpath(
+									"//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[2]"))
+							.isEnabled()) {
 						return flag;
 					} else {
 						flag = false;
@@ -548,15 +554,24 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (indoorHumidityAlertRangeOption.contains("Below")) {
-				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BelowHumidityRangePicker")) {
-					getHumidityAlertRangeValue = MobileUtils.getFieldValue(objectDefinition, testCase,
-							"BelowHumidityRangePicker");
+				if (testCase.getMobileDriver()
+						.findElement(By
+								.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[1]"))
+						.isEnabled()) {
+					getHumidityAlertRangeValue = testCase.getMobileDriver()
+							.findElement(By.xpath(
+									"//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[1]"))
+							.getAttribute("value");
 				}
 			} else {
 				if (indoorHumidityAlertRangeOption.contains("Above")) {
-					if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AboveHumidityRangePicker")) {
-						getHumidityAlertRangeValue = MobileUtils.getFieldValue(objectDefinition, testCase,
-								"AboveHumidityRangePicker");
+					if (testCase.getMobileDriver()
+							.findElement(By.xpath(
+									"//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[2]"))
+							.isEnabled()) {
+						getHumidityAlertRangeValue = testCase.getMobileDriver().findElement(By
+								.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[2]"))
+								.getAttribute("value");
 					}
 				}
 			}
@@ -603,17 +618,29 @@ public class ThermostatSettingsScreen extends MobileScreens {
 
 	public boolean setHumidiityValueForHumidityRange(String alertBelowHumidityRangeOption, int setHumidityValue) {
 		boolean flag = true;
+		int counter = 0;
+		System.out.println("#########" + (String.valueOf(setHumidityValue) + "%"));
+		System.out.println("$$$$$$$$$" + testCase.getMobileDriver()
+				.findElement(By.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[1]"))
+				.getAttribute("value"));
 		if (alertBelowHumidityRangeOption.contains("Below")) {
-			testCase.getMobileDriver()
+			while (!testCase.getMobileDriver()
 					.findElement(
 							By.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[1]"))
-					.sendKeys((String.valueOf(setHumidityValue) + "\u00B0"));
-			flag = flag & MobileUtils.setValueInPicker(testCase, objectDefinition, "BelowHumidityRangePicker",
-					String.valueOf(setHumidityValue) + "\u00B0");
+					.getAttribute("value").equals((String.valueOf(setHumidityValue) + "%")) && counter <= 5) {
+				testCase.getMobileDriver()
+						.findElement(By
+								.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[1]"))
+						.sendKeys((String.valueOf(setHumidityValue) + "%"));
+				counter++;
+			}
 		} else {
 			if (alertBelowHumidityRangeOption.contains("Above")) {
-				flag = flag & MobileUtils.setValueInPicker(testCase, objectDefinition, "AboveHumidityRangePicker",
-						String.valueOf(setHumidityValue) + "\u00B0");
+				testCase.getMobileDriver()
+						.findElement(By
+								.xpath("//XCUIElementTypePicker[@name='HumidityChange']/XCUIElementTypePickerWheel[2]"))
+						.sendKeys((String.valueOf(setHumidityValue) + "%"));
+
 			} else {
 				flag = false;
 			}
@@ -1656,13 +1683,6 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "ThermostatNameTextbox", value);
-			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-			System.out.println("######dimensions.width:- " + dimensions.width);
-			System.out.println("######dimensions.height:- " + dimensions.height);
-			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
-			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
 		} else {
 			flag = flag & MobileUtils.setValueToElement(testCase, "XPATH",
 					"//XCUIElementTypeCell[1]/XCUIElementTypeTextField", value);
