@@ -543,6 +543,155 @@ public class DASSettingsUtils {
 	}
 
 	/**
+	 * <h1>Navigate from Dashboard to Humidification Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToThermostatHumidificationScreen method
+	 * navigates from the dashboard to the Humidification screen by clicking on the
+	 * device name on the secondary card settings and tap on Humidification option
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToThermostatHumidificationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.HUMIDIFICATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate from Dashboard to Dehumidification Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToThermostatDehumidificationScreen method
+	 * navigates from the dashboard to the Dehumidification screen by clicking on
+	 * the device name on the secondary card settings and tap on Dehumidification
+	 * option
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToThermostatDehumidificationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.DEHUMIDIFICATION);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate from Dashboard to Sleep Brightness Mode Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToSleepBrigthnessModeScreen method navigates
+	 * from the dashboard to the Sleep Brightness Mode screen by clicking on the
+	 * device name on the secondary card settings and tap on Sleep Brightness Mode
+	 * option
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToSleepBrigthnessModeScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SLEEPBRIGHTNESSMODE);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate from Dashboard to Sound Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToSoundScreen method navigates from the
+	 * dashboard to the Sound screen by clicking on the device name on the secondary
+	 * card settings and tap on Sound option
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToSoundScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SOUND);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
 	 * <h1>Navigate from Dashboard to Camera Motion Detection Settings Screen</h1>
 	 * <p>
 	 * The navigateFromDashboardScreenToCameraMotionDetectionSettingsScreen method
@@ -979,12 +1128,13 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToThermostatConfigurationScreen(TestCases testCase) {
+	public static boolean navigateFromDashboardScreenToThermostatConfigurationScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			PrimaryCard pc = new PrimaryCard(testCase);
-			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Thermostathu");
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();

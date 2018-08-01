@@ -20,19 +20,20 @@ import com.honeywell.screens.CameraSettingsScreen;
 import io.appium.java_client.TouchAction;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
 public class ChangeBaseStationSettings extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 
 	public ChangeBaseStationSettings(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.parameters = parameters;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -869,6 +870,210 @@ public class ChangeBaseStationSettings extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to set the Frost proection to: " + parameters.get(1));
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("HUMIDIFICATION")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Humidification is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatHumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Humidification Switch is turned OFF");
+							flag = flag & ts.toggleThermostatHumidificationSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Humidification Switch is enabled");
+								HBNAEMEASettingsUtils
+										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatHumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Humidification Switch is turned ON");
+							HBNAEMEASettingsUtils.verifyThermostatHumidificationValueInHumidificationScreen(testCase,
+									inputs);
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Humidification Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatHumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Humidification Switch is turned ON");
+							flag = flag & ts.toggleThermostatHumidificationSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Humidification Switch is disabled");
+								HBNAEMEASettingsUtils
+										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatHumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Humidification Toggle is turned OFF");
+							HBNAEMEASettingsUtils.verifyThermostatHumidificationValueInHumidificationScreen(testCase,
+									inputs);
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("DEHUMIDIFICATION")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Dehumidification is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatDehumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is turned OFF");
+							flag = flag & ts.toggleThermostatDehumidificationSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is enabled");
+								HBNAEMEASettingsUtils.verifyThermostatDehumidificationValueInDehumidificationScreen(
+										testCase, inputs);
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatDehumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is turned ON");
+							HBNAEMEASettingsUtils
+									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Dehumidification Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatDehumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is turned ON");
+							flag = flag & ts.toggleThermostatDehumidificationSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is disabled");
+								HBNAEMEASettingsUtils.verifyThermostatDehumidificationValueInDehumidificationScreen(
+										testCase, inputs);
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatDehumidificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Dehumidification Toggle is turned OFF");
+							HBNAEMEASettingsUtils
+									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SLEEP BRIGHTNESS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				String value = parameters.get(1).split("%")[0].split("~")[1];
+				if (ts.setValueToSleepBrightnessModeSlider(value)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully set the Sleep Brightness Mode to " + parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to set the Sleep Brightness Mode to: " + parameters.get(1));
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Sound Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Sound Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sound Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Sound Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Sound Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sound Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("NORMAL")) {
+					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Sound Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Sound Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sound Status is not set to: " + parameters.get(1));
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Auto Changeover is already enabled in Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned OFF");
+							flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is enabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Auto Changeover Switch is already disabled in the Thermostat Settings Screen");
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned ON");
+							flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is disabled");
+							}
+						}
+					} else {
+						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover Toggle is turned OFF");
+						}
+					}
 				}
 			}
 		} catch (Exception e) {

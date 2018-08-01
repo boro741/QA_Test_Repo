@@ -13,6 +13,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
@@ -126,6 +127,16 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 				}
 				break;
 			}
+			}
+			break;
+		}
+		case "THERMOSTAT SETTINGS": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			if (!ts.isSetUpHomeKitAndSiriOptionVisible("Set up HomeKit & Siri")) {
+				Keyword.ReportStep_Pass(testCase, expectedDevice.get(0) + " not be displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedDevice.get(0) + " displayed");
 			}
 			break;
 		}
