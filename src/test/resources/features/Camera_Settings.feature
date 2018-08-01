@@ -535,23 +535,15 @@ Then user "Camera LED" should be turned "GREEN"
      
      
 @CameraConfiguration        @P1        @UIAutomatable
-Scenario Outline: As a user I should be able to get the details of camera 
+Scenario: As a user I should be able to get the details of camera 
 Given user launches and logs in to the Lyric application 
-And user camera is in <State> 
+#And user camera is in <State> 
 When user navigates to "Camera Configuration" screen from the "Dashboard" screen
 Then user should be displayed with the following "Camera Configuration" options:
 | Details        | 
-| Camera Firmware|
-| Camera Name    | 
+| Name           |
+| Camera Firmware| 
 | Model Details  |
-#login with different mobiles for the status of configured options to verify the settings as user account level
-Examples:
-		|State  |
-		|On     |
-		|Off    |
-		|Offline|
-		|Upgrade|
-
       
 @EditCameraName     @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to edit the camera name

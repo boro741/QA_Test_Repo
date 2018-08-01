@@ -535,8 +535,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Settings'

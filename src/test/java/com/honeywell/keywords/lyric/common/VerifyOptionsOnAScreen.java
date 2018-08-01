@@ -233,6 +233,29 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+
+	
+        case "CAMERA CONFIGURATION": {
+        	CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
+            for (int i = 0; i < data.getSize(); i++) {
+                  String fieldTobeVerified = data.getData(i, "Details");
+                  try {
+                         if (ts.isCameraConfigurationsOptionVisible(fieldTobeVerified)) {
+                                Keyword.ReportStep_Pass(testCase,
+                                              "Settings: '" + fieldTobeVerified + "' is present on the Camera Configuration screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+                                              + "' is not present on the Camera Configuration screen");
+                         }
+                  } catch (Exception e) {
+                         flag = false;
+                         Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+                  }
+            }
+            break;
+     }
+
 		case "THERMOSTAT SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
