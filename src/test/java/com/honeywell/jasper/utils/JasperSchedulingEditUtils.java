@@ -27,6 +27,9 @@ public class JasperSchedulingEditUtils {
 		 SchedulingScreen schl = new SchedulingScreen(testCase);
 		try 
 		{
+			if (schl.isTimeScheduleButtonVisible(10)){
+				flag = flag & schl.clickOnTimeScheduleButton();
+			}
 
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying geofence based schedule on solution card **************************");

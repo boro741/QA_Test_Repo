@@ -1598,8 +1598,6 @@ System.out.println("FIXX");
 			List<WebElement> scheduleDayHeaders = null;
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 
-			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
 			if (scheduleType.equalsIgnoreCase("geofence")) {
@@ -4376,7 +4374,6 @@ System.out.println("FIXX");
 			String scheduleTypeToBeValidated) {
 		boolean flag = true;
 		SchedulingScreen schl = new SchedulingScreen(testCase);
-		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 		if (scheduleTypeToBeValidated.equalsIgnoreCase("No")) {
 			if (schl.isCreateScheduleButtonVisible(10)

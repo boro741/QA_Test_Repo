@@ -6,13 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidElement;
 
 public class SchedulingScreen extends MobileScreens {
 
@@ -97,6 +94,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean clickOnLearnMoreButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "LearnMoreButton");
 	}
+
 
 	public boolean clickOnGetStartedButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStartedButton");
@@ -1221,6 +1219,10 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isScheduleOffButtonVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleOffButton");
 	}
+	public boolean isUseGeofencingTextVisible(int timeout){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseGeofencingText",timeout);
+	}
+	
 	
 	public boolean clickOnScheduleOffButton(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffButton");

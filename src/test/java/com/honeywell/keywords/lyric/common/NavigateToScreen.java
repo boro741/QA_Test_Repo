@@ -607,7 +607,7 @@ public class NavigateToScreen extends Keyword {
 				case "HUMIDIFICATION": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+ 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					if (fly.isHumButtonVisible()) {
 						flag = flag && fly.ClickOnHumButton();
 					} else {

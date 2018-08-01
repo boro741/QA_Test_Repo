@@ -45,16 +45,18 @@ VentilationEditTimer	ID	btn_save_timer	ID	btn_save_timer	ID	btn_save_timer	ID	Ed
 VentilationTimerPicker	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText						
 VentilationTimerValue	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text						
 CloseOption	XPATH	//*[@text='Navigate up']	ID	Navigate up	ID	Navigate up						
-HumidifyButton	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']						
-CurrentHumidityPercentage	ID	current_humidity	ID	current_humidity	ID	current_humidity						
-TargetPercentage	ID	progress_percentage	ID	progress_percentage	ID	progress_percentage						
+HumidifyButton	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	ID	humidity menu	ID	humidity menu	ID	humidity menu
+CurrentHumidityPercentage	ID	current_humidity	ID	current_humidity	ID	current_humidity	ID	CURRENT HUMIDITY	ID	CURRENT HUMIDITY	ID	CURRENT HUMIDITY
+TargetPercentage	ID	progress_percentage	ID	progress_percentage	ID	progress_percentage	ID	HumSliderValueLabel	ID	HumSliderValueLabel	ID	HumSliderValueLabel
 HumIncrementButton	ID	progress_seek_bar_right_icon	ID	progress_seek_bar_right_icon	ID	progress_seek_bar_right_icon						
 HumDecrementButton	ID	progress_seek_bar_left_icon	ID	progress_seek_bar_left_icon	ID	progress_seek_bar_left_icon						
-SaveHumidification	ID	save_humidification	ID	save_humidification	ID	save_humidification						
-HumOption	ID	actionbar_options_textview	ID	actionbar_options_textview	ID	actionbar_options_textview						
-DisableHumOption	XPATH	//*[@text='Disable Humidification']	XPATH	//*[@text='Disable Humidification']	XPATH	//*[@text='Disable Humidification']						
-WindowProtectionOption	XPATH	//*[@text='Set Window Protection']	XPATH	//*[@text='Set Window Protection']	XPATH	//*[@text='Set Window Protection']						
-SaveOption	XPATH	//*[@text='Save']	XPATH	//*[@text='Save']	XPATH	//*[@text='Save']						
-HelpOption	XPATH	//*[@text='Help']	XPATH	//*[@text='Help']	XPATH	//*[@text='Help']						
-OverlayIcon	ID	overlay_icon	ID	overlay_icon	ID	overlay_icon						
+SaveHumidification	ID	save_humidification	ID	save_humidification	ID	save_humidification	ID	FCHumSaveButton	ID	FCHumSaveButton	ID	FCHumSaveButton
+HumOption	ID	actionbar_options_textview	ID	actionbar_options_textview	ID	actionbar_options_textview	ID	Navigation_Right_Bar_Item	ID	Navigation_Right_Bar_Item	ID	Navigation_Right_Bar_Item
+DisableHumOption	XPATH	//*[@text='Disable Humidification']	XPATH	//*[@text='Disable Humidification']	XPATH	//*[@text='Disable Humidification']	ID	Disable Humidification	ID	Disable Humidification	ID	Disable Humidification
+WindowProtectionOption	XPATH	//*[@text='Set Window Protection']	XPATH	//*[@text='Set Window Protection']	XPATH	//*[@text='Set Window Protection']	ID	Set Window Protection	ID	Set Window Protection	ID	Set Window Protection
+SaveOption	XPATH	//*[@text='Save']	XPATH	//*[@text='Save']	XPATH	//*[@text='Save']	ID	FCHumSaveButton	ID	FCHumSaveButton	ID	FCHumSaveButton
+HelpOption	XPATH	//*[@text='Help']	XPATH	//*[@text='Help']	XPATH	//*[@text='Help']	ID	FCWindowProtectionHelpButton	ID	FCWindowProtectionHelpButton	ID	FCWindowProtectionHelpButton
+OverlayIcon	ID	overlay_icon	ID	overlay_icon	ID	overlay_icon	ID	Tap to enable.	ID	Tap to enable.	ID	Tap to enable.
 SeekBar	ID	seek_bar	ID	seek_bar	ID	seek_bar						
+HumSlider							ID	Humidification_Slider	ID	Humidification_Slider	ID	Humidification_Slider
+WindowProtectionSlider							ID	WindowProtection_Slider	ID	WindowProtection_Slider	ID	WindowProtection_Slider
