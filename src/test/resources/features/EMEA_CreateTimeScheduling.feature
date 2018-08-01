@@ -2,7 +2,7 @@
 Feature: Jasper,Sprouce and Flycatcher Scheduling
 As a user I want to create an time based scheduling
 
-@JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue @JasperEmeaScheduleP1 @--xrayid:ATER-44515
+@JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue @JasperEmeaScheduleP1 @--xrayid:ATER-44515 @Automated
   Scenario Outline: As a user I want to create an Time based schedule with default schedule value for systems 
     Given user thermostat is set to <scheduling> schedule  
       And user launches and logs in to the Lyric application
@@ -20,7 +20,7 @@ As a user I want to create an time based scheduling
    #   | no         | Different On Weekdays | 
    #   | time based | Different On Weekdays | 
  
- @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641
+ @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641 @Automated
   Scenario Outline: To create EMEA schedule by setting up with new period with new time value for both time format
   As an user
   I want to create Everyday schedule by adding new period for both time format
@@ -35,7 +35,7 @@ As a user I want to create an time based scheduling
       | Same Every Day        | 
    #   | Different On Weekdays | 
   
-  @JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3
+  @JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3 @Automated
   Scenario Outline: As a user i want to be prompted with an option to Cancel overriding Geofence Schedule
     Given user thermostat is set to "geofence based" schedule
       And user launches and logs in to the Lyric application
@@ -48,7 +48,7 @@ As a user I want to create an time based scheduling
       | Same Every Day        | 
    #   | Different On Weekdays | 
   
-  @JasperEMEA_ConfirmToCreateNewSchedule @JasperEmeaScheduleP2
+  @JasperEMEA_ConfirmToCreateNewSchedule @JasperEmeaScheduleP2 @Automated
   Scenario Outline: As a user i want to be prompted with an option to Confirm and Create new Schedule
     Given user thermostat is set to "geofence based" schedule
       And user launches and logs in to the Lyric application
@@ -61,7 +61,7 @@ As a user I want to create an time based scheduling
   #    | Same Every Day        | 
       | Different On Weekdays | 
   
-  @JasperEMEA_TempretureBandwidthforEachPeriod @JasperEmeaScheduleP3
+  @JasperEMEA_TempretureBandwidthforEachPeriod @JasperEmeaScheduleP3 @Automated
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for each period
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
     Given user thermostat is set to "No" schedule
@@ -71,7 +71,7 @@ As a user I want to create an time based scheduling
   
     Examples: 
       | ScheduleType          | Temperature   | 
-      | Same Every Day        | Above Maximum | 
+   #   | Same Every Day        | Above Maximum | 
    #   | Same Every Day        | Below Minimum | 
    #   | Same Every Day        | At Maximum    | 
       | Same Every Day        | At Minimum    | 
@@ -91,7 +91,7 @@ As a user I want to create an time based scheduling
   
   
       
-@JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays @JasperEmeaScheduleP4
+@JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays @JasperEmeaScheduleP4 @Automated
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -103,7 +103,7 @@ Examples:
 | Atleast 1 period|
 #| Atleast 2 period|
 
-@JasperEMEA_CanCreateMaximumOfSixPeriods @JasperEmeaScheduleP4
+@JasperEMEA_CanCreateMaximumOfSixPeriods @JasperEmeaScheduleP4 @Automated
   Scenario Outline: To create EMEA schedule with Maximum of 6 periods
   As an user
   I want to create Everyday schedule by adding new period for both time format
@@ -118,7 +118,7 @@ Examples:
 #|  5|
 |  6|
 
-@JasperEMEA_CreateTimeBasedScheduleInOffMode @JasperEmeaScheduleP3
+@JasperEMEA_CreateTimeBasedScheduleInOffMode @JasperEmeaScheduleP3 @Automated
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to <scheduling> schedule
 And  user has "Off" system mode
@@ -154,7 +154,7 @@ Examples:
 |Different On Weekdays     |
 |Different On Weekdays     |
 
-@JasperEMEA_CopyScheduleToMulitpleStat @JasperEmeaScheduleP2
+@JasperEMEA_CopyScheduleToMulitpleStat @JasperEmeaScheduleP2 @Automated
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application

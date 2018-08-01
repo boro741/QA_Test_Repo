@@ -706,7 +706,7 @@ public class JasperSchedulingEditUtils {
 			}
 			int i = 0;
 			while ((!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + schedulePeriod + "']", testCase, 5))
+					"//XCUIElementTypeCell[@name='" + schedulePeriod + "_cell']", testCase, 5))
 					&& i < 10) {
 				if (desiredDayIndex > greaterDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
@@ -722,7 +722,7 @@ public class JasperSchedulingEditUtils {
 					i++;
 				}
 			}
-			period = testCase.getMobileDriver().findElement(By.name(schedulePeriod));
+			period = testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[@name='" + schedulePeriod + "_cell']"));
 		}
 		inputs.setInputValue(InputVariables.PERIOD_NAME_NA + periodCounterToBeDeleted, schedulePeriod);
 

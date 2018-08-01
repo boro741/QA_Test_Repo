@@ -34,7 +34,6 @@ import io.appium.java_client.TouchAction;
 public class JasperSchedulingVerifyUtils {
 
 	public static boolean verifyTemperatureWithInRange(TestCases testCase, TestCaseInputs inputs) {
-		System.out.println("FIXX");
 		boolean flag = true;
 		try {
 			List<WebElement> schedule_heatsetpoints, schedule_coolsetpoints, schedule_period_time = null;
@@ -3099,14 +3098,7 @@ public class JasperSchedulingVerifyUtils {
 								"Number of periods present is more than 1: " + period.size());
 					}
 				}
-				if (MobileUtils.isMobElementExists("NAME", "Navigation_Left_Bar_Item", testCase, 5)) {
-					if (!MobileUtils.clickOnElement(testCase, "NAME", "Navigation_Left_Bar_Item")) {
-						flag = false;
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate CANCEL button");
-				}
+				
 			}
 		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
 
