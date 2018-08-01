@@ -605,6 +605,16 @@ public class DeviceInformation {
 		}
 		return endTime;
 	}
+	
+	public String getscheduleStatus() throws Exception {
+		String status = " ";
+		if (deviceInformation != null) {
+			status = deviceInformation.getString("scheduleStatus");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return status;
+	}
 
 
 
