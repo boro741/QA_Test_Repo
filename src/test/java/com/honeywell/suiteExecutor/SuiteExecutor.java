@@ -36,6 +36,14 @@ public class SuiteExecutor {
 					"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
 
 					/**Jasper NA-Scheduling**/
+					"NA_CreateGeofenceSchedule",
+					"NA_SleepSettings",
+					"NA_EditGeofenceWithTemperature",
+					"NA_EditGeofenceSetpointsWhenAutoChnageOverEnabled",
+					"NA_GeofenceScheduleOptions",
+					"NA_CreateGeofenceScheduleInOffMode",
+					"NA_CreateGeonceScheduleInLearnMode",
+					"NA_CreateGeofenceWithEditingHome_Sleep_AwaySettings",
 					"JasperNA_CreateNAScheduleSinglestatwithDefaultvalue",
 					"JasperNA_CancelToRetainExisitngscheduling",
 					"JasperNA_ConfirmToCreateNewSchedule",
@@ -43,6 +51,14 @@ public class SuiteExecutor {
 					"JasperNA_DeletingDefaultPeriodSameEveryDay",
 					"JasperNA_DeletingDefaultPeriodDifferentOnWeekdays",
 					"JasperNA_CreateTimeBasedScheduleInOffMode",
+					"NA_GroupEditedDays",
+					"NA_EditTempratureInSchedule",
+					"NA_PeriodTimeShouldNotOverlap",
+					"NA_DeletePerioConfirmdAlert",
+					"NA_DeletingDefaultPeriodDifferentOnWeekdays",
+					"NA_DeletingAllPeriod",
+					"NA_ScheduleOptions",
+					"NA_ResumeSchedule",
 
 					/**Jasper NA - Settings**/
 					"VerifyJasperNASettings",
@@ -65,6 +81,25 @@ public class SuiteExecutor {
 					/**Jasper EMEA-Scheduling**/
 					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
 					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CancelToRetainExisitngscheduling",
+					"JasperEMEA_ConfirmToCreateNewSchedule",
+					"JasperEMEA_TempretureBandwidthforEachPeriod",
+					"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
+					"JasperEMEA_CanCreateMaximumOfSixPeriods",
+					"JasperEMEA_CreateTimeBasedScheduleInOffMode",
+					"JasperEMEA_CopyScheduleToMulitpleStat",
+					"EMEA_CreateGeofenceSchedule",
+					"EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule",
+					"EMEA_SleepSettings",
+					"EMEA_EditGeofenceWithTemperature",
+					"EMEA_CreateGeofenceScheduleInOffMode",
+					"EMEA_CreateGeonceScheduleInLearnMode",
+					"EMEA_CopyGeofenceScheduleToMulitpleStat",
+					"EMEA_AtleastOnePeriodNotDeletableInGroupDay",
+					"EMEA_AtleastTwoPeriodInIndividualDay",
+
 
 					/** EMEA Schedule ON/OFF**/
 					"ScheduleOFFONEMEA",
@@ -77,6 +112,17 @@ public class SuiteExecutor {
 					"ScheduleONOFFHB",
 					"ScheduleONOFFHBtimebase",
 					"ScheduleONOFFHBgeofencebase",
+
+					/** Camera **/
+//					"CameraSettingsCameraOn",
+//					"CameraSettingsManageAlertsDisabled",
+//					"CameraSettingsEnableDisableMotionDetection",
+//					"VerifyCameraMotionSensitivitySettingsC1",
+//					"VerifyCameraMotionSensitivitySettingsC2",
+//					"CameraSettingsEnableDisableSoundDetection",
+//					"CameraSettingsVerifyNightVisionSettings",
+//					"CameraSettingsVerifyVideoQualitySettings",
+//					"CameraSettingsEnableDisableCameraMicrophone",
 
 			};
 			try {
@@ -104,6 +150,40 @@ public class SuiteExecutor {
 					"ViewSolutionCardOFF",
 					"SystemModeInfoscreenwithCoolandHeatMode",
 					"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
+					
+					/**Jasper EMEA-Scheduling**/
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CancelToRetainExisitngscheduling",
+					"JasperEMEA_ConfirmToCreateNewSchedule",
+					"JasperEMEA_TempretureBandwidthforEachPeriod",
+					"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
+					"JasperEMEA_CanCreateMaximumOfSixPeriods",
+					"JasperEMEA_CreateTimeBasedScheduleInOffMode",
+					"JasperEMEA_CopyScheduleToMulitpleStat",
+					"EMEA_CreateGeofenceSchedule",
+					"EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule",
+					"EMEA_SleepSettings",
+					"EMEA_EditGeofenceWithTemperature",
+					"EMEA_CreateGeofenceScheduleInOffMode",
+					"EMEA_CreateGeonceScheduleInLearnMode",
+					"EMEA_CopyGeofenceScheduleToMulitpleStat",
+					"EMEA_AtleastOnePeriodNotDeletableInGroupDay",
+					"EMEA_AtleastTwoPeriodInIndividualDay",
+					
+//					/** Camera **/
+//					"CameraSettingsCameraOn",
+//					"CameraSettingsManageAlertsDisabled",
+//					"CameraSettingsEnableDisableMotionDetection",
+//					"VerifyCameraMotionSensitivitySettingsC1",
+//					"VerifyCameraMotionSensitivitySettingsC2",
+//					"CameraSettingsEnableDisableSoundDetection",
+//					"CameraSettingsVerifyNightVisionSettings",
+//					"CameraSettingsVerifyVideoQualitySettings",
+//					"CameraSettingsEnableDisableCameraMicrophone",
+					
 			};
 			try {
 				SuiteUtils suiteUtils = SuiteUtils.getTestSuite(commandLineArguments);
