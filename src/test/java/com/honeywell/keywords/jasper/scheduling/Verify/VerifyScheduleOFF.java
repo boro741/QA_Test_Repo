@@ -100,7 +100,7 @@ public class VerifyScheduleOFF extends Keyword {
 						if(flag)
 							Keyword.ReportStep_Pass(testCase, "Following Schedule displayed");
 						else
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Scheudle not displayed");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Schedule not displayed");
 						break;
 					}
 					case "USING HOME SETTINGS": {

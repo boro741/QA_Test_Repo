@@ -782,6 +782,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		
 	}
+	
 	public int createTimeScheduleWithSpecificNumberOfPeriods_EMEA(TestCaseInputs inputs, long locationID,
 			String deviceID) {
 		int result = -1;
@@ -980,6 +981,7 @@ public class CHILUtil implements AutoCloseable {
 
 		return result;
 	}
+	
 	public int changeSystemMode(long locationID, String deviceID, String thermostatMode) {
 		int result = -1;
 		try {
