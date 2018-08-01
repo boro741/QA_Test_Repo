@@ -34,7 +34,7 @@ import io.appium.java_client.TouchAction;
 public class JasperSchedulingVerifyUtils {
 
 	public static boolean verifyTemperatureWithInRange(TestCases testCase, TestCaseInputs inputs) {
-System.out.println("FIXX");
+		System.out.println("FIXX");
 		boolean flag = true;
 		try {
 			List<WebElement> schedule_heatsetpoints, schedule_coolsetpoints, schedule_period_time = null;
@@ -686,7 +686,7 @@ System.out.println("FIXX");
 							for (WebElement setpoints : schedule_heatsetpoints) {
 								if (setpoints != null) {
 									System.out.println(setpoints.getText().replace("°", ""));
-									
+
 									if (Double.parseDouble(setpoints.getText().replace("°", "")) <= maxHeat
 											&& Double.parseDouble(setpoints.getText().replace("°", "")) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
@@ -1597,7 +1597,9 @@ System.out.println("FIXX");
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-
+			if (schl.isTimeScheduleButtonVisible(5)){
+				flag = flag & schl.clickOnTimeScheduleButton();
+			}
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
 			if (scheduleType.equalsIgnoreCase("geofence")) {
@@ -4290,11 +4292,11 @@ System.out.println("FIXX");
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-//		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-//		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-//		}
+		//		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+		//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+		//		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+		//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+		//		}
 
 		WebElement period = null;
 		CustomDriver driver = testCase.getMobileDriver();
@@ -4374,7 +4376,9 @@ System.out.println("FIXX");
 			String scheduleTypeToBeValidated) {
 		boolean flag = true;
 		SchedulingScreen schl = new SchedulingScreen(testCase);
-
+		if (schl.isTimeScheduleButtonVisible(5)){
+			flag = flag & schl.clickOnTimeScheduleButton();
+		}
 		if (scheduleTypeToBeValidated.equalsIgnoreCase("No")) {
 			if (schl.isCreateScheduleButtonVisible(10)
 					&& schl.isNoScheduleTextVisible(10)) {
