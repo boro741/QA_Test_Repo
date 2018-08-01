@@ -134,7 +134,7 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 								.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 					}
 					int m = 0;
-					while ((!MobileUtils.isMobElementExists("name", days[i], testCase, 20)) && m < 10) {
+					while ((!MobileUtils.isMobElementExists("xpath", "//*[contains(@name,'"+days[i]+"_')]", testCase, 20)) && m < 5) {
 						if (desiredDayIndex > greaterDayIndex) {
 							touchAction.press(10, (int) (dimension.getHeight() * .5))
 							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
@@ -147,7 +147,7 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 							break;
 						}
 					}
-					WebElement tempDay = testCase.getMobileDriver().findElement(By.name(days[i]));
+					WebElement tempDay = testCase.getMobileDriver().findElement(By.xpath("//*[contains(@name,'"+days[i]+"')]"));
 					if (tempDay != null) {
 						ReportStep_Pass(testCase, "Located - " + days[i]);
 					} else {
@@ -180,14 +180,14 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 										flag = false;
 									} else {
 										Thread.sleep(5000);
-										if (MobileUtils.isMobElementExists("name", inputs.getInputValue("LOCATION1_DEVICE1_NAME"), testCase)) {
+									/*	if (MobileUtils.isMobElementExists("xpath", "//*[contains(@value,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]", testCase)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Schedule period is deleted when clicked on Delete during Delete operation");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Schedule period is not deleted when clicked on Delete during Delete operation");
-										}
+										}*/
 									}
 								} else {
 									flag = false;

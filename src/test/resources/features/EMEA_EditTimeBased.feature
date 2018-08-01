@@ -10,34 +10,32 @@ Scenario: Verify User should have atleast one schedule period in set of grouped 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
      And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-     And user selects view by "Grouped Days"
+     And user selects "Grouped Days" view
      When user tries to delete "All Periods" in EMEA schedule screen
      And user navigates to "Scheduling" screen from the "DASHBOARD" screen
      Then verify user should have atleast "One" schedule period in "Grouped days" view
 
 
-@EMEA_AtleastTwoPeriodInGroupDay
+@EMEA_AtleastTwoPeriodInIndividualDay
 Scenario: Verify User should have atleast two schedule period in set of individual days 
     Given user has "time schedule" with "1 Period"
      And user launches and logs in to the Lyric application
      And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-     And user selects view by "Individual days"
-     When user tries to delete "All Periods" in EMEA schedule screen
+     And user selects "SINGLE DAY" view
+     When user tries to delete one of the schedule period of the last two schedule period
      And user navigates to "Scheduling" screen from the "DASHBOARD" screen
-     And verify user should have atleast "Two" schedule period in "Individual days" view
+     Then verify user should have atleast "Two" schedule period in "Single day" view
 
 @EMEA_EndtimeTimeschedulePeriod
 Scenario Outline:Verify User should not be allowed to edit end time of last period in a day 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
      And user navigates to "Scheduling" screen from the "Dashboard" screen
-     And user selects view by <Type>
-     When user selects the last schedule period of a day
-     Then user should not be allowed to edit end time
+     And user selects <Type> view
+     Then verify user should not be allowed to edit end time with same as start time
       Examples:
       | Type            | 
       | Grouped days    | 
-      | Individual days | 
       
 @EMEA_EditingEndtime
  Scenario Outline:Verify User should not be allowed to edit start time and end time with same time value for both time format
