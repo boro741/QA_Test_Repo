@@ -64,7 +64,7 @@ public class CreateScheduleUsingCHIL extends Keyword {
 				try {
 					
 					if (chUtil.getConnection()) {
-						if(devInfo.getscheduleStatus()=="Pause"){
+						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
 							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
 								Keyword.ReportStep_Pass(testCase,
 										"Schedule is Resumed in CHIL before creating new schedule");
@@ -92,7 +92,7 @@ public class CreateScheduleUsingCHIL extends Keyword {
 			} else if (exampleData.get(0).equalsIgnoreCase("geofence based")) {
 				try {
 					if (chUtil.getConnection()) {
-						if(devInfo.getscheduleStatus()=="Pause"){
+						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
 							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
 								Keyword.ReportStep_Pass(testCase,
 										"Schedule is Resumed in CHIL before creating new schedule");
