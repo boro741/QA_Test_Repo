@@ -8,7 +8,7 @@ I should be able to cancel overrides and resume scheduling.
 #Following schedule and using settings
 
  #JasperNA
- @AdhocOverrideTimebaseSchedulefollowingfromsolutioncard
+@AdhocOverrideTimebaseSchedulefollowingfromsolutioncard
 Scenario Outline:   I want to verify time Following Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -22,3 +22,23 @@ Examples:
 #|Auto | 
 #|Cool only| 
 #|Heat only|
+
+@AdhocOverrideGeofencebaseScheduleusing
+Scenario Outline: I want to verify geofence using for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
+Given user launches and logs in to the Lyric application
+And user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+And user thermostat set <Period> with <Geofence>
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And verify the <Schedule status> on the "PRIMARY CARD" screen
+Examples:
+ |Mode |scheduling					 |Schedule status	   |Geofence     |Period|
+ |Cool |Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+#|Cool |geofence based               |Using Sleep Settings |UserArrived  |Sleep|
+#|Cool |Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
+#|Heat |Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+#|Heat |Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
+#|Heat |geofence based               |Using Sleep Settings |UserArrived  |Sleep|
+#|Auto |geofence based               |Using Sleep Settings |UserArrived  |Sleep|
+#|Auto |Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+#|Auto |Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
