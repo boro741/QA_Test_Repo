@@ -566,6 +566,11 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSoundScreen(testCase, inputs);
 					break;
 				}
+				// Navigate from 'Dashboard' to 'Ventilation Screen'
+				case "VENTILATION": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToVentilationScreen(testCase, inputs);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Sound Brightness Mode Screen'
 				case "SLEEP BRIGHTNESS MODE": {
 					flag = flag
@@ -2275,6 +2280,12 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Invalid Input: " + screen.get(1));
 					}
+					break;
+				}
+				case "VENTILATION": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.VENTILATION);
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ACTIVITY HISTORY")) {
@@ -2349,6 +2360,22 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SOUND")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("VENTILATION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SETTINGS": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);

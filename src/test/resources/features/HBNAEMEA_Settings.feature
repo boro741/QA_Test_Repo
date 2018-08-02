@@ -152,13 +152,13 @@ Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts"
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-#Then user changes the "Indoor Humidity Alert" to "ON"
-#And "Indoor Humidity Alert" value should be updated to "ON" on "Manage Alerts" screen
-#And user should be displayed with the following "Indoor Humidity Alert" options:
+Then user changes the "Indoor Humidity Alert" to "ON"
+And "Indoor Humidity Alert" value should be updated to "ON" on "Manage Alerts" screen
+And user should be displayed with the following "Indoor Humidity Alert" options:
 	| IndoorHumidityAlertOptions			| 
 	| Alert for this range				|
-#When user selects "Humidity Alert for this range" from "Manage Alerts" screen
-#Then user should be displayed with the following "Humidity Alert for this range" options:
+When user selects "Humidity Alert for this range" from "Manage Alerts" screen
+Then user should be displayed with the following "Humidity Alert for this range" options:
 	| AlertHumidityRangeOptions		| 
 	| Below 							| 
 	| Above							|
@@ -533,7 +533,7 @@ Then user should be displayed with the following "Sound" options:
       	| Off	  		| 
 
 #HB_Spruce	  
-@HBBchangeSoundsettings		@P2		@UIAutomatable
+@HBBchangeSoundSettings		@P2		@UIAutomatable
 Scenario: As a user I should be able to set options for Sound
 Given user launches and logs in to the Lyric application
 When user navigates to "Sound" screen from the "Dashboard" screen
@@ -548,6 +548,28 @@ When user navigates to "Sound" screen from the "Thermostat Settings" screen
 And user changes the "Sound" to "Normal"
 And user navigates to "Thermostat Settings" Screen from the "Sound" Screen
 Then "Sound" value should be updated to "Normal" on "Thermostat Settings" screen
+
+#HB_Spruce
+@HBBChangeVentilationSettings		@P2		@UIAutomatable
+Scenario: As a user I should be able to view options for Sound
+Given user launches and logs in to the Lyric application
+When user navigates to "Ventilation" screen from the "Dashboard" screen
+Then user should be displayed with the following "Ventilation" options: 
+		| VentilationOptions		| 
+	    | Off 					| 
+    		| On   					| 
+      	| Auto	  				|
+When user changes the "Ventilation" to "Off"
+And user navigates to "Thermostat Settings" Screen from the "Ventilation" Screen
+Then "Ventilation" value should be updated to "Off" on "Thermostat Settings" screen 
+When user navigates to "Ventilation" screen from the "Thermostat Settings" screen
+And user changes the "Ventilation" to "On"
+And user navigates to "Thermostat Settings" Screen from the "Ventilation" Screen
+Then "Ventilation" value should be updated to "On" on "Thermostat Settings" screen 
+When user navigates to "Ventilation" screen from the "Thermostat Settings" screen
+And user changes the "Ventilation" to "Auto"
+And user navigates to "Thermostat Settings" Screen from the "Ventilation" Screen
+Then "Ventilation" value should be updated to "Auto" on "Thermostat Settings" screen
 
 #Rest wi-fi
 

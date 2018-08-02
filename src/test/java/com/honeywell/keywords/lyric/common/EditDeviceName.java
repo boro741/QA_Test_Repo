@@ -193,11 +193,17 @@ public class EditDeviceName extends Keyword {
 				if (ts.isThermostatNameTextBoxVisible(5)) {
 					flag = flag & ts.clearThermostatNameTextBox();
 					if (ts.setValueToThermostatNameTextBox(parameters.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
+
+						inputs.setInputValueWithoutTarget("PREVIOUS_LOCATION1_DEVICE1_NAME",
+								inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+
+						inputs.setInputValue("LOCATION1_DEVICE1_NAME", parameters.get(1));
+
+						Keyword.ReportStep_Pass(testCase, "Successfully set Thermostat Name to: " + parameters.get(1));
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to set " + parameters.get(1) + " to the textbox");
+								"Failed to set Thermostat Name to: " + parameters.get(1));
 					}
 					try {
 						if (ts.isBackButtonVisible(5)) {
@@ -211,7 +217,7 @@ public class EditDeviceName extends Keyword {
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Could not find Thermostat Name Text Box");
+						"Could not find Thermostat Name Text field");
 			}
 		} catch (Exception e) {
 			flag = false;

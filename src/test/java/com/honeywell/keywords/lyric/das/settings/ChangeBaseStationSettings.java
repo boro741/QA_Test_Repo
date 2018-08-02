@@ -1075,6 +1075,48 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("VENTILATION")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (ts.isVentilationStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Ventilation Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Ventilation Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Ventilation Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (ts.isVentilationStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Ventilation Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Ventilation Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Ventilation Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					if (ts.isVentilationStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Ventilation Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Ventilation Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Ventilation Status is not set to: " + parameters.get(1));
+						}
+					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

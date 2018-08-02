@@ -370,7 +370,8 @@ public class DASSettingsUtils {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
-			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -397,8 +398,8 @@ public class DASSettingsUtils {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-					action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+							.release().perform();
 				} else {
 					int startx = (dimension.width * 20) / 100;
 					int starty = (dimension.height * 62) / 100;
@@ -700,6 +701,42 @@ public class DASSettingsUtils {
 				flag = flag & pc.clickOnCogIcon();
 			}
 			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SOUND);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * <h1>Navigate from Dashboard to Ventilation Screen</h1>
+	 * <p>
+	 * The navigateFromDashboardScreenToVentilationScreen method navigates from the
+	 * dashboard to the Sound screen by clicking on the device name on the secondary
+	 * card settings and tap on Ventilation option
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase
+	 * @param inputs
+	 *            Instance of the TestCaseInputs class used to pass inputs to the
+	 *            testCase instance
+	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
+	 *         if navigation is not successful.
+	 */
+	public static boolean navigateFromDashboardScreenToVentilationScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.VENTILATION);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
@@ -1144,7 +1181,8 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
-	public static boolean navigateFromDashboardScreenToThermostatConfigurationScreen(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean navigateFromDashboardScreenToThermostatConfigurationScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
