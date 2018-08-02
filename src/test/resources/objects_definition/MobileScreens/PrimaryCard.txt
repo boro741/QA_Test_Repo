@@ -49,3 +49,4 @@ ModeStatus	xpath	//*[@text='SYSTEM IS OFF']					id	SYSTEM IS OFF
 UserExpectedTemperature	id	current_temp_value	id	current_temp_value	id	current_temp_value	id	Dialer					
 TemperatureInOffModeForIOS	id	current_temp_value					id	--					
 ModeIcon							id	DashBoard_Mode					
+TemporaryHold 	ID 	view_thermostat_adhoc_button	ID 	view_thermostat_adhoc_button	ID 	view_thermostat_adhoc_button							

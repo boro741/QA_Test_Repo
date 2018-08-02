@@ -1,6 +1,7 @@
 package com.honeywell.jasper.utils;
 
 import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -260,8 +261,7 @@ public class JasperSetPoint {
 			c.setTime(vacationDateFormat.parse(time));
 			int minutes = c.get(Calendar.MINUTE);
 			int mod = minutes % 15;
-			int diff = 15 - mod;
-			c.add(Calendar.MINUTE, diff);
+			c.add(Calendar.MINUTE, -mod);
 			c.set(Calendar.SECOND, 0);
 			roundOffTime = vacationDateFormat.format(c.getTime());
 		} catch (Exception e) {
@@ -283,8 +283,7 @@ public class JasperSetPoint {
 			c.setTime(vacationDateFormat.parse(time));
 			int minutes = c.get(Calendar.MINUTE);
 			int mod = minutes % 10;
-			int diff = 10 - mod;
-			c.add(Calendar.MINUTE, diff);
+			c.add(Calendar.MINUTE, -mod);
 			c.set(Calendar.SECOND, 0);
 			roundOffTime = vacationDateFormat.format(c.getTime());
 		} catch (Exception e) {
@@ -297,24 +296,27 @@ public class JasperSetPoint {
 	}
 
 	public static String TriggerGeoEventSleepStartEMEA(TestCases testCase) {
-		    String formattedTime = " ";
+		String formattedTime = " ";
 		try {
 			Calendar startTime = Calendar.getInstance();
 			int minutes = startTime.get(Calendar.MINUTE);
 			int mod = minutes % 10;
 			startTime.add(Calendar.MINUTE, -mod);
 			startTime.set(Calendar.SECOND, 0);
-			Date date= startTime.getTime();
+			Date date = startTime.getTime();
 			DateFormat SleepStart = new SimpleDateFormat("HH:mm:ss");
-			formattedTime = SleepStart.format(date);  
+			formattedTime = SleepStart.format(date);
 		} catch (Exception e) {
 			formattedTime = " ";
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE, "Add start time : Error Occured : " + e.getMessage());
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add start time : Error Occured : " + e.getMessage());
 		}
 		return formattedTime;
 	}
 
-	public static String TriggerGeoEventSleepEndEMEA(TestCases testCase, int hour) {
+	public static String TriggerGeoEventSleepEndEMEA(TestCases testCase,
+			int hour) {
 		String formattedTime = "";
 		try {
 			Calendar EndTime = Calendar.getInstance();
@@ -323,53 +325,61 @@ public class JasperSetPoint {
 			EndTime.add(Calendar.MINUTE, -mod);
 			EndTime.set(Calendar.SECOND, 0);
 			EndTime.add(Calendar.HOUR, hour);
-		    Date date=EndTime.getTime();
-		    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		    formattedTime = dateFormat.format(date);   
+			Date date = EndTime.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			formattedTime = dateFormat.format(date);
 		} catch (Exception e) {
 			formattedTime = " ";
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
 					"Add days to date : Error Occured : " + e.getMessage());
 		}
 		return formattedTime;
 	}
- 
-	public static String TriggerGeoEventSleepStartNAHB(TestCases testCase) {
-	    String formattedTime = " ";
-	try {
-		Calendar startTime = Calendar.getInstance();
-		int minutes = startTime.get(Calendar.MINUTE);
-		int mod = minutes % 15;
-		startTime.add(Calendar.MINUTE, -mod);
-		startTime.set(Calendar.SECOND, 0);
-		Date date= startTime.getTime();
-		DateFormat SleepStart = new SimpleDateFormat("HH:mm:ss");
-		formattedTime = SleepStart.format(date);  
-	} catch (Exception e) {
-		formattedTime = " ";
-		Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,FailType.FUNCTIONAL_FAILURE, "Add start time : Error Occured : " + e.getMessage());
-	}
-	return formattedTime;
-}
 
-public static String TriggerGeoEventSleepEndNAHB(TestCases testCase, int hour) {
-	String formattedTime = "";
-	try {
-		Calendar EndTime = Calendar.getInstance();
-		int minutes = EndTime.get(Calendar.MINUTE);
-		int mod = minutes % 15;
-		EndTime.add(Calendar.MINUTE, -mod);
-		EndTime.set(Calendar.SECOND, 0);
-		EndTime.add(Calendar.HOUR, hour);
-	    Date date=EndTime.getTime();
-	    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-	    formattedTime = dateFormat.format(date);   
-	} catch (Exception e) {
-		formattedTime = " ";
-		Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE, "Add days to date : Error Occured : " + e.getMessage());
+	public static String TriggerGeoEventSleepStartNAHB(TestCases testCase) {
+		String formattedTime = " ";
+		try {
+			Calendar startTime = Calendar.getInstance();
+			int minutes = startTime.get(Calendar.MINUTE);
+			int mod = minutes % 15;
+			startTime.add(Calendar.MINUTE, -mod);
+			startTime.set(Calendar.SECOND, 0);
+			Date date = startTime.getTime();
+			DateFormat SleepStart = new SimpleDateFormat("HH:mm:ss");
+			formattedTime = SleepStart.format(date);
+		} catch (Exception e) {
+			formattedTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add start time : Error Occured : " + e.getMessage());
+		}
+		return formattedTime;
 	}
-	return formattedTime;
-}
+	
+
+	public static String TriggerGeoEventSleepEndNAHB(TestCases testCase,
+			int hour) {
+		String formattedTime = "";
+		try {
+			Calendar EndTime = Calendar.getInstance();
+			int minutes = EndTime.get(Calendar.MINUTE);
+			int mod = minutes % 15;
+			EndTime.add(Calendar.MINUTE, -mod);
+			EndTime.set(Calendar.SECOND, 0);
+			EndTime.add(Calendar.HOUR, hour);
+			Date date = EndTime.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			formattedTime = dateFormat.format(date);
+		} catch (Exception e) {
+			formattedTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return formattedTime;
+	}
+
 	/**
 	 * <p>
 	 * The addDaysToDate method adds days a date.

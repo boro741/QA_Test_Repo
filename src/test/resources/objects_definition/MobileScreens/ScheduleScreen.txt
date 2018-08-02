@@ -59,6 +59,7 @@ SaveButton	XPATH	//android.widget.Button[@text='Save']	XPATH	//android.widget.Bu
 ScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	icon calendar normal	NAME	icon calendar normal	NAME	icon calendar normal
 ScheduleDayHeader	ID	header_view	ID	header_view	ID	header_view	NAME	Time_Schedule_Day_Name_SectionHeader	NAME	Time_Schedule_Day_Name_SectionHeader	NAME	Time_Schedule_Day_Name_SectionHeader
 ScheduleEditCancelButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	Cancel	NAME	Cancel	NAME	Cancel
+ScheduleOffButton	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	NAME	Turn Schedule Off	NAME	Turn Schedule Off	NAME	Turn Schedule Off
 ScheduleOptionsButton	ID	actionbar_schedule_options_textview	ID	actionbar_schedule_options_textview	ID	actionbar_schedule_options_textview	NAME	Navigation_Right_Bar_Item	NAME	Navigation_Right_Bar_Item	NAME	Navigation_Right_Bar_Item
 SchedulePeriodCoolSetPoint	ID	scheduling_period_cooling_point	ID	scheduling_period_cooling_point	ID	scheduling_period_cooling_point						
 SchedulePeriodHeatSetPoint	ID	scheduling_period_heating_point	ID	scheduling_period_heating_point	ID	scheduling_period_heating_point						
@@ -162,6 +163,5 @@ UseMyHomeSettingsText	XPATH	//*[@text='Use My Home Settings']	XPATH	//*[@text='U
 UseMySleepSettingsText	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	NAME	Use My Sleep Settings				
 UseMyAwaySettingsText	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	NAME	Use My Away Settings	NAME	Using Away Settings	NAME	Using Away Settings
 ConfirmChangeButton	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//*[@text='CONFIRM CHANGE']	XPATH	//*[@text='CONFIRM CHANGE']	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
-ScheduleOffOverlay	XPATH	//*[@text='Schedule is off. Tap to resume.']	XPATH	//*[@text='Schedule is off. Tap to resume.']	XPATH	//*[@text='Schedule is off. Tap to resume.']	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.
-GetStartedButton	Xpath	//*[@text='Get Started']	XPATH	//*[@text='Get Started']	XPATH	//*[@text='Get Started']	nAME	Get Started	nAME	Get Started	nAME	Get Started
-ScheduleOffButton	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	NAME	Turn schedule off	NAME	Turn schedule off	NAME	Turn schedule off
+ScheduleOffOverlay	ID	pause_icon	ID	pause_icon	ID	pause_icon	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.
+GetStartedButton	Xpath	//*[@text='Get Started']	XPATH	//*[@text='Get Started']	XPATH	//*[@text='Get Started']						
