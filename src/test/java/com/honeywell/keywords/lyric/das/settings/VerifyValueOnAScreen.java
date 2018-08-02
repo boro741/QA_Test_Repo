@@ -855,6 +855,40 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Auto Changeover Switch is not displayed in the Thermostat Settings Screen");
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("VENTILATION")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & ts.verifyVentilationStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Ventilation is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Ventilation is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.verifyVentilationStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Ventilation is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Ventilation is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag & ts.verifyVentilationStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Ventilation is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Ventilation is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Ventilation is not displayed");
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

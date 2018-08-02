@@ -414,7 +414,6 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean isThermostatHumidityAlertRangeVisible() {
 		boolean flag = true;
 		List<WebElement> listAlertTitles = new ArrayList<>();
-		// if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatHumidityAlertRange")) {
 			listAlertTitles = MobileUtils.getMobElements(objectDefinition, testCase, "ThermostatHumidityAlertRange");
 			if (listAlertTitles.size() > 1) {
@@ -429,17 +428,12 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		} else {
 			flag = false;
 		}
-		// } else {
-
-		// iOS
-		// }
 		return flag;
 	}
 
 	public boolean clickOnThermostatHumidityAlertRange() {
 		boolean flag = true;
 		List<WebElement> listAlertTitles = new ArrayList<>();
-		// if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatHumidityAlertRange")) {
 			listAlertTitles = MobileUtils.getMobElements(objectDefinition, testCase, "ThermostatHumidityAlertRange");
 			if (listAlertTitles.size() > 1) {
@@ -454,10 +448,6 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		} else {
 			flag = false;
 		}
-		// } else {
-
-		// iOS
-		// }
 		return flag;
 
 	}
@@ -867,6 +857,24 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			}
 			if (this.isThermostatEmergencyHeatSwitchVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Thermostat Emergency Heat Switch Visible @ 3");
+			}
+			return flag;
+		}
+		case BaseStationSettingsScreen.VENTILATION: {
+			boolean flag = true;
+			if (this.isThermostatVentilationOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Ventilation Visible @ 1");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatVentilationOption");
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Ventilation Visible @ 2");
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						BaseStationSettingsScreen.VENTILATION);
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatVentilationOption");
+			}
+			if (this.isThermostatSoundOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Ventilation Visible @ 3");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatVentilationOption");
 			}
 			return flag;
 		}
@@ -1671,6 +1679,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 
 	public boolean clearThermostatNameTextBox() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatNameTextbox");
 			return MobileUtils.clearTextField(objectDefinition, testCase, "ThermostatNameTextbox");
 		} else {
 			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[1]/XCUIElementTypeTextField"))
@@ -1687,6 +1696,94 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			flag = flag & MobileUtils.setValueToElement(testCase, "XPATH",
 					"//XCUIElementTypeCell[1]/XCUIElementTypeTextField", value);
 			MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonInIOSKeyboard");
+		}
+		return flag;
+	}
+
+	public boolean isThermostatVentilationOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatVentilationOption", 3);
+	}
+
+	public String getCurrentSelectedVentilationOption() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatVentilationValueInSettingsScreen");
+	}
+
+	public boolean isThermostatVentilationOptionVisible(String indoorVentilationOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/list_item_lyric_horizontal_text_view_primary_text' and @text='"
+							+ indoorVentilationOption + "']",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("NAME", indoorVentilationOption + "_subTitle", testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean isVentilationStatusSetToExpected(TestCases testCase, String ventilationStatus) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='" + ventilationStatus
+					+ "']/parent::android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name='" + ventilationStatus + "_cell"
+							+ "']/XCUIElementTypeImage[contains(@name, '" + ventilationStatus + "_Image" + "')]",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean setVentilationStatusToExpected(TestCases testCase, String ventilationStatus) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='" + ventilationStatus
+					+ "']/parent::android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					testCase)) {
+				flag = false;
+			} else {
+				flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='" + ventilationStatus + "']");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name='" + ventilationStatus + "_cell"
+							+ "']/XCUIElementTypeImage[contains(@name, '" + ventilationStatus + "_Image" + "')]",
+					testCase)) {
+				flag = false;
+			} else {
+				flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
+						"//XCUIElementTypeCell[@name= '" + ventilationStatus + "_cell" + "']");
+			}
+		}
+		return flag;
+	}
+
+	public boolean verifyVentilationStatusInSettingsScreen(TestCases testCase, String soundStatus) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatVentilationValueInSettingsScreen")
+				&& MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatVentilationValueInSettingsScreen")
+						.equalsIgnoreCase(soundStatus)) {
+			return flag;
+		} else {
+			flag = false;
 		}
 		return flag;
 	}

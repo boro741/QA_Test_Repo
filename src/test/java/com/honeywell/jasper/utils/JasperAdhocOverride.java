@@ -979,7 +979,7 @@ public class JasperAdhocOverride {
 										 flag = flag & UpSteeper.clickOnUpStepper();
 								 
 								}else
-								if(CurrentSetpoint1 < minCool && CurrentSetpoint1  > minCool)
+								if(CurrentSetpoint1 < maxCool && CurrentSetpoint1  > minCool)
 								{
 											 PrimaryCard UpSteeper = new PrimaryCard(testCase);
 												flag = flag & UpSteeper.clickOnUpStepper();

@@ -131,10 +131,10 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 				if (chUtil.getConnection()) {
 					int result = chUtil.putThermostatDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),
-							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+							inputs.getInputValue("PREVIOUS_LOCATION1_DEVICE1_NAME"));
 					if (result == 200) {
 						Keyword.ReportStep_Pass(testCase, "Successfully changed the device name to : "
-								+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+								+ inputs.getInputValue("PREVIOUS_LOCATION1_DEVICE1_NAME"));
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

@@ -12,7 +12,6 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.AlarmScreen;
@@ -22,8 +21,6 @@ import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
-import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import io.appium.java_client.TouchAction;
 
@@ -1056,6 +1053,27 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
 								+ "' is not present on the Thermostat Configuration screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "VENTILATION": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "VentilationOptions");
+				try {
+					if (ts.isThermostatVentilationOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Ventilation Option: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Ventilation Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Ventilation Option: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Ventilation Screen");
 					}
 				} catch (Exception e) {
 					flag = false;
