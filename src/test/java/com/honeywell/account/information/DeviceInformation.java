@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,11 +25,8 @@ public class DeviceInformation {
 	String locationName;
 	String statName;
 
-	private TestCaseInputs inputs;
-
 	public DeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.inputs=inputs;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 	}
 
@@ -56,6 +54,14 @@ public class DeviceInformation {
 		}
 	}
 
+
+	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
+		this.testCase = testCase;
+		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
+		return true;
+	}
+	
+	
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
 		if (deviceInformation != null) {
@@ -541,13 +547,47 @@ public class DeviceInformation {
 		if (deviceInformation != null) {
 			nextPeriodTime = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
 					.get("nextPeriodTime").toString();
-			return nextPeriodTime;
+			
 		} else {
 			nextPeriodTime = "";
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Stat Information is null");
 		}
 		return nextPeriodTime;
+	}
+	
+
+	public String getOverrrideSetpoint() {
+			String OverrideMode = "";
+			String OverrideSet = "";		
+			
+			if (deviceInformation != null) {
+				
+				OverrideMode = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("mode").toString();
+				
+				if(OverrideMode.equals("Heat"))
+				{
+					OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+							.get("heatSetpoint").toString();
+				}else
+					OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+					.get("coolSetpoint").toString();	
+				}
+				return OverrideSet;
+			} 
+	
+	public String getHoldUntilTime() {
+		String holdUntil = "";
+		if (deviceInformation != null) {
+			holdUntil = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+					.get("holdUntil").toString();
+			return holdUntil;
+		} else {
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Information is null");
+		}
+		return holdUntil;
 	}
 
 
