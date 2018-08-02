@@ -64,7 +64,6 @@ public class CreateScheduleUsingCHIL extends Keyword {
 				try {
 					
 					if (chUtil.getConnection()) {
-						System.out.println(devInfo.getscheduleStatus());
 						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
 							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
 								Keyword.ReportStep_Pass(testCase,
