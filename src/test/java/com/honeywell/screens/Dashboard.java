@@ -9,7 +9,6 @@ import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
@@ -104,7 +103,7 @@ public class Dashboard extends MobileScreens {
 	public boolean clickOnAddDeviceIconBelowExistingDASDevice() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceIconBelowExistingDevice");
 	}
-	
+
 	public boolean clickOnGlobalDrawerButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GlobalDrawerButton");
 	}
@@ -116,7 +115,7 @@ public class Dashboard extends MobileScreens {
 	public boolean areDevicesVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconText", 3);
 	}
-	
+
 	public boolean areDeviceTempVisibleOnDashboard(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceCurrentTempValue", timeOut);
 	}
@@ -124,7 +123,7 @@ public class Dashboard extends MobileScreens {
 	public boolean areDeviceTempVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceCurrentTempValue", 3);
 	}
-	
+
 	public boolean areDeviceTempUpVisibleOnDashboard(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp", timeOut);
 	}
@@ -132,7 +131,7 @@ public class Dashboard extends MobileScreens {
 	public boolean areDeviceTempUpVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp", 3);
 	}
-	
+
 	public boolean areDeviceTempDownVisibleOnDashboard(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", timeOut);
 	}
@@ -242,64 +241,60 @@ public class Dashboard extends MobileScreens {
 			element = MobileUtils.getMobElement(objectDefinition, testCase, "LocationName");
 		}
 		if (element != null) {
-			/*if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationNameIOS", 5)) {
-					if (MobileUtils.getMobElement(fieldObjects, testCase, "LocationNameIOS").getAttribute("value")
-							.contains(locationToBeSelected)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Select Location From DashBoard : User is already in location : "
-										+ locationToBeSelected);
-					} else {
-						fieldObjects = MobileUtils.loadObjectFile(testCase, "HomeScreen");
-						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
-
-						if (MobileUtils.clickOnElement(testCase, "name", locationToBeSelected)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Select Location From DashBoard : Successfully selected location : "
-											+ locationToBeSelected);
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Select Location From DashBoard : Failed to select location : "
-											+ locationToBeSelected);
-						}
+			/*
+			 * if (testCase.getPlatform().toUpperCase().contains("IOS")) { fieldObjects =
+			 * MobileUtils.loadObjectFile(testCase, "PrimaryCard"); if
+			 * (MobileUtils.isMobElementExists(fieldObjects, testCase, "LocationNameIOS",
+			 * 5)) { if (MobileUtils.getMobElement(fieldObjects, testCase,
+			 * "LocationNameIOS").getAttribute("value") .contains(locationToBeSelected)) {
+			 * Keyword.ReportStep_Pass(testCase,
+			 * "Select Location From DashBoard : User is already in location : " +
+			 * locationToBeSelected); } else { fieldObjects =
+			 * MobileUtils.loadObjectFile(testCase, "HomeScreen"); flag = flag &
+			 * MobileUtils.clickOnElement(fieldObjects, testCase, "LocationSpinner");
+			 * 
+			 * if (MobileUtils.clickOnElement(testCase, "name", locationToBeSelected)) {
+			 * Keyword.ReportStep_Pass(testCase,
+			 * "Select Location From DashBoard : Successfully selected location : " +
+			 * locationToBeSelected); } else { flag = false;
+			 * Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+			 * "Select Location From DashBoard : Failed to select location : " +
+			 * locationToBeSelected); } } } } else {
+			 */
+			if (element.getText().equalsIgnoreCase(locationToBeSelected)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Select Location From DashBoard : User is already in location : " + locationToBeSelected);
+			} else {
+				boolean f = false;
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropDownButton");
+				List<WebElement> locNames = MobileUtils.getMobElements(objectDefinition, testCase,
+						"LocationDropDownList");
+				for (WebElement ele : locNames) {
+					if (ele.getText().equalsIgnoreCase(locationToBeSelected)) {
+						ele.click();
+						f = true;
+						break;
 					}
 				}
-			} else {*/
-				if (element.getText().equalsIgnoreCase(locationToBeSelected)) {
+				if (f) {
 					Keyword.ReportStep_Pass(testCase,
-							"Select Location From DashBoard : User is already in location : " + locationToBeSelected);
+							"Select Location From DashBoard : Successfully selected location : "
+									+ locationToBeSelected);
 				} else {
-					boolean f = false;
-					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropDownButton");
-					List<WebElement> locNames = MobileUtils.getMobElements(objectDefinition, testCase, "LocationDropDownList");
-					for (WebElement ele : locNames) {
-						if (ele.getText().equalsIgnoreCase(locationToBeSelected)) {
-							ele.click();
-							f = true;
-							break;
-						}
-					}
-					if (f) {
-						Keyword.ReportStep_Pass(testCase,
-								"Select Location From DashBoard : Successfully selected location : "
-										+ locationToBeSelected);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Select Location From DashBoard : Failed to select location : " + locationToBeSelected);
-					}
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Select Location From DashBoard : Failed to select location : " + locationToBeSelected);
 				}
-			//}
+			}
+			// }
 		}
 		return flag;
 	}
-	
+
 	public boolean VerifyComfortDeviceStatusInDashBoard(String expectedDevice) {
 		boolean flag = true;
 		if (this.areDevicesVisibleOnDashboard(10) && this.areDeviceTempVisibleOnDashboard(10)) {
-			
+
 			List<WebElement> dashboardIconText = MobileUtils.getMobElements(objectDefinition, testCase,
 					"DashboardIconText");
 			for (int i = 0; i < dashboardIconText.size(); i++) {
@@ -312,253 +307,244 @@ public class Dashboard extends MobileScreens {
 					} catch (Exception e1) {
 					}
 				}
-				
+
 				flag = flag & displayedText.contains(expectedDevice);
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase,
-							"Device name matches on Dashboard");
+					Keyword.ReportStep_Pass(testCase, "Device name matches on Dashboard");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Device name was not matches in Dashboard");
-				}				
-			}		
+				}
+			}
 		}
-		
-		if(this.areDeviceTempUpVisibleOnDashboard(10))
-		{
+
+		if (this.areDeviceTempUpVisibleOnDashboard(10)) {
 			flag = true;
-			Keyword.ReportStep_Pass(testCase,
-					"Stat Temp Stepper Up icon is displayed on Dashboard");
+			Keyword.ReportStep_Pass(testCase, "Stat Temp Stepper Up icon is displayed on Dashboard");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Stat Temp Stepper Up icon is not displayed on Dashboard");
-		}	
-		
-		if(this.areDeviceTempDownVisibleOnDashboard(10))
-		{
+		}
+
+		if (this.areDeviceTempDownVisibleOnDashboard(10)) {
 			flag = true;
-			Keyword.ReportStep_Pass(testCase,
-					"Stat Temp Stepper Down icon is displayed on Dashboard");
+			Keyword.ReportStep_Pass(testCase, "Stat Temp Stepper Down icon is displayed on Dashboard");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Stat Temp Stepper Down icon is not displayed on Dashboard");
-		}	
-		
-		if(this.areDeviceTempVisibleOnDashboard(10))
-		{
+		}
+
+		if (this.areDeviceTempVisibleOnDashboard(10)) {
 			flag = true;
-			Keyword.ReportStep_Pass(testCase,
-					"Stat Temp values is displayed on Dashboard");
+			Keyword.ReportStep_Pass(testCase, "Stat Temp values is displayed on Dashboard");
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Stat Temp values icon is not displayed on Dashboard");
-		}	
-		
+		}
+
 		return flag;
 	}
-	public boolean isThermostatNameCorrectlyDisplayed(String expectedValue,TestCaseInputs inputs) {
 
-		 WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatName");
-		 String actualValue =ele.getText();
-		if(expectedValue.equalsIgnoreCase(actualValue)) {
-			return true;
+	public boolean isThermostatNameCorrectlyDisplayed(String expectedDeviceName, TestCaseInputs inputs) {
+		String actualDeviceName = null;
+		boolean flag = true;
+		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatName");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			actualDeviceName = ele.getText();
+		} else {
+			actualDeviceName = ele.getAttribute("value");
 		}
-			return false;
+		if (expectedDeviceName.equalsIgnoreCase(actualDeviceName)) {
+			return flag;
+		} else {
+			flag = false;
 		}
-		public boolean isTemperatureNotDisplayed() {
-			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "TemperatureInOffModeForIOS");
-			if(status.equals("--"))
-			{
-			return true;
-		}
-			return false;
+		return flag;
 	}
-		public boolean isOffStatusVisible(TestCaseInputs inputs) {
-			
-			if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
+
+	public boolean isTemperatureNotDisplayed() {
+		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "TemperatureInOffModeForIOS");
+		if (status.equals("--")) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isOffStatusVisible(TestCaseInputs inputs) {
+
+		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
 			String status = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
-			  if(status.toUpperCase().contains("OFF"))
-			 {
-			   return true;
-		     }
-			 else {
-				return false;
-			 }
-			}
-			else {
-				String thermostatname=inputs.getInputValue("LOCATION1_DEVICE1_NAME");
-				WebElement ele=MobileUtils.getMobElement(testCase,"xpath", "//XCUIElementTypeStaticText[@name='subTitle_"+thermostatname+"']");
-				String status=ele.getText();
-				  if(status.toUpperCase().contains("OFF"))
-					 {
-					   return true;
-				     }
-					 else {
-						return false;
-					 }
-			}
-		}
-		public boolean isThermostatTemperatureDisplayed(TestCaseInputs inputs) {
-			
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String chilDeviceIndoorTemperature = statInfo.getIndoorTemperature();
-
-		if(testCase.getPlatform().toUpperCase().contains("IOS")==false) {
-			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");	
-			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+			if (status.toUpperCase().contains("OFF")) {
 				return true;
+			} else {
+				return false;
 			}
-			else {
+		} else {
+			String thermostatname = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+			WebElement ele = MobileUtils.getMobElement(testCase, "xpath",
+					"//XCUIElementTypeStaticText[@name='subTitle_" + thermostatname + "']");
+			String status = ele.getText();
+			if (status.toUpperCase().contains("OFF")) {
+				return true;
+			} else {
 				return false;
 			}
 		}
-		else {
-			String thermostatname=inputs.getInputValue("LOCATION1_DEVICE1_NAME");
-			WebElement ele=MobileUtils.getMobElement(testCase,"xpath", "//XCUIElementTypeStaticText[@name='subTitle_"+thermostatname+"']");
-			String actualValue=ele.getText();
-			if(actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+	}
+
+	public boolean isThermostatTemperatureDisplayed(TestCaseInputs inputs) {
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		String chilDeviceIndoorTemperature = statInfo.getIndoorTemperature();
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
+			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "ThermostatTemperature");
+			if (actualValue.contains("--") == false) {
+				if (actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+					System.out.println("Temperature is  given ");
+					return flag;
+				} else {
+					flag = false;
+				}
+			} else {
+				String thermostatname = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+				WebElement ele = MobileUtils.getMobElement(testCase, "xpath",
+						"//XCUIElementTypeStaticText[@name='subTitle_" + thermostatname + "']");
+				actualValue = ele.getText();
+				if (actualValue.contains(chilDeviceIndoorTemperature) && actualValue.toUpperCase().contains("INSIDE")) {
+					System.out.println("Temperature is  given ");
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean isUserExpectedTemperatureDisplayed() {
+
+		String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
+
+		if (actualValue.contains("--") == false) {
+			System.out.println("Temperature is  given ");
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean NavigatetoThermostatDashboard() {
+		if (MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")) {
+			CoachMarkUtils.closeCoachMarks(testCase);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isUpStepperDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpStepper", 8);
+	}
+
+	public boolean isDownStepperDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper", 8);
+	}
+
+	public boolean isUPStepperElementEnabled() {
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "UpStepper");
+		if (element.isEnabled()) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isDownStepperElementEnabled() {
+		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "DownStepper");
+		if (element.isEnabled()) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isMaxTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
+		String currentSetPoint = "";
+		int maxSetPointInt = 0;
+		float maxSetPointFloat = 0;
+		String maxSetPoint = "";
+		boolean systemIsCelsius = false;
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		String currentSystemMode = statInfo.getThermoStatMode();
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		try {
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (currentSystemMode.toUpperCase().contains("HEAT")) {
+			maxSetPoint = setPoints.get("MaxHeat");
+		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
+			maxSetPoint = setPoints.get("MaxCool");
+		}
+		if (maxSetPoint.contains(".")) {
+			systemIsCelsius = true;
+			maxSetPointFloat = Float.parseFloat(maxSetPoint);
+		} else {
+			maxSetPointInt = (int) Float.parseFloat(maxSetPoint);
+		}
+		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");
+		currentSetPoint = ele.getText();
+
+		if (systemIsCelsius == false) {
+			if (maxSetPointInt == (Integer.parseInt(currentSetPoint))) {
 				return true;
 			}
-			else {
-				return false;
-			}
-		}
-		}
-		public boolean isUserExpectedTemperatureDisplayed() {
-
-			String actualValue = MobileUtils.getFieldValue(objectDefinition, testCase, "UserExpectedTemperature");
-
-			
-			if(actualValue.contains("--")==false) {
+		} else {
+			if (maxSetPointFloat == (Float.parseFloat(currentSetPoint))) {
 				return true;
 			}
-			else {
-				return false;
-			}
 		}
-		public boolean NavigatetoThermostatDashboard() {
-			if(MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")){
-				 CoachMarkUtils.closeCoachMarks(testCase);
-				 return true;
-			}
-			return false;
-		}
-		public boolean isUpStepperDisplayed() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpStepper",8);
-		}
+		return false;
+	}
 
-		public boolean isDownStepperDisplayed() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownStepper",8);
+	public boolean isMinTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
+		String currentSetPoint = "";
+		int minSetPointInt = 0;
+		float minSetPointFloat = 0;
+		String minSetPoint = "";
+		boolean systemIsCelsius = false;
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		String currentSystemMode = statInfo.getThermoStatMode();
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		try {
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		public boolean isUPStepperElementEnabled() {
-			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "UpStepper");
-			if(element.isEnabled())
-			{
+		if (currentSystemMode.toUpperCase().contains("HEAT")) {
+			minSetPoint = setPoints.get("MinHeat");
+		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
+			minSetPoint = setPoints.get("MinCool");
+		}
+		if (minSetPoint.contains(".")) {
+			systemIsCelsius = true;
+			minSetPointFloat = Float.parseFloat(minSetPoint);
+		} else {
+			minSetPointInt = (int) Float.parseFloat(minSetPoint);
+		}
+		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");
+		currentSetPoint = ele.getText();
+
+		if (systemIsCelsius == false) {
+			if (minSetPointInt == (Integer.parseInt(currentSetPoint))) {
 				return true;
 			}
-			return false;
-		}
-
-		public boolean isDownStepperElementEnabled() {
-			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "DownStepper");
-			if(element.isEnabled())
-			{
+		} else {
+			if (minSetPointFloat == (Float.parseFloat(currentSetPoint))) {
 				return true;
 			}
-			return false;
 		}
-
-		public boolean isMaxTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
-			String currentSetPoint="";
-			boolean flag = true;
-			int maxSetPointInt=0;
-			float maxSetPointFloat=0;
-			String maxSetPoint="";
-			boolean  systemIsCelsius=false;
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String currentSystemMode=statInfo.getThermoStatMode();
-			HashMap<String, String> setPoints = new HashMap<String, String>();
-			try {
-				setPoints=statInfo.getDeviceMaxMinSetPoints();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if(currentSystemMode.toUpperCase().contains("HEAT")) {
-				 maxSetPoint= setPoints.get("MaxHeat");
-			}
-			else if(currentSystemMode.toUpperCase().contains("COOL")){
-				 maxSetPoint= setPoints.get("MaxCool");
-			}
-			 if(maxSetPoint.contains(".")) {
-	        	   systemIsCelsius=true;
-				maxSetPointFloat=Float.parseFloat(maxSetPoint);
-	           }
-	           else {
-	   			maxSetPointInt=(int)Float.parseFloat(maxSetPoint);	   
-	           }
-			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
-			currentSetPoint = ele.getText();
-			
-			if(systemIsCelsius==false) {
-				if(maxSetPointInt==(Integer.parseInt(currentSetPoint))) {
-					return true;
-				}
-				}
-				else {
-					if(maxSetPointFloat==(Float.parseFloat(currentSetPoint))) {
-						return true;
-					}
-				}
-			return false;
-		}
-
-		public boolean isMinTemperatureVisibleOnDashBoard(TestCaseInputs inputs) {
-			String currentSetPoint="";
-			boolean flag = true;
-			int minSetPointInt=0;
-			float minSetPointFloat=0;
-			String minSetPoint="";
-			boolean  systemIsCelsius=false;
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String currentSystemMode=statInfo.getThermoStatMode();
-			HashMap<String, String> setPoints = new HashMap<String, String>();
-			try {
-				setPoints=statInfo.getDeviceMaxMinSetPoints();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if(currentSystemMode.toUpperCase().contains("HEAT")) {
-				 minSetPoint= setPoints.get("MinHeat");
-			}
-			else if(currentSystemMode.toUpperCase().contains("COOL")){
-				 minSetPoint= setPoints.get("MinCool");
-			}
-			 if(minSetPoint.contains(".")) {
-	        	   systemIsCelsius=true;
-				minSetPointFloat=Float.parseFloat(minSetPoint);
-	           }
-	           else {
-	   			minSetPointInt=(int)Float.parseFloat(minSetPoint);	   
-	           }
-			WebElement ele=MobileUtils.getMobElement(objectDefinition, testCase,"UserExpectedTemperature");
-			currentSetPoint = ele.getText();
-
-			if(systemIsCelsius==false) {
-				if(minSetPointInt==(Integer.parseInt(currentSetPoint))) {
-					return true;
-				}
-				}
-				else {
-					if(minSetPointFloat==(Float.parseFloat(currentSetPoint))) {
-						return true;
-					}
-				}
-			return false;
-		}
-
-		
+		return false;
+	}
 }

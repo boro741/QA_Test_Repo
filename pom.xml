@@ -71,8 +71,8 @@
 		<!-- FRAMEWORK DEPENDENCY -->
 		<dependency>
 			<groupId>com.honeywell</groupId>
-			<artifactId>bdd_framework</artifactId>
-			<version>2.0</version>
+			<artifactId>bdd_framework_dev</artifactId>
+			<version>2.0.2.4</version>
 		</dependency>
 
 		<!-- LYRIC SPECIFIC DEPENDENCIES -->

@@ -59,13 +59,13 @@ public class EditGeofenceSchedule extends Keyword {
 				minCool = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinCool"));
 			}
 
-			if (exampleData.get(0).equalsIgnoreCase("Geofence")) {
+			if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
 				inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
 			}
 			
 			inputs.setInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE, "true");
 			
-			if (exampleData.get(1).equalsIgnoreCase("Home settings")) {
+			if (exampleData.get(1).equalsIgnoreCase("Home")) {
 				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 					homeHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
 							minHeat);
@@ -109,7 +109,7 @@ public class EditGeofenceSchedule extends Keyword {
 				
 				flag = flag & JasperSchedulingEditUtils.editGeofenceSchedule(testCase, inputs, "Home");
 
-			} else if (exampleData.get(1).equalsIgnoreCase("Sleep settings")) {
+			} else if (exampleData.get(1).equalsIgnoreCase("Sleep")) {
 				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 					inputs.setInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT,
 							defaultValues.get("GeofenceHomeCoolTemp"));
@@ -165,7 +165,7 @@ public class EditGeofenceSchedule extends Keyword {
 				}
 				flag = flag & JasperSchedulingEditUtils.editGeofenceSchedule(testCase, inputs, "Sleep");
 
-			} else if (exampleData.get(1).equalsIgnoreCase("Away settings")) {
+			} else if (exampleData.get(1).equalsIgnoreCase("Away")) {
 				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 					awayHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
 							minHeat);

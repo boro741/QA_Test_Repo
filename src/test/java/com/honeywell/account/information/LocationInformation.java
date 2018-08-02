@@ -62,7 +62,24 @@ public class LocationInformation {
 			return -1;
 		}
 	}
-
+	public long getGeofenceID() throws Exception {
+		if (locationInformation != null) {
+			JSONArray geofences;
+			long id = -1;
+			geofences = locationInformation.getJSONArray("geoFences");
+			JSONObject tempObj = null;
+			for (int i = 0; i < geofences.length(); i++) 
+			{
+				tempObj = geofences.optJSONObject(i);
+				id = tempObj.getLong("geoFenceID");
+				break;
+				
+			}
+			return id;
+		} else {
+			return -1;
+		}
+	}
 	public String getUserFirstName() {
 		String firstName = null;
 		if (locationInformation != null) {

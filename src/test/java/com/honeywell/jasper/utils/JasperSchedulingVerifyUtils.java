@@ -54,18 +54,18 @@ public class JasperSchedulingVerifyUtils {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
 							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
-							for (WebElement setpoints : schedule_heatsetpoints) {
-								if (setpoints != null) {
-									if (Double.parseDouble(setpoints.getText()) <= maxHeat
-											&& Double.parseDouble(setpoints.getText()) >= minHeat) {
+							for (int i=0;i<=schedule_heatsetpoints.size()-1;i++) {
+								if (schedule_heatsetpoints != null) {
+									if (Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) <= maxHeat
+											&& Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(setpoints.getText())
+												"Set Point value: " + Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(setpoints.getText())
+														+ Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -73,18 +73,18 @@ public class JasperSchedulingVerifyUtils {
 						}
 						if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
 							schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
-							for (WebElement setpoints : schedule_coolsetpoints) {
-								if (setpoints != null) {
-									if (Double.parseDouble(setpoints.getText()) <= maxCool
-											&& Double.parseDouble(setpoints.getText()) >= minCool) {
+							for (int i=0;i<=schedule_coolsetpoints.size()-1;i++) {
+								if (schedule_coolsetpoints != null) {
+									if (Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) <= maxCool
+											&& Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) >= minCool) {
 										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(setpoints.getText())
+												"Set Point value: " + Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(setpoints.getText())
+														+ Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -3587,11 +3587,12 @@ public class JasperSchedulingVerifyUtils {
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			List<String> allowedModes = statInfo.getAllowedModes();
-
+			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			System.out.println(inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE));
 			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
 				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE DAY")) {
+				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
 			}
 
 			CustomDriver driver = testCase.getMobileDriver();
@@ -4088,16 +4089,14 @@ public class JasperSchedulingVerifyUtils {
 		boolean flag = true;
 		List<WebElement> schedule_heatsetpoints, schedule_coolsetpoints;
 		String tempHeatSetPointApp = "", tempCoolSetPointApp = "";
-
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 			// ============================================ANDROID============================================================
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
-					schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
-							"scheduling_period_heating_point");
-					schedule_coolsetpoints = MobileUtils.getMobElements(testCase, "ID",
-							"scheduling_period_cooling_point");
+				if (schl.isSchedulePeriodHeatSetPointVisible(5)) {
+					schedule_heatsetpoints = schl.getSchedulePeriodHeatSetPointElement();
+					schedule_coolsetpoints = schl.getSchedulePeriodCoolSetPointElement();
 					// =================================Geofence HOME
 					// Period====================================
 					tempHeatSetPointApp = schedule_heatsetpoints.get(0).getText();
@@ -4108,15 +4107,15 @@ public class JasperSchedulingVerifyUtils {
 					if (schedule_coolsetpoints.get(0).getText().contains(".0")) {
 						tempCoolSetPointApp = schedule_coolsetpoints.get(0).getText().split("\\.")[0];
 					}
-					if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+					if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
 						Keyword.ReportStep_Pass(testCase,
 								"[HomeSettings] Home set points are following Auto changeover logic");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"[HomeSettings] Home set points are not following Auto changeover logic with Cool temperature: "
-										+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
-										+ Integer.valueOf(tempHeatSetPointApp));
+										+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
+										+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
 					}
 					// =================================Geofence SLEEP
 					// Period===============================
@@ -4129,15 +4128,15 @@ public class JasperSchedulingVerifyUtils {
 						if (schedule_coolsetpoints.get(1).getText().contains(".0")) {
 							tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText().split("\\.")[0];
 						}
-						if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep set points are following Auto changeover logic");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Sleep set points are not following Auto changeover logic with Cool temperature: "
-											+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
-											+ Integer.valueOf(tempHeatSetPointApp));
+											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
 						}
 
 						tempHeatSetPointApp = schedule_heatsetpoints.get(2).getText();
@@ -4148,15 +4147,15 @@ public class JasperSchedulingVerifyUtils {
 						if (schedule_coolsetpoints.get(2).getText().contains(".0")) {
 							tempCoolSetPointApp = schedule_coolsetpoints.get(2).getText().split("\\.")[0];
 						}
-						if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[AwaySettings] Away set points are following Auto changeover logic");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
-											+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
-											+ Integer.valueOf(tempHeatSetPointApp));
+											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
 						}
 					} else {
 						tempHeatSetPointApp = schedule_heatsetpoints.get(1).getText();
@@ -4167,15 +4166,15 @@ public class JasperSchedulingVerifyUtils {
 						if (schedule_coolsetpoints.get(1).getText().contains(".0")) {
 							tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText().split("\\.")[0];
 						}
-						if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[AwaySettings] Away set points are following Auto changeover logic");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
-											+ Integer.valueOf(tempCoolSetPointApp) + " and Heat temperature: "
-											+ Integer.valueOf(tempHeatSetPointApp));
+											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
 						}
 					}
 
@@ -4187,15 +4186,14 @@ public class JasperSchedulingVerifyUtils {
 			}
 			// ================================================IOS================================================================
 			else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Home_HeatTemperature", testCase, 5)) {
-					tempHeatSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_HeatTemperature")
-							.getAttribute("value");
+				if (schl.isGeofenceHomeHeatElementVisible(10)) {
+					tempHeatSetPointApp = schl.getGeofenceHomeHeatElement().getAttribute("value");
 					if (tempHeatSetPointApp.contains(".0")) {
 						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 					}
 				}
-				if (MobileUtils.isMobElementExists("name", "Geofence_Home_CoolTemperature", testCase, 5)) {
-					tempCoolSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Home_CoolTemperature")
+				if (schl.isGeofenceHomeCoolElementVisible(10)) {
+					tempCoolSetPointApp = schl.getGeofenceHomeCoolElement()
 							.getAttribute("value");
 					if (tempCoolSetPointApp.contains(".0")) {
 						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
@@ -4213,12 +4211,12 @@ public class JasperSchedulingVerifyUtils {
 				}
 
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
-					tempHeatSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_HeatTemperature")
+					tempHeatSetPointApp = schl.getGeofenceSleepHeatElement()
 							.getAttribute("value");
 					if (tempHeatSetPointApp.contains(".0")) {
 						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 					}
-					tempCoolSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_CoolTemperature")
+					tempCoolSetPointApp = schl.getGeofenceSleepCoolElement()
 							.getAttribute("value");
 					if (tempCoolSetPointApp.contains(".0")) {
 						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
@@ -4235,12 +4233,12 @@ public class JasperSchedulingVerifyUtils {
 					}
 				}
 
-				tempHeatSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_HeatTemperature")
+				tempHeatSetPointApp = schl.getGeofenceAwayHeatElement()
 						.getAttribute("value");
 				if (tempHeatSetPointApp.contains(".0")) {
 					tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 				}
-				tempCoolSetPointApp = MobileUtils.getMobElement(testCase, "name", "Geofence_Away_CoolTemperature")
+				tempCoolSetPointApp = schl.getGeofenceAwayCoolElement()
 						.getAttribute("value");
 				if (tempCoolSetPointApp.contains(".0")) {
 					tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
@@ -4265,10 +4263,10 @@ public class JasperSchedulingVerifyUtils {
 		}
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='Navigate Up']")).click();
+				flag = flag && schl.clickOnBackButton();
 			} else {
-				if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
-					if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
+				if (schl.isCloseButtonVisible(10)) {
+					if (!schl.clickOnCloseButton()) {
 						flag = false;
 					}
 				}
@@ -4290,11 +4288,11 @@ public class JasperSchedulingVerifyUtils {
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-		}
+//		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
+//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+//		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+//		}
 
 		WebElement period = null;
 		CustomDriver driver = testCase.getMobileDriver();
@@ -4357,7 +4355,6 @@ public class JasperSchedulingVerifyUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Failed to locate the period: " + periodName);
 			}
-			System.out.println(periodTime);
 		}
 
 		if (periodTime.equalsIgnoreCase(timeToVerify)) {

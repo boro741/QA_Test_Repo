@@ -39,63 +39,43 @@ public class VerifyDescription extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with the (.*) description$")
 	public boolean keywordSteps() throws KeywordException {
-		
-
-		if(expectedScreen.get(0).equalsIgnoreCase("AUTO FAN")) {
+		if (expectedScreen.get(0).equalsIgnoreCase("AUTO FAN")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			flag = flag & thermo.isAutoFanDefinitionVisibleOnChangeFanScreen();
-			
-		}
-		else if(expectedScreen.get(0).equalsIgnoreCase("CIRCULATE")) {
+
+		} else if (expectedScreen.get(0).equalsIgnoreCase("CIRCULATE")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			flag = flag & thermo.isCirculateFanDefinitionVisibleOnChangeFanScreen();
-			
-		}
-		else if(expectedScreen.get(0).equalsIgnoreCase("ON")) {
+
+		} else if (expectedScreen.get(0).equalsIgnoreCase("ON")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			flag = flag & thermo.isOnFanDefinitionVisibleOnChangeFanScreen();
 		}
 
-
-	else if(expectedScreen.get(0).equalsIgnoreCase("AUTOMODE")) {
+		else if (expectedScreen.get(0).equalsIgnoreCase("AUTOMODE")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isAutoDefinitionVisible();
-			
-		}
-		else if(expectedScreen.get(0).equalsIgnoreCase("HEAT")) {
+
+		} else if (expectedScreen.get(0).equalsIgnoreCase("HEAT")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isHeatDefinitionVisibleOnChangeModeScreen();
-			
-		}
-		else if(expectedScreen.get(0).equalsIgnoreCase("OFF")) {
+
+		} else if (expectedScreen.get(0).equalsIgnoreCase("OFF")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isOffDefinitionVisibleOnChangeModeScreen();
-			
-		}
-		else if(expectedScreen.get(0).equalsIgnoreCase("COOL")) {
+
+		} else if (expectedScreen.get(0).equalsIgnoreCase("COOL")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isCoolDefinitionVisibleOnChangeModeScreen();
-
-
-			
 		}
-		if(flag) {
-			Keyword.ReportStep_Pass(testCase, expectedScreen.get(0)+" description is present");
+		if (flag) {
+			Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(0) + " description is present");
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Mode: " + expectedScreen.get(0) + " description is not present");
 		}
-		else {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0)+" description is not present");
-			
-		}
-
-		
 		return flag;
-		
-		
-
-
-	
-}
-	
+	}
 
 	@Override
 	@AfterKeyword

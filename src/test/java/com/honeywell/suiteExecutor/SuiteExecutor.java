@@ -45,10 +45,10 @@ public class SuiteExecutor {
     				"JasperNA_CreateTimeBasedScheduleInOffMode",
 
     				/**Jasper NA - Settings**/
-    				/*"VerifyJasperNASettings",
+    				"VerifyJasperNASettings",
     				"VerifyJasperNAEMEASpruceSettings",
     				"VerifyHBBSettings",
-    				"EnableDisableIndoorTemperatureAlert",*/
+    				"EnableDisableIndoorTemperatureAlert",
     				
     				/**Jasper EMEA-Dashboard&Solutioncard**/
     				"ViewDashboardEMEA",
@@ -73,11 +73,18 @@ public class SuiteExecutor {
 		if(commandLineArguments[0].equalsIgnoreCase("iOS")){
 	       	 commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
 	                    "--publishResult",
-	                    "--requirementFileName","Requirement_file_Android.txt",
+	                    "--useXCUITest", "true",
+	                    "--requirementFileName","Requirement_file_iOS.txt",
 	                    "--testrunname","Smoketest-"+appName+"",
 	                    "--appToInstall","IOS:1,Android:"+appName+"",
 	                    "--groups",
 	                    
+	                    "ViewDashboard",
+	                	"ViewDashboardOFF",
+	                	"ViewSolutionCard",
+	                	"ViewSolutionCardOFF",
+	                	"SystemModeInfoscreenwithCoolandHeatMode",
+	                	"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
 
 	                    };
 	       	 try {

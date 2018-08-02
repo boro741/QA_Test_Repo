@@ -102,7 +102,8 @@ public class VerifyStatusOnScreen extends Keyword {
 			break;
 		}
 		case "THERMOSTAT SOLUTION CARD":
-		{PrimaryCard dash = new PrimaryCard(testCase);
+		{
+			PrimaryCard dash = new PrimaryCard(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "INSIDE TEMPERATURE":
 			{
@@ -1147,17 +1148,14 @@ public class VerifyStatusOnScreen extends Keyword {
 		}
 		case "THERMOSTAT DASHBOARD":
 		{
-			System.out.println("Inside case");
 		 Dashboard dash = new Dashboard(testCase);
 		
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "INSIDE TEMPERATURE":
 			{
-				System.out.println("Inside temp case");
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OFF":
 				{
-					System.out.println("Inside off case");
 					if(dash.isOffStatusVisible(inputs))
 					{
 						Keyword.ReportStep_Pass(testCase,

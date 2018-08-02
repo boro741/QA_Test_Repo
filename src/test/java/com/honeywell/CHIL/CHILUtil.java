@@ -2,6 +2,7 @@ package com.honeywell.CHIL;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -426,7 +427,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-
+	
 	public int createSchedule(TestCaseInputs inputs, String scheduleType, long locationID, String deviceID,
 			String jasperStatType) throws Exception {
 		int result = -1;
@@ -482,7 +483,7 @@ public class CHILUtil implements AutoCloseable {
 								"{\"name\":\"GeofenceScheduleRequestWithAutoFanMode\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":70,\"CoolSetPoint\":79,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"AwayPeriod\":{\"HeatSetPoint\":62,\"CoolSetPoint\":89,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}}},\"DeviceIds\":[\""
 										+ deviceID + "\"]}");
 					}
-				} else {
+				}else{
 					if (jasperStatType.equalsIgnoreCase("NA")) {
 						headerData = String.format(
 								"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":\"62.00\",\"coolSetPoint\":\"82.00\"}},\"DeviceIds\":[\""
@@ -500,6 +501,11 @@ public class CHILUtil implements AutoCloseable {
 			throw new Exception("Not connected to CHIL");
 		}
 		return result;
+	}
+
+	private void elseif() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public int putDASDeviceName(long locationID, String deviceID, String deviceNameToBePut) throws Exception {
@@ -1162,6 +1168,47 @@ public class CHILUtil implements AutoCloseable {
 						"{\"thermostatVacationHoldSettings\":[{\"deviceID\":\"%s\"}],\"enabled\":false}", deviceID);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int TriggerGeoEventSleep(long locationID, String deviceID, String startTime, String endTime ) {
+		int result = -1;		
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("api/locations/%s/thermostat/GeofenceScheduleTemplate", locationID);
+				String headerData = String.format(
+						"{\"Name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\","
+						+ "\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},"
+						+ "\"SleepMode\":{\"StartTime\":\"%s\",\"EndTime\":\"%s\",\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"82.00\"}},\"DeviceIDs\":[\""
+						+ deviceID + "\"]}", startTime, endTime);
+			
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int TriggerGeoEvent(long locationID, long geofenceID, long userID, String geoEvent) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("/api/locations/%s/GeoFence/%s/GangMember/%s/GeoFenceEvent", locationID, geofenceID, userID);
+				String headerData = String.format("{\"type\": \"%s\"}", geoEvent);
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

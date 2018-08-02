@@ -35,7 +35,7 @@ public class VerifyTapToSetForSpecificTimeSchedulePeriod extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^Verify if \"(.+)\" period time value is displayed as \"(.+)\"$")
+	@KeywordStep(gherkins = "^user should be displayed \"(.+)\" time as \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

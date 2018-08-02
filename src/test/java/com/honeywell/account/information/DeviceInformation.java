@@ -240,7 +240,7 @@ public class DeviceInformation {
 	}
 
 	public String getDASSensorID(String sensorName) throws Exception {
-		if (this.deviceInformation != null) {
+		if (DeviceInformation.deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
@@ -256,7 +256,7 @@ public class DeviceInformation {
 	
 	public ArrayList<String> getDASSensorIDsInADevice() throws Exception {
 		ArrayList<String> lstSensorID = new ArrayList<String>();
-		if (this.deviceInformation != null) {
+		if (DeviceInformation.deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
@@ -273,7 +273,7 @@ public class DeviceInformation {
 	
 	public ArrayList<String> getDASKeyFobsIDInADevice() throws Exception {
 		ArrayList<String> lstKeyFobID = new ArrayList<String>();
-		if (this.deviceInformation != null) {
+		if (DeviceInformation.deviceInformation != null) {
 			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
 			for (int i = 0; i < keyfobs.length(); i++) {
 				JSONObject keyfob = keyfobs.getJSONObject(i);

@@ -25,6 +25,9 @@ public class JasperSchedulingViewUtils {
 		boolean flag = true;
 		SchedulingScreen schl = new SchedulingScreen(testCase);
 		try {
+			if (schl.isTimeScheduleButtonVisible(5)){
+				flag = flag && schl.clickOnTimeScheduleButton();
+			}
 			if (!schl.isViewByIndividualDaysVisible(5)) {
 				flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 				if (!schl.isViewByIndividualDaysVisible(5)) {
@@ -32,8 +35,7 @@ public class JasperSchedulingViewUtils {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "App not in schedule view screen");
 				}
 			}
-
-			if ("Individual Days".equalsIgnoreCase(viewDays)) {
+			if ("SINGLE DAY".equalsIgnoreCase(viewDays)) {
 				if (schl.isViewByIndividualDaysVisible(5)) {
 					if (!schl.clickOnViewByIndividualDays()) {
 						flag = false;
@@ -56,7 +58,6 @@ public class JasperSchedulingViewUtils {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Error Occured : " + e.getMessage());
 		}
-
 		return flag;
 	}
 	

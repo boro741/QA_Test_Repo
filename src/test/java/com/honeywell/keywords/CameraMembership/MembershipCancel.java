@@ -1,4 +1,6 @@
-package com.honeywell.keywords.jasper.scheduling.Verify;
+package com.honeywell.keywords.CameraMembership;
+
+import java.util.ArrayList;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -7,18 +9,19 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
+import com.honeywell.screens.MembershipDetailsScreen;
 
-public class VerifyAutoChangeOverLogic extends Keyword {
-
+public class MembershipCancel extends Keyword  {
+	
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
-
-	public VerifyAutoChangeOverLogic(TestCases testCase, TestCaseInputs inputs) {
+	public ArrayList<String> parameters;
+	
+	public MembershipCancel(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.inputs = inputs;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -28,21 +31,17 @@ public class VerifyAutoChangeOverLogic extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^Periods cool set point is always greater than or equal to heat set point$")
-	public boolean keywordSteps() throws KeywordException {
-		try {
-			flag = flag & JasperSchedulingVerifyUtils.verifyAutoChangeOverLogic(testCase, inputs);
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Error Occured : " + e.getMessage());
-		}
+	@KeywordStep(gherkins = "^user clicks on the (.*) button from the (.*) screen$")
+	public boolean keywordSteps() throws KeywordException{
+		
+		MembershipDetailsScreen mds = new MembershipDetailsScreen(testCase);
+		flag = flag & mds.clickOnUnsubscribe(testCase, inputs);
 		return flag;
 	}
-
+	
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {
-		return true;
+		return flag;
 	}
 }

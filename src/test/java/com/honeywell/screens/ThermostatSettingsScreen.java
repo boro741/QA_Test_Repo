@@ -3,6 +3,8 @@ package com.honeywell.screens;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.Keyword;
@@ -369,46 +371,45 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean isThermostatIndoorHumidityAlertOptionVisible(String indoorHumidityAlertOption) {
 		boolean flag = true;
 		List<WebElement> listAlertTitles = new ArrayList<>();
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorHumidityAlertTitle")) {
-				listAlertTitles = MobileUtils.getMobElements(objectDefinition, testCase,
-						"ThermostatIndoorHumidityAlertTitle");
-				if (listAlertTitles.size() > 1) {
-					Keyword.ReportStep_Pass(testCase,
-							"Total number of Alert for this range options displayed in the screen is: "
-									+ listAlertTitles.size());
-					for (WebElement ele : listAlertTitles) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorHumidityAlertTitle")) {
+			listAlertTitles = MobileUtils.getMobElements(objectDefinition, testCase,
+					"ThermostatIndoorHumidityAlertTitle");
+			if (listAlertTitles.size() > 1) {
+				Keyword.ReportStep_Pass(testCase,
+						"Total number of Alert for this range options displayed in the screen is: "
+								+ listAlertTitles.size());
+				for (WebElement ele : listAlertTitles) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (ele.getText().equalsIgnoreCase(indoorHumidityAlertOption)) {
 							return flag;
 						} else {
 							flag = false;
 						}
+					} else {
+						if (ele.getAttribute("value").equalsIgnoreCase(indoorHumidityAlertOption)) {
+							return flag;
+						} else {
+							flag = false;
+						}
 					}
-				} else {
+				}
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (listAlertTitles.get(0).getText().equalsIgnoreCase(indoorHumidityAlertOption)) {
 						return flag;
 					} else {
 						flag = false;
 					}
+				} else {
+					if (listAlertTitles.get(0).getAttribute("value").equalsIgnoreCase(indoorHumidityAlertOption)) {
+						return flag;
+					} else {
+						flag = false;
+					}
 				}
-			} else {
-				flag = false;
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[@value='" + indoorHumidityAlertOption + "']", testCase)
-					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@value='" + indoorHumidityAlertOption + "']")
-							.getAttribute("value").equalsIgnoreCase(indoorHumidityAlertOption)
-					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@value='" + indoorHumidityAlertOption + "']")
-							.getAttribute("visible").equalsIgnoreCase("true")) {
-				return flag;
-			} else {
-				flag = false;
-			}
+			flag = false;
 		}
 		return flag;
 	}
@@ -666,6 +667,24 @@ public class ThermostatSettingsScreen extends MobileScreens {
 			}
 			return flag;
 		}
+		case BaseStationSettingsScreen.FROSTPROTECTION: {
+			boolean flag = true;
+			if (this.isThermostatFrostProtectionOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Frost Protection Visible @ 1");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatFrostProtectionOption");
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Frost Protection Visible @ 2");
+				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						BaseStationSettingsScreen.FROSTPROTECTION);
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatFrostProtectionOption");
+			}
+			if (this.isThermostatFrostProtectionOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Thermostat Frost Protection Visible @ 3");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatFrostProtectionOption");
+			}
+			return flag;
+		}
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.clickOnElement(testCase, "xpath",
@@ -848,9 +867,123 @@ public class ThermostatSettingsScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-			
-			//iOS
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+							+ "']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']",
+					testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+									+ "']/following-sibling::XCUIElementTypeSwitch[@name='autoChangeOver_toggle']")
+							.getAttribute("value").equalsIgnoreCase("1")) {
+				return flag;
+			} else {
+				flag = false;
+			}
 		}
 		return flag;
+	}
+
+	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Emergency Heat Switch");
+		}
+	}
+
+	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase, String fieldToBeVerified)
+			throws Exception {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.Switch[@content-desc='" + fieldToBeVerified + "']", testCase)
+					&& (MobileUtils
+							.getMobElement(testCase, "XPATH",
+									"//android.widget.Switch[@content-desc='" + fieldToBeVerified + "']")
+							.getText().equalsIgnoreCase("ON"))) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+							+ "']/following-sibling::XCUIElementTypeSwitch[@name='emergencyHeat_toggle']",
+					testCase)
+					&& MobileUtils
+							.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+									+ "']/following-sibling::XCUIElementTypeSwitch[@name='emergencyHeat_toggle']")
+							.getAttribute("value").equalsIgnoreCase("1")) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean toggleThermostatEmergencyHeatSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch");
+	}
+
+	public boolean isThermostatFrostProtectionOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatFrostProtectionOption", 3);
+	}
+
+	public boolean isThermostatFrostProtectionValueVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrostProtectionValue", timeOut);
+	}
+
+	public boolean setValueToHumiditySlider(String value) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			WebElement volumeSlider = MobileUtils.getMobElement(objectDefinition, testCase, "FrostProtectionSlider");
+			Dimension d1 = volumeSlider.getSize();
+			Point p1 = volumeSlider.getLocation();
+			float sliderLength = d1.getWidth();
+			float pixelPerPercent = sliderLength / 100;
+			float pixelToBeMoved = Integer.parseInt(value.equals("0") ? "1" : value) * pixelPerPercent;
+			System.out.println("Setting for " + value);
+			System.out.println("X: " + (int) (p1.getX() + pixelToBeMoved));
+			System.out.println("Y: " + p1.getY());
+			return MobileUtils.clickOnCoordinate(testCase, (int) (p1.getX() + pixelToBeMoved), p1.getY());
+		} else {
+			MobileUtils.setValueToElement(objectDefinition, testCase, "FrostProtectionSlider", value);
+			return true;
+		}
+	}
+
+	public boolean verifyThermostatFrostProtectionValue(String value) throws Exception {
+		if (this.isThermostatFrostProtectionValueVisible(10)) {
+			String displayedValue = null;
+			int expectedValue = 0;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				displayedValue = MobileUtils.getMobElement(objectDefinition, testCase, "FrostProtectionValue")
+						.getAttribute("text");
+				displayedValue = displayedValue.split("%")[0];
+				expectedValue = Integer.parseInt(value);
+				expectedValue = expectedValue / 10;
+			} else {
+				displayedValue = MobileUtils.getMobElement(objectDefinition, testCase, "FrostProtectionValue")
+						.getAttribute("value");
+			}
+			int actualValue = Integer.parseInt(displayedValue);
+			return (expectedValue <= (actualValue + 5) && expectedValue >= (actualValue - 5));
+		} else {
+			throw new Exception("Could not find Volume Value Elements");
+		}
 	}
 }

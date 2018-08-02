@@ -12,32 +12,43 @@ public class HoneywellMembershipScreen extends MobileScreens {
 
 	private static final String screenName = "HoneywellMembership";
 	private static HashMap<String, MobileObject> fieldObjects;
-
+	public boolean flag;
+	
 	public HoneywellMembershipScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
 	
-	public boolean clickOnMonthlyPlan(TestCases testCase, TestCaseInputs inputs) {
-		//return MobileUtils.clickOnElement(objectDefinition, testCase, "StartMembership");
-		
+	public boolean clickOnMonthlyPlan(TestCases testCase, TestCaseInputs inputs) {	
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "HoneywellMembership");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "StartMembership")) {
-			MobileUtils.clickOnElement(fieldObjects, testCase, "StartMembership");
-			return true;
-		}
-		return true;
+		
+		flag = (MobileUtils.isMobElementExists(fieldObjects, testCase, "StartMembership")?
+				MobileUtils.clickOnElement(fieldObjects, testCase, "StartMembership"):
+				false);
+		
+		return flag;
 	}
 	
 	public boolean clickOnAnnualPlan(TestCases testCase, TestCaseInputs inputs) {
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "HoneywellMembership");
 		
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "AnnualButton")) {
-			MobileUtils.clickOnElement(objectDefinition, testCase, "AnnualButton");
-		}
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "StartMembership")) {
-			MobileUtils.clickOnElement(fieldObjects, testCase, "StartMembership");
-			return true;
-		}
-		return true;
+		flag &= (MobileUtils.isMobElementExists(fieldObjects, testCase, "AnnualButton")?
+				MobileUtils.clickOnElement(objectDefinition, testCase, "AnnualButton"):
+				false);	
+		
+		flag &= (MobileUtils.isMobElementExists(fieldObjects, testCase, "StartMembership")?
+				MobileUtils.clickOnElement(fieldObjects, testCase, "StartMembership"):
+				false);	
+
+		return flag;
 	}
+	
+	public boolean clickOnManageMembership(TestCases testCase, TestCaseInputs inputs){
+			fieldObjects = MobileUtils.loadObjectFile(testCase, "HoneywellMembership");
+			
+			flag = (MobileUtils.isMobElementExists(fieldObjects, testCase, "ManageMembership")?
+					MobileUtils.clickOnElement(fieldObjects, testCase, "ManageMembership"):
+					false);
+			
+		return flag;
+		}
 }

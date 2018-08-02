@@ -27,14 +27,13 @@ public class JasperSchedulingEditUtils {
 		 SchedulingScreen schl = new SchedulingScreen(testCase);
 		try 
 		{
-			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
 
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying geofence based schedule on solution card **************************");
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='When I" + "\u2019" + "m Home']", testCase, 5)) {
+				if (schl.isWhenImHomeTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : When I'm Home text displayed on schedule screen");
 				} else {
@@ -72,7 +71,7 @@ public class JasperSchedulingEditUtils {
 					}
 				}
 
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='When I" + "\u2019" + "m Away']", testCase, 5)) {
+				if (schl.isWhenImAwayTextVisible(5)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Displayed Schedule : When I'm Away text displayed on schedule screen");
 				} else {

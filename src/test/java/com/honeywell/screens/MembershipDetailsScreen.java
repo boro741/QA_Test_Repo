@@ -12,7 +12,8 @@ public class MembershipDetailsScreen extends MobileScreens {
 
 	private static final String screenName = "MembershipDetails";
 	private static HashMap<String, MobileObject> fieldObjects;
-
+	public boolean flag;
+	
 	public MembershipDetailsScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -20,10 +21,22 @@ public class MembershipDetailsScreen extends MobileScreens {
 	public boolean clickOnProceedToCheckout(TestCases testCase, TestCaseInputs inputs) {
 		
 		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipDetails");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ProceedToCheckout")) {
-			MobileUtils.clickOnElement(fieldObjects, testCase, "ProceedToCheckout");
-			return true;
-		}
-		return false;
+		
+		flag = (MobileUtils.isMobElementExists(fieldObjects, testCase, "ProceedToCheckout")?
+				MobileUtils.clickOnElement(fieldObjects, testCase, "ProceedToCheckout"):
+				false);
+			
+		return flag;
+	}
+	
+	public boolean clickOnUnsubscribe(TestCases testCase, TestCaseInputs inputs) {
+		
+		fieldObjects = MobileUtils.loadObjectFile(testCase, "MembershipCancel");
+		
+		flag = (MobileUtils.isMobElementExists(fieldObjects, testCase, "Unsubscribe")?
+				MobileUtils.clickOnElement(fieldObjects, testCase, "Unsubscribe"):
+				false);
+			
+		return flag;
 	}
 }

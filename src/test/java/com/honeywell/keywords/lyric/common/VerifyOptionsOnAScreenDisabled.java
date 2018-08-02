@@ -352,11 +352,25 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				if (fieldToBeVerified.equalsIgnoreCase("AUTO CHANGEOVER")) {
 					try {
 						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase, fieldToBeVerified)) {
-							Keyword.ReportStep_Pass(testCase, "Auto Changeover:" + fieldToBeVerified + " is disabled");
+							Keyword.ReportStep_Pass(testCase, "Auto Changeover: " + fieldToBeVerified + " is disabled");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Auto Changeover:" + fieldToBeVerified + " is enabled");
+									"Auto Changeover: " + fieldToBeVerified + " is enabled");
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured: " + e.getMessage());
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("EMERGENCY HEAT")) {
+					try {
+						if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase, fieldToBeVerified)) {
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat: " + fieldToBeVerified + " is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Emergency Heat: " + fieldToBeVerified + " is enabled");
 						}
 					} catch (Exception e) {
 						flag = false;

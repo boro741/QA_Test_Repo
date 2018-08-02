@@ -602,6 +602,41 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Optimise Switch is not displayed in the Thermostat Settings Screen");
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("EMERGENCY HEAT")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatEmergencyHeatSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Emergency Heat Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatEmergencyHeatSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Emergency Heat Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Emergency Heat Switch is not displayed in the Thermostat Settings Screen");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("FROST PROTECTION MODE")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				String value = parameters.get(1).split("%")[0].split("~")[1];
+				System.out.println("########value to be verified in Thermostat Settings screen: " + value);
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (ts.verifyThermostatFrostProtectionValue(value)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Frost Protection value is displayed correctly: " + parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Frost Protection value is not displated correctly. Expected : " + parameters.get(1));
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

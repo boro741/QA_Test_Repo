@@ -1,7 +1,6 @@
 package com.honeywell.lyric.utils;
 
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -129,7 +128,7 @@ public class LyricUtils {
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
 
 			if (chUtil.getConnection()) {
-				 locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				long locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
 
 				if (locationID == -1) {
 					return jsonObject;
@@ -211,7 +210,7 @@ public class LyricUtils {
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
 
 			if (chUtil.getConnection()) {
-				 locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+				long locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
 
 				if (locationID == -1) {
 					return jsonObject;
@@ -474,6 +473,12 @@ public class LyricUtils {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						return d.isGlobalDrawerButtonVisible(5);
 					} else {
+						if (inputs.isRunningOn("SauceLabs")) {
+							if (os.isRootedDevicePopupVisible(1)) {
+								os.clickAcceptOnRootedDevicePopup();
+							}
+							
+						}
 						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
 							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 								return true;
@@ -526,6 +531,11 @@ public class LyricUtils {
 		OSPopUps os = new OSPopUps(testCase);
 		LoginScreen ls = new LoginScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			
+			if (ls.isSkipButtonVisible()) {
+				flag = flag & ls.clickOnSkipIntroButton();
+			}
+			
 			if (os.isAllowButtonVisible(5)) {
 				flag = flag & os.clickOnAllowButton();
 			}
@@ -701,15 +711,14 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-	/*	flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
-		*/
 		return flag;
 	}
 
@@ -1163,40 +1172,6 @@ public class LyricUtils {
 					+ e.getMessage());
 		}
 	}
-	
-	/**
-	 * 
-	 * 
-	 */
-	public static String getToastMessage(TestCases testCase) {
-		
-        String fileName= takeScreenShot(
-				System.getProperty("user.dir") + File.separator + "ToastMessages", testCase.getMobileDriver());
-		String str = "";
-		BytePointer outText;
-        TessBaseAPI api = new TessBaseAPI();
-
-        if (api.Init(".", "ENG") != 0) {
-            System.err.println("Could not initialize tesseract.");
-            System.exit(1);
-        }		
-        String fileNamePath=System.getProperty("user.dir") + File.separator + "ToastMessages"+File.separator+fileName;
-        PIX image = pixRead(fileNamePath);
-        api.SetImage(image);
-
-        // Get OCR result
-        outText = api.GetUTF8Text();
-        str = outText.getString();
-//        System.out.println("OCR output:\n" + str);
-
-        // Destroy used object and release memory
-        api.End();
-        outText.deallocate();
-        pixDestroy(image);
-		return str;
-	}
-	
-	
 
 	/**
 	 * <h1>Verify Device Displayed On Dashboard</h1>
@@ -1581,6 +1556,34 @@ public class LyricUtils {
 			throw new Exception(e.getMessage());
 		}
 		return alerts;
+	}
+
+	public static String getToastMessage(TestCases testCase) {
+		
+        String fileName= takeScreenShot(
+				System.getProperty("user.dir") + File.separator + "ToastMessages", testCase.getMobileDriver());
+		String str = "";
+		BytePointer outText;
+        TessBaseAPI api = new TessBaseAPI();
+
+        if (api.Init(".", "ENG") != 0) {
+            System.err.println("Could not initialize tesseract.");
+            System.exit(1);
+        }		
+        String fileNamePath=System.getProperty("user.dir") + File.separator + "ToastMessages"+File.separator+fileName;
+        PIX image = pixRead(fileNamePath);
+        api.SetImage(image);
+
+        // Get OCR result
+        outText = api.GetUTF8Text();
+        str = outText.getString();
+//        System.out.println("OCR output:\n" + str);
+
+        // Destroy used object and release memory
+        api.End();
+        outText.deallocate();
+        pixDestroy(image);
+		return str;
 	}
 
 }

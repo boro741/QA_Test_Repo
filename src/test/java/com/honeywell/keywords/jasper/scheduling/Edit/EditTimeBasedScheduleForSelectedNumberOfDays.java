@@ -202,7 +202,7 @@ public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
 								}
 
 							} else
-								if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
+								if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE DAY")) {
 									tempDays = days[rn.nextInt((6 - 0) + 1) + 0];
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 										if (jasperStatType.equalsIgnoreCase("NA")) {
