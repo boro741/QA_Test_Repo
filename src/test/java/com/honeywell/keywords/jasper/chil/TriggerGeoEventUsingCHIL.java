@@ -75,11 +75,11 @@ public class TriggerGeoEventUsingCHIL extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geo event not triggered" + exampleData.get(0));
 						}
 						if(statInfo.getJasperDeviceType().equals("EMEA")){
-							startTime = JasperSetPoint.TriggerGeoEventSleepStartEMEA(testCase);
-							endTime = JasperSetPoint.TriggerGeoEventSleepEndEMEA(testCase, 2);
+							startTime = JasperSetPoint.CalculatePeriodStartEMEA(testCase);
+							endTime = JasperSetPoint.CalculatePeriodEndEMEA(testCase, 2);
 						}else {
-							startTime = JasperSetPoint.TriggerGeoEventSleepStartNAHB(testCase);
-							endTime = JasperSetPoint.TriggerGeoEventSleepEndNAHB(testCase, 2);
+							startTime = JasperSetPoint.CalculatePeriodStartNAHB(testCase);
+							endTime = JasperSetPoint.CalculatePeriodEndNAHB(testCase, 2);
 						}
 						if (chUtil.getConnection()) {
 							result = chUtil.TriggerGeoEventSleep(locationID, deviceID, startTime, endTime );
