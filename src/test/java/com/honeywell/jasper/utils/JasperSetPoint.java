@@ -295,7 +295,7 @@ public class JasperSetPoint {
 		return roundOffTime;
 	}
 
-	public static String TriggerGeoEventSleepStartEMEA(TestCases testCase) {
+	public static String CalculatePeriodStartEMEA(TestCases testCase) {
 		String formattedTime = " ";
 		try {
 			Calendar startTime = Calendar.getInstance();
@@ -315,7 +315,7 @@ public class JasperSetPoint {
 		return formattedTime;
 	}
 
-	public static String TriggerGeoEventSleepEndEMEA(TestCases testCase,
+	public static String CalculatePeriodEndEMEA(TestCases testCase,
 			int hour) {
 		String formattedTime = "";
 		try {
@@ -337,7 +337,7 @@ public class JasperSetPoint {
 		return formattedTime;
 	}
 
-	public static String TriggerGeoEventSleepStartNAHB(TestCases testCase) {
+	public static String CalculatePeriodStartNAHB(TestCases testCase) {
 		String formattedTime = " ";
 		try {
 			Calendar startTime = Calendar.getInstance();
@@ -358,7 +358,7 @@ public class JasperSetPoint {
 	}
 	
 
-	public static String TriggerGeoEventSleepEndNAHB(TestCases testCase,
+	public static String CalculatePeriodEndNAHB(TestCases testCase,
 			int hour) {
 		String formattedTime = "";
 		try {
