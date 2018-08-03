@@ -1033,25 +1033,6 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
-	public int setNoHoldAdhocstatus(long locationID, String deviceID) {
-		int result = -1;
-		try {
-			if (isConnected) {
-				String url = chilURL
-						+ String.format("api/locations/%s/devices/%s/thermostat/changeableValues/	", locationID, deviceID);
-				String headerData = String.format("{\"thermostatSetpointStatus\":\"%s\"}", "NoHold");
-				try {
-					result = doPostRequest(url, headerData).getResponseCode();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-
-		}
-		return result;
-	}
-	
 	public int setHumidificationValue(long locationID, String deviceID, String HumidificationValue) {
 		int result = -1;
 		try {

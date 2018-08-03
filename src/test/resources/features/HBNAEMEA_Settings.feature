@@ -557,7 +557,7 @@ When user navigates to "Ventilation" screen from the "Dashboard" screen
 Then user should be displayed with the following "Ventilation" options: 
 		| VentilationOptions		| 
 	    | Off 					| 
-    	| On   					| 
+    		| On   					| 
       	| Auto	  				|
 When user changes the "Ventilation" to "Off"
 And user navigates to "Thermostat Settings" Screen from the "Ventilation" Screen
