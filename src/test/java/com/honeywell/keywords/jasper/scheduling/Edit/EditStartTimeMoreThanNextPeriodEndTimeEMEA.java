@@ -191,10 +191,7 @@ public class EditStartTimeMoreThanNextPeriodEndTimeEMEA extends Keyword {
 				}
 		SchedulingScreen sScreen = new SchedulingScreen(testCase);
 		sScreen.isViewByGroupedDaysVisible(20);
-		System.out.println(testCase.getMobileDriver()
-					.findElement(By.xpath("//*[@content-desc='"+periodNumber+ "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText());
-		System.out.println(changedTime);
-		 if(changedTime.equalsIgnoreCase(testCase.getMobileDriver()
+		if(changedTime.equalsIgnoreCase(testCase.getMobileDriver()
 					.findElement(By.xpath("//*[@content-desc='"+periodNumber+ "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText().trim())){
 			 Keyword.ReportStep_Pass(testCase, "N period end time is N+1 start time+10 mins");
 		 }else{
