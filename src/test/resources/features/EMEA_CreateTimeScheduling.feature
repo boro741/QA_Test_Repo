@@ -1,4 +1,4 @@
-@EMEATimeBasedScheduling
+@EMEATimeBasedScheduling @EMEA_Schedule
 Feature: Jasper,Sprouce and Flycatcher Scheduling
 As a user I want to create an time based scheduling
 
@@ -20,7 +20,7 @@ As a user I want to create an time based scheduling
    #   | no         | Different On Weekdays | 
    #   | time based | Different On Weekdays | 
  
- @JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641 @Automated
+@JasperEMEA_CreateEMEAEverydayscheduleAddingperiod @JasperEmeaScheduleP1 @--xrayid:ATER-44641 @Automated
   Scenario Outline: To create EMEA schedule by setting up with new period with new time value for both time format
   As an user
   I want to create Everyday schedule by adding new period for both time format
@@ -35,7 +35,7 @@ As a user I want to create an time based scheduling
       | Same Every Day        | 
    #   | Different On Weekdays | 
   
-  @JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3 @Automated
+@JasperEMEA_CancelToRetainExisitngscheduling @JasperEmeaScheduleP3 @Automated
   Scenario Outline: As a user i want to be prompted with an option to Cancel overriding Geofence Schedule
     Given user thermostat is set to "geofence based" schedule
       And user launches and logs in to the Lyric application
@@ -48,7 +48,7 @@ As a user I want to create an time based scheduling
       | Same Every Day        | 
    #   | Different On Weekdays | 
   
-  @JasperEMEA_ConfirmToCreateNewSchedule @JasperEmeaScheduleP2 @Automated
+@JasperEMEA_ConfirmToCreateNewSchedule @JasperEmeaScheduleP2 @Automated
   Scenario Outline: As a user i want to be prompted with an option to Confirm and Create new Schedule
     Given user thermostat is set to "geofence based" schedule
       And user launches and logs in to the Lyric application
@@ -61,7 +61,7 @@ As a user I want to create an time based scheduling
   #    | Same Every Day        | 
       | Different On Weekdays | 
   
-  @JasperEMEA_TempretureBandwidthforEachPeriod @JasperEmeaScheduleP3 @Automated
+@JasperEMEA_TempretureBandwidthforEachPeriod @JasperEmeaScheduleP3 @Automated
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for each period
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
     Given user thermostat is set to "No" schedule
@@ -82,12 +82,18 @@ As a user I want to create an time based scheduling
     #  | Different On Weekdays | At Minimum    | 
       | Different On Weekdays | within range  | 
   
-  @JasperEMEA_TimerClockIsInCrementalOf15mins @JasperEmeaScheduleP2 @Pending
-  Scenario: As a user i want to verify if Timer clock in Each period is incremental of 15mins
-    Given user launches and logs in to the Lyric application
+@JasperEMEA_TimerClockIsInCrementalOf15mins @JasperEmeaScheduleP2 
+  Scenario Outline: As a user i want to verify if Timer clock in Each period is incremental of 15mins
+    Given "Geofence" Schedule "With" sleep Settings
+      And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user creates "Same Every Day" schedule by changing the time values
-     Then user should be displayed "Same Every Day" schedule with timer field incremental of "10 minutes"
+     When user <Condition> sleep settings in Geofence Schedule
+     Then user should be displayed sleep setting timer with increments of "15 minutes"
+  
+    Examples: 
+      | Condition   | 
+      | Edit        | 
+    #  | Creates new | 
   
   
       
