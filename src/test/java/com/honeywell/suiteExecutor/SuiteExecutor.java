@@ -23,17 +23,17 @@ public class SuiteExecutor {
 			commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
 					"--publishResult",
 					"--requirementFileName","Requirement_file_ComfortSettings_Android.txt",
-					"--testrunname","DLS-"+appName+"",
+					"--testrunname","DLS_EMEAScheduling-"+appName+"",
 					"--appToInstall","IOS:1,Android:"+appName+"",
 					"--groups",
 
-					/**Jasper NA-DashbboardandSolutionCard**/
-					"ViewDashboard",
-					"ViewDashboardOFF",
-					"ViewSolutionCard",
-					"ViewSolutionCardOFF",
-					"SystemModeInfoscreenwithCoolandHeatMode",
-					"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
+//					/**Jasper NA-DashbboardandSolutionCard**/
+//					"ViewDashboard",
+//					"ViewDashboardOFF",
+//					"ViewSolutionCard",
+//					"ViewSolutionCardOFF",
+//					"SystemModeInfoscreenwithCoolandHeatMode",
+//					"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
 
 //					/**Jasper NA-Scheduling**/
 //					"NA_CreateGeofenceSchedule",
@@ -73,32 +73,32 @@ public class SuiteExecutor {
 //					"ScheduleONOFFNAVacationNA",
 //					"ScheduleONOFFNAgeofencebase",
 
-					/**Jasper EMEA-Dashboard&Solutioncard**/
-					"ViewDashboardEMEA",
-					"ViewSolutionCardEMEA",
-					"SystemModeInfoscreenwithHeatOnlyEMEA",
+//					/**Jasper EMEA-Dashboard&Solutioncard**/
+//					"ViewDashboardEMEA",
+//					"ViewSolutionCardEMEA",
+//					"SystemModeInfoscreenwithHeatOnlyEMEA",
 
-//					/**Jasper EMEA-Scheduling**/
-//					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
-//					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
-//					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
-//					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
-//					"JasperEMEA_CancelToRetainExisitngscheduling",
-//					"JasperEMEA_ConfirmToCreateNewSchedule",
-//					"JasperEMEA_TempretureBandwidthforEachPeriod",
-//					"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
-//					"JasperEMEA_CanCreateMaximumOfSixPeriods",
-//					"JasperEMEA_CreateTimeBasedScheduleInOffMode",
-//					"JasperEMEA_CopyScheduleToMulitpleStat",
-//					"EMEA_CreateGeofenceSchedule",
-//					"EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule",
-//					"EMEA_SleepSettings",
-//					"EMEA_EditGeofenceWithTemperature",
-//					"EMEA_CreateGeofenceScheduleInOffMode",
-//					"EMEA_CreateGeonceScheduleInLearnMode",
-//					"EMEA_CopyGeofenceScheduleToMulitpleStat",
-//					"EMEA_AtleastOnePeriodNotDeletableInGroupDay",
-//					"EMEA_AtleastTwoPeriodInIndividualDay",
+					/**Jasper EMEA-Scheduling**/
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CancelToRetainExisitngscheduling",
+					"JasperEMEA_ConfirmToCreateNewSchedule",
+					"JasperEMEA_TempretureBandwidthforEachPeriod",
+					"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
+					"JasperEMEA_CanCreateMaximumOfSixPeriods",
+					"JasperEMEA_CreateTimeBasedScheduleInOffMode",
+					"JasperEMEA_CopyScheduleToMulitpleStat",
+					"EMEA_CreateGeofenceSchedule",
+					"EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule",
+					"EMEA_SleepSettings",
+					"EMEA_EditGeofenceWithTemperature",
+					"EMEA_CreateGeofenceScheduleInOffMode",
+					"EMEA_CreateGeonceScheduleInLearnMode",
+					"EMEA_CopyGeofenceScheduleToMulitpleStat",
+					"EMEA_AtleastOnePeriodNotDeletableInGroupDay",
+					"EMEA_AtleastTwoPeriodInIndividualDay",
 
 
 //					/** EMEA Schedule ON/OFF**/
