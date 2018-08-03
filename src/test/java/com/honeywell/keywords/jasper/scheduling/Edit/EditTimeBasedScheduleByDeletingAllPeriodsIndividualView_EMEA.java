@@ -85,7 +85,8 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 									if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeleteButton")) {
 										flag = false;
 									} else {
-										if (MobileUtils.isMobElementExists("name", inputs.getInputValue("LOCATION1_DEVICE1_NAME"), testCase)) {
+										System.out.println("//*[contains(@text,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]");
+										if (MobileUtils.isMobElementExists("Xpath", "//*[contains(@text,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]", testCase)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Schedule period is deleted when clicked on Delete during Delete operation");
 										} else {
@@ -93,6 +94,7 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Schedule period is not deleted when clicked on Delete during Delete operation");
 										}
+										
 									}
 								} else {
 									flag = false;
