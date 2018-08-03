@@ -1109,7 +1109,7 @@ public class SelectElementOnAScreen extends Keyword {
 				switch (parameters.get(0).toUpperCase()) {
 				case "OPTION": {
 					SchedulingScreen option = new SchedulingScreen(testCase);
-					flag = flag & option.isScheduleOptionsVisible(4);
+					flag = flag & option.isScheduleOptionsVisible(2);
 					flag = flag & option.isScheduleOptionsElementEnabled();
 					if (flag) {
 						flag = flag & option.clickOnScheduleOptionsButton();
@@ -1136,12 +1136,9 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
 				}
 				}
-			}
+				
 			// select schedule off from option action sheet
 			else if (parameters.get(1).equalsIgnoreCase("Option")) {
 				switch (parameters.get(0).toUpperCase()) {
