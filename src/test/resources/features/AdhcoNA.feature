@@ -54,8 +54,7 @@ When user navigates to "thermostat solution card" screen from the "thermostat Da
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
 When user changes system mode to <ChangeMode>
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-#And user should be displayed with respective <Period> setpoint value in solution card
-
+And verify user should be displayed with respective period setpoint value in solution card
 Examples:
 |Mode  | ChangeMode | Period |
 |Heat  |Cool        | WAKE   |

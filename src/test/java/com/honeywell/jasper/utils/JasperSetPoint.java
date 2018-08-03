@@ -357,7 +357,6 @@ public class JasperSetPoint {
 		return formattedTime;
 	}
 	
-
 	public static String CalculatePeriodEndNAHB(TestCases testCase,
 			int hour) {
 		String formattedTime = "";

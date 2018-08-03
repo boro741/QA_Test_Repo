@@ -54,13 +54,11 @@ public class DeviceInformation {
 		}
 	}
 
-
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 		return true;
 	}
-	
 	
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
@@ -175,7 +173,6 @@ public class DeviceInformation {
 		}
 		return VentilationTimerValue;
 	}
-
 
 	public HashMap<String, String> getDeviceMaxMinSetPoints() throws Exception {
 		HashMap<String, String> setPoints = new HashMap<String, String>();
@@ -332,6 +329,7 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
+	
 	public String getThermostatType() {
 		String type = "";
 		if (deviceInformation != null) {
@@ -343,6 +341,7 @@ public class DeviceInformation {
 		}
 		return type ;
 	}
+	
 	public String getThermoStatMode() {
 		String systemMode = "";
 		if (deviceInformation != null) {
@@ -362,7 +361,6 @@ public class DeviceInformation {
 		return systemMode;
 	}
 
-
 	public String getThermostatModeWhenAutoChangeOverActive() {
 		String systemMode = "";
 		if (deviceInformation != null) {
@@ -381,6 +379,7 @@ public class DeviceInformation {
 		}
 		return systemMode;
 	}
+	
 	public String getCoolSetPoints() {
 		String coolSetPoints = " ";
 		try {
@@ -408,7 +407,6 @@ public class DeviceInformation {
 		return coolSetPoints;
 	}
 
-
 	public String getIndoorTemperature() {
 		String indoorTemp = " ";
 		try {
@@ -434,7 +432,6 @@ public class DeviceInformation {
 		}
 		return indoorTemp;
 	}
-
 
 	public String getCurrentSetPoints() {
 		String currentSetPoints = " ";
@@ -556,7 +553,6 @@ public class DeviceInformation {
 		return nextPeriodTime;
 	}
 	
-
 	public String getOverrrideSetpoint() {
 			String OverrideMode = "";
 			String OverrideSet = "";		
@@ -589,7 +585,6 @@ public class DeviceInformation {
 		}
 		return holdUntil;
 	}
-
 
 	public String getVacationStartTime() {
 		String startTime = "";
@@ -655,7 +650,5 @@ public class DeviceInformation {
 		}
 		return status;
 	}
-
-
 
 }
