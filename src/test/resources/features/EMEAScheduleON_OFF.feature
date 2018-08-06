@@ -1,8 +1,8 @@
-@ScheduleON_OFF
+@ScheduleON_OFF  @Comfort
 Feature: As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
 
 
-@ScheduleOFFONEMEA @Automated --LYR-29402
+@ScheduleOFFONEMEA @Automated @LYR-29402
 Scenario Outline:Schedule OFF ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius and for time format 24 12hr
 #As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
 Given user has "Heat" system mode
@@ -23,7 +23,7 @@ Examples:
 |geofence based |
 
 
-@ScheduleOFFONEMEAtimebase @Automated --LYR-29401
+@ScheduleOFFONEMEAtimebase @Automated @LYR-29401
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 #As an user I want to turn schedule ON while running time base schedule   
 Given user has "Heat" system mode
@@ -44,7 +44,7 @@ Examples:
 | scheduling | Schedule status |
 |time based | following schedule |
 
-@ScheduleONOFFEMEAgeofencebase Automated --	LYR-29400
+@ScheduleONOFFEMEAgeofencebase @Automated    @LYR-29400
 Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence based 
 #Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has "Heat" system mode
@@ -71,7 +71,7 @@ Examples:
 |geofence based|Using Sleep Settings |UserArrived | Sleep|
 
 #JapserEMEA
-@ScheduleOFFEMEAtimebasegeofencebase @Automated -- LYR-29399
+@ScheduleOFFEMEAtimebasegeofencebase @Automated @LYR-29399
 Scenario Outline:Schedule ON the stat with systems Heat for Temperture scale Celsius and for time format 2412hr
 #As an user I want to turn schedule ON from OFFSo that schedule will be turned back to follow schedule 
 Given user has "Heat" system mode
@@ -96,7 +96,7 @@ Examples:
 |geofence based| Temporary |
 
 
-@ScheduleONFFAdhocOverrideEMEAtimebase @Automated -- LYR-29402
+@ScheduleONFFAdhocOverrideEMEAtimebase @Automated @LYR-29402
 Scenario Outline:As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule
 #Schedule OFF the stat with systems Heat for Temperture scale Celsius and for time format 24 12hr   
 Given user has "Heat" system mode
@@ -123,7 +123,7 @@ Examples:
 
 
 
-@ScheduleOFFONAadhocoverrideEMEAgeofence @Automated --LYR-29404
+@ScheduleOFFONAadhocoverrideEMEAgeofence @Automated @LYR-29404
 Scenario Outline:s an user I want to turn schedule ON from OFFSo that schedule will be turned back to geofence schedule 
 #Schedule ON the stat with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has "Heat" system mode
@@ -151,7 +151,7 @@ Examples:
 |Without sleep geofence based| Temporary | Using Away Settings| UserDeparted |Away|
 |geofence based| Temporary | Using Sleep Settings|UserArrived |Sleep|
 
-@ScheduleOFFVacationEMEA @Automated --LYR-29407
+@ScheduleOFFVacationEMEA @Automated @LYR-29407
 Scenario Outline:As an user I want to turn schedule OFF while vacation is active So that I will be able to turned off schedule whenever I don't want to run schedule
 #Schedule OFF for stat with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 Given user has "Heat" system mode
@@ -175,7 +175,7 @@ Examples:
 
 
 
-@ScheduleOFFONVacationEMEA @Automated --LYR-29406
+@ScheduleOFFONVacationEMEA @Automated @LYR-29406
 Scenario Outline: As an user I want to turn schedule ON So that my vaction will be back   
 #Schedule ON the stat with systems Heat for Temperture scale Celsius and for time format 24 12hr 
 Given user has "Heat" system mode
