@@ -13,5 +13,5 @@ SecondaryCardSettings	id	list_item_lyric_icon_text	id	list_item_lyric_icon_text	
 AddressOption	xpath	"//android.widget.TextView[contains(@text,'Address')]"					xpath	"//*[contains(@name,'Address')]"				
 FaceRecognitionOption	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']						
 HomeAddress	xpath	//android.widget.TextView[@text='Home Address']	xpath	//android.widget.TextView[@text='Facial Recognition']	xpath	//android.widget.TextView[@text='Facial Recognition']						
-HoneywellMembershipOption	xpath	"//android.widget.TextView[contains(@text,'Honeywell Membership')]"
-VacationOption	xpath	//android.widget.TextView[@text='Vacation']	xpath	//android.widget.TextView[@text='Vacation']	xpath	//android.widget.TextView[@text='Vacation']						
+HoneywellMembershipOption	xpath	"//android.widget.TextView[contains(@text,'Honeywell Membership')]"										
+VacationOption	xpath	//android.widget.TextView[@text='Vacation']	xpath	//android.widget.TextView[@text='Vacation']	xpath	//android.widget.TextView[@text='Vacation']	XPATH	//XCUIElementTypeStaticText[@value='Vacation']	XPATH	//XCUIElementTypeStaticText[@value='Vacation']	XPATH	//XCUIElementTypeStaticText[@value='Vacation']
