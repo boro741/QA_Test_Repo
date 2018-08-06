@@ -74,19 +74,7 @@ And user should be displayed with the following "Indoor Temperature Alert" optio
 	| Alert for this range			|
 When user changes the "Indoor Temperature Alert" to "OFF"
 Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Alerts" screen
-      
- 
-#InvalidScenario
-#JasperNA, JasperEMEA, HB_Spruce     
-@EnableDisableEmailForEnabledAlerts		@P3
-Scenario: As a user I should be able to enable or disable Email For Enabled Alerts on my thermostat
-Given user launches and logs in to the Lyric application
-When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Temperature Alert" to "ON"
-And user changes the "Email For Enabled Alerts" to "ON"
-Then "Email For Enabled Alerts" value should be updated to "ON" on "Manage Alerts" screen
-When user changes the "Indoor Temperature Alert" to "OFF"
-Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Alerts" screen
+    
 
 #JasperNA, JasperEMEA, HB_Spruce   
 @ChangeAlertForThisRangeforTemperature		@P1		@AutomatedOnAndroid		@--xrayid:ATER-44520
@@ -120,19 +108,6 @@ When user navigates to "Activity History" screen from the "Thermostat Settings" 
 Then user should be displayed with the following "Temperature Alert" options:
 	| TempRangeAlertMsg		|
 	| Above					|
-
-
-#InvalidScenario
-#HB_Srpuce
-@HBBEnableDisableEmailForEnabledAlertsforHumidity		@P2
-Scenario: As a user I should be able to enable or disable Email For Enabled Alerts for Humidity on my thermostat
-Given user launches and logs in to the Lyric application
-When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Humidity Alert" to "ON"
-And user changes the "Email For Enabled Alerts" to "ON"
-Then "Email For Enabled Alerts" value should be updated to "ON" on "Manage Alerts" screen
-When user changes the "Email For Enabled Alerts" to "OFF"
-Then "Email For Enabled Alerts" value should be updated to "OFF" on "Manage Alerts" screen
 
 
 #HB_Srpuce
@@ -722,20 +697,6 @@ When user edits the "Thermostat" name to "Test Thermostat Name"
 And user navigates to "Dashboard" screen from the "Thermostat Settings" screen 
 Then user should be displayed with "Test Thermostat Name" device on the "dashboard" screen 
 And user reverts back the "Thermostat device name" through CHIL
-
-
-#InvalidScenario
-#JasperNA, JAsperEMEA, HB_Spruce
-@RenameThermostatWithDuplicatename			@P3
-Scenario: As a user I want to get a error message when i eneter a duplicate name for my thermostat
-Given user launches and logs in to the Lyric application 
-And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
-When user edits the "Thermostat 1" name to "Test Thermostat Name" 
-And user navigates to "Dashboard" screen from the "Thermostat Configuration" screen 
-Then user should be displayed with "Test Thermostat Name" device on the "dashboard" screen
-When user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
-And user edits the "Thermostat 1" name to "Test Thermostat Name" 
-Then user should be displayed with "Duplicate name error" Popup
 
 
 #JasperNA, JAsperEMEA, HB_Spruce
