@@ -4,6 +4,7 @@ package com.honeywell.keywords.lyric.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -18,6 +19,7 @@ import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
@@ -1138,7 +1140,33 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 				}
-				
+			else if (parameters.get(1).equalsIgnoreCase("thermostat2")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "PRIMARYCARD": {
+					inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+					String device1Name = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+					LocationInformation locInfo = new LocationInformation(testCase, inputs);
+					System.out.println(locInfo.getDeviceCountOfLocation());
+							for (int i = 1; i <= locInfo.getDeviceCountOfLocation(); i++) {
+								String str = inputs.getInputValue("LOCATION2_DEVICE" + i + "_NAME");
+								if (str != null && !str.isEmpty()) {
+									inputs.setInputValue("LOCATION1_DEVICE1_NAME", str);
+									if (!inputs.getInputValue("LOCATION1_DEVICE1_NAME").equals(device1Name))
+										
+										flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
+												inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+							if (flag) {
+									Keyword.ReportStep_Pass(testCase,
+											"Successfully clicked on " + parameters.get(1) + " stat");
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to click: " + parameters.get(1) +" stat");
+								}
+									}}}
+					break;
+				}
+			}
 			// select schedule off from option action sheet
 			else if (parameters.get(1).equalsIgnoreCase("Option")) {
 				switch (parameters.get(0).toUpperCase()) {

@@ -15,14 +15,14 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.InputVariables;
 
-public class CreateScheduleUsingCHIL extends Keyword {
+public class CreateScheduleUsingCHILmultiTstat extends Keyword {
 
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 	ArrayList<String> exampleData;
 
-	public CreateScheduleUsingCHIL(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public CreateScheduleUsingCHILmultiTstat(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.exampleData = exampleData;
@@ -35,43 +35,23 @@ public class CreateScheduleUsingCHIL extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user thermostat is set to \"(.+)\" schedule$")
+	@KeywordStep(gherkins = "^user thermostat2 is set to \"(.+)\" stats$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
+			
+			String Location1_device1_name = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+			inputs.setInputValue("LOCATION1_DEVICE1_NAME",inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
 			LocationInformation statInfo = new LocationInformation(testCase, inputs);
 			long locationID = statInfo.getLocationID();
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			String deviceID = devInfo.getDeviceID();
-//			String TPVstatus = devInfo.getThermostatSetPointsStatus();
 			String jasperStatType = devInfo.getJasperDeviceType();
-			
-			/**Pre-Condition : if schedule override with Temporary or permanent or vacation hold **/
-//			if(!TPVstatus.equalsIgnoreCase("NoHold"))
-//			{
-//			try {
-//				if (chUtil.getConnection()) {
-//					
-//					if (chUtil.setNoHoldAdhocstatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID ) == 200) {
-//						Keyword.ReportStep_Pass(testCase,
-//								"Resume override schedule Using CHIL : Successfully changed to "+ TPVstatus +" through CHIL");
-//					} else {
-//						flag = false;
-//						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-//								"Resume override schedule Using CHIL : Failed to change "+ TPVstatus +" through CHIL");
-//					}
-//				}
-//				} catch (Exception e) {
-//				flag = false;
-//				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-//						"Error Occured : " + e.getMessage());
-//				}
-//			}
 			if (exampleData.get(0).equalsIgnoreCase("no")) {
 				try {
 					if (chUtil.getConnection()) {
-						if (chUtil.deleteSchedule(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
+						if (chUtil.deleteSchedule(chUtil.getLocationID(inputs.getInputValue("LOCATION1_DEVICE2_NAME")),
 								deviceID) == 200) {
 							Keyword.ReportStep_Pass(testCase,
 									"Create Schedule Using CHIL : Successfully deleted schedule through CHIL");
@@ -86,20 +66,11 @@ public class CreateScheduleUsingCHIL extends Keyword {
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Error Occured : " + e.getMessage());
 				}
+				
 			} else if (exampleData.get(0).equalsIgnoreCase("time based")) {
 				try {
 					
 					if (chUtil.getConnection()) {
-						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
-							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
-								Keyword.ReportStep_Pass(testCase,
-										"Schedule is Resumed in CHIL before creating new schedule");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Schedule is Not Resumed in CHIL before creating new schedule");
-							}
-						}
 						if (chUtil.createSchedule(inputs, "Time", chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
 								jasperStatType) == 200) {
 							Keyword.ReportStep_Pass(testCase,
@@ -118,18 +89,7 @@ public class CreateScheduleUsingCHIL extends Keyword {
 			} else if (exampleData.get(0).equalsIgnoreCase("geofence based")) {
 				try {
 					if (chUtil.getConnection()) {
-						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
-							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
-								Keyword.ReportStep_Pass(testCase,
-										"Schedule is Resumed in CHIL before creating new schedule");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Schedule is Not Resumed in CHIL before creating new schedule");
-							}	
-						}
-						if (chUtil.createSchedule(inputs, "Geofence",
-								chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
+						if (chUtil.createSchedule(inputs, "Geofence",locationID, deviceID,
 								jasperStatType) == 200) {
 							Keyword.ReportStep_Pass(testCase,
 									"Create Schedule Using CHIL : Successfully created geofence schedule through CHIL");
@@ -148,16 +108,7 @@ public class CreateScheduleUsingCHIL extends Keyword {
 				inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER,"No");
 				try {
 					if (chUtil.getConnection()) {
-						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
-							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
-								Keyword.ReportStep_Pass(testCase,
-										"Schedule is Resumed in CHIL before creating new schedule");
-							} else {
-								flag = false;
-								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Schedule is Not Resumed in CHIL before creating new schedule");
-							}	
-						}
+						
 						if (chUtil.createSchedule(inputs, "Geofence",
 								chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
 								jasperStatType) == 200) {
@@ -175,37 +126,38 @@ public class CreateScheduleUsingCHIL extends Keyword {
 							"Error Occured : " + e.getMessage());
 				}
 			}else if (exampleData.get(0).equalsIgnoreCase("pause"))
-			{
-			if (chUtil.getConnection()) {
-				if (chUtil.changeScheduleStatus(locationID, deviceID, "Pause") == 200) {
-					Keyword.ReportStep_Pass(testCase,
-							"Schedule is Paused ");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Schedule is Not Paused");
-					}
-			}
-		}else if (exampleData.get(0).equalsIgnoreCase("resume"))
-			{
-			if (chUtil.getConnection()) {
-				if (chUtil.changeScheduleStatus(locationID, deviceID, "Resume") == 200) {
+				{
+				if (chUtil.getConnection()) {
+					if (chUtil.changeScheduleStatus(locationID, deviceID, "Pause") == 200) {
 						Keyword.ReportStep_Pass(testCase,
-								"Schedule is Resumed");
+								"Schedule is Paused ");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Schedule is Not Resumed");
+								"Schedule is Not Paused");
 						}
-						
-			}
-			
-			}
+				}
+			}else if (exampleData.get(0).equalsIgnoreCase("resume"))
+				{
+				if (chUtil.getConnection()) {
+					if (chUtil.changeScheduleStatus(locationID, deviceID, "Resume") == 200) {
+							Keyword.ReportStep_Pass(testCase,
+									"Schedule is Resumed");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Schedule is Not Resumed");
+							}
+							
+				}
+				
+				}
 			else
 			{
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + exampleData.get(0));
 			}
+			inputs.setInputValue("LOCATION1_DEVICE1_NAME",Location1_device1_name);
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,

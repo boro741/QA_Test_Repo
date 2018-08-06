@@ -11,6 +11,7 @@ import com.honeywell.lyric.utils.*;
 import com.honeywell.screens.*;
  */
 
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -2391,7 +2392,24 @@ public class NavigateToScreen extends Keyword {
 				}
 					break;
 				}
-			} else {
+			}else if (screen.get(1).equalsIgnoreCase("T1PRIMARYCARD")) {
+					switch (screen.get(0).toUpperCase()) {
+					case "THERMOSTAT2": {
+						PrimaryCard PC = new PrimaryCard(testCase);
+						flag = flag && PC.clickOnBackButton();
+						flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
+								inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+						if (flag)
+						{
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid Input: " + screen.get(1));
+						}
+					}break;
+			}
+			}else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
