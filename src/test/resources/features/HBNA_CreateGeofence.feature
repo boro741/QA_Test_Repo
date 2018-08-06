@@ -52,7 +52,7 @@ so that my home temperature will get set automatically based on geofence setting
 #      |Sleep|
       |Away| 
   
-  @JasperNA_TimerClockIsInCrementalOf15mins
+  @JasperNA_TimerClockIsInCrementalOf15mins @Automatable
   Scenario Outline: As a user i want to verify if Sleep settings timer is incremental of 15mins
     Given "Geofence" Schedule "With" sleep Settings
       And user launches and logs in to the Lyric application
@@ -131,7 +131,7 @@ Scenario: As a user i want to create an Geofence schdeule from Learn More
 #      And user is displayed with "Using Away/Home settings"
      
      
-     @NA_CopyScheduleToMulitpleStat
+     @NA_CopyScheduleToMulitpleStat @Automatable
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
@@ -153,7 +153,7 @@ And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user selects "CopyStatst" stats while creating "Geofence" schedule with default schedule value
 Then Offline Stat should't be displayed
 
-@NA_WhenHeat/CoolOnly
+@NA_WhenHeat/CoolOnly @Automatable
 Scenario Outline: As a user I want to create an Goefence schedule with Heat/Cold only modes
 Given user thermostat is configures with "Modes"system mode
 And user launches and logs in to the Lyric application
@@ -182,7 +182,7 @@ Examples:
 #|Home|
 #|Away|
 
-@NA_EditGeofenceScheduleSettingsAndBackNavigation
+@NA_EditGeofenceScheduleSettingsAndBackNavigation @Automatable
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence and Verify if Values are saved navigating Back 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application

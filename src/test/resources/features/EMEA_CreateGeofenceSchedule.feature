@@ -151,18 +151,17 @@ Examples:
 #|Home|
 #|Away|
 
-@EMEA_EditGeofenceScheduleSettingsAndBackNavigation @Automatable
+@EMEA_EditGeofenceScheduleSettingsAndBackNavigation @Automated
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence and Verify if Values are saved navigating Back 
-    Given user thermostat is set to "No" schedule
+    Given user thermostat is set to "geofence based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     And user creates "Geofence based" schedule with "Use Geofence"
-     When user edits "Condition" Settings
-     And user Navigates taps on "Back" button
-     Then user should still be displayed with edited set points
+     When user edit "Geofence based" schedule by editing <Condition> but not saved
+     Then "Geofence based" scheduling gets activated
+    # Then user should still be displayed with old set points
      Examples: 
 |Condition|
-|Sleep|
-|Home|
+#|Sleep|
+#|Home|
 |Away|
 

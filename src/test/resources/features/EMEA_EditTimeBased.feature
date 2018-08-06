@@ -26,7 +26,7 @@ Scenario: Verify User should have atleast two schedule period in set of individu
      And user navigates to "Scheduling" screen from the "DASHBOARD" screen
      Then verify user should have atleast "Two" schedule period in "Single day" view
 
-@EMEA_EndtimeTimeschedulePeriod  @AutomatedOnAndroid
+@EMEA_EndtimeTimeschedulePeriod  @Automated
 Scenario Outline:Verify User should not be allowed to edit end time of last period in a day 
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application 
@@ -37,7 +37,7 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
       | Type            | 
       | Grouped days    | 
       
-@EMEA_EditingEndtime @AutomatedOnAndroid
+@EMEA_EditingEndtime @Automated
  Scenario Outline:Verify User should not be allowed to edit start time and end time with same time value for both time format
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -50,7 +50,7 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
       | Grouped days    | 
    #   | Individual days | 
       
-@EMEA_EditingStartTime @AutomatedOnAndroid
+@EMEA_EditingStartTime @Automated
   Scenario Outline: Verify User should not be allowed to edit start time and end time with same time value for both time format
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
