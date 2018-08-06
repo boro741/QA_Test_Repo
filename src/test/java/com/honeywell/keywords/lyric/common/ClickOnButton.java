@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraConfigurationScreen;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -307,6 +308,17 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES CAMERA DEVICE")) {
+					switch (expectedButton.get(1).toUpperCase()) {
+					case "DELETE": {
+						
+						CameraConfigurationScreen ccs = new CameraConfigurationScreen(testCase);
+						flag = flag & ccs.DeleteCamera(testCase, inputs);
+						Keyword.ReportStep_Pass(testCase, "Delete Camera Device");
+						
+						break;
+					}
+					}
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

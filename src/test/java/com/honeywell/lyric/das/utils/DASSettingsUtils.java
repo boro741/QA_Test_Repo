@@ -8,6 +8,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
@@ -391,7 +392,13 @@ public class DASSettingsUtils {
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
-				flag = flag & ac.clickONCameraSetingsOption("Camera Configuration");
+				//scroll to bottom starts
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Camera Configuration");
+				//ends
+				////flag = flag & ac.clickONCameraSetingsOption("Camera Configuration");
+				flag &= ac.clickOnCameraConfiguration();
 			}
 		} catch (Exception e) {
 			flag = false;
@@ -400,6 +407,32 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
+	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase,
+			TestCaseInputs inputs, String CameraName) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen ac = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					CameraName);
+			;
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+				//scroll to bottom starts
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Camera Configuration");
+				//ends
+				////flag = flag & ac.clickONCameraSetingsOption("Camera Configuration");
+				flag &= ac.clickOnCameraConfiguration();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 	/**
 	 * <h1>Navigate from Dashboard to Camera Settings Screen</h1>
 	 * 

@@ -63,6 +63,12 @@ public class CameraSettingsScreen extends MobileScreens {
 		return flag;
 	}
 
+	public boolean clickOnCameraConfiguration() {
+		boolean flag = true;
+		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CameraConfiguration");
+		return flag;
+	}
+	
 	public boolean isSoundDetectionScreenHeaderTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionScreenHeaderTitle", timeOut);
 	}
