@@ -201,7 +201,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				for (int i = 0; i < data.getSize(); i++) {
 					String fieldToBeVerified = data.getData(i, "Options");
 					if (fieldToBeVerified.equalsIgnoreCase("SOUND DETECTION")) {
-						if (!cs.isSoundDetectionSectionIsEnabled(testCase)) {
+						if (!cs.isSoundDetectionSectionEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Sound Detection section is disabled");
 						} else {
 							flag = false;
@@ -218,12 +218,48 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						}
 					}
 					else if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION")) {
-						if (!cs.isMotionSensitivityEnabled(testCase)) {
+						if (!cs.isMotionDetectionSectionEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Camera Motion detection is disabled");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Camera Motion detection is enabled");
+						}
+					
+					}else if (fieldToBeVerified.equalsIgnoreCase("NIGHT VISION")) {
+						if (!cs.isNightVisionSectionEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Night vision is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera Night vision is enabled");
+						}
+					
+					}else if (fieldToBeVerified.equalsIgnoreCase("VIDEO QUALITY")) {
+						if (!cs.isVideoQualitySectionEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Video Quality is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera Video  Quality is enabled");
+						}
+					
+					}else if (fieldToBeVerified.equalsIgnoreCase("CAMERA LED")) {
+						if (!cs.isCameraLEDSectionEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera LED  is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera LED  is enabled");
+						}
+					
+					}else if (fieldToBeVerified.equalsIgnoreCase("CAMERA MICROPHONE")) {
+						if (!cs.isCameraMicrophoneSectionEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera LED  is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera LED  is enabled");
 						}
 					
 					}
