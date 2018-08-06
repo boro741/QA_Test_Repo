@@ -155,7 +155,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						action.press(10, (int) (dimension.getHeight() * .9))
 								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
-					if (!cs.isMotionSensitivityEnabled()) {
+					if (!cs.isMotionSensitivityEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is disabled");
 					} else {
 						flag = false;
@@ -216,6 +216,16 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Camera Microphone switchis enabled");
 						}
+					}
+					else if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION")) {
+						if (!cs.isMotionSensitivityEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion detection is disabled");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Camera Motion detection is enabled");
+						}
+					
 					}
 				}
 			} catch (Exception e) {
