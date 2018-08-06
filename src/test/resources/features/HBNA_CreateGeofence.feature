@@ -1,4 +1,4 @@
-@NA_GeofenceSchedule
+@NA_GeofenceSchedule @NA_Schedule @Comfort
 Feature: Edit Geofence based scheduling
 As an user i want to Create and Edit Geofence Schedule 
 so that my home temperature will get set automatically based on geofence settings

@@ -1,4 +1,4 @@
-@EditNATimeschedule
+@EditNATimeschedule @NA_Schedule @Comfort
 Feature: Edit Time Based schedule
 As an user 
 I want to Edit Time schedule

@@ -1,4 +1,4 @@
-@NATimeBasedScheduling
+@NATimeBasedScheduling @NA_Schedule @Comfort
 Feature: Jasper,Sprouce and Flycatcher Scheduling
 	As a user I want to create an time based scheduling
 

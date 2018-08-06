@@ -1,4 +1,4 @@
-@ScheduleON_OFF
+@ScheduleON_OFF @Comfort
 Feature:As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
 
 @ScheduleONOFFHB @Automated -- 	LYR-29410
