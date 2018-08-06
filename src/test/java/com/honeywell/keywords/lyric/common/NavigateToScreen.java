@@ -535,7 +535,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
@@ -549,6 +550,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
+
 				// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'
 				case "THERMOSTAT HUMIDIFICATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatHumidificationScreen(testCase,
@@ -577,8 +579,17 @@ public class NavigateToScreen extends Keyword {
 							& DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase, inputs);
 					break;
 				}
+
+				// Navigate from 'Camera Dashboard' to Manage Alerts Screen'
+				case "CAMERA MANAGE ALERTS": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraManageAlertsScreen(testCase, inputs);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Thermostat Configuration'
 				case "THERMOSTAT CONFIGURATION": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
+							inputs);
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
 							inputs);
 					break;
@@ -611,7 +622,7 @@ public class NavigateToScreen extends Keyword {
 				case "HUMIDIFICATION": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
- 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					if (fly.isHumButtonVisible()) {
 						flag = flag && fly.ClickOnHumButton();
 					} else {
