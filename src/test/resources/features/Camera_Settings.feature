@@ -1,4 +1,4 @@
- @CameraSettings  @Camera
+ @CameraSettings
  Feature: C1 Camera Settings 
  As user I should be able to configure camera settings from the app
   
@@ -29,8 +29,8 @@
      
 @CameraSettingsCameraOff      @P3        @UIAutomatable
 Scenario: As a user I should be having limited access to configure camera settings when my camera is in off state 
-#Given user Camera is in Off 
-Given user launches and logs in to the Lyric application
+Given user Camera is in Off 
+And user launches and logs in to the Lyric application
 When user navigates to "Camera Settings" screen from the "Dashboard" screen
 Then the following "Camera Settings" options should be disabled:
 | Options             | 
@@ -47,7 +47,7 @@ And the following "Camera Settings" options should be enabled:
 | Camera Configuration| 
       
       
-@CameraSettingsCameraOn   @P1        @Automated 
+@CameraSettingsCameraOn   @P1        @UIAutomatable
 Scenario: As a user I should be able to configure camera settings when my camera is in on state 
 #Given user Camera is in On
 #Given user camera is set to "on" through CHIL
@@ -107,7 +107,7 @@ Then the following "Camera Settings" options should be enabled:
 | Camera Configuration|
       
  
-@CameraSettingsManageAlertsDisabled      @P2     @Automated
+@CameraSettingsManageAlertsDisabled      @P2     @UIAutomatable
 Scenario Outline: As a user I should be able to disable alert of camera status, sound event and motion event on my demand to get alerts in app or in email on alerts detection 
 Given user launches and logs in to the Lyric application
 And user camera is set to <State>
@@ -140,41 +140,33 @@ Examples:
 #		|Upgrade|
       
       
-@CameraSettingsManageAlertsEnableAndDisable      @P3        @Automated
+@CameraSettingsManageAlertsEnableAndDisable      @P3        @UIAutomatable
 Scenario Outline: As a user I should be able to disable alert for email notification of camera status, sound event and motion event on alerts detection 
 Given user launches and logs in to the Lyric application
-And user camera is set to <State>
-When user navigates to "Camera Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Camera Status Alerts" to "ON"
-Then user should be displayed with the following "Camera Status" options:
-|Options|
-|Email Notifications|
-And user changes the "Camera Status Email Notification" to "OFF"
-When user navigates back and forth in "Manage Alerts" screen
-And user changes the "Camera Sound Alerts" to "ON"
-Then user should be displayed with the following "Sound Event Status" options:
-|Options|
-|Email Notifications|
-And user changes the "Sound Event Email Notification" to "OFF"
-When user navigates back and forth in "Manage Alerts" screen
-And "Email Notifications" value should be updated to "OFF" on "Manage Alerts Sound Events" screen 
-And user changes the "Camera Motion Alerts" to "ON"
-Then user should be displayed with the following "Motion Event Status" options:
-|Options|
-|Email Notifications|
-And user changes the "Motion Event Email Notification" to "OFF"
-When user navigates back and forth in "Manage Alerts" screen
-And "Email Notifications" value should be updated to "OFF" on "Manage Alerts Motion Events" screen 
+And user camera is in <State> 
+When user navigates to "Manage Alerts" screen from the "Dashboard" screen
+And user enables "Camera Status ON/OFF Alerts" 
+Then user should be displayed with "email" option
+When user changes the "Camera Status ON/OFF email" to "Off"
+Then "Camera Status ON/OFF email" value should be updated to "Off" on "Manage Alerts" screen
+When user enables "Motion Event Alerts" 
+Then user should be displayed with "email" option
+When user changes the "Motion Event email" to "Off"
+Then "Motion Event email" value should be updated to "Off" on "Manage Alerts" screen
+When user enables "Motion Event Alerts" 
+Then user should be displayed with "email" option
+When user changes the "Motion Event email" to "Off"
+Then "Motion Event email" value should be updated to "Off" on "Manage Alerts" screen
 #login with different mobiles for the status of configured options to verify the settings as user account level
 Examples:
 		|State  |
 		|On     |
 		|Off    |
-	#	|Offline|
-	#	|Upgrade| 
+		|Offline|
+		|Upgrade| 
       
       
-@CameraSettingsEnableDisableMotionDetection        @P2         @Automated 
+@CameraSettingsEnableDisableMotionDetection        @P2         @UIAutomatable 
 Scenario: As a user I should be able to enable or disable motion detection
 #Given user camera is in "on" 
 #And motion detection is "enabled" on user camera through CHIL
@@ -241,7 +233,7 @@ Then user should be shown with "Unable to take the snapshot"
      
      
 #Applicable only to C1
-@VerifyCameraMotionSensitivitySettingsC1     @P2        @Automated
+@VerifyCameraMotionSensitivitySettingsC1     @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to set motion sensitivity on camera C1 to Off,Low, Normal and High
 #Given user camera is set to "on" through CHIL
 #And motion detection is "enabled" on user camera through CHIL
@@ -277,7 +269,7 @@ Examples:
       
       
 #Applicable only to C2
-@VerifyCameraMotionSensitivitySettingsC2        @P2        @Automated
+@VerifyCameraMotionSensitivitySettingsC2        @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to set motion sensitivity on camera C2 to Off,Low, Normal and High
 #Given user camera is set to "on" through CHIL
 #And motion detection is "enabled" on user camera through CHIL
@@ -342,7 +334,7 @@ When user "confirms" outside zone "warning" popup
 Then user should be displayed with "Camera settings" screen
      
 
-@CameraSettingsEnableDisableSoundDetection     @P2        @Automated 
+@CameraSettingsEnableDisableSoundDetection     @P2        @UIAutomatable 
 Scenario: As a user I should be able to enable or sound detection so that i restrict events on sound detection on demand basics
 #Given user camera is in "on" 
 #And motion detection is "enabled" on user camera through CHIL
@@ -415,7 +407,7 @@ When user enables the "Camera Microphone"
 Then user should be displayed with "Sound Sensitivity" to "Low"
       
         
-@CameraSettingsVerifyNightVisionSettings        @P2        @Automated
+@CameraSettingsVerifyNightVisionSettings        @P2        @UIAutomatable
 Scenario: As a user I should be able to set my Night Vision Settings so that my camera works even in night 
 Given user launches and logs in to the Lyric application
 When user navigates to "Night Vision Settings" screen from the "Dashboard" screen 
@@ -460,7 +452,7 @@ And "Night Vision" value should be updated to "Off" on "Night Vision Settings" s
 #login with different mobiles for the status of configured options to verify the settings as user account level
   
   
-@CameraSettingsVerifyVideoQualitySettings      @P2        @Automated
+@CameraSettingsVerifyVideoQualitySettings      @P2        @UIAutomatable
 Scenario: As a user I should be able to set my Video Quality Settings based on my network connection
 Given user launches and logs in to the Lyric application 
 When user navigates to "Video Quality Settings" screen from the "Dashboard" screen 
@@ -505,7 +497,7 @@ And "Video Quality" value should be updated to "High" on "Video Quality Settings
 #login with different mobiles for the status of configured options to verify the settings as user account level
      
       
-@CameraSettingsEnableDisableCameraMicrophone     @P2        @Automated
+@CameraSettingsEnableDisableCameraMicrophone     @P2        @UIAutomatable
 Scenario: As a user I should be able to turn off microphone on my demand to not listen the happenings in my premise and also shown with warning message on turning microphone off disables sound alert
 #Given user camera is set to "on" through CHIL
 #When user launches and logs in to the Lyric application
@@ -542,51 +534,48 @@ When user enables the "Camera LED"
 Then user "Camera LED" should be turned "GREEN"
      
      
-@CameraConfiguration        @P1        @Automated 
-Scenario: As a user I should be able to get the details of camera 
+@CameraConfiguration        @P1        @UIAutomatable
+Scenario Outline: As a user I should be able to get the details of camera 
 Given user launches and logs in to the Lyric application 
-#And user camera is in <State> 
+And user camera is in <State> 
 When user navigates to "Camera Configuration" screen from the "Dashboard" screen
 Then user should be displayed with the following "Camera Configuration" options:
 | Details        | 
-| Name           |
-| Camera Firmware| 
+| Camera Firmware|
+| Camera Name    | 
 | Model Details  |
-      
-@EditCameraName     @P2        @AutomatedOnAndroid
-Scenario Outline: As a user I should be able to edit the camera name
-Given user launches and logs in to the Lyric application 
-And user camera is in <State> 
-When user navigates to "Camera Configuration" screen from the "Dashboard" screen
- And user edits "Camera name"
-#verify the all valid naming criterias
-Then user should be displayed with "edited name" 
-
+#login with different mobiles for the status of configured options to verify the settings as user account level
 Examples:
 		|State  |
 		|On     |
 		|Off    |
-#		|Offline|
-#		|Upgrade| 
-      
-      
-@DeleteCameraNoBilling      @P2        @AutomatedOnAndroid
-Scenario Outline: As a user I should be able to delete camera on demand basis
-Given user launches and logs in to the Lyric application 
-And user camera is in <State> 
-When user navigates to "Camera Configuration" screen from the "Dashboard" screen
-And user deletes "Camera" 
-Then user should be displayed with "Warning" popup
-When user "confirms" the "warning" popup
-Then user should be shown with location dashboard without camera 
+		|Offline|
+		|Upgrade|
 
-Examples:
-		|State  |
-		|On     |
-		|Off    |
-#		|Offline|
-#		|Upgrade|
       
+@EditCameraName     @P2        @AutomatedOnAndroid 
+Scenario: As a user I should be able to edit the camera name
+Given user launches and logs in to the Lyric application 
+When user navigates to "Camera Configuration" screen from the "Dashboard" screen
+And user "edits" camera name to "Camera Name Test"
+Then user "should be displayed with edited" camera name to "Camera Name Test"
+And user navigates to "Camera Configuration with edited Camera Name" screen from the "Dashboard" screen
+And user "edits back again" camera name to "Orginal Name"
+      
+      
+@DeleteCameraNoBilling      @P2        @AutomatedOnAndroid 
+Scenario: As a user I should be able to delete camera on demand basis
+Given "add" camera from CHIL
+Given user launches and logs in to the Lyric application 
+When user navigates to "Camera Configuration" screen from the "Dashboard" screen
+And user "deletes camera device" by clicking on "delete" button
+Then user "receives" the delete camera confirmation popup
+And user "dismisses" the delete camera confirmation popup
+Then user "deletes camera device" by clicking on "delete" button
+And user "receives" the delete camera confirmation popup
+When user "accepts" the delete camera confirmation popup
+Then user should not be displayed with "Camera" device on the "dashboard" screen
+
       
 @DeleteCameraWithBilling       @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to delete camera on demand basis with caution message about subscription
