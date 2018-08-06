@@ -1,7 +1,7 @@
 @ScheduleON_OFF @Comfort 
 Feature:As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
 
-@ScheduleONOFFHB @Automated -- 	LYR-29410
+@ScheduleONOFFHB @Automated @LYR-29410
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -27,7 +27,7 @@ Examples:
 #|Heat only|time based    |
 #|Cool only|time based    |
 
-@ScheduleONOFFHBtimebase @Automated --LYR-29409
+@ScheduleONOFFHBtimebase @Automated @LYR-29409
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr time base schedule
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -55,7 +55,7 @@ Examples:
 
 
 
-@ScheduleONOFFHBgeofencebase @Automated --LYR-29388
+@ScheduleONOFFHBgeofencebase @Automated @LYR-29388
 Scenario Outline: Schedule ON the stat   with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -185,6 +185,7 @@ Examples:
 #|Cool Only|Without sleep geofence based|UserDeparted |Away| Home | UserArrived |
 #|Cool Only|geofence based			  |UserDeparted |Away| Sleep | UserArrived |
 
+
 @ScheduleONMultistatHB @Automated
 Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
@@ -250,7 +251,7 @@ Examples:
 |Cool|geofence based| geofence based | pause |
 #|Cool|geofence based| time based  | pause |
 #|Cool|time based | geofence based | pause |
-#|Cool|time based | time based  | pause |
+#|Cool|time based | time based | pause |
 #|Heat|geofence based| time based | pause |
 #|Heat|geofence based| geofence based | pause |
 #|Heat|time based | geofence based | pause |
