@@ -590,8 +590,6 @@ public class NavigateToScreen extends Keyword {
 				case "THERMOSTAT CONFIGURATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
 							inputs);
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
-							inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Set Filter Reminder Screen'
@@ -1518,7 +1516,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (cs.isMotionDetectionLabelVisible(20)) {
+					if (cs.isMotionDetectionLabelVisible(testCase, 20)) {
 						cs.clickOnMotionDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
