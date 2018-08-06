@@ -253,15 +253,6 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 									"Camera LED  is enabled");
 						}
 					
-					}else if (fieldToBeVerified.equalsIgnoreCase("CAMERA MICROPHONE")) {
-						if (!cs.isCameraMicrophoneSectionEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Camera LED  is disabled");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Camera LED  is enabled");
-						}
-					
 					}
 				}
 			} catch (Exception e) {
