@@ -45,18 +45,14 @@ so that my home temperature will get set automatically based on geofence setting
 #      | within range  |  
  
   
-@JasperEMEA_TimerClockIsInCrementalOf15mins
-  Scenario Outline: As a user i want to verify if Sleep settings timer is incremental of 15mins
+ @JasperEMEA_TimerClockIsInCrementalOf15mins @Automated
+  Scenario: As a user i want to verify if Sleep settings timer is incremental of 15mins
     Given "Geofence" Schedule "With" sleep Settings
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user <Condition> sleep settings in Geofence Schedule
-     Then user should be displayed sleep setting timer with increments of "15 minutes"
-  
-    Examples: 
-      | Condition   | 
-      | Edit        | 
-      | Creates new |  
+    #  When user edits sleep timer with increament of "15 minutes"
+     When user edit "Geofence" schedule with new sleep time values
+
   
 @GuidemessagToTurnONLocationservicesNA @NotAutomatable
   Scenario Outline:To get guide message to turn ON location services to edit geofence schedule by editing home settings 
@@ -155,7 +151,7 @@ Examples:
 #|Home|
 #|Away|
 
-@EMEA_EditGeofenceScheduleSettingsAndBackNavigation
+@EMEA_EditGeofenceScheduleSettingsAndBackNavigation @Automatable
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence and Verify if Values are saved navigating Back 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application

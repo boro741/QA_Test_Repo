@@ -13913,8 +13913,9 @@ public class JasperSchedulingUtils {
 			List<String> allowedModes = statInfo.getAllowedModes();
 			SchedulingScreen schl = new SchedulingScreen(testCase);
 			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
-
+			if(schl.isTimeScheduleButtonVisible(10)){
 			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			}
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
