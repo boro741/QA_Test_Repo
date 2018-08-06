@@ -507,6 +507,28 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
+	public static boolean navigateFromDashboardScreenToCameraManageAlertsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			if (cs.isManageAlertsLabelVisible(5)) {
+				cs.clickOnManageAlertsLabel();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
 	/**
 	 * <h1>Navigate from Dashboard to Set Filter Reminder Screen</h1>
 	 * <p>
@@ -1181,6 +1203,7 @@ public class DASSettingsUtils {
 	 * @return boolean Returns 'true' if navigation is successful. Returns 'false'
 	 *         if navigation is not successful.
 	 */
+
 	public static boolean navigateFromDashboardScreenToThermostatConfigurationScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;

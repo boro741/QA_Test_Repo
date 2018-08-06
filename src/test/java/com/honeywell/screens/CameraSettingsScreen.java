@@ -3,15 +3,19 @@ package com.honeywell.screens;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.Mobile;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
+import com.perfectomobile.selenium.MobileElement;
+import com.perfectomobile.selenium.MobileWindow;
 
 import io.appium.java_client.TouchAction;
 
@@ -227,7 +231,7 @@ public class CameraSettingsScreen extends MobileScreens {
 				}
 			}
 		} else {
-			throw new Exception("Could not find Camera Motion Detection Switch");
+			throw new Exception("Could not find the Camera Motion detection Switch");
 		}
 	}
 
@@ -299,9 +303,142 @@ public class CameraSettingsScreen extends MobileScreens {
         }
  }
 
+    
+ /* Switch under Camera Manage Alerts screen */
+ public boolean isCameraEmailNotificationsTextVisible(String emailValue) {
+	 System.out.println(MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatusEmailNotification") && MobileUtils.getFieldValue(objectDefinition, testCase, "CameraStatusEmailNotification").equalsIgnoreCase(emailValue));
+	 if ( MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatusEmailNotification") && MobileUtils.getFieldValue(objectDefinition, testCase, "CameraStatusEmailNotification").equalsIgnoreCase(emailValue)) {	
+		return true;
+	}else {
+		return false;
+	}
+ }
+
+ /* Switch under Camera Manage Alerts screen */
+ public boolean isSoundEmailNotificationTextVisible(String emailValue) {
+		if ( MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundEventEmailNotification") && MobileUtils.getFieldValue(objectDefinition, testCase, "SoundEventEmailNotification").equalsIgnoreCase(emailValue)) {
+			return true;
+		}else {
+			return false;
+		}
+ }
+ 
+ /* Switch under Camera Manage Alerts screen */
+ public boolean isMotionEmailNotificationTextVisible(String emailValue) {
+	 if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		 Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+//		 TouchAction action = new TouchAction(testCase.getMobileDriver());
+		 int startx = (dimension.width * 20) / 100;
+		 int starty = (dimension.height * 62) / 100;
+		 int endx = (dimension.width * 22) / 100;
+		 int endy = (dimension.height * 35) / 100;
+		 testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+	 }else {
+		if ( MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionEventEmailNotification") && MobileUtils.getFieldValue(objectDefinition, testCase, "MotionEventEmailNotification").equalsIgnoreCase(emailValue)) {
+			return true;
+		}else {
+			return false;
+		}
+ }return true;
+ }
+ 
+ /*Checking for the Email Switch enabled for camera event under Camera Manage Alerts screen */
+ public boolean isCameraEmailNotificationSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatusEmailNotificationSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraStatusEmailNotificationSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraStatusEmailNotificationSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Camera Status ON/OFF Alert Switch");
+		}
+	}
+
+ /* Method to toggle the Email Switch enabled for camera event under Camera Manage Alerts screen */
+	public boolean toggleCameraEmailNotificationSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraStatusEmailNotificationSwitch");
+	}
 
 	
-	public boolean isMotionSensitivityEnabled() {
+	
+ /*Checking for the Email Switch enabled for sound event under Camera Manage Alerts screen */	
+	public boolean isSoundEmailNotificationSwitchEnabled(TestCases testCase) throws Exception {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundEventEmailNotificationSwitch", 20)) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundEventEmailNotificationSwitch").getText()
+							.equalsIgnoreCase("ON")) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					if (MobileUtils.getMobElement(objectDefinition, testCase, "SoundEventEmailNotificationSwitch")
+							.getAttribute("value").equalsIgnoreCase("1")) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			} else {
+				throw new Exception("Could not find Sound Event Switch");
+			}
+		}
+
+	 /* Method to toggle the Email Switch enabled for sound event under Camera Manage Alerts screen */
+		public boolean toggleSoundEmailNotificationSwitch(TestCases testCase) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "SoundEventEmailNotificationSwitch");
+		}
+
+		
+/*Checking for the Email Switch enabled for motion event under Camera Manage Alerts screen */			
+		public boolean isMotionEmailNotificationSwitchEnabled(TestCases testCase) throws Exception {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				 int startx = (dimension.width * 20) / 100;
+				 int starty = (dimension.height * 62) / 100;
+				 int endx = (dimension.width * 22) / 100;
+				 int endy = (dimension.height * 35) / 100;
+				 testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionEventEmailNotificationSwitch", 20)) {
+					if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionEventEmailNotificationSwitch").getText()
+							.equalsIgnoreCase("ON")) {
+						return true;
+					} else {
+						return false;
+					}
+			}else {
+					if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionEventEmailNotificationSwitch")
+							.getAttribute("value").equalsIgnoreCase("1")) {
+						return true;
+					} else {
+						return false;
+					}
+				} 
+			}else {
+				throw new Exception("Could not find Motion Event Switch");
+			}
+		}
+
+
+		
+ /* Method to toggle the Email Switch enabled for motion event under Camera Manage Alerts screen */
+		public boolean toggleMotionEmailNotificationSwitch(TestCases testCase) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionEventEmailNotificationSwitch");
+		}
+
+	
+	public boolean isMotionSensitivityEnabled(TestCases testCase) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
@@ -735,6 +872,16 @@ public class CameraSettingsScreen extends MobileScreens {
 				return false;
 			}
 		}
+	}
+
+	public boolean isMotionDetectionSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
 	}
 
 	public boolean isCameraSoundDetectionSwitchEnabled(TestCases testCase) throws Exception {
