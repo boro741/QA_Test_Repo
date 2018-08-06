@@ -32,12 +32,8 @@ public class HBNAEMEASettingsUtils {
 	 * The waitForProgressBarToComplete method waits until the progress bar closes.
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H179225)
-	 * @version 1.0
-	 * @since 2018-06-07
-	 * @param testCase
-	 *            Instance of the TestCases class used to create the testCase.
-	 *            testCase instance.
+	 * Instance of the TestCases class used to create the testCase.
+	 * testCase instance.
 	 * @return boolean Returns 'true' if the progress bar disappears. Returns
 	 *         'false' if the progress bar is still displayed.
 	 */
@@ -101,9 +97,6 @@ public class HBNAEMEASettingsUtils {
 	 * The minimizeAndMaximizeTheApp method is to minimize and maximize the app
 	 * </p>
 	 *
-	 * @author Midhun Gollapalli (H179225)
-	 * @version 1.0
-	 * @since 2018-03-01
 	 * @param testCase
 	 *            Instance of the TestCases class used to create the testCase.
 	 *            testCase instance.

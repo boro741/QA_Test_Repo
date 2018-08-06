@@ -764,19 +764,18 @@ public class NavigateToScreen extends Keyword {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.VACATION)) {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Activity history menu from Global drawer");
+						flag = flag & sc.selectOptionFromSecondarySettings(SecondaryCardSettings.VACATION);
+						if (flag) {
+							System.out.println("Successfully navigated to Vacation Settings Screen");
+							Keyword.ReportStep_Pass(testCase, "Successfully navigated to Vacation Settings Screen");
 						} else {
-							// Fetching Messages
-							sc.selectOptionFromSecondarySettings(SecondaryCardSettings.VACATION);
-							// Keyword.ReportStep_Pass(testCase,"Honeywell Membership page opened.");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Did not navigated to Vacation Settings Screen");
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
 					}
-
 					break;
 				}
 				default: {
