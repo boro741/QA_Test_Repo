@@ -1,4 +1,4 @@
- @CameraSettings
+ @CameraSettings  @Camera
  Feature: C1 Camera Settings 
  As user I should be able to configure camera settings from the app
   
@@ -29,8 +29,8 @@
      
 @CameraSettingsCameraOff      @P3        @UIAutomatable
 Scenario: As a user I should be having limited access to configure camera settings when my camera is in off state 
-Given user Camera is in Off 
-And user launches and logs in to the Lyric application
+#Given user Camera is in Off 
+Given user launches and logs in to the Lyric application
 When user navigates to "Camera Settings" screen from the "Dashboard" screen
 Then the following "Camera Settings" options should be disabled:
 | Options             | 
@@ -40,11 +40,11 @@ Then the following "Camera Settings" options should be disabled:
 | Video Quality       |
 | Camera LED          |
 | Camera Microphone   | 
-And the following "Camera Settings" options should be enabled:
-| Options             |
-| Camera mode         |
-| Manage Alerts       |
-| Camera Configuration| 
+#And the following "Camera Settings" options should be enabled:
+#| Options             |
+#| Camera mode         |
+#| Manage Alerts       |
+# Camera Configuration| 
       
       
 @CameraSettingsCameraOn   @P1        @Automated 
@@ -141,7 +141,7 @@ Examples:
       
       
 @CameraSettingsManageAlertsEnableAndDisable      @P3        @Automated
-Scenario: As a user I should be able to disable alert for email notification of camera status, sound event and motion event on alerts detection 
+Scenario Outline: As a user I should be able to disable alert for email notification of camera status, sound event and motion event on alerts detection 
 Given user launches and logs in to the Lyric application
 And user camera is set to <State>
 When user navigates to "Camera Manage Alerts" screen from the "Dashboard" screen
@@ -575,7 +575,7 @@ Scenario Outline: As a user I should be able to delete camera on demand basis
 Given user launches and logs in to the Lyric application 
 And user camera is in <State> 
 When user navigates to "Camera Configuration" screen from the "Dashboard" screen
-And user deletes Camera 
+And user deletes "Camera" 
 Then user should be displayed with "Warning" popup
 When user "confirms" the "warning" popup
 Then user should be shown with location dashboard without camera 
