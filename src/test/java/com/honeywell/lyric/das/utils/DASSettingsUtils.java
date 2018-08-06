@@ -796,7 +796,7 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
-			if (cs.isMotionDetectionLabelVisible(5)) {
+			if (cs.isMotionDetectionLabelVisible(testCase, 5)) {
 				cs.clickOnMotionDetectionLabel();
 				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
 			}

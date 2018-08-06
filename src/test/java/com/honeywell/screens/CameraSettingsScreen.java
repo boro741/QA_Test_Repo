@@ -39,7 +39,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ManageAlertsLabel");
 	}
 
-	public boolean isMotionDetectionLabelVisible(int timeOut) {
+	public boolean isMotionDetectionLabelVisible(TestCases testCase, int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionLabel", timeOut);
 	}
 
@@ -553,7 +553,7 @@ public class CameraSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Area Outside Zone Warning Popup is displayed");
 				clickOnNOButtonInAreasOutsideZonesWarningPopup();
 			}
-			if (isCameraSettingsHeaderTitleVisible(20) && isMotionDetectionLabelVisible(10)) {
+			if (isCameraSettingsHeaderTitleVisible(20) && isMotionDetectionLabelVisible(testCase, 10)) {
 				flag = flag & clickOnMotionDetectionLabel();
 			}
 		}
@@ -883,7 +883,67 @@ public class CameraSettingsScreen extends MobileScreens {
 			flag = false;
 		}return flag;
 	}
+	
+	public boolean isSoundDetectionSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "SoundDetectionLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
+	}
+	
+	public boolean isNightVisionSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
+	}
+	
+	public boolean isVideoQualitySectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction action = new TouchAction(testCase.getMobileDriver());
+		int startx = (dimension.width * 20) / 100;
+		int starty = (dimension.height * 62) / 100;
+		int endx = (dimension.width * 22) / 100;
+		int endy = (dimension.height * 35) / 100;
+		testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
+	}
+	
+	public boolean isCameraLEDSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraLEDLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "CameraLEDLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
+	}
+	
+	public boolean isCameraMicrophoneSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
+	}
+	
+	
 
+	
 	public boolean isCameraSoundDetectionSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

@@ -40,11 +40,11 @@ Then the following "Camera Settings" options should be disabled:
 | Video Quality       |
 | Camera LED          |
 | Camera Microphone   | 
-#And the following "Camera Settings" options should be enabled:
-#| Options             |
-#| Camera mode         |
-#| Manage Alerts       |
-# Camera Configuration| 
+And the following "Camera Settings" options should be enabled:
+| Options             |
+| Camera mode         |
+| Manage Alerts       |
+| Camera Configuration| 
       
       
 @CameraSettingsCameraOn   @P1        @Automated 
