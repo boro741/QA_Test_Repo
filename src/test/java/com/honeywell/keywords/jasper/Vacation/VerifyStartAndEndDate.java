@@ -38,11 +38,11 @@ public class VerifyStartAndEndDate extends Keyword {
 		VacationSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 		if (vhs.isStartAndEndDateEnabled()) {
 			Keyword.ReportStep_Pass(testCase,
-					String.format("The Start and End Date is enabled during {0} Vacation Hold", exampleData.get(0)));
+					String.format("The Start and End Date is enabled for {0} Vacation Hold", exampleData.get(0)));
 			return flag;
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-					String.format("The Start and End Date is disabled during {0} Vacation Hold", exampleData.get(0)));
+					String.format("The Start and End Date is disabled for {0} Vacation Hold", exampleData.get(0)));
 			flag = false;
 		}
 		return flag;

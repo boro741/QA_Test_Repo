@@ -770,7 +770,7 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "Successfully navigated to Vacation Settings Screen");
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Did not navigated to Vacation Settings Screen");
+									"Failed to navigate to Vacation Settings Screen");
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

@@ -77,7 +77,7 @@ public class HBNAEMEASettingsUtils {
 				}
 			});
 			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared");
+				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared.");
 			}
 		} catch (TimeoutException e) {
 			flag = false;

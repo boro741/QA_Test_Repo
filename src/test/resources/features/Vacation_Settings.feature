@@ -31,7 +31,7 @@ Examples:
 		| Vacation Option		|
 		| Vacation				|
 		| Primarycard			|
-  
+		
   
 @Vacations_DefaultVacationTimeForNA			@UIAutomatable
 Scenario: As a user I want to verify the date inputs

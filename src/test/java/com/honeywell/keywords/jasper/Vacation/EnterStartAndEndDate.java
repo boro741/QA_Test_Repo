@@ -49,7 +49,7 @@ public class EnterStartAndEndDate extends Keyword {
 			}
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE, String
-					.format("The Start and End Date is not displayed during {0} Vacation Hold", exampleData.get(0)));
+					.format("The Start and End Date is not displayed for {0} Vacation Hold", exampleData.get(0)));
 			flag = false;
 		}
 		return flag;
