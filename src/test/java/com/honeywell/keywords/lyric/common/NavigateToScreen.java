@@ -2291,7 +2291,6 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("ACTIVITY HISTORY")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
-					DASSettingsUtils.navigateFromActivityHistoryScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
 				}
