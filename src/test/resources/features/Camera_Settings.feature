@@ -47,7 +47,7 @@ And the following "Camera Settings" options should be enabled:
 | Camera Configuration| 
       
       
-@CameraSettingsCameraOn   @P1        @UIAutomatable
+@CameraSettingsCameraOn   @P1        @Automated 
 Scenario: As a user I should be able to configure camera settings when my camera is in on state 
 #Given user Camera is in On
 #Given user camera is set to "on" through CHIL
@@ -107,7 +107,7 @@ Then the following "Camera Settings" options should be enabled:
 | Camera Configuration|
       
  
-@CameraSettingsManageAlertsDisabled      @P2     @UIAutomatable
+@CameraSettingsManageAlertsDisabled      @P2     @Automated
 Scenario Outline: As a user I should be able to disable alert of camera status, sound event and motion event on my demand to get alerts in app or in email on alerts detection 
 Given user launches and logs in to the Lyric application
 And user camera is set to <State>
@@ -140,7 +140,7 @@ Examples:
 #		|Upgrade|
       
       
-@CameraSettingsManageAlertsEnableAndDisable      @P3        @UIAutomatable
+@CameraSettingsManageAlertsEnableAndDisable      @P3        @Automated
 Scenario: As a user I should be able to disable alert for email notification of camera status, sound event and motion event on alerts detection 
 Given user launches and logs in to the Lyric application
 And user camera is set to <State>
@@ -174,7 +174,7 @@ Examples:
 	#	|Upgrade| 
       
       
-@CameraSettingsEnableDisableMotionDetection        @P2         @UIAutomatable 
+@CameraSettingsEnableDisableMotionDetection        @P2         @Automated 
 Scenario: As a user I should be able to enable or disable motion detection
 #Given user camera is in "on" 
 #And motion detection is "enabled" on user camera through CHIL
@@ -241,7 +241,7 @@ Then user should be shown with "Unable to take the snapshot"
      
      
 #Applicable only to C1
-@VerifyCameraMotionSensitivitySettingsC1     @P2        @UIAutomatable
+@VerifyCameraMotionSensitivitySettingsC1     @P2        @Automated
 Scenario Outline: As a user I should be able to set motion sensitivity on camera C1 to Off,Low, Normal and High
 #Given user camera is set to "on" through CHIL
 #And motion detection is "enabled" on user camera through CHIL
@@ -277,7 +277,7 @@ Examples:
       
       
 #Applicable only to C2
-@VerifyCameraMotionSensitivitySettingsC2        @P2        @UIAutomatable
+@VerifyCameraMotionSensitivitySettingsC2        @P2        @Automated
 Scenario Outline: As a user I should be able to set motion sensitivity on camera C2 to Off,Low, Normal and High
 #Given user camera is set to "on" through CHIL
 #And motion detection is "enabled" on user camera through CHIL
@@ -342,7 +342,7 @@ When user "confirms" outside zone "warning" popup
 Then user should be displayed with "Camera settings" screen
      
 
-@CameraSettingsEnableDisableSoundDetection     @P2        @UIAutomatable 
+@CameraSettingsEnableDisableSoundDetection     @P2        @Automated 
 Scenario: As a user I should be able to enable or sound detection so that i restrict events on sound detection on demand basics
 #Given user camera is in "on" 
 #And motion detection is "enabled" on user camera through CHIL
@@ -415,7 +415,7 @@ When user enables the "Camera Microphone"
 Then user should be displayed with "Sound Sensitivity" to "Low"
       
         
-@CameraSettingsVerifyNightVisionSettings        @P2        @UIAutomatable
+@CameraSettingsVerifyNightVisionSettings        @P2        @Automated
 Scenario: As a user I should be able to set my Night Vision Settings so that my camera works even in night 
 Given user launches and logs in to the Lyric application
 When user navigates to "Night Vision Settings" screen from the "Dashboard" screen 
@@ -460,7 +460,7 @@ And "Night Vision" value should be updated to "Off" on "Night Vision Settings" s
 #login with different mobiles for the status of configured options to verify the settings as user account level
   
   
-@CameraSettingsVerifyVideoQualitySettings      @P2        @UIAutomatable
+@CameraSettingsVerifyVideoQualitySettings      @P2        @Automated
 Scenario: As a user I should be able to set my Video Quality Settings based on my network connection
 Given user launches and logs in to the Lyric application 
 When user navigates to "Video Quality Settings" screen from the "Dashboard" screen 
@@ -505,7 +505,7 @@ And "Video Quality" value should be updated to "High" on "Video Quality Settings
 #login with different mobiles for the status of configured options to verify the settings as user account level
      
       
-@CameraSettingsEnableDisableCameraMicrophone     @P2        @UIAutomatable
+@CameraSettingsEnableDisableCameraMicrophone     @P2        @Automated
 Scenario: As a user I should be able to turn off microphone on my demand to not listen the happenings in my premise and also shown with warning message on turning microphone off disables sound alert
 #Given user camera is set to "on" through CHIL
 #When user launches and logs in to the Lyric application
@@ -542,7 +542,7 @@ When user enables the "Camera LED"
 Then user "Camera LED" should be turned "GREEN"
      
      
-@CameraConfiguration        @P1        @UIAutomatable
+@CameraConfiguration        @P1        @Automated 
 Scenario: As a user I should be able to get the details of camera 
 Given user launches and logs in to the Lyric application 
 #And user camera is in <State> 
@@ -553,7 +553,7 @@ Then user should be displayed with the following "Camera Configuration" options:
 | Camera Firmware| 
 | Model Details  |
       
-@EditCameraName     @P2        @UIAutomatable
+@EditCameraName     @P2        @AutomatedOnAndroid
 Scenario Outline: As a user I should be able to edit the camera name
 Given user launches and logs in to the Lyric application 
 And user camera is in <State> 
@@ -570,7 +570,7 @@ Examples:
 #		|Upgrade| 
       
       
-@DeleteCameraNoBilling      @P2        @UIAutomatable
+@DeleteCameraNoBilling      @P2        @AutomatedOnAndroid
 Scenario Outline: As a user I should be able to delete camera on demand basis
 Given user launches and logs in to the Lyric application 
 And user camera is in <State> 

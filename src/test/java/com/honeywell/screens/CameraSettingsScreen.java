@@ -438,7 +438,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		}
 
 	
-	public boolean isMotionSensitivityEnabled() {
+	public boolean isMotionSensitivityEnabled(TestCases testCase) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensitivityVisible")) {
@@ -872,6 +872,16 @@ public class CameraSettingsScreen extends MobileScreens {
 				return false;
 			}
 		}
+	}
+
+	public boolean isMotionDetectionSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionLabel")&& MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").getAttribute("enabled").equals("true")) {
+			return flag;
+		}
+		else {
+			flag = false;
+		}return flag;
 	}
 
 	public boolean isCameraSoundDetectionSwitchEnabled(TestCases testCase) throws Exception {
