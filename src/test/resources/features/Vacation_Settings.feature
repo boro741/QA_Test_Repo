@@ -1,4 +1,4 @@
-@VacationSettings
+@VacationSettings @Comfort
 Feature: As an user I want to set the vacation period for my home so that my thermostat will follow vacation setting on my absence from my home during the vacation days  
 
 @Vacations_VerifyStartAndEndDate			@UIAutomatable

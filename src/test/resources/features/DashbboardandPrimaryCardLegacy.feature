@@ -1,4 +1,4 @@
-@DashbboardandSolutionCard
+@DashbboardandSolutionCard @Comfort
 Feature: As an user I want to verify the Dashboard and primary card for JapserNA , JasperEMEA, HB and Spruce 
 
 #Dashboard view 
