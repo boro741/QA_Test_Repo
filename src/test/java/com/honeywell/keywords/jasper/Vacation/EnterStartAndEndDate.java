@@ -10,8 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperVacation;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class EnterStartAndEndDate extends Keyword {
@@ -36,7 +34,7 @@ public class EnterStartAndEndDate extends Keyword {
 	@KeywordStep(gherkins = "^user provided with option to enter vacation start and end date$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-			if(vhs.isStartAndEndDateDisplayed()) {
+			if(vhs.isStartAndEndDateEnabled()) {
 				
 				if(vhs.ClickOnStartDate()) {
 					Keyword.ReportStep_Pass(testCase, String.format("The Start Date button is clicked"));

@@ -15,6 +15,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class EditDeviceName extends Keyword {
@@ -48,12 +49,12 @@ public class EditDeviceName extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Sensor Overview Screen is displayed");
 				}
-			}else if(parameters.get(0).equalsIgnoreCase("Keyfob")){
+			} else if (parameters.get(0).equalsIgnoreCase("Keyfob")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.isKeyfobNameTextBoxVisible(5)) {
 					flag = flag & bs.clearKeyfobNameTextBox();
 					if (bs.setValueToKeyfobNameTextBox(parameters.get(1))) {
-							inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
+						inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
 						Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
 					} else {
 						flag = false;
@@ -74,9 +75,8 @@ public class EditDeviceName extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find DAS Name Text Box");
 				}
-			}
-			else if (parameters.get(0).equalsIgnoreCase("DAS Panel") || parameters.get(0).equalsIgnoreCase("Sensor")
-					) {
+			} else if (parameters.get(0).equalsIgnoreCase("DAS Panel")
+					|| parameters.get(0).equalsIgnoreCase("Sensor")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				if (bs.isDASNameTextBoxVisible(5)) {
@@ -159,8 +159,7 @@ public class EditDeviceName extends Keyword {
 					break;
 				}
 				}
-			}
-			else if (parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")
+			} else if (parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")
 					|| parameters.get(0).equalsIgnoreCase("MOTION")
 					|| parameters.get(0).equalsIgnoreCase("MOTION SENSOR")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -189,8 +188,37 @@ public class EditDeviceName extends Keyword {
 					break;
 				}
 				}
-			}
+			} else if (parameters.get(0).equalsIgnoreCase("Thermostat")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (ts.isThermostatNameTextBoxVisible(5)) {
+					flag = flag & ts.clearThermostatNameTextBox();
+					if (ts.setValueToThermostatNameTextBox(parameters.get(1))) {
 
+						inputs.setInputValueWithoutTarget("PREVIOUS_LOCATION1_DEVICE1_NAME",
+								inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+
+						inputs.setInputValue("LOCATION1_DEVICE1_NAME", parameters.get(1));
+
+						Keyword.ReportStep_Pass(testCase, "Successfully set Thermostat Name to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to set Thermostat Name to: " + parameters.get(1));
+					}
+					try {
+						if (ts.isBackButtonVisible(5)) {
+							ts.clickOnBackButton();
+						}
+					} catch (Exception e) {
+						// Ignoring any exceptions because keyboard is sometimes not displayed on some
+						// Android devices.
+					}
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not find Thermostat Name Text field");
+			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

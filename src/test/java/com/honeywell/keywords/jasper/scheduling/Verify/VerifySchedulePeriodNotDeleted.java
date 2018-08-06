@@ -33,7 +33,7 @@ public class VerifySchedulePeriodNotDeleted extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify the period is \"(.+)\" on \"(.+)\" the period deletion$")
+	@KeywordStep(gherkins = "^Period is \"(.+)\" on \"(.+)\" Dialog box$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (exampleData.get(1).equalsIgnoreCase("canceling")) {

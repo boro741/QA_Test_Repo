@@ -307,4 +307,8 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "WindowProtectionOption");
 	}
 	
+	public boolean setValueToHumSlider(String value) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "HumSlider", value);
+	}
+	
 }

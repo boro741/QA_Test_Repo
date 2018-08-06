@@ -693,7 +693,7 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
@@ -831,10 +831,11 @@ public class LyricUtils {
 	 *            testCase instance
 	 * @return String Device time in the format 'yyyymmddThh:mm:a'
 	 */
+	
 	public static String addMinutesToDate(TestCases testCase, String date, int noOfMins) {
 		String dateAfterAddition = "";
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'h:mm a");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			Calendar c = Calendar.getInstance();
 			c.setTime(dateFormat.parse(date));
 			c.add(Calendar.MINUTE, noOfMins);
@@ -842,7 +843,7 @@ public class LyricUtils {
 		} catch (Exception e) {
 			dateAfterAddition = " ";
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Add days to date : Error Occured : " + e.getMessage());
+					"Add Minutes to date : Error Occured : " + e.getMessage());
 		}
 		return dateAfterAddition;
 	}
@@ -1566,5 +1567,118 @@ public class LyricUtils {
         pixDestroy(image);
 		return str;
 	}
-
+	public static String getDeviceEquivalentUTCTime(TestCases testCase, TestCaseInputs inputs, String UTCTime) {
+		String deviceTime = "";
+		try {
+			TimeZone deviceTimeZone = null;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z' Z");
+			Calendar deviceEqTime = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+			deviceEqTime.setTime(dateFormat.parse(UTCTime + " " + "UTC"));
+			deviceTimeZone = getDeviceTimeZone(testCase, inputs);
+			deviceEqTime.setTimeZone(deviceTimeZone);
+			String ampm = "";
+			if (deviceEqTime.get(Calendar.AM_PM) == Calendar.AM) {
+				ampm = "AM";
+			} else {
+				ampm = "PM";
+			}
+			String hour;
+			if (deviceEqTime.get(Calendar.HOUR) == 0) {
+				hour = "12";
+			} else {
+				hour = String.valueOf(deviceEqTime.get(Calendar.HOUR));
+			}
+			if (Integer.parseInt(hour) < 10) {
+				hour = "0" + hour;
+			}
+			String minute;
+			if (deviceEqTime.get(Calendar.MINUTE) < 10) {
+				minute = "0" + deviceEqTime.get(Calendar.MINUTE);
+			} else {
+				minute = String.valueOf(deviceEqTime.get(Calendar.MINUTE));
+			}
+			int month = deviceEqTime.get(Calendar.MONTH) + 1;
+			deviceTime = String.valueOf(deviceEqTime.get(Calendar.YEAR) + "-" + month + "-"
+					+ deviceEqTime.get(Calendar.DAY_OF_MONTH) + "T" + hour + ":" + minute + " " + ampm);
+		} catch (Exception e) {
+			deviceTime = "";
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return deviceTime;
+	}
+	public static String[][] getAllMessages(TestCases testCase) throws Exception {
+		String msgs[][] = new String[1][1];
+		try {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("id", "content", testCase, 5)) {
+					List<WebElement> messages = MobileUtils.getMobElements(testCase, "id", "content");
+					msgs = new String[messages.size()][6];
+					int i = 0;
+					for (WebElement message : messages) {
+						List<WebElement> messageDetails = message.findElements(By.className("android.widget.LinearLayout"));
+						int j = 0;
+						for (WebElement details : messageDetails) {
+							msgs[i][j] = details.getAttribute("text");
+							j++;
+						}
+						i++;
+					}
+				} else {
+					throw new Exception("No Messages found");
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("name", "Messages_cell", testCase, 10)) {
+					
+					//---
+					List<MobileElement> newalerts = testCase.getMobileDriver().findElements(By.xpath("//*[(@name='Messages') and (@visible='true')]"));
+					msgs = new String[newalerts.size()][3];
+					int i = 0;
+					for(WebElement ele :newalerts){
+						msgs[i][0] = ele.getAttribute("value");
+                    	i++;
+                    }
+                    
+                    List<MobileElement> newalerts1 = testCase.getMobileDriver().findElements(By.xpath("//*[(@name='Messages_subTitle') and (@visible='true')]"));
+                    i = 0;
+					for(MobileElement ele :newalerts1){
+						msgs[i][1] = ele.getAttribute("value");
+                    	i++;
+                    }
+					
+					 List<MobileElement> newalerts2 = testCase.getMobileDriver().findElements(By.xpath("//*[(@name='Messages_detail_subTitle') and (@visible='true')]"));
+	                    i = 0;
+						for(MobileElement ele :newalerts2){
+							msgs[i][2] = ele.getAttribute("value");
+	                    	i++;
+	                    }
+					
+					
+//					List<MobileElement> tableCells = new ArrayList<MobileElement>();
+//					tableCells = testCase.getMobileDriver()
+//							.findElements(By.xpath("//*[(@name='Messages_cell') and (@visible='true')]"));
+//					msgs = new String[tableCells.size()][3];
+//					int i = 0;
+//					for (MobileElement e : tableCells) {
+//						if (i == 4)
+//							break;
+//						List<MobileElement> messageDetails = e.findElements(By.xpath("//XCUIElementTypeStaticText"));
+//						int j = 0;
+//						for (MobileElement details : messageDetails) {
+//							if (j > 2) {
+//								break;
+//							}
+//							msgs[i][j] = details.getAttribute("value");
+//							j++;
+//						}
+//						i++;
+//					}
+				} else {
+					throw new Exception("No Alerts found");
+				}
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return msgs;
+	}
 }

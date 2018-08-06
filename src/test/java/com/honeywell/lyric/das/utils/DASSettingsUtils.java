@@ -392,6 +392,7 @@ public class DASSettingsUtils {
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
+				
 				//scroll to bottom starts
 				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",

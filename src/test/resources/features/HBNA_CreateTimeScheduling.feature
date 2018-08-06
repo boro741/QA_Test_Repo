@@ -1,4 +1,4 @@
-@NATimeBasedScheduling
+@NATimeBasedScheduling @NA_Schedule @Comfort
 Feature: Jasper,Sprouce and Flycatcher Scheduling
 	As a user I want to create an time based scheduling
 
@@ -160,7 +160,7 @@ Then  <ScheduleType> scheduling gets activated
       
 @JasperNA_WhenHeat/CoolOnly
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
-Given  user thermostat is  configures with "Modes"system mode
+Given  user thermostat is  configures with "Modes" system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates "Time Based" schedule with default schedule value

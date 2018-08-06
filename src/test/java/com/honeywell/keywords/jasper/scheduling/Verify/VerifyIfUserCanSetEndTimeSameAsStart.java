@@ -134,7 +134,7 @@ public class VerifyIfUserCanSetEndTimeSameAsStart extends Keyword {
 					System.out.println(endTime);
 					ReportStep_Pass(testCase, "End time is shown: " + endTime);
 
-					if (MobileUtils.getMobElement(testCase, "name", "End").getAttribute("value")
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooserEndTime").getAttribute("enabled")
 							.equalsIgnoreCase("false")) {
 						ReportStep_Pass(testCase, "End time is not editable");
 

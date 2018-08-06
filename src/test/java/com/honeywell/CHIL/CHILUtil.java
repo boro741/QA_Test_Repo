@@ -2,6 +2,7 @@ package com.honeywell.CHIL;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -12,10 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.util.ArrayList;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.lyric.das.utils.DASUtils;
@@ -422,7 +429,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-
+	
 	public int createSchedule(TestCaseInputs inputs, String scheduleType, long locationID, String deviceID,
 			String jasperStatType) throws Exception {
 		int result = -1;
@@ -478,7 +485,7 @@ public class CHILUtil implements AutoCloseable {
 								"{\"name\":\"GeofenceScheduleRequestWithAutoFanMode\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":70,\"CoolSetPoint\":79,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"AwayPeriod\":{\"HeatSetPoint\":62,\"CoolSetPoint\":89,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}}},\"DeviceIds\":[\""
 										+ deviceID + "\"]}");
 					}
-				} else {
+				}else{
 					if (jasperStatType.equalsIgnoreCase("NA")) {
 						headerData = String.format(
 								"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":\"62.00\",\"coolSetPoint\":\"82.00\"}},\"DeviceIds\":[\""
@@ -726,7 +733,6 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 
-	
 	public int postSensorDiscovery(long locationID,String deviceID,boolean isEnabled) throws Exception{
 		int result = -1;
 		String headerData=" ";
@@ -776,6 +782,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		
 	}
+	
 	public int createTimeScheduleWithSpecificNumberOfPeriods_EMEA(TestCaseInputs inputs, long locationID,
 			String deviceID) {
 		int result = -1;
@@ -974,6 +981,7 @@ public class CHILUtil implements AutoCloseable {
 
 		return result;
 	}
+	
 	public int changeSystemMode(long locationID, String deviceID, String thermostatMode) {
 		int result = -1;
 		try {
@@ -981,6 +989,25 @@ public class CHILUtil implements AutoCloseable {
 				String url = chilURL
 						+ String.format("api/locations/%s/devices/%s/thermostat/Mode", locationID, deviceID);
 				String headerData = String.format("{\"thermostatMode\":\"%s\"}", thermostatMode);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int changeScheduleStatus(long locationID, String deviceID, String ScheduleStatus) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/V2/locations/%s/Schedule/Status", locationID);
+				String headerData = String.format("{\"deviceIds\":[\"%s\"],\"scheduleStatus\":\"%s\"}", deviceID,ScheduleStatus);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1002,6 +1029,25 @@ public class CHILUtil implements AutoCloseable {
 				String headerData = String.format("{\"changeableValues\":\"%s\"}", VentilationMode);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int setNoHoldAdhocstatus(long locationID, String deviceID) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/thermostat/changeableValues/	", locationID, deviceID);
+				String headerData = String.format("{\"thermostatSetpointStatus\":\"%s\"}", "NoHold");
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -1088,7 +1134,6 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
-	
 	public int setCoolThermostatStatus(long locationID, String deviceID) {
 		int result = -1;
 		try {
@@ -1127,7 +1172,6 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 
-
 	public int enableVacation(long locationID, String deviceID, String startTime, String endTime, String deviceUnits,
 			int coolSetPoints, int heatSetPoints) {
 		int result = -1;
@@ -1156,8 +1200,86 @@ public class CHILUtil implements AutoCloseable {
 				String url = chilURL + String.format("api/v2/locations/%s/vacationHold", locationID);
 				String headerData = String.format(
 						"{\"thermostatVacationHoldSettings\":[{\"deviceID\":\"%s\"}],\"enabled\":false}", deviceID);
+				System.out.println(headerData);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int TriggerGeoEventSleep(long locationID, String deviceID, String startTime, String endTime ) {
+		int result = -1;		
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("api/locations/%s/thermostat/GeofenceScheduleTemplate", locationID);
+				String headerData = String.format(
+						"{\"Name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\","
+						+ "\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},"
+						+ "\"SleepMode\":{\"StartTime\":\"%s\",\"EndTime\":\"%s\",\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"82.00\"}},\"DeviceIDs\":[\""
+						+ deviceID + "\"]}", startTime, endTime);
+			
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int TriggerTimePeriod(long locationID, String deviceID,String Period , String startTime) {
+		int result = -1;		
+		try {
+			if (isConnected) {
+				String headerData = " ";
+				String url = " ";
+				url = chilURL + String.format("api/locations/" + locationID + "/thermostat/TimedScheduleTemplate");
+				if (Period.equalsIgnoreCase("HOME")) {
+					headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+							+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+				}
+				if (Period.equalsIgnoreCase("AWAY")) {
+					headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+						+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+				}
+				if (Period.equalsIgnoreCase("WAKE")) {
+					headerData = String.format(
+							"{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+							+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+				}
+				if (Period.equalsIgnoreCase("SLEEP")) {
+					headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+							+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+				}
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int TriggerGeoEvent(long locationID, long geofenceID, long userID, String geoEvent) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL + String.format("/api/locations/%s/GeoFence/%s/GangMember/%s/GeoFenceEvent", locationID, geofenceID, userID);
+				String headerData = String.format("{\"type\": \"%s\"}", geoEvent);
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -1186,9 +1308,6 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
-	
-
 	
 	public int switchToOff(long locationID, String deviceID, TestCases testCase) {
 
@@ -1278,6 +1397,7 @@ public class CHILUtil implements AutoCloseable {
 		//Get Location
 		return result1;
 	}
+	
 	public int getStripeCustomerAndDeleteSubscription(String stripeCustomerId, String stripePrivateKey) 
 
 			throws MalformedURLException, IOException {
@@ -1329,5 +1449,309 @@ public class CHILUtil implements AutoCloseable {
 
 					return result;
 				}
+
+	public static String getAPIGEEClientID(TestCaseInputs inputs) throws Exception {
+		JSONObject enrollmentObj;
+		String clientID = "";
+		try {
+			enrollmentObj = getEnrollmentJSON(inputs);
+			clientID = enrollmentObj.getString("client_id");
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return clientID;
+	}
 	
+	public static JSONObject getEnrollmentJSON(TestCaseInputs inputs) throws Exception {
+		JSONObject enrollmentObj = new JSONObject();
+		try {
+			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+			String url = "";
+			if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("Production")) {
+				url = "https://api.honeywell.com/oauth2/accesstoken";
+			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("CHIL Stage (Azure)")) {
+				url = "https://connectedhome-qa.apigee.net/oauth2/accesstoken";
+			}
+			HttpPost httpPost = new HttpPost(url);
+			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+			parameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
+			httpPost.setEntity(new UrlEncodedFormEntity(parameters));
+			httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+			httpPost.addHeader("authorization",
+					"Basic Qk1wVnJyeGZha29BM0MxeEhoUm9qaWdzMGN5RzI1VnM6Z0xHWE9qMG9OQ05MZWZmQQ==");
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+				BufferedReader rd = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
+
+				StringBuffer result = new StringBuffer();
+				String line = "";
+				while ((line = rd.readLine()) != null) {
+					result.append(line);
+				}
+				httpClient.close();
+				enrollmentObj = new JSONObject(result.toString());
+			} else {
+				throw new Exception("Get Apigee Token : Unable to create session");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return enrollmentObj;
+	}
+	public static String getAPIGEEAccessToken(TestCaseInputs inputs) throws Exception {
+		JSONObject enrollmentObj;
+		String accessToken = "";
+		try {
+			enrollmentObj = getEnrollmentJSON(inputs);
+			accessToken = enrollmentObj.getString("access_token");
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return accessToken;
+	}
+	
+
+	public int putThermostatDeviceName(long locationID, String deviceID, String deviceNameToBePut) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/Devices/%s", locationID, deviceID);
+			String headerData = String.format("{\"name\": \"%s\"}",
+					deviceNameToBePut);
+			
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+
+	public static String cancelDREvent(TestCaseInputs inputs, int eventID, String deviceID) throws Exception {
+		String result = "";
+		String urlString = "";
+		if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("Production")) {
+			urlString = "https://api.honeywell.com/v1/demandresponse/event/" + eventID + "?apikey=";
+		} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("CHIL Stage (Azure)")) {
+			urlString = "http://connectedhome-qa.apigee.net/v1/demandresponse/event/" + eventID + "?apikey=";
+		}
+		urlString = urlString + getAPIGEEClientID(inputs);
+		String headerData = String.format("{\"devices\": [\"%s\"]}", deviceID);
+		HttpURLConnection deleteResponse = null;
+		try {
+			URL url = new URL(urlString);
+			deleteResponse = (HttpURLConnection) url.openConnection();
+			deleteResponse.setRequestMethod("DELETE");
+			deleteResponse.setRequestProperty("content-type", "application/json");
+			deleteResponse.setRequestProperty("authorization", "Bearer " + getAPIGEEAccessToken(inputs));
+			deleteResponse.setDoOutput(true);
+			if (!headerData.equals("")) {
+				deleteResponse.setRequestProperty("content-length", String.valueOf(headerData.length()));
+				OutputStream os = deleteResponse.getOutputStream();
+				os.write(headerData.getBytes("UTF-8"));
+				os.flush();
+			}
+			System.out.println(deleteResponse.getResponseCode());
+			if (deleteResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+				result = "Successfully cancelled DR Event with eventID : " + eventID;
+			} else {
+				BufferedReader rd = new BufferedReader(
+						new InputStreamReader((InputStream) deleteResponse.getContent()));
+				StringBuffer r = new StringBuffer();
+				String line = "";
+				while ((line = rd.readLine()) != null) {
+					r.append(line);
+				}
+				result = "Failed to cancel DR event HTTP Error Code : " + deleteResponse.getResponseCode()
+						+ ". Error Message : " + r.toString();
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		System.out.println(result);
+		return result;
+	}
+	public static String postDREvent(TestCaseInputs inputs, HashMap<String, String> headerValues) throws Exception {
+
+		String eventID = "";
+		try {
+			Random rn = new Random();
+			String urlString = "";
+			int randomInt = rn.nextInt(1000000);
+			if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("Production")) {
+				urlString = "https://api.honeywell.com/v1/demandresponse/event/" + randomInt + "?apikey=";
+				System.out.println("Event ID - " + randomInt);
+			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("CHIL Stage (Azure)")) {
+				urlString = "http://connectedhome-qa.apigee.net/v1/demandresponse/event/" + rn.nextInt(1000000)
+						+ "?apikey=";
+			}
+			urlString = urlString + getAPIGEEClientID(inputs);
+			boolean isOptOutable = Boolean.parseBoolean(headerValues.get("isOptOutable"));
+			boolean isLocallyOptOutable = Boolean.parseBoolean(headerValues.get("isLocallyOptOutable"));
+			int randomizationInterval = Integer.parseInt(headerValues.get("randomizationInterval"));
+			String headerData = String.format(
+					"{\"startTime\":\"%s\",\"isOptOutable\":%s,\"isLocallyOptOutable\":%s,\"randomizationInterval\":%s,\"dutyCyclePeriod\":\"%s\",",
+					headerValues.get("startTime"), isOptOutable, isLocallyOptOutable, randomizationInterval,
+					headerValues.get("dutyCyclePeriod"));
+
+			// 111
+			if (headerValues.containsKey("phase1_duration") && headerValues.containsKey("phase2_duration")
+					&& headerValues.containsKey("phase3_duration")) {
+				headerData = headerData
+						+ String.format("\"phase1\":{\"duration\":\"%s\",", headerValues.get("phase1_duration"));
+				if (headerValues.containsKey("phase1_heatDelta")) {
+					int heatDelta = Integer.parseInt(headerValues.get("phase1_heatDelta"));
+					headerData = headerData + String.format("\"heatDelta\":%s,", heatDelta);
+				}
+				if (headerValues.containsKey("phase1_coolDelta")) {
+					int coolDelta = Integer.parseInt(headerValues.get("phase1_coolDelta"));
+					headerData = headerData + String.format("\"coolDelta\":%s,", coolDelta);
+				}
+				headerData = headerData + String.format("\"dutyCycle\":%s},", headerValues.get("phase1_dutyCycle"));
+
+				headerData = headerData
+						+ String.format("\"phase2\":{\"duration\":\"%s\",", headerValues.get("phase2_duration"));
+				if (headerValues.containsKey("phase2_heatDelta")) {
+					int heatDelta = Integer.parseInt(headerValues.get("phase2_heatDelta"));
+					headerData = headerData + String.format("\"heatDelta\":%s,", heatDelta);
+				}
+				if (headerValues.containsKey("phase2_coolDelta")) {
+					int coolDelta = Integer.parseInt(headerValues.get("phase2_coolDelta"));
+					headerData = headerData + String.format("\"coolDelta\":%s,", coolDelta);
+				}
+				headerData = headerData + String.format("\"dutyCycle\":%s},", headerValues.get("phase2_dutyCycle"));
+
+				headerData = headerData
+						+ String.format("\"phase3\":{\"duration\":\"%s\",", headerValues.get("phase3_duration"));
+				if (headerValues.containsKey("phase3_heatDelta")) {
+					int heatDelta = Integer.parseInt(headerValues.get("phase3_heatDelta"));
+					headerData = headerData + String.format("\"heatDelta\":%s,", heatDelta);
+				}
+				if (headerValues.containsKey("phase3_coolDelta")) {
+					int coolDelta = Integer.parseInt(headerValues.get("phase3_coolDelta"));
+					headerData = headerData + String.format("\"coolDelta\":%s,", coolDelta);
+				}
+				headerData = headerData + String.format("\"dutyCycle\":%s},", headerValues.get("phase3_dutyCycle"));
+			}
+
+			// 110
+			else if (headerValues.containsKey("phase1_duration") && headerValues.containsKey("phase2_duration")
+					&& !headerValues.containsKey("phase3_duration")) {
+				headerData = headerData
+						+ String.format("\"phase1\":{\"duration\":\"%s\",", headerValues.get("phase1_duration"));
+				if (headerValues.containsKey("phase1_heatDelta")) {
+					int heatDelta = Integer.parseInt(headerValues.get("phase1_heatDelta"));
+					headerData = headerData + String.format("\"heatDelta\":%s,", heatDelta);
+				}
+				if (headerValues.containsKey("phase1_coolDelta")) {
+					int coolDelta = Integer.parseInt(headerValues.get("phase1_coolDelta"));
+					headerData = headerData + String.format("\"coolDelta\":%s,", coolDelta);
+				}
+				headerData = headerData + String.format("\"dutyCycle\":%s},", headerValues.get("phase1_dutyCycle"));
+
+				headerData = headerData
+						+ String.format("\"phase2\":{\"duration\":\"%s\",", headerValues.get("phase2_duration"));
+				if (headerValues.containsKey("phase2_heatDelta")) {
+					int heatDelta = Integer.parseInt(headerValues.get("phase2_heatDelta"));
+					headerData = headerData + String.format("\"heatDelta\":%s,", heatDelta);
+				}
+				if (headerValues.containsKey("phase2_coolDelta")) {
+					int coolDelta = Integer.parseInt(headerValues.get("phase2_coolDelta"));
+					headerData = headerData + String.format("\"coolDelta\":%s,", coolDelta);
+				}
+				headerData = headerData + String.format("\"dutyCycle\":%s},", headerValues.get("phase2_dutyCycle"));
+
+			}
+
+			// 100
+			if (headerValues.containsKey("phase1_duration") && !headerValues.containsKey("phase2_duration")
+					&& !headerValues.containsKey("phase3_duration")) {
+				headerData = headerData
+						+ String.format("\"phase1\":{\"duration\":\"%s\",", headerValues.get("phase1_duration"));
+				if (headerValues.containsKey("phase1_heatDelta")) {
+					int heatDelta = Integer.parseInt(headerValues.get("phase1_heatDelta"));
+					headerData = headerData + String.format("\"heatDelta\":%s,", heatDelta);
+				}
+				if (headerValues.containsKey("phase1_coolDelta")) {
+					int coolDelta = Integer.parseInt(headerValues.get("phase1_coolDelta"));
+					headerData = headerData + String.format("\"coolDelta\":%s,", coolDelta);
+				}
+				headerData = headerData + String.format("\"dutyCycle\":%s},", headerValues.get("phase1_dutyCycle"));
+
+			}
+
+			headerData = headerData + String.format("\"devices\":[\"%s\"]}", headerValues.get("devices"));
+			System.out.println(headerData);
+			HttpURLConnection postResponse = null;
+			URL url = new URL(urlString);
+			postResponse = (HttpURLConnection) url.openConnection();
+			postResponse.setRequestMethod("POST");
+			postResponse.setRequestProperty("content-type", "application/javascript");
+			postResponse.setRequestProperty("authorization", "Bearer " + getAPIGEEAccessToken(inputs));
+			postResponse.setDoOutput(true);
+			if (!headerData.equals("")) {
+				postResponse.setRequestProperty("content-length", String.valueOf(headerData.length()));
+				OutputStream os = postResponse.getOutputStream();
+				os.write(headerData.getBytes("UTF-8"));
+				os.flush();
+			}
+
+		if (postResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+				BufferedReader rd = new BufferedReader(new InputStreamReader((InputStream) postResponse.getContent()));
+				StringBuffer result = new StringBuffer();
+				String line = "";
+				while ((line = rd.readLine()) != null) {
+					result.append(line);
+				}
+				JSONObject obj = new JSONObject(result.toString());
+				eventID = String.valueOf(obj.getInt("eventId"));
+			} else {
+				System.out.println(postResponse.getResponseMessage());
+				throw new Exception(postResponse.getResponseMessage());
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return eventID;
+	}
+	public static String putDREnrollement(TestCaseInputs inputs, String deviceID, String deviceMAC, String locationID)
+			throws Exception {
+		String result = "";
+		String urlString = "";
+		if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("Production")) {
+			urlString = "https://api.honeywell.com/v1/demandresponse/enrollment?apikey=";
+		} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("CHIL Stage (Azure)")) {
+			urlString = "https://connectedhome-qa.apigee.net/v1/demandresponse/enrollment?apikey=";
+		}
+		urlString = urlString + getAPIGEEClientID(inputs);
+		String headerData = String.format("{\"DeviceId\":\"%s\",\"DeviceMac\":\"%s\",\"LocationId\":\"%s\"}", deviceID,
+				deviceMAC, locationID);
+
+		HttpURLConnection putResponse = null;
+		try {
+			URL url = new URL(urlString);
+			putResponse = (HttpURLConnection) url.openConnection();
+			putResponse.setRequestMethod("PUT");
+			putResponse.setRequestProperty("content-type", "application/javascript");
+			putResponse.setRequestProperty("authorization", "Bearer " + getAPIGEEAccessToken(inputs));
+			putResponse.setRequestProperty("userId", "1000");
+			putResponse.setDoOutput(true);
+			if (!headerData.equals("")) {
+				putResponse.setRequestProperty("content-length", String.valueOf(headerData.length()));
+				OutputStream os = putResponse.getOutputStream();
+				os.write(headerData.getBytes("UTF-8"));
+				os.flush();
+			}
+
+			if (putResponse.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				result = "Device " + deviceMAC + " has successfully enrolled to DR";
+			} else if (putResponse.getResponseCode() == HttpURLConnection.HTTP_CONFLICT) {
+				result = "Device " + deviceMAC + " is already enrolled to DR";
+			} else {
+				result = "Failed to enroll device : " + deviceMAC + " to DR. HTTP Error Code : "
+						+ putResponse.getResponseCode();
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return result;
+	}
 }

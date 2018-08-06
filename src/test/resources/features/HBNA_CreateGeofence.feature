@@ -1,4 +1,4 @@
-@NA_GeofenceSchedule
+@NA_GeofenceSchedule @NA_Schedule @Comfort
 Feature: Edit Geofence based scheduling
 As an user i want to Create and Edit Geofence Schedule 
 so that my home temperature will get set automatically based on geofence settings
@@ -15,7 +15,7 @@ so that my home temperature will get set automatically based on geofence setting
   
   @NA_SleepSettings @Automated
   Scenario: As a user i want to Add_Edit Geofence Sleep Settings 
-    Given User thermostat is set to "No" schedule
+    Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
      When user creates "Geofence based" scheduling with default values "Without" sleep settings
@@ -41,7 +41,7 @@ so that my home temperature will get set automatically based on geofence setting
   @NA_EditGeofenceSetpointsWhenAutoChnageOverEnabled @Automated
   Scenario Outline: As a User i want to Edit set point when Auto change over is enabled so that my 
   cool set point is always greater than or equal to heat set point
-    Given User thermostat is set to "Geofence based" schedule
+    Given user thermostat is set to "Geofence based" schedule
     And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       When user edit "Geofence based" schedule by editing <Geofence Period>
@@ -80,18 +80,18 @@ so that my home temperature will get set automatically based on geofence setting
       | Location services is disabled in mobile device  | Without   | 
       | Location services is disabled for the lyric app | Without   | 
   
-  @NA_GeofenceScheduleOptions 
-  Scenario Outline: As a user i want an Options to Pause/Off and Switch Geofence Schdeule
-    Given user launches and logs in to the Lyric application
+  @NA_GeofenceScheduleOptions @Automated
+  Scenario Outline: As a user i want an Options to Pause_Off and Switch Geofence Schdeule
+    Given user thermostat is set to "Geofence based" schedule
+    And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user creates "Geofence" schedule with default schedule value
-     When user selects <schedule Options> from "Scheduling" screen
-     Then user should be displayed with "Expected" screen
+     When user selects <schedule Options> from Scheduling screen
+     Then user should be displayed with the <Expected> screen
   
     Examples: 
       | schedule Options     | Expected            | 
-      | Switch to Time based | Time based schedule | 
-      | Turn  Schedule oFF   | Tap on Resume       | 
+#      | Switch to Time based| Time based schedule | 
+      |Turn Schedule Off| Tap on Resume       | 
 
 @NA_CreateGeofenceScheduleInOffMode @Automated
 Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
@@ -120,15 +120,15 @@ Scenario: As a user i want to create an Geofence schdeule from Learn More
 # And user navigates to "Primary card" screen from the "Scheduling" screen
 #      And user is displayed with "Using Away/Home settings"
       
-      @NA_CreateGeonceScheduleInLearnModeWhenUserSkipsGeofence
+      @NA_CreateGeonceScheduleInLearnModeWhenUserSkipsGeofence @NotAutomatable
 Scenario: As a user i want to create an Geofence schdeule from Learn More
     Given user Skips Geofence while DIY and Configures a stat
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
      When user creates "Geofence based" schedule with "Learn More"
-     Then <Geofence based> scheduling gets activated
- And user navigates to "Primary card" screen from the "Scheduling" screen
-      And user is displayed with "Using Away/Home settings"
+     Then "Geofence based" scheduling gets activated
+# And user navigates to "Primary card" screen from the "Scheduling" screen
+#      And user is displayed with "Using Away/Home settings"
      
      
      @NA_CopyScheduleToMulitpleStat
@@ -145,7 +145,7 @@ Then "Geofence" scheduling gets activated in <CopyStatst> stats
 |All|
 | Selected|
 
-@NA_CopyScheduleWhenStatOffline
+@NA_CopyScheduleWhenStatOffline @NotAutomatable
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application
@@ -158,7 +158,7 @@ Scenario Outline: As a user I want to create an Goefence schedule with Heat/Cold
 Given user thermostat is configures with "Modes"system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Geofence" schedule with default schedule value
+When user creates "Geofence based" scheduling with default values "Without" sleep settings
 Then  "Geofence" scheduling gets activated
 And user is displayed with <Modes> in Schedule
 
@@ -167,28 +167,28 @@ Examples:
 |Heat Only|
 |Cool Only|
 
-@NA_CreateGeofenceWithEdiotingHome_Sleep_AwaySettings
+@NA_CreateGeofenceWithEditingHome_Sleep_AwaySettings @Automated
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     And user creates "Geofence based" schedule with "Use Geofence"
-     When user edits "Condition" Settings
+     And user creates "Geofence based" schedule using "Use Geofence" option by editing sleep setting values and default home and away values
+     When user edit "Geofence based" schedule by editing <Condition>
     Then "Geofence based" scheduling gets activated
-    And user is displayed with "Condition" settings
+#    And user is displayed with "Condition" settings
 Examples: 
 |Condition|
 |Sleep|
-|Home|
-|Away|
+#|Home|
+#|Away|
 
 @NA_EditGeofenceScheduleSettingsAndBackNavigation
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence and Verify if Values are saved navigating Back 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     And user creates "Geofence based" schedule with "Use Geofence"
-     When user edits "Condition" Settings
+     And user creates "Geofence based" schedule using "Use Geofence" option by editing sleep setting values and default home and away values
+     When user edit "Geofence based" schedule by editing <Condition>
      And user Navigates taps on "Back" button
      Then user should still be displayed with edited set points
      Examples: 

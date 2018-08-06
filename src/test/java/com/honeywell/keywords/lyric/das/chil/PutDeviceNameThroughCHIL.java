@@ -126,11 +126,27 @@ public class PutDeviceNameThroughCHIL extends Keyword {
 										+ inputs.getInputValue("LOCATION1_DIMMER1_NAME"));
 					}
 				}
+			} else if (exampleData.get(0).equalsIgnoreCase("Thermostat Device name")) {
+				LocationInformation locInfo = new LocationInformation(testCase, inputs);
+				DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
+				if (chUtil.getConnection()) {
+					int result = chUtil.putThermostatDeviceName(locInfo.getLocationID(), deviceInfo.getDeviceID(),
+							inputs.getInputValue("PREVIOUS_LOCATION1_DEVICE1_NAME"));
+					if (result == 200) {
+						Keyword.ReportStep_Pass(testCase, "Successfully changed the device name to : "
+								+ inputs.getInputValue("PREVIOUS_LOCATION1_DEVICE1_NAME"));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to change the device name to "
+										+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					}
+				}
 			}else{
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Failed to change the device name to "
-								+ inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
+								+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			}
 
 		} catch (Exception e) {

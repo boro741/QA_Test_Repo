@@ -1000,7 +1000,22 @@ public class PrimaryCard extends MobileScreens {
 		}
 		return false;
 	}
-
+	public boolean isDownStepperVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown");
+	}
+	
+	public boolean isUpStepperVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp");
+	}
+	
+	public boolean clickOnDownStepper(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
+	}
+	
+	public boolean clickOnUpStepper(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
+	}
+	
 	public boolean isUserExpectedTemperatureDisplayed() {
 
 		WebElement expectedTemp = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");

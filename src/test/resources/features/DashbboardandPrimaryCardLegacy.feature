@@ -1,4 +1,4 @@
-@DashbboardandSolutionCard
+@DashbboardandSolutionCard @Comfort
 Feature: As an user I want to verify the Dashboard and primary card for JapserNA , JasperEMEA, HB and Spruce 
 
 #Dashboard view 
@@ -978,116 +978,44 @@ And Autochangeover enabled in stat
 When user selects set points within maximum and minimum range                               
 Then verify Heat setpoint should be always less than the cool setpoint
 
-
 #CoachMark
 
-#JasperNA, HB, Spruce
-@Dashboardandsolutioncardoach-markverification
-Scenario Outline: AS a user I want to verify Dashboard & Solutioncard coach-mark
-Given user set to <Mode> through CHIL
-And user launches and logs in to the lyric application 
-And user navigates to "Dashboard"
-Then user should displayed with "Access More Information" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Quick Controls" coach-mark
-And user selects the "Back" button 
-Then user should displayed with "Access More Information" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Quick Controls" coach-mark
-And user selects the "Got It" button 
-Then user should displayed with "OutSide Temperature" coach-mark
-And user selects the "Back" button 
-Then user should displayed with "Access More Information" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Outside Temperature" coach-mark
-And user selects the "Got It" button 
-And user should not display "coach-mark"
-When user navigates to "SolutionCard" screen from "Dashboard" screen
-Then user should displayed with "Indoor Temperature Reading" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Temp stepper" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Mode" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Fan" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Schedule" coach-mark
-And user Selects the "Back" button 
-Then user should displayed with "Fan" coach-mark
-And user Selects the "Back" button 
-Then user should displayed with "Mode" coach-mark
-And user Selects the "Back" button 
-Then user should displayed with "Temp stepper" coach-mark
-And user Selects the "Back" button
-Then user should displayed with "Indoor Temperature Reading" coach-mark 
-And user Selects the "Got It" button 
-Then user should displayed with "Temp stepper" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Mode" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Fan" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Schedule" coach-mark
-And user Selects the "Got It" button 
-And user should not display "coach-mark"
+#JasperNA, HB, Spruce,JasperEMEA
+@DashboardCoachmarkverification
+Scenario Outline:As an user i want to verify coach marks 
+Given user has <Mode> system mode
+Given user launches and logs in to the lyric application 
+Then user verifies the "THERMOSTAT DASHBOARD" coach marks
 Examples:
 |Mode|
 |Cool|
 |Heat|
 |Auto|
-|DR|
-|Offline|
 
-#JasperEMEA
-@Dashboardandsolutioncardoach-markverificationEMEA
-Scenario Outline: AS a user I want to verify Dashboard & Solutioncard coach-mark
-Given user set to <Mode> through CHIL
-And user launches and logs in to the lyric application 
-And user navigates to "Dashboard"
-Then user should displayed with "Access More Information" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Quick Controls" coach-mark
-And user selects the "Back" button 
-Then user should displayed with "Access More Information" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Quick Controls" coach-mark
-And user selects the "Got It" button 
-Then user should displayed with "OutSide Temperature" coach-mark
-And user selects the "Back" button 
-Then user should displayed with "Access More Information" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Outside Temperature" coach-mark
-And user selects the "Got It" button 
-And user should not display "coach-mark"
-When user navigates to "SolutionCard" screen from "Dashboard" screen
-Then user should displayed with "Indoor Temperature Reading" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Temp stepper" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Mode" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Fan" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Schedule" coach-mark
-And user Selects the "Back" button 
-Then user should displayed with "Mode" coach-mark
-And user Selects the "Back" button 
-Then user should displayed with "Temp stepper" coach-mark
-And user Selects the "Back" button
-Then user should displayed with "Indoor Temperature Reading" coach-mark 
-And user Selects the "Got It" button 
-Then user should displayed with "Temp stepper" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Mode" coach-mark
-And user Selects the "Got It" button 
-Then user should displayed with "Schedule" coach-mark
-And user Selects the "Got It" button 
-And user should not display "coach-mark"
+#JasperNA, HB, Spruce
+@SolutionCardCoachmarkverificationNA
+Scenario Outline:As an user i want to verify coach marks 
+Given user has <Mode> system mode
+Given user launches and logs in to the lyric application 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+Then user verifies the "NA THERMOSTAT SOLUTION CARD" coach marks
 Examples:
 |Mode|
-|OFF |
+|Cool|
 |Heat|
-|Offline|
+|Auto|
+
+#JasperEMEA, HB, Spruce
+@SolutionCardCoachmarkverificationEMEA
+Scenario Outline:As an user i want to verify coach marks 
+Given user has <Mode> system mode
+Given user launches and logs in to the lyric application 
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+Then user verifies the "EMEA THERMOSTAT SOLUTION CARD" coach marks
+Examples:
+|Mode|
+|Auto|
+
 
 #Dashboard order 
 @Dashboardorderwithallsolutions

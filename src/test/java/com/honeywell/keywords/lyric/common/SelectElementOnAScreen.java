@@ -18,6 +18,7 @@ import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
@@ -1067,20 +1068,48 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("MANAGE ALERTS")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "ALERT FOR THIS RANGE": {
+				case "TEMPERATURE ALERT FOR THIS RANGE": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 					if (ts.isThermostatTempAlertRangeVisible()) {
 						flag = flag & ts.clickOnThermostatTempAlertRange();
 					}
 					break;
 				}
+				case "BELOW TEMPERATURE RANGE": {
+					flag = flag & HBNAEMEASettingsUtils.selectBelowTemperatureRangeValue(testCase, inputs,
+							parameters.get(0));
+					break;
+				}
+				case "ABOVE TEMPERATURE RANGE": {
+					flag = flag & HBNAEMEASettingsUtils.selectAboveTemperatureRangeValue(testCase, inputs,
+							parameters.get(0));
+					break;
+				}
+				case "HUMIDITY ALERT FOR THIS RANGE": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isThermostatHumidityAlertRangeVisible()) {
+						flag = flag & ts.clickOnThermostatHumidityAlertRange();
+					}
+					break;
+				}
+				case "BELOW HUMIDITY RANGE": {
+					flag = flag
+							& HBNAEMEASettingsUtils.selectBelowHumidityRangeValue(testCase, inputs, parameters.get(0));
+					break;
+				}
+				case "ABOVE HUMIDITY RANGE": {
+					flag = flag
+							& HBNAEMEASettingsUtils.selectAboveHumidityRangeValue(testCase, inputs, parameters.get(0));
+					break;
+				}
+
 				}
 			} // Schedule screen
 			else if (parameters.get(1).equalsIgnoreCase("Scheduling")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "OPTION": {
 					SchedulingScreen option = new SchedulingScreen(testCase);
-					flag = flag & option.isScheduleOptionsVisible(4);
+					flag = flag & option.isScheduleOptionsVisible(2);
 					flag = flag & option.isScheduleOptionsElementEnabled();
 					if (flag) {
 						flag = flag & option.clickOnScheduleOptionsButton();
@@ -1107,12 +1136,9 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Failed to click", true);
 				}
 				}
-			}
+				
 			// select schedule off from option action sheet
 			else if (parameters.get(1).equalsIgnoreCase("Option")) {
 				switch (parameters.get(0).toUpperCase()) {

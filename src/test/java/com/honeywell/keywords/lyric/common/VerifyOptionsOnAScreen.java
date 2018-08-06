@@ -12,7 +12,6 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.AlarmScreen;
@@ -22,8 +21,6 @@ import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
-import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import io.appium.java_client.TouchAction;
 
@@ -233,6 +230,29 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+
+	
+        case "CAMERA CONFIGURATION": {
+        	CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
+            for (int i = 0; i < data.getSize(); i++) {
+                  String fieldTobeVerified = data.getData(i, "Details");
+                  try {
+                         if (ts.isCameraConfigurationsOptionVisible(fieldTobeVerified)) {
+                                Keyword.ReportStep_Pass(testCase,
+                                              "Settings: '" + fieldTobeVerified + "' is present on the Camera Configuration screen");
+                         } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+                                              + "' is not present on the Camera Configuration screen");
+                         }
+                  } catch (Exception e) {
+                         flag = false;
+                         Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+                  }
+            }
+            break;
+     }
+
 		case "THERMOSTAT SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -767,6 +787,27 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "SOUND": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "SoundOptions");
+				try {
+					if (ts.isThermostatSoundOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Sound Option: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Sound Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Sound Option: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Sound Screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
 		case "MODE INFO": {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -975,8 +1016,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							}
 								
 						}
-					
-				
 			
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Alerts");
@@ -999,6 +1038,103 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
 
+			}
+			break;
+		} 
+		case "CAMERA STATUS":{
+			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Email Notifications")) {
+					if (st.isCameraEmailNotificationsTextVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
+			
+				}
+		}
+			break;
+		}
+		
+		case "SOUND EVENT STATUS":{
+			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Email Notifications")) {
+					if (st.isSoundEmailNotificationTextVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
+			
+				}
+		}
+			break;
+		}
+		
+		case "MOTION EVENT STATUS":{
+			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Email Notifications")) {
+					if (st.isMotionEmailNotificationTextVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
+			
+				}
+		}
+			break;
+		}
+		case "THERMOSTAT CONFIGURATION": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "ThermostatConfigurationOptions");
+				try {
+					if (ts.verifyParticularThermostatConfigurationVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Configuration screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+								+ "' is not present on the Thermostat Configuration screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "VENTILATION": {
+			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "VentilationOptions");
+				try {
+					if (ts.isThermostatVentilationOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Ventilation Option: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Ventilation Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Ventilation Option: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Ventilation Screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
 			}
 			break;
 		}

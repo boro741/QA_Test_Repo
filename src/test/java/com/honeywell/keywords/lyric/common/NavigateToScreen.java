@@ -557,9 +557,46 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
+
+				// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'
+				case "THERMOSTAT HUMIDIFICATION": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatHumidificationScreen(testCase,
+							inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Thermostat Dehumidification Screen'
+				case "THERMOSTAT DEHUMIDIFICATION": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToThermostatDehumidificationScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Sound Screen'
+				case "SOUND": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSoundScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Ventilation Screen'
+				case "VENTILATION": {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToVentilationScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'Sound Brightness Mode Screen'
+				case "SLEEP BRIGHTNESS MODE": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase, inputs);
+					break;
+				}
+
+				// Navigate from 'Camera Dashboard' to Manage Alerts Screen'
+				case "CAMERA MANAGE ALERTS": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraManageAlertsScreen(testCase, inputs);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Thermostat Configuration'
 				case "THERMOSTAT CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
+							inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Set Filter Reminder Screen'
@@ -1486,7 +1523,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (cs.isMotionDetectionLabelVisible(20)) {
+					if (cs.isMotionDetectionLabelVisible(testCase, 20)) {
 						cs.clickOnMotionDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
@@ -2221,6 +2258,51 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & thermo.clickOnBackButton();
 					break;
 				}
+				case "THERMOSTAT HUMIDIFICATION": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.HUMIDIFICATION);
+					break;
+				}
+				case "THERMOSTAT DEHUMIDIFICATION": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.DEHUMIDIFICATION);
+					break;
+				}
+				case "SLEEP BRIGHTNESS MODE": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SLEEPBRIGHTNESSMODE);
+					break;
+				}
+				case "SOUND": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.SOUND);
+					break;
+				}
+				case "DASHBOARD": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					PrimaryCard pc = new PrimaryCard(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (ts.isThermostatSettingsHeaderTitleVisible(10) && ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (pc.isCogIconVisible() && pc.isBackButtonVisible()) {
+							pc.clickOnBackButton();
+							HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							flag = flag & d.isGlobalDrawerButtonVisible();
+						}
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+					break;
+				}
+				case "VENTILATION": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					flag = flag & ts.selectOptionFromThermostatSettings(BaseStationSettingsScreen.VENTILATION);
+					break;
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ACTIVITY HISTORY")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2229,7 +2311,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION SCREEN")) {
+			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SETTINGS": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
@@ -2245,9 +2327,87 @@ public class NavigateToScreen extends Keyword {
 				}
 					break;
 				}
-			}
-
-			else {
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT HUMIDIFICATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DEHUMIDIFICATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SLEEP BRIGHTNESS MODE")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SOUND")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("VENTILATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT SETTINGS": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					if (ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						break;
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

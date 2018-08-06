@@ -17,7 +17,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
-import com.honeywell.screens.ThermostatSettingsScreen;
 
 
 public class ActivateVacationUsingCHIL extends Keyword {

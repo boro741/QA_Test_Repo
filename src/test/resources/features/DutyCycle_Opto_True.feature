@@ -2,7 +2,7 @@
 Feature: Duty Cycle with Opt Out able true
 As a user, I want to opt out of DR when my duty cycle is enabled
 
-  @VerifySavingEventScheduleMessage
+  @VerifySavingEventScheduleMessagenew
   Scenario Outline: Verify Saving Event Schedule Message
   As a user, I should receive a saving event schedule message on the primary card, Activity History screen
     Given user <Thermostat> is enrolled with DR

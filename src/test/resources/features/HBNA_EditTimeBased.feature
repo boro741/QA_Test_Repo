@@ -1,4 +1,4 @@
-@EditNATimeschedule
+@EditNATimeschedule @NA_Schedule @Comfort
 Feature: Edit Time Based schedule
 As an user 
 I want to Edit Time schedule
@@ -59,7 +59,7 @@ so that i can change Time and Set points of individual periods and Days
       | Same Every Day        | 
       | Different On Weekdays |  
       
-  @NA_PeriodTimeShouldNotOverlap @automating
+  @NA_PeriodTimeShouldNotOverlap @automated
   Scenario: As a User i want to edit my period so that each period is independent,On overlap Schule period is removed
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -69,57 +69,67 @@ so that i can change Time and Set points of individual periods and Days
       And user edit "Away" period by changing time value to "06 00 AM"
      Then user should be displayed "Wake" time as "Tap to set"
   
-  @NA_DeletePerioConfirmdAlert
+  @NA_DeletePerioConfirmdAlert @automated
   Scenario: As a User i want be shown with confirm pop so that i will be alerted of deleting period 
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user creates "Same Every Day" schedule with default schedule value
-      And user selects view by "SINGLE DAY"
+      And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting "Atleast 1 period"
      Then user should be displayed with confirm pop for period deletion
       And Period is "not deleted" on "canceling" Dialog box
   
-  @NA_DeletingDefaultPeriodDifferentOnWeekdays
+  @NA_DeletingDefaultPeriodDifferentOnWeekdays @automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user creates "Different On Weekdays" schedule with default schedule value
-      And user selects view by "SINGLE DAY"
-     When user deletes <Periods> from the Schdeule
-     Then user is displayed with <Period Value> on deleted period
-      And user selects view by "GROUPD DAY"
-      And "EditedDays" are grouped separately
+      And user selects "SINGLE DAY" view
+     When user deletes <Periods> from the Time Based Schdeule
+     Then verify "Time" schedule successfully gets edited
+#      And "EditedDays" are grouped separately
   
     Examples: 
-      | Periods          | Period Value | 
-      | Atleast 1 period | Tap to set   | 
-      | Atleast 2 period | Tap to set   | 
-      | Atleast 3 period | Tap to set   | 
-      | All periods      | No Schedule  | 
-  
-  @NA_ScheduleOptions
-  Scenario Outline: As a user i want an Options to Create,Pause/Off and Switch Schdeule
-    Given user launches and logs in to the Lyric application
+      | Periods          | Period Value |EditedDays |
+      | Atleast 1 period | Tap to set   |One days |
+      | Atleast 2 period | Tap to set   |Two days |
+      | Atleast 3 period | Tap to set   |Three days|
+
+ @NA_DeletingAllPeriod @Automated
+  Scenario Outline: To edit Time schedule by deleting all period for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
+    Given user thermostat is set to "Time Based" schedule
+    And user launches and logs in to the Lyric application
+    And user navigates to "Scheduling" screen from the "Dashboard" screen
+    And user selects <Type> view
+     When user deletes "All 4 Periods" from the Time Based Schdeule
+     Then verify "No Schedule" screen is shown in view schedule screen
+      Examples:
+      | Type            | 
+      | Grouped days    | 
+#      | SINGLE DAY | 
+        
+  @NA_ScheduleOptions @Automated
+  Scenario Outline: As a user i want an Options to Create,Pause_Off and Switch Schdeule
+    Given user thermostat is set to "Time based" schedule
+    And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user creates "Different On Weekdays" schedule with default schedule value
-     When user selects <schedule Options> from "Scheduling" screen
-     Then user should be displayed with "Expected" screen
+     When user selects <schedule Options> from Scheduling screen
+     Then user should be displayed with the <Expected> screen
   
     Examples: 
       | schedule Options        | Expected            | 
       | Switch to Geofencing    | Geofencing schedule | 
-      | Create new time Scedule | Time based Scedule  | 
-      | Turn oFF Schedule       | Tap on Resume       | 
+      | Create new time schedule | Time based schedule  | 
+      | Turn Schedule Off   | Tap on Resume       | 
   
-  @NA_ResumeSchedule
+  @NA_ResumeSchedule @Automated
   Scenario: As a user i want an Options to resume Schdeule
     Given user thermostat is set to "Time Based" schedule  
-      And user selects "Turn OFF Schedule " option on "Scheduling" 
+      And user selects "Pause" option on Scheduling 
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user is displayed with "Tap on Resume" screen
-     When user selects "Tap on Resume" from "Scheduling" screen
-     Then user should be displayed with "Scheduling" screen
+     When user selects "Tap On Resume" from Scheduling screen
+     Then "Same Every Day" scheduling is retained
   
   @NA_DeletingCurrentPeriodDifferentOnWeekdays
   Scenario: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted

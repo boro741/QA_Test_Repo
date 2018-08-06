@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,11 +25,8 @@ public class DeviceInformation {
 	String locationName;
 	String statName;
 
-	private TestCaseInputs inputs;
-
 	public DeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.inputs=inputs;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 	}
 
@@ -56,6 +54,12 @@ public class DeviceInformation {
 		}
 	}
 
+	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
+		this.testCase = testCase;
+		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
+		return true;
+	}
+	
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
 		if (deviceInformation != null) {
@@ -170,7 +174,6 @@ public class DeviceInformation {
 		return VentilationTimerValue;
 	}
 
-
 	public HashMap<String, String> getDeviceMaxMinSetPoints() throws Exception {
 		HashMap<String, String> setPoints = new HashMap<String, String>();
 		if (deviceInformation != null) {
@@ -234,7 +237,7 @@ public class DeviceInformation {
 	}
 
 	public String getDASSensorID(String sensorName) throws Exception {
-		if (this.deviceInformation != null) {
+		if (DeviceInformation.deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
@@ -250,7 +253,7 @@ public class DeviceInformation {
 	
 	public ArrayList<String> getDASSensorIDsInADevice() throws Exception {
 		ArrayList<String> lstSensorID = new ArrayList<String>();
-		if (this.deviceInformation != null) {
+		if (DeviceInformation.deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
@@ -267,7 +270,7 @@ public class DeviceInformation {
 	
 	public ArrayList<String> getDASKeyFobsIDInADevice() throws Exception {
 		ArrayList<String> lstKeyFobID = new ArrayList<String>();
-		if (this.deviceInformation != null) {
+		if (DeviceInformation.deviceInformation != null) {
 			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
 			for (int i = 0; i < keyfobs.length(); i++) {
 				JSONObject keyfob = keyfobs.getJSONObject(i);
@@ -326,6 +329,7 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
+	
 	public String getThermostatType() {
 		String type = "";
 		if (deviceInformation != null) {
@@ -337,6 +341,7 @@ public class DeviceInformation {
 		}
 		return type ;
 	}
+	
 	public String getThermoStatMode() {
 		String systemMode = "";
 		if (deviceInformation != null) {
@@ -356,7 +361,6 @@ public class DeviceInformation {
 		return systemMode;
 	}
 
-
 	public String getThermostatModeWhenAutoChangeOverActive() {
 		String systemMode = "";
 		if (deviceInformation != null) {
@@ -375,6 +379,7 @@ public class DeviceInformation {
 		}
 		return systemMode;
 	}
+	
 	public String getCoolSetPoints() {
 		String coolSetPoints = " ";
 		try {
@@ -402,7 +407,6 @@ public class DeviceInformation {
 		return coolSetPoints;
 	}
 
-
 	public String getIndoorTemperature() {
 		String indoorTemp = " ";
 		try {
@@ -428,7 +432,6 @@ public class DeviceInformation {
 		}
 		return indoorTemp;
 	}
-
 
 	public String getCurrentSetPoints() {
 		String currentSetPoints = " ";
@@ -541,7 +544,7 @@ public class DeviceInformation {
 		if (deviceInformation != null) {
 			nextPeriodTime = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
 					.get("nextPeriodTime").toString();
-			return nextPeriodTime;
+			
 		} else {
 			nextPeriodTime = "";
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -549,7 +552,39 @@ public class DeviceInformation {
 		}
 		return nextPeriodTime;
 	}
-
+	
+	public String getOverrrideSetpoint() {
+			String OverrideMode = "";
+			String OverrideSet = "";		
+			
+			if (deviceInformation != null) {
+				
+				OverrideMode = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("mode").toString();
+				
+				if(OverrideMode.equals("Heat"))
+				{
+					OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+							.get("heatSetpoint").toString();
+				}else
+					OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+					.get("coolSetpoint").toString();	
+				}
+				return OverrideSet;
+			} 
+	
+	public String getHoldUntilTime() {
+		String holdUntil = "";
+		if (deviceInformation != null) {
+			holdUntil = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+					.get("holdUntil").toString();
+			return holdUntil;
+		} else {
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Stat Information is null");
+		}
+		return holdUntil;
+	}
 
 	public String getVacationStartTime() {
 		String startTime = "";
@@ -605,7 +640,84 @@ public class DeviceInformation {
 		}
 		return endTime;
 	}
+	
+	public String getscheduleStatus() throws Exception {
+		String status = " ";
+		if (deviceInformation != null) {
+			status = deviceInformation.getString("scheduleStatus");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return status;
+	}
 
 
+	public int getDREventID() throws Exception {
+		int eventID = -1;
+		try {
+			if (deviceInformation != null) {
+				try {
+					JSONObject dr = deviceInformation.getJSONObject("drEvent");
+					eventID = dr.getInt("eventID");
+				} catch (JSONException e) {
+					eventID = -1;
+				}
+			} else {
+				throw new Exception("Thermostat Information not found");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return eventID;
+	}
 
+	public boolean isDREventStarted() throws Exception {
+		boolean isStarted = false;
+		try {
+			if (deviceInformation != null) {
+				try {
+					JSONObject dr = deviceInformation.getJSONObject("drEvent");
+					if (dr != null) {
+						isStarted = true;
+					}
+				} catch (JSONException e) {
+					isStarted = false;
+				}
+			} else {
+				throw new Exception("Thermostat Information not found");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return isStarted;
+	}
+	public String getDeviceMacID() throws Exception {
+		try {
+			if (deviceInformation != null) {
+				return deviceInformation.getString("macID");
+			} else {
+				throw new Exception("Thermostat Information not found");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}	
+	public String getDREndTime() throws Exception {
+		String DREndTime = "";
+		try {
+			if (deviceInformation != null) {
+				try {
+					JSONObject dr = deviceInformation.getJSONObject("drEvent");
+					DREndTime = dr.getString("endTime");
+				} catch (JSONException e) {
+					throw new Exception("DR Event has not started");
+				}
+			} else {
+				throw new Exception("Thermostat Information not found");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return DREndTime;
+	}
 }
