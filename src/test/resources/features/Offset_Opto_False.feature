@@ -1,8 +1,8 @@
-@OffsetWithOptOutableFalse
+@OffsetWithOptOutableFalse @comfort
 Feature: Offset with OptOutable set to false
 As a user, I should not be able to opt out of DR when my OptOutable is disbaled
 
-@VerifySavingEventCancelByUserMessageforHeatmode
+@VerifySavingEventCancelByUserMessageforHeatmode @UIAutomatable
   Scenario Outline: Verify Saving Event Cancel By User Message
   As a user, I should be able to cancel a DR Event and receive a saving event cancel message on  Activity History screenfor HBB and Jasper Devices in heat mode when delta value is passed 
     Given user <Thermostat> is enrolled with DR
@@ -26,7 +26,7 @@ As a user, I should not be able to opt out of DR when my OptOutable is disbaled
       |HB|
       |JapserNA|
       
-      @VerifySavingEventCancelByUserMessageforcoolmode
+      @VerifySavingEventCancelByUserMessageforcoolmode @UIAutomatable
   Scenario Outline: Verify Saving Event Cancel By User Message
   As a user, I should be able to cancel a DR Event and receive a saving event cancel message on  Activity History screen for HBB and Jasper Devices in cool mode when delta value is passed 
     Given user thermostat is enrolled with DR
