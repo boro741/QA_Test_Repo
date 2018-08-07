@@ -127,7 +127,7 @@ public class JasperSetPoint {
 			String currentThermostatTemp = "";
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				currentThermostatTemp = dialer;
-				currentThermostatTemp = currentThermostatTemp.split(",")[1];
+				currentThermostatTemp = currentThermostatTemp.split("\\,")[0];
 			} else {
 				currentThermostatTemp = dialer;
 			}
