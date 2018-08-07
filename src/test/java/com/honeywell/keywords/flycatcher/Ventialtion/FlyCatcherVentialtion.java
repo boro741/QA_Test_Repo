@@ -2,12 +2,16 @@ package com.honeywell.keywords.flycatcher.Ventialtion;
 
 
 
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
+
+import io.appium.java_client.TouchAction;
 
 public class FlyCatcherVentialtion {
 
@@ -94,7 +98,11 @@ public class FlyCatcherVentialtion {
 			int i = 0;
 			while (picker_value < expected_value && i < 9){
 				if (fly.getTimerPickerValue() != expected_value ){
-					testCase.getMobileDriver().swipe(530, 976, 530, 850, 1000);
+					WebElement ele = fly.getPickerElement();
+					int start_x = ele.getLocation().getX();
+					int start_y = ele.getLocation().getY();
+					TouchAction touch = new TouchAction(testCase.getMobileDriver());
+					touch.press(start_x+ele.getSize().getWidth()/2, start_y).moveTo(0, start_y-10).release().perform();
 					i++;
 				} else{
 					break;

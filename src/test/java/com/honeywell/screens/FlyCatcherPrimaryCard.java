@@ -311,4 +311,8 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		return MobileUtils.setValueToElement(objectDefinition, testCase, "HumSlider", value);
 	}
 	
+	public WebElement getPickerElement(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "VentilationTimerPicker");
+	}
+	
 }
