@@ -3,7 +3,7 @@ Feature: As an user I want to turn schedule OFF or ON So that I can run schedule
 
 
 
-@ScheduleOFFONEMEA @Automated --LYR-29402
+@ScheduleOFFONEMEA @Automated @LYR-29402
 Scenario Outline:Schedule OFF ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius and for time format 24 12hr
 #As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
 Given user has "Heat" system mode
@@ -262,7 +262,7 @@ Examples:
 |Without sleep geofence based|UserDeparted |Away| Home | UserArrived | Using Away Settings| Using Home Settings | 
 |geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
 
-@ScheduleONMultistatNA @Automated
+@ScheduleONMultistatEMEA @Automated
 Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
 Given user has "Heat" system mode
@@ -288,7 +288,7 @@ Examples:
 
 
 
-@ScheduleOFFMultistatNA  @Automated
+@ScheduleOFFMultistatEMEA  @Automated
 Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
 #Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 Given user has "Heat" system mode

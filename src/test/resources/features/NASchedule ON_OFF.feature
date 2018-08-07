@@ -411,7 +411,7 @@ Examples:
 
 
 
-@ScheduleONMultistatEMEANAHB @Automated
+@ScheduleONMultistatNA @Automated
 Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
 Given user has <Mode> system mode
@@ -455,7 +455,7 @@ Examples:
 #|Heat Only|time based | time based  | pause |
 
 
-@ScheduleOFFMultistatEMEANAHB  @Automated
+@ScheduleOFFMultistatNA  @Automated
 Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
 #Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 Given user has <Mode> system mode
