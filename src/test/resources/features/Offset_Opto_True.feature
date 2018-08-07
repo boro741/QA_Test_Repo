@@ -50,10 +50,9 @@ Scenario: Verify Saving Event Cancel By Utility Message Offset
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And DR event is cancelled by the utility provider 
-	#Then user should not be displayed with a DR event label on the primary card
 	And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
 	And user receives and views a "saving event canceled by utility" message on the "ACTIVITY HISTORY" screen 
-	#And user logs out of the app 
+	And user logs out of the app 
 	
 @VerifySavingEventCancelByUserMessageOffset  @UIAutomatable 
 Scenario: Verify Saving Event Cancel By User Message Offset 
