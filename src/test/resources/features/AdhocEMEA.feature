@@ -1,5 +1,4 @@
-
-@AdhocOverride
+@AdhocOverride @Comfort
 Feature:   
 I want to override my running schedule so that i can set my comfortable temperature manually 
 I should able to hold the override temperature temporarily for maximum of 12 hrs.
