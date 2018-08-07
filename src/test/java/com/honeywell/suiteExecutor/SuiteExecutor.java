@@ -26,9 +26,8 @@ public class SuiteExecutor {
 					"--testrunname","DLS-"+appName+"",
 					"--appToInstall","IOS:1,Android:"+appName+"",
 					"--groups",
-					"ViewDashboard",
 
-					/**Jasper NA-DashbboardandSolutionCard**//*
+					/**Jasper NA-DashbboardandSolutionCard**/
 					"ViewDashboard",
 					"ViewDashboardOFF",
 					"ViewSolutionCard",
@@ -36,7 +35,7 @@ public class SuiteExecutor {
 					"SystemModeInfoscreenwithCoolandHeatMode",
 					"SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled",
 
-					*//**Jasper NA-Scheduling**//*
+					/**Jasper NA-Scheduling**/
 					"NA_CreateGeofenceSchedule",
 					"NA_SleepSettings",
 					"NA_EditGeofenceWithTemperature",
@@ -61,13 +60,13 @@ public class SuiteExecutor {
 					"NA_ScheduleOptions",
 					"NA_ResumeSchedule",
 
-					*//**Jasper NA - Settings**//*
+					/**Jasper NA - Settings**/
 					"VerifyJasperNASettings",
 					//"VerifyJasperNAEMEASpruceSettings",
 					//"VerifyHBBSettings",
 					"EnableDisableIndoorTemperatureAlert",
 
-					*//** NA Schedule ON/OFF**//*
+					/** NA Schedule ON/OFF**/
 					"ScheduleOFFONNA",
 					"ScheduleOFFONNAtimebase",
 					"ScheduleOFFVacationNA",
@@ -76,35 +75,35 @@ public class SuiteExecutor {
 					"ScheduleONOFFNAswitchingmodes",
 					"ScheduleONOFFNAgeofencebasefencecross",
 					
-					*//**Jasper EMEA-Dashboard&Solutioncard**//*
+					/**Jasper EMEA-Dashboard&Solutioncard**/
 					"ViewDashboardEMEA",
 					"ViewSolutionCardEMEA",
 					"SystemModeInfoscreenwithHeatOnlyEMEA",
 
-//					/**Jasper EMEA-Scheduling**/
-//					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
-//					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
-//					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
-//					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
-//					"JasperEMEA_CancelToRetainExisitngscheduling",
-//					"JasperEMEA_ConfirmToCreateNewSchedule",
-//					"JasperEMEA_TempretureBandwidthforEachPeriod",
-//					"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
-//					"JasperEMEA_CanCreateMaximumOfSixPeriods",
-//					"JasperEMEA_CreateTimeBasedScheduleInOffMode",
-//					"JasperEMEA_CopyScheduleToMulitpleStat",
-//					"EMEA_CreateGeofenceSchedule",
-//					"EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule",
-//					"EMEA_SleepSettings",
-//					"EMEA_EditGeofenceWithTemperature",
-//					"EMEA_CreateGeofenceScheduleInOffMode",
-//					"EMEA_CreateGeonceScheduleInLearnMode",
-//					"EMEA_CopyGeofenceScheduleToMulitpleStat",
-//					"EMEA_AtleastOnePeriodNotDeletableInGroupDay",
-//					"EMEA_AtleastTwoPeriodInIndividualDay",
+					/**Jasper EMEA-Scheduling*/
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CreateEMEAScheduleSinglestatwithDefaultvalue",
+					"JasperEMEA_CreateEMEAEverydayscheduleAddingperiod",
+					"JasperEMEA_CancelToRetainExisitngscheduling",
+					"JasperEMEA_ConfirmToCreateNewSchedule",
+					"JasperEMEA_TempretureBandwidthforEachPeriod",
+					"JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays",
+					"JasperEMEA_CanCreateMaximumOfSixPeriods",
+					"JasperEMEA_CreateTimeBasedScheduleInOffMode",
+					"JasperEMEA_CopyScheduleToMulitpleStat",
+					"EMEA_CreateGeofenceSchedule",
+					"EMEA_CreateNewGeofenceSchedulewithExistingTimeBasedSchedule",
+					"EMEA_SleepSettings",
+					"EMEA_EditGeofenceWithTemperature",
+					"EMEA_CreateGeofenceScheduleInOffMode",
+					"EMEA_CreateGeonceScheduleInLearnMode",
+					"EMEA_CopyGeofenceScheduleToMulitpleStat",
+					"EMEA_AtleastOnePeriodNotDeletableInGroupDay",
+					"EMEA_AtleastTwoPeriodInIndividualDay",
 
 
-				/*	//** EMEA Schedule ON/OFF**//*
+					//** EMEA Schedule ON/OFF**/
 					"ScheduleOFFONEMEA",
 					"ScheduleOFFONEMEAtimebase",
 					"ScheduleOFFVacationEMEA",
@@ -112,14 +111,14 @@ public class SuiteExecutor {
 					"ScheduleONOFFEMEAgeofencebase",
 					"ScheduleONOFFEMEAswitchingmodes",
 
-					*//** HBB Schedule ON/OFF**//*
+					/** HBB Schedule ON/OFF**/
 					"ScheduleONOFFHB",
-					//"ScheduleONOFFHBtimebase",
-					//"ScheduleONOFFHBgeofencebase",
-					//"ScheduleONOFFHBswitchingmodes",
-					//"ScheduleONOFFHBgeofencebasefencecross",
+					"ScheduleONOFFHBtimebase",
+					"ScheduleONOFFHBgeofencebase",
+					"ScheduleONOFFHBswitchingmodes",
+					"ScheduleONOFFHBgeofencebasefencecross",
 
-					*//** Camera **//*
+					/** Camera **/
 					"CameraSettingsCameraOn",
 					"CameraSettingsManageAlertsDisabled",
 					"CameraSettingsEnableDisableMotionDetection",
@@ -128,7 +127,7 @@ public class SuiteExecutor {
 					"CameraSettingsEnableDisableSoundDetection",
 					"CameraSettingsVerifyNightVisionSettings",
 					"CameraSettingsVerifyVideoQualitySettings",
-					"CameraSettingsEnableDisableCameraMicrophone",*/
+					"CameraSettingsEnableDisableCameraMicrophone",
 
 			};
 			try {
