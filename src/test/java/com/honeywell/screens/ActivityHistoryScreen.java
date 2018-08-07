@@ -58,14 +58,14 @@ public class ActivityHistoryScreen extends MobileScreens {
 				for (int j = 1; j < messagesGroup.size(); j++) {
 					//// XCUIElementTypeCell/XCUIElementTypeStaticText[1]
 					WebElement ele = testCase.getMobileDriver()
-							.findElement(By.xpath("//XCUIElementTypeCell/XCUIElementTypeStaticText[" + i + "]"));
+							.findElement(By.xpath("//XCUIElementTypeCell[" + i + "][contains(@name,'Selected')]"));
 					WebElement ele1 = testCase.getMobileDriver()
-							.findElement(By.xpath("//XCUIElementTypeCell/XCUIElementTypeStaticText[" + i + 1 + "]"));
-					if (!combinedMessage.containsKey(ele.getAttribute("text"))) {
-						combinedMessage.put(ele.getAttribute("text"), ele1.getAttribute("text"));
+							.findElement(By.xpath("//XCUIElementTypeCell[" + i + "][contains(@name,'Selected')]//XCUIElementTypeStaticText[contains(@name,'Saving')][1]"));
+					if (!combinedMessage.containsKey(ele.getAttribute("value"))) {
+						combinedMessage.put(ele.getAttribute("label"), ele1.getAttribute("value"));
 					}
-					System.out.println(ele.getAttribute("text"));
-					System.out.println(ele1.getAttribute("text"));
+					System.out.println(ele.getAttribute("label"));
+					System.out.println(ele1.getAttribute("value"));
 					i++;
 				}
 
