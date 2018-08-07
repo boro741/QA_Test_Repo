@@ -21,7 +21,7 @@ public class EnterStartAndEndDate extends Keyword {
 	public EnterStartAndEndDate(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -34,29 +34,25 @@ public class EnterStartAndEndDate extends Keyword {
 	@KeywordStep(gherkins = "^user provided with option to enter vacation start and end date$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-			if(vhs.isStartAndEndDateEnabled()) {
-				
-				if(vhs.ClickOnStartDate()) {
-					Keyword.ReportStep_Pass(testCase, String.format("The Start Date button is clicked"));
-					if(vhs.isCalendarPopupVisible()) {
-						Keyword.ReportStep_Pass(testCase, String.format("StartCalendar Is Present"));
-					}
+		if (vhs.isStartAndEndDateEnabled()) {
+			if (vhs.ClickOnStartDate()) {
+				Keyword.ReportStep_Pass(testCase, String.format("The Start Date button is clicked"));
+				if (vhs.isCalendarPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase, String.format("StartCalendar Is Present"));
 				}
-				
-				if(vhs.ClickOnEndDate()) {
-					Keyword.ReportStep_Pass(testCase, String.format("The End Date button is clicked"));
-					if(vhs.isCalendarPopupVisible()) {
-						Keyword.ReportStep_Pass(testCase, String.format("EndCalendar Is Present"));
-					}
+			}
+			if (vhs.ClickOnEndDate()) {
+				Keyword.ReportStep_Pass(testCase, String.format("The End Date button is clicked"));
+				if (vhs.isCalendarPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase, String.format("EndCalendar Is Present"));
 				}
-				
-				
 			}
-			else {
-				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("The Start and End Date is not displayed during {0} Vacation Hold",exampleData.get(0)));
-				flag=false;
-			}
-	   return flag;
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE, String
+					.format("The Start and End Date is not displayed for {0} Vacation Hold", exampleData.get(0)));
+			flag = false;
+		}
+		return flag;
 	}
 
 	@Override
@@ -65,4 +61,3 @@ public class EnterStartAndEndDate extends Keyword {
 		return true;
 	}
 }
-

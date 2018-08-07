@@ -10,6 +10,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyStartAndEndDate extends Keyword {
@@ -34,13 +35,14 @@ public class VerifyStartAndEndDate extends Keyword {
 	@KeywordStep(gherkins = "^user is displayed with start date and end date options based on the (.*) vacation$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+		VacationSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 		if (vhs.isStartAndEndDateEnabled()) {
 			Keyword.ReportStep_Pass(testCase,
-					String.format("The Start and End Date is enabled during {0} Vacation Hold", exampleData.get(0)));
-			flag = true;
+					String.format("The Start and End Date is enabled for {0} Vacation Hold", exampleData.get(0)));
+			return flag;
 		} else {
-			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE, String
-					.format("The Start and End Date is disabled during {0} Vacation Hold", exampleData.get(0)));
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("The Start and End Date is disabled for {0} Vacation Hold", exampleData.get(0)));
 			flag = false;
 		}
 		return flag;

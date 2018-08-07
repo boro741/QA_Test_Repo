@@ -22,7 +22,7 @@ public class VerifyVacationStatus extends Keyword {
 	public VerifyVacationStatus(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -36,34 +36,40 @@ public class VerifyVacationStatus extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (exampleData.get(0).equalsIgnoreCase("on")) {
-			if(exampleData.get(1).trim().equals("vacation settings card"))
-			{
-				boolean vacationHoldStatus=vhs.GetVacationHoldStatus().equalsIgnoreCase("On")||vhs.GetVacationHoldStatus().equalsIgnoreCase("true");
+			if (exampleData.get(1).trim().equals("vacation settings card")) {
+				boolean vacationHoldStatus = vhs.GetVacationHoldStatus().equalsIgnoreCase("On")
+						|| vhs.GetVacationHoldStatus().equalsIgnoreCase("true");
 				flag = flag & vacationHoldStatus;
-			}
-			else if(exampleData.get(1).trim().equals("solution card"))
-			{
+			} else if (exampleData.get(1).trim().equals("solution card")) {
 				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+				try {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				flag = flag & JasperVacation.verifyVacationStatusOnSolutionsCard(testCase, inputs, true);
+			} else if (exampleData.get(1).trim().equals("dashboard")) {
+				flag = flag & JasperVacation.waitForVacationStart(testCase, inputs);
 				flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, true);
 			}
-			else if(exampleData.get(1).trim().equals("dashboard"))
-			{
-				flag = flag & JasperVacation.waitForVacationStart(testCase, inputs);
-				flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, true);			}
 		} else if (exampleData.get(0).equalsIgnoreCase("off")) {
-			if(exampleData.get(1).trim().equals("vacation settings card"))
-			{
-				boolean vacationHoldStatus=vhs.GetVacationHoldStatus().equalsIgnoreCase("Off")||vhs.GetVacationHoldStatus().equalsIgnoreCase("false");
+			if (exampleData.get(1).trim().equals("vacation settings card")) {
+				boolean vacationHoldStatus = vhs.GetVacationHoldStatus().equalsIgnoreCase("Off")
+						|| vhs.GetVacationHoldStatus().equalsIgnoreCase("false");
 				flag = flag & vacationHoldStatus;
-			}
-			else if(exampleData.get(1).trim().equals("solution card"))
-			{
+			} else if (exampleData.get(1).trim().equals("solution card")) {
 				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
-				flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, false);
+				try {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				flag = flag & JasperVacation.verifyVacationStatusOnSolutionsCard(testCase, inputs, false);
+			} else if (exampleData.get(1).trim().equals("dashboard")) {
+				flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, true);
 			}
-			else if(exampleData.get(1).trim().equals("dashboard"))
-			{
-				flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, true);			}
 		}
 		return flag;
 	}
@@ -74,4 +80,3 @@ public class VerifyVacationStatus extends Keyword {
 		return true;
 	}
 }
-

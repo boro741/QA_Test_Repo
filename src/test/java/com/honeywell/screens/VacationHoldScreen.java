@@ -21,6 +21,10 @@ public class VacationHoldScreen extends MobileScreens {
 
 	}
 
+	public boolean isLoadingSpinnerVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
+	}
+
 	
 	public boolean isStartAndEndDateDisplayed(){
 		flag&= MobileUtils.isMobElementExists(objectDefinition, testCase,"FromDate");
@@ -112,15 +116,11 @@ public class VacationHoldScreen extends MobileScreens {
 
 	public boolean isStartAndEndDateEnabled() {
 		boolean flag = true;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FromDate")
-					&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ToDate")) {
-				return flag;
-			} else {
-				flag = false;
-			}
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FromDate")
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ToDate")) {
+			return flag;
 		} else {
-
+			flag = false;
 		}
 		return flag;
 	}
