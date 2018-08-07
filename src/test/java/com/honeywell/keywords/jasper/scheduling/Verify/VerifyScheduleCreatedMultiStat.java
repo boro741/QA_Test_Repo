@@ -39,12 +39,12 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^verify \"(.+)\" schedule is \"(.+)\" stats$")
 	public boolean keywordSteps() throws KeywordException {
-		if (exampleData.get(0).equalsIgnoreCase("Geofence")) {
+		if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
-		} else if (exampleData.get(0).equalsIgnoreCase("Everyday")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
 			inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
-		} else if (exampleData.get(0).equalsIgnoreCase("Weekday and Weekend")) {
+		} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
 			inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.TIME_BASED_SCHEDULE);
 			inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 		}

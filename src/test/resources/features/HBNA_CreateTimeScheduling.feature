@@ -69,12 +69,12 @@ Examples:
 #|Different On Weekdays     | within range  | 
 
 
-@JasperNA_TimerClockIsInCrementalOf10mins @Automatable
+@JasperNA_TimerClockIsInCrementalOf15mins @Automated
 Scenario: As a user i want to verify if Timer clock in Each period is incremental of 10mins
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Same Every Day" schedule by changing the time values
-Then user should be displayed "Same Every Day" schedule with timer field incremental of "10 minutes"
+When user creates "Same Every Day" schedule by changing with new time values
+Then user should be displayed sleep setting timer with increments of "15 minutes"
   
 
 @JasperNA_DeletingDefaultPeriodSameEveryDay @Automated
@@ -105,22 +105,21 @@ Examples:
 #| Atleast 3 period|Different On Weekdays|
 #| All periods     |No|
 
-@JapserNA_CopyScheduleToMulitpleStat @Automatable
+@JapserNA_CopyScheduleToMulitpleStat @Automated
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user selects "CopyStatst" stats while creating <ScheduleType> schedule with default schedule value
-Then <ScheduleType> scheduling gets activated in <CopyStatst> stats
+When user creates default <ScheduleType> schedule value <CopyStats> stats
+Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
 
 Examples: 
-|ScheduleType       |  CopyStatst |
-|Same Every Day     | None|
-|Same Every Day     | All|
-|Same Every Day     | Selected|
-|Different On Weekdays     |None |
-|Different On Weekdays     |All |
-|Different On Weekdays     |Selected|
+|ScheduleType       |  CopyStats |  VerifyCopyStats |
+#|Same Every Day     | without copying schedule to other|not copied to other|
+|Same Every Day     | by copying schedule to all|copied to all other|
+#|Same Every Day     | by copying schedule to selected|copied to selected|
+#|Different On Weekdays     |without copying schedule to other |not copied to other|
+#|Different On Weekdays     |by copying schedule to all |copied to all other|
+#|Different On Weekdays     |by copying schedule to selected|copied to selected|
 
 @JapserNA_CopyScheduleWhenStatOffline @NotAutomatable
 # Given Account has a Location with Multiple Stats and Offline stats
@@ -158,21 +157,20 @@ Then  <ScheduleType> scheduling gets activated
       | time based| Different On Weekdays|
 #      |Geofence|Different On Weekdays|
       
-@JasperNA_WhenHeat/CoolOnly @Automatable
+@JasperNA_WhenHeat_CoolOnly @Automated
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
-Given  user thermostat is  configures with "Modes" system mode
-And user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Time Based" schedule with default schedule value
-Then  "Time Based" scheduling gets activated
-And user is displayed with <Modes> in Schedule
+When user creates "Same Every Day" schedule with default schedule value
+Then  "Same Every Day" scheduling gets activated
+#And user is displayed with <Modes> in Schedule
 
 Examples: 
 |Modes|
 |Heat Only|
-|Cool Only|
+#|Cool Only|
 
-@NA_CreateTimeBasedScheduleInOffMode @Automatable
+@NA_CreateTimeBasedScheduleInOffMode @Automated
 Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "geofence based" schedule
 And  user has "Off" system mode
