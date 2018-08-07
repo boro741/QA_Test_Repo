@@ -163,7 +163,7 @@ public class VerifyDRMessage extends Keyword {
 				}
 
 			}
-			else if (exampleData.get(0).equalsIgnoreCase("saving event cancelled by utility")) {
+			else if (exampleData.get(0).equalsIgnoreCase("saving event canceled by utility")) {
 				String deviceDay;
 				String deviceDay1;
 				if (deviceDRStartTime.split("T")[0].equals(currentDeviceTime.split("T")[0])) {
@@ -173,31 +173,23 @@ public class VerifyDRMessage extends Keyword {
 					deviceDay = deviceDRStartTime.split("T")[0];
 					deviceDay1 = deviceDRStartTime.split("T")[0];
 				}
-				message = "Event started " + deviceDay + " at " + deviceDRStartTime.split("T")[1];
-				message2 = "Event started " + deviceDay + " at "
-						+ deviceDRStartTime.split("T")[1].replace("PM", "p.m.").replace("AM", "a.m.");
+				message = "Your utility provider has canceled the Savings Event";
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().contains("Started")) {
-						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
+					if (s.getKey().contains("Canceled")) {
+						if (s.getValue().contains(message)) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
-									"Verify DR Message : Savings Event Started DR Message displayed with correct values");
+									"Verify DR Message : Savings Event cancelled DR Message displayed with correct values");
 						}
 						else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Verify DR Message : Savings Event Started title not displayed correctly on message details screen");
+									"Verify DR Message : Savings Event cancelled title not displayed correctly on message details screen");
 						}
 					}
 				}
 
-			}
-
-			if (!isMessagePresent) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Verify DR Message : Savings Event Canceled by Utility Message not found with correct values");
 			}
 
 		} catch (Exception e) {

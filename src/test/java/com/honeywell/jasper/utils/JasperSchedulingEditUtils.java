@@ -24,7 +24,7 @@ import io.appium.java_client.TouchAction;
 public class JasperSchedulingEditUtils {
 	public static boolean editGeofenceSchedule(TestCases testCase, TestCaseInputs inputs, String geofencePeriod) {
 		boolean flag = true;
-		 SchedulingScreen schl = new SchedulingScreen(testCase);
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		try 
 		{
 			if (schl.isTimeScheduleButtonVisible(10)){
@@ -185,7 +185,11 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Home", targetSetPoints);
-				flag = flag & schl.clickOnSaveButton();
+				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+					flag = flag & schl.clickOnCloseButton();
+				}else {
+					flag = flag & schl.clickOnSaveButton();
+				}
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting set points for Home period ***************");
 			} else if (geofencePeriod.equalsIgnoreCase("Sleep")) {
@@ -223,10 +227,22 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
-				flag = flag & schl.clickOnSaveButton();
+				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+					flag = flag & schl.clickOnCloseButton();
+				}else {
+					flag = flag & schl.clickOnSaveButton();
+				}
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for Sleep period ***************");
 			} else if (geofencePeriod.equalsIgnoreCase("Away")) {
+				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+					if(testCase.getPlatform().contains("IOS")){
+					targetSetPoints.put("temptargetHeatTemp", MobileUtils.getFieldValue(testCase,"name","Geofence_Away_HeatTemperature"));
+					System.out.println(""+targetSetPoints.get("temptargetHeatTemp"));
+					}else{
+						//TODO
+					}
+				}
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (!schl.clickOnUseMyAwaySettingsButton()) {
 						flag = false;
@@ -278,7 +294,12 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Away", targetSetPoints);
-				flag = flag & schl.clickOnSaveButton();
+				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+					inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,targetSetPoints.get("temptargetHeatTemp"));
+					flag = flag & schl.clickOnCloseButton();
+				}else {
+					flag = flag & schl.clickOnSaveButton();
+				}
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting set points for Away period ***************");
 			}
@@ -532,7 +553,7 @@ public class JasperSchedulingEditUtils {
 		boolean flag = true;
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
-		 SchedulingScreen schl = new SchedulingScreen(testCase);
+		SchedulingScreen schl = new SchedulingScreen(testCase);
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 		CustomDriver driver = testCase.getMobileDriver();
 		Dimension dimension = driver.manage().window().getSize();
@@ -609,15 +630,15 @@ public class JasperSchedulingEditUtils {
 					&& i < 10) {
 				if (desiredDayIndex > greaterDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 					i++;
 				} else if (desiredDayIndex < lesserDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+					.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
 					i++;
 				} else {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 					i++;
 				}
 			}
@@ -710,15 +731,15 @@ public class JasperSchedulingEditUtils {
 					&& i < 10) {
 				if (desiredDayIndex > greaterDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 					i++;
 				} else if (desiredDayIndex < lesserDayIndex) {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+					.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
 					i++;
 				} else {
 					touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
 					i++;
 				}
 			}
@@ -781,7 +802,7 @@ public class JasperSchedulingEditUtils {
 			int periodCounterToBeDeleted) {
 		boolean flag = true;
 		try {
-			 SchedulingScreen schl = new SchedulingScreen(testCase);
+			SchedulingScreen schl = new SchedulingScreen(testCase);
 			WebElement period = null;
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;

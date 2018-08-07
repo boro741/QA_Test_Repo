@@ -535,50 +535,47 @@ Then user "Camera LED" should be turned "GREEN"
      
      
 @CameraConfiguration        @P1        @UIAutomatable
-Scenario: As a user I should be able to get the details of camera 
+Scenario Outline: As a user I should be able to get the details of camera 
 Given user launches and logs in to the Lyric application 
-#And user camera is in <State> 
+And user camera is in <State> 
 When user navigates to "Camera Configuration" screen from the "Dashboard" screen
 Then user should be displayed with the following "Camera Configuration" options:
 | Details        | 
-| Name           |
-| Camera Firmware| 
+| Camera Firmware|
+| Camera Name    | 
 | Model Details  |
-      
-@EditCameraName     @P2        @UIAutomatable
-Scenario Outline: As a user I should be able to edit the camera name
-Given user launches and logs in to the Lyric application 
-And user camera is in <State> 
-When user navigates to "Camera Configuration" screen from the "Dashboard" screen
- And user edits "Camera name"
-#verify the all valid naming criterias
-Then user should be displayed with "edited name" 
-
+#login with different mobiles for the status of configured options to verify the settings as user account level
 Examples:
 		|State  |
 		|On     |
 		|Off    |
-#		|Offline|
-#		|Upgrade| 
-      
-      
-@DeleteCameraNoBilling      @P2        @UIAutomatable
-Scenario Outline: As a user I should be able to delete camera on demand basis
-Given user launches and logs in to the Lyric application 
-And user camera is in <State> 
-When user navigates to "Camera Configuration" screen from the "Dashboard" screen
-And user deletes Camera 
-Then user should be displayed with "Warning" popup
-When user "confirms" the "warning" popup
-Then user should be shown with location dashboard without camera 
+		|Offline|
+		|Upgrade|
 
-Examples:
-		|State  |
-		|On     |
-		|Off    |
-#		|Offline|
-#		|Upgrade|
       
+@EditCameraName     @P2        @AutomatedOnAndroid 
+Scenario: As a user I should be able to edit the camera name
+Given user launches and logs in to the Lyric application 
+When user navigates to "Camera Configuration" screen from the "Dashboard" screen
+And user "edits" camera name to "Camera Name Test"
+Then user "should be displayed with edited" camera name to "Camera Name Test"
+And user navigates to "Camera Configuration with edited Camera Name" screen from the "Dashboard" screen
+And user "edits back again" camera name to "Orginal Name"
+      
+      
+@DeleteCameraNoBilling      @P2        @AutomatedOnAndroid 
+Scenario: As a user I should be able to delete camera on demand basis
+Given "add" camera from CHIL
+Given user launches and logs in to the Lyric application 
+When user navigates to "Camera Configuration" screen from the "Dashboard" screen
+And user "deletes camera device" by clicking on "delete" button
+Then user "receives" the delete camera confirmation popup
+And user "dismisses" the delete camera confirmation popup
+Then user "deletes camera device" by clicking on "delete" button
+And user "receives" the delete camera confirmation popup
+When user "accepts" the delete camera confirmation popup
+Then user should not be displayed with "Camera" device on the "dashboard" screen
+
       
 @DeleteCameraWithBilling       @P2        @UIAutomatable
 Scenario Outline: As a user I should be able to delete camera on demand basis with caution message about subscription

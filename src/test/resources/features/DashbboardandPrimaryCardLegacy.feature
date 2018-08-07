@@ -4,7 +4,7 @@ Feature: As an user I want to verify the Dashboard and primary card for JapserNA
 #Dashboard view 
 
 #HB, Spruce and JasperNA
-@ViewDashboard @DashbboardandSolutionCard_P1
+@ViewDashboard @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As an user I want to verify the Dashboard view with respective system modes 
 #Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -27,7 +27,7 @@ Examples:
 #|Heat Only|
 
 #JasperEMEA
-@ViewDashboardEMEA @DashbboardandSolutionCard_P1
+@ViewDashboardEMEA @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As an user I want to verify the Dashboard view with system modes 
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -43,7 +43,7 @@ Examples:
 |Mode|
 |Heat |
 
-@ViewDashboardOFF @DashbboardandSolutionCard_P1
+@ViewDashboardOFF @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As a user I want to verify the Dashboard view with OFF mode
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -60,7 +60,7 @@ Examples:
 
 
 #HB, Spruce and JasperNA
-@ViewSolutionCard @DashbboardandSolutionCard_P1
+@ViewSolutionCard @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As an user I want to verify the SolutionCard view with respective system modes 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -82,7 +82,7 @@ Examples:
 
 
 #JasperEMEA
-@ViewSolutionCardEMEA @DashbboardandSolutionCard_P1
+@ViewSolutionCardEMEA @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As an user I want to verify the SolutionCard view with system modes 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -99,7 +99,7 @@ Examples:
 |Heat |
 
 #HB, Spruce, JasperNA, JasperEMEA.
-@ViewSolutionCardOFF @DashbboardandSolutionCard_P1
+@ViewSolutionCardOFF @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As an user I want to verify the SolutionCard view with OFF mode 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -117,7 +117,7 @@ Examples:
 #Offline
 
 #HB, Spruce, JasperNA, JasperEMEA
-@Offlineverficationdashbaordsolutioncard
+@Offlineverficationdashbaordsolutioncard @NotAutomatable
 Scenario Outline: As an user I want to verify the SolutionCard and dashboard with offline 
 Given user launches and "Offline" 
 Then user launches and logs in to the lyric application 
@@ -140,7 +140,7 @@ And user should not receivce any "Push notification" of stat
 
 #Requirements : Auto mode should be disabled 
 #HB, Spruce, JasperNA
-@SystemModeInfoscreenwithCoolandHeatMode
+@SystemModeInfoscreenwithCoolandHeatMode @Automated
 Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured 
 
 Given user has <Mode> system mode
@@ -165,7 +165,7 @@ Examples:
 
 #Requirements : Auto mode should enabled
 #HB, Spruce, JasperNA
-@SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled
+@SystemModeInfoscreenwithCoolandHeatModeWhenautoModeEnabled @Automated
 Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured with auto mode enabled
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -192,7 +192,7 @@ Examples:
 #in case required
 #Requirements : Cool only mode should enabled
 #HB, Spruce, JasperNA
-@SystemModeInfoscreenwithCoolOnly
+@SystemModeInfoscreenwithCoolOnly @Automated
 Scenario Outline: As an user I want to verify the Systemmode info option when cool only configured 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -215,7 +215,7 @@ Examples:
 #in case required
 #Requirements : Heat only mode should enabled
 #HB, Spruce, JasperNA
-@SystemModeInfoscreenwithHeatOnly
+@SystemModeInfoscreenwithHeatOnly @Automated
 Scenario Outline: As an user I want to verify the Systemmode info option when heat only configured
 Given user has <Mode> system mode 
 Given user launches and logs in to the Lyric application
@@ -236,7 +236,7 @@ Examples:
 |OFF|
 
 #JasperEMEA
-@SystemModeInfoscreenwithHeatOnlyEMEA
+@SystemModeInfoscreenwithHeatOnlyEMEA @Automated
 Scenario Outline: As an user I want to verify the Systemmode info option when heat  configured 
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -259,7 +259,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSystemmodescreenwithbothcoolandheatandautoenabledCancelfunctionality
+@SystemModeswitchSystemmodescreenwithbothcoolandheatandautoenabledCancelfunctionality @Automated
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch between Cool , heat, off , auto
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -284,7 +284,7 @@ Examples:
 |Heat|
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionality
+@SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionality @Automated
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch Heat only 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -312,7 +312,7 @@ Examples:
 |OFF | OFF| 
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSystemmodescreenwithcoolonlyCancelfunctionality
+@SystemModeswitchSystemmodescreenwithcoolonlyCancelfunctionality @Automated
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch between cool only
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -340,7 +340,7 @@ Examples:
 |OFF | OFF| 
 
 #JasperEMEA
-@SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA
+@SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA @Automated
 Scenario Outline: As an user I want to verify the system mode when cancel option while switch between cool only
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -370,7 +370,7 @@ Examples:
 #SYSTEM MODE SAVE
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSAVEfunctionbothcoolandheat
+@SystemModeswitchSAVEfunctionbothcoolandheat @Automated
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, heat and off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -403,7 +403,7 @@ Examples:
 |OFF | OFF |
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSAVEfunctionbothcoolandheatandauto
+@SystemModeswitchSAVEfunctionbothcoolandheatandauto @Automated
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, heat, off, auto
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -443,7 +443,7 @@ Examples:
 |auto | auto |
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSAVEfunctioncoolonly
+@SystemModeswitchSAVEfunctioncoolonly @Automated
 Scenario Outline: As an user I want to verify the system mode save option while switch between cool, off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -471,7 +471,7 @@ Examples:
 |OFF | OFF |
 
 #HB, Spruce, JasperNA
-@SystemModeswitchSAVEfunctionHeatonly
+@SystemModeswitchSAVEfunctionHeatonly @Automated
 Scenario Outline: As an user I want to verify the system mode save option while switch between heat, off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -500,7 +500,7 @@ Examples:
 
 
 #JasperEMEA
-@SystemModeswitchSAVEfunctionEMEA
+@SystemModeswitchSAVEfunctionEMEA @Automated
 Scenario Outline: As an user I want to verify the system mode save option while switch between heat, off
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -532,7 +532,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA
-@FanOptionInfoOption
+@FanOptionInfoOption @Automated
 Scenario Outline: As an user I want to verify the Fan mode info option
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -560,7 +560,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA
-@FanModeSwitchcancelfunction
+@FanModeSwitchcancelfunction @Automated
 Scenario Outline: As an user I want to verify the Fan mode cancel option while switch between Auto, circulate and ON
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -597,7 +597,7 @@ Examples:
 #|Cool only | ON | 
 
 #HB, Spruce, JasperNA
-@FanModeSwitchSAVEfunction 
+@FanModeSwitchSAVEfunction  @Automated
 Scenario Outline: As an user I want to verify the Fan mode save option while switch between Auto, circulate and ON
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -634,7 +634,7 @@ Examples:
 #|Cool only | ON | 
 
 #JasperEMEA
-@FanModeOptionONEMEA
+@FanModeOptionONEMEA @Automated
 Scenario Outline: As an user I want to verify the Fan mode option for JasperEMEA
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
@@ -649,7 +649,7 @@ Examples:
 #Setpoint values SolutionCard
 
 #HB, Spruce, JasperNA
-@SetTemperatureSolutionCardMAX
+@SetTemperatureSolutionCardMAX @Automated
 Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
 Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
@@ -675,7 +675,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA
-@SetTemperatureSolutionCardMIN
+@SetTemperatureSolutionCardMIN @Automated
 Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
 Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
@@ -700,7 +700,7 @@ Examples:
 #|Heat only|geofence based|
 
 #JasperEMEA
-@SetTemperatureSolutionCardMAXEMEA
+@SetTemperatureSolutionCardMAXEMEA @Automated
 Scenario Outline: As an user I want to verify the Max temper throguh TAP on stepper
 Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
@@ -717,7 +717,7 @@ Examples:
 |Heat|no|
 
 #JasperEMEA
-@SetTemperatureSolutionCardMINEMEA
+@SetTemperatureSolutionCardMINEMEA @Automated
 #Setpoint value Dashboard
 Scenario Outline: As an user I want to verify the Min temper throguh TAP on stepper
 Given user has <Mode> system mode
@@ -739,7 +739,7 @@ Examples:
 #OFF Mode Dashboard and primary card 
 
 @HB, Spruce
-@SetTemperatiureOFFModeHB
+@SetTemperatiureOFFModeHB @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -765,7 +765,7 @@ Examples:
 |OFF|
 
 @JAsperNA, JasperEMEA 
-@SetTemperatiureOFFModeNA
+@SetTemperatiureOFFModeNA @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -793,8 +793,7 @@ Examples:
 
 
 #Multistats
-@Not Automatable
-@SetTemperatureSolutionCardFromJasperNA
+@SetTemperatureSolutionCardFromJasperNA @NotAutomatable
 Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user 
 I want to set temperature
@@ -816,8 +815,7 @@ Examples:
 |Heat only|
 |Cool only|
 
-@Not Automatable
-@SetTemperatureFromHBB 
+@SetTemperatureFromHBB @Automated
 Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user 
 I want to set temperature
@@ -836,8 +834,7 @@ Examples:
 |Cool |
 |Auto |
 
-@Not Automatable
-@SetTemperatureFromEMEA
+@SetTemperatureFromEMEA @Automated
 Scenario Outline:To set temperature for location with multistat with time format 24/12hr 
 As an user 
 I want to set temperature 
@@ -854,9 +851,8 @@ And Verify the "Stat1" widget on the location dashboard for set temperature
 
 #network error
 
-@Not Automatable
 #HB, Spruce, JasperNA, JasperEMEA
-@NetworkdownSolutionCard&SolutionCard
+@NetworkdownSolutionCard&SolutionCard @NotAutomatable
 Scenario Outline:To get error messages on network down in primary card
 As an user
 I want to get error message in primary card 
@@ -874,8 +870,7 @@ Examples:
 
 
 #HB, Spruce, JasperNA, JasperEMEA
-@Not Automatable
-@NetworkdownDashboard&SolutionCard
+@NetworkdownDashboard&SolutionCard @NotAutomatable
 Scenario Outline:To get error messages on network down in location Dashboard
 As an user
 I want to get error message in location Dashboard 
@@ -897,7 +892,7 @@ Examples:
 
 #Requirement : One account with  Auto mode enabled
 #HB, Spruce, JaperNA
-@DashboardandsolutioncardAutochangeover
+@DashboardandsolutioncardAutochangeover @Automated
 Scenario Outline:As an user  i want to view the option for automode 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -914,7 +909,7 @@ Examples:
 
 #HB, Spruce, JaperNA
 #Requirement : One account with  Auto mode enabled
-@DashboardandsolutioncardAutoModeCheckingFromPrimaryCard
+@DashboardandsolutioncardAutoModeCheckingFromPrimaryCard @Automated
 Scenario Outline: As an user i should not shown with the option for automode 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -938,7 +933,7 @@ Examples:
 
 #HB, Spruce, JaperNA // negative case
 #Requirement :Auto mode should be disabled
-@DashboardandsolutioncardAutoModeNegative1
+@DashboardandsolutioncardAutoModeNegative1 @Automated
 Scenario Outline: As an user i should not shown with the option for automode
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -954,7 +949,7 @@ Examples:
 
 #Not Automatable
 #HB, Spruce, JaperNA
-@DashboardandsolutioncardAutoModewithMutliOS
+@DashboardandsolutioncardAutoModewithMutliOS @NotAutomatable
 Scenario Outline:As an user i want to set the stat with automode 
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
@@ -971,7 +966,7 @@ Examples:
 
 
 #HB, Spruce, JaperNA
-@DashboardandsolutioncardCheckSetpointInVacationSettings
+@DashboardandsolutioncardCheckSetpointInVacationSettings @Automated
 Scenario Outline:As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
@@ -981,7 +976,7 @@ Then verify Heat setpoint should be always less than the cool setpoint
 #CoachMark
 
 #JasperNA, HB, Spruce,JasperEMEA
-@DashboardCoachmarkverification
+@DashboardCoachmarkverification @Automated
 Scenario Outline:As an user i want to verify coach marks 
 Given user has <Mode> system mode
 Given user launches and logs in to the lyric application 
@@ -993,7 +988,7 @@ Examples:
 |Auto|
 
 #JasperNA, HB, Spruce
-@SolutionCardCoachmarkverificationNA
+@SolutionCardCoachmarkverificationNA @Automated
 Scenario Outline:As an user i want to verify coach marks 
 Given user has <Mode> system mode
 Given user launches and logs in to the lyric application 
@@ -1006,7 +1001,7 @@ Examples:
 |Auto|
 
 #JasperEMEA, HB, Spruce
-@SolutionCardCoachmarkverificationEMEA
+@SolutionCardCoachmarkverificationEMEA @Automated
 Scenario Outline:As an user i want to verify coach marks 
 Given user has <Mode> system mode
 Given user launches and logs in to the lyric application 
@@ -1018,7 +1013,7 @@ Examples:
 
 
 #Dashboard order 
-@Dashboardorderwithallsolutions
+@Dashboardorderwithallsolutions @NotAutomatable
 Scenario Outline:  user configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
 Given user launches and logs in to the lyric application
 Then user  navigates to "Dashboard"
@@ -1027,7 +1022,7 @@ When user should displayed with "alphanumeric order"
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
-@SolutionCardEmergencyHeatbothcoolandheat
+@SolutionCardEmergencyHeatbothcoolandheat @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card when both heat and cool  mode configured
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
@@ -1060,9 +1055,8 @@ Examples:
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
-@SolutionCardEmergencyHeatHeatonly
+@SolutionCardEmergencyHeatHeatonly @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card when heat only mode configured
-
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 When user enables the "Emergency Heat" under settings
@@ -1081,7 +1075,7 @@ Examples:
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
-@SolutionCardEmergencyHeatCoolonly
+@SolutionCardEmergencyHeatCoolonly @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card when cool only mode configured
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application
@@ -1100,7 +1094,7 @@ Examples:
 
 #JasperEMEA
 #Emergencyheat should be enabled 
-@SolutionCardEmergencyHeatHeatonlyEMEA
+@SolutionCardEmergencyHeatHeatonlyEMEA @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card 
 Given user has <Mode> system mode
 Then user launches and logs in to the Lyric application

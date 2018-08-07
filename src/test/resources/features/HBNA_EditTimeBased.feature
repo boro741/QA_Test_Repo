@@ -131,7 +131,7 @@ so that i can change Time and Set points of individual periods and Days
      When user selects "Tap On Resume" from Scheduling screen
      Then "Same Every Day" scheduling is retained
   
-  @NA_DeletingCurrentPeriodDifferentOnWeekdays
+  @NA_DeletingCurrentPeriodDifferentOnWeekdays @Automatable
   Scenario: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -141,7 +141,7 @@ so that i can change Time and Set points of individual periods and Days
      Then user is displayed with "Tap to Set" on deleted period
      
      
-@NA_EditAway/HomeSettingsGeofence
+@NA_EditAway/HomeSettingsGeofence @Automatable
 Scenario Outline: As a user i want to edit away/home settings in Geofence Schedule
 Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen

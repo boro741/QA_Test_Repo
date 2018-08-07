@@ -536,9 +536,17 @@ public class NavigateToScreen extends Keyword {
 				}
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
+				/* Method to navigate to camera configuration with edited camera name screen from dashboard */
+				case "CAMERA CONFIGURATION WITH EDITED CAMERA NAME": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs, "Camera Name Test");
+					break;
+				}
+				//String substr = word.substring(word.length() - 3)
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
 				case "THERMOSTAT SETTINGS": {
 					flag = flag
@@ -550,6 +558,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
+
 				// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'
 				case "THERMOSTAT HUMIDIFICATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatHumidificationScreen(testCase,
@@ -576,6 +585,13 @@ public class NavigateToScreen extends Keyword {
 				case "SLEEP BRIGHTNESS MODE": {
 					flag = flag
 							& DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase, inputs);
+					break;
+				}
+
+				// Navigate from 'Camera Dashboard' to Manage Alerts Screen'
+				case "CAMERA MANAGE ALERTS": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraManageAlertsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Configuration'
@@ -612,7 +628,7 @@ public class NavigateToScreen extends Keyword {
 				case "HUMIDIFICATION": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
- 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					if (fly.isHumButtonVisible()) {
 						flag = flag && fly.ClickOnHumButton();
 					} else {
@@ -1508,7 +1524,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (cs.isMotionDetectionLabelVisible(20)) {
+					if (cs.isMotionDetectionLabelVisible(testCase, 20)){
 						cs.clickOnMotionDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}

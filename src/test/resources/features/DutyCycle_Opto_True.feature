@@ -1,8 +1,8 @@
-@DutyCycleWithOptOutableTrue
+@DutyCycleWithOptOutableTrue @comfort
 Feature: Duty Cycle with Opt Out able true
 As a user, I want to opt out of DR when my duty cycle is enabled
 
-  @VerifySavingEventScheduleMessagenew
+  @VerifySavingEventScheduleMessagenew @UIAutomatable
   Scenario Outline: Verify Saving Event Schedule Message
   As a user, I should receive a saving event schedule message on the primary card, Activity History screen
     Given user <Thermostat> is enrolled with DR
@@ -19,7 +19,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      |HB|
      |JasperNA|  
   
-  @VerifySavingEventStartMessage
+  @VerifySavingEventStartMessage @UIAutomatable
   Scenario Outline: Verify Saving Event Start Message
   As a user, I should receive a saving event start message on the primary card,  Activity History screen
     Given user <Thermostat> is enrolled with DR
@@ -38,7 +38,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      |HB|
      |JasperNA|  
 
-  @VerifySavingEventEndMessage
+  @VerifySavingEventEndMessage @UIAutomatable
   Scenario Outline: Verify Saving Event End Message
   As a user, I should receive a saving event end message on Activity History screen for HBB and Jasper Devices
     Given user <Thermostat> is enrolled with DR
@@ -60,8 +60,8 @@ As a user, I want to opt out of DR when my duty cycle is enabled
 
 
 
-  @VerifySavingEventCancelByUserMessage
-  Scenario outline: Verify Saving Event Cancel By User Message
+  @VerifySavingEventCancelByUserMessage @UIAutomatable
+  Scenario Outline: Verify Saving Event Cancel By User Message
   As a user, I should be able to cancel a DR Event and receive a saving event cancel message on Activity History screen for HBB and Jasper Devices
     Given user <Thermostat> is enrolled with DR
       And user has triggered DR event with "duty cycle" and "is" opt-out able
@@ -88,7 +88,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      |HB|
      |JasperNA| 
   
-  @VerifySavingEventCancelByUtilityMessage
+  @VerifySavingEventCancelByUtilityMessage @UIAutomatable
   Scenario Outline: Verify Saving Event Cancel By Utility Message
   As a user, I should be able to cancel a DR Event and receive a saving event cancel message on aActivity History screen for HBB and Jasper Devices
     Given user <Thermostat> is enrolled with DR
@@ -106,7 +106,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      |HB|
      |JasperNA| 
   
-   @VerifyAdHocStatusAfterDREventEndsTimeBassedScheduling
+   @VerifyAdHocStatusAfterDREventEndsTimeBassedScheduling @UIAutomatable
   Scenario Outline: Verify Ad Hoc Status After DR Event Ends
   As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
     Given user has "time based schedule"
@@ -129,7 +129,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
       #Both JpaserNA and HB
 	    | Schedule Off   |
   
-  @VerifyAdHocStatusAfterDREventEndsGeofenceBasedScheduling
+  @VerifyAdHocStatusAfterDREventEndsGeofenceBasedScheduling @UIAutomatable
   Scenario Outline: Verify Ad Hoc Status After DR Event Ends
   As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
     Given user has "geofence based schedule"
@@ -145,27 +145,11 @@ As a user, I want to opt out of DR when my duty cycle is enabled
 	 And user setpoints should be reverted back
       And user logs out of the application
   
-	@VerifyAdHocStatusAfterDREventEndsNoSchedule
-  Scenario Outline: Verify Ad Hoc Status After DR Event Ends
-  As a user, I should receive a ad hoc message after DR Ends for Jasper and HB Thermostats
-    Given user <Thermostat> is enrolled with DR
-      And user has "no schedule"
-      And user has thermostat enrolled with DR
-      And user has triggered DR event with "duty cycle" and "is" opt-out able
-      And DR event has started on the user device
-     When user logs in to the Lyric Application
-     Then user should be displayed with a "saving event until" green label on the "Dashboard" screen
-     And user should be displayed with a "saving event until" green label on the "primary card" screen
-     When DR event has ended
-     Then user should receive a "no schedule" status on primary card
-	   And user setpoints should be reverted back
-      And user logs out of the application
-      Examples:
-      |HB|
-      |JasperNA|
+  
+  
 
   
-  @VerifyVacationStatusAfterDREventEnds
+  @VerifyVacationStatusAfterDREventEnds @UIAutomatable
   Scenario: Verify Vacation Status After DR Event Ends
   As a user, I should receive a vacation ad hoc message after DR Ends
     Given vacation is "scheduled"
@@ -180,8 +164,8 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      Then user should receive a "vacation status" on primary card
       And user logs out of the application
   
-  @VerifyTimeScheduleAdHocStatusAfterDREnds
-  Scenario Otline: Verify Time Schedule Ad Hoc Status After DR Ends
+  @VerifyTimeScheduleAdHocStatusAfterDREnds @UIAutomatable
+  Scenario Outline: Verify Time Schedule Ad Hoc Status After DR Ends
   As a user, I should receive a following schedule message after DR Ends in next period of time schedule
     Given user has "time based schedule" with "Temporary Hold"
       And user has <Thermostat> enrolled with DR
@@ -198,7 +182,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
       |HB|
       |JasperNA|
   
-  @VerifyGeofenceScheduleAdHocStatusAfterDREnds
+  @VerifyGeofenceScheduleAdHocStatusAfterDREnds @NotAutomatable 
   Scenario Outline: Verify Geofence Schedule Ad Hoc Status After DR Ends
   As a user, I should receive a geofence until schedule message after DR Ends in geofence crossed location
     Given user is <geofence location>
@@ -223,7 +207,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
 
 
 
-  @VerifyDRStatusAfterVacationStarts
+  @VerifyDRStatusAfterVacationStarts @UIAutomatable
   Scenario: Verify DR Status After Vacation Starts for Jasper Thermostats
   As a user, I should receive a DR message after vacation starts
     Given vacation is "scheduled"
@@ -241,7 +225,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      And user should receive a "vacation status" on primary card
       And user logs out of the application
 	  
-	  @VerifyDRStatusWhenChangingSystemMode
+	  @VerifyDRStatusWhenChangingSystemMode @UIAutomatable
   Scenario Outline: Verify DR Status When Chaning System Mode 
   As a user, I should receive a DR Lable on Cool/Heat system mode and No Lable should be present on OFF mode
     Given user has <Thermostat> enrolled with DR
@@ -256,7 +240,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      Then user should be displayed with a "saving event until" green label on the "primary card" screen
 	 And user setpoints should be "dr heat" setpoints
 	 When user changes system to "off"
-     hen user should not be displayed with a "saving event until" green label on the "primary card" screen
+     Then user should not be displayed with a "saving event until" green label on the "primary card" screen
      And user should not be dipalyed with a "saving event until" green label on the "Dashboard" screen
 	 When user changes system to "heat"
      Then user should be displayed with a "saving event until" green label on the "primary card" screen
@@ -272,7 +256,7 @@ As a user, I want to opt out of DR when my duty cycle is enabled
      Then user should be displayed with a "saving event until" green label on the "primary card" screen
 	 And user setpoints should be "dr cool" setpoints
       And user logs out of the application
-      Examples :
+      Examples:
       |Thermostat |
       |HB|  
 	  

@@ -228,7 +228,7 @@ public class JasperSchedulingUtils {
 				inputs.setInputValue(InputVariables.GEOFENCE_PERIOD, InputVariables.GEOFENCE_SLEEP);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 					//flag = flag & ss.clickOnYesButton();
-					
+
 				}
 				flag = flag & setPeriodTime(testCase, inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME),
 						"GeofenceSleepStartTime", true, true);
@@ -2662,7 +2662,7 @@ public class JasperSchedulingUtils {
 						if (ss.setValueToTimePicker(timeToSet)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Set Period Time : Successfully set time " + timeToSet + " to time picker");
-					} else
+						} else
 							if (ss.setHoursValueToTimePickerAndroid(hours) && ss.setMinsValueToTimePickerAndroid(minutes) && ss.setAMPMTimeFormatValueToTimePickerAndroid(ampm)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Set Period Time : Successfully set time " + timeToSet + " to time picker");
@@ -13913,31 +13913,19 @@ public class JasperSchedulingUtils {
 			List<String> allowedModes = statInfo.getAllowedModes();
 			SchedulingScreen schl = new SchedulingScreen(testCase);
 			HashMap<String, String> targetSetPoints = new HashMap<String, String>();
+			if(schl.isTimeScheduleButtonVisible(10)){
+				flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			}
 
-			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("xpath", "//*[@text='Use My Sleep Settings']", testCase, 5)) {
-					Keyword.ReportStep_Pass(testCase, "Use My Sleep Settings option displayed on schedule screen");
-					if (!MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='Use My Sleep Settings']")) {
-						flag = false;
-					}
-				} else {
+			if(schl.isGeofenceSleepElementVisible(5)) {
+				Keyword.ReportStep_Pass(testCase, "Use My Sleep Settings option displayed on schedule screen");
+				if (!schl.clickOnGeofenceSleepButton()) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Use My Sleep Settings option not displayed on schedule screen");
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("name", "Geofence_Sleep", testCase, 5)) {
-					Keyword.ReportStep_Pass(testCase, "Use My Sleep Settings option displayed on schedule screen");
-					if (!MobileUtils.clickOnElement(testCase, "name", "Geofence_Sleep")) {
-						flag = false;
-					}
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Use My Sleep Settings option not displayed on schedule screen");
-				}
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Use My Sleep Settings option not displayed on schedule screen");
 			}
 			Keyword.ReportStep_Pass(testCase, " ");
 			Keyword.ReportStep_Pass(testCase,
@@ -14268,7 +14256,7 @@ public class JasperSchedulingUtils {
 			Keyword.ReportStep_Pass(testCase,
 					"*************** Completed verifying set points for Away period ***************");
 			if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-					flag = flag & schl.clickOnSkipButton();
+				flag = flag & schl.clickOnSkipButton();
 
 			} else {
 				Keyword.ReportStep_Pass(testCase, " ");

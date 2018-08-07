@@ -1,4 +1,4 @@
-@AdhocOverride
+@AdhocOverride @Comfort
 Feature:   
 I want to override my running schedule so that i can set my comfortable temperature manually 
 I should able to hold the override temperature temporarily for maximum of 12 hrs.
@@ -8,7 +8,7 @@ I should be able to cancel overrides and resume scheduling.
 #Following schedule and using settings
 
  #JasperNA
-@AdhocOverrideTimebaseSchedulefollowingfromsolutioncard
+@AdhocOverrideTimebaseSchedulefollowingfromsolutioncard @Automatable
 Scenario Outline:   I want to verify time Following Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -23,7 +23,7 @@ Examples:
 #|Cool only| 
 #|Heat only|
 
-@AdhocOverrideGeofencebaseScheduleusing
+@AdhocOverrideGeofencebaseScheduleusing @Automatable
 Scenario Outline: I want to verify geofence using for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -43,7 +43,7 @@ Examples:
 #|Auto |Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
 #|Auto |Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
 
-@AdhocOverrideTimeschedulingChangemodeHeatcoolfollwoing
+@AdhocOverrideTimeschedulingChangemodeHeatcoolfollwoing @Automatable
 Scenario Outline: To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 #Given user has <Mode> system mode
