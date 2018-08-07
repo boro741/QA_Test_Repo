@@ -6616,8 +6616,10 @@ public class JasperSchedulingUtils {
 		String dateString = "", tempTime = "", tempTimeInputs = "";
 		boolean flag = true;
 		SchedulingScreen ss = new SchedulingScreen(testCase);
-
-		flag = flag & viewScheduleOnPrimaryCard(testCase);
+		
+		if (ss.isTimeScheduleButtonVisible(10)){
+			ss.clickOnTimeScheduleButton();
+		}
 
 		if (scheduleType.equalsIgnoreCase("time")) {
 			Keyword.ReportStep_Pass(testCase,
@@ -12195,7 +12197,7 @@ public class JasperSchedulingUtils {
 		try {
 			WebElement element = null;
 			SchedulingScreen ss = new SchedulingScreen(testCase);
-			flag = flag & viewScheduleOnPrimaryCard(testCase);
+//			flag = flag & viewScheduleOnPrimaryCard(testCase);
 
 			if (ss.isCreateScheduleButtonVisible(5)) {
 				flag = flag & ss.clickOnCreateScheduleButton();

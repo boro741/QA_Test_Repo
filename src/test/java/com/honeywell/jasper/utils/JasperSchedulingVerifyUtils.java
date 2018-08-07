@@ -975,6 +975,9 @@ public class JasperSchedulingVerifyUtils {
 		} else if (timeInterval.equalsIgnoreCase("15")) {
 			i = 15;
 		}
+		if (ss.isTimeScheduleButtonVisible(5)){
+			flag = flag & ss.clickOnTimeScheduleButton();
+		}
 
 		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
 				.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
@@ -3098,7 +3101,7 @@ public class JasperSchedulingVerifyUtils {
 								"Number of periods present is more than 1: " + period.size());
 					}
 				}
-				
+
 			}
 		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
 
