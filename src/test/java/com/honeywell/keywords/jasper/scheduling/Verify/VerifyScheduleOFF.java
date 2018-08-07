@@ -65,7 +65,7 @@ public class VerifyScheduleOFF extends Keyword {
 				}break;
 				case "SCHEDULE OFF OVERLAY DISABLED": { 
 					SchedulingScreen OverLay = new SchedulingScreen(testCase);
-					if(!OverLay.isScheduleOffOverlayVisible(10)){
+					if(!OverLay.isScheduleOffOverlayVisible(8)){
 						Keyword.ReportStep_Pass(testCase, "Schedule OFF Overlay disappear");
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF overlay not disappeared");
@@ -80,7 +80,7 @@ public class VerifyScheduleOFF extends Keyword {
 					switch (parameters.get(0).toUpperCase()) {
 					case "SCHEDULE OFF STATUS": {
 						SchedulingScreen psoff = new SchedulingScreen(testCase);
-						flag = flag & psoff.isScheduleOffStatusVisible(60);	
+						flag = flag & psoff.isScheduleOffStatusVisible(10);	
 						if(flag){
 							Keyword.ReportStep_Pass(testCase, "Schedule OFF Status displayed on primarycard");
 						}else{
@@ -102,6 +102,16 @@ public class VerifyScheduleOFF extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "Schedule Status not displayed on primarycard");
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule status displayed on primarycard");
+						}
+						break;
+					}
+					case "SCHEDULE STATUS TIMEGEOFENCE": {
+						SchedulingScreen schedulestatus = new SchedulingScreen(testCase);	
+						if(schedulestatus.isUsingAwayVisible(2) || schedulestatus.isUsingHomeVisible(2) || schedulestatus.isUsingSleepVisible(2) 
+								|| schedulestatus.isFollowingSchedulesVisible(2)){
+							Keyword.ReportStep_Pass(testCase, "Schedule Status displayed on primarycard");
+						}else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule status not displayed on primarycard");
 						}
 						break;
 					}
@@ -160,6 +170,14 @@ public class VerifyScheduleOFF extends Keyword {
 					case "PERMANENT": {
 					    flag = flag & JasperAdhocOverride.VerificationofPermanentHold(testCase, inputs);
 						break;
+					}
+					case "ADHOCOVERRIDE NOT DISPLAYED": {
+						AdhocScreen Adhoc = new AdhocScreen(testCase);
+						if(!Adhoc.isAdhocStatusVisible())
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + "on primary card");
+							else 
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Adhoc override displayed on primary card");
+							break;
 					}
 					default: {
 						flag = false;

@@ -10,8 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperVacation;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyStartAndEndDate extends Keyword {
@@ -23,7 +21,7 @@ public class VerifyStartAndEndDate extends Keyword {
 	public VerifyStartAndEndDate(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -36,15 +34,16 @@ public class VerifyStartAndEndDate extends Keyword {
 	@KeywordStep(gherkins = "^user is displayed with start date and end date options based on the (.*) vacation$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-			if(vhs.isStartAndEndDateDisplayed()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Start and End Date is displayed during {0} Vacation Hold",exampleData.get(0)));
-				flag=true;
-			}
-			else {
-				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("The Start and End Date is not displayed during {0} Vacation Hold",exampleData.get(0)));
-				flag=false;
-			}
-	   return flag;
+		if (vhs.isStartAndEndDateEnabled()) {
+			Keyword.ReportStep_Pass(testCase,
+					String.format("The Start and End Date is enabled during {0} Vacation Hold", exampleData.get(0)));
+			flag = true;
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE, String
+					.format("The Start and End Date is disabled during {0} Vacation Hold", exampleData.get(0)));
+			flag = false;
+		}
+		return flag;
 	}
 
 	@Override
@@ -53,4 +52,3 @@ public class VerifyStartAndEndDate extends Keyword {
 		return true;
 	}
 }
-

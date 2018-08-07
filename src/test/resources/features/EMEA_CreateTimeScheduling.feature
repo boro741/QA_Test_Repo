@@ -1,4 +1,4 @@
-@EMEATimeBasedScheduling @EMEA_Schedule
+@EMEATimeBasedScheduling @EMEA_Schedule @Comfort
 Feature: Jasper,Sprouce and Flycatcher Scheduling
 As a user I want to create an time based scheduling
 
@@ -82,21 +82,6 @@ As a user I want to create an time based scheduling
     #  | Different On Weekdays | At Minimum    | 
       | Different On Weekdays | within range  | 
   
-@JasperEMEA_TimerClockIsInCrementalOf15mins @JasperEmeaScheduleP2 
-  Scenario Outline: As a user i want to verify if Timer clock in Each period is incremental of 15mins
-    Given "Geofence" Schedule "With" sleep Settings
-      And user launches and logs in to the Lyric application
-      And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user <Condition> sleep settings in Geofence Schedule
-     Then user should be displayed sleep setting timer with increments of "15 minutes"
-  
-    Examples: 
-      | Condition   | 
-      | Edit        | 
-    #  | Creates new | 
-  
-  
-      
 @JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays @JasperEmeaScheduleP4 @Automated
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
 Given user launches and logs in to the Lyric application
@@ -144,7 +129,7 @@ Then user verifies the following on the primary card:
    #   | no| Different On Weekdays|
    #   | time based| Different On Weekdays|
 
-@JasperEMEA_CopyTimeBasedScheduleInOffMode @NonAutomated
+@JasperEMEA_CopyTimeBasedScheduleInOffMode @NotAutomatable
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application

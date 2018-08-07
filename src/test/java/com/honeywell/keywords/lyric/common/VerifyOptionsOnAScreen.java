@@ -1040,6 +1040,62 @@ public class VerifyOptionsOnAScreen extends Keyword {
 
 			}
 			break;
+		} 
+		case "CAMERA STATUS":{
+			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Email Notifications")) {
+					if (st.isCameraEmailNotificationsTextVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
+			
+				}
+		}
+			break;
+		}
+		
+		case "SOUND EVENT STATUS":{
+			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Email Notifications")) {
+					if (st.isSoundEmailNotificationTextVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
+			
+				}
+		}
+			break;
+		}
+		
+		case "MOTION EVENT STATUS":{
+			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Options");
+				if (fieldTobeVerified.equalsIgnoreCase("Email Notifications")) {
+					if (st.isMotionEmailNotificationTextVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								fieldTobeVerified + "' is present on the " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
+					}
+				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
+			
+				}
+		}
+			break;
 		}
 		case "THERMOSTAT CONFIGURATION": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);

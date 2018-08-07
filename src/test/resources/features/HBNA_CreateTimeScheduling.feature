@@ -1,4 +1,4 @@
-@NATimeBasedScheduling
+@NATimeBasedScheduling @NA_Schedule @Comfort
 Feature: Jasper,Sprouce and Flycatcher Scheduling
 	As a user I want to create an time based scheduling
 
@@ -69,7 +69,7 @@ Examples:
 #|Different On Weekdays     | within range  | 
 
 
-@JasperNA_TimerClockIsInCrementalOf10mins
+@JasperNA_TimerClockIsInCrementalOf10mins @Automatable
 Scenario: As a user i want to verify if Timer clock in Each period is incremental of 10mins
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -105,7 +105,7 @@ Examples:
 #| Atleast 3 period|Different On Weekdays|
 #| All periods     |No|
 
-@JapserNA_CopyScheduleToMulitpleStat
+@JapserNA_CopyScheduleToMulitpleStat @Automatable
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
@@ -122,7 +122,7 @@ Examples:
 |Different On Weekdays     |All |
 |Different On Weekdays     |Selected|
 
-@JapserNA_CopyScheduleWhenStatOffline
+@JapserNA_CopyScheduleWhenStatOffline @NotAutomatable
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application
@@ -158,7 +158,7 @@ Then  <ScheduleType> scheduling gets activated
       | time based| Different On Weekdays|
 #      |Geofence|Different On Weekdays|
       
-@JasperNA_WhenHeat/CoolOnly
+@JasperNA_WhenHeat/CoolOnly @Automatable
 Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
 Given  user thermostat is  configures with "Modes" system mode
 And user launches and logs in to the Lyric application
@@ -172,7 +172,7 @@ Examples:
 |Heat Only|
 |Cool Only|
 
-@NA_CreateTimeBasedScheduleInOffMode
+@NA_CreateTimeBasedScheduleInOffMode @Automatable
 Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "geofence based" schedule
 And  user has "Off" system mode
