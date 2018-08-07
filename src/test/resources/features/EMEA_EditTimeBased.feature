@@ -63,24 +63,25 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
     #  | Individual days |
       
 
-   @EMEA_GroupEditedDays @UIAutomatable
+   @EMEA_GroupEditedDays @Automated
   Scenario Outline: As a User i want to Edit my Individual days so that those days are grouped
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user selects "SINGLE DAY" view
-     When user edits the schedule periods of <EditedDays>
-      And user selects "GROUPD DAY" view
+    When user edits schedule periods of <EditedDays>
+    And user navigates to "Scheduling" screen from the "Dashboard" screen
+      And user selects "Grouped days" view
      Then <EditedDays> are grouped separately
   
     Examples: 
       | EditedDays | 
       | One day    | 
-      | Two days   | 
-      | Three days | 
-      | Four days  | 
-      | Five days  | 
-      | Six days   | 
+   #   | Two days   | 
+    #  | Three days | 
+    #  | Four days  | 
+   #   | Five days  | 
+   #   | Six days   | 
       
 @EMEA_ViewTimescheduleIndividualdaysEMEA @AutomatedAndroid
   Scenario: To view the Time schedule for EMEA stat
