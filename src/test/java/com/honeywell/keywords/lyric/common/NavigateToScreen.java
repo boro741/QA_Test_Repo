@@ -715,6 +715,14 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
+				case "SOLUTION":{
+					flag=flag&DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					break;
+					
+				}
 				case "GLOBAL DRAWER": {
 					Thread.sleep(5000);
 					Dashboard ds = new Dashboard(testCase);

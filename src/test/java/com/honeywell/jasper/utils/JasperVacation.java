@@ -89,10 +89,10 @@ public class JasperVacation {
 	public static boolean verifyVacationSwitchStatus(TestCases testCase, boolean isOn) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationSettings");
-		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "VacationSwitch", 5)) {
+		if (MobileUtils.isMobElementExists(fieldObjects, testCase, "VacationHoldSwitch", 5)) {
 			if (isOn) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationSwitch").getText()
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationHoldSwitch").getText()
 							.equalsIgnoreCase("ON")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Vacation Switch Status(ON) : Vacation switch is in ON state");
@@ -102,7 +102,7 @@ public class JasperVacation {
 								"Verify Vacation Switch Status(ON) : Vacation switch is not in ON state");
 					}
 				} else {
-					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationSwitch").getAttribute("value")
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationHoldSwitch").getAttribute("value")
 							.equalsIgnoreCase("1")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Vacation Switch Status(ON) : Vacation switch is in ON state");
@@ -114,7 +114,7 @@ public class JasperVacation {
 				}
 			} else if (!isOn) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationSwitch").getText()
+					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationHoldSwitch").getText()
 							.equalsIgnoreCase("OFF")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Vacation Switch Status(OFF) : Vacation switch is in OFF state");
@@ -125,7 +125,7 @@ public class JasperVacation {
 					}
 				} else {
 					System.out.println(
-							MobileUtils.getMobElement(fieldObjects, testCase, "VacationSwitch").getAttribute("value"));
+							MobileUtils.getMobElement(fieldObjects, testCase, "VacationHoldSwitch").getAttribute("value"));
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationSwitch").getAttribute("value")
 							.equalsIgnoreCase("0")) {
 						Keyword.ReportStep_Pass(testCase,

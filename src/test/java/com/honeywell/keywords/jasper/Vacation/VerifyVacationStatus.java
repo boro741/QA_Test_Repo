@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.jasper.utils.JasperVacation;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyVacationStatus extends Keyword {
 	public ArrayList<String> exampleData;
@@ -33,10 +34,12 @@ public class VerifyVacationStatus extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user verifies vacation is \"(.+)\" in \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
+		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (exampleData.get(0).equalsIgnoreCase("on")) {
 			if(exampleData.get(1).trim().equals("vacation settings card"))
 			{
-				flag = flag & JasperVacation.verifyVacationSwitchStatus(testCase, true);
+				boolean vacationHoldStatus=vhs.GetVacationHoldStatus().equalsIgnoreCase("On")||vhs.GetVacationHoldStatus().equalsIgnoreCase("true");
+				flag = flag & vacationHoldStatus;
 			}
 			else if(exampleData.get(1).trim().equals("solution card"))
 			{
@@ -50,7 +53,8 @@ public class VerifyVacationStatus extends Keyword {
 		} else if (exampleData.get(0).equalsIgnoreCase("off")) {
 			if(exampleData.get(1).trim().equals("vacation settings card"))
 			{
-				flag = flag & JasperVacation.verifyVacationSwitchStatus(testCase, false);
+				boolean vacationHoldStatus=vhs.GetVacationHoldStatus().equalsIgnoreCase("Off")||vhs.GetVacationHoldStatus().equalsIgnoreCase("false");
+				flag = flag & vacationHoldStatus;
 			}
 			else if(exampleData.get(1).trim().equals("solution card"))
 			{

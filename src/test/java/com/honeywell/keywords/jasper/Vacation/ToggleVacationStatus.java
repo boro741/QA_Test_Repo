@@ -36,8 +36,9 @@ public class ToggleVacationStatus extends Keyword {
 	@KeywordStep(gherkins = "^user turns (.*) vacation from (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+		if(exampleData.get(1).equalsIgnoreCase("vacation settings card")) {
 		switch (exampleData.get(0).toUpperCase()) {
-		case "ON":
+		case "ON":{
 			if(vhs.EnableVacationHold()) {
 				Keyword.ReportStep_Pass(testCase, String.format("The Vaction is turned {0}",exampleData.get(0)));
 				flag=true;
@@ -47,6 +48,43 @@ public class ToggleVacationStatus extends Keyword {
 				flag=false;
 			}
 			break;
+		}
+		
+		case "OFF":{
+			if(vhs.DisableVacationHold()) {
+				Keyword.ReportStep_Pass(testCase, String.format("The Vaction is turned {0}",exampleData.get(0)));
+				if(!(testCase.getTestCaseName().equalsIgnoreCase("Verify Guide Message")))
+				{
+					flag&=vhs.ClickOnEndVacationButton();
+				}
+			}
+			else {
+				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Unable to turn {0} the Vacation Hold",exampleData.get(0)));
+				flag=false;
+			}
+			break;
+		}
+		
+		}
+		}
+		else if(exampleData.get(1).equalsIgnoreCase("solution card")) {
+			switch (exampleData.get(0).toUpperCase()) {
+			case "OFF":{
+				if(vhs.EndVacationButtonInSolutionCard()) {
+					Keyword.ReportStep_Pass(testCase, String.format("The Vaction is turned {0} in solution card",exampleData.get(0)));
+					if(!(testCase.getTestCaseName().equalsIgnoreCase("Verify Guide Message"))) {
+						flag&=vhs.ClickOnEndVacationButton();
+					}
+					
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Unable to turn {0} the Vacation Hold in solution card",exampleData.get(0)));
+					flag=false;
+				}
+				break;
+			}
+			
+			}
 		}
 		
 	   return flag;

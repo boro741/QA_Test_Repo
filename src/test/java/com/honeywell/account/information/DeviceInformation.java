@@ -53,6 +53,12 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
+	
+	public String getVacationHeatSetPoint() {
+		
+		return deviceInformation.getJSONObject("vacationHold").getString("heatSetpoint");
+		
+	}
 
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
@@ -604,6 +610,21 @@ public class DeviceInformation {
 		}
 		return startTime;
 	}
+	
+	public String getVacationStartDateTime() {
+		String startTime = "";
+		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		if (deviceInformation != null) {
+			try {
+				startTime = deviceInformation.getJSONObject("vacationHold").getString("vacationStart");
+				
+			} catch (Exception e) {
+				startTime = " ";
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return startTime;
+	}
 
 	public boolean isVacationRunning() {
 		boolean status;
@@ -641,6 +662,21 @@ public class DeviceInformation {
 		return endTime;
 	}
 	
+
+	public String getVacationEndDateTime() {
+		String endTime = "";
+		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		if (deviceInformation != null) {
+			try {
+				endTime = deviceInformation.getJSONObject("vacationHold").getString("vacationEnd");
+				
+			} catch (Exception e) {
+				endTime = " ";
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return endTime;
+}
 	public String getscheduleStatus() throws Exception {
 		String status = " ";
 		if (deviceInformation != null) {
@@ -649,6 +685,7 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 		return status;
+
 	}
 
 

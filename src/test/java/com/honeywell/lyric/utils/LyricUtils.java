@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -203,7 +204,7 @@ public class LyricUtils {
 	 *            testCase instance
 	 * @return JSONObject Device details of the device name and location name
 	 */
-	public static JSONObject getDeviceInformation(TestCases testCase, TestCaseInputs inputs) {
+	public static JSONObject getDeviceInformation(TestCases testCase, TestCaseInputs inputs,String... deviceId) {
 		JSONObject jsonObject = null;
 
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
@@ -246,10 +247,22 @@ public class LyricUtils {
 							JSONObject tempJSONObject = null;
 
 							boolean elementFound = false;
+							boolean optionalDeviceElementfound=true;
 
 							for (int counter = 0; counter < array.length(); counter++) {
 								tempJSONObject = array.getJSONObject(counter);
-
+                                if(deviceId != null && deviceId.length>=1) {
+                                	if (deviceId[0].toString().equalsIgnoreCase(tempJSONObject.getString("userDefinedDeviceName"))) {
+                                	  jsonObject = array.getJSONObject(counter);
+                                	  optionalDeviceElementfound=true;
+    									break;
+    								}
+                                	else
+                                	{
+                                	optionalDeviceElementfound=false;
+                                	}
+                                }
+                               
 								if (inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 										.equalsIgnoreCase(tempJSONObject.getString("userDefinedDeviceName"))) {
 
@@ -257,10 +270,16 @@ public class LyricUtils {
 									elementFound = true;
 									break;
 								}
+                                
 							}
-
+                             if(!optionalDeviceElementfound) {
+                            	 Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FRAMEWORK_CONFIGURATION,
+ 										"Get Stat Information : Stat not found by name - "
+ 												+ deviceId[0]);
+                             }
 							if (elementFound) {
 							} else {
+								
 								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FRAMEWORK_CONFIGURATION,
 										"Get Stat Information : Stat not found by name - "
 												+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));

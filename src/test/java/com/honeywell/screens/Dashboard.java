@@ -3,7 +3,9 @@ package com.honeywell.screens;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,6 +15,10 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.lyric.utils.LyricUtils;
+
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 
 public class Dashboard extends MobileScreens {
 
@@ -229,7 +235,29 @@ public class Dashboard extends MobileScreens {
 	}
 
 	public List<WebElement> getDashboardDeviceNameElements() {
+		
 		return MobileUtils.getMobElements(objectDefinition, testCase, "DashboardIconText");
+	}
+	
+	
+	public WebElement getDashboardDeviceNameElement(String deviceName) {
+		WebElement element=null;
+       try {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		
+			element=testCase.getMobileDriver()
+					.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+							+ "new UiSelector()." + "text" + "(\"" + deviceName + "\"));"));
+			
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+	Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,"Error Occured:"+e.getMessage());
+	} 
+
+		return element;
+	
+
 	}
 
 	public boolean selectLocationFromDashBoard(TestCases testCase, String locationToBeSelected) {
