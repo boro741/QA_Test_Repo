@@ -1,8 +1,13 @@
 package com.honeywell.keywords.jasper.chil;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.support.ui.FluentWait;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
@@ -103,13 +108,22 @@ public class ActivateVacationUsingCHIL extends Keyword {
 					if (result == 200) {
 						Keyword.ReportStep_Pass(testCase,
 								"Activate Vacation Using CHIL : Successfully activated vacation using CHIL");
+						double minsStart= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(CHILUtil.startTime).getTime()/1000.0/60;
+						double minsCurrent= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(currentUTCTime).getTime()/1000.0/60;
+						long mininMs=((long)minsStart-(long)minsCurrent)*60*1000;
+//						FluentWait<String> fWait = new FluentWait<String>(" ");
+//						//fWait.pollingEvery(3, TimeUnit.SECONDS);
+//						fWait.withTimeout(min, TimeUnit.MINUTES);
+						
+						Thread.sleep(mininMs);
+						
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Activate Vacation Using CHIL : Failed to activate vacation using CHIL");
 					}
 				}
-			} else if (exampleData.get(0).equalsIgnoreCase("disable")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("inactive")) {
 				if (chUtil.getConnection()) {
 					int result = chUtil.disableVacation(locationID, deviceID);
 					if (result == 200) {

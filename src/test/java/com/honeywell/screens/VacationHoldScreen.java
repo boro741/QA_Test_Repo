@@ -68,6 +68,8 @@ public class VacationHoldScreen extends MobileScreens {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerMinute");
 	}
 	
+	
+	
 	@SuppressWarnings("deprecation")
 	public String IncreaseTimerWithStartOrEndTime(String time,String incrementalTime) throws ParseException {
 		
@@ -121,6 +123,24 @@ public class VacationHoldScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "EndTime");
 	}
 	
+	
+	public String GetStartDate() {
+		return MobileUtils.getFieldValue(objectDefinition,testCase, "FromDate");
+	}
+	
+	public String GetEndDate() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "EndDate");
+	}
+	
+	public String GetStartTime() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime");
+	}
+	
+	public String GetEndTime() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "EndTime");
+	}
+	
+	
 	public boolean EnableVacationHold(){
 		if(GetVacationHoldStatus().equalsIgnoreCase("On")||GetVacationHoldStatus().equalsIgnoreCase("true")){
 			return true;
@@ -130,7 +150,9 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 	
 	public boolean EndVacationButtonInSolutionCard() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndInSolutionCard");
+		flag&=MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOnPrimaryCard");
+		flag&=MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndInSolutionCard");
+		return flag;
 	}
 	
 	public boolean DisableVacationHold(){
@@ -185,9 +207,8 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 	
 	public boolean ClickOnCancelButtonInEndVacation() {
-		flag&=MobileUtils.isMobElementExists(objectDefinition, testCase, "ClickOnCancelButtonInEndVacation");
-	   flag&= MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndCancelButton");
-	   return flag;
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndCancelButton");
+	   
 	}
 	
 	public String GetPrimaryCardValue() {

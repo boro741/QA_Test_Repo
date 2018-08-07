@@ -53,8 +53,10 @@ public class ToggleVacationStatus extends Keyword {
 		case "OFF":{
 			if(vhs.DisableVacationHold()) {
 				Keyword.ReportStep_Pass(testCase, String.format("The Vaction is turned {0}",exampleData.get(0)));
-				flag&=vhs.ClickOnEndVacationButton();
-				
+				if(!(testCase.getTestCaseName().equalsIgnoreCase("Verify Guide Message")))
+				{
+					flag&=vhs.ClickOnEndVacationButton();
+				}
 			}
 			else {
 				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Unable to turn {0} the Vacation Hold",exampleData.get(0)));
@@ -70,7 +72,9 @@ public class ToggleVacationStatus extends Keyword {
 			case "OFF":{
 				if(vhs.EndVacationButtonInSolutionCard()) {
 					Keyword.ReportStep_Pass(testCase, String.format("The Vaction is turned {0} in solution card",exampleData.get(0)));
-					flag&=vhs.ClickOnEndVacationButton();
+					if(!(testCase.getTestCaseName().equalsIgnoreCase("Verify Guide Message"))) {
+						flag&=vhs.ClickOnEndVacationButton();
+					}
 					
 				}
 				else {

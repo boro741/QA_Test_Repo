@@ -26,30 +26,46 @@ public class DashboardUtils {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
-		if (d.areDevicesVisibleOnDashboard(25)) {
-			dashboardIconText = d.getDashboardDeviceNameElements();
-		}
+
 		boolean flag = false;
+		
 		List<String> availableDevices = new ArrayList<String>();
-		for (WebElement e : dashboardIconText) {
-			String displayedText = null;
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				displayedText = e.getText();
-			} else {
-				try {
-					if ((e.getAttribute("visible").equals("true")) && (e.getAttribute("value").trim() != null)
-							&& (!e.getAttribute("value").trim().isEmpty()))
-						displayedText = e.getAttribute("value");
-				} catch (Exception e1) {
-				}
-			}
-			availableDevices.add(displayedText);
-			if (displayedText.equals(deviceToBeSelected)) {
-				e.click();
-				flag = true;
-				break;
-			}
+		
+		if (d.areDevicesVisibleOnDashboard(25)) {
+		WebElement element= d.getDashboardDeviceNameElement(deviceToBeSelected);
+		if (element != null) {
+			element.click();
+			flag=true;
+			Keyword.ReportStep_Pass(testCase, "Clicked on expected Device Name");
+		} else {
+			flag=false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Expected Device Name not found");
 		}
+		}
+
+		
+//		for (WebElement e : dashboardIconText) {
+//			String displayedText = null;
+//			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+//				if(e!=null) {
+//				displayedText = e.getText();
+//				}
+//			} else {
+//				try {
+//					if ((e.getAttribute("visible").equals("true")) && (e.getAttribute("value").trim() != null)
+//							&& (!e.getAttribute("value").trim().isEmpty()))
+//						displayedText = e.getAttribute("value");
+//				} catch (Exception e1) {
+//				}
+//			}
+//			availableDevices.add(displayedText);
+//			if (displayedText.equals(deviceToBeSelected)) {
+//				e.click();
+//				flag = true;
+//				break;
+//			}
+//		}
 		if (cm.isGotitButtonVisible(1)) {
 			if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 				return true;

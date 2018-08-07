@@ -16,7 +16,7 @@ HeatSetPointRoundChooser	xpath	//android.widget.ImageView[@resource-id='com.hone
 PrimaryCardSetPointUp	id	stat_temp_stepper_up	id	stat_temp_stepper_up	id	stat_temp_stepper_up						
 PrimaryCardSetPointDown	id	stat_temp_stepper_down	id	stat_temp_stepper_down	id	stat_temp_stepper_down						
 PrimaryCardSetpoint	id	current_temp_value	id	current_temp_value	id	current_temp_value						
-VacationOnPrimaryCard	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"						
+VacationOnPrimaryCard	xpath	"//android.widget.TextView[contains(@text,'VACATION UNTIL')]"	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"						
 ThermostatOff	xpath	//android.widget.TextView[@text='THERMOSTAT IS OFF']	xpath	//android.widget.TextView[@text='THERMOSTAT IS OFF']	xpath	//android.widget.TextView[@text='THERMOSTAT IS OFF']						
 ThermostatMode	xpath	//android.widget.TextView[@text='MODE']	xpath	//android.widget.TextView[@text='MODE']	xpath	//android.widget.TextView[@text='MODE']						
 AutoMode	xpath	//android.widget.TextView[@text='AUTO']	xpath	//android.widget.TextView[@text='AUTO']	xpath	//android.widget.TextView[@text='AUTO']						
@@ -26,6 +26,6 @@ OffMode	xpath	//android.widget.TextView[@text='OFF']	xpath	//android.widget.Text
 SaveButtonInMode	xpath	//android.widget.Button[@text='Save']	xpath	//android.widget.Button[@text='Save']	xpath	//android.widget.Button[@text='Save']						
 AdhocOnPrimaryCard	xpath	"//android.widget.TextView[contains(text(),'HOLD')]"	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"	xpath	"//android.widget.TextView[contains(text(),'VACATION UNTIL')]"						
 VacationEndButton	xpath	//android.widget.Button[@text='END']	xpath	//android.widget.Button[@text='END']	xpath	//android.widget.Button[@text='END']						
-VacationEndCautionMessage	id	message	id	message	id	message						
-VacationEndCancelButton	xpath	//android.widget.Button[@text='CANCEL']	xpath	//android.widget.Button[@text='CANCEL']	xpath	//android.widget.Button[@text='CANCEL']						
+VacationEndCautionMessage	xpath	//android.widget.TextView[@resource-id='android:id/message']	xpath	//android.widget.TextView[@resource-id='android:id/message']	xpath	//android.widget.TextView[@resource-id='android:id/message']						
+VacationEndCancelButton	xpath	//android.widget.Button[@resource-id='android:id/button2']	xpath	//android.widget.Button[@resource-id='android:id/button2']	xpath	//android.widget.Button[@resource-id='android:id/button2']						
 VacationEndInSolutionCard	xpath	//android.widget.TextView[@text='End Vacation']	xpath	//android.widget.TextView[@text='End Vacation']	xpath	//android.widget.TextView[@text='End Vacation']						

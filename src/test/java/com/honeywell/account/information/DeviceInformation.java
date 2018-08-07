@@ -575,6 +575,21 @@ public class DeviceInformation {
 		}
 		return startTime;
 	}
+	
+	public String getVacationStartDateTime() {
+		String startTime = "";
+		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		if (deviceInformation != null) {
+			try {
+				startTime = deviceInformation.getJSONObject("vacationHold").getString("vacationStart");
+				
+			} catch (Exception e) {
+				startTime = " ";
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return startTime;
+	}
 
 	public boolean isVacationRunning() {
 		boolean status;
@@ -604,6 +619,21 @@ public class DeviceInformation {
 				c1.setTime(date);
 				c1.set(Calendar.SECOND, 0);
 				endTime = vacationDateFormat.format(c1.getTime());
+			} catch (Exception e) {
+				endTime = " ";
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+			}
+		}
+		return endTime;
+	}
+	
+	public String getVacationEndDateTime() {
+		String endTime = "";
+		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		if (deviceInformation != null) {
+			try {
+				endTime = deviceInformation.getJSONObject("vacationHold").getString("vacationEnd");
+				
 			} catch (Exception e) {
 				endTime = " ";
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
