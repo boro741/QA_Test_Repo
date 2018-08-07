@@ -36,7 +36,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 		Double getPeriodSetpoint, currentStepperSetpoint ;
 		getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
 		currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-		if(getPeriodSetpoint==currentStepperSetpoint){
+		if(getPeriodSetpoint == currentStepperSetpoint){
 			Keyword.ReportStep_Pass(testCase,
 					"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
 		}else {
