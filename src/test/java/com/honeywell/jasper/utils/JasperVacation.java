@@ -22,9 +22,8 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AdhocScreen;
 
-
 public class JasperVacation {
-	
+
 	public static boolean verifyVacationStatusOnPrimaryCard(TestCases testCase, TestCaseInputs inputs, boolean isOn) {
 		boolean flag = true;
 		String adHocText = "";
@@ -34,7 +33,7 @@ public class JasperVacation {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (isOn) {
 			try {
-				adHocText = adhoc.getAdhocStatusElement();
+				adHocText = adhoc.getAdhocStatusElement().toUpperCase();
 			} catch (NoSuchElementException e) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -45,25 +44,49 @@ public class JasperVacation {
 			SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
 			SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			try {
-				endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate));
+				endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate)).toUpperCase();
 			} catch (Exception e) {
 				flag = false;
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Error Occored : " + e.getMessage());
 			}
-			if (adHocText.equalsIgnoreCase("Vacation until " + endDateToBeDisplayed.split("\\s+")[1] + " "
-					+ endDateToBeDisplayed.split("\\s+")[0])) {
-				Keyword.ReportStep_Pass(testCase,
-						"Verify Vacation Status On Primary Card : Vacation is on in the primary card and displayed end date is displayed correctly");
-			} else {
-				if (adHocText.contains("Vacation")) {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Verify Vacation Status On Primary Card : Vacation is on in the primary card but displayed end date is not correct");
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (adHocText.equalsIgnoreCase("Vacation until " + endDateToBeDisplayed.split("\\s+")[1] + " "
+						+ endDateToBeDisplayed.split("\\s+")[0])) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Vacation Status On Primary Card : Vacation is on in the primary card and displayed end date is correct: "
+									+ adHocText);
 				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Verify Vacation Status On Primary Card : Vacation is not on in the primary card");
+					if (adHocText.contains("Vacation")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Primary Card : Vacation is on in the primary card but displayed end date is incorrect: "
+										+ adHocText);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Primary Card : Vacation is not on in the primary card");
+					}
+				}
+			} else {
+				System.out.println(inputs.getInputValue("LOCATION1_NAME").toUpperCase() + " VACATION UNTIL "
+						+ endDateToBeDisplayed.split("\\s+")[0] + " " + endDateToBeDisplayed.split("\\s+")[1]);
+				if (adHocText.equals(inputs.getInputValue("LOCATION1_NAME").toUpperCase() + "VACATION UNTIL "
+						+ endDateToBeDisplayed.split("\\s+")[0] + " " + endDateToBeDisplayed.split("\\s+")[1])) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Vacation Status On Primary Card : Vacation is on in the primary card and displayed end date is correct: "
+									+ adHocText);
+				} else {
+					if (adHocText.contains("Vacation")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Primary Card : Vacation is on in the primary card but displayed end date is incorrect: "
+										+ adHocText);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Primary Card : Vacation is not on in the primary card");
+					}
 				}
 			}
 		} else {
@@ -81,6 +104,94 @@ public class JasperVacation {
 			} else {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify Vacation Status On Primary Card : Vacation is off in the Primary Card");
+			}
+		}
+		return flag;
+	}
+
+	public static boolean verifyVacationStatusOnSolutionsCard(TestCases testCase, TestCaseInputs inputs, boolean isOn) {
+		boolean flag = true;
+		String adHocText = "";
+		String endDate = "";
+		String endDateToBeDisplayed = "";
+		AdhocScreen adhoc = new AdhocScreen(testCase);
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		if (isOn) {
+			try {
+				adHocText = adhoc.getVacationStatusInSolutionsCardScreen().toUpperCase();
+			} catch (NoSuchElementException e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Verify Vacation Status On Solutions Card : Could not find Vacation status on Solutions Card");
+				return flag;
+			}
+			endDate = statInfo.getVacationEndTime();
+			SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
+			SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			try {
+				endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate)).toUpperCase();
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Error Occored : " + e.getMessage());
+			}
+			System.out.println("###########" + adHocText);
+			System.out.println("###########" + endDateToBeDisplayed.split("\\s+")[0]);
+			System.out.println("###########" + endDateToBeDisplayed.split("\\s+")[1]);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (adHocText.equalsIgnoreCase("Vacation until " + endDateToBeDisplayed.split("\\s+")[1] + " "
+						+ endDateToBeDisplayed.split("\\s+")[0])) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
+									+ adHocText);
+				} else {
+					if (adHocText.contains("Vacation")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card but displayed end date is incorrect: "
+										+ adHocText);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Solutions Card : Vacation is not on in the Solutions card");
+					}
+				}
+			} else {
+				System.out.println(inputs.getInputValue("LOCATION1_NAME").toUpperCase() + " VACATION UNTIL "
+						+ endDateToBeDisplayed.split("\\s+")[0] + " " + endDateToBeDisplayed.split("\\s+")[1]);
+				if (adHocText.equals(inputs.getInputValue("LOCATION1_NAME").toUpperCase() + "VACATION UNTIL "
+						+ endDateToBeDisplayed.split("\\s+")[0] + " " + endDateToBeDisplayed.split("\\s+")[1])) {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
+									+ adHocText);
+				} else {
+					if (adHocText.contains("Vacation")) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card but displayed end date is incorrect: "
+										+ adHocText);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify Vacation Status On Solutions Card : Vacation is not on in the Solutions card");
+					}
+				}
+			}
+		} else {
+			if (adhoc.isAdhocStatusVisible()) {
+				adHocText = adhoc.getAdhocStatusElement();
+				if (adHocText.toUpperCase().contains("VACATION")) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Verify Vacation Status on Solutions Card : Vacation is on in the Solutions card");
+				} else {
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Vacation Status On Solutions Card : Vacation is off in the Solutions Card");
+				}
+
+			} else {
+				Keyword.ReportStep_Pass(testCase,
+						"Verify Vacation Status On Solutions Card : Vacation is off in the Solutions Card");
 			}
 		}
 		return flag;
@@ -290,8 +401,7 @@ public class JasperVacation {
 				return true;
 			} else {
 				System.out.println("Waiting for vacation to start");
-				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-						testCase.getMobileDriver());
+				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 				fWait.pollingEvery(10, TimeUnit.SECONDS);
 				fWait.withTimeout(15, TimeUnit.MINUTES);
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
@@ -302,8 +412,8 @@ public class JasperVacation {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							try {
 								MobileUtils.getMobElement(testCase, "ID", "toolbar");
-								String time = vacationDateFormat.format(
-										androidDateFormat.parse(JasperAdhocOverride.getAndroidDeviceTime(testCase).trim()));
+								String time = vacationDateFormat.format(androidDateFormat
+										.parse(JasperAdhocOverride.getAndroidDeviceTime(testCase).trim()));
 								deviceTime = convertTimetoUTCTime(testCase, time);
 							} catch (Exception e) {
 								System.out.println(e.getMessage());
@@ -311,7 +421,8 @@ public class JasperVacation {
 
 						} else {
 							MobileUtils.getMobElement(testCase, "name", "notification");
-							deviceTime = convertTimetoUTCTime(testCase, JasperAdhocOverride.getIOSSimulatorTime(testCase));
+							deviceTime = convertTimetoUTCTime(testCase,
+									JasperAdhocOverride.getIOSSimulatorTime(testCase));
 						}
 						try {
 							Date startTime = vacationDateFormat.parse(vacationStartTime);
@@ -384,7 +495,6 @@ public class JasperVacation {
 		return flag;
 	}
 
-	
 	/**
 	 * <p>
 	 * The convertTimeToUTCTime method converts time to UTC time.
@@ -412,7 +522,6 @@ public class JasperVacation {
 		}
 		return convertedTime;
 	}
-
 
 	public static String getDeviceTime(TestCases testCase, TestCaseInputs inputs) {
 		String time = " ";

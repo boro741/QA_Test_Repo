@@ -211,16 +211,14 @@ Examples:
 #JasperEMEA
 @VacationActiveSwitchingModesEMEA			@UIAutomatable
 Scenario:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
-Given user launches and logs in to the Lyric application
-Then user is set to "Heat" through CHIL
-When user Activates the "Vacation"
-Then user should be displayed with  status on "SolutionCard" 
-When user change the "OFF" from <Mode>
-Then user should be displayed with "SYSTEM IS OFF"  status 
-And user should not be display "Vacation" status on "SolutionCard
-When suer change the "Heat" from "OFF" 
-Then user should be displayed with displayed with  status on "SolutionCard" 
-And user should be displayed with "Vacation" setpoint value 
+Given user has "Heat" system mode
+And vacation mode is "active"
+When user launches and logs in to the Lyric application
+Then user verifies vacation is "on" in "solution card"
+When user changes system mode to "Off"
+And user verifies vacation is "off" in "solution card"
+When user changes system mode to "Cool" 
+Then user verifies vacation is "on" in "solution card"
 
 
 #JasperNA

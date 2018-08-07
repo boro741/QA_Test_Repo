@@ -20,7 +20,7 @@ public class VacationHoldScreen extends MobileScreens {
 		super(testCase, screenName);
 
 	}
-	
+
 	public boolean isLoadingSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
 	}
