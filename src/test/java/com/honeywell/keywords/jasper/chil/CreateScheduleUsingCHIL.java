@@ -62,7 +62,18 @@ public class CreateScheduleUsingCHIL extends Keyword {
 				}
 			} else if (exampleData.get(0).equalsIgnoreCase("time based")) {
 				try {
+					
 					if (chUtil.getConnection()) {
+						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
+							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
+								Keyword.ReportStep_Pass(testCase,
+										"Schedule is Resumed in CHIL before creating new schedule");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Schedule is Not Resumed in CHIL before creating new schedule");
+							}
+						}
 						if (chUtil.createSchedule(inputs, "Time", chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
 								jasperStatType) == 200) {
 							Keyword.ReportStep_Pass(testCase,
@@ -81,6 +92,16 @@ public class CreateScheduleUsingCHIL extends Keyword {
 			} else if (exampleData.get(0).equalsIgnoreCase("geofence based")) {
 				try {
 					if (chUtil.getConnection()) {
+						if(devInfo.getscheduleStatus().equalsIgnoreCase("Pause")){
+							if (chUtil.changeScheduleStatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID, "Resume") == 200) {
+								Keyword.ReportStep_Pass(testCase,
+										"Schedule is Resumed in CHIL before creating new schedule");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Schedule is Not Resumed in CHIL before creating new schedule");
+							}	
+						}
 						if (chUtil.createSchedule(inputs, "Geofence",
 								chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
 								jasperStatType) == 200) {

@@ -12,22 +12,31 @@ public class FlyHumidifier {
 		boolean flag = true;
 		try {
 			FlyCatcherPrimaryCard fly = new  FlyCatcherPrimaryCard(testCase);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")){
 			for (int i= 0;i<12;i++){
 				String ActualValue = fly.getTargetHumidityValue().replace("%", "");
 				if (ActualValue != expectedValue){
-					int act = Integer.parseInt(ActualValue);
-					int exp = Integer.parseInt(expectedValue);
-					if (act < exp){
-						flag = flag && fly.ClickOnIncrementButton();
-					}else if (act > exp){
-						flag = flag && fly.ClickOnDecrementButton();
-					} else{
-						break;
-					}
+						int act = Integer.parseInt(ActualValue);
+						int exp = Integer.parseInt(expectedValue);
+						if (act < exp){
+							flag = flag && fly.ClickOnIncrementButton();
+						}else if (act > exp){
+							flag = flag && fly.ClickOnDecrementButton();
+						} else{
+							break;
+						}
 				}
 			}
 			Keyword.ReportStep_Pass(testCase,
 					"Humidifier Value is Already set to " + fly.getTargetHumidityValue());
+			}else{
+				String ActualValue = fly.getTargetHumidityValue().replace("%", "");
+				if (ActualValue != expectedValue){
+					int exp = Integer.parseInt(expectedValue);
+					 double extvalue = 0.1 - (((exp/5)/10));
+					fly.setValueToHumSlider(String.valueOf(extvalue));
+				}
+			}
 			flag = flag && fly.ClickOnSaveOptionButton();
 		} catch(Exception e){
 			flag = false;

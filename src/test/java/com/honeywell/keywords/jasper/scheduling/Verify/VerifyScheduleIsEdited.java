@@ -42,7 +42,6 @@ public class VerifyScheduleIsEdited extends Keyword {
 				flag = flag & JasperSchedulingVerifyUtils.verifyScheduleEdited(testCase, inputs, "everyday");
 				
 			}
-			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 
 		} catch (Exception e) {
 			flag = false;

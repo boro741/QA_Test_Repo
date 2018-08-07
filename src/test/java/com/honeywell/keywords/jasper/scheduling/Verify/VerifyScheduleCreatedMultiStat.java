@@ -147,8 +147,10 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 								}
 							}
 						}
-						if (!ss.clickOnCloseButton()) {
-							flag = false;
+						if (ss.isCloseButtonVisible(5)) {
+							if (!ss.clickOnCloseButton()) {
+								flag = false;
+							}
 						}
 					}
 				} else {

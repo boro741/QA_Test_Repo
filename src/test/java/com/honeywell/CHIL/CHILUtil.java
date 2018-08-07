@@ -786,6 +786,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		
 	}
+	
 	public int createTimeScheduleWithSpecificNumberOfPeriods_EMEA(TestCaseInputs inputs, long locationID,
 			String deviceID) {
 		int result = -1;
@@ -984,6 +985,7 @@ public class CHILUtil implements AutoCloseable {
 
 		return result;
 	}
+	
 	public int changeSystemMode(long locationID, String deviceID, String thermostatMode) {
 		int result = -1;
 		try {
@@ -991,6 +993,25 @@ public class CHILUtil implements AutoCloseable {
 				String url = chilURL
 						+ String.format("api/locations/%s/devices/%s/thermostat/Mode", locationID, deviceID);
 				String headerData = String.format("{\"thermostatMode\":\"%s\"}", thermostatMode);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	public int changeScheduleStatus(long locationID, String deviceID, String ScheduleStatus) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/V2/locations/%s/Schedule/Status", locationID);
+				String headerData = String.format("{\"deviceIds\":[\"%s\"],\"scheduleStatus\":\"%s\"}", deviceID,ScheduleStatus);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1381,4 +1402,17 @@ public class CHILUtil implements AutoCloseable {
 					return result;
 				}
 	
+	public int putThermostatDeviceName(long locationID, String deviceID, String deviceNameToBePut) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/Devices/%s", locationID, deviceID);
+			String headerData = String.format("{\"name\": \"%s\"}",
+					deviceNameToBePut);
+			
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
 }

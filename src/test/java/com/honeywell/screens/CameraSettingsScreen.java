@@ -253,15 +253,53 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 	
 	public boolean isCameraSetingsOptionVisible(String settingOptions) {
-		return MobileUtils.isMobElementExists("XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']" , testCase);
+		boolean flag = true;
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag & MobileUtils.isMobElementExists("XPath", "//android.widget.TextView[@text='" + settingOptions + "']" , testCase);
+		}else {
+			flag = flag & MobileUtils.isMobElementExists("XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']" , testCase);
+		}	
+		return flag;
 	}
 	
 	
 /* Method to click on any element from camera settings screen*/
 	public boolean clickONCameraSetingsOption(String settingOptions) {
-		return MobileUtils.clickOnElement(testCase,"XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']");
-	}
-	
+		boolean flag =  true;
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag & MobileUtils.clickOnElement(testCase,"XPath", "//android.widget.TextView[@text='" + settingOptions + "']");
+			
+		}else {
+			flag = flag & MobileUtils.clickOnElement(testCase,"XPath", "//XCUIElementTypeStaticText[contains(@name, '_subTitle') and @value='" + settingOptions + "']");
+			
+		}
+			return flag;
+		}
+
+/*Method to check the camera Configuration options*/
+    public boolean isCameraConfigurationsOptionVisible(String settingName) throws Exception {
+        String attribute;
+        WebElement element = null;
+        if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+               attribute = "text";
+               if (settingName.equals("NAME")) {
+                     settingName = "Name";
+               }
+               element = MobileUtils.getMobElement(testCase, "XPATH",
+                            "//android.widget.TextView[@" + attribute + "='" + settingName + "']");
+        } else {
+               attribute = "value";
+               element = MobileUtils.getMobElement(testCase, "XPATH",
+                            "//XCUIElementTypeStaticText[@" + attribute + "='" + settingName + "']");
+        }
+        if (element.isEnabled()) {
+               return true;
+        } else {
+               return false;
+        }
+ }
+
+
 	
 	public boolean isMotionSensitivityEnabled() {
 		boolean flag = true;

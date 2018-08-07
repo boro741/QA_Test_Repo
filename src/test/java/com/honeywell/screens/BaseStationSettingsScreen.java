@@ -44,6 +44,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String MOTIONEVENT = "Motion Event";
 	public static final String EMAILNOTIFICATIONS = "Email Notifications";
 	public static final String FROSTPROTECTION = "Frost Protection";
+	public static final String HUMIDIFICATION = "Humidification";
+	public static final String DEHUMIDIFICATION = "Dehumidification";
+	public static final String SLEEPBRIGHTNESSMODE = "Sleep Brightness Mode";
+	public static final String SOUND = "Sound";
+	public static final String EMERGENCYHEAT = "Emergency Heat";
+	public static final String VENTILATION = "Ventilation";
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
 	public static final String IOSENTRYEXITTABLELOCATORVALUE = "//XCUIElementTypeCell";

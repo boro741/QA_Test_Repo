@@ -1,11 +1,16 @@
 package com.honeywell.keywords.jasper.scheduling.Verify;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.http.client.methods.HttpGet;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,7 +18,13 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.jasper.utils.JasperAdhocOverride;
+import com.honeywell.jasper.utils.JasperSchedulingUtils;
+import com.honeywell.jasper.utils.JasperSetPoint;
+import com.honeywell.jasper.utils.JasperVacation;
+import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 
@@ -52,7 +63,7 @@ public class VerifyScheduleOFF extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF overlay not displayed");
 					}
 				}break;
-				case "SCHEDULE OFF OVERLAY DISABLED": {
+				case "SCHEDULE OFF OVERLAY DISABLED": { 
 					SchedulingScreen OverLay = new SchedulingScreen(testCase);
 					if(!OverLay.isScheduleOffOverlayVisible(10)){
 						Keyword.ReportStep_Pass(testCase, "Schedule OFF Overlay disappear");
@@ -100,7 +111,7 @@ public class VerifyScheduleOFF extends Keyword {
 						if(flag)
 							Keyword.ReportStep_Pass(testCase, "Following Schedule displayed");
 						else
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Scheudle not displayed");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Schedule not displayed");
 						break;
 					}
 					case "USING HOME SETTINGS": {
@@ -130,60 +141,32 @@ public class VerifyScheduleOFF extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
 						break;
 					}
-					case "VACATION STATUS NA": {
+					case "VACATION STATUS": {
 						PrimaryCard VacationStatus = new PrimaryCard(testCase);
-						FluentWait<String> fWait = new FluentWait<String>(" ");
-						fWait.pollingEvery(30, TimeUnit.SECONDS);
-						fWait.withTimeout(15, TimeUnit.MINUTES);
-						Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-						public Boolean apply(String a) {
-								try {
-									if (VacationStatus.isVacationStatusVisible()) {
-										return true;
-									} else {
-										return false;
-									}
-								} catch (Exception e) {
-									return false;
-								}
-							}
-						});
-						if(isEventReceived)
-						{
-						Keyword.ReportStep_Pass(testCase, "Vacation status displayed");
-						}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Vacation status not displayed");
-						}break;
+						flag = flag & VacationStatus.isVacationStatusVisible(); 
+						if(flag)
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+							else 
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+							break;							
+//						flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, true);		
 					}
-					case "VACATION STATUS EMEA": {
-						PrimaryCard VacationStatus = new PrimaryCard(testCase);
-						FluentWait<String> fWait = new FluentWait<String>(" ");
-						fWait.pollingEvery(30, TimeUnit.SECONDS);
-						fWait.withTimeout(10, TimeUnit.MINUTES);
-						Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
-						public Boolean apply(String a) {
-								try {
-									if (VacationStatus.isVacationStatusVisible()) {
-										return true;
-									} else {
-										return false;
-									}
-								} catch (Exception e) {
-									return false;
-								}
-							}
-						});
-						if(isEventReceived)
-						Keyword.ReportStep_Pass(testCase, "Vacation status displayed");
-						else
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Vacation status not displayed");
+
+					case "TEMPORARY": {
+						flag = flag & JasperAdhocOverride.VerificationofTemporaryHold(testCase, inputs);
+						break;
+						}
+					
+					case "PERMANENT": {
+					    flag = flag & JasperAdhocOverride.VerificationofPermanentHold(testCase, inputs);
 						break;
 					}
-					
 					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + parameters.get(0));
 							}	
+					
+				
 				}
 				}
 		} catch (Exception e) {

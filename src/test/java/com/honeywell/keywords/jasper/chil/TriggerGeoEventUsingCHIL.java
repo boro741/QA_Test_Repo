@@ -62,44 +62,42 @@ public class TriggerGeoEventUsingCHIL extends Keyword {
 						}
 					}break;
 				}
-				
+
 				case "SLEEP": {
 					if (chUtil.getConnection()) {
-					String startTime = "";
-					String endTime = "";
-					int result = chUtil.TriggerGeoEvent(locationID, geofenceID,userID, exampleData.get(1));
-					if (result == 200) {
+						String startTime = "";
+						String endTime = "";
+						int result = chUtil.TriggerGeoEvent(locationID, geofenceID,userID, exampleData.get(1));
+						if (result == 200) {
 							Keyword.ReportStep_Pass(testCase, "geo event triggered" + exampleData.get(1));
-					} else {
+						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geo event not triggered" + exampleData.get(0));
-					}
-					if(statInfo.getJasperDeviceType().equals("EMEA")){
+						}
+						if(statInfo.getJasperDeviceType().equals("EMEA")){
 							startTime = JasperSetPoint.TriggerGeoEventSleepStartEMEA(testCase);
 							endTime = JasperSetPoint.TriggerGeoEventSleepEndEMEA(testCase, 2);
-					}else {
+						}else {
 							startTime = JasperSetPoint.TriggerGeoEventSleepStartNAHB(testCase);
-				 			endTime = JasperSetPoint.TriggerGeoEventSleepEndNAHB(testCase, 2);
-					}
-					if (chUtil.getConnection()) {
-					result = chUtil.TriggerGeoEventSleep(locationID, deviceID, startTime, endTime );
-					if (result == 200) {
-						Keyword.ReportStep_Pass(testCase,"Set Sleep Using CHIL : Successfully Set Sleep using CHIL");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Set Sleep Using CHIL : Failed to Set Sleep using CHIL");							}
-					}
+							endTime = JasperSetPoint.TriggerGeoEventSleepEndNAHB(testCase, 2);
+						}
+						if (chUtil.getConnection()) {
+							result = chUtil.TriggerGeoEventSleep(locationID, deviceID, startTime, endTime );
+							if (result == 200) {
+								Keyword.ReportStep_Pass(testCase,"Set Sleep Using CHIL : Successfully Set Sleep using CHIL");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Set Sleep Using CHIL : Failed to Set Sleep using CHIL");							}
+						}
 					}break;
-					}
-					default: {
+				}
+				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + exampleData.get(0));
-					}
-					}
-				}else if (exampleData.get(1).equalsIgnoreCase("UserDeparted")) {
-				switch (exampleData.get(0).toUpperCase()) {
-				case "AWAY" : {
-					if (chUtil.getConnection()) {
+				}
+				}
+			}else if (exampleData.get(1).equalsIgnoreCase("UserDeparted")) {
+				if (chUtil.getConnection()) {
 					int result = chUtil.TriggerGeoEvent(locationID, geofenceID, userID, exampleData.get(1));
 					if (result == 200) {
 						Keyword.ReportStep_Pass(testCase, "geo event triggered" + exampleData.get(1));
@@ -107,22 +105,16 @@ public class TriggerGeoEventUsingCHIL extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geo event not triggered" + exampleData.get(0));
 					}
-					}	break;
-					}
-					default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + exampleData.get(0));
-					}
-					}
-					}
-				}catch (Exception e) {
-				flag = false;
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-				FailType.FUNCTIONAL_FAILURE,"Error Occured : " + e.getMessage());
 				}
-return flag;
-			
-}
+			}
+		}catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,"Error Occured : " + e.getMessage());
+		}
+		return flag;
+
+	}
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {

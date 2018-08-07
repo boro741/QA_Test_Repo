@@ -11,7 +11,7 @@ So that i can set my room humidity as per my prefrence
     Given user humidification is "Enabled"
     And user launches and logs in to the Lyric application
       And user navigates to "Humidification" screen from the "Dashboard" screen
-     When User Sets the humidification <Target Value>
+     When user Sets the humidification <Target Value>
      Then Verify humidifier set to <Target Value>
      
     Examples: 

@@ -17,14 +17,14 @@ import com.honeywell.screens.ThermostatSettingsScreen;
 public class VerifyValueOnAScreen extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 
 	public VerifyValueOnAScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		this.parameters = parameters;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -627,7 +627,6 @@ public class VerifyValueOnAScreen extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("FROST PROTECTION MODE")
 					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				String value = parameters.get(1).split("%")[0].split("~")[1];
-				System.out.println("########value to be verified in Thermostat Settings screen: " + value);
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (ts.verifyThermostatFrostProtectionValue(value)) {
 					Keyword.ReportStep_Pass(testCase,
@@ -636,6 +635,259 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Frost Protection value is not displated correctly. Expected : " + parameters.get(1));
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("HUMIDIFICATION")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT HUMIDIFICATION")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatHumidificationSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Humidification Switch is ON in Thermostat Humidification Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Humidification Switch is OFF in Thermostat Humidification Screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatHumidificationSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Humidification Switch is OFF in Thermostat Humidification Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Humidification Switch is ON in Thermostat Humidification Screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Thermostat Humidification Switch is not displayed in the Thermostat Humidification Screen");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("HUMIDIFICATION")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				String actualThermoHumidificationValueInSettingsScreen = null;
+				int actualThermostatHumidificationValue = 0;
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					actualThermoHumidificationValueInSettingsScreen = ts
+							.getThermostatHumidificationValueInSettingsScreen(testCase, parameters.get(1));
+					actualThermostatHumidificationValue = Integer
+							.parseInt(actualThermoHumidificationValueInSettingsScreen);
+					if (actualThermostatHumidificationValue == Integer
+							.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE"))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Correct Humidification value is displayed in Thermostat Settings screen: "
+										+ actualThermostatHumidificationValue);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Humidification value to be displayed in Thermostat Settings screen is: "
+										+ actualThermostatHumidificationValue + " .But "
+										+ Integer.parseInt(
+												inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE")
+														+ " is displayed."));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					actualThermoHumidificationValueInSettingsScreen = ts
+							.getThermostatHumidificationValueInSettingsScreen(testCase, parameters.get(1));
+					if (actualThermoHumidificationValueInSettingsScreen
+							.equals(inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE"))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Correct Humidification value is displayed in Thermostat Settings screen: "
+										+ actualThermoHumidificationValueInSettingsScreen);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Humidification value to be displayed in Thermostat Settings screen is: "
+										+ actualThermoHumidificationValueInSettingsScreen + " .But "
+										+ inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE")
+										+ " is displayed.");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("DEHUMIDIFICATION")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT DEHUMIDIFICATION")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatDehumidificationSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Dehumidification Switch is ON in Thermostat Dehumidification Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Dehumidification Switch is OFF in Thermostat Dehumidification Screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatDehumidificationSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Dehumidification Switch is OFF in Thermostat Dehumidification Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Dehumidification Switch is ON in Thermostat Dehumidification Screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Thermostat Dehumidification Switch is not displayed in the Thermostat Dehumidification Screen");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("DEHUMIDIFICATION")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				String actualThermoDehumidificationValueInSettingsScreen = null;
+				int actualThermostatDehumidificationValue = 0;
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					actualThermoDehumidificationValueInSettingsScreen = ts
+							.getThermostatDehumidificationValueInSettingsScreen(testCase, parameters.get(1));
+					actualThermostatDehumidificationValue = Integer
+							.parseInt(actualThermoDehumidificationValueInSettingsScreen);
+					if (actualThermostatDehumidificationValue == Integer
+							.parseInt(inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE"))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Correct Dehumidification value is displayed in Thermostat Settings screen: "
+										+ actualThermostatDehumidificationValue);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Dehumidification value to be displayed in Thermostat Settings screen is: "
+										+ actualThermostatDehumidificationValue + " .But "
+										+ Integer.parseInt(
+												inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE")
+														+ " is displayed."));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					actualThermoDehumidificationValueInSettingsScreen = ts
+							.getThermostatDehumidificationValueInSettingsScreen(testCase, parameters.get(1));
+					if (actualThermoDehumidificationValueInSettingsScreen
+							.equals(inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE"))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Correct Dehumidification value is displayed in Thermostat Settings screen: "
+										+ actualThermoDehumidificationValueInSettingsScreen);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Dehumidification value to be displayed in Thermostat Settings screen is: "
+										+ actualThermoDehumidificationValueInSettingsScreen + " .But "
+										+ inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE")
+										+ " is displayed.");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SLEEP BRIGHTNESS")
+					&& parameters.get(2).equalsIgnoreCase("SLEEP BRIGHTNESS MODE")) {
+				String value = parameters.get(1);
+				if (value.contains("%")) {
+					value = value.split("%")[0].split("~")[1];
+				}
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (ts.verifyThermostatSleepBrightnessValueInSleepBrightnessModeScreen(value)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Sleep Brightness value in Sleep Brightness Mode screen is displayed correctly: "
+									+ parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sleep Brightness value in Sleep Brightness Mode screen is not displated correctly. Expected : "
+									+ parameters.get(1));
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SLEEP BRIGHTNESS")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				String value = parameters.get(1);
+				if (value.contains("%")) {
+					value = value.split("%")[0].split("~")[1];
+				}
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (ts.verifyThermostatSleepBrightnessValueInSettingsScreen(value)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Sleep Brightness value in Settings screen is displayed correctly: " + parameters.get(1));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sleep Brightness value in Settings screen is not displated correctly. Expected : "
+									+ parameters.get(1));
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & ts.verifySoundStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					flag = flag & ts.verifySoundStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("NORMAL")) {
+					flag = flag & ts.verifySoundStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Status is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.isThermostatAutoChangeOverSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Auto Changeover Switch is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & !ts.isThermostatAutoChangeOverSwitchEnabled(testCase);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Auto Changeover Switch is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Auto Changeover Switch is not displayed in the Thermostat Settings Screen");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VENTILATION")
+					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
+				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					flag = flag & ts.verifyVentilationStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Ventilation is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Ventilation is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					flag = flag & ts.verifyVentilationStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Ventilation is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Ventilation is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("AUTO")) {
+					flag = flag & ts.verifyVentilationStatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound Ventilation is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Ventilation is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Ventilation is not displayed");
 				}
 			}
 		} catch (Exception e) {
