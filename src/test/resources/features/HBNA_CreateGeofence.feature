@@ -52,18 +52,14 @@ so that my home temperature will get set automatically based on geofence setting
 #      |Sleep|
       |Away| 
   
-  @JasperNA_TimerClockIsInCrementalOf15mins @Automatable
-  Scenario Outline: As a user i want to verify if Sleep settings timer is incremental of 15mins
+  @JasperNA_GeofenceTimerClockIsInCrementalOf15mins @Automated
+  Scenario: As a user i want to verify if Sleep settings timer is incremental of 15mins
     Given "Geofence" Schedule "With" sleep Settings
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-     When user <Condition> sleep settings in Geofence Schedule
+     When user creates "Geofence based" scheduling with default values "With" sleep settings
      Then user should be displayed sleep setting timer with increments of "15 minutes"
-  
-    Examples: 
-      | Condition   | 
-      | Edit        | 
-      | Creates new | 
+
   
   @GuidemessagToTurnONLocationservicesNA @NotAutomatable
   Scenario Outline:To get guide message to turn ON location services to edit geofence schedule by editing home settings 
@@ -131,19 +127,18 @@ Scenario: As a user i want to create an Geofence schdeule from Learn More
 #      And user is displayed with "Using Away/Home settings"
      
      
-     @NA_CopyScheduleToMulitpleStat @Automatable
+@NA_CopyScheduleToMulitpleStat @Automated
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user selects "CopyStatst" stats while creating "Geofence" schedule with default schedule value
-Then "Geofence" scheduling gets activated in <CopyStatst> stats
+When user creates default <ScheduleType> schedule value <CopyStats> stats
+Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
   
   Examples: 
- |CopyStatst |
-| None|
-|All|
-| Selected|
+|ScheduleType       |  CopyStats |  VerifyCopyStats |
+#|Geofence based  | without copying schedule to other|not copied to other|
+|Geofence based     | by copying schedule to all|copied to all other|
+#|Geofence based    | by copying schedule to selected|copied to selected|
 
 @NA_CopyScheduleWhenStatOffline @NotAutomatable
 # Given Account has a Location with Multiple Stats and Offline stats
@@ -153,19 +148,19 @@ And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user selects "CopyStatst" stats while creating "Geofence" schedule with default schedule value
 Then Offline Stat should't be displayed
 
-@NA_WhenHeat/CoolOnly @Automatable
+@NA_WhenHeat_CoolOnly @Automated
 Scenario Outline: As a user I want to create an Goefence schedule with Heat/Cold only modes
 Given user thermostat is configures with "Modes"system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates "Geofence based" scheduling with default values "Without" sleep settings
-Then  "Geofence" scheduling gets activated
-And user is displayed with <Modes> in Schedule
+Then  "Geofence based" scheduling gets activated
+#And user is displayed with <Modes> in Schedule
 
 Examples: 
 |Modes|
 |Heat Only|
-|Cool Only|
+#|Cool Only|
 
 @NA_CreateGeofenceWithEditingHome_Sleep_AwaySettings @Automated
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence

@@ -108,7 +108,7 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 			} else if (exampleData.get(1).equalsIgnoreCase("by copying schedule to selected")) {
 				inputs.setInputValue(InputVariables.SPECIFIC_STAT_COPYING, "Yes");
 			}
-			if (statInfo.getJasperDeviceType().equals("Jasper") || statInfo.getJasperDeviceType().equals("EMEA")) {
+			if (statInfo.getJasperDeviceType().equals("NA") || statInfo.getJasperDeviceType().equals("EMEA")) {
 				List<String> allowedModes = statInfo.getAllowedModes();
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());

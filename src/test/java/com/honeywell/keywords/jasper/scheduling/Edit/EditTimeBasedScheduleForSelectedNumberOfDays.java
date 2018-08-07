@@ -46,7 +46,7 @@ public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user edits the schedule periods of \"(.+)\"$")
+	@KeywordStep(gherkins = "^user edits schedule periods of \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 
 		if (exampleData.get(0).equalsIgnoreCase("One Day")) {
