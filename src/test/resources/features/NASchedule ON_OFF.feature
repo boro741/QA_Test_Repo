@@ -105,7 +105,7 @@ Examples:
 #|Cool only|geofence based|Using Sleep Settings |UserArrived |Sleep|
 
 
-@ScheduleOFFAdhocOverrideNAtimebaseGeofence @Automated --LYR-29397
+@ScheduleOFFAdhocOverrideNAtimebaseGeofence @Automated @LYR-29397
 Scenario Outline:As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
 #Schedule OFF the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  
 Given user has <Mode> system mode
@@ -412,7 +412,7 @@ Examples:
 
 
 @ScheduleONMultistatNA @Automated
-Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
+Scenario Outline: As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
