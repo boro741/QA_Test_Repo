@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
+import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -39,9 +40,34 @@ public class CreateScheduleUsingCHIL extends Keyword {
 		try {
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
+			LocationInformation statInfo = new LocationInformation(testCase, inputs);
+			long locationID = statInfo.getLocationID();
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 			String deviceID = devInfo.getDeviceID();
+//			String TPVstatus = devInfo.getThermostatSetPointsStatus();
 			String jasperStatType = devInfo.getJasperDeviceType();
+			
+			/**Pre-Condition : if schedule override with Temporary or permanent or vacation hold **/
+//			if(!TPVstatus.equalsIgnoreCase("NoHold"))
+//			{
+//			try {
+//				if (chUtil.getConnection()) {
+//					
+//					if (chUtil.setNoHoldAdhocstatus(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID ) == 200) {
+//						Keyword.ReportStep_Pass(testCase,
+//								"Resume override schedule Using CHIL : Successfully changed to "+ TPVstatus +" through CHIL");
+//					} else {
+//						flag = false;
+//						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+//								"Resume override schedule Using CHIL : Failed to change "+ TPVstatus +" through CHIL");
+//					}
+//				}
+//				} catch (Exception e) {
+//				flag = false;
+//				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+//						"Error Occured : " + e.getMessage());
+//				}
+//			}
 			if (exampleData.get(0).equalsIgnoreCase("no")) {
 				try {
 					if (chUtil.getConnection()) {
@@ -148,6 +174,32 @@ public class CreateScheduleUsingCHIL extends Keyword {
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Error Occured : " + e.getMessage());
 				}
+			}else if (exampleData.get(0).equalsIgnoreCase("pause"))
+			{
+			if (chUtil.getConnection()) {
+				if (chUtil.changeScheduleStatus(locationID, deviceID, "Pause") == 200) {
+					Keyword.ReportStep_Pass(testCase,
+							"Schedule is Paused ");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Schedule is Not Paused");
+					}
+			}
+		}else if (exampleData.get(0).equalsIgnoreCase("resume"))
+			{
+			if (chUtil.getConnection()) {
+				if (chUtil.changeScheduleStatus(locationID, deviceID, "Resume") == 200) {
+						Keyword.ReportStep_Pass(testCase,
+								"Schedule is Resumed");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Schedule is Not Resumed");
+						}
+						
+			}
+			
 			}
 			else
 			{

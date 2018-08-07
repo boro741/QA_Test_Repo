@@ -1,5 +1,6 @@
-@ScheduleON_OFF  @Comfort
+@ScheduleON_OFF @Comfort
 Feature: As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
+
 
 
 @ScheduleOFFONEMEA @Automated @LYR-29402
@@ -44,7 +45,7 @@ Examples:
 | scheduling | Schedule status |
 |time based | following schedule |
 
-@ScheduleONOFFEMEAgeofencebase @Automated    @LYR-29400
+@ScheduleONOFFEMEAgeofencebase Automated @LYR-29400
 Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence based 
 #Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has "Heat" system mode
@@ -260,3 +261,52 @@ Examples:
 |geofence based			  |UserArrived |Sleep| Away | UserDeparted | Using Sleep Settings | Using Away Settings|
 |Without sleep geofence based|UserDeparted |Away| Home | UserArrived | Using Away Settings| Using Home Settings | 
 |geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
+
+@ScheduleONMultistatEMEA @Automated
+Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
+#Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
+Given user has "Heat" system mode
+Then user thermostat is set to <scheduling> schedule 
+When user thermostat2 is set to <scheduling1> stats 
+Then user thermostat2 is set to <scheduled> stats
+When user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then user navigates to "Thermostat2" screen from the "T1PRIMARYCARD" screen
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then verify the "schedule off overlay" on the "Scheduling" screen
+
+Examples:
+| scheduling | scheduling1 |scheduled |
+|geofence based| time based | pause |
+|geofence based| geofence based | pause |
+|time based | geofence based | pause |
+|time based | time based | pause |
+
+
+
+@ScheduleOFFMultistatEMEA  @Automated
+Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
+#Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
+Given user has "Heat" system mode
+Then user thermostat is set to <scheduling> schedule
+Then user thermostat is set to <scheduled> stats
+When user thermostat2 is set to <scheduling1> stats 
+When user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then user navigates to "Thermostat2" screen from the "T1PRIMARYCARD" screen
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+
+Examples:
+| scheduling | scheduling1 |scheduled |
+|geofence based| time based | pause |
+|geofence based| geofence based | pause |
+|time based | geofence based | pause |
+|time based | time based | pause |

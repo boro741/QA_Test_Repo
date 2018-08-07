@@ -1,5 +1,5 @@
-@ScheduleON_OFF @Comfort
-Feature: As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
+@ScheduleON_OFF @Comfort 
+Feature:As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
 
 @ScheduleONOFFHB @Automated @LYR-29410
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  
@@ -184,3 +184,90 @@ Examples:
 #|Cool Only|geofence based			  |UserArrived |Sleep| Away | UserDeparted |
 #|Cool Only|Without sleep geofence based|UserDeparted |Away| Home | UserArrived |
 #|Cool Only|geofence based			  |UserDeparted |Away| Sleep | UserArrived |
+
+
+@ScheduleONMultistatHB @Automated
+Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
+#Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule 
+When user thermostat2 is set to <scheduling1> stats 
+Then user thermostat2 is set to <scheduled> stats
+When user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then user navigates to "Thermostat2" screen from the "T1PRIMARYCARD" screen
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then verify the "schedule off overlay" on the "Scheduling" screen
+
+Examples:
+|Mode | scheduling | scheduling1 |scheduled |
+|Cool|geofence based| geofence based | pause |
+#|Cool|geofence based| time based  | pause |
+#|Cool|time based | geofence based | pause |
+#|Cool|time based | time based  | pause |
+#|Heat|geofence based| time based | pause |
+#|Heat|geofence based| geofence based | pause |
+#|Heat|time based | geofence based | pause |
+#|Heat|time based | time based  | pause |
+#|Auto|geofence based| time based | pause |
+#|Auto|geofence based| geofence based | pause |
+#|Auto|time based | geofence based | pause |
+#|Auto|time based | time based  | pause |
+
+
+#incaserequired
+#|Cool Only|geofence based| time based | pause |
+#|Cool Only|geofence based| geofence based | pause |
+#|Cool Only|time based | geofence based | pause |
+#|Cool Only|time based | time based  | pause |
+#|Heat Only|geofence based| time based | pause |
+#|Heat Only|geofence based| geofence based | pause |
+#|Heat Only|time based | geofence based | pause |
+#|Heat Only|time based | time based  | pause |
+
+
+@ScheduleOFFMultistatHB  @Automated
+Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
+#Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
+Given user has <Mode> system mode
+Then user thermostat is set to <scheduling> schedule
+Then user thermostat is set to <scheduled> stats
+When user thermostat2 is set to <scheduling1> stats 
+When user launches and logs in to the Lyric application
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+Then user selects "Schedule OFF overlay" from "Scheduling" screen
+And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then user navigates to "Thermostat2" screen from the "T1PRIMARYCARD" screen
+When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
+Then Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+
+Examples:
+|Mode | scheduling | scheduling1 |scheduled |
+|Cool|geofence based| geofence based | pause |
+#|Cool|geofence based| time based  | pause |
+#|Cool|time based | geofence based | pause |
+#|Cool|time based | time based | pause |
+#|Heat|geofence based| time based | pause |
+#|Heat|geofence based| geofence based | pause |
+#|Heat|time based | geofence based | pause |
+#|Heat|time based | time based  | pause |
+#|Auto|geofence based| time based | pause |
+#|Auto|geofence based| geofence based | pause |
+#|Auto|time based | geofence based | pause |
+#|Auto|time based | time based  | pause |
+
+
+#incaserequired
+#|Cool Only|geofence based| time based | pause |
+#|Cool Only|geofence based| geofence based | pause |
+#|Cool Only|time based | geofence based | pause |
+#|Cool Only|time based | time based  | pause |
+#|Heat Only|geofence based| time based | pause |
+#|Heat Only|geofence based| geofence based | pause |
+#|Heat Only|time based | geofence based | pause |
+#|Heat Only|time based | time based  | pause |
