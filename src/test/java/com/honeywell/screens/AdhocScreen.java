@@ -51,7 +51,7 @@ public class AdhocScreen extends MobileScreens {
 		} else {
 			vacationStatus = MobileUtils
 					.getMobElement(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen")
-					.getAttribute("value");
+					.getAttribute("label");
 		}
 		return vacationStatus;
 	}

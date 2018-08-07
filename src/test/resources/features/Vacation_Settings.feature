@@ -209,16 +209,16 @@ Examples:
 
 
 #JasperEMEA
-@VacationActiveSwitchingModesEMEA			@UIAutomatable
-Scenario:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+@VacationActiveSwitchingModesEMEA			@Automated
+Scenario:  To verify geofence schedule switching modes is changed for "Heat, Cool and Off" system with auto changeover enabled
 Given user has "Heat" system mode
 And vacation mode is "active"
 When user launches and logs in to the Lyric application
 Then user verifies vacation is "on" in "solution card"
-When user changes system mode to "Off"
-And user verifies vacation is "off" in "solution card"
 When user changes system mode to "Cool" 
 Then user verifies vacation is "on" in "solution card"
+When user changes system mode to "Off"
+And user verifies vacation is "off" in "solution card"
 
 
 #JasperNA
@@ -339,7 +339,7 @@ Examples:
 		| Temporary						| Using while home/away/sleep	|
 
   
-@Vacations_VactionStatusOnDashabord			@UIAutomatable
+@Vacations_VactionStatusOnDashabord			@Automated
 Scenario: Verify if vacation is active when user is in Dashboard
 Given vacation mode is "active"
 When user launches and logs in to the Lyric application
