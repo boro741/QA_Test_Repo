@@ -33,7 +33,7 @@ public class SelectStatInVacationSettings extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects the (*) to edit$")
+	@KeywordStep(gherkins = "^user selects the \"(.+)\" to edit$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if(exampleData.get(0).equalsIgnoreCase("stat")) {

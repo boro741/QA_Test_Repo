@@ -33,7 +33,7 @@ public class SelectBaseStationMACID extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects a base station with MAC ID (.*)$")
+	@KeywordStep(gherkins = "^user selects a base station with MAC ID \"(.+)\"$")
 	public boolean keywordSteps() {
 		if (testCase.isTestSuccessful()) {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);

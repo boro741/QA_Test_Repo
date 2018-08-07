@@ -26,11 +26,8 @@ public class DashboardUtils {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
-
-		boolean flag = false;
-		
+		boolean flag = false;	
 		List<String> availableDevices = new ArrayList<String>();
-		
 		if (d.areDevicesVisibleOnDashboard(25)) {
 			dashboardIconText = d.getDashboardDeviceNameElements();
 		}

@@ -31,7 +31,7 @@ public class MembershipDetails extends Keyword  {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects (.*) option from the (.*) screen$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" option from the \"(.+)\" screen$")
 	public boolean keywordSteps() throws KeywordException{
 		
 		MembershipDetailsScreen mds = new MembershipDetailsScreen(testCase);

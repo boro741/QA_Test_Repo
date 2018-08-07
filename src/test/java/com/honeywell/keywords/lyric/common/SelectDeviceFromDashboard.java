@@ -32,7 +32,7 @@ public class SelectDeviceFromDashboard extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects (.*) from the dashboard$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" from the dashboard$")
 	public boolean keywordSteps() {
 		try
 		{

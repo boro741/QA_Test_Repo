@@ -54,7 +54,7 @@ public class SelectElementOnAScreen extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects \"(.*)\" from \"(.*)\" screen$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" from \"(.+)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (parameters.get(1).equalsIgnoreCase("Entry delay")) {
@@ -1143,8 +1143,8 @@ public class SelectElementOnAScreen extends Keyword {
 			else if (parameters.get(1).equalsIgnoreCase("thermostat2")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "PRIMARYCARD": {
-					inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-					inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+			//		inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			//		inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
 					String device1Name = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
 					System.out.println(locInfo.getDeviceCountOfLocation());
