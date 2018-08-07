@@ -5,15 +5,15 @@ Feature: Offset with Opt Out able true
 @VerifySavingEventScheduleMessageOffset @AutomatedonAndroid 
 Scenario: Verify Saving Event Schedule Message with DR Event Offset 
 	As a user, I should receive a saving event schedule message on the primary card, alerts screen and messages screen
-	#Given user thermostat is enrolled with DR 
-	#And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
+	Given user thermostat is enrolled with DR 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	When user launches and logs in to the Lyric application 
-	#And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
-	#Then "saving event schedule" message pop up is displayed on the primary card 
-	#And user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen 
-	#And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
+	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+	Then "saving event schedule" message pop up is displayed on the primary card 
+	And user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen 
+	And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
 	And user receives and views a "saving event schedule" message on the "ACTIVITY HISTORY" screen 
-	#Then user logs out of the app
+	Then user logs out of the app
 	
 @VerifySavingEventStartMessageOffset @AutomatedonAndroid 
 Scenario: Verify Saving Event Start Message with DR Event Offset 
