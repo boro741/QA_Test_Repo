@@ -55,7 +55,7 @@ And user launches and logs in to the Lyric application
 And user selects "FlyCatcher device" from the dashboard
 And user changes Vantilation mode to <To mode> with <Minutes> value
 And Ventilation Timer is Set to <Minutes>
-# And Verify Timer is displayed on the Stat
+ And Verify Timer is displayed on the Stat
 
 Examples:
 |To mode |Minutes|

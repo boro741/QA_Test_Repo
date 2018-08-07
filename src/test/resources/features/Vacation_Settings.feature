@@ -205,46 +205,45 @@ When user navigates to "Solutioncard" screen from "Dashboard" screen
 Then user should be displayed with <AdhocOverride> on "SolutionCard"
 When "Vacation" Ends 
 Then user should be display with <UAdhocOverride>  on "Solution card"
-
 Examples:
-		| Mode				| AdhocOverride				| UAdhocOverride				| 
-		| Cool				| Following Schedule			| Following schedule			|
-		| Cool				| Temporary					| Temporary					|
-		| Cool				| Permanent					| Permanent					| 
-		| Cool				| Specific Time				| specific time				| 
-		| Heat				| Following Schedule			| Following schedule			| 
-		| Heat				| Temporary					| Temporary					|
-		| Heat				| Permanent					| Permanent					|
-		| Heat				| Specific Time				| Specific time				|
-		| Auto				| Following Schedule			| Following Schedule			|
-		| Auto				| Temporary					| Temporary					|
-		| Auto				| Permanent					| Permanent					|
-		| Auto				| Specific Time				| Specific time				|
-		| Cool only			| Following Schedule			| Following schedule			|
-		| Cool only			| Temporary					| Temporary					|
-		| Cool only			| Permanent					| Permanent					|
-		| Cool only			| Specific Time				| Specific time				|
-		| Heat Only			| Following schedule			| Following schedule			|
-		| Heat only			| Temporary					| Temporary					|
-		| Heat only			| Permanent					| Permanent					|
-		| Heat only			| Specific Time				| Specific Time				|
-		#Vacation end in text period (After temporary ends )
-		| Cool				| Temporary					| Following Schedule			|
-		| Heat				| Temporary					| Following Schedule			|
-		| Auto				| Temporary					| Following Schedule			|
-		| Cool Only			| Temporary					| Following Schedule			|
-		| Heat only			| Temporary					| Following Schedule			|
-		| Cool				| Specific Time				| Following schedule			| 
-		| Heat				| Specific Time				| Following schedule			| 
-		| Auto				| Specific Time				| Following schedule			| 
-		| Cool Only			| Specific Time				| Following schedule			| 
-		| Heat only			| Specific Time				| Following schedule			| 
-		#Vacation ends after permanent hold ends 
-		| Cool				| Permanent					| Following schedule			|
-		| Heat				| Permanent					| Following schedule			|
-		| Auto				| Permanent					| Following schedule			|
-		| Cool Only			| Permanent					| Following schedule			|
-		| Heat only			| Permanent					| Following schedule			|
+|Mode | AdhocOverride | UAdhocOverride | 
+|Cool | Following Schedule | Following schedule |
+|Cool | Temporary | Temporary |
+|Cool | Permanent | Permanent | 
+|Cool | Specific Time | specific time | 
+| Heat | Following Schedule | Following schedule | 
+| Heat | Temporary | Temporary|
+| Heat | Permanent | Permanent |
+| Heat | Specific Time |  Specific time |
+| Auto | Following Schedule |Following Schedule|
+| Auto | Temporary | Temporary|
+| Auto | Permanent | Permanent |
+| Auto | Specific Time | Specific time |
+|Cool only | Following Schedule | Following schedule |
+|Cool only | Temporary | Temporary|
+|Cool only | Permanent | Permanent |
+|Cool only | Specific Time |  Specific time |
+|Heat Only |Following schedule | Following schedule |
+| Heat only | Temporary | Temporary|
+| Heat only | Permanent |Permanent |
+|Heat only | Specific Time | Specific Time |
+#Vacation end in text period (After temporary ends )
+|Cool | Temporary | Following Schedule |
+|Heat | Temporary | Following Schedule |
+|Auto | Temporary | Following Schedule |
+|Cool Only| Temporary | Following Schedule |
+|Heat only | Temporary | Following Schedule |
+|Cool | Specific Time | Following schedule | 
+| Heat | Specific Time | Following schedule | 
+| Auto | Specific Time | Following schedule | 
+|Cool Only | Specific Time | Following schedule | 
+|Heat only | Specific Time | Following schedule | 
+#Vacation ends after permanent hold ends 
+|Cool | Permanent | Following schedule |
+| Heat | Permanent | Following schedule |
+| Auto | Permanent | Following schedule |
+|Cool Only | Permanent | Following schedule |
+|Heat only | Permanent | Following schedule |
 
 
 #JasperEMEA
