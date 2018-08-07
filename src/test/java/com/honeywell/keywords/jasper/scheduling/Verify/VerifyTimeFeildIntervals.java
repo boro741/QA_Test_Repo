@@ -37,7 +37,7 @@ public class VerifyTimeFeildIntervals extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^verify the time fields can be set with increments of \"(.+)\"$")
+	@KeywordStep(gherkins = "^user should be displayed sleep setting timer with increments of \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
