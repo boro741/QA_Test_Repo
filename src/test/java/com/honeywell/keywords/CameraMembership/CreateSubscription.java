@@ -37,7 +37,7 @@ public class CreateSubscription extends Keyword  {
 	
 
 	@Override
-	@KeywordStep(gherkins = "^user selects (.*) plan from the (.*) screen and selects (.*)$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" plan from the \"(.+)\" screen and selects \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException{
 			
 		HoneywellMembershipScreen hm = new HoneywellMembershipScreen(testCase);

@@ -111,7 +111,7 @@ Everyday1	XPATH	//*[@content-desc='1_Everyday']	XPATH	//*[@content-desc='1_Every
 Everyday2	XPATH	//*[@content-desc='2_Everyday']	XPATH	//*[@content-desc='2_Everyday']	XPATH	//*[@content-desc='2_Everyday']	NAME	Everyday_2_cell	NAME	Everyday_2_cell	NAME	Everyday_2_cell
 Everyday3	XPATH	//*[@content-desc='3_Everyday']	XPATH	//*[@content-desc='3_Everyday']	XPATH	//*[@content-desc='3_Everyday']	NAME	Everyday_3_cell	NAME	Everyday_3_cell	NAME	Everyday_3_cell
 Everyday4	XPATH	//*[@content-desc='4_Everyday']	XPATH	//*[@content-desc='4_Everyday']	XPATH	//*[@content-desc='4_Everyday']	NAME	Everyday_4_cell	NAME	Everyday_4_cell	NAME	Everyday_4_cell
-TimeChooserHeader	XPATH	"//*[contains(@text,'Start')]"	XPATH	"//*[contains(@text,'Start')]"	XPATH	"//*[contains(@text,'Start')]"	name	Start Time	XPATH	"//*[contains(@value,'Start Time) or contains(@value,'End Time')]"	XPATH	"//*[contains(@value,'Start Time) or contains(@value,'End Time')]"
+TimeChooserHeader	XPATH	"//*[contains(@text,'Start')]"	XPATH	"//*[contains(@text,'When does the first') or contains(@text,'When does the last')]"	XPATH	"//*[contains(@text,'When does the first') or contains(@text,'When does the last')]"	name	Start Time	XPATH	"//*[contains(@value,'Start Time) or contains(@value,'End Time')]"	XPATH	"//*[contains(@value,'Start Time) or contains(@value,'End Time')]"
 TempChooserHeader	iD	scheduling_temp_chooser_title	XPATH	//*[@text='What temperature is preferred during this time?']	XPATH	//*[@text='What temperature is preferred during this time?']	NAME	HEAT TO	NAME	HEAT TO	NAME	HEAT TO
 Weekday1	XPATH	//*[@content-desc='1_Monday - Friday']	XPATH	//*[@content-desc='1_Monday - Friday']	XPATH	//*[@content-desc='1_Monday - Friday']	nAME	Monday - Friday_1_cell	XPATH	//*[@name='Monday - Friday_1']	XPATH	//*[@name='Monday - Friday_1']
 Weekday2	XPATH	//*[@content-desc='2_Monday - Friday']	XPATH	//*[@content-desc='2_Monday - Friday']	XPATH	//*[@content-desc='2_Monday - Friday']	NAME	Monday - Friday_2_cell	XPATH	//*[@name='Monday - Friday_2']	XPATH	//*[@name='Monday - Friday_2']
@@ -151,7 +151,7 @@ WeekdayScheduleTitleAndPeriodTime							XPATH	"//XCUIElementTypeStaticText[conta
 UsingAway	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	ID	Using Away Settings	ID	Using Away Settings	ID	Using Away Settings
 UsingHome	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	ID	Using Home Settings	ID	Using Home Settings	ID	Using Home Settings
 UsingSleep	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	ID	Using Sleep Settings	ID	Using Sleep Settings	ID	Using Sleep Settings
-ScheduleOffStatus	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	ID	Schedule Off	ID	Schedule Off	ID	Schedule Off
+ScheduleOffStatus	XPATH	//*[@text='SCHEDULE OFF']	XPATH	//*[@text='SCHEDULE OFF']	XPATH	//*[@text='SCHEDULE OFF']	ID	Schedule Off	ID	Schedule Off	ID	Schedule Off
 FollowingSchedule	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	ID	Following Schedule	ID	Following Schedule	ID	Following Schedule
 DoneButton	id	btn_done	id	btn_done	id	btn_done	NAME	Save	NAME	Save	NAME	Save
 CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
