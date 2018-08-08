@@ -4,6 +4,8 @@ import com.honeywell.commons.coreframework.*;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
+import com.honeywell.screens.DRScreens;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
 import java.util.ArrayList;
@@ -50,6 +52,17 @@ public class TaponElement extends Keyword {
 			ts.clickOnBelowAboveTempAlertRangeOption(expectedLocator.get(0));
 			break;
 		}
+		case "DOWN STEPPER": {
+			PrimaryCard ds = new PrimaryCard(testCase);
+			ds.clickOnDownStepper();
+			break;
+		}
+		case "UP STEPPER": {
+			PrimaryCard us = new PrimaryCard(testCase);
+			us.clickOnUpStepper();
+			break;
+		}
+		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

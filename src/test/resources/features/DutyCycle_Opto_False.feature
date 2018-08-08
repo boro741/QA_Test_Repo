@@ -1,4 +1,4 @@
-@DutyCycleWithOptOutableFalse
+@DutyCycleWithOptOutableFalse 
 Feature: Duty Cycle with OptOutable set to false
 As a user, I should not be able to opt out of DR when my duty cycle is enabled
 

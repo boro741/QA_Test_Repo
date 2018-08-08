@@ -191,6 +191,34 @@ public class VerifyDRMessage extends Keyword {
 				}
 
 			}
+			else if (exampleData.get(0).equalsIgnoreCase("saving event canceled by user")) {
+				String deviceDay;
+				String deviceDay1;
+				if (deviceDRStartTime.split("T")[0].equals(currentDeviceTime.split("T")[0])) {
+					deviceDay = "today";
+					deviceDay1 = "Today";
+				} else {
+					deviceDay = deviceDRStartTime.split("T")[0];
+					deviceDay1 = deviceDRStartTime.split("T")[0];
+				}
+				message = "A user has canceled the Savings Event.";
+
+				for (Entry<String, String> s : combinedMessage.entrySet()) {
+					System.out.println(s.getValue());
+					if (s.getKey().contains("Canceled")) {
+						if (s.getValue().contains(message)) {
+							isMessagePresent = true;
+							Keyword.ReportStep_Pass(testCase,
+									"Verify DR Message : Savings Event Canceled by User DR Message displayed with correct values");
+						}
+						else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify DR Message : Savings Event Canceled by User DR Message is not displayed with correct values");
+						}
+					}
+				}
+
+			}
 
 		} catch (Exception e) {
 			flag = false;
