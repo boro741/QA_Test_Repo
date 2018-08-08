@@ -576,6 +576,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSoundScreen(testCase, inputs);
 					break;
 				}
+				
+				//Navigate from 'Dashboard' to 'Camera Sound Detection Screen'
+				case "SOUND DETECTION" : {
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(testCase, inputs);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Ventilation Screen'
 				case "VENTILATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToVentilationScreen(testCase, inputs);
@@ -1481,7 +1487,7 @@ public class NavigateToScreen extends Keyword {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
 						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
-						if (cs.isCameraSettingsHeaderTitleVisible(20) && cs.isSoundDetectionLabelVisible(1)) {
+						if (cs.isCameraSettingsHeaderTitleVisible(20) && cs.isSoundDetectionLabelVisible(testCase, 1)) {
 							cs.clickOnSoundDetectionLabel();
 							if (cs.isSoundDetectionScreenHeaderTitleVisible(20)) {
 								return flag;
@@ -1539,7 +1545,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SOUND DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (cs.isSoundDetectionLabelVisible(20)) {
+					if (cs.isSoundDetectionLabelVisible(testCase, 20)) {
 						cs.clickOnSoundDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}

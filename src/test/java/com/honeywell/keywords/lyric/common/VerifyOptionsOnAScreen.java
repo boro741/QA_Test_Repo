@@ -787,7 +787,31 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		case "SOUND": {
+		
+		case "Sound Sensitivity Settings":{
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Settings");
+				try {
+					if (cs.isSoundDetectionOptionVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase, "Camera Sound Option: '" + fieldToBeVerified
+								+ "' is present in the list of Options in Sound Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Sound Option: '" + fieldToBeVerified
+										+ "' is not present in the list of Options in Sound Screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		
+		case "SOUND": 
+		case "SOUND DETECTION":{
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "SoundOptions");
@@ -1097,6 +1121,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		}
 			break;
 		}
+		
 		case "THERMOSTAT CONFIGURATION": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {

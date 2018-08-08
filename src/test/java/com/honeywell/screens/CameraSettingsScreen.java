@@ -57,7 +57,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInMotionDetectionScreen");
 	}
 
-	public boolean isSoundDetectionLabelVisible(int timeOut) {
+	public boolean isSoundDetectionLabelVisible(TestCases testCase, int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionLabel", timeOut);
 	}
 
@@ -848,6 +848,30 @@ public class CameraSettingsScreen extends MobileScreens {
 		return flag;
 	}
 
+	
+	public boolean isSoundDetectionOptionVisible(String indoorSoundOption) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/list_item_lyric_horizontal_text_view_primary_text' and @text='"
+							+ indoorSoundOption + "']",
+					testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("NAME", indoorSoundOption + "_subTitle", testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	
+	
 	public boolean isSoundDetectionSectionIsEnabled(TestCases testCase) {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionSection", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -1503,4 +1527,17 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean clickOnOKButtonInTurnOffCameraMicrophonePopup(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInTurnOffCameraMicrophonePopup");
 	}
+	
+	public boolean verifySoundSSensitivitytatusInSettingsScreen(TestCases testCase, String soundStatus) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraSoundSensitivityValueInSettingsScreen")
+				&& MobileUtils.getFieldValue(objectDefinition, testCase, "CameraSoundSensitivityValueInSettingsScreen")
+						.equalsIgnoreCase(soundStatus)) {
+			return flag;
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
 }
