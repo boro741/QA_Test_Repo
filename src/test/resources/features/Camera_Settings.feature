@@ -18,13 +18,13 @@
 | Camera Microphone   | 
  And the following "Camera Settings" options should be enabled:
  | Options             | 
- | Manage Alerts       |
+ | Manage Alerts      
  | Camera Configuration| 
  
  Examples:
  		|State  |
  		|Offline|
- 		|Upgrade|
+ 	#	|Upgrade|
           
      
 @CameraSettingsCameraOff      @P3        @UIAutomatable
@@ -371,28 +371,33 @@ Then the following "Sound Detection" options should be enabled:
        
 @VerifySoundSensitivitySettings      @P3        @UIAutomatable
 Scenario: As a user I should be able to set sound sensitivity on my camera to Low, Normal and High
-Given user camera is set to "on" through CHIL
-And sound detection is "enabled" on user camera through CHIL
-When user launches and logs in to the Lyric application 
+#Given user camera is set to "on" through CHIL
+#And sound detection is "enabled" on user camera through CHIL
+Given user launches and logs in to the Lyric application 
 And user navigates to "Sound Detection Settings" screen from the "Dashboard" screen
+When user changes the "Sound Detection" to "On"
 Then user should be displayed with the following "Sound Sensitivity Settings" options:
-| Settings | 
+| SoundOptions | 
 | Low      |
 | Normal   | 
 | High     |
 When user changes the "Sound Sensitivity" to "Low"
 Then "Sound Sensitivity" value should be updated to "Low" on "Sound Detection Settings" screen
-And "low" sound detection changes should be reported
+And user navigates to "Camera Settings" Screen from the "Sound Detection Settings" Screen
+Then "Sound Detection" value should be updated to "Low" on "Camera Settings" screen
+And user navigates to "Sound Detection Settings" screen from the "Camera Settings" screen
 When user changes the "Sound Sensitivity" to "medium"
 Then "Sound Sensitivity" value should be updated to "medium" on "Sound Detection Settings" screen
-And "medium" sound detection changes should be reported
+And user navigates to "Camera Settings" Screen from the "Sound Detection Settings" Screen
+Then "Sound Detection" value should be updated to "Low" on "Camera Settings" screen
 When user changes the "Sound Sensitivity" to "high"
 Then "Sound Sensitivity" value should be updated to "high" on "Sound Detection Settings" screen
-And "high" sound detection changes should be reported
+And user navigates to "Camera Settings" Screen from the "Sound Detection Settings" Screen
+Then "Sound Detection" value should be updated to "Low" on "Camera Settings" screen
 #login with different mobiles for the status of configured options to verify the settings as user account level
       
       
- @SoundSettingsEnableCameraMicrophone      @P4        @UIAutomatable
+@SoundSettingsEnableCameraMicrophone      @P4        @UIAutomatable
 Scenario: As a user I should be able to retain sound settings on turning on microphone from off
 Given user camera is set to "on" through CHIL
 When user launches and logs in to the Lyric application
@@ -545,6 +550,16 @@ Then user should be displayed with the following "Camera Configuration" options:
 | Camera Name    | 
 | Model Details  |
 #login with different mobiles for the status of configured options to verify the settings as user account level
+
+      
+@EditCameraName     @P2        @AutomatedOnAndroid
+Scenario Outline: As a user I should be able to edit the camera name
+Given user launches and logs in to the Lyric application 
+And user camera is in <State> 
+When user navigates to "Camera Configuration" screen from the "Dashboard" screen
+And user edits "Camera name"
+#verify the all valid naming criterias
+Then user should be displayed with "edited name" 
 Examples:
 		|State  |
 		|On     |

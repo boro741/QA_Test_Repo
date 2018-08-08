@@ -872,6 +872,30 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			;
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
+			if (cs.isSoundDetectionLabelVisible(testCase, 5)) {
+				cs.clickOnSoundDetectionLabel();
+				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 
 	/**
 	 * <h1>Navigate from Dashboard to Camera Night Vision Settings Screen</h1>

@@ -272,8 +272,8 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
-					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
+			} else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")||parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY"))
+					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")){
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("off")) {
 					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
@@ -834,7 +834,43 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Status is not displayed");
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")
+			}else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+					flag = flag & ts.verifySoundSSensitivitytatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
+					flag = flag & ts.verifySoundSSensitivitytatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound status is not set to: " + parameters.get(1));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("NORMAL")) {
+					flag = flag & ts.verifySoundSSensitivitytatusInSettingsScreen(testCase, parameters.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Sound status is set to: " + parameters.get(1));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound status is not set to: " + parameters.get(1));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Status is not displayed");
+				}
+			}  
+			
+			else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")
 					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {

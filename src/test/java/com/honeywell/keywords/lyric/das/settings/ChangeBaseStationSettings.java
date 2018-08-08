@@ -988,7 +988,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to set the Sleep Brightness Mode to: " + parameters.get(1));
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("SOUND")) {
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND")|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY	")) {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
@@ -1017,6 +1017,19 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("NORMAL")) {
+					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Sound Status is already set to: " + parameters.get(1));
+					} else {
+						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Sound Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sound Status is not set to: " + parameters.get(1));
+						}
+					}
+				}else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
 					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Sound Status is already set to: " + parameters.get(1));
 					} else {
