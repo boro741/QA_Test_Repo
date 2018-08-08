@@ -2,7 +2,7 @@
  Feature: C1 Camera Settings 
  As user I should be able to configure camera settings from the app
   
- @CameraSettingsPartialDisabled    @P4        @UIAutomatable
+ @CameraSettingsPartialDisabled    @P4        @Automated
  Scenario Outline: As a user I should be having limited access to configure camera settings when my camera is in offline or in upgrade state 
  Given user camera is in <State> 
  And user launches and logs in to the Lyric application
@@ -397,18 +397,20 @@ Then "Sound Detection" value should be updated to "Low" on "Camera Settings" scr
 #login with different mobiles for the status of configured options to verify the settings as user account level
       
       
-@SoundSettingsEnableCameraMicrophone      @P4        @UIAutomatable
+@SoundSettingsEnableCameraMicrophone      @P4        @Automated
 Scenario: As a user I should be able to retain sound settings on turning on microphone from off
-Given user camera is set to "on" through CHIL
-When user launches and logs in to the Lyric application
+#Given user camera is set to "on" through CHIL
+Given user launches and logs in to the Lyric application
+And user navigates to "Sound Detection" screen from the "Dashboard" screen
 And user changes the "Sound Sensitivity" to "Low"
-And user navigates to "Camera Settings" screen from the "Dashboard" screen
-And user disables the "Camera Microphone"
-Then user should be displayed with "Warning" popup
-When user "confirms" the "warning" popup
-Then user should be displayed with "Camera Microphone" disabled
-And user should be displayed with "Sound Detection" grayed out
-When user enables the "Camera Microphone"
+And user changes "Camera Microphone" to "Off"
+Then user should receive a "Turn Off Camera Microphone" popup
+When user "confirms" the "Turn Off Camera Microphone" popup
+And the following "Camera Settings" options should be disabled:
+| Options				| 
+| Camera Microphone		|
+|Sound Detection			|
+When  user changes "Camera Microphone" to "ON"
 Then user should be displayed with "Sound Sensitivity" to "Low"
       
         

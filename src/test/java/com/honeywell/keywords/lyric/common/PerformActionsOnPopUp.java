@@ -720,8 +720,15 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("TURN OFF CAMERA MICROPHONE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					flag = flag & cs.clickOnMicrophonePopupOkbutton(testCase);
 		} 
+
+			}
+		}
 		else if (expectedPopUp.get(1).equalsIgnoreCase("DR CANCEL")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
@@ -741,6 +748,8 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
+
+
 		} 
 		else {
 			flag = false;

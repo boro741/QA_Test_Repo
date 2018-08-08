@@ -306,6 +306,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & HBNAEMEASettingsUtils.verifyDeleteThermostatDeviceConfirmationPopUp(testCase, inputs);
 			break;
 		}
+		case "TURN OFF CAMERA MICROPHONE": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			flag = flag & cs.verifyCameraTurnOffMicrophonePopUp(testCase);
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
