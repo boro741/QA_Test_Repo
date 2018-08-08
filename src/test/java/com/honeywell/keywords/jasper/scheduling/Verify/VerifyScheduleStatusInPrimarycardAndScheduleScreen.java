@@ -1,16 +1,8 @@
 package com.honeywell.keywords.jasper.scheduling.Verify;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.http.client.methods.HttpGet;
-import org.openqa.selenium.support.ui.FluentWait;
-
-import com.google.common.base.Function;
-import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -18,24 +10,20 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
-import com.honeywell.jasper.utils.JasperSchedulingUtils;
-import com.honeywell.jasper.utils.JasperSetPoint;
-import com.honeywell.jasper.utils.JasperVacation;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 
-public class VerifyScheduleOFF extends Keyword {
+public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword {
 
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 	public ArrayList<String> parameters;
 
-	public VerifyScheduleOFF(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public VerifyScheduleStatusInPrimarycardAndScheduleScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.parameters = exampleData;
@@ -122,6 +110,26 @@ public class VerifyScheduleOFF extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "Following Schedule displayed");
 						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Schedule not displayed");
+						break;
+					}
+					case "FOLLOWING SCHEDULE NOT DISPLAYED": {
+						SchedulingScreen FollowingS = new SchedulingScreen(testCase);
+						flag = flag & FollowingS.isFollowingSchedulesVisible(2);
+						if(!flag){
+							Keyword.ReportStep_Pass(testCase, "Following Schedule not displayed");
+							return true;
+						}	
+						else
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Schedule displayed");
+						break;
+					}
+					case "SYSTEM IS OFF": {
+						PrimaryCard SS = new PrimaryCard(testCase);
+						flag = flag & SS.isSystemIsOffVisible(5);
+						if(flag)
+							Keyword.ReportStep_Pass(testCase, "System Is Off status is displayed");
+						else
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "System Is Off status is not displayed");
 						break;
 					}
 					case "USING HOME SETTINGS": {

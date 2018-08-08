@@ -289,11 +289,6 @@ public class JasperAdhocOverride {
 		return flag;
 	}
 	
-	private static void getConnection() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public static boolean VerificationofPermanentHold(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
