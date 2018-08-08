@@ -1031,7 +1031,9 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isSystemIsOffVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeStatus", timeOut);
 	}
+	
 	public boolean isDrGreenLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DrEventLabel");
 	}
+
 }

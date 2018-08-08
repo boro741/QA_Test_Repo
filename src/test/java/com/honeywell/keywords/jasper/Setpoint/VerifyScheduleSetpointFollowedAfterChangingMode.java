@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperAdhocOverride;
 import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.screens.SensorSettingScreen;
 
