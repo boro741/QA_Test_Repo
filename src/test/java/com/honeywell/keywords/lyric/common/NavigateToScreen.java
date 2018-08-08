@@ -559,7 +559,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 
-				// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'
+			/*	// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'
 				case "THERMOSTAT HUMIDIFICATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatHumidificationScreen(testCase,
 							inputs);
@@ -586,9 +586,9 @@ public class NavigateToScreen extends Keyword {
 					flag = flag
 							& DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase, inputs);
 					break;
-				}
+				}*/
 
-				// Navigate from 'Camera Dashboard' to Manage Alerts Screen'
+				/*// Navigate from 'Camera Dashboard' to Manage Alerts Screen'
 				case "CAMERA MANAGE ALERTS": {
 					flag = flag
 							& DASSettingsUtils.navigateFromDashboardScreenToCameraManageAlertsScreen(testCase, inputs);
@@ -599,7 +599,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatConfigurationScreen(testCase,
 							inputs);
 					break;
-				}
+				}*/
 				// Navigate from 'Dashboard' to 'Set Filter Reminder Screen'
 				case "SET FILTER REMINDER": {
 					flag = flag

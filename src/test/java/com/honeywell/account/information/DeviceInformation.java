@@ -757,4 +757,65 @@ public class DeviceInformation {
 		}
 		return DREndTime;
 	}
+	
+	public boolean isDutyCycleEnabled() throws Exception
+	{
+		try
+		{
+			if (deviceInformation != null) {
+				try {
+					JSONObject dr = deviceInformation.getJSONObject("drEvent");
+					JSONArray intervals = dr.getJSONArray("intervals");
+					JSONObject temp = intervals.getJSONObject(0);
+					return temp.getBoolean("dutyCycleEnabled");
+				} catch (JSONException e) {
+					throw new Exception(e.getMessage());
+				}
+			}
+			else
+			{
+				throw new Exception("Thermostat Information not found");
+			}
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
+	}
+	public String getDRCoolSetPointLimit() throws Exception {
+		String setPointLimit ;
+		try {
+			if (deviceInformation != null) {
+				try {
+					JSONObject dr = deviceInformation.getJSONObject("drEvent");
+					setPointLimit = dr.get("coolSetpointLimitMin").toString();
+				} catch (JSONException e) {
+					throw new Exception(e.getMessage());
+				}
+			} else {
+				throw new Exception("Thermostat Information not found");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return setPointLimit;
+	}
+	public String getDRHeatSetPointLimit() throws Exception {
+		String setPointLimit ;
+		try {
+			if (deviceInformation != null) {
+				try {
+					JSONObject dr = deviceInformation.getJSONObject("drEvent");
+					setPointLimit = dr.get("heatSetpointLimitMax").toString();
+				} catch (JSONException e) {
+					throw new Exception(e.getMessage());
+				}
+			} else {
+				throw new Exception("Thermostat Information not found");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return setPointLimit;
+	}
 }

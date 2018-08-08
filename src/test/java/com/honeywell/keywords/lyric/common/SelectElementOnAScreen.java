@@ -135,6 +135,7 @@ public class SelectElementOnAScreen extends Keyword {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnFanButton();
 					break;
+					
 				}
 				default: {
 					flag = false;

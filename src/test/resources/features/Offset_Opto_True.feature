@@ -54,27 +54,29 @@ Scenario: Verify Saving Event Cancel By Utility Message Offset
 	And user receives and views a "saving event canceled by utility" message on the "ACTIVITY HISTORY" screen 
 	And user logs out of the app 
 	
-@VerifySavingEventCancelByUserMessageOffset  @UIAutomatable 
+@VerifySavingEventCancelByUserMessageOffset  @AutomatedonAndroid
 Scenario: Verify Saving Event Cancel By User Message Offset 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "2" minutes from now 
 	And DR event has started on the user device 
-	And user has "cool" system mode 
-	When user logs in to Lyric app 
-	Then user should be displayed with a "saving event until green" label on the primary card 
-	When user "decreases" the dialer set points 
-	Then user "receives" a cancel saving event message with a "Yes and No" option 
-	When user taps on the "No" option 
-	Then user should be displayed with a "saving event until green" label on the primary card 
-	And user set points should be "DR Cool" set points 
+	When user launches and logs in to the Lyric application 
+	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+	And user changes system mode to "Cool"
+	Then user "SHOULD BE DIPLAYED" with the "DR event label" option
+	And user taps on "Down Stepper"
+	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
+	When user "DISMISSES" the "DR CANCEL" popup
+	Then user "SHOULD BE DIPLAYED" with the "DR event label" option
+	Then user should be displayed with "DR" setpoint value in solution card
 	When user changes system mode to "heat" 
-	And user "increases" the dialer set points 
-	Then user "receives" a cancel saving event message with a "Yes and No" option 
-	When user taps on the "Yes" option 
-	Then user should not be displayed with a DR event label on the primary card 
-	And user receives a "saving event cancelled by user" alert on the alert screen 
-	And user receives and views a "saving event cancelled by user" message on the messages screen 
+	And user taps on "UP STEPPER"
+	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
+	When user "ACCEPTS" the "DR CANCEL" popup
+	Then user "should not be displayed" with the "DR event label" option
+	And user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen 
+	And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
+	And user receives and views a "saving event canceled by user" message on the "ACTIVITY HISTORY" screen 
 	And user logs out of the app 
 
 	
