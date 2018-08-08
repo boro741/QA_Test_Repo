@@ -52,8 +52,7 @@ public class CreateScheduleUsingCHIL extends Keyword {
 			{
 				try {
 					if (chUtil.getConnection()) {
-						if(TPVstatus.equalsIgnoreCase("HoldUntil") || TPVstatus.equalsIgnoreCase("PermanentHold") || 
-								TPVstatus.equalsIgnoreCase("VacationHold") || TPVstatus.equalsIgnoreCase("TemporaryHold"))
+						if(TPVstatus.equalsIgnoreCase("HoldUntil") || TPVstatus.equalsIgnoreCase("PermanentHold") || TPVstatus.equalsIgnoreCase("TemporaryHold"))
 							if (chUtil.setResumeAdhocstatus(locationID,deviceID, testCase) == 200) {
 								Keyword.ReportStep_Pass(testCase,
 										"Resume override schedule Using CHIL : Successfully changed to "+ TPVstatus +" through CHIL");
@@ -61,7 +60,17 @@ public class CreateScheduleUsingCHIL extends Keyword {
 								flag = false;
 								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Resume override schedule Using CHIL : Failed to change "+ TPVstatus +" through CHIL");
-							}
+							}else 
+								if (TPVstatus.equalsIgnoreCase("VacationHold")) {
+									if (chUtil.disableVacation(locationID, deviceID) == 200) {
+										Keyword.ReportStep_Pass(testCase,
+												"Activate Vacation Using CHIL : Successfully disabled vacation using CHIL");
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Activate Vacation Using CHIL : Failed to disable vacation using CHIL");
+									}
+								}
 					}
 					flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
 					String Schedulestatus = devInfo.getscheduleStatus();
