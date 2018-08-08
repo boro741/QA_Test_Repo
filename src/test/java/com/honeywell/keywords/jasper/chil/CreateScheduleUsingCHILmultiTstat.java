@@ -147,8 +147,7 @@ public class CreateScheduleUsingCHILmultiTstat extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Schedule is Not Resumed");
-							}
-							
+							}		
 				}
 				
 				}
@@ -158,6 +157,7 @@ public class CreateScheduleUsingCHILmultiTstat extends Keyword {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + exampleData.get(0));
 			}
 			inputs.setInputValue("LOCATION1_DEVICE1_NAME",Location1_device1_name);
+			System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,

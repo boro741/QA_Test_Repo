@@ -13,9 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -23,6 +26,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.lyric.das.utils.DASUtils;
@@ -1010,7 +1015,7 @@ public class CHILUtil implements AutoCloseable {
 		try {
 			if (isConnected) {
 				String url = chilURL
-						+ String.format("api/V2/locations/%s/Schedule/Status", locationID);
+						+ String.format("api/V2/locations/%s/Schedule/Status/", locationID);
 				String headerData = String.format("{\"deviceIds\":[\"%s\"],\"scheduleStatus\":\"%s\"}", deviceID,ScheduleStatus);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
@@ -1043,17 +1048,27 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
-	public int setNoHoldAdhocstatus(long locationID, String deviceID) {
+	public int setResumeAdhocstatus(long locationID,  String deviceID, TestCases testCase) {
 		int result = -1;
 		try {
 			if (isConnected) {
-				String url = chilURL
-						+ String.format("api/locations/%s/devices/%s/thermostat/changeableValues/	", locationID, deviceID);
-				String headerData = String.format("{\"thermostatSetpointStatus\":\"%s\"}", "NoHold");
-				try {
-					result = doPostRequest(url, headerData).getResponseCode();
-				} catch (IOException e) {
-					e.printStackTrace();
+				DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+				String SystemMode = devInfo.getThermoStatMode();
+				String url = "";
+				if(SystemMode.equalsIgnoreCase("Heat"))
+					{
+						url = chilURL + String.format("api/V2/locations/%s/devices/%s/thermostat/HeatSetpoint/", locationID, deviceID);
+						
+					}
+				if(SystemMode.equalsIgnoreCase("Cool"))
+					{
+						url = chilURL + String.format("api/V2/locations/%s/devices/%s/thermostat/CoolSetpoint/", locationID, deviceID);
+					}
+				String headerData = String.format("{\"thermostatSetpointStatus\":\"%s\"}","NoHold");
+			try {
+				result = doPutRequest(url, headerData).getResponseCode();
+				}catch (IOException e) {
+				e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {
