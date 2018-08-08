@@ -701,6 +701,34 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("DR event label")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & !thermo.isDrGreenLabelVisible();
+				if (flag) {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is displayed");
+				} else {
+					flag = true;
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			case "SHOULD BE DISPLAYED": {
+				PrimaryCard dr = new PrimaryCard(testCase);
+				flag = flag & dr.isDrGreenLabelVisible();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
+		}
+		
 		return flag;
 
 	}

@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
@@ -19,6 +20,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -719,12 +721,34 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
-		} else {
+		} 
+		else if (expectedPopUp.get(1).equalsIgnoreCase("DR CANCEL")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				DRScreens ddc = new DRScreens(testCase);
+				flag = flag & ddc.ClickOnCancelNoPopup();
+				break;
+			}
+			case "ACCEPTS": {
+				DRScreens ddc = new DRScreens(testCase);
+				flag = flag & ddc.ClickOnCancelYesPopup();
+				DRUtils.waitForProgressBarToComplete(testCase, "DR Label", 1);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} 
+		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}
 		return flag;
 	}
+	
 
 	@Override
 	@AfterKeyword

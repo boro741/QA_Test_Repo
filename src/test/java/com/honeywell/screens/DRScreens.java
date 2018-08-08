@@ -1,18 +1,8 @@
 package com.honeywell.screens;
 
-import java.util.HashMap;
-import java.util.List;
-
-import org.openqa.selenium.WebElement;
-
-import com.honeywell.account.information.DeviceInformation;
-import com.honeywell.commons.coreframework.Keyword;
-import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
-import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.utils.CoachMarkUtils;
 
 public class DRScreens extends MobileScreens {
 
@@ -39,21 +29,25 @@ public class DRScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OK");
 				
 	}
-
-	public boolean isAlarmDismissButtonDisplayed()
+	public boolean isSavingEventCancelTitleDisplayed()
 	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Cancel Savings Event");
+				
 	}
-
-	public boolean clickOnDismissAlarm() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlarmDismissButton") &&
-				MobileUtils.clickOnElement(objectDefinition, testCase, "DismissAlarmPopupOk");
-
+	public String VerifyDRMessageCancelContent()
+	{
+		return MobileUtils.getMobElement(objectDefinition, testCase, "CancelMessage").getText();
+				
 	}
-
-	public boolean clickOnCall() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CallButton");
+	public boolean ClickOnCancelYesPopup()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelYes");
+				
 	}
-
+	public boolean ClickOnCancelNoPopup()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelNo");
+				
+	}
 	
 }
