@@ -719,7 +719,22 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
-		} else {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("TURN OFF CAMERA MICROPHONE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					flag = flag & cs.clickOnMicrophonePopupOkbutton(testCase);
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+
+		}
+		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

@@ -1539,5 +1539,12 @@ public class CameraSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
+	public boolean verifyCameraTurnOffMicrophonePopUp(TestCases testCase) {
+		return  (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraMicrophoneTurnOffPopUp"));
+	}
+	
+	public boolean clickOnMicrophonePopupOkbutton(TestCases testCase) {
+		return (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraMicrophoneTurnOffOKButton"));
+	}
 
 }
