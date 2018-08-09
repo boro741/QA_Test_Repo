@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 
@@ -21,7 +22,9 @@ import io.appium.java_client.TouchAction;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.VacationHoldScreen;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -43,7 +46,7 @@ public class ChangeBaseStationSettings extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user changes the (.*) to (.*)$")
+	@KeywordStep(gherkins = "^user changes the \"(.*)\" to \"(.*)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (parameters.get(0).equalsIgnoreCase("Base Station Volume")) {
@@ -1129,102 +1132,89 @@ public class ChangeBaseStationSettings extends Keyword {
 									"Ventilation Status is not set to: " + parameters.get(1));
 						}
 					}
-				} else if (parameters.get(0).equalsIgnoreCase("Camera Status Email Notification")) {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (parameters.get(1).equalsIgnoreCase("ON")) {
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("Camera Status Email Notification")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status ON/OFF Email Notification Toggle is already enabled in the Camera Manange Alerts Screen");
+						flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+							flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Camera Status ON/OFF Email Notification Toggle is enabled in the Camera Manage Alerts Screen");
+							}
+						}
+					} else {
+						flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
-									"Camera Status ON/OFF Email Notification Toggle is already enabled in the Camera Manange Alerts Screen");
-							flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
-								flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
-								flag = flag
-										& CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-								if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-									Keyword.ReportStep_Pass(testCase,
-											"Camera Status ON/OFF Email Notification Toggle is enabled in the Camera Manage Alerts Screen");
-								}
-							}
-						} else {
-							flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Camera Status ON/OFF Email Notification Toggle is turned ON");
-							}
-						}
-					} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Camera Status ON/OFF Email Notification Toggle is already disabled in the Manage Alerts Screen");
-							flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Camera Status ON/OFF Email Notification Toggle is turned ON");
-								flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
-								flag = flag
-										& CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-								if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-									Keyword.ReportStep_Pass(testCase,
-											"Camera Status ON/OFF Email Notification  Toggle is turned OFF");
-								}
-							}
-						} else {
-							flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Camera Status ON/OFF Email Notification Toggle is turned OFF");
-							}
+									"Camera Status ON/OFF Email Notification Toggle is turned ON");
 						}
 					}
-				} else if (parameters.get(0).equalsIgnoreCase("Sound Event Email Notification")) {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (parameters.get(1).equalsIgnoreCase("ON")) {
-						if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Camera Status ON/OFF Email Notification Toggle is already disabled in the Manage Alerts Screen");
+						flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
-									"Sound Event Email Notification Toggle is already enabled in the Camera Manage Alerts Screen");
-							flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
+									"Camera Status ON/OFF Email Notification Toggle is turned ON");
+							flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+							if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
-										"Sound Event Email Notification Toggle is turned OFF");
-								flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
-								flag = flag
-										& CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-								if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
-									Keyword.ReportStep_Pass(testCase,
-											"Sound Event Email Notificationn Toggle is enabled in the Camera Manage Alerts Screen");
-								}
-							}
-						} else {
-							flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+										"Camera Status ON/OFF Email Notification  Toggle is turned OFF");
 							}
 						}
-					} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+					} else {
+						flag = flag & cs.toggleCameraEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraEmailNotificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
-									"Sound Event Email Notificationn Toggle Toggle is already disabled in the Manage Alerts Screen");
+									"Camera Status ON/OFF Email Notification Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("Sound Event Email Notification")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Email Notification Toggle is already enabled in the Camera Manage Alerts Screen");
+						flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Sound Event Email Notification Toggle is turned OFF");
 							flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
-										"Sound Event Email Notificationn Toggle is turned ON");
-								flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
-								flag = flag
-										& CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-								if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
-									Keyword.ReportStep_Pass(testCase,
-											"Sound Event Email Notificationn Toggle is turned OFF");
-								}
+										"Sound Event Email Notificationn Toggle is enabled in the Camera Manage Alerts Screen");
 							}
-						} else {
+						}
+					} else {
+						flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Sound Event Email Notificationn Toggle Toggle is already disabled in the Manage Alerts Screen");
+						flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Sound Event Email Notificationn Toggle is turned ON");
 							flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
@@ -1232,51 +1222,46 @@ public class ChangeBaseStationSettings extends Keyword {
 										"Sound Event Email Notificationn Toggle is turned OFF");
 							}
 						}
+					} else {
+						flag = flag & cs.toggleSoundEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Sound Event Email Notificationn Toggle is turned OFF");
+						}
 					}
-				} else if (parameters.get(0).equalsIgnoreCase("Motion Event Email Notification")) {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (parameters.get(1).equalsIgnoreCase("ON")) {
-						if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Motion Event Email Notification Toggle is already enabled in the Camera Manage Alerts Screen");
-							flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Motion Event Email Notification Toggle is turned OFF");
-								flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
-								flag = flag
-										& CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-								if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-									Keyword.ReportStep_Pass(testCase,
-											"Motion Event Email Notificationn Toggle is enabled in the Camera Manage Alerts Screen");
-								}
-							}
-						} else {
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("Motion Event Email Notification")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Email Notification Toggle is already enabled in the Camera Manage Alerts Screen");
+						flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Motion Event Email Notification Toggle is turned OFF");
 							flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+								Keyword.ReportStep_Pass(testCase,
+										"Motion Event Email Notificationn Toggle is enabled in the Camera Manage Alerts Screen");
 							}
 						}
-					} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"Motion Event Email Notificationn Toggle Toggle is already disabled in the Manage Alerts Screen");
-							flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase,
-										"Motion Event Email Notificationn Toggle is turned ON");
-								flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
-								flag = flag
-										& CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-								if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-									Keyword.ReportStep_Pass(testCase,
-											"Motion Event Email Notificationn Toggle is turned OFF");
-								}
-							}
-						} else {
+					} else {
+						flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Email Notificationn Toggle Toggle is already disabled in the Manage Alerts Screen");
+						flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Motion Event Email Notificationn Toggle is turned ON");
 							flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
@@ -1284,6 +1269,52 @@ public class ChangeBaseStationSettings extends Keyword {
 										"Motion Event Email Notificationn Toggle is turned OFF");
 							}
 						}
+					} else {
+						flag = flag & cs.toggleMotionEmailNotificationSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Motion Event Email Notificationn Toggle is turned OFF");
+						}
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VACATION")) {
+				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!vhs.isVacationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Vacation Toggle is already disabled in the Vacation Settings Screen");
+						flag = flag & vhs.toggleVacationDetectionSwitch(testCase);
+						flag = flag & VacationSettingsUtils.waitForProgressBarToComplete(testCase,
+								"LOADING SPINNER BAR", 2);
+						if (vhs.isVacationSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Vacation Toggle is turned ON");
+							flag = flag & vhs.toggleVacationDetectionSwitch(testCase);
+						}
+					} else {
+						flag = flag & vhs.toggleVacationDetectionSwitch(testCase);
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (vhs.isVacationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Vacation Toggle is already enabled in the Vacation Settings Screen");
+					} else {
+						flag = flag & vhs.toggleVacationDetectionSwitch(testCase);
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("VACATION UNTIL")) {
+				AdhocScreen ads = new AdhocScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF") || parameters.get(1).equalsIgnoreCase("ON")) {
+					if (!ads.isVacationStatusInSolutionCardVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"Vacation Until button is not displayed in Solutions Card Screen");
+						if (ads.isSystemIsOffLabelInSolutionsCardScreen()) {
+							Keyword.ReportStep_Pass(testCase, "System Mode if OFF");
+						}
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Vacation Until button is displayed in Solutions Card Screen");
+						flag = flag & ads.clickOnVacationStatusInSolutionCardScreen();
+						flag = flag & ads.clickOnEndVacationOptionInSolutionCardScreen();
 					}
 				}
 			}

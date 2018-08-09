@@ -10,8 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperVacation;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyVacationStatusOnStat extends Keyword {
@@ -23,7 +21,7 @@ public class VerifyVacationStatusOnStat extends Keyword {
 	public VerifyVacationStatusOnStat(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -37,38 +35,50 @@ public class VerifyVacationStatusOnStat extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (exampleData.get(0).equalsIgnoreCase("Active")) {
-			if(vhs.ClickOnVacationHoldSetpointSettings()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
-				if(vhs.GetVacationHoldStatus().equalsIgnoreCase("On")||vhs.GetVacationHoldStatus().equalsIgnoreCase("true")){
-					Keyword.ReportStep_Pass(testCase, String.format("The Vacation Hold Setpoint of Stat is active as expected"));
+			if (vhs.clickOnVacationHoldSetpointSettings()) {
+				Keyword.ReportStep_Pass(testCase,
+						String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+				try {
+					if (vhs.isVacationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								String.format("The Vacation Hold Setpoint of Stat is active as expected"));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+								String.format("The Vacation Hold Setpoint of Stat is not active"));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("The Vacation Hold Setpoint of Stat is not active"));
-				}
-					
-			}
-			else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Failure:Unable to select Stat for set point edit"));
+
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+						String.format("Failure:Unable to select Stat for set point edit"));
 			}
 		}
-		
+
 		else if (exampleData.get(0).equalsIgnoreCase("InActive")) {
-			if(vhs.ClickOnVacationHoldSetpointSettings()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
-				if(vhs.GetVacationHoldStatus().equalsIgnoreCase("Off")||vhs.GetVacationHoldStatus().equalsIgnoreCase("false")){
-					Keyword.ReportStep_Pass(testCase, String.format("The Vacation Hold Setpoint of Stat is inactive as expected"));
+			if (vhs.clickOnVacationHoldSetpointSettings()) {
+				Keyword.ReportStep_Pass(testCase,
+						String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+				try {
+					if (vhs.isVacationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								String.format("The Vacation Hold Setpoint of Stat is inactive as expected"));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+								String.format("The Vacation Hold Setpoint of Stat is not inactive"));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				else {
-					flag=false;
-					Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("The Vacation Hold Setpoint of Stat is not inactive"));
-				}
-					
-			}
-			else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Failure:Unable to select Stat for set point edit"));
+
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+						String.format("Failure:Unable to select Stat for set point edit"));
 			}
 		}
 		return flag;
@@ -80,4 +90,3 @@ public class VerifyVacationStatusOnStat extends Keyword {
 		return true;
 	}
 }
-

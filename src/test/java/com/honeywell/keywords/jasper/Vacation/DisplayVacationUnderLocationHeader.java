@@ -9,10 +9,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperVacation;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class DisplayVacationUnderLocationHeader extends Keyword {
@@ -39,7 +36,7 @@ public class DisplayVacationUnderLocationHeader extends Keyword {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if(exampleData.get(0).equalsIgnoreCase("Vacation Active")) {
 			if(vhs.isVacationHoldHeaderPresentUnderLocationOnDashBoard()) {
-				if(vhs.GetTextOfVacationOnTheDashboard().contains("Vacation until")) {
+				if(vhs.getTextOfVacationOnTheDashboard().contains("Vacation until")) {
 					Keyword.ReportStep_Pass(testCase, String.format("Vacation Active Text is present under location on the dashboard"));
 				}
 				else {

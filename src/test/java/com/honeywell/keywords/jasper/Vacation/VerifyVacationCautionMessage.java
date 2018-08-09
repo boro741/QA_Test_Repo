@@ -1,10 +1,5 @@
 package com.honeywell.keywords.jasper.Vacation;
 
-import java.util.ArrayList;
-
-import com.honeywell.CHIL.CHILUtil;
-import com.honeywell.account.information.DeviceInformation;
-import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,22 +8,17 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSetPoint;
-import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.screens.BaseStationSettingsScreen;
-import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyVacationCautionMessage extends Keyword {
-	
+
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 
 	public VerifyVacationCautionMessage(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -41,19 +31,15 @@ public class VerifyVacationCautionMessage extends Keyword {
 	@KeywordStep(gherkins = "^user gets cautioned with guide message about vacation turned off for the location$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		if(vhs.IsVacationEndCautionMessageShown()) {
-					Keyword.ReportStep_Pass(testCase,
-							"Vacation End Caution Message is present in Solution card");
-					
-				}
-				else {
-					 flag=false;
-					 Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Vacation End Caution Message is not present in Solution card");
-				 }
-				
-		
-	 return flag;
+		if (vhs.isVacationEndCautionMessageVisible()) {
+			Keyword.ReportStep_Pass(testCase, "Vacation End Caution Message is present in Solution card");
+
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Vacation End Caution Message is not present in Solution card");
+		}
+		return flag;
 	}
 
 	@Override
@@ -61,6 +47,5 @@ public class VerifyVacationCautionMessage extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return true;
 	}
-
 
 }

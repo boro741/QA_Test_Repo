@@ -12,7 +12,6 @@ import io.appium.java_client.MobileElement;;
 public class CameraScreen extends MobileScreens {
 	// private TestCases testCase;
 	private static final String screenName = "DAS_VideoSolution";
-	private boolean flag = true;
 
 	public CameraScreen(TestCases testCase) {
 		super(testCase, screenName);

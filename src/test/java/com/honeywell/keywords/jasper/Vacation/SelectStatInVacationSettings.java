@@ -23,7 +23,7 @@ public class SelectStatInVacationSettings extends Keyword {
 	public SelectStatInVacationSettings(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -36,18 +36,17 @@ public class SelectStatInVacationSettings extends Keyword {
 	@KeywordStep(gherkins = "^user selects the \"(.+)\" to edit$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		if(exampleData.get(0).equalsIgnoreCase("stat")) {
-			if(vhs.ClickOnVacationHoldSetpointSettings()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+		if (exampleData.get(0).equalsIgnoreCase("stat")) {
+			if (vhs.clickOnVacationHoldSetpointSettings()) {
+				Keyword.ReportStep_Pass(testCase,
+						String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+						String.format("Failure:Unable to select Stat for set point edit"));
 			}
-			else {
-				flag=false;
-				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Failure:Unable to select Stat for set point edit"));
-			}
-				
 		}
-	
-	   return flag;
+		return flag;
 	}
 
 	@Override
@@ -55,6 +54,5 @@ public class SelectStatInVacationSettings extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return true;
 	}
-
 
 }

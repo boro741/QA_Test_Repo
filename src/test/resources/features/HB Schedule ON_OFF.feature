@@ -1,5 +1,5 @@
 @ScheduleON_OFF @Comfort 
-Feature:As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
+Feature: As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
 
 @ScheduleONOFFHB @Automated @LYR-29410
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  

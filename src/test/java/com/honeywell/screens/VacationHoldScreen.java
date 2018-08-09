@@ -25,94 +25,87 @@ public class VacationHoldScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
 	}
 
-	
-	public boolean isStartAndEndDateDisplayed(){
-		flag&= MobileUtils.isMobElementExists(objectDefinition, testCase,"FromDate");
-		flag&= MobileUtils.isMobElementExists(objectDefinition, testCase,"ToDate");
+	public boolean isStartAndEndDateDisplayed() {
+		flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "FromDate");
+		flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "ToDate");
 		return flag;
 	}
-	
-	public boolean IsVacationLabelPresentOnSolutionCard() {
+
+	public boolean isVacationLabelPresentOnSolutionCard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationOnPrimaryCard");
 	}
-	
-	public boolean IsSystemIsOffOnSolutionCard() {
+
+	public boolean isSystemIsOffOnSolutionCard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatOff");
 	}
-	
-	public boolean IsAdhocOverrideShown() {
+
+	public boolean isAdhocOverrideShown() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdhocOnPrimaryCard");
 	}
-	
-	public boolean IsVacationEndCautionMessageShown() {
+
+	public boolean isVacationEndCautionMessageVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationEndCautionMessage");
 	}
-	public boolean isStartAndEndTimeDisplayed(){
-		flag&= MobileUtils.isMobElementExists(objectDefinition, testCase,"FromTime");
-		flag&= MobileUtils.isMobElementExists(objectDefinition, testCase,"ToTime");
+
+	public boolean isStartAndEndTimeDisplayed() {
+		flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "FromTime");
+		flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "ToTime");
 		return flag;
 	}
-	
-	public boolean ClickOnModeText() {
-		flag&=MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatMode");
-		flag&=MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatMode");
+
+	public boolean clickOnModeText() {
+		flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatMode");
+		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatMode");
 		return flag;
 	}
-	
-	public boolean ClickOnSystemModes(String modeElementName) {
-		flag&= MobileUtils.clickOnElement(objectDefinition, testCase,modeElementName);
-		flag&=MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInMode");
+
+	public boolean clickOnSystemModes(String modeElementName) {
+		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, modeElementName);
+		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SaveButtonInMode");
 		return flag;
 	}
-	
-	public String HourInTimePicker() {
+
+	public String hourInTimePicker() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerHour");
 	}
-	
-	public String MinuteInTimePicker() {
+
+	public String minuteInTimePicker() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerMinute");
 	}
-	
-	
-	
+
 	@SuppressWarnings("deprecation")
-	public String IncreaseTimerWithStartOrEndTime(String time,String incrementalTime) throws ParseException {
-		
+	public String increaseTimerWithStartOrEndTime(String time, String incrementalTime) throws ParseException {
 		int newHour;
 		int newMinute;
 		int additionalMinute;
-		 String newTime="";
+		String newTime = "";
 		try {
-		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-		 Date d = df.parse(time); 
-		 Calendar cal = Calendar.getInstance();
-		 cal.setTime(d);
-		 additionalMinute=Integer.parseInt(incrementalTime);
-		 cal.add(Calendar.MINUTE,additionalMinute);
-		 newTime = df.format(cal.getTime());
-		 newHour=new SimpleDateFormat("HH mm ss").parse(newTime).getHours();
-	     newMinute = new SimpleDateFormat("HH mm ss").parse(newTime).getMinutes();
-		 testCase.getMobileDriver().findElementByAccessibilityId(String.valueOf(newHour)).click();
-		 testCase.getMobileDriver().findElementByAccessibilityId(String.valueOf(newMinute)).click();
+			SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+			Date d = df.parse(time);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(d);
+			additionalMinute = Integer.parseInt(incrementalTime);
+			cal.add(Calendar.MINUTE, additionalMinute);
+			newTime = df.format(cal.getTime());
+			newHour = new SimpleDateFormat("HH mm ss").parse(newTime).getHours();
+			newMinute = new SimpleDateFormat("HH mm ss").parse(newTime).getMinutes();
+			testCase.getMobileDriver().findElementByAccessibilityId(String.valueOf(newHour)).click();
+			testCase.getMobileDriver().findElementByAccessibilityId(String.valueOf(newMinute)).click();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Error in setting value to time"));
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("Error in setting value to time"));
 		}
 		return newTime;
-		
-		
 	}
-	
+
 	public boolean isVacationHoldHeaderPresentUnderLocationOnDashBoard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationOnLocationHeader");
 	}
-	
-	public String GetTextOfVacationOnTheDashboard() {
+
+	public String getTextOfVacationOnTheDashboard() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "VacationOnLocationHeader");
 	}
-	
-	
-
 
 	public boolean isStartAndEndDateEnabled() {
 		boolean flag = true;
@@ -125,80 +118,71 @@ public class VacationHoldScreen extends MobileScreens {
 		return flag;
 	}
 
-
-	public boolean ClickOnStartDate() {
+	public boolean clickOnStartDate() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FromDate");
 	}
 
-	public boolean ClickOnEndDate() {
+	public boolean clickOnEndDate() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "EndDate");
 	}
-	
-	public boolean ClickOnStartTime() {
+
+	public boolean clickOnStartTime() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FromTime");
 	}
 
-	
-	public boolean ClickOnEndTime() {
+	public boolean clickOnEndTime() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "EndTime");
 	}
-	
-	
-	public String GetStartDate() {
-		return MobileUtils.getFieldValue(objectDefinition,testCase, "FromDate");
+
+	public String getStartDate() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate");
 	}
-	
-	public String GetEndDate() {
+
+	public String getEndDate() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EndDate");
 	}
-	
-	public String GetStartTime() {
+
+	public String getStartTime() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime");
 	}
-	
-	public String GetEndTime() {
+
+	public String getEndTime() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EndTime");
 	}
 	
-	
-
-
-	public boolean EnableVacationHold() {
-		if (GetVacationHoldStatus().equalsIgnoreCase("On") || GetVacationHoldStatus().equalsIgnoreCase("true")) {
-
-			return true;
-		} else {
-			return ClickOnStatus();
-		}
-	}
-
-	
-	public boolean EndVacationButtonInSolutionCard() {
-		flag&=MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOnPrimaryCard");
-		flag&=MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndInSolutionCard");
+	public boolean endVacationButtonInSolutionCard() {
+		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOnPrimaryCard");
+		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndInSolutionCard");
 		return flag;
 	}
-	
-	public boolean DisableVacationHold(){
-		if(GetVacationHoldStatus().equalsIgnoreCase("Off")||GetVacationHoldStatus().equalsIgnoreCase("false")){
-			return true;
-		}else{
-			return ClickOnStatus();
+
+	public boolean isVacationSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationHoldSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitch").getAttribute("value")
+						.equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find the Vacation Switch");
 		}
 	}
-	
-	public boolean ClickOnEndVacationButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndButton");
-	}
-	
 
-
-	public String GetVacationHoldStatus() {
-
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "VacationHoldSwitch");
+	public boolean toggleVacationDetectionSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationHoldSwitch");
 	}
 
-	public boolean ClickOnStatus() {
+	public boolean clickOnVacationHoldSwitch() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationHoldSwitch");
 	}
 
@@ -206,8 +190,7 @@ public class VacationHoldScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MonthCalendarOption");
 	}
 
-	public boolean ClickOnVacationHoldSetpointSettings() {
-
+	public boolean clickOnVacationHoldSetpointSettings() {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationHoldSetpointRow")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationHoldSetpointRow");
 		} else {
@@ -215,37 +198,51 @@ public class VacationHoldScreen extends MobileScreens {
 		}
 	}
 
-	public String GetHeatSetPointValue() {
+	public String getHeatSetPointValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "HeatSetPointRound");
 	}
 
-	public boolean EditHeatSetPointUp() {
+	public boolean editHeatSetPointUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "HeatSetPointRoundChooser");
 	}
-	
-	public boolean EditCoolSetPointUp() {
+
+	public boolean editCoolSetPointUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CoolSetPointRoundChooser");
 	}
-	
-	public boolean EditSetPointUpInPrimaryCard() {
+
+	public boolean editSetPointUpInPrimaryCard() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "PrimaryCardSetPointUp");
 	}
-	
-	public boolean ClickOnCancelButtonInEndVacation() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndCancelButton");
-	   
+
+	public boolean isEndVacationModePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EndVacationModePopupTitle");
 	}
-	
-	public String GetPrimaryCardValue() {
+
+	public boolean isCancelButtonInEndVacationModePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInEndVacationModePopup");
+	}
+
+	public boolean clickOnCancelButtonInEndVacationModePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInEndVacationModePopup");
+	}
+
+	public boolean isEndButtonInEndVacationPopupModeVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EndButtonInEndVacationPopupMode");
+	}
+
+	public boolean clickOnEndButtonInEndVacationPopupMode() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EndButtonInEndVacationPopupMode");
+	}
+
+	public String getPrimaryCardValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "PrimaryCardSetpoint");
 	}
-	
-	public boolean EditSetPointDownInPrimaryCard() {
+
+	public boolean editSetPointDownInPrimaryCard() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "PrimaryCardSetPointDown");
 	}
-	
 
-	public String GetCoolSetPointValue() {
+	public String getCoolSetPointValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "CoolSetPointRound");
 	}
 

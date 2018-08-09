@@ -42,6 +42,10 @@ public class AdhocScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "HoldUntilButton");
 	}
 
+	public boolean isVacationStatusInSolutionCardVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen");
+	}
+
 	public String getVacationStatusInSolutionsCardScreen() {
 		String vacationStatus;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -54,5 +58,17 @@ public class AdhocScreen extends MobileScreens {
 					.getAttribute("label");
 		}
 		return vacationStatus;
+	}
+
+	public boolean clickOnVacationStatusInSolutionCardScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen");
+	}
+	
+	public boolean clickOnEndVacationOptionInSolutionCardScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EndVacationOptionInSolutionCardScreen");
+	}
+	
+	public boolean isSystemIsOffLabelInSolutionsCardScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemIsOffLabelInSolutionsCardScreen");
 	}
 }

@@ -16,6 +16,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
@@ -25,6 +26,7 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class PerformActionsOnPopUp extends Keyword {
@@ -50,7 +52,6 @@ public class PerformActionsOnPopUp extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user (.*) the (.*) popup$")
 	public boolean keywordSteps() {
-
 		if (expectedPopUp.get(1).equalsIgnoreCase("FACTORY RESET SUCCESSFUL")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CONFIRMS": {
@@ -619,7 +620,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -675,7 +676,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		}  else if (expectedPopUp.get(1).equalsIgnoreCase("TURN OFF MICROPHONE")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("TURN OFF MICROPHONE")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CANCELS": {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
@@ -711,7 +712,8 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "DISMISSES": {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				flag = flag & ts.clickOnCancelButtonInDeleteThermostatDevice();
-				flag = flag & HBNAEMEASettingsUtils.verifyDeleteThermostatDeviceConfirmationPopUpIsNotDisplayed(testCase);
+				flag = flag
+						& HBNAEMEASettingsUtils.verifyDeleteThermostatDeviceConfirmationPopUpIsNotDisplayed(testCase);
 				break;
 			}
 			default: {
@@ -720,9 +722,14 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-
-		} 
-		else if (expectedPopUp.get(1).equalsIgnoreCase("DR CANCEL")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("TURN OFF CAMERA MICROPHONE")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CONFIRMS": {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				flag = flag & cs.clickOnMicrophonePopupOkbutton(testCase);
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("DR CANCEL")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				DRScreens ddc = new DRScreens(testCase);
@@ -741,19 +748,40 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} 
-		else {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("END VACATION MODE CONFIRMATION")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+				if (vhs.isEndVacationModePopupVisible() && vhs.isCancelButtonInEndVacationModePopupVisible()) {
+					flag = flag & vhs.clickOnCancelButtonInEndVacationModePopup();
+					flag = flag & VacationSettingsUtils.verifyEndVacationModeConfirmationPopUpIsNotDisplayed(testCase);
+					break;
+				}
+			}
+			case "ACCEPTS": {
+				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+				if (vhs.isEndVacationModePopupVisible() && vhs.isEndButtonInEndVacationPopupModeVisible()) {
+					flag = flag & vhs.clickOnEndButtonInEndVacationPopupMode();
+					flag = flag & VacationSettingsUtils.verifyEndVacationModeConfirmationPopUpIsNotDisplayed(testCase);
+					break;
+				}
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}
 		return flag;
 	}
-	
 
 	@Override
 	@AfterKeyword
 	public boolean postCondition() {
 		return flag;
 	}
-
 }
