@@ -1034,4 +1034,7 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isDrGreenLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DrEventLabel");
 	}
+	public boolean clickOnDrEventLabel() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DrEventLabel");
+	}
 }

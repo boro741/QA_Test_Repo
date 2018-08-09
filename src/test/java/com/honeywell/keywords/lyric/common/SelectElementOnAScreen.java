@@ -803,7 +803,8 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
-					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")) {
+					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")
+					||parameters.get(1).equalsIgnoreCase("Primary Card")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO": {
@@ -829,6 +830,11 @@ public class SelectElementOnAScreen extends Keyword {
 				case "MIN SET TEMPERATURE BY TAPING ON DOWN STEPPER": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.setMinTemperatureByTappingDownStepper(inputs);
+					break;
+				}
+				case "DR EVENT LABEL": {
+					PrimaryCard thermo = new PrimaryCard(testCase);
+					flag = flag & thermo.clickOnDrEventLabel();
 					break;
 				}
 				case "BACK": {
