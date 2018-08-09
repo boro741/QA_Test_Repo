@@ -23,7 +23,7 @@ public class DefaultMaxMinLimit extends Keyword {
 	public DefaultMaxMinLimit(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -36,47 +36,48 @@ public class DefaultMaxMinLimit extends Keyword {
 	@KeywordStep(gherkins = "^user is displayed temperature values within maximum minimum limit$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		int currentHeatSetPoint=Integer.parseInt(vhs.GetHeatSetPointValue());
-		int currentCoolSetPoint=Integer.parseInt(vhs.GetCoolSetPointValue());
-		
-				if(CHILUtil.thermostatUnit.equalsIgnoreCase("Celsius")) {
-					boolean checkFlag=currentHeatSetPoint<=Integer.parseInt(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.maxHeat)))
-							&& currentHeatSetPoint>=Integer.parseInt(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.minHeat)));
-					
-					if(!checkFlag) {
-						flag=false;
-					}
-					 checkFlag=currentCoolSetPoint<=Integer.parseInt(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.maxCool)))
-								&& currentCoolSetPoint>=Integer.parseInt(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.minCool)));
-					if(!checkFlag) {
-						flag=false;
-					}
-				 
-				}
-				else {
-					boolean checkFlag=currentHeatSetPoint<=Integer.parseInt(String.valueOf(CHILUtil.maxHeat))
-							&& currentHeatSetPoint>=Integer.parseInt(String.valueOf(CHILUtil.minHeat));
-					
-					if(!checkFlag) {
-						flag=false;
-					}
-					checkFlag=currentHeatSetPoint<=Integer.parseInt(String.valueOf(CHILUtil.maxCool))
-							&& currentHeatSetPoint>=Integer.parseInt(String.valueOf(CHILUtil.minCool));
-					if(!checkFlag) {
-						flag=false;
-					}
-				}
-				 
-				if(flag) {
-					 Keyword.ReportStep_Pass(testCase, String.format("The user is displayed with default set point values"));
-				 }
-				 else
-				 {
-					 Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Failure:The user is  not displayed with default set point values"));
-				 }
-				
-			
-	   return flag;
+		int currentHeatSetPoint = Integer.parseInt(vhs.getHeatSetPointValue());
+		int currentCoolSetPoint = Integer.parseInt(vhs.getCoolSetPointValue());
+
+		if (CHILUtil.thermostatUnit.equalsIgnoreCase("Celsius")) {
+			boolean checkFlag = currentHeatSetPoint <= Integer
+					.parseInt(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.maxHeat)))
+					&& currentHeatSetPoint >= Integer.parseInt(
+							JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.minHeat)));
+
+			if (!checkFlag) {
+				flag = false;
+			}
+			checkFlag = currentCoolSetPoint <= Integer
+					.parseInt(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.maxCool)))
+					&& currentCoolSetPoint >= Integer.parseInt(
+							JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase, String.valueOf(CHILUtil.minCool)));
+			if (!checkFlag) {
+				flag = false;
+			}
+
+		} else {
+			boolean checkFlag = currentHeatSetPoint <= Integer.parseInt(String.valueOf(CHILUtil.maxHeat))
+					&& currentHeatSetPoint >= Integer.parseInt(String.valueOf(CHILUtil.minHeat));
+
+			if (!checkFlag) {
+				flag = false;
+			}
+			checkFlag = currentHeatSetPoint <= Integer.parseInt(String.valueOf(CHILUtil.maxCool))
+					&& currentHeatSetPoint >= Integer.parseInt(String.valueOf(CHILUtil.minCool));
+			if (!checkFlag) {
+				flag = false;
+			}
+		}
+
+		if (flag) {
+			Keyword.ReportStep_Pass(testCase, String.format("The user is displayed with default set point values"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("Failure:The user is  not displayed with default set point values"));
+		}
+
+		return flag;
 	}
 
 	@Override
@@ -84,6 +85,5 @@ public class DefaultMaxMinLimit extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return true;
 	}
-
 
 }

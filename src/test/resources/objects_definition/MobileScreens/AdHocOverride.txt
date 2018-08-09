@@ -8,3 +8,5 @@ ThermostatSchedule	ID	view_thermostat_schedule_status	ID	view_thermostat_schedul
 ToolbarSubtitle	ID	toolbar_spinner_item_actionbar_subtitle	ID	toolbar_spinner_item_actionbar_subtitle	ID	toolbar_spinner_item_actionbar_subtitle	NAME	Title_Subtitle	NAME	Title_Subtitle	NAME	Title_Subtitle
 HoldUntilButton	XPATH	"//android.widget.TextView[contains(@text,'Until')]"	XPATH	"//android.widget.TextView[contains(@text,'Until')]"	XPATH	"//android.widget.TextView[contains(@text,'Until')]"	XPATH	"//UIAButton[contains(@name,'Until')]"	XPATH	"//UIAButton[contains(@name,'Until')]"	XPATH	"//UIAButton[contains(@name,'Until')]"
 VacationStatusInSolutionsCardScreen	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status
+SystemIsOffLabelInSolutionsCardScreen	XPATH	//*[@text='SYSTEM IS OFF']	XPATH	//*[@text='SYSTEM IS OFF']	XPATH	//*[@text='SYSTEM IS OFF']	NAME	SYSTEM IS OFF	NAME	SYSTEM IS OFF	NAME	SYSTEM IS OFF
+EndVacationOptionInSolutionCardScreen	ID	action_sheet_item_name	ID	action_sheet_item_name	ID	action_sheet_item_name	NAME	End Vacation	NAME	End Vacation	NAME	End Vacation

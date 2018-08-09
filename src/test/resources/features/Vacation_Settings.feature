@@ -13,24 +13,28 @@ Feature: As an user I want to set the vacation period for my home so that my the
       | active		| 
       | disable		| 
   
-@Vacations_VerifyGuideMessage			@UIAutomatable
+@Vacations_VerifyGuideMessage			@Automated
 Scenario Outline: Verify guide Message when vacation is either turned off or on
 Given vacation mode is "active"
 And user launches and logs in to the Lyric application
-And user navigates to <Vacation Option> screen from  the "Dashboard" screen
-When user turns "off" vacation from <Vacation Option> screen
-Then user gets cautioned with guide message about vacation turned off for the location
-When user "cancels" the guide message
-Then user verifies vacation is "on" in <Vacation Option> screen
-When user turns "off" vacation from <Vacation Option> screen
-Then user gets cautioned with guide message about vacation turned off for the location
-When user "ends" the guide message
-Then user verifies vacation is "off" from <Vacation Option> screen
+And user navigates to <Vacation Option> screen from the "Dashboard" screen
+When user changes the <Option> to "Off"
+#Then user gets cautioned with guide message about vacation turned off for the location
+Then user should receive a "End Vacation Mode Confirmation" popup
+#When user "cancels" the guide message
+When user "dismisses" the "End Vacation Mode Confirmation" popup
+Then user verifies vacation is "on" in <Vacation Option>
+When user changes the <Option> to "Off"
+#Then user gets cautioned with guide message about vacation turned off for the location
+Then user should receive a "End Vacation Mode Confirmation" popup
+#When user "cancels" the guide message
+When user "accepts" the "End Vacation Mode Confirmation" popup
+Then user verifies vacation is "off" in <Vacation Option>
 
 Examples:
-		| Vacation Option		|
-		| Vacation				|
-		| Primarycard			|
+		| Vacation Option		| Option				|
+		| Vacation				| Vacation			|
+		| solution card			| Vacation Until		|
 		
   
 @Vacations_DefaultVacationTimeForNA			@UIAutomatable
@@ -38,9 +42,10 @@ Scenario: As a user I want to verify the date inputs
 Given vacation mode is "disable"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user turns "on" vacation from "vacation settings card"
-Then user is displayed with "From" date as "Current Time" nearest to 15
-And user is displayed with "To" date as "Week from Current Time" nearest to 15
+When user changes the "Vacation" to "On"
+#When user turns "on" vacation from "vacation settings card"
+Then user is displayed with "From" date as "Current Time" nearest to "15"
+And user is displayed with "To" date as "Week from Current Time" nearest to "15"
 
   
 @Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@UIAutomatable 

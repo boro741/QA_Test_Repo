@@ -35,13 +35,13 @@ public class EnterStartAndEndDate extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (vhs.isStartAndEndDateEnabled()) {
-			if (vhs.ClickOnStartDate()) {
+			if (vhs.clickOnStartDate()) {
 				Keyword.ReportStep_Pass(testCase, String.format("The Start Date button is clicked"));
 				if (vhs.isCalendarPopupVisible()) {
 					Keyword.ReportStep_Pass(testCase, String.format("StartCalendar Is Present"));
 				}
 			}
-			if (vhs.ClickOnEndDate()) {
+			if (vhs.clickOnEndDate()) {
 				Keyword.ReportStep_Pass(testCase, String.format("The End Date button is clicked"));
 				if (vhs.isCalendarPopupVisible()) {
 					Keyword.ReportStep_Pass(testCase, String.format("EndCalendar Is Present"));

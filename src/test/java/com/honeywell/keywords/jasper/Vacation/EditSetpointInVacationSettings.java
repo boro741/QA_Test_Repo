@@ -2,7 +2,6 @@ package com.honeywell.keywords.jasper.Vacation;
 
 import java.util.ArrayList;
 
-import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -11,7 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class EditSetpointInVacationSettings extends Keyword {
@@ -23,7 +21,7 @@ public class EditSetpointInVacationSettings extends Keyword {
 	public EditSetpointInVacationSettings(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -36,22 +34,22 @@ public class EditSetpointInVacationSettings extends Keyword {
 	@KeywordStep(gherkins = "^user should allowed to edit set points$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		if(vhs.EditHeatSetPointUp()) {
+		if (vhs.editHeatSetPointUp()) {
 			Keyword.ReportStep_Pass(testCase, String.format("Able to edit Heat Setpoint in Vacation Settings"));
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("unable to edit Heat Setpoint in Vacation Settings"));
 		}
-		else {
-			flag=false;
-			Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("unable to edit Heat Setpoint in Vacation Settings"));
-		}
-		if(vhs.EditCoolSetPointUp()) {
+		if (vhs.editCoolSetPointUp()) {
 			Keyword.ReportStep_Pass(testCase, String.format("Able to edit Cool Setpoint in Vacation Settings"));
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("unable to edit Cool Setpoint in Vacation Settings"));
 		}
-		else {
-			flag=false;
-			Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("unable to edit Cool Setpoint in Vacation Settings"));
-		}
-	
-	   return flag;
+
+		return flag;
 	}
 
 	@Override
@@ -59,6 +57,5 @@ public class EditSetpointInVacationSettings extends Keyword {
 	public boolean postCondition() throws KeywordException {
 		return true;
 	}
-
 
 }

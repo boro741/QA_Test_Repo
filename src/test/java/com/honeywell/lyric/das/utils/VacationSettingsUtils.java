@@ -93,4 +93,32 @@ public class VacationSettingsUtils {
 		MobileUtils.minimizeApp(testCase, 5);
 		return flag;
 	}
+
+	/**
+	 * <h1>End Vacation Mode popup</h1>
+	 * <p>
+	 * The verifyEndVacationModeConfirmationPopUpIsNotDisplayed method is to verify
+	 * if end vacation mode popup displayed or not
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @return boolean Returns 'true' if end vacation popup is not displayed.
+	 *         Returns 'false' if unsuccessful.
+	 */
+	public static boolean verifyEndVacationModeConfirmationPopUpIsNotDisplayed(TestCases testCase) {
+		boolean flag = true;
+		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+		if (vhs.isEndVacationModePopupVisible()) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"End Vacation Mode Confirmation Pop Up displayed");
+		} else {
+			Keyword.ReportStep_Pass(testCase, "End Vacation Mode Confirmation Pop Up not displayed");
+		}
+		return flag;
+	}
 }

@@ -1,13 +1,9 @@
 package com.honeywell.keywords.jasper.chil;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.support.ui.FluentWait;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;

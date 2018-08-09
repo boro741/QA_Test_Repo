@@ -768,12 +768,11 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "VACATION": {
-					Dashboard dScreen = new Dashboard(testCase);
-					if (dScreen.clickOnGlobalDrawerButton()) {
+					Dashboard ds = new Dashboard(testCase);
+					if (ds.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						flag = flag & sc.selectOptionFromSecondarySettings(SecondaryCardSettings.VACATION);
 						if (flag) {
-							System.out.println("Successfully navigated to Vacation Settings Screen");
 							Keyword.ReportStep_Pass(testCase, "Successfully navigated to Vacation Settings Screen");
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -783,6 +782,11 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
 					}
+					break;
+				}
+				case "SOLUTION CARD": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					break;
 				}
 				default: {

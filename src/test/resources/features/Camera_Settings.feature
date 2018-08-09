@@ -8,18 +8,18 @@
  And user launches and logs in to the Lyric application
  When user navigates to "Camera Settings" screen from the "Dashboard" screen
  Then the following "Camera Settings" options should be disabled:
-| Options             | 
-| Camera Mode         |
-| Motion Detection    |
-| Sound Detection     |
-| Night Vision        | 
-| Video Quality       |
-| Camera LED          |
-| Camera Microphone   | 
+| Options				| 
+| Camera Mode			|
+| Motion Detection		|
+| Sound Detection		|
+| Night Vision			| 
+| Video Quality			|
+| Camera LED				|
+| Camera Microphone		| 
  And the following "Camera Settings" options should be enabled:
- | Options             | 
- | Manage Alerts      
- | Camera Configuration| 
+ | Options				| 
+ | Manage Alerts			|      
+ | Camera Configuration	| 
  
  Examples:
  		|State  |
@@ -540,7 +540,7 @@ Then user "Camera LED" should be turned "GREEN"
      
      
 @CameraConfiguration        @P1        @UIAutomatable
-Scenario Outline: As a user I should be able to get the details of camera 
+Scenario: As a user I should be able to get the details of camera 
 Given user launches and logs in to the Lyric application 
 And user camera is in <State> 
 When user navigates to "Camera Configuration" screen from the "Dashboard" screen
