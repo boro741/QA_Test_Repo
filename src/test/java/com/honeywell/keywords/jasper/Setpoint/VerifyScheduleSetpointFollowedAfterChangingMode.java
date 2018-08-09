@@ -43,15 +43,15 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 				{
 					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 					Double getPeriodSetpoint, currentStepperSetpoint ;
-					getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
 					currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-					if(getPeriodSetpoint==currentStepperSetpoint){
+					getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
+					if(getPeriodSetpoint.compareTo(currentStepperSetpoint) == 0 ){
 						Keyword.ReportStep_Pass(testCase,
 								"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
 					}else {
 						flag = false;
 						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint:"+getPeriodSetpoint + "StepperSetpoint:"+currentStepperSetpoint);
+								"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint: "+getPeriodSetpoint + " StepperSetpoint: "+currentStepperSetpoint);
 					}
 					break;
 				}

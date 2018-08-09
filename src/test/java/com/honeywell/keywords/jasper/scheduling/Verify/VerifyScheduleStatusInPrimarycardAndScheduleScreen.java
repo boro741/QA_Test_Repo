@@ -114,10 +114,9 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "FOLLOWING SCHEDULE NOT DISPLAYED": {
 						SchedulingScreen FollowingS = new SchedulingScreen(testCase);
-						flag = flag & FollowingS.isFollowingSchedulesVisible(2);
-						if(!flag){
+						flag = flag & FollowingS.isFollowingSchedulesNotVisible(2);
+						if(flag){
 							Keyword.ReportStep_Pass(testCase, "Following Schedule not displayed");
-							return true;
 						}	
 						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Schedule displayed");
