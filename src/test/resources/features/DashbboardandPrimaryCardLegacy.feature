@@ -6,7 +6,7 @@ Feature: As an user I want to verify the Dashboard and primary card for JapserNA
 #HB, Spruce and JasperNA
 @ViewDashboard @DashbboardandSolutionCard_P1 @Automated
 Scenario Outline: As an user I want to verify the Dashboard view with respective system modes 
-#Given user has <Mode> system mode
+Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "Thermostat Dashboard" screen
 Then user should be displayed with "Thermostat name" with "XX INSIDE" temperature 
@@ -15,7 +15,7 @@ Then the following "Thermostat" options should be enabled:
  |Up Stepper|
  |Down Stepper|
 And user "should be displayed" with the "respective setpoint value in dashboard" option
-####And user should be displayed with respective <Mode> Color 
+#And user should be displayed with respective <Mode> Color 
 Examples:
 |Mode|
 |Cool| 
@@ -142,7 +142,6 @@ And user should not receivce any "Push notification" of stat
 #HB, Spruce, JasperNA
 @SystemModeInfoscreenwithCoolandHeatMode @Automated
 Scenario Outline: As an user I want to verify the Systemode info option when both cool and heat configured 
-
 Given user has <Mode> system mode
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
@@ -528,9 +527,6 @@ Examples:
 |OFF | OFF |
 
 
-
-
-
 #HB, Spruce, JasperNA
 @FanOptionInfoOption @Automated
 Scenario Outline: As an user I want to verify the Fan mode info option
@@ -816,10 +812,7 @@ Examples:
 |Cool only|
 
 @SetTemperatureFromHBB @Automated
-Scenario Outline:To set temperature for location with multistat(Jasper NA,HBB)systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
-As an user 
-I want to set temperature
-So that my comfortable indoor temperature maintained   
+Scenario Outline:To set temperature for location with multistat (Jasper NA,HBB) systems Heat cool,Cool,Heat for Temperture scale Celsius (OR) Fahrenheit and for time format 24 (OR) 12hr
 Given HBB "stat1" with <Mode>
 When User set the temperature from HBB "stat1" in app
 But User set the temperature from HBB "stat1" in app from other mobile
@@ -835,10 +828,7 @@ Examples:
 |Auto |
 
 @SetTemperatureFromEMEA @Automated
-Scenario Outline:To set temperature for location with multistat with time format 24/12hr 
-As an user 
-I want to set temperature 
-So that my stat will maintain my comfortable indoor temperature  
+Scenario:To set temperature for location with multistat with time format 24 (OR) 12hr 
 Given Stat1 with "Heat" mode
 When User set the temperature from "Stat1" in app
 But User set the temperature from "Stat1" in app from other device
@@ -967,7 +957,7 @@ Examples:
 
 #HB, Spruce, JaperNA
 @DashboardandsolutioncardCheckSetpointInVacationSettings @Automated
-Scenario Outline:As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
+Scenario:As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
 When user selects set points within maximum and minimum range                               

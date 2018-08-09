@@ -51,6 +51,7 @@ public class SuiteExecutor {
 					"SetTemperatiureOFFModeNA",
 					"DashboardandsolutioncardAutochangeover",
 					"DashboardandsolutioncardAutoModeCheckingFromPrimaryCard",
+					"DashboardandsolutioncardAutoModeNegative1",
 					"DashboardandsolutioncardCheckSetpointInVacationSettings",
 					"DashboardCoachmarkverification",
 					"SolutionCardCoachmarkverificationNA",
@@ -181,6 +182,10 @@ public class SuiteExecutor {
 					"ScheduleONOFFEMEAgeofencebasefencecross", 
 					"ScheduleONMultistatEMEA",
 					"ScheduleOFFMultistatEMEA",
+					
+					/**HBB-Dashboard&Solutioncard**/
+					"SetTemperatiureOFFModeHB",
+					"SetTemperatureFromHBB",
 
 					/** HBB Schedule ON/OFF**/
 					"ScheduleONOFFHB",
