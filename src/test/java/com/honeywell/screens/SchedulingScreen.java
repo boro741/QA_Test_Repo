@@ -1188,6 +1188,10 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FollowingSchedule", timeOut);
 	}
 	
+	public boolean isFollowingSchedulesNotVisible(int timeOut){
+		return !MobileUtils.isMobElementExists(objectDefinition, testCase, "FollowingSchedule", timeOut);
+	}
+	
 	public boolean clickOnFollowingSchedules(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "FollowingSchedule");
 	}
