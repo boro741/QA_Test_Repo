@@ -40,7 +40,7 @@ public class VerifySavingsEventPopUpMessage extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^\"(.+)\" message pop up is displayed on the primary card$")
+	@KeywordStep(gherkins = "^\"(.*)\" message pop up is displayed on the primary card$")
 	public boolean keywordSteps() {
 		try {
 			if (exampleData.get(0).equals("saving event schedule")) {

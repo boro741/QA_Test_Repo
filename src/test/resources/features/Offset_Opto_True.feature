@@ -6,7 +6,7 @@ Feature: Offset with Opt Out able true
 Scenario: Verify Saving Event Schedule Message with DR Event Offset 
 	As a user, I should receive a saving event schedule message on the primary card, alerts screen and messages screen
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "2" minutes from now 
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
 	Then "saving event schedule" message pop up is displayed on the primary card 
@@ -19,7 +19,7 @@ Scenario: Verify Saving Event Schedule Message with DR Event Offset
 Scenario: Verify Saving Event Start Message with DR Event Offset 
 	As a user, I should receive a saving event start message on the primary card, alerts screen and messages screen
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "2" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
@@ -36,7 +36,7 @@ Scenario: Verify Saving Event End Message Offset
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And DR event has ended on user device 
-	Then user should not be displayed with a DR event label on the primary card 
+	Then user "should not be displayed" with the "DR event label on primary card""
 	And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
 	And user receives and views a "saving event ended" message on the "ACTIVITY HISTORY" screen 
 	And user logs out of the app 
@@ -63,21 +63,21 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
 	And user changes system mode to "Cool"
-	Then user "SHOULD BE DIPLAYED" with the "DR event label" option
+	Then user "SHOULD BE DIPLAYED" with the " DR event label on primary card" option
 	And user taps on "Down Stepper"
 	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
 	When user "DISMISSES" the "DR CANCEL" popup
-	Then user "SHOULD BE DIPLAYED" with the "DR event label" option
+	Then user "SHOULD BE DIPLAYED" with the "DR event label on primary card" option
 	Then user should be displayed with "DR" setpoint value in solution card
 	When user changes system mode to "heat" 
 	And user taps on "UP STEPPER"
 	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
 	When user "ACCEPTS" the "DR CANCEL" popup
-	Then user "should not be displayed" with the "DR event label" option
+	Then user "should not be displayed" with the "DR event label on primary card" option
 	And user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen 
 	And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
 	And user receives and views a "saving event canceled by user" message on the "ACTIVITY HISTORY" screen 
-	And user logs out of the app 
+	#And user logs out of the app 
 
 	
 @VerifyAdHocStatusAfterDREventEndsTimeBassedSchedulingOffset  @UIAutomatable 

@@ -46,7 +46,7 @@ public class VerifyDRMessage extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user receives and views a \"(.+)\" message on the \"(.+)\" screen$")
+	@KeywordStep(gherkins = "^user receives and views a \"(.*)\" message on the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 		try {
 			ActivityHistoryScreen ahs = new ActivityHistoryScreen(testCase);

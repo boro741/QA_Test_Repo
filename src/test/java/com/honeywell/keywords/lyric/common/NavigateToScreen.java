@@ -2328,6 +2328,10 @@ public class NavigateToScreen extends Keyword {
 					DASSettingsUtils.navigateFromActivityHistoryScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
+				case "DASHBOARD": {
+					flag=flag&DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+				}
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2442,7 +2446,8 @@ public class NavigateToScreen extends Keyword {
 						}
 					}break;
 			}
-			}else {
+			}
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

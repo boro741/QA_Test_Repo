@@ -38,7 +38,7 @@ public class VerifyingAOption extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user \"([^\"]*)\" with the \"([^\"]*)\" option$")
+	@KeywordStep(gherkins = "^user \"(.*)\" with the \"(.*)\" option$")
 	public boolean keywordSteps() throws KeywordException {
 		JSONObject tempJSON = (JSONObject) LyricUtils.getLocationInformation(testCase, inputs);
 		long locationID = tempJSON.getLong("locationID");
@@ -701,24 +701,47 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("DR event label")) {
+		else if (expectedScreen.get(1).equalsIgnoreCase("DR event label on primary card")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag = flag & !thermo.isDrGreenLabelVisible();
-				if (flag) {
+				PrimaryCard dr = new PrimaryCard(testCase);
+				if (!dr.isDrGreenLabelVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+				} else {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
-				} else {
-					flag = true;
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
 				}
 				break;
 			}
 			case "SHOULD BE DISPLAYED": {
 				PrimaryCard dr = new PrimaryCard(testCase);
-				flag = flag & dr.isDrGreenLabelVisible();
-				if (flag) {
+				if (dr.isDrGreenLabelVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
+		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("DR event label on dashboard")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				Dashboard dr = new Dashboard(testCase);
+				if (!dr.isDrEventLabelVisibleOnDashboard()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is displayed");
+				}
+				break;
+			}
+			case "SHOULD BE DISPLAYED": {
+				Dashboard dr = new Dashboard(testCase);
+				if (dr.isDrEventLabelVisibleOnDashboard()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

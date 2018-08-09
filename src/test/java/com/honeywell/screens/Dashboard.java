@@ -566,4 +566,7 @@ public class Dashboard extends MobileScreens {
 		}
 		return false;
 	}
+	public boolean isDrEventLabelVisibleOnDashboard() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardDrAlert", 3, false);
+	}
 }
