@@ -129,6 +129,7 @@ public class EditEndTimeLessThanStartTimeEMEA extends Keyword {
 
 		SchedulingScreen scheduleScreen= new SchedulingScreen(testCase);
 		scheduleScreen.isViewByGroupedDaysVisible(20);
+		
 		if(testCase.getPlatform().contains("IOS")){
 			if(changedTime.equalsIgnoreCase(testCase.getMobileDriver()
 					.findElement(By.xpath("//*[@name='Everyday_"+(Integer.parseInt(periodNumber)+1) + "_Time']")).getText())){
@@ -138,11 +139,16 @@ public class EditEndTimeLessThanStartTimeEMEA extends Keyword {
 				flag=false;
 			}
 		}else{
-			if(changedTime.equalsIgnoreCase(testCase.getMobileDriver()
-					.findElement(By.xpath("//*[@content-desc='"+(Integer.parseInt(periodNumber)+1) + "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText())){
-				Keyword.ReportStep_Pass(testCase, "N period end time is N+1 start time+10 mins");
+			String displayedTime=testCase.getMobileDriver()
+					.findElement(By.xpath("//*[@content-desc='"+(Integer.parseInt(periodNumber)+1) + "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText();
+			char zeroHour=displayedTime.charAt(0);
+			if(zeroHour=='0'){
+				displayedTime.replaceFirst("0", "");
+			}
+			if(changedTime.equalsIgnoreCase(displayedTime)){
+				Keyword.ReportStep_Pass(testCase, changedTime+ " N period end time is N+1 start time+10 mins "+displayedTime);
 			}else{
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "N period end time is  not N+1 start time+10 mins");
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, displayedTime+" N period end time is  not N+1 start time+10 mins "+changedTime);
 				flag=false;
 			}
 		}

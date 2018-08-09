@@ -185,7 +185,7 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Home", targetSetPoints);
-				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+				if(inputs.getInputValue("DONOTSAVE").equalsIgnoreCase("true")){
 					flag = flag & schl.clickOnCloseButton();
 				}else {
 					flag = flag & schl.clickOnSaveButton();
@@ -227,7 +227,7 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
-				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+				if(inputs.getInputValue("DONOTSAVE").equalsIgnoreCase("true")){
 					flag = flag & schl.clickOnCloseButton();
 				}else {
 					flag = flag & schl.clickOnSaveButton();
@@ -235,12 +235,13 @@ public class JasperSchedulingEditUtils {
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for Sleep period ***************");
 			} else if (geofencePeriod.equalsIgnoreCase("Away")) {
-				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+				if(inputs.getInputValue("DONOTSAVE").equalsIgnoreCase("true")){
 					if(testCase.getPlatform().contains("IOS")){
 					targetSetPoints.put("temptargetHeatTemp", MobileUtils.getFieldValue(testCase,"name","Geofence_Away_HeatTemperature"));
 					System.out.println(""+targetSetPoints.get("temptargetHeatTemp"));
 					}else{
-						//TODO
+						targetSetPoints.put("temptargetHeatTemp", MobileUtils.getFieldValue(testCase,"xpath","//*[contains(@content-desc,'Away_Schedule')]//*[contains(@resource-id,'scheduling_period_heating_point')]"));
+						System.out.println(""+targetSetPoints.get("temptargetHeatTemp"));
 					}
 				}
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -294,7 +295,7 @@ public class JasperSchedulingEditUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & JasperSchedulingUtils.setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Away", targetSetPoints);
-				if(Boolean.parseBoolean(inputs.getInputValue("DONOTSAVE"))){
+				if(inputs.getInputValue("DONOTSAVE").equalsIgnoreCase("true")){
 					inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT,targetSetPoints.get("temptargetHeatTemp"));
 					flag = flag & schl.clickOnCloseButton();
 				}else {

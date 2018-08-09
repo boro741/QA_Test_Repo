@@ -40,7 +40,7 @@ public class EditButNotSavedGeofenceSchedule extends Keyword {
 	@KeywordStep(gherkins = "^user edit \"(.+)\" schedule by editing \"(.+)\" but not saved$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			inputs.setInputValueWithoutTarget("DONOTSAVE", true);
+			inputs.setInputValueWithoutTarget("DONOTSAVE", "true");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String jasperStatType = statInfo.getJasperDeviceType();
 			inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());

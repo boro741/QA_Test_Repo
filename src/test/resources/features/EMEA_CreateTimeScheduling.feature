@@ -129,7 +129,23 @@ Then user verifies the following on the primary card:
    #   | no| Different On Weekdays|
    #   | time based| Different On Weekdays|
 
-@JasperEMEA_CopyTimeBasedScheduleInOffMode @NotAutomatable
+@JasperEMEA_CopyTimeBasedScheduleInOffMode @Automated
+# Given Account has a Location with Multiple Stats and Offline stats
+Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
+Given user launches and logs in to the Lyric application
+And user navigates to "Scheduling" screen from the "Dashboard" screen
+When user creates default <ScheduleType> schedule value <CopyStats> stats
+Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
+Examples: 
+|ScheduleType       |  CopyStats |  VerifyCopyStats |
+#|Same Every Day     | without copying schedule to other|not copied to other|
+|Same Every Day     | by copying schedule to all|copied to all other|
+#|Same Every Day     | by copying schedule to selected|copied to selected|
+#|Different On Weekdays     |without copying schedule to other |not copied to other|
+#|Different On Weekdays     |by copying schedule to all |copied to all other|
+#|Different On Weekdays     |by copying schedule to selected|copied to selected|
+
+@JasperEMEA_CopyTimeBasedScheduleInOfflineMode @NotAutomatable
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application

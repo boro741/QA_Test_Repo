@@ -137,11 +137,16 @@ public class EditStartTimeMoreThanNextPeriodEndTimeEMEA extends Keyword {
 					flag=false;
 				}
 			}else{
-				if(changedTime.equalsIgnoreCase(testCase.getMobileDriver()
-						.findElement(By.xpath("//*[@content-desc='"+periodNumber+ "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText().trim())){
+				String displayedTime=testCase.getMobileDriver()
+				.findElement(By.xpath("//*[@content-desc='"+periodNumber+ "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText().trim();
+				char zeroHour=displayedTime.charAt(0);
+				if(zeroHour=='0'){
+					displayedTime.replaceFirst("0", "");
+				}
+				if(changedTime.equalsIgnoreCase(displayedTime)){
 					Keyword.ReportStep_Pass(testCase, "N period end time is N+1 start time+10 mins");
 				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "N period end time is  not N+1 start time+10 mins");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "N period end time is  not N+1 start time+10 mins Expected: " +changedTime+ " but found "+displayedTime );
 					flag=false;
 				}
 			}
