@@ -158,6 +158,10 @@ public class JasperSchedulingUtils {
 						+ targetSetPoints.get("targetCoolTemp"));
 			}
 			flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Home", targetSetPoints);
+			String homeSetpoint=null;
+			if(inputs.getInputValue("NaviagateBackAtSleep").equalsIgnoreCase("true")){
+				homeSetpoint=ss.getHeatSetPointChooserSetPointsValue();
+			}
 			if (ss.isNextButtonVisible(5)) {
 				flag = flag & ss.clickOnNextButton();
 			}
@@ -209,6 +213,10 @@ public class JasperSchedulingUtils {
 						+ targetSetPoints.get("targetCoolTemp"));
 			}
 			flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Away", targetSetPoints);
+			String awaySetPoint = null;
+			if(inputs.getInputValue("NaviagateBackAtSleep").equalsIgnoreCase("true")){
+				awaySetPoint=ss.getHeatSetPointChooserSetPointsValue();
+			}
 			if (ss.isNextButtonVisible(5)) {
 				flag = flag & ss.clickOnNextButton();
 			}
@@ -255,6 +263,14 @@ public class JasperSchedulingUtils {
 							+ targetSetPoints.get("targetCoolTemp"));
 				}
 				flag = flag & setGeofenceSchedulePeriodSetPoints(testCase, inputs, "Sleep", targetSetPoints);
+				if(inputs.getInputValue("NaviagateBackAtSleep").equalsIgnoreCase("true")){
+					flag = flag & ss.clickOnCloseButton();
+					verifyHeatStepperValue(testCase, inputs, awaySetPoint, "");
+					ss.clickOnBackButton();
+					verifyHeatStepperValue(testCase, inputs, homeSetpoint, "");
+					flag = flag & ss.clickOnNextButton();
+					flag = flag & ss.clickOnNextButton();
+				}
 				flag = flag & ss.clickOnNextButton();
 				Keyword.ReportStep_Pass(testCase,
 						"*************** Completed setting time and set points for Sleep period ***************");
@@ -6616,7 +6632,7 @@ public class JasperSchedulingUtils {
 		String dateString = "", tempTime = "", tempTimeInputs = "";
 		boolean flag = true;
 		SchedulingScreen ss = new SchedulingScreen(testCase);
-		
+
 		if (ss.isTimeScheduleButtonVisible(10)){
 			ss.clickOnTimeScheduleButton();
 		}
@@ -10191,14 +10207,14 @@ public class JasperSchedulingUtils {
 				if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
 					schedule_setpoints = ss.getSchedulePeriodHeatSetPointElement();
 					tempHeatSetPointApp = schedule_setpoints.get(0).getText();
-					if (schedule_setpoints.get(0).getText().contains(".0")) {
+					if (schedule_setpoints.get(0).getText().contains(".0")||schedule_setpoints.get(0).getText().contains(".5")) {
 						tempHeatSetPointApp = schedule_setpoints.get(0).getText().split("\\.")[0];
 					}
 					tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
-					if (tempHeatSetPointFromInputs.contains(".0")) {
+					if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 						tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 					}
-					if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+					if (tempHeatSetPointApp.replace("\u00B0", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 						Keyword.ReportStep_Pass(testCase,
 								"[HomeSettings] Home set point is shown correctly in solution card: "
 										+ tempHeatSetPointApp);
@@ -10210,14 +10226,15 @@ public class JasperSchedulingUtils {
 					}
 					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
 						tempHeatSetPointApp = schedule_setpoints.get(1).getText();
-						if (schedule_setpoints.get(1).getText().contains(".0")) {
+						if (schedule_setpoints.get(1).getText().contains(".0")||schedule_setpoints.get(1).getText().contains(".5")) {
 							tempHeatSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
 						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
-						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+
+						if (tempHeatSetPointApp.replace("\u00B0", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -10286,14 +10303,14 @@ public class JasperSchedulingUtils {
 						}
 
 						tempHeatSetPointApp = schedule_setpoints.get(2).getText();
-						if (schedule_setpoints.get(2).getText().contains(".0")) {
+						if (schedule_setpoints.get(2).getText().contains(".0")||schedule_setpoints.get(2).getText().contains(".5")) {
 							tempHeatSetPointApp = schedule_setpoints.get(2).getText().split("\\.")[0];
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
-						if (tempHeatSetPointFromInputs.contains(".0")) {
+						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
-						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("\u00B0", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Away set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -10305,14 +10322,14 @@ public class JasperSchedulingUtils {
 						}
 					} else {
 						tempHeatSetPointApp = schedule_setpoints.get(1).getText();
-						if (schedule_setpoints.get(1).getText().contains(".0")) {
+						if (schedule_setpoints.get(1).getText().contains(".0")||schedule_setpoints.get(1).getText().contains(".5")) {
 							tempHeatSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
-						if (tempHeatSetPointFromInputs.contains(".0")) {
+						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
 							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 						}
-						if (tempHeatSetPointApp.replace("°", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("\u00B0", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Away set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -12197,7 +12214,9 @@ public class JasperSchedulingUtils {
 		try {
 			WebElement element = null;
 			SchedulingScreen ss = new SchedulingScreen(testCase);
-//			flag = flag & viewScheduleOnPrimaryCard(testCase);
+			if (ss.isTimeScheduleButtonVisible(10)) {
+				flag = flag & viewScheduleOnPrimaryCard(testCase);
+			}
 
 			if (ss.isCreateScheduleButtonVisible(5)) {
 				flag = flag & ss.clickOnCreateScheduleButton();
@@ -14145,6 +14164,9 @@ public class JasperSchedulingUtils {
 						inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT), "");
 
 			} else if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+				if(inputs.getInputValue("NaviagateBackAtAway").equalsIgnoreCase("true")){
+
+				}
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (schl.isHomeTemperatureHeaderSingleTemperatureVisible(10)) {
 						Keyword.ReportStep_Pass(testCase,
