@@ -1333,7 +1333,8 @@ public class JasperSchedulingUtils {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
 							try {
 								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekendSleepElement();
+										scrollForAndroidScreen(testCase);
+										element = ss.getWeekendSleepElement();
 								} else {
 									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 									TouchAction action = new TouchAction(testCase.getMobileDriver());
@@ -1352,17 +1353,9 @@ public class JasperSchedulingUtils {
 									element = ss.getWeekendSleepElement();
 								}
 							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekendSleepElement();
-									}
-
-								} catch (NoSuchElementException e1) {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Create Schedule : Could not find element Sleep_Saturday-Sunday");
-								}
 							}
 							if (allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 								periodTimeandSetPoint.put("HeatSetPoint",
