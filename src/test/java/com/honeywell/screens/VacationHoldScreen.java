@@ -135,21 +135,38 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 
 	public String getStartDate() {
+		if(testCase.getPlatform().contains("IOS")){
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[0]
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1]+","
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[2];
+		}else
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate");
 	}
 
 	public String getEndDate() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "EndDate");
+		if(testCase.getPlatform().contains("IOS")){
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[0]
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[1]+","
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[2];
+		}else
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate");
 	}
 
 	public String getStartTime() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime");
+		if(testCase.getPlatform().contains("IOS")){
+			System.out.println(MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime"));
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime").split(",")[3].trim();
+		}else
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime");
 	}
 
 	public String getEndTime() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "EndTime");
+		if(testCase.getPlatform().contains("IOS")){
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToTime").split(",")[3].trim();
+		}else
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "ToTime");
 	}
-	
+
 	public boolean endVacationButtonInSolutionCard() {
 		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOnPrimaryCard");
 		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "VacationEndInSolutionCard");
@@ -167,7 +184,8 @@ public class VacationHoldScreen extends MobileScreens {
 				}
 			} else {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitch").getAttribute("value")
-						.equalsIgnoreCase("1")) {
+						.equalsIgnoreCase("1")||MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitch").getAttribute("value")
+						.equalsIgnoreCase("true")) {
 					return true;
 				} else {
 					return false;

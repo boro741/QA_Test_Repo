@@ -67,12 +67,15 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						startDateTime = vacationDateFormat.format(dateFormat.parse(startDate.trim()));
 						startDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, startDateTime);
+						System.out.println(startDateTimeUTC);
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
 
 					String currentTimeUTC = "";
+					System.out.println(deviceTime);
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, deviceTime);
+					System.out.println(currentTimeUTC);
 					if (currentTimeUTC != startDateTimeUTC) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -108,20 +111,25 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 						}
 
 					} else {
+						startDateTime = vacationDateFormat.format(dateFormat.parse(startDate.trim()));
+						startDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, startDateTime);
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
 					String currentTimeUTC = "";
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, deviceTime);
-					if (currentTimeUTC != startDateTimeUTC) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Wait for Vacation start : Differnece between vacation start time and current time is not nearer to 15 mins");
-
-					} else if (currentTimeUTC == startDateTimeUTC) {
-						Keyword.ReportStep_Pass(testCase, "Vacation Start and Current Time is 15 minutes");
+					System.out.println(currentTimeUTC);
+					System.out.println(startDateTimeUTC);
+					if (currentTimeUTC .equalsIgnoreCase(startDateTimeUTC)) {
+						Keyword.ReportStep_Pass(testCase, "Vacation Start and Current Time is 10 minutes");
 						flag = true;
-					}
+					}else
+						if (currentTimeUTC != startDateTimeUTC) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Wait for Vacation start : Differnece between vacation start time and current time is not nearer to 15 mins");
+
+						}  
 					break;
 				}
 				}
@@ -131,6 +139,7 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 				switch (exampleData.get(2)) {
 				case "15": {
 					String endDate = vhs.getEndDate() + " " + vhs.getEndTime();
+					System.out.println(endDate);
 					String endDateTime = "", endDateTimeUTC = "";
 					deviceTime = "";
 					final SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -152,12 +161,14 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 						}
 
 					} else {
+						endDateTime = vacationDateFormat.format(dateFormat.parse(endDate.trim()));
+						endDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, endDateTime);
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
 					String currentTimeUTC = "";
-					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, deviceTime);
-					if (currentTimeUTC != endDateTimeUTC) {
+					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, deviceTime);
+					if (currentTimeUTC.equalsIgnoreCase(endDateTimeUTC)) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Wait for Vacation start : Differnece between vacation start time and current time is not nearer to 15 mins");
@@ -192,19 +203,24 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 						}
 
 					} else {
+						endDateTime = vacationDateFormat.format(dateFormat.parse(endDate.trim()));
+						endDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, endDateTime);
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
 					String currentTimeUTC = "";
-					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, deviceTime);
-					if (currentTimeUTC != endDateTimeUTC) {
+					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
+					System.out.println(currentTimeUTC);
+					System.out.println(endDateTimeUTC);
+					if (currentTimeUTC.equalsIgnoreCase(endDateTimeUTC)) {
+						Keyword.ReportStep_Pass(testCase, "Vacation end and Current Time is 10 minutes");
+						flag = true;
+
+					} else if (!currentTimeUTC.equalsIgnoreCase(endDateTimeUTC)) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Wait for Vacation start : Differnece between vacation start time and current time is not nearer to 15 mins");
+								"Wait for Vacation start : Differnece between vacation end time and current time is not nearer to 10 mins");
 
-					} else if (currentTimeUTC == endDateTimeUTC) {
-						Keyword.ReportStep_Pass(testCase, "Vacation Start and Current Time is 15 minutes");
-						flag = true;
 					}
 
 					break;

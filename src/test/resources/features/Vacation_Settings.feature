@@ -39,23 +39,23 @@ Examples:
   
 @Vacations_DefaultVacationTimeForNA			@UIAutomatable
 Scenario: As a user I want to verify the date inputs
-Given vacation mode is "disable"
+Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user changes the "Vacation" to "On"
 #When user turns "on" vacation from "vacation settings card"
-Then user is displayed with "From" date as "Current Time" nearest to "15"
-And user is displayed with "To" date as "Week from Current Time" nearest to "15"
+Then user is displayed with "From" date as "Current Time" nearest to "10"
+And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
   
 @Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@UIAutomatable 
 Scenario: As a user I want to verify the time and date boundary conditions
-Given vacation mode is "disable"
+Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user turns "on" vacation from "vacation settings card"
-Then user is displayed with "From" date as "Current Time" nearest to 10
-And user is displayed with "To" date as "Week from Current Time" nearest to 10
+Then user is displayed with "From" date as "Current Time" nearest to "10"
+And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
   
 @Vacations_VerifyVacationDefaultSetPoints			@UIAutomatable
