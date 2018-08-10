@@ -208,8 +208,8 @@ When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
-|Cool only| 
-|OFF|
+|Cool| 
+#|OFF|
 
 #in case required
 #Requirements : Heat only mode should enabled
@@ -231,7 +231,7 @@ When user selects "BACK" from "Mode Info" screen
 Then user should be displayed with the "Change mode" screen 
 Examples:
 |Mode | 
-|Heat only |
+|Heat|
 |OFF|
 
 #JasperEMEA
@@ -322,7 +322,7 @@ When user selects "Mode" from "Thermostat Solution Card" screen
 Then user should be displayed with the "Change mode" screen 
 And user should be displayed with the following "Mode" options: 
 |Options|
-|Heat|
+#|Heat|
 |Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
@@ -351,7 +351,7 @@ Then user should be displayed with the "Change mode" screen
 And user should be displayed with the following "Mode" options: 
 |Options|
 |Heat|
-|Cool|
+#|Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
 And user selects <SystemMode> from "change Mode" Screen
@@ -426,20 +426,20 @@ Examples:
 |Mode | SystemMode| 
 |Cool | Cool |
 |Cool |Heat |
-|Cool | OFF |
-|Cool | auto |
-|Heat | Cool |
-|Heat |Heat |
-|Heat | OFF |
-|Heat | auto |
-|OFF | Cool |
-|OFF |Heat |
-|OFF | OFF |
-|OFF | auto |
-|auto | Cool |
-|auto |Heat |
-|auto | OFF |
-|auto | auto |
+#|Cool | OFF |
+#|Cool | auto |
+#|Heat | Cool |
+#|Heat |Heat |
+#|Heat | OFF |
+#|Heat | auto |
+#|OFF | Cool |
+#|OFF |Heat |
+#|OFF | OFF |
+#|OFF | auto |
+#|auto | Cool |
+#|auto |Heat |
+#|auto | OFF |
+#|auto | auto |
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctioncoolonly @Automated
@@ -453,7 +453,7 @@ When user selects "Mode" from "Thermostat Solution Card" screen
 Then user should be displayed with the "Change mode" screen 
 And user should be displayed with the following "Mode" options: 
 |Options|
-|Heat|
+#|Heat|
 |Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
@@ -482,7 +482,7 @@ Then user should be displayed with the "Change mode" screen
 And user should be displayed with the following "Mode" options: 
 |Options|
 |Heat|
-|Cool|
+#|Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
 And user selects <SystemMode> from "change Mode" Screen
@@ -1026,20 +1026,20 @@ Examples:
 |Mode | systemMode|
 |Cool | Cool |
 |Cool | Auto | 
-|Cool | OFF  |
-|Cool | Cool |
-|Heat | Cool |
-|Heat | Auto |
-|Heat | OFF |
-|Heat |Heat|
-|Auto | Cool |
-|Auto | Heat | 
-|Auto | OFF |
-|Auto |Auto |
-|OFF | Cool |
-|OFF | Heat | 
-|OFF | OFF |
-|OFF | auto|
+#|Cool | OFF  |
+#|Cool | Cool |
+#|Heat | Cool |
+#|Heat | Auto |
+#|Heat | OFF |
+#|Heat |Heat|
+#|Auto | Cool |
+#|Auto | Heat | 
+#|Auto | OFF |
+#|Auto |Auto |
+#|OFF | Cool |
+#|OFF | Heat | 
+#|OFF | OFF |
+#|OFF | auto|
 
 
 #Requirement:1 account with Emergency heat enabled
