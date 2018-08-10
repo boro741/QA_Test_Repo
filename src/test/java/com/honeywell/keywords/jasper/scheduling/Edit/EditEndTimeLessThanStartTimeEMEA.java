@@ -141,9 +141,13 @@ public class EditEndTimeLessThanStartTimeEMEA extends Keyword {
 		}else{
 			String displayedTime=testCase.getMobileDriver()
 					.findElement(By.xpath("//*[@content-desc='"+(Integer.parseInt(periodNumber)+1) + "_Everyday']//*[contains(@resource-id,'scheduling_period_time')]")).getText();
-			char zeroHour=displayedTime.charAt(0);
-			if(zeroHour=='0'){
-				displayedTime.replaceFirst("0", "");
+			char zeroPrefixHourOfDisplayedTime=displayedTime.charAt(0);
+			if(zeroPrefixHourOfDisplayedTime=='0'){
+				displayedTime=displayedTime.replaceFirst("0", "");
+			}
+			char zeroPrefixHourOfExpectedTime=changedTime.charAt(0);
+			if(zeroPrefixHourOfExpectedTime=='0'){
+				changedTime=changedTime.replaceFirst("0", "");
 			}
 			if(changedTime.equalsIgnoreCase(displayedTime)){
 				Keyword.ReportStep_Pass(testCase, changedTime+ " N period end time is N+1 start time+10 mins "+displayedTime);
