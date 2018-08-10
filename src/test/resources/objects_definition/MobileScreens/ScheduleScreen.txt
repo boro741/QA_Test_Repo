@@ -151,15 +151,15 @@ WeekdayScheduleTitleAndPeriodTime							XPATH	"//XCUIElementTypeStaticText[conta
 UsingAway	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	ID	Using Away Settings	ID	Using Away Settings	ID	Using Away Settings
 UsingHome	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	ID	Using Home Settings	ID	Using Home Settings	ID	Using Home Settings
 UsingSleep	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	ID	Using Sleep Settings	ID	Using Sleep Settings	ID	Using Sleep Settings
-ScheduleOffStatus	XPATH	//*[@text='SCHEDULE OFF']	XPATH	//*[@text='SCHEDULE OFF']	XPATH	//*[@text='SCHEDULE OFF']	ID	Schedule Off	ID	Schedule Off	ID	Schedule Off
+ScheduleOffStatus	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	ID	Schedule Off	ID	Schedule Off	ID	Schedule Off
 FollowingSchedule	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	ID	Following Schedule	ID	Following Schedule	ID	Following Schedule
 DoneButton	id	btn_done	id	btn_done	id	btn_done	NAME	Save	NAME	Save	NAME	Save
-CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='CANCEL']	XPATH	//*[@text='CANCEL']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
+CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
 SwitchToTimeScheduleButton	XPATH	//*[@text='Switch to Time Scheduling']	XPATH	//*[@text='Switch to time scheduling']	XPATH	//*[@text='Switch to time scheduling']	NAME	Switch to Time Schedule	NAME	Switch to Time Schedule	NAME	Switch to Time Schedule
 UseMyHomeSettingsText	XPATH	//*[@text='Use My Home Settings']	XPATH	//*[@text='Use My Home Settings']	XPATH	//*[@text='Use My Home Settings']	NAME	Use My Home Settings	NAME	Using Home Settings	NAME	Using Home Settings
 UseMySleepSettingsText	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	XPATH	//*[@text='Use My Sleep Settings']	NAME	Use My Sleep Settings				
 UseMyAwaySettingsText	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='Use My Away Settings']	NAME	Use My Away Settings	NAME	Using Away Settings	NAME	Using Away Settings
-ConfirmChangeButton	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//*[@text='CONFIRM CHANGE']	XPATH	//*[@text='CONFIRM CHANGE']	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
+ConfirmChangeButton	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//android.widget.Button[@text='Confirm Change']	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
 ScheduleOffOverlay	ID	pause_icon	ID	pause_icon	ID	pause_icon	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.
 GetStartedButton	Xpath	//*[@text='Get Started']	XPATH	//*[@text='Get Started']	XPATH	//*[@text='Get Started']						
 ScheduleOffButton	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	NAME	Turn schedule off	NAME	Turn schedule off	NAME	Turn schedule off
