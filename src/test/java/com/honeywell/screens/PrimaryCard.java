@@ -726,7 +726,7 @@ public class PrimaryCard extends MobileScreens {
 				}
 			}
 		}
-		return flag;
+		return false;
 	}
 
 	public boolean setMaxTemperatureByTappingUpStepper(TestCaseInputs inputs) {

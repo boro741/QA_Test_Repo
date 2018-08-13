@@ -77,8 +77,8 @@ Examples:
 |Cool| 
 #|Heat |
 #|Auto |
-#|Cool only|
-#|Heat Only|
+#|Cool |
+#|Heat |
 
 
 #JasperEMEA
@@ -295,20 +295,20 @@ Then user should be displayed with the "Change mode" screen
 And user should be displayed with the following "Mode" options: 
 |Options|
 |Heat|
-|Cool|
+#|Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
 And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X" from "Change Mode" Screen
-Then user "should not be updated" with <SystemMode> option
+Then user "should not be updated" with the <SystemMode> option
 Examples:
-|Mode| systemmode | 
-|Heat| Heat | 
-|Heat | OFF| 
-|OFF| Heat | 
-|OFF | OFF| 
+|Mode| SystemMode | 
+|Heat| OFF | 
+|OFF | Heat | 
+#|OFF| Heat | 
+#|OFF | OFF| 
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSystemmodescreenwithcoolonlyCancelfunctionality @Automated
@@ -330,13 +330,13 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X" from "Change Mode" Screen
-Then user "should not be updated" with <SystemMode> option
+Then user "should not be updated" with the <SystemMode> option
 Examples:
-|Mode| systemmode | 
-|Cool | Cool| 
+|Mode| SystemMode | 
 |Cool | OFF| 
 |OFF | Cool| 
-|OFF | OFF| 
+#|OFF | Cool| 
+#|OFF | OFF| 
 
 #JasperEMEA
 @SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA @Automated
@@ -358,13 +358,13 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "X" from "Change Mode" Screen
-Then user "should not be updated" with <SystemMode> option
+Then user "should not be updated" with the <SystemMode> option
 Examples:
-|Mode| systemmode | 
-|Heat| Heat | 
-|Heat | OFF| 
-|OFF| Heat | 
-|OFF | OFF| 
+|Mode| SystemMode | 
+|Heat| OFF | 
+#|OFF | Heat| 
+#|OFF| Heat | 
+#|OFF | OFF| 
 
 #SYSTEM MODE SAVE
 
@@ -388,18 +388,18 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "save" from "Change Mode" Screen
-Then user "should not be updated" with <SystemMode> option
+Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
-|Cool | Cool |
-|Cool |Heat |
+|Cool | Heat |
+|Heat |Cool |
 |Cool | OFF |
-|Heat | Cool |
-|Heat |Heat |
+#|Heat | Cool |
+#|Heat |Heat |
 |Heat | OFF |
-|OFF | Cool |
-|OFF |Heat |
-|OFF | OFF |
+#|OFF | Cool |
+#|OFF |Heat |
+#|OFF | OFF |
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionbothcoolandheatandauto @Automated
@@ -421,10 +421,10 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "save" from "Change Mode" Screen
-Then user "should be updated" with <SystemMode> option
+Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
-|Cool | Cool |
+|Heat | Cool |
 |Cool |Heat |
 #|Cool | OFF |
 #|Cool | auto |
@@ -461,13 +461,13 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "save" from "Change Mode" Screen
-Then user "should be updated" with <SystemMode> option
+Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
-|Cool | Cool |
 |Cool | OFF |
 |OFF | Cool |
-|OFF | OFF |
+#|OFF | Cool |
+#|OFF | OFF |
 
 #HB, Spruce, JasperNA
 @SystemModeswitchSAVEfunctionHeatonly @Automated
@@ -489,13 +489,13 @@ And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "save" from "Change Mode" Screen
-Then user "should be updated" with <SystemMode> option
+Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
-|Heat | Heat |
-|Heat | OFF |
 |OFF | Heat |
-|OFF | OFF |
+|Heat | OFF |
+#|OFF | Heat |
+#|OFF | OFF |
 
 
 #JasperEMEA
@@ -511,20 +511,20 @@ Then user should be displayed with the "Change mode" screen
 And user should be displayed with the following "Mode" options: 
 |Options|
 |Heat|
-|Cool|
+#|Cool|
 |Off|
 Then user "should be displayed" with the "Blue Tick mark on selected mode" option
 And user selects <SystemMode> from "change Mode" Screen
 Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 And user should be displayed with the <SystemMode> description 
 When user selects "save" from "Change Mode" Screen
-Then user "should be updated" with <SystemMode> option
+Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
-|Heat | Heat |
-|Heat | OFF |
 |OFF | Heat |
-|OFF | OFF |
+|Heat | OFF |
+#|OFF | Heat |
+#|OFF | OFF |
 
 
 #HB, Spruce, JasperNA
