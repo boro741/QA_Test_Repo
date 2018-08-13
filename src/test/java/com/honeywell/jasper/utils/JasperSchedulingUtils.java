@@ -12185,6 +12185,10 @@ public class JasperSchedulingUtils {
 					Double temp = Double.parseDouble(heatSetPoint);
 					heatSetPoint = String.valueOf(temp.intValue());
 				}
+				Keyword.ReportStep_Pass(testCase,
+						"Expected : "+heatTemp);
+				Keyword.ReportStep_Pass(testCase,
+						"Displayed :"+heatSetPoint);
 				if (heatSetPoint.equals(heatTemp)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Heat Stepper Value : Heat Set Point Successfully set to : " + heatSetPoint);

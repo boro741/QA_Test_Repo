@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.VacationHoldScreen;
 
@@ -31,33 +32,53 @@ public class ToggleVacationStatusOnStat extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user can (*) the stat individually$")
+	@KeywordStep(gherkins = "^user \"(.+)\" the \"(.+)\" individually$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		switch (exampleData.get(0).toUpperCase()) {
-		case "ENABLE": {
-			if (vhs.toggleVacationDetectionSwitch(testCase)) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Vaction is {0}ed", exampleData.get(0)));
-				flag = true;
-			} else {
-				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-						String.format("Unable to {0} the Vacation Hold", exampleData.get(0)));
-				flag = false;
+		try{
+			if(exampleData.get(1).equalsIgnoreCase("stat1")){
+				if(testCase.getPlatform().contains("Android")){
+					MobileUtils.clickOnElement(testCase,"Xpath","//android.widget.TextView[@text='"+inputs.getInputValue("LOCATION2_DEVICE1_NAME")+"']");
+				}else{
+					//TODO
+				}
+			}else{
+				if(testCase.getPlatform().contains("Android")){
+					MobileUtils.clickOnElement(testCase,"Xpath","//android.widget.TextView[@text='"+inputs.getInputValue("LOCATION2_DEVICE2_NAME")+"']");
+				}else{
+					//TODO
+				}
 			}
-			break;
-		}
+			switch (exampleData.get(0).toUpperCase()) {
+			case "ENABLE": {
+				if (vhs.clickOnVacationHoldSetpointSettings()) {
+					Keyword.ReportStep_Pass(testCase,
+							String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+							String.format("Failure:Unable to select Stat for set point edit"));
+				}
+				break;
+			}
 
-		case "DISABLE": {
-			if (vhs.toggleVacationDetectionSwitch(testCase)) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Vaction is {0}ed", exampleData.get(0)));
-				flag = true;
-			} else {
-				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-						String.format("Unable to  {0} the Vacation Hold", exampleData.get(0)));
-				flag = false;
+			case "DISABLE": {
+				if (vhs.clickOnVacationHoldSetpointSettings()) {
+					Keyword.ReportStep_Pass(testCase,
+							String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+							String.format("Failure:Unable to select Stat for set point edit"));
+				}
+				break;
 			}
-			break;
-		}
+			}
+			vhs.clickOnBack();
+		}catch(Exception e){
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("Exception occured ", exampleData.get(0)));
+			flag = false;
 		}
 		return flag;
 	}
