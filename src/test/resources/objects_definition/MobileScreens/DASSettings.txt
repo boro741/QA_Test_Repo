@@ -83,4 +83,4 @@ EmailNotifications	xpath	//android.widget.TextView[@text='Email Notifications']	
 KeyFobOption	XPATH	"//android.widget.TextView[contains(@text,'Key Fob')]"	XPATH	"//android.widget.TextView[contains(@text,'Key Fob')]"	XPATH	"//android.widget.TextView[contains(@text,'Key Fob')]"	XPATH	"//*[contains(@value,'Key Fob')]"	XPATH	"//*[contains(@value,'Key Fob')]"	XPATH	"//*[contains(@value,'Key Fob')]"
 KeyfobNamingScreenTextbox							xpath	//XCUIElementTypeStaticText				
 DoneButtonOnKeyboard							name	Done				
-
+AltBackButton							NAME	BACK	NAME	BACK	NAME	BACK

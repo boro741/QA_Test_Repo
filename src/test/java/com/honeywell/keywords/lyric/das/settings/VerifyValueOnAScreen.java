@@ -272,8 +272,9 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			} else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")||parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY"))
-					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")){
+			} else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+					|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY"))
+					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("off")) {
 					flag = flag & cs.isSoundSensitivityStatusSetToExpected(testCase, parameters.get(1));
@@ -834,7 +835,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Status is not displayed");
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
 					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("HIGH")) {
@@ -868,9 +869,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Status is not displayed");
 				}
-			}  
-			
-			else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")
+			} else if (parameters.get(0).equalsIgnoreCase("AUTO CHANGEOVER")
 					&& parameters.get(2).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -924,7 +923,8 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sound Ventilation is not displayed");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sound Ventilation is not displayed");
 				}
 
 			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications")
@@ -949,49 +949,48 @@ public class VerifyValueOnAScreen extends Keyword {
 
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications")
-				&& parameters.get(2).equalsIgnoreCase("Manage Alerts Sound Events")) {
-			CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
-			if (parameters.get(1).equalsIgnoreCase("ON")) {
-				if (bs.isSoundEmailNotificationSwitchEnabled(testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Sound Email switch is enabled on Manage Alerts screen");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sound Email switch is disabled on Manage Alerts screen");
-				}
-			} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-				if (!bs.isSoundEmailNotificationSwitchEnabled(testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Sound Email switch is disabled on Manage Alerts screen");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sound Email switch is enabled on Manage Alerts screen");
-				}
+					&& parameters.get(2).equalsIgnoreCase("Manage Alerts Sound Events")) {
+				CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Sound Email switch is enabled on Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Email switch is disabled on Manage Alerts screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isSoundEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Sound Email switch is disabled on Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sound Email switch is enabled on Manage Alerts screen");
+					}
 
-			}
-		} else if (parameters.get(0).equalsIgnoreCase("Email Notifications")
-				&& parameters.get(2).equalsIgnoreCase("Manage Alerts Motion Events")) {
-			CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
-			if (parameters.get(1).equalsIgnoreCase("ON")) {
-				if (bs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Motion Email switch is enabled on Manage Alerts screen");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Motion Email switch is disabled on Manage Alerts screen");
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-				if (!bs.isMotionEmailNotificationSwitchEnabled(testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Motion Email switch is disabled on Manage Alerts screen");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Motion Email switch is enabled on Manage Alerts screen");
+			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications")
+					&& parameters.get(2).equalsIgnoreCase("Manage Alerts Motion Events")) {
+				CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Motion Email switch is enabled on Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Email switch is disabled on Manage Alerts screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isMotionEmailNotificationSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Motion Email switch is disabled on Manage Alerts screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Email switch is enabled on Manage Alerts screen");
+					}
 				}
 			}
-		}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

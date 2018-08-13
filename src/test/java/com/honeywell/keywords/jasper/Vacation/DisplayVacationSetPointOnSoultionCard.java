@@ -12,7 +12,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class DisplayVacationSetPointOnSoultionCard extends Keyword {
@@ -35,25 +34,26 @@ public class DisplayVacationSetPointOnSoultionCard extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with (.*) setpoint value$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		try {
 			DeviceInformation statInfo;
-
 			switch (exampleData.get(0).toUpperCase()) {
 			case "VACATION": {
-				flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
-						inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 				statInfo = new DeviceInformation(testCase, inputs);
-				CHILUtil.setPointInVacationCard = Integer.parseInt(statInfo.getVacationHeatSetPoint());
-				if (Integer.parseInt(vhs.getPrimaryCardValue()) == CHILUtil.setPointInVacationCard) {
-					Keyword.ReportStep_Pass(testCase, "Vacation Setpoint is present in Solution card");
+				CHILUtil.vacationHeatSetPoint = (int) Double.parseDouble(statInfo.getVacationHeatSetPoint());
+				CHILUtil.vacationCoolSetPoint = (int) Double.parseDouble(statInfo.getVacationCoolSetPoint());
+				int vacationSetPointInPrimaryCard = Integer.parseInt(vhs.getPrimaryCardValue());
+				if ((vacationSetPointInPrimaryCard == CHILUtil.vacationHeatSetPoint)
+						|| (vacationSetPointInPrimaryCard == CHILUtil.vacationCoolSetPoint)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Vacation Setpoint displayed in Solution card is: " + vacationSetPointInPrimaryCard);
 
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Vacation Setpoint is not present in Solution card");
+							"Vacation Setpoint dispalyed in Solution card is: " + vacationSetPointInPrimaryCard);
 				}
 				break;
 			}

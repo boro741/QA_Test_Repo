@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -45,27 +46,28 @@ public class EditSetpointsInCards extends Keyword {
 			chUtil = new CHILUtil(inputs);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String deviceID = statInfo.getDeviceID();
-			if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
-					"Heat") == 200) {
-				Keyword.ReportStep_Pass(testCase,
-						"Change System Mode Using CHIL : Successfully changed system mode to Heat through CHIL");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
+			if (chUtil.getConnection()) {
+				if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
+						"Heat") == 200) {
+					Keyword.ReportStep_Pass(testCase,
+							"Change System Mode Using CHIL : Successfully changed system mode to Heat through CHIL");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
+				}
 			}
-
+			// flag = true;
 			switch (exampleData.get(0).toUpperCase()) {
 			case "PRIMARY CARD": {
 				try {
 					flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					flag &= vhs.editSetPointUpInPrimaryCard();
+					VacationSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					CHILUtil.setPointInPrimaryCard = Integer.parseInt(vhs.getPrimaryCardValue());
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isBackButtonVisible()) {
-						flag = flag & bs.clickOnBackButton();
-						flag = flag & bs.clickOnBackButton();
 						flag = flag & bs.clickOnBackButton();
 					} else {
 						flag = false;
@@ -91,18 +93,35 @@ public class EditSetpointsInCards extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not navigate to Global drawer");
 					}
-					flag = flag && vhs.clickOnVacationHoldSetpointSettings();
-					flag = flag && vhs.editHeatSetPointUp();
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isBackButtonVisible()) {
-						flag = flag & bs.clickOnBackButton();
-						flag = flag & bs.clickOnBackButton();
-						flag = flag & bs.clickOnBackButton();
+					if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != null) {
+						if (vhs.isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
+							flag = flag
+									&& vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+							flag = flag && vhs.editHeatSetPointUp();
+							VacationSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
+							BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+							if (bs.isBackButtonVisible()) {
+								flag = flag & bs.clickOnBackButton();
+								flag = flag & bs.clickOnBackButton();
+								flag = flag & bs.clickOnBackButton();
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Could not find Back button");
+							}
+							
+							statInfo = new DeviceInformation(testCase, inputs);
+							CHILUtil.setPointInVacationCard = (int) Double
+									.parseDouble(statInfo.getVacationHeatSetPoint());
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Stat is not present in vacation screen");
+						}
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
 					}
-					CHILUtil.setPointInVacationCard = Integer.parseInt(statInfo.getVacationHeatSetPoint());
 				} catch (Exception e) {
 					flag = false;
 					e.printStackTrace();

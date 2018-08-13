@@ -1317,6 +1317,30 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & ads.clickOnEndVacationOptionInSolutionCardScreen();
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("VACATION HOLD SWITCH IN STAT SCREEN")) {
+				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Vacation Toggle is already disabled in the Stats Screen");
+						flag = flag & vhs.toggleVacationDetectionSwitchInStatScreen(testCase);
+						flag = flag & VacationSettingsUtils.waitForProgressBarToComplete(testCase,
+								"LOADING SPINNER BAR", 2);
+						if (vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Vacation Toggle is turned ON");
+							flag = flag & vhs.toggleVacationDetectionSwitchInStatScreen(testCase);
+						}
+					} else {
+						flag = flag & vhs.toggleVacationDetectionSwitchInStatScreen(testCase);
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Vacation Toggle is already enabled in the Stats Screen");
+					} else {
+						flag = flag & vhs.toggleVacationDetectionSwitch(testCase);
+					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

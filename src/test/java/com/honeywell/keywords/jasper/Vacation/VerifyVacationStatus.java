@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperVacation;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyVacationStatus extends Keyword {
@@ -51,12 +52,19 @@ public class VerifyVacationStatus extends Keyword {
 					e.printStackTrace();
 				}
 			} else if (exampleData.get(1).trim().equals("solution card")) {
-				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
-				try {
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
-							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-				} catch (Exception e) {
-					e.printStackTrace();
+				PrimaryCard pc = new PrimaryCard(testCase);
+				if (!pc.isCogIconVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"User is not in Solution Card screen. Navigate back to Dashboard screen and tap on device");
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					try {
+						flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+								inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					Keyword.ReportStep_Pass(testCase, "User is in Solution Card screen.");
 				}
 				flag = flag & JasperVacation.verifyVacationStatusOnSolutionsCard(testCase, inputs, true);
 			} else if (exampleData.get(1).trim().equals("dashboard")) {
@@ -78,12 +86,19 @@ public class VerifyVacationStatus extends Keyword {
 					e.printStackTrace();
 				}
 			} else if (exampleData.get(1).trim().equals("solution card")) {
-				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
-				try {
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
-							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-				} catch (Exception e) {
-					e.printStackTrace();
+				PrimaryCard pc = new PrimaryCard(testCase);
+				if (!pc.isCogIconVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"User is not in Solution Card screen. Navigate back to Dashboard screen and tap on device");
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					try {
+						flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+								inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					Keyword.ReportStep_Pass(testCase, "User is in Solution Card screen.");
 				}
 				flag = flag & JasperVacation.verifyVacationStatusOnSolutionsCard(testCase, inputs, false);
 			} else if (exampleData.get(1).trim().equals("dashboard")) {
