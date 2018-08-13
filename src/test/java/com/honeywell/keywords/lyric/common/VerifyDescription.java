@@ -50,9 +50,7 @@ public class VerifyDescription extends Keyword {
 		} else if (expectedScreen.get(0).equalsIgnoreCase("ON")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			flag = flag & thermo.isOnFanDefinitionVisibleOnChangeFanScreen();
-		}
-
-		else if (expectedScreen.get(0).equalsIgnoreCase("AUTOMODE")) {
+		} else if (expectedScreen.get(0).equalsIgnoreCase("AUTOMODE")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isAutoDefinitionVisible();
 

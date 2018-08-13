@@ -53,11 +53,14 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
-	
+
 	public String getVacationHeatSetPoint() {
-		
-		return deviceInformation.getJSONObject("vacationHold").getString("heatSetpoint");
-		
+		System.out.println(deviceInformation.getJSONObject("vacationHold").get("heatSetpoint"));
+		return String.valueOf(deviceInformation.getJSONObject("vacationHold").get("heatSetpoint"));
+	}
+
+	public String getVacationCoolSetPoint() {
+		return String.valueOf(deviceInformation.getJSONObject("vacationHold").get("coolSetpoint"));
 	}
 
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
@@ -65,7 +68,7 @@ public class DeviceInformation {
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 		return true;
 	}
-	
+
 	public String getZwaveDeviceID(String name) throws Exception {
 		String sDimmerDeviceID = "";
 		if (deviceInformation != null) {
@@ -143,28 +146,31 @@ public class DeviceInformation {
 	public String getThermoStatVentilationMode() throws Exception {
 		String VentilationMode = "";
 		if (deviceInformation != null) {
-			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("ventilationModeSettings").getString("changeableValues");
+			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("ventilationModeSettings")
+					.getString("changeableValues");
 		} else {
 			throw new Exception("Device Information not found");
 		}
 		return VentilationMode;
 	}
-	
+
 	public String getThermoStatHumidificationSettings() throws Exception {
 		String VentilationMode = "";
 		if (deviceInformation != null) {
-			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings").getJSONObject("changeableValues").getString("mode");
+			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings")
+					.getJSONObject("changeableValues").getString("mode");
 		} else {
 			throw new Exception("Device Information not found");
 		}
 		return VentilationMode;
 	}
-	
+
 	public int getHumidifierValue() throws Exception {
 		int HumidifierValue = 0;
 		if (deviceInformation != null) {
-			HumidifierValue = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings").getJSONObject("changeableValues").getInt("setpoint");
-		}else{
+			HumidifierValue = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings")
+					.getJSONObject("changeableValues").getInt("setpoint");
+		} else {
 			throw new Exception("Device Information not found");
 		}
 		return HumidifierValue;
@@ -173,8 +179,9 @@ public class DeviceInformation {
 	public int getVentilationTimerValue() throws Exception {
 		int VentilationTimerValue = 0;
 		if (deviceInformation != null) {
-			VentilationTimerValue = deviceInformation.getJSONObject("settings").getJSONObject("ventilationModeSettings").getInt("ventilationBoostTimer");
-		}else{
+			VentilationTimerValue = deviceInformation.getJSONObject("settings").getJSONObject("ventilationModeSettings")
+					.getInt("ventilationBoostTimer");
+		} else {
 			throw new Exception("Device Information not found");
 		}
 		return VentilationTimerValue;
@@ -236,10 +243,8 @@ public class DeviceInformation {
 				}
 				setPoints.put("MinHeat", temp);
 			}
-			return setPoints;
-		} else {
-			throw new Exception("Device Information not found");
 		}
+		return setPoints;
 	}
 
 	public String getDASSensorID(String sensorName) throws Exception {
@@ -256,36 +261,36 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
-	
+
 	public ArrayList<String> getDASSensorIDsInADevice() throws Exception {
 		ArrayList<String> lstSensorID = new ArrayList<String>();
 		if (DeviceInformation.deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
-				   if(!sensor.isNull("id"))
-				      lstSensorID.add(sensor.getString("id").toString());
-				
+				if (!sensor.isNull("id"))
+					lstSensorID.add(sensor.getString("id").toString());
+
 			}
 			return lstSensorID;
-			
+
 		} else {
 			throw new Exception("getDASSensorIDsInADevice:Sensor Information not found");
 		}
 	}
-	
+
 	public ArrayList<String> getDASKeyFobsIDInADevice() throws Exception {
 		ArrayList<String> lstKeyFobID = new ArrayList<String>();
 		if (DeviceInformation.deviceInformation != null) {
 			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
 			for (int i = 0; i < keyfobs.length(); i++) {
 				JSONObject keyfob = keyfobs.getJSONObject(i);
-				   if(!keyfob.isNull("id"))
-					   lstKeyFobID.add(keyfob.getString("id").toString());
-				
+				if (!keyfob.isNull("id"))
+					lstKeyFobID.add(keyfob.getString("id").toString());
+
 			}
 			return lstKeyFobID;
-			
+
 		} else {
 			throw new Exception("getDASKeyFobsInADevice:KeyFob Information not found");
 		}
@@ -335,7 +340,7 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 	}
-	
+
 	public String getThermostatType() {
 		String type = "";
 		if (deviceInformation != null) {
@@ -345,9 +350,9 @@ public class DeviceInformation {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}
 		}
-		return type ;
+		return type;
 	}
-	
+
 	public String getThermoStatMode() {
 		String systemMode = "";
 		if (deviceInformation != null) {
@@ -357,7 +362,7 @@ public class DeviceInformation {
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-						+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+								+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 			}
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -376,7 +381,7 @@ public class DeviceInformation {
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-						+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+								+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 			}
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -385,7 +390,7 @@ public class DeviceInformation {
 		}
 		return systemMode;
 	}
-	
+
 	public String getCoolSetPoints() {
 		String coolSetPoints = " ";
 		try {
@@ -408,7 +413,7 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return coolSetPoints;
 	}
@@ -434,7 +439,7 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return indoorTemp;
 	}
@@ -452,11 +457,11 @@ public class DeviceInformation {
 							.get("coolSetpoint").toString();
 				} else if (getThermoStatMode().equals("Auto")) {
 					if (getThermostatModeWhenAutoChangeOverActive().equals("Heat")) {
-						currentSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-								.get("heatSetpoint").toString();
+						currentSetPoints = deviceInformation.getJSONObject("thermostat")
+								.getJSONObject("changeableValues").get("heatSetpoint").toString();
 					} else if (getThermostatModeWhenAutoChangeOverActive().equals("Cool")) {
-						currentSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-								.get("coolSetpoint").toString();
+						currentSetPoints = deviceInformation.getJSONObject("thermostat")
+								.getJSONObject("changeableValues").get("coolSetpoint").toString();
 					}
 				}
 
@@ -475,7 +480,7 @@ public class DeviceInformation {
 
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return currentSetPoints;
 	}
@@ -488,7 +493,6 @@ public class DeviceInformation {
 
 				heatSetPoints = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
 						.get("heatSetpoint").toString();
-
 
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -504,7 +508,7 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return heatSetPoints;
 	}
@@ -550,7 +554,7 @@ public class DeviceInformation {
 		if (deviceInformation != null) {
 			nextPeriodTime = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
 					.get("nextPeriodTime").toString();
-			
+
 		} else {
 			nextPeriodTime = "";
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -558,32 +562,31 @@ public class DeviceInformation {
 		}
 		return nextPeriodTime;
 	}
-	
+
 	public String getOverrrideSetpoint() {
-			String OverrideMode = "";
-			String OverrideSet = "";		
-			
-			if (deviceInformation != null) {
-				
-				OverrideMode = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-						.get("mode").toString();
-				
-				if(OverrideMode.equals("Heat"))
-				{
-					OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-							.get("heatSetpoint").toString();
-				}else
-					OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-					.get("coolSetpoint").toString();	
-				}
-				return OverrideSet;
-			} 
-	
+		String OverrideMode = "";
+		String OverrideSet = "";
+
+		if (deviceInformation != null) {
+
+			OverrideMode = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues").get("mode")
+					.toString();
+
+			if (OverrideMode.equals("Heat")) {
+				OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("heatSetpoint").toString();
+			} else
+				OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
+						.get("coolSetpoint").toString();
+		}
+		return OverrideSet;
+	}
+
 	public String getHoldUntilTime() {
 		String holdUntil = "";
 		if (deviceInformation != null) {
-			holdUntil = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-					.get("holdUntil").toString();
+			holdUntil = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues").get("holdUntil")
+					.toString();
 			return holdUntil;
 		} else {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -610,14 +613,14 @@ public class DeviceInformation {
 		}
 		return startTime;
 	}
-	
+
 	public String getVacationStartDateTime() {
 		String startTime = "";
 		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		if (deviceInformation != null) {
 			try {
 				startTime = deviceInformation.getJSONObject("vacationHold").getString("vacationStart");
-				
+
 			} catch (Exception e) {
 				startTime = " ";
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
@@ -661,7 +664,6 @@ public class DeviceInformation {
 		}
 		return endTime;
 	}
-	
 
 	public String getVacationEndDateTime() {
 		String endTime = "";
@@ -669,14 +671,15 @@ public class DeviceInformation {
 		if (deviceInformation != null) {
 			try {
 				endTime = deviceInformation.getJSONObject("vacationHold").getString("vacationEnd");
-				
+
 			} catch (Exception e) {
 				endTime = " ";
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}
 		}
 		return endTime;
-}
+	}
+
 	public String getscheduleStatus() throws Exception {
 		String status = " ";
 		if (deviceInformation != null) {
@@ -687,7 +690,6 @@ public class DeviceInformation {
 		return status;
 
 	}
-
 
 	public int getDREventID() throws Exception {
 		int eventID = -1;
@@ -728,6 +730,7 @@ public class DeviceInformation {
 		}
 		return isStarted;
 	}
+
 	public String getDeviceMacID() throws Exception {
 		try {
 			if (deviceInformation != null) {
@@ -738,7 +741,8 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-	}	
+	}
+
 	public String getDREndTime() throws Exception {
 		String DREndTime = "";
 		try {
@@ -757,11 +761,9 @@ public class DeviceInformation {
 		}
 		return DREndTime;
 	}
-	
-	public boolean isDutyCycleEnabled() throws Exception
-	{
-		try
-		{
+
+	public boolean isDutyCycleEnabled() throws Exception {
+		try {
 			if (deviceInformation != null) {
 				try {
 					JSONObject dr = deviceInformation.getJSONObject("drEvent");
@@ -771,19 +773,16 @@ public class DeviceInformation {
 				} catch (JSONException e) {
 					throw new Exception(e.getMessage());
 				}
-			}
-			else
-			{
+			} else {
 				throw new Exception("Thermostat Information not found");
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
+
 	public String getDRCoolSetPointLimit() throws Exception {
-		String setPointLimit ;
+		String setPointLimit;
 		try {
 			if (deviceInformation != null) {
 				try {
@@ -800,8 +799,9 @@ public class DeviceInformation {
 		}
 		return setPointLimit;
 	}
+
 	public String getDRHeatSetPointLimit() throws Exception {
-		String setPointLimit ;
+		String setPointLimit;
 		try {
 			if (deviceInformation != null) {
 				try {

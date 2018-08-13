@@ -11,7 +11,7 @@ Feature: As an user I want to set the vacation period for my home so that my the
  Examples: 
       | settings		| 
       | active		| 
-      | disable		| 
+      | inactive		| 
   
 @Vacations_VerifyGuideMessage			@Automated
 Scenario Outline: Verify guide Message when vacation is either turned off or on
@@ -58,70 +58,46 @@ Then user is displayed with "From" date as "Current Time" nearest to "10"
 And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
   
-@Vacations_VerifyVacationDefaultSetPoints			@UIAutomatable
+@Vacations_VerifyVacationDefaultSetPoints			@Automated
 Scenario: As a user I want to set the vacation set value so that I can put my home with desired temperature on my vacation  
-Given vacation mode is "disable"
+Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user turns "on" vacation from "vacation settings card"
-Then user is displayed with default set point value
-And user is displayed temperature values within maximum minimum limit
+When user changes the "Vacation" to "On"
+And user navigates back and forth in "Vacation" screen
+Then user should be displayed with default set point value
+And user should be displayed with temperature values within maximum minimum limit
 
-  
-@Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@UIAutomatable
+
+@Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@Automated
 Scenario: As a user I want to verify that HBB stats are not present in vacation comfort settings 
-Given vacation mode is "disable"
+When vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user turns "on" vacation from "vacation settings card"
-Then user provided with option to enter vacation start and end date
-And user with HBB is not listed under the review vacation settings in the location
+When user changes the "Vacation" to "On"
+And user navigates back and forth in "Vacation" screen
+Then user should be provided with option to enter vacation start and end date
+#And user with HBB is not listed under the review vacation settings in the location
+And HBB device should not be listed under the review vacation settings section in Vacation screen
 
   
 @Vacations_MinimumBandwidthTimer			@UIAutomatable
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
-Given vacation mode is "disable"
+Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user edits Vacation Timer 
-Then Minimum bandwidth timer between from and to is "1" hour
-  
-  
-@Vacations_VerifyVacationDefaultSetPoints			@UIAutomatable
-Scenario: As a user I want to set the vacation set value so that I can put my home with desired temperature on my vacation  
-Given vacation mode is "disable"
-And user launches and logs in to the Lyric application
-And user navigates to "Vacation" screen from the "Dashboard" screen
-When user turns "on" vacation from "vacation settings card"
-Then user is displayed with default set point value
-And user is displayed temperature values within maximum minimum limit
-
-  
-@Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@UIAutomatable
-Scenario: As a user I want to verify that HBB stats are not present in vacation comfort settings 
-Given vacation mode is "disable"
-And user launches and logs in to the Lyric application
-And user navigates to "Vacation" screen from the "Dashboard" screen
-When user turns "on" vacation from "vacation settings card"
-Then user provided with option to enter vacation start and end date
-And user with HBB is not listed under the review vacation settings in the location
-
-  
-@Vacations_MinimumBandwidthTimer			@UIAutomatable
-Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
-When vacation mode is "active"
-And user launches and logs in to the Lyric application
-And user navigates to "Vacation" screen from the "Dashboard" screen
-When user edits Vacation Timer 
+When user changes the "Vacation" to "On"
+Then user navigates back and forth in "Vacation" screen
+When user edits Vacation Timer
 Then Minimum bandwidth timer between from and to is "1" hour
   
 
 @Vacation_TimerValueIncreamentOf15EMEA			@UIAutomatable
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
-When vacation mode is "active"
+Given vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user edits Vacation Timer 
+#When user edits Vacation Timer 
 Then user should be displayed from and to timer field incremental of "15" minutes
 
 
@@ -134,83 +110,82 @@ When user edits Vacation Timer
 Then user should be displayed from and to timer field incremental of "10" minutes
   
   
-@Vacation_EditSetPoints			@UIAutomatable
-Scenario: As a user I want to edit set points for individual stat
+@Vacation_EditSetPoints			@Automated
+Scenario: As a user I want to edit set points for individual stat in Stats screen
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user selects the "stat" to edit
-Then user should allowed to edit set points
+When user selects the stat to edit
+Then user should be able to edit set points in Stats screen
 
- 
-@Vacation_Enable/DisbaleIndividulaStat			@UIAutomatable
-Scenario Outline: As a user I want to enable/Disable stat vacation individually
+
+@Vacation_EnableDisbaleIndividualStat			@Automated
+Scenario Outline: As a user I want to enable or disable stat vacation individually
 #Given: User has multiple stats
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user selects the "stat" to edit
-Then user can <Condition> the stat individually
-And Vacation mode is <Vacation Status> for the Statß
+When user selects the stat to edit
+And user changes the "Vacation Hold Switch In Stat Screen" to <Condition>
+When user navigates to "Vacation" screen from the "Stats" screen
+Then user is displayed with stat status <Stats Value In Vacation> in the vacation screen
 
 Examples: 
-      | Condition | Vacation Status	| 
-      | Enable    | Active			| 
-      | Disable   | disable			| 
+      | Condition	| Stats Value In Vacation	| 
+      | On			| active						| 
+      | Off			| No Settings				| 
   
-@Vacation_WhenScheduleEnables			@UIAutomatable
+@Vacation_WhenScheduleEnables			@Automated
 Scenario Outline: As a user I want to activate an Vacation settings when Scheduling is active 
 Given user thermostat is set to <Schedule Type> schedule
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user turns "on" vacation from "vacation settings card"
+When user changes the "Vacation" to "On"
 Then Vacation mode is "active" for the Stat
   
 Examples: 
-      | Schedule Type | 
-      | Time Based    | 
-      | Geofence      | 
-      | No            | 
+      | Schedule Type 		| 
+      | Time Based    		| 
+      | geofence based		| 
+      | No					| 
   
 
-@Vacation_EditSetPointsFromPrimaryCard			@UIAutomatable
-Scenario Outline: As a user I want to edit set points for individual stat
+@Vacation_EditSetPointsFromPrimaryCard			@Automated
+Scenario Outline: As a user I want to edit set points for individual stat from primary card screen
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 When user edits set point from <Card>
 Then user should be displayed with Updated setpoint in <Postcondition>
 
 Examples: 
-      | Card				| Postcondition	|
-      | Primary card		| Vacation card	|
-      | Vacation card	| Primary card	|
+		| Card				| Postcondition	|
+		| Primary card		| Vacation card	|
+		| Vacation card		| Primary card	|
 
 
 #JasperNA
 @VacationActiveSwitchingModesNA			@UIAutomatable
 Scenario Outline:  To verify when vacation active switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user Activates the "Vacation"
-Then user should be displayed with  status on "SolutionCard" 
+Given user has <Mode> system mode
+And vacation mode is "active"
+When user launches and logs in to the Lyric application
+Then user navigates to "solution card" screen from the "Dashboard" screen
+Then user verifies vacation is "on" in "solution card"
 When user change the "OFF" from <Mode>
-Then user should be displayed with "SYSTEM IS OFF"  status 
-And user should not be display "Vacation" status on "SolutionCard
-When suer change the <UMode> from "OFF" 
-Then user should be displayed with displayed with  status on "SolutionCard" 
-And user should be displayed with "Vacation" setpoint value 
+Then user should be displayed with "SYSTEM IS OFF" status on "solution card"
+And user verifies vacation is "off" in "solution card"
+When user change the <UMode> from "OFF" 
+Then user verifies vacation is "on" in "solution card"
+And user should be displayed with "Vacation" setpoint value  
 
 Examples:
-		| Mode	| Umode		| 
+		| Mode	| UMode		| 
 		| Auto	| Heat		| 
-		| Auto	| Cool		|
-		| Auto	| Auto		|
+#		| Auto	| Cool		|
 		| Heat	| Cool		|
-		| Heat	| Auto		| 
-		| Heat	| Heat		|
-		| Cool	| Heat		|
+#		| Heat	| Auto		| 
+#		| Cool	| Heat		|
 		| Cool	| Auto		|
-		| Cool	| Cool		|
 
 
 #JasperEMEA
@@ -219,6 +194,7 @@ Scenario:  To verify geofence schedule switching modes is changed for "Heat, Coo
 Given user has "Heat" system mode
 And vacation mode is "active"
 When user launches and logs in to the Lyric application
+Then user navigates to "solution card" screen from the "Dashboard" screen
 Then user verifies vacation is "on" in "solution card"
 When user changes system mode to "Cool" 
 Then user verifies vacation is "on" in "solution card"

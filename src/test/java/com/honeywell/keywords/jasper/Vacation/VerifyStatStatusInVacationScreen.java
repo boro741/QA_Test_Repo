@@ -9,21 +9,18 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperVacation;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.VacationHoldScreen;
 
-public class ToggleVacationStatus extends Keyword {
+public class VerifyStatStatusInVacationScreen extends Keyword {
 	public ArrayList<String> exampleData;
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 
-	public ToggleVacationStatus(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public VerifyStatStatusInVacationScreen(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.exampleData = exampleData;
-		this.inputs=inputs;
+		this.inputs = inputs;
 	}
 
 	@Override
@@ -33,23 +30,15 @@ public class ToggleVacationStatus extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user turns (.*) vacation from (.*)$")
+	@KeywordStep(gherkins = "^user is displayed with stat status (.*) in the vacation screen$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		switch (exampleData.get(0).toUpperCase()) {
-		case "ON":
-			if(vhs.EnableVacationHold()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Vaction is turned {0}",exampleData.get(0)));
-				flag=true;
-			}
-			else {
-				Keyword.ReportStep_Fail(testCase,FailType.COSMETIC_FAILURE, String.format("Unable to turn {0} the Vacation Hold",exampleData.get(0)));
-				flag=false;
-			}
-			break;
+		if (exampleData.get(0).equalsIgnoreCase("NO SETTINGS")) {
+			flag = flag & vhs.isNoSettingsLabelDisplayedInStatSectionInVacationScreen(testCase, exampleData.get(0));
+		} else if (exampleData.get(0).equalsIgnoreCase("ACTIVE")) {
+			flag = flag & vhs.isCoolToOrHeatToLabelInVacationSettingsVisible(testCase);
 		}
-		
-	   return flag;
+		return flag;
 	}
 
 	@Override
@@ -58,4 +47,3 @@ public class ToggleVacationStatus extends Keyword {
 		return true;
 	}
 }
-

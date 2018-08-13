@@ -32,17 +32,17 @@ public class DisplaySystemSwitchOnVacation extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with (.*) status on (.*)$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" status on \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-		if (exampleData.get(1).toUpperCase() == "SOLUTION CARD") {
+		if (exampleData.get(1).equalsIgnoreCase("SOLUTION CARD")) {
 			switch (exampleData.get(0).toUpperCase()) {
 			case "VACATION": {
 				try {
 					flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					if (vhs.isVacationLabelPresentOnSolutionCard()) {
-						Keyword.ReportStep_Pass(testCase, "Vacation Label is present in Solution card");
+						Keyword.ReportStep_Pass(testCase, "Vacation set point is present in Solution card");
 
 					} else {
 						flag = false;

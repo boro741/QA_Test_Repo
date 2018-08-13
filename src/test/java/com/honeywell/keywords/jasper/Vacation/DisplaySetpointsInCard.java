@@ -42,19 +42,20 @@ public class DisplaySetpointsInCard extends Keyword {
 		CHILUtil chUtil;
 		try {
 			chUtil = new CHILUtil(inputs);
-
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String deviceID = statInfo.getDeviceID();
-			if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
-					"Heat") == 200) {
-				Keyword.ReportStep_Pass(testCase,
-						"Change System Mode Using CHIL : Successfully changed system mode to Heat through CHIL");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
+			if (chUtil.isConnected()) {
+				if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
+						"Heat") == 200) {
+					Keyword.ReportStep_Pass(testCase,
+							"Change System Mode Using CHIL : Successfully changed system mode to Heat through CHIL");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
+				}
 			}
-
+			// flag = true;
 			switch (exampleData.get(0).toUpperCase()) {
 			case "PRIMARY CARD": {
 				try {
@@ -87,16 +88,26 @@ public class DisplaySetpointsInCard extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not navigate to Global drawer");
 					}
-
-					flag = flag && vhs.clickOnVacationHoldSetpointSettings();
-					if (Integer.parseInt(vhs.getHeatSetPointValue()) == CHILUtil.setPointInPrimaryCard) {
-						Keyword.ReportStep_Pass(testCase, "Setpoint in vacation and primary card are same");
+					if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != null) {
+						if (vhs.isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
+							flag = flag
+									&& vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+							if (Integer.parseInt(vhs.getHeatSetPointValue()) == CHILUtil.setPointInPrimaryCard) {
+								Keyword.ReportStep_Pass(testCase, "Setpoint in vacation and primary card are same");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Setpoint in vacation and primary card are not same");
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Stat is not present in vacation screen");
+						}
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Setpoint in vacation and primary card are not same");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
 					}
-
 				} catch (Exception e) {
 					flag = false;
 					e.printStackTrace();
@@ -104,7 +115,6 @@ public class DisplaySetpointsInCard extends Keyword {
 				break;
 			}
 			}
-
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			flag = false;

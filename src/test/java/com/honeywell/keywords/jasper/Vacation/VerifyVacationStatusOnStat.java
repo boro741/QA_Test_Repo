@@ -35,50 +35,58 @@ public class VerifyVacationStatusOnStat extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (exampleData.get(0).equalsIgnoreCase("Active")) {
-			if (vhs.clickOnVacationHoldSetpointSettings()) {
-				Keyword.ReportStep_Pass(testCase,
-						String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
-				try {
-					if (vhs.isVacationSwitchEnabled(testCase)) {
-						Keyword.ReportStep_Pass(testCase,
-								String.format("The Vacation Hold Setpoint of Stat is active as expected"));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-								String.format("The Vacation Hold Setpoint of Stat is not active"));
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != null) {
+				if (vhs.isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
+					flag = flag && vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					Keyword.ReportStep_Pass(testCase,
+							String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+					try {
+						if (vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									String.format("The Vacation Hold Setpoint of Stat is active as expected"));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+									String.format("The Vacation Hold Setpoint of Stat is not active"));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Stat is not present in vacation screen");
 				}
-
 			} else {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-						String.format("Failure:Unable to select Stat for set point edit"));
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
 			}
-		}
-
-		else if (exampleData.get(0).equalsIgnoreCase("InActive")) {
-			if (vhs.clickOnVacationHoldSetpointSettings()) {
-				Keyword.ReportStep_Pass(testCase,
-						String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
-				try {
-					if (vhs.isVacationSwitchEnabled(testCase)) {
-						Keyword.ReportStep_Pass(testCase,
-								String.format("The Vacation Hold Setpoint of Stat is inactive as expected"));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-								String.format("The Vacation Hold Setpoint of Stat is not inactive"));
+		} else if (exampleData.get(0).equalsIgnoreCase("InActive")) {
+			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != null) {
+				if (vhs.isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
+					flag = flag && vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					Keyword.ReportStep_Pass(testCase,
+							String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
+					try {
+						if (vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									String.format("The Vacation Hold Setpoint of Stat is inactive as expected"));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+									String.format("The Vacation Hold Setpoint of Stat is not inactive"));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Stat is not present in vacation screen");
 				}
-
 			} else {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-						String.format("Failure:Unable to select Stat for set point edit"));
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
 			}
 		}
 		return flag;

@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.VacationHoldScreen;
 
 public class NavigateBackAndForthInAScreen extends Keyword {
 	private TestCases testCase;
@@ -36,6 +37,7 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user navigates back and forth in \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		switch (expectedOption.get(0).toUpperCase()) {
 		case "MANAGE ALERTS": {
 			cs.navigateBackAndForthInManageAlertsScreen(testCase);
@@ -43,6 +45,10 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 		}
 		case "MOTION DETECTION SETTINGS": {
 			cs.navigateBackAndForthInMotionDetectionScreen(testCase);
+			break;
+		}
+		case "VACATION": {
+			vhs.navigateBackAndForthInVacationsScreen(testCase);
 			break;
 		}
 		default: {

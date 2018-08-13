@@ -32,20 +32,18 @@ public class EditVacationTimer extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (vhs.isStartAndEndTimeDisplayed()) {
-
 			if (vhs.clickOnStartTime()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Start Time button is clicked for timer edition"));
-
+				Keyword.ReportStep_Pass(testCase, String.format("Clicked on From date"));
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-						String.format("Unable to click start time"));
+						String.format("Unable to click on From date"));
 				flag = false;
 			}
 			if (vhs.clickOnEndTime()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The End Time button is clicked for timer edition"));
-
+				Keyword.ReportStep_Pass(testCase, String.format("Clicked on End date"));
 			} else {
-				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE, String.format("Unable to click end time"));
+				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+						String.format("Unable to click on End date"));
 				flag = false;
 			}
 		} else {

@@ -1,7 +1,5 @@
 package com.honeywell.keywords.jasper.Vacation;
 
-import java.util.ArrayList;
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,14 +11,12 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class EnterStartAndEndDate extends Keyword {
-	public ArrayList<String> exampleData;
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 
-	public EnterStartAndEndDate(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public EnterStartAndEndDate(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		this.exampleData = exampleData;
 		this.inputs = inputs;
 	}
 
@@ -31,25 +27,45 @@ public class EnterStartAndEndDate extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user provided with option to enter vacation start and end date$")
+	@KeywordStep(gherkins = "^user should be provided with option to enter vacation start and end date$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (vhs.isStartAndEndDateEnabled()) {
 			if (vhs.clickOnStartDate()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The Start Date button is clicked"));
+				Keyword.ReportStep_Pass(testCase, String.format("Clicked on Start Date button"));
 				if (vhs.isCalendarPopupVisible()) {
-					Keyword.ReportStep_Pass(testCase, String.format("StartCalendar Is Present"));
+					Keyword.ReportStep_Pass(testCase, String.format("Calendar popup is displayed"));
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (vhs.isCancelButtonInCalendarPopupVisible()) {
+							vhs.clickOnCancelButtonInCalendarPopup();
+							Keyword.ReportStep_Pass(testCase,
+									String.format("Clicked on Cancel button in Calendar popup"));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+									String.format("Cancel button in Calendar popup is not displayed"));
+						}
+					}
 				}
 			}
 			if (vhs.clickOnEndDate()) {
-				Keyword.ReportStep_Pass(testCase, String.format("The End Date button is clicked"));
+				Keyword.ReportStep_Pass(testCase, String.format("Clicked on End Date button"));
 				if (vhs.isCalendarPopupVisible()) {
-					Keyword.ReportStep_Pass(testCase, String.format("EndCalendar Is Present"));
+					Keyword.ReportStep_Pass(testCase, String.format("Calendar popup is displayed"));
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (vhs.isCancelButtonInCalendarPopupVisible()) {
+							vhs.clickOnCancelButtonInCalendarPopup();
+							Keyword.ReportStep_Pass(testCase,
+									String.format("Clicked on Cancel button in Calendar popup"));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+									String.format("Cancel button in Calendar popup is not displayed"));
+						}
+					}
 				}
 			}
 		} else {
-			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE, String
-					.format("The Start and End Date is not displayed for {0} Vacation Hold", exampleData.get(0)));
+			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+					String.format("The Start and End Date is not displayed in Vacations screen"));
 			flag = false;
 		}
 		return flag;

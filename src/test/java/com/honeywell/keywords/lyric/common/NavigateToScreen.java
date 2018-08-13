@@ -11,7 +11,6 @@ import com.honeywell.lyric.utils.*;
 import com.honeywell.screens.*;
  */
 
-
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -47,6 +46,7 @@ import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -540,13 +540,16 @@ public class NavigateToScreen extends Keyword {
 							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
-				/* Method to navigate to camera configuration with edited camera name screen from dashboard */
+				/*
+				 * Method to navigate to camera configuration with edited camera name screen
+				 * from dashboard
+				 */
 				case "CAMERA CONFIGURATION WITH EDITED CAMERA NAME": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs, "Camera Name Test");
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase,
+							inputs, "Camera Name Test");
 					break;
 				}
-				//String substr = word.substring(word.length() - 3)
+				// String substr = word.substring(word.length() - 3)
 				// Navigate from 'Dashboard' to 'Thermostat Settings'
 				case "THERMOSTAT SETTINGS": {
 					flag = flag
@@ -576,10 +579,11 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSoundScreen(testCase, inputs);
 					break;
 				}
-				
-				//Navigate from 'Dashboard' to 'Camera Sound Detection Screen'
-				case "SOUND DETECTION" : {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(testCase, inputs);
+
+				// Navigate from 'Dashboard' to 'Camera Sound Detection Screen'
+				case "SOUND DETECTION": {
+					flag = flag & DASSettingsUtils
+							.navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(testCase, inputs);
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Ventilation Screen'
@@ -722,13 +726,13 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
-				case "SOLUTION":{
-					flag=flag&DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+				case "SOLUTION": {
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
-					
+
 				}
 				case "GLOBAL DRAWER": {
 					Thread.sleep(5000);
@@ -1541,7 +1545,7 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-					if (cs.isMotionDetectionLabelVisible(testCase, 20)){
+					if (cs.isMotionDetectionLabelVisible(testCase, 20)) {
 						cs.clickOnMotionDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
@@ -2329,9 +2333,9 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DASHBOARD": {
-					flag=flag&DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2429,25 +2433,39 @@ public class NavigateToScreen extends Keyword {
 				}
 					break;
 				}
-			}else if (screen.get(1).equalsIgnoreCase("T1PRIMARYCARD")) {
-					switch (screen.get(0).toUpperCase()) {
-					case "THERMOSTAT2": {
-						PrimaryCard PC = new PrimaryCard(testCase);
-						flag = flag && PC.clickOnBackButton();
-						flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
-								inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
-						if (flag)
-						{
-							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Invalid Input: " + screen.get(1));
-						}
-					}break;
-			}
-			}
-			else {
+			} else if (screen.get(1).equalsIgnoreCase("T1PRIMARYCARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "THERMOSTAT2": {
+					PrimaryCard PC = new PrimaryCard(testCase);
+					flag = flag && PC.clickOnBackButton();
+					flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("STATS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "VACATION": {
+					VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+					flag = flag && vhs.clickOnBackButton();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0));
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+				}
+					break;
+				}
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

@@ -36,22 +36,21 @@ public class ChangeSystemSwitch extends Keyword {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		if (vhs.clickOnModeText()) {
 			Keyword.ReportStep_Pass(testCase, "Mode is been clicked");
-
 			switch (exampleData.get(0).toUpperCase()) {
 			case "OFF": {
-				flag &= vhs.clickOnSystemModes("OffMode");
+				flag &= vhs.clickOnSystemModes("Off");
 				break;
 			}
 			case "AUTO": {
-				flag &= vhs.clickOnSystemModes("AutoMode");
+				flag &= vhs.clickOnSystemModes("Auto");
 				break;
 			}
 			case "HEAT": {
-				flag &= vhs.clickOnSystemModes("HeatMode");
+				flag &= vhs.clickOnSystemModes("Heat");
 				break;
 			}
 			case "COOL": {
-				flag &= vhs.clickOnSystemModes("CoolMode");
+				flag &= vhs.clickOnSystemModes("Cool");
 				break;
 			}
 			}

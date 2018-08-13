@@ -101,7 +101,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnBackButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", 3)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltBackButton")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AltBackButton");
+		} else {
+			return false;
+		}
 	}
 
 	public boolean clickOnNavBackButton() {
@@ -239,7 +245,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isBackButtonVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", 3);
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton", 3)) {
+			return true;
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltBackButton")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean isBackButtonVisible(int timeOut) {
