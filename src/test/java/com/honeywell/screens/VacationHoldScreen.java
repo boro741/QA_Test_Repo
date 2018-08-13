@@ -164,19 +164,32 @@ public class VacationHoldScreen extends MobileScreens {
 	public String getStartDate() {
 		if (testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[0]
-					+ MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1] + ","
-					+ MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[2];
-		} else
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1]+","
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[2];
+		}else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate");
 	}
 
 	public String getEndDate() {
 		if (testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[0]
-					+ MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[1] + ","
-					+ MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[2];
-		} else
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[1]+","
+					+MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[2];
+		}else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate");
+	}
+
+	public boolean setEndDate() {
+		if(!testCase.getPlatform().contains("IOS")){
+			String valueToSet= MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(" ")[2].replace(",", "");
+			MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
+			return MobileUtils.clickOnElement(testCase, "Xpath","//*[@content-desc='"+valueToSet+" August 2018']") &&  MobileUtils.clickOnElement(objectDefinition, testCase,  "OkButton");
+		}else{
+			String valueToSet= MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1].replace(",", "").trim();
+			MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
+			return MobileUtils.setValueToElement(testCase, "Xpath","//XCUIElementTypePickerWheel",valueToSet) &&  MobileUtils.clickOnElement(objectDefinition, testCase,  "ToDate");
+			
+		}
 	}
 
 	public String getStartTime() {
@@ -314,6 +327,14 @@ public class VacationHoldScreen extends MobileScreens {
 			}
 		}
 		return flag;
+	}
+
+	public boolean isVacationHoldSetpointSettingsEnabled() {
+		if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSetpointRow").getText().equalsIgnoreCase("ON")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String getHeatSetPointValue() {
@@ -486,5 +507,12 @@ public class VacationHoldScreen extends MobileScreens {
 
 	public List<WebElement> getDevicesListInVacationScreen() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "DevicesListInVactionScreen");
+	}
+	public boolean clickOnVacationHoldSetpointSettings() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationHoldSetpointRow")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationHoldSetpointRow");
+		} else {
+			return false;
+		}
 	}
 }

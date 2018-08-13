@@ -36,8 +36,8 @@ Examples:
 		| Vacation				| Vacation			|
 		| solution card			| Vacation Until		|
 		
-  
-@Vacations_DefaultVacationTimeForNA			@UIAutomatable
+
+@Vacations_DefaultVacationTimeForNA			@Automated
 Scenario: As a user I want to verify the date inputs
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -48,7 +48,7 @@ Then user is displayed with "From" date as "Current Time" nearest to "10"
 And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
   
-@Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@UIAutomatable 
+@Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@Automated
 Scenario: As a user I want to verify the time and date boundary conditions
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -68,7 +68,6 @@ And user navigates back and forth in "Vacation" screen
 Then user should be displayed with default set point value
 And user should be displayed with temperature values within maximum minimum limit
 
-
 @Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@Automated
 Scenario: As a user I want to verify that HBB stats are not present in vacation comfort settings 
 When vacation mode is "inactive"
@@ -81,33 +80,33 @@ Then user should be provided with option to enter vacation start and end date
 And HBB device should not be listed under the review vacation settings section in Vacation screen
 
   
-@Vacations_MinimumBandwidthTimer			@UIAutomatable
-Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
-Given vacation mode is "inactive"
-And user launches and logs in to the Lyric application
-And user navigates to "Vacation" screen from the "Dashboard" screen
-When user changes the "Vacation" to "On"
-Then user navigates back and forth in "Vacation" screen
-When user edits Vacation Timer
-Then Minimum bandwidth timer between from and to is "1" hour
-  
-
-@Vacation_TimerValueIncreamentOf15EMEA			@UIAutomatable
-Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
-Given vacation mode is "active"
-And user launches and logs in to the Lyric application
-And user navigates to "Vacation" screen from the "Dashboard" screen
-#When user edits Vacation Timer 
-Then user should be displayed from and to timer field incremental of "15" minutes
-
-
-@Vacation_TimerValueIncreamentOf10NA			@UIAutomatable
+@Vacations_MinimumBandwidthTimer	@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user edits Vacation Timer 
-Then user should be displayed from and to timer field incremental of "10" minutes
+Then Minimum bandwidth timer between from and to is "1" hour
+  
+
+@Vacation_TimerValueIncreamentOf15EMEA			@Automated
+Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
+When vacation mode is "active"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user edits Vacation Timer 
+Then user is displayed with "From" date as "Current Time" nearest to "15"
+#Then user should be displayed from and to timer field incremental of "15" minutes
+
+
+@Vacation_TimerValueIncreamentOf10NA	@Automated
+Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
+When vacation mode is "active"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user edits Vacation Timer 
+Then user is displayed with "From" date as "Current Time" nearest to "10"
+#Then user should be displayed from and to timer field incremental of "10" minutes
   
   
 @Vacation_EditSetPoints			@Automated
@@ -118,11 +117,10 @@ And user navigates to "Vacation" screen from the "Dashboard" screen
 When user selects the stat to edit
 Then user should be able to edit set points in Stats screen
 
-
 @Vacation_EnableDisbaleIndividualStat			@Automated
 Scenario Outline: As a user I want to enable or disable stat vacation individually
 #Given: User has multiple stats
-When vacation mode is "active"
+When vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user selects the stat to edit
@@ -132,9 +130,24 @@ Then user is displayed with stat status <Stats Value In Vacation> in the vacatio
 
 Examples: 
       | Condition	| Stats Value In Vacation	| 
-      | On			| active						| 
+      | On			| active					| 
       | Off			| No Settings				| 
-  
+      
+@Vacation_Enable_DisbaleIndividulaStat			@Automated
+Scenario Outline: As a user I want to enable Disable stat vacation individually
+Given vacation mode is "inactive"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user changes the "Vacation" to "On"
+Then user <Condition> the "stat2" individually
+And verify Vacation mode is <Vacation Status> for the "stat2"
+And verify Vacation mode is "Active" for the "stat1"
+
+Examples: 
+      | Condition | Vacation Status	| 
+  #    | Enable    | Active			| 
+      | Disable   | Inactive			|
+
 @Vacation_WhenScheduleEnables			@Automated
 Scenario Outline: As a user I want to activate an Vacation settings when Scheduling is active 
 Given user thermostat is set to <Schedule Type> schedule
