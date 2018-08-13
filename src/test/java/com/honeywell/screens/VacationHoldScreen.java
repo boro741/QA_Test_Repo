@@ -99,11 +99,6 @@ public class VacationHoldScreen extends MobileScreens {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerMinute");
 	}
 
-	public boolean clickOnBack() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "NavigateBack");
-	}
-
-
 	@SuppressWarnings("deprecation")
 	public String increaseTimerWithStartOrEndTime(String time, String incrementalTime) throws ParseException {
 		int newHour;

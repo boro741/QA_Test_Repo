@@ -74,7 +74,7 @@ public class ToggleVacationStatusOnStat extends Keyword {
 				break;
 			}
 			}
-			vhs.clickOnBack();
+			vhs.clickOnBackButton();
 		}catch(Exception e){
 			Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
 					String.format("Exception occured ", exampleData.get(0)));

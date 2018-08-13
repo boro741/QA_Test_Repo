@@ -39,13 +39,13 @@ public class VerifyVacationStatusOnMultiStat extends Keyword {
 			if(testCase.getPlatform().contains("Android")){
 				MobileUtils.clickOnElement(testCase,"Xpath","//android.widget.TextView[@text='"+inputs.getInputValue("LOCATION2_DEVICE1_NAME")+"']");
 			}else{
-				//TODO
+				MobileUtils.clickOnElement(testCase,"Xpath","//*[@name='"+inputs.getInputValue("LOCATION2_DEVICE1_NAME")+"_cell']");
 			}
 		}else{
 			if(testCase.getPlatform().contains("Android")){
 				MobileUtils.clickOnElement(testCase,"Xpath","//android.widget.TextView[@text='"+inputs.getInputValue("LOCATION2_DEVICE2_NAME")+"']");
 			}else{
-				//TODO
+				MobileUtils.clickOnElement(testCase,"Xpath","//*[@name='"+inputs.getInputValue("LOCATION2_DEVICE2_NAME")+"_cell']");
 			}
 		}
 		if (exampleData.get(0).equalsIgnoreCase("Active")) {
