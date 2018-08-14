@@ -41,61 +41,63 @@ public class VerifyVacationStatusOnMultiStat extends Keyword {
 			}else{
 				MobileUtils.clickOnElement(testCase,"Xpath","//*[@name='"+inputs.getInputValue("LOCATION2_DEVICE1_NAME")+"_cell']");
 			}
-		}else{
+		}else if(exampleData.get(1).equalsIgnoreCase("stat2")){
 			if(testCase.getPlatform().contains("Android")){
 				MobileUtils.clickOnElement(testCase,"Xpath","//android.widget.TextView[@text='"+inputs.getInputValue("LOCATION2_DEVICE2_NAME")+"']");
 			}else{
 				MobileUtils.clickOnElement(testCase,"Xpath","//*[@name='"+inputs.getInputValue("LOCATION2_DEVICE2_NAME")+"_cell']");
 			}
-		}
-		if (exampleData.get(0).equalsIgnoreCase("Active")) {
+		}else{
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != null) {
 				if (vhs.isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
 					flag = flag && vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					Keyword.ReportStep_Pass(testCase,
 							String.format("The Vacation Hold Setpoint of Stat is clicked to edit the Set point"));
-					try {
-						if (vhs.isVacationHoldSetpointSettingsEnabled()) {
-							Keyword.ReportStep_Pass(testCase,
-									String.format("The Vacation Hold Setpoint of Stat is active as expected"));
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-									String.format("The Vacation Hold Setpoint of Stat is not active"));
-						}
-
-					} catch (Exception e) {
-						e.printStackTrace();
-
-					}
 				}
 			}
 		}
-				else if (exampleData.get(0).equalsIgnoreCase("InActive")) {
-					try {
-						if (!vhs.isVacationHoldSetpointSettingsEnabled()) {
-							Keyword.ReportStep_Pass(testCase,
-									String.format("The Vacation Hold Setpoint of Stat is inactive as expected"));
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-									String.format("The Vacation Hold Setpoint of Stat is not inactive"));
-						}
-					 } catch (Exception e) {
-						e.printStackTrace();
-
-					}
+		if (exampleData.get(0).equalsIgnoreCase("Active")) {
+			try {
+				if (vhs.isVacationHoldSetpointSettingsEnabled()) {
+					Keyword.ReportStep_Pass(testCase,
+							String.format("The Vacation Hold Setpoint of Stat is active as expected"));
 				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
+					Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+							String.format("The Vacation Hold Setpoint of Stat is not active"));
 				}
-			vhs.clickOnBackButton();
-			return flag;
-		}
 
-		@Override
-		@AfterKeyword
-		public boolean postCondition() throws KeywordException {
-			return true;
-		}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
 	}
+	else if (exampleData.get(0).equalsIgnoreCase("InActive")) {
+		try {
+			if (!vhs.isVacationHoldSetpointSettingsEnabled()) {
+				Keyword.ReportStep_Pass(testCase,
+						String.format("The Vacation Hold Setpoint of Stat is inactive as expected"));
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
+						String.format("The Vacation Hold Setpoint of Stat is not inactive"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	} else {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
+	}
+	vhs.clickOnBackButton();
+	return flag;
+}
+
+@Override
+@AfterKeyword
+public boolean postCondition() throws KeywordException {
+	return true;
+}
+}

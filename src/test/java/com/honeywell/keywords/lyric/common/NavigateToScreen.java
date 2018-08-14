@@ -771,6 +771,11 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "MULTISTAT LOCATION": {
+					Dashboard dashBoardScreen=  new Dashboard(testCase);
+					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
+					break;
+				}
 				case "VACATION": {
 					Dashboard ds = new Dashboard(testCase);
 					if (ds.clickOnGlobalDrawerButton()) {

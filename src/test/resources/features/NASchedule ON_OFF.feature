@@ -462,6 +462,7 @@ Then user thermostat is set to <scheduling> schedule
 Then user thermostat is set to <scheduled> stats
 When user thermostat2 is set to <scheduling1> stats 
 When user launches and logs in to the Lyric application
+And user navigates to "MULTISTAT LOCATION" screen from the "Dashboard" screen
 Then user navigates to "Scheduling" screen from the "Dashboard" screen
 Then user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
