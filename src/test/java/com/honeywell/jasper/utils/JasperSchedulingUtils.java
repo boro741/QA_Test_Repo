@@ -12090,6 +12090,7 @@ public class JasperSchedulingUtils {
 			String jasperStatType = statInfo.getJasperDeviceType();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+				Keyword.ReportStep_Pass(testCase,"Displayed value "+heatSetPoint);
 			} else {
 				int size = ss.getHeatSetPointsElements().size();
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
@@ -12181,15 +12182,16 @@ public class JasperSchedulingUtils {
 							"Verify Heat Stepper Value : Heat Set Point not set to min set point");
 				}
 			} else {
-				if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT)) {
+				/*if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT)) {
 					Double temp = Double.parseDouble(heatSetPoint);
 					heatSetPoint = String.valueOf(temp.intValue());
-				}
+				}*/
 				Keyword.ReportStep_Pass(testCase,
 						"Expected : "+heatTemp);
 				Keyword.ReportStep_Pass(testCase,
 						"Displayed :"+heatSetPoint);
-				if (heatSetPoint.equals(heatTemp)) {
+				System.out.println("Displayed value "+heatSetPoint+ " and Expected : "+heatTemp);
+				if (heatSetPoint.trim().equals(heatTemp.trim())) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Heat Stepper Value : Heat Set Point Successfully set to : " + heatSetPoint);
 				} else {

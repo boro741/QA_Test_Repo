@@ -1081,11 +1081,11 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isGeofenceSleepElementVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSleep", timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMySleepSettingsText", timeOut);
 	}
 
 	public boolean isGeofenceAwayElementVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAway", timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UseMyAwaySettingsText", timeOut);
 	}
 
 	public WebElement getGeofenceCoolHeatTemperatureElement() {
@@ -1163,7 +1163,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public boolean clickOnGeofenceSleepButton()
 	{
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceSleep");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UseMySleepSettingsText");
 	}
 
 	public boolean clickOnUseMyAwaySettingsButton()
