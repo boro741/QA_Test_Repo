@@ -1520,6 +1520,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return enrollmentObj;
 	}
+	
 	public static String getAPIGEEAccessToken(TestCaseInputs inputs) throws Exception {
 		JSONObject enrollmentObj;
 		String accessToken = "";
@@ -1591,6 +1592,7 @@ public class CHILUtil implements AutoCloseable {
 		System.out.println(result);
 		return result;
 	}
+	
 	public static String postDREvent(TestCaseInputs inputs, HashMap<String, String> headerValues) throws Exception {
 
 		String eventID = "";
@@ -1734,6 +1736,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return eventID;
 	}
+	
 	public static String putDREnrollement(TestCaseInputs inputs, String deviceID, String deviceMAC, String locationID)
 			throws Exception {
 		String result = "";
@@ -1773,6 +1776,25 @@ public class CHILUtil implements AutoCloseable {
 			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
+		}
+		return result;
+	}
+	
+	public int changeFanMode(long locationID, String deviceID, String FanMode) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/fan/changeableValues", locationID, deviceID);
+				String headerData = String.format("{\"mode\":\"%s\"}", FanMode);
+				try {
+					result = doPostRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return result;
 	}

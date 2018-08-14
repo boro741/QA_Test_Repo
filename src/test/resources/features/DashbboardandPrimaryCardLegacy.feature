@@ -277,7 +277,7 @@ And user should be displayed with the following "Mode" options:
 #Then user "should be displayed" with the "Blue Tick mark on new selected mode" option
 #And user should be displayed with the <SystemMode> description 
 #When user selects "X" from "Change Mode" Screen
-#Then user "should not be updated" with <SystemMode> option
+#Then user "should not be updated" with the <SystemMode> option
 Examples:
 |Mode|
 |Heat|
@@ -559,7 +559,8 @@ Examples:
 @FanModeSwitchcancelfunction @Automated
 Scenario Outline: As an user I want to verify the Fan mode cancel option while switch between Auto, circulate and ON
 Given user has <Mode> system mode
-Given user launches and logs in to the Lyric application
+And user has <DftFANMode> FAN mode
+And user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user selects "Fan" from "Thermostat Solution Card" screen
 Then user should be displayed with the "Change Fan" screen 
@@ -570,19 +571,19 @@ When user selects "X" from "Change Fan" screen
 Then user should be displayed with the "Thermostat Solution Card" screen
 And user "should not be updated" with the <FanMode> option
 Examples:
-|Mode |  FanMode | 
-#|Cool | Auto Fan|
-#|Cool | Circulate |
-#|Cool | ON | 
-#|Heat | Auto Fan|
-#|Heat | Circulate |
-|Heat | ON |
-#|Auto | Auto Fan|
-#|Auto | Circulate |
-#|Auto | ON | 
-#|OFF | Auto Fan|
-#|OFF | Circulate |
-#|OFF | ON |  
+ |Mode | DftFANMode |FanMode | 
+#|Cool | Auto		|On		 |
+#|Cool | Circulate  |Auto    |
+#|Cool | ON 		|Circulate|
+#|Heat | Auto		|On		 |
+#|Heat | Circulate  |On      |
+ |Heat | ON         |Circulate|	
+#|Auto | Auto       |On 	 |
+#|Auto | Circulate  |Auto    |
+#|Auto | ON         |Circulate|
+#|OFF | Auto        |On       |
+#|OFF | Circulate   |Auto     |
+#|OFF | ON          |  Auto   |
 
 #in case required
 #|Heat only | Auto Fan|
@@ -610,9 +611,9 @@ Examples:
 |Mode |  FanMode | 
 #|Cool | Auto Fan|
 #|Cool | Circulate |
-|Cool | ON | 
+|Cool 	| ON | 
 #|Heat | Auto Fan|
-#|Heat | Circulate |
+|Heat | Circulate |
 #|Heat | ON | 
 #|Auto | Auto Fan|
 #|Auto | Circulate |
@@ -651,18 +652,18 @@ Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+When user selects "MAX set temperature by taping on UP stepper" from "Primary Card" screen
 Then user "should be displayed" with the "MAX set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Dashboard" option
 Examples:
 |Mode|scheduling|
 |Heat|geofence based|
-#|Cool|geofence based|
-#|Heat|time based|
+|Cool|geofence based|
+|Heat|time based|
 |Cool|time based|
-|Heat|no|
-|Cool|no|
+#|Heat|no|
+#|Cool|no|
 #in case required
 #|Cool only|geofence based|
 #|Heat only|time based|
@@ -677,7 +678,7 @@ Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
+When user selects "MIN set temperature by taping on DOWN stepper" from "Primary Card" screen
 Then user "should be displayed" with the "MIN set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
@@ -687,8 +688,8 @@ Examples:
 |Cool|geofence based|
 |Heat|time based|
 |Cool|time based|
-|Heat|no|
-|Cool|no|
+#|Heat|no|
+#|Cool|no|
 #in case required
 #|Cool only|geofence based|
 #|Heat only|time based|
@@ -702,7 +703,7 @@ Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When user selects "MAX set temperature by taping on UP stepper" from "THERMOSTAT SOLUTION CARD" screen
+When user selects "MAX set temperature by taping on UP stepper" from "Primary Card" screen
 Then user "should be displayed" with the "MAX set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MAX set temperature on Dashboard" option
@@ -710,7 +711,7 @@ Examples:
 |Mode|scheduling|
 |Heat|geofence based|
 |Heat|time based|
-|Heat|no|
+#|Heat|no|
 
 #JasperEMEA
 @SetTemperatureSolutionCardMINEMEA @Automated
@@ -720,15 +721,15 @@ Given user has <Mode> system mode
 Given user thermostat is set to <scheduling> schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When user selects "MIN set temperature by taping on DOWN stepper" from "THERMOSTAT SOLUTION CARD" screen
+When user selects "MIN set temperature by taping on DOWN stepper" from "Primary Card" screen
 Then user "should be displayed" with the "MIN set temperature on Solution Card" option
 And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
 |Mode|scheduling|
-#|Heat|geofence based|
+|Heat|geofence based|
 #|Heat|time based|
-|Heat|no|
+#|Heat|no|
 
 
 

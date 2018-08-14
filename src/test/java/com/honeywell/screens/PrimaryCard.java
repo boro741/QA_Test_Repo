@@ -337,12 +337,12 @@ public class PrimaryCard extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']",
-						testCase)) {
+								testCase)) {
 					return true;
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-						.isEnabled()) {
+								.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -365,13 +365,13 @@ public class PrimaryCard extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']",
-						testCase)) {
+								testCase)) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-						.isEnabled()) {
+								.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -394,13 +394,13 @@ public class PrimaryCard extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']",
-						testCase)) {
+								testCase)) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-						.isEnabled()) {
+								.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -423,13 +423,13 @@ public class PrimaryCard extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']",
-						testCase)) {
+								testCase)) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-						.isEnabled()) {
+								.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -500,7 +500,7 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean clickOnAutoFanButton() {
 		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoFanButton");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AutoFanButton");
 		} else {
 			WebElement element = testCase.getMobileDriver().findElement(By.xpath("//*[@name='AUTO']"));
 			if (element != null) {
@@ -594,7 +594,7 @@ public class PrimaryCard extends MobileScreens {
 			if (testCase.getMobileDriver().findElement(By.xpath(
 					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 							+ value + "']"))
-					.isEnabled()) {
+							.isEnabled()) {
 				return true;
 			}
 		}
@@ -603,7 +603,7 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean clickOnCirculateFanButton() {
 		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CirculateFanButton");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CirculateFanButton");
 		} else {
 			WebElement element = testCase.getMobileDriver().findElement(By.xpath("//*[@name='CIRCULATE']"));
 			if (element != null) {
@@ -618,7 +618,7 @@ public class PrimaryCard extends MobileScreens {
 	public boolean clickOnONFanButton() {
 
 		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnFanButton");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "OnFanButton");
 		} else {
 			WebElement element = testCase.getMobileDriver().findElement(By.xpath("//*[@name='ON']"));
 			if (element != null) {
@@ -643,7 +643,7 @@ public class PrimaryCard extends MobileScreens {
 			if (testCase.getMobileDriver().findElement(By.xpath(
 					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 							+ value + "']"))
-					.isEnabled()) {
+							.isEnabled()) {
 				return true;
 			}
 		}
@@ -662,7 +662,7 @@ public class PrimaryCard extends MobileScreens {
 			if (testCase.getMobileDriver().findElement(By.xpath(
 					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 							+ value + "']"))
-					.isEnabled()) {
+							.isEnabled()) {
 				return true;
 			}
 		}
@@ -863,36 +863,42 @@ public class PrimaryCard extends MobileScreens {
 		} else {
 			minSetPointInt = (int) Float.parseFloat(minSetPoint);
 		}
-
-		WebElement ele1 = MobileUtils.getMobElement(objectDefinition, testCase, "CurrentSetPoint");
-		currentSetPoint = ele1.getText();
+		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "CurrentSetPoint");
+		currentSetPoint = ele.getText();
 		if (systemIsCelsius == false) {
 			while (Integer.parseInt(currentSetPoint) > minSetPointInt) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
-				currentSetPoint = ele1.getText();
-			}
-		} else {
-			if (Float.parseFloat(currentSetPoint) > minSetPointFloat) {
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
-				currentSetPoint = ele1.getText();
-			} else {
-				WebElement element = testCase.getMobileDriver()
-						.findElement(By.xpath("//*[@name='autoChangeOver_toggle']"));
-				if (element != null) {
-					String elementisOnorOff = element.getAttribute("value");
-					if (elementisOnorOff.equals("0")) {
-						return flag;
-					} else {
-						element.click();
-						return flag;
-					}
+				currentSetPoint = ele.getText();
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton") && MobileUtils
+						.getFieldValue(objectDefinition, testCase, "ModeButton").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
 				}
 			}
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		} else {
+			while (Float.parseFloat(currentSetPoint) > minSetPointFloat) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
+				currentSetPoint = ele.getText();
 			}
+		}
+		//	else {
+		//	WebElement element = testCase.getMobileDriver()
+		//			.findElement(By.xpath("//*[@name='autoChangeOver_toggle']"));
+		//	if (element != null) {
+		//		String elementisOnorOff = element.getAttribute("value");
+		//		if (elementisOnorOff.equals("0")) {
+		//			return flag;
+		//		} else {
+		//			element.click();
+		//			return flag;
+		//		}
+		//	}
+		//}
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		return flag;
 	}
@@ -1003,19 +1009,19 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isDownStepperVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown");
 	}
-	
+
 	public boolean isUpStepperVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperUp");
 	}
-	
+
 	public boolean clickOnDownStepper(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
 	}
-	
+
 	public boolean clickOnUpStepper(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
 	}
-	
+
 	public boolean isUserExpectedTemperatureDisplayed() {
 
 		WebElement expectedTemp = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");
@@ -1027,7 +1033,7 @@ public class PrimaryCard extends MobileScreens {
 			return false;
 		}
 	}
-	
+
 	public boolean isSystemIsOffVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeStatus", timeOut);
 	}

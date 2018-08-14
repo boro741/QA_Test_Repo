@@ -167,6 +167,7 @@ public class SelectElementOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Button: " + parameters.get(0).toUpperCase() + " is not selected");
 					}
+					break;
 				}
 				case "X": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
