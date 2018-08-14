@@ -60,6 +60,15 @@ public class VerifySavingsEventPopUpMessage extends Keyword {
 		catch (Exception e) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
+		try {
+			if (exampleData.get(0).equals("cancel saving event message with OK")) {
+				
+				flag=flag & DRUtils.VerifyDRCancelByUserPopUp(testCase, inputs);
+			}
+		} 
+		catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
 		return flag;
 	}
 

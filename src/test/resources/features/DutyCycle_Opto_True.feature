@@ -77,173 +77,176 @@ Scenario: Verify Saving Event Cancel By User Message
 	Then user "SHOULD BE DISPLAYED" with the "DR event label on Dashboard" option 
 	When user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
 	Then user "SHOULD BE DISPLAYED" with the "DR event label on primary card" option 
-	And user selects "DR Event Label" from "Primary Card" screen
-	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card
-	When user "DISMISSES" the "DR CANCEL" popup
-	Then user "SHOULD BE DIPLAYED" with the "DR event label on primary card" option
-	And user should be displayed with "DR" setpoint value in solution card
-	When user selects "DR Event Label" from "Primary Card" screen
-	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card
-	When user "ACCEPTS" the "DR CANCEL" popup
-	Then user "should not be displayed" with the "DR event label on primary card" option
-	When user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
-	Then user "should not be displayed" with the "DR event label on dashboard" option
+	And user selects "DR Event Label" from "Primary Card" screen 
+	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
+	When user "DISMISSES" the "DR CANCEL" popup 
+	Then user "SHOULD BE DIPLAYED" with the "DR event label on primary card" option 
+	And user should be displayed with "DR" setpoint value in solution card 
+	When user selects "DR Event Label" from "Primary Card" screen 
+	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
+	When user "ACCEPTS" the "DR CANCEL" popup 
+	Then user "should not be displayed" with the "DR event label on primary card" option 
+	When user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen 
+	Then user "should not be displayed" with the "DR event label on dashboard" option 
 	And user navigates to "ACTIVITY HISTORY" screen from the "Dashboard" screen 
 	And user receives and views a "saving event canceled by user" message on the "ACTIVITY HISTORY" screen 
 	#And user logs out of the application 
+	
+@VerifyAdHocStatusAfterDREventEndsNoSchedule @UIAutomatable 
+Scenario: Verify Ad Hoc Status After DR Event Ends No Schedule Offset 
+	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
+	Given user thermostat is enrolled with DR 
+	And user thermostat is set to "no" schedule 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "1" minutes and "1" minutes from now 
+	And DR event has started on the user device 
+	#When user launches and logs in to the Lyric application 
+	#And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+	#Then user "SHOULD BE DISPLAYED" with the "DR event label on primary card" option 
+	#When DR event has ended on user device 
+	#Then user "SHOULD BE DISPLAYED" with the "NO SCHEDULE" option 
+	#	And user logs out of the app 
+	
+	
+@VerifyAdHocStatusAfterDREventEndsGeofenceBasedScheduling @UIAutomatable 
+Scenario: Verify Ad Hoc Status After DR Event Ends 
+	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
+	Given user thermostat is enrolled with DR 
+	And user thermostat is set to "geofence based" schedule 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And DR event has started on the user device 
+	And user launches and logs in to the Lyric application 
+	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+	Then user "SHOULD BE DISPLAYED" with the "DR event label on primary card" option 
+	And user changes system mode to "heat" 
+	When user taps on "UP STEPPER" 
+	And "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
+	And user "ACCEPTS" the "DR CANCEL" popup 
+	Then user "should not be displayed" with the "DR event label on primary card" option 
+	When user has "Temporary" status 
+	And DR event has ended on user device 
+	Then verify the "Temporary" on the "PRIMARY CARD" screen 
+	#	And user logs out of the app 
+	
+@VerifyAdHocStatusAfterDREventEndsTimeBassedScheduling @UIAutomatable 
+Scenario Outline: Verify Ad Hoc Status After DR Event Ends 
+	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
+	Given user thermostat is enrolled with DR 
+	And user cancels DR Event 
+	And user thermostat is set to "Time Based" schedule 
+	When user launches and logs in to the Lyric application 
+	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+	And user has <Adhocoverride> status 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "3" minutes and "1" minutes from now 
+	And user taps on "DR Popup" 
+	And DR event has started on the user device 
+	Then user "should be displayed" with the "DR event label on primary card" option 
+	When DR event has ended on user device 
+	Then verify the <Adhocoverride> on the "PRIMARY CARD" screen 
+	#And user logs out of the app 
+	
+	Examples: 
+		|Adhocoverride  | 
+		| permanent | 
+		#	| temporary |
+		#	| Schedule Off   |
 		
-		@VerifyAdHocStatusAfterDREventEndsTimeBassedScheduling @UIAutomatable 
-		Scenario Outline: Verify Ad Hoc Status After DR Event Ends 
-			As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
-			Given user has "time based schedule" 
-			And user puts schedule on <ad hoc status> 
-			And user has thermostat enrolled with DR 
+		@VerifyVacationStatusAfterDREventEnds @UIAutomatable 
+Scenario: Verify Vacation Status After DR Event Ends 
+			As a user, I should receive a vacation ad hoc message after DR Ends
+			Given user thermostat is enrolled with DR 
+			And vacation mode is "active" 
+			And user has triggered DR event with "duty cycle" and "is" opt-out able for "4" minutes and "1" minutes from now 
+			And DR event has started on the user device 
+			When user launches and logs in to the Lyric application 
+			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+			Then user "should be displayed" with the "DR event label on primary card" option 
+			When DR event has ended on user device 
+			And user navigates to "DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen 
+			And user should be displayed with "VACATION" status on "SOLUTION CARD" 
+			#	And user logs out of the app 
+			
+		@VerifyDRStatusWhenChangingSystemMode @UIAutomatable 
+		Scenario: Verify DR Status When Chaning System Mode 
+			As a user, I should receive a DR Lable on Cool/Heat system mode and No Lable should be present on OFF mode
+			Given user thermostat is enrolled with DR 
+			And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "1" minutes from now 
+			And DR event has started on the user device 
+			When user launches and logs in to the Lyric application 
+			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
+			And user changes system mode to "Cool" 
+			Then user "should be displayed" with the "DR event label on primary card" option 
+			When user changes system mode to "heat" 
+			Then user "should be displayed" with the "DR event label on primary card" option 
+			When user changes system mode to "off" 
+			Then user "should not be displayed" with the "DR event label on primary card" option 
+			When user changes system mode to "heat" 
+			Then user "should be displayed" with the "DR event label on primary card" option 
+			When user changes system mode to "cool" 
+			Then user "should be displayed" with the "DR event label on primary card" option 
+			When user changes system mode to "off" 
+			Then user "should not be displayed" with the "DR event label on primary card" option 
+			When user changes system mode to "cool" 
+			Then user "should be displayed" with the "DR event label on primary card" option 
+			#	And user logs out of the app
+			
+		@VerifyTimeScheduleAdHocStatusAfterDREnds @UIAutomatable 
+		Scenario: Verify Time Schedule Ad Hoc Status After DR Ends 
+			As a user, I should receive a following schedule message after DR Ends in next period of time schedule
+			Given user has "time based schedule" with "Temporary Hold" 
+			And user has <Thermostat> enrolled with DR 
 			And user has triggered DR event with "duty cycle" and "is" opt-out able 
 			And DR event has started on the user device 
 			When user logs in to the Lyric Application 
 			Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
 			And user should be displayed with a "saving event until" green label on the "primary card" screen 
-			When DR event has ended 
-			Then user should receive a <Ad Hoc status> status on primary card 
+			And DR event ends on next period of the schedule 
+			And user should be displayed with "Following Schedule" label on the primary card 
 			And user setpoints should be reverted back 
 			And user logs out of the application 
 			
-			Examples: 
-				| Ad Hoc status  | 
-				| Permanent Hold | 
-				| Temporary Hold |
-				#Both JpaserNA and HB
-				| Schedule Off   |
 				
-				@VerifyAdHocStatusAfterDREventEndsGeofenceBasedScheduling @UIAutomatable 
-				Scenario Outline: Verify Ad Hoc Status After DR Event Ends 
-					As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
-					Given user has "geofence based schedule" 
-					And user puts schedule on "temporary hold" 
-					And user has thermostat enrolled with DR 
-					And user has triggered DR event with "duty cycle" and "is" opt-out able 
-					And DR event has started on the user device 
-					When user logs in to the Lyric Application 
-					Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
-					And user should be displayed with a "saving event until" green label on the "primary card" screen 
-					When DR event has ended 
-					Then user should receive a "temporary hold" status on primary card 
-					And user setpoints should be reverted back 
-					And user logs out of the application 
+			@VerifyGeofenceScheduleAdHocStatusAfterDREnds @NotAutomatable 
+			Scenario Outline: Verify Geofence Schedule Ad Hoc Status After DR Ends 
+				As a user, I should receive a geofence until schedule message after DR Ends in geofence crossed location
+				Given user is <geofence location> 
+				Given user has "geofence schedule" with "Temporary Hold" 
+				And user has <Thermostat> enrolled with DR 
+				And user has triggered DR event with "duty cycle" and "is" opt-out able 
+				And DR event has started on the user device 
+				When user logs in to the Lyric Application 
+				Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
+				And user should be displayed with a "saving event until" green label on the "primary card" screen 
+				When user is <geofence crossed location> 
+				And DR event ends 
+				Then user should be displayed with "geofence until schedule" label on the primary card 
+				And user logs out of the application 
+				
+				Examples: 
+					|Thermostat| geofence location | geofence crossed location | 
+					|HB       | Home              | Away                      | 
+					|HB       | Away              | Home                      | 
+					|JasperNA | Home              | Away                      | 
+					|JasperNA | Away              | Home                      | 
 					
 					
 					
-					
-					
-				@VerifyVacationStatusAfterDREventEnds @UIAutomatable 
-				Scenario: Verify Vacation Status After DR Event Ends 
-					As a user, I should receive a vacation ad hoc message after DR Ends
+				@VerifyDRStatusAfterVacationStarts @UIAutomatable 
+				Scenario: Verify DR Status After Vacation Starts for Jasper Thermostats 
+					As a user, I should receive a DR message after vacation starts
 					Given vacation is "scheduled" 
-					And vacation is "running" 
 					And user has thermostat enrolled with DR 
 					And user has triggered DR event with "duty cycle" and "is" opt-out able 
 					And DR event has started on the user device 
 					When user logs in to the Lyric Application 
 					Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
 					And user should be displayed with a "saving event until" green label on the "primary card" screen 
+					When user vacation "starts" 
+					Then user should be displayed with a "saving event until" green label on the "primary card" screen 
+					Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
 					When DR event has ended 
-					Then user should receive a "vacation status" on primary card 
+					Then user nacviages to "Primarycard" screen 
+					And user should receive a "vacation status" on primary card 
 					And user logs out of the application 
 					
-				@VerifyTimeScheduleAdHocStatusAfterDREnds @UIAutomatable 
-				Scenario Outline: Verify Time Schedule Ad Hoc Status After DR Ends 
-					As a user, I should receive a following schedule message after DR Ends in next period of time schedule
-					Given user has "time based schedule" with "Temporary Hold" 
-					And user has <Thermostat> enrolled with DR 
-					And user has triggered DR event with "duty cycle" and "is" opt-out able 
-					And DR event has started on the user device 
-					When user logs in to the Lyric Application 
-					Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
-					And user should be displayed with a "saving event until" green label on the "primary card" screen 
-					And DR event ends on next period of the schedule 
-					And user should be displayed with "Following Schedule" label on the primary card 
-					And user setpoints should be reverted back 
-					And user logs out of the application 
-					Examples: 
-						|HB|
-						|JasperNA|
-						
-					@VerifyGeofenceScheduleAdHocStatusAfterDREnds @NotAutomatable 
-					Scenario Outline: Verify Geofence Schedule Ad Hoc Status After DR Ends 
-						As a user, I should receive a geofence until schedule message after DR Ends in geofence crossed location
-						Given user is <geofence location> 
-						Given user has "geofence schedule" with "Temporary Hold" 
-						And user has <Thermostat> enrolled with DR 
-						And user has triggered DR event with "duty cycle" and "is" opt-out able 
-						And DR event has started on the user device 
-						When user logs in to the Lyric Application 
-						Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
-						And user should be displayed with a "saving event until" green label on the "primary card" screen 
-						When user is <geofence crossed location> 
-						And DR event ends 
-						Then user should be displayed with "geofence until schedule" label on the primary card 
-						And user logs out of the application 
-						
-						Examples: 
-							|Thermostat| geofence location | geofence crossed location | 
-							|HB       | Home              | Away                      | 
-							|HB       | Away              | Home                      | 
-							|JasperNA | Home              | Away                      | 
-							|JasperNA | Away              | Home                      | 
-							
-							
-							
-						@VerifyDRStatusAfterVacationStarts @UIAutomatable 
-						Scenario: Verify DR Status After Vacation Starts for Jasper Thermostats 
-							As a user, I should receive a DR message after vacation starts
-							Given vacation is "scheduled" 
-							And user has thermostat enrolled with DR 
-							And user has triggered DR event with "duty cycle" and "is" opt-out able 
-							And DR event has started on the user device 
-							When user logs in to the Lyric Application 
-							Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
-							And user should be displayed with a "saving event until" green label on the "primary card" screen 
-							When user vacation "starts" 
-							Then user should be displayed with a "saving event until" green label on the "primary card" screen 
-							Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
-							When DR event has ended 
-							Then user nacviages to "Primarycard" screen 
-							And user should receive a "vacation status" on primary card 
-							And user logs out of the application 
-							
-						@VerifyDRStatusWhenChangingSystemMode @UIAutomatable 
-						Scenario Outline: Verify DR Status When Chaning System Mode 
-							As a user, I should receive a DR Lable on Cool/Heat system mode and No Lable should be present on OFF mode
-							Given user has <Thermostat> enrolled with DR 
-							And user has triggered DR event with "duty cycle" and "is" opt-out able 
-							And User device is in "cool" mode 
-							And DR event has started on the user device 
-							When user logs in to the Lyric Application 
-							Then user should be displayed with a "saving event until" green label on the "Dashboard" screen 
-							And user should be displayed with a "saving event until" green label on the "primary card" screen 
-							And user setpoints should be "dr cool" setpoints 
-							When user changes system to "heat" 
-							Then user should be displayed with a "saving event until" green label on the "primary card" screen 
-							And user setpoints should be "dr heat" setpoints 
-							When user changes system to "off" 
-							Then user should not be displayed with a "saving event until" green label on the "primary card" screen 
-							And user should not be dipalyed with a "saving event until" green label on the "Dashboard" screen 
-							When user changes system to "heat" 
-							Then user should be displayed with a "saving event until" green label on the "primary card" screen 
-							And user setpoints should be "dr heat" setpoints 
-							When user changes system to "cool" 
-							Then user should be displayed with a "saving event until" green label on the "primary card" screen 
-							And user setpoints should be "dr cool" setpoints 
-							When user changes system to "off" 
-							Then user should not be displayed with a "saving event until" green label on the "primary card" screen 
-							And user should not be dipalyed with a "saving event until" green label on the "Dashboard" screen 
-							And user naviages to "Primary card" screen 
-							When user changes system to "cool" 
-							Then user should be displayed with a "saving event until" green label on the "primary card" screen 
-							And user setpoints should be "dr cool" setpoints 
-							And user logs out of the application 
-							Examples: 
-								|Thermostat |
-								|HB|  
-								
+					
 	  

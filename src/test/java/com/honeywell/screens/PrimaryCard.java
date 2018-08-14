@@ -1037,4 +1037,7 @@ public class PrimaryCard extends MobileScreens {
 	public boolean clickOnDrEventLabel() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DrEventLabel");
 	}
+	public boolean isNoScheduleTextAvailable() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSchedule");
+	}
 }

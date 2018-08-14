@@ -31,7 +31,7 @@ public class DRScreens extends MobileScreens {
 	}
 	public boolean isSavingEventCancelTitleDisplayed()
 	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Cancel Savings Event");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelSavingsEvent");
 				
 	}
 	public String VerifyDRMessageCancelContent()
@@ -47,6 +47,11 @@ public class DRScreens extends MobileScreens {
 	public boolean ClickOnCancelNoPopup()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelNo");
+				
+	}
+	public boolean isSavingEventCancelByUserTitleDisplayed()
+	{
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelSavingsEventByUser");
 				
 	}
 	

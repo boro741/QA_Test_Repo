@@ -2,6 +2,7 @@ package com.honeywell.keywords.lyric.common;
 
 import com.honeywell.commons.coreframework.*;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.screens.DRScreens;
@@ -62,7 +63,17 @@ public class TaponElement extends Keyword {
 			us.clickOnUpStepper();
 			break;
 		}
-		
+		case "DR POPUP": {
+			DRScreens dp = new DRScreens(testCase);
+			flag = flag & DRUtils.waitForProgressBarToComplete(testCase, "DR Popup visible", 2);
+			dp.ClickOnOkPopup();
+			break;
+		}
+		case "DR CANCEL OK": {
+			DRScreens dp = new DRScreens(testCase);
+			dp.ClickOnOkPopup();
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
