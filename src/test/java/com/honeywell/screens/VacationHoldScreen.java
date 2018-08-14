@@ -330,7 +330,7 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 
 	public boolean isVacationHoldSetpointSettingsEnabled() {
-		if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSetpointRow").getText().equalsIgnoreCase("ON")) {
+		if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSetpointRow").getText().equalsIgnoreCase("ON")||MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSetpointRow").getText().equalsIgnoreCase("1")) {
 			return true;
 		} else {
 			return false;

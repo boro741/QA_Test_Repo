@@ -149,7 +149,7 @@ public class EditEndTimeLessThanStartTimeEMEA extends Keyword {
 			if(zeroPrefixHourOfExpectedTime=='0'){
 				changedTime=changedTime.replaceFirst("0", "");
 			}
-			if(changedTime.equalsIgnoreCase(displayedTime)){
+			if(changedTime.trim().equalsIgnoreCase(displayedTime.trim())){
 				Keyword.ReportStep_Pass(testCase, changedTime+ " N period end time is N+1 start time+10 mins "+displayedTime);
 			}else{
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, displayedTime+" N period end time is  not N+1 start time+10 mins "+changedTime);

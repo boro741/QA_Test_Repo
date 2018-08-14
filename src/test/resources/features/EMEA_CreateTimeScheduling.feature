@@ -132,8 +132,8 @@ Then user verifies the following on the primary card:
 @JasperEMEA_CopyTimeBasedScheduleInOffMode @Automated
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario Outline: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
+Given user has "Off" system mode
 Given user launches and logs in to the Lyric application
-And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates default <ScheduleType> schedule value <CopyStats> stats
 Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
 Examples: 
