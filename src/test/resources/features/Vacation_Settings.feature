@@ -135,8 +135,9 @@ Examples:
       
 @Vacation_Enable_DisbaleIndividulaStat			@Automated
 Scenario Outline: As a user I want to enable Disable stat vacation individually
-Given vacation mode is "inactive"
+Given vacation mode is "inactive for multistat"
 And user launches and logs in to the Lyric application
+And user navigates to "MULTISTAT LOCATION" screen from the "Dashboard" screen
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user changes the "Vacation" to "On"
 Then user <Condition> the "stat2" individually
@@ -177,7 +178,7 @@ Examples:
 
 
 #JasperNA
-@VacationActiveSwitchingModesNA			@UIAutomatable
+@VacationActiveSwitchingModesNA			@Automated
 Scenario Outline:  To verify when vacation active switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
 Given user has <Mode> system mode
 And vacation mode is "active"
@@ -301,9 +302,9 @@ When "Vacation" Ends
 Then user should be display with <UAdhocOverride> on "SolutionCard"
 
 Examples:
-		| Mode		| AdhocOverride					| UAdhocOverride						| 
+		| Mode		| AdhocOverride					| UAdhocOverride					| 
 		| Cool		| Using while home/away/sleep	| Using while home/away/sleep  		|
-		| Cool		| Temporary 						| Temporary							|
+		| Cool		| Temporary 					| Temporary							|
 		| Heat		| Using while home/away/sleep	| Using while home/away/sleep		| 
 		| Heat		| Temporary						| Temporary							|
 		| Auto		| Using while home/away/sleep	| Using while home/away/sleep		|

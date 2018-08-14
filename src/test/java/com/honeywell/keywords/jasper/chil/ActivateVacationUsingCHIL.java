@@ -136,6 +136,24 @@ public class ActivateVacationUsingCHIL extends Keyword {
 								"Activate Vacation Using CHIL : Failed to disable vacation using CHIL");
 					}
 				}
+			} else if (exampleData.get(0).equalsIgnoreCase("inactive for multistat")) {
+				inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
+				inputs.setInputValue("LOCATION1_DEVICE1_NAME", inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
+				 statInfo = new DeviceInformation(testCase, inputs);
+				 locInfo = new LocationInformation(testCase, inputs);
+				 locationID = locInfo.getLocationID();
+				 deviceID = statInfo.getDeviceID();
+				if (chUtil.getConnection()) {
+					int result = chUtil.disableVacation(locationID, deviceID);
+					if (result == 200) {
+						Keyword.ReportStep_Pass(testCase,
+								"Activate Vacation Using CHIL : Successfully disabled vacation using CHIL");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Activate Vacation Using CHIL : Failed to disable vacation using CHIL");
+					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
