@@ -454,7 +454,7 @@ public class LyricUtils {
 							if (os.isNotNowButtonVisible(1)) {
 								os.clickOnNotNowButton();
 								return false;
-							} else if (cm.isGotitButtonVisible(1)) {
+							} else if (cm.isGotitButtonVisible(1) || cm.isNextButtonVisible(1)) {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
@@ -712,7 +712,7 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		//flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
@@ -1560,7 +1560,6 @@ public class LyricUtils {
 	}
 
 	public static String getToastMessage(TestCases testCase) {
-		
         String fileName= takeScreenShot(
 				System.getProperty("user.dir") + File.separator + "ToastMessages", testCase.getMobileDriver());
 		String str = "";
