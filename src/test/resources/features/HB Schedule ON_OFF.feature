@@ -157,7 +157,7 @@ And verify the "schedule off overlay" on the "Scheduling" screen
 When user navigates to "primary card" screen from the "Scheduling" screen
 Then user thermostat set <UPeriod> with <UGeofence>
 When user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
-Then Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+Then Verify the "Schedule OFF overlay" on the "Scheduling" screen
 When user navigates to "PRIMARY CARD" screen from the "Scheduling" screen
 Then Verify the "Schedule status not displayed" on the "PRIMARY CARD" screen
 Examples:

@@ -39,16 +39,13 @@ import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
 
-
-
 public class JasperAdhocOverride {
 
 	public static boolean verifyAdHocHoldPermanentlyStatus(TestCases testCase, TestCaseInputs inputs,
 			String overrideSetPoints) {
 		boolean flag = true;
 		try {
-			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-					testCase.getMobileDriver());
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 			fWait.pollingEvery(2, TimeUnit.SECONDS);
 			fWait.withTimeout(60, TimeUnit.SECONDS);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -80,41 +77,43 @@ public class JasperAdhocOverride {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
-							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ adhoc.getAdhocStatusElement());
+									+ " is not correctly displayed in the primary card with overridden set points:"
+									+ adhoc.getAdhocStatusElement());
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
-							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ adhoc.getAdhocStatusElement());
+									+ " is not correctly displayed in the primary card with overridden set points:"
+									+ adhoc.getAdhocStatusElement());
 				}
 			}
 
 			if (flag) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					Keyword.ReportStep_Pass(testCase, "Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:"
-							+ status + " is correctly displayed in the primary card with overridden set points:"
-							+ adhoc.getAdhocStatusElement());
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
+									+ " is correctly displayed in the primary card with overridden set points:"
+									+ adhoc.getAdhocStatusElement());
 				} else {
-					Keyword.ReportStep_Pass(testCase, "Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:"
-							+ status + " is correctly displayed in the primary card with overridden set points:"
-							+ adhoc.getAdhocStatusElement());
+					Keyword.ReportStep_Pass(testCase,
+							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
+									+ " is correctly displayed in the primary card with overridden set points:"
+									+ adhoc.getAdhocStatusElement());
 				}
 			} else {
 				flag = false;
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
-							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ adhoc.getAdhocStatusElement());
+									+ " is not correctly displayed in the primary card with overridden set points:"
+									+ adhoc.getAdhocStatusElement());
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Ad Hoc Hold Permanently Status : Expected Ad hoc status:" + status
-							+ " is not correctly displayed in the primary card with overridden set points:"
-							+ adhoc.getAdhocStatusElement());
+									+ " is not correctly displayed in the primary card with overridden set points:"
+									+ adhoc.getAdhocStatusElement());
 				}
 			}
-		} catch (Exception e){
+		} catch (Exception e) {
 
 		}
 		return flag;
@@ -126,15 +125,15 @@ public class JasperAdhocOverride {
 	/**
 	 * <p>
 	 * The changeSystemMode method changes system mode on the primary card by
-	 * tapping on the system mode icon and selecting the system mode from the
-	 * list of modes displayed.
+	 * tapping on the system mode icon and selecting the system mode from the list
+	 * of modes displayed.
 	 * </p>
 	 * 
 	 * @param TestCases
 	 * @param TestCaseInputs
 	 * @param String
-	 *            - This is the expected mode to which system mode has to be
-	 *            changed to.
+	 *            - This is the expected mode to which system mode has to be changed
+	 *            to.
 	 * @return Boolean indicating success or failure.
 	 * 
 	 * @author h119237 - Pratik Lalseta.
@@ -163,8 +162,8 @@ public class JasperAdhocOverride {
 			} else if (expectedMode.equals("Auto")) {
 				fly.changeSystemModeToAutoMode();
 			}
-			
-			if (sch.IsSaveButtonVisible(10)){
+
+			if (sch.IsSaveButtonVisible(10)) {
 				sch.clickOnSaveButton();
 			}
 
@@ -214,190 +213,181 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
-	
+
 	public static boolean VerificationofTemporaryHold(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-				DeviceInformation statInfo = new DeviceInformation(testCase,inputs);
-				if(statInfo.getThermoStatScheduleType().equalsIgnoreCase("Timed"))
-				{
-					AdhocScreen Adhoc = new AdhocScreen(testCase);
-					flag = flag & Adhoc.isAdhocStatusVisible();
-					String AdhocText = Adhoc.getAdhocStatusElement();
-					String next = statInfo.getNextPeriodTime();
-			
-						if(AdhocText.contains("AM") || AdhocText.contains("PM"))
-						{
-							String trim = next;
-							DateFormat TimeFormat = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
-							Date Hour12Next = TimeFormat.parse(trim);
-							DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
-							String nextperiod = Hour12NextPeriod.format(Hour12Next);
-					        flag = flag & AdhocText.equalsIgnoreCase("HOLD UNTIL "+ nextperiod);
-						}else 
-						{
-							String[] dateSplit = next.split(":");
-							String next1=dateSplit[0]+":"+dateSplit[1];
-							flag = flag & AdhocText.equalsIgnoreCase("HOLD UNTIL "+ next1);
-						}			
-					if(flag)
-					{
-						Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
-					}else 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Time base Temporary Hold status not displayed");
-					}
-				}else 
-					{
-					AdhocScreen Adhoc = new AdhocScreen(testCase);
-					flag = flag & Adhoc.isAdhocStatusVisible();
-					String AdhocText = Adhoc.getAdhocStatusElement();
-					String Period = statInfo.getCurrentSchedulePeriod();
-					String overrideTemp = "";
-					flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
-					if(flag)
-					{
-						overrideTemp = statInfo.getOverrrideSetpoint();
-					}else 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to recall api");
-					}
-					if(statInfo.getThermostatUnits().contains("Fahrenheit"))
-					{
-						String overrideTemp1 = overrideTemp.replace(".0", "");
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp1 + "\u00b0 WHILE " + Period );
-						}
-					else 
-						{
-						overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp + "\u00b0 WHILE " + Period );
-					}
-					if(flag)
-					{
-						Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
-						}else 
-						{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geofence Temporary Hold status not displayed"+ overrideTemp);
-					}
-					}
-		}catch (Exception e) {
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			if (statInfo.getThermoStatScheduleType().equalsIgnoreCase("Timed")) {
+				AdhocScreen Adhoc = new AdhocScreen(testCase);
+				flag = flag & Adhoc.isAdhocStatusVisible();
+				String AdhocText = Adhoc.getAdhocStatusElement();
+				if (AdhocText.toUpperCase().contains("HOLD UNTIL")) {
+					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Time base Temporary Hold status not displayed");
+				}
+				String next = statInfo.getNextPeriodTime();
+				String nextperiod = "";
+				if (AdhocText.contains("AM") || AdhocText.contains("PM")) {
+					String trim = next;
+					DateFormat TimeFormat = new SimpleDateFormat("HH:mm:ss"); // HH for hour of the day (0 - 23)
+					Date Hour12Next = TimeFormat.parse(trim);
+					DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
+					nextperiod = Hour12NextPeriod.format(Hour12Next);
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD UNTIL " + nextperiod);
+				} else {
+					String[] dateSplit = next.split(":");
+					String next1 = dateSplit[0] + ":" + dateSplit[1];
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD UNTIL " + next1);
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Next period time not matching with hold until time. Next period time:" + nextperiod);
+				}
+			} else {
+				AdhocScreen Adhoc = new AdhocScreen(testCase);
+				flag = flag & Adhoc.isAdhocStatusVisible();
+				String AdhocText = Adhoc.getAdhocStatusElement();
+				String Period = statInfo.getCurrentSchedulePeriod();
+				String overrideTemp = "";
+				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				if (flag) {
+					overrideTemp = statInfo.getOverrrideSetpoint();
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to recall api");
+				}
+				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+					String overrideTemp1 = overrideTemp.replace(".0", "");
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
+				} else {
+					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"geofence Temporary Hold status not displayed" + overrideTemp);
+				}
+			}
+		} catch (Exception e) {
 			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-					FailType.FUNCTIONAL_FAILURE,
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Add start time : Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
-	
+
 	public static boolean VerificationofPermanentHold(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
-				DeviceInformation statInfo = new DeviceInformation(testCase,inputs);
-				if(statInfo.getThermoStatScheduleType().equalsIgnoreCase("Timed"))
-				{
-					AdhocScreen Adhoc = new AdhocScreen(testCase);
-					flag = flag & Adhoc.isAdhocStatusVisible();
-					String AdhocText = Adhoc.getAdhocStatusElement();
-					String overrideTemp = "";
-					flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
-					if(flag)
-					{
-						overrideTemp = statInfo.getOverrrideSetpoint();
-					}else 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geofence Temporary Hold status not displayed"+ overrideTemp);
-					}
-					if(statInfo.getThermostatUnits().contains("Fahrenheit"))
-					{
-						String overrideTemp1 = overrideTemp.replace(".0", "");
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp1 + "\u00b0 PERMANENTLY" );
-						} else 
-						{
-							overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
-							flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp + "\u00b0 PERMANENTLY" );
-					}
-					if(flag)
-					{
-						Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status displayed");
-						}else 
-						{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Timebase schedule Permanent Hold status not displayed"+ overrideTemp);
-					}
-				}else 
-					{
-					AdhocScreen Adhoc = new AdhocScreen(testCase);
-					flag = flag & Adhoc.isAdhocStatusVisible();
-					String AdhocText = Adhoc.getAdhocStatusElement();
-					String Period = statInfo.getCurrentSchedulePeriod();
-					String overrideTemp = statInfo.getOverrrideSetpoint();
-					if(statInfo.getThermostatUnits().contains("Fahrenheit"))
-					{
-						String overrideTemp1 = overrideTemp.replace(".0", "");
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp1 + "\u00b0 WHILE " + Period );
-						}else 
-						{
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp + "\u00b0 WHILE " + Period );
-					}
-					System.out.println(flag);
-					if(flag)
-					{
-						Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
-						}else 
-						{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geofence Temporary Hold status not displayed"+ overrideTemp);
-					}
-					}
-		}catch (Exception e) {
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			if (statInfo.getThermoStatScheduleType().equalsIgnoreCase("Timed")) {
+				AdhocScreen Adhoc = new AdhocScreen(testCase);
+				flag = flag & Adhoc.isAdhocStatusVisible();
+				String AdhocText = Adhoc.getAdhocStatusElement();
+				String overrideTemp = "";
+				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				if (flag) {
+					overrideTemp = statInfo.getOverrrideSetpoint();
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"geofence Temporary Hold status not displayed" + overrideTemp);
+				}
+				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+					String overrideTemp1 = overrideTemp.replace(".0", "");
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 PERMANENTLY");
+				} else {
+					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 PERMANENTLY");
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Timebase schedule Permanent Hold status not displayed" + overrideTemp);
+				}
+			} else {
+				AdhocScreen Adhoc = new AdhocScreen(testCase);
+				flag = flag & Adhoc.isAdhocStatusVisible();
+				String AdhocText = Adhoc.getAdhocStatusElement();
+				String Period = statInfo.getCurrentSchedulePeriod();
+				String overrideTemp = statInfo.getOverrrideSetpoint();
+				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+					String overrideTemp1 = overrideTemp.replace(".0", "");
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
+				} else {
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
+				}
+				System.out.println(flag);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"geofence Temporary Hold status not displayed" + overrideTemp);
+				}
+			}
+		} catch (Exception e) {
 			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-					FailType.FUNCTIONAL_FAILURE,
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Add start time : Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
-	
-//	public static boolean VerificationofVacation(TestCases testCase, TestCaseInputs inputs) {
-//		boolean flag = true;
-//		try {
-//				DeviceInformation statInfo = new DeviceInformation(testCase,inputs);
-//					
-//				AdhocScreen Adhoc = new AdhocScreen(testCase);
-//					flag = flag & Adhoc.isAdhocStatusVisible();
-//					String AdhocText = Adhoc.getAdhocStatusElement();
-//					String overrideTemp = "";
-//					flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
-//					if(flag)
-//					{
-//						overrideTemp = statInfo.getOverrrideSetpoint();
-//					}else 
-//					{
-//						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geofence Temporary Hold status not displayed"+ overrideTemp);
-//					}
-//					if(statInfo.getThermostatUnits().contains("Fahrenheit"))
-//					{
-//						String overrideTemp1 = overrideTemp.replace(".0", "");
-//						flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp1 + "\u00b0 PERMANENTLY" );
-//						} else 
-//						{
-//							overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
-//							flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp + "\u00b0 PERMANENTLY" );
-//					}
-//					if(flag)
-//					{
-//						Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status displayed");
-//						}else 
-//						{
-//						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Timebase schedule Permanent Hold status not displayed"+ overrideTemp);
-//					}
-//				}
-//		}catch (Exception e) {
-//			flag = false;
-//			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-//					FailType.FUNCTIONAL_FAILURE,
-//					"Add start time : Error Occured : " + e.getMessage());
-//		}
-//		return flag;
-//	}
+
+	// public static boolean VerificationofVacation(TestCases testCase,
+	// TestCaseInputs inputs) {
+	// boolean flag = true;
+	// try {
+	// DeviceInformation statInfo = new DeviceInformation(testCase,inputs);
+	//
+	// AdhocScreen Adhoc = new AdhocScreen(testCase);
+	// flag = flag & Adhoc.isAdhocStatusVisible();
+	// String AdhocText = Adhoc.getAdhocStatusElement();
+	// String overrideTemp = "";
+	// flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+	// if(flag)
+	// {
+	// overrideTemp = statInfo.getOverrrideSetpoint();
+	// }else
+	// {
+	// Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geofence
+	// Temporary Hold status not displayed"+ overrideTemp);
+	// }
+	// if(statInfo.getThermostatUnits().contains("Fahrenheit"))
+	// {
+	// String overrideTemp1 = overrideTemp.replace(".0", "");
+	// flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp1 + "\u00b0
+	// PERMANENTLY" );
+	// } else
+	// {
+	// overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase,
+	// overrideTemp);
+	// flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp + "\u00b0
+	// PERMANENTLY" );
+	// }
+	// if(flag)
+	// {
+	// Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status
+	// displayed");
+	// }else
+	// {
+	// Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Timebase
+	// schedule Permanent Hold status not displayed"+ overrideTemp);
+	// }
+	// }
+	// }catch (Exception e) {
+	// flag = false;
+	// Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+	// FailType.FUNCTIONAL_FAILURE,
+	// "Add start time : Error Occured : " + e.getMessage());
+	// }
+	// return flag;
+	// }
 
 	public static boolean verifySetPointsAfterScheduleResume(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -418,8 +408,7 @@ public class JasperAdhocOverride {
 
 	public static boolean verifyDialerTemperature(TestCases testCase, TestCaseInputs inputs, Double expectedTemp) {
 		boolean flag = true;
-		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-				testCase.getMobileDriver());
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
 		fWait.withTimeout(30, TimeUnit.SECONDS);
 		try {
@@ -440,14 +429,14 @@ public class JasperAdhocOverride {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Verify Dialer Set Points : Dialer set points did not change to : " + expectedTemp
-					+ " after waiting for 30 seconds");
+							+ " after waiting for 30 seconds");
 		}
 		return flag;
 	}
 
 	public static boolean holdSetPointsPermanentlyFromAdHoc(TestCases testCase) {
 		boolean flag = true;
-                AdhocScreen adhoc = new AdhocScreen(testCase);
+		AdhocScreen adhoc = new AdhocScreen(testCase);
 		if (adhoc.isAdhocStatusVisible()) {
 			flag = flag & adhoc.clickOnAdhocStatusButton();
 			flag = flag & adhoc.clickOnPemanentlyHoldButton();
@@ -461,7 +450,7 @@ public class JasperAdhocOverride {
 
 	public static boolean holdSetPointsUntilFromAdHoc(TestCases testCase) {
 		boolean flag = true;
-        AdhocScreen adhoc = new AdhocScreen(testCase);
+		AdhocScreen adhoc = new AdhocScreen(testCase);
 		if (adhoc.isAdhocStatusVisible()) {
 			flag = flag & adhoc.clickOnAdhocStatusButton();
 			flag = flag & adhoc.clickOnHoldUntilButton();
@@ -472,13 +461,14 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
-	
+
 	public static String getAndroidDeviceTime(TestCases testCase) {
 		String time = " ";
 		String cmd = "adb shell date";
 		time = executeADBCommand(testCase, cmd);
 		return time;
 	}
+
 	public static String executeADBCommand(TestCases testCase, String cmd) {
 		String output = " ";
 		try {
@@ -510,6 +500,7 @@ public class JasperAdhocOverride {
 		}
 		return output;
 	}
+
 	public static String getIOSSimulatorTime(TestCases testCase) {
 		String time = " ";
 		try {
@@ -600,7 +591,7 @@ public class JasperAdhocOverride {
 							"//android.widget.NumberPicker[@index='1']/android.widget.Button[@index='0']");
 					while (displayedHour != hourToSet) {
 						MobileUtils.longPress(testCase, buttonToTap, 1);
-						//t1.longPress(buttonToTap, 1).perform();
+						// t1.longPress(buttonToTap, 1).perform();
 						displayedHour = Integer
 								.parseInt(hourPicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 					}
@@ -611,7 +602,7 @@ public class JasperAdhocOverride {
 						buttonToTap = MobileUtils.getMobElement(testCase, "xpath",
 								"//android.widget.NumberPicker[@index='1']/android.widget.Button[@index='1']");
 						MobileUtils.longPress(testCase, buttonToTap, 1);
-						//t1.longPress(buttonToTap, 1).perform();
+						// t1.longPress(buttonToTap, 1).perform();
 						displayedHour = Integer
 								.parseInt(hourPicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 					}
@@ -619,7 +610,7 @@ public class JasperAdhocOverride {
 							"//android.widget.NumberPicker[@index='1']/android.widget.Button[@index='2']");
 					while (displayedHour != hourToSet) {
 						MobileUtils.longPress(testCase, buttonToTap, 1);
-						//t1.longPress(buttonToTap, 1).perform();
+						// t1.longPress(buttonToTap, 1).perform();
 						displayedHour = Integer
 								.parseInt(hourPicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 					}
@@ -636,7 +627,7 @@ public class JasperAdhocOverride {
 							"//android.widget.NumberPicker[@index='2']/android.widget.Button[@index='0']");
 					while (displayedMinutes != minutesToSet) {
 						MobileUtils.longPress(testCase, buttonToTap, 1);
-						//t1.longPress(buttonToTap, 1).perform();
+						// t1.longPress(buttonToTap, 1).perform();
 						displayedMinutes = Integer
 								.parseInt(minutePicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 						count--;
@@ -650,7 +641,7 @@ public class JasperAdhocOverride {
 							"//android.widget.NumberPicker[@index='2']/android.widget.Button[@index='2']");
 					while (displayedMinutes != minutesToSet) {
 						MobileUtils.longPress(testCase, buttonToTap, 1);
-						//t1.longPress(buttonToTap, 1).perform();
+						// t1.longPress(buttonToTap, 1).perform();
 						displayedMinutes = Integer
 								.parseInt(minutePicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 						count--;
@@ -697,7 +688,7 @@ public class JasperAdhocOverride {
 				Keyword.ReportStep_Pass(testCase,
 						"Set Hold Until Time : Setting hold unitl time to : " + timeIn12Hours);
 				MobileUtils.clickOnElement(testCase, "name", "Hold Until");
-				if (MobileUtils.isMobElementExists("xpath", "//UIAPickerWheel[4]", testCase,15)) {
+				if (MobileUtils.isMobElementExists("xpath", "//UIAPickerWheel[4]", testCase, 15)) {
 					hourToSet = c1.get(Calendar.HOUR);
 					if (hourToSet == 0) {
 						hourToSet = 12;
@@ -714,9 +705,11 @@ public class JasperAdhocOverride {
 
 				// flag = flag & MobileUtils.setValueToElement(testCase,
 				// "xpath", "//UIAPickerWheel[1]", day);
-//				String currentDisplayedDay = MobileUtils.getMobElement(testCase, "xpath", "//UIAPickerWheel[1]")
-//						.getAttribute("value");			
-				String currentDisplayedDay = testCase.getMobileDriver().findElement(By.xpath("//UIAPickerWheel[1]")).getAttribute("value");
+				// String currentDisplayedDay = MobileUtils.getMobElement(testCase, "xpath",
+				// "//UIAPickerWheel[1]")
+				// .getAttribute("value");
+				String currentDisplayedDay = testCase.getMobileDriver().findElement(By.xpath("//UIAPickerWheel[1]"))
+						.getAttribute("value");
 				SimpleDateFormat IOSDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 				SimpleDateFormat timePickerDateFormat = new SimpleDateFormat("EEE, MMM d");
 				String displayedDate;
@@ -760,7 +753,7 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
-	
+
 	public static boolean verifyHoldUntilTimeIsSet(TestCases testCase, String time, boolean isValidTime) {
 		boolean flag = true;
 		try {
@@ -917,84 +910,67 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
+
 	/* TemporaryHold */
 	public static Boolean GetTemporaryHold(TestCases testCase, TestCaseInputs inputs) throws Exception {
-				Boolean flag = true;
-			try {
-				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-				HashMap<String, String> setPoints = new HashMap<String, String>();
-				setPoints = statInfo.getDeviceMaxMinSetPoints();
-				String CurrentSetPoint = statInfo.getCurrentSetPoints();
-		 		Double CurrentSetpoint1 = Double.parseDouble(CurrentSetPoint);
-				if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat"))
-				 {
-							 	CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
-								CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
-								Double maxHeat = CHILUtil.maxHeat ;
-								Double minHeat = CHILUtil.minHeat ;
-						 		if(maxHeat.equals(CurrentSetPoint))
-						 		{
-						 				PrimaryCard DownSteeper = new PrimaryCard(testCase);
-						 				flag = flag & DownSteeper.clickOnDownStepper();
-						 		}else 
-						 		if (minHeat.equals(CurrentSetPoint))
-						 		{
-										 PrimaryCard UpSteeper = new PrimaryCard(testCase);
-										 flag = flag & UpSteeper.clickOnUpStepper();
-								 
-								}else
-								if(CurrentSetpoint1 < maxHeat && CurrentSetpoint1  > minHeat)
-								{
-											 PrimaryCard UpSteeper = new PrimaryCard(testCase);
-												flag = flag & UpSteeper.clickOnUpStepper();
-								}else 
-								if (flag) 
-								{
-										Keyword.ReportStep_Pass_With_ScreenShot(testCase, "EMEA TemporaryHold active");
-								}
-								else
-								{
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "NA:Failed to activate Temporary Hold");
-								}
-					 
-				 }else 
-				 {
-							 	CHILUtil.maxCool = Double.parseDouble(setPoints.get("MaxCool"));
-						 		CHILUtil.minCool = Double.parseDouble(setPoints.get("MinCool"));
-						 		Double maxCool = CHILUtil.maxCool;
-						 		Double minCool = CHILUtil.minCool ;
-						 		if(maxCool.equals(CurrentSetPoint))
-						 		{
-						 				PrimaryCard DownSteeper = new PrimaryCard(testCase);
-						 				flag = flag & DownSteeper.clickOnDownStepper();
-						 		}else 
-						 		if (minCool.equals(CurrentSetPoint))
-						 		{
-										 PrimaryCard UpSteeper = new PrimaryCard(testCase);
-										 flag = flag & UpSteeper.clickOnUpStepper();
-								 
-								}else
-								if(CurrentSetpoint1 < maxCool && CurrentSetpoint1  > minCool)
-								{
-											 PrimaryCard UpSteeper = new PrimaryCard(testCase);
-												flag = flag & UpSteeper.clickOnUpStepper();
-								}else 
-								if (flag) 
-								{
-										Keyword.ReportStep_Pass_With_ScreenShot(testCase, "EMEA TemporaryHold active");
-								}
-								else
-								{
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "NA:Failed to activate Temporary Hold");
-								}
-							 
-				 }
-			}catch (Exception e) {
-				flag = false;
-			 	Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-			 	FailType.FUNCTIONAL_FAILURE,"Error Occured : " + e.getMessage());
+		Boolean flag = true;
+		try {
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+			String CurrentSetPoint = statInfo.getCurrentSetPoints();
+			Double CurrentSetpoint1 = Double.parseDouble(CurrentSetPoint);
+			if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
+				CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+				CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+				Double maxHeat = CHILUtil.maxHeat;
+				Double minHeat = CHILUtil.minHeat;
+				if (maxHeat.equals(CurrentSetPoint)) {
+					PrimaryCard DownSteeper = new PrimaryCard(testCase);
+					flag = flag & DownSteeper.clickOnDownStepper();
+				} else if (minHeat.equals(CurrentSetPoint)) {
+					PrimaryCard UpSteeper = new PrimaryCard(testCase);
+					flag = flag & UpSteeper.clickOnUpStepper();
+
+				} else if (CurrentSetpoint1 < maxHeat && CurrentSetpoint1 > minHeat) {
+					PrimaryCard UpSteeper = new PrimaryCard(testCase);
+					flag = flag & UpSteeper.clickOnUpStepper();
+				} else if (flag) {
+					Keyword.ReportStep_Pass_With_ScreenShot(testCase, "EMEA TemporaryHold active");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"NA:Failed to activate Temporary Hold");
+				}
+
+			} else {
+				CHILUtil.maxCool = Double.parseDouble(setPoints.get("MaxCool"));
+				CHILUtil.minCool = Double.parseDouble(setPoints.get("MinCool"));
+				Double maxCool = CHILUtil.maxCool;
+				Double minCool = CHILUtil.minCool;
+				if (maxCool.equals(CurrentSetPoint)) {
+					PrimaryCard DownSteeper = new PrimaryCard(testCase);
+					flag = flag & DownSteeper.clickOnDownStepper();
+				} else if (minCool.equals(CurrentSetPoint)) {
+					PrimaryCard UpSteeper = new PrimaryCard(testCase);
+					flag = flag & UpSteeper.clickOnUpStepper();
+
+				} else if (CurrentSetpoint1 < maxCool && CurrentSetpoint1 > minCool) {
+					PrimaryCard UpSteeper = new PrimaryCard(testCase);
+					flag = flag & UpSteeper.clickOnUpStepper();
+				} else if (flag) {
+					Keyword.ReportStep_Pass_With_ScreenShot(testCase, "EMEA TemporaryHold active");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"NA:Failed to activate Temporary Hold");
+				}
+
 			}
-				return flag ;
-}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
 
 }
