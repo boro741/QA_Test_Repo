@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.Dashboard;
@@ -705,6 +706,7 @@ public class VerifyingAOption extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
 				PrimaryCard dr = new PrimaryCard(testCase);
+				flag = flag & DRUtils.waitForProgressBarToComplete(testCase, "DR Label", 1);
 				if (!dr.isDrGreenLabelVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
 				} else {
@@ -716,6 +718,7 @@ public class VerifyingAOption extends Keyword {
 			}
 			case "SHOULD BE DISPLAYED": {
 				PrimaryCard dr = new PrimaryCard(testCase);
+				flag = flag & DRUtils.waitForProgressBarToComplete(testCase, "DR Label visible", 1);
 				if (dr.isDrGreenLabelVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
 				} else {
@@ -751,7 +754,22 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("NO SCHEDULE")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED": {
+				PrimaryCard pc = new PrimaryCard(testCase);
+				flag = flag & DRUtils.waitForProgressBarToComplete(testCase, "DR Label", 1);
+				if (pc.isNoScheduleTextAvailable()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
 		
+		}
 		return flag;
 
 	}

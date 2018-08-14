@@ -20,6 +20,8 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.chil.TriggerDREvent;
+import com.honeywell.lyric.DR.utils.DRUtils;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.ActivityHistoryScreen;
 
@@ -49,6 +51,7 @@ public class VerifyDRMessage extends Keyword {
 	@KeywordStep(gherkins = "^user receives and views a \"(.*)\" message on the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 		try {
+			flag = flag & DRUtils.waitForProgressBarToComplete(testCase,"Messages", 1);
 			ActivityHistoryScreen ahs = new ActivityHistoryScreen(testCase);
 			if (ahs.isMessagesDisplayed()) {
 
@@ -89,7 +92,7 @@ public class VerifyDRMessage extends Keyword {
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().contains("Scheduled")) {
+					if (s.getKey().toUpperCase().contains("SCHEDULED")) {
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
@@ -100,6 +103,11 @@ public class VerifyDRMessage extends Keyword {
 									"Verify DR Message : Savings Event Scheduled title not displayed correctly on message details screen");
 						}
 					}
+					else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify DR Message : Savings Event Scheduled message is not displayed");
+					}
+					
 				}
 
 			} 
@@ -119,7 +127,7 @@ public class VerifyDRMessage extends Keyword {
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().contains("Started")) {
+					if (s.getKey().toUpperCase().contains("STARTED")) {
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
@@ -129,6 +137,10 @@ public class VerifyDRMessage extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Started title not displayed correctly on message details screen");
 						}
+					}
+						else{
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify DR Message : Savings Event Started message is not displayed");
 					}
 				}
 
@@ -149,7 +161,7 @@ public class VerifyDRMessage extends Keyword {
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().contains("Ended")) {
+					if (s.getKey().toUpperCase().contains("ENDED")) {
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
@@ -159,6 +171,10 @@ public class VerifyDRMessage extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Ended title not displayed correctly on message details screen");
 						}
+					}
+					else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify DR Message : Savings Event Ended message is not displayed");
 					}
 				}
 
@@ -177,7 +193,7 @@ public class VerifyDRMessage extends Keyword {
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().contains("Canceled")) {
+					if (s.getKey().toUpperCase().contains("CANCELED")) {
 						if (s.getValue().contains(message)) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
@@ -187,6 +203,10 @@ public class VerifyDRMessage extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event cancelled title not displayed correctly on message details screen");
 						}
+					}
+					else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify DR Message : Savings Event cancelled message is not displayed");
 					}
 				}
 
@@ -205,7 +225,7 @@ public class VerifyDRMessage extends Keyword {
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().contains("Canceled")) {
+					if (s.getKey().toUpperCase().contains("CANCELED BY USER")) {
 						if (s.getValue().contains(message)) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
@@ -215,6 +235,10 @@ public class VerifyDRMessage extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Canceled by User DR Message is not displayed with correct values");
 						}
+					}
+					else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Verify DR Message : Savings Event Canceled by User message is not displayed");
 					}
 				}
 

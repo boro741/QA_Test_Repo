@@ -15,8 +15,10 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.DR.VerifyDRMessage;
 import com.honeywell.keywords.lyric.chil.TriggerDREvent;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.PrimaryCard;
 
@@ -47,6 +49,7 @@ public class DRUtils extends MobileScreens {
                    fWait.withTimeout(duration, TimeUnit.MINUTES);
                    DRScreens vhs = new DRScreens(testCase);
                    PrimaryCard pc = new PrimaryCard(testCase);
+                   ActivityHistoryScreen ahs = new ActivityHistoryScreen(testCase);
                    Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
                          public Boolean apply(String a) {
                                 try {
@@ -59,6 +62,30 @@ public class DRUtils extends MobileScreens {
                                                      return true;
                                               }
                                        }
+                                       case "DR Label visible": {
+                                           if (pc.isDrGreenLabelVisible()) {
+                                                  System.out.println("Waiting for DR label to appear");
+                                                  return true;
+                                           } else {
+                                                  return false;
+                                           }
+                                    }
+                                       case "DR Popup visible": {
+                                           if (vhs.isSavingEventTitleDisplayed()) {
+                                                  System.out.println("Waiting for DR Popup to appear");
+                                                  return true;
+                                           } else {
+                                                  return false;
+                                           }
+                                    }
+                                       case "Messages": {
+                                           if (ahs.isMessagesDisplayed()) {
+                                                  System.out.println("Waiting for Messages to appear");
+                                                  return true;
+                                           } else {
+                                                  return false;
+                                           }
+                                    }
                                        default: {
                                               Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
                                                             "Invalid argument passed : " + elementProgressBar);
@@ -71,12 +98,12 @@ public class DRUtils extends MobileScreens {
                          }
                    });
                    if (isEventReceived) {
-                         Keyword.ReportStep_Pass(testCase, "DR Label diasppeared.");
+                         Keyword.ReportStep_Pass(testCase, "Wait success");
                    }
             } catch (TimeoutException e) {
                    flag = false;
                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-                                "DR Label did not disapper after waiting for: " + duration + " minutes");
+                               + duration + " minutes");
             } catch (Exception e) {
                    flag = false;
                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
@@ -168,7 +195,6 @@ public class DRUtils extends MobileScreens {
 	public static Boolean VerifyDRCancelPopUp(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag=true;	
 		try{
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					DRScreens dr = new DRScreens(testCase);
 					if(dr.isSavingEventCancelTitleDisplayed()){
 							Keyword.ReportStep_Pass(testCase,
@@ -211,7 +237,7 @@ Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 	                                                            + " Expected : " + message);
 	                                }
 	                            }
-	                        } else {
+	                         else {
 	                            flag = false;
 	                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 	                                                    "Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel Alert title is not correctly displayed");
@@ -221,4 +247,86 @@ Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 	                    }
 	                    return flag;
 	                }
-	}
+	
+
+public static Boolean VerifyDRCancelByUserPopUp(TestCases testCase, TestCaseInputs inputs) {
+	boolean flag=true;	
+	try{
+				DRScreens dr = new DRScreens(testCase);
+				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+                String DREndTime = statInfo.getDREndTime() + ".000Z";
+                String deviceDREndTime = LyricUtils.getDeviceEquivalentUTCTime(testCase, inputs, DREndTime);
+				if(dr.isSavingEventCancelByUserTitleDisplayed()){
+						Keyword.ReportStep_Pass(testCase,
+								"Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel alert title correctly displayed");
+						 String expectedDRText = "Savings Event Until " + deviceDREndTime.split("T")[1];
+	                        String expectedDRText2 = "Savings Event Until "
+	                        + deviceDREndTime.split("T")[1].replace("PM", "p.m.").replace("AM", "a.m.");
+	                        String displayedText = dr.VerifyDRMessageContent();
+	                        if (displayedText.equals(expectedDRText) || displayedText.equals(expectedDRText2)) {
+	                            Keyword.ReportStep_Pass(testCase,
+	                                                    "Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel Alert title correctly displayed");
+	                            String message = "";
+	                            if (statInfo.isDutyCycleEnabled()) {
+	                                message = "You can change the temperature setting, but please note during this time your thermostat will be optimized by your utility provider.";
+	                            }
+	                            else {
+	                                if (statInfo.getThermoStatMode().equalsIgnoreCase("Cool")) {
+	                                    String setPoints = statInfo.getDRCoolSetPointLimit();
+	                                    Double sP = Double.parseDouble(setPoints);
+	                                    if (statInfo.getThermostatUnits().equalsIgnoreCase("Fahrenheit")) {
+	                                        setPoints = String.valueOf(sP.intValue());
+	                                    } else {
+	                                        setPoints = String.valueOf(sP);
+	                                    }
+	                                    message = "You can not decrease the temperature below "+ setPoints +"\u00B0F. During this time, your thermostat will be optimized by your utility provider.";
+	                                } else if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
+	                                    String setPoints = statInfo.getDRHeatSetPointLimit();
+	                                    Double sP = Double.parseDouble(setPoints);
+	                                    if (statInfo.getThermostatUnits().equalsIgnoreCase("Fahrenheit")) {
+	                                        setPoints = String.valueOf(sP.intValue());
+	                                    } else {
+	                                        setPoints = String.valueOf(sP);
+	                                    }
+	                                    message ="You can not increase the temperature beyond "+ setPoints +"\u00B0F. During this time, your thermostat will be optimized by your utility provider.";
+	                                }
+	                            }
+	                            if (dr.VerifyDRMessageContent().equalsIgnoreCase(message)) {
+	                                    Keyword.ReportStep_Pass(testCase,
+	                                                            "Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel alert message is correctly displayed");
+	                                } else {
+	                                    flag = false;
+	                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+	                                                            "Verifying Savings Cancel Event Pop Up Message : Savings Event Cancel Alert message is not correctly displayed. Actual : "
+	                                                            + dr.VerifyDRMessageContent()
+	                                                            + " Expected : " + message);
+	                                }
+	                            }
+	                        else{
+
+	                            flag = false;
+	                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+	                                                    "Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel Alert title is not correctly displayed");
+	                        }
+
+	                            flag = false;
+	                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+	                                                    "Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel Alert title is not correctly displayed");
+	                        
+				}
+				else{
+
+                    flag = false;
+                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                            "Verifying Savings Event Cancel Pop Up Message : Savings Event Cancel Alert title is not displayed");
+				}
+	
+				}
+	                        catch (Exception e) {
+		                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		                    }
+		                    return flag;
+		                }
+		
+}
+
