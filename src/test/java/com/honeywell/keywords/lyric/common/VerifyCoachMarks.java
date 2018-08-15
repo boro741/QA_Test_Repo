@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.CoachMarks;
+import com.honeywell.screens.Dashboard;
 
 public class VerifyCoachMarks extends Keyword {
 
@@ -39,7 +40,8 @@ public class VerifyCoachMarks extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			CoachMarks cm = new CoachMarks(testCase);
-			if (cm.isGotitButtonVisible(15)) {
+			Dashboard dB = new Dashboard(testCase);
+			//if (cm.isGotitButtonVisible(15)) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DAS DASHBOARD": {
 					flag = flag & cm.verifyDashboardCoachMarks(CoachMarks.DAS);
@@ -58,10 +60,12 @@ public class VerifyCoachMarks extends Keyword {
 					break;
 				}
 				case "NA THERMOSTAT SOLUTION CARD": {
+					dB.NavigatetoThermostatPrimarycard();
 					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.THERMOSTATNA);
 					break;
 				}
 				case "EMEA THERMOSTAT SOLUTION CARD": {
+					flag = flag & dB.NavigatetoThermostatPrimarycard();
 					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.THERMOSTATEMEA);
 					break;
 				}
@@ -71,10 +75,10 @@ public class VerifyCoachMarks extends Keyword {
 							"Invalid Input : " + parameters.get(0));
 				}
 				}
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Coach Marks are not visible");
-			}
+//			} else {
+//				flag = false;
+//				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Coach Marks are not visible");
+//			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

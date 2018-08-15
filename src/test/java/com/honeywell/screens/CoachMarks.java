@@ -33,22 +33,22 @@ public class CoachMarks extends MobileScreens {
 	"Quick Controls","Outside temperature" };
 	public static final String[] ThermostatDashboardCoachMarkDescriptions = new String[] {
 			"Access controls and options for any device by tapping on the device name.",
-			"Quickly change the temperature at which your thermostat is set","Tap to see today's forecast." };
+			"Quickly change the temperature that your thermostat is set to","Tap to see today's forecast." };
 	
 	public static final String[] NASolutionCardCoachMarkHeaders = new String[] { "Indoor temperature reading", "Temp stepper",
 			"Mode", "Fan","Schedule" };
 	public static final String[] NASolutionCardCoachMarkDescriptions = new String[] {
-			"Displays the current temperature in your home",
-			"Change the temperature at which your thermostat is set.",
+			"Displays current temperature in your home",
+			"Change the temperature that your thermostat is set to.",
 			"Change thermostat mode.",
-			"Change the fan mode that your system is using",
+			"Change the fan mode your system is using",
 			"View, edit or create a new schedule for your thermostat"};
 	
 	public static final String[] EMEASolutionCardCoachMarkHeaders = new String[] { "Indoor temperature reading", "Temp stepper",
 			"Mode","Schedule" };
 	public static final String[] EMEASolutionCardCoachMarkDescriptions = new String[] {
-			"Displays the current temperature in your home",
-			"Change the temperature at which your thermostat is set.",
+			"Displays current temperature in your home",
+			"Change the temperature that your thermostat is set to.",
 			"Change thermostat mode.","View, edit or create a new schedule for your thermostat"};
 	
 

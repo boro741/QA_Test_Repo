@@ -1587,6 +1587,7 @@ public class LyricUtils {
         pixDestroy(image);
 		return str;
 	}
+	
 	public static String getDeviceEquivalentUTCTime(TestCases testCase, TestCaseInputs inputs, String UTCTime) {
 		String deviceTime = "";
 		try {
@@ -1626,6 +1627,7 @@ public class LyricUtils {
 		}
 		return deviceTime;
 	}
+	
 	public static String[][] getAllMessages(TestCases testCase) throws Exception {
 		String msgs[][] = new String[1][1];
 		try {
@@ -1700,5 +1702,16 @@ public class LyricUtils {
 			throw new Exception(e.getMessage());
 		}
 		return msgs;
+	}
+	
+	public static boolean launchAndLoginToApplicationWithoutClosingCoachMark(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);	
+		}
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		return flag;
 	}
 }

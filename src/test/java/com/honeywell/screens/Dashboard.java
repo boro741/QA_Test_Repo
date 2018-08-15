@@ -566,7 +566,15 @@ public class Dashboard extends MobileScreens {
 		}
 		return false;
 	}
+	
 	public boolean isDrEventLabelVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardDrAlert", 3, false);
+	}
+	
+	public boolean NavigatetoThermostatPrimarycard() {
+		if (MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")) {
+			return true;
+		}
+		return false;
 	}
 }

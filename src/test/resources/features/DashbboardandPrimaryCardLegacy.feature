@@ -970,37 +970,37 @@ Then verify Heat setpoint should be always less than the cool setpoint
 @DashboardCoachmarkverification @Automated
 Scenario Outline:As an user i want to verify coach marks 
 Given user has <Mode> system mode
-Given user launches and logs in to the lyric application 
+Given user launches and logs in to the Lyric application without closing coach mark
 Then user verifies the "THERMOSTAT DASHBOARD" coach marks
 Examples:
 |Mode|
 |Cool|
 |Heat|
-|Auto|
+#|Auto|
 
 #JasperNA, HB, Spruce
 @SolutionCardCoachmarkverificationNA @Automated
 Scenario Outline:As an user i want to verify coach marks 
 Given user has <Mode> system mode
 Given user launches and logs in to the lyric application 
-And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+#And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 Then user verifies the "NA THERMOSTAT SOLUTION CARD" coach marks
 Examples:
 |Mode|
 |Cool|
 |Heat|
-|Auto|
+#|Auto|
 
 #JasperEMEA, HB, Spruce
 @SolutionCardCoachmarkverificationEMEA @Automated
 Scenario Outline:As an user i want to verify coach marks 
 Given user has <Mode> system mode
 Given user launches and logs in to the lyric application 
-And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+#And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 Then user verifies the "EMEA THERMOSTAT SOLUTION CARD" coach marks
 Examples:
 |Mode|
-|Auto|
+|Heat|
 
 
 #Dashboard order 
