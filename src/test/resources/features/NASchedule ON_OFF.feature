@@ -203,7 +203,7 @@ When user navigates to "PRIMARY CARD" screen from the "SCHEDULING" screen
 Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 
 Examples:
-|Mode | scheduling | Adhocoverride | Schedule status |Geofence | Period |
+|Mode | scheduling 					| Adhocoverride | Schedule status |Geofence | Period |
 |Heat|Without sleep geofence based| Temporary | Using Home Settings| UserArrived |Home|
 |Heat|Without sleep geofence based| Temporary | Using Away Settings| UserDeparted |Away|
 |Heat|geofence based| Temporary | Using Sleep Settings|UserArrived |Sleep|
