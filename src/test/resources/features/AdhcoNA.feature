@@ -86,3 +86,61 @@ Examples:
 #|Cool  | Heat       |
 #|Cool  | Heat       |
 #|Cool  | Heat       |
+
+#JasperEMEA
+@AdhocOverrideCreateGeofencebasescheduleOFFAspecifictime @AutomatedOnAndroid
+Scenario Outline: To Verify create geofence schedule in off mode
+Given user launches and logs in to the Lyric application
+And user has <Mode> system mode
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+And user changes system mode to "Off"
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+And user creates "Geofence based" scheduling with default values "Without" sleep settings
+And user changes system mode to <Mode>
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+And user "should be updated" with the <Mode> option 
+And user should be displayed with "respective period" setpoint value in solution card
+
+Examples:
+|Mode| NEW Schedule | Schedule status |
+|HEAT|   Geofence base schedule|Using Home Settings | 
+#|HEAT| Geofence base schedule| Using Away Settings | 
+#|HEAT| Geofence base schedule| Using Sleep Settings | 
+
+
+#JasperNA
+@AdhocOverrideCreateGeofencebasescheduleAspecifictime
+Scenario Outline:  To verify creates geofence base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Given user launches and logs in to the Lyric application
+And user has <Mode> system mode
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+And user creates "Geofence based" scheduling with default values "Without" sleep settings
+And user thermostat set <Period> with <Geofence>
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+And user "should be updated" with the <Mode> option 
+And user should be displayed with "respective period" setpoint value in solution card
+
+Examples:
+|Mode|Period|Geofence| Schedule status |
+|HEAT|Home|UserArrived| Using Home Settings | 
+|Cool|Away|UserDeparted| Using Away Settings |
+#|AUTO| Geofence base schedule| Using Home Settings | 
+#|Heat only| Geofence base schedule| HOME | 
+#|Cool only| Geofence base schedule| HOME |
+#|Cool|   Geofence base schedule| AWAY | 
+#|HEAT| Geofence base schedule| AWAY | 
+#|AUTO| Geofence base schedule| AWAY | 
+#|Heat only| Geofence base schedule| AWAY | 
+#|Cool only| Geofence base schedule| AWAY |
+#|Cool|   Geofence base schedule| SLEEP | 
+#|HEAT| Geofence base schedule| SLEEP | 
+#|AUTO| Geofence base schedule| SLEEP | 
+#|Heat only| Geofence base schedule| SLEEP | 
+#|Cool only| Geofence base schedule| SLEEP | 

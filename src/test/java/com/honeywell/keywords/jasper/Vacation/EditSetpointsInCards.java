@@ -65,7 +65,11 @@ public class EditSetpointsInCards extends Keyword {
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					flag &= vhs.editSetPointUpInPrimaryCard();
 					VacationSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
-					CHILUtil.setPointInPrimaryCard = Integer.parseInt(vhs.getPrimaryCardValue());
+					if(statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")){
+
+					}else{
+						CHILUtil.setPointInPrimaryCard = Integer.parseInt(vhs.getPrimaryCardValue());
+					}
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isBackButtonVisible()) {
 						flag = flag & bs.clickOnBackButton();
@@ -109,7 +113,7 @@ public class EditSetpointsInCards extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Could not find Back button");
 							}
-							
+
 							statInfo = new DeviceInformation(testCase, inputs);
 							CHILUtil.setPointInVacationCard = (int) Double
 									.parseDouble(statInfo.getVacationHeatSetPoint());
