@@ -85,7 +85,7 @@ so that i can change Time and Set points of individual periods and Days
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user creates "Different On Weekdays" schedule with default schedule value
       And user selects "SINGLE DAY" view
-     When user deletes <Periods> from the Time Based Schdeule
+     When user edit Time schedule by deleting <Periods>
      Then verify "Time" schedule successfully gets edited
 #      And "EditedDays" are grouped separately
   
@@ -101,7 +101,7 @@ so that i can change Time and Set points of individual periods and Days
     And user launches and logs in to the Lyric application
     And user navigates to "Scheduling" screen from the "Dashboard" screen
     And user selects <Type> view
-     When user deletes "All 4 Periods" from the Time Based Schdeule
+     When user edit Time schedule by deleting "All 4 periods"
      Then verify "No Schedule" screen is shown in view schedule screen
       Examples:
       | Type            | 
