@@ -206,10 +206,10 @@ public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
 									tempDays = days[rn.nextInt((6 - 0) + 1) + 0];
 									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 										if (jasperStatType.equalsIgnoreCase("NA")) {
-											schedulePeriodToSelect = schedulePeriods_NA[rn.nextInt((3 - 0) + 1) + 0] + "_"
+											schedulePeriodToSelect = schedulePeriods_NA[rn.nextInt((2 - 0) + 1) + 0] + "_"
 													+ tempDays;
 										} else if (jasperStatType.equalsIgnoreCase("EMEA")) {
-											schedulePeriodToSelect = schedulePeriods_EMEA[rn.nextInt((3 - 0) + 1) + 0] + "_"
+											schedulePeriodToSelect = schedulePeriods_EMEA[rn.nextInt((2 - 0) + 1) + 0] + "_"
 													+ tempDays;
 										}
 									} else {

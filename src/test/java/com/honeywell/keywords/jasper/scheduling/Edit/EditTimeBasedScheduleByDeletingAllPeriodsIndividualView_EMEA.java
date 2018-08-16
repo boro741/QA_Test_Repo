@@ -20,6 +20,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -85,7 +86,9 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 									if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeleteButton")) {
 										flag = false;
 									} else {
-										if (MobileUtils.isMobElementExists("Xpath", "//*[contains(@text,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]", testCase)) {
+										SchedulingScreen schl= new SchedulingScreen(testCase);
+										if (MobileUtils.isMobElementExists("Xpath", "//*[contains(@text,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]", testCase)||schl.isScheduleOptionsVisible(15)
+												|| schl.isCreateScheduleButtonVisible(15)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Schedule period is deleted when clicked on Delete during Delete operation");
 										} else {

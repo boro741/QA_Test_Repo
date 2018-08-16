@@ -128,7 +128,12 @@ public class EditEndTimeLessThanStartTimeEMEA extends Keyword {
 		}
 
 		SchedulingScreen scheduleScreen= new SchedulingScreen(testCase);
-		scheduleScreen.isViewByGroupedDaysVisible(20);
+		if(scheduleScreen.isViewByGroupedDaysVisible(25)){
+			Keyword.ReportStep_Pass(testCase, "Schedule screen displayed");
+		}else{
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not in Schedule screen");
+			flag=false;
+		}
 		
 		if(testCase.getPlatform().contains("IOS")){
 			if(changedTime.equalsIgnoreCase(testCase.getMobileDriver()
