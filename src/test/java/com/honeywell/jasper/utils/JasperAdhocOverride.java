@@ -747,6 +747,11 @@ public class JasperAdhocOverride {
 				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//UIAPickerWheel[3]", min);
 			}
 
+			if(testCase.getPlatform().contains("IOS")){
+				//TODO
+			}else{
+				MobileUtils.clickOnElement(testCase, "id","button1");
+			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
