@@ -112,7 +112,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideCreateGeofencebasescheduleAspecifictime
+@AdhocOverrideCreateGeofencebasescheduleAspecifictime  @AutomatedOnAndroid
 Scenario Outline:  To verify creates geofence base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -144,3 +144,85 @@ Examples:
 #|AUTO| Geofence base schedule| SLEEP | 
 #|Heat only| Geofence base schedule| SLEEP | 
 #|Cool only| Geofence base schedule| SLEEP | 
+
+@AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime @AutomatedOnAndroid
+Scenario Outline: To Verify create time base schedule in off mode  
+Given user launches and logs in to the Lyric application
+And user has <Mode> system mode
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+And user changes system mode to "Off"
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+And user creates "Same Every Day" schedule with default schedule value
+And user changes system mode to <Mode>
+Then verify the "Following schedule" on the "PRIMARY CARD" screen
+And user "should be updated" with the <Mode> option 
+And user should be displayed with "respective period" setpoint value in solution card
+Examples:
+|Mode|
+|HEAT|
+|Cool|
+#|AUTO| Geofence base schedule| Using Home Settings | 
+#|Heat only| Geofence base schedule| HOME | 
+#|Cool only| Geofence base schedule| HOME |
+#|Cool|   Geofence base schedule| AWAY | 
+#|HEAT| Geofence base schedule| AWAY | 
+#|AUTO| Geofence base schedule| AWAY | 
+#|Heat only| Geofence base schedule| AWAY | 
+#|Cool only| Geofence base schedule| AWAY |
+#|Cool|   Geofence base schedule| SLEEP | 
+#|HEAT| Geofence base schedule| SLEEP | 
+#|AUTO| Geofence base schedule| SLEEP | 
+#|Heat only| Geofence base schedule| SLEEP | 
+#|Cool only| Geofence base schedule| SLEEP | 
+
+
+@AdhocOverrideCreateTimebasescheduleAspecifictime @AutomatedOnAndroid
+Scenario Outline:  To verify create time base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Given user launches and logs in to the Lyric application
+And user has <Mode> system mode
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+And user creates "Same Every Day" schedule with default schedule value
+Then verify the "Following schedule" on the "PRIMARY CARD" screen
+And user "should be updated" with the <Mode> option 
+And user should be displayed with "respective period" setpoint value in solution card
+
+Examples:
+|Mode| NEW Schedule |
+|Cool| Time base schedule | 
+|HEAT|Time base schedule |
+|AUTO|Time base schedule |
+|Heat only|Time base schedule |
+|Cool only|Time base schedule |
+
+#Requirements : Thermostat should be set to A specific time 
+@AdhocOverrideTimebaseSchedulespecifictimedeleteallperiods @AutomatedOnAndroid
+Scenario Outline:   I want to verify delete all period and no schedule status for systems Heat cool,Heat and Cool
+ #with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user launches and logs in to the Lyric application
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+And user navigates to "Scheduling" screen from the "Primary card" screen
+And user selects "Grouped days" view
+When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
+When user navigates to "Scheduling" screen from the "Dashboard" screen
+Then verify "No Schedule" screen is shown in view schedule screen
+And user should be displayed with "respective period" setpoint value in solution card
+
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 
+
+
