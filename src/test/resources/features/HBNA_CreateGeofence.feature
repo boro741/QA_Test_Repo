@@ -54,7 +54,7 @@ so that my home temperature will get set automatically based on geofence setting
   
   @JasperNA_GeofenceTimerClockIsInCrementalOf15mins @Automated
   Scenario: As a user i want to verify if Sleep settings timer is incremental of 15mins
-    Given "Geofence" Schedule "With" sleep Settings
+    Given user thermostat is set to "Time based" schedule
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
      When user creates "Geofence based" scheduling with default values "With" sleep settings
