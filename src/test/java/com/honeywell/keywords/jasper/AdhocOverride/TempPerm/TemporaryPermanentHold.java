@@ -45,13 +45,14 @@ public class TemporaryPermanentHold extends Keyword {
 				{
 				case "TEMPORARY" :
 				{
-					if(adhocScreen.getAdhocStatusElement().toUpperCase().contains("HOLD UNTIL")){
+					flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
+					/*if(adhocScreen.getAdhocStatusElement().toUpperCase().contains("HOLD UNTIL")){
 						ReportStep_Pass(testCase, "In "+ exampleData.get(0));
 					}else{
 						flag = false;
 						Keyword.ReportStep_Fail(testCase,
 						FailType.FUNCTIONAL_FAILURE,"Not in " +  exampleData.get(0));
-					}
+					}*/
 					
 				}break;
 				}
@@ -60,15 +61,15 @@ public class TemporaryPermanentHold extends Keyword {
 				switch (exampleData.get(0).toUpperCase()) {
 				case "PERMANENT" : 
 				{
-					//flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
-					//flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
-					if(adhocScreen.getAdhocStatusElement().toUpperCase().contains(exampleData.get(0).toUpperCase())){
+					flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
+					flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
+					/*if(adhocScreen.getAdhocStatusElement().toUpperCase().contains(exampleData.get(0).toUpperCase())){
 						ReportStep_Pass(testCase, "In "+ exampleData.get(0));
 					}else{
 						flag = false;
 						Keyword.ReportStep_Fail(testCase,
 						FailType.FUNCTIONAL_FAILURE,"Not in " +  exampleData.get(0));
-					}
+					}*/
 				}break;
 				}
 			}
