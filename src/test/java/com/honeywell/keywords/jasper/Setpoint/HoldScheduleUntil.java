@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
 import com.honeywell.lyric.utils.InputVariables;
 
@@ -55,7 +56,11 @@ public class HoldScheduleUntil extends Keyword {
 				} else if (exampleData.get(0).equals("lesser than 12 hours")) {
 					c2.add(Calendar.HOUR, 2);
 					c2.set(Calendar.MINUTE, 0);
+				} else{
+					c2.add(Calendar.HOUR, 0);
+					c2.set(Calendar.MINUTE, 15);
 				}
+				
 
 				if (c2.get(Calendar.DATE) != c1.get(Calendar.DATE)) {
 					day = "Tomorrow";
@@ -92,6 +97,14 @@ public class HoldScheduleUntil extends Keyword {
 					inputs.setInputValue(InputVariables.HOLD_UNTIL_TIME, time);
 				}
 			}
+			if (exampleData.get(0).equals("greater than 12 hours")) {
+				if(testCase.getPlatform().contains("IOS")){
+					//TODO
+				}else{
+					MobileUtils.clickOnElement(testCase, "id","button1");
+				}
+			}
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

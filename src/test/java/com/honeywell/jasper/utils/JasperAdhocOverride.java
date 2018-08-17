@@ -447,6 +447,19 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
+	public static boolean removeAdHoc(TestCases testCase) {
+		boolean flag = true;
+		AdhocScreen adhoc = new AdhocScreen(testCase);
+		if (adhoc.isAdhocStatusVisible()) {
+			flag = flag & adhoc.clickOnAdhocStatusButton();
+			flag = flag & adhoc.clickOnRemoveHoldButton();
+		} else {
+			flag = false;
+			Keyword.ReportStep_Pass(testCase,
+					"Hold Set Points From AdHoc : Ad hoc is not overridden cannot resume schedule");
+		}
+		return flag;
+	}
 
 	public static boolean holdSetPointsUntilFromAdHoc(TestCases testCase) {
 		boolean flag = true;
@@ -746,7 +759,6 @@ public class JasperAdhocOverride {
 				}
 				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[3]", min);
 			}
-
 			if(testCase.getPlatform().contains("IOS")){
 				MobileUtils.clickOnElement(testCase, "NAME","Ok");
 			}else{
