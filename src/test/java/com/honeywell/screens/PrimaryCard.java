@@ -53,22 +53,31 @@ public class PrimaryCard extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "HumidityValueInPrimaryCardScreen", 30)) {
 			humidityPercentageInPrimaryCardScreen = MobileUtils
 					.getMobElement(objectDefinition, testCase, "HumidityValueInPrimaryCardScreen").getText();
-			humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
-			if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
-				inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
-						humidityPercentageInPrimaryCardScreen);
+			if (humidityPercentageInPrimaryCardScreen.contains("%")) {
+				humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1]
+						.split("%")[0];
+				if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
+					inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
+							humidityPercentageInPrimaryCardScreen);
+				}
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Humidity value is not present in Primary Card screen");
 			}
 		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
 				"HumidityValueFromTheScrollListInPrimaryCardScreen", 30)) {
 			humidityPercentageInPrimaryCardScreen = MobileUtils
 					.getMobElement(objectDefinition, testCase, "HumidityValueFromTheScrollListInPrimaryCardScreen")
 					.getText();
-			humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1].split("%")[0];
-			if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
-				inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
-						humidityPercentageInPrimaryCardScreen);
+			if (humidityPercentageInPrimaryCardScreen.contains("%")) {
+				humidityPercentageInPrimaryCardScreen = humidityPercentageInPrimaryCardScreen.split(" ")[1]
+						.split("%")[0];
+				if (!humidityPercentageInPrimaryCardScreen.equalsIgnoreCase("TO")) {
+					inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_HUMIDITY_VALUE",
+							humidityPercentageInPrimaryCardScreen);
+				}
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Humidity value is not present in Primary Card screen");
 			}
-
 		}
 		return flag;
 	}
@@ -718,11 +727,20 @@ public class PrimaryCard extends MobileScreens {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("name")
 						.toUpperCase().contains(expectedValue)) {
 					return flag;
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failure: Currently mode is set to: "
+							+ MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("name"));
 				}
 			} else {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value")
 						.toUpperCase().contains(expectedValue)) {
 					return flag;
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failure: Currently mode is set to: " + MobileUtils
+									.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value"));
 				}
 			}
 		}
@@ -1006,6 +1024,7 @@ public class PrimaryCard extends MobileScreens {
 		}
 		return false;
 	}
+
 	public boolean isDownStepperVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown");
 	}
@@ -1018,7 +1037,7 @@ public class PrimaryCard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperDown");
 	}
 
-	public boolean clickOnUpStepper(){
+	public boolean clickOnUpStepper() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "StatTempStepperUp");
 	}
 
@@ -1037,12 +1056,15 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isSystemIsOffVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeStatus", timeOut);
 	}
+
 	public boolean isDrGreenLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DrEventLabel");
 	}
+
 	public boolean clickOnDrEventLabel() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DrEventLabel");
 	}
+
 	public boolean isNoScheduleTextAvailable() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSchedule");
 	}

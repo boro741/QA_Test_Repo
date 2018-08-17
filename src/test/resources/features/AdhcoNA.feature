@@ -87,8 +87,8 @@ Examples:
 #|Cool  | Heat       |
 #|Cool  | Heat       |
 
-#JasperEMEA
-@AdhocOverrideCreateGeofencebasescheduleOFFAspecifictime @AutomatedOnAndroid
+#JasperNA
+@AdhocOverrideCreateGeofencebasescheduleOFFAspecifictime			@Automated
 Scenario Outline: To Verify create geofence schedule in off mode
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -99,20 +99,21 @@ And user holds the schedule until time "lesser than 12 hours" from current time
 And user changes system mode to "Off"
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 And user creates "Geofence based" scheduling with default values "Without" sleep settings
+And user thermostat set <Period> with <Geofence>
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
 And user should be displayed with "respective period" setpoint value in solution card
 
 Examples:
-|Mode| NEW Schedule | Schedule status |
-|HEAT|   Geofence base schedule|Using Home Settings | 
-#|HEAT| Geofence base schedule| Using Away Settings | 
-#|HEAT| Geofence base schedule| Using Sleep Settings | 
+| Mode	| Period		| Geofence			| NEW Schedule			| Schedule status		|
+|HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Home Settings	| 
+#|HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Away Settings	| 
+#|HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Sleep Settings	| 
 
 
 #JasperNA
-@AdhocOverrideCreateGeofencebasescheduleAspecifictime  @AutomatedOnAndroid
+@AdhocOverrideCreateGeofencebasescheduleAspecifictime			@Automated
 Scenario Outline:  To verify creates geofence base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -145,7 +146,7 @@ Examples:
 #|Heat only| Geofence base schedule| SLEEP | 
 #|Cool only| Geofence base schedule| SLEEP | 
 
-@AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime @AutomatedOnAndroid
+@AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime		@Automated
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -179,7 +180,7 @@ Examples:
 #|Cool only| Geofence base schedule| SLEEP | 
 
 
-@AdhocOverrideCreateTimebasescheduleAspecifictime @AutomatedOnAndroid
+@AdhocOverrideCreateTimebasescheduleAspecifictime			@Automated
 Scenario Outline:  To verify create time base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -202,7 +203,7 @@ Examples:
 |Cool only|Time base schedule |
 
 #Requirements : Thermostat should be set to A specific time 
-@AdhocOverrideTimebaseSchedulespecifictimedeleteallperiods @AutomatedOnAndroid
+@AdhocOverrideTimebaseSchedulespecifictimedeleteallperiods		@Automated
 Scenario Outline:   I want to verify delete all period and no schedule status for systems Heat cool,Heat and Cool
  #with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user launches and logs in to the Lyric application
@@ -224,5 +225,3 @@ Examples:
 #|Auto | 
 #|Cool only| 
 #|Heat only| 
-
-

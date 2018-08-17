@@ -1761,6 +1761,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 				flag = false;
 			} else {
 				flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='" + ventilationStatus + "']");
+				flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='" + ventilationStatus + "']");
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",

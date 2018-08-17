@@ -43,25 +43,25 @@ public class AdhocScreen extends MobileScreens {
 	}
 
 	public boolean isVacationStatusInSolutionCardVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus");
 	}
 
 	public String getVacationStatusInSolutionsCardScreen() {
 		String vacationStatus;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			vacationStatus = MobileUtils
-					.getMobElement(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen")
+					.getMobElement(objectDefinition, testCase, "AdHocStatus")
 					.getAttribute("text");
 		} else {
 			vacationStatus = MobileUtils
-					.getMobElement(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen")
+					.getMobElement(objectDefinition, testCase, "AdHocStatus")
 					.getAttribute("label");
 		}
 		return vacationStatus;
 	}
 
 	public boolean clickOnVacationStatusInSolutionCardScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationStatusInSolutionsCardScreen");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AdHocStatus");
 	}
 	
 	public boolean clickOnEndVacationOptionInSolutionCardScreen() {
