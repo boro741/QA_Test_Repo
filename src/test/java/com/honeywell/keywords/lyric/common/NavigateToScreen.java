@@ -772,9 +772,10 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "MULTISTAT LOCATION": {
-					Dashboard dashBoardScreen = new Dashboard(testCase);
-					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase,
-							inputs.getInputValue("LOCATION2_NAME"));
+					Dashboard dashBoardScreen=  new Dashboard(testCase);
+					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
+					inputs.setInputValue("LOCATION1_NAME",inputs.getInputValue("LOCATION2_NAME"));
+					inputs.setInputValue("LOCATION1_DEVICE1_NAME",inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
 					break;
 				}
 				case "VACATION": {
@@ -2454,7 +2455,7 @@ public class NavigateToScreen extends Keyword {
 					PrimaryCard PC = new PrimaryCard(testCase);
 					flag = flag && PC.clickOnBackButton();
 					flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
-							inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+							inputs.getInputValue("LOCATION2_DEVICE2_NAME"));
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
 					} else {

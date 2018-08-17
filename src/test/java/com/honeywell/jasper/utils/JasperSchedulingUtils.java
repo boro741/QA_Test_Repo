@@ -12102,7 +12102,8 @@ public class JasperSchedulingUtils {
 			}
 
 			if (verifyMinimumOrMaximum.equalsIgnoreCase("AboveMaximum")) {
-				String setPoints = minMaxSetPoints.get("MaxHeat");
+				 heatTemp = minMaxSetPoints.get("MaxHeat");
+				/*
 				if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT)) {
 					Double temp = Double.parseDouble(setPoints);
 					heatTemp = String.valueOf(temp.intValue());
@@ -12113,6 +12114,7 @@ public class JasperSchedulingUtils {
 						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
 				}
+				*/
 				if (heatSetPoint.equals(heatTemp)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Heat Stepper Value : Heat Set Point set to max set point after trying to set it to a value above maximum set points");
@@ -12163,7 +12165,7 @@ public class JasperSchedulingUtils {
 				}
 			} else if (verifyMinimumOrMaximum.equalsIgnoreCase("Minimum")) {
 				String setPoints = minMaxSetPoints.get("MinHeat");
-				if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT)) {
+				/*if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT)) {
 					Double temp = Double.parseDouble(setPoints);
 					heatTemp = String.valueOf(temp.intValue());
 				} else {
@@ -12172,7 +12174,7 @@ public class JasperSchedulingUtils {
 					} else {
 						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
 					}
-				}
+				}*/
 				if (heatSetPoint.equals(heatTemp)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Heat Stepper Value : Heat Set Point set to min set point");

@@ -190,10 +190,11 @@ Examples:
 Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
 Given user has <Mode> system mode
-Then user thermostat is set to <scheduling> schedule 
+Then user thermostat1 is set to <scheduling> schedule 
 When user thermostat2 is set to <scheduling1> stats 
 Then user thermostat2 is set to <scheduled> stats
 When user launches and logs in to the Lyric application
+Then user navigates to "MULTISTAT LOCATION" screen from the "Dashboard" screen
 Then user navigates to "Scheduling" screen from the "Dashboard" screen
 When user selects "Option" from "Scheduling" screen
 Then user selects "schedule off" from "Option" screen
@@ -234,8 +235,8 @@ Examples:
 Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
 #Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 Given user has <Mode> system mode
-Then user thermostat is set to <scheduling> schedule
-Then user thermostat is set to <scheduled> stats
+Then user thermostat1 is set to <scheduling> schedule
+Then user thermostat1 is set to <scheduled> stats
 When user thermostat2 is set to <scheduling1> stats 
 When user launches and logs in to the Lyric application
 And user navigates to "MULTISTAT LOCATION" screen from the "Dashboard" screen
