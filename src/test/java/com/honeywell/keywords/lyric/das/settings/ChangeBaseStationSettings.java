@@ -1097,7 +1097,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (ts.isVentilationStatusSetToExpected(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Ventilation Status is already set to: " + parameters.get(1));
 					} else {
-						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						flag = flag & ts.setVentilationStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "Ventilation Status is set to: " + parameters.get(1));
 						} else {
@@ -1110,7 +1110,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (ts.isVentilationStatusSetToExpected(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Ventilation Status is already set to: " + parameters.get(1));
 					} else {
-						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						flag = flag & ts.setVentilationStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "Ventilation Status is set to: " + parameters.get(1));
 						} else {
@@ -1123,7 +1123,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (ts.isVentilationStatusSetToExpected(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Ventilation Status is already set to: " + parameters.get(1));
 					} else {
-						flag = flag & ts.setSoundStatusToExpected(testCase, parameters.get(1));
+						flag = flag & ts.setVentilationStatusToExpected(testCase, parameters.get(1));
 						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "Ventilation Status is set to: " + parameters.get(1));
 						} else {

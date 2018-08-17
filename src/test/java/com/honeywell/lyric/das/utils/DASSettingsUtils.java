@@ -781,7 +781,6 @@ public class DASSettingsUtils {
 		try {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			PrimaryCard pc = new PrimaryCard(testCase);
-			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Thermostathu");
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);

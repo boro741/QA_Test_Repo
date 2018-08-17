@@ -688,7 +688,7 @@ public class JasperAdhocOverride {
 				Keyword.ReportStep_Pass(testCase,
 						"Set Hold Until Time : Setting hold unitl time to : " + timeIn12Hours);
 				MobileUtils.clickOnElement(testCase, "name", "Hold Until");
-				if (MobileUtils.isMobElementExists("xpath", "//UIAPickerWheel[4]", testCase, 15)) {
+				if (MobileUtils.isMobElementExists("xpath", "//XCUIElementTypePickerWheel[4]", testCase, 15)) {
 					hourToSet = c1.get(Calendar.HOUR);
 					if (hourToSet == 0) {
 						hourToSet = 12;
@@ -708,7 +708,7 @@ public class JasperAdhocOverride {
 				// String currentDisplayedDay = MobileUtils.getMobElement(testCase, "xpath",
 				// "//UIAPickerWheel[1]")
 				// .getAttribute("value");
-				String currentDisplayedDay = testCase.getMobileDriver().findElement(By.xpath("//UIAPickerWheel[1]"))
+				String currentDisplayedDay = testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[1]"))
 						.getAttribute("value");
 				SimpleDateFormat IOSDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 				SimpleDateFormat timePickerDateFormat = new SimpleDateFormat("EEE, MMM d");
@@ -720,7 +720,7 @@ public class JasperAdhocOverride {
 					displayedDate = currentDisplayedDay;
 				}
 				if (!displayedDate.equalsIgnoreCase(day)) {
-					WebElement dayPicker = testCase.getMobileDriver().findElement(By.xpath("//UIAPickerWheel[1]"));
+					WebElement dayPicker = testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[1]"));
 					Point p1 = dayPicker.getLocation();
 					Dimension d1 = dayPicker.getSize();
 					int x = p1.getX();
@@ -733,10 +733,10 @@ public class JasperAdhocOverride {
 					}
 					t1.tap(dayPicker, x, y).perform();
 				}
-				if (testCase.getMobileDriver().findElement(By.xpath("//UIAPickerWheel[4]")) != null) {
-					flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//UIAPickerWheel[4]", ampm);
+				if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[4]")) != null) {
+					flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[4]", ampm);
 				}
-				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//UIAPickerWheel[2]",
+				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[2]",
 						String.valueOf(hourToSet));
 				String min;
 				if (minutesToSet == 0) {
@@ -744,11 +744,11 @@ public class JasperAdhocOverride {
 				} else {
 					min = String.valueOf(minutesToSet);
 				}
-				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//UIAPickerWheel[3]", min);
+				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[3]", min);
 			}
 
 			if(testCase.getPlatform().contains("IOS")){
-				//TODO
+				MobileUtils.clickOnElement(testCase, "NAME","Ok");
 			}else{
 				MobileUtils.clickOnElement(testCase, "id","button1");
 			}

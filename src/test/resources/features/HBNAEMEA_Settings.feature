@@ -388,6 +388,7 @@ Then the following "Thermostat Settings" options should be disabled:
 		
 Examples:
 | SystemMode		|
+| Heat			|
 | Cool			|
 
 
@@ -538,7 +539,7 @@ Then "Sound" value should be updated to "Normal" on "Thermostat Settings" screen
 
 #HB_Spruce
 @HBBChangeVentilationSettings		@P2		@Automated
-Scenario: As a user I should be able to view options for Sound
+Scenario: As a user I should be able to view options for Ventilation
 Given user launches and logs in to the Lyric application
 When user navigates to "Ventilation" screen from the "Dashboard" screen
 Then user should be displayed with the following "Ventilation" options: 
