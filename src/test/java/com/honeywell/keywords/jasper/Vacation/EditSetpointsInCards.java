@@ -57,7 +57,6 @@ public class EditSetpointsInCards extends Keyword {
 							"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
 				}
 			}
-			// flag = true;
 			switch (exampleData.get(0).toUpperCase()) {
 			case "PRIMARY CARD": {
 				try {

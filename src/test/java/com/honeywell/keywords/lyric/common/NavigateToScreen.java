@@ -772,8 +772,9 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "MULTISTAT LOCATION": {
-					Dashboard dashBoardScreen=  new Dashboard(testCase);
-					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
+					Dashboard dashBoardScreen = new Dashboard(testCase);
+					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase,
+							inputs.getInputValue("LOCATION2_NAME"));
 					break;
 				}
 				case "VACATION": {
@@ -2426,9 +2427,18 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SETTINGS": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					PrimaryCard pc = new PrimaryCard(testCase);
 					if (ts.isBackButtonVisible(10)) {
 						ts.clickOnBackButton();
 						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (ts.isBackButtonVisible(5)) {
+							ts.clickOnBackButton();
+							HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (pc.isCogIconVisible()) {
+								flag = flag & pc.clickOnCogIcon();
+								break;
+							}
+						}
 						break;
 					} else {
 						flag = false;

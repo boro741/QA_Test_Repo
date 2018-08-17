@@ -90,12 +90,10 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 
 	public String hourInTimePicker() {
-		System.out.println(MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerHour"));
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerHour");
 	}
 
 	public String minuteInTimePicker() {
-		System.out.println(MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerMinute"));
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "TimePickerMinute");
 	}
 
@@ -194,7 +192,6 @@ public class VacationHoldScreen extends MobileScreens {
 
 	public String getStartTime() {
 		if (testCase.getPlatform().contains("IOS")) {
-			System.out.println(MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime"));
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime").split(",")[3].trim();
 		} else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime");
@@ -339,13 +336,11 @@ public class VacationHoldScreen extends MobileScreens {
 
 	public String getHeatSetPointValue() {
 		String heatSetPoint = MobileUtils.getFieldValue(objectDefinition, testCase, "HeatSetPointRound");
-		System.out.println("########heatSetPoint: " + heatSetPoint);
 		return heatSetPoint;
 	}
 
 	public String getCoolSetPointValue() {
 		String coolSetPoint = MobileUtils.getFieldValue(objectDefinition, testCase, "CoolSetPointRound");
-		System.out.println("########coolSetPoint: " + coolSetPoint);
 		return coolSetPoint;
 	}
 
@@ -422,7 +417,6 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 
 	public String getPrimaryCardValue() {
-		System.out.println("%%%%%%%" + MobileUtils.getFieldValue(objectDefinition, testCase, "PrimaryCardSetpoint"));
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "PrimaryCardSetpoint");
 	}
 
