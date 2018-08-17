@@ -852,6 +852,7 @@ public class PrimaryCard extends MobileScreens {
 				return flag;
 			}
 		}
+		Keyword.ReportStep_Pass(testCase, "Value in solution card is "+currentSetPoint);
 		return flag;
 	}
 

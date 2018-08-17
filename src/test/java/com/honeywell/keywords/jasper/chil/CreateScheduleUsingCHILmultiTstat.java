@@ -38,9 +38,10 @@ public class CreateScheduleUsingCHILmultiTstat extends Keyword {
 	@KeywordStep(gherkins = "^user thermostat2 is set to \"(.+)\" stats$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			
+			String Location1_name = inputs.getInputValue("LOCATION1_NAME");
+			inputs.setInputValue("LOCATION1_NAME",inputs.getInputValue("LOCATION2_NAME"));
 			String Location1_device1_name = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
-			inputs.setInputValue("LOCATION1_DEVICE1_NAME",inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+			inputs.setInputValue("LOCATION1_DEVICE1_NAME",inputs.getInputValue("LOCATION2_DEVICE2_NAME"));
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
 			LocationInformation statInfo = new LocationInformation(testCase, inputs);
@@ -156,6 +157,8 @@ public class CreateScheduleUsingCHILmultiTstat extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + exampleData.get(0));
 			}
+			inputs.setInputValue("LOCATION1_NAME",Location1_name);
+			System.out.println(inputs.getInputValue("LOCATION1_NAME"));
 			inputs.setInputValue("LOCATION1_DEVICE1_NAME",Location1_device1_name);
 			System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 		} catch (Exception e) {
