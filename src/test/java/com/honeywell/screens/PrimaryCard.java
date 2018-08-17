@@ -351,7 +351,7 @@ public class PrimaryCard extends MobileScreens {
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-								.isEnabled()) {
+						.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -380,7 +380,7 @@ public class PrimaryCard extends MobileScreens {
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-								.isEnabled()) {
+						.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -409,7 +409,7 @@ public class PrimaryCard extends MobileScreens {
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-								.isEnabled()) {
+						.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -438,7 +438,7 @@ public class PrimaryCard extends MobileScreens {
 				} else if (testCase.getMobileDriver().findElement(By.xpath(
 						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 								+ mode + "']"))
-								.isEnabled()) {
+						.isEnabled()) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
 					return true;
 				} else {
@@ -452,15 +452,19 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isAutoDefinitionVisible() {
 		boolean flag = true;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoModeDescription")) {
-			return flag;
-		} else {
-			if (testCase.getMobileDriver().findElement(By.name("COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE"))
-					.isEnabled()) {
-				return flag;
-			} else {
-				flag = false;
-			}
+			if(testCase.getPlatform().contains("IOS")){
+				if (testCase.getMobileDriver().findElement(By.name("COOL OR HEAT AS NEEDED TO REACH TARGET TEMPERATURE"))
+						.isEnabled()) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}else{
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AutoModeDescription")) {
+					return flag;
+				} else {
+					flag = false;
+				}
 		}
 		return flag;
 	}
@@ -603,7 +607,7 @@ public class PrimaryCard extends MobileScreens {
 			if (testCase.getMobileDriver().findElement(By.xpath(
 					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 							+ value + "']"))
-							.isEnabled()) {
+					.isEnabled()) {
 				return true;
 			}
 		}
@@ -652,7 +656,7 @@ public class PrimaryCard extends MobileScreens {
 			if (testCase.getMobileDriver().findElement(By.xpath(
 					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 							+ value + "']"))
-							.isEnabled()) {
+					.isEnabled()) {
 				return true;
 			}
 		}
@@ -671,7 +675,7 @@ public class PrimaryCard extends MobileScreens {
 			if (testCase.getMobileDriver().findElement(By.xpath(
 					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
 							+ value + "']"))
-							.isEnabled()) {
+					.isEnabled()) {
 				return true;
 			}
 		}
@@ -740,7 +744,7 @@ public class PrimaryCard extends MobileScreens {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failure: Currently mode is set to: " + MobileUtils
-									.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value"));
+							.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value"));
 				}
 			}
 		}
