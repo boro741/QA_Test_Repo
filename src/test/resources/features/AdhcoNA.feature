@@ -6,7 +6,7 @@ I should be able to cancel overrides and resume scheduling.
 
 #Following schedule and using settings
 
- #JasperNA
+#JasperNA
 @AdhocOverrideTimebaseSchedulefollowingfromsolutioncard @Automated
 Scenario Outline:   I want to verify time Following Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
 Given user launches and logs in to the Lyric application
