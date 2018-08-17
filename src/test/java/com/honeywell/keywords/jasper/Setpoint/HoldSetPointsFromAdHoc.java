@@ -1,5 +1,7 @@
 package com.honeywell.keywords.jasper.Setpoint;
 
+import java.util.ArrayList;
+
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,11 +15,13 @@ public class HoldSetPointsFromAdHoc extends Keyword {
 
 	public TestCases testCase;
 	public TestCaseInputs inputs;
+	public ArrayList<String> exampleData;
 	public boolean flag = true;
 
-	public HoldSetPointsFromAdHoc(TestCases testCase, TestCaseInputs inputs) {
+	public HoldSetPointsFromAdHoc(TestCases testCase, TestCaseInputs inputs,ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
+		this.exampleData = exampleData;
 	}
 
 	@Override
@@ -27,9 +31,13 @@ public class HoldSetPointsFromAdHoc extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user puts schedule on permanent hold$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" from adhoc$")
 	public boolean keywordSteps() throws KeywordException {
-		flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
+		if(exampleData.get(0).equalsIgnoreCase("permanent hold")){
+			flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
+		}else if(exampleData.get(0).equalsIgnoreCase("remove hold")){
+			flag = flag & JasperAdhocOverride.removeAdHoc(testCase);
+		}
 		return flag;
 	}
 

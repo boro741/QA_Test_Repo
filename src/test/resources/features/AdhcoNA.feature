@@ -225,3 +225,71 @@ Examples:
 #|Auto | 
 #|Cool only| 
 #|Heat only| 
+
+#Requirements : Thermostat should be set to A specific time 
+ @AdhocOverrideTimebaseSchedulespecifictimeRemoveHold @AutomatedOnAndroid
+ Scenario Outline:   I want to verify remove hold for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user launches and logs in to the Lyric application
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+And user selects "Remove hold" from adhoc
+Then verify the "Following Schedule" on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value in solution card
+
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only|
+
+
+#Requirements : Thermostat should be set to A specific time 
+ @AdhocOverrideTimebaseSchedulespecifictimetoPermanentHold @AutomatedOnAndroid
+ Scenario Outline:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user launches and logs in to the Lyric application
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+And user selects "Permanent hold" from adhoc
+Then user has "PERMANENT" status 
+
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only|
+
+
+
+#Requirements : Thermostat should be set to Permanent Hold 
+@AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHold @InProgress
+Scenario Outline:   I want to verify permanent hold to specific time and resume for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user launches and logs in to the Lyric application
+And user thermostat is set to "time based" schedule
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+And user selects "Permanent hold" from adhoc
+Then user has "PERMANENT" status
+And user holds the schedule until time "greater than 12 hours" from current time
+#Then user should displayed with "Please select proper time" pop up 
+#And user should be displayed with time reverted back to 12hours gap from present time
+And user holds the schedule until time "default" from current time
+#Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
+#When "A specific time" set time completed 
+#Then user should be displayed with "Following schedule" 
+#And user should be displayed with respective <Mode> period setpoint value
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 

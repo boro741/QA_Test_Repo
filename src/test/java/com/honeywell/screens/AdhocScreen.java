@@ -41,6 +41,11 @@ public class AdhocScreen extends MobileScreens {
 	public boolean clickOnHoldUntilButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "HoldUntilButton");
 	}
+	
+	public boolean clickOnRemoveHoldButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "RemoveHold");
+	}
+	
 
 	public boolean isVacationStatusInSolutionCardVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus");
