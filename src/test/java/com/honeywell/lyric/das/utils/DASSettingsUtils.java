@@ -455,10 +455,12 @@ public class DASSettingsUtils {
 		PrimaryCard pc = new PrimaryCard(testCase);
 
 		DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
-		inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
-		if (inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE") != null) {
+		if (deviceInfo.getIndoorTemperature() != null) {
+			inputs.setInputValueWithoutTarget("CURRENT_THERMOSTAT_TEMP_VALUE", deviceInfo.getIndoorTemperature());
 			Keyword.ReportStep_Pass(testCase, "Current Thermostat Temperature value is: "
 					+ inputs.getInputValue("CURRENT_THERMOSTAT_TEMP_VALUE"));
+		} else {
+			Keyword.ReportStep_Pass(testCase, "Indoor Temperature is not present");
 		}
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
@@ -523,14 +525,13 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Navigate from Dashboard to Camera Manage Alerts Screen</h1>
 	 * <p>
 	 * The navigateFromDashboardScreenToCameraManageAlertsScreen method navigates
 	 * from the dashboard to the Camera Manage Alerts screen by clicking on the
-	 * device name on the secondary card settings and tap on Manage Alerts
-	 * option
+	 * device name on the secondary card settings and tap on Manage Alerts option
 	 * </p>
 	 *
 	 * @param testCase
@@ -871,7 +872,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;

@@ -7,7 +7,7 @@ I should be able to cancel overrides and resume scheduling.
 #Following schedule and using settings
 
 #JasperNA
-@AdhocOverrideTimebaseSchedulefollowingfromsolutioncard @Automated
+@AdhocOverrideTimebaseSchedulefollowingfromsolutioncard			@Automated
 Scenario Outline:   I want to verify time Following Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -22,7 +22,8 @@ Examples:
 #|Cool only| 
 #|Heat only|
 
-@AdhocOverrideGeofencebaseScheduleusing @Automated
+
+@AdhocOverrideGeofencebaseScheduleusing			@Automated
 Scenario Outline: I want to verify geofence using for systems Heat cool,Heat and Cool with temperature scale celcius (OR) fahrenheit and with time format 12 (OR) 24hr 
 Given user launches and logs in to the Lyric application
 And user has <Mode> system mode
@@ -42,7 +43,8 @@ Examples:
 #|Auto |Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
 #|Auto |Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
 
-@AdhocOverrideTimeschedulingChangemodeHeatcoolfollwoing @Automated
+
+@AdhocOverrideTimeschedulingChangemodeHeatcoolAutofollowing			@Automated
 Scenario Outline: To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 Then user has <Mode> system mode
@@ -64,7 +66,8 @@ Examples:
 #|Cool |Heat        | HOME   |
 #|Cool |Heat        | SLEEP  |
 
-@AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingschedule @Automated
+
+@AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingschedule		@Automated
 Scenario Outline:  To verify following base switching  mode is changed for "Heat, auto, cool" system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 Then user has <Mode> system mode
@@ -87,6 +90,44 @@ Examples:
 #|Cool  | Heat       |
 #|Cool  | Heat       |
 
+
+#JasperNA
+@AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutousing			@Automated
+Scenario Outline:  To verify geofence switching modes is "Heat , auto ,cool" system with auto changeover enabled
+Given user has <Mode> system mode
+And user thermostat is set to <scheduling> schedule 
+And user thermostat set <Period> with <Geofence>
+When user launches and logs in to the Lyric application
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+When user changes system mode to <ChangeMode>
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+And user should be displayed with respective <Period> setpoint value
+When user changes system mode to <Mode>
+And user should be displayed with respective <Period> setpoint value
+
+Examples:
+|Mode |ChangeMode	|scheduling					 |Schedule status	   |Geofence     |Period|
+|Heat | Cool		| Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+|Heat | Cool	| Without sleep geofence based |Using Away Settings  |UserDeparted  |Away|
+|Heat | Cool	| geofence based |Using Sleep Settings  |UserArrived  |Home|
+|Heat | Auto	| Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+|Heat | Auto	| Without sleep geofence based |Using Away Settings  |UserDeparted  |Away|
+|Heat | Auto	| geofence based |Using Sleep Settings  |UserArrived  |Home|
+|Cool | Heat	| Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+|Cool | Heat	| Without sleep geofence based |Using Away Settings  |UserDeparted  |Away|
+|Cool | Heat	| geofence based |Using Sleep Settings  |UserArrived  |Home|
+|Auto | Heat	| Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+|Auto | Heat	| Without sleep geofence based |Using Away Settings  |UserDeparted  |Away|
+|Auto | Heat	| geofence based |Using Sleep Settings  |UserArrived  |Home|
+|Auto | Heat	| Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+|Auto | Heat	| Without sleep geofence based |Using Away Settings  |UserDeparted  |Away|
+|Auto | Heat	| geofence based |Using Sleep Settings  |UserArrived  |Home|
+|Auto | Cool	| Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+|Auto | Cool	| Without sleep geofence based |Using Away Settings  |UserDeparted  |Away|
+|Auto | Cool	| geofence based |Using Sleep Settings  |UserArrived  |Home|
+
+
 #JasperNA
 @AdhocOverrideCreateGeofencebasescheduleOFFAspecifictime			@Automated
 Scenario Outline: To Verify create geofence schedule in off mode
@@ -107,7 +148,7 @@ And user should be displayed with "respective period" setpoint value in solution
 
 Examples:
 | Mode	| Period		| Geofence			| NEW Schedule			| Schedule status		|
-|HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Home Settings	| 
+| HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Home Settings	| 
 #|HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Away Settings	| 
 #|HEAT	| Home		| UserArrived		| Geofence base schedule	| Using Sleep Settings	| 
 
@@ -202,6 +243,7 @@ Examples:
 |Heat only|Time base schedule |
 |Cool only|Time base schedule |
 
+
 #Requirements : Thermostat should be set to A specific time 
 @AdhocOverrideTimebaseSchedulespecifictimedeleteallperiods		@Automated
 Scenario Outline:   I want to verify delete all period and no schedule status for systems Heat cool,Heat and Cool
@@ -226,9 +268,10 @@ Examples:
 #|Cool only| 
 #|Heat only| 
 
+
 #Requirements : Thermostat should be set to A specific time 
- @AdhocOverrideTimebaseSchedulespecifictimeRemoveHold @AutomatedOnAndroid
- Scenario Outline:   I want to verify remove hold for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+@AdhocOverrideTimebaseSchedulespecifictimeRemoveHold			@Automated
+Scenario Outline:   I want to verify remove hold for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user launches and logs in to the Lyric application
 And user thermostat is set to "time based" schedule
 And user edits set point from "Primary card"
@@ -248,8 +291,8 @@ Examples:
 
 
 #Requirements : Thermostat should be set to A specific time 
- @AdhocOverrideTimebaseSchedulespecifictimetoPermanentHold @AutomatedOnAndroid
- Scenario Outline:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+@AdhocOverrideTimebaseSchedulespecifictimetoPermanentHold			@Automated
+Scenario Outline:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user launches and logs in to the Lyric application
 And user thermostat is set to "time based" schedule
 And user edits set point from "Primary card"
@@ -265,7 +308,6 @@ Examples:
 #|Auto | 
 #|Cool only| 
 #|Heat only|
-
 
 
 #Requirements : Thermostat should be set to Permanent Hold 
