@@ -96,7 +96,7 @@ public class FlyCatcherVentialtion {
 //		int[] pickervalues = fly.getPickercordinates();
 		if (picker_value != expected_value ){
 			int i = 0;
-			while (picker_value < expected_value && i < 9){
+			while (picker_value < expected_value && i < 15){
 				if (fly.getTimerPickerValue() != expected_value ){
 					WebElement ele = fly.getPickerElement();
 					int start_x = ele.getLocation().getX();
@@ -108,7 +108,7 @@ public class FlyCatcherVentialtion {
 					break;
 				}
 			}
-			while (picker_value > expected_value && i < 9){
+			while (picker_value > expected_value && i < 15){
 				if (fly.getTimerPickerValue() != expected_value ){
 					testCase.getMobileDriver().swipe(530, 850, 530,976, 1000);
 					i++;
