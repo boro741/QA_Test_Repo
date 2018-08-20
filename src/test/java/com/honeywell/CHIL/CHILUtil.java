@@ -1037,7 +1037,7 @@ public class CHILUtil implements AutoCloseable {
 		try {
 			if (isConnected) {
 				String url = chilURL
-						+ String.format("api/locations/%s/devices/%s/Settings/	", locationID, deviceID);
+						+ String.format("api/locations/%s/devices/%s/Settings/VentilationMode", locationID, deviceID);
 				String headerData = String.format("{\"changeableValues\":\"%s\"}", VentilationMode);
 				try {
 					result = doPutRequest(url, headerData).getResponseCode();
