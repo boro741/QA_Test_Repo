@@ -46,7 +46,7 @@ Examples:
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutofollowing			@Automated
 Scenario Outline: To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
-Givenuser has <Mode> system mode
+Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 And user thermostat has <Period> currently following in "Time Based" schedule
