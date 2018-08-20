@@ -32,7 +32,7 @@ So that i can set my room humidity as per my prefrence
   
     Given user stat humidification is set "20"
       And user launches and logs in to the Lyric application
-      And user navigates to "HUMIDIFICATION" screen from the "Dashboard" screen
+      And user navigates to "humidification" screen from the "Dashboard" screen
      When user <Control Buttons> the humidity <Target Value>
      Then Verify humidity is "displayed" and set to <Target Value>
     Examples: 
@@ -69,13 +69,9 @@ So that i can set my room humidity as per my prefrence
   
     Given user launches and logs in to the Lyric application
       And user navigates to "Window Protection" screen from the "Dashboard" screen
-     When User Sets the Window Protection to <Target Value>
-     Then Verify Window Protection is "displayed" and set to <Target Value>
+     When user Sets the Window Protection to <Target Value>
+     Then Verify Window Protection is displayed and set to <Target Value>
     Examples: 
       | Target Value | 
-      | 1            | 
-      | 2            | 
-      | 6            | 
-      | 6            | 
-      | 8            | 
-      | 10           |
+#      |50|
+      |90|
