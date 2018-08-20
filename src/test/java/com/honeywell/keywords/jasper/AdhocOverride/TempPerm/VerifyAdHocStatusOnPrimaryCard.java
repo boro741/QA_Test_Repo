@@ -12,16 +12,17 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
+import com.honeywell.screens.AdhocScreen;
 
 
-public class TemporaryPermanentHold extends Keyword {
+public class VerifyAdHocStatusOnPrimaryCard extends Keyword {
 
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
 	ArrayList<String> exampleData;
 
-	public TemporaryPermanentHold(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public VerifyAdHocStatusOnPrimaryCard(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.exampleData = exampleData;
@@ -37,25 +38,35 @@ public class TemporaryPermanentHold extends Keyword {
 	@KeywordStep(gherkins = "^user has \"(.+)\" status$")
 	public boolean keywordSteps() throws KeywordException{
 		try {
-			if (exampleData.get(0).equalsIgnoreCase("TEMPORARY"))
-			{
-				switch (exampleData.get(0).toUpperCase()) 
+			AdhocScreen adhocScreen = new AdhocScreen(testCase);
+			switch (exampleData.get(0).toUpperCase()) 
 				{
 				case "TEMPORARY" :
 				{
-					flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
+					if(adhocScreen.getAdhocStatusElement().toUpperCase().contains("HOLD UNTIL")){
+						ReportStep_Pass(testCase, "In "+ exampleData.get(0));
+					}else{
+						flag = false;
+						Keyword.ReportStep_Fail(testCase,
+						FailType.FUNCTIONAL_FAILURE,"Not in " +  exampleData.get(0));
+					}
 					break;
 				}
-				}
-			}else if (exampleData.get(0).equalsIgnoreCase("Permanent")) 
-			{
-				switch (exampleData.get(0).toUpperCase()) {
 				case "PERMANENT" : 
 				{
-					flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
-					flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
+					if(adhocScreen.getAdhocStatusElement().toUpperCase().contains(exampleData.get(0).toUpperCase())){
+						ReportStep_Pass(testCase, "In "+ exampleData.get(0));
+					}else{
+						flag = false;
+						Keyword.ReportStep_Fail(testCase,
+						FailType.FUNCTIONAL_FAILURE,"Not in " +  exampleData.get(0));
+					}
 					break;
 				}
+				default:{
+					flag = false;
+					Keyword.ReportStep_Fail(testCase,
+					FailType.FUNCTIONAL_FAILURE,"Input not handled");
 				}
 			}
 		} catch (Exception e) {
