@@ -164,6 +164,17 @@ public class DeviceInformation {
 		}
 		return VentilationMode;
 	}
+	
+	public int getWindowProtection() throws Exception {
+		int WindowProtection = 0;
+		if (deviceInformation != null) {
+			WindowProtection = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings")
+					.getInt("frostIndex");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return WindowProtection;
+	}
 
 	public int getHumidifierValue() throws Exception {
 		int HumidifierValue = 0;
