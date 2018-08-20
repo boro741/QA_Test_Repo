@@ -12,7 +12,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
-import com.honeywell.screens.AdhocScreen;
 
 
 public class TemporaryPermanentHold extends Keyword {
@@ -38,7 +37,6 @@ public class TemporaryPermanentHold extends Keyword {
 	@KeywordStep(gherkins = "^user has \"(.+)\" status$")
 	public boolean keywordSteps() throws KeywordException{
 		try {
-			AdhocScreen adhocScreen = new AdhocScreen(testCase);
 			if (exampleData.get(0).equalsIgnoreCase("TEMPORARY"))
 			{
 				switch (exampleData.get(0).toUpperCase()) 
