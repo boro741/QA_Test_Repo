@@ -406,6 +406,46 @@ public class JasperSetPoint {
 		}
 		return formattedTime;
 	}
+	public static String CalculateNextPeriodStartNAHB(TestCases testCase) {
+		String formattedTime = " ";
+		try {
+			Calendar startTime = Calendar.getInstance();
+			int minutes = startTime.get(Calendar.MINUTE);
+			int mod = minutes % 15;
+			int diff = 15 - mod;
+			startTime.add(Calendar.MINUTE, diff);
+			startTime.set(Calendar.SECOND, 0);
+			Date date = startTime.getTime();
+			DateFormat SleepStart = new SimpleDateFormat("HH:mm:ss");
+			formattedTime = SleepStart.format(date);
+		} catch (Exception e) {
+			formattedTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add start time : Error Occured : " + e.getMessage());
+		}
+		return formattedTime;
+	}
+	public static String CalculateNextPeriodStartEMEA(TestCases testCase) {
+		String formattedTime = "";
+		try {
+			Calendar EndTime = Calendar.getInstance();
+			int minutes = EndTime.get(Calendar.MINUTE);
+			int mod = minutes % 10;
+			int diff = 10 - mod;
+			EndTime.add(Calendar.MINUTE, diff);
+			EndTime.set(Calendar.SECOND, 0);
+			Date date = EndTime.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			formattedTime = dateFormat.format(date);
+		} catch (Exception e) {
+			formattedTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return formattedTime;
+	}
 
 	/**
 	 * <p>

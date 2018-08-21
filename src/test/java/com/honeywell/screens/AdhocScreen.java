@@ -13,7 +13,7 @@ public class AdhocScreen extends MobileScreens {
 	}
 
 	public boolean isAdhocStatusVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus", 8, false);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus");
 	}
 
 	public String getAdhocStatusElement() {
