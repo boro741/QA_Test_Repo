@@ -34,7 +34,7 @@ public class HoldSetPointsFromAdHoc extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.+)\" from adhoc$")
 	public boolean keywordSteps() throws KeywordException {
 		if(exampleData.get(0).equalsIgnoreCase("permanent hold")){
-			flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
+			flag = flag & JasperAdhocOverride.HoldPermanentlyFromAdHoc(testCase);
 		}else if(exampleData.get(0).equalsIgnoreCase("remove hold")){
 			flag = flag & JasperAdhocOverride.removeAdHoc(testCase);
 		}

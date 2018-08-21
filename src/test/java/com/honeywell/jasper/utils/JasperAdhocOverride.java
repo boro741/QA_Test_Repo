@@ -449,7 +449,7 @@ public class JasperAdhocOverride {
 		return flag;
 	}
 
-	public static boolean holdSetPointsPermanentlyFromAdHoc(TestCases testCase) {
+	public static boolean HoldPermanentlyFromAdHoc(TestCases testCase) {
 		boolean flag = true;
 		AdhocScreen adhoc = new AdhocScreen(testCase);
 		if (adhoc.isAdhocStatusVisible()) {
@@ -948,7 +948,7 @@ public class JasperAdhocOverride {
 
 	/* TemporaryHold */
 	@SuppressWarnings("unlikely-arg-type")
-	public static Boolean GetTemporaryHold(TestCases testCase, TestCaseInputs inputs) throws Exception {
+	public static Boolean HoldTemporaryHold(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		Boolean flag = true;
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -961,13 +961,12 @@ public class JasperAdhocOverride {
 				CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
 				Double maxHeat = CHILUtil.maxHeat;
 				Double minHeat = CHILUtil.minHeat;
-				if (maxHeat.equals(CurrentSetPoint)) {
+				if (maxHeat.toString().equals(CurrentSetPoint)) {
 					PrimaryCard DownSteeper = new PrimaryCard(testCase);
 					flag = flag & DownSteeper.clickOnDownStepper();
-				} else if (minHeat.equals(CurrentSetPoint)) {
+				} else if (minHeat.toString().equals(CurrentSetPoint)) {
 					PrimaryCard UpSteeper = new PrimaryCard(testCase);
 					flag = flag & UpSteeper.clickOnUpStepper();
-
 				} else if (CurrentSetpoint1 < maxHeat && CurrentSetpoint1 > minHeat) {
 					PrimaryCard UpSteeper = new PrimaryCard(testCase);
 					flag = flag & UpSteeper.clickOnUpStepper();
@@ -983,10 +982,10 @@ public class JasperAdhocOverride {
 				CHILUtil.minCool = Double.parseDouble(setPoints.get("MinCool"));
 				Double maxCool = CHILUtil.maxCool;
 				Double minCool = CHILUtil.minCool;
-				if (maxCool.equals(CurrentSetPoint)) {
+				if (maxCool.toString().equals(CurrentSetPoint)) {
 					PrimaryCard DownSteeper = new PrimaryCard(testCase);
 					flag = flag & DownSteeper.clickOnDownStepper();
-				} else if (minCool.equals(CurrentSetPoint)) {
+				} else if (minCool.toString().equals(CurrentSetPoint)) {
 					PrimaryCard UpSteeper = new PrimaryCard(testCase);
 					flag = flag & UpSteeper.clickOnUpStepper();
 
