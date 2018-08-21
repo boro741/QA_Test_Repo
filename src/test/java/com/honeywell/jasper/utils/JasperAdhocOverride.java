@@ -36,7 +36,6 @@ import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
-import com.honeywell.screens.ZwavePrimardCardScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -237,21 +236,13 @@ public class JasperAdhocOverride {
 					Date Hour12Next = TimeFormat.parse(trim);
 					DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
 					nextperiod = Hour12NextPeriod.format(Hour12Next);
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						nextperiod = "HOLD UNTIL  " + nextperiod;
-					} else {
-						nextperiod = "HOLD UNTIL " + nextperiod;
-					}
+					nextperiod = "HOLD UNTIL " + nextperiod;
 					Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
 					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 				} else {
 					String[] dateSplit = next.split(":");
 					String next1 = dateSplit[0] + ":" + dateSplit[1];
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						nextperiod = "HOLD UNTIL  " + next1;
-					} else {
-						nextperiod = "HOLD UNTIL " + next1;
-					}
+					nextperiod = "HOLD UNTIL " + next1;
 					Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
 					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 				}
@@ -1007,13 +998,12 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
-	
-	
-	public static boolean waitForHoldToComplete(TestCases testCase) {
+
+	public static boolean waitForHoldToCompleteForNA(TestCases testCase) {
 		Boolean isEventReceived;
 		System.out.println("Waiting for maxi 15 mins");
 		try {
-			 HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
 			fWait.pollingEvery(10, TimeUnit.SECONDS);
 			fWait.withTimeout(15, TimeUnit.MINUTES);
@@ -1021,26 +1011,31 @@ public class JasperAdhocOverride {
 				public Boolean apply(String a) {
 					try {
 						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 30)) {
-							if(testCase.getPlatform().toUpperCase().equals("IOS")){
-								String currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+							if (testCase.getPlatform().toUpperCase().equals("IOS")) {
+								String currentText = MobileUtils
+										.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
 										.getAttribute("label");
 								if (currentText.equals("Following Schedule")) {
 									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
 									return true;
-								}else {
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Incorrect status displayed: " + currentText);
 									return false;
 								}
-							}else{
-								String currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
-										.getText();
+							} else {
+								String currentText = MobileUtils
+										.getMobElement(fieldObjects, testCase, "ThermostatSchedule").getText();
 								if (currentText.equals("Following Schedule")) {
 									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
 									return true;
-								}else {
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Incorrect status displayed: " + currentText);
 									return false;
 								}
 							}
-							
+
 						} else {
 							return false;
 						}
@@ -1049,7 +1044,64 @@ public class JasperAdhocOverride {
 					}
 				}
 			});
-			
+
+		} catch (TimeoutException e) {
+			isEventReceived = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"hold until did not complete after waiting for 15 minute");
+		} catch (Exception e) {
+			isEventReceived = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return isEventReceived;
+	}
+
+	public static boolean waitForHoldToCompleteForEMEA(TestCases testCase) {
+		Boolean isEventReceived;
+		System.out.println("Waiting for maxi 10 mins");
+		try {
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(10, TimeUnit.SECONDS);
+			fWait.withTimeout(10, TimeUnit.MINUTES);
+			isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 30)) {
+							if (testCase.getPlatform().toUpperCase().equals("IOS")) {
+								String currentText = MobileUtils
+										.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+										.getAttribute("label");
+								if (currentText.equals("Following Schedule")) {
+									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
+									return true;
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Incorrect status displayed: " + currentText);
+									return false;
+								}
+							} else {
+								String currentText = MobileUtils
+										.getMobElement(fieldObjects, testCase, "ThermostatSchedule").getText();
+								if (currentText.equals("Following Schedule")) {
+									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
+									return true;
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Incorrect status displayed: " + currentText);
+									return false;
+								}
+							}
+
+						} else {
+							return false;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+
 		} catch (TimeoutException e) {
 			isEventReceived = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

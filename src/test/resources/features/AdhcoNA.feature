@@ -187,8 +187,8 @@ Examples:
 #TemporaryHold (Time and geofence)
 
 #JasperNA
-@AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromSolutionCard			@InProgress
-Scenario Outline:  I want to verify time Temporary override Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius/fahrenheit and with time format 12/24hr 
+@AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromSolutionCard			@Automated
+Scenario Outline:  I want to verify time Temporary override Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <CPeriod> and <NPeriod> current and next period "time based" schedule
@@ -508,7 +508,7 @@ Examples:
 
 
 #Requirements : Thermostat should be set to Permanent Hold 
-@AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHold @Automated
+@AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHold		@Automated
 Scenario Outline:   I want to verify permanent hold to specific time and resume for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -534,7 +534,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFAspcifictime @Automated
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFAspcifictime		@Automated
 Scenario Outline:  To verify switching modes "Heat , auto ,cool and off" system with auto changeover enabled
 Given user thermostat is set to "time based" schedule
 Given user thermostat has <Period> currently following in "Time Based" schedule
@@ -600,8 +600,8 @@ Examples:
 
 
 #Requirements : Thermostat should be set to A specific time 
-@AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatauto @InProgress
-Scenario Outline :   I want to verify switching modes "Heat , auto ,cool and off" with temperature scale celcius/fahrenheit and with time format 12/24hr 
+@AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatauto			@InProgress
+Scenario Outline:   I want to verify switching modes "Heat , auto ,cool and off" with temperature scale celcius/fahrenheit and with time format 12/24hr 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user is in "A specific time" status
@@ -612,7 +612,7 @@ When user changes <Mode> from <UMode>
 Then user should be displayed with the "HOLD XX UNTIL {Specific time}" 
 And user should be displayed with "A SPECIFIC time" setpoint value
 
-Examples :
+Examples:
 |Mode|UMode	  |   PERIOD |
 |Auto|Heat        | WAKE |
 |Auto|Cool        |WAKE |
