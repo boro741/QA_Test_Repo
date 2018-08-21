@@ -1,9 +1,12 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.openqa.selenium.Dimension;
 
+import com.honeywell.CHIL.CHILUtil;
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -24,7 +27,7 @@ import io.appium.java_client.TouchAction;
 public class VerifyOptionsOnAScreenEnabled extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public ArrayList<String> expectedScreen;
 	public boolean flag = true;
 	public DataTable data;
@@ -32,7 +35,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 	public VerifyOptionsOnAScreenEnabled(TestCases testCase, TestCaseInputs inputs, ArrayList<String> expectedScreen,
 			DataTable data) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
+		this.inputs = inputs;
 		this.expectedScreen = expectedScreen;
 		this.data = data;
 	}
@@ -105,7 +108,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					} else {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
@@ -188,26 +191,117 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 
 				}
 				else if (fieldToBeVerified.equalsIgnoreCase("UP STEPPER")) {
-                    if (thermo.isUPStepperElementEnabled()) {
-                                    Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
-                    } else {
-                                    flag = false;
-                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-                                                                    "UP Stepper Element is not enabled");
-                    }
-                } 
-	 			else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
-                    if (thermo.isDownStepperElementEnabled()) {
+					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+					HashMap<String, String> setPoints = new HashMap<String, String>();
+					try {
+						setPoints = statInfo.getDeviceMaxMinSetPoints();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					String CurrentSetPoint = statInfo.getCurrentSetPoints();
+					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+						Double maxHeat = CHILUtil.maxHeat;
+						System.out.println(maxHeat.equals(CurrentSetPoint));
+						if (!maxHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not enabled");
+							}
+						}else if (maxHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not disabled");
+							}
+						}
+					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxCool"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinCool"));
+						Double maxHeat = CHILUtil.maxHeat;
+						if (!maxHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not enabled");
+							}
+						}else if (maxHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not disabled");
+							}
+						}
+					}
 
-                                    Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
-                    } else {
-                                    flag = false;
-                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-                                                                    "Down Stepper Element is not enabled");
-                    }
-    }
-				break;
+				} 
+				else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
+					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+					HashMap<String, String> setPoints = new HashMap<String, String>();
+					try {
+						setPoints = statInfo.getDeviceMaxMinSetPoints();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					String CurrentSetPoint = statInfo.getCurrentSetPoints();
+					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+						Double minHeat = CHILUtil.minHeat;
+						if (!minHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not enabled");
+							}
+						}else if (minHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not disabled");
+							}
+						}
+					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxCool"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinCool"));
+						Double minHeat = CHILUtil.minHeat;
+						if (minHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not enabled");
+							}
+						}else if (minHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not disabled");
+							}
+						}
+					}
+					
+				}
+				
 			}
+			break;
 		}
 
 		case "THERMOSTAT": {
@@ -216,22 +310,112 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				String fieldToBeVerified = data.getData(i, "Options");
 				System.out.println(fieldToBeVerified);
 				if (fieldToBeVerified.equalsIgnoreCase("UP STEPPER")) {
-					if (thermo.isUPStepperElementEnabled()) {
-						Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"UP Stepper Element is not enabled");
+					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+					HashMap<String, String> setPoints = new HashMap<String, String>();
+					try {
+						setPoints = statInfo.getDeviceMaxMinSetPoints();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				} else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
-					if (thermo.isDownStepperElementEnabled()) {
+					String CurrentSetPoint = statInfo.getCurrentSetPoints();
+					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+						Double maxHeat = CHILUtil.maxHeat;
+						System.out.println(maxHeat.equals(CurrentSetPoint));
+						if (!maxHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not enabled");
+							}
+						}else if (maxHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not disabled");
+							}
+						}
+					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxCool"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinCool"));
+						Double maxHeat = CHILUtil.maxHeat;
+						if (!maxHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not enabled");
+							}
+						}else if (maxHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isUPStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"UP Stepper Element is not disabled");
+							}
+						}
+					}
 
-						Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Down Stepper Element is not enabled");
+				} else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
+					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+					HashMap<String, String> setPoints = new HashMap<String, String>();
+					try {
+						setPoints = statInfo.getDeviceMaxMinSetPoints();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
+					String CurrentSetPoint = statInfo.getCurrentSetPoints();
+					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxHeat"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
+						Double minHeat = CHILUtil.minHeat;
+						if (!minHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not enabled");
+							}
+						}else if (minHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not disabled");
+							}
+						}
+					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+						CHILUtil.maxHeat = Double.parseDouble(setPoints.get("MaxCool"));
+						CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinCool"));
+						Double minHeat = CHILUtil.minHeat;
+						if (minHeat.toString().equals(CurrentSetPoint)) {
+							if (thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is enabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not enabled");
+							}
+						}else if (minHeat.toString().equals(CurrentSetPoint)) {
+							if (!thermo.isDownStepperElementEnabled()) {
+								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Down Stepper Element is not disabled");
+							}
+						}
+					}
+					
 				} else if (fieldToBeVerified.equalsIgnoreCase("Sound Detection")) {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
@@ -283,9 +467,9 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					} else {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;

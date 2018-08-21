@@ -115,8 +115,13 @@ public class ActivateVacationUsingCHIL extends Keyword {
 						// FluentWait<String> fWait = new FluentWait<String>(" ");
 						// //fWait.pollingEvery(3, TimeUnit.SECONDS);
 						// fWait.withTimeout(min, TimeUnit.MINUTES);
-
-						Thread.sleep(mininMs);
+						System.out.println(mininMs);
+						if(mininMs>0){
+							Thread.sleep(mininMs);
+						}else{
+							Keyword.ReportStep_Pass(testCase,
+									"Already in vacation");
+						}
 
 					} else {
 						flag = false;
@@ -139,10 +144,10 @@ public class ActivateVacationUsingCHIL extends Keyword {
 			} else if (exampleData.get(0).equalsIgnoreCase("inactive for multistat")) {
 				inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
 				inputs.setInputValue("LOCATION1_DEVICE1_NAME", inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
-				 statInfo = new DeviceInformation(testCase, inputs);
-				 locInfo = new LocationInformation(testCase, inputs);
-				 locationID = locInfo.getLocationID();
-				 deviceID = statInfo.getDeviceID();
+				statInfo = new DeviceInformation(testCase, inputs);
+				locInfo = new LocationInformation(testCase, inputs);
+				locationID = locInfo.getLocationID();
+				deviceID = statInfo.getDeviceID();
 				if (chUtil.getConnection()) {
 					int result = chUtil.disableVacation(locationID, deviceID);
 					if (result == 200) {

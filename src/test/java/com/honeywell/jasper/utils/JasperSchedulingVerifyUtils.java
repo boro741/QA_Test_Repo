@@ -684,8 +684,7 @@ public class JasperSchedulingVerifyUtils {
 							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 							for (WebElement setpoints : schedule_heatsetpoints) {
 								if (setpoints != null) {
-									System.out.println(setpoints.getText().replace("°", ""));
-
+									Keyword.ReportStep_Pass(testCase,maxHeat.toString()+"<="+setpoints.getText().replace("°", "")+">="+minHeat.toString());
 									if (Double.parseDouble(setpoints.getText().replace("°", "")) <= maxHeat
 											&& Double.parseDouble(setpoints.getText().replace("°", "")) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
