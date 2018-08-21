@@ -449,7 +449,7 @@ public class JasperAdhocOverride {
 		return flag;
 	}
 
-	public static boolean holdSetPointsPermanentlyFromAdHoc(TestCases testCase) {
+	public static boolean HoldPermanentlyFromAdHoc(TestCases testCase) {
 		boolean flag = true;
 		AdhocScreen adhoc = new AdhocScreen(testCase);
 		if (adhoc.isAdhocStatusVisible()) {
@@ -948,7 +948,7 @@ public class JasperAdhocOverride {
 
 	/* TemporaryHold */
 	@SuppressWarnings("unlikely-arg-type")
-	public static Boolean GetTemporaryHold(TestCases testCase, TestCaseInputs inputs) throws Exception {
+	public static Boolean HoldTemporaryHold(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		Boolean flag = true;
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
