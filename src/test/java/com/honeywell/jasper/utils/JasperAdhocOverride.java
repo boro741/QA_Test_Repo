@@ -36,6 +36,7 @@ import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
+import com.honeywell.screens.ZwavePrimardCardScreen;
 
 import io.appium.java_client.TouchAction;
 
@@ -1006,6 +1007,59 @@ public class JasperAdhocOverride {
 					"Error Occured : " + e.getMessage());
 		}
 		return flag;
+	}
+	
+	
+	public static boolean waitForHoldToComplete(TestCases testCase) {
+		Boolean isEventReceived;
+		System.out.println("Waiting for maxi 15 mins");
+		try {
+			 HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(10, TimeUnit.SECONDS);
+			fWait.withTimeout(15, TimeUnit.MINUTES);
+			isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 30)) {
+							if(testCase.getPlatform().toUpperCase().equals("IOS")){
+								String currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+										.getAttribute("label");
+								if (currentText.equals("Following Schedule")) {
+									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
+									return true;
+								}else {
+									return false;
+								}
+							}else{
+								String currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
+										.getText();
+								if (currentText.equals("Following Schedule")) {
+									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
+									return true;
+								}else {
+									return false;
+								}
+							}
+							
+						} else {
+							return false;
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			
+		} catch (TimeoutException e) {
+			isEventReceived = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"hold until did not complete after waiting for 15 minute");
+		} catch (Exception e) {
+			isEventReceived = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return isEventReceived;
 	}
 
 }

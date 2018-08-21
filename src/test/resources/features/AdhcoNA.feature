@@ -451,7 +451,7 @@ And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Permanent hold" from adhoc
-Then user has "PERMANENT" status 
+Then user has "PERMANENT" adhoc status 
 
 Examples:
 |Mode | 
@@ -508,7 +508,7 @@ Examples:
 
 
 #Requirements : Thermostat should be set to Permanent Hold 
-@AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHold @InProgress
+@AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHold @Automated
 Scenario Outline:   I want to verify permanent hold to specific time and resume for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -516,15 +516,14 @@ And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Permanent hold" from adhoc
-Then user has "PERMANENT" status
+Then user has "PERMANENT" adhoc status
 And user holds the schedule until time "greater than 12 hours" from current time
-#Then user should displayed with "Please select proper time" pop up 
 #And user should be displayed with time reverted back to 12hours gap from present time
 And user holds the schedule until time "default" from current time
 #Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
-#When "A specific time" set time completed 
-#Then user should be displayed with "Following schedule" 
-#And user should be displayed with respective <Mode> period setpoint value
+When specific time hold completed 
+Then verify the "Following schedule" on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value in solution card
 Examples:
 |Mode | 
 |Cool | 
@@ -532,3 +531,122 @@ Examples:
 #|Auto | 
 #|Cool only| 
 #|Heat only| 
+
+
+#JasperNA
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFAspcifictime @Automated
+Scenario Outline:  To verify switching modes "Heat , auto ,cool and off" system with auto changeover enabled
+Given user thermostat is set to "time based" schedule
+Given user thermostat has <Period> currently following in "Time Based" schedule
+Given user launches and logs in to the Lyric application
+Given user has <Mode> system mode
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user changes system mode to "Off"
+#Then user should be displayed with "SYSTEM IS OFF"  status 
+Then user has "no" adhoc status 
+When user changes system mode to <UMode>
+Then user has "temporary" adhoc status 
+And user should be displayed with "respective period" setpoint value in solution card
+
+Examples:
+|Mode|UMode	  |   Period |
+|Heat|Cool        |WAKE |
+#|Cool|Heat        |AWAY |
+#|Heat|Cool        |HOME |
+#|Cool|Heat        |SLEEP |
+
+#|Auto|Heat        | WAKE |
+#|Auto|Cool        |WAKE |
+#|Auto|Auto        | WAKE |
+#|Heat|Auto        | WAKE |
+#|Heat|HEAT        | WAKE |
+#|Cool|Heat        |WAKE |
+#|Cool|Auto        |WAKE |
+#|Cool|Cool        |WAKE |
+#|Auto|Heat        | AWAY |
+#|Auto|Cool        |AWAY |
+#|Auto|Auto        | AWAY |
+#|Heat|Cool        |AWAY |
+#|Heat|Auto        | AWAY |
+#|Heat|HEAT        | AWAY |
+#|Cool|Auto        |AWAY |
+#|Cool|Cool        |AWAY |
+#|Auto|Heat        | HOME |
+#|Auto|Cool        |HOME |
+#|Auto|Auto        | HOME |
+#|Heat|Auto        | HOME |
+#|Heat|HEAT        | HOME |
+#|Cool|Heat        |HOME |
+#|Cool|Auto        |HOME |
+#|Cool|Cool        |HOME |
+#|Auto|Heat        | SLEEP |
+#|Auto|Cool        |SLEEP |
+#|Auto|Auto        | SLEEP |
+#|Heat|Cool        |SLEEP |
+#|Heat|Auto        | SLEEP |
+#|Heat|HEAT        | SLEEP |
+#|Cool|Auto        |SLEEP |
+#|Cool|Cool        |SLEEP |
+#|Cool only |Cool only       |SLEEP |
+#|Cool only |Cool only       |WAKE |
+#|Cool only |Cool only       |HOME |
+#|Cool only |Cool only       |AWAY |
+#|Heat only | Heat only       |SLEEP |
+#| Heat only | Heat only       |WAKE |
+#| Heat only | Heat only       |HOME |
+#| Heat only | Heat only       |AWAY |
+
+
+#Requirements : Thermostat should be set to A specific time 
+@AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatauto @InProgress
+Scenario Outline :   I want to verify switching modes "Heat , auto ,cool and off" with temperature scale celcius/fahrenheit and with time format 12/24hr 
+Given user launches and logs in to the Lyric application
+Then user is set to <Mode> through CHIL
+And user is in "A specific time" status
+When user change the <UMode> from <Mode>
+Then user should be displayed with "HOLD xx UNTIL XX:XX"  status 
+And user should be displayed with respective <Mode> <period> setpoint value
+When user changes <Mode> from <UMode>
+Then user should be displayed with the "HOLD XX UNTIL {Specific time}" 
+And user should be displayed with "A SPECIFIC time" setpoint value
+
+Examples :
+|Mode|UMode	  |   PERIOD |
+|Auto|Heat        | WAKE |
+|Auto|Cool        |WAKE |
+|Auto|Auto        | WAKE |
+|Heat|Cool        |WAKE |
+|Heat|Auto        | WAKE |
+|Heat|HEAT        | WAKE |
+|Cool|Heat        |WAKE |
+|Cool|Auto        |WAKE |
+|Cool|Cool        |WAKE |
+|Auto|Heat        | AWAY |
+|Auto|Cool        |AWAY |
+|Auto|Auto        | AWAY |
+|Heat|Cool        |AWAY |
+|Heat|Auto        | AWAY |
+|Heat|HEAT        | AWAY |
+|Cool|Heat        |AWAY |
+|Cool|Auto        |AWAY |
+|Cool|Cool        |AWAY |
+|Auto|Heat        | HOME |
+|Auto|Cool        |HOME |
+|Auto|Auto        | HOME |
+|Heat|Cool        |HOME |
+|Heat|Auto        | HOME |
+|Heat|HEAT        | HOME |
+|Cool|Heat        |HOME |
+|Cool|Auto        |HOME |
+|Cool|Cool        |HOME |
+|Auto|Heat        | SLEEP |
+|Auto|Cool        |SLEEP |
+|Auto|Auto        | SLEEP |
+|Heat|Cool        |SLEEP |
+|Heat|Auto        | SLEEP |
+|Heat|HEAT        | SLEEP |
+|Cool|Heat        |SLEEP |
+|Cool|Auto        |SLEEP |
+|Cool|Cool        |SLEEP |
