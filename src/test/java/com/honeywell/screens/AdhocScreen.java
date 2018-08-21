@@ -21,7 +21,7 @@ public class AdhocScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("text");
 		} else {
-			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("value");
+			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("label");
 		}
 		return adHocStatus;
 	}
@@ -41,11 +41,10 @@ public class AdhocScreen extends MobileScreens {
 	public boolean clickOnHoldUntilButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "HoldUntilButton");
 	}
-	
+
 	public boolean clickOnRemoveHoldButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "RemoveHold");
 	}
-	
 
 	public boolean isVacationStatusInSolutionCardVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus");
@@ -54,13 +53,9 @@ public class AdhocScreen extends MobileScreens {
 	public String getVacationStatusInSolutionsCardScreen() {
 		String vacationStatus;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			vacationStatus = MobileUtils
-					.getMobElement(objectDefinition, testCase, "AdHocStatus")
-					.getAttribute("text");
+			vacationStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("text");
 		} else {
-			vacationStatus = MobileUtils
-					.getMobElement(objectDefinition, testCase, "AdHocStatus")
-					.getAttribute("label");
+			vacationStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("label");
 		}
 		return vacationStatus;
 	}
@@ -68,11 +63,11 @@ public class AdhocScreen extends MobileScreens {
 	public boolean clickOnVacationStatusInSolutionCardScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AdHocStatus");
 	}
-	
+
 	public boolean clickOnEndVacationOptionInSolutionCardScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "EndVacationOptionInSolutionCardScreen");
 	}
-	
+
 	public boolean isSystemIsOffLabelInSolutionsCardScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemIsOffLabelInSolutionsCardScreen");
 	}

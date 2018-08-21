@@ -115,7 +115,7 @@ public class DashboardUtils {
 	/**
 	 * <h1>Wait for until progress bar to complete</h1>
 	 * <p>
-	 * The waitForProgressBarToComplete method waits until the progress bar closes.
+	 * The waitForSecurityStatusToUpdate method waits until the progress bar closes.
 	 * </p>
 	 *
 	 * @author Midhun Gollapalli (H179225)
@@ -229,6 +229,63 @@ public class DashboardUtils {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Progress bar loading spinner did not disapper after waiting for 1 minute");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait for until progress bar to complete</h1>
+	 * <p>
+	 * The waitForProgressBarToComplete method waits until the progress bar closes.
+	 * </p>
+	 *
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
+	public static boolean waitForProgressBarToComplete(TestCases testCase, String elementProgressBar, int duration) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			Dashboard d = new Dashboard(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						switch (elementProgressBar) {
+						case "LOADING SPINNER BAR": {
+							if (d.isLoadingSpinnerVisible()) {
+								System.out.println("Waiting for Verifying loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						default: {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid argument passed : " + elementProgressBar);
+							return true;
+						}
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared.");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Progress bar loading spinner did not disapper after waiting for: " + duration + " minutes");
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());

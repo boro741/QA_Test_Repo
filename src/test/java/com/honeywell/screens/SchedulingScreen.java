@@ -156,6 +156,10 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeOption");
 	}
 
+	public boolean isTimeScheduleButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeScheduleButton");
+	}
+
 	public boolean clickOnTimeScheduleButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TimeScheduleButton");
 	}
@@ -1229,4 +1233,19 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ScheduleOffButton");
 	}
 
+	public boolean isCreateGeofenceSleepSettingsVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CreateGeofenceSleepSettings");
+	}
+
+	public boolean clickOnCreateGeofenceSleepSettings() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CreateGeofenceSleepSettings");
+	}
+
+	public boolean isDeletePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmDeletePopup");
+	}
+
+	public boolean isDeleteButtonVisibleInDeletePopup() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmDeletePopup");
+	}
 }
