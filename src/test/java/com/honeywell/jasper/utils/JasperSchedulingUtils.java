@@ -12103,18 +12103,18 @@ public class JasperSchedulingUtils {
 
 			if (verifyMinimumOrMaximum.equalsIgnoreCase("AboveMaximum")) {
 				 heatTemp = minMaxSetPoints.get("MaxHeat");
-				/*
-				if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT)) {
-					Double temp = Double.parseDouble(setPoints);
+				
+				if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT) && !jasperStatType.equalsIgnoreCase("EMEA")) {
+					Double temp = Double.parseDouble(heatTemp);
 					heatTemp = String.valueOf(temp.intValue());
-				} else {
+				} /*else {
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
-						heatTemp = roundOffCelsiusData(testCase, setPoints);
+						heatTemp = roundOffCelsiusData(testCase, heatTemp);
 					} else {
-						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, setPoints));
+						heatTemp = roundOffCelsiusData(testCase, convertFromFahrenhietToCelsius(testCase, heatTemp));
 					}
-				}
-				*/
+				}*/
+				
 				if (heatSetPoint.equals(heatTemp)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Heat Stepper Value : Heat Set Point set to max set point after trying to set it to a value above maximum set points");

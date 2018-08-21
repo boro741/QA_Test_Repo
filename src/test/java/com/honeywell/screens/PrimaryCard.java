@@ -733,8 +733,6 @@ public class PrimaryCard extends MobileScreens {
 					return flag;
 				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failure: Currently mode is set to: "
-							+ MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("name"));
 				}
 			} else {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value")
@@ -742,13 +740,10 @@ public class PrimaryCard extends MobileScreens {
 					return flag;
 				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failure: Currently mode is set to: " + MobileUtils
-							.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value"));
 				}
 			}
 		}
-		return false;
+		return flag;
 	}
 
 	public boolean setMaxTemperatureByTappingUpStepper(TestCaseInputs inputs) {

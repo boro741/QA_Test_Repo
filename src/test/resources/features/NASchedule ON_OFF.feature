@@ -262,17 +262,17 @@ Scenario Outline:As an user I want to turn schedule ON So that my vaction will b
 #Schedule ON the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
+When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When vacation mode is "active"
 Then verify the "Vacation status" on the "PRIMARY CARD" screen
 And user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 When user selects "Option" from "Scheduling" screen
 Then user selects "schedule off" from "Option" screen
 And verify the "schedule off overlay" on the "Scheduling" screen
 When user navigates to "primary card" screen from the "SCHEDULING" screen
-Then verify the "Vacation status" on the "PRIMARY CARD" screen 
-And vacation mode is "disable"
+Then verify the "Schedule off Status" on the "PRIMARY CARD" screen 
+And vacation mode is "inactive"
 Then verify the "Schedule off Status" on the "PRIMARY CARD" screen
 When user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 Then user selects "Schedule OFF overlay" from "Scheduling" screen

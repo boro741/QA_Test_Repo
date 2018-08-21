@@ -1144,6 +1144,9 @@ public class SelectElementOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click: " + parameters.get(1));
 					}
+					if (!Schoffoverlay.isScheduleOffOverlayVisible(15)){
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " screen disappered");
+					}
 					break;
 				}
 				}

@@ -1118,6 +1118,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		} else {
 			attribute = "value";
 		}
+		if(settingName.toLowerCase().contains("homekit") && testCase.getPlatform().toUpperCase().contains("ANDROID")){
+			return true;
+		}
 		if (settingName.equalsIgnoreCase("Key Fob") || settingName.equalsIgnoreCase("Sensors")
 				|| settingName.equalsIgnoreCase("Adaptive Recovery")) {
 			return LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, attribute, settingName);

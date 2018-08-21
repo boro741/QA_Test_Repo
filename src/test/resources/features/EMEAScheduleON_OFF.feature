@@ -183,19 +183,20 @@ Given user has "Heat" system mode
 Then user thermostat is set to <scheduling> schedule
 And user launches and logs in to the Lyric application
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-When vacation mode is EMEA "active"
+When vacation mode is "active"
 Then Verify the "Vacation status" on the "PRIMARY CARD" screen
 And user navigates to "Scheduling" screen from the "PRIMARY CARD" screen
 When user selects "Option" from "Scheduling" screen
 Then user selects "schedule off" from "Option" screen
 And verify the "schedule off overlay" on the "Scheduling" screen
 When user navigates to "primary card" screen from the "SCHEDULING" screen
-Then verify the "Vacation status" on the "PRIMARY CARD" screen 
-And vacation mode is "disable"
 Then verify the "Schedule off Status" on the "PRIMARY CARD" screen
 When user navigates to "SCHEDULING" screen from the "PRIMARY CARD" screen
 Then user selects "Schedule OFF overlay" from "Scheduling" screen
 And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
+When user navigates to "primary card" screen from the "SCHEDULING" screen
+Then Verify the "Vacation status" on the "PRIMARY CARD" screen
+And vacation mode is "inactive"
 Examples:
 | scheduling |
 | time based |
