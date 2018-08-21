@@ -961,7 +961,7 @@ public class JasperAdhocOverride {
 				CHILUtil.minHeat = Double.parseDouble(setPoints.get("MinHeat"));
 				Double maxHeat = CHILUtil.maxHeat;
 				Double minHeat = CHILUtil.minHeat;
-				if (maxHeat.equals(CurrentSetPoint)) {
+				if (maxHeat.toString().equals(CurrentSetPoint)) {
 					PrimaryCard DownSteeper = new PrimaryCard(testCase);
 					flag = flag & DownSteeper.clickOnDownStepper();
 				} else if (minHeat.equals(CurrentSetPoint)) {
@@ -983,7 +983,7 @@ public class JasperAdhocOverride {
 				CHILUtil.minCool = Double.parseDouble(setPoints.get("MinCool"));
 				Double maxCool = CHILUtil.maxCool;
 				Double minCool = CHILUtil.minCool;
-				if (maxCool.equals(CurrentSetPoint)) {
+				if (maxCool.toString().equals(CurrentSetPoint)) {
 					PrimaryCard DownSteeper = new PrimaryCard(testCase);
 					flag = flag & DownSteeper.clickOnDownStepper();
 				} else if (minCool.equals(CurrentSetPoint)) {
