@@ -9,7 +9,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.screens.AdhocScreen;
+import com.honeywell.screens.SchedulingScreen;
 
 public class DeleteCurrentTimePeriod extends Keyword {
 
@@ -34,17 +34,19 @@ public class DeleteCurrentTimePeriod extends Keyword {
 	@KeywordStep(gherkins = "^user deletes the \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		if (exampleData.get(0).equalsIgnoreCase("SLEEP")) {
-			AdhocScreen adHoc = new AdhocScreen(testCase);
-			if(adHoc.isSchedulingVisibleInSolutionsCardScreen()) {
-				adHoc.clickOnSchedulingVisibleInSolutionsCardScreen();
-				if(adHoc.isCreateGeofenceSleepSettingsVisible()) {
-					adHoc.clickOnCreateGeofenceSleepSettings();
-					if(adHoc.isDeleteButtonVisible()) {
-						adHoc.clickOnDeleteButton();
-						if(adHoc.isDeletePopupVisible() && adHoc.isDeleteButtonVisibleInDeletePopup()) {
-							adHoc.clickOnDeleteButtonInDeletePopup();
-							if(adHoc.isCloseIconVisibleInScheduleScreen()) {
-								adHoc.clickOnCloseIconInScheduleScreen();
+			SchedulingScreen ss = new SchedulingScreen(testCase);
+
+			if (ss.isTimeScheduleButtonVisible()) {
+				ss.clickOnTimeScheduleButton();
+				if (ss.isCreateGeofenceSleepSettingsVisible()) {
+					ss.clickOnCreateGeofenceSleepSettings();
+					if (ss.isPeriodDeleteIconVisible(10)) {
+						ss.clickOnPeriodDeleteIcon();
+						if (ss.isDeletePopupVisible() && ss.isDeletePopupVisible()
+								&& ss.isConfirmDeleteButtonVisible(1)) {
+							ss.clickOnConfirmDeleteButton();
+							if (ss.isCloseButtonVisible(5)) {
+								ss.clickOnCloseButton();
 							}
 						}
 					}
@@ -60,4 +62,3 @@ public class DeleteCurrentTimePeriod extends Keyword {
 		return flag;
 	}
 }
-

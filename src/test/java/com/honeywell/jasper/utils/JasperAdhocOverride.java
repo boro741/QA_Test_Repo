@@ -236,22 +236,31 @@ public class JasperAdhocOverride {
 					Date Hour12Next = TimeFormat.parse(trim);
 					DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
 					nextperiod = Hour12NextPeriod.format(Hour12Next);
-					nextperiod="HOLD UNTIL " + nextperiod;
-					Keyword.ReportStep_Pass(testCase, nextperiod+ " equal "+AdhocText);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						nextperiod = "HOLD UNTIL  " + nextperiod;
+					} else {
+						nextperiod = "HOLD UNTIL " + nextperiod;
+					}
+					Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
 					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 				} else {
 					String[] dateSplit = next.split(":");
 					String next1 = dateSplit[0] + ":" + dateSplit[1];
-					nextperiod="HOLD UNTIL " + next1;
-					Keyword.ReportStep_Pass(testCase, nextperiod+ " equal "+AdhocText);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						nextperiod = "HOLD UNTIL  " + next1;
+					} else {
+						nextperiod = "HOLD UNTIL " + next1;
+					}
+					Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
 					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 				}
-				
+
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Next period time not matching with hold until time. Next period time: " + nextperiod +" expected is: "+AdhocText);
+							"Next period time not matching with hold until time. Next period time: " + nextperiod
+									+ " expected is: " + AdhocText);
 				}
 			} else {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
@@ -452,6 +461,7 @@ public class JasperAdhocOverride {
 		}
 		return flag;
 	}
+
 	public static boolean removeAdHoc(TestCases testCase) {
 		boolean flag = true;
 		AdhocScreen adhoc = new AdhocScreen(testCase);
@@ -726,8 +736,8 @@ public class JasperAdhocOverride {
 				// String currentDisplayedDay = MobileUtils.getMobElement(testCase, "xpath",
 				// "//UIAPickerWheel[1]")
 				// .getAttribute("value");
-				String currentDisplayedDay = testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[1]"))
-						.getAttribute("value");
+				String currentDisplayedDay = testCase.getMobileDriver()
+						.findElement(By.xpath("//XCUIElementTypePickerWheel[1]")).getAttribute("value");
 				SimpleDateFormat IOSDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 				SimpleDateFormat timePickerDateFormat = new SimpleDateFormat("EEE, MMM d");
 				String displayedDate;
@@ -738,7 +748,8 @@ public class JasperAdhocOverride {
 					displayedDate = currentDisplayedDay;
 				}
 				if (!displayedDate.equalsIgnoreCase(day)) {
-					WebElement dayPicker = testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[1]"));
+					WebElement dayPicker = testCase.getMobileDriver()
+							.findElement(By.xpath("//XCUIElementTypePickerWheel[1]"));
 					Point p1 = dayPicker.getLocation();
 					Dimension d1 = dayPicker.getSize();
 					int x = p1.getX();
@@ -752,7 +763,8 @@ public class JasperAdhocOverride {
 					t1.tap(dayPicker, x, y).perform();
 				}
 				if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[4]")) != null) {
-					flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[4]", ampm);
+					flag = flag
+							& MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[4]", ampm);
 				}
 				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[2]",
 						String.valueOf(hourToSet));
@@ -764,10 +776,10 @@ public class JasperAdhocOverride {
 				}
 				flag = flag & MobileUtils.setValueToElement(testCase, "xpath", "//XCUIElementTypePickerWheel[3]", min);
 			}
-			if(testCase.getPlatform().contains("IOS")){
-				MobileUtils.clickOnElement(testCase, "NAME","Ok");
-			}else{
-				MobileUtils.clickOnElement(testCase, "id","button1");
+			if (testCase.getPlatform().contains("IOS")) {
+				MobileUtils.clickOnElement(testCase, "NAME", "Ok");
+			} else {
+				MobileUtils.clickOnElement(testCase, "id", "button1");
 			}
 		} catch (Exception e) {
 			flag = false;
