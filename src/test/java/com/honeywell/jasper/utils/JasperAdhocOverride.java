@@ -964,10 +964,9 @@ public class JasperAdhocOverride {
 				if (maxHeat.toString().equals(CurrentSetPoint)) {
 					PrimaryCard DownSteeper = new PrimaryCard(testCase);
 					flag = flag & DownSteeper.clickOnDownStepper();
-				} else if (minHeat.equals(CurrentSetPoint)) {
+				} else if (minHeat.toString().equals(CurrentSetPoint)) {
 					PrimaryCard UpSteeper = new PrimaryCard(testCase);
 					flag = flag & UpSteeper.clickOnUpStepper();
-
 				} else if (CurrentSetpoint1 < maxHeat && CurrentSetpoint1 > minHeat) {
 					PrimaryCard UpSteeper = new PrimaryCard(testCase);
 					flag = flag & UpSteeper.clickOnUpStepper();
@@ -986,7 +985,7 @@ public class JasperAdhocOverride {
 				if (maxCool.toString().equals(CurrentSetPoint)) {
 					PrimaryCard DownSteeper = new PrimaryCard(testCase);
 					flag = flag & DownSteeper.clickOnDownStepper();
-				} else if (minCool.equals(CurrentSetPoint)) {
+				} else if (minCool.toString().equals(CurrentSetPoint)) {
 					PrimaryCard UpSteeper = new PrimaryCard(testCase);
 					flag = flag & UpSteeper.clickOnUpStepper();
 
