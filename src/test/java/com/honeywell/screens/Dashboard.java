@@ -23,6 +23,10 @@ public class Dashboard extends MobileScreens {
 	public Dashboard(TestCases testCase) {
 		super(testCase, screenName);
 	}
+	
+	public boolean isLoadingSpinnerVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
+	}
 
 	public boolean isWeatherIconVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherIcon", 3, false);

@@ -21,7 +21,7 @@ public class AdhocScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("text");
 		} else {
-			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("value");
+			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("label");
 		}
 		return adHocStatus;
 	}
@@ -75,5 +75,49 @@ public class AdhocScreen extends MobileScreens {
 	
 	public boolean isSystemIsOffLabelInSolutionsCardScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemIsOffLabelInSolutionsCardScreen");
+	}
+	
+	public boolean isSchedulingVisibleInSolutionsCardScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SchedulingInSolutionsCardScreen");
+	}
+	
+	public boolean clickOnSchedulingVisibleInSolutionsCardScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SchedulingInSolutionsCardScreen");
+	}
+	
+	public boolean isCreateGeofenceSleepSettingsVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CreateGeofenceSleepSettings");
+	}
+	
+	public boolean clickOnCreateGeofenceSleepSettings() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CreateGeofenceSleepSettings");
+	}
+	
+	public boolean isDeleteButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton");
+	}
+	
+	public boolean clickOnDeleteButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
+	}
+	
+	public boolean isDeletePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeletePopup");
+	}
+	
+	public boolean isDeleteButtonVisibleInDeletePopup() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButtonInDeletePopup");
+	}
+	
+	public boolean clickOnDeleteButtonInDeletePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButtonInDeletePopup");
+	}
+	
+	public boolean isCloseIconVisibleInScheduleScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseIconInScheduleScreen");
+	}
+	
+	public boolean clickOnCloseIconInScheduleScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseIconInScheduleScreen");
 	}
 }

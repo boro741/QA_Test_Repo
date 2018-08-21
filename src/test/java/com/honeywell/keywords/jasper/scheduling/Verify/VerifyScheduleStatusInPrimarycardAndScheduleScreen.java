@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
@@ -135,41 +136,42 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 						SchedulingScreen HOME = new SchedulingScreen(testCase);
 						flag = flag & HOME.isUsingHomeVisible(10);
 						if(flag)
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + " not displayed");
 						break;
 					}
 					case "USING AWAY SETTINGS": {
 						SchedulingScreen Away = new SchedulingScreen(testCase);
 						flag = flag & Away.isUsingAwayVisible(10);
 						if(flag)
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + " not displayed");
 						break;
 					}
 					case "USING SLEEP SETTINGS": {
 						SchedulingScreen SLEEP = new SchedulingScreen(testCase);
 						flag = flag & SLEEP.isUsingSleepVisible(10);
 						if(flag)
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else 
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + " not displayed");
 						break;
 					}
 					case "VACATION STATUS": {
 						PrimaryCard VacationStatus = new PrimaryCard(testCase);
 						flag = flag & VacationStatus.isVacationStatusVisible(); 
 						if(flag)
-							Keyword.ReportStep_Pass(testCase, parameters.get(0) + "dispalyed");
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 							else 
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + "not displayed");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  parameters.get(0) + " not displayed");
 							break;							
 //						flag = flag & JasperVacation.verifyVacationStatusOnPrimaryCard(testCase, inputs, true);		
 					}
 
 					case "TEMPORARY": {
+						flag = flag & DashboardUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						flag = flag & JasperAdhocOverride.VerificationofTemporaryHold(testCase, inputs);
 						break;
 						}

@@ -236,13 +236,13 @@ public class JasperAdhocOverride {
 					Date Hour12Next = TimeFormat.parse(trim);
 					DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
 					nextperiod = Hour12NextPeriod.format(Hour12Next);
-					nextperiod="HOLD UNTIL  " + nextperiod;
+					nextperiod="HOLD UNTIL " + nextperiod;
 					Keyword.ReportStep_Pass(testCase, nextperiod+ " equal "+AdhocText);
 					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 				} else {
 					String[] dateSplit = next.split(":");
 					String next1 = dateSplit[0] + ":" + dateSplit[1];
-					nextperiod="HOLD UNTIL  " + next1;
+					nextperiod="HOLD UNTIL " + next1;
 					Keyword.ReportStep_Pass(testCase, nextperiod+ " equal "+AdhocText);
 					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 				}
@@ -251,7 +251,7 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Next period time not matching with hold until time. Next period time:" + nextperiod +" expected "+AdhocText);
+							"Next period time not matching with hold until time. Next period time: " + nextperiod +" expected is: "+AdhocText);
 				}
 			} else {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
@@ -276,7 +276,7 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"geofence Temporary Hold status not displayed" + overrideTemp);
+							"geofence Temporary Hold status not displayed: " + overrideTemp);
 				}
 			}
 		} catch (Exception e) {

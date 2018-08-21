@@ -1,7 +1,6 @@
- package com.honeywell.keywords.jasper.AdhocOverride.TempPerm;
+package com.honeywell.keywords.jasper.AdhocOverride.TempPerm;
 
 import java.util.ArrayList;
-
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -12,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
-
 
 public class TemporaryPermanentHold extends Keyword {
 
@@ -32,43 +30,42 @@ public class TemporaryPermanentHold extends Keyword {
 	public boolean preCondition() throws KeywordException {
 		return flag;
 	}
-	
+
 	@Override
 	@KeywordStep(gherkins = "^user has \"(.+)\" status$")
-	public boolean keywordSteps() throws KeywordException{
+	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (exampleData.get(0).equalsIgnoreCase("TEMPORARY"))
-			{
-				switch (exampleData.get(0).toUpperCase()) 
-				{
-				case "TEMPORARY" :
-				{
-					flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
-					break;
-				}
-				}
-			}else if (exampleData.get(0).equalsIgnoreCase("Permanent")) 
-			{
-				switch (exampleData.get(0).toUpperCase()) {
-				case "PERMANENT" : 
-				{
-					flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
-					flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
-					break;
-				}
-				}
+			if (exampleData.get(0).equalsIgnoreCase("TEMPORARY")
+					|| exampleData.get(0).equalsIgnoreCase("TEMPORARY DASHBOARD")) {
+				flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
+				/*
+				 * if(adhocScreen.getAdhocStatusElement().toUpperCase().contains("HOLD UNTIL")){
+				 * ReportStep_Pass(testCase, "In "+ exampleData.get(0)); }else{ flag = false;
+				 * Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Not in " +
+				 * exampleData.get(0)); }
+				 */
+
+			} else if (exampleData.get(0).equalsIgnoreCase("Permanent")) {
+				flag = flag & JasperAdhocOverride.GetTemporaryHold(testCase, inputs);
+				flag = flag & JasperAdhocOverride.holdSetPointsPermanentlyFromAdHoc(testCase);
+				/*
+				 * if(adhocScreen.getAdhocStatusElement().toUpperCase().contains(exampleData.get
+				 * (0).toUpperCase())){ ReportStep_Pass(testCase, "In "+ exampleData.get(0));
+				 * }else{ flag = false; Keyword.ReportStep_Fail(testCase,
+				 * FailType.FUNCTIONAL_FAILURE,"Not in " + exampleData.get(0)); }
+				 */
 			}
 		} catch (Exception e) {
 			flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-			FailType.FUNCTIONAL_FAILURE,"Error Occured : " + e.getMessage());
-			}
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
+		}
 		return flag;
 	}
+
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {
 		return flag;
 	}
 }
-
