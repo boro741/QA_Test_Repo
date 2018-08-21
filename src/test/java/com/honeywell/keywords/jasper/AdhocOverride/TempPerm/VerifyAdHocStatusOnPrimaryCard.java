@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperAdhocOverride;
 import com.honeywell.screens.AdhocScreen;
 
 
@@ -35,12 +34,22 @@ public class VerifyAdHocStatusOnPrimaryCard extends Keyword {
 	}
 	
 	@Override
-	@KeywordStep(gherkins = "^user has \"(.+)\" status$")
+	@KeywordStep(gherkins = "^user has \"(.+)\" adhoc status$")
 	public boolean keywordSteps() throws KeywordException{
 		try {
 			AdhocScreen adhocScreen = new AdhocScreen(testCase);
 			switch (exampleData.get(0).toUpperCase()) 
 				{
+				case "NO" :
+				{
+					if(adhocScreen.isAdhocStatusVisible()){
+						Keyword.ReportStep_Fail(testCase,
+								FailType.FUNCTIONAL_FAILURE,"Still hold is in display");
+					}else{
+						ReportStep_Pass(testCase, "In "+ exampleData.get(0)+" adhoc status");
+					}
+					break;
+				}
 				case "TEMPORARY" :
 				{
 					if(adhocScreen.getAdhocStatusElement().toUpperCase().contains("HOLD UNTIL")){
