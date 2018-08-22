@@ -1199,53 +1199,103 @@ Examples:
 
 
 #Requirements : Thermostat should be set to A specific time 
-@AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatauto			@InProgress
-Scenario Outline:   I want to verify switching modes "Heat , auto ,cool and off" with temperature scale celcius/fahrenheit and with time format 12/24hr 
+@AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatauto			@Automated
+Scenario Outline:   I want to verify switching modes "Heat , auto ,cool and off" with temperature scale celciusfahrenheit and with time format 12 24hr 
+Given user thermostat is set to "time based" schedule
+Given user thermostat has <Period> currently following in "Time Based" schedule
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user is in "A specific time" status
-When user change the <UMode> from <Mode>
-Then user should be displayed with "HOLD xx UNTIL XX:XX"  status 
-And user should be displayed with respective <Mode> <period> setpoint value
-When user changes <Mode> from <UMode>
-Then user should be displayed with the "HOLD XX UNTIL {Specific time}" 
-And user should be displayed with "A SPECIFIC time" setpoint value
+Given user has <Mode> system mode
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user changes system mode to <UMode>
+Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value in solution card
+When user changes system mode to <Mode>
+Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value in solution card
 
 Examples:
-|Mode|UMode	  |   PERIOD |
+|Mode|UMode	  |   Period |
 |Auto|Heat        | WAKE |
-|Auto|Cool        |WAKE |
-|Auto|Auto        | WAKE |
-|Heat|Cool        |WAKE |
-|Heat|Auto        | WAKE |
-|Heat|HEAT        | WAKE |
-|Cool|Heat        |WAKE |
-|Cool|Auto        |WAKE |
-|Cool|Cool        |WAKE |
-|Auto|Heat        | AWAY |
-|Auto|Cool        |AWAY |
-|Auto|Auto        | AWAY |
-|Heat|Cool        |AWAY |
-|Heat|Auto        | AWAY |
-|Heat|HEAT        | AWAY |
-|Cool|Heat        |AWAY |
-|Cool|Auto        |AWAY |
-|Cool|Cool        |AWAY |
-|Auto|Heat        | HOME |
-|Auto|Cool        |HOME |
-|Auto|Auto        | HOME |
-|Heat|Cool        |HOME |
-|Heat|Auto        | HOME |
-|Heat|HEAT        | HOME |
-|Cool|Heat        |HOME |
-|Cool|Auto        |HOME |
-|Cool|Cool        |HOME |
-|Auto|Heat        | SLEEP |
-|Auto|Cool        |SLEEP |
-|Auto|Auto        | SLEEP |
-|Heat|Cool        |SLEEP |
-|Heat|Auto        | SLEEP |
-|Heat|HEAT        | SLEEP |
-|Cool|Heat        |SLEEP |
-|Cool|Auto        |SLEEP |
-|Cool|Cool        |SLEEP |
+#|Auto|Cool        |WAKE |
+#|Auto|Auto        | WAKE |
+#|Heat|Cool        |WAKE |
+#|Heat|Auto        | WAKE |
+#|Heat|HEAT        | WAKE |
+#|Cool|Heat        |WAKE |
+#|Cool|Auto        |WAKE |
+#|Cool|Cool        |WAKE |
+#|Auto|Heat        | AWAY |
+#|Auto|Cool        |AWAY |
+#|Auto|Auto        | AWAY |
+#|Heat|Cool        |AWAY |
+#|Heat|Auto        | AWAY |
+#|Heat|HEAT        | AWAY |
+#|Cool|Heat        |AWAY |
+#|Cool|Auto        |AWAY |
+#|Cool|Cool        |AWAY |
+#|Auto|Heat        | HOME |
+#|Auto|Cool        |HOME |
+#|Auto|Auto        | HOME |
+#|Heat|Cool        |HOME |
+#|Heat|Auto        | HOME |
+#|Heat|HEAT        | HOME |
+#|Cool|Heat        |HOME |
+#|Cool|Auto        |HOME |
+#|Cool|Cool        |HOME |
+#|Auto|Heat        | SLEEP |
+#|Auto|Cool        |SLEEP |
+#|Auto|Auto        | SLEEP |
+#|Heat|Cool        |SLEEP |
+#|Heat|Auto        | SLEEP |
+#|Heat|HEAT        | SLEEP |
+#|Cool|Heat        |SLEEP |
+#|Cool|Auto        |SLEEP |
+#|Cool|Cool        |SLEEP |
+
+
+#Requirements : Thermostat should be set to A specific time 
+@AdhocOverrideTimebaseScheduleAspecifictimeDashbaordsetpoint @Automated
+Scenario Outline:   I want to verify setpoint change in dashboard for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user thermostat is set to "time based" schedule
+Given user launches and logs in to the Lyric application
+Given user has <Mode> system mode
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user navigates to "thermostat Dashboard" screen from the "thermostat solution card" screen
+And user has "Temporary Dashboard" status
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value in solution card
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 
+
+
+#Requirements : Thermostat should be set to A specific time 
+@AdhocOverrideTimebaseScheduleAspecifictimeSolutionCardsetpoint @Automated
+Scenario Outline:   I want to verify setpoint change in solution card for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user thermostat is set to "time based" schedule
+Given user launches and logs in to the Lyric application
+Given user has <Mode> system mode
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user navigates to "thermostat Dashboard" screen from the "thermostat solution card" screen
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value in solution card
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only|
