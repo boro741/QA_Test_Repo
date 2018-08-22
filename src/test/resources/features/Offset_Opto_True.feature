@@ -78,7 +78,7 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
 	When user "DISMISSES" the "DR CANCEL" popup
 	Then user "should be displayed" with the "DR event label on primary card" option
-	Then user should be displayed with "DR" setpoint value in solution card
+	Then user should be displayed with "DR" setpoint value
 	When user changes system mode to "heat" 
 	And user taps on "UP STEPPER"
 	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
