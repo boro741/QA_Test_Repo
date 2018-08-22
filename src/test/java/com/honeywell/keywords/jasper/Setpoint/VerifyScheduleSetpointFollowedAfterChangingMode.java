@@ -33,7 +33,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value in solution card$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
