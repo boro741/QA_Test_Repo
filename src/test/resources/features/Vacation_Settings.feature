@@ -190,7 +190,7 @@ Then user should be displayed with "SYSTEM IS OFF" status on "solution card"
 And user verifies vacation is "off" in "solution card"
 When user change the <UMode> from "OFF" 
 Then user verifies vacation is "on" in "solution card"
-And user should be displayed with "Vacation" setpoint value  
+And user should be displayed with "Vacation" setpoint value in the solution card screen
 
 Examples:
 		| Mode	| UMode		| 

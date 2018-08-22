@@ -45,7 +45,7 @@ Examples:
 
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutofollowing			@Automated
-Scenario Outline: To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
+Scenario Outline: To verify following base switching mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -475,7 +475,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideTimeschedulingchangedifferentModeHeatcoolAutoOFFTemporaryHold 
+@AdhocOverrideTimeSchedulingChangeDifferentModeHeatCoolAutoOFFTemporaryHold 				@Automated
 Scenario Outline:  To verify time base schedule switching  mode is changed for "Heat , auto ,cool and off" system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
@@ -487,14 +487,15 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
+And user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode	| UMode	| PERIOD	|
+| Mode	| UMode	| Period	|
 | Heat	| Cool 	| WAKE 	|
-| Cool	| Heat	| WAKE 	|
-| Heat	| Cool	| AWAY 	|
+#| Cool	| Heat	| WAKE 	|
+#| Heat	| Cool	| AWAY 	|
 #| Cool	| Heat	| AWAY 	|
 #| Heat	| Cool	| HOME 	|
 #| Heat	| Auto	| HOME 	|
@@ -520,7 +521,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideTimeschedulingchangesameModeHeatcoolAutoOFFTemporaryHold 
+@AdhocOverrideTimeSchedulingChangeSameModeHeatCoolAutoOFFTemporaryHold			@Automated
 Scenario Outline:  To verify time base schedule switching  mode is changed for "Heat , auto ,cool and off" system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
@@ -532,33 +533,37 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
+And  user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And user should be displayed with adhocoverride <Period> setpoint value
+#And user should be displayed with adhocoverride <Period> setpoint value
+And user should be displayed with "respective period" setpoint value
+
 Examples:
 | Mode		| Period		| 
-| Auto		| WAKE 		|
 | Cool		| WAKE 		|
 | Heat		| WAKE 		|
 | Heat 		| AWAY 		|
-| Auto		| AWAY 		|
-| Cool		| AWAY 		|
-| Auto		| HOME 		|
-| Heat		| HOME 		|
-| Cool		| HOME 		|
-| Auto		| SLEEP 		|
-| Heat		| SLEEP 		|
-| Cool		| SLEEP 		|
-| Cool only	| SLEEP 		|
-| Cool only	| WAKE 		|
-| Cool only	| HOME 		|
-| Cool only | AWAY 		|
-| Heat only	| SLEEP 		|
-| Heat only	| WAKE 		|
-| Heat only 	| HOME 		|
-| Heat only 	| AWAY 		|
+| Auto		| WAKE 		|
+#| Auto		| AWAY 		|
+#| Cool		| AWAY 		|
+#| Auto		| HOME 		|
+#| Heat		| HOME 		|
+#| Cool		| HOME 		|
+#| Auto		| SLEEP 		|
+#| Heat		| SLEEP 		|
+#| Cool		| SLEEP 		|
+#| Cool only	| SLEEP 		|
+#| Cool only	| WAKE 		|
+#| Cool only	| HOME 		|
+#| Cool only | AWAY 		|
+#| Heat only	| SLEEP 		|
+#| Heat only	| WAKE 		|
+#| Heat only 	| HOME 		|
+#| Heat only 	| AWAY 		|
+
 
 #JasperNA
-@AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoTemporaryHold 
+@AdhocOverrideGeofencebaseSchedulingChangemodeHeatCoolAutoTemporaryHold				@Automated
 Scenario Outline:  To verify geofence switching modes is "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
@@ -573,31 +578,32 @@ And user should be displayed with "respective period" setpoint value
 When user changes system mode to <Mode>
 When user has "Temporary" status
 And user should be displayed with "respective period" setpoint value
+
 Examples:
-|Mode| Umode|  Period |  scheduling | Geofence |
-|Heat|Cool        |Home |Without sleep geofence based | UserArrived |
-|Heat|Cool        |Away |geofence based | UserDeparted |
-|Heat|Cool        |Sleep |Without sleep geofence based | UserArrived |
-|Cool|Heat        | Home |Without sleep geofence based | UserArrived |
-|Cool|Heat        | Away | geofence based | UserDeparted |
-|Cool|Heat        | Sleep |Without sleep geofence based | UserArrived |
+| Mode	| UMode	| Period	| scheduling 					| Geofence 		|
+| Heat	| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Heat	| Cool	| Sleep | Without sleep geofence based 	| UserArrived	|
+#| Cool	| Heat	| Home 	| Without sleep geofence based 	| UserArrived	|
+#| Cool	| Heat	| Away 	| geofence based 				| UserDeparted 	|
+#| Cool	| Heat	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
 #incaserequired 
-|Auto|Heat        | Home |Without sleep geofence based | UserArrived |
-|Auto|Heat        | Away | geofence based | UserDeparted |
-|Auto|Heat        | Sleep |Without sleep geofence based | UserArrived |
-|Auto|Cool        |Home |Without sleep geofence based | UserArrived |
-|Auto|Cool        |Away |geofence based | UserDeparted |
-|Auto|Cool        |Sleep |Without sleep geofence based | UserArrived |
-|Cool|Auto        |Home |Without sleep geofence based | UserArrived |
-|Cool|Auto        |Away |geofence based | UserDeparted |
-|Cool|Auto        |Sleep |Without sleep geofence based | UserArrived |
-|Heat|Auto        | Home |Without sleep geofence based | UserArrived |
-|Heat|Auto        | Away | geofence based | UserDeparted |
-|Heat|Auto        | Sleep |Without sleep geofence based | UserArrived |
+#| Auto	| Heat	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Heat 	| Away 	| geofence based 				| UserDeparted 	|
+#| Auto	| Heat	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Auto	| Cool	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Auto	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Auto	| Away 	| geofence based 				| UserDeparted 	|
+#| Cool	| Auto	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Auto	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Auto	| Away 	| geofence based 				| UserDeparted 	|
+#| Heat	| Auto	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
 
 
 #JasperNA
-@AdhocOverrideGeofencebaseSchedulingChangemodeswithsamemodesHeatcoolAutoOFFTemporaryHold 
+@AdhocOverrideGeofencebaseSchedulingChangeModesWithSameModesHeatCoolAutoOFFTemporaryHold			@Automated
 Scenario Outline:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
@@ -610,31 +616,34 @@ When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
 When user has "Temporary" status
-And user should be displayed with adhocoverride <Period> setpoint value
+#And user should be displayed with adhocoverride <Period> setpoint value
+And user should be displayed with "respective period" setpoint value
+
 Examples:
-|Mode|  Period |  scheduling | Geofence |
-|Heat      | Home |Without sleep geofence based | UserArrived |
-|Heat | Away | geofence based | UserDeparted |
-|Heat        | Sleep |Without sleep geofence based | UserArrived |
-|Heat        |Home |Without sleep geofence based | UserArrived |
-|Heat        |Away |geofence based | UserDeparted |
-|Heat        |Sleep |Without sleep geofence based | UserArrived |
-|Cool | Home |Without sleep geofence based | UserArrived |
-|Cool | Away | geofence based | UserDeparted |
-|Cool | Sleep |Without sleep geofence based | UserArrived |
-|Cool|Home |Without sleep geofence based | UserArrived |
-|Cool|Away |geofence based | UserDeparted |
-|Cool|Sleep |Without sleep geofence based | UserArrived |
+| Mode	| Period| scheduling 					| Geofence		|
+| Heat  | Home 	| Without sleep geofence based 	| UserArrived 	|
+| Heat 	| Away 	| geofence based					| UserDeparted 	|
+#| Heat	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Away	| geofence based 				| UserDeparted 	|
+#| Heat	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Cool	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Cool	| Sleep | Without sleep geofence based 	| UserArrived 	|
 #incaserequired 
-|Auto| Home |Without sleep geofence based | UserArrived |
-|Auto | Away | geofence based | UserDeparted |
-|Auto | Sleep |Without sleep geofence based | UserArrived |
-|Auto|Home |Without sleep geofence based | UserArrived |
-|Auto        |Away |geofence based | UserDeparted |
-|Auto       |Sleep |Without sleep geofence based | UserArrived |
+#| Auto	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto 	| Away 	| geofence based 				| UserDeparted 	|
+#| Auto 	| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Away 	| geofence based 				| UserDeparted 	|
+#| Auto	| Sleep | Without sleep geofence based 	| UserArrived 	|
+
 
 #JasperNA
-@AdhocOverrideGeofencebaseSchedulingChangemodeswithdifferentmodesHeatcoolAutoOFFTemporaryHold 
+@AdhocOverrideGeofencebaseSchedulingChangeModeWithDifferentModesHeatCoolAutoOFFTemporaryHold		@Automated
 Scenario Outline:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
@@ -650,26 +659,27 @@ When user has "Temporary" status
 #And user should be displayed with respective <Period> setpoint value
 And user should be displayed with "respective period" setpoint value
 Examples:
-|Mode| Umode|  Period |  scheduling | Geofence |
-|Heat|Cool        |Home |Without sleep geofence based | UserArrived |
-|Heat|Cool        |Away |geofence based | UserDeparted |
-|Heat|Cool        |Sleep |Without sleep geofence based | UserArrived |
-|Cool|Heat        | Home |Without sleep geofence based | UserArrived |
-|Cool|Heat        | Away | geofence based | UserDeparted |
-|Cool|Heat        | Sleep |Without sleep geofence based | UserArrived |
+| Mode	| UMode	| Period	| scheduling 					| Geofence 		|
+| Heat	| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
+| Heat	| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Heat	| Cool	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Heat	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	 |Heat	| Away	| geofence based 				| UserDeparted 	|
+#| Cool	| Heat	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
 #incaserequired 
-|Auto|Heat        | Home |Without sleep geofence based | UserArrived |
-|Auto|Heat        | Away | geofence based | UserDeparted |
-|Auto|Heat        | Sleep |Without sleep geofence based | UserArrived |
-|Auto|Cool        |Home |Without sleep geofence based | UserArrived |
-|Auto|Cool        |Away |geofence based | UserDeparted |
-|Auto|Cool        |Sleep |Without sleep geofence based | UserArrived |
-|Cool|Auto        |Home |Without sleep geofence based | UserArrived |
-|Cool|Auto        |Away |geofence based | UserDeparted |
-|Cool|Auto        |Sleep |Without sleep geofence based | UserArrived |
-|Heat|Auto        | Home |Without sleep geofence based | UserArrived |
-|Heat|Auto        | Away | geofence based | UserDeparted |
-|Heat|Auto        | Sleep |Without sleep geofence based | UserArrived |
+#| Auto	| Heat	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Heat	| Away 	| geofence based 				| UserDeparted 	|
+#| Auto	| Heat	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Auto	| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Auto	| Cool	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Auto	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Cool	| Auto 	| Away 	| geofence based 				| UserDeparted 	|
+#| Cool	| Auto	| Sleep	| Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Auto	| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Heat	| Auto	| Away 	| geofence based 				| UserDeparted 	|
+#| Heat	| Auto	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
+
 
 #JasperNA
 @AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold 
@@ -697,7 +707,6 @@ Examples:
 #|Heat |Sleep| Home| Wake |
 #|Heat| Wake | Home| Away |
 #|Heat| Sleep| Home| Away |
-
 
 
 #JasperNA
@@ -729,10 +738,10 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideCreateTimebasescheduleTemporaryHold 
+@AdhocOverrideCreateTimebasescheduleTemporaryHold			@Automated
 Scenario Outline:  To verify create time base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode
-And user thermostat is set to <Currentschedule> schedule
+And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user has "Temporary" status
@@ -743,21 +752,21 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
 And user should be displayed with "respective period" setpoint value
 Examples:
-|Mode| Currentschedule | NEW Schedule |
-|Cool| time base | Time base schedule |
-|HEAT|time base |Time base schedule |
-|AUTO|time base |Time base schedule |
-|Heat only|time base |Time base schedule |
-|Cool only|time base |Time base schedule |
-|Cool| geofence based | Time base schedule |
-|HEAT|geofence based  |Time base schedule |
-|AUTO|geofence based  |Time base schedule |
-|Heat only|geofence based  |Time base schedule |
-|Cool only|geofence based |Time base schedule |
+| Mode		| CurrentSchedule	| NEWSchedule 			|
+| Cool		| time base 			| Time base schedule 	|
+#| HEAT		| time base 			| Time base schedule 	|
+#| AUTO		| time base 			| Time base schedule 	|
+#| Heat only	| time base 			| Time base schedule 	|
+#| Cool only	| time base 			| Time base schedule 	|
+#| Cool		| geofence based 	| Time base schedule 	|
+#| HEAT		| geofence based  	| Time base schedule 	|
+#| AUTO		| geofence based  	| Time base schedule 	|
+#| Heat only	| geofence based  	| Time base schedule 	|
+#| Cool only	| geofence based 	| Time base schedule 	|
 
 
 #JasperNA
-@AdhocOverrideCreateTimebasescheduleOFFModeTemporaryHold 
+@AdhocOverrideCreateTimebasescheduleOFFModeTemporaryHold		@Automated 
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user has <Mode> system mode
 And user thermostat is set to <Currentschedule> schedule
@@ -775,17 +784,17 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-|Mode| Currentschedule | NEW Schedule |
-|Cool| time base | Time base schedule |
-|HEAT|time base |Time base schedule |
-|AUTO|time base |Time base schedule |
-|Heat only|time base |Time base schedule |
-|Cool only|time base |Time base schedule |
-|Cool| geofence based | Time base schedule |
-|HEAT|geofence based  |Time base schedule |
-|AUTO|geofence based  |Time base schedule |
-|Heat only|geofence based  |Time base schedule |
-|Cool only|geofence based |Time base schedule |
+| Mode		| Currentschedule	| NEW Schedule		|
+| Cool		| time base 			| Time base schedule	|
+#| HEAT		| time base 			| Time base schedule	|
+#| AUTO		| time base 			| Time base schedule	|
+#| Heat only	| time base 			| Time base schedule	|
+#| Cool only	| time base 			| Time base schedule	|
+#| Cool		| geofence based 	| Time base schedule	|
+#| HEAT		| geofence based  	| Time base schedule	|
+#| AUTO		| geofence based  	| Time base schedule	|
+#| Heat only	| geofence based  	| Time base schedule	|
+#| Cool only	| geofence based 	| Time base schedule	|
 
 
 
@@ -837,6 +846,7 @@ Examples:
 #|Heat	| Away		| UserDeparted	| Geofence base schedule	| Using Sleep Settings	| With| #Not automatable
 #|Cool	| Away		| UserDeparted	| Geofence base schedule	| Using Sleep Settings	| With| #Not automatable
 
+
 #JasperNA
 @AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold 
 Scenario Outline:  To verify delete all periods when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
@@ -873,6 +883,7 @@ Examples:
 |AUTO|Wake|
 |Heat only|Wake|
 |Cool only|Wake|
+
 
 #JasperNA
 @AdhocOverrideCreateGeofencebasescheduleOFFAspecifictime			@Automated
@@ -992,7 +1003,6 @@ Examples:
 |AUTO|geofence based  |Time base schedule |
 |Heat only|geofence based  |Time base schedule |
 |Cool only|geofence based |Time base schedule |
-
 
 
 #Requirements : Thermostat should be set to A specific time 

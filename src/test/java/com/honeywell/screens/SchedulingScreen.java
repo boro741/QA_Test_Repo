@@ -437,16 +437,16 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getTimeChooserEndTimeValue() {
-		if(testCase.getPlatform().contains("Android")){
+		if (testCase.getPlatform().contains("Android")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "TimeChooserEndTime").getText();
-		}else
-		return MobileUtils.getMobElement(objectDefinition, testCase, "TimeChooserEndTime").getAttribute("value");
+		} else
+			return MobileUtils.getMobElement(objectDefinition, testCase, "TimeChooserEndTime").getAttribute("value");
 	}
 
 	public String getTimeChooserValue() {
-		if(testCase.getPlatform().contains("Android")){
+		if (testCase.getPlatform().contains("Android")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "TimeChooser").getText();
-		}else{
+		} else {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "TimeChooser").getAttribute("value");
 		}
 	}
@@ -473,10 +473,10 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public String getTimeScheduleEndTimeValue() {
-		if(testCase.getPlatform().contains("Android")){
+		if (testCase.getPlatform().contains("Android")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "TimeScheduleEndTime").getText();
-		}else
-		return MobileUtils.getMobElement(objectDefinition, testCase, "TimeScheduleEndTime").getAttribute("value");
+		} else
+			return MobileUtils.getMobElement(objectDefinition, testCase, "TimeScheduleEndTime").getAttribute("value");
 	}
 
 	public String getValueOfEverydayHeatTemperatureElementAtIndex(int index) {
@@ -579,7 +579,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils
 				.getMobElement(testCase, "xpath",
 						"//android.widget.FrameLayout[" + index
-						+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
+								+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
 				.getText();
 	}
 
@@ -655,7 +655,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils
 				.getMobElement(testCase, "xpath",
 						"//android.widget.FrameLayout[" + (index)
-						+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
+								+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
 				.getText();
 	}
 
@@ -913,7 +913,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isWeekendPeriodTimeElementAtIndexVisible(int index, int timeOut) {
 		return MobileUtils.isMobElementExists("Xpath",
 				"//android.widget.FrameLayout[" + (index)
-				+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
+						+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
 				testCase, timeOut);
 	}
 

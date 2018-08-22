@@ -34,7 +34,7 @@ public class DisplayVacationSetPointOnSoultionCard extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value in the solution card screen$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		try {
