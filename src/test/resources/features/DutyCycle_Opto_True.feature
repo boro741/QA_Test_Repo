@@ -2,11 +2,11 @@
 Feature: Duty Cycle with Opt Out able true 
 	As a user, I want to opt out of DR when my duty cycle is enabled
 
-@VerifySavingEventScheduleMessagenew @Automated 
+@VerifySavingEventScheduleMessageDutyCycle @Automated 
 Scenario: Verify Saving Event Schedule Message 
 	As a user, I should receive a saving event schedule message on the primary card, Activity History screen
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "2" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
 	Then "saving event schedule" message pop up is displayed on the primary card 
@@ -20,7 +20,7 @@ Scenario: Verify Saving Event Schedule Message
 Scenario: Verify Saving Event Start Message 
 	As a user, I should receive a saving event start message on the primary card,  Activity History screen
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "2" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	Then user "SHOULD BE DIPLAYED" with the "DR event label on Dashboard" option 
@@ -35,11 +35,11 @@ Scenario: Verify Saving Event Start Message
 	And user selects "MIN SET TEMPERATURE BY TAPING ON DOWN STEPPER" from "Primary Card" screen 
 	And user logs out of the application 
 	
-@VerifySavingEventEndMessage @Automated 
+@VerifySavingEventEndMessageDutyCycle @Automated 
 Scenario: Verify Saving Event End Message 
 	As a user, I should receive a saving event end message on Activity History screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "2" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And DR event has ended on user device 
@@ -51,11 +51,11 @@ Scenario: Verify Saving Event End Message
 	And user receives and views a "saving event ended" message on the "ACTIVITY HISTORY" screen 
 	And user logs out of the application 
 	
-@VerifySavingEventCancelByUtilityMessage @Automated 
+@VerifySavingEventCancelByUtilityMessageDutyCycle @Automated 
 Scenario: Verify Saving Event Cancel By Utility Message 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on aActivity History screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "2" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And DR event is cancelled by the utility provider 
@@ -71,7 +71,7 @@ Scenario: Verify Saving Event Cancel By Utility Message
 Scenario: Verify Saving Event Cancel By User Message 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on Activity History screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	Then user "SHOULD BE DISPLAYED" with the "DR event label on Dashboard" option 
@@ -92,12 +92,12 @@ Scenario: Verify Saving Event Cancel By User Message
 	And user receives and views a "saving event canceled by user" message on the "ACTIVITY HISTORY" screen 
 	And user logs out of the application 
 	
-@VerifyAdHocStatusAfterDREventEndsNoSchedule @Automated 
+@VerifyAdHocStatusAfterDREventEndsNoScheduleDutyCycle @Automated 
 Scenario: Verify Ad Hoc Status After DR Event Ends No Schedule Offset 
 	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 	Given user thermostat is enrolled with DR 
 	And user thermostat is set to "no" schedule 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "1" minutes and "1" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "3" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
@@ -107,12 +107,12 @@ Scenario: Verify Ad Hoc Status After DR Event Ends No Schedule Offset
 	And user logs out of the app 
 	
 	
-@VerifyAdHocStatusAfterDREventEndsGeofenceBasedScheduling @Automated 
+@VerifyAdHocStatusAfterDREventEndsGeofenceBasedSchedulingDutyCycle @Automated 
 Scenario: Verify Ad Hoc Status After DR Event Ends 
 	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 	Given user thermostat is enrolled with DR 
 	And user thermostat is set to "geofence based" schedule 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	And user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
@@ -127,7 +127,7 @@ Scenario: Verify Ad Hoc Status After DR Event Ends
 	Then verify the "Temporary" on the "PRIMARY CARD" screen 
 	And user logs out of the app 
 	
-@VerifyAdHocStatusAfterDREventEndsTimeBassedScheduling @Automated 
+@VerifyAdHocStatusAfterDREventEndsTimeBassedSchedulingDutyCycle @Automated 
 Scenario Outline: Verify Ad Hoc Status After DR Event Ends 
 	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 	Given user thermostat is enrolled with DR 
@@ -136,7 +136,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
 	And user has <Adhocoverride> status 
-	And user has triggered DR event with "duty cycle" and "is" opt-out able for "3" minutes and "1" minutes from now 
+	And user has triggered DR event with "duty cycle" and "is" opt-out able for "3" minutes and "3" minutes from now 
 	And user taps on "DR Popup" 
 	And DR event has started on the user device 
 	Then user "should be displayed" with the "DR event label on primary card" option 
@@ -150,12 +150,12 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends
 		| temporary |
 		| Schedule Off   |
 		
-		@VerifyVacationStatusAfterDREventEnds @Automated 
+		@VerifyVacationStatusAfterDREventEndsDutyCycle @Automated 
 		Scenario: Verify Vacation Status After DR Event Ends 
 			As a user, I should receive a vacation ad hoc message after DR Ends
 			Given user thermostat is enrolled with DR 
 			And vacation mode is "active" 
-			And user has triggered DR event with "duty cycle" and "is" opt-out able for "4" minutes and "1" minutes from now 
+			And user has triggered DR event with "duty cycle" and "is" opt-out able for "4" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			When user launches and logs in to the Lyric application 
 			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
@@ -165,11 +165,11 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends
 			And user should be displayed with "VACATION" status on "SOLUTION CARD" 
 			And user logs out of the app 
 			
-		@VerifyDRStatusWhenChangingSystemMode @Automated 
+		@VerifyDRStatusWhenChangingSystemModeDutyCycle @Automated 
 		Scenario: Verify DR Status When Chaning System Mode 
 			As a user, I should receive a DR Lable on Cool/Heat system mode and No Lable should be present on OFF mode
 			Given user thermostat is enrolled with DR 
-			And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "1" minutes from now 
+			And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			When user launches and logs in to the Lyric application 
 			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
@@ -190,13 +190,13 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends
 			And user logs out of the app 
 			
 			
-		@VerifyGeofenceScheduleAdHocStatusAfterDREnds @Automated
+		@VerifyGeofenceScheduleAdHocStatusAfterDREndsDutyCycle @Automated
 		Scenario Outline: Verify Geofence Schedule Ad Hoc Status After DR Ends 
 			As a user, I should receive a geofence until schedule message after DR Ends in geofence crossed location
 			Given user thermostat is enrolled with DR 
 			And user thermostat is set to "Without sleep geofence based" schedule 
 			And  user thermostat set <geofence location> with <Geofence> 
-			And user has triggered DR event with "duty cycle" and "is" opt-out able for "2" minutes and "1" minutes from now 
+			And user has triggered DR event with "duty cycle" and "is" opt-out able for "4" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			When user launches and logs in to the Lyric application 
 			Then user "should be displayed" with the "DR event label on dashboard" option 
@@ -216,7 +216,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends
 					As a user, I should receive a following schedule message after DR Ends in next period of time schedule
 					Given user has "time based schedule" with "Temporary Hold" 
 					And user has thermostat enrolled with DR 
-					And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "1" minutes from now 
+					And user has triggered DR event with "duty cycle" and "is" opt-out able for "15" minutes and "3" minutes from now 
 					And DR event has started on the user device 
 					When user launches and logs in to the Lyric application 
 					Then user "should be displayed" with the "DR event label on dashboard" option 

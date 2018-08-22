@@ -6,7 +6,7 @@ Feature: Offset with Opt Out able true
 Scenario: Verify Saving Event Schedule Message with DR Event Offset 
 	As a user, I should receive a saving event schedule message on the primary card, alerts screen and messages screen
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
 	Then "saving event schedule" message pop up is displayed on the primary card 
@@ -19,7 +19,7 @@ Scenario: Verify Saving Event Schedule Message with DR Event Offset
 Scenario: Verify Saving Event Start Message with DR Event Offset 
 	As a user, I should receive a saving event start message on the primary card, alerts screen and messages screen
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "2" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	Then  user "should be displayed" with the "DR event label on dashboard" option
@@ -34,7 +34,7 @@ Scenario: Verify Saving Event Start Message with DR Event Offset
 Scenario: Verify Saving Event End Message Offset 
 	As a user, I should receive a saving event end message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "3" minutes and "1" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "4" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	Then user "should be displayed" with the "DR event label on dashboard" option
@@ -51,7 +51,7 @@ Scenario: Verify Saving Event End Message Offset
 Scenario: Verify Saving Event Cancel By Utility Message Offset 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "1" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application
 	 Then user "should be displayed" with the "DR event label on dashboard" option
@@ -68,7 +68,7 @@ Scenario: Verify Saving Event Cancel By Utility Message Offset
 Scenario: Verify Saving Event Cancel By User Message Offset 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
-	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "2" minutes from now 
+	And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
 	And DR event has started on the user device 
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen 
@@ -94,7 +94,7 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 			As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 			Given user thermostat is enrolled with DR 
 			And user thermostat is set to "no" schedule 
-			And user has triggered DR event with "offset" and "is" opt-out able for "1" minutes and "1" minutes from now 
+			And user has triggered DR event with "offset" and "is" opt-out able for "3" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			When user launches and logs in to the Lyric application
 			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
@@ -108,7 +108,7 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 			As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 			Given user thermostat is enrolled with DR
 			And user thermostat is set to "geofence based" schedule 
-			And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "1" minutes from now 
+			And user has triggered DR event with "offset" and "is" opt-out able for "10" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			And user launches and logs in to the Lyric application
 			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
@@ -132,7 +132,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 	When user launches and logs in to the Lyric application 
 	And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 	And user has <Adhocoverride> status
-	And user has triggered DR event with "offset" and "is" opt-out able for "3" minutes and "1" minutes from now
+	And user has triggered DR event with "offset" and "is" opt-out able for "3" minutes and "3" minutes from now
 	And user taps on "DR Popup"
 	And DR event has started on the user device 
 	Then user "should be displayed" with the "DR event label on primary card" option 
@@ -150,7 +150,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 			As a user, I should receive a vacation ad hoc message after DR Ends
 			Given user thermostat is enrolled with DR 
 			And vacation mode is "active" 
-			And user has triggered DR event with "offset" and "is" opt-out able for "4" minutes and "1" minutes from now 
+			And user has triggered DR event with "offset" and "is" opt-out able for "3" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			When user launches and logs in to the Lyric application 
 			And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
@@ -165,7 +165,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 				Scenario: Verify DR Status When Changing System Mode 
 					As a user, I should receive a DR Label on Cool/Heat system mode and No Label should be present on OFF mode
 					Given user thermostat is enrolled with DR 
-					And user has triggered DR event with "offset" and "is" opt-out able for "15" minutes and "1" minutes from now 
+					And user has triggered DR event with "offset" and "is" opt-out able for "15" minutes and "3" minutes from now 
 					And DR event has started on the user device 
 					When user launches and logs in to the Lyric application
 					Then user "should be displayed" with the "DR event label on dashboard" option 
@@ -192,7 +192,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 			Given user thermostat is enrolled with DR 
 			And user thermostat is set to "Without sleep geofence based" schedule 
 			And  user thermostat set <geofence location> with <Geofence>
-			And user has triggered DR event with "offset" and "is" opt-out able for "2" minutes and "1" minutes from now 
+			And user has triggered DR event with "offset" and "is" opt-out able for "3" minutes and "3" minutes from now 
 			And DR event has started on the user device 
 			When user launches and logs in to the Lyric application
 			Then user "should be displayed" with the "DR event label on dashboard" option 
@@ -215,7 +215,7 @@ As a user, I should receive a following schedule message after DR Ends in next p
 Given user thermostat is enrolled with DR 
 And user has time based schedule with 15 minute interval between periods 
 And user puts schedule on "temporary hold" 
-And user has triggered DR event with "offset" and "is" opt-out able for "15" minutes and "1" minutes from now 
+And user has triggered DR event with "offset" and "is" opt-out able for "15" minutes and "3" minutes from now 
 And DR event has started on the user device 
 When user logs in to Lyric app 
 Then user should be displayed with a "saving event until green" label on the primary card 
@@ -230,7 +230,7 @@ Verify DR Status After Vacation Starts for Jasper Thermostats Offset
 As a user, I should receive a DR message after vacation starts
 Given user thermostat is enrolled with DR 
 And vacation mode is "active" 
-And user has triggered DR event with "offset" and "is" opt-out able for "15" minutes and "1" minutes from now 
+And user has triggered DR event with "offset" and "is" opt-out able for "15" minutes and "3" minutes from now 
 And DR event has started on the user device 
 When user logs in to Lyric app 
 Then user should be displayed with a "saving event until green" label on the primary card 
