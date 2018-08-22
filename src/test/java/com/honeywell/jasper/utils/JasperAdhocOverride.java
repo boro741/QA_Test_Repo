@@ -222,38 +222,41 @@ public class JasperAdhocOverride {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
 				flag = flag & Adhoc.isAdhocStatusVisible();
 				String AdhocText = Adhoc.getAdhocStatusElement();
-				if (AdhocText.toUpperCase().contains("HOLD UNTIL")) {
-					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Time base Temporary Hold status not displayed");
-				}
 				String next = statInfo.getNextPeriodTime();
 				String nextperiod = "";
-				if (AdhocText.contains("AM") || AdhocText.contains("PM")) {
-					String trim = next;
-					DateFormat TimeFormat = new SimpleDateFormat("HH:mm:ss"); // HH for hour of the day (0 - 23)
-					Date Hour12Next = TimeFormat.parse(trim);
-					DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
-					nextperiod = Hour12NextPeriod.format(Hour12Next);
-					//nextperiod = "HOLD UNTIL " + nextperiod;
-					Keyword.ReportStep_Pass(testCase,AdhocText  + " has " + nextperiod);
-					flag = flag & AdhocText.contains(nextperiod);
-				} else {
-					String[] dateSplit = next.split(":");
-					String next1 = dateSplit[0] + ":" + dateSplit[1];
-					nextperiod = /*"HOLD UNTIL " + */next1;
-					Keyword.ReportStep_Pass(testCase,AdhocText  + " has " + nextperiod);
-					flag = flag & AdhocText.contains(nextperiod);
-				}
 
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Next period time not matching with hold until time. Next period time: " + nextperiod
-									+ " expected is: " + AdhocText);
-				}
+				if (AdhocText.toUpperCase().contains("HOLD UNTIL")) {
+								Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
+									if (AdhocText.contains("AM") || AdhocText.contains("PM")) {
+										String trim = next;
+										DateFormat TimeFormat = new SimpleDateFormat("HH:mm:ss"); // HH for hour of the day (0 - 23)
+								     	Date Hour12Next = TimeFormat.parse(trim);
+										DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
+										nextperiod = Hour12NextPeriod.format(Hour12Next);
+										if (AdhocText.toUpperCase().contains("HOLD UNTIL  ")) {
+											nextperiod = "HOLD UNTIL  " + nextperiod;
+										} else {
+											nextperiod = "HOLD UNTIL " + nextperiod;
+										}
+										Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
+										flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
+									} else {
+										String[] dateSplit = next.split(":");
+										String next1 = dateSplit[0] + ":" + dateSplit[1];
+										nextperiod = "HOLD UNTIL " + next1;
+										if (AdhocText.toUpperCase().contains("HOLD UNTIL  ")) {
+											nextperiod = "HOLD UNTIL  " + next1;
+										} else {
+											nextperiod = "HOLD UNTIL " + next1;
+										}
+										Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
+										flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
+									}
+				 				} else {
+				 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				 							"Time base Temporary Hold status not displayed");
+				 				}
+
 			} else {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
 				flag = flag & Adhoc.isAdhocStatusVisible();
@@ -261,24 +264,30 @@ public class JasperAdhocOverride {
 				String Period = statInfo.getCurrentSchedulePeriod();
 				String overrideTemp = "";
 				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
-				if (flag) {
-					overrideTemp = statInfo.getOverrrideSetpoint();
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to recall api");
-				}
-				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
-					String overrideTemp1 = overrideTemp.replace(".0", "");
-					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
-				} else {
-					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
-					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
-				}
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"geofence Temporary Hold status not displayed: " + overrideTemp);
-				}
+					if (flag) {
+						overrideTemp = statInfo.getOverrrideSetpoint();
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to recall api");
+					}
+					if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+						String overrideTemp1 = overrideTemp.replace(".0", "");
+						flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"geofence Temporary Hold status not displayed: " + overrideTemp1);
+					}
+					}else {
+						overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
+						flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"geofence Temporary Hold status not displayed: " + overrideTemp);
+					}
+					}
 			}
 		} catch (Exception e) {
 			flag = false;

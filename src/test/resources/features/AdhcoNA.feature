@@ -1299,3 +1299,225 @@ Examples:
 #|Auto | 
 #|Cool only| 
 #|Heat only|
+
+#Permanent hold (Time base Schedule)
+
+#JasperNA
+@AdhocOverrideTimebaseScheduleAdhocOverrideActionSheetNA @Automated
+Scenario Outline: I want to verify action sheet view  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "Temporary" status
+Then verify the "Temporary" on the "PRIMARY CARD" screen
+And user selects "Adhoc Status" from adhoc
+And user should be displayed with the following "Action Sheet" options:
+|Action Sheet|
+|Permanent |
+|A Specific Time|
+|Remove Hold|
+|Cancel |
+
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 
+
+@AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardCancelfunctionalityNA @Automated
+Scenario Outline: I want to verify cancel functionality for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has <AdhocStatus> status
+Then verify the <AdhocStatus> on the "PRIMARY CARD" screen
+And user selects "Cancel" from adhoc
+Then verify the <AdhocStatus> on the "PRIMARY CARD" screen
+Examples:
+|Mode | AdhocStatus |
+|Cool | PERMANENT | 
+|Cool | Temporary | 
+#|Heat | PERMANENT | 
+#|Heat | Temporary | 
+#|Auto | PERMANENT | 
+#|Auto | Temporary | 
+#|Cool only|  PERMANENT | 
+#|Cool only|  Temporary | 
+#|Heat only|  PERMANENT | 
+#|Heat only|  Temporary | 
+
+@AdhocOverrideTimebaseSchedulePermanentHoldSolutionCard @Automated
+Scenario Outline: I want to verify permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+Examples:
+|Mode | 
+|Cool | 
+|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 
+
+
+#Requirement : Thermostat should be set in permanent 
+@AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardsetpointchange
+Scenario Outline: I want to verify setpoint change solution card  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+When user taps on "UP STEPPER"
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user should be displayed with "RESPECTIVE PERIOD" setpoint value
+#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
+#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+Examples:
+|Mode | 
+|Cool | 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 
+
+#Requirement : Thermostat should be set in permanent 
+@AdhocOverrideTimebaseSchedulePermanentHoldDashboardsetpointchange
+Scenario Outline : I want to verify setpoint change dashboard for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+When user taps on "UP STEPPER"
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user should be displayed with "RESPECTIVE PERIOD" setpoint value
+#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
+#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+
+Examples :
+|Mode | 
+|Cool | 
+|Heat | 
+|Auto | 
+|Cool only| 
+|Heat only| 
+
+
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoTemporaryHold 
+Scenario Outline:  To verify change modes for "Heat , auto ,cool," system with auto changeover enabled
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+And user thermostat has <Period> currently following in "Time Based" schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+When user changes system mode to <UMode>
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user should be displayed with "RESPECTIVE PERIOD" setpoint value
+#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
+#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+When user changes system mode to <Mode>
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user should be displayed with "RESPECTIVE PERIOD" setpoint value
+#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
+#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+
+Examples:
+|Mode|UMode	  |   Period |
+|Heat|Cool        |WAKE |
+#|Cool|Heat        |WAKE |
+#|Heat|Cool        |AWAY |
+|Cool|Heat        |AWAY |
+#|Heat|Cool        |HOME |
+|Cool|Heat        |HOME |
+|Heat|Cool        |SLEEP |
+#|Cool|Heat        |SLEEP |
+#|Cool|Auto        |SLEEP |
+#|Auto|Heat        | WAKE |
+#|Auto|Cool        |WAKE |
+#|Heat|Auto        | SLEEP |
+#|Auto|Heat        | SLEEP |
+#|Auto|Cool        |SLEEP |
+#|Cool|Auto        |HOME |
+#|Heat|Auto        | WAKE |
+#|Cool|Auto        |WAKE |
+#|Heat|Auto        | AWAY |
+#|Auto|Heat        | AWAY |
+#|Auto|Cool        |AWAY |
+#|Heat|Auto        | HOME |
+#|Auto|Heat        | HOME |
+#|Auto|Cool        |HOME |
+#|Cool|Auto        |AWAY |
+
+#Requirements : Thermsotat should be set in permanent 
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHold 
+Scenario Outline:  To verify change modes for "Heat , auto ,cool and off " system with auto changeover enabled
+Given user launches and logs in to the Lyric application
+Then user is set to <Mode> through CHIL
+When user is in "PermanentHold"
+Then user should be displayed with adhoc override "HOLD xx PERMANENTLY" 
+When user change the "OFF" from <Mode>
+Then user should be displayed with "SYSTEM IS OFF"  status 
+And user should not be display with "HOLD xx PERMANENTLY"  override 
+When user change the <UMode> from "OFF" 
+Then user should be displayed with "HOLD xx PERMANENTLY" override 
+And user should be displayed with Perviously adjusted setpoint value
+
+Examples:
+|Mode|Umode      |   PERIOD |
+|Auto|Heat        | WAKE |
+|Auto|Cool        |WAKE |
+|Heat|Cool        |WAKE |
+|Heat|Auto        | WAKE |
+|Cool|Heat        |WAKE |
+|Cool|Auto        |WAKE |
+|Auto|Heat        | AWAY |
+|Auto|Cool        |AWAY |
+|Heat|Cool        |AWAY |
+|Heat|Auto        | AWAY |
+|Cool|Heat        |AWAY |
+|Cool|Auto        |AWAY |
+|Auto|Heat        | HOME |
+|Auto|Cool        |HOME |
+|Heat|Cool        |HOME |
+|Heat|Auto        | HOME |
+|Cool|Heat        |HOME |
+|Cool|Auto        |HOME |
+|Auto|Heat        | SLEEP |
+|Auto|Cool        |SLEEP |
+|Heat|Cool        |SLEEP |
+|Heat|Auto        | SLEEP |
+|Cool|Heat        |SLEEP |
+|Cool|Auto        |SLEEP |
+
+#Requirement : Thermostat should be set in permanent 
+@AdhocOverrideTimebaseSchedulePermanentRemoveHold
+Scenario Outline:   I want to verify override Permanent schedule - Remove Hold  with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user launches and logs in to the Lyric application
+Then user is set to <Mode> through CHIL
+And user is in "PermanentHold"
+When user selects the "PermanentHold" status 
+Then user should be displayed with "Adhoc override action sheet"
+When user selects the "Remove Hold" option 
+Then user should be displayed with the "Following schedule"
+And user should be displayed with respective <Mode> period setpoint value 
+Examples:
+|Mode | 
+|Cool | 
+|Heat | 
+|Auto | 
+|Cool only| 
+|Heat only|
