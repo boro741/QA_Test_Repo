@@ -236,15 +236,15 @@ public class JasperAdhocOverride {
 					Date Hour12Next = TimeFormat.parse(trim);
 					DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
 					nextperiod = Hour12NextPeriod.format(Hour12Next);
-					nextperiod = "HOLD UNTIL " + nextperiod;
-					Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
-					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
+					//nextperiod = "HOLD UNTIL " + nextperiod;
+					Keyword.ReportStep_Pass(testCase,AdhocText  + " has " + nextperiod);
+					flag = flag & AdhocText.contains(nextperiod);
 				} else {
 					String[] dateSplit = next.split(":");
 					String next1 = dateSplit[0] + ":" + dateSplit[1];
-					nextperiod = "HOLD UNTIL " + next1;
-					Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
-					flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
+					nextperiod = /*"HOLD UNTIL " + */next1;
+					Keyword.ReportStep_Pass(testCase,AdhocText  + " has " + nextperiod);
+					flag = flag & AdhocText.contains(nextperiod);
 				}
 
 				if (flag) {
