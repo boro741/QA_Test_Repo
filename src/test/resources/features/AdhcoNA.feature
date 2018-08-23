@@ -799,7 +799,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideCreateGeofencebasecheduleTemporaryHold			@InProgress
+@AdhocOverrideCreateGeofencebasecheduleTemporaryHold			@Automated
 Scenario Outline:  To verify creates geofence base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
@@ -824,7 +824,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideCreateGeofencebasescheduleOFFTemporaryHold 			@InProgress
+@AdhocOverrideCreateGeofencebasescheduleOFFTemporaryHold 			@Automated
 Scenario Outline: To Verify create geofence schedule in off mode
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
