@@ -13,7 +13,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.screens.AdhocScreen;
 
 public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 

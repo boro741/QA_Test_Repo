@@ -38,11 +38,9 @@ public class TemporaryPermanentHold extends Keyword {
 			if (exampleData.get(0).equalsIgnoreCase("TEMPORARY")
 					|| exampleData.get(0).equalsIgnoreCase("TEMPORARY DASHBOARD")) {
 				flag = flag & JasperAdhocOverride.HoldTemporaryHold(testCase, inputs);
-			
 			} else if (exampleData.get(0).equalsIgnoreCase("Permanent")) {
 				flag = flag & JasperAdhocOverride.HoldTemporaryHold(testCase, inputs);
 				flag = flag & JasperAdhocOverride.HoldPermanentlyFromAdHoc(testCase);
-			
 			}
 		} catch (Exception e) {
 			flag = false;

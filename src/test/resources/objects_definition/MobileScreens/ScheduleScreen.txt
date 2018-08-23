@@ -78,7 +78,7 @@ TimeMinutes	id	mdtp_minutes					XPATH	//XCUIElementTypePickerWheel[2]	XPATH	//XC
 TimeOption	XPATH	//android.widget.TextView[@text='Time']	XPATH	//android.widget.TextView[@text='Time']	XPATH	//android.widget.TextView[@text='Time']	NAME	Time	NAME	Time	NAME	Time
 TimePicker	ID	mdtp_time_display	ID	radial_picker	ID	radial_picker						
 TimePM	ID	mdtp_pm_label	ID	pm_label	ID	pm_label	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']	XPATH	//*[@value='AM']
-TimeScheduleButton	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//android.widget.TextView[@text='SCHEDULE']	NAME	iconScheduling	NAME	iconScheduling	NAME	iconScheduling
+TimeScheduleButton	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//android.widget.TextView[@text='SCHEDULE']	XPATH	//XCUIElementTypeStaticText[@name='SCHEDULE']/parent::XCUIElementTypeOther/XCUIElementTypeButton	XPATH	//XCUIElementTypeStaticText[@name='SCHEDULE']/parent::XCUIElementTypeOther/XCUIElementTypeButton	XPATH	//XCUIElementTypeStaticText[@name='SCHEDULE']/parent::XCUIElementTypeOther/XCUIElementTypeButton
 ToolbarSubtitle	ID	toolbar_spinner_item_actionbar_subtitle	ID	toolbar_spinner_item_actionbar_subtitle	ID	toolbar_spinner_item_actionbar_subtitle	NAME	Title_Subtitle	NAME	Title_Subtitle	NAME	Title_Subtitle
 ToolbarTitle	ID	toolbar_title	ID	toolbar_title	ID	toolbar_title	NAME	Location Name with Subtitle	NAME	Location Name with Subtitle	NAME	Location Name with Subtitle
 UseGeofencingButton	ID	schedule_geo_fence_use_geo_fence	ID	schedule_geo_fence_use_geo_fence	ID	schedule_geo_fence_use_geo_fence	NAME	Use Geofencing	NAME	USE GEOFENCING	NAME	USE GEOFENCING
