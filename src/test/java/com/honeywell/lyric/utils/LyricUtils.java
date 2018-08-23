@@ -761,7 +761,7 @@ public class LyricUtils {
 				} else if (inputs.isRunningOn("TestObject")) {
 					zone = "CET";
 				} else if (inputs.isRunningOn("Saucelabs")) {
-					zone = "CET";
+					zone = "PST";
 				}
 				zone = zone.trim();
 				timeZone = TimeZone.getTimeZone(zone);
@@ -1277,6 +1277,9 @@ public class LyricUtils {
 		boolean flag = true;
 		CoachMarks cm = new CoachMarks(testCase);
 		int counter = 0;
+		if (cm.isDoneButtonVisible(10)) {
+			flag = flag & cm.clickOnDoneButton();
+		}
 		if (cm.isNextButtonVisible(1)) {
 			while (cm.isNextButtonVisible(1) && counter < 5) {
 				flag = flag & cm.clickOnNextButton();
