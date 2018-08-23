@@ -682,27 +682,26 @@ Examples:
 
 
 #JasperNA
-@AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold 
+@AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold  @AutomatedOnAndroid
 Scenario Outline:  To verify delete current period and remove hold  when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
-And user thermostat has <PPeriod> and <CPeriod> and <NPeriod> current and next period "time based" schedule
+And user thermostat has <PPeriod> as previous period <CPeriod> as current period and <NPeriod> as next period of "time based" schedule
 When user launches and logs in to the Lyric application
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-When user deletes the <CPeriod>
+When user deletes the <CPeriod> time period
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-When user selects the "Remove hold" through "AdhocOverride Action sheet"
+And user selects "Remove hold" from adhoc
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify the setpoint value of <PPeriod> 
-
+#And verify the setpoint value of <PPeriod> 
 Examples:
 |Mode | PPeriod | CPeriod | NPeriod |
 #|Cool |Away| Home| Wake |
 #|Cool |Sleep| Home| Wake |
 |Cool| Wake | Home| Away |
-|Cool| Sleep| Home| Away |
+#|Cool| Sleep| Home| Away |
 #|Heat |Away| Home| Wake |
 #|Heat |Sleep| Home| Wake |
 #|Heat| Wake | Home| Away |
@@ -710,27 +709,27 @@ Examples:
 
 
 #JasperNA
-@AdhocOverridetimebaseschedulingdeleteNextperiodTemporaryHold 
+@AdhocOverridetimebaseschedulingdeleteNextperiodTemporaryHold @Automated
 Scenario Outline:  To verify delete Next period and remove hold  when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
-And user thermostat has <CPeriod> and <NPeriod> and <NNPeriod> current and next period "time based" schedule
+And user thermostat has <CPeriod> as current period <NPeriod> as next period and <NNPeriod> as next period of "time based" schedule
 When user launches and logs in to the Lyric application
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-When user deletes the <NPeriod>
-Then verify the "Next Next period time Temporary status" on the "PRIMARY CARD" screen
-When user selects the "Remove hold" through "AdhocOverride Action sheet"
+When user deletes the <NPeriod> time period
+Then verify the "Temporary" on the "PRIMARY CARD" screen
+And user selects "Remove hold" from adhoc
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify the setpoint value of <CPeriod> 
+#And verify the setpoint value of <CPeriod> 
 
 Examples:
 |Mode| CPeriod | NPeriod | NNPeriod |
 #|Cool |Away| Home| Wake |
 #|Cool |Sleep| Home| Wake |
 |Cool| Wake | Home| Away |
-|Cool| Sleep| Home| Away |
+#|Cool| Sleep| Home| Away |
 #|Heat |Away| Home| Wake |
 #|Heat |Sleep| Home| Wake |
 #|Heat| Wake | Home| Away |
@@ -851,8 +850,8 @@ Examples:
 
 
 #JasperNA
-@AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold 
-Scenario Outline:  To verify delete all periods when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+@AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold @Automated
+Scenario Outline:  To verify delete all periods when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -860,32 +859,35 @@ When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-When user deletes the "All Periods"
-Then verify the "No schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "Last period" setpoint value 
+And user navigates to "Scheduling" screen from the "Primary card" screen
+And user selects "Grouped days" view
+When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
+When user navigates to "Scheduling" screen from the "Dashboard" screen
+Then verify "No Schedule" screen is shown in view schedule screen
+And user should be displayed with "respective period" setpoint value
 
 Examples:
 |Mode| Period | 
 |Cool| Sleep |
-|HEAT|Sleep|
-|AUTO|Sleep|
-|Heat only|Sleep|
-|Cool only|Sleep|
-|Cool| AWAY |
-|HEAT|AWAY|
-|AUTO|AWAY|
-|Heat only|AWAY|
-|Cool only|AWAY|
-|Cool| HOME |
-|HEAT|HOME|
-|AUTO|HOME|
-|Heat only|HOME|
-|Cool only|HOME|
-|Cool| Wake |
-|HEAT|Wake|
-|AUTO|Wake|
-|Heat only|Wake|
-|Cool only|Wake|
+#|HEAT|Sleep|
+#|AUTO|Sleep|
+#|Heat only|Sleep|
+#|Cool only|Sleep|
+#|Cool| AWAY |
+#|HEAT|AWAY|
+#|AUTO|AWAY|
+#|Heat only|AWAY|
+#|Cool only|AWAY|
+#|Cool| HOME |
+#|HEAT|HOME|
+#|AUTO|HOME|
+#|Heat only|HOME|
+#|Cool only|HOME|
+#|Cool| Wake |
+#|HEAT|Wake|
+#|AUTO|Wake|
+#|Heat only|Wake|
+#|Cool only|Wake|
 
 
 #JasperNA
