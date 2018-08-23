@@ -14111,7 +14111,6 @@ public class JasperSchedulingUtils {
 		boolean flag = true;
 		try {
 			SchedulingScreen schl = new SchedulingScreen(testCase);
-
 			if (schl.isCreateScheduleButtonVisible(10)) {
 				flag = flag & schl.clickOnCreateScheduleButton();
 			} else {

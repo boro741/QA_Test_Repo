@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSetPoint;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 
 public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 
@@ -39,6 +40,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "RESPECTIVE PERIOD": 
 				{
+					flag = flag & DashboardUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 					Double getPeriodSetpoint, currentStepperSetpoint ;
 					currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
