@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -22,9 +23,11 @@ import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.lyric.utils.LyricUtils;
+
 import io.appium.java_client.TouchAction;
 
 import java.util.Random;
+
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
 
@@ -52,7 +55,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with the following (.*) options:$")
+	@KeywordStep(gherkins = "^user should be displayed with the following (.+) options:$")
 	public boolean keywordSteps() throws KeywordException {
 		CHILUtil chUtil = null;
 		DeviceInformation deviceInfo=null;
@@ -1162,6 +1165,37 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 			}
 			break;
+		}
+		case "ACTION SHEET":  {
+			AdhocScreen ActionSheet = new AdhocScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++)
+			{
+				String parameter = data.getData(i, "Action Sheet");
+				switch (parameter.toUpperCase()) {
+				case "A SPECIFIC TIME": {
+					flag = flag &  ActionSheet.isSpecificHoldVisible();
+			   		break;
+						}
+				case "PERMANENT": {
+								flag = flag & ActionSheet.isPermanentlyVisible();
+								break;
+						}
+				case "REMOVE HOLD": {
+								flag = flag & ActionSheet.isRemoveAdhocVisible();
+								break;
+						}	
+				case "CANCEL": {
+								flag = flag & ActionSheet.isAdhocCancelVisible();
+								break;
+						}		
+				}
+				if (flag) {
+							Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, " The " + parameter + " has not found");
+				}
+				flag = true;
+		}break;
 		}
 		default: {
 			flag = false;

@@ -71,4 +71,26 @@ public class AdhocScreen extends MobileScreens {
 	public boolean isSystemIsOffLabelInSolutionsCardScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemIsOffLabelInSolutionsCardScreen");
 	}
+	public boolean isPermanentlyVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PemanentlyHoldButton");
+	}
+
+	public boolean isSpecificHoldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HoldUntilButton");
+	}
+	
+	public boolean isRemoveAdhocVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RemoveHold");
+	}
+
+	public boolean isAdhocCancelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AhocCancel");
+	}
+	
+	public boolean clickOnAdhocCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AdhocCancel");
+	}
+
+
+
 }

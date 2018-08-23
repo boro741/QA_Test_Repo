@@ -10,3 +10,4 @@ HoldUntilButton	XPATH	"//android.widget.TextView[contains(@text,'A Specific Time
 SystemIsOffLabelInSolutionsCardScreen	XPATH	//*[@text='SYSTEM IS OFF']	XPATH	//*[@text='SYSTEM IS OFF']	XPATH	//*[@text='SYSTEM IS OFF']	NAME	SYSTEM IS OFF	NAME	SYSTEM IS OFF	NAME	SYSTEM IS OFF
 EndVacationOptionInSolutionCardScreen	ID	action_sheet_item_name	ID	action_sheet_item_name	ID	action_sheet_item_name	NAME	End Vacation	NAME	End Vacation	NAME	End Vacation
 RemoveHold	XPATH	"//android.widget.TextView[contains(@text,'Remove hold')]"	XPATH	"//android.widget.TextView[contains(@text,'Remove hold')]"	XPATH	"//android.widget.TextView[contains(@text,'Remove hold')]"	NAME	Remove Hold	NAME	Remove Hold	NAME	Remove Hold
+AdhocCancel	ID	view_action_sheet_selector_cancel	ID	view_action_sheet_selector_cancel	ID	view_action_sheet_selector_cancel	ID	Cancel	ID	Cancel	ID	Cancel
