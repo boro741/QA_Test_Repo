@@ -103,10 +103,6 @@ public class VerifyDRMessage extends Keyword {
 									"Verify DR Message : Savings Event Scheduled title not displayed correctly on message details screen");
 						}
 					}
-					else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify DR Message : Savings Event Scheduled message is not displayed");
-					}
 					
 				}
 
@@ -138,10 +134,6 @@ public class VerifyDRMessage extends Keyword {
 									"Verify DR Message : Savings Event Started title not displayed correctly on message details screen");
 						}
 					}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Verify DR Message : Savings Event Started message is not displayed");
-					}
 				}
 
 			}
@@ -172,10 +164,6 @@ public class VerifyDRMessage extends Keyword {
 									"Verify DR Message : Savings Event Ended title not displayed correctly on message details screen");
 						}
 					}
-					else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify DR Message : Savings Event Ended message is not displayed");
-					}
 				}
 
 			}
@@ -204,10 +192,6 @@ public class VerifyDRMessage extends Keyword {
 									"Verify DR Message : Savings Event cancelled title not displayed correctly on message details screen");
 						}
 					}
-					else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify DR Message : Savings Event cancelled message is not displayed");
-					}
 				}
 
 			}
@@ -235,10 +219,6 @@ public class VerifyDRMessage extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Canceled by User DR Message is not displayed with correct values");
 						}
-					}
-					else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify DR Message : Savings Event Canceled by User message is not displayed");
 					}
 				}
 
