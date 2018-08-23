@@ -947,7 +947,6 @@ public class JasperAdhocOverride {
 	}
 
 	/* TemporaryHold */
-	@SuppressWarnings("unlikely-arg-type")
 	public static Boolean HoldTemporaryHold(TestCases testCase, TestCaseInputs inputs) throws Exception {
 		Boolean flag = true;
 		try {
