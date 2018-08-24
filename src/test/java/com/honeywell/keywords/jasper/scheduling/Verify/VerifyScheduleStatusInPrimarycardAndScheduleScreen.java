@@ -113,6 +113,15 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Following Schedule not displayed");
 						break;
 					}
+					case "NO SCHEDULE": {
+						PrimaryCard NoSchedule = new PrimaryCard(testCase);
+						flag = flag & NoSchedule.isNoScheduleTextAvailable();
+						if(flag)
+							Keyword.ReportStep_Pass(testCase, "No Schedule displayed");
+						else
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "No Schedule not displayed");
+						break;
+					}
 					case "FOLLOWING SCHEDULE NOT DISPLAYED": {
 						SchedulingScreen FollowingS = new SchedulingScreen(testCase);
 						flag = flag & FollowingS.isFollowingSchedulesNotVisible(2);

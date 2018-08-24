@@ -1384,8 +1384,7 @@ Examples:
 #|Heat only| 
 
 
-#Requirement : Thermostat should be set in permanent 
-@AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardsetpointchange
+@AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardsetpointchange  @Automated
 Scenario Outline: I want to verify setpoint change solution card  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
@@ -1395,9 +1394,7 @@ When user has "PERMANENT" status
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user taps on "UP STEPPER"
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "RESPECTIVE PERIOD" setpoint value
-#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
-#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 |Mode | 
 |Cool | 
@@ -1406,9 +1403,7 @@ Examples:
 #|Cool only| 
 #|Heat only| 
 
-
-#Requirement : Thermostat should be set in permanent 
-@AdhocOverrideTimebaseSchedulePermanentHoldDashboardsetpointchange
+@AdhocOverrideTimebaseSchedulePermanentHoldDashboardsetpointchange  @Automated
 Scenario Outline: I want to verify setpoint change dashboard for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
@@ -1420,21 +1415,19 @@ And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTIO
 When user taps on "UP STEPPER"
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 And verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "RESPECTIVE PERIOD" setpoint value
-#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
-#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 |Mode | 
 |Cool | 
-|Heat | 
-|Auto | 
-|Cool only| 
-|Heat only| 
+#|Heat | 
+#|Auto | 
+#|Cool only| 
+#|Heat only| 
 
 
-@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoTemporaryHold 
-Scenario Outline:  To verify change modes for "Heat , auto ,cool," system with auto changeover enabled
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoTemporaryHold @Automated
+Scenario Outline: To verify change modes for "Heat , auto ,cool," system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -1444,14 +1437,10 @@ When user has "PERMANENT" status
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "RESPECTIVE PERIOD" setpoint value
-#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
-#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "RESPECTIVE PERIOD" setpoint value
-#And user should be displayed with "Override setpoint value in Solution Card" setpoint value
-#And user "should be displayed" with the "respective setpoint value in Solution Card" option
+And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 |Mode|UMode	  |   Period |
@@ -1480,62 +1469,126 @@ Examples:
 #|Auto|Cool        |HOME |
 #|Cool|Auto        |AWAY |
 
-#Requirements : Thermsotat should be set in permanent 
-@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHold 
-Scenario Outline:  To verify change modes for "Heat , auto ,cool and off " system with auto changeover enabled
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user is in "PermanentHold"
-Then user should be displayed with adhoc override "HOLD xx PERMANENTLY" 
-When user change the "OFF" from <Mode>
-Then user should be displayed with "SYSTEM IS OFF"  status 
-And user should not be display with "HOLD xx PERMANENTLY"  override 
-When user change the <UMode> from "OFF" 
-Then user should be displayed with "HOLD xx PERMANENTLY" override 
-And user should be displayed with Perviously adjusted setpoint value
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHold @Automated
+Scenario Outline: To verify change modes for "Heat , auto ,cool and off " system with auto changeover enabled
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+And user thermostat has <Period> currently following in "Time Based" schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+When user changes system mode to "OFF"
+Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
+When user changes system mode to <UMode>
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And verify respective <Period> period setpoint values
+When user changes system mode to <Mode>
+And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
-|Mode|Umode      |   PERIOD |
-|Auto|Heat        | WAKE |
-|Auto|Cool        |WAKE |
+|Mode|UMode	  |   Period |
 |Heat|Cool        |WAKE |
-|Heat|Auto        | WAKE |
-|Cool|Heat        |WAKE |
-|Cool|Auto        |WAKE |
-|Auto|Heat        | AWAY |
-|Auto|Cool        |AWAY |
-|Heat|Cool        |AWAY |
-|Heat|Auto        | AWAY |
-|Cool|Heat        |AWAY |
-|Cool|Auto        |AWAY |
-|Auto|Heat        | HOME |
-|Auto|Cool        |HOME |
-|Heat|Cool        |HOME |
-|Heat|Auto        | HOME |
-|Cool|Heat        |HOME |
-|Cool|Auto        |HOME |
-|Auto|Heat        | SLEEP |
-|Auto|Cool        |SLEEP |
-|Heat|Cool        |SLEEP |
-|Heat|Auto        | SLEEP |
-|Cool|Heat        |SLEEP |
-|Cool|Auto        |SLEEP |
+#|Cool|Heat        |WAKE |
+#|Heat|Cool        |AWAY |
+#|Cool|Heat        |AWAY |
+#|Heat|Cool        |HOME |
+#|Cool|Heat        |HOME |
+#|Heat|Cool        |SLEEP |
+#|Cool|Heat        |SLEEP |
+#|Cool|Auto        |SLEEP |
+#|Auto|Heat        | WAKE |
+#|Auto|Cool        |WAKE |
+#|Heat|Auto        | SLEEP |
+#|Auto|Heat        | SLEEP |
+#|Auto|Cool        |SLEEP |
+#|Cool|Auto        |HOME |
+#|Heat|Auto        | WAKE |
+#|Cool|Auto        |WAKE |
+#|Heat|Auto        | AWAY |
+#|Auto|Heat        | AWAY |
+#|Auto|Cool        |AWAY |
+#|Heat|Auto        | HOME |
+#|Auto|Heat        | HOME |
+#|Auto|Cool        |HOME |
+#|Cool|Auto        |AWAY |
 
-#Requirement : Thermostat should be set in permanent 
-@AdhocOverrideTimebaseSchedulePermanentRemoveHold
-Scenario Outline:   I want to verify override Permanent schedule - Remove Hold  with temperature scale celcius fahrenheit and with time format 12 24hr 
-Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user is in "PermanentHold"
-When user selects the "PermanentHold" status 
-Then user should be displayed with "Adhoc override action sheet"
-When user selects the "Remove Hold" option 
-Then user should be displayed with the "Following schedule"
-And user should be displayed with respective <Mode> period setpoint value 
+@AdhocOverrideTimebaseSchedulePermanentRemoveHold  @Automated
+Scenario Outline: I want to verify override Permanent schedule - Remove Hold  with temperature scale celcius fahrenheit and with time format 12 24hr 
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+And user thermostat has <Period> currently following in "Time Based" schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user selects "Remove Hold" from adhoc
+Then verify the "FOLLOWING SCHEDULE" on the "PRIMARY CARD" screen
+And verify respective <Period> period setpoint values
+
 Examples:
-|Mode | 
-|Cool | 
-|Heat | 
-|Auto | 
-|Cool only| 
-|Heat only|
+|Mode | Period |
+|Cool | WAKE |
+#|Heat | WAKE |
+#|Auto | WAKE |
+#|Cool only| WAKE |
+#|Heat only|WAKE |
+#|Cool | AWAY |
+#|Heat | AWAY |
+#|Auto | AWAY |
+#|Cool only| AWAY |
+#|Heat only|AWAY |
+#|Cool | SLEEP |
+#|Heat | SLEEP |
+#|Auto | SLEEP |
+#|Cool only| SLEEP |
+#|Heat only|SLEEP |
+#|Cool | HOME |
+#|Heat | HOME |
+#|Auto | HOME |
+#|Cool only| HOME |
+#|Heat only|HOME |
+
+
+@AdhocOverridetimebaseschedulingdeleteALLPERIODSPermanentHold @Automated
+Scenario Outline:  To verify delete all periods and no schedule status for "Heat , auto ,cool" system with auto changeover enabled
+Given user has <Mode> system mode 
+Then user thermostat is set to "time based" schedule 
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+And user navigates to "Scheduling" screen from the "Primary card" screen
+And user selects "Grouped days" view
+When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
+When user navigates to "Scheduling" screen from the "Dashboard" screen
+Then verify the "No Schedule" on the "PRIMARY CARD" screen
+When user changes system mode to <UMode>
+Then verify the "No Schedule" on the "PRIMARY CARD" screen
+
+Examples:
+|Mode|UMode	| 
+|Heat|Cool |
+#|Cool|Heat |
+#|Heat|Cool |
+|Cool|Heat  |
+#|Heat|Cool |
+#|Cool|Heat |
+#|Heat|Cool |
+#|Cool|Heat |
+#|Cool|Auto |
+#|Auto|Heat |
+#|Auto|Cool |
+#|Heat|Auto |
+#|Auto|Heat |
+#|Auto|Cool |
+#|Cool|Auto |
+#|Heat|Auto |
+#|Cool|Auto |
+#|Heat|Auto |
+#|Auto|Heat|
+#|Auto|Cool|
+#|Heat|Auto |
+#|Auto|Heat |
+#|Auto|Cool|
+#|Cool|Auto|
