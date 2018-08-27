@@ -15,6 +15,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
 import com.honeywell.lyric.utils.InputVariables;
+import com.honeywell.lyric.utils.LyricUtils;
 
 public class HoldScheduleUntil extends Keyword {
 
@@ -42,8 +43,16 @@ public class HoldScheduleUntil extends Keyword {
 			SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
 			flag = flag & JasperAdhocOverride.holdSetPointsUntilFromAdHoc(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				String currentTime = JasperAdhocOverride.getAndroidDeviceTime(testCase).trim();
-				SimpleDateFormat androidDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+				SimpleDateFormat androidDateFormat ;
+				String currentTime ;
+				if (inputs.isRunningOn("Saucelabs")) {
+					currentTime= LyricUtils.getDeviceTime(testCase, inputs);
+					androidDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm a");
+				}else{
+					currentTime = JasperAdhocOverride.getAndroidDeviceTime(testCase).trim();
+					androidDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+				}
+				ReportStep_Pass(testCase, "Current time on device is "+currentTime);
 				Date date = androidDateFormat.parse(currentTime);
 				Calendar c1 = Calendar.getInstance();
 				Calendar c2 = Calendar.getInstance();
@@ -56,11 +65,12 @@ public class HoldScheduleUntil extends Keyword {
 				} else if (exampleData.get(0).equals("lesser than 12 hours")) {
 					c2.add(Calendar.HOUR, 2);
 					c2.set(Calendar.MINUTE, 0);
+					ReportStep_Pass(testCase, "Added 2 hrs");
 				} else{
 					c2.add(Calendar.HOUR, 0);
-					c2.set(Calendar.MINUTE, 15);
+					c2.set(Calendar.MINUTE, 0);
 				}
-				
+
 
 				if (c2.get(Calendar.DATE) != c1.get(Calendar.DATE)) {
 					day = "Tomorrow";
@@ -99,7 +109,7 @@ public class HoldScheduleUntil extends Keyword {
 			}
 			if (exampleData.get(0).equals("greater than 12 hours")) {
 				if(testCase.getPlatform().contains("IOS")){
-					//TODO
+					//Nothing to do as autocorrection will happen
 				}else{
 					MobileUtils.clickOnElement(testCase, "id","button1");
 				}
