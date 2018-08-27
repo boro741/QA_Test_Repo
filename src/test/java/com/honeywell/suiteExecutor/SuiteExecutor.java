@@ -274,6 +274,7 @@ public class SuiteExecutor {
 					"SetTemperatiureOFFModeNA",
 					"DashboardandsolutioncardAutochangeover",
 					"DashboardandsolutioncardAutoModeCheckingFromPrimaryCard",
+					"DashboardandsolutioncardAutoModeNegative1",
 					"DashboardandsolutioncardCheckSetpointInVacationSettings",
 					"DashboardCoachmarkverification",
 					"SolutionCardCoachmarkverificationNA",
@@ -340,8 +341,31 @@ public class SuiteExecutor {
 					/**Adhoc-NA**/
 					"AdhocOverrideTimebaseSchedulefollowingfromsolutioncard",
 					"AdhocOverrideGeofencebaseScheduleusing",
-					"AdhocOverrideTimeschedulingChangemodeHeatcoolfollwoing",
+					"AdhocOverrideTimeschedulingChangemodeHeatcoolAutofollowing",
 					"AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingschedule",
+					"AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutousing",
+					"AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusing",
+					"AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodUsing",
+					"AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromSolutionCard",
+					"AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromDashboard",
+					"AdhocOverrideTimebaseScheduleTemporaryHoldDashbaordSetpointChangeAndNEXTPeriodResume",
+					"AdhocOverrideGeofencebaseScheduleTempHoldSolCardSetpointChangeAndNEXTPeriodResume",
+					"AdhocOverrideGeofencebaseScheduleTemporaryHoldDashboardSetpointChangeAndNEXTPeriodResume",
+					"AdhocOverrideTimeschedulingChangemodeHeatcoolAutoTemporaryHold",
+					"AdhocOverrideCreateGeofencebasescheduleOFFAspecifictime",
+					"AdhocOverrideCreateGeofencebasescheduleAspecifictime",
+					"AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime",
+					"AdhocOverrideCreateTimebasescheduleAspecifictime",
+					"AdhocOverrideTimebaseSchedulespecifictimedeleteallperiods",
+					"AdhocOverrideTimebaseSchedulespecifictimeRemoveHold",
+					"AdhocOverrideTimebaseSchedulespecifictimetoPermanentHold",
+					"AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold",
+					"AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodByRemovingTemporaryHold",
+					"AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHold",
+					"AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFAspcifictime",
+					"AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatauto",
+					"AdhocOverrideTimebaseScheduleAspecifictimeDashbaordsetpoint",
+					"AdhocOverrideTimebaseScheduleAspecifictimeSolutionCardsetpoint",
 					
 					/**Jasper EMEA-Dashboard&Solutioncard**/
 					"ViewDashboardEMEA",
@@ -404,6 +428,10 @@ public class SuiteExecutor {
 					"ScheduleONOFFEMEAgeofencebasefencecross", 
 					"ScheduleONMultistatEMEA",
 					"ScheduleOFFMultistatEMEA",
+					
+					/**HBB-Dashboard&Solutioncard**/
+					"SetTemperatiureOFFModeHB",
+					"SetTemperatureFromHBB",
 
 					/** HBB Schedule ON/OFF**/
 					"ScheduleONOFFHB",

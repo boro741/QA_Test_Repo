@@ -1,10 +1,14 @@
 package com.honeywell.screens;
 
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.TouchAction;
 
+import org.openqa.selenium.WebElement;
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
 
 public class LoginScreen extends MobileScreens{
 
@@ -48,7 +52,21 @@ public class LoginScreen extends MobileScreens{
 				flag = flag & MobileUtils.longPress(testCase, element, 8000);
 			} else {
 				element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
-				flag = flag & MobileUtils.longPress(testCase, element, 8000);
+				CustomDriver driver = testCase.getMobileDriver();
+				TouchAction action = new TouchAction(driver);
+				element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
+				//flag = flag & MobileUtils.longPress(testCase, element, 8000);
+				try {
+					action.press(element).waitAction(MobileUtils.getDuration(8000)).release().perform();
+					if (!MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='CHIL Url:']", testCase,
+							1)) {
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Secret menu");;
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Unable to open the Secret menu");
+				}
 			}
 			return flag;
 		}
