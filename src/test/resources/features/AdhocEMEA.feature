@@ -42,16 +42,16 @@ Scenario Outline: To verify following base switching  mode is changed for Heat, 
 Given user has "Heat" system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
-And user thermostat has <Period> currently following in "Time Based" schedule
+When user thermostat has <Period> currently following in "Time Based" schedule
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 Examples:
 | Period |
-| WAKE   |
-| AWAY   |
-| HOME   |
-| SLEEP  |
+| P1 |
+#| P2|
+#| P3|
+#| P4|
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleEMEA		@Automated
 Scenario:  To verify following base switching  mode is changed for "Heat, auto, cool" system with auto changeover enabled
@@ -64,7 +64,46 @@ Then verify the "System Is Off" on the "PRIMARY CARD" screen
 And verify the "Following Schedule Not Displayed" on the "PRIMARY CARD" screen
 When user changes system mode to "Heat"
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
+
+
+@AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutousingEMEA		@Automated
+Scenario Outline:  To verify geofence switching modes is "Heat , auto ,cool" system with auto changeover enabled
+Given user has <Mode> system mode
+And user thermostat is set to <scheduling> schedule 
+And user thermostat set <Period> with <Geofence>
+When user launches and logs in to the Lyric application
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+When user changes system mode to <ChangeMode>
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+And user should be displayed with "respective period" setpoint value
+When user changes system mode to <Mode>
+And user should be displayed with "respective period" setpoint value
+
+Examples:
+| Mode 	| ChangeMode		| scheduling					 	| Schedule status		| Geofence     | Period	|
+| Heat 	| Cool			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+| Heat 	| Cool			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+| Heat 	| Cool			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+#| Heat | Auto			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+#| Heat | Auto			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+#| Heat | Auto			| geofence based 				| Using Sleep Settings	| UserArrived  | Home	|
+#| Cool | Heat			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+#| Cool | Heat			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+#| Cool | Heat			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+#| Auto | Heat			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+#| Auto | Heat			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+#| Auto | Heat			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+#| Auto | Heat			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+#| Auto | Heat			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+#| Auto | Heat			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+#| Auto | Cool			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+#| Auto | Cool			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+#| Auto | Cool			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+
+
+
 
 
 @AdhocOverrideCreateGeofencebasescheduleOFFAspecifictimeEMEA @Automated
@@ -90,7 +129,40 @@ Examples:
 #| Home		| UserArrived		| Geofence base schedule	| Using Away Settings	| 
 #| Home		| UserArrived		| Geofence base schedule	| Using Sleep Settings	|
 
-@AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleEMEA@Automated
+@AdhocOverrideCreateGeofencebasescheduleAspecifictimeEMEA			@Automated
+Scenario Outline:  To verify creates geofence base schedule when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Given user has "Heat" system mode
+And user thermostat is set to "time based" schedule
+When user launches and logs in to the Lyric application
+And user edits set point from "Primary card"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+And user holds the schedule until time "lesser than 12 hours" from current time
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+And user creates "Geofence based" scheduling with default values "Without" sleep settings
+And user thermostat set <Period> with <Geofence>
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+And user "should be updated" with the "Heat" option 
+And user should be displayed with "respective period" setpoint value
+
+Examples:
+|Period|Geofence| Schedule status |
+|Home|UserArrived| Using Home Settings | 
+|Away|UserDeparted| Using Away Settings |
+#| Geofence base schedule| Using Home Settings | 
+#| Geofence base schedule| HOME | 
+#| Geofence base schedule| HOME |
+#|   Geofence base schedule| AWAY | 
+#| Geofence base schedule| AWAY | 
+#| Geofence base schedule| AWAY | 
+#|Heat only| Geofence base schedule| AWAY | 
+#|Cool only| Geofence base schedule| AWAY |
+#|Cool|  Geofence base schedule| SLEEP | 
+#|HEAT| Geofence base schedule| SLEEP | 
+#|AUTO| Geofence base schedule| SLEEP | 
+#|Heat only| Geofence base schedule| SLEEP | 
+#|Cool only| Geofence base schedule| SLEEP | 
+
+@AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleduplicateEMEA@Automated
 Scenario Outline:  To verify following base switching  mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 And user has "Heat" system mode
