@@ -496,10 +496,10 @@ Then "Dehumidification" value should be updated to "OFF" on "Thermostat Settings
 Scenario: As a user I should be able to increase or decrease Sleep Brightness Mode option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Sleep Brightness Mode" screen from the "Dashboard" screen
-And user changes the "Sleep Brightness" to "~100%"
-Then "Sleep Brightness" value should be updated to "~100%" on "Sleep Brightness Mode" screen
+And user changes the "Sleep Brightness" to "~50%"
+Then "Sleep Brightness" value should be updated to "~50%" on "Sleep Brightness Mode" screen
 When user navigates to "Thermostat Settings" screen from the "Sleep Brightness Mode" screen
-And "Sleep Brightness" value should be updated to "~100%" on "Thermostat Settings" screen
+And "Sleep Brightness" value should be updated to "~50%" on "Thermostat Settings" screen
 When user navigates to "Sleep Brightness Mode" screen from the "Thermostat Settings" screen
 And user changes the "Sleep Brightness" to "~0%"
 Then "Sleep Brightness" value should be updated to "Off" on "Sleep Brightness Mode" screen

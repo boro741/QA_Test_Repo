@@ -769,7 +769,7 @@ Examples:
 @AdhocOverrideCreateTimebasescheduleOFFModeTemporaryHold		@Automated 
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user has <Mode> system mode
-And user thermostat is set to <Currentschedule> schedule
+And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user has "Temporary" status
@@ -784,7 +784,7 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode		| Currentschedule	| NEW Schedule		|
+| Mode		| CurrentSchedule	| NEW Schedule		|
 | Cool		| time base 			| Time base schedule	|
 #| HEAT		| time base 			| Time base schedule	|
 #| AUTO		| time base 			| Time base schedule	|
@@ -850,7 +850,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold @Automated
+@AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold				@Automated
 Scenario Outline:  To verify delete all periods when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
@@ -988,7 +988,7 @@ Examples:
 @AdhocOverrideCreateTimebasescheduleAspecifictime			@Automated
 Scenario Outline:  To verify create time base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
-And user thermostat is set to <Currentschedule> schedule
+And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -999,7 +999,7 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
 And user should be displayed with "respective period" setpoint value
 Examples:
-|Mode| Currentschedule | NEW Schedule |
+|Mode| CurrentSchedule | NEW Schedule |
 |Cool| time base | Time base schedule |
 #|HEAT|time base |Time base schedule |
 #|AUTO|time base |Time base schedule |
@@ -1079,7 +1079,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold	@Automated
+@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold			@Automated
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
