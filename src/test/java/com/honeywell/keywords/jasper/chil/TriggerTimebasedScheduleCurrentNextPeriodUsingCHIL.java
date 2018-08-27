@@ -50,6 +50,7 @@ public class TriggerTimebasedScheduleCurrentNextPeriodUsingCHIL extends Keyword 
 			String CurrentPeriod = exampleData.get(0);
 			String Period = exampleData.get(1);
 			String NextPeriodStartTime = "";
+			String jasperStatType = devInfo.getJasperDeviceType();
 			if(exampleData.get(2).equalsIgnoreCase("Time Based")) {
 				if(devInfo.getJasperDeviceType().equals("EMEA")){
 					startTime = JasperSetPoint.CalculatePeriodStartEMEA(testCase);
@@ -60,7 +61,7 @@ public class TriggerTimebasedScheduleCurrentNextPeriodUsingCHIL extends Keyword 
 					NextPeriodStartTime = JasperSetPoint.CalculateNextPeriodStartNAHB(testCase);
 				}	
 				if (chUtil.getConnection()) {
-					if (chUtil.TriggerTimNextPeriod(locationID, deviceID, CurrentPeriod, Period, startTime, NextPeriodStartTime)
+					if (chUtil.TriggerTimNextPeriod(locationID, deviceID, CurrentPeriod, Period, startTime, NextPeriodStartTime )
 							== 200) {
 						Keyword.ReportStep_Pass(testCase,
 								"Successfully Activated the period: "+exampleData.get(0).toUpperCase());

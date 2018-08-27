@@ -944,7 +944,7 @@ Examples:
 #|AUTO| Geofence base schedule| AWAY | 
 #|Heat only| Geofence base schedule| AWAY | 
 #|Cool only| Geofence base schedule| AWAY |
-#|Cool|   Geofence base schedule| SLEEP | 
+#|Cool|  Geofence base schedule| SLEEP | 
 #|HEAT| Geofence base schedule| SLEEP | 
 #|AUTO| Geofence base schedule| SLEEP | 
 #|Heat only| Geofence base schedule| SLEEP | 
@@ -1079,7 +1079,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold				@Automated
+@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold	@Automated
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
