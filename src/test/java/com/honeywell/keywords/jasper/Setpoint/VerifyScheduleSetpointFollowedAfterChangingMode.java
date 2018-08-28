@@ -78,6 +78,8 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 				String Overridesetpoint = "", currentStepperSetpoint = "", Overridesetpointvalue = "";
 				Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 				String Overridesetpointvalue1 = statInfo.getOverrrideSetpoint();
+				String jasperStatType = statInfo.getJasperDeviceType();
+				if (jasperStatType.equalsIgnoreCase("NA")) {
 				if(statInfo.getThermostatUnits().contains("Fahrenheit")) {
 					 currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
 					 Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
@@ -93,8 +95,27 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint: "+Overridesetpoint + " StepperSetpoint: "+currentStepperSetpoint);
 				}
-				break;
 			}
+				else{
+					if(statInfo.getThermostatUnits().contains("Fahrenheit")) {
+						 currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
+						 Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
+						}else{
+						Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
+						currentStepperSetpoint = currentStepperSetpoint1.toString(); 
+					}
+					if(Overridesetpoint.equals(currentStepperSetpoint)){
+						Keyword.ReportStep_Pass(testCase,
+								"Stepper stepoint is following current schedule setpoint:" +Overridesetpoint);
+					}else {
+						flag = false;
+						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint: "+Overridesetpoint + " StepperSetpoint: "+currentStepperSetpoint);
+					}
+				}
+				break;
+				}
+			
 			}
 		}
 			catch (Exception e) {

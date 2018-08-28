@@ -84,7 +84,7 @@ public class AdhocScreen extends MobileScreens {
 	}
 
 	public boolean isAdhocCancelVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AhocCancel");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdhocCancel");
 	}
 	
 	public boolean clickOnAdhocCancelButton() {

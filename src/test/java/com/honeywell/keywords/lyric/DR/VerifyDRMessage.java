@@ -209,7 +209,7 @@ public class VerifyDRMessage extends Keyword {
 
 				for (Entry<String, String> s : combinedMessage.entrySet()) {
 					System.out.println(s.getValue());
-					if (s.getKey().toUpperCase().contains("CANCELED BY USER")) {
+					if (s.getKey().toUpperCase().contains("USER HAS CANCELED")) {
 						if (s.getValue().contains(message)) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
