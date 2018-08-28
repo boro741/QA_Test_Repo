@@ -1027,8 +1027,6 @@ public class JasperAdhocOverride {
 									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
 									return true;
 								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Incorrect status displayed: " + currentText);
 									return false;
 								}
 							} else {
@@ -1038,8 +1036,6 @@ public class JasperAdhocOverride {
 									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
 									return true;
 								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Incorrect status displayed: " + currentText);
 									return false;
 								}
 							}
@@ -1084,8 +1080,6 @@ public class JasperAdhocOverride {
 									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
 									return true;
 								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Incorrect status displayed: " + currentText);
 									return false;
 								}
 							} else {
@@ -1095,8 +1089,6 @@ public class JasperAdhocOverride {
 									Keyword.ReportStep_Pass(testCase, "Scheduling status displayed as " + currentText);
 									return true;
 								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Incorrect status displayed: " + currentText);
 									return false;
 								}
 							}
@@ -1113,7 +1105,7 @@ public class JasperAdhocOverride {
 		} catch (TimeoutException e) {
 			isEventReceived = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"hold until did not complete after waiting for 15 minute");
+					"hold until did not complete after waiting for 10 minute");
 		} catch (Exception e) {
 			isEventReceived = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
