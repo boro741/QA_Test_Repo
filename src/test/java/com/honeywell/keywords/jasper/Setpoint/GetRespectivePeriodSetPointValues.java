@@ -52,8 +52,10 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 			Double Setpointvalue = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 			String currentsetpoint = Setpointvalue.toString();
 			String currentStepperSetpoint = "";
+			String jasperStatType = devInfo.getJasperDeviceType();
 			
 			if (currentScheduleType.equalsIgnoreCase("Time")) {
+				if (jasperStatType.equalsIgnoreCase("NA")) {
 				switch (exampleData.get(0).toUpperCase()) {
 				case "WAKE": 	{
 						if(Mode.equalsIgnoreCase("Cool")){
@@ -204,7 +206,92 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								}
 							}break;
 				}
-			}else if (currentScheduleType.equalsIgnoreCase("Geofence"))	{
+				}
+				else{
+				
+					switch (exampleData.get(0).toUpperCase()) {
+                    case "P1":     {
+                            String P1HeatSetpoint ="";
+                            String P1HeatSetpoint1 = defaultValues.get("EverydayWakeHeatTemp");
+                            if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
+                                currentStepperSetpoint = currentsetpoint.replace(".0", "");
+                                P1HeatSetpoint = P1HeatSetpoint1;
+                            }else{
+                                P1HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P1HeatSetpoint1);
+                                currentStepperSetpoint = currentsetpoint;
+                            }
+                            flag = flag & currentStepperSetpoint.equals(P1HeatSetpoint);
+                            if(flag)
+                                Keyword.ReportStep_Pass(testCase, "Displayed current period setpint, Current period setpoint:"+
+                                                        currentStepperSetpoint+"Period setpoint:+"+P1HeatSetpoint );
+                            else
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P1HeatSetpoint +""
+                                                        + " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
+                        
+                    }break;
+                    case "P2":     {
+                            String P2HeatSetpoint ="";
+                            String P2HeatSetpoint1 = defaultValues.get("EverydayAwayHeatTemp");
+                            if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
+                                currentStepperSetpoint = currentsetpoint.replace(".0", "");
+                                P2HeatSetpoint = P2HeatSetpoint1;
+                            }else{
+                                P2HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P2HeatSetpoint1);
+                                currentStepperSetpoint = currentsetpoint;
+                            }
+                            flag = flag & currentStepperSetpoint.equals(P2HeatSetpoint);
+                            if(flag)
+                                Keyword.ReportStep_Pass(testCase, "Displayed current period setpint, Current period setpoint:"+
+                                                        currentStepperSetpoint+"Period setpoint:+"+P2HeatSetpoint );
+                            else
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P2HeatSetpoint +""
+                                                        + " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
+                        
+                    }break;
+                    case "P4":     {
+                            String P4HeatSetpoint= "";
+                            String P4HeatSetpoint1 = defaultValues.get("EverydaySleepHeatTemp");
+                            if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
+                                currentStepperSetpoint = currentsetpoint.replace(".0", "");
+                                P4HeatSetpoint = P4HeatSetpoint1;
+                            }else{
+                                P4HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P4HeatSetpoint1);
+                                currentStepperSetpoint = currentsetpoint;
+                            }
+                            flag = flag & currentStepperSetpoint.equals(P4HeatSetpoint);
+                            if(flag)
+                                Keyword.ReportStep_Pass(testCase, "Displayed current period setpint, Current period setpoint:"+
+                                                        currentStepperSetpoint+"Period setpoint:+"+P4HeatSetpoint );
+                            else
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P4HeatSetpoint +""
+                                                        + " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
+                        
+                    }break;
+                    case "P3":     {
+                            String P3HeatSetpoint = "";
+                            String P3HeatSetpoint1 = defaultValues.get("EverydayHomeHeatTemp");
+                            if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
+                                currentStepperSetpoint = currentsetpoint.replace(".0", "");
+                                P3HeatSetpoint = P3HeatSetpoint1;
+                            }else{
+                                P3HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P3HeatSetpoint1);
+                                currentStepperSetpoint = currentsetpoint;
+                            }
+                            flag = flag & currentStepperSetpoint.equals(P3HeatSetpoint);
+                            if(flag)
+                                Keyword.ReportStep_Pass(testCase, "Displayed current period setpint, Current period setpoint:"+
+                                                        currentStepperSetpoint+"Period setpoint:+"+P3HeatSetpoint );
+                            else
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P3HeatSetpoint +""
+                                                        + " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
+                        
+                    }break;
+                }
+            }	
+					
+				}
+				
+				else if (currentScheduleType.equalsIgnoreCase("Geofence"))	{
 				switch (exampleData.get(0).toUpperCase()) {
 				case "AWAY":{
 									if(Mode.equalsIgnoreCase("Cool")){
@@ -332,4 +419,3 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 		return null;
 	}
 }
-

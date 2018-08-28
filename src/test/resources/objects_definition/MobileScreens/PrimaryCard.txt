@@ -51,4 +51,4 @@ TemperatureInOffModeForIOS	id	current_temp_value					id	--
 ModeIcon							id	DashBoard_Mode					
 TemporaryHold 	ID 	view_thermostat_adhoc_button	ID 	view_thermostat_adhoc_button	ID 	view_thermostat_adhoc_button							
 DrEventLabel	ID 	view_thermostat_dr_button	ID 	view_thermostat_dr_button	ID 	view_thermostat_dr_button	id	DREvent_Status	id	DREvent_Status	id	DREvent_Status	
-NoSchedule	XPATH	//*[@text='NO SCHEDULE']	XPATH	//*[@text='NO SCHEDULE']	XPATH	//*[@text='NO SCHEDULE']	Name	NO SCHEDULE	Name	NO SCHEDULE	Name	NO SCHEDULE	
+NoSchedule	XPATH	//*[@text='NO SCHEDULE' or @text='No Schedule']	XPATH	//*[@text='NO SCHEDULE' or @text='No Schedule']	XPATH	//*[@text='NO SCHEDULE' or @text='No Schedule']	Name	NO SCHEDULE	Name	NO SCHEDULE	Name	NO SCHEDULE	
