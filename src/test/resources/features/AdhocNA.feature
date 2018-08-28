@@ -1925,8 +1925,8 @@ Given user has <Mode> system mode
 And user thermostat is set to <Currentschedule> schedule
 When user launches and logs in to the Lyric application
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
-#When user has "PERMANENT" status
-#Then verify the "PERMANENT" on the "PRIMARY CARD" screen
+When user has "PERMANENT" status
+Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user creates "Same Every Day" schedule following specific <Period> time
 And verify the "Following schedule" on the "PRIMARY CARD" screen

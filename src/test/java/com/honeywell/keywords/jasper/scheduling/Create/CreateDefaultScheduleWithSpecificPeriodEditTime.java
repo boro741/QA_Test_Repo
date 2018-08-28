@@ -67,19 +67,15 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 			}
 
 			if (statInfo.getThermostatType().equals("Jasper")) {
-				List<String> allowedModes = statInfo.getAllowedModes();
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
-				String temp = " ";
 				
 				String startTime = "";
 				String endTime = "";
 				String WWstartTime = "";
 				String WWendTime = "";
-				
-				
-				
+	
 				if(statInfo.getJasperDeviceType().equals("EMEA")){
 					startTime = JasperSetPoint.CalculatePeriodStartEMEA(testCase);
 					endTime = JasperSetPoint.CalculatePeriodEndEMEA(testCase, 2);
@@ -151,18 +147,9 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 						.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Geofence");
 					
-					if (jasperStatType.toUpperCase().contains("EMEA")) {
-						String changedTime = JasperSchedulingUtils.convertiontime(testCase,startTime);
-						inputs.setInputValue(startTime, changedTime.toLowerCase().replaceAll("^0*", ""));
-						changedTime = JasperSchedulingUtils.convertiontime(testCase,endTime);
-						inputs.setInputValue(endTime, changedTime.toLowerCase().replaceAll("^0*", ""));
-					} else if (jasperStatType.toUpperCase().contains("NA")) {
-						String changedTime = JasperSchedulingUtils.convertiontime(testCase,startTime);
-						inputs.setInputValue(startTime, changedTime.toLowerCase().replaceAll("^0*", ""));
-						changedTime = JasperSchedulingUtils.convertiontime(testCase,endTime);
-						inputs.setInputValue(endTime, changedTime.toLowerCase().replaceAll("^0*", ""));
-					}
+			
 					flag = flag & JasperSchedulingUtils.createGeofenceBasedwithsleepspeicfictime(testCase, inputs,startTime, endTime, true);
+					
 				} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
@@ -178,55 +165,56 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 						inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
 					} else if (jasperStatType.toUpperCase().contains("NA")) {
-						switch (exampleData.get(1).toUpperCase()) {
-						case "WAKE": {
-											String changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
-									} break;
-						case "AWAY": {
-											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
-									} break;
-						case "HOME": {
-											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
-									} break;
-						case "SLEEP": {
-											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
-													
-									} break;
-		
-						
-						}				
+//						switch (exampleData.get(1).toUpperCase()) {
+//						case "WAKE": {
+//											String changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
+//									} break;
+//						case "AWAY": {
+//											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
+//									} break;
+//						case "HOME": {
+//											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
+//									} break;
+//						case "SLEEP": {
+//											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayHomeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//											inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
+//													
+//									} break;
+//		
+//						
+//						}				
+						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
 
 				} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
@@ -252,84 +240,85 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 						inputs.setInputValue(InputVariables.WEEKEND_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(),  WWstartTime, WWendTime);
 					} else if (jasperStatType.toUpperCase().contains("NA")) {
-						switch (exampleData.get(1).toUpperCase()) {
-						case "WAKE": {
-										String changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
-										inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 0);
-										inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 0);
-										inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 0);
-										inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
-										inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 0);
-										inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 0);
-										inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 0);
-										inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-										flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
-									} break;
-						case "AWAY": {
-												String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 0);
-												inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-												inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 0);
-												inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 0);
-												inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 0);
-												inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
-												inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 0);
-												inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 0);
-												inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-												flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
-									} break;
-						case "HOME": {
-											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-											inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
-											inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
-									} break;
-						case "SLEEP": {
-											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
-											inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 0);
-											inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
-											inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
-									} break;
-							}
+//						switch (exampleData.get(1).toUpperCase()) {
+//						case "WAKE": {
+//										String changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
+//										inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 0);
+//										inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 0);
+//										inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 0);
+//										inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
+//										inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 0);
+//										inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 0);
+//										inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 0);
+//										inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//										flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
+//									} break;
+//						case "AWAY": {
+//												String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 0);
+//												inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//												inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 0);
+//												inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 0);
+//												inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 0);
+//												inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
+//												inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 0);
+//												inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 0);
+//												inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//												flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
+//									} break;
+//						case "HOME": {
+//											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//											inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdaySleepTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
+//											inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
+//									} break;
+//						case "SLEEP": {
+//											String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKDAY_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayHomeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKDAY_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, startTime);
+//											inputs.setInputValue(InputVariables.WEEKDAY_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendWakeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKEND_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendAwayTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKEND_AWAY_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendHomeTime"), true, 0, 0);
+//											inputs.setInputValue(InputVariables.WEEKEND_HOME_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											changedTime = JasperSchedulingUtils.convertiontime(testCase, WWstartTime);
+//											inputs.setInputValue(InputVariables.WEEKEND_SLEEP_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
+//											flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
+//									} break;
+//							}
+						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
 						}
 					}
 			
