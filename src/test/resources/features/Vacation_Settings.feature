@@ -11,7 +11,7 @@ Feature: As an user I want to set the vacation period for my home so that my the
  Examples: 
       | settings		| 
       | active		| 
-      | inactive		| 
+ #     | inactive		| 
   
 @Vacations_VerifyGuideMessage			@Automated
 Scenario Outline: Verify guide Message when vacation is either turned off or on
@@ -34,7 +34,7 @@ Then user verifies vacation is "off" in <Vacation Option>
 Examples:
 		| Vacation Option		| Option				|
 		| Vacation				| Vacation			|
-		| solution card			| Vacation Until		|
+	#	| solution card			| Vacation Until		|
 		
 
 @Vacations_DefaultVacationTimeForNA			@Automated
@@ -82,6 +82,7 @@ And HBB device should not be listed under the review vacation settings section i
   
 @Vacations_MinimumBandwidthTimer	@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
+Given vacation mode is "inactive"
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
@@ -89,24 +90,26 @@ When user edits Vacation Timer
 Then Minimum bandwidth timer between from and to is "1" hour
   
 
-@Vacation_TimerValueIncreamentOf15EMEA			@Automated
+@Vacation_TimerValueIncreamentOf10EMEA			@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
-When vacation mode is "active"
-And user launches and logs in to the Lyric application
-And user navigates to "Vacation" screen from the "Dashboard" screen
-When user edits Vacation Timer 
-Then user is displayed with "From" date as "Current Time" nearest to "15"
-#Then user should be displayed from and to timer field incremental of "15" minutes
-
-
-@Vacation_TimerValueIncreamentOf10NA	@Automated
-Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
+Given vacation mode is "inactive"
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user edits Vacation Timer 
 Then user is displayed with "From" date as "Current Time" nearest to "10"
 #Then user should be displayed from and to timer field incremental of "10" minutes
+
+
+@Vacation_TimerValueIncreamentOf15NA	@Automated
+Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
+Given vacation mode is "inactive"
+When vacation mode is "active"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user edits Vacation Timer 
+Then user is displayed with "From" date as "Current Time" nearest to "15"
+#Then user should be displayed from and to timer field incremental of "15" minutes
   
   
 @Vacation_EditSetPoints			@Automated
@@ -131,7 +134,7 @@ Then user is displayed with stat status <Stats Value In Vacation> in the vacatio
 Examples: 
       | Condition	| Stats Value In Vacation	| 
       | On			| active					| 
-      | Off			| No Settings				| 
+   #   | Off			| No Settings				| 
       
 @Vacation_Enable_DisbaleIndividulaStat			@Automated
 Scenario Outline: As a user I want to enable Disable stat vacation individually
@@ -160,8 +163,8 @@ Then Vacation mode is "active" for the Stat
 Examples: 
       | Schedule Type 		| 
       | Time Based    		| 
-      | geofence based		| 
-      | No					| 
+   #   | geofence based		| 
+  #    | No					| 
   
 
 @Vacation_EditSetPointsFromPrimaryCard			@Automated

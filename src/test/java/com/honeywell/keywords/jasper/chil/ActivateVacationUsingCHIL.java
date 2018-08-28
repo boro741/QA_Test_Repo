@@ -98,7 +98,12 @@ public class ActivateVacationUsingCHIL extends Keyword {
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
-				CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
+				if(statInfo.getJasperDeviceType().equals("EMEA")){
+					CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
+				}else{
+					CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, currentUTCTime);
+				}
+
 				CHILUtil.endTime = JasperSetPoint.addDaysToDate(null, CHILUtil.startTime, 7);
 
 				if (chUtil.getConnection()) {
