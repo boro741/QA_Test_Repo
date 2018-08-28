@@ -769,7 +769,7 @@ Examples:
 @AdhocOverrideCreateTimebasescheduleOFFModeTemporaryHold		@Automated 
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user has <Mode> system mode
-And user thermostat is set to <Currentschedule> schedule
+And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user has "Temporary" status
@@ -784,7 +784,7 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode		| Currentschedule	| NEW Schedule		|
+| Mode		| CurrentSchedule	| NEW Schedule		|
 | Cool		| time base 			| Time base schedule	|
 #| HEAT		| time base 			| Time base schedule	|
 #| AUTO		| time base 			| Time base schedule	|
@@ -850,7 +850,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold @Automated
+@AdhocOverridetimebaseschedulingdeleteALLPERIODSTemporaryHold				@Automated
 Scenario Outline:  To verify delete all periods when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
@@ -937,18 +937,19 @@ Examples:
 |HEAT|Home|UserArrived| Using Home Settings | 
 |Cool|Away|UserDeparted| Using Away Settings |
 #|AUTO| Geofence base schedule| Using Home Settings | 
-#|Heat only| Geofence base schedule| HOME | 
-#|Cool only| Geofence base schedule| HOME |
-#|Cool|   Geofence base schedule| AWAY | 
-#|HEAT| Geofence base schedule| AWAY | 
-#|AUTO| Geofence base schedule| AWAY | 
-#|Heat only| Geofence base schedule| AWAY | 
-#|Cool only| Geofence base schedule| AWAY |
-#|Cool|  Geofence base schedule| SLEEP | 
-#|HEAT| Geofence base schedule| SLEEP | 
-#|AUTO| Geofence base schedule| SLEEP | 
-#|Heat only| Geofence base schedule| SLEEP | 
-#|Cool only| Geofence base schedule| SLEEP | 
+#|Heat only| Geofence base schedule| Using Home Settings | 
+#|Cool only| Geofence base schedule| Using Home Settings |
+#|Cool|   Geofence base schedule| Using Away Settings | 
+#|HEAT| Geofence base schedule| Using Away Settings | 
+#|AUTO| Geofence base schedule| Using Away Settings | 
+#|Heat only| Geofence base schedule| Using Away Settings | 
+#|Cool only| Geofence base schedule| Using Away Settings |
+#|Cool|  Geofence base schedule| Using Sleep Settings | 
+#|HEAT| Geofence base schedule| Using Sleep Settings | 
+#|AUTO| Geofence base schedule| Using Sleep Settings | 
+#|Heat only| Geofence base schedule| Using Sleep Settings | 
+#|Cool only| Geofence base schedule| Using Sleep Settings | 
+
 
 @AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime		@Automated
 Scenario Outline: To Verify create time base schedule in off mode  
@@ -988,7 +989,7 @@ Examples:
 @AdhocOverrideCreateTimebasescheduleAspecifictime			@Automated
 Scenario Outline:  To verify create time base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
-And user thermostat is set to <Currentschedule> schedule
+And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -999,7 +1000,7 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
 And user should be displayed with "respective period" setpoint value
 Examples:
-|Mode| Currentschedule | NEW Schedule |
+|Mode| CurrentSchedule | NEW Schedule |
 |Cool| time base | Time base schedule |
 #|HEAT|time base |Time base schedule |
 #|AUTO|time base |Time base schedule |
@@ -1079,7 +1080,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold	@Automated
+@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold			@Automated
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule

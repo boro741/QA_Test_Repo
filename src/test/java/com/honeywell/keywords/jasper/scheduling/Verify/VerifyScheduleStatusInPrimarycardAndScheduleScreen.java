@@ -143,7 +143,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "USING HOME SETTINGS": {
 						SchedulingScreen HOME = new SchedulingScreen(testCase);
-						flag = flag & HOME.isUsingHomeVisible(10);
+						flag = flag & HOME.isUsingHomeVisible(20);
 						if(flag)
 						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else
