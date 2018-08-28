@@ -1431,7 +1431,8 @@ public class CHILUtil implements AutoCloseable {
 	}
 	
 	public int TriggerTimNextPeriod(long locationID, String deviceID,String CurrentPeriod, String Period ,String previousStartTime, String NextPeriodStartTime,String jasperStatType) {
-		int result = -1;		
+		int result = -1;	
+		startTime = previousStartTime;
 		try {
 			if (isConnected) {
 				String headerData = " ";

@@ -536,7 +536,7 @@ When user changes system mode to <Mode>
 And  user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 #And user should be displayed with adhocoverride <Period> setpoint value
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 
 Examples:
 | Mode			| Period		| 
@@ -617,7 +617,7 @@ Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
 When user has "Temporary" status
 #And user should be displayed with adhocoverride <Period> setpoint value
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 
 Examples:
 | Mode	| Period| scheduling 					| Geofence		|
@@ -949,7 +949,6 @@ Examples:
 #|AUTO| Geofence base schedule| Using Sleep Settings | 
 #|Heat only| Geofence base schedule| Using Sleep Settings | 
 #|Cool only| Geofence base schedule| Using Sleep Settings | 
-
 
 @AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime		@Automated
 Scenario Outline: To Verify create time base schedule in off mode  
