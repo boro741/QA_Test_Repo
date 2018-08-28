@@ -937,18 +937,19 @@ Examples:
 |HEAT|Home|UserArrived| Using Home Settings | 
 |Cool|Away|UserDeparted| Using Away Settings |
 #|AUTO| Geofence base schedule| Using Home Settings | 
-#|Heat only| Geofence base schedule| HOME | 
-#|Cool only| Geofence base schedule| HOME |
-#|Cool|   Geofence base schedule| AWAY | 
-#|HEAT| Geofence base schedule| AWAY | 
-#|AUTO| Geofence base schedule| AWAY | 
-#|Heat only| Geofence base schedule| AWAY | 
-#|Cool only| Geofence base schedule| AWAY |
-#|Cool|  Geofence base schedule| SLEEP | 
-#|HEAT| Geofence base schedule| SLEEP | 
-#|AUTO| Geofence base schedule| SLEEP | 
-#|Heat only| Geofence base schedule| SLEEP | 
-#|Cool only| Geofence base schedule| SLEEP | 
+#|Heat only| Geofence base schedule| Using Home Settings | 
+#|Cool only| Geofence base schedule| Using Home Settings |
+#|Cool|   Geofence base schedule| Using Away Settings | 
+#|HEAT| Geofence base schedule| Using Away Settings | 
+#|AUTO| Geofence base schedule| Using Away Settings | 
+#|Heat only| Geofence base schedule| Using Away Settings | 
+#|Cool only| Geofence base schedule| Using Away Settings |
+#|Cool|  Geofence base schedule| Using Sleep Settings | 
+#|HEAT| Geofence base schedule| Using Sleep Settings | 
+#|AUTO| Geofence base schedule| Using Sleep Settings | 
+#|Heat only| Geofence base schedule| Using Sleep Settings | 
+#|Cool only| Geofence base schedule| Using Sleep Settings | 
+
 
 @AdhocOverrideCreateTimebasescheduleOFFModeAspecifictime		@Automated
 Scenario Outline: To Verify create time base schedule in off mode  

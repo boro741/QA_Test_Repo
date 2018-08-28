@@ -146,19 +146,12 @@ Examples:
 |Period|Geofence| Schedule status |
 |Home|UserArrived| Using Home Settings | 
 |Away|UserDeparted| Using Away Settings |
-#| Geofence base schedule| Using Home Settings | 
-#| Geofence base schedule| HOME | 
-#| Geofence base schedule| HOME |
-#|   Geofence base schedule| AWAY | 
-#| Geofence base schedule| AWAY | 
-#| Geofence base schedule| AWAY | 
-#|Heat only| Geofence base schedule| AWAY | 
-#|Cool only| Geofence base schedule| AWAY |
-#|Cool|  Geofence base schedule| SLEEP | 
-#|HEAT| Geofence base schedule| SLEEP | 
-#|AUTO| Geofence base schedule| SLEEP | 
-#|Heat only| Geofence base schedule| SLEEP | 
-#|Cool only| Geofence base schedule| SLEEP | 
+#|Home| Geofence base schedule| Using Home Settings | 
+#|Away| Geofence base schedule| Using Away Settings | 
+#|Heat only| Geofence base schedule| Using Away Settings | 
+#|HEAT| Geofence base schedule| Using Sleep Settings | 
+#|Heat only| Geofence base schedule| Using Sleep Settings |
+ 
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleduplicateEMEA			@Automated
 Scenario Outline:  To verify following base switching  mode is changed for "Heat , auto ,cool" system with auto changeover enabled
@@ -264,7 +257,6 @@ Examples:
 |Heat | 
 
 
-#JasperNA
 @AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromDashboardEMEA			@Automated
 Scenario:  I want to verify time Temporary override Schedule from solution card for systems Heat with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
 Given user has "Heat" system mode 
@@ -329,7 +321,6 @@ Examples:
 |HEAT | SLEEP |HOME OR AWAY |
 
 
-#JasperNA
 @AdhocOverrideTimeschedulingChangemodeHeatOffTemporaryHoldEMEA			@Automated
 Scenario Outline:  To verify time base switching  mode is changed for "Heat, Off" system with auto changeover enabled
 Given user has <Mode> system mode 
@@ -353,7 +344,6 @@ Examples:
 | Heat	| P4 		|
 
 
-#JasperNA
 @AdhocOverrideCreateTimebasescheduleTemporaryHoldEMEA			@Automated
 Scenario Outline:  To verify create time base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
@@ -376,7 +366,6 @@ Examples:
 #| Heat only	| geofence based  	| Time base schedule 	|
 
 
-#JasperNA
 @AdhocOverrideCreateTimebasescheduleOFFModeTemporaryHoldEMEA			@Automated 
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user has <Mode> system mode
@@ -402,7 +391,6 @@ Examples:
 #| Heat only	| geofence based  	| Time base schedule 	|
 
 
-#JasperNA
 @AdhocOverrideCreateGeofencebasecheduleTemporaryHoldEMEA			@Automated
 Scenario Outline:  To verify creates geofence base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode
@@ -424,7 +412,6 @@ Examples:
 #| Heat	| Away		| UserDeparted		| Geofence base schedule		| Using Sleep Settings	| With		| #Not automatable
 
 
-#JasperNA
 @AdhocOverrideCreateGeofencebasescheduleOFFTemporaryHoldEMEA			@Automated
 Scenario Outline: To Verify create geofence schedule in off mode
 Given user has <Mode> system mode
@@ -448,7 +435,6 @@ Examples:
 #| Heat	| Away		| UserDeparted		| Geofence base schedule		| Using Sleep Settings	| With		| #Not automatable
 
 
-#JasperNA
 @AdhocOverrideCreateGeofencebasescheduleOFFAspecifictimeEMEA			@Automated
 Scenario Outline: To Verify create geofence schedule in off mode
 Given user has <Mode> system mode
