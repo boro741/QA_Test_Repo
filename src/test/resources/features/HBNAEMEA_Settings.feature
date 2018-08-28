@@ -12,10 +12,10 @@ Then user should be displayed with the following "Thermostat Settings" options:
       | ThermostatSettings			|
       | Manage Alerts				|
       | Set Filter Reminder			|
-      |	Set up HomeKit & Siri		|
+     #|	Set up HomeKit & Siri		|
       | Adaptive Recovery			|	
       | Auto Changeover				|
-      | Ventilation					|
+     #| Ventilation					|
       | Emergency Heat				| 
       | Reset Wi-Fi					| 
       | Thermostat Configuration 	| 
