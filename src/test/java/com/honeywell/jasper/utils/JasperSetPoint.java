@@ -484,6 +484,27 @@ public class JasperSetPoint {
 		}
 		return formattedTime;
 	}
+	public static String CalculateNextPeriodENDEMEA(TestCases testCase) {
+		String formattedTime = "";
+		try {
+			Calendar EndTime = Calendar.getInstance();
+			int minutes = EndTime.get(Calendar.MINUTE);
+			int mod = minutes % 10;
+			int diff = 10 - mod;
+			int add = diff + 10;
+			EndTime.add(Calendar.MINUTE, add);
+			EndTime.set(Calendar.SECOND, 0);
+			Date date = EndTime.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			formattedTime = dateFormat.format(date);
+		} catch (Exception e) {
+			formattedTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return formattedTime;
+	}
 
 	/**
 	 * <p>
