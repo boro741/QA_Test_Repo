@@ -2767,6 +2767,7 @@ public class JasperSchedulingUtils {
 		SchedulingScreen ss = new SchedulingScreen(testCase);
 		boolean flag = true;
 		try {
+
 			String timeToSet = " ";
 			String time24hours = " ";
 			String hours = time.split(":")[0];
@@ -5804,6 +5805,7 @@ public class JasperSchedulingUtils {
 						coolTemp = String.valueOf(targetCoolTemp);
 						heatTemp = String.valueOf(targetHeatTemp);
 					}
+
 
 					/*
 					 * if(statInfo.getThermostatUnits().equalsIgnoreCase(
@@ -12522,8 +12524,7 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint,
-								element);
+						flag = flag & setTimeSchedulePeriodTimeAndSetPoints(testCase, inputs, periodTimeandSetPoint, element);
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
@@ -13296,7 +13297,7 @@ public class JasperSchedulingUtils {
 				flag = flag & ss.clickOnEverydayScheduleButton();
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
-					for (String mode : modes) {
+					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (Period.equalsIgnoreCase("WAKE")) {
@@ -13310,8 +13311,7 @@ public class JasperSchedulingUtils {
 						} else if (Period.equalsIgnoreCase("HOME")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
 							element = ss.getEverydayHomeElement();
-							
-							
+						
 						} else if (mode.equals("SLEEP")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
 							element = ss.getEverydaySleepElement();
@@ -13337,10 +13337,10 @@ public class JasperSchedulingUtils {
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-					}
+				
 				}else {
 					String[] modes = { "1", "2", "3", "4" };
-					for (String mode : modes) {
+					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("1")) {
@@ -13394,7 +13394,7 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 			
-					}
+					
 					}
 			} else	if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
@@ -13402,7 +13402,7 @@ public class JasperSchedulingUtils {
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
-					for (String mode : modes) {
+					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("Wake_Weekday")) {
@@ -13581,11 +13581,11 @@ public class JasperSchedulingUtils {
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-					}
+					
 				} else {
 					String[] modes = { "1_Weekday", "2_Weekday", "3_Weekday", "4_Weekday", "1_Weekend", "2_Weekend",
 							"3_Weekend", "4_Weekend" };
-					for (String mode : modes) {
+					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 						
 						List<String> allowedModes = statInfo.getAllowedModes();
@@ -13779,12 +13779,12 @@ public class JasperSchedulingUtils {
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-					}
+					
 				}
 			}
 			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
 			// "Time");
-			flag = flag & ss.clickOnDoneButton();
+		//	flag = flag & ss.clickOnDoneButton();
 			if (ss.isConfirmChangeButtonVisible(10)) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (ss.isConfirmChangeButtonVisible(5)) {
@@ -13850,10 +13850,13 @@ public class JasperSchedulingUtils {
 				if (ss.isCopyButtonVisible(3)) {
 					flag = flag & ss.clickOnCopyButton();
 				}
-			} else {
+				} else {
 				if (ss.isSkipButtonVisible(3)) {
 					flag = flag & ss.clickOnSkipButton();
 				}
+			}
+			if (ss.isConfirmChangeButtonVisible(4)){
+				ss.clickOnConfirmChangeButton();
 			}
 			if (ss.isTimeScheduleButtonVisible(10)) {
 				Keyword.ReportStep_Pass(testCase, "Create Schedule : Successfully navigated to Primary Card");

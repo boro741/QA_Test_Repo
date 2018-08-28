@@ -1950,22 +1950,8 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-|Cool| geofence based | Home | 
-#|Cool| geofence based | AWAY |
-#|Cool| geofence based | Sleep | 
-#|Cool| geofence based | Wake |  
-#|Heat| geofence based| Home | 
-##|Heat| geofence based| AWAY |
-#|Heat| geofence based | Sleep | 
-#|Heat| geofence based | Wake | 
-#|Cool Only| geofence based | Home | 
-#|Cool Only| geofence based | AWAY |
-#|Cool Only| geofence based | Sleep | 
-#|Cool Only| geofence based | Wake | 
-#|Heat Only| geofence based | Home | 
-#|Heat Only| geofence based | AWAY |
-#|Heat Only| geofence based | Sleep | 
-#|Heat Only| geofence based | Wake | 
+
+
 
 
 @AdhocOverrideCreateTimebasescheduleOFFModePermanentHold @Automated 
@@ -2003,22 +1989,7 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-|Cool| geofence based | Home | 
-#|Cool| geofence based | AWAY |
-#|Cool| geofence based | Sleep | 
-#|Cool| geofence based | Wake |  
-#|Heat| geofence based| Home | 
-##|Heat| geofence based| AWAY |
-#|Heat| geofence based | Sleep | 
-#|Heat| geofence based | Wake | 
-#|Cool Only| geofence based | Home | 
-#|Cool Only| geofence based | AWAY |
-#|Cool Only| geofence based | Sleep | 
-#|Cool Only| geofence based | Wake | 
-#|Heat Only| geofence based | Home | 
-#|Heat Only| geofence based | AWAY |
-#|Heat Only| geofence based | Sleep | 
-#|Heat Only| geofence based | Wake | 
+
 
 
 #JasperNA
