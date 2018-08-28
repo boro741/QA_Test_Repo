@@ -61,7 +61,7 @@ public class TriggerTimebasedScheduleCurrentNextPeriodUsingCHIL extends Keyword 
 					NextPeriodStartTime = JasperSetPoint.CalculateNextPeriodStartNAHB(testCase);
 				}	
 				if (chUtil.getConnection()) {
-					if (chUtil.TriggerTimNextPeriod(locationID, deviceID, CurrentPeriod, Period, startTime, NextPeriodStartTime )
+					if (chUtil.TriggerTimNextPeriod(locationID, deviceID, CurrentPeriod, Period, startTime, NextPeriodStartTime,jasperStatType )
 							== 200) {
 						Keyword.ReportStep_Pass(testCase,
 								"Successfully Activated the period: "+exampleData.get(0).toUpperCase());
