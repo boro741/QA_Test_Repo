@@ -1008,6 +1008,11 @@ public class PrimaryCard extends MobileScreens {
 			return false;
 		}
 	}
+	
+	public boolean isEmergencyHeatOptionNotDisplayed() {
+		return (!MobileUtils.isMobElementExists(objectDefinition, testCase, "EmergencyHeatToggle", 5));
+		
+	}
 
 	public boolean isUPStepperElementEnabled() {
 		WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "StatTempStepperUp");

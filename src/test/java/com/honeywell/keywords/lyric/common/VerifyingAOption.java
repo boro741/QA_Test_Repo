@@ -632,6 +632,19 @@ public class VerifyingAOption extends Keyword {
 				}
 				break;
 			}
+			case "SHOULD NOT BE DISPLAYED": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				flag = flag & thermo.isEmergencyHeatOptionNotDisplayed();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is updated");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " Value is not updated");
+				}
+				break;
+				
+			}
 			}
 		} else if (expectedScreen.get(1).equalsIgnoreCase("MIN set temperature on DASHBOARD")) {
 			switch (expectedScreen.get(0).toUpperCase()) {

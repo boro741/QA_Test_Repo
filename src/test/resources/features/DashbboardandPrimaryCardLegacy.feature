@@ -1093,7 +1093,7 @@ And user should be displayed with the "thermostat Dashboard" Screen
 Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user should be displayed with the "thermostat Solution Card" screen
 And user navigates to "THERMOSTAT SETTINGS" screen from the "THERMOSTAT SOLUTION CARD" screen
-And user "should be disabled" with the "Emergency heat" option
+And user "should not be displayed" with the "Emergency heat" option
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT SETTINGS" screen 
 Then user "should not be updated" with the "HEAT" option
 Examples:
