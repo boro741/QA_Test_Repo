@@ -399,17 +399,18 @@ Then "Sound Detection" value should be updated to "Low" on "Camera Settings" scr
       
 @SoundSettingsEnableCameraMicrophone      @P4        @UIAutomatable
 Scenario: As a user I should be able to retain sound settings on turning on microphone from off
-Given user camera is set to "on" through CHIL
-When user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application
+When user camera is set to "ON"
+Then user navigates to "Camera Settings" screen from the "Dashboard" screen
 And user changes the "Sound Sensitivity" to "Low"
-And user navigates to "Camera Settings" screen from the "Dashboard" screen
-And user disables the "Camera Microphone"
-Then user should be displayed with "Warning" popup
+And user changes the "Camera Microphone" to "Off"
+Then user should receive a "Turn Off Camera Microphone" popup
 When user "confirms" the "warning" popup
-Then user should be displayed with "Camera Microphone" disabled
-And user should be displayed with "Sound Detection" grayed out
-When user enables the "Camera Microphone"
-Then user should be displayed with "Sound Sensitivity" to "Low"
+Then the following "Camera Settings" options should be disabled: 
+|Camera Microphone|
+|Sound Detection  |
+When user changes the "Camera Microphone" to "ON"
+Then "Sound Detection" value should be updated to "Low" on "Camera Settings" screen
       
         
 @CameraSettingsVerifyNightVisionSettings        @P2        @UIAutomatable
