@@ -1,8 +1,12 @@
 package com.honeywell.keywords.jasper.Setpoint;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
+
+
+
+import java.util.concurrent.TimeUnit;
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -12,6 +16,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
+
 
 public class GetRespectivePeriodSetPointValues extends Keyword {
 
@@ -45,14 +50,24 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 			if(currentScheduleType.equalsIgnoreCase("Timed")){
 				currentScheduleType="Time";
 			}
-			
 			HashMap<String, String> defaultValues = new HashMap<String, String>();
 			defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, currentScheduleType);
 			
-			Double Setpointvalue = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-			String currentsetpoint = Setpointvalue.toString();
+			Double Setpointvalue = null ;
+			String currentsetpoint = "";
 			String currentStepperSetpoint = "";
 			String jasperStatType = devInfo.getJasperDeviceType();
+			
+			flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
+			if (flag) {
+				Setpointvalue = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+				
+				} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"geofence Temporary Hold status not displayed" + Setpointvalue);
+					}
+			currentsetpoint = Setpointvalue.toString();
+			TimeUnit.SECONDS.sleep(5);
 			
 			if (currentScheduleType.equalsIgnoreCase("Time")) {
 				if (jasperStatType.equalsIgnoreCase("NA")) {

@@ -354,56 +354,7 @@ public class JasperAdhocOverride {
 		return flag;
 	}
 
-	// public static boolean VerificationofVacation(TestCases testCase,
-	// TestCaseInputs inputs) {
-	// boolean flag = true;
-	// try {
-	// DeviceInformation statInfo = new DeviceInformation(testCase,inputs);
-	//
-	// AdhocScreen Adhoc = new AdhocScreen(testCase);
-	// flag = flag & Adhoc.isAdhocStatusVisible();
-	// String AdhocText = Adhoc.getAdhocStatusElement();
-	// String overrideTemp = "";
-	// flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
-	// if(flag)
-	// {
-	// overrideTemp = statInfo.getOverrrideSetpoint();
-	// }else
-	// {
-	// Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "geofence
-	// Temporary Hold status not displayed"+ overrideTemp);
-	// }
-	// if(statInfo.getThermostatUnits().contains("Fahrenheit"))
-	// {
-	// String overrideTemp1 = overrideTemp.replace(".0", "");
-	// flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp1 + "\u00b0
-	// PERMANENTLY" );
-	// } else
-	// {
-	// overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase,
-	// overrideTemp);
-	// flag = flag & AdhocText.equalsIgnoreCase("HOLD "+ overrideTemp + "\u00b0
-	// PERMANENTLY" );
-	// }
-	// if(flag)
-	// {
-	// Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status
-	// displayed");
-	// }else
-	// {
-	// Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Timebase
-	// schedule Permanent Hold status not displayed"+ overrideTemp);
-	// }
-	// }
-	// }catch (Exception e) {
-	// flag = false;
-	// Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
-	// FailType.FUNCTIONAL_FAILURE,
-	// "Add start time : Error Occured : " + e.getMessage());
-	// }
-	// return flag;
-	// }
-
+	
 	public static boolean verifySetPointsAfterScheduleResume(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
