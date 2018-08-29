@@ -1118,17 +1118,25 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		} else {
 			attribute = "value";
 		}
-		if(settingName.toLowerCase().contains("homekit") && testCase.getPlatform().toUpperCase().contains("ANDROID")){
+		if (settingName.toLowerCase().contains("homekit") && testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return true;
+		}
+		if (settingName.equalsIgnoreCase("Manage Alerts")) {
+			return isManageAlertExist();
 		}
 		if (settingName.equalsIgnoreCase("Key Fob") || settingName.equalsIgnoreCase("Sensors")
 				|| settingName.equalsIgnoreCase("Adaptive Recovery")) {
 			return LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, attribute, settingName);
+		} else if (settingName.equalsIgnoreCase("Set Filter Reminder")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				return LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, attribute, settingName);
+			} else {
+				settingName = "Filter Reminder";
+				return LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, attribute, settingName);
+			}
 		} else {
 			return LyricUtils.scrollToElementUsingExactAttributeValue(testCase, attribute, settingName);
-
 		}
-
 	}
 
 	public boolean verifyParticularEntryExitDelayOptionVisible(String option) throws Exception {
