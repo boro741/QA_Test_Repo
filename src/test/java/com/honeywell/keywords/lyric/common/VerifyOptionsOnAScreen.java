@@ -31,7 +31,6 @@ import java.util.Random;
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
 
-
 public class VerifyOptionsOnAScreen extends Keyword {
 
 	private TestCases testCase;
@@ -58,8 +57,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	@KeywordStep(gherkins = "^user should be displayed with the following (.+) options:$")
 	public boolean keywordSteps() throws KeywordException {
 		CHILUtil chUtil = null;
-		DeviceInformation deviceInfo=null;
-		
+		DeviceInformation deviceInfo = null;
+
 		try {
 			chUtil = new CHILUtil(inputs);
 		} catch (Exception e1) {
@@ -234,44 +233,62 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			break;
 		}
 
-	
-        case "CAMERA CONFIGURATION": {
-        	CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
-            for (int i = 0; i < data.getSize(); i++) {
-                  String fieldTobeVerified = data.getData(i, "Details");
-                  try {
-                         if (ts.isCameraConfigurationsOptionVisible(fieldTobeVerified)) {
-                                Keyword.ReportStep_Pass(testCase,
-                                              "Settings: '" + fieldTobeVerified + "' is present on the Camera Configuration screen");
-                         } else {
-                                flag = false;
-                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
-                                              + "' is not present on the Camera Configuration screen");
-                         }
-                  } catch (Exception e) {
-                         flag = false;
-                         Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-                  }
-            }
-            break;
-     }
+		case "CAMERA CONFIGURATION": {
+			CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldTobeVerified = data.getData(i, "Details");
+				try {
+					if (ts.isCameraConfigurationsOptionVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Camera Configuration screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+								+ "' is not present on the Camera Configuration screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
 
 		case "THERMOSTAT SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "ThermostatSettings");
-				try {
-					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Settings screen");
-					} else {
+				if (fieldTobeVerified.equals("Manage Alerts")) {
+					try {
+						if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)
+								|| bs.verifyParticularBaseStationSettingsVisible("Manage alerts")) {
+							Keyword.ReportStep_Pass(testCase, "Settings: '" + fieldTobeVerified
+									+ "' is present on the Thermostat Settings screen");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '"
+									+ fieldTobeVerified + "' is not present on the Thermostat Settings screen");
+						}
+					} catch (Exception e) {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
-								+ "' is not present on the Thermostat Settings screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured: " + e.getMessage());
 					}
-				} catch (Exception e) {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				} else {
+					try {
+						if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+							Keyword.ReportStep_Pass(testCase, "Settings: '" + fieldTobeVerified
+									+ "' is present on the Thermostat Settings screen");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '"
+									+ fieldTobeVerified + "' is not present on the Thermostat Settings screen");
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured: " + e.getMessage());
+					}
 				}
 
 			}
@@ -790,8 +807,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
-		case "Sound Sensitivity Settings":{
+
+		case "Sound Sensitivity Settings": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "Settings");
@@ -801,9 +818,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								+ "' is present in the list of Options in Sound Screen");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Camera Sound Option: '" + fieldToBeVerified
-										+ "' is not present in the list of Options in Sound Screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Camera Sound Option: '"
+								+ fieldToBeVerified + "' is not present in the list of Options in Sound Screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -812,9 +828,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
-		case "SOUND": 
-		case "SOUND DETECTION":{
+
+		case "SOUND":
+		case "SOUND DETECTION": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "SoundOptions");
@@ -824,9 +840,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								+ "' is present in the list of Options in Sound Screen");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Thermostat Sound Option: '" + fieldToBeVerified
-										+ "' is not present in the list of Options in Sound Screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Thermostat Sound Option: '"
+								+ fieldToBeVerified + "' is not present in the list of Options in Sound Screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -913,153 +928,154 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "ALERTS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			ArrayList<String> lstData = new ArrayList<String>();
-			for (int i = 0; i < data.getSize(); i++)
-			{
+			for (int i = 0; i < data.getSize(); i++) {
 				lstData.add(data.getData(i, "Alerts"));
 			}
-			
-				if(lstData.contains("Doors and Windows")) {
-					//Check for sensor and if not present add
-					 deviceInfo = new DeviceInformation(testCase, inputs);
+
+			if (lstData.contains("Doors and Windows")) {
+				// Check for sensor and if not present add
+				deviceInfo = new DeviceInformation(testCase, inputs);
+				try {
+					ArrayList<String> getDASSensors = deviceInfo.getDASSensorIDsInADevice();
+					if (getDASSensors.size() <= 0) {
 						try {
-							ArrayList<String> getDASSensors=deviceInfo.getDASSensorIDsInADevice();
-							if(getDASSensors.size()<=0) {
-								try {
-								if (chUtil.getConnection()) {
-									String serialNumber=java.util.UUID.randomUUID().toString();
-									serialNumber=serialNumber.substring(0, serialNumber.indexOf("-")+2).replace("-",":");
-									String payload="{\"config\":{\"identifiers\":{\"id\":\"Sensor Serial No\",\"serialNumber\":\"Sensor Serial No\",\"shortAddress\":\"BridgeId\",\"macAddress\":\"3234454\"},\"modelName\":\"Model name\",\"versions\":{\"hardware\":\"1.0.0\",\"swPackage\":\"1.0.0\"},\"encryptionKey\":\"000102030405060708090A0B0C0D0E0F\",\"expand\":{\"PeripheralConnectedToInterface\":[{\"identifiers\":{\"id\":\"7\"}}],\"PeripheralAssignedDevice\":[{\"identifiers\":{\"id\":\"00158D000052DC20:1\"},\"type\":\"Input\",\"_subType_id\":[\"889\",\"Contact\"],\"supervisionInterval\":\"PT30M\",\"extension\":[{\"name\":\"isomPIRConfig\",\"sensitivity\":50}]}]},\"extension\":[{\"name\":\"wiselinkPeripheralInfo\",\"RadioCycleValue\":10,\"FastCycleValue\":1,\"NonceKey\":\"000000000000000000000000000000000\",\"ClientID\":\"8787\"}]},\"state\":{\"commState\":{\"state\":[\"normal\"],\"linkQuality\":100},\"batteryState\":{\"state\":[\"normal\"],\"batteryLevel\":60}}}";
-									payload= payload.replace("Sensor Serial No", serialNumber).replace("BridgeId",String.valueOf(new Random().nextInt(100)));
-									if(chUtil.postSensorDiscovery(LyricUtils.locationID,deviceInfo.getDeviceID(), true)==202) {
-										Keyword.ReportStep_Pass(testCase, "Sensor Discovery enabled through CHIL");
-									} else {
-										flag = false;
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-												"Failed to enable Sensor through CHIL");
-									}	
-									
-									chUtil.FeedDataIntoIOTHub(deviceInfo.getDeviceID().replace("LSC-", ""),payload,"POST ISOM/DeviceMgmt/Peripherals/fullEntity","DAS","D-Change");
-								     Thread.sleep(5000);
-									getDASSensors=deviceInfo.getDASSensorIDsInADevice();
-									if (chUtil.postSensor(LyricUtils.locationID, deviceInfo.getDeviceID(), 1,serialNumber) == 202) {
-										Keyword.ReportStep_Pass(testCase, "Sensor Created through CHIL");
-									} else {
-										flag = false;
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-												"Failed to create Sensor through CHIL");
-									}
-									if(chUtil.postSensorDiscovery(LyricUtils.locationID,deviceInfo.getDeviceID(), false)==202) {
-										Keyword.ReportStep_Pass(testCase, "Sensor Discovery disabled through CHIL");
-									} else {
-										flag = false;
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-												"Failed to disable Sensor through CHIL");
-									}	
-									
-								}
-								}
-								catch (Exception e) {
-									// TODO Auto-generated catch block
+							if (chUtil.getConnection()) {
+								String serialNumber = java.util.UUID.randomUUID().toString();
+								serialNumber = serialNumber.substring(0, serialNumber.indexOf("-") + 2).replace("-",
+										":");
+								String payload = "{\"config\":{\"identifiers\":{\"id\":\"Sensor Serial No\",\"serialNumber\":\"Sensor Serial No\",\"shortAddress\":\"BridgeId\",\"macAddress\":\"3234454\"},\"modelName\":\"Model name\",\"versions\":{\"hardware\":\"1.0.0\",\"swPackage\":\"1.0.0\"},\"encryptionKey\":\"000102030405060708090A0B0C0D0E0F\",\"expand\":{\"PeripheralConnectedToInterface\":[{\"identifiers\":{\"id\":\"7\"}}],\"PeripheralAssignedDevice\":[{\"identifiers\":{\"id\":\"00158D000052DC20:1\"},\"type\":\"Input\",\"_subType_id\":[\"889\",\"Contact\"],\"supervisionInterval\":\"PT30M\",\"extension\":[{\"name\":\"isomPIRConfig\",\"sensitivity\":50}]}]},\"extension\":[{\"name\":\"wiselinkPeripheralInfo\",\"RadioCycleValue\":10,\"FastCycleValue\":1,\"NonceKey\":\"000000000000000000000000000000000\",\"ClientID\":\"8787\"}]},\"state\":{\"commState\":{\"state\":[\"normal\"],\"linkQuality\":100},\"batteryState\":{\"state\":[\"normal\"],\"batteryLevel\":60}}}";
+								payload = payload.replace("Sensor Serial No", serialNumber).replace("BridgeId",
+										String.valueOf(new Random().nextInt(100)));
+								if (chUtil.postSensorDiscovery(LyricUtils.locationID, deviceInfo.getDeviceID(),
+										true) == 202) {
+									Keyword.ReportStep_Pass(testCase, "Sensor Discovery enabled through CHIL");
+								} else {
 									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to enable Sensor through CHIL");
 								}
-								
+
+								chUtil.FeedDataIntoIOTHub(deviceInfo.getDeviceID().replace("LSC-", ""), payload,
+										"POST ISOM/DeviceMgmt/Peripherals/fullEntity", "DAS", "D-Change");
+								Thread.sleep(5000);
+								getDASSensors = deviceInfo.getDASSensorIDsInADevice();
+								if (chUtil.postSensor(LyricUtils.locationID, deviceInfo.getDeviceID(), 1,
+										serialNumber) == 202) {
+									Keyword.ReportStep_Pass(testCase, "Sensor Created through CHIL");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to create Sensor through CHIL");
+								}
+								if (chUtil.postSensorDiscovery(LyricUtils.locationID, deviceInfo.getDeviceID(),
+										false) == 202) {
+									Keyword.ReportStep_Pass(testCase, "Sensor Discovery disabled through CHIL");
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to disable Sensor through CHIL");
+								}
+
 							}
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							flag = false;
-							e.printStackTrace();
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error Occured : " + e.getMessage());
 						}
-						try {
-							if(!bs.clickOnBackButton()) {
-								Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
-										"Manage Alerts: Unable to navigate to Back Screen after sensor creation");
-							}
-							if(!bs.clickOnManageAlerts()) {
-								Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
-										"Manage Alerts: Unable to click on Manage Alerts Screen after sensor creation");
-							}
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					
+
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					flag = false;
+					e.printStackTrace();
 				}
-				else if(!lstData.contains("Doors and Windows")) {
-					///check for sensor in chil get and delete
-					 deviceInfo = new DeviceInformation(testCase, inputs);
-						try {
-							
-							ArrayList<String> getDASSensors=deviceInfo.getDASSensorIDsInADevice();
-							if(getDASSensors.size()>0) {
-								for (String sensorID : getDASSensors){ 
-								try {
+				try {
+					if (!bs.clickOnBackButton()) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alerts: Unable to navigate to Back Screen after sensor creation");
+					}
+					if (!bs.clickOnManageAlerts()) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alerts: Unable to click on Manage Alerts Screen after sensor creation");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else if (!lstData.contains("Doors and Windows")) {
+				/// check for sensor in chil get and delete
+				deviceInfo = new DeviceInformation(testCase, inputs);
+				try {
+
+					ArrayList<String> getDASSensors = deviceInfo.getDASSensorIDsInADevice();
+					if (getDASSensors.size() > 0) {
+						for (String sensorID : getDASSensors) {
+							try {
 								if (chUtil.getConnection()) {
-									if (chUtil.deleteSensor(LyricUtils.locationID, deviceInfo.getDeviceID(), sensorID, 1) == 202) {
+									if (chUtil.deleteSensor(LyricUtils.locationID, deviceInfo.getDeviceID(), sensorID,
+											1) == 202) {
 										Keyword.ReportStep_Pass(testCase, "Sensor deleted through CHIL");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"Failed to delete Sensor through CHIL");
 									}
-									
-								}
-								}
-								catch (Exception e) {
-									// TODO Auto-generated catch block
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
-								}
-								}
-							}
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							flag = false;
-							e.printStackTrace();
-						}
-						
-						//This will execute when the requirement file does not have Doors and Windows data
-							try {
-								if(!bs.clickOnBackButton()) {
-									Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
-											"Manage Alerts: Unable to navigate to Back Screen after sensor creation");
-								}
-								if(!bs.clickOnManageAlerts()) {
-									Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
-											"Manage Alerts: Unable to click on Manage Alerts Screen after sensor creation");
-								}
-								if (!bs.isDoorAndWindowsToggleVisible()) {
-									Keyword.ReportStep_Pass(testCase,
-											"Manage Alerts: Doors and Windows is not present on the DAS Manage Alerts screen for without sensors");
-								}
-								else {
-									Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,
-											"Manage Alerts: Doors and Windows is not present on the DAS Manage Alerts screen for without sensors");
+
 								}
 							} catch (Exception e) {
+								// TODO Auto-generated catch block
 								flag = false;
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error Occured : " + e.getMessage());
 							}
-								
 						}
-			
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					flag = false;
+					e.printStackTrace();
+				}
+
+				// This will execute when the requirement file does not have Doors and Windows
+				// data
+				try {
+					if (!bs.clickOnBackButton()) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alerts: Unable to navigate to Back Screen after sensor creation");
+					}
+					if (!bs.clickOnManageAlerts()) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alerts: Unable to click on Manage Alerts Screen after sensor creation");
+					}
+					if (!bs.isDoorAndWindowsToggleVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"Manage Alerts: Doors and Windows is not present on the DAS Manage Alerts screen for without sensors");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alerts: Doors and Windows is not present on the DAS Manage Alerts screen for without sensors");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+
+			}
+
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Alerts");
-				
+
 				try {
 					if (bs.isElementEnabled(fieldTobeVerified)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Manage Alerts: '" + fieldTobeVerified + "' is present on the DAS Manage Alerts screen");
+						Keyword.ReportStep_Pass(testCase, "Manage Alerts: '" + fieldTobeVerified
+								+ "' is present on the DAS Manage Alerts screen");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Manage Alerts: '" + fieldTobeVerified + "' is not present on the DAS Manage Alerts screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage Alerts: '"
+								+ fieldTobeVerified + "' is not present on the DAS Manage Alerts screen");
 					}
-					
-					
-				
-				
+
 				} catch (Exception e) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
@@ -1067,8 +1083,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 
 			}
 			break;
-		} 
-		case "CAMERA STATUS":{
+		}
+		case "CAMERA STATUS": {
 			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
@@ -1081,13 +1097,13 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
 				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
-			
+
 				}
-		}
+			}
 			break;
 		}
-		
-		case "SOUND EVENT STATUS":{
+
+		case "SOUND EVENT STATUS": {
 			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
@@ -1100,13 +1116,13 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
 				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
-			
+
 				}
-		}
+			}
 			break;
 		}
-		
-		case "MOTION EVENT STATUS":{
+
+		case "MOTION EVENT STATUS": {
 			CameraSettingsScreen st = new CameraSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
@@ -1119,20 +1135,20 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								fieldTobeVerified + " is not present on the " + expectedScreen.get(0));
 					}
 				} else if (fieldTobeVerified.equalsIgnoreCase("Email Notification label Not Found")) {
-			
+
 				}
-		}
+			}
 			break;
 		}
-		
+
 		case "THERMOSTAT CONFIGURATION": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "ThermostatConfigurationOptions");
 				try {
 					if (ts.verifyParticularThermostatConfigurationVisible(fieldTobeVerified)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Configuration screen");
+						Keyword.ReportStep_Pass(testCase, "Settings: '" + fieldTobeVerified
+								+ "' is present on the Thermostat Configuration screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
@@ -1166,36 +1182,37 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		case "ACTION SHEET":  {
+		case "ACTION SHEET": {
 			AdhocScreen ActionSheet = new AdhocScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++)
-			{
+			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Action Sheet");
 				switch (parameter.toUpperCase()) {
 				case "A SPECIFIC TIME": {
-					flag = flag &  ActionSheet.isSpecificHoldVisible();
-			   		break;
-						}
+					flag = flag & ActionSheet.isSpecificHoldVisible();
+					break;
+				}
 				case "PERMANENT": {
-								flag = flag & ActionSheet.isPermanentlyVisible();
-								break;
-						}
+					flag = flag & ActionSheet.isPermanentlyVisible();
+					break;
+				}
 				case "REMOVE HOLD": {
-								flag = flag & ActionSheet.isRemoveAdhocVisible();
-								break;
-						}	
+					flag = flag & ActionSheet.isRemoveAdhocVisible();
+					break;
+				}
 				case "CANCEL": {
-								flag = flag & ActionSheet.isAdhocCancelVisible();
-								break;
-						}		
+					flag = flag & ActionSheet.isAdhocCancelVisible();
+					break;
+				}
 				}
 				if (flag) {
-							Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, " The " + parameter + " has not found");
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							" The " + parameter + " has not found");
 				}
 				flag = true;
-		}break;
+			}
+			break;
 		}
 		default: {
 			flag = false;
