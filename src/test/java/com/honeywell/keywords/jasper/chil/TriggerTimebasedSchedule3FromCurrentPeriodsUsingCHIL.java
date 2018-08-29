@@ -44,6 +44,7 @@ public class TriggerTimebasedSchedule3FromCurrentPeriodsUsingCHIL extends Keywor
 			CHILUtil chUtil = new CHILUtil(inputs);
 			LocationInformation locInfo = new LocationInformation(testCase,inputs);
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+			String jasperStatType = devInfo.getJasperDeviceType();
 			long locationID = locInfo.getLocationID();
 			String deviceID = devInfo.getDeviceID();
 			String CurrentPeriodstartTime = "";
@@ -65,7 +66,7 @@ public class TriggerTimebasedSchedule3FromCurrentPeriodsUsingCHIL extends Keywor
 					NextNextPeriodStartTime = JasperSetPoint.CalculateNextNextPeriodStartNAHB(testCase);
 				}	
 				if (chUtil.getConnection()) {
-					if (chUtil.TriggerTimNextPeriod(locationID, deviceID,CurrentPeriod,NextPeriod,NextNextPeriod,CurrentPeriodstartTime, NextPeriodStartTime, NextNextPeriodStartTime)
+					if (chUtil.TriggerTimNextPeriod(locationID, deviceID,CurrentPeriod,NextPeriod,NextNextPeriod,CurrentPeriodstartTime, NextPeriodStartTime, NextNextPeriodStartTime,jasperStatType)
 							== 200) {
 						Keyword.ReportStep_Pass(testCase,
 								"Successfully Activated the period: "+exampleData.get(0).toUpperCase());
