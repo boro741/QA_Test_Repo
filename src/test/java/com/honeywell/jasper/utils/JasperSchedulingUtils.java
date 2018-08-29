@@ -6826,7 +6826,7 @@ public class JasperSchedulingUtils {
 			ss.clickOnTimeScheduleButton();
 		}
 
-		if (scheduleType.equalsIgnoreCase("time")) {
+		if (scheduleType.equalsIgnoreCase("time")||scheduleType.equalsIgnoreCase("time based")) {
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying time based schedule on Primary Card **************************");
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -12318,6 +12318,8 @@ public class JasperSchedulingUtils {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Heat Stepper Value : Heat Set Point not set to max set point after trying to set it to a value above maximum set points");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Expected Heat Stepper Value:"+heatTemp+" displayed value is "+heatSetPoint );
 				}
 			} else if (verifyMinimumOrMaximum.equalsIgnoreCase("Maximum")) {
 				String setPoints = minMaxSetPoints.get("MaxHeat");

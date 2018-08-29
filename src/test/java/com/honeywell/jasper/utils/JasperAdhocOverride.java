@@ -220,9 +220,18 @@ public class JasperAdhocOverride {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			if (statInfo.getThermoStatScheduleType().equalsIgnoreCase("Timed")) {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
+				String AdhocText = "";
+				String next = "";
 				flag = flag & Adhoc.isAdhocStatusVisible();
-				String AdhocText = Adhoc.getAdhocStatusElement();
-				String next = statInfo.getNextPeriodTime();
+				
+				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				if (flag) {
+					 AdhocText = Adhoc.getAdhocStatusElement();
+					 next = statInfo.getNextPeriodTime();
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to fetch Adhoc status, AdhocTect :" + AdhocText + "Next period time:"+ next);
+				}
 				String nextperiod = "";
 
 				if (AdhocText.toUpperCase().contains("HOLD UNTIL")) {

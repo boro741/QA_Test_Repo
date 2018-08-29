@@ -47,6 +47,7 @@ public class HoldScheduleUntil extends Keyword {
 				String currentTime ;
 				if (inputs.isRunningOn("Saucelabs")) {
 					currentTime= LyricUtils.getDeviceTime(testCase, inputs);
+					ReportStep_Pass(testCase,"Current suace lab time"+currentTime);
 					androidDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm a");
 				}else{
 					currentTime = JasperAdhocOverride.getAndroidDeviceTime(testCase).trim();
@@ -54,6 +55,7 @@ public class HoldScheduleUntil extends Keyword {
 				}
 				ReportStep_Pass(testCase, "Current time on device is "+currentTime);
 				Date date = androidDateFormat.parse(currentTime);
+				
 				Calendar c1 = Calendar.getInstance();
 				Calendar c2 = Calendar.getInstance();
 				String day = "";
@@ -63,6 +65,8 @@ public class HoldScheduleUntil extends Keyword {
 					c2.add(Calendar.HOUR, 14);
 					c2.set(Calendar.MINUTE, 0);
 				} else if (exampleData.get(0).equals("lesser than 12 hours")) {
+					ReportStep_Pass(testCase,"Current instance "+c2.getTime());
+					ReportStep_Pass(testCase, "Current hour : "+Calendar.HOUR);
 					c2.add(Calendar.HOUR, 2);
 					c2.set(Calendar.MINUTE, 0);
 					ReportStep_Pass(testCase, "Added 2 hrs");
@@ -77,7 +81,9 @@ public class HoldScheduleUntil extends Keyword {
 				} else {
 					day = "Today";
 				}
+				ReportStep_Pass(testCase,"After adding time"+c2.getTime());
 				String time = time12Format.format(c2.getTime());
+				ReportStep_Pass(testCase,"After converting to 12 hr format"+time);
 				flag = flag & JasperAdhocOverride.setHoldUntilTime(testCase, inputs, day, time);
 				if (flag) {
 					inputs.setInputValue(InputVariables.HOLD_UNTIL_TIME, time);
