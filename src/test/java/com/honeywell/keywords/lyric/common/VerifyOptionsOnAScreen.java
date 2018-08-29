@@ -258,39 +258,19 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "ThermostatSettings");
-				if (fieldTobeVerified.equals("Manage Alerts")) {
-					try {
-						if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)
-								|| bs.verifyParticularBaseStationSettingsVisible("Manage alerts")) {
-							Keyword.ReportStep_Pass(testCase, "Settings: '" + fieldTobeVerified
-									+ "' is present on the Thermostat Settings screen");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '"
-									+ fieldTobeVerified + "' is not present on the Thermostat Settings screen");
-						}
-					} catch (Exception e) {
+				try {
+					if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Settings: '" + fieldTobeVerified + "' is present on the Thermostat Settings screen");
+					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occured: " + e.getMessage());
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '" + fieldTobeVerified
+								+ "' is not present on the Thermostat Settings screen");
 					}
-				} else {
-					try {
-						if (bs.verifyParticularBaseStationSettingsVisible(fieldTobeVerified)) {
-							Keyword.ReportStep_Pass(testCase, "Settings: '" + fieldTobeVerified
-									+ "' is present on the Thermostat Settings screen");
-						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings: '"
-									+ fieldTobeVerified + "' is not present on the Thermostat Settings screen");
-						}
-					} catch (Exception e) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occured: " + e.getMessage());
-					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
-
 			}
 			break;
 		}
