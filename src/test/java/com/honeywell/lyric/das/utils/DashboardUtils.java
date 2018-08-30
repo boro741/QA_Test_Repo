@@ -52,7 +52,7 @@ public class DashboardUtils {
 				break;
 			}
 		}
-		if (cm.isGotitButtonVisible(1)) {
+		if (cm.isCoachMarkVisible(5)) {
 			if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 				return true;
 			} else {
