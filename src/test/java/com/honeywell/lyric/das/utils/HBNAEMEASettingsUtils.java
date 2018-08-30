@@ -32,8 +32,9 @@ public class HBNAEMEASettingsUtils {
 	 * The waitForProgressBarToComplete method waits until the progress bar closes.
 	 * </p>
 	 *
-	 * Instance of the TestCases class used to create the testCase.
-	 * testCase instance.
+	 * Instance of the TestCases class used to create the testCase. testCase
+	 * instance.
+	 * 
 	 * @return boolean Returns 'true' if the progress bar disappears. Returns
 	 *         'false' if the progress bar is still displayed.
 	 */
@@ -292,10 +293,7 @@ public class HBNAEMEASettingsUtils {
 					}
 				}
 			} else {
-
-				// iOS
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
-
 					belowValueApp = Integer
 							.parseInt(ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption).split(",")[0]
 									.replaceAll("\u00B0", ""));
@@ -308,27 +306,15 @@ public class HBNAEMEASettingsUtils {
 						try {
 							Keyword.ReportStep_Pass(testCase,
 									"Scroll to Below Temperature value: " + thermostatCurrentTempValue);
-
-							if (ts.isBackButtonVisible(1)) {
-								ts.clickOnBackButton();
-								if (ts.isManageAlertsLabelVisible(10)) {
-									ts.clickOnManageAlertsLabel();
-									if (ts.isThermostatTempAlertRangeVisible()) {
-										ts.clickOnThermostatTempAlertRange();
-									}
-								}
-							}
-							flag = flag & ts.setValueInBelowAboveTempRange(alertBelowTempRangeOption,
-									String.valueOf(thermostatCurrentTempValue));
-
-							element = testCase.getMobileDriver().scrollTo(String.valueOf(thermostatCurrentTempValue));
-							if (element != null) {
-								element.click();
+							flag = ts.setTempValueForTemperatureRange(alertBelowTempRangeOption,
+									thermostatCurrentTempValue);
+							if (flag) {
+								// element.click();
 								Keyword.ReportStep_Pass(testCase,
-										"Below Temperature value is set to: " + thermostatCurrentTempValue);
-								belowValueApp = Integer
-										.parseInt(ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
-												.split(String.valueOf(degree))[0]);
+										"Below Humidity value is set to: " + thermostatCurrentTempValue);
+								belowValueApp = Integer.parseInt(
+										ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption).split(",")[0]
+												.replaceAll("\u00B0", ""));
 								if ((belowValueApp == thermostatCurrentTempValue) && (ts.isBackButtonVisible(1))) {
 									ts.clickOnBackButton();
 									waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
@@ -336,10 +322,13 @@ public class HBNAEMEASettingsUtils {
 										ts.clickOnManageAlertsLabel();
 										if (ts.isThermostatTempAlertRangeVisible()) {
 											ts.clickOnThermostatTempAlertRange();
-											if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
-												belowValueApp = Integer.parseInt(
-														ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
-																.split(String.valueOf(degree))[0]);
+										}
+										if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
+											belowValueApp = Integer.parseInt(
+													ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
+															.split(",")[0].replaceAll("\u00B0", ""));
+											if ((belowValueApp == thermostatCurrentTempValue)
+													&& (ts.isBackButtonVisible(1))) {
 												if ((belowValueApp == thermostatCurrentTempValue)) {
 													do {
 														belowValue = r.nextInt((98 - 39) + 1) + 39;
@@ -350,6 +339,7 @@ public class HBNAEMEASettingsUtils {
 																.split(String.valueOf(degree))[0]);
 														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
 																.split(String.valueOf(degree))[0]);
+
 														if (belowValueApp >= aboveValueApp) {
 															flag = false;
 															Keyword.ReportStep_Fail(testCase,
@@ -365,15 +355,13 @@ public class HBNAEMEASettingsUtils {
 																			+ " and displayed Above Temperature value: "
 																			+ aboveValueApp);
 														}
-														ts.clickOnBelowAboveTempAlertRangeOption(
-																alertBelowTempRangeOption);
 														try {
 															Keyword.ReportStep_Pass(testCase,
 																	"Scroll to Below Temperature value: " + belowValue);
-															element = testCase.getMobileDriver()
-																	.scrollTo(String.valueOf(belowValue));
-															if (element != null) {
-																element.click();
+															flag = ts.setTempValueForTemperatureRange(
+																	alertBelowTempRangeOption, belowValue);
+															if (flag) {
+																// element.click();
 																inputs.setInputValue("INDOORTEMP_BELOW_VALUE",
 																		belowValue);
 																Keyword.ReportStep_Pass(testCase,
@@ -388,10 +376,12 @@ public class HBNAEMEASettingsUtils {
 																	"Error message: " + e.getMessage());
 														}
 														if (ts.isIndoorTempRangeValueVisible()) {
-															belowValueApp = Integer.parseInt(ts.getBelowTempRangeValue()
-																	.split(String.valueOf(degree))[0]);
-															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
-																	.split(String.valueOf(degree))[0]);
+															belowValueApp = Integer
+																	.parseInt(ts.getBelowTempRangeValue().split(",")[0]
+																			.replaceAll("\u00B0", ""));
+															aboveValueApp = Integer
+																	.parseInt(ts.getAboveTempRangeValue().split(",")[0]
+																			.replaceAll("\u00B0", ""));
 															Keyword.ReportStep_Pass(testCase,
 																	"[AfterChange]Displayed Below Temperature value is: "
 																			+ belowValueApp
@@ -426,12 +416,11 @@ public class HBNAEMEASettingsUtils {
 							do {
 								belowValue = r.nextInt((98 - 39) + 1) + 39;
 							} while (belowValue <= thermostatCurrentTempValue);
-							ts.clickOnBelowAboveTempAlertRangeOption(alertBelowTempRangeOption);
 							try {
 								Keyword.ReportStep_Pass(testCase, "Scroll to Below Temperature value: " + belowValue);
-								element = testCase.getMobileDriver().scrollTo(String.valueOf(belowValue));
-								if (element != null) {
-									element.click();
+								flag = ts.setTempValueForTemperatureRange(alertBelowTempRangeOption, belowValue);
+								if (flag) {
+									// element.click();
 									inputs.setInputValue("INDOORTEMP_BELOW_VALUE", belowValue);
 									Keyword.ReportStep_Pass(testCase, "Below Temperature value is set to: "
 											+ inputs.getInputValue("INDOORTEMP_BELOW_VALUE"));
@@ -461,7 +450,6 @@ public class HBNAEMEASettingsUtils {
 						}
 					}
 				}
-
 			}
 		} else {
 			double belowValue = 0, belowValueApp = 0, aboveValueApp = 0;
@@ -623,8 +611,162 @@ public class HBNAEMEASettingsUtils {
 					}
 				}
 			} else {
+				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
+					belowValueApp = Integer
+							.parseInt(ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption).split(",")[0]
+									.replaceAll("\u00B0", ""));
+					if (belowValueApp != thermostatCurrentTempValue) {
+						Keyword.ReportStep_Pass(testCase,
+								"Below Temperature value: " + belowValueApp
+										+ " is not equal to current thermostat temperature value: "
+										+ thermostatCurrentTempValue + ". Updating Below Temperature value: "
+										+ belowValueApp + " to " + thermostatCurrentTempValue);
+						try {
+							Keyword.ReportStep_Pass(testCase,
+									"Scroll to Below Temperature value: " + thermostatCurrentTempValue);
+							flag = ts.setTempValueForTemperatureRange(alertBelowTempRangeOption,
+									thermostatCurrentTempValue);
+							if (flag) {
+								// element.click();
+								Keyword.ReportStep_Pass(testCase,
+										"Below Temperature value is set to: " + thermostatCurrentTempValue);
+								belowValueApp = Integer.parseInt(
+										ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption).split(",")[0]
+												.replaceAll("\u00B0", ""));
+								if ((belowValueApp == thermostatCurrentTempValue) && (ts.isBackButtonVisible(1))) {
+									ts.clickOnBackButton();
+									waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+									if (ts.isManageAlertsLabelVisible(10)) {
+										ts.clickOnManageAlertsLabel();
+										if (ts.isThermostatTempAlertRangeVisible()) {
+											ts.clickOnThermostatTempAlertRange();
+											if (ts.isBelowAboveTempAlertRangeOptionVisible(alertBelowTempRangeOption)) {
+												belowValueApp = Integer.parseInt(
+														ts.getBelowAboveTempAlertRangeValue(alertBelowTempRangeOption)
+																.split(",")[0].replaceAll("\u00B0", ""));
+												if ((belowValueApp == thermostatCurrentTempValue)) {
+													do {
+														belowValue = (r.nextInt((365 - 40) + 1) + 40) / 10.0;
+														belowValue = Math.round(belowValue * 2) / 2.0;
+													} while (belowValue < thermostatCurrentTempValue);
+													if (ts.isBelowAboveTempAlertRangeOptionVisible(
+															alertBelowTempRangeOption)) {
+														belowValueApp = Integer.parseInt(ts.getBelowTempRangeValue()
+																.split(String.valueOf(degree))[0]);
+														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
+																.split(String.valueOf(degree))[0]);
+														if (belowValueApp >= aboveValueApp) {
+															flag = false;
+															Keyword.ReportStep_Fail(testCase,
+																	FailType.FUNCTIONAL_FAILURE,
+																	"Displayed Below Temperature value in app is: "
+																			+ belowValueApp
+																			+ " Displayed Below Temperature value in app is "
+																			+ aboveValueApp);
+														} else {
+															Keyword.ReportStep_Pass(testCase,
+																	"[BeforeChange] Below Temperature value is: "
+																			+ belowValueApp
+																			+ " and Above Temperature value is: "
+																			+ aboveValueApp);
+														}
+														try {
+															Keyword.ReportStep_Pass(testCase,
+																	"Scroll to Below Temperature value: " + belowValue);
+															flag = ts.setTempValueForTemperatureRange(
+																	alertBelowTempRangeOption, belowValue);
+															if (flag) {
+																// element.click();
+																inputs.setInputValue("INDOORTEMP_BELOW_VALUE",
+																		belowValue);
+																Keyword.ReportStep_Pass(testCase,
+																		"Below Temperature value is set to: "
+																				+ inputs.getInputValue(
+																						"INDOORTEMP_BELOW_VALUE"));
+															}
+														} catch (Exception e) {
+															flag = false;
+															Keyword.ReportStep_Fail(testCase,
+																	FailType.FUNCTIONAL_FAILURE,
+																	"Error message: " + e.getMessage());
+														}
+														if (ts.isIndoorTempRangeValueVisible()) {
+															belowValueApp = Integer
+																	.parseInt(ts.getBelowTempRangeValue().split(",")[0]
+																			.replaceAll("\u00B0", ""));
+															aboveValueApp = Integer
+																	.parseInt(ts.getAboveTempRangeValue().split(",")[0]
+																			.replaceAll("\u00B0", ""));
+															Keyword.ReportStep_Pass(testCase,
+																	"[AfterChange] Displayed Below Temperature value is: "
+																			+ belowValueApp
+																			+ " and Above Temperature value is: "
+																			+ aboveValueApp);
+														}
+														if (ts.isBackButtonVisible(1)) {
+															ts.clickOnBackButton();
+															waitForProgressBarToComplete(testCase,
+																	"LOADING SPINNER BAR", 3);
+														}
 
-				// iOS
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Below Temperature value: " + belowValueApp
+										+ " is equal to current thermostat temperature value: "
+										+ thermostatCurrentTempValue + ". Updating Below Temperature value: "
+										+ belowValueApp + " to a new value greater than " + thermostatCurrentTempValue);
+						try {
+							do {
+								belowValue = (r.nextInt((365 - 40) + 1) + 40) / 10.0;
+								belowValue = Math.round(belowValue * 2) / 2.0;
+							} while (belowValue <= thermostatCurrentTempValue);
+							try {
+								Keyword.ReportStep_Pass(testCase, "Scroll to Below Temperature value: " + belowValue);
+								flag = ts.setTempValueForTemperatureRange(alertBelowTempRangeOption, belowValue);
+								if (flag) {
+									// element.click();
+									inputs.setInputValue("INDOORTEMP_BELOW_VALUE", belowValue);
+									Keyword.ReportStep_Pass(testCase, "Below Temperature value is set to: "
+											+ inputs.getInputValue("INDOORTEMP_BELOW_VALUE"));
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error message: " + e.getMessage());
+							}
+							if (ts.isIndoorTempRangeValueVisible()) {
+								belowValueApp = Integer
+										.parseInt(ts.getBelowTempRangeValue().split(",")[0].replaceAll("\u00B0", ""));
+								aboveValueApp = Integer
+										.parseInt(ts.getAboveTempRangeValue().split(",")[0].replaceAll("\u00B0", ""));
+								Keyword.ReportStep_Pass(testCase,
+										"[AfterChange]Displayed Below Temperature value is: " + belowValueApp
+												+ " and Displayed Above Temperature value is: " + aboveValueApp);
+							}
+							if (ts.isBackButtonVisible(1)) {
+								ts.clickOnBackButton();
+								waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+							}
+
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+					}
+				}
 			}
 		}
 		return flag;
@@ -812,22 +954,171 @@ public class HBNAEMEASettingsUtils {
 					}
 				}
 			} else {
-
-				// iOS
-			}
-		} else {
-			double aboveValue = 0, belowValueApp = 0, aboveValueApp = 0;
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
-					belowValueApp = Integer.parseInt(ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
-							.split(String.valueOf(degree))[0]);
-					if (belowValueApp != thermostatCurrentTempValue) {
+					aboveValueApp = Integer
+							.parseInt(ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption).split(",")[0]
+									.replaceAll("\u00B0", ""));
+					if (aboveValueApp != thermostatCurrentTempValue) {
 						Keyword.ReportStep_Pass(testCase,
 								"Above Temperature value: " + aboveValueApp
 										+ " is not equal to current thermostat temperature value: "
 										+ thermostatCurrentTempValue + ". Updating Above Temperature value: "
 										+ aboveValueApp + " to " + thermostatCurrentTempValue);
+						try {
+							Keyword.ReportStep_Pass(testCase,
+									"Scroll to Above Temperature value: " + thermostatCurrentTempValue);
+							flag = ts.setTempValueForTemperatureRange(alertAboveTempRangeOption,
+									thermostatCurrentTempValue);
+							if (flag) {
+								// element.click();
+								Keyword.ReportStep_Pass(testCase,
+										"Above Temperature value is set to: " + thermostatCurrentTempValue);
+								aboveValueApp = Integer.parseInt(
+										ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption).split(",")[0]
+												.replaceAll("\u00B0", ""));
+								if ((aboveValueApp == thermostatCurrentTempValue) && (ts.isBackButtonVisible(1))) {
+									ts.clickOnBackButton();
+									waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+									if (ts.isManageAlertsLabelVisible(10)) {
+										ts.clickOnManageAlertsLabel();
+										if (ts.isThermostatTempAlertRangeVisible()) {
+											ts.clickOnThermostatTempAlertRange();
+											if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
+												aboveValueApp = Integer.parseInt(
+														ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
+																.split(",")[0].replaceAll("\u00B0", ""));
+												if ((aboveValueApp == thermostatCurrentTempValue)) {
+													do {
+														aboveValue = r.nextInt((99 - 40) + 1) + 40;
+													} while (aboveValue > thermostatCurrentTempValue);
+													if (ts.isBelowAboveTempAlertRangeOptionVisible(
+															alertAboveTempRangeOption)) {
+														belowValueApp = Integer.parseInt(ts.getBelowTempRangeValue()
+																.split(String.valueOf(degree))[0]);
+														aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
+																.split(String.valueOf(degree))[0]);
+														if (belowValueApp >= aboveValueApp) {
+															flag = false;
+															Keyword.ReportStep_Fail(testCase,
+																	FailType.FUNCTIONAL_FAILURE,
+																	"Displayed Below Temperature value in the app is: "
+																			+ belowValueApp
+																			+ " and Displayed Above Temperature value in the app is: "
+																			+ aboveValueApp);
+														} else {
+															Keyword.ReportStep_Pass(testCase,
+																	"[BeforeChange]Below Temperature value displayed is: "
+																			+ belowValueApp
+																			+ " and Above Temperature value displayed is: "
+																			+ aboveValueApp);
+														}
+														try {
+															Keyword.ReportStep_Pass(testCase,
+																	"Scroll to Above Temperature value: " + aboveValue);
+															flag = ts.setTempValueForTemperatureRange(
+																	alertAboveTempRangeOption, aboveValue);
+															if (flag) {
+																// element.click();
+																inputs.setInputValue("INDOORTEMP_ABOVE_VALUE",
+																		aboveValue);
+																Keyword.ReportStep_Pass(testCase,
+																		"Above Temperature value is set to: "
+																				+ inputs.getInputValue(
+																						"INDOORTEMP_ABOVE_VALUE"));
+															}
+														} catch (Exception e) {
+															flag = false;
+															Keyword.ReportStep_Fail(testCase,
+																	FailType.FUNCTIONAL_FAILURE,
+																	"Error message: " + e.getMessage());
+														}
+														if (ts.isIndoorTempRangeValueVisible()) {
+															belowValueApp = Integer.parseInt(ts.getBelowTempRangeValue()
+																	.split(String.valueOf(degree))[0]);
+															aboveValueApp = Integer.parseInt(ts.getAboveTempRangeValue()
+																	.split(String.valueOf(degree))[0]);
+															Keyword.ReportStep_Pass(testCase,
+																	"[AfterChange]Below Temperature value displayed is: "
+																			+ belowValueApp
+																			+ " and Above Temperature value displayed is: "
+																			+ aboveValueApp);
+														}
+														if (ts.isBackButtonVisible(1)) {
+															ts.clickOnBackButton();
+															waitForProgressBarToComplete(testCase,
+																	"LOADING SPINNER BAR", 3);
+														}
 
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Above Temperature value: " + aboveValueApp
+										+ " is equal to current thermostat temperature value: "
+										+ thermostatCurrentTempValue + ". Updating Above Temperature value: "
+										+ aboveValueApp + " to a new value lower than " + thermostatCurrentTempValue);
+						try {
+							do {
+								aboveValue = r.nextInt((99 - 40) + 1) + 40;
+							} while (aboveValue > thermostatCurrentTempValue);
+							try {
+								Keyword.ReportStep_Pass(testCase, "Scroll to Above Temperature value: " + aboveValue);
+								flag = ts.setTempValueForTemperatureRange(alertAboveTempRangeOption, aboveValue);
+								if (flag) {
+									// element.click();
+									inputs.setInputValue("INDOORTEMP_ABOVE_VALUE", aboveValue);
+									Keyword.ReportStep_Pass(testCase, "Above Temperature value is set to: "
+											+ inputs.getInputValue("INDOORTEMP_ABOVE_VALUE"));
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error message: " + e.getMessage());
+							}
+							if (ts.isIndoorTempRangeValueVisible()) {
+								belowValueApp = Integer
+										.parseInt(ts.getBelowTempRangeValue().split(String.valueOf(degree))[0]);
+								aboveValueApp = Integer
+										.parseInt(ts.getAboveTempRangeValue().split(String.valueOf(degree))[0]);
+								Keyword.ReportStep_Pass(testCase,
+										"[AfterChange] Below Temperature value displayed is: " + belowValueApp
+												+ " and Above Temperature value displayed is: " + aboveValueApp);
+							}
+							if (ts.isBackButtonVisible(1)) {
+								ts.clickOnBackButton();
+								waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+							}
+
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+					}
+				}
+			}
+		} else {
+			double aboveValue = 0, belowValueApp = 0, aboveValueApp = 0;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
+					aboveValueApp = Integer.parseInt(ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
+							.split(String.valueOf(degree))[0]);
+					if (aboveValueApp != thermostatCurrentTempValue) {
+						Keyword.ReportStep_Pass(testCase,
+								"Above Temperature value: " + aboveValueApp
+										+ " is not equal to current thermostat temperature value: "
+										+ thermostatCurrentTempValue + ". Updating Above Temperature value: "
+										+ aboveValueApp + " to " + thermostatCurrentTempValue);
 						ts.clickOnBelowAboveTempAlertRangeOption(alertAboveTempRangeOption);
 						try {
 							Keyword.ReportStep_Pass(testCase,
@@ -976,8 +1267,164 @@ public class HBNAEMEASettingsUtils {
 					}
 				}
 			} else {
+				if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
+					aboveValueApp = Integer
+							.parseInt(ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption).split(",")[0]
+									.replaceAll("\u00B0", ""));
+					if (aboveValueApp != thermostatCurrentTempValue) {
+						Keyword.ReportStep_Pass(testCase,
+								"Above Temperature value: " + aboveValueApp
+										+ " is not equal to current thermostat temperature value: "
+										+ thermostatCurrentTempValue + ". Updating Above Temperature value: "
+										+ aboveValueApp + " to " + thermostatCurrentTempValue);
+						try {
+							Keyword.ReportStep_Pass(testCase,
+									"Scroll to Above Temperature value: " + thermostatCurrentTempValue);
+							flag = ts.setTempValueForTemperatureRange(alertAboveTempRangeOption,
+									thermostatCurrentTempValue);
+							if (flag) {
+								// element.click();
+								aboveValueApp = Integer.parseInt(
+										ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption).split(",")[0]
+												.replaceAll("\u00B0", ""));
+								Keyword.ReportStep_Pass(testCase,
+										"Above Temperature value is set to: " + thermostatCurrentTempValue);
+								if ((aboveValueApp == thermostatCurrentTempValue) && (ts.isBackButtonVisible(1))) {
+									ts.clickOnBackButton();
+									waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+									if (ts.isManageAlertsLabelVisible(10)) {
+										ts.clickOnManageAlertsLabel();
+										if (ts.isThermostatTempAlertRangeVisible()) {
+											ts.clickOnThermostatTempAlertRange();
+											if (ts.isBelowAboveTempAlertRangeOptionVisible(alertAboveTempRangeOption)) {
+												aboveValueApp = Integer.parseInt(
+														ts.getBelowAboveTempAlertRangeValue(alertAboveTempRangeOption)
+																.split(",")[0].replaceAll("\u00B0", ""));
+												if ((aboveValueApp == thermostatCurrentTempValue)) {
+													do {
+														aboveValue = (r.nextInt((370 - 45) + 1) + 45) / 10.0;
+														aboveValue = Math.round(aboveValue * 2) / 2.0;
+													} while (aboveValue > thermostatCurrentTempValue);
+													if (ts.isBelowAboveTempAlertRangeOptionVisible(
+															alertAboveTempRangeOption)) {
+														belowValueApp = Integer
+																.parseInt(ts.getBelowTempRangeValue().split(",")[0]
+																		.replaceAll("\u00B0", ""));
+														aboveValueApp = Integer
+																.parseInt(ts.getAboveTempRangeValue().split(",")[0]
+																		.replaceAll("\u00B0", ""));
+														if (belowValueApp >= aboveValueApp) {
+															flag = false;
+															Keyword.ReportStep_Fail(testCase,
+																	FailType.FUNCTIONAL_FAILURE,
+																	"Displayed Below Temperature value in the app is: "
+																			+ belowValueApp
+																			+ " and displayed Above Temperature value in the app is: "
+																			+ aboveValueApp);
+														} else {
+															Keyword.ReportStep_Pass(testCase,
+																	"[BeforeChange]Displayed Below Temperature value is: "
+																			+ belowValueApp
+																			+ " and displayed Above Temperature value is: "
+																			+ aboveValueApp);
+														}
+														try {
+															Keyword.ReportStep_Pass(testCase,
+																	"Scroll to Above Temperature value: " + aboveValue);
+															flag = ts.setTempValueForTemperatureRange(
+																	alertAboveTempRangeOption, aboveValue);
+															if (flag) {
+																// element.click();
+																inputs.setInputValue("INDOORTEMP_ABOVE_VALUE",
+																		aboveValue);
+																Keyword.ReportStep_Pass(testCase,
+																		"Above Temperature value is set to: "
+																				+ inputs.getInputValue(
+																						"INDOORTEMP_ABOVE_VALUE"));
+															}
+														} catch (Exception e) {
+															flag = false;
+															Keyword.ReportStep_Fail(testCase,
+																	FailType.FUNCTIONAL_FAILURE,
+																	"Error message: " + e.getMessage());
+														}
+														if (ts.isIndoorTempRangeValueVisible()) {
+															belowValueApp = Integer
+																	.parseInt(ts.getBelowTempRangeValue().split(",")[0]
+																			.replaceAll("\u00B0", ""));
+															aboveValueApp = Integer
+																	.parseInt(ts.getAboveTempRangeValue().split(",")[0]
+																			.replaceAll("\u00B0", ""));
+															Keyword.ReportStep_Pass(testCase,
+																	"[AfterChange] Below value is shown: "
+																			+ belowValueApp
+																			+ " and Above value is shown: "
+																			+ aboveValueApp);
+														}
+														if (ts.isBackButtonVisible(1)) {
+															ts.clickOnBackButton();
+															waitForProgressBarToComplete(testCase,
+																	"LOADING SPINNER BAR", 3);
+														}
 
-				// iOS
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+					} else {
+						Keyword.ReportStep_Pass(testCase,
+								"Above Temperature value: " + aboveValueApp
+										+ " is equal to current thermostat temperature value: "
+										+ thermostatCurrentTempValue + ". Updating Above Temperature value: "
+										+ aboveValueApp + " to a new value lower than " + thermostatCurrentTempValue);
+						try {
+							do {
+								aboveValue = (r.nextInt((370 - 45) + 1) + 45) / 10.0;
+								aboveValue = Math.round(aboveValue * 2) / 2.0;
+							} while (aboveValue > thermostatCurrentTempValue);
+							try {
+								Keyword.ReportStep_Pass(testCase, "Scroll to Above Temperature value: " + aboveValue);
+								flag = ts.setTempValueForTemperatureRange(alertAboveTempRangeOption, aboveValue);
+								if (flag) {
+									// element.click();
+									inputs.setInputValue("INDOORTEMP_ABOVE_VALUE", aboveValue);
+									Keyword.ReportStep_Pass(testCase, "Above Temperature value is set to: "
+											+ inputs.getInputValue("INDOORTEMP_ABOVE_VALUE"));
+								}
+							} catch (Exception e) {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Error message: " + e.getMessage());
+							}
+							if (ts.isIndoorTempRangeValueVisible()) {
+								belowValueApp = Integer
+										.parseInt(ts.getBelowTempRangeValue().split(",")[0].replaceAll("\u00B0", ""));
+								aboveValueApp = Integer
+										.parseInt(ts.getAboveTempRangeValue().split(",")[0].replaceAll("\u00B0", ""));
+								Keyword.ReportStep_Pass(testCase,
+										"[AfterChange]Displayed Below Temperature value is: " + belowValueApp
+												+ " and displayed Above Temperature value is: " + aboveValueApp);
+							}
+							if (ts.isBackButtonVisible(1)) {
+								ts.clickOnBackButton();
+								waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+							}
+
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error message: " + e.getMessage());
+						}
+					}
+				}
 			}
 		}
 		return flag;
@@ -1035,8 +1482,52 @@ public class HBNAEMEASettingsUtils {
 				}
 			}
 		} else {
-
-			// iOS
+			if (ts.isActivityHistoryAlertTitleVisible() && ts.isActivityHistoryAlertMsgVisible()) {
+				listAlertTitles = ts.getActivityHistoryAlertTitlesList();
+				listAlertMsgs = ts.getActivityHistoryAlertMsgsList();
+				for (int i = 0; i < listAlertTitles.size(); i++) {
+					for (int j = 0; j < listAlertMsgs.size(); j++) {
+						if (indoorTempAlertRangeOption.contains("Below") && ts.isActivityHistoryAlertTimeVisible()) {
+							if (ts.getActivityHistoryAlertTime().equalsIgnoreCase("A moment ago")
+									|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("one minute ago")
+									|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("2 minutes ago")
+									|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("3 minutes ago")
+									|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("4 minutes ago")) {
+								String expectedBelowTempAlert = "Alert: The temperature in your home is lower than "
+										+ inputs.getInputValue("INDOORTEMP_BELOW_VALUE") + ".0"
+										+ String.valueOf(degree);
+								if (listAlertTitles.get(i).getAttribute("value").contains(expectedBelowTempAlert)
+										&& listAlertMsgs.get(j).getAttribute("value")
+												.contains(expectedBelowTempAlert)) {
+									Keyword.ReportStep_Pass(testCase, "Below Temperature Alert Message is displayed: "
+											+ listAlertMsgs.get(j).getAttribute("value"));
+									break;
+								}
+							} else {
+								flag = false;
+							}
+						} else if (indoorTempAlertRangeOption.contains("Above")
+								&& ts.isActivityHistoryAlertTimeVisible()) {
+							if (ts.getActivityHistoryAlertTime().equalsIgnoreCase("A moment ago")
+									|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("one minute ago")
+									|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("2 minutes ago")) {
+								String expectedAboveTempAlert = "Alert: The temperature in your home is higher than "
+										+ inputs.getInputValue("INDOORTEMP_ABOVE_VALUE") + ".0"
+										+ String.valueOf(degree);
+								if (listAlertTitles.get(i).getAttribute("value").contains(expectedAboveTempAlert)
+										&& listAlertMsgs.get(j).getAttribute("value")
+												.contains(expectedAboveTempAlert)) {
+									Keyword.ReportStep_Pass(testCase, "Above Temperature Alert Message is displayed: "
+											+ listAlertMsgs.get(j).getAttribute("value"));
+									break;
+								}
+							} else {
+								flag = false;
+							}
+						}
+					}
+				}
+			}
 		}
 		return flag;
 
@@ -1151,6 +1642,7 @@ public class HBNAEMEASettingsUtils {
 														Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 																"Error message: " + e.getMessage());
 													}
+
 													if (ts.isIndoorHumidityRangeValueVisible()) {
 														belowValueApp = Integer.parseInt(ts.getBelowHumidityRangeValue()
 																.split(String.valueOf("%"))[0]);
@@ -1543,10 +2035,10 @@ public class HBNAEMEASettingsUtils {
 					try {
 						Keyword.ReportStep_Pass(testCase,
 								"Scroll to Above Humidity value: " + thermostatCurrentHumidityValue);
-						flag = ts.setHumidiityValueForHumidityRange(
-								alertAboveHumidityRangeOption, thermostatCurrentHumidityValue);
+						flag = ts.setHumidiityValueForHumidityRange(alertAboveHumidityRangeOption,
+								thermostatCurrentHumidityValue);
 						if (flag) {
-							//element.click();
+							// element.click();
 							Keyword.ReportStep_Pass(testCase,
 									"Above Humidity value is set to: " + thermostatCurrentHumidityValue);
 							aboveValueApp = Integer
@@ -1591,10 +2083,10 @@ public class HBNAEMEASettingsUtils {
 					try {
 						Keyword.ReportStep_Pass(testCase,
 								"Scroll to Above Humidity value: " + updatedThermostatCurrentHumidityValue);
-						flag = ts.setHumidiityValueForHumidityRange(
-								alertAboveHumidityRangeOption, updatedThermostatCurrentHumidityValue);
+						flag = ts.setHumidiityValueForHumidityRange(alertAboveHumidityRangeOption,
+								updatedThermostatCurrentHumidityValue);
 						if (flag) {
-							//element.click();
+							// element.click();
 							aboveValueApp = Integer
 									.parseInt(ts.getBelowAboveHumidityAlertRangeValue(alertAboveHumidityRangeOption)
 											.split(String.valueOf("%"))[0]);
@@ -1610,10 +2102,10 @@ public class HBNAEMEASettingsUtils {
 										try {
 											Keyword.ReportStep_Pass(testCase, "Scroll to Above Humidity value: "
 													+ thermostatCurrentHumidityValue);
-											flag = ts.setHumidiityValueForHumidityRange(
-													alertAboveHumidityRangeOption, thermostatCurrentHumidityValue);
+											flag = ts.setHumidiityValueForHumidityRange(alertAboveHumidityRangeOption,
+													thermostatCurrentHumidityValue);
 											if (flag) {
-												//element.click();
+												// element.click();
 												aboveValueApp = Integer.parseInt(ts
 														.getBelowAboveHumidityAlertRangeValue(
 																alertAboveHumidityRangeOption)
@@ -1698,8 +2190,47 @@ public class HBNAEMEASettingsUtils {
 				}
 			}
 		} else {
-
-			// iOS
+			if (ts.isActivityHistoryAlertTitleVisible() && ts.isActivityHistoryAlertMsgVisible()) {
+				listAlertMsgs = ts.getActivityHistoryAlertMsgsList();
+				for (int i = 0; i < listAlertMsgs.size(); i++) {
+					if (indoorHumidityAlertRangeOption.contains("Below") && ts.isActivityHistoryAlertTimeVisible()) {
+						if (ts.getActivityHistoryAlertTime().equalsIgnoreCase("A moment ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("one minute ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("2 minutes ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("3 minutes ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("4 minutes ago")) {
+							String expectedBelowHumidityAlert = "Low humidity! Your home’s humidity level is less than "
+									+ inputs.getInputValue("INDOORHUMIDITY_BELOW_VALUE") + "%.";
+							if (listAlertMsgs.get(i).getAttribute("value")
+									.equalsIgnoreCase(expectedBelowHumidityAlert)) {
+								Keyword.ReportStep_Pass(testCase, "Below Humidity Alert Message is displayed: "
+										+ listAlertMsgs.get(i).getAttribute("value"));
+								break;
+							}
+						} else {
+							flag = false;
+						}
+					} else if (indoorHumidityAlertRangeOption.contains("Above")
+							&& ts.isActivityHistoryAlertTimeVisible()) {
+						if (ts.getActivityHistoryAlertTime().equalsIgnoreCase("A moment ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("one minute ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("2 minutes ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("3 minutes ago")
+								|| ts.getActivityHistoryAlertTime().equalsIgnoreCase("4 minutes ago")) {
+							String expectedAboveHumidityAlert = "High Humidity! Your home’s humidity level is over "
+									+ inputs.getInputValue("INDOORHUMIDITY_ABOVE_VALUE") + "%.";
+							if (listAlertMsgs.get(i).getAttribute("value")
+									.equalsIgnoreCase(expectedAboveHumidityAlert)) {
+								Keyword.ReportStep_Pass(testCase, "Above Humidity Alert Message is displayed: "
+										+ listAlertMsgs.get(i).getAttribute("value"));
+								break;
+							}
+						} else {
+							flag = false;
+						}
+					}
+				}
+			}
 		}
 		return flag;
 	}
