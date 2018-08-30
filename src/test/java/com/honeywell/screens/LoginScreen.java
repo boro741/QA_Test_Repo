@@ -54,7 +54,7 @@ public class LoginScreen extends MobileScreens{
 				element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
 				CustomDriver driver = testCase.getMobileDriver();
 				TouchAction action = new TouchAction(driver);
-				element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
+				//element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
 				//flag = flag & MobileUtils.longPress(testCase, element, 8000);
 				try {
 					action.press(element).waitAction(MobileUtils.getDuration(8000)).release().perform();
