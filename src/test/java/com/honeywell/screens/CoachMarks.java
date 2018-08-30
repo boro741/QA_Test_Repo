@@ -96,6 +96,7 @@ public class CoachMarks extends MobileScreens {
 	public String getCoachMarkDescription() {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "CoachMarkDescription").getText();
 	}
+	
 	public boolean verifyDashboardCoachMarks(String deviceType) {
 		boolean flag = true;
 		switch (deviceType) {
@@ -220,8 +221,12 @@ public class CoachMarks extends MobileScreens {
 		return flag;
 	}
 
-private boolean clickOnBackButton() {
+    private boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+    
+    public boolean isCoachMarkVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoachMarkIcon", timeOut, false);
 	}
 
 //	@SuppressWarnings("unused")
