@@ -2,6 +2,8 @@ package com.honeywell.keywords.flycatcher.Ventialtion;
 
 
 
+
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.account.information.DeviceInformation;
@@ -96,6 +98,7 @@ public class FlyCatcherVentialtion {
 //		int[] pickervalues = fly.getPickercordinates();
 		if (picker_value != expected_value ){
 			int i = 0;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")){
 			while (picker_value < expected_value && i < 15){
 				if (fly.getTimerPickerValue() != expected_value ){
 					WebElement ele = fly.getPickerElement();
@@ -115,6 +118,12 @@ public class FlyCatcherVentialtion {
 				} else{
 					break;
 				}
+			}
+			} else{
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				action.press(10, (int) (dimension.getHeight() * .5))
+				.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
 			}
 			Keyword.ReportStep_Pass(testCase,
 					"Ventilation timer is set to " + fly.getTimerPickerValue());

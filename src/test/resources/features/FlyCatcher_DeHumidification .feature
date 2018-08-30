@@ -1,4 +1,4 @@
-@DeHumidicationsetup
+@DeHumidificationsetup
 Feature: As an user 
 I want to set my humidity target
 So that i can set my room humidity as per my prefrence 
@@ -9,18 +9,17 @@ So that i can set my room humidity as per my prefrence
   I want to set my humidity 
   So that i can set my room De humidifies as per my prefrence
   
-    Given user launches and logs in to the Lyric application
-      And user selects "Flycatcher device" from the dashboard
-      And user navigates to "DeHumidication" screen from the "Primary card" screen
-     When User Sets the DeHumidication <Target Value>
-     Then Verify DeHumidication is "displayed" and set to <Target Value>
+    Given user Dehumidification is "Enabled"
+    And user launches and logs in to the Lyric application
+      And user navigates to "DeHumidification" screen from the "Dashboard" screen
+     When user Sets the Dehumidification <Target Value>
+     Then Verify Dehumidifier set to <Target Value>
     Examples: 
       | Target Value | 
-      | 40           | 
-      | 50           | 
+#      | 40           | 
+#      | 50           | 
       | 60           | 
-      | 80           | 
-      | 100           | 
+#      | 80           | 
   
   @HumidityBandwidthlimit
   Scenario Outline: To verify the humidity bandiwth limit
@@ -30,25 +29,25 @@ So that i can set my room humidity as per my prefrence
   
     Given user launches and logs in to the Lyric application
       And user selects "Flycatcher device" from the dashboard
-      And user navigates to "DeHumidication" screen from the "Primary card" screen
-     When User Sets the DeHumidication <Target Value>
-     Then Verify DeHumidication cannot set to <Target Value>
+      And user navigates to "DeHumidification" screen from the "Primary card" screen
+     When User Sets the DeHumidification <Target Value>
+     Then Verify DeHumidification cannot set to <Target Value>
   
     Examples: 
       | Target Value | 
       | 35            | 
-      | 105           | 
+      | 85           | 
   
-  @DeHumidicationIncreamentalof5%
-  Scenario Outline: To veify if DeHumidication is increamental of 5%
+  @DeHumidificationIncreamentalof5%
+  Scenario Outline: To veify if DeHumidification is increamental of 5%
   As an user 
-  I want set DeHumidication up/Down stepper increamental of 5%
+  I want set DeHumidification up/Down stepper increamental of 5%
   so on tapping Incrementing or decrementing stepper increases or reduces 5%
   
-    Given user DeHumidication is set "40%"
+    Given user DeHumidification is set "40%"
       And user launches and logs in to the Lyric application
       And user selects "FlyCatcher device" from the dashboard
-      And user navigates to "DeHumidication" screen from the "Primary card" screen
+      And user navigates to "DeHumidification" screen from the "Primary card" screen
      When user <Control Buttons> the humidity <Target Value>
      Then Verify humidity is "displayed" and set to <Target Value>
     Examples: 
@@ -61,23 +60,20 @@ So that i can set my room humidity as per my prefrence
       | Decrement       | 50      | 
       | Decrement       | 45      | 
   
-  @DeHumidicationEnable/Disable
-  Scenario Outline: To verify DeHumidication can be enabled or disabled
+  @DeHumidificationEnable_Disable
+  Scenario Outline: To verify DeHumidification can be enabled or disabled
   As an user 
-  I want to know DeHumidication can be enabled or disabled
+  I want to know DeHumidification can be enabled or disabled
   so that it can turn on/off humidity respectively 
   
-    Given user DeHumidication is <Pre mode>
+    Given user DeHumidification is <Pre mode>
       And user launches and logs in to the Lyric application
-      And user selects "FlyCatcher device" from the dashboard
-      And user navigates to "DeHumidication" screen from the "Primary card" screen
-     When user <Post mode> DeHumidication 
-     Then Verify if DeHumidication is <Post mode>
+      And user navigates to "DeHumidification" screen from the "Dashboard" screen
+     When user <Post mode> DeHumidification from app
+     Then Verify if DeHumidification <Post mode> in stat
   
     Examples: 
       | Pre mode | Post mode | 
-      | Enabled  | Disabled  | 
+#      | Enabled  | Disabled  | 
       | Disabled | Enabled   | 
-  
-
   
