@@ -1118,6 +1118,25 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 	
+	public int setDehumidificationStatus(long locationID, String deviceID, String DehumidificationStatus){
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/Settings/Dehumidifier", locationID, deviceID);
+				String headerData = String.format("{\"changeableValues\":{\"mode\":\"%s\",\"setPoint\":\"%s\"}}", DehumidificationStatus,40);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
 	public int SetVentilationTimer(long locationID, String deviceID, int VentilationTimer) {
 		int result = -1;
 		try {

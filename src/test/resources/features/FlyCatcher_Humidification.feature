@@ -17,10 +17,10 @@ So that i can set my room humidity as per my prefrence
     Examples: 
       | Target Value | 
       | 10           | 
-      | 20           | 
+#      | 20           | 
       | 30           | 
-      | 40           | 
-      | 50           | 
+#      | 40           | 
+#      | 50           | 
       | 60           | 
   
   

@@ -1,8 +1,7 @@
-package com.honeywell.keywords.flycatcher.Ventialtion;
+package com.honeywell.keywords.flycatcher.Dehumidifier;
 
 import java.util.ArrayList;
 
-import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -11,17 +10,17 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.flycatcher.Humidifier.FlyHumidifier;
 
-public class SetVentilationTimerUsingChil extends Keyword {
-
-
+public class ChangeDeHumidifierStatus extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	ArrayList<String> exampleData;
 	public boolean flag = true;
-	public SetVentilationTimerUsingChil(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
-		super("Set Ventilation Timer");
+
+	public ChangeDeHumidifierStatus(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+		super("Edit Stop Ventilation Mode");
 		this.inputs = inputs;
 		this.testCase = testCase;
 		this.exampleData = exampleData;
@@ -34,34 +33,22 @@ public class SetVentilationTimerUsingChil extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user sets Ventilation Timer \"(.+)\"$")
+	@KeywordStep(gherkins = "^user \"(.+)\" DeHumidification from app$")
 	public boolean keywordSteps() {
-		try 
-		{
-			@SuppressWarnings("resource")
-			CHILUtil chUtil = new CHILUtil(inputs);
+		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String deviceID=statInfo.getDeviceID();
-			int VentilationTimer = Integer.parseInt(exampleData.get(0));
-			try {
-				if (chUtil.getConnection()) {
-					if (chUtil.SetVentilationTimer(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")),
-							deviceID,VentilationTimer) == 200) {
-						Keyword.ReportStep_Pass(testCase,
-								"Ventilation Timer Using CHIL : Successfully set Ventilation Timer to "+ VentilationTimer +" through CHIL");
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Ventilation Timer Using CHIL : Failed to set Ventilation Timer to  "+ VentilationTimer +" through CHIL");
-					}
-				}
-			} catch (Exception e) {
+			String Humidificationtatus = statInfo.getThermoStatHumidificationSettings();
+			if (Humidificationtatus != null){
+				flag = flag && FlyHumidifier.ChangeDeHumdifierstatus(testCase,inputs,exampleData.get(0));
+			}else {
 				flag = false;
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Error Occured : " + e.getMessage());
+						"DeHumidifier Option is disabled in thermostat ");
 			}
 		} catch (Exception e){
-
+			flag = false;
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
@@ -79,18 +66,19 @@ public class SetVentilationTimerUsingChil extends Keyword {
 
 		try {
 			if (flag) {
-				ReportStep_Pass(testCase, "Reset Ventilation Timer : Keyword successfully executed");
+				ReportStep_Pass(testCase, "Change DeHumidifier form : Keyword successfully executed");
 			} else {
 				flag = false;
 				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Set Ventilation Timer : Keyword failed during execution");
+						"Change DeHumidifier form : Keyword failed during execution");
 			}
 		} catch (Exception e) {
 			flag = false;
 			ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Set Ventilation Timer : Error Occured while executing post-condition : " + e.getMessage());
+					"Change DeHumidifier form : Error Occured while executing post-condition : " + e.getMessage());
 		}
 		return flag;
 	}
 
 }
+

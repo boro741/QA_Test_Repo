@@ -647,6 +647,18 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "DEHUMIDIFICATION": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+					if (fly.isDeHumButtonVisible(10)) {
+						flag = flag && fly.ClickOnDeHumButton();
+					} else {
+						flag = flag && fly.ClickOnMoreButton();
+						flag = flag && fly.ClickOnDeHumButton();
+					}
+					break;
+				}
 				case "WINDOW PROTECTION": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
@@ -860,7 +872,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Settings")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2120,7 +2132,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					System.out
-							.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+					.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
 					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
 					break;
 				}
@@ -2177,7 +2189,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 
 			} else if (screen.get(1).equalsIgnoreCase("SCHEDULING")) {
@@ -2192,7 +2204,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2232,7 +2244,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("PRIMARY CARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2252,7 +2264,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2340,7 +2352,7 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2356,7 +2368,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT HUMIDIFICATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2372,7 +2384,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DEHUMIDIFICATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2388,7 +2400,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SLEEP BRIGHTNESS MODE")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2404,7 +2416,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SOUND")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2420,7 +2432,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("VENTILATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2436,7 +2448,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("T1PRIMARYCARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2453,7 +2465,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("STATS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2468,7 +2480,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-					break;
+				break;
 				}
 			} else {
 				flag = false;

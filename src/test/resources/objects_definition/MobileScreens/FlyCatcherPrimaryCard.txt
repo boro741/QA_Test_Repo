@@ -8,7 +8,8 @@ changedModeText	xPATH	//android.widget.TextView[cont
 FanCirculate	XPATH	//android.widget.TextView[@text='Circulate']					XPATH	//XCUIElementTypeStaticText[@value='Circulate']	XPATH	//XCUIElementTypeStaticText[@value='Circulate']	XPATH	//XCUIElementTypeStaticText[@value='Circulate']
 CoolModeOption	XPATH	//*[@text='Cool']	XPATH	//*[@text='Cool']	XPATH	//*[@text='Cool']	XPATH	//*[@value='COOL']	XPATH	//*[@value='COOL']	XPATH	//*[@value='COOL']
 DRAdHocButton	ID	view_thermostat_dr_button	ID	view_thermostat_dr_button	ID	view_thermostat_dr_button	NAME	DREvent_Status	NAME	DREvent_Status	NAME	DREvent_Status
-HumidityTab	XPATH	//*[@text='Humidity']	XPATH	//*[@text='Humidity']	XPATH	//*[@text='Humidity']						
+DeHumidityTab	XPATH	//*[@text='DEHUMIDIFY']	XPATH	//*[@text='DEHUMIDIFY']	XPATH	//*[@text='DEHUMIDIFY']						
+HumidityTab	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']						
 WeatherButton	ID	fragment_weather_current_temperature	ID	fragment_weather_current_temperature	ID	fragment_weather_current_temperature	NAME	icon weather normal	NAME	icon weather normal	NAME	icon weather normal
 AddDevice	ID	dashboard_add_thermostat	ID	dashboard_add_thermostat	ID	dashboard_add_thermostat	NAME	Add Device	NAME	Add Device	NAME	Add Device
 FanAuto	XPATH	//android.widget.TextView[@text='Auto']					XPATH	//XCUIElementTypeStaticText[@value='Auto']	XPATH	//XCUIElementTypeStaticText[@value='Auto']	XPATH	//XCUIElementTypeStaticText[@value='Auto']
@@ -33,7 +34,7 @@ AutoModeOption	XPATH	//*[@text='Auto']	XPATH	//*[@text='Auto']	XPATH	//*[@text='
 LocationNameIOS							name	Location Name	name	Location Name	name	Location Name
 MoreButton	XPATH	//*[@text='MORE']	XPATH	//*[@text='MORE']	XPATH	//*[@text='MORE']	ID	more	ID	more	ID	more
 PriorityButton							ID	PRIORITY	ID	PRIORITY	ID	PRIORITY
-VentilationButton	XPATH	//*[@text='VENTILATION']	XPATH	//*[@text='VENTILATION']	XPATH	//*[@text='VENTILATION']	ID	VENTILATION	ID	VENTILATION	ID	VENTILATION
+VentilationButton	XPATH	//*[@text='VENTILATION']	XPATH	//*[@text='VENTILATION']	XPATH	//*[@text='VENTILATION']	XPATH	"//*[contains(@name,'ventilation')]"	XPATH	"//*[contains(@name,'ventilation')]"	XPATH	"//*[contains(@name,'ventilation')]"
 VentilationOnActiveButton	XPATH	//*[@text='On']	XPATH	//*[@text='On']	XPATH	//*[@text='On']	ID	ON	ID	ON	ID	ON
 VentilationAutoActiveButton	XPATH	//*[@text='Auto']	XPATH	//*[@text='Auto']	XPATH	//*[@text='Auto']	ID	AUTO	ID	AUTO	ID	AUTO
 VentilationOffActiveButton	XPATH	//*[@text='Off']	XPATH	//*[@text='Off']	XPATH	//*[@text='Off']	ID	OFF	ID	OFF	ID	OFF
@@ -42,7 +43,7 @@ StopTimerButton	ID	btn_stop_timer	ID	btn_stop_timer	ID	btn_stop_timer	ID	Stop Ti
 VentilationTimerCancel	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	ID	CANCEL	ID	CANCEL	ID	CANCEL
 VentilationTimerStart	XPATH	//*[@text='Start']	XPATH	//*[@text='Start']	XPATH	//*[@text='Start']	ID	START	ID	START	ID	START
 VentilationEditTimer	ID	btn_save_timer	ID	btn_save_timer	ID	btn_save_timer	ID	Edit Timer	ID	Edit Timer	ID	Edit Timer
-VentilationTimerPicker	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText	xpath	//android.widget.NumberPicker/android.widget.EditText						
+VentilationTimerPicker	ID	numberpicker_input	ID	numberpicker_input	ID	numberpicker_input	ID	FCVentilationPickerView	ID	FCVentilationPickerView	ID	FCVentilationPickerView
 VentilationTimerValue	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text	ID	ventilation_timer_value_text						
 CloseOption	XPATH	//*[@text='Navigate up']	ID	Navigate up	ID	Navigate up						
 HumidifyButton	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	XPATH	//*[@text='HUMIDIFY']	ID	humidity menu	ID	humidity menu	ID	humidity menu

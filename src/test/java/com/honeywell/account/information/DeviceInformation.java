@@ -155,16 +155,27 @@ public class DeviceInformation {
 	}
 
 	public String getThermoStatHumidificationSettings() throws Exception {
-		String VentilationMode = "";
+		String HumidificationMode = "";
 		if (deviceInformation != null) {
-			VentilationMode = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings")
+			HumidificationMode = deviceInformation.getJSONObject("settings").getJSONObject("humidifierSettings")
 					.getJSONObject("changeableValues").getString("mode");
 		} else {
 			throw new Exception("Device Information not found");
 		}
-		return VentilationMode;
+		return HumidificationMode;
 	}
-	
+
+	public String getThermoStatDeHumidificationSettings() throws Exception {
+		String DeHumidificationMode = "";
+		if (deviceInformation != null) {
+			DeHumidificationMode = deviceInformation.getJSONObject("settings").getJSONObject("dehumidifierSettings")
+					.getJSONObject("changeableValues").getString("mode");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return DeHumidificationMode;
+	}
+
 	public int getWindowProtection() throws Exception {
 		int WindowProtection = 0;
 		if (deviceInformation != null) {
@@ -185,6 +196,16 @@ public class DeviceInformation {
 			throw new Exception("Device Information not found");
 		}
 		return HumidifierValue;
+	}
+	public int getDeHumidifierValue() throws Exception {
+		int DeHumidifierValue = 0;
+		if (deviceInformation != null) {
+			DeHumidifierValue = deviceInformation.getJSONObject("settings").getJSONObject("dehumidifierSettings")
+					.getJSONObject("changeableValues").getInt("setpoint");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return DeHumidifierValue;
 	}
 
 	public int getVentilationTimerValue() throws Exception {
@@ -373,7 +394,7 @@ public class DeviceInformation {
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-								+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+						+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 			}
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -392,7 +413,7 @@ public class DeviceInformation {
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-								+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+						+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 			}
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -424,7 +445,7 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return coolSetPoints;
 	}
@@ -450,7 +471,7 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return indoorTemp;
 	}
@@ -491,7 +512,7 @@ public class DeviceInformation {
 
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return currentSetPoints;
 	}
@@ -519,7 +540,7 @@ public class DeviceInformation {
 		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Get Stat Information  : Unable to get Current System mode for Stat - " + statName
-							+ " at location - " + locationName + " : Error occured - " + e.getMessage());
+					+ " at location - " + locationName + " : Error occured - " + e.getMessage());
 		}
 		return heatSetPoints;
 	}
@@ -588,7 +609,7 @@ public class DeviceInformation {
 						.get("heatSetpoint").toString();
 			} else
 				OverrideSet = deviceInformation.getJSONObject("thermostat").getJSONObject("changeableValues")
-						.get("coolSetpoint").toString();
+				.get("coolSetpoint").toString();
 		}
 		return OverrideSet;
 	}
