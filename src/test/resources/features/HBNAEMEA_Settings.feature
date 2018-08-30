@@ -123,6 +123,7 @@ And user should be displayed with the following "Indoor Humidity Alert" options:
 When user changes the "Indoor Humidity Alert" to "OFF"
 Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts" screen
 
+
 #HB_Srpuce
 @ChangeAlertForThisRangeforHumidity		@P1		@AutomatedOnAndroid		@--xrayid:ATER-44521
 Scenario: As a user I should be able to change Alert For This Range on my thermostat

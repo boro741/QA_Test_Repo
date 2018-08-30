@@ -772,10 +772,11 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "MULTISTAT LOCATION": {
-					Dashboard dashBoardScreen=  new Dashboard(testCase);
-					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase, inputs.getInputValue("LOCATION2_NAME"));
-					inputs.setInputValue("LOCATION1_NAME",inputs.getInputValue("LOCATION2_NAME"));
-					inputs.setInputValue("LOCATION1_DEVICE1_NAME",inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
+					Dashboard dashBoardScreen = new Dashboard(testCase);
+					flag = flag & dashBoardScreen.selectLocationFromDashBoard(testCase,
+							inputs.getInputValue("LOCATION2_NAME"));
+					inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION2_NAME"));
+					inputs.setInputValue("LOCATION1_DEVICE1_NAME", inputs.getInputValue("LOCATION2_DEVICE1_NAME"));
 					break;
 				}
 				case "VACATION": {
@@ -2280,7 +2281,19 @@ public class NavigateToScreen extends Keyword {
 							}
 							break;
 						}
+					} else if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MESSAGES)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Activity history menu from Global drawer");
+						} else {
+							// Fetching Messages
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
+					break;
 				}
 				case "THERMOSTAT SOLUTION CARD": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
