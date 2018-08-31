@@ -37,8 +37,9 @@ Examples:
 |Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
 |Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
 
+
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutofollowingEMEA		@Automated
-Scenario Outline: To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
+Scenario Outline: To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -54,7 +55,7 @@ Examples:
 | P4|
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleEMEA		@Automated
-Scenario:  To verify following base switching  mode is changed for "Heat, auto, cool" system with auto changeover enabled
+Scenario:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 When user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -68,7 +69,7 @@ And user should be displayed with "respective period" setpoint value
 
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutousingEMEA		@Automated
-Scenario Outline:  To verify geofence switching modes is "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify geofence switching modes is Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule 
 And user thermostat set <Period> with <Geofence>
@@ -113,7 +114,7 @@ Examples:
 
 
 @AdhocOverrideCreateGeofencebasescheduleAspecifictimeEMEA			@Automated
-Scenario Outline:  To verify creates geofence base schedule when mode is changed for "Heat" system with auto changeover enabled
+Scenario Outline:  To verify creates geofence base schedule when mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -139,7 +140,7 @@ Examples:
  
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleduplicateEMEA			@Automated
-Scenario Outline:  To verify following base switching  mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user launches and logs in to the Lyric application
 And user has "Heat" system mode
 And user thermostat is set to "time based" schedule
@@ -160,7 +161,7 @@ Examples:
 
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusingEMEA			@Automated
-Scenario Outline:  To verify using schedule switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
+Scenario Outline:  To verify using schedule switching modes is changed for Heat and off system with auto changeover enabled
 Given user has "Heat" system mode
 When user launches and logs in to the Lyric application
 And user thermostat set <Period> with <Geofence>
@@ -180,7 +181,7 @@ Examples:
 
 
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHoldEMEA			@Automated
-Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set "Home" with <Geofence>
@@ -201,7 +202,7 @@ Examples:
 
 
 @AdhocOverrideTimebaseSchedulespecifictimeRemoveHoldEMEA			@Automated
-Scenario:   I want to verify remove hold for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify remove hold for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
@@ -213,7 +214,7 @@ And user should be displayed with "respective period" setpoint value in solution
 
 
 @AdhocOverrideTimebaseSchedulespecifictimetoPermanentHoldEMEA			@Automated
-Scenario:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify specific time to permanent hold status for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
@@ -254,7 +255,7 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 
 #JasperEMEA
 @AdhocOverrideTimebaseScheduleTemporaryHoldSolutionCardsetpointchangeEMEA		@ToBeAutomated
-Scenario Outline:   I want to verify time Temporary override from solution card and resume in next period for systems Heat with temperature scale celcius/fahrenheit and with time format 12/24hr 
+Scenario Outline:   Verify time Temporary override in solution card and resume in next period for Heat with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user is set to "Time base schedule"
@@ -273,7 +274,7 @@ Examples:
 
 #JasperEMEA
 @AdhocOverrideTimebaseScheduleTemporaryHoldDashbaordsetpointEMEA
-Scenario Outline:   I want to verify setpoint change on dashboard when   Heat with temperature scale celcius/fahrenheit and with time format 12/24hr 
+Scenario Outline:   I want to verify setpoint change on dashboard when Heat with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user is set to "Time base schedule"
@@ -289,7 +290,7 @@ Examples:
 
 #JasperEMEA
 @AdhocOverrideGeofencebaseScheduleTemporaryHoldSolutionCardEMEATemporaryHoldEMEA 
-Scenario Outline:   I want to verify setpoint change on solution card when   Heat with temperature scale celcius/fahrenheit and with time format 12/24hr 
+Scenario Outline:   I want to verify setpoint change on solution card when   Heat with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
 And user is set to "Geofence base schedule"
@@ -307,7 +308,7 @@ Examples:
 
 
 @AdhocOverrideTimeschedulingChangemodeHeatOffTemporaryHoldEMEA			@Automated
-Scenario Outline:  To verify time base switching  mode is changed for "Heat, Off" system with auto changeover enabled
+Scenario Outline:  To verify time base switching  mode is changed for Heat, Off system with auto changeover enabled
 Given user has <Mode> system mode 
 And user thermostat is set to "time based" schedule
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -330,7 +331,7 @@ Examples:
 
 
 @AdhocOverrideCreateTimebasescheduleTemporaryHoldEMEA			@Automated
-Scenario Outline:  To verify create time base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
+Scenario Outline:  To verify create time base schedule when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
@@ -377,7 +378,7 @@ Examples:
 
 
 @AdhocOverrideCreateGeofencebasecheduleTemporaryHoldEMEA			@Automated
-Scenario Outline:  To verify creates geofence base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
+Scenario Outline:  To verify creates geofence base schedule when mode is changed for Heatsystem with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -447,7 +448,7 @@ Examples:
 
 #JasperEMEA
 @AdhocOverrideScheduletemperatureGeofencebaseSchedulingChangemodeHeatOFFTemporaryHoldEMEA
-Scenario Outline:  To verify override retained even mode is changed for "Heat , OFF" system  
+Scenario Outline:  To verify override retained even mode is changed for Heat , OFF system  
 Given user launches and logs in to the Lyric application
 Then user is set to "HEAT" through CHIL
 And user navigates to "Solutioncard" screen from "Dashboard" screen
@@ -468,7 +469,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideCreateGeofencebasecheduleTemporaryHold			@Automated
-Scenario Outline:  To verify creates geofence base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
+Scenario Outline:  To verify creates geofence base schedule when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -485,15 +486,12 @@ Examples:
 | Mode	| Period		| Geofence			| NEW Schedule				| Schedule status		| Sleep 		|
 | HEAT	| Home		| UserArrived		| Geofence base schedule		| Using Home Settings	| Without	|
 #| HEAT	| Sleep		| UserArrived		| Geofence base schedule		| Using Sleep Settings	| With		| #Start and end 
-#| Cool	| Home		| UserArrived		| Geofence base schedule		| Using Home Settings	| Without	|
-#| Cool	| Sleep		| UserArrived		| Geofence base schedule		| Using Sleep Settings	| With		| #Start and end 
 #| Heat	| Away		| UserDeparted		| Geofence base schedule		| Using Sleep Settings	| With		| #Not automatable
-#| Cool	| Away		| UserDeparted		| Geofence base schedule		| Using Sleep Settings	| With		| #Not automatable
 
 
 #JasperEMEA
 @AdhocOverridetimebaseschedulingdeletecurrentperiodEMEATemporaryHoldEMEA
-Scenario Outline:  To verify delete current period and remove hold  in "Heat" system  
+Scenario Outline:  To verify delete current period and remove hold  in Heat system  
 Given user launches and logs in to the Lyric application
 Then user is set to “Heat”
 And user is in <Current PERIOD>
@@ -517,7 +515,7 @@ Examples:
 
 #JasperEMEA
 @AdhocOverridegeofencebaseschedulingdeletecurrentsleepperiodEMEATemporaryHoldEMEA 
-Scenario:  To verify delete current period mode in "Heat" system  
+Scenario:  To verify delete current period mode in Heat system  
 Given user launches and logs in to the Lyric application
 Then user is set to “Heat”
 And user is in “Sleep Period”
@@ -530,7 +528,7 @@ Then user should be displayed with "USING HOME SETTINGS"
 
 #JasperEMEA
 @AdhocOverridegeofencebaseschedulingremoveholdEMEATemporaryHoldEMEA
-Scenario Outline:  To verify remove hold in  "Heat" system  
+Scenario Outline:  To verify remove hold in Heat system  
 Given user launches and logs in to the Lyric application
 Then user is set to “Heat”
 And user is in <Current PERIOD>
@@ -548,10 +546,10 @@ Examples:
 
 
 @AdhocOverrideTimebaseScheduleAspecifictimeDashbaordsetpoint_EMEA @Automated
-Scenario Outline:   I want to verify setpoint change in dashboard for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify setpoint change in dashboard for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 Given user launches and logs in to the Lyric application
-Given user has <Mode> system mode
+Given user has "Heat" system mode
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 And user holds the schedule until time "lesser than 12 hours" from current time
@@ -560,20 +558,13 @@ And user has "Temporary Dashboard" status
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value in solution card
-Examples:
-|Mode | 
-|Cool | 
-#|Heat | 
-#|Auto | 
-#|Cool only| 
-#|Heat only| 
 
 #Requirements : Thermostat should be set to A specific time 
 @AdhocOverrideTimebaseScheduleAspecifictimeSolutionCardsetpoint_EMEA @Automated
-Scenario Outline:  I want to verify setpoint change in solution card for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:  I want to verify setpoint change in solution card for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 Given user launches and logs in to the Lyric application
-Given user has <Mode> system mode
+Given user has "Heat" system mode
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 And user holds the schedule until time "lesser than 12 hours" from current time
@@ -582,17 +573,11 @@ And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value in solution card
-Examples:
-|Mode | 
-|Cool | 
-#|Heat | 
-#|Auto | 
-#|Cool only| 
-#|Heat only|
+
 
 #JasperNA
 @AdhocOverridetimebaseschedulingdeleteNextperiodTemporaryHold_EMEA @Automated
-Scenario Outline:  To verify delete Next period and remove hold  when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify delete Next period and remove hold  when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <CPeriod> as current period <NPeriod> as next period and <NNPeriod> as next period of "time based" schedule
@@ -617,7 +602,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingChangeModesWithSameModesHeatCoolAutoOFFTemporaryHold_EMEA			@Automated
-Scenario Outline:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule switching modes is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set <Period> with <Geofence>
@@ -644,7 +629,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodUsing_EMEA  		@Automated
-Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set "Home" with <Geofence>
@@ -661,7 +646,7 @@ Examples:
 
 #JasperEMEA
 @AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold_EMEA  @AutomatedOnAndroid
-Scenario Outline:  To verify delete current period and remove hold  when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify delete current period and remove hold  when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <PPeriod> as previous period <CPeriod> as current period and <NPeriod> as next period of "time based" schedule
@@ -688,7 +673,7 @@ Examples:
 
 
 @AdhocOverrideTimebaseSchedulespecifictimetoPermanentHoldEMEA			@Automated
-Scenario:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify specific time to permanent hold status for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
@@ -700,7 +685,7 @@ Then user has "PERMANENT" adhoc status
 
 
 @AdhocOverrideTimebaseSchedulespecifictimeRemoveHoldEMEA			@Automated
-Scenario:   I want to verify remove hold for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify remove hold for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
@@ -712,7 +697,7 @@ And user should be displayed with "respective period" setpoint value
 
 
 @AdhocOverrideCreateTimebasescheduleAspecifictime			@Automated
-Scenario Outline:  To verify create time base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
+Scenario Outline:  To verify create time base schedule when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
@@ -730,7 +715,7 @@ Examples:
 |geofence based 	|Time base schedule |
 
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodByRemovingTemporaryHoldEMEA				@Automated
-Scenario:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario:  To verify geofence schedule delete current sleep period when mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 And user thermostat is set to "Geofence Based" schedule
 And user thermostat set "Home" with "UserArrived"
@@ -763,7 +748,7 @@ And user should be displayed with "respective period" setpoint value
 
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatCoolAutoTemporaryHoldEMEA				@Automated
-Scenario Outline:  To verify geofence switching modes is Heat , auto ,cool system with auto changeover enabled
+Scenario Outline:  To verify geofence switching modes is Heat system with auto changeover enabled
 Given user has "Heat" system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set <Period> with <Geofence>
@@ -780,7 +765,7 @@ Examples:
 | Sleep | Without sleep geofence based 	| UserArrived	|
 
 @AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromSolutionCardEMEA			@Automated
-Scenario Outline:  I want to verify time Temporary override Schedule from solution card  for systems Heat cool,Heat and Cool with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
+Scenario Outline:  I want to verify time Temporary override Schedule from solution card  for systems Heat with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <CPeriod> and <NPeriod> current and next period "time based" schedule
@@ -809,7 +794,7 @@ Examples:
 
 
 @AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHoldEMEA	@Automated
-Scenario:   I want to verify permanent hold to specific time and resume for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify permanent hold to specific time and resume for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 Given user has "Heat" system mode
 When user launches and logs in to the Lyric application
@@ -827,7 +812,7 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFAspcifictimeEMEA		@Automated
-Scenario Outline:  To verify switching modes Heat , auto ,cool and off system with auto changeover enabled
+Scenario Outline:  To verify switching modes Heat and off system with auto changeover enabled
 Given user has "Heat" system mode
 And user thermostat is set to "time based" schedule
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -850,7 +835,7 @@ Examples:
 | P4|
 
 @AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatautoEMEA			@Automated
-Scenario Outline:   I want to verify switching modes Heat , auto ,cool and off with temperature scale celciusfahrenheit and with time format 12 24hr 
+Scenario Outline:   I want to verify switching modes Heat and off with temperature scale celciusfahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
 Given user thermostat has <Period> currently following in "Time Based" schedule
 Given user launches and logs in to the Lyric application
@@ -869,7 +854,7 @@ Examples:
 
 #Permanent hold (Time base Schedule)
 @AdhocOverrideTimebaseScheduleAdhocOverrideActionSheetEMEA @Automated
-Scenario: I want to verify action sheet view  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario: I want to verify action sheet view  for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application
@@ -887,7 +872,7 @@ And user should be displayed with the following "Action Sheet" options:
 
 
 @AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardCancelfunctionalityEMEA @Automated
-Scenario Outline: I want to verify cancel functionality for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario Outline: I want to verify cancel functionality for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application
@@ -903,7 +888,7 @@ Examples:
 
 
 @AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardEMEA @Automated
-Scenario: I want to verify permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario: I want to verify permanent hold status for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application
@@ -913,7 +898,7 @@ Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 
 
 @AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardsetpointchangeEMEA  @Automated
-Scenario: I want to verify setpoint change solution card  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario: I want to verify setpoint change solution card  for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application
@@ -925,7 +910,7 @@ Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 @AdhocOverrideTimebaseSchedulePermanentHoldDashboardsetpointchangeEMEA  @Automated
-Scenario: I want to verify setpoint change dashboard for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario: I want to verify setpoint change dashboard for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application
@@ -940,8 +925,8 @@ And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 
 
-@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHoldEMEA @Automated
-Scenario Outline: To verify change modes for "Heat , auto ,cool and off " system with auto changeover enabled
+@AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHoldEMEA			@Automated
+Scenario Outline: To verify change modes for Heat and off system with auto changeover enabled
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -961,7 +946,7 @@ Examples:
 |P4|
 
 
-@AdhocOverrideTimebaseSchedulePermanentRemoveHoldEMEA  @Automated
+@AdhocOverrideTimebaseSchedulePermanentRemoveHoldEMEA			@Automated
 Scenario Outline: I want to verify override Permanent schedule - Remove Hold  with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 

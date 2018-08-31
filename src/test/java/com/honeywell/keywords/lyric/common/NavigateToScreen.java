@@ -1339,8 +1339,20 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ENABLE AMAZON ALEXA")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "PEOPLE DETECTION": {
+					flag = flag & DIYRegistrationUtils.navigateFromEnableAmazonAlexaToPeopleDetection(testCase);
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PEOPLE DETECTION")) {
+				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					flag = flag & DIYRegistrationUtils.navigateFromEnableAmazonAlexaToDashboard(testCase);
+					flag = flag & DIYRegistrationUtils.navigateFromPeopleDetectionToDashboard(testCase);
 					break;
 				}
 				default: {
@@ -1395,7 +1407,6 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "Successfully navigated to " + screen.get(0));
 						}
 					}
-
 					break;
 				}
 				default: {

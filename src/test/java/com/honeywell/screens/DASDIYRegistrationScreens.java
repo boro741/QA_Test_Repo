@@ -825,7 +825,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
 					try {
 						Thread.sleep(3000);
-					} catch(InterruptedException e) {
+					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
@@ -1013,11 +1013,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isSetUpAccessoriesScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetUpAccessoriesScreenTitle", timeOut);
 	}
-	
+
 	public boolean isBackButtonInSetUpAccessoriesScreenVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInSetUpAccessoriesScreen", timeOut);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInSetUpAccessoriesScreen",
+				timeOut);
 	}
-	
+
 	public boolean clickOnBackButtonInSetUpAccessoriesScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInSetUpAccessoriesScreen");
 	}
@@ -1413,13 +1414,59 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isFeatureSetUpCompletedScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FeatureSetUpCompletedScreenTitle");
 	}
-	
+
 	public boolean isSkipButtonInHoneywellMembershipScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
 	}
-	
+
 	public boolean clickOnSkipButtonInHoneywellMembershipScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
+	}
+
+	public boolean isPeopleDetectionHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PeopleDetectionHeaderTitle");
+	}
+
+	public boolean isNotNowButtonInPeopleDetectionScreenVisible() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen", 5)) {
+			flag = flag
+					& MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltLeftButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltLeftButton");
+		}
+		return flag;
+	}
+
+	public boolean clickOnNotNowButtonInPeopleDetectionScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltLeftButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltLeftButton");
+		}
+		return flag;
+	}
+
+	public boolean isEnableButtonInPeopleDetectionScreenVisible() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen", 5)) {
+			flag = flag
+					& MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton");
+		}
+		return flag;
+	}
+
+	public boolean clickOnEnableButtonInPeopleDetectionScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
+		}
+		return flag;
 	}
 
 	public boolean isIncreaseSecurityPopupVisible() {

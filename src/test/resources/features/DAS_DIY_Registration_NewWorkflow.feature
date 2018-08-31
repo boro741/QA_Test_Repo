@@ -2,7 +2,7 @@
 Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
-@DASDIYWhatToExpectScreen	@P2			@UIAutomated
+@DASDIYWhatToExpectScreen	@P2			@Automated
 Scenario: User should be validate What To Expect and Watch How-To Video screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -16,7 +16,7 @@ Then user navigates to "Choose Location" screen from the "What To Expect" screen
 
 
 #There is no Cancel button in Create Location, Create Base Station screens in iOS
-@DIYCancelSetUp		@P2			@UIAutomated
+@DIYCancelSetUp		@P2			@Automated
 Scenario Outline: User should be able to cancel the set up from choose location, Create Location, name your base station and Name your device screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -74,7 +74,7 @@ Examples:
       | Home            |
       
 
-@DIYRegistrationWhenExistingLocationAndBaseStationNamesAreEntered			@P2		@UIAutomated
+@DIYRegistrationWhenExistingLocationAndBaseStationNamesAreEntered			@P2		@Automated
 Scenario Outline: As a user I want to verify if error popup displays when existing location and base station names are entered again
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -113,7 +113,7 @@ Examples:
       | Home                        | Living Room           |
    
       
-@DIYWhenUserEntersMaxCharactersInCustomLocationAndBaseStationName		@P2		@UIAutomated
+@DIYWhenUserEntersMaxCharactersInCustomLocationAndBaseStationName		@P2		@Automated
 Scenario Outline: As a user I want to enter max characters in new location and base station name
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -138,7 +138,7 @@ Examples:
       | This is to test max characterss	| Home				|
       
 
-@DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@UIAutomated	
+@DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@Automated	
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -191,7 +191,7 @@ Examples:
 
 
 #Reauire a new account to execute
-@DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@UIAutomated
+@DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@Automated
 Scenario Outline: As a user I want to verify default location name and default base station name
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -271,7 +271,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenNoBaseStationsAreAvailable	 		@Doesn'tRequireAnyBaseStationsForExecution		@P2				@UIAutomated
+@DIYWhenNoBaseStationsAreAvailable	 		@Doesn'tRequireAnyBaseStationsForExecution		@P2				@Automated
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -299,7 +299,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenQRCodeIsNotScannedAndThenScanned	 		@P3			@UIAutomated
+@DIYWhenQRCodeIsNotScannedAndThenScanned	 		@P3			@Automated
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -342,7 +342,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 	@P3				@UIAutomated
+@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 	@P3				@Automated
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -411,7 +411,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYCancelInRegisterBaseStation	 	@P2			@UIAutomated
+@DIYCancelInRegisterBaseStation	 	@P2			@Automated
 Scenario Outline: As a user I should be able to Cancel the setup in Register Base Station screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -437,7 +437,7 @@ Examples:
       | Home                                    | Living Room                     |
       
 
-@DIYCancelInSelectBaseStationsListScreen		@RequiresMultipleBaseStationsForExecution		@P2			@UIAutomated
+@DIYCancelInSelectBaseStationsListScreen		@RequiresMultipleBaseStationsForExecution		@P2			@Automated
 Scenario Outline: As a user I should be able to cancel the setp up in select base station screen when multiple base stations are displayed
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user DAS device with ADB ID "9c43dac2" is deregistered and booted
@@ -559,7 +559,7 @@ And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
 
-@DIYCancelSetUpInConnectToNetworkScreen	 	@P2			@UIAutomated
+@DIYCancelSetUpInConnectToNetworkScreen	 	@P2			@Automated
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -671,7 +671,7 @@ Examples:
       | Home                                    | Living Room                     | thisisinvalidssid   |
 
 
-@DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2			@UIAutomated
+@DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2			@Automated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after cancelling add a network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -726,9 +726,9 @@ Examples:
       | location name | device name  | Network Type	|
       | Home          | Living Room  | WEP PSK		|
 
-@DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@UIAutomated
+@DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
-#Given user DAS device with ADB ID "9c48da88" is deregistered and booted
+Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -745,7 +745,8 @@ When user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -763,9 +764,9 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
-      | Home                                    | Kitchen                         |
+#      | Home                                    | Kitchen                         |
       
-@DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@UIAutomated
+@DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by skiping geofencing and setting up alexa
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -816,7 +817,7 @@ Examples:
       | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
 
 
-@DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@UIAutomated
+@DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by enabling geofencing and setting up alexa
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -860,7 +861,7 @@ Examples:
       | Home                                    | Living Room                     | xyxyxyxyx@xyx.com				| xyxyxyx				|
       
       
-@DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@UIAutomated
+@DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application when firmware update pops up
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -902,7 +903,7 @@ Examples:
       | Home                                    | Kitchen                         |
 
       
-@DIYRegistrationByMinimizingAndMaximizingTheApp		@P3			@UIAutomated
+@DIYRegistrationByMinimizingAndMaximizingTheApp		@P3			@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -944,7 +945,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2			@UIAutomated
+@DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2			@Automated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1064,7 +1065,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2			@UIAutomated
+@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2			@Automated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1105,7 +1106,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYTryToReRegisterDAS		 	@P2			@UIAutomated
+@DIYTryToReRegisterDAS		 	@P2			@Automated
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1157,7 +1158,7 @@ Examples:
       | Home          | Living Room  		| Kitchen				|
       
 
-@DIYDeleteExistingDASAndRegisterIt		@P2			@UIAutomated
+@DIYDeleteExistingDASAndRegisterIt		@P2			@Automated
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1344,7 +1345,7 @@ Examples:
       | Home          | Living Room  |
 
 
-@DASDIYConfigurationVerifyBackArrowFunctionality		@P2			@UIAutomated
+@DASDIYConfigurationVerifyBackArrowFunctionality		@P2			@Automated
 Scenario Outline: Verify Back arrow functionality while registering DAS
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1362,7 +1363,7 @@ Examples:
 #| Enter your Wi-Fi password	| Connect to Network				|
 #| Set Up accessories         | Smart Home Security Success	|
 
-@DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P2				@UIAutomated
+@DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P2				@Automated
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1462,7 +1463,7 @@ Examples:
 #| Home			| Living Room		| Window			| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 
 
-@DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P3			@UIAutomated
+@DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1639,7 +1640,7 @@ Examples:
 | Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
 
 
-@DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3			@UIAutomated
+@DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1771,7 +1772,7 @@ Examples:
 | Home			| Living Room		| Window         |Dining Room Window    | Opened        | Closed                |
 | Home			| Living Room		| Window         | Kitchen Window       | Opened        | Closed                |
 
-@DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P2			@UIAutomated
+@DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P2			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with default name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1860,7 +1861,7 @@ Examples:
 #| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 #| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
-@DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P3			@UIAutomated
+@DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 Given user launches and logs in to the Lyric application
@@ -1941,7 +1942,7 @@ Examples:
 | Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-@DIYRegistrationWithKeyFobEnrollment		@P2			@UIAutomated
+@DIYRegistrationWithKeyFobEnrollment		@P2			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Key Fob through DIY
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -2237,7 +2238,7 @@ Examples:
 
 
 #WithoutISMVAndOSMV
-@DIYRegistrationWithSensorBulkEnrollment    @P1			@UIAutomated
+@DIYRegistrationWithSensorBulkEnrollment    @P1			@Automated
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application

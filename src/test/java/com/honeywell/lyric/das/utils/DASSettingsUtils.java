@@ -43,7 +43,7 @@ public class DASSettingsUtils {
 				 * + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";
 				 */
 				message = "  This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
-						+ " and all related accessories.";
+						+ ", all related accessories and facial recognition.";
 			}
 
 			// message =" This will delete your Smart Home Security and all the connected
@@ -199,11 +199,14 @@ public class DASSettingsUtils {
 	 */
 	public static boolean navigateFromDashboardScreenToSecuritySettingsScreen(TestCases testCase) {
 		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			Thread.sleep(2000);
-
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
@@ -982,7 +985,6 @@ public class DASSettingsUtils {
 	public static boolean navigateFromDashboardToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		try {
-
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 			flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
