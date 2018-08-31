@@ -48,10 +48,10 @@ public class HoldScheduleUntil extends Keyword {
 				if (inputs.isRunningOn("Saucelabs")) {
 					currentTime= LyricUtils.getDeviceTime(testCase, inputs);
 					ReportStep_Pass(testCase,"Current suace lab time"+currentTime);
-					androidDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm a");
+					androidDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm a");
 				}else{
 					currentTime = JasperAdhocOverride.getAndroidDeviceTime(testCase).trim();
-					androidDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+					androidDateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy");
 				}
 				ReportStep_Pass(testCase, "Current time on device is "+currentTime);
 				Date date = androidDateFormat.parse(currentTime);
