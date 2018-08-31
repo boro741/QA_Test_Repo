@@ -326,17 +326,22 @@ public class DIYRegistrationUtils {
 		return flag;
 	}
 
-	public static boolean navigateFromEnableAmazonAlexaToDashboard(TestCases testCase) {
+	public static boolean navigateFromEnableAmazonAlexaToPeopleDetection(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isAmazonAlexaHeaderTitleVisible() && dasDIY.isSkipButtonInAmazonAlexaVisible()) {
 			flag = flag & dasDIY.clickOnSkipButtonInAmazonAlexaScreen();
-			if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
-				dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
-			}
+		}
+		return flag;
+	}
+
+	public static boolean navigateFromPeopleDetectionToDashboard(TestCases testCase) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isPeopleDetectionHeaderTitleVisible() && dasDIY.isNotNowButtonInPeopleDetectionScreenVisible()) {
+			flag = flag & dasDIY.clickOnNotNowButtonInPeopleDetectionScreen();
 		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
-
 			// flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();

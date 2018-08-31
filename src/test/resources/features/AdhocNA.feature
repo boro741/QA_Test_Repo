@@ -69,7 +69,7 @@ Examples:
 
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingschedule		@Automated
-Scenario Outline:  To verify following base switching  mode is changed for "Heat, auto, cool" system with auto changeover enabled
+Scenario Outline:  To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user has <Mode> system mode
 When user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -131,7 +131,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusing			@Automated
-Scenario Outline:  To verify using schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify using schedule switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
@@ -167,7 +167,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodUsing   		@Automated
-Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set "Home" with <Geofence>
@@ -187,7 +187,7 @@ Examples:
 
 
 @AdhocOverrideCreateTimebasescheduleTemporaryHold			@Automated
-Scenario Outline:  To verify create time base schedule when mode is changed for Heat , auto ,cool system with auto changeover enabled
+Scenario Outline:  To verify create time base schedule when mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
@@ -603,7 +603,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoTemporaryHold			@Automated
-Scenario Outline:  To verify time base switching  mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify time base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user has <Mode> system mode 
 And user thermostat is set to "time based" schedule
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -656,7 +656,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideTimeSchedulingChangeDifferentModeHeatCoolAutoOFFTemporaryHold 				@Automated
-Scenario Outline:  To verify time base schedule switching  mode is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify time base schedule switching  mode is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -702,7 +702,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideTimeSchedulingChangeSameModeHeatCoolAutoOFFTemporaryHold			@Automated
-Scenario Outline:  To verify time base schedule switching  mode is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify time base schedule switching  mode is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -783,7 +783,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingChangeModesWithSameModesHeatCoolAutoOFFTemporaryHold			@Automated
-Scenario Outline:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set <Period> with <Geofence>
@@ -822,7 +822,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingChangeModeWithDifferentModesHeatCoolAutoOFFTemporaryHold		@Automated
-Scenario Outline:  To verify geofence schedule switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set <Period> with <Geofence>
@@ -860,7 +860,7 @@ Examples:
 
 #JasperNA
 @AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold  @AutomatedOnAndroid
-Scenario Outline:  To verify delete current period and remove hold  when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify delete current period and remove hold  when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <PPeriod> as previous period <CPeriod> as current period and <NPeriod> as next period of "time based" schedule
@@ -887,7 +887,7 @@ Examples:
 
 #JasperNA
 @AdhocOverridetimebaseschedulingdeleteNextperiodTemporaryHold @Automated
-Scenario Outline: To verify delete Next period and remove hold  when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline: To verify delete Next period and remove hold  when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <CPeriod> as current period <NPeriod> as next period and <NNPeriod> as next period of "time based" schedule
@@ -914,7 +914,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodTemporaryHold			@Automated
-Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat, auto, cool system with auto changeover enabled by deleting current sleep period
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set "Home" with <Geofence>
@@ -937,7 +937,7 @@ Examples:
 
 #JasperNA
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodByRemovingTemporaryHold				@Automated
-Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat, auto, cool system with auto changeover enabled by removing hold from adhoc
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set "Home" with <Geofence>
@@ -956,6 +956,7 @@ Examples:
 | Cool	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
 | Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
 #| Auto | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
+
 
 #JasperNA
 @AdhocOverrideCreateTimebasescheduleTemporaryHold			@Automated
@@ -1752,7 +1753,7 @@ Examples:
 
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoPermanentHold @Automated
-Scenario Outline: To verify change modes for "Heat , auto ,cool," system with auto changeover enabled
+Scenario Outline: To verify change modes for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -1795,7 +1796,7 @@ Examples:
 #|Cool|Auto        |AWAY |
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHold @Automated
-Scenario Outline: To verify change modes for "Heat , auto ,cool and off " system with auto changeover enabled
+Scenario Outline: To verify change modes for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -1876,7 +1877,7 @@ Examples:
 
 
 @AdhocOverridetimebaseschedulingdeleteALLPERIODSPermanentHold @Automated
-Scenario Outline:  To verify delete all periods and no schedule status for "Heat , auto ,cool" system with auto changeover enabled
+Scenario Outline:  To verify delete all periods and no schedule status for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application

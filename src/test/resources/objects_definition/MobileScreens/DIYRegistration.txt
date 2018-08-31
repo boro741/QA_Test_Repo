@@ -162,3 +162,7 @@ DeletingLocationLoadingSpinner	ID	progress	ID	progress	ID	progress	NAME	Activity
 DoneButtonInKeyboard							NAME	Done	NAME	Done	NAME	Done
 ReturnButtonInKeyboard							ID	Return	ID	Return	ID	Return
 GoButtonInKeyboard							NAME	Go	NAME	Go	NAME	Go
+PeopleDetectionHeaderTitle	XPATH	//android.widget.TextView[@text='People detection']	XPATH	//android.widget.TextView[@text='People detection']	XPATH	//android.widget.TextView[@text='People detection']	XPATH	//*[@value='People Detection']	XPATH	//*[@value='People Detection']	XPATH	//*[@value='People Detection']
+NotNowButtonInPeopleDetectionScreen	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	XPATH	//XCUIElementTypeButton[@name='LeftButton']	XPATH	//XCUIElementTypeButton[@name='LeftButton']	XPATH	//XCUIElementTypeButton[@name='LeftButton']
+AltLeftButton	ID	horizontal_button_previous	ID	horizontal_button_previous	ID	horizontal_button_previous	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[3]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[3]	XPATH	(//XCUIElementTypeButton[@name='LeftButton'])[3]
+EnableButtonInPeopleDetectionScreen	ID	horizontal_button_next	ID	horizontal_button_next	ID	horizontal_button_next	XPATH	//XCUIElementTypeButton[@name='RightButton']	XPATH	//XCUIElementTypeButton[@name='RightButton']	XPATH	//XCUIElementTypeButton[@name='RightButton']
