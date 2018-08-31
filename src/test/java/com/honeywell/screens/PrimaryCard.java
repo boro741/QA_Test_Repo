@@ -735,6 +735,7 @@ public class PrimaryCard extends MobileScreens {
 					flag = false;
 				}
 			} else {
+				Keyword.ReportStep_Pass(testCase, "Current displayed mode is "+MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value"));
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ModeButton").getAttribute("value")
 						.toUpperCase().contains(expectedValue)) {
 					return flag;

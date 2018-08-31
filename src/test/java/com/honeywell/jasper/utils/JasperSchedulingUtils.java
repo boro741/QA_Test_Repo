@@ -8410,6 +8410,8 @@ public class JasperSchedulingUtils {
 								}
 							}
 						}
+						scrollForAndroidScreen(testCase);
+						scrollForAndroidScreen(testCase);
 
 						for (int i = 0; i < weekendschedule_periodtitle.size(); i++) {
 							dateString = ss
@@ -9587,6 +9589,8 @@ public class JasperSchedulingUtils {
 
 						}
 						j = 0;
+						scrollForAndroidScreen(testCase);
+						scrollForAndroidScreen(testCase);
 						for (int i = 1; i <= schedule_periodtimes_weekend.size(); i++) {
 							if (i == 1) {
 								if (!schedule_periodtimes_weekend.get(i - 1).getAttribute("value")

@@ -3918,10 +3918,11 @@ public class JasperSchedulingVerifyUtils {
 			List<String> allowedModes = statInfo.getAllowedModes();
 
 			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
+			
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
-					if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 5)) {
+					if (MobileUtils.isMobElementExists("ID", "scheduling_period_heating_point", testCase, 35)) {
 						schedule_heatsetpoints = MobileUtils.getMobElements(testCase, "ID",
 								"scheduling_period_heating_point");
 						for (int i = 0; i < schedule_heatsetpoints.size(); i++) {

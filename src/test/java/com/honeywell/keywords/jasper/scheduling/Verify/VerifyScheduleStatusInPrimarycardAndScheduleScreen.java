@@ -69,7 +69,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					switch (parameters.get(0).toUpperCase()) {
 					case "SCHEDULE OFF STATUS": {
 						SchedulingScreen psoff = new SchedulingScreen(testCase);
-						flag = flag & psoff.isScheduleOffStatusVisible(10);	
+						flag = flag & psoff.isScheduleOffStatusVisible(30);	
 						if(flag){
 							Keyword.ReportStep_Pass(testCase, "Schedule OFF Status displayed on primarycard");
 						}else{
@@ -96,8 +96,8 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "SCHEDULE STATUS TIMEGEOFENCE": {
 						SchedulingScreen schedulestatus = new SchedulingScreen(testCase);	
-						if(schedulestatus.isUsingAwayVisible(2) || schedulestatus.isUsingHomeVisible(2) || schedulestatus.isUsingSleepVisible(2) 
-								|| schedulestatus.isFollowingSchedulesVisible(2)){
+						if(schedulestatus.isUsingAwayVisible(20) || schedulestatus.isUsingHomeVisible(20) || schedulestatus.isUsingSleepVisible(20) 
+								|| schedulestatus.isFollowingSchedulesVisible(20)){
 							Keyword.ReportStep_Pass(testCase, "Schedule Status displayed on primarycard");
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule status not displayed on primarycard");
