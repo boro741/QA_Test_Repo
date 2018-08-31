@@ -246,7 +246,7 @@ public class SuiteExecutor {
 					"--publishResult",
 					"--useXCUITest", "true",
 					"--requirementFileName","Requirement_file_ComfortSettings_iOS",
-					"--testrunname","DLS-Jasper NA-Scheduling"+appName+"",
+					"--testrunname","DLS-Jasper NA and EMEA -Scheduling"+appName+"",
 					"--appToInstall","IOS:"+appName+",Android:1",
 					"--groups",
 
