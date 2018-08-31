@@ -44,9 +44,12 @@ public class ChangeMobileOrientation extends Keyword {
 		if(this.parameters.get(0).equalsIgnoreCase("Landscape"))
 		{
 			testCase.getMobileDriver().rotate(ScreenOrientation.LANDSCAPE);
-		}else if (this.parameters.get(0).equalsIgnoreCase("potrait"))
+		}if (this.parameters.get(0).equalsIgnoreCase("potrait"))
 		{
 			testCase.getMobileDriver().rotate(ScreenOrientation.PORTRAIT);
+		}
+		else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Found");
 		}
 		}catch(Exception e)
 				{
