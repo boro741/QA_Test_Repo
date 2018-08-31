@@ -32,3 +32,5 @@ LocationName	id	toolbar_spinner_item_actionbar_title					NAME	Location Name	NAME
 LocationDropDownList	id	toolbar_spinner_item_dropdown_title					NAME	Navigation_Drop_Down_Title_subTitle	NAME	Navigation_Drop_Down_Title_subTitle	NAME	Navigation_Drop_Down_Title_cell
 DashboardDrAlert	XPATH	"//*[contains(@text, 'Savings Event')]"	XPATH	"//*[contains(@text, 'Savings Event')]"	XPATH	"//*[contains(@text, 'Savings Event')]"	XPATH	"//*[contains(@text, 'Savings Event')]"	XPATH	"//*[contains(@text, 'Savings Event')]"	XPATH	"//*[contains(@text, 'Savings Event')]"
 LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
+CameraOnText	XPATH	//*[@text='CAMERA IS ON']	XPATH	//*[@text='CAMERA IS ON']	XPATH	//*[@text='CAMERA IS ON']	NAME	CAMERA IS ON	NAME	CAMERA IS ON	NAME	CAMERA IS ON
+CameraOffText	XPATH	//*[@text='CAMERA IS OFF']	XPATH	//*[@text='CAMERA IS OFF']	XPATH	//*[@text='CAMERA IS OFF']	NAME	CAMERA IS OFF	NAME	CAMERA IS OFF	NAME	CAMERA IS OFF

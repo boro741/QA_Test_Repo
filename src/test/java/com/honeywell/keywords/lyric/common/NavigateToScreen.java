@@ -36,6 +36,7 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
@@ -113,7 +114,11 @@ public class NavigateToScreen extends Keyword {
 				}
 
 				}
-			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+			} 
+			else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD") && screen.get(0).equalsIgnoreCase("DASHBOARD")) {
+				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+				flag = flag & cs.clickOnBackButtonInCameraSolutionCardScreen();
+			}else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SETTINGS": {
 					PrimaryCard sensorScreen = new PrimaryCard(testCase);
@@ -534,10 +539,16 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase, inputs);
 					break;
 				}
+				
+				// Navigates to camera solution card screen from dashboard screen
+				case "CAMERA SOLUTION CARD":{
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);
+					break;
+				}
+				
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag
-							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
 				/*

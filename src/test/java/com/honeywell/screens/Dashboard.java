@@ -145,7 +145,7 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", 3);
 	}
 
-	public boolean clickOnDeviceOnDashbaord() {
+	public  boolean clickOnDeviceOnDashbaord() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardIconText");
 	}
 
@@ -195,6 +195,17 @@ public class Dashboard extends MobileScreens {
 	public String getSecurityStatusLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
 	}
+	
+	// Method to check the camera ON text in dashboard screen 
+	public boolean isCameraOnTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnText");
+	}
+	
+	// Method to check the camera Off text in dashboard screen 
+	public boolean isCameraOffTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOffText");
+	}
+
 
 	public String getCameraStatus(int timeOut) {
 		String cameraStatus = null;

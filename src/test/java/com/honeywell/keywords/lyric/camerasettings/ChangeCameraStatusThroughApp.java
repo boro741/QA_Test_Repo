@@ -37,45 +37,27 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 	@KeywordStep(gherkins = "^user camera is set to \"(.*)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			Dashboard d = new Dashboard(testCase);
 			CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
-			String currentCameraStatus = d.getCameraStatus(25);
+			boolean currentCameraStatus = cs.getCameraStatus(25);
 			switch (expectedOption.get(0).toUpperCase()) {
 			case "ON": {
-				if (currentCameraStatus.contains("ON") || currentCameraStatus.contains("on")) {
-					Keyword.ReportStep_Pass(testCase, "Camera Current status is ON");
-					break;
+				if (currentCameraStatus){
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is already ON");
 				} else {
-					Keyword.ReportStep_Pass(testCase, "Camera Current status is OFF and turning it to ON");
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Camera");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (cs.isAppSettingsIconVisible() && cs.isCameraOnButtonVisible(10)) {
-						cs.clickOnCameraOnButton();
-						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase, "Camera status is turned ON");
-						if (cs.isBackButtonInCameraSolutionCardScreenVisible()) {
-							cs.clickOnBackButtonInCameraSolutionCardScreen();
-						}
-					}
+					cs.clickOnCameraOnButton();
+					Thread.sleep(10000);
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is set to ON");
 				}
+			
 				break;
 			}
 			case "OFF": {
-				if (currentCameraStatus.contains("OFF") || currentCameraStatus.contains("off")) {
-					Keyword.ReportStep_Pass(testCase, "Camera Current status is OFF");
-					break;
-				} else {
-					Keyword.ReportStep_Pass(testCase, "Camera Current status is ON and turning it to OFF");
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Camera");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-					if (cs.isAppSettingsIconVisible() && cs.isCameraOffButtonVisible(10)) {
-						cs.clickOnCameraOffButton();
-						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Keyword.ReportStep_Pass(testCase, "Camera status is turned OFF");
-						if (cs.isBackButtonInCameraSolutionCardScreenVisible()) {
-							cs.clickOnBackButtonInCameraSolutionCardScreen();
-						}
-					}
+				if (!currentCameraStatus) {
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is already OFF");
+				} else{
+					cs.clickOnCameraOffButton();
+					Thread.sleep(10000);
+					Keyword.ReportStep_Pass(testCase, "Camera Current status is set to OFF");
 				}
 				break;
 			}
