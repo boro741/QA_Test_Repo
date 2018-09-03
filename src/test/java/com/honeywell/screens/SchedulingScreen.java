@@ -467,7 +467,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getTimeOfWeekendScheduleOfGivenPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath",
-				"//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.LinearLayout/android.widget.TextView[@text='"
+				"//*[contains(@content-desc,'_Saturday - Sunday')]//android.widget.TextView[@text='"
 						+ periodName
 						+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView");
 	}

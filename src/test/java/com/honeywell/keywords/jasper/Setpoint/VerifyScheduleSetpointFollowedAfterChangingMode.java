@@ -43,16 +43,22 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 				{
 					flag = flag & DashboardUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-					Double getPeriodSetpoint, currentStepperSetpoint ;
-					currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-					getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
-					if(getPeriodSetpoint.compareTo(currentStepperSetpoint) == 0 ){
-						Keyword.ReportStep_Pass(testCase,
-								"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
-					}else {
-						flag = false;
-						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint: "+getPeriodSetpoint + " StepperSetpoint: "+currentStepperSetpoint);
+					flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+					Double getPeriodSetpoint = 0.0, currentStepperSetpoint = 0.0 ;
+					if (flag){
+						currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+						getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
+						if(getPeriodSetpoint.compareTo(currentStepperSetpoint) == 0 ){
+							Keyword.ReportStep_Pass(testCase,
+									"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
+						}else {
+							flag = false;
+							Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint: "+getPeriodSetpoint + " StepperSetpoint: "+currentStepperSetpoint);
+						}
+					}else
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to fetch the stat info");
 					}
 					break;
 				}
