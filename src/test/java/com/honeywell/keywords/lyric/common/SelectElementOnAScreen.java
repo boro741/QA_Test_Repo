@@ -26,6 +26,7 @@ import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
@@ -222,6 +223,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
+				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRMS ATTENTION": {
 					flag = DASCameraUtils.clickOnAttention(testCase);
@@ -230,6 +232,11 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "CANCELS ATTENTION": {
 					flag = flag & DASCameraUtils.clickOnCancelAttention(testCase, inputs);
+					break;
+
+				}
+				case "SNAPSHOT": {
+					flag = flag & cs.clickSanpShotIcon();
 					break;
 
 				}

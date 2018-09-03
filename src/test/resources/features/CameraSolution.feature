@@ -143,19 +143,20 @@ As a user,i should be able to get live streaming of the camera and to get motion
 
    
 
-  @Snapshot_WhenCameraOnlineCameraservicesEnabled  @P2
+  @Snapshot_WhenCameraOnlineCameraservicesEnabled  @P2 @UIAutomated
    Scenario: As a user i should be able to take snapshot from live stream when my camera is online
-    Given user logs in to Lyric app
-     And user enabled the camera services
-    When user navigates to "Camera card Solution" screen from "Dashboard" screen
-     And user DAS camera is set to "on"
-    Then user should be displayed with "Live streaming"
-     And user should be displayed with options:
+   Given user launches and logs in to the Lyric application
+   When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+   And user camera is set to "ON"
+   And user "should be" displayed with options:
+    |Icons    |
+    |Live Stream Progress Bar |
+  And user "should be" displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
     |Attention|
-    When user selects snap shot 
+    When user selects "Snapshot" from "Camera Solution Card" screen
     Then user should be displayed with "saved snapshot message" in "Camera Solution card" screen
    # And verify "snapshot" is available in gallery
    

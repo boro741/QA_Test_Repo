@@ -56,6 +56,10 @@ public class CameraSolutionCardScreen extends MobileScreens {
 	   return cameraStatus;
 	}
 	
+	public boolean isSanpShotSavedTextExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SnapshotDescription");
+	}
+	
 	public boolean isSanpShotIconExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Snap");
 	}
@@ -91,4 +95,5 @@ public class CameraSolutionCardScreen extends MobileScreens {
 	public boolean clickOnCameraPlayButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase,"CameraPlayButton");
 	}
+	
 }

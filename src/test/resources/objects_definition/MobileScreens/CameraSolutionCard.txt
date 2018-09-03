@@ -12,3 +12,4 @@ Attention	ID	feature_panic_alarm	ID	feature_panic_alarm	ID	feature_panic_alarm	N
 LiveStreamProgressBar	ID	camera_progress_bar	ID	camera_progress_bar	ID	camera_progress_bar	NAME	progressViewID	NAME	progressViewID	NAME	progressViewID
 CameraPlayButton	ID	camera_solution_card_retry	ID	camera_solution_card_retry	ID	camera_solution_card_retry	NAME	camera btn play	NAME	camera btn play	NAME	camera btn play
 CameraLiveIndicator	ID	camera_live_indicator	ID	camera_live_indicator	ID	camera_live_indicator	NAME	LIVE	NAME	LIVE	NAME	LIVE
+SnapshotDescription	ID	camera_voice_snapshot_results	ID	camera_voice_snapshot_results	ID	camera_voice_snapshot_results	NAME	Snapshot saved to phone.	NAME	Snapshot saved to phone.	NAME	Snapshot saved to phone.

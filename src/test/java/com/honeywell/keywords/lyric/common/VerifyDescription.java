@@ -79,6 +79,10 @@ public class VerifyDescription extends Keyword {
 		} else if (expectedScreen.get(0).equalsIgnoreCase("CAMERA IS OFF")) {
 		    Dashboard dash = new Dashboard(testCase);
 		    flag = flag & dash.isCameraOffTextVisible();
+		    
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SAVED SNAPSHOT MESSAGE")) {
+		    CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		    flag = flag & cs.isSanpShotSavedTextExists();
 		}
 	
 		
