@@ -2,16 +2,18 @@
 Feature:  
 As a user,i should be able to get live streaming of the camera and to get motion alert on motion detection 
 
-   @CameraStatusDashboardDIY @P2
-   Scenario Outline: As an user I should be shown with camera in the dashboard after DIY registration
-   Given user logs in to Lyric application
-    When user navigates to "Camera card Solution" screen from "Dashboard" screen
-     And user DAS camera is set to "on"
-     And user navigates to "Dashboard" screen from "Camera card Solution"
-    Then user should be displayed with camera icon as On in dashboard
-     And user should be displayed with "Camera card Solution" screen
-     And user should be shown with No Clips available
-   
+   @CameraStatusDashboardDIY @P2  @UIAutomated
+   Scenario: As an user I should be shown with camera in the dashboard after DIY registration
+   Given user launches and logs in to the Lyric application
+   When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+   And user camera is set to "ON"
+   When user navigates to "Dashboard" screen from the "Camera Solution Card" screen
+   Then user should be displayed with the "Camera is ON" description
+   When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+   And user camera is set to "OFF"
+   When user navigates to "Dashboard" screen from the "Camera Solution Card" screen
+   Then user should be displayed with the "Camera is OFF" description
+
    
    @CameraStatusDashboard @P2
    Scenario Outline: I should be shown with latest clip as thumbnail in the dashboard
@@ -38,7 +40,7 @@ As a user,i should be able to get live streaming of the camera and to get motion
      And user should be displayed with shutter close status in dashboard
     When user navigates to "Camera card Solution" screen from "Dashboard" screen
     Then user should be displayed with "Privacy Ring Closed" in "Camera card Solution" screen
-     And user should be not displayed with options:
+    And user should be not displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
@@ -48,30 +50,29 @@ As a user,i should be able to get live streaming of the camera and to get motion
      And user should not receive "Motion detected" event
      
      
-   @CameraStatusOff @P2
-   Scenario Outline: I should be shown with off status in the dashboard and camera solution card
-   Given user logs in to Lyric application
-    When user DAS camera is set to "Off" through CHIL
-    Then user should be displayed with off icon in dashboard
-     And user should be displayed with off status in dashboard
-    When user navigates to "Camera card Solution" screen from "Dashboard" screen
-    Then user should be displayed with "off" in "Camera card Solution" screen
-     And user should be displayed with toggle button as "off"
-     And user should not be displayed with options:
+   @CameraStatusOff @P2  @UIAutomated
+   Scenario: I should be shown with off status in the dashboard and camera solution card
+   Given user launches and logs in to the Lyric application
+    When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+    Then user camera is set to "OFF"
+    And user navigates to "Dashboard" screen from the "Camera Solution Card" screen
+    Then user should be displayed with the "Camera is OFF" description
+    When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+    And user should not be displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
     |Attention|
     
     
-   @CameraStatusOffline @P2
+   @CameraStatusOffline @P2 @NotAutomatable
    Scenario Outline: I should be shown with offline status in the dashboard and camera solution card
    Given user DAS camera is in <State>
      And user logs in to Lyric application
     Then user should be displayed with <State> in dashboard
     When user navigates to "Camera card Solution" screen from "Dashboard" screen
     Then user should be displayed with <State> in "Camera card Solution" screen
-     And user should not be displayed with options:
+     And user "should not be" displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
@@ -110,58 +111,52 @@ As a user,i should be able to get live streaming of the camera and to get motion
     |Mobile network is low |
     
      
-  @CameraLivestreamingstatus @P2
+  @CameraLivestreamingstatus @P2  @UIAutomating
    Scenario: I should be shown with livestreaming status in primary card
-   Given user logs in to Lyric application
-    When user navigates to "Camera card Solution" screen from "Dashboard" screen
-     And user DAS camera is set to "on"
-    Then user should be displayed with "Loading live feed" till livestreaming
-     And user should be displayed with "Live streaming"
-     And user should be displayed with "Streaming Progress status"
-     And user should be Live streamed for 90 seconds
-     And user should be displayed with options:
+   Given user launches and logs in to the Lyric application
+    When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+    Then user camera is set to "ON"
+    And user "should be" displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
     |Attention|
-    When user changes his mobile view to "Landscape" from "potrait"
-    Then user should be displayed with "Live streaming" in full screen
-    When user changes his mobile view to "Landscape" from "potrait"
-     And user should be displayed with "Streaming Progress status"
-     And user should be displayed with options:
+    When user changes his mobile view to "Landscape"
+    And user "should not be" displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
     |Attention|
-    #User should be shown with live streaming for 90 seconds and stopped
+     And user "should be" displayed with options:
+    |Icons    |
+    |Live Stream Progress Bar |
+    When user changes his mobile view to "potrait"
+    #And user should be shown with live streaming for 90 seconds and stopped
     Then user should be displayed with "Tap to continue live feed"
      And user should be displayed with play icon
-     And user should not be displayed with options:
+     And user "should not be" displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
     |Attention|
-    When user restarts "Live streaming"
-    Then user should be displayed with "Live streaming"
-    When user pauses "Live streaming"
-    Then user should be displayed with "Tap to continue live feed" 
-    When user click full icon during live streaming
-    Then user should be displayed with "Live streaming" in full screen
+    Then user should be able to Pause and Play the live streaming
+
    
 
-  @Snapshot_WhenCameraOnlineCameraservicesEnabled  @P2
+  @Snapshot_WhenCameraOnlineCameraservicesEnabled  @P2 @UIAutomated
    Scenario: As a user i should be able to take snapshot from live stream when my camera is online
-    Given user logs in to Lyric app
-     And user enabled the camera services
-    When user navigates to "Camera card Solution" screen from "Dashboard" screen
-     And user DAS camera is set to "on"
-    Then user should be displayed with "Live streaming"
-     And user should be displayed with options:
+   Given user launches and logs in to the Lyric application
+   When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
+   And user camera is set to "ON"
+   And user "should be" displayed with options:
+    |Icons    |
+    |Live Stream Progress Bar |
+  And user "should be" displayed with options:
     |Icons    |
     |Snapshot |
     |Talk     |
     |Attention|
-    When user selects snap shot 
+    When user selects "Snapshot" from "Camera Solution Card" screen
     Then user should be displayed with "saved snapshot message" in "Camera Solution card" screen
    # And verify "snapshot" is available in gallery
    

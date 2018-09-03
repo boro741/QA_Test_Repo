@@ -1,6 +1,15 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
-CameraOnButton	ID	on	ID	on	ID	on	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']
-CameraOffButton	ID	off	ID	off	ID	off	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']
+CameraOnButton	ID	privacy_on	ID	privacy_on	ID	privacy_on	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']
+CameraOffButton	ID	privacy_off	ID	privacy_off	ID	privacy_off	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']
 AppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
 LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
+NoClipsAvailabletext	TEXT	No clips available.	TEXT	No clips available.	TEXT	No clips available.	NAME	No clips available	NAME	No clips available	NAME	No clips available
+PlayStream	ID	camera_off_text	ID	camera_off_text	ID	camera_off_text	NAME	Play Livestream	NAME	Play Livestream	NAME	Play Livestream
+Snap	ID	feature_snapshot	ID	feature_snapshot	ID	feature_snapshot	NAME	SNAP	NAME	SNAP	NAME	SNAP
+Talk	ID	feature_voice	ID	feature_voice	ID	feature_voice	NAME	TALK	NAME	TALK	NAME	TALK
+Attention	ID	feature_panic_alarm	ID	feature_panic_alarm	ID	feature_panic_alarm	NAME	ATTENTION	NAME	ATTENTION	NAME	ATTENTION
+LiveStreamProgressBar	ID	camera_progress_bar	ID	camera_progress_bar	ID	camera_progress_bar	NAME	progressViewID	NAME	progressViewID	NAME	progressViewID
+CameraPlayButton	ID	camera_solution_card_retry	ID	camera_solution_card_retry	ID	camera_solution_card_retry	NAME	camera btn play	NAME	camera btn play	NAME	camera btn play
+CameraLiveIndicator	ID	camera_live_indicator	ID	camera_live_indicator	ID	camera_live_indicator	NAME	LIVE	NAME	LIVE	NAME	LIVE
+SnapshotDescription	ID	camera_voice_snapshot_results	ID	camera_voice_snapshot_results	ID	camera_voice_snapshot_results	NAME	Snapshot saved to phone.	NAME	Snapshot saved to phone.	NAME	Snapshot saved to phone.

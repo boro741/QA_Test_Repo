@@ -382,6 +382,20 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromDashboardScreenToCameraSolutionScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 
 	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase,
 			TestCaseInputs inputs) {

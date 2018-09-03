@@ -13,6 +13,8 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.CameraSolutionCardScreen;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 
 public class VerifyDescription extends Keyword {
@@ -65,7 +67,25 @@ public class VerifyDescription extends Keyword {
 		} else if (expectedScreen.get(0).equalsIgnoreCase("COOL")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isCoolDefinitionVisibleOnChangeModeScreen();
+		
+		} else if (expectedScreen.get(0).equalsIgnoreCase("NO CLIPS AVAILABLE")) {
+			CameraSolutionCardScreen soutionCard = new CameraSolutionCardScreen(testCase);
+			flag = flag & soutionCard.isNoClipsTextAvailable();
+		
+		} else if (expectedScreen.get(0).equalsIgnoreCase("CAMERA IS ON")) {
+			Dashboard dash = new Dashboard(testCase);
+			flag = flag & dash.isCameraOnTextVisible();
+			
+		} else if (expectedScreen.get(0).equalsIgnoreCase("CAMERA IS OFF")) {
+		    Dashboard dash = new Dashboard(testCase);
+		    flag = flag & dash.isCameraOffTextVisible();
+		    
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SAVED SNAPSHOT MESSAGE")) {
+		    CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		    flag = flag & cs.isSanpShotSavedTextExists();
 		}
+	
+		
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(0) + " description is present");
 		} else {
