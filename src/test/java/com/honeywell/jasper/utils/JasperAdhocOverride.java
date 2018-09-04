@@ -285,7 +285,7 @@ public class JasperAdhocOverride {
 							Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"geofence Temporary Hold status not displayed: " + overrideTemp1);
+									"geofence Temporary Hold status not displayed: " + "expected text is "+AdhocText+  "but found text - HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period );
 					}
 					}else {
 						overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
