@@ -27,15 +27,15 @@ When user navigates to "thermostat solution card" screen from the "thermostat Da
 And verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
  |scheduling					 |Schedule status	   |Geofence     |Period|
-|Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+#|Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
 |geofence based               |Using Sleep Settings |UserArrived  |Sleep|
-|Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
-|Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
-|Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
-|geofence based               |Using Sleep Settings |UserArrived  |Sleep|
-|geofence based               |Using Sleep Settings |UserArrived  |Sleep|
-|Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
-|Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
+#|Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
+#|Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+#|Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
+#|geofence based               |Using Sleep Settings |UserArrived  |Sleep|
+#|geofence based               |Using Sleep Settings |UserArrived  |Sleep|
+#|Without sleep geofence based |Using Home Settings  |UserArrived  |Home|
+#|Without sleep geofence based |Using Away Settings  |UserDeparted |Away|
 
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutofollowingEMEA		@Automated
@@ -50,9 +50,9 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Period |
 | P1 |
-| P2|
-| P3|
-| P4|
+#| P2|
+#| P3|
+#| P4|
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleEMEA		@Automated
 Scenario:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
@@ -84,9 +84,9 @@ And user should be displayed with "respective period" setpoint value
 
 Examples:
 | scheduling					 	| Schedule status		| Geofence     | Period	|
-| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
+#| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
 | Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
-| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+#| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusingEMEA			@Automated
 Scenario Outline:  To verify using schedule switching modes is changed for Heat and off system with auto changeover enabled
@@ -104,8 +104,8 @@ Then user should be displayed with "respective period" setpoint value in solutio
 Examples:
 |ChangeMode	|scheduling					 	|Schedule status	   	|Geofence     |Period|
 | Off		| Without sleep geofence based 	|Using Home Settings  	|UserArrived  |Home|
-| Off		| Without sleep geofence based 	|Using Away Settings  	|UserDeparted |Away|
-| Off		| geofence based 				|Using Sleep Settings 	|UserArrived  |Home|
+#| Off		| Without sleep geofence based 	|Using Away Settings  	|UserDeparted |Away|
+#| Off		| geofence based 				|Using Sleep Settings 	|UserArrived  |Home|
 
 
 @AdhocOverrideCreateGeofencebasescheduleOFFAspecifictimeEMEA			@Automated
@@ -128,8 +128,8 @@ And user should be displayed with "respective period" setpoint value in solution
 Examples:
 | Period	| Geofence			| NEW Schedule				| Schedule status		|
 | Home		| UserArrived		| Geofence base schedule	| Using Home Settings	| 
-| Home		| UserArrived		| Geofence base schedule	| Using Away Settings	| 
-| Home		| UserArrived		| Geofence base schedule	| Using Sleep Settings	|
+#| Home		| UserArrived		| Geofence base schedule	| Using Away Settings	| 
+#| Home		| UserArrived		| Geofence base schedule	| Using Sleep Settings	|
 
 
 
@@ -153,7 +153,7 @@ And user should be displayed with "respective period" setpoint value in solution
 Examples:
 |Period|Geofence| Schedule status |
 |Home|UserArrived| Using Home Settings | 
-|Away|UserDeparted| Using Away Settings |
+#|Away|UserDeparted| Using Away Settings |
 
 @AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodUsing_EMEA  		@Automated
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat system with auto changeover enabled
@@ -169,7 +169,7 @@ Then verify the "USING HOME SETTINGS" on the "PRIMARY CARD" screen
 
 Examples:
 | Mode	| scheduling			| Schedule status		| Geofence     | Period		|
-| Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
+#| Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
 
 @AdhocOverrideCreateTimebasescheduleFollowingscheduleEMEA			@Rework
 Scenario Outline:  To verify create time base schedule when mode is changed for Heat system with auto changeover enabled
@@ -187,9 +187,9 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
 | HEAT		| time base 			| Time base schedule 	|
-| Heat only	| time base 			| Time base schedule 	|
-| HEAT		| geofence based  	| Time base schedule 	|
-| Heat only	| geofence based  	| Time base schedule 	|
+#| Heat only	| time base 			| Time base schedule 	|
+#| HEAT		| geofence based  	| Time base schedule 	|
+#| Heat only	| geofence based  	| Time base schedule 	|
 
 @AdhocOverrideCreateTimebasescheduleOFFModeNormalflowEMEA		@Rework 
 Scenario Outline: To Verify create time base schedule in off mode  
@@ -210,9 +210,9 @@ And verify respective <Period> period setpoint values
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
 | HEAT		| time base 			| Time base schedule 	|
-| Heat only	| time base 			| Time base schedule 	|
-| HEAT		| geofence based  	| Time base schedule 	|
-| Heat only	| geofence based  	| Time base schedule 	|
+#| Heat only	| time base 			| Time base schedule 	|
+#| HEAT		| geofence based  	| Time base schedule 	|
+#| Heat only	| geofence based  	| Time base schedule 	|
 
 
 @AdhocOverrideCreateGeofencebasechedulethroughFollowingScheduleEMEA		@Automated
@@ -236,7 +236,7 @@ Examples:
 #| HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
-| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 
@@ -288,17 +288,17 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | CPeriod | NPeriod |
 | P1| P3 |
-| P1| P2|
-| P1| P4 |
-| P3 | P1 |
-| P3 | P2 |
-| P3 | P4 |
-| P4 | P3 |
-| P4 | P2 |
-| P4 | P1 |
-| P2 | P1 |
-| P2 | P3 |
-| P2| P4 |
+#| P1| P2|
+#| P1| P4 |
+#| P3 | P1 |
+#| P3 | P2 |
+#| P3 | P4 |
+#| P4 | P3 |
+#| P4 | P2 |
+#| P4 | P1 |
+#| P2 | P1 |
+#| P2 | P3 |
+#| P2| P4 |
 
 @AdhocOverrideTimebaseScheduleTemporaryHoldStatusFromDashboardEMEA			@Automated
 Scenario:  I want to verify time Temporary override Schedule from solution card for systems Heat with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
@@ -327,17 +327,17 @@ And verify respective <NPeriod> period setpoint values
 Examples:
 | CPeriod | NPeriod |
 | P1| P3 |
-| P1| P2|
-| P1| P4 |
-| P3 | P1 |
-| P3 | P2 |
-| P3 | P4 |
-| P4 | P3 |
-| P4 | P2 |
-| P4 | P1 |
-| P2 | P1 |
-| P2 | P3 |
-| P2| P4 |
+#| P1| P2|
+#| P1| P4 |
+#| P3 | P1 |
+#| P3 | P2 |
+#| P3 | P4 |
+#| P4 | P3 |
+#| P4 | P2 |
+#| P4 | P1 |
+#| P2 | P1 |
+#| P2 | P3 |
+#| P2| P4 |
 
 @AdhocOverrideGeofencebaseScheduleTempHoldSolCardSetpointChangeAndNEXTPeriodResumeEMEA			@Automated
 Scenario Outline: Verify geofence temporary hold setpoint solution card and next period resume for systems Heat cool, Heat and Cool with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
@@ -355,9 +355,9 @@ And verify respective <NPeriod> period setpoint values
 Examples:
 | scheduling 					| Period				| Geofence		| NPeriod 		| NGeofence				| AfterCrossTemporary	|
 | Without sleep geofence based 	| HOME				| UserArrived	| Away			| UserDeparted			| USING AWAY SETTINGS	|
-| Without sleep geofence based 	| AWAY				| UserDeparted  	| HOME			| UserArrived  			| USING HOME SETTINGS	|
-| geofence based 				| AWAY 				| UserDeparted	| Sleep			| UserArrived			| USING SLEEP SETTINGS	|
-| geofence based					| Sleep 				| UserArrived	| AWAY			| UserDeparted			| USING AWAY SETTINGS 	|
+#| Without sleep geofence based 	| AWAY				| UserDeparted  	| HOME			| UserArrived  			| USING HOME SETTINGS	|
+#| geofence based 				| AWAY 				| UserDeparted	| Sleep			| UserArrived			| USING SLEEP SETTINGS	|
+#| geofence based					| Sleep 				| UserArrived	| AWAY			| UserDeparted			| USING AWAY SETTINGS 	|
 
 @AdhocOverrideGeofencebaseScheduleTemporaryHoldDashboardSetpointChangeAndNEXTPeriodResumeEMEA			@Automated
 Scenario Outline: I want to verify geofence repoint change and resume in next period on systems Heat cool, Heat and Cool with temperature scale celcius or fahrenheit and with time format 12hr or 24hr 
@@ -378,9 +378,9 @@ And verify respective <NPeriod> period setpoint values
 Examples:
 | Mode 	| scheduling 					| Period		| Geofence		| NPeriod 	| NGeofence 		| AfterCrossTemporary	|
 | Without sleep geofence based 	| HOME 		| UserArrived 	| Away 		| UserDeparted 	| USING AWAY SETTINGS  	|
-| Without sleep geofence based 	| AWAY 		| UserDeparted  	| HOME		| UserArrived  	| USING HOME SETTINGS  	|
-| geofence based 				| AWAY 		| UserDeparted 	| Sleep		| UserArrived  	| USING SLEEP SETTINGS  	|
-| geofence based					| Sleep 		| UserArrived  	| AWAY 		| UserDeparted  	| USING AWAY SETTINGS  	|
+#| Without sleep geofence based 	| AWAY 		| UserDeparted  	| HOME		| UserArrived  	| USING HOME SETTINGS  	|
+#| geofence based 				| AWAY 		| UserDeparted 	| Sleep		| UserArrived  	| USING SLEEP SETTINGS  	|
+#| geofence based					| Sleep 		| UserArrived  	| AWAY 		| UserDeparted  	| USING AWAY SETTINGS  	|
 
 
 
@@ -403,9 +403,9 @@ And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 | Period		| 
 |P1|
-|P2|
-|P3|
-|P4|
+#|P2|
+#|P3|
+#|P4|
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatCoolAutoTemporaryHoldEMEA				@Automated
 Scenario Outline:  To verify geofence switching modes is Heat system with auto changeover enabled
@@ -421,8 +421,8 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Period| scheduling 					| Geofence 		|
 | Home 	| Without sleep geofence based 	| UserArrived 	|
-| Away 	| geofence based 				| UserDeparted 	|
-| Sleep | Without sleep geofence based 	| UserArrived	|
+#| Away 	| geofence based 				| UserDeparted 	|
+#| Sleep | Without sleep geofence based 	| UserArrived	|
 
 @AdhocOverrideGeofencebaseSchedulingChangeModesWithSameModesHeatCoolAutoOFFTemporaryHold_EMEA			@Automated
 Scenario Outline:  To verify geofence schedule switching modes is changed for Heat system with auto changeover enabled
@@ -442,9 +442,9 @@ And user should be displayed with "respective period" setpoint value
 
 Examples:
 | Period| scheduling 					| Geofence		|
-| Home 	| Without sleep geofence based 	| UserArrived 	|
+#| Home 	| Without sleep geofence based 	| UserArrived 	|
 | Away 	| geofence based					| UserDeparted 	|
-| Sleep | Without sleep geofence based 	| UserArrived 	|
+#| Sleep | Without sleep geofence based 	| UserArrived 	|
 
 @AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold_EMEA  @AutomatedOnAndroid
 Scenario Outline:  To verify delete current period and remove hold  when mode is changed for Heat system with auto changeover enabled
@@ -520,8 +520,8 @@ And verify respective <Period> period setpoint values
 
 Examples:
 | scheduling			| Schedule status		| Geofence     | Period		|
-| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
-| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
+#| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
+#| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
 | Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
 
 
@@ -542,7 +542,7 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
 | HEAT		| time base 			| Time base schedule 	|
-| HEAT		| geofence based  	| Time base schedule 	|
+#| HEAT		| geofence based  	| Time base schedule 	|
 
 
 @AdhocOverrideCreateTimebasescheduleOFFModeTemporaryHoldEMEA			@Automated 
@@ -564,7 +564,7 @@ And user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
-| HEAT		| time base 			| Time base schedule 	|
+#| HEAT		| time base 			| Time base schedule 	|
 | HEAT		| geofence based  	| Time base schedule 	|
 
 
@@ -584,9 +584,9 @@ And user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence			| NEW Schedule				| Schedule status		| Sleep 		|
-| HEAT	| Home		| UserArrived		| Geofence base schedule		| Using Home Settings	| Without	|
+#| HEAT	| Home		| UserArrived		| Geofence base schedule		| Using Home Settings	| Without	|
 | HEAT	| Sleep		| UserArrived		| Geofence base schedule		| Using Sleep Settings	| With		| 
-| Heat	| Away		| UserDeparted		| Geofence base schedule		| Using Sleep Settings	| With		| 
+#| Heat	| Away		| UserDeparted		| Geofence base schedule		| Using Sleep Settings	| With		| 
 
 @AdhocOverrideCreateGeofencebasescheduleOFFTemporaryHoldEMEA			@Automated
 Scenario Outline: To Verify create geofence schedule in off mode
@@ -606,9 +606,9 @@ Then verify the <Schedule status> on the "PRIMARY CARD" screen
 
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
-| HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
+#| HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 | HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
-| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 
 
 @AdhocOverrideTimeschedulingChangemodeHeatOffTemporaryHoldEMEA			@Automated
@@ -629,9 +629,9 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Mode	| Period 	|
 | Heat	| P1 		|
-| Heat	| P2 		|
-| Heat	| P3 		|
-| Heat	| P4 		|
+#| Heat	| P2 		|
+#| Heat	| P3 		|
+#| Heat	| P4 		|
 
 #Specific Time 
 
@@ -677,8 +677,8 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Period		| Geofence		| Schedule status		| Sleep period | 
 | Home		| UserArrived		| Using Home Settings	| Without |
-| Away		| UserDeparted		| Using Away Settings	| Without |
-| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| Away		| UserDeparted		| Using Away Settings	| Without |
+#| Sleep		| UserArrived		| Using Sleep Settings	| With |
 
 
 @AdhocOverrideCreateTimebasescheduleOFFModeAspecifictimeEMEA		@Automated
@@ -700,7 +700,7 @@ And user "should be updated" with the "Heat" option
 And user should be displayed with "respective period" setpoint value
 Examples:
 |Current schedule |Period|
-| time based |P1|
+#| time based |P1|
 | geofence based |P1|
 #|P2|
 #|P3|
@@ -724,7 +724,7 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 |Current schedule |Period|
 | time based |P1|
-| geofence based |P1|
+#| geofence based |P1|
 #|P2|
 #|P3|
 #|P4|
@@ -777,10 +777,10 @@ And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 | Period |
-| P1 |
-| P2|
+#| P1 |
+#| P2|
 | P3|
-| P4|
+#| P4|
 
 @AdhocOverrideTimebaseScheduleSpcifictimesystemmodeswitchcoolheatautoEMEA			@Automated
 Scenario Outline:   I want to verify switching modes Heat and off with temperature scale celciusfahrenheit and with time format 12 24hr 
@@ -795,10 +795,10 @@ Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 Examples:
 | Period |
-| P1 |
+#| P1 |
 | P2|
-| P3|
-| P4|
+#| P3|
+#| P4|
 
 @AdhocOverrideTimebaseScheduleAspecifictimeDashbaordsetpoint_EMEA @Automated
 Scenario:   I want to verify setpoint change in dashboard for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
@@ -863,7 +863,7 @@ And user selects "Cancel" from adhoc
 Then verify the <AdhocStatus> on the "PRIMARY CARD" screen
 Examples:
 | AdhocStatus |
-| PERMANENT | 
+#| PERMANENT | 
 | Temporary | 
 
 @AdhocOverrideTimebaseSchedulePermanentHoldSolutionCardEMEA @Automated
@@ -937,9 +937,9 @@ When user changes system mode to "Heat"
 And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 |Period|
-|P1|
-|P2|
-|P3|
+#|P1|
+#|P2|
+#|P3|
 |P4|
 
 @AdhocOverrideTimebaseSchedulePermanentRemoveHoldEMEA			@Automated
@@ -958,9 +958,9 @@ And verify respective <Period> period setpoint values
 Examples:
 |Period|
 |P1|
-|P2|
-|P3|
-|P4|
+#|P2|
+#|P3|
+#|P4|
 
 
 
@@ -1027,8 +1027,8 @@ And verify respective <Period> period setpoint values
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
 | Home		| UserArrived		| Using Home Settings	| Without |
-| Away		| UserDeparted		| Using Away Settings	| Without |
-| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| Away		| UserDeparted		| Using Away Settings	| Without |
+#| Sleep		| UserArrived		| Using Sleep Settings	| With |
 
 
 
@@ -1053,5 +1053,5 @@ And user should be displayed with "respective period" setpoint value
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
 | Home		| UserArrived		| Using Home Settings	| Without |
-| Away		| UserDeparted		| Using Away Settings	| Without |
-| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| Away		| UserDeparted		| Using Away Settings	| Without |
+#| Sleep		| UserArrived		| Using Sleep Settings	| With |
