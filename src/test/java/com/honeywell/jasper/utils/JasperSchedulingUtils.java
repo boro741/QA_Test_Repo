@@ -13264,7 +13264,6 @@ public class JasperSchedulingUtils {
 			WebElement element = null;
 			SchedulingScreen ss = new SchedulingScreen(testCase);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			String jasperStatType = statInfo.getJasperDeviceType();
 			String currentScheduleType = statInfo.getThermoStatScheduleType();
 			if (ss.isTimeScheduleButtonVisible(2)) {
 				flag = flag & viewScheduleOnPrimaryCard(testCase);
@@ -13302,24 +13301,18 @@ public class JasperSchedulingUtils {
 					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & ss.clickOnEverydayScheduleButton();
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
-					String[] modes = { "Wake", "Away", "Home", "Sleep" };
-					String mode = modes.toString();
-						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						periodTimeandSetPoint.put("periodName", mode);
+					
+					
 						if (Period.equalsIgnoreCase("WAKE")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME));
 							element = ss.getEverydayWakeElement();
 							
 						} else if (Period.equalsIgnoreCase("AWAY")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME));
 							element = ss.getEverydayAwayElement();
 							
 						} else if (Period.equalsIgnoreCase("HOME")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME));
 							element = ss.getEverydayHomeElement();
 						
-						} else if (mode.equals("SLEEP")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME));
+						} else if (Period.equals("SLEEP")) {
 							element = ss.getEverydaySleepElement();
 						}
 						if(element.isDisplayed()){
@@ -13330,7 +13323,7 @@ public class JasperSchedulingUtils {
 							}
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+								+ Period + " period ***************");
 						
 						/********time*******/
 						
@@ -13338,40 +13331,24 @@ public class JasperSchedulingUtils {
 						
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+								+ Period + " period ***************");
 						/*******time******/
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+								+ Period + " period ***************");
 				
 				}else {
-					String[] modes = { "1", "2", "3", "4" };
-					String mode = modes.toString();
-						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						periodTimeandSetPoint.put("periodName", mode);
+					
 						if (Period.equals("P1")) {
-							periodTimeandSetPoint.put("StartTime",
-									inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
 							element = ss.getEveryday1Element();
 							
 						} else if (Period.equals("P2")) {
-							periodTimeandSetPoint.put("StartTime",
-									inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
 							element = ss.getEveryday2Element();
 							
 						} else if (Period.equals("P3")) {
-							periodTimeandSetPoint.put("StartTime",
-									inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
-							element = ss.getEveryday3Element();
 								inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT);
 							}
 						 else if (Period.equals("P4")) {
-							periodTimeandSetPoint.put("StartTime",
-									inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
 							element = ss.getEveryday4Element();
 							
 						}
@@ -13383,412 +13360,27 @@ public class JasperSchedulingUtils {
 						}
 						Keyword.ReportStep_Pass(testCase, " ");
 						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+								+ Period + " period ***************");
 
 
 						/********time*******/
-						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, periodTimeandSetPoint.get("StartTime"),
+						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase,Period,
 									"TimeChooser", true, true);
-						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, periodTimeandSetPoint.get("EndTime"),
+						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, Period,
 									"TimeChooserEndTime", true, true);
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+								+ Period + " period ***************");
 						/*******time******/
 						
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
+								+ Period + " period ***************");
 			
 					
 					}
-			} else	if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
-					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
-				flag = flag & ss.clickOnWeekdayandWeekendScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
-					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
-							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
-					String mode = modes.toString();
-						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						periodTimeandSetPoint.put("periodName", mode);
-						if (Period.equals("Wake_Weekday")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME));
-							element = ss.getWeekdayWakeElement();
-							
-						} else if (Period.equals("Away_Weekday")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME));
-							element = ss.getWeekdayAwayElement();
-							
-						} else if (Period.equals("Home_Weekday")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME));
-							element = ss.getWeekdayHomeElement();
-						
-						} else if (Period.equals("Sleep_Weekday")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME));
-							element = ss.getWeekdaySleepElement();
-							
-						} else if (mode.equals("Wake_Weekend")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekendWakeElement();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekendWakeElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e3) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element Wake_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekendWakeElement();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekendWakeElement();
-									}
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element Wake_Saturday-Sunday");
-								}
-							}
-
-					
-						} else if (mode.equals("Away_Weekend")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekendAwayElement();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekendAwayElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element Away_Saturday - Sunday");
-										}
-									}
-									element = ss.getWeekendAwayElement();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekendAwayElement();
-									}
-
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element Away_Saturday-Sunday");
-								}
-							}
-							
-						} else if (mode.equals("Home_Weekend")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekendHomeElement();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekendHomeElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element Home_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekendHomeElement();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekendHomeElement();
-									}
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element Home_Saturday-Sunday");
-								}
-							}
-							
-						} else if (mode.equals("Sleep_Weekend")) {
-							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekendSleepElement();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekendSleepElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element Sleep_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekendSleepElement();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekendSleepElement();
-									}
-
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element Sleep_Saturday-Sunday");
-								}
-							}
-							
-						}
-						Keyword.ReportStep_Pass(testCase, " ");
-						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						
-						/******Time******/
-					
-							flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, periodTimeandSetPoint.get("Time"),
-									"TimeChooser", true, true);
-					
-						flag = flag & ss.clickOnSaveButton();
-						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						/*******time******/
-						flag = flag & ss.clickOnSaveButton();
-						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-					
-				} else {
-					String[] modes = { "1_Weekday", "2_Weekday", "3_Weekday", "4_Weekday", "1_Weekend", "2_Weekend",
-							"3_Weekend", "4_Weekend" };
-					String mode = modes.toString();
-						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						periodTimeandSetPoint.put("periodName", mode);
-						if (Period.equals("1_Weekday")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
-							element = ss.getWeekday1Element();
-							
-						} else if (Period.equals("2_Weekday")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
-							element = ss.getWeekday2Element();
-							
-						} else if (Period.equals("3_Weekday")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
-							element = ss.getWeekday3Element();
-									
-							
-						} else if (Period.equals("4_Weekday")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
-							element = ss.getWeekday4Element();
-							
-						} else if (Period.equals("1_Weekend")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									scrollForAndroidScreen(testCase);
-									element = ss.getWeekend1Element();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekend1ElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e3) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element Saturday-Sunday_1");
-										}
-									}
-									element = ss.getWeekend1Element();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekend1Element();
-									}
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element 1_Saturday-Sunday");
-								}
-							}
-
-						} else if (Period.equals("2_Weekend")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekend2Element();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekend2ElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element 2_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekend2Element();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekend2Element();
-									}
-
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element 2_Saturday-Sunday");
-								}
-							}
-					
-						} else if (Period.equals("3_Weekend")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekend3Element();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekend3ElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element 3_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekend3Element();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekend3Element();
-									}
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element 3_Saturday-Sunday");
-								}
-							}
-					
-						} else if (Period.equals("4_Weekend")) {
-							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
-							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
-							try {
-								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-									element = ss.getWeekend4Element();
-								} else {
-									Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-									TouchAction action = new TouchAction(testCase.getMobileDriver());
-									action.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-									if (!ss.isWeekend4ElementVisible(5)) {
-										try {
-											action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
-										} catch (Exception e) {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Create Schedule : Could not find element 4_Saturday-Sunday");
-										}
-									}
-									element = ss.getWeekend4Element();
-								}
-							} catch (NoSuchElementException e) {
-								try {
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										scrollForAndroidScreen(testCase);
-										element = ss.getWeekend4Element();
-									}
-
-								} catch (NoSuchElementException e1) {
-									flag = false;
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Create Schedule : Could not find element 4_Saturday-Sunday");
-								}
-							}
-							
-						}
-						if(element.isDisplayed()){
-							element.click();
-							Keyword.ReportStep_Pass(testCase, "Successfully click on : Add period");
-						}else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Set Period Time and Set Points : Failed to select " + Period );	
-						}
-						Keyword.ReportStep_Pass(testCase, " ");
-						Keyword.ReportStep_Pass(testCase, "*************** Setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-						
-						/*******time********/
-
-							flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, periodTimeandSetPoint.get("StartTime"),
-									"TimeChooser", true, true);
-							flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, periodTimeandSetPoint.get("EndTime"),
-									"TimeChooserEndTime", true, true);
-						/*******time********/
-						flag = flag & ss.clickOnSaveButton();
-						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "
-								+ periodTimeandSetPoint.get("periodName") + " period ***************");
-					
-				}
-			}
-			// flag = flag & InputVariables.verifyCreatedSchedule(testCase, inputs,
-			// "Time");
-		//	flag = flag & ss.clickOnDoneButton();
+			} 
+			
 			if (ss.isConfirmChangeButtonVisible(10)) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					if (ss.isConfirmChangeButtonVisible(5)) {
