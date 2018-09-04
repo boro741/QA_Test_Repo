@@ -8119,7 +8119,6 @@ public class JasperSchedulingUtils {
 					// end/////////////////////////
 					else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
 						List<WebElement> weekdayschedule_periodtitle = ss.getWeekdayTitleListElements();
-						List<WebElement> weekendschedule_periodtitle = ss.getWeekendTitleListElements();
 						Keyword.ReportStep_Pass(testCase,
 								"*********************** Verifying Weekday-Weekend schedule period time and schedule period heat set points against set values **************************");
 
@@ -8412,7 +8411,7 @@ public class JasperSchedulingUtils {
 						}
 						scrollForAndroidScreen(testCase);
 						scrollForAndroidScreen(testCase);
-
+						List<WebElement> weekendschedule_periodtitle = ss.getWeekendTitleListElements();
 						for (int i = 0; i < weekendschedule_periodtitle.size(); i++) {
 							dateString = ss
 									.getTimeOfWeekendScheduleOfGivenPeriod(weekendschedule_periodtitle.get(i).getText())
@@ -12197,6 +12196,8 @@ public class JasperSchedulingUtils {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Verify Cool Stepper Value : Cool Set Point not set to max set point after trying to set it to a value above maximum set points");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Expected cool Stepper Value:"+coolTemp+" displayed value is "+coolSetPoint );
 				}
 			} else if (verifyMinimumOrMaximum.equalsIgnoreCase("Maximum")) {
 				String setPoints = minMaxSetPoints.get("MaxCool");

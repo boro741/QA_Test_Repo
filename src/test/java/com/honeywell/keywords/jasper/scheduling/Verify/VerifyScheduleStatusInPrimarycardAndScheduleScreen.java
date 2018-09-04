@@ -78,7 +78,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "SCHEDULE OFF STATUS NOT DISPLAYED": {
 						SchedulingScreen psoff = new SchedulingScreen(testCase);	
-						if(!psoff.isScheduleOffStatusVisible(4)){
+						if(!psoff.isScheduleOffStatusVisible(30)){
 							Keyword.ReportStep_Pass(testCase, "Schedule OFF Status not displayed on primarycard");
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Schedule OFF status displayed on primarycard");

@@ -521,6 +521,7 @@ public class Dashboard extends MobileScreens {
 		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
 			maxSetPoint = setPoints.get("MaxCool");
 		}
+		Keyword.ReportStep_Pass(testCase, "Max temp from stat before conversion is "+maxSetPoint);
 		if (maxSetPoint.contains(".")) {
 			systemIsCelsius = true;
 			maxSetPointFloat = Float.parseFloat(maxSetPoint);
@@ -529,7 +530,7 @@ public class Dashboard extends MobileScreens {
 		}
 		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");
 		currentSetPoint = ele.getText();
-
+		Keyword.ReportStep_Pass(testCase, "Max temp from display before conversion is "+currentSetPoint);
 		if (systemIsCelsius == false) {
 			if (maxSetPointInt == (Integer.parseInt(currentSetPoint))) {
 				return true;

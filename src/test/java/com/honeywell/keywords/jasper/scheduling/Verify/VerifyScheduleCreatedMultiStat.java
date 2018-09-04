@@ -64,6 +64,7 @@ public class VerifyScheduleCreatedMultiStat extends Keyword {
 			if (!ss.clickOnCloseButton()) {
 				flag = false;
 			}
+			if (!ss.isCloseButtonVisible(15));
 		}
 		try {
 			if (ss.isBackButtonVisible(10)){
