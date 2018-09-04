@@ -197,12 +197,12 @@ And user should be displayed with "Vacation" setpoint value in the solution card
 
 Examples:
 		| Mode	| UMode		| 
-		| Auto	| Heat		| 
+#		| Auto	| Heat		| 
 #		| Auto	| Cool		|
-		| Heat	| Cool		|
+#		| Heat	| Cool		|
 #		| Heat	| Auto		| 
-#		| Cool	| Heat		|
-		| Cool	| Auto		|
+		| Cool	| Heat		|
+#		| Cool	| Auto		|
 
 
 #JasperEMEA
@@ -233,42 +233,42 @@ Then user should be display with <UAdhocOverride>  on "Solution card"
 Examples:
 		| Mode				| AdhocOverride				| UAdhocOverride				| 
 		| Cool				| Following Schedule			| Following schedule			|
-		| Cool				| Temporary					| Temporary					|
-		| Cool				| Permanent					| Permanent					| 
-		| Cool				| Specific Time				| specific time				| 
-		| Heat				| Following Schedule			| Following schedule			| 
-		| Heat				| Temporary					| Temporary					|
-		| Heat				| Permanent					| Permanent					|
-		| Heat				| Specific Time				| Specific time				|
-		| Auto				| Following Schedule			| Following Schedule			|
-		| Auto				| Temporary					| Temporary					|
-		| Auto				| Permanent					| Permanent					|
-		| Auto				| Specific Time				| Specific time				|
-		| Cool only			| Following Schedule			| Following schedule			|
-		| Cool only			| Temporary					| Temporary					|
-		| Cool only			| Permanent					| Permanent					|
-		| Cool only			| Specific Time				| Specific time				|
-		| Heat Only			| Following schedule			| Following schedule			|
-		| Heat only			| Temporary					| Temporary					|
-		| Heat only			| Permanent					| Permanent					|
-		| Heat only			| Specific Time				| Specific Time				|
+#		| Cool				| Temporary					| Temporary					|
+#		| Cool				| Permanent					| Permanent					| 
+#		| Cool				| Specific Time				| specific time				| 
+#		| Heat				| Following Schedule			| Following schedule			| 
+#		| Heat				| Temporary					| Temporary					|
+#		| Heat				| Permanent					| Permanent					|
+#		| Heat				| Specific Time				| Specific time				|
+#		| Auto				| Following Schedule			| Following Schedule			|
+#		| Auto				| Temporary					| Temporary					|
+#		| Auto				| Permanent					| Permanent					|
+#		| Auto				| Specific Time				| Specific time				|
+#		| Cool only			| Following Schedule			| Following schedule			|
+#		| Cool only			| Temporary					| Temporary					|
+#		| Cool only			| Permanent					| Permanent					|
+#		| Cool only			| Specific Time				| Specific time				|
+#		| Heat Only			| Following schedule			| Following schedule			|
+#		| Heat only			| Temporary					| Temporary					|
+#		| Heat only			| Permanent					| Permanent					|
+#		| Heat only			| Specific Time				| Specific Time				|
 		#Vacation end in text period (After temporary ends )
-		| Cool				| Temporary					| Following Schedule			|
-		| Heat				| Temporary					| Following Schedule			|
-		| Auto				| Temporary					| Following Schedule			|
-		| Cool Only			| Temporary					| Following Schedule			|
-		| Heat only			| Temporary					| Following Schedule			|
-		| Cool				| Specific Time				| Following schedule			| 
-		| Heat				| Specific Time				| Following schedule			| 
-		| Auto				| Specific Time				| Following schedule			| 
-		| Cool Only			| Specific Time				| Following schedule			| 
-		| Heat only			| Specific Time				| Following schedule			| 
+#		| Cool				| Temporary					| Following Schedule			|
+#		| Heat				| Temporary					| Following Schedule			|
+#		| Auto				| Temporary					| Following Schedule			|
+#		| Cool Only			| Temporary					| Following Schedule			|
+#		| Heat only			| Temporary					| Following Schedule			|
+#		| Cool				| Specific Time				| Following schedule			| 
+#		| Heat				| Specific Time				| Following schedule			| 
+#		| Auto				| Specific Time				| Following schedule			| 
+#		| Cool Only			| Specific Time				| Following schedule			| 
+#		| Heat only			| Specific Time				| Following schedule			| 
 		#Vacation ends after permanent hold ends 
-		| Cool				| Permanent					| Following schedule			|
-		| Heat				| Permanent					| Following schedule			|
-		| Auto				| Permanent					| Following schedule			|
-		| Cool Only			| Permanent					| Following schedule			|
-		| Heat only			| Permanent					| Following schedule			|
+#		| Cool				| Permanent					| Following schedule			|
+#		| Heat				| Permanent					| Following schedule			|
+#		| Auto				| Permanent					| Following schedule			|
+#		| Cool Only			| Permanent					| Following schedule			|
+#		| Heat only			| Permanent					| Following schedule			|
 
 #JasperEMEA
 @VacationTimebaseSolutionCardAfterVacationEndsEMEA			@NotAutomatable
@@ -286,11 +286,11 @@ Examples:
 		| Following Schedule 	| Following schedule			|
 		| Temporary 				| Temporary					|
 		| Permanent				| Permanent					| 
-		| Specific Time			| specific time				| 
+#		| Specific Time			| specific time				| 
 		#Vacation ends in next period (After temporary ends)/
-		| Temporary				| Following Schedule			|
+#		| Temporary				| Following Schedule			|
 		#Vacation ends after permanent hold ends 
-		| Permanent				| Following schedule			|
+#		| Permanent				| Following schedule			|
 
 
 #JasperNA
@@ -307,15 +307,15 @@ Then user should be display with <UAdhocOverride> on "SolutionCard"
 Examples:
 		| Mode		| AdhocOverride					| UAdhocOverride					| 
 		| Cool		| Using while home/away/sleep	| Using while home/away/sleep  		|
-		| Cool		| Temporary 					| Temporary							|
-		| Heat		| Using while home/away/sleep	| Using while home/away/sleep		| 
-		| Heat		| Temporary						| Temporary							|
-		| Auto		| Using while home/away/sleep	| Using while home/away/sleep		|
-		| Auto		| Temporary						| Temporary							|
-		| Cool only	| Using while home/away/sleep	| Using while home/away/sleep		|
-		| Cool only	| Temporary						| Temporary							|
-		| Heat Only	| Using while home/away/sleep	| Using while home/away/sleep		|
-		| Heat only | Temporary						| Temporary							|
+#		| Cool		| Temporary 					| Temporary							|
+#		| Heat		| Using while home/away/sleep	| Using while home/away/sleep		| 
+#		| Heat		| Temporary						| Temporary							|
+#		| Auto		| Using while home/away/sleep	| Using while home/away/sleep		|
+#		| Auto		| Temporary						| Temporary							|
+#		| Cool only	| Using while home/away/sleep	| Using while home/away/sleep		|
+#		| Cool only	| Temporary						| Temporary							|
+#		| Heat Only	| Using while home/away/sleep	| Using while home/away/sleep		|
+#		| Heat only | Temporary						| Temporary							|
 
 
 #JasperEMEA
