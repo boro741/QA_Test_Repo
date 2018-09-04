@@ -133,6 +133,7 @@ Examples:
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusing			@Automated
 Scenario Outline:  To verify using schedule switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode
+And user thermostat is set to "geofence based" schedule
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -177,13 +178,13 @@ When user navigates to "thermostat solution card" screen from the "thermostat Da
 And verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 When user deletes the <Period> 
 Then verify the "USING HOME SETTINGS" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
+And verify respective <UPeriod> period setpoint values
 
 Examples:
-| Mode	| scheduling			| Schedule status		| Geofence     | Period		|
-| Cool	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
-#| Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
-#| Auto | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
+| Mode	| scheduling			| Geofence     | Period		|UPeriod |
+| Cool	| geofence based		| UserArrived  | Sleep		| Home |
+#| Heat | geofence based		| UserArrived  | Sleep		|Home |
+#| Auto | geofence based		| UserArrived  | Sleep		|Home |
 
 
 @AdhocOverrideCreateTimebasescheduleTemporaryHold			@Automated
@@ -617,39 +618,27 @@ And verify respective <Period> period setpoint values
 Examples:
 |Mode|UMode	  	  | Period |
 |Heat|Cool        |WAKE |
-|Heat|HEAT        | WAKE |
 |Cool|Heat        |WAKE |
-|Cool|Cool        |WAKE |
 #|Heat|Cool        |AWAY |
-#|Heat|HEAT        | AWAY |
 #|Cool|Heat        |AWAY |
-#|Cool|Cool        |AWAY |
 #|Heat|Cool        |HOME |
-#|Heat|HEAT        | HOME |
 #|Cool|Heat        |HOME |
-#|Cool|Cool        |HOME |
 #|Heat|Cool        |SLEEP |
-#|Heat|HEAT        | SLEEP |
 #|Cool|Heat        |SLEEP |
-#|Cool|Cool        |SLEEP |
 #|Auto|Heat        | WAKE |
 #|Auto|Cool        |WAKE |
-#|Auto|Auto        | WAKE |
 #|Heat|Auto        | WAKE |
 #|Cool|Auto        |WAKE |
 #|Auto|Heat        | AWAY |
 #|Auto|Cool        |AWAY |
-#|Auto|Auto        | AWAY |
 #|Heat|Auto        | AWAY |
 #|Cool|Auto        |AWAY |
 #|Auto|Heat        | HOME |
 #|Auto|Cool        |HOME |
-#|Auto|Auto        | HOME |
 #|Heat|Auto        | HOME |
 #|Cool|Auto        |HOME |
 #|Auto|Heat        | SLEEP |
 #|Auto|Cool        |SLEEP |
-#|Auto|Auto        | SLEEP |
 #|Heat|Auto        | SLEEP |
 #|Cool|Auto        |SLEEP |
 
@@ -1300,22 +1289,7 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-|Cool| geofence based | Home | 
-#|Cool| geofence based | AWAY |
-#|Cool| geofence based | Sleep | 
-#|Cool| geofence based | Wake |  
-#|Heat| geofence based| Home | 
-##|Heat| geofence based| AWAY |
-#|Heat| geofence based | Sleep | 
-#|Heat| geofence based | Wake | 
-#|Cool Only| geofence based | Home | 
-#|Cool Only| geofence based | AWAY |
-#|Cool Only| geofence based | Sleep | 
-#|Cool Only| geofence based | Wake | 
-#|Heat Only| geofence based | Home | 
-#|Heat Only| geofence based | AWAY |
-#|Heat Only| geofence based | Sleep | 
-#|Heat Only| geofence based | Wake | 
+
 
 
 @AdhocOverrideCreateTimebasescheduleAspecifictime			@Automated
