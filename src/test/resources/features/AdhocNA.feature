@@ -940,7 +940,6 @@ Examples:
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat, auto, cool system with auto changeover enabled by removing hold from adhoc
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
-And user thermostat set "Home" with <Geofence>
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -948,14 +947,20 @@ And verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 When user has "Temporary" status
 #Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user selects "Remove hold" from adhoc
-Then verify the "USING SLEEP SETTINGS" on the "PRIMARY CARD" screen
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
 | Mode	| scheduling			| Schedule status		| Geofence     | Period		|
 | Cool	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
-| Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
-#| Auto | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
+| Cool	| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
+| Cool	| Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
+#| Heat	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
+#| Heat	| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
+#| Heat	| Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
+#| Auto	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
+#| Auto	| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
+#| Auto	| Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
 
 
 #JasperNA
@@ -1392,6 +1397,7 @@ Examples:
 @AdhocOverrideTimebaseSchedulespecifictimeRemoveHold			@Automated
 Scenario Outline: I want to verify remove hold for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user thermostat is set to "time based" schedule
+Then user thermostat has <Period> currently following in "Time Based" schedule
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen

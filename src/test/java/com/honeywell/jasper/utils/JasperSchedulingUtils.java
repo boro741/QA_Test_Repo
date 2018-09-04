@@ -13349,26 +13349,26 @@ public class JasperSchedulingUtils {
 					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 						periodTimeandSetPoint.put("periodName", mode);
-						if (mode.equals("1")) {
+						if (Period.equals("P1")) {
 							periodTimeandSetPoint.put("StartTime",
 									inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
 							element = ss.getEveryday1Element();
 							
-						} else if (mode.equals("2")) {
+						} else if (Period.equals("P2")) {
 							periodTimeandSetPoint.put("StartTime",
 									inputs.getInputValue(InputVariables.EVERYDAY_2_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
 							element = ss.getEveryday2Element();
 							
-						} else if (mode.equals("3")) {
+						} else if (Period.equals("P3")) {
 							periodTimeandSetPoint.put("StartTime",
 									inputs.getInputValue(InputVariables.EVERYDAY_3_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
 							element = ss.getEveryday3Element();
 								inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT);
 							}
-						 else if (mode.equals("4")) {
+						 else if (Period.equals("P4")) {
 							periodTimeandSetPoint.put("StartTime",
 									inputs.getInputValue(InputVariables.EVERYDAY_4_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.EVERYDAY_1_TIME));
@@ -13411,19 +13411,19 @@ public class JasperSchedulingUtils {
 					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
 						periodTimeandSetPoint.put("periodName", mode);
-						if (mode.equals("Wake_Weekday")) {
+						if (Period.equals("Wake_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME));
 							element = ss.getWeekdayWakeElement();
 							
-						} else if (mode.equals("Away_Weekday")) {
+						} else if (Period.equals("Away_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME));
 							element = ss.getWeekdayAwayElement();
 							
-						} else if (mode.equals("Home_Weekday")) {
+						} else if (Period.equals("Home_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME));
 							element = ss.getWeekdayHomeElement();
 						
-						} else if (mode.equals("Sleep_Weekday")) {
+						} else if (Period.equals("Sleep_Weekday")) {
 							periodTimeandSetPoint.put("Time", inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME));
 							element = ss.getWeekdaySleepElement();
 							
@@ -13593,31 +13593,29 @@ public class JasperSchedulingUtils {
 							"3_Weekend", "4_Weekend" };
 					String mode = modes.toString();
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						
-						List<String> allowedModes = statInfo.getAllowedModes();
 						periodTimeandSetPoint.put("periodName", mode);
-						if (mode.equals("1_Weekday")) {
+						if (Period.equals("1_Weekday")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
 							element = ss.getWeekday1Element();
 							
-						} else if (mode.equals("2_Weekday")) {
+						} else if (Period.equals("2_Weekday")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_2_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
 							element = ss.getWeekday2Element();
 							
-						} else if (mode.equals("3_Weekday")) {
+						} else if (Period.equals("3_Weekday")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_3_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
 							element = ss.getWeekday3Element();
 									
 							
-						} else if (mode.equals("4_Weekday")) {
+						} else if (Period.equals("4_Weekday")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKDAY_4_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKDAY_1_TIME));
 							element = ss.getWeekday4Element();
 							
-						} else if (mode.equals("1_Weekend")) {
+						} else if (Period.equals("1_Weekend")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
 							try {
@@ -13654,7 +13652,7 @@ public class JasperSchedulingUtils {
 								}
 							}
 
-						} else if (mode.equals("2_Weekend")) {
+						} else if (Period.equals("2_Weekend")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_2_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
 							try {
@@ -13691,7 +13689,7 @@ public class JasperSchedulingUtils {
 								}
 							}
 					
-						} else if (mode.equals("3_Weekend")) {
+						} else if (Period.equals("3_Weekend")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_3_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 							try {
@@ -13727,7 +13725,7 @@ public class JasperSchedulingUtils {
 								}
 							}
 					
-						} else if (mode.equals("4_Weekend")) {
+						} else if (Period.equals("4_Weekend")) {
 							periodTimeandSetPoint.put("StartTime", inputs.getInputValue(InputVariables.WEEKEND_4_TIME));
 							periodTimeandSetPoint.put("EndTime", inputs.getInputValue(InputVariables.WEEKEND_1_TIME));
 							try {
