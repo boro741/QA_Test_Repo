@@ -56,7 +56,7 @@ public class CreateDefaultScheduleWithEditTime extends Keyword {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			}
 
-			if (statInfo.getThermostatType().equals("Jasper")) {
+			if (statInfo.getThermostatType().equals("Jasper") || statInfo.getThermostatType().equals("FlyCatcher")) {
 				List<String> allowedModes = statInfo.getAllowedModes();
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
@@ -177,7 +177,7 @@ public class CreateDefaultScheduleWithEditTime extends Keyword {
 						inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydaySleepTime"), true, 1, 10);
 						inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-					} else if (jasperStatType.toUpperCase().contains("NA")) {
+					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayWakeTime"), true, 1, 15);
 						inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("EverydayAwayTime"), true, 1, 15);
@@ -276,7 +276,7 @@ public class CreateDefaultScheduleWithEditTime extends Keyword {
 						inputs.setInputValue(InputVariables.WEEKEND_3_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekendSleepTime"), true, 0, 10);
 						inputs.setInputValue(InputVariables.WEEKEND_4_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
-					} else if (jasperStatType.toUpperCase().contains("NA")) {
+					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayWakeTime"), true, 0, 15);
 						inputs.setInputValue(InputVariables.WEEKDAY_WAKE_TIME, changedTime.toLowerCase().replaceAll("^0*", ""));
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("WeekdayAwayTime"), true, 0, 15);
