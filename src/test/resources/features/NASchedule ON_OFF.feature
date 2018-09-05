@@ -21,7 +21,7 @@ And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 |Mode | scheduling |
 |Cool|geofence based|
-|Heat|geofence based|
+#|Heat|geofence based|
 #|Auto|geofence based|
 #|Cool|time based    |
 #|Heat|time based    |
@@ -86,8 +86,8 @@ Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
 |Mode|scheduling	|Schedule status	 |Geofence   |Period |
 |Cool|Without sleep geofence based|Using Home Settings|UserArrived | Home|
-|Cool|geofence based|Using Sleep Settings |UserArrived |Sleep|
-|Cool|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
+#|Cool|geofence based|Using Sleep Settings |UserArrived |Sleep|
+#|Cool|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
 #|Heat|Without sleep geofence based|Using Home Settings|UserArrived |Home|
 #|Heat|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
 #|Heat|geofence based|Using Sleep Settings |UserArrived | Sleep|
@@ -125,8 +125,8 @@ And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 |Mode|scheduling | Adhocoverride    |
 |Heat| time based| Temporary |
-|Heat| time based| Permanent |
-|Heat|geofence based| Temporary |
+#|Heat| time based| Permanent |
+#|Heat|geofence based| Temporary |
 #|Cool| time based| Temporary |
 #|Cool| time based| Permanent |
 #|Cool|geofence based| Temporary |
@@ -166,9 +166,9 @@ Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
 |Mode|scheduling | Adhocoverride   | Schedule status |
 |Heat| time based| Temporary | following schedule |
-|Heat| time based| Permanent | following schedule |
-|Cool| time based| Permanent | following schedule |
-|Cool| time based| Temporary | following schedule |
+#|Heat| time based| Permanent | following schedule |
+#|Cool| time based| Permanent | following schedule |
+#|Cool| time based| Temporary | following schedule |
 #|auto| time based| Temporary | following schedule |
 #|auto| time based| Permanent | following schedule |
 
@@ -205,8 +205,8 @@ Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
 |Mode | scheduling 					| Adhocoverride | Schedule status |Geofence | Period |
 |Heat|Without sleep geofence based| Temporary | Using Home Settings| UserArrived |Home|
-|Heat|Without sleep geofence based| Temporary | Using Away Settings| UserDeparted |Away|
-|Heat|geofence based| Temporary | Using Sleep Settings|UserArrived |Sleep|
+#|Heat|Without sleep geofence based| Temporary | Using Away Settings| UserDeparted |Away|
+#|Heat|geofence based| Temporary | Using Sleep Settings|UserArrived |Sleep|
 #|Cool|Without sleep geofence based| Temporary |Using Home Settings| UserArrived |Home|
 #|Cool|Without sleep geofence based| Temporary |Using Away Settings| UserDeparted |Away|
 #|Cool|geofence based| Temporary |Using Sleep Settings|UserArrived |Sleep|
@@ -397,14 +397,14 @@ Then Verify the "Schedule status TimeGeofence" on the "PRIMARY CARD" screen
 Examples:
 |Mode| scheduling |Adhocoverride | UMode |
 |Cool| time based |Temporary | Heat |
-|Cool| time based  |Permanent| Heat |
+#|Cool| time based  |Permanent| Heat |
 #|Cool| time based |Temporary | Cool |
 #|Cool| time based  |Permanent| Cool |
 #|Cool| time based |Temporary | Auto |
 #|Cool| time based  |Permanent| Auto |
 #|Heat| time based |Temporary | Heat |
-|Heat| time based  |Permanent| Heat |
-|Heat| time based |Temporary | Cool |
+#|Heat| time based  |Permanent| Heat |
+#|Heat| time based |Temporary | Cool |
 #|Heat| time based  |Permanent| Cool |
 #|Heat| time based |Temporary | Auto |
 #|Heat| time based  |Permanent| Auto |
@@ -414,10 +414,10 @@ Examples:
 #|Auto| time based  |Permanent| Cool |
 #|Auto| time based  |Temporary| Auto |
 #|Auto| time based  |Permanent| Auto |
-|Cool| geofence based |Temporary | Heat |
+#|Cool| geofence based |Temporary | Heat |
 #|Cool| geofence based|Temporary | Cool |
 #|Cool| geofence based|Temporary | Auto |
-|Heat| geofence based |Temporary | Heat |
+#|Heat| geofence based |Temporary | Heat |
 #|Heat| geofence based|Temporary | Cool |
 #|Heat| geofence based|Temporary | Auto |
 #|Auto| geofence based|Temporary | Heat |
@@ -449,10 +449,10 @@ When user navigates to "primary card" screen from the "SCHEDULING" screen
 Then Verify the <USchedule status> on the "PRIMARY CARD" screen
 Examples:
 |Mode|scheduling				  |Geofence    |Period | UPeriod | UGeofence | Schedule status | USchedule status |
-|Cool|Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted | Using Home Settings | Using Away Settings|
+#|Cool|Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted | Using Home Settings | Using Away Settings|
 |Cool|geofence based			  |UserArrived |Sleep| Away | UserDeparted | Using Sleep Settings | Using Away Settings|
-|Cool|Without sleep geofence based|UserDeparted |Away| Home | UserArrived | Using Away Settings| Using Home Settings | 
-|Cool|geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
+#|Cool|Without sleep geofence based|UserDeparted |Away| Home | UserArrived | Using Away Settings| Using Home Settings | 
+#|Cool|geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
 #|Heat|Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted | Using Home Settings | Using Away Settings|
 #|Heat|geofence based			  |UserArrived |Sleep| Away | UserDeparted |Using Sleep Settings | Using Away Settings|
 #|Heat|Without sleep geofence based|UserDeparted |Away| Home | UserArrived |Using Away Settings| Using Home Settings | 
