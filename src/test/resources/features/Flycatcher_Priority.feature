@@ -16,21 +16,9 @@ And user selects "FlyCatcher device" from the dashboard
 When user taps on "Priority mode"
 Then verify the following Priority modes displayed:
        | Elements                 | 
-       | All Rooms|
        | Selected Rooms | 
        | Active Rooms |
        
-@SelectAllRoomAsPriority
-Scenario: To Select all Sensor in the Room and set average temperature to rooms 
-As an user
-I Want to select all my sensor in the room 
-So that all my rooms are priorities and set to average temperature
-
-Given user has sensor configured to stat
-And user selects "FlyCatcher device" from the dashboard
-And user taps on "Priority mode"
-When user selects priority mode as "All Rooms"
-Then Verify if "all" sensors are priorities
 
 @SelectedRoomAsPriority
 Scenario: To Select few Sensor to priorities and set average temperature to those rooms 

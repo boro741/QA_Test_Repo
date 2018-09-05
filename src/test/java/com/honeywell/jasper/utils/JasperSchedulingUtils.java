@@ -9039,9 +9039,9 @@ public class JasperSchedulingUtils {
 										if (inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+												.equalsIgnoreCase(tempHeatSetPointApp.replaceAll("˚",""))
 												&& inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+												.equalsIgnoreCase(tempCoolSetPointApp.replaceAll("˚",""))) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period WAKE's expected time and heat and cool set points are shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME)
@@ -9104,9 +9104,9 @@ public class JasperSchedulingUtils {
 										if (inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+												.equalsIgnoreCase(tempHeatSetPointApp.replaceAll("˚",""))
 												&& inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+												.equalsIgnoreCase(tempCoolSetPointApp.replaceAll("˚",""))) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period AWAY's expected time and heat and cool set points are shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME)
@@ -9169,9 +9169,9 @@ public class JasperSchedulingUtils {
 										if (inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+												.equalsIgnoreCase(tempHeatSetPointApp.replaceAll("˚",""))
 												&& inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+												.equalsIgnoreCase(tempCoolSetPointApp.replaceAll("˚",""))) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period HOME's expected time and heat and cool set points are shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME)
@@ -9235,9 +9235,9 @@ public class JasperSchedulingUtils {
 										if (inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
 												.equalsIgnoreCase(tempTime)
 												&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT)
-												.equalsIgnoreCase(tempHeatSetPointApp)
+												.equalsIgnoreCase(tempHeatSetPointApp.replaceAll("˚",""))
 												&& inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT)
-												.equalsIgnoreCase(tempCoolSetPointApp)) {
+												.equalsIgnoreCase(tempCoolSetPointApp.replaceAll("˚",""))) {
 											Keyword.ReportStep_Pass(testCase,
 													"Period SLEEP's expected time and heat and cool set points are shown correctly: "
 															+ inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME)
@@ -9331,10 +9331,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekday_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_WAKE_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Wake's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME) + " "
@@ -9360,7 +9360,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekday.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekday.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Wake's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_WAKE_TIME));
@@ -9401,10 +9401,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekday_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_AWAY_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Away's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME) + " "
@@ -9430,7 +9430,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekday.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekday.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Away's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_AWAY_TIME));
@@ -9471,10 +9471,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekday_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_HOME_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Home's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME) + " "
@@ -9500,7 +9500,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekday.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekday.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Home's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_HOME_TIME));
@@ -9542,10 +9542,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekday_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekday_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekday_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Sleep's expected weekday time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME) + " "
@@ -9571,7 +9571,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekday.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekday.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekday-Sleep's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKDAY_SLEEP_TIME));
@@ -9619,10 +9619,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekend_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKEND_WAKE_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Wake's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME) + " "
@@ -9648,7 +9648,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekend.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekend.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Wake's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_WAKE_TIME));
@@ -9689,10 +9689,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekend_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKEND_AWAY_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Away's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME) + " "
@@ -9718,7 +9718,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekend.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekend.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Away's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_AWAY_TIME));
@@ -9759,10 +9759,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekend_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKEND_HOME_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Home's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME) + " "
@@ -9788,7 +9788,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekend.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekend.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Home's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_HOME_TIME));
@@ -9829,10 +9829,10 @@ public class JasperSchedulingUtils {
 											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
 											.equalsIgnoreCase(
-													schedule_weekend_heatsetpoints.get(j).getAttribute("value"))
+													schedule_weekend_heatsetpoints.get(j).getAttribute("value").replaceAll("˚",""))
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_COOL_SETPOINT)
 											.equalsIgnoreCase(schedule_weekend_coolsetpoints.get(j)
-													.getAttribute("value"))) {
+													.getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Sleep's expected Weekend time and heat and cool set points are shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME) + " "
@@ -9858,7 +9858,7 @@ public class JasperSchedulingUtils {
 									j++;
 								} else {
 									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME).equalsIgnoreCase(
-											schedule_periodtimes_weekend.get(i - 1).getAttribute("value"))) {
+											schedule_periodtimes_weekend.get(i - 1).getAttribute("value").replaceAll("˚",""))) {
 										Keyword.ReportStep_Pass(testCase,
 												"Period Weekend-Sleep's expected time is shown correctly: "
 														+ inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME));
