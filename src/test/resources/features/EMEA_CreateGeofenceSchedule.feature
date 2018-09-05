@@ -80,8 +80,8 @@ so that my home temperature will get set automatically based on geofence setting
     Examples: 
       | schedule Options        | Expected            | 
       | Switch to Geofencing    | Geofencing schedule | 
-      | Create new time schedule | Time based schedule  | 
-      | Turn Schedule Off   | Tap on Resume       |
+   #   | Create new time schedule | Time based schedule  | 
+   #   | Turn Schedule Off   | Tap on Resume       |
 
 @EMEA_CreateGeofenceScheduleInOffMode @Automated
 Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
