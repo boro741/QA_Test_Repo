@@ -169,7 +169,6 @@ public class VerifyDisplayedPopUp extends Keyword {
 			break;
 		}
 		case "BASE STATION NOT FOUND": {
-
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			flag = flag & dasDIY.isBaseStationNotFoundPopupVisible();
 			break;
