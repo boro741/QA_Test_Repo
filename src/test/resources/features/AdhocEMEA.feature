@@ -748,7 +748,7 @@ Examples:
 |P1|
 
 @AdhocOverrideTimebaseSchedulespecifictimetoPermanentHoldEMEA			@Automated
-Scenario Outline:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario:   I want to verify specific time to permanent hold status for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode
 Then user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -836,7 +836,7 @@ And user should be displayed with "respective period" setpoint value in solution
 #Permanent hold (Time base Schedule)
 
 @AdhocOverrideTimebaseScheduleAdhocOverrideActionSheetEMEA @Automated
-Scenario Outline: I want to verify action sheet view  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario: I want to verify action sheet view  for systems Heat cool,Heat and Cool with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode 
 Then user thermostat is set to "time based" schedule 
 When user launches and logs in to the Lyric application
