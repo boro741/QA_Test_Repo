@@ -373,14 +373,15 @@ And user thermostat set <NPeriod> with <NGeofence>
 #And verify the respective <NPeriod> setpoint value from "Dashboard"
 And user should be displayed with "respective period" setpoint value
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And verify the <AfterCrossTemporary> on the "PRIMARY CARD" screen
 And verify respective <NPeriod> period setpoint values
 
 Examples:
-| Mode 	| scheduling 					| Period		| Geofence		| NPeriod 	| NGeofence 		| AfterCrossTemporary	|
-| Without sleep geofence based 	| HOME 		| UserArrived 	| Away 		| UserDeparted 	| USING AWAY SETTINGS  	|
-#| Without sleep geofence based 	| AWAY 		| UserDeparted  	| HOME		| UserArrived  	| USING HOME SETTINGS  	|
-#| geofence based 				| AWAY 		| UserDeparted 	| Sleep		| UserArrived  	| USING SLEEP SETTINGS  	|
-#| geofence based					| Sleep 		| UserArrived  	| AWAY 		| UserDeparted  	| USING AWAY SETTINGS  	|
+| scheduling 					| Period				| Geofence		| NPeriod 		| NGeofence				| AfterCrossTemporary	|
+| Without sleep geofence based 	| HOME				| UserArrived	| Away			| UserDeparted			| USING AWAY SETTINGS	|
+#| Without sleep geofence based 	| AWAY				| UserDeparted  	| HOME			| UserArrived  			| USING HOME SETTINGS	|
+#| geofence based 				| AWAY 				| UserDeparted	| Sleep			| UserArrived			| USING SLEEP SETTINGS	|
+#| geofence based					| Sleep 				| UserArrived	| AWAY			| UserDeparted			| USING AWAY SETTINGS 	|
 
 
 
@@ -682,7 +683,7 @@ Examples:
 
 
 @AdhocOverrideCreateTimebasescheduleOFFModeAspecifictimeEMEA		@Automated
-Scenario: To Verify create time base schedule in off mode  
+Scenario Outline: To Verify create time base schedule in off mode  
 Given user has "Heat" system mode
 And user thermostat is set to <Current schedule> schedule
 When user launches and logs in to the Lyric application
@@ -731,7 +732,7 @@ Examples:
 
 
 @AdhocOverrideTimebaseSchedulespecifictimeRemoveHoldEMEA			@Automated
-Scenario:   I want to verify remove hold for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
+Scenario Outline:   I want to verify remove hold for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
 Given user has "Heat" system mode
 Then user thermostat is set to "time based" schedule
 And user thermostat has <Period> currently following in "Time Based" schedule
@@ -1025,7 +1026,7 @@ And verify the <Schedule status> on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Period		| Geofence		| Schedule status		| Sleep period | 
 | Home		| UserArrived		| Using Home Settings	| Without |
 #| Away		| UserDeparted		| Using Away Settings	| Without |
 #| Sleep		| UserArrived		| Using Sleep Settings	| With |
@@ -1051,7 +1052,7 @@ And user "should be updated" with the <Mode> option
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Period		| Geofence		| Schedule status		| Sleep period | 
 | Home		| UserArrived		| Using Home Settings	| Without |
 #| Away		| UserDeparted		| Using Away Settings	| Without |
 #| Sleep		| UserArrived		| Using Sleep Settings	| With |
