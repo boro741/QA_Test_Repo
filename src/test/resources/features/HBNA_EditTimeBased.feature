@@ -17,11 +17,11 @@ so that i can change Time and Set points of individual periods and Days
     Examples: 
       | EditedDays | 
       | One day    | 
-      | Two days   | 
-      | Three days | 
-      | Four days  | 
-      | Five days  | 
-      | Six days   | 
+  #    | Two days   | 
+  #    | Three days | 
+   #   | Four days  | 
+   #   | Five days  | 
+  #    | Six days   | 
   
   @NA_EditTempratureInSchedule @automated
   Scenario Outline: As a User i want to Edit Temperature value for period and those days are grouped
@@ -34,15 +34,15 @@ so that i can change Time and Set points of individual periods and Days
     Examples: 
       | ScheduleType          | Temperature   | 
       | Same Every Day        | Above Maximum | 
-      | Same Every Day        | Below Minimum | 
-      | Same Every Day        | At Maximum    | 
-      | Same Every Day        | At Minimum    | 
-      | Same Every Day        | within range  | 
-      | Different On Weekdays | Above Maximum | 
-      | Different On Weekdays | Below Minimum | 
-      | Different On Weekdays | At Maximum    | 
-      | Different On Weekdays | At Minimum    | 
-      | Different On Weekdays | within range  | 
+   #   | Same Every Day        | Below Minimum | 
+   #   | Same Every Day        | At Maximum    | 
+   #   | Same Every Day        | At Minimum    | 
+    #  | Same Every Day        | within range  | 
+   #   | Different On Weekdays | Above Maximum | 
+   #   | Different On Weekdays | Below Minimum | 
+   #   | Different On Weekdays | At Maximum    | 
+    #  | Different On Weekdays | At Minimum    | 
+   #   | Different On Weekdays | within range  | 
   
   @NA_EditSetpointsWhenAutoChnageOverEnabled @automated
   Scenario Outline: As a User i want to Edit set point when Auto chnage over is enabled so that my 
@@ -57,7 +57,7 @@ so that i can change Time and Set points of individual periods and Days
     Examples: 
       | ScheduleType          | 
       | Same Every Day        | 
-      | Different On Weekdays |  
+   #   | Different On Weekdays |  
       
   @NA_PeriodTimeShouldNotOverlap @automated
   Scenario: As a User i want to edit my period so that each period is independent,On overlap Schule period is removed
@@ -91,9 +91,9 @@ so that i can change Time and Set points of individual periods and Days
   
     Examples: 
       | Periods          | Period Value |EditedDays |
-      | Atleast 1 period | Tap to set   |One days |
+   #   | Atleast 1 period | Tap to set   |One days |
       | Atleast 2 period | Tap to set   |Two days |
-      | Atleast 3 period | Tap to set   |Three days|
+    #  | Atleast 3 period | Tap to set   |Three days|
 
  @NA_DeletingAllPeriod @Automated
   Scenario Outline: To edit Time schedule by deleting all period for systems Heat cool,Cool,Heat for Temperature scale Celsius or Fahrenheit and for time format 24 or 12hr
@@ -119,7 +119,7 @@ so that i can change Time and Set points of individual periods and Days
     Examples: 
       | schedule Options        | Expected            | 
       | Switch to Geofencing    | Geofencing schedule | 
-      | Create new time schedule | Time based schedule  | 
+   #   | Create new time schedule | Time based schedule  | 
       | Turn Schedule Off   | Tap on Resume       | 
   
   @NA_ResumeSchedule @Automated
@@ -152,7 +152,7 @@ Given user launches and logs in to the Lyric application
 Examples:
 |Geofence Status|
 |Home|
-|Away|
-|Sleep|
+#|Away|
+#|Sleep|
  
   

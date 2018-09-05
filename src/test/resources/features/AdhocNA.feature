@@ -35,7 +35,7 @@ And verify respective <Period> period setpoint values
 Examples:
 | Mode 	| scheduling					 	| Schedule status		| Geofence     | Period	|
 | Cool 	| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
-| Cool 	| geofence based               	| Using Sleep Settings 	| UserArrived  |Sleep	|
+#| Cool 	| geofence based               	| Using Sleep Settings 	| UserArrived  |Sleep	|
 #| Cool | Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
 #| Heat | Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
 #| Heat | Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
@@ -217,7 +217,7 @@ Examples:
 #|Heat Only| time based | AWAY |Following schedule |
 #|Heat Only| time based | Sleep | Following schedule |
 #|Heat Only| time based | Wake | Following schedule |
-|Cool| geofence based | Home | Using Home Settings |
+#|Cool| geofence based | Home | Using Home Settings |
 #|Cool| geofence based | AWAY | Using Home Settings |
 #|Cool| geofence based | Sleep | Using Home Settings |
 #|Cool| geofence based | Wake |  Using Home Settings |
@@ -270,7 +270,7 @@ Examples:
 #|Heat Only| time based | AWAY |Following schedule |
 #|Heat Only| time based | Sleep | Following schedule |
 #|Heat Only| time based | Wake | Following schedule |
-|Cool| geofence based | Home | Using Home Settings |
+#|Cool| geofence based | Home | Using Home Settings |
 #|Cool| geofence based | AWAY | Using Home Settings |
 #|Cool| geofence based | Sleep | Using Home Settings |
 #|Cool| geofence based | Wake |  Using Home Settings |
@@ -310,7 +310,7 @@ Examples:
 #| HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
-| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #| Cool	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -556,7 +556,7 @@ And verify respective <NPeriod> period setpoint values
 Examples:
 | Mode 	| scheduling 					| Period				| Geofence		| NPeriod 		| NGeofence				| AfterCrossTemporary	|
 | Cool 	| Without sleep geofence based 	| HOME 				| UserArrived	| Away 			| UserDeparted 			| USING AWAY SETTINGS	|
-| Cool 	| Without sleep geofence based 	| AWAY 				| UserDeparted  	| HOME			| UserArrived  			| USING HOME SETTINGS	|
+#| Cool 	| Without sleep geofence based 	| AWAY 				| UserDeparted  	| HOME			| UserArrived  			| USING HOME SETTINGS	|
 #| Cool 	| geofence based 				| AWAY 				| UserDeparted	| Sleep			| UserArrived			| USING SLEEP SETTINGS	|
 #| Cool 	| geofence based 	            	| Sleep		 		| UserArrived	| AWAY			| UserDeparted			| USING AWAY SETTINGS	|
 #| Heat | Without sleep geofence based 	| HOME				| UserArrived	| Away			| UserDeparted			| USING AWAY SETTINGS	|
@@ -589,9 +589,9 @@ And verify respective <NPeriod> period setpoint values
 Examples:
 | Mode 	| scheduling 					| Period		| Geofence		| NPeriod 	| NGeofence 		| AfterCrossTemporary	|
 | Cool 	| Without sleep geofence based 	| HOME 		| UserArrived 	| Away 		| UserDeparted 	| USING AWAY SETTINGS  	|
-| Cool 	| Without sleep geofence based 	| AWAY 		| UserDeparted	| HOME		| UserArrived  	| USING HOME SETTINGS  	|
-| Cool 	| geofence based 				| AWAY 		| UserDeparted 	| Sleep		| UserArrived  	| USING SLEEP SETTINGS  	|
-| Cool 	| geofence based 	            	| Sleep		| UserArrived  	| AWAY 		| UserDeparted  	| USING AWAY SETTINGS  	|
+#| Cool 	| Without sleep geofence based 	| AWAY 		| UserDeparted	| HOME		| UserArrived  	| USING HOME SETTINGS  	|
+#| Cool 	| geofence based 				| AWAY 		| UserDeparted 	| Sleep		| UserArrived  	| USING SLEEP SETTINGS  	|
+#| Cool 	| geofence based 	            	| Sleep		| UserArrived  	| AWAY 		| UserDeparted  	| USING AWAY SETTINGS  	|
 #| Heat | Without sleep geofence based 	| HOME 		| UserArrived 	| Away 		| UserDeparted 	| USING AWAY SETTINGS  	|
 #| Heat | Without sleep geofence based 	| AWAY 		| UserDeparted  	| HOME		| UserArrived  	| USING HOME SETTINGS  	|
 #| Heat | geofence based 				| AWAY 		| UserDeparted 	| Sleep		| UserArrived  	| USING SLEEP SETTINGS  	|
@@ -709,9 +709,9 @@ And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 | Mode			| Period		| 
 | Cool			| WAKE 		|
-| Heat			| WAKE 		|
-| Heat 			| AWAY 		|
-| Auto			| WAKE 		|
+#| Heat			| WAKE 		|
+#| Heat 			| AWAY 		|
+#| Auto			| WAKE 		|
 #| Auto			| AWAY 		|
 #| Cool			| AWAY 		|
 #| Auto			| HOME 		|
@@ -789,7 +789,7 @@ And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 | Mode	| Period| scheduling 					| Geofence		|
 | Heat  | Home 	| Without sleep geofence based 	| UserArrived 	|
-| Heat 	| Away 	| geofence based					| UserDeparted 	|
+#| Heat 	| Away 	| geofence based					| UserDeparted 	|
 #| Heat	| Sleep | Without sleep geofence based 	| UserArrived 	|
 #| Heat	| Home 	| Without sleep geofence based 	| UserArrived 	|
 #| Heat	| Away	| geofence based 				| UserDeparted 	|
@@ -827,7 +827,7 @@ And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 | Mode	| UMode	| Period	| scheduling 					| Geofence 		|
 | Heat	| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
-| Heat	| Cool	| Away 	| geofence based 				| UserDeparted 	|
+#| Heat	| Cool	| Away 	| geofence based 				| UserDeparted 	|
 #| Heat	| Cool	| Sleep 	| Without sleep geofence based 	| UserArrived 	|
 #| Cool	| Heat	| Home 	| Without sleep geofence based 	| UserArrived 	|
 #| Cool	 |Heat	| Away	| geofence based 				| UserDeparted 	|
@@ -942,8 +942,8 @@ And verify respective <Period> period setpoint values
 Examples:
 | Mode	| scheduling			| Schedule status		| Geofence     | Period		|
 | Cool	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
-| Cool	| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
-| Cool	| Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
+#| Cool	| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
+#| Cool	| Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
 #| Heat	| geofence based		| Using Sleep Settings 	| UserArrived  | Sleep		|
 #| Heat	| Without sleep geofence based 		| Using Away Settings 	| UserDeparted	  | Away		|
 #| Heat	| Without sleep geofence based 		| Using Home Settings 	| UserArrived  | Home		|
@@ -984,7 +984,7 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-|Cool| geofence based | Home | 
+#|Cool| geofence based | Home | 
 #|Cool| geofence based | AWAY |
 #|Cool| geofence based | Sleep | 
 #|Cool| geofence based | Wake |  
@@ -1038,7 +1038,7 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-|Cool| geofence based | Home | 
+#|Cool| geofence based | Home | 
 #|Cool| geofence based | AWAY |
 #|Cool| geofence based | Sleep | 
 #|Cool| geofence based | Wake |  
@@ -1079,7 +1079,7 @@ Examples:
 #| HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
-| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #| Cool	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -1240,7 +1240,7 @@ Examples:
 #| HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
-| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #| Cool	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -1278,7 +1278,7 @@ Examples:
 #|Cool| time based | Sleep | 
 #|Cool| time based | Wake |  
 #|Heat| time based| Home | 
-##|Heat| time based| AWAY |
+#|Heat| time based| AWAY |
 #|Heat| time based | Sleep | 
 #|Heat| time based | Wake | 
 #|Cool Only| time based | Home | 
@@ -1312,7 +1312,7 @@ Examples:
 #|Cool| time based | Sleep | 
 #|Cool| time based | Wake |  
 #|Heat| time based| Home | 
-##|Heat| time based| AWAY |
+#|Heat| time based| AWAY |
 #|Heat| time based | Sleep | 
 #|Heat| time based | Wake | 
 #|Cool Only| time based | Home | 
@@ -1323,7 +1323,7 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-|Cool| geofence based | Home | 
+#|Cool| geofence based | Home | 
 #|Cool| geofence based | AWAY |
 #|Cool| geofence based | Sleep | 
 #|Cool| geofence based | Wake |  
@@ -1634,7 +1634,7 @@ Then verify the <AdhocStatus> on the "PRIMARY CARD" screen
 Examples:
 |Mode | AdhocStatus |
 |Cool | PERMANENT | 
-|Cool | Temporary | 
+#|Cool | Temporary | 
 #|Heat | PERMANENT | 
 #|Heat | Temporary | 
 #|Auto | PERMANENT | 
@@ -1655,7 +1655,7 @@ Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 Examples:
 |Mode | 
 |Cool | 
-|Heat | 
+#|Heat | 
 #|Auto | 
 #|Cool only| 
 #|Heat only| 
@@ -1725,8 +1725,8 @@ Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 Examples:
 |Mode | 
-|Cool | 
-#|Heat | 
+#|Cool | 
+|Heat | 
 #|Auto | 
 #|Cool only| 
 #|Heat only| 
@@ -1753,10 +1753,10 @@ Examples:
 |Heat|Cool        |WAKE |
 #|Cool|Heat        |WAKE |
 #|Heat|Cool        |AWAY |
-|Cool|Heat        |AWAY |
+#|Cool|Heat        |AWAY |
 #|Heat|Cool        |HOME |
-|Cool|Heat        |HOME |
-|Heat|Cool        |SLEEP |
+#|Cool|Heat        |HOME |
+#|Heat|Cool        |SLEEP |
 #|Cool|Heat        |SLEEP |
 #|Cool|Auto        |SLEEP |
 #|Auto|Heat        | WAKE |
@@ -1877,7 +1877,7 @@ Examples:
 |Heat|Cool |
 #|Cool|Heat |
 #|Heat|Cool |
-|Cool|Heat  |
+#|Cool|Heat  |
 #|Heat|Cool |
 #|Cool|Heat |
 #|Heat|Cool |
@@ -1958,7 +1958,7 @@ Examples:
 #|Cool| time based | Sleep | 
 #|Cool| time based | Wake |  
 #|Heat| time based| Home | 
-##|Heat| time based| AWAY |
+#|Heat| time based| AWAY |
 #|Heat| time based | Sleep | 
 #|Heat| time based | Wake | 
 #|Cool Only| time based | Home | 
@@ -1995,7 +1995,7 @@ Examples:
 #| HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #|HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
-| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
+#| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #|HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
 #| Cool	| Home		| UserArrived		| Using Home Settings	| Without |

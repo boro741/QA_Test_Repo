@@ -359,7 +359,7 @@ Then the following "Thermostat Settings" options should be disabled:
 Examples:
 | SystemMode		|
 | Cool			|
-| Heat			|
+#| Heat			|
 
 
 #JasperNA, HB_Spruce
@@ -390,7 +390,7 @@ Then the following "Thermostat Settings" options should be disabled:
 Examples:
 | SystemMode		|
 | Heat			|
-| Cool			|
+#| Cool			|
 
 
 #JasperNA, HB_Spruce

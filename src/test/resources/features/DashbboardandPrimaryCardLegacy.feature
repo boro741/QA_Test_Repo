@@ -232,7 +232,7 @@ Then user should be displayed with the "Change mode" screen
 Examples:
 |Mode | 
 |Heat|
-|OFF|
+#|OFF|
 
 #JasperEMEA
 @SystemModeInfoscreenwithHeatOnlyEMEA @Automated
@@ -306,7 +306,7 @@ Then user "should not be updated" with the <SystemMode> option
 Examples:
 |Mode| SystemMode | 
 |Heat| OFF | 
-|OFF | Heat | 
+#|OFF | Heat | 
 #|OFF| Heat | 
 #|OFF | OFF| 
 
@@ -334,7 +334,7 @@ Then user "should not be updated" with the <SystemMode> option
 Examples:
 |Mode| SystemMode | 
 |Cool | OFF| 
-|OFF | Cool| 
+#|OFF | Cool| 
 #|OFF | Cool| 
 #|OFF | OFF| 
 
@@ -392,11 +392,11 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Cool | Heat |
-|Heat |Cool |
-|Cool | OFF |
+#|Heat |Cool |
+#|Cool | OFF |
 #|Heat | Cool |
 #|Heat |Heat |
-|Heat | OFF |
+#|Heat | OFF |
 #|OFF | Cool |
 #|OFF |Heat |
 #|OFF | OFF |
@@ -493,7 +493,7 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |OFF | Heat |
-|Heat | OFF |
+#|Heat | OFF |
 #|OFF | Heat |
 #|OFF | OFF |
 
@@ -522,7 +522,7 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |OFF | Heat |
-|Heat | OFF |
+#|Heat | OFF |
 #|OFF | Heat |
 #|OFF | OFF |
 
@@ -613,7 +613,7 @@ Examples:
 #|Cool | Circulate |
 |Cool 	| ON | 
 #|Heat | Auto Fan|
-|Heat | Circulate |
+#|Heat | Circulate |
 #|Heat | ON | 
 #|Auto | Auto Fan|
 #|Auto | Circulate |
@@ -659,9 +659,9 @@ Then user "should be displayed" with the "MAX set temperature on Dashboard" opti
 Examples:
 |Mode|scheduling|
 |Heat|geofence based|
-|Cool|geofence based|
-|Heat|time based|
-|Cool|time based|
+#|Cool|geofence based|
+#|Heat|time based|
+#|Cool|time based|
 #|Heat|no|
 #|Cool|no|
 #in case required
@@ -684,9 +684,9 @@ And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTIO
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
 |Mode|scheduling|
-|Heat|geofence based|
-|Cool|geofence based|
-|Heat|time based|
+#|Heat|geofence based|
+#|Cool|geofence based|
+#|Heat|time based|
 |Cool|time based|
 #|Heat|no|
 #|Cool|no|
@@ -710,7 +710,7 @@ Then user "should be displayed" with the "MAX set temperature on Dashboard" opti
 Examples:
 |Mode|scheduling|
 |Heat|geofence based|
-|Heat|time based|
+#|Heat|time based|
 #|Heat|no|
 
 #JasperEMEA
@@ -806,11 +806,11 @@ And Verify maximum and minimum set values is followed
 And Verify the Jasper NA "stat1" widget on the location dashboard for set temperature
 Examples:
 |Mode |
-|Heat | 
+#|Heat | 
 |Cool |
-|Auto |
-|Heat only|
-|Cool only|
+#|Auto |
+#|Heat only|
+#|Cool only|
 
 @SetTemperatureFromHBB @Automated
 Scenario Outline:To set temperature for location with multistat (Jasper NA,HBB) systems Heat cool,Cool,Heat for Temperture scale Celsius (OR) Fahrenheit and for time format 24 (OR) 12hr
@@ -825,8 +825,8 @@ And Verify the HBB "stat1" widget on the location dashboard for set temperature
 Examples:
 |Mode |
 |Heat | 
-|Cool |
-|Auto |
+#|Cool |
+#|Auto |
 
 @SetTemperatureFromEMEA @Automated
 Scenario:To set temperature for location with multistat with time format 24 (OR) 12hr 
@@ -975,7 +975,7 @@ Then user verifies the "THERMOSTAT DASHBOARD" coach marks
 Examples:
 |Mode|
 |Cool|
-|Heat|
+#|Heat|
 #|Auto|
 
 #JasperNA, HB, Spruce
@@ -987,7 +987,7 @@ Given user launches and logs in to the lyric application
 Then user verifies the "NA THERMOSTAT SOLUTION CARD" coach marks
 Examples:
 |Mode|
-|Cool|
+#|Cool|
 |Heat|
 #|Auto|
 
@@ -1025,7 +1025,7 @@ Then user should not be displayed "Emergency heat" on "SolutionCard"
 And user should be displayed with disabled "Emergency heat" option under settings
 Examples:
 |Mode | systemMode|
-|Cool | Cool |
+#|Cool | Cool |
 |Cool | Auto | 
 #|Cool | OFF  |
 #|Cool | Cool |
@@ -1059,9 +1059,9 @@ And user should be displayed with disabled "Emergency heat" option under setting
 Examples:
 |Mode | systemMode|
 |Heat only | OFF |
-|Heat only | Heat only  | 
-|OFF | OFF |
-|OFF| Heat only  | 
+#|Heat only | Heat only  | 
+#|OFF | OFF |
+#|OFF| Heat only  | 
 
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce

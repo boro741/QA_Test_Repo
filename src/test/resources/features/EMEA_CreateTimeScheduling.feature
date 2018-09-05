@@ -80,7 +80,7 @@ As a user I want to create an time based scheduling
    #   | Different On Weekdays | Below Minimum | 
    #   | Different On Weekdays | At Maximum    | 
     #  | Different On Weekdays | At Minimum    | 
-      | Different On Weekdays | within range  | 
+    #  | Different On Weekdays | within range  | 
   
 @JasperEMEA_DeletingDefaultPeriodDifferentOnWeekdays @JasperEmeaScheduleP4 @Automated
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted

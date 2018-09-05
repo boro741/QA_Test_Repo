@@ -104,8 +104,8 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
     Examples: 
       | schedule Options        | Expected            | 
       | Switch to Geofencing    | Geofencing schedule | 
-      | Create new time schedule | Time based schedule  | 
-      | Turn Schedule Off   | Tap on Resume       | 
+  #    | Create new time schedule | Time based schedule  | 
+   #   | Turn Schedule Off   | Tap on Resume       | 
       
 @EMEA_ResumeSchedule @Automated
   Scenario: As a user i want an Options to resume Schdeule

@@ -77,8 +77,8 @@ Then Verify the "Schedule status not displayed" on the "PRIMARY CARD" screen
 Examples:
 |Mode|scheduling	|Geofence   |Period |
 |Cool|Without sleep geofence based|UserArrived | Home|
-|Cool|geofence based|UserArrived |Sleep|
-|Cool|Without sleep geofence based|UserDeparted |Away|
+#|Cool|geofence based|UserArrived |Sleep|
+#|Cool|Without sleep geofence based|UserDeparted |Away|
 #|Heat|Without sleep geofence based|UserArrived |Home|
 #|Heat|Without sleep geofence based|UserDeparted |Away|
 #|Heat|geofence based|UserArrived | Sleep|
@@ -126,15 +126,15 @@ Examples:
 #|Cool| time based | Cool |
 #|Cool| time based | Auto |
 #|Heat| time based | Heat |
-|Heat| time based | Cool |
+#|Heat| time based | Cool |
 #|Heat| time based | Auto |
 #|Auto| time based | Heat |
 #|Auto| time based | Cool |
 #|Auto| time based | Auto |
-|Cool| geofence based | Heat |
+#|Cool| geofence based | Heat |
 #|Cool| geofence based| Cool|
 #|Cool| geofence based | Auto |
-|Heat| geofence based  | Heat |
+#|Heat| geofence based  | Heat |
 #|Heat| geofence based | Cool |
 #|Heat| geofence based | Auto |
 #|Auto| geofence based | Heat |
@@ -162,10 +162,10 @@ When user navigates to "PRIMARY CARD" screen from the "Scheduling" screen
 Then Verify the "Schedule status not displayed" on the "PRIMARY CARD" screen
 Examples:
 |Mode|scheduling				  |Geofence    |Period | UPeriod | UGeofence |
-|Cool|Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted |
-|Cool|geofence based			  |UserArrived |Sleep| Away | UserDeparted |
+#|Cool|Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted |
+#|Cool|geofence based			  |UserArrived |Sleep| Away | UserDeparted |
 |Cool|Without sleep geofence based|UserDeparted |Away| Home | UserArrived |
-|Cool|geofence based			  |UserDeparted |Away| Sleep | UserArrived |
+#|Cool|geofence based			  |UserDeparted |Away| Sleep | UserArrived |
 #|Heat|Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted |
 #|Heat|geofence based			  |UserArrived |Sleep| Away | UserDeparted |
 #|Heat|Without sleep geofence based|UserDeparted |Away| Home | UserArrived |
