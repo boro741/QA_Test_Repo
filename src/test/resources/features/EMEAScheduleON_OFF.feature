@@ -21,7 +21,7 @@ And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 |scheduling |
 |time based |
-|geofence based |
+#|geofence based |
 
 
 @ScheduleOFFONEMEAtimebase @Automated @LYR-29401
@@ -68,8 +68,8 @@ Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
 |scheduling	|Schedule status	 |Geofence   |Period |
 |Without sleep geofence based|Using Home Settings|UserArrived |Home|
-|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
-|geofence based|Using Sleep Settings |UserArrived | Sleep|
+#|Without sleep geofence based|Using Away Settings|UserDeparted |Away|
+#|geofence based|Using Sleep Settings |UserArrived | Sleep|
 
 #JapserEMEA
 @ScheduleOFFEMEAtimebasegeofencebase @Automated @LYR-29399
@@ -93,8 +93,8 @@ And Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 |scheduling | Adhocoverride |
 | time based| Temporary |
-| time based| Permanent |
-|geofence based| Temporary |
+#| time based| Permanent |
+#|geofence based| Temporary |
 
 
 @ScheduleONFFAdhocOverrideEMEAtimebase @Automated @LYR-29402
@@ -120,7 +120,7 @@ Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
 |Mode|scheduling | Adhocoverride  | Schedule status |
 |Heat| time based| Temporary | following schedule |
-|Heat| time based| Permanent | following schedule |
+#|Heat| time based| Permanent | following schedule |
 
 
 
@@ -149,8 +149,8 @@ Then Verify the <Schedule status> on the "PRIMARY CARD" screen
 Examples:
 |scheduling | Adhocoverride | Schedule status |Geofence | Period |
 |Without sleep geofence based| Temporary | Using Home Settings| UserArrived |Home|
-|Without sleep geofence based| Temporary | Using Away Settings| UserDeparted |Away|
-|geofence based| Temporary | Using Sleep Settings|UserArrived |Sleep|
+#|Without sleep geofence based| Temporary | Using Away Settings| UserDeparted |Away|
+#|geofence based| Temporary | Using Sleep Settings|UserArrived |Sleep|
 
 
 
@@ -178,7 +178,7 @@ And vacation mode is "inactive"
 Examples:
 | scheduling |
 | time based |
-| geofence based | 
+#| geofence based | 
 
 @ScheduleOFFVacationEMEA @Automated @LYR-29407
 Scenario Outline: As an user  I want to turn schedule OFF while vacation is active  So that I will be able to turned off schedule whenever I don't want to run schedule
@@ -199,7 +199,7 @@ And user navigates to "primary card" screen from the "SCHEDULING" screen
 And vacation mode is "inactive"
 Examples:
 | scheduling |
-|time based|
+#|time based|
 |geofence based | 
 
 
@@ -227,7 +227,7 @@ And verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 | scheduling |
 | time based |
-| geofence based | 
+#| geofence based | 
 
 
 @ScheduleOFFVacationStatusEMEA @Automated @LYR-29393
@@ -253,7 +253,7 @@ And verify the "Vacation status" on the "PRIMARY CARD" screen
 And vacation mode is "inactive"
 Examples:
 | scheduling |
-| time based |
+#| time based |
 | geofence based | 
 
 
@@ -313,9 +313,9 @@ When user changes system mode to "Heat"
 Then Verify the "Schedule status TimeGeofence" on the "PRIMARY CARD" screen
 Examples:
 |scheduling | Adhocoverride |
-|time based | Temporary |
+#|time based | Temporary |
 |time based | Permanent | 
-|geofence based | Temporary |
+#|geofence based | Temporary |
 
 @ScheduleONOFFEMEAgeofencebasefencecross @Automated 
 Scenario Outline:As a user want to verify schedule off status when geofence crossed
@@ -342,9 +342,9 @@ Then Verify the <USchedule status> on the "PRIMARY CARD" screen
 Examples:
 |scheduling				  |Geofence    |Period | UPeriod | UGeofence | Schedule status | USchedule status |
 |Without sleep geofence based|UserArrived | Home  | Away    | UserDeparted | Using Home Settings | Using Away Settings|
-|geofence based			  |UserArrived |Sleep| Away | UserDeparted | Using Sleep Settings | Using Away Settings|
-|Without sleep geofence based|UserDeparted |Away| Home | UserArrived | Using Away Settings| Using Home Settings | 
-|geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
+#|geofence based			  |UserArrived |Sleep| Away | UserDeparted | Using Sleep Settings | Using Away Settings|
+#|Without sleep geofence based|UserDeparted |Away| Home | UserArrived | Using Away Settings| Using Home Settings | 
+#|geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
 
 @ScheduleONMultistatEMEA @Automated
 Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
@@ -367,9 +367,9 @@ Then verify the "schedule off overlay" on the "Scheduling" screen
 Examples:
 | scheduling | scheduling1 |scheduled |
 |geofence based| time based | pause |
-|geofence based| geofence based | pause |
-|time based | geofence based | pause |
-|time based | time based | pause |
+#|geofence based| geofence based | pause |
+#|time based | geofence based | pause |
+#|time based | time based | pause |
 
 
 
@@ -393,6 +393,6 @@ Then Verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 | scheduling | scheduling1 |scheduled |
 |geofence based| time based | pause |
-|geofence based| geofence based | pause |
-|time based | geofence based | pause |
-|time based | time based | pause |
+#|geofence based| geofence based | pause |
+#|time based | geofence based | pause |
+#|time based | time based | pause |
