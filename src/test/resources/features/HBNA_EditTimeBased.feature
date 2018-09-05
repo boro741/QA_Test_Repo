@@ -120,7 +120,7 @@ so that i can change Time and Set points of individual periods and Days
       | schedule Options        | Expected            | 
       | Switch to Geofencing    | Geofencing schedule | 
    #   | Create new time schedule | Time based schedule  | 
-      | Turn Schedule Off   | Tap on Resume       | 
+   #   | Turn Schedule Off   | Tap on Resume       | 
   
   @NA_ResumeSchedule @Automated
   Scenario: As a user i want an Options to resume Schdeule

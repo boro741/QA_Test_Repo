@@ -282,7 +282,7 @@ And verify the "Schedule OFF overlay disabled" on the "Scheduling" screen
 Examples:
 | scheduling |
 | time based |
-| geofence based | 
+#| geofence based | 
 
 
 @ScheduleONOFFEMEAswitchingmodes @Automated

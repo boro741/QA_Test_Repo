@@ -425,7 +425,7 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Heat | Cool |
-|Cool |Heat |
+#|Cool |Heat |
 #|Cool | OFF |
 #|Cool | auto |
 #|Heat | Cool |
@@ -465,7 +465,7 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Cool | OFF |
-|OFF | Cool |
+#|OFF | Cool |
 #|OFF | Cool |
 #|OFF | OFF |
 
