@@ -50,7 +50,7 @@ so that my home temperature will get set automatically based on geofence setting
       |Geofence Period| 
       |Home| 
 #      |Sleep|
-      |Away| 
+#      |Away| 
   
   @JasperNA_GeofenceTimerClockIsInCrementalOf15mins @Automated
   Scenario: As a user i want to verify if Sleep settings timer is incremental of 15mins
@@ -189,5 +189,5 @@ Examples:
      Examples: 
 |Condition|
 |Sleep|
-|Home|
-|Away|
+#|Home|
+#|Away|

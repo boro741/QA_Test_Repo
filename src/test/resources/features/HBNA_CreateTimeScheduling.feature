@@ -31,7 +31,7 @@ Then "Geofence" scheduling is retained
 Examples: 
 | ScheduleType |
 | Same Every Day|
-| Different On Weekdays|
+#| Different On Weekdays|
 
 @JasperNA_ConfirmToCreateNewSchedule @Automated
 Scenario Outline: As a user i want to be prompted with an option to Confirm and Create new Schedule
@@ -43,7 +43,7 @@ Then <ScheduleType> scheduling gets activated
 
 Examples: 
 | ScheduleType |
-| Same Every Day|
+#| Same Every Day|
 | Different On Weekdays|
 
 @JasperNA_TempretureBandwidthforEachPeriod @Automated
@@ -62,7 +62,7 @@ Examples:
 #|Same Every Day     | At Maximum    | 
 #|Same Every Day     | At Minimum    | 
 #|Same Every Day     | within range  |
-|Different On Weekdays     | Above Maximum | 
+#|Different On Weekdays     | Above Maximum | 
 #|Different On Weekdays     | Below Minimum | 
 #|Different On Weekdays     | At Maximum    | 
 #|Different On Weekdays     | At Minimum    | 
@@ -150,7 +150,7 @@ Then  <ScheduleType> scheduling gets activated
 
     Examples: 
       | scheduling| ScheduleType |
-      | no        | Same Every Day|
+#      | no        | Same Every Day|
 #      | time based        | Same Every Day|
 #      | Geofence |Same Every Day|
 #      | no| Different On Weekdays|
