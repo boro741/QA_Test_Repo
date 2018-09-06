@@ -181,7 +181,7 @@ public class VacationHoldScreen extends MobileScreens {
 		if(!testCase.getPlatform().contains("IOS")){
 			String valueToSet= MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(" ")[2].replace(",", "");
 			MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
-			return MobileUtils.clickOnElement(testCase, "Xpath","//*[@content-desc='"+valueToSet+" August 2018']") &&  MobileUtils.clickOnElement(objectDefinition, testCase,  "OKButtonInCalendarPopup");
+			return MobileUtils.clickOnElement(testCase, "Xpath","//*[contains(@content-desc='"+valueToSet+"']") &&  MobileUtils.clickOnElement(objectDefinition, testCase,  "OKButtonInCalendarPopup");
 		}else{
 			String valueToSet= MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1].replace(",", "").trim();
 			MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
