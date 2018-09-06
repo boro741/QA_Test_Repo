@@ -98,11 +98,13 @@ public class ActivateVacationUsingCHIL extends Keyword {
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
+				System.out.println(currentUTCTime);
 				if(statInfo.getJasperDeviceType().equals("EMEA")){
 					CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
 				}else{
 					CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, currentUTCTime);
 				}
+				System.out.println(CHILUtil.startTime);
 
 				CHILUtil.endTime = JasperSetPoint.addDaysToDate(null, CHILUtil.startTime, 7);
 
@@ -112,22 +114,6 @@ public class ActivateVacationUsingCHIL extends Keyword {
 					if (result == 200) {
 						Keyword.ReportStep_Pass(testCase,
 								"Activate Vacation Using CHIL : Successfully activated vacation using CHIL");
-						double minsStart = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(CHILUtil.startTime)
-								.getTime() / 1000.0 / 60;
-						double minsCurrent = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(currentUTCTime)
-								.getTime() / 1000.0 / 60;
-						long mininMs = ((long) minsStart - (long) minsCurrent) * 60 * 1000;
-						// FluentWait<String> fWait = new FluentWait<String>(" ");
-						// //fWait.pollingEvery(3, TimeUnit.SECONDS);
-						// fWait.withTimeout(min, TimeUnit.MINUTES);
-						System.out.println(mininMs);
-						if(mininMs>0){
-							Thread.sleep(mininMs);
-						}else{
-							Keyword.ReportStep_Pass(testCase,
-									"Already in vacation");
-						}
-
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

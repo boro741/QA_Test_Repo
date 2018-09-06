@@ -284,8 +284,8 @@ public class JasperSetPoint {
 			int minutes = c.get(Calendar.MINUTE);
 			int mod = minutes % 10;
 			System.out.println(mod);
-			c.add(Calendar.MINUTE,10-mod);
-			System.out.println(10-mod);
+			c.add(Calendar.MINUTE,-mod);
+			System.out.println(-mod);
 			c.set(Calendar.SECOND, 0);
 			roundOffTime = vacationDateFormat.format(c.getTime());
 		} catch (Exception e) {
@@ -296,6 +296,7 @@ public class JasperSetPoint {
 		}
 		return roundOffTime;
 	}
+	
 	public static String roundOffTimeToTheNearest1week(TestCases testCase,
 			String time) {
 		String roundOffTime = " ";
@@ -312,6 +313,50 @@ public class JasperSetPoint {
 			System.out.println(10-mod);
 			//mod=10-mod;
 
+			c.set(Calendar.SECOND, 0);
+			roundOffTime = vacationDateFormat.format(c.getTime());
+		} catch (Exception e) {
+			roundOffTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return roundOffTime;
+	}
+	
+	public static String roundOffTimeToUpcomingNearest15minutes(TestCases testCase,
+			String time) {
+		String roundOffTime = " ";
+		try {
+			SimpleDateFormat vacationDateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd'T'HH:mm:ss");
+			Calendar c = Calendar.getInstance();
+			c.setTime(vacationDateFormat.parse(time));
+			int minutes = c.get(Calendar.MINUTE);
+			int mod = minutes % 15;
+			c.add(Calendar.MINUTE,15 -mod);
+			c.set(Calendar.SECOND, 0);
+			roundOffTime = vacationDateFormat.format(c.getTime());
+		} catch (Exception e) {
+			roundOffTime = " ";
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase,
+					FailType.FUNCTIONAL_FAILURE,
+					"Add days to date : Error Occured : " + e.getMessage());
+		}
+		return roundOffTime;
+	}
+	
+	public static String roundOffTimeToUpcomingNearest10minutes(TestCases testCase,
+			String time) {
+		String roundOffTime = " ";
+		try {
+			SimpleDateFormat vacationDateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd'T'HH:mm:ss");
+			Calendar c = Calendar.getInstance();
+			c.setTime(vacationDateFormat.parse(time));
+			int minutes = c.get(Calendar.MINUTE);
+			int mod = minutes % 10;
+			c.add(Calendar.MINUTE,10 -mod);
 			c.set(Calendar.SECOND, 0);
 			roundOffTime = vacationDateFormat.format(c.getTime());
 		} catch (Exception e) {

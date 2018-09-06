@@ -68,6 +68,7 @@ And user navigates back and forth in "Vacation" screen
 Then user should be displayed with default set point value
 And user should be displayed with temperature values within maximum minimum limit
 
+
 @Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@Automated
 Scenario: As a user I want to verify that HBB stats are not present in vacation comfort settings 
 When vacation mode is "inactive"
@@ -80,7 +81,7 @@ Then user should be provided with option to enter vacation start and end date
 And HBB device should not be listed under the review vacation settings section in Vacation screen
 
   
-@Vacations_MinimumBandwidthTimer	@Automated
+@Vacations_MinimumBandwidthTimer			@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 When vacation mode is "active"
@@ -101,7 +102,7 @@ Then user is displayed with "From" date as "Current Time" nearest to "10"
 #Then user should be displayed from and to timer field incremental of "10" minutes
 
 
-@Vacation_TimerValueIncreamentOf15NA	@Automated
+@Vacation_TimerValueIncreamentOf15NA				@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 When vacation mode is "active"
@@ -120,7 +121,7 @@ And user navigates to "Vacation" screen from the "Dashboard" screen
 When user selects the stat to edit
 Then user should be able to edit set points in Stats screen
 
-@Vacation_EnableDisbaleIndividualStat			@Automated
+@Vacation_EnableDisableIndividualStat			@Automated
 Scenario Outline: As a user I want to enable or disable stat vacation individually
 #Given: User has multiple stats
 When vacation mode is "inactive"
@@ -136,8 +137,8 @@ Examples:
       | On			| active					| 
    #   | Off			| No Settings				| 
       
-@Vacation_Enable_DisbaleIndividulaStat			@Automated
-Scenario Outline: As a user I want to enable Disable stat vacation individually
+@Vacation_Enable_DisableMultiStat			@Automated
+Scenario Outline: As a user I want to enable disable multi stat vacation
 Given vacation mode is "inactive for multistat"
 And user launches and logs in to the Lyric application
 And user navigates to "MULTISTAT LOCATION" screen from the "Dashboard" screen

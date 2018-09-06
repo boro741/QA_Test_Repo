@@ -1405,7 +1405,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-And user <Sensor Location> access sensor "enrolled"
+#And user <Sensor Location> access sensor "enrolled"
 When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
@@ -1424,9 +1424,9 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
-When user <Sensor Location> access sensor "Opened"
+#When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
-When user <Sensor Location> access sensor "closed"
+#When user <Sensor Location> access sensor "closed"
 Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -1472,8 +1472,8 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| SatyaMidhun@08				|
+#| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 #incaserequired
 #| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 #| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
