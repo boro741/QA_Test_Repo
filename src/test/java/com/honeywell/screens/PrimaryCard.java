@@ -1090,4 +1090,9 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isHeatingCoolingTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingCoolingText", 3, false);
 	}
+	
+	public boolean isEmergencyHeatStatusVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmergencyHeatStatus");
+	}
+	
 }

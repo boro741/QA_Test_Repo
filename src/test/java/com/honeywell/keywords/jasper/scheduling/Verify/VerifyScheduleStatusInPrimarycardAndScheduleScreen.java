@@ -197,6 +197,26 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Adhoc override displayed on primary card");
 							break;
 					}
+					case "EMERGENCY HEAT": {
+						PrimaryCard PC = new PrimaryCard(testCase);
+						flag = flag & PC.isEmergencyHeatStatusVisible(); 
+						if(flag)
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat status is dispalyed in Primary card");
+							else 
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Emergency Heat status is not dispalyed in Primary card");
+							break;									
+					}
+					case "EMERGENCY HEAT NOT DISPLAYED": {
+						PrimaryCard PC = new PrimaryCard(testCase);
+						if(!PC.isEmergencyHeatStatusVisible()){
+							flag = true;
+						}
+						if(flag)
+							Keyword.ReportStep_Pass(testCase, "Emergency Heat status is not dispalyed in Primary card");
+							else 
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  "Emergency Heat status is dispalyed in Primary card");
+							break;									
+					}
 					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + parameters.get(0));
