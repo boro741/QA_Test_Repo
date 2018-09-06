@@ -57,7 +57,7 @@ public class CHILUtil implements AutoCloseable {
 	private String sessionID;
 	private TestCaseInputs inputs;
 	public static String chapiDeviceId;
-		public static int coolSetPoints = 0;
+	public static int coolSetPoints = 0;
 	public static int heatSetPoints = 0;
 	public static Double maxHeat;
 	public static Double minHeat;
@@ -70,7 +70,7 @@ public class CHILUtil implements AutoCloseable {
 	public static int setPointInVacationCard = 0;
 	public static int vacationHeatSetPoint = 0;
 	public static int vacationCoolSetPoint = 0;
-	
+
 
 	public CHILUtil(TestCaseInputs inputs) throws Exception {
 		String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
@@ -422,7 +422,7 @@ public class CHILUtil implements AutoCloseable {
 		if (isConnected) {
 			String url = chilURL + "/api/v2/NotificationMessages";
 			String headerData = "{\"NotificationIDS\" : " + notificationIDS.toString()
-					+ ",\"NotificationStatus\" : \"Dismiss\"}";
+			+ ",\"NotificationStatus\" : \"Dismiss\"}";
 			try {
 				result = doPutRequest(url, headerData).getResponseCode();
 			} catch (Exception e) {
@@ -443,76 +443,104 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int createSchedule(TestCaseInputs inputs, String scheduleType, long locationID, String deviceID,
 			String jasperStatType) throws Exception {
 		int result = -1;
 		if (isConnected) {
 			String headerData = " ";
 			String url = " ";
-			if (scheduleType.equals("Time")) {
-				url = chilURL + "api/locations/" + locationID + "/thermostat/TimedScheduleTemplate";
-				if (jasperStatType.equalsIgnoreCase("NA")) {
-					headerData = "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-							+ deviceID + "\"]}";
-				} else {
-					headerData = "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-							+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-							+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-							+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-							+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-							+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-							+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-							+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-							+ "\"DeviceIds\":[\"" + deviceID + "\"]}";
-				}
-			} else if (scheduleType.equals("Geofence")) {
-				url = chilURL + "api/locations/" + locationID + "/thermostat/GeofenceScheduleTemplate";
-				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
+			if (jasperStatType.equalsIgnoreCase("NA")||jasperStatType.equalsIgnoreCase("EMEA")) {
+				if (scheduleType.equals("Time")) {
+					url = chilURL + "api/locations/" + locationID + "/thermostat/TimedScheduleTemplate";
 					if (jasperStatType.equalsIgnoreCase("NA")) {
-						headerData = String.format(
-								"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"}},\"DeviceIds\":[\""
-										+ deviceID + "\"]}");
+						headerData = "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+								+ deviceID + "\"]}";
 					} else {
-						headerData = String.format(
-								"{\"name\":\"GeofenceScheduleRequestWithAutoFanMode\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":70,\"CoolSetPoint\":79,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"AwayPeriod\":{\"HeatSetPoint\":62,\"CoolSetPoint\":89,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}}},\"DeviceIds\":[\""
-										+ deviceID + "\"]}");
+						headerData = "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+								+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+								+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+								+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+								+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+								+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+								+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+								+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+								+ "\"DeviceIds\":[\"" + deviceID + "\"]}";
 					}
-				}else{
-					if (jasperStatType.equalsIgnoreCase("NA")) {
-						headerData = String.format(
-								"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":\"62.00\",\"coolSetPoint\":\"82.00\"}},\"DeviceIds\":[\""
-										+ deviceID + "\"]}");
-					} else {
-						headerData = String.format(
-								"{\"name\":\"GeofenceScheduleRequestWithAutoFanMode\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":70,\"CoolSetPoint\":79,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"AwayPeriod\":{\"HeatSetPoint\":62,\"CoolSetPoint\":89,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":59,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}}},\"DeviceIds\":[\""
-										+ deviceID + "\"]}");
+				} else if (scheduleType.equals("Geofence")) {
+					url = chilURL + "api/locations/" + locationID + "/thermostat/GeofenceScheduleTemplate";
+					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
+						if (jasperStatType.equalsIgnoreCase("NA")) {
+							headerData = String.format(
+									"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"}},\"DeviceIds\":[\""
+											+ deviceID + "\"]}");
+						} else {
+							headerData = String.format(
+									"{\"name\":\"GeofenceScheduleRequestWithAutoFanMode\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":70,\"CoolSetPoint\":79,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"AwayPeriod\":{\"HeatSetPoint\":62,\"CoolSetPoint\":89,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}}},\"DeviceIds\":[\""
+											+ deviceID + "\"]}");
+						}
+					}else{
+						if (jasperStatType.equalsIgnoreCase("NA")) {
+							headerData = String.format(
+									"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":\"62.00\",\"coolSetPoint\":\"82.00\"}},\"DeviceIds\":[\""
+											+ deviceID + "\"]}");
+						} else {
+							headerData = String.format(
+									"{\"name\":\"GeofenceScheduleRequestWithAutoFanMode\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":70,\"CoolSetPoint\":79,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"AwayPeriod\":{\"HeatSetPoint\":62,\"CoolSetPoint\":89,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":59,\"FanSwitch\": {\"Position\": 0,\"Speed\": 8}}},\"DeviceIds\":[\""
+											+ deviceID + "\"]}");
+						}
 					}
 				}
-			}
-			result = doPostRequest(url, headerData).getResponseCode();
+				result = doPostRequest(url, headerData).getResponseCode();
 
+			} else{
+				if (scheduleType.equals("Time")) {
+					url = chilURL + "api/v3/locations/" + locationID + "/ThermostatSchedule";
+					if (jasperStatType.equalsIgnoreCase("FlyCatcher")) {
+						headerData = "{\"ScheduleType\": \"Timed\",\"deviceIds\":[\""
+								+ deviceID + "\"],\"TimedSchedule\": {\"days\":[{\"day\":\"Monday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]},{\"day\":\"Tuesday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]},{\"day\":\"Wednesday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]},{\"day\":\"Thursday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]},{\"day\":\"Friday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]},{\"day\":\"Saturday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]},{\"day\":\"Sunday\",\"periods\":[{\"isCancelled\":false,\"periodType\":\"Wake\",\"periodName\":\"Wake\",\"startTime\":\"06:00:00\",\"heatSetPoint\":71,\"coolSetPoint\":79,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Away\",\"periodName\":\"Away\",\"startTime\":\"08:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":85,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Home\",\"periodName\":\"Home\",\"startTime\":\"18:00:00\",\"heatSetPoint\":70,\"coolSetPoint\":78,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}},{\"isCancelled\":false,\"periodType\":\"Sleep\",\"periodName\":\"Sleep\",\"startTime\":\"22:00:00\",\"heatSetPoint\":62,\"coolSetPoint\":82,\"fanSwitch\":{\"position\":\"Auto\"},\"priority\":{\"priorityType\":\"PickARoom\",\"selectedRooms\":[1,2,3]}}]}]}}";
+					}
+					
+					result = doPutRequest(url, headerData).getResponseCode();
+			
+				//Using old Template and API version for Flycatcher geofence schedule, needs to be changed later	
+				} else if (scheduleType.equals("Geofence")) {
+					url = chilURL + "api/locations/" + locationID + "/thermostat/GeofenceScheduleTemplate";
+					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
+						
+							headerData = String.format(
+									"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"}},\"DeviceIds\":[\""
+											+ deviceID + "\"]}");
+						
+					}else{
+							headerData = String.format(
+									"{\"name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\",\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},\"sleepMode\":{\"startTime\":\"22:00:00\",\"endTime\":\"06:00:00\",\"heatSetPoint\":\"62.00\",\"coolSetPoint\":\"82.00\"}},\"DeviceIds\":[\""
+											+ deviceID + "\"]}");
+					}
+					result = doPostRequest(url, headerData).getResponseCode();
+				}
+			} 
 		} else {
 			throw new Exception("Not connected to CHIL");
 		}
@@ -618,25 +646,25 @@ public class CHILUtil implements AutoCloseable {
 		}
 
 	}
-	
+
 	public int userArrived(long locationID, int userID, int geofenceID) throws Exception
 	{
 		if (isConnected) {
 			String url = chilURL+ String.format("api/locations/%s/GeoFence/%s/GangMember/%s/GeoFenceEvent", locationID,
 					geofenceID, userID);
-		    String headerData ="{\"type\":\"UserArrived\"}";
+			String headerData ="{\"type\":\"UserArrived\"}";
 			return doPostRequest(url, headerData).getResponseCode();
 		}
 		else {
 			throw new Exception("Not connected to CHIL");
 		}
 	}
-	
+
 	public int userDeparted(long locationID, int userID, int geofenceID) throws Exception
 	{
 		if (isConnected) {
 			String url = chilURL+ String.format("api/locations/%s/GeoFence/%s/GangMember/%s/GeoFenceEvent", locationID,
-							geofenceID, userID);
+					geofenceID, userID);
 			String headerData ="{\"type\":\"UserDeparted\"}";
 			return doPostRequest(url, headerData).getResponseCode();
 		}
@@ -644,7 +672,7 @@ public class CHILUtil implements AutoCloseable {
 			throw new Exception("Not connected to CHIL");
 		}
 	}
-	
+
 	public int deleteDevice(long locationID, String deviceID, boolean isDasDevice) throws Exception {
 		int result = -1;
 		if (isConnected) {
@@ -663,14 +691,14 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int deleteDeviceHub(long locationID) throws Exception {
 		int result = -1;
 		if (isConnected) {
 			String url = " ";
 			url = chilURL + "api/locations/" + locationID + "/Devices/" + chapiDeviceId+ "/hub";
 			try {
-						result = doDeleteRequest(url).getResponseCode();
+				result = doDeleteRequest(url).getResponseCode();
 			} catch (IOException e) {
 				throw new Exception(e.getMessage());
 			}
@@ -678,7 +706,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int deleteLocation(long locationID) throws Exception {
 		int result = -1;
 		if (isConnected) {
@@ -693,7 +721,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int deleteSensor(long locationID,String deviceID,String sensorID,int partitionID) throws Exception {
 		int result = -1;
 		if (isConnected) {
@@ -708,7 +736,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int deleteKeyfob(long locationID,String deviceID,String keyFobID,int partitionID) throws Exception {
 		int result = -1;
 		if (isConnected) {
@@ -723,25 +751,25 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int postSensor(long locationID,String deviceID,int partitionID,String serialNumber) throws Exception{
 		int result = -1;
 		String headerData=" ";
 		String url = " ";
-		
-		
+
+
 		if (isConnected) {
-			
-			
-		    headerData = String.format("{\"SerialNo\":\"%s\",\"Name\":\"%s\",\"ResponseType\":\"Perimeter\",\"Sensitivity\":\"0\",\"Chime\":\"sensor\"}",serialNumber,"Sensor"+new Random().nextInt(200));
-			
+
+
+			headerData = String.format("{\"SerialNo\":\"%s\",\"Name\":\"%s\",\"ResponseType\":\"Perimeter\",\"Sensitivity\":\"0\",\"Chime\":\"sensor\"}",serialNumber,"Sensor"+new Random().nextInt(200));
+
 			url = chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID+"/partitions/"+partitionID+"/Sensors";
 			try {
 				result = doPostRequest(url,headerData).getResponseCode();
 			} catch (IOException e) {
 				throw new Exception(e.getMessage());
 			}
-			
+
 
 		}
 		return result;
@@ -751,24 +779,24 @@ public class CHILUtil implements AutoCloseable {
 		int result = -1;
 		String headerData=" ";
 		String url = " ";
-		
-		
+
+
 		if (isConnected) {
-			
+
 			// enable sensor
 			if(isEnabled)
-			    headerData = String.format("{\"mode\":\"Sensor\",\"TimeOut\":30,\"Id\":null}");
+				headerData = String.format("{\"mode\":\"Sensor\",\"TimeOut\":30,\"Id\":null}");
 			else
 				headerData = String.format("{\"mode\":\"Disable\",\"TimeOut\":30,\"Id\":null}");
-				
-				url = chilURL + "api/v3/locations/"+locationID+"/devices/"+deviceID+"/Discovery?partitionid=1";
-				try {
-					result = doPostRequest(url,headerData).getResponseCode();
-				} catch (IOException e) {
-					throw new Exception(e.getMessage());
-				}
+
+			url = chilURL + "api/v3/locations/"+locationID+"/devices/"+deviceID+"/Discovery?partitionid=1";
+			try {
+				result = doPostRequest(url,headerData).getResponseCode();
+			} catch (IOException e) {
+				throw new Exception(e.getMessage());
+			}
 		}
-					return result;
+		return result;
 	}
 
 	public void FeedDataIntoIOTHub(String deviceID,String payload,String xappUrl,String from,String method) throws Exception{
@@ -778,25 +806,25 @@ public class CHILUtil implements AutoCloseable {
 			if(chilURL.contains("childev")) {
 				iotHubConString="HostName=granite-dev-das01-iothub.azure-devices.net;DeviceId=B82CA0000740;SharedAccessKey=5mWRiN796NreGeCFgQqLzpmcymQW0c0pqkWUr+FrVXs=";
 			}
-			
+
 			client = new DeviceClient(iotHubConString, IotHubClientProtocol.HTTPS);
 			client.open();
-			
+
 			Message message = new Message(payload.getBytes(Charset.forName("ASCII")));
 			message.setProperty("x-app-url", xappUrl);
-            message.setProperty("deviceId", deviceID);
-            message.setProperty("from",from);
-            message.setProperty("mac", deviceID);
-            message.setProperty("method",method);
-            message.setProperty("cor", "B82CA0000456-54387");
-            message.setProperty("seq", "-1");
-            client.sendEventAsync(message, new EventCallback(), message);
+			message.setProperty("deviceId", deviceID);
+			message.setProperty("from",from);
+			message.setProperty("mac", deviceID);
+			message.setProperty("method",method);
+			message.setProperty("cor", "B82CA0000456-54387");
+			message.setProperty("seq", "-1");
+			client.sendEventAsync(message, new EventCallback(), message);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public int createTimeScheduleWithSpecificNumberOfPeriods_EMEA(TestCaseInputs inputs, long locationID,
 			String deviceID) {
 		int result = -1;
@@ -995,7 +1023,7 @@ public class CHILUtil implements AutoCloseable {
 
 		return result;
 	}
-	
+
 	public int changeSystemMode(long locationID, String deviceID, String thermostatMode) {
 		int result = -1;
 		try {
@@ -1014,7 +1042,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int changeScheduleStatus(long locationID, String deviceID, String ScheduleStatus) {
 		int result = -1;
 		try {
@@ -1033,7 +1061,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int changeVentilationMode(long locationID, String deviceID, String VentilationMode) {
 		int result = -1;
 		try {
@@ -1052,7 +1080,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int setResumeAdhocstatus(long locationID,  String deviceID, TestCases testCase) {
 		int result = -1;
 		try {
@@ -1061,20 +1089,20 @@ public class CHILUtil implements AutoCloseable {
 				String SystemMode = devInfo.getThermoStatMode();
 				String url = "";
 				if(SystemMode.equalsIgnoreCase("Heat"))
-					{
-						url = chilURL + String.format("api/V2/locations/%s/devices/%s/thermostat/HeatSetpoint/", locationID, deviceID);
-						
-					}
+				{
+					url = chilURL + String.format("api/V2/locations/%s/devices/%s/thermostat/HeatSetpoint/", locationID, deviceID);
+
+				}
 				if(SystemMode.equalsIgnoreCase("Cool"))
-					{
-						url = chilURL + String.format("api/V2/locations/%s/devices/%s/thermostat/CoolSetpoint/", locationID, deviceID);
-					}
+				{
+					url = chilURL + String.format("api/V2/locations/%s/devices/%s/thermostat/CoolSetpoint/", locationID, deviceID);
+				}
 				String headerData = String.format("{\"thermostatSetpointStatus\":\"%s\"}","NoHold");
-			try {
-				result = doPutRequest(url, headerData).getResponseCode();
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
 				}catch (IOException e) {
-				e.printStackTrace();
-				TimeUnit.SECONDS.sleep(5);
+					e.printStackTrace();
+					TimeUnit.SECONDS.sleep(5);
 				}
 			}
 		} catch (Exception e) {
@@ -1082,7 +1110,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int setHumidificationValue(long locationID, String deviceID, String HumidificationValue) {
 		int result = -1;
 		try {
@@ -1101,7 +1129,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int setHumidificationstatus(long locationID, String deviceID, String HumidificationStatus) {
 		int result = -1;
 		try {
@@ -1120,7 +1148,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int setDehumidificationStatus(long locationID, String deviceID, String DehumidificationStatus){
 		int result = -1;
 		try {
@@ -1139,7 +1167,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int SetVentilationTimer(long locationID, String deviceID, int VentilationTimer) {
 		int result = -1;
 		try {
@@ -1158,7 +1186,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int ResetVentilationTimer(long locationID, String deviceID) {
 		int result = -1;
 		try {
@@ -1177,7 +1205,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int setCoolThermostatStatus(long locationID, String deviceID) {
 		int result = -1;
 		try {
@@ -1196,7 +1224,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int setHeatThermostatStatus(long locationID, String deviceID) {
 		int result = -1;
 		try {
@@ -1256,7 +1284,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int TriggerGeoEventSleep(long locationID, String deviceID, String startTime, String endTime ) {
 		int result = -1;		
 		try {
@@ -1264,10 +1292,10 @@ public class CHILUtil implements AutoCloseable {
 				String url = chilURL + String.format("api/locations/%s/thermostat/GeofenceScheduleTemplate", locationID);
 				String headerData = String.format(
 						"{\"Name\":\"Template\",\"GeoFenceSchedule\":{\"HomePeriod\":{\"HeatSetPoint\":\"70.00\","
-						+ "\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},"
-						+ "\"SleepMode\":{\"StartTime\":\"%s\",\"EndTime\":\"%s\",\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"82.00\"}},\"DeviceIDs\":[\""
-						+ deviceID + "\"]}", startTime, endTime);
-			
+								+ "\"CoolSetPoint\":\"78.00\"},\"AwayPeriod\":{\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"85.00\"},"
+								+ "\"SleepMode\":{\"StartTime\":\"%s\",\"EndTime\":\"%s\",\"HeatSetPoint\":\"62.00\",\"CoolSetPoint\":\"82.00\"}},\"DeviceIDs\":[\""
+								+ deviceID + "\"]}", startTime, endTime);
+
 				try {
 					result = doPostRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1279,7 +1307,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int TriggerTimePeriod(long locationID, String deviceID,String Period , String startTime,String jasperStatType) {
 		int result = -1;		
 		try {
@@ -1288,23 +1316,23 @@ public class CHILUtil implements AutoCloseable {
 				String url = " ";
 				url = chilURL + String.format("api/locations/" + locationID + "/thermostat/TimedScheduleTemplate");
 				if (jasperStatType.equalsIgnoreCase("NA")) {
-				if (Period.equalsIgnoreCase("HOME")) {
-					headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-							+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-				}
-				if (Period.equalsIgnoreCase("AWAY")) {
-					headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-						+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-				}
-				if (Period.equalsIgnoreCase("WAKE")) {
-					headerData = String.format(
-							"{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-							+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-				}
-				if (Period.equalsIgnoreCase("SLEEP")) {
-					headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-							+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-				}
+					if (Period.equalsIgnoreCase("HOME")) {
+						headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+								+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+					}
+					if (Period.equalsIgnoreCase("AWAY")) {
+						headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+								+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+					}
+					if (Period.equalsIgnoreCase("WAKE")) {
+						headerData = String.format(
+								"{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+										+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+					}
+					if (Period.equalsIgnoreCase("SLEEP")) {
+						headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+								+ deviceID + "\"]}", startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+					}
 				}
 				else 
 					if (Period.equalsIgnoreCase("P1")) {
@@ -1338,7 +1366,7 @@ public class CHILUtil implements AutoCloseable {
 								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
 								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
 								+ "\"DeviceIds\":[\"" + deviceID + "\"]}",startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-				}
+					}
 				if (Period.equalsIgnoreCase("P2")) {
 					headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
 							+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
@@ -1371,72 +1399,72 @@ public class CHILUtil implements AutoCloseable {
 							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
 							+ "\"DeviceIds\":[\"" + deviceID + "\"]}",startTime,startTime,startTime,startTime,startTime,startTime,startTime);
 				}
-					
-					if (Period.equalsIgnoreCase("P3")) {
-						headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-								+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-								+ "\"DeviceIds\":[\"" + deviceID + "\"]}",startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-					}
-					if (Period.equalsIgnoreCase("P4")) {
-						headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-								+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-								+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-								+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-								+ "\"DeviceIds\":[\"" + deviceID + "\"]}",startTime,startTime,startTime,startTime,startTime,startTime,startTime);
-					}
-				
+
+				if (Period.equalsIgnoreCase("P3")) {
+					headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+							+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+							+ "\"DeviceIds\":[\"" + deviceID + "\"]}",startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+				}
+				if (Period.equalsIgnoreCase("P4")) {
+					headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+							+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+							+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:39\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+							+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+							+ "\"DeviceIds\":[\"" + deviceID + "\"]}",startTime,startTime,startTime,startTime,startTime,startTime,startTime);
+				}
+
 				try {
 					result = doPostRequest(url, headerData).getResponseCode();
 				} catch (IOException e) {
@@ -1448,7 +1476,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int TriggerTimNextPeriod(long locationID, String deviceID,String CurrentPeriod, String Period ,String previousStartTime, String NextPeriodStartTime,String jasperStatType) {
 		int result = -1;		
 		try {
@@ -1457,488 +1485,488 @@ public class CHILUtil implements AutoCloseable {
 				String url = " ";
 				url = chilURL + String.format("api/locations/" + locationID + "/thermostat/TimedScheduleTemplate");
 				if (jasperStatType.equalsIgnoreCase("NA")) {
-				if (CurrentPeriod.equalsIgnoreCase("Home")){
-								if (Period.equalsIgnoreCase("AWAY")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else if (Period.equalsIgnoreCase("WAKE")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-											+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else {
-									headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s0\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-								}
-			}else if(CurrentPeriod.equalsIgnoreCase("Away")){
-						if (Period.equalsIgnoreCase("HOME")) {
-						headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-								+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-							+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-							}else if (Period.equalsIgnoreCase("WAKE")) {
-								headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-										+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else {
-								headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-										+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-										}
-			}else if(CurrentPeriod.equalsIgnoreCase("Wake")){
-							if (Period.equalsIgnoreCase("HOME")) {
-								headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-										+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+					if (CurrentPeriod.equalsIgnoreCase("Home")){
+						if (Period.equalsIgnoreCase("AWAY")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else if (Period.equalsIgnoreCase("WAKE")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else {
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s0\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
 									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-								}else if (Period.equalsIgnoreCase("AWAY")) {
-								headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-										+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else {
-								headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-										+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-									}
-							/***Sleep****/
-			}else {
-								if (Period.equalsIgnoreCase("HOME")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-									}else if (Period.equalsIgnoreCase("AWAY")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-											+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-									}else { 
-									headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-								}
-							}
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("Away")){
+						if (Period.equalsIgnoreCase("HOME")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}else if (Period.equalsIgnoreCase("WAKE")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else {
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("Wake")){
+						if (Period.equalsIgnoreCase("HOME")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}else if (Period.equalsIgnoreCase("AWAY")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else {
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}
+						/***Sleep****/
+					}else {
+						if (Period.equalsIgnoreCase("HOME")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}else if (Period.equalsIgnoreCase("AWAY")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else { 
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}
+					}
 				}
 				else
 				{
 					if (CurrentPeriod.equalsIgnoreCase("P3")){
-									if (Period.equalsIgnoreCase("P2")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else if (Period.equalsIgnoreCase("P1")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else {
-										headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-									}
-				}else if(CurrentPeriod.equalsIgnoreCase("P2")){
-							if (Period.equalsIgnoreCase("P3")) {
+						if (Period.equalsIgnoreCase("P2")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else if (Period.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else {
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("P2")){
+						if (Period.equalsIgnoreCase("P3")) {
 							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
 									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
 									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
@@ -1969,261 +1997,261 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
 									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
 									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-								}else if (Period.equalsIgnoreCase("P1")) {
-									headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else {
-									headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-											}
-				}else if(CurrentPeriod.equalsIgnoreCase("P1")){
-								if (Period.equalsIgnoreCase("P3")) {
-									headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-									}else if (Period.equalsIgnoreCase("P2")) {
-									headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else {
-									headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-										}
-								/***Sleep****/
-				}else {
-									if (Period.equalsIgnoreCase("P3")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-										}else if (Period.equalsIgnoreCase("P2")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-										}else { 
-										headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-									}
-								}
+						}else if (Period.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else {
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("P1")){
+						if (Period.equalsIgnoreCase("P3")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}else if (Period.equalsIgnoreCase("P2")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else {
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+						/***Sleep****/
+					}else {
+						if (Period.equalsIgnoreCase("P3")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}else if (Period.equalsIgnoreCase("P2")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else { 
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+					}
 				}
 				try {
 					result = doPostRequest(url, headerData).getResponseCode();
@@ -2236,7 +2264,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int TriggerTimNextPeriod(long locationID, String deviceID,String PreviousPeriod,String CurrentPeriod, String NextPeriod ,String previousStartTime,String startTime, String NextPeriodStartTime,String jasperStatType) {
 		int result = -1;		
 		try {
@@ -2245,494 +2273,494 @@ public class CHILUtil implements AutoCloseable {
 				String url = " ";
 				url = chilURL + String.format("api/locations/" + locationID + "/thermostat/TimedScheduleTemplate");
 				if (jasperStatType.equalsIgnoreCase("NA")) {
-				if (CurrentPeriod.equalsIgnoreCase("Home")){
-								if (NextPeriod.equalsIgnoreCase("AWAY")  && PreviousPeriod.equalsIgnoreCase("Wake")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", 
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime,
-										previousStartTime,NextPeriodStartTime,startTime);
-								}else if (NextPeriod.equalsIgnoreCase("WAKE")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-											+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else {
-									headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s0\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-								}
-			}else if(CurrentPeriod.equalsIgnoreCase("Away")){
-						if (NextPeriod.equalsIgnoreCase("HOME")) {
-						headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-								+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-								+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-								+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-							+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-							}else if (NextPeriod.equalsIgnoreCase("WAKE")) {
-								headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-										+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else {
-								headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-										+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-										}
-			}else if(CurrentPeriod.equalsIgnoreCase("Wake")){
-							if (NextPeriod.equalsIgnoreCase("HOME")) {
-								headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-										+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+					if (CurrentPeriod.equalsIgnoreCase("Home")){
+						if (NextPeriod.equalsIgnoreCase("AWAY")  && PreviousPeriod.equalsIgnoreCase("Wake")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", 
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime,
+									previousStartTime,NextPeriodStartTime,startTime);
+						}else if (NextPeriod.equalsIgnoreCase("WAKE")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else {
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s0\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
 									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-								}else if (NextPeriod.equalsIgnoreCase("AWAY")) {
-								headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-										+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-								}else {
-								headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-										+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-										+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-										+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-									}
-							/***Sleep****/
-			}else {
-								if (NextPeriod.equalsIgnoreCase("HOME")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-										+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-									}else if (NextPeriod.equalsIgnoreCase("AWAY")) {
-									headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
-											+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
-									}else { 
-									headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
-											+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
-											+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-											+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
-								}
-							}
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("Away")){
+						if (NextPeriod.equalsIgnoreCase("HOME")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}else if (NextPeriod.equalsIgnoreCase("WAKE")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else {
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("Wake")){
+						if (NextPeriod.equalsIgnoreCase("HOME")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}else if (NextPeriod.equalsIgnoreCase("AWAY")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else {
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}
+						/***Sleep****/
+					}else {
+						if (NextPeriod.equalsIgnoreCase("HOME")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}else if (NextPeriod.equalsIgnoreCase("AWAY")) {
+							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
+									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+						}else { 
+							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Monday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Tuesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Wednesday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Thursday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Friday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]},"
+									+ "{\"Day\": \"Saturday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
+									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
+									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+						}
+					}
 				}else{
 					if (CurrentPeriod.equalsIgnoreCase("P3")){
-									if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else {
-										headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-									}
-				}else if(CurrentPeriod.equalsIgnoreCase("P2")){
-							if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+						if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else {
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("P2")){
+						if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
 							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
 									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
 									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
@@ -2763,263 +2791,263 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
 									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
 									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-								}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-									headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else {
-									headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-											}
-				}else if(CurrentPeriod.equalsIgnoreCase("P1")){
-								if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-									headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-									}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-									headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-									}else {
-									headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-											+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-											+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-											+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-											+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-										}
-								/***Sleep****/
-				}else {
-									if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-										}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
-										headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
-										}else { 
-										headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
-												+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
-												+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
-												+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
-												+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
-									}
-								}
-				
-					
+						}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else {
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+					}else if(CurrentPeriod.equalsIgnoreCase("P1")){
+						if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"22:30:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else {
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+						/***Sleep****/
+					}else {
+						if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}else if (NextPeriod.equalsIgnoreCase("P2")&&PreviousPeriod.equalsIgnoreCase("P1")) {
+							headerData = String.format("{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"06:30:43.5857903\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
+						}else { 
+							headerData = String.format( "{\"name\":\"emeaTimedScheduleFor6PeriodsWithoutPTAndIsCancelled\",\"ScheduleSubType\": 1,\"TimedSchedule\": {\"Days\": "
+									+ "[{\"Day\": 0,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 1,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 2,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 3,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 4,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 5,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]},"
+									+ "{\"Day\": 6,\"Periods\": [{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 66.2,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"08:00:00\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"18:00:00\",\"HeatSetpoint\": 69.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}},"
+									+ "{\"IsCancelled\": null,\"PeriodType\": null,\"StartTime\": \"%s\",\"HeatSetpoint\": 60.8,\"CoolSetpoint\": 78,\"FanSwitch\": {\"Position\": 2,\"Speed\": 8}}]}]},"
+									+ "\"DeviceIds\":[\"" + deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
+						}
+					}
+
+
 				}
 				try {
 					System.out.println(headerData);
@@ -3033,7 +3061,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int TriggerGeoEvent(long locationID, long geofenceID, long userID, String geoEvent) {
 		int result = -1;
 		try {
@@ -3051,7 +3079,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int putLocationV2(long locationID,String body){
 		int result = -1;
 		try {
@@ -3070,7 +3098,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int switchToOff(long locationID, String deviceID, TestCases testCase) {
 
 		int result = -1;
@@ -3101,7 +3129,7 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 
 	}
-	
+
 	public int RegisterAndActivateCamera(long locationID, String deviceID, TestCases testCase)
 	{
 		HttpURLConnection result;
@@ -3110,14 +3138,14 @@ public class CHILUtil implements AutoCloseable {
 		String name = "Certificate C1 Camera";
 		String mac = "74DA38B86396";
 		String certificate = "-----BEGIN CERTIFICATE-----MIIDJjCCAsugAwIBAgIIBEzqqdIM5bwwCgYIKoZIzj0EAwIwWTELMAkGA1UEBhMCVVMxJTAjBgNVBAoMHEhvbmV5d2VsbCBJbnRlcm5hdGlvbmFsIEluYy4xDDAKBgNVBAsMA0FDUzEVMBMGA1UEAwwMU2hhcmVkIFFBIENBMCAXDTE3MDEwNjExNDA0M1oYDzk5OTkwMjAxMDAwMDAwWjCBjDELMAkGA1UEBhMCVVMxJTAjBgNVBAoMHEhvbmV5d2VsbCBJbnRlcm5hdGlvbmFsIEluYy4xCzAJBgNVBAsMAkMxMUkwRwYDVQQDDEAzMTMzOEMwQUI2QTVEOTRDMDdFQjFCMEE2NjlFQUE5NERBNTYxMUE1Q0NEMjVCRjNBQjVBNEJEMUJDQjFEOTBGMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmpwvFDyqziYlPAuQzaQ6C1GtEfqwuWfQxT7kQZqnUacBL6Nd7d03JIG6rPohITnclPzgT5e53PeEBfeRWDILPqOCAUUwggFBMDwGCCsGAQUFBwEBBDAwLjAsBggrBgEFBQcwAYYgaHR0cDovL3FocHBraS5ob25leXdlbGwuY29tL29jc3AwHQYDVR0OBBYEFLe/0jghGBODIpATNg8iIRj9b0xiMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUigo7HXBqSQk3b40Axd8hqEVvrg0wSQYDVR0gBEIwQDA+BgwrBgEEAYGkBgIBAQEwLjAsBggrBgEFBQcCARYgaHR0cHM6Ly9xaHBwa2kuaG9uZXl3ZWxsLmNvbS9jcHMwQAYDVR0fBDkwNzA1oDOgMYYvaHR0cDovL3FocHBraS5ob25leXdlbGwuY29tL2NybC9TaGFyZWRRQUNBMi5jcmwwDgYDVR0PAQH/BAQDAgOIMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMCMAoGCCqGSM49BAMCA0kAMEYCIQDiMBQaEIgFwqtMXV1jWDs2w8eDZVizoJXzACHZ02Zy2gIhAID4akK42b7xoQYXNi6lk6Ynab57jyEH/NTMnPHupMqI-----END CERTIFICATE-----";
-		
+
 		try {
 			getConnection();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		//Register Camera
 		try {
 			if (isConnected) {
@@ -3127,27 +3155,27 @@ public class CHILUtil implements AutoCloseable {
 						"{\"DeviceId\": \"%s\",\"DeviceTypes\": \"%s\",\"Name\": \"%s\",\"mac\": \"%s\"}", deviceID, deviceType, name, mac);
 				try {
 					result = doPostRequest(url, headerData);
-					
+
 					if (result.getResponseCode() == HttpURLConnection.HTTP_CREATED || result.getResponseCode() == HttpURLConnection.HTTP_OK)
 					{
 						BufferedReader br = new BufferedReader(new InputStreamReader((result.getInputStream())));
-											StringBuilder sb = new StringBuilder();
-											String output;
-											while ((output = br.readLine()) != null) {
-											sb.append(output);
-											}
-											String JsonString = sb.toString();
-											
-								            JSONObject obj = new JSONObject(JsonString);
-								            
-								            String registrationId = (String) obj.get("RegistrationId");
-								            chapiDeviceId = (String) obj.get("CHAPIdeviceID");
-								            
-								        	String url1 = chilURL
-													+ String.format("provisioning/api/devices/activate");
-											String headerData1 = String.format(
-													"{\"deviceId\": \"%s\",\"registrationId\": \"%s\",\"certificate\": \"%s\"}", deviceID, registrationId, certificate);
-											result1 = doPostRequest(url1, headerData1).getResponseCode();
+						StringBuilder sb = new StringBuilder();
+						String output;
+						while ((output = br.readLine()) != null) {
+							sb.append(output);
+						}
+						String JsonString = sb.toString();
+
+						JSONObject obj = new JSONObject(JsonString);
+
+						String registrationId = (String) obj.get("RegistrationId");
+						chapiDeviceId = (String) obj.get("CHAPIdeviceID");
+
+						String url1 = chilURL
+								+ String.format("provisioning/api/devices/activate");
+						String headerData1 = String.format(
+								"{\"deviceId\": \"%s\",\"registrationId\": \"%s\",\"certificate\": \"%s\"}", deviceID, registrationId, certificate);
+						result1 = doPostRequest(url1, headerData1).getResponseCode();
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -3159,58 +3187,58 @@ public class CHILUtil implements AutoCloseable {
 		//Get Location
 		return result1;
 	}
-	
+
 	public int getStripeCustomerAndDeleteSubscription(String stripeCustomerId, String stripePrivateKey) 
 
 			throws MalformedURLException, IOException {
-					int result = -1;
-					HttpURLConnection getResponse = null;
-					URL url = new URL("https://api.stripe.com/v1/customers/" + stripeCustomerId);
+		int result = -1;
+		HttpURLConnection getResponse = null;
+		URL url = new URL("https://api.stripe.com/v1/customers/" + stripeCustomerId);
 
-					getResponse = (HttpURLConnection) url.openConnection();
+		getResponse = (HttpURLConnection) url.openConnection();
 
-					getResponse.setRequestProperty("customersId", stripeCustomerId);
-					getResponse.setRequestProperty("Authorization", "Bearer " + stripePrivateKey);
-					getResponse.setRequestProperty("Cookie", cookie);
-					getResponse.setDoOutput(true);
-					getResponse.setRequestMethod("GET");
+		getResponse.setRequestProperty("customersId", stripeCustomerId);
+		getResponse.setRequestProperty("Authorization", "Bearer " + stripePrivateKey);
+		getResponse.setRequestProperty("Cookie", cookie);
+		getResponse.setDoOutput(true);
+		getResponse.setRequestMethod("GET");
 
-					if (getResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED
-							|| getResponse.getResponseCode() == HttpURLConnection.HTTP_OK) {
+		if (getResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED
+				|| getResponse.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
-						BufferedReader br = new BufferedReader(new InputStreamReader
+			BufferedReader br = new BufferedReader(new InputStreamReader
 
-			((getResponse.getInputStream())));
-						StringBuilder sb = new StringBuilder();
-						String output;
-						while ((output = br.readLine()) != null) {
-						sb.append(output);
-						}
-						String JsonString = sb.toString();
-						
-			            JSONObject obj = new JSONObject(JsonString);
-			            String subscription = ""; 
-			            JSONObject one = obj.getJSONObject("subscriptions");
-			            JSONArray two = one.getJSONArray("data");
-			            for(int j=0;j<two.length();){
-			                JSONObject ingredObject= two.getJSONObject(j);
-			                subscription = ingredObject.getString("id");
-			                break;
-			            }
-			            
-			            HttpURLConnection deleteResponse = null;
-			    		URL url1 = new URL("https://api.stripe.com/v1/subscriptions/" + subscription);
+					((getResponse.getInputStream())));
+			StringBuilder sb = new StringBuilder();
+			String output;
+			while ((output = br.readLine()) != null) {
+				sb.append(output);
+			}
+			String JsonString = sb.toString();
 
-			    		deleteResponse = (HttpURLConnection) url1.openConnection();
+			JSONObject obj = new JSONObject(JsonString);
+			String subscription = ""; 
+			JSONObject one = obj.getJSONObject("subscriptions");
+			JSONArray two = one.getJSONArray("data");
+			for(int j=0;j<two.length();){
+				JSONObject ingredObject= two.getJSONObject(j);
+				subscription = ingredObject.getString("id");
+				break;
+			}
 
-			    		deleteResponse.setRequestProperty("Authorization", "Bearer " + stripePrivateKey);
-			    		deleteResponse.setDoOutput(true);
-			    		deleteResponse.setRequestMethod("DELETE");
-			    		result = deleteResponse.getResponseCode();
-					}
+			HttpURLConnection deleteResponse = null;
+			URL url1 = new URL("https://api.stripe.com/v1/subscriptions/" + subscription);
 
-					return result;
-				}
+			deleteResponse = (HttpURLConnection) url1.openConnection();
+
+			deleteResponse.setRequestProperty("Authorization", "Bearer " + stripePrivateKey);
+			deleteResponse.setDoOutput(true);
+			deleteResponse.setRequestMethod("DELETE");
+			result = deleteResponse.getResponseCode();
+		}
+
+		return result;
+	}
 
 	public static String getAPIGEEClientID(TestCaseInputs inputs) throws Exception {
 		JSONObject enrollmentObj;
@@ -3223,7 +3251,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return clientID;
 	}
-	
+
 	public static JSONObject getEnrollmentJSON(TestCaseInputs inputs) throws Exception {
 		JSONObject enrollmentObj = new JSONObject();
 		try {
@@ -3260,7 +3288,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return enrollmentObj;
 	}
-	
+
 	public static String getAPIGEEAccessToken(TestCaseInputs inputs) throws Exception {
 		JSONObject enrollmentObj;
 		String accessToken = "";
@@ -3272,7 +3300,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return accessToken;
 	}
-	
+
 
 	public int putThermostatDeviceName(long locationID, String deviceID, String deviceNameToBePut) throws Exception {
 		int result = -1;
@@ -3280,7 +3308,7 @@ public class CHILUtil implements AutoCloseable {
 			String url = chilURL + String.format("api/locations/%s/Devices/%s", locationID, deviceID);
 			String headerData = String.format("{\"name\": \"%s\"}",
 					deviceNameToBePut);
-			
+
 			result = doPutRequest(url, headerData).getResponseCode();
 		} else {
 			throw new Exception("Not connected to CHIL");
@@ -3324,7 +3352,7 @@ public class CHILUtil implements AutoCloseable {
 					r.append(line);
 				}
 				result = "Failed to cancel DR event HTTP Error Code : " + deleteResponse.getResponseCode()
-						+ ". Error Message : " + r.toString();
+				+ ". Error Message : " + r.toString();
 			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -3332,7 +3360,7 @@ public class CHILUtil implements AutoCloseable {
 		System.out.println(result);
 		return result;
 	}
-	
+
 	public static String postDREvent(TestCaseInputs inputs, HashMap<String, String> headerValues) throws Exception {
 
 		String eventID = "";
@@ -3345,7 +3373,7 @@ public class CHILUtil implements AutoCloseable {
 				System.out.println("Event ID - " + randomInt);
 			} else if (inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT).equalsIgnoreCase("CHIL Stage (Azure)")) {
 				urlString = "http://connectedhome-qa.apigee.net/v1/demandresponse/event/" + rn.nextInt(1000000)
-						+ "?apikey=";
+				+ "?apikey=";
 			}
 			urlString = urlString + getAPIGEEClientID(inputs);
 			boolean isOptOutable = Boolean.parseBoolean(headerValues.get("isOptOutable"));
@@ -3458,7 +3486,7 @@ public class CHILUtil implements AutoCloseable {
 				os.flush();
 			}
 
-		if (postResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+			if (postResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
 				BufferedReader rd = new BufferedReader(new InputStreamReader((InputStream) postResponse.getContent()));
 				StringBuffer result = new StringBuffer();
 				String line = "";
@@ -3476,7 +3504,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return eventID;
 	}
-	
+
 	public static String putDREnrollement(TestCaseInputs inputs, String deviceID, String deviceMAC, String locationID)
 			throws Exception {
 		String result = "";
@@ -3519,7 +3547,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public int changeFanMode(long locationID, String deviceID, String FanMode) {
 		int result = -1;
 		try {

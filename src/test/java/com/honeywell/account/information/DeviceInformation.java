@@ -92,13 +92,19 @@ public class DeviceInformation {
 		String type = " ";
 		if (deviceInformation != null) {
 			try {
-				String temp;
-				temp = deviceInformation.get("allowedTimeIncrements").toString();
-				if (temp.equals("10")) {
-					type = "EMEA";
-				} else if (temp.equals("15")) {
-					type = "NA";
+				String temp, deviceType;
+				deviceType = deviceInformation.get("deviceType").toString();
+				if(deviceType.equalsIgnoreCase("Jasper")){
+					temp = deviceInformation.get("allowedTimeIncrements").toString();
+					if (temp.equals("10")) {
+						type = "EMEA";
+					} else if (temp.equals("15")) {
+						type = "NA";
+					}	
+				} else if(deviceType.equalsIgnoreCase("FlyCatcher")){
+					type = "FlyCatcher";
 				}
+				
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}

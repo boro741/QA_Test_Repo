@@ -66,7 +66,7 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
 			}
 
-			if (statInfo.getThermostatType().equals("Jasper")) {
+			if (statInfo.getThermostatType().equals("Jasper") || statInfo.getThermostatType().equals("FlyCatcher")) {
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
@@ -157,7 +157,7 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 					if (jasperStatType.toUpperCase().contains("EMEA")) {
 					
 						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
-					} else if (jasperStatType.toUpperCase().contains("NA")) {
+					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
 			
 						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
 
@@ -169,7 +169,7 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 					if (jasperStatType.toUpperCase().contains("EMEA")) {
 					
 						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(),  WWstartTime, WWendTime);
-					} else if (jasperStatType.toUpperCase().contains("NA")) {
+					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
 
 						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
 						}

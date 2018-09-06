@@ -537,7 +537,7 @@ public class JasperSchedulingUtils {
 						temp = days.getJSONObject(i);
 						JSONArray periods = temp.getJSONArray("periods");
 						for (int j = 0; j < periods.length(); j++) {
-							if (jasperStatType.equalsIgnoreCase("NA")) {
+							if (jasperStatType.equalsIgnoreCase("NA") || jasperStatType.equalsIgnoreCase("FLYCATCHER")) {
 								if (periods.getJSONObject(j).getString("periodType").equals("Wake")) {
 									try {
 										time24Hours = periods.getJSONObject(j).getString("startTime");
@@ -681,7 +681,7 @@ public class JasperSchedulingUtils {
 						temp = days.getJSONObject(i);
 						JSONArray periods = temp.getJSONArray("periods");
 						for (int j = 0; j < periods.length(); j++) {
-							if (jasperStatType.equalsIgnoreCase("NA")) {
+							if (jasperStatType.equalsIgnoreCase("NA") || jasperStatType.equalsIgnoreCase("FLYCATCHER")) {
 								if (periods.getJSONObject(j).getString("periodType").equals("Wake")) {
 									try {
 										time24Hours = periods.getJSONObject(j).getString("startTime");
@@ -819,7 +819,7 @@ public class JasperSchedulingUtils {
 				}
 			} else if (typeOfSchedule.equalsIgnoreCase("Geofence")) {
 				JSONObject geofenceSchedule = geofenceTempelate.getJSONObject("geoFenceSchedule");
-				if (jasperStatType.toUpperCase().contains("NA")) {
+				if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.equalsIgnoreCase("FLYCATCHER")) {
 					if ((devInfo.getThermostatUnits()).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 						String temp = String.valueOf(geofenceSchedule.getJSONObject("homePeriod").get("coolSetPoint"));
 						if (temp.contains(".0")) {
@@ -980,7 +980,8 @@ public class JasperSchedulingUtils {
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & ss.clickOnEverydayScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				System.out.println(inputs.getInputValue(InputVariables.JASPER_STAT_TYPE));
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
 					for (String mode : modes) {
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
@@ -1275,7 +1276,7 @@ public class JasperSchedulingUtils {
 			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				flag = flag & ss.clickOnWeekdayandWeekendScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher")) {
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
 					for (String mode : modes) {
@@ -2927,7 +2928,7 @@ public class JasperSchedulingUtils {
 						"Set Period Time and Set Points : Failed to select " + periodTimeandSetPoint.get("periodName"));
 				return false;
 			}
-			if (jasperStatType.equalsIgnoreCase("NA")) {
+			if (jasperStatType.equalsIgnoreCase("NA")|| jasperStatType.equalsIgnoreCase("FLYCATCHER") ) {
 				flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, periodTimeandSetPoint.get("Time"),
 						"TimeChooser", true, true);
 			} else if (jasperStatType.equalsIgnoreCase("EMEA")) {
@@ -7148,7 +7149,7 @@ public class JasperSchedulingUtils {
 										}
 									}
 								}
-							} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
+							} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("FlyCatcher")) {
 								List<WebElement> schedule_everydaytitle = ss.getEverydayTitleListElements();
 								for (int i = 0; i < schedule_periodtimes.size(); i++) {
 									Keyword.ReportStep_Pass(testCase,
@@ -10735,6 +10736,7 @@ public class JasperSchedulingUtils {
 		int endy = (dimensions.height * 35) / 100;
 		testCase.getMobileDriver().swipe(endx, endy, startx, starty, 1000);
 	}
+	
 	public static boolean verifyScheduleRetained(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true, scheduleRetainedFlag = true;
 		SchedulingScreen ss = new SchedulingScreen(testCase);
@@ -12456,7 +12458,7 @@ public class JasperSchedulingUtils {
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & ss.clickOnEverydayScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
 					for (String mode : modes) {
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
@@ -12625,7 +12627,7 @@ public class JasperSchedulingUtils {
 			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				flag = flag & ss.clickOnWeekdayandWeekendScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher") ) {
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
 					for (String mode : modes) {
@@ -13301,7 +13303,7 @@ public class JasperSchedulingUtils {
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & ss.clickOnEverydayScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher")) {
 					
 					
 						if (Period.equalsIgnoreCase("WAKE")) {
@@ -13509,7 +13511,7 @@ public class JasperSchedulingUtils {
 			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 				flag = flag & ss.clickOnEverydayScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher")) {
 					String[] modes = { "Wake", "Away", "Home", "Sleep" };
 					for (String mode : modes) {
 						if (mode.equals("Wake")) {
@@ -13659,7 +13661,7 @@ public class JasperSchedulingUtils {
 
 			} else {
 				flag = flag & ss.clickOnWeekdayandWeekendScheduleButton();
-				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA")) {
+				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equals("FlyCatcher")) {
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
 					for (String mode : modes) {
@@ -14426,7 +14428,7 @@ public class JasperSchedulingUtils {
 		SchedulingScreen schl = new SchedulingScreen(testCase);
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (statInfo.getThermostatType().equalsIgnoreCase("HoneyBadger")
-				|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
+				|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA") || statInfo.getJasperDeviceType().equalsIgnoreCase("FLYCATCHER")) {
 			String[] schedulePeriods = { "Wake", "Away", "Home", "Sleep" };
 			periodToSelect = schedulePeriods[rn.nextInt((3 - 0) + 1) + 0];
 		} else if (statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")) {
