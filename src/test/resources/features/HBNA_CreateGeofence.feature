@@ -150,7 +150,7 @@ When user selects "CopyStatst" stats while creating "Geofence" schedule with def
 Then Offline Stat should't be displayed
 
 @NA_WhenHeat_CoolOnly @Automated
-Scenario Outline: As a user I want to create an Goefence schedule with Heat/Cold only modes
+Scenario Outline: As a user I want to create an Goefence schedule with Heat OR Cold only modes
 Given user thermostat is configures with "Modes"system mode
 And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -160,8 +160,8 @@ Then  "Geofence based" scheduling gets activated
 
 Examples: 
 |Modes|
-|Heat Only|
-#|Cool Only|
+#|Heat Only|
+|Cool Only|
 
 @NA_CreateGeofenceWithEditingHome_Sleep_AwaySettings @Automated
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence

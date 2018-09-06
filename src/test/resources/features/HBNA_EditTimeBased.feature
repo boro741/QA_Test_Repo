@@ -10,7 +10,7 @@ so that i can change Time and Set points of individual periods and Days
       And user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user selects "SINGLE DAY" view
-     When user edits the schedule periods of <EditedDays>
+     When user edits schedule periods of <EditedDays>
       And user selects "Grouped days" view
      Then <EditedDays> are grouped separately
   

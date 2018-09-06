@@ -168,8 +168,8 @@ Then  "Same Every Day" scheduling gets activated
 
 Examples: 
 |Modes|
-|Heat Only|
-#|Cool Only|
+#|Heat Only|
+|Cool Only|
 
 @NA_CreateTimeBasedScheduleInOffMode @Automated
 Scenario: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
