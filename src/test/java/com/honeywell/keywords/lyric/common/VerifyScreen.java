@@ -507,6 +507,18 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "PEOPLE DETECTION": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isPeopleDetectionHeaderTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "DASHBOARD": {
 				Dashboard d = new Dashboard(testCase);
 				if (d.isGlobalDrawerButtonVisible(20)

@@ -170,7 +170,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -219,7 +220,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -322,7 +324,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -365,7 +368,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -579,7 +583,7 @@ When user "cancels the connect to wifi network" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "dismisses" the "Cancel Setup" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-When user "cancels the connect to network" by clicking on "cancel" button
+When user "cancels the connect to wifi network" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
@@ -651,7 +655,8 @@ When user enters "valid" new network credentials and tries to join the network
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -710,7 +715,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -725,6 +731,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name | device name  | Network Type	|
       | Home          | Living Room  | WEP PSK		|
+
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
@@ -764,7 +771,8 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
-#      | Home                                    | Kitchen                         |
+      | Home                                    | Kitchen                         |
+      
       
 @DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@Automated
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by skiping geofencing and setting up alexa
@@ -795,7 +803,8 @@ When user "accepts" the "Cancel Geofence" popup
 Then user should be displayed with the "Enable Geofencing" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -839,7 +848,8 @@ Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
 When user navigates to "Geofence Enabled" screen from the "Geofence" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -858,7 +868,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyxyxyxyx@xyx.com				| xyxyxyx				|
+      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated
@@ -882,7 +892,8 @@ When user receives "Firmware update" by clicking on "Yes" button
 And user "accepts" the "Firmware update" popup
 Then user should be displayed with the "Enable Geofencing" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -927,7 +938,9 @@ When user navigates to "Enable Geofencing" screen from the "Smart Home Security 
 When user minimizes and maximizes the app
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 When user minimizes and maximizes the app
-Then user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+When user minimizes and maximizes the app
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 When user minimizes and maximizes the app
@@ -968,7 +981,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1045,7 +1059,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1090,7 +1105,8 @@ When user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1105,6 +1121,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name | device name  | 
       | Home          | Living Room  |
+
 
 @DIYTryToReRegisterDAS		 	@P2			@Automated
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
@@ -1125,7 +1142,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1177,7 +1195,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1203,7 +1222,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1241,7 +1261,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1261,7 +1282,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with <> device on the "dashboard" screen
@@ -1303,7 +1325,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1332,7 +1355,8 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1414,7 +1438,8 @@ When user navigates to "Geofence" screen from the "Enable Geofencing" screen
 Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1513,7 +1538,8 @@ When user navigates to "Geofence" screen from the "Enable Geofencing" screen
 Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1604,7 +1630,8 @@ Then user should see the <Sensor Location> status as "configured" on the "Set Up
 When user selects "Done" from "Set Up Accessories" screen
 Then user should be displayed with the "Enable Geofencing" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1682,7 +1709,8 @@ When user "accepts" the "Cancel Geofence" popup
 Then user should be displayed with the "Enable Geofencing" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1737,7 +1765,8 @@ And user navigates to "Enable Geofencing" screen from the "Set Up Accessories co
 Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
 And user navigates to "Geofence Enabled" screen from the "Geofence" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1817,7 +1846,8 @@ When user navigates to "Geofence" screen from the "Enable Geofencing" screen
 Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1908,7 +1938,8 @@ When user navigates to "Geofence" screen from the "Enable Geofencing" screen
 Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -1977,7 +2008,8 @@ When user navigates to "Geofence" screen from the "Enable Geofencing" screen
 Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
 When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
 And user enables Amazon Alexa with <Amazon username> and <Amazon password>
-Then user should be displayed with the "Dashboard" screen
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
@@ -2318,7 +2350,8 @@ Then user should see the "Motion sensor" status as "configured" on the "Set Up A
 When user selects "Done" from "Set Up Accessories" screen
 Then user should be displayed with the "Enable Geofencing" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen

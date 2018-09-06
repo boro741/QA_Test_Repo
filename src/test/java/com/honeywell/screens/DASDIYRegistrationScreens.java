@@ -536,7 +536,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isBaseStationNotFoundPopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationNotFounPopupTitle");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationNotFoundPopupTitle");
 	}
 
 	public boolean isOKButtonInBaseStationNotFoundPopupVisible() {
@@ -1415,6 +1415,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FeatureSetUpCompletedScreenTitle");
 	}
 
+	public boolean clickOnDoneButtonInFeatureSetUpCompletedScreen() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInFeatureSetUpCompletedScreen")) {
+			flag = flag
+					& MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInFeatureSetUpCompletedScreen");
+		}
+		return flag;
+	}
+
 	public boolean isSkipButtonInHoneywellMembershipScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
 	}
@@ -1432,6 +1441,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen", 5)) {
 			flag = flag
 					& MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton");
 		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltLeftButton", 5)) {
 			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltLeftButton");
 		}
@@ -1442,6 +1453,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen", 5)) {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NotNowButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LeftButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "LeftButton");
 		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltLeftButton", 5)) {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltLeftButton");
 		}
@@ -1453,6 +1466,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen", 5)) {
 			flag = flag
 					& MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton");
 		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
 			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton");
 		}
@@ -1463,6 +1478,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen", 5)) {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EnableButtonInPeopleDetectionScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "RightButton", 5)) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton", 5)) {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
 		}

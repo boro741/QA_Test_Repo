@@ -476,6 +476,9 @@ public class DIYRegistrationUtils {
 				waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 5);
 				if (dasDIY.isAmazonAlexaSetUpCompletedScreenTitleVisible() && dasDIY.isNextButtonVisible()) {
 					flag = flag & dasDIY.clickOnNextButton();
+					if (dasDIY.isFeatureSetUpCompletedScreenTitleVisible()) {
+						flag = flag & dasDIY.clickOnDoneButtonInFeatureSetUpCompletedScreen();
+					}
 					if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
 						flag = flag & dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
 					}

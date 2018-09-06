@@ -3,7 +3,7 @@ Feature: Camera DIY Registration
   As a user I want to register a Camera device using the Lyric application
       
       
-@DIYRegistrationWhenExistingLocationAndCameraNamesAreEntered        @UIAutomated       @P3         
+@DASCameraDIYRegistrationWhenExistingLocationAndCameraNamesAreEntered        @UIAutomated       @P3         
 Scenario Outline: As a user I want to verify if error popup displays when existing location and base station names are entered again
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -31,7 +31,7 @@ Examples:
 | Home		|
 
 
-@DIYWhenUserEntersMaxCharactersInCustomLocationAndCameraName       @UIAutomated       @P3           
+@DASCameraDIYWhenUserEntersMaxCharactersInCustomLocationAndCameraName       @UIAutomated       @P3           
 Scenario Outline: As a user I want to enter max characters in new location and base station name
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -52,7 +52,7 @@ Examples:
       | This is to test max characters in custom location name and base station     |
   
   
-@DIYRegistrationWithNewCustomLocationAndCameraName       @UIAutomated       @P1          
+@DASCameraDIYRegistrationWithNewCustomLocationAndCameraName       @UIAutomated       @P1          
 Scenario Outline: As a user I want to register a Camera device with new location and camera name using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -102,7 +102,7 @@ Examples:
       | Texas#$%                    | Ball Room             | 55555                       | 73301                 |
  
 
-@DIYRegistrationWithAvailableDefaultLocationAndCameraName       @UIAutomated       @P1         
+@DASCameraDIYRegistrationWithAvailableDefaultLocationAndCameraName       @UIAutomated       @P1         
 Scenario Outline: As a user I want to register a DAS Camera with default location name and default camera name 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -137,7 +137,7 @@ Examples:
 #      | Home                                    | Honeywell Home					|       
 
             
-@DIYDenyAppAccessToLocationServices       @CannotAutomate       @P2      
+@DASCameraDIYDenyAppAccessToLocationServices       @CannotAutomate       @P2      
 Scenario Outline: As a user I should be prompted with Location services popup when location services access is denied after installation
 Given user denies location services access while launching the Lyric app after installation and then logs in to the Lyric app
 When user navigates to "Add New Device Dashboard" screen form the "Dashboard" screen
@@ -165,7 +165,7 @@ Examples:
       | Home                                    | My Camera                       |
       
      
-@DIYWhenNoCamerasAreAvailable             @Doesn'tRequireAnyCameraForExecution       @UIAutomated       @P3  
+@DASCameraDIYWhenNoCamerasAreAvailable             @Doesn'tRequireAnyCameraForExecution       @UIAutomated       @P3  
 Scenario Outline: As a user I should be prompted with Camera  Not Found popup when there are no cameras available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -192,7 +192,7 @@ Examples:
 | Home		|
 
 
-@DIYWhenQRCodeIsNotScannedAndThenScanned       @UIAutomated       @P3        
+@DASCameraDIYWhenQRCodeIsNotScannedAndThenScanned      @UIAutomated       @P3        
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -234,7 +234,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode       @UIAutomated       @P2  
+@DASCameraDIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode       @UIAutomated       @P2  
 Scenario Outline: As a user my Camera device should not be configured when invalid QR code is scanned
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -274,7 +274,7 @@ Examples:
       | Home                                    | My Camera                       |
       
 
-@DIYTapOnCancelMultipleTimesInRegisterCamera       @CannotAutomate       @P3
+@DASCameraDIYTapOnCancelMultipleTimesInRegisterCamera       @CannotAutomate       @P3
 Scenario Outline: As a user I should be able to tap on Cancel multiple times in Registering camera screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -300,7 +300,7 @@ Examples:
       | Home                                    | My Camera                       |
       
       
-@DIYRefreshCameraList         @RequiresMultipleCamerasForExecution       @UIAutomated       @P3            
+@DASCameraDIYRefreshCameraList         @RequiresMultipleCamerasForExecution       @UIAutomated       @P3            
 Scenario Outline: As a user I should be able to refresh the camera list when multiple cameras are displayed
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -326,8 +326,7 @@ Examples:
       | Home                                    | My Camera                       |    
 
 
-
-@DIYDisconnectCameraDevice       @CannotAutomate       @P2          
+@DASCameraDIYDisconnectCameraDevice       @CannotAutomate       @P2          
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when Camera device is disconnected
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -354,7 +353,7 @@ Examples:
 
 
 
-@DIYTimeoutInCameraDevice       @CannotAutomate       @P3        
+@DASCameraDIYTimeoutInCameraDevice       @CannotAutomate       @P3        
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in Camera device
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -373,7 +372,4 @@ Then user should be displayed with the "Connect" screen
 
 Examples: 
       | location name                           | device name                     | 
-      | Home                                    | My Camera                       |   
-
-
-    
+      | Home                                    | My Camera                       |       
