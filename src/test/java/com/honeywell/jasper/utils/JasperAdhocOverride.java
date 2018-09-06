@@ -258,9 +258,15 @@ public class JasperAdhocOverride {
 										} else {
 											nextperiod = "HOLD UNTIL " + next1;
 										}
-										Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
+										Keyword.ReportStep_Pass(testCase,"Comparing nextPeriod time "+ nextperiod + " with displayed time " + AdhocText);
 										flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
 									}
+									if (flag) {
+										Keyword.ReportStep_Pass(testCase, "Temporary Hold status displayed");
+									} else {
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												" Temporary Hold status mismatched");
+								}
 				 				} else {
 				 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 				 							"Time base Temporary Hold status not displayed");
@@ -294,7 +300,7 @@ public class JasperAdhocOverride {
 							Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"geofence Temporary Hold status not displayed: " + overrideTemp);
+									"comparing expected text- "+"HOLD " + overrideTemp + "\u00b0 WHILE " + Period+" with geofence Temporary Hold status not displayed: " + AdhocText);
 					}
 					}
 			}

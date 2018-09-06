@@ -108,6 +108,7 @@ Examples:
 @JapserNA_CopyScheduleToMulitpleStat @Automated
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
+Given user thermostat is set to "time based" schedule
 Given user launches and logs in to the Lyric application
 When user creates default <ScheduleType> schedule value <CopyStats> stats
 Then verify <ScheduleType> schedule is <VerifyCopyStats> stats

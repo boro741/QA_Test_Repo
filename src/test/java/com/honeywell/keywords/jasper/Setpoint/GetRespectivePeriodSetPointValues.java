@@ -77,11 +77,15 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							String WakeCoolSetpoint = "";
 							String WakeCoolSetpoint1 = defaultValues.get("EverydayWakeCoolTemp");
 								if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
+									ReportStep_Pass(testCase, "Stat is in fahrenheit mode");
 								 currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
+								 ReportStep_Pass(testCase, "current setpoint value from chil is "+WakeCoolSetpoint1);
 								 WakeCoolSetpoint = WakeCoolSetpoint1;
 								}else{
+									ReportStep_Pass(testCase, "Stat is in celcius mode");
 								 WakeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeCoolSetpoint1));
 								 currentStepperSetpoint = currentsetpoint; 
+								 ReportStep_Pass(testCase, "setpoint value from chil is "+currentsetpoint);
 								}
 								flag = flag & currentStepperSetpoint.equals(WakeCoolSetpoint);
 							if(flag)
