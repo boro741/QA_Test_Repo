@@ -418,12 +418,7 @@ public class JasperSchedulingUtils {
 		Keyword.ReportStep_Pass(testCase,
 				"*************** Completed setting set points for Away period ***************");
 		if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("No")) {
-							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								flag = flag & ss.clickOnSkipSleepButton();
-							} else {
-								flag = flag & ss.clickOnNoButton();
-							}
-				
 						} else {
 							Keyword.ReportStep_Pass(testCase, " ");
 							Keyword.ReportStep_Pass(testCase,
@@ -12295,12 +12290,19 @@ public class JasperSchedulingUtils {
 				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 				Keyword.ReportStep_Pass(testCase,"Displayed value "+heatSetPoint);
 			} else {
-				int size = ss.getHeatSetPointsElements().size();
+				int size;
+				List<String> allowedModes = statInfo.getAllowedModes();
+				if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
+					 size = ss.getHeatOnlySetPointsElements().size();
+				}else{
+					 size = ss.getHeatSetPointsElements().size();
+				}
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-					heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+					
 				} else {
-					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
+					heatSetPoint = ss.getHeatOnlySetPointsElements().get(0).getAttribute("value");
 				}
 			}
 
@@ -14666,9 +14668,8 @@ public class JasperSchedulingUtils {
 					 * ); }
 					 */
 				}
-				heatSetPoint = schl.getHeatSetPointChooserSetPointsValue();
-				flag = flag & verifyHeatStepperValue(testCase, inputs, heatSetPoint,
-						inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT));
+				//heatSetPoint = schl.getHeatSetPointChooserSetPointsValue();
+				flag = flag & verifyHeatStepperValue(testCase, inputs, inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT),"");
 			} else if (!allowedModes.contains("Heat") && allowedModes.contains("Cool")) {
 				if (testCase.getPlatform().contains("ANDROID")) {
 					if (schl.isAwayTemperatureHeaderSingleTemperatureVisble(10)) {

@@ -25,6 +25,7 @@ import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.SchedulingScreen;
 
 public class JasperSetPoint {
 
@@ -120,6 +121,9 @@ public class JasperSetPoint {
 			// =========================================Get current SetPoint
 			// value in Dialer============================================
 			String dialer = "";
+			//Delay introduced for mega get call
+			SchedulingScreen ss= new SchedulingScreen(testCase);
+			ss.isNoScheduleTextVisible(40);
 			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 			if (fly.IsDailerButtonVisible(10)) {
 				dialer = fly.getDailerValue();

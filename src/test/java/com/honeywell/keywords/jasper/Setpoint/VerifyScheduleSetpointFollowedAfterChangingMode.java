@@ -53,7 +53,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 								"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
 					}else {
 						flag = false;
-						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Stepper stepoint is not following current schedule setpoint"+ "ScheduleSetpoint: "+getPeriodSetpoint + " StepperSetpoint: "+currentStepperSetpoint);
 					}
 				}else
@@ -85,7 +85,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 				if (flag){
 					Keyword.ReportStep_Pass(testCase,
 							"Resynced");
-					String Overridesetpoint = "", currentStepperSetpoint = "", Overridesetpointvalue = "";
+					String Overridesetpoint = "", currentStepperSetpoint = "";
 					Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 					String Overridesetpointvalue1 = statInfo.getOverrrideSetpoint();
 					String jasperStatType = statInfo.getJasperDeviceType();
@@ -94,7 +94,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 							currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
 							Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
 						}else{
-							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue));
+							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
 							currentStepperSetpoint = currentStepperSetpoint1.toString(); 
 						}
 						if(Overridesetpoint.equals(currentStepperSetpoint)){

@@ -89,33 +89,6 @@ Examples:
 #| geofence based 				| Using Sleep Settings  	| UserArrived  | Sleep	|
 
 
-@AdhocOverrideCreateGeofencebasescheduleOFFAspecifictimeEMEA			@Automated
-Scenario Outline: To Verify create geofence schedule in off mode
-Given user launches and logs in to the Lyric application
-And user has "Heat" system mode
-And user thermostat is set to "time based" schedule
-And user edits set point from "Primary card"
-And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-And user holds the schedule until time "lesser than 12 hours" from current time
-And user changes system mode to "Off"
-When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
-And user creates "Geofence based" scheduling with default values "Without" sleep settings
-And user thermostat set <Period> with <Geofence>
-And user changes system mode to "Heat"
-Then verify the <Schedule status> on the "PRIMARY CARD" screen
-And user "should be updated" with the "Heat" option 
-And user should be displayed with "respective period" setpoint value in solution card
-
-Examples:
-| Period	| Geofence			| NEW Schedule				| Schedule status		|
-| Home		| UserArrived		| Geofence base schedule	| Using Home Settings	| 
-#| Home		| UserArrived		| Geofence base schedule	| Using Away Settings	| 
-#| Home		| UserArrived		| Geofence base schedule	| Using Sleep Settings	|
-
-
-
- 
-
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleduplicateEMEA			@Automated
 Scenario Outline:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user launches and logs in to the Lyric application
@@ -129,14 +102,14 @@ And user creates "Geofence based" scheduling with default values "Without" sleep
 And user thermostat set <Period> with <Geofence>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the "Heat" option 
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 
 Examples:
 |Period|Geofence| Schedule status |
 |Home|UserArrived| Using Home Settings | 
 #|Away|UserDeparted| Using Away Settings |
 
-@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodUsing_EMEA  		@Automated
+@AdhocOverrideGeofencebaseSchedulingDeleteCurrentSleepPeriodUsing_EMEA		@Automated
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
@@ -144,13 +117,13 @@ And user thermostat set "Home" with <Geofence>
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-And verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+And verify the <Schedule status> on the "PRIMARY CARD" screen
 When user deletes the <Period> 
 Then verify the "USING HOME SETTINGS" on the "PRIMARY CARD" screen
 
 Examples:
 | Mode	| scheduling			| Schedule status		| Geofence     | Period		|
-#| Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
+| Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
 
 @AdhocOverrideCreateTimebasescheduleFollowingscheduleEMEA			@Rework
 Scenario Outline:  To verify create time base schedule when mode is changed for Heat system with auto changeover enabled
@@ -167,8 +140,8 @@ And user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
-| HEAT		| time base 			| Time base schedule 	|
-#| Heat only	| time base 			| Time base schedule 	|
+| HEAT		| time based 			| Time base schedule 	|
+#| Heat only	| time based 			| Time base schedule 	|
 #| HEAT		| geofence based  	| Time base schedule 	|
 #| Heat only	| geofence based  	| Time base schedule 	|
 
@@ -178,7 +151,7 @@ Given user has <Mode> system mode
 And user thermostat is set to <CurrentSchedule> schedule
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then verify the <Schedule status> on the "PRIMARY CARD" screen
+#Rework Then verify the <Schedule status> on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
@@ -190,8 +163,8 @@ And verify respective <Period> period setpoint values
 
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
-| HEAT		| time base 			| Time base schedule 	|
-#| Heat only	| time base 			| Time base schedule 	|
+| HEAT		| time based			| Time base schedule 	|
+#| Heat only	| time based 			| Time base schedule 	|
 #| HEAT		| geofence based  	| Time base schedule 	|
 #| Heat only	| geofence based  	| Time base schedule 	|
 
@@ -232,7 +205,7 @@ When user changes system mode to "Off"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 And user thermostat set <Period> with <Geofence>
-And user creates "Geofence based" scheduling with default values <Sleep Period> sleep settings
+And user creates "Geofence based" scheduling with default values <Sleep period> sleep settings
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
