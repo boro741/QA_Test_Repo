@@ -2272,6 +2272,13 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "THERMOSTAT SETTINGS": {
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					if (sensorScreen.isCogIconVisible()) {
+						flag = flag & sensorScreen.clickOnCogIcon();
+					}
+					break;
+				}
 
 				default: {
 					flag = false;
@@ -2356,6 +2363,22 @@ public class NavigateToScreen extends Keyword {
 						}
 						break;
 					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input: " + screen.get(1));
+					}
+					break;
+				}
+				case "PRIMARYCARD": {
+					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
+					PrimaryCard pc = new PrimaryCard(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (ts.isThermostatSettingsHeaderTitleVisible(10) && ts.isBackButtonVisible(10)) {
+						ts.clickOnBackButton();
+						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						flag = flag & pc.isCogIconVisible(); 
+						break;
+				}else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Invalid Input: " + screen.get(1));

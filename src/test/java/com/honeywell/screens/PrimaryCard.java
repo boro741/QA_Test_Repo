@@ -1077,4 +1077,9 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isNoScheduleTextAvailable() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSchedule");
 	}
+	
+	public boolean isEmergencyHeatStatusVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmergencyHeatStatus");
+	}
+	
 }

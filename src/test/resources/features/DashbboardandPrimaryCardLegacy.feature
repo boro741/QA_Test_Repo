@@ -118,7 +118,7 @@ Examples:
 
 #HB, Spruce, JasperNA, JasperEMEA
 @Offlineverficationdashbaordsolutioncard @NotAutomatable
-Scenario: As an user I want to verify the SolutionCard and dashboard with offline 
+Scenario Outline: As an user I want to verify the SolutionCard and dashboard with offline 
 Given user launches and "Offline" 
 Then user launches and logs in to the lyric application 
 When user navigates to "Dashboard" 
@@ -735,7 +735,7 @@ Examples:
 
 #OFF Mode Dashboard and primary card 
 
-@HBSpruce
+@HB, Spruce
 @SetTemperatiureOFFModeHB @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
@@ -761,7 +761,7 @@ Examples:
 |Mode| 
 |OFF|
 
-@JAsperNA,@JasperEMEA 
+@JAsperNA, JasperEMEA 
 @SetTemperatiureOFFModeNA @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
@@ -812,8 +812,8 @@ Examples:
 #|Heat only|
 #|Cool only|
 
-@SetTemperatureFromHBB @Automated
-Scenario Outline: To set temperature for location with multistat (Jasper NA,HBB) systems Heat cool,Cool,Heat for Temperture scale Celsius (OR) Fahrenheit and for time format 24 (OR) 12hr
+@SetTemperatureFromHBB @NotAutomatable
+Scenario Outline:To set temperature for location with multistat (Jasper NA,HBB) systems Heat cool,Cool,Heat for Temperture scale Celsius (OR) Fahrenheit and for time format 24 (OR) 12hr
 Given HBB "stat1" with <Mode>
 When User set the temperature from HBB "stat1" in app
 But User set the temperature from HBB "stat1" in app from other mobile
@@ -822,16 +822,14 @@ Then Verify the HBB "stat1" status on the primary card for set temperature
 And Verify the HBB "stat1" schedule temperature is override with set temperature
 And Verify maximum and minimum set values is followed
 And Verify the HBB "stat1" widget on the location dashboard for set temperature
-
 Examples:
 |Mode |
 |Heat | 
 #|Cool |
 #|Auto |
 
-
-@SetTemperatureFromEMEA		@Automated
-Scenario: To set temperature for location with multistat with time format 24 (OR) 12hr 
+@SetTemperatureFromEMEA @NotAutomatable
+Scenario:To set temperature for location with multistat with time format 24 (OR) 12hr 
 Given Stat1 with "Heat" mode
 When User set the temperature from "Stat1" in app
 But User set the temperature from "Stat1" in app from other device
@@ -959,8 +957,8 @@ Examples:
 
 
 #HB, Spruce, JaperNA
-@DashboardandsolutioncardCheckSetpointInVacationSettings			@Automated
-Scenario: As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
+@DashboardandsolutioncardCheckSetpointInVacationSettings @Automated
+Scenario:As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
 When user selects set points within maximum and minimum range                               
@@ -1007,11 +1005,10 @@ Examples:
 
 #Dashboard order 
 @Dashboardorderwithallsolutions @NotAutomatable
-Scenario: User configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
+Scenario Outline:  user configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
 Given user launches and logs in to the lyric application
 Then user  navigates to "Dashboard"
 When user should displayed with "alphanumeric order"
-
 
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
@@ -1019,14 +1016,18 @@ When user should displayed with "alphanumeric order"
 @SolutionCardEmergencyHeatbothcoolandheat @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card when both heat and cool  mode configured
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user enables the "Emergency Heat" under settings
-Then user should be displayed with "Heat" Mode
-And user should be displayed with "Emergency heat" on "Solutioncard"
-When user switch the <SystemMode> 
-Then user should not be displayed "Emergency heat" on "SolutionCard"
-And user should be displayed with disabled "Emergency heat" option under settings
-
+Then user has <Mode> system mode
+When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+And user changes the "Emergency Heat" to "ON"
+When user navigates to "PrimaryCard" screen from the "Thermostat Settings" screen
+#Then verify system mode is changed to "Heat"
+Then user "should be updated" with the "Heat" option
+And verify the "Emergency Heat" on the "Primary Card" screen
+#When user selects "Mode" from "Thermostat Solution Card" screen
+When user changes system mode to <systemMode>
+Then verify the "Emergency Heat Not Displayed" on the "Primary Card" screen
+And user navigates to "Thermostat Settings" screen from the "Primary Card" screen
+And "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen
 Examples:
 |Mode | systemMode|
 #|Cool | Cool |
@@ -1053,38 +1054,37 @@ Examples:
 @SolutionCardEmergencyHeatHeatonly @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card when heat only mode configured
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-When user enables the "Emergency Heat" under settings
-Then user should be displayed with "Heat" Mode
-And user should be displayed with "Emergencey heat" on "Solutioncard"
-When user switch the <SystemMode> 
-Then user should not be displayed "Emergency heat" on "SolutionCard"
-And user should be displayed with disabled "Emergency heat" option under settings
+Then user has <Mode> system mode
+When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption |
+		| Emergency Heat           |
+When user navigates to "PrimaryCard" screen from the "Thermostat Settings" screen
+Then user "should be updated" with the "Heat" option
 Examples:
 |Mode | systemMode|
-|Heat only | OFF |
-#|Heat only | Heat only  | 
+|Heat | OFF |
+#|Heat | Heat | 
 #|OFF | OFF |
-#|OFF| Heat only  | 
+#|OFF| Heat | 
 
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
 #Emergencyheat should be enabled 
 @SolutionCardEmergencyHeatCoolonly @Automated
 Scenario Outline: As an user I want to verify Emergency heat on solution card when cool only mode configured
-Given user has <Mode> system mode
-Then user launches and logs in to the Lyric application
-And user should be displayed with the "thermostat Dashboard" Screen
-Then user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-When user should be displayed with the "thermostat Solution Card" screen
-And user navigates to "THERMOSTAT SETTINGS" screen from the "THERMOSTAT SOLUTION CARD" screen
-And user "should be disabled" with the "Emergency heat" option
-And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT SETTINGS" screen 
-Then user "should not be updated" with the "HEAT" option
+Given user launches and logs in to the Lyric application
+Then user has <Mode> system mode
+When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
+Then the following "Thermostat Settings" options should be disabled:
+		| ThermostatSettingsOption |
+		| Emergency Heat           |
+When user navigates to "PrimaryCard" screen from the "Thermostat Settings" screen
+Then user "should be updated" with the "Cool" option
 Examples:
 |Mode | 
-#|Cool only |
-|OFF| 
+|Cool |
+#|OFF| 
 
 
 #JasperEMEA
