@@ -16,6 +16,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.CameraScreen;
 
@@ -286,6 +287,123 @@ public class DashboardUtils {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Progress bar loading spinner did not disapper after waiting for: " + duration + " minutes");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
+		return flag;
+	}
+	public static boolean waitForOptionOnScreen(TestCases testCase, String elementProgressBar, int duration) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			Dashboard d = new Dashboard(testCase);
+			PrimaryCard pc = new PrimaryCard(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						switch (elementProgressBar) {
+						case "HEATING TEXT TO APPEAR": {
+							if (d.isHeatingTextVisible()) {
+								return true;
+							} else {
+								System.out.println("Waiting for Heating Text to appear");
+								return false;
+							}
+						}
+						case "HEATING TEXT TO DISAPPEAR": {
+							if (d.isHeatingTextVisible()) {
+								System.out.println("Waiting for Heating Text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "HEATINGORCOOLING TEXT TO DISAPPEAR": {
+							if (d.isHeatingCoolingTextVisible()) {
+								System.out.println("Waiting for Heating or Cooling Text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "HEATING TEXT TO APPEAR IN PRIMARY CARD": {
+							if (pc.isHeatingTextVisible()) {
+								return true;
+							} else {
+								System.out.println("Waiting for Heating Text to appear");
+								return false;
+							}
+						}
+						case "HEATING TEXT TO DISSAPEAR IN PRIMARY CARD": {
+							if (pc.isHeatingTextVisible()) {
+								System.out.println("Waiting for Heating Text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "COOLING TEXT TO APPEAR": {
+							if (d.isCoolingTextVisible()) {
+								return true;
+							} else {
+								System.out.println("Waiting for Cooling Text to appear");
+								return false;
+							}
+						}
+						case "COOLING TEXT TO DISAPPEAR": {
+							if (d.isCoolingTextVisible()) {
+								System.out.println("Waiting for Cooling Text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "COOLING TEXT TO APPEAR IN PRIMARY CARD": {
+							if (pc.isCoolingTextVisible()) {
+								return true;
+							} else {
+								System.out.println("Waiting for Cooling Text to appear");
+								return false;
+							}
+						}
+						case "COOLING TEXT TO DISSAPEAR IN PRIMARY CARD": {
+							if (pc.isCoolingTextVisible()) {
+								System.out.println("Waiting for Cooling Text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "HEATINGORCOOLING TEXT TO DISSAPEAR IN PRIMARY CARD": {
+							if (pc.isHeatingCoolingTextVisible()){
+								System.out.println("Waiting for Cooling Text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						default: {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid argument passed : " + elementProgressBar);
+							return true;
+						}
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Wait for:" + elementProgressBar +  "completed");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Wait for:"+ elementProgressBar + "Failed after waiting for: " + duration + " minutes");
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());

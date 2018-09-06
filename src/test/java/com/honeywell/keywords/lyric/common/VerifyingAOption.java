@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONObject;
 
@@ -11,8 +12,12 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileObject;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.DR.utils.DRUtils;
+import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.Dashboard;
@@ -782,6 +787,118 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 		
+		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("Heating on dashboard")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				Dashboard dr = new Dashboard(testCase);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO DISAPPEAR", 2);
+				if (!dr.isHeatingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+					}
+					else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is displayed");
+				}
+				break;
+			}
+			case "SHOULD BE DISPLAYED": {
+				Dashboard dr = new Dashboard(testCase);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO APPEAR", 4);
+				if (dr.isHeatingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
+		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("Heating on primary card")) {
+			PrimaryCard pc = new PrimaryCard(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
+				if (!pc.isHeatingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+					}
+					else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is displayed");
+				}
+				break;
+			}
+			case "SHOULD BE DISPLAYED": {
+				PrimaryCard pc1 = new PrimaryCard(testCase);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO APPEAR IN PRIMARY CARD", 4);
+				if (pc1.isHeatingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
+		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on dashboard")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				Dashboard dr = new Dashboard(testCase);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO DISAPPEAR", 4);
+				if (!dr.isCoolingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+					}
+					else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is displayed");
+				}
+				break;
+			}
+			case "SHOULD BE DISPLAYED": {
+				Dashboard dr = new Dashboard(testCase);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO APPEAR", 4);
+				if (dr.isCoolingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
+		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on primary card")) {
+			PrimaryCard pc = new PrimaryCard(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
+				if (!pc.isCoolingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+					}
+					else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is displayed");
+				}
+				break;
+			}
+			case "SHOULD BE DISPLAYED": {
+				PrimaryCard pc1 = new PrimaryCard(testCase);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO APPEAR IN PRIMARY CARD", 4);
+				if (pc1.isCoolingTextVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
 		}
 		return flag;
 

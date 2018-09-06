@@ -735,7 +735,8 @@ Examples:
 
 #OFF Mode Dashboard and primary card 
 
-@HBSpruce
+
+@HB,Spruce
 @SetTemperatiureOFFModeHB @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
@@ -761,7 +762,8 @@ Examples:
 |Mode| 
 |OFF|
 
-@JAsperNA,@JasperEMEA 
+
+@JAsperNA,JasperEMEA 
 @SetTemperatiureOFFModeNA @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
@@ -829,8 +831,7 @@ Examples:
 #|Cool |
 #|Auto |
 
-
-@SetTemperatureFromEMEA		@Automated
+@SetTemperatureFromEMEA @Automated
 Scenario: To set temperature for location with multistat with time format 24 (OR) 12hr 
 Given Stat1 with "Heat" mode
 When User set the temperature from "Stat1" in app
@@ -959,7 +960,7 @@ Examples:
 
 
 #HB, Spruce, JaperNA
-@DashboardandsolutioncardCheckSetpointInVacationSettings			@Automated
+@DashboardandsolutioncardCheckSetpointInVacationSettings @Automated
 Scenario: As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
@@ -1105,3 +1106,62 @@ Examples:
 #|Heat only |
 |OFF| 
 
+
+
+@SolutioncardHeatingTovalidation @automated
+Scenario: As an user I want to verify the Heating to on solution card 
+Given user has "Heat" system mode
+Then user launches and logs in to the Lyric application
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+When user "increase" the setpoint value "above" room temperature in "Primary Card"
+Then user "should be displayed" with the "Heating on Primary card" option
+And user should be displayed with "Heating To" setpoint value
+And user navigates to "Dashboard" screen from the "thermostat solution card" screen
+Then user "should be displayed" with the "Heating on dashboard" option
+When user "decrease without wait" the setpoint value "below" room temperature in "dashboard" 
+Then user "should not be displayed" with the "Heating on dashboard" option
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user "should not be displayed" with the "Heating on Primary card" option
+
+@SolutioncardCoolingTovalidation @automated
+Scenario: As an user I want to verify the Heating to on solution card 
+Given user has "Cool" system mode
+Then user launches and logs in to the Lyric application
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+When user "decrease" the setpoint value "below" room temperature in "Primary Card" 
+And user "should be displayed" with the "Cooling on Primary card" option
+Then user should be displayed with "Cooling To" setpoint value
+And user navigates to "Dashboard" screen from the "thermostat solution card" screen
+Then user "should be displayed" with the "Cooling on dashboard" option
+When user "increase" the setpoint value "above" room temperature in "dashboard"
+Then user "should not be displayed" with the "Cooling on dashboard" option
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user "should not be displayed" with the "Cooling on Primary card" option
+
+@DashboardHeatingTovalidation @automated
+Scenario: As an user I want to verify the Heating to on solution card 
+Given user has "Heat" system mode
+Then user launches and logs in to the Lyric application
+When user "increase" the setpoint value "above" room temperature in "dashboard"
+Then user "should be displayed" with the "Heating on dashboard" option
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with "Heating To" setpoint value
+When user "decrease" the setpoint value "below" room temperature in "Primary Card"
+Then user "should not be displayed" with the "Heating on Primary card" option
+And user navigates to "Dashboard" screen from the "thermostat solution card" screen
+Then user "should not be displayed" with the "Heating on dashboard" option
+
+@DashboardCoolingTovalidation @automated
+Scenario: As an user I want to verify the Heating to on solution card 
+Given user has "Cool" system mode
+Then user launches and logs in to the Lyric application
+When user "decrease" the setpoint value "below" room temperature in "dashboard"
+Then user "should be displayed" with the "Cooling on dashboard" option
+And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then user should be displayed with "Cooling To" setpoint value
+When user "increase" the setpoint value "above" room temperature in "Primary Card"
+Then user "should not be displayed" with the "Cooling on Primary card" option
+And user navigates to "Dashboard" screen from the "thermostat solution card" screen
+Then user "should not be displayed" with the "Cooling on dashboard" option
+
+ 

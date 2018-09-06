@@ -26,6 +26,12 @@ public class ActivityHistoryScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Message");
 
 	}
+	public boolean isActivityHistoryTitleDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryTitle");
+
+	}
+	
+	
 
 	public HashMap<String, String> getAllMessages(TestCases testCase) throws Exception {
 		HashMap<String, String> combinedMessage = new HashMap<String, String>();

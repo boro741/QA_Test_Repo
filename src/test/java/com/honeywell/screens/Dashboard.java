@@ -593,4 +593,51 @@ public class Dashboard extends MobileScreens {
 		}
 		return false;
 	}
+	public boolean clickOnUpStepper() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "UpStepper");
+	}
+	
+	public boolean clickOnDownStepper() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DownStepper");
+	}
+	
+	public boolean isHeatingTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingText", 3, false);
+	}
+	public boolean isCoolingTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoolingText", 3, false);
+	}
+	public boolean isHeatingCoolingTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingCoolingText", 3, false);
+	}
+	public String getSetPoint() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "DeviceCurrentTempValue").getText();
+		} else {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "DeviceCurrentTempValue").getAttribute("value");			
+		}
+	}
+	public  static double getCurrentSetPointInDashboard(TestCases testCase) {
+		try {
+			// =========================================Get current SetPoint
+			// value in Dialer============================================
+			String setpoint = "";
+			Dashboard TPC = new Dashboard(testCase);
+			if (TPC.areDeviceTempVisibleOnDashboard(10)) {
+				setpoint = TPC.getSetPoint();
+			}
+			String currentThermostatTemp = "";
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				currentThermostatTemp = setpoint;
+				currentThermostatTemp = currentThermostatTemp.split("\\,")[0];
+			} else {
+				currentThermostatTemp = setpoint;
+			}
+			return Double.parseDouble(currentThermostatTemp);
+		} catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error Occured : " + e.getMessage());
+			return -1;
+		}
+}
 }
