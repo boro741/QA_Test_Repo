@@ -12310,7 +12310,14 @@ public class JasperSchedulingUtils {
 				if (statInfo.getThermostatUnits().equals(GlobalVariables.FAHRENHEIT) && !jasperStatType.equalsIgnoreCase("EMEA")) {
 					Double temp = Double.parseDouble(heatTemp);
 					heatTemp = String.valueOf(temp.intValue());
-				} /*else {
+					Keyword.ReportStep_Pass(testCase,
+							"Stat is NA and unit is fahrenheit, hence converted to integer"+heatTemp);
+				}else{
+					Keyword.ReportStep_Pass(testCase,
+							"Stat is either not NA or  not unit is fahrenheit, hence converted to integer"+heatTemp);
+				}
+					/*else {
+				}
 					if (jasperStatType.equalsIgnoreCase("EMEA")) {
 						heatTemp = roundOffCelsiusData(testCase, heatTemp);
 					} else {
@@ -12447,7 +12454,7 @@ public class JasperSchedulingUtils {
 
 				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 				String currentScheduleType = statInfo.getThermoStatScheduleType();
-
+                Keyword.ReportStep_Pass(testCase, "Current schedule is :"+currentScheduleType);
 				if (currentScheduleType.equalsIgnoreCase("Timed")) {
 					flag = flag & ss.clickOnCreateNewTimeScheduleButton();
 				} else {

@@ -44,8 +44,8 @@ And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user changes the "Vacation" to "On"
 #When user turns "on" vacation from "vacation settings card"
-Then user is displayed with "From" date as "Current Time" nearest to "10"
-And user is displayed with "To" date as "Week from Current Time" nearest to "10"
+Then user is displayed with "From" date as "Current Time" nearest to "15"
+And user is displayed with "To" date as "Week from Current Time" nearest to "15"
 
   
 @Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@Automated
@@ -207,7 +207,7 @@ Examples:
 
 #JasperEMEA
 @VacationActiveSwitchingModesEMEA			@Automated
-Scenario:  To verify geofence schedule switching modes is changed for "Heat, Cool and Off" system with auto changeover enabled
+Scenario:  To verify geofence schedule switching modes is changed for Heat Cool and Off system with auto changeover enabled
 Given user has "Heat" system mode
 And vacation mode is "active"
 When user launches and logs in to the Lyric application

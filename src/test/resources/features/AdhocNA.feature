@@ -295,7 +295,7 @@ Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then verify the "FLLOWING SCHEDULE" on the "PRIMARY CARD" screen
+Then verify the "FOLLOWING SCHEDULE" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user thermostat set <Period> with <Geofence>
 And user creates "Geofence based" schedule following specific <Sleep period> time
@@ -331,7 +331,7 @@ Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then verify the "FLLOWING SCHEDULE" on the "PRIMARY CARD" screen
+Then verify the "FOLLOWING SCHEDULE" on the "PRIMARY CARD" screen
 When user changes system mode to "Off"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
@@ -906,7 +906,6 @@ Examples:
 Scenario Outline:  To verify geofence schedule delete current sleep period when mode is changed for Heat, auto, cool system with auto changeover enabled by deleting current sleep period
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
-And user thermostat set "Home" with <Geofence>
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
@@ -915,7 +914,7 @@ When user has "Temporary" status
 #Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user deletes the <Period> 
 Then verify the "USING HOME SETTINGS" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
+And verify respective "Home" period setpoint values
 
 Examples:
 | Mode	| scheduling			| Schedule status		| Geofence     | Period		|
@@ -1511,16 +1510,16 @@ And user should be displayed with "respective period" setpoint value in solution
 
 Examples:
 |Mode|UMode	  |   Period |
-|Auto|Heat        | WAKE |
-#|Auto|Cool        |WAKE |
-#|Auto|Auto        | WAKE |
-#|Heat|Cool        |WAKE |
+|Heat|Cool        |WAKE |
 #|Heat|Auto        | WAKE |
 #|Heat|HEAT        | WAKE |
 #|Cool|Heat        |WAKE |
 #|Cool|Auto        |WAKE |
 #|Cool|Cool        |WAKE |
-#|Auto|Heat        | AWAY |
+#|Auto|Heat        | WAKE |
+#|Auto|Cool        |WAKE |
+#|Auto|Auto        | WAKE |
+#|Auto|Heat        | AWAY | Fix needed for auto check the current mode 
 #|Auto|Cool        |AWAY |
 #|Auto|Auto        | AWAY |
 #|Heat|Cool        |AWAY |
@@ -1869,6 +1868,7 @@ And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
 When user navigates to "Scheduling" screen from the "Dashboard" screen
 Then verify the "No Schedule" on the "PRIMARY CARD" screen
+Then user navigates to "PRIMARY CARD" screen from the "Scheduling" screen
 When user changes system mode to <UMode>
 Then verify the "No Schedule" on the "PRIMARY CARD" screen
 

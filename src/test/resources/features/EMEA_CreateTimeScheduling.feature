@@ -117,8 +117,6 @@ And user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates <ScheduleType> schedule with default schedule value
 Then <ScheduleType> scheduling gets activated
-And user navigates to "Primary card" screen from the "Scheduling" screen
-#Then user is displayed with "System is Off" on the screen
 Then user verifies the following on the primary card:
       | Elements                               | 
      |Following schedule|
