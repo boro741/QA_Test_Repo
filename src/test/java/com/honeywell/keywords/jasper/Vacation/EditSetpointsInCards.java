@@ -67,7 +67,11 @@ public class EditSetpointsInCards extends Keyword {
 					if(statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")){
 
 					}else{
-						CHILUtil.setPointInPrimaryCard = Integer.parseInt(vhs.getPrimaryCardValue());
+						try{
+							CHILUtil.setPointInPrimaryCard = Integer.valueOf(vhs.getPrimaryCardValue());
+						}catch(Exception e){
+							Keyword.ReportStep_Pass(testCase,  "Number format exception");
+						}
 					}
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					if (bs.isBackButtonVisible()) {
