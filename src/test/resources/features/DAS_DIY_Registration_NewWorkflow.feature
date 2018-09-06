@@ -823,7 +823,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com	| SatyaMidhun@08			|
+      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
 
 
 @DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@Automated
@@ -868,7 +868,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com	| SatyaMidhun@08			|
+      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated
