@@ -151,7 +151,7 @@ WeekdayScheduleTitleAndPeriodTime							XPATH	"//XCUIElementTypeStaticText[conta
 UsingAway	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	ID	Using Away Settings	ID	Using Away Settings	ID	Using Away Settings
 UsingHome	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	ID	Using Home Settings	ID	Using Home Settings	ID	Using Home Settings
 UsingSleep	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	ID	Using Sleep Settings	ID	Using Sleep Settings	ID	Using Sleep Settings
-ScheduleOffStatus	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//XCUIElementTypeButton[@name=‘Turn Schedule Off’]	XPATH	//XCUIElementTypeButton[@name=‘Turn Schedule Off’]	XPATH	//XCUIElementTypeButton[@name=‘Turn Schedule Off’]
+ScheduleOffStatus	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	ID	Schedule Off	ID	Schedule Off	ID	Schedule Off
 FollowingSchedule	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	NAME	Schedule_Status	NAME	Schedule_Status	NAME	Schedule_Status
 DoneButton	id	btn_done	id	btn_done	id	btn_done	NAME	Save	NAME	Save	NAME	Save
 CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL
@@ -162,7 +162,10 @@ UseMyAwaySettingsText	XPATH	//*[@text='Use My Away Settings']	XPATH	//*[@text='U
 ConfirmChangeButton	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//android.widget.Button[@text='Confirm Change']	XPATH	//android.widget.Button[@text='Confirm Change']	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE	NAME	CONFIRM CHANGE
 ScheduleOffOverlay	ID	pause_icon	ID	pause_icon	ID	pause_icon	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.	NAME	Schedule is off. Tap to resume.
 GetStartedButton	Xpath	//*[@text='Get Started']	XPATH	//*[@text='Get Started']	XPATH	//*[@text='Get Started']						
-ScheduleOffButton	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	NAME	Turn schedule off	NAME	Turn schedule off	NAME	Turn schedule off
+ScheduleOffButton	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	XPATH	//android.widget.TextView[@text='Turn Schedule Off']	NAME	Turn Schedule Off	NAME	Turn Schedule Off	NAME	Turn Schedule Off
 HomeTemperatureHeaderSingleTemperature	XPATH	"//*[contains(@text,'What should the temperature be when someone is home?')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'at home')]"	NAME	What temperature do you prefer when you're at home?	NAME	What temperature do you prefer when you're at home?	NAME	What temperature do you prefer when you're at home?
 AwayTemperatureHeaderSingleTemperature	XPATH	"//*[contains(@text,'What should the temperature be when everyone is away?')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	XPATH	"//*[contains(@text,'What temperature do you prefer when') and contains(@text,'away')]"	NAME	What temperature do you prefer when you're away from home?	NAME	What temperature do you prefer when you're away from home?	NAME	What temperature do you prefer when you're away from home?
 CreateGeofenceSleepSettings	XPATH	//android.widget.TextView[@text='Use My Sleep Settings']	XPATH	//android.widget.TextView[@text='Use My Sleep Settings']	XPATH	//android.widget.TextView[@text='Use My Sleep Settings']	NAME	Geofence_Sleep_cell	NAME	Geofence_Sleep_cell	NAME	Geofence_Sleep_cell
+												
+												
+												
