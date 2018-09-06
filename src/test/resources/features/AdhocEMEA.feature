@@ -695,7 +695,7 @@ When user navigates to "thermostat solution card" screen from the "thermostat Da
 And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Remove hold" from adhoc
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 Examples:
 |Period|
 |P1|
@@ -766,7 +766,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user has "Temporary Dashboard" status
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 
 
 
@@ -784,7 +784,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 
 #Permanent hold (Time base Schedule)
 
