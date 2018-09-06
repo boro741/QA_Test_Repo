@@ -151,7 +151,7 @@ WeekdayScheduleTitleAndPeriodTime							XPATH	"//XCUIElementTypeStaticText[conta
 UsingAway	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	XPATH	//*[@text='Using Away Settings']	ID	Using Away Settings	ID	Using Away Settings	ID	Using Away Settings
 UsingHome	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	XPATH	//*[@text='Using Home Settings']	ID	Using Home Settings	ID	Using Home Settings	ID	Using Home Settings
 UsingSleep	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	XPATH	//*[@text='Using Sleep Settings']	ID	Using Sleep Settings	ID	Using Sleep Settings	ID	Using Sleep Settings
-ScheduleOffStatus	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	ID	Schedule Off	ID	Schedule Off	ID	Schedule Off
+ScheduleOffStatus	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//*[@text='Schedule Off']	XPATH	//XCUIElementTypeButton[@name=‘Turn Schedule Off’]	XPATH	//XCUIElementTypeButton[@name=‘Turn Schedule Off’]	XPATH	//XCUIElementTypeButton[@name=‘Turn Schedule Off’]
 FollowingSchedule	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	XPATH	//*[@text='Following Schedule']	NAME	Schedule_Status	NAME	Schedule_Status	NAME	Schedule_Status
 DoneButton	id	btn_done	id	btn_done	id	btn_done	NAME	Save	NAME	Save	NAME	Save
 CancelChangeButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	NAME	CANCEL	NAME	CANCEL	NAME	CANCEL

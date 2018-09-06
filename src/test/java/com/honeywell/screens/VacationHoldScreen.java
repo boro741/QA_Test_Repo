@@ -192,14 +192,14 @@ public class VacationHoldScreen extends MobileScreens {
 
 	public String getStartTime() {
 		if (testCase.getPlatform().contains("IOS")) {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime").split(",")[3].trim();
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[3].trim();
 		} else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromTime");
 	}
 
 	public String getEndTime() {
 		if (testCase.getPlatform().contains("IOS")) {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToTime").split(",")[3].trim();
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[3].trim();
 		} else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToTime");
 	}

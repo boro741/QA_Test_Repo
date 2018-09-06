@@ -138,7 +138,7 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isYesButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			dasDIY.clickYesButtonInSmartHomeSecuritySuccessScreen();
-			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(15)) {
+			if (dasDIY.isSetUpAccessoriesScreenTitleVisible(60)) {
 				// DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SENSOR SET UP
 				// BUTTON", 1);
 			}

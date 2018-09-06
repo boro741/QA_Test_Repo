@@ -455,7 +455,7 @@ public class SensorSettingScreen extends MobileScreens {
 			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
 		}
-
+	
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {

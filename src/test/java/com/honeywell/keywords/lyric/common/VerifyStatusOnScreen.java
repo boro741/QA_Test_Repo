@@ -57,42 +57,38 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "CAMERA SOLUTION CARD":
 		case "CAMERA": {
 			CameraScreen camStatus = new CameraScreen(testCase);
-			String value=expectedScreen.get(1).toUpperCase();
-			
-			if(!camStatus.isCameraToggleButtonExists(testCase)) {
+			String value = expectedScreen.get(1).toUpperCase();
+
+			if (!camStatus.isCameraToggleButtonExists(testCase)) {
 				String cameraName = inputs.getInputValue("LOCATION1_CAMERA1_NAME");
 				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 				try {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, cameraName);
 				} catch (Exception e) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
-					
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
+
 				}
 			}
-			
-			switch(value) {
-			case "ON":{				
-				
-				
-				if(camStatus.isCameraToggleisOn(testCase)) {					
+
+			switch (value) {
+			case "ON": {
+				if (camStatus.isCameraToggleisOn(testCase)) {
+					return flag;
+				} else {
 					return flag;
 				}
-				else { 
-					return flag;
-				}			
-				
+
 			}
-			case "OFF":{
-				if(camStatus.isCameraToggleisOff(testCase)) {
+			case "OFF": {
+				if (camStatus.isCameraToggleisOff(testCase)) {
+					return flag;
+				} else {
 					return flag;
 				}
-				else { 
-					return flag;
-				}				
 			}
-			default:{
+			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
@@ -101,36 +97,29 @@ public class VerifyStatusOnScreen extends Keyword {
 
 			break;
 		}
-		case "THERMOSTAT SOLUTION CARD":
-		{
+		case "THERMOSTAT SOLUTION CARD": {
 			PrimaryCard dash = new PrimaryCard(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "INSIDE TEMPERATURE":
-			{
+			case "INSIDE TEMPERATURE": {
 				switch (expectedScreen.get(1).toUpperCase()) {
-				case "OFF":
-				{
-					if(dash.isOffStatusVisibleOnSolutionCard())
-					{
+				case "OFF": {
+					if (dash.isOffStatusVisibleOnSolutionCard()) {
 						Keyword.ReportStep_Pass(testCase,
 								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
-					}
-					else
-					{
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+								expectedScreen.get(0).toUpperCase() + " is not in "
+										+ expectedScreen.get(1).toUpperCase());
 					}
-					break;	
+					break;
 				}
-				
-				
-				
+
 				}
 				break;
 			}
-			
+
 			}
-			
+
 			break;
 		}
 		case "SENSOR LIST":
@@ -164,10 +153,10 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					break;
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				if (flag) {
@@ -206,10 +195,10 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					break;
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				if (flag) {
@@ -223,7 +212,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
-				case "STANDBY": 
+				case "STANDBY":
 				case "GOOD": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
@@ -254,10 +243,10 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					break;
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				if (flag) {
@@ -301,10 +290,10 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					break;
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				if (flag) {
@@ -316,7 +305,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			default:{
+			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						expectedScreen.get(0).toUpperCase() + " is not handled");
@@ -336,7 +325,8 @@ public class VerifyStatusOnScreen extends Keyword {
 								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+								expectedScreen.get(0).toUpperCase() + " is not in "
+										+ expectedScreen.get(1).toUpperCase());
 					}
 					break;
 				}
@@ -347,25 +337,26 @@ public class VerifyStatusOnScreen extends Keyword {
 								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+								expectedScreen.get(0).toUpperCase() + " is not in "
+										+ expectedScreen.get(1).toUpperCase());
 					}
 					break;
 				}
-				default:{
+				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
 				}
 				}
 				break;
 			}
-			default:{
+			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						expectedScreen.get(0).toUpperCase() + " is not handled ");
 			}
 			}
-			
+
 			break;
 		}
 		case "DIMMER PRIMARY CARD": {
@@ -412,10 +403,11 @@ public class VerifyStatusOnScreen extends Keyword {
 						}
 						break;
 					}
-					default:{
+					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+								expectedScreen.get(1).toUpperCase() + " is not handled "
+										+ expectedScreen.get(0).toUpperCase());
 					}
 					}
 				} else {
@@ -424,7 +416,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			default:{
+			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						expectedScreen.get(0).toUpperCase() + " is not handled ");
@@ -476,10 +468,11 @@ public class VerifyStatusOnScreen extends Keyword {
 						}
 						break;
 					}
-					default:{
+					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(1).toUpperCase() + " is not handled " + expectedScreen.get(0).toUpperCase());
+								expectedScreen.get(1).toUpperCase() + " is not handled "
+										+ expectedScreen.get(0).toUpperCase());
 					}
 					}
 				} else {
@@ -796,7 +789,7 @@ public class VerifyStatusOnScreen extends Keyword {
 					}
 					break;
 				}
-				
+
 				}
 				/*
 				 * }else{ flag=false; Keyword.ReportStep_Fail(testCase,
@@ -848,13 +841,13 @@ public class VerifyStatusOnScreen extends Keyword {
 				 */
 				break;
 			}
-		    case "ENTRY DELAY":{
-				//TODO
+			case "ENTRY DELAY": {
+				// TODO
 				break;
-		    }
-			
-			case "ATTENTION":{
-				//TODO
+			}
+
+			case "ATTENTION": {
+				// TODO
 				break;
 			}
 			default: {
@@ -1066,7 +1059,8 @@ public class VerifyStatusOnScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -1083,7 +1077,8 @@ public class VerifyStatusOnScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -1100,7 +1095,8 @@ public class VerifyStatusOnScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -1116,7 +1112,8 @@ public class VerifyStatusOnScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to verify " + expectedScreen.get(1));
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -1125,14 +1122,15 @@ public class VerifyStatusOnScreen extends Keyword {
 
 			}
 			case "WINDOW ACCESS SETTINGS":
-			case "DOOR ACCESS SETTINGS":{
+			case "DOOR ACCESS SETTINGS": {
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "BATTERY": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if(bs.verifyBatteryStatusTextOnAccessSensorSettingsScreen(expectedScreen.get(1))) {
-						Keyword.ReportStep_Pass(testCase, "Battery status is "+expectedScreen.get(1));
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Battery status is not "+expectedScreen.get(1));
+					if (bs.verifyBatteryStatusTextOnAccessSensorSettingsScreen(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Battery status is " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Battery status is not " + expectedScreen.get(1));
 					}
 					break;
 				}
@@ -1146,39 +1144,31 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
-		case "THERMOSTAT DASHBOARD":
-		{
-		 Dashboard dash = new Dashboard(testCase);
-		
+		case "THERMOSTAT DASHBOARD": {
+			Dashboard dash = new Dashboard(testCase);
+
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "INSIDE TEMPERATURE":
-			{
+			case "INSIDE TEMPERATURE": {
 				switch (expectedScreen.get(1).toUpperCase()) {
-				case "OFF":
-				{
-					if(dash.isOffStatusVisible(inputs))
-					{
+				case "OFF": {
+					if (dash.isOffStatusVisible(inputs)) {
 						Keyword.ReportStep_Pass(testCase,
 								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
-					}
-					else
-					{
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+								expectedScreen.get(0).toUpperCase() + " is not in "
+										+ expectedScreen.get(1).toUpperCase());
 					}
-					break;	
+					break;
 				}
-				
-				
-				
+
 				}
 				break;
 			}
-			
+
 			}
 			break;
 		}
-			
 
 		default: {
 			flag = false;

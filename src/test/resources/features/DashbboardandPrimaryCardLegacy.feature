@@ -118,7 +118,7 @@ Examples:
 
 #HB, Spruce, JasperNA, JasperEMEA
 @Offlineverficationdashbaordsolutioncard @NotAutomatable
-Scenario Outline: As an user I want to verify the SolutionCard and dashboard with offline 
+Scenario: As an user I want to verify the SolutionCard and dashboard with offline 
 Given user launches and "Offline" 
 Then user launches and logs in to the lyric application 
 When user navigates to "Dashboard" 
@@ -735,7 +735,7 @@ Examples:
 
 #OFF Mode Dashboard and primary card 
 
-@HB, Spruce
+@HBSpruce
 @SetTemperatiureOFFModeHB @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
@@ -761,7 +761,7 @@ Examples:
 |Mode| 
 |OFF|
 
-@JAsperNA, JasperEMEA 
+@JAsperNA,@JasperEMEA 
 @SetTemperatiureOFFModeNA @Automated
 Scenario Outline: As an user I want to verify the setpoint value on OFF mode 
 Given user has <Mode> system mode
@@ -813,7 +813,7 @@ Examples:
 #|Cool only|
 
 @SetTemperatureFromHBB @Automated
-Scenario Outline:To set temperature for location with multistat (Jasper NA,HBB) systems Heat cool,Cool,Heat for Temperture scale Celsius (OR) Fahrenheit and for time format 24 (OR) 12hr
+Scenario Outline: To set temperature for location with multistat (Jasper NA,HBB) systems Heat cool,Cool,Heat for Temperture scale Celsius (OR) Fahrenheit and for time format 24 (OR) 12hr
 Given HBB "stat1" with <Mode>
 When User set the temperature from HBB "stat1" in app
 But User set the temperature from HBB "stat1" in app from other mobile
@@ -822,14 +822,16 @@ Then Verify the HBB "stat1" status on the primary card for set temperature
 And Verify the HBB "stat1" schedule temperature is override with set temperature
 And Verify maximum and minimum set values is followed
 And Verify the HBB "stat1" widget on the location dashboard for set temperature
+
 Examples:
 |Mode |
 |Heat | 
 #|Cool |
 #|Auto |
 
-@SetTemperatureFromEMEA @Automated
-Scenario:To set temperature for location with multistat with time format 24 (OR) 12hr 
+
+@SetTemperatureFromEMEA		@Automated
+Scenario: To set temperature for location with multistat with time format 24 (OR) 12hr 
 Given Stat1 with "Heat" mode
 When User set the temperature from "Stat1" in app
 But User set the temperature from "Stat1" in app from other device
@@ -957,8 +959,8 @@ Examples:
 
 
 #HB, Spruce, JaperNA
-@DashboardandsolutioncardCheckSetpointInVacationSettings @Automated
-Scenario:As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
+@DashboardandsolutioncardCheckSetpointInVacationSettings			@Automated
+Scenario: As an user i want the Heat setpoint should be always less than the cool setpoint in vacation settings  
 Given Stat with Heat Cool system
 And Autochangeover enabled in stat
 When user selects set points within maximum and minimum range                               
@@ -1005,10 +1007,11 @@ Examples:
 
 #Dashboard order 
 @Dashboardorderwithallsolutions @NotAutomatable
-Scenario Outline:  user configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
+Scenario: User configured with C1, C2 , JasperNA, JasperEMEA, WLD, DAS
 Given user launches and logs in to the lyric application
 Then user  navigates to "Dashboard"
 When user should displayed with "alphanumeric order"
+
 
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
@@ -1023,6 +1026,7 @@ And user should be displayed with "Emergency heat" on "Solutioncard"
 When user switch the <SystemMode> 
 Then user should not be displayed "Emergency heat" on "SolutionCard"
 And user should be displayed with disabled "Emergency heat" option under settings
+
 Examples:
 |Mode | systemMode|
 #|Cool | Cool |
