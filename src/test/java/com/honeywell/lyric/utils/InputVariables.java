@@ -225,6 +225,10 @@ public class InputVariables {
 	public static String VERIFY_SET_PERIOD_TIME = "verifySetPeriodTime";
 	
 	public static final String EDIT_GEOFENCE_SCHEDULE = "editGeofenceSchedule";
+	
+	public static String SENSOR1 = "SENSOR1";
+	
+	
 
 }
 

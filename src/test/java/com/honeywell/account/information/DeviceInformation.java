@@ -1,5 +1,6 @@
 package com.honeywell.account.information;
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,6 +58,30 @@ public class DeviceInformation {
 	public String getVacationHeatSetPoint() {
 		System.out.println(deviceInformation.getJSONObject("vacationHold").get("heatSetpoint"));
 		return String.valueOf(deviceInformation.getJSONObject("vacationHold").get("heatSetpoint"));
+	}
+
+	public int getSensorGroupID() throws Exception {
+		int groupid = 0;
+		if (deviceInformation != null) {
+			groupid = deviceInformation.getJSONArray("groups").getJSONObject(0).getInt("id");
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return groupid;
+	}
+	
+	public List<String> getSensorDeviceID(JSONObject SensorListJson) throws Exception {
+		List<String> sensorID = new ArrayList<String>();
+		if (deviceInformation != null) {
+			JSONArray temp = new JSONArray();
+			temp = SensorListJson.getJSONArray("rooms");
+			for (int i = 0; i < temp.length()-1;i++) {
+				sensorID.add(temp.getJSONObject(i+1).get("name").toString());
+			}
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return sensorID;
 	}
 
 	public String getVacationCoolSetPoint() {

@@ -61,3 +61,11 @@ OverlayIcon	ID	overlay_icon	ID	overlay_icon	ID	overlay_icon	ID	Tap to enable.	ID
 SeekBar	ID	seek_bar	ID	seek_bar	ID	seek_bar						
 HumSlider							ID	Humidification_Slider	ID	Humidification_Slider	ID	Humidification_Slider
 WindowProtectionSlider							ID	WindowProtection_Slider	ID	WindowProtection_Slider	ID	WindowProtection_Slider
+DeviceAndSensor	XPATH	//*[@text='Devices & Sensors']	XPATH	//*[@text='Devices & Sensors']	XPATH	//*[@text='Devices & Sensors']						
+SettingsIcon	ID	Settings	ID	Settings	ID	Settings						
+DeleteSensor	XPATH	//*[@text='Delete Sensor']	XPATH	//*[@text='Delete Sensor']	XPATH	//*[@text='Delete Sensor']						
+IdentifySensor	XPATH	//*[@text='Identify Sensor']	XPATH	//*[@text='Identify Sensor']	XPATH	//*[@text='Identify Sensor']						
+MoveSensor	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to a Different Room']						
+DeleteSensorPopUp	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']						
+IdentifySensorImage	ID	sensor_image	ID	sensor_image	ID	sensor_image						
+SensorMotionDetectionToggle	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view						

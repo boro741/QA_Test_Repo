@@ -14,6 +14,8 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.VacationHoldScreen;
@@ -317,6 +319,13 @@ public class VerifyDisplayedPopUp extends Keyword {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"End Vacation Mode popup message is not displayed");
 			}
+			break;
+		}
+		case "SENSORDELETE": {
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+			SchedulingScreen schl = new SchedulingScreen(testCase);
+			flag = flag & fly.isDeleteSensorPopUpVisible();
+			flag = flag & schl.clickOnOkButton();
 			break;
 		}
 		default: {
