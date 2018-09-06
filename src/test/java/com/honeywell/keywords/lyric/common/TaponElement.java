@@ -1,11 +1,13 @@
 package com.honeywell.keywords.lyric.common;
 
 import com.honeywell.commons.coreframework.*;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.screens.DRScreens;
+import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
@@ -72,6 +74,13 @@ public class TaponElement extends Keyword {
 		case "DR CANCEL OK": {
 			DRScreens dp = new DRScreens(testCase);
 			dp.ClickOnOkPopup();
+			break;
+		}
+		case "DELETE SENSOR": {
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+			flag = flag && MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
+			flag = flag && fly.ClickOnHumOptionButton();
+			flag = flag && fly.ClickOnDeleteSensor();
 			break;
 		}
 		default: {

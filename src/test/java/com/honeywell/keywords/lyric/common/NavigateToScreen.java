@@ -670,6 +670,14 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "DEVICE AND SENSORS": {
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+					flag = flag && fly.ClickOnSettingsIcon();
+					flag = flag && fly.ClickOnDeviceAndSensor();
+					break;
+				}
 				case "WINDOW PROTECTION": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));

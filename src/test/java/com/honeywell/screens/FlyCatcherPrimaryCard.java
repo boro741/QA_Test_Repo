@@ -11,8 +11,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 
-import io.appium.java_client.MobileElement;
-
 public class FlyCatcherPrimaryCard extends MobileScreens {
 
 	private static final String screenName = "FlyCatcherPrimaryCard";
@@ -348,5 +346,34 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public WebElement getPickerElement(){
 		return MobileUtils.getMobElement(objectDefinition, testCase, "VentilationTimerPicker");
 	}
+	
+	public boolean ClickOnDeviceAndSensor(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeviceAndSensor");
+	}
+	
+	public boolean ClickOnSettingsIcon(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SettingsIcon");
+	}
+	
+	public boolean ClickOnDeleteSensor(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensor");
+	}
+	
+	public boolean ClickOnIdentifySensor(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "IdentifySensor");
+	}
+	
+	public boolean ClickOnMoveSensor(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "MoveSensor");
+	}
 
+	public boolean isDeleteSensorPopUpVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorPopUp");
+	}
+	
+	public boolean isIdentifySensorImageVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IdentifySensorImage");
+	}
+
+	
 }

@@ -9,11 +9,11 @@ So that i can move the sensor as per my prefernce
   I want to be informed on Delete options 
   So that pop up message is displayed to delete on stat
   
-    Given user has get the Sensor list from the stat
+    Given user fetches Sensor list from the stat
       And user launches and logs in to the Lyric application
       And user navigates to "Device and Sensors" screen from the "Dashboard" screen
-     When user selects "Delete" optionss
-     Then user is displayed with "Pop Up" 
+     When user taps on "Delete Sensor"
+     Then user should receive a "SensorDelete" popup
   
   @SensorMoveSensor
   Scenario: To move an sensos from one room to another 
@@ -24,7 +24,7 @@ So that i can move the sensor as per my prefernce
     Given user has get the Sensor list from the stat
       And user launches and logs in to the Lyric application
       And user navigates to "Device and Sensors" screen from the "Dashboard" screen
-     When user selects "Move" options
+     When user taps on "Move to a Different Room"
       And user moves "Exisintg Room" to "New Room"
      Then Verify if sensor is moves to "New Room"
       And user navigates to "Priority" screen from the "Device and Sensors" screen
@@ -39,7 +39,7 @@ So that i can move the sensor as per my prefernce
     Given user has get the Sensor list from the stat
       And user launches and logs in to the Lyric application
       And user navigates to "Device and Sensors" screen from the "Dashboard" screen
-     When user selects "Move" options
+     When user taps on "Move to a Different Room"
       And user moves sensor to Exisiting Rooms 
      Then Veirfy if "Pop up" is displayed 
      When user navigates to "Priority" screen from the "Device and Sensors" screen
@@ -54,7 +54,7 @@ So that i can move the sensor as per my prefernce
     Given user has get the Sensor list from the stat
       And user launches and logs in to the Lyric application
       And user navigates to "Device and Sensors" screen from the "Dashboard" screen
-     When user selects "Identify" options
+     When user taps on "Identify Sensor"
      Then user is displayed "Identify sensor" screen  
       And verify if configured sensor is blinking 
   
