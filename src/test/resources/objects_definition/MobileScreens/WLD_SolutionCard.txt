@@ -1,11 +1,12 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
-NextUpdateTime	id	next_update_text	id	next_update_text	id	next_update_text	name	Events_1_0_Subtitle	name	Events_1_0_Subtitle	name	Events_1_0_Subtitle
-TemperatureGraph	id	mpa_chart	id	mpa_chart	id	mpa_chart	NAME	icon_arrow_up	NAME	icon_arrow_up	NAME	icon_arrow_up
-HumidityGraph	id	mpa_chart	id	mpa_chart	id	mpa_chart						
-CurrentHumidity	id	wld_temp_humidity_value	id	wld_temp_humidity_value	id	wld_temp_humidity_value						
-LastUpdate	id	device_last_update_time	id	device_last_update_time	id	device_last_update_time	name	countDownTimer	name	countDownTimer	name	countDownTimer
-CurrentTemperature	id	wld_temp_humidity_value	id	wld_temp_humidity_value	id	wld_temp_humidity_value	name	activityIndicator	name	activityIndicator	name	activityIndicator
-HumidityTab	xPATH	//*[@text='Humidity']	xPATH	//*[@text='Humidity']	xPATH	//*[@text='Humidity']	NAME	icon_arch	NAME	icon_arch	NAME	icon_arch
-TemperatureTab	xPATH	//*[@text='Temperature']	xPATH	//*[@text='Temperature']	xPATH	//*[@text='Temperature']	ID	nav bar back				
-RemainingBattery	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	name	Events_1_0_Title	name	Events_1_0_Title	name	Events_1_0_Title
+NextUpdateTime	id	next_update_text	id	next_update_text	id	next_update_text	id	next_update_text	id	next_update_text	id	next_update_text
+TemperatureGraph	id	chart_view_layout	id	chart_view_layout	id	chart_view_layout	id	Temperature_chart	id	Temperature_chart	id	Temperature_chart
+HumidityGraph	id	chart_view_layout	id	chart_view_layout	id	chart_view_layout	id	Humidity_chart	id	Humidity_chart	id	Humidity_chart
+CurrentHumidity	id	wld_temp_humidity_value	id	wld_temp_humidity_value	id	wld_temp_humidity_value	id	wld _humidity_value	id	wld _humidity_value	id	wld _humidity_value
+LastUpdate	id	device_last_update_time	id	device_last_update_time	id	device_last_update_time	id	device_last_update_time	id	device_last_update_time	id	device_last_update_time
+CurrentTemperature	id	wld_temp_humidity_value	id	wld_temp_humidity_value	id	wld_temp_humidity_value	id	wld_temp_value	id	wld_temp_value	id	wld_temp_value
+HumidityTab	xPATH	//*[@text='Humidity']	xPATH	//*[@text='Humidity']	xPATH	//*[@text='Humidity']	id	Humidity	id	Humidity	id	Humidity
+TemperatureTab	xPATH	//*[@text='Temperature']	xPATH	//*[@text='Temperature']	xPATH	//*[@text='Temperature']	id	Temperature	id	Temperature	id	Temperature
+RemainingBattery	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text
 Settings	id	action_settings	id	action_settings	id	action_settings						
+SetupComplete	xPATH	//*[@text='Setup Complete!']	xPATH	//*[@text='Setup Complete!']	xPATH	//*[@text='Setup Complete!']						
