@@ -66,8 +66,8 @@ public class WLDSolutionCard extends MobileScreens {
 	{
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "NextUpdateTime");
 	}
-	public void clickOnHumidityGraphTitle()
+	public boolean clickOnHumidityGraphTitle()
 	{
-		MobileUtils.clickOnElement(objectDefinition, testCase, "HumidityTab");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumidityTab");
 	}
 }

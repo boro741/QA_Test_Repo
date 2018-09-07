@@ -286,7 +286,13 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "HUMIDITY GRAPH": {
 					WLDSolutionCard humi = new WLDSolutionCard(testCase);
-					humi.clickOnHumidityGraphTitle();
+					flag = flag & humi.clickOnHumidityGraphTitle();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "HUMIDITY GRAPH Tab was Clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to click HUMIDITY GRAPH Tab");
+					}
 					break;
 				}
 				default: {

@@ -1217,7 +1217,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
 								if (flag) {
 									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						} else {
+									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());
+									} else {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"The "+parameter+" is not vissible");
 								}break;
@@ -1282,7 +1283,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
 						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-							Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						} else {
+							Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						
+							} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"The "+parameter+" is not vissible");
 						}break;
