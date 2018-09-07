@@ -559,8 +559,7 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase, inputs);
 					break;
-				}
-				
+				}				
 				// Navigates to camera solution card screen from dashboard screen
 				case "CAMERA SOLUTION CARD":{
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);
