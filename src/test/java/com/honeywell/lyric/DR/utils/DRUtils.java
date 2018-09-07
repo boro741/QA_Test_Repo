@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.DR.VerifyDRMessage;
 import com.honeywell.keywords.lyric.chil.TriggerDREvent;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.DRScreens;
@@ -154,6 +155,7 @@ public class DRUtils extends MobileScreens {
 						"Verifying Savings Event Pop Up Message : Savings Event alert title is not correctly displayed");
 			}
 			flag = flag & dr.ClickOnOkPopup();
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 		}
 
 		// IOS

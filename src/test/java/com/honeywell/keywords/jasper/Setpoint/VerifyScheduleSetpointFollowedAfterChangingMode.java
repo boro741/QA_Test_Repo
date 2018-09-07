@@ -14,6 +14,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.screens.PrimaryCard;
 
 public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 
@@ -119,6 +120,53 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 
 				break;
 			}
+			 case"HEATING TO":
+             {
+                 String HeatingToValue = "";
+                 Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+                 String currentStepperSetpoint = currentStepperSetpoint1.toString();
+                 PrimaryCard PCS = new PrimaryCard(testCase);
+                 String HeatingToValue1 = PCS.getCurrentHeatingOrCoolingSetpointValue();
+                 String Value = HeatingToValue1.replace("HEATING TO ", "");
+                 if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+                     HeatingToValue = Value.replace("°", "");}
+                 else{
+                     HeatingToValue = Value.replace("˚", "");
+                 }
+                 if(HeatingToValue.equals(currentStepperSetpoint)){
+                     Keyword.ReportStep_Pass(testCase,
+                                             "Stepper stepoint is following current Heating to setpoint:" +HeatingToValue);
+                 }else {
+                     flag = false;
+                     Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                "Stepper stepoint is not following current heating to setpoint" +HeatingToValue + " StepperSetpoint: "+currentStepperSetpoint);
+                 }
+                 break;
+             }
+			   case"COOLING TO":
+               {
+                   String CoolingToValue = "";
+                   Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+                   String currentStepperSetpoint = currentStepperSetpoint1.toString();
+                   PrimaryCard PCS = new PrimaryCard(testCase);
+                   String CoolingToValue1 = PCS.getCurrentHeatingOrCoolingSetpointValue();
+                   String Value = CoolingToValue1.replace("COOLING TO ", "");
+                   if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+                       CoolingToValue = Value.replace("°", "");
+                   }
+                   else{
+                       CoolingToValue = Value.replace("˚", "");
+                   }
+                   if(CoolingToValue.equals(currentStepperSetpoint)){
+                       Keyword.ReportStep_Pass(testCase,
+                                               "Stepper stepoint is following current cooling to setpoint:" +CoolingToValue);
+                   }else {
+                       flag = false;
+                       Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                  "Stepper stepoint is not following current cooling to setpoint" +CoolingToValue + " StepperSetpoint: "+currentStepperSetpoint);
+                   }
+                   break;
+               }
 
 			}
 		}

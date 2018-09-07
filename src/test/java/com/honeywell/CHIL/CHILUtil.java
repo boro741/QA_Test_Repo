@@ -3578,4 +3578,41 @@ public class CHILUtil implements AutoCloseable {
 
 		return result;
 	}
+	
+	public int setCoolSetPoint(long locationID, String deviceID, int setpoint) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/thermostat/coolSetpoint", locationID, deviceID);
+				String headerData = String.format("{\"thermostatSetpoint\":\"%s\"}", setpoint);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	public int setHeatSetPoint(long locationID, String deviceID,double setpoint) {
+		int result = -1;
+		try {
+			if (isConnected) {
+				String url = chilURL
+						+ String.format("api/locations/%s/devices/%s/thermostat/HeatSetpoint", locationID, deviceID);
+				String headerData = String.format("{\"thermostatSetpoint\":\"%s\"}}", setpoint);
+				try {
+					result = doPutRequest(url, headerData).getResponseCode();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
 }

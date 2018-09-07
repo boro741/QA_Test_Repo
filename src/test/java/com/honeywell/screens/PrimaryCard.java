@@ -1077,6 +1077,19 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isNoScheduleTextAvailable() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoSchedule");
 	}
+	public String getCurrentHeatingOrCoolingSetpointValue() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "HeatingCoolingToValue");
+	}
+	
+	public boolean isHeatingTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingText", 3, false);
+	}
+	public boolean isCoolingTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoolingText", 3, false);
+	}
+	public boolean isHeatingCoolingTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingCoolingText", 3, false);
+	}
 	
 	public boolean isEmergencyHeatStatusVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmergencyHeatStatus");
