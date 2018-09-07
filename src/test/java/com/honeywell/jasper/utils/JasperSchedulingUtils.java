@@ -8113,7 +8113,7 @@ public class JasperSchedulingUtils {
 						}
 					}
 					// end/////////////////////////
-					else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
+					else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("FLYCATCHER")) {
 						List<WebElement> weekdayschedule_periodtitle = ss.getWeekdayTitleListElements();
 						Keyword.ReportStep_Pass(testCase,
 								"*********************** Verifying Weekday-Weekend schedule period time and schedule period heat set points against set values **************************");
@@ -8994,7 +8994,7 @@ public class JasperSchedulingUtils {
 									}
 								}
 							}
-						} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
+						} else if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA") || inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("FLYCATCHER")) {
 							if (ss.isEverydaySchedulePeriodTimeVisible(6)) {
 								schedule_periodtime = ss.getEverydaySchedulePeriodTimesElements();
 							} else {

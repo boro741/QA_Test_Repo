@@ -154,7 +154,7 @@ public class CreateDefaultScheduleMultiStat extends Keyword {
 						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME, changedTime);
 						changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("GeofenceSleepEndTime"), true, 1, 10);
 						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME, changedTime);
-					} else if (jasperStatType.toUpperCase().contains("NA")) {
+					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
 						String changedTime = JasperSchedulingUtils.addHoursAndMinutesToTime(testCase,defaultValues.get("GeofenceSleepStartTime"), true, 1,
 								15);
 						inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME, changedTime);
