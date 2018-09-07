@@ -25,6 +25,7 @@ import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
+import com.honeywell.lyric.das.utils.DASUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -755,6 +756,7 @@ public class NavigateToScreen extends Keyword {
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+//					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
 				}
 				case "SOLUTION": {
@@ -837,6 +839,58 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					if (pc.isCogIconVisible()) {
+						flag = flag & pc.clickOnCogIcon();
+				}
+					break;
+				}
+				case "CAMERA CONFIGURATION":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						flag = flag & pc.clickOnCogIcon();
+						flag = flag & ds.navigateFromCameraSolutionScreenToCameraConfigurationScreen(testCase);
+				}
+					
+				break;
+			} case "MANAGE ALERTS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToManageAlertsScreen(testCase, inputs);
+			}
+				break;
+			} case "MOTION DETECTION SETTINGS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(testCase, inputs);
+			}
+				break;
+			} case "NIGHT VISION SETTINGS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(testCase, inputs);
+			}
+				break;
+			} case "VIDEO QUALITY SETTINGS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
+			}
+				break;
+			}
+			}
 			}
 
 			else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {

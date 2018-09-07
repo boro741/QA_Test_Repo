@@ -22,6 +22,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public static final String NIGHTSECURITYSTATEINANDROID = "Sleep";
 	public static final String OFFSECURITYSTATEINANDROID = "OFF";
 
+
 	public SecuritySolutionCardScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -57,9 +58,9 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			} else if (securityState.equalsIgnoreCase("OFF")) {
 				return MobileUtils.isMobElementExists("XPATH",
 						"//android.widget.LinearLayout[@content-desc='" + OFFSECURITYSTATEINANDROID + "']", testCase);
-			} else {
+			}else {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//android.widget.LinearLayout[@content-desc='" + securityState + "']", testCase);
+						"//android.widget.LinearLayout[@content-desc='"+securityState+"']", testCase);
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {

@@ -2,20 +2,20 @@
 Feature: DAS Command And Control 
 As a user I want to change the status of my DAS device
 
-@CommandControlviewSecuritysolutioncard	
+@CommandControlviewSecuritysolutioncard	@UIAutomated
 Scenario: As a user I want to see all modes in my security solution card 
 Given user launches and logs in to the Lyric application
 #When user is set to "Home" mode through CHIL
 Then user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user should be displayed with the following "SECURITY MODE" options:
-| SECURITY MODE		|
+| securityState		|
 | Home				|
 | Away				|
 | Night				|
 | Off				|
 
 
-@CommandControlSecuritycardModeFromHomeandOFFChangeActivitlyLogAndPushNotificaiton	@Automated
+@CommandControlSecuritycardModeFromHomeandOFFChangeActivitlyLogAndPushNotificaiton	@UIAutomated
 Scenario Outline: As a user I want to switch to different system modes from OFf and Home in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -61,7 +61,7 @@ Examples:
 #|60| OFF | Away |SET TO AWAY |switched to Away by app|
 #|60| OFF| Night |SET TO NIGHT |switched to Night by app|
 
-@CommandControlSecuritycardModetoOFFChangeActivitlyLogAndPushNotificaiton	
+@CommandControlSecuritycardModetoOFFChangeActivitlyLogAndPushNotificaiton	 @UIAutomated
 Scenario Outline: As a user I want to switch to different system modes to OFf in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -97,7 +97,7 @@ Examples:
 #|60| Away |switched to Night by app|
 
 
-@CommandControlSecuritycardModeToHomeChangeActivitlyLogAndPushNotificaiton	
+@CommandControlSecuritycardModeToHomeChangeActivitlyLogAndPushNotificaiton	 @UIAutomated
 Scenario Outline: As a user I want to switch to different system modes To Home in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -134,7 +134,7 @@ Examples:
 #|60| Night | switched to Home by app|
 #|60| OFF | switched to Home by app|
 
-@CommandControlDasboardModetoHomeAwayAndNightChangePushNotificaiton
+@CommandControlDasboardModetoHomeAwayAndNightChangePushNotificaiton @UIAutomated
 Scenario Outline: As a user I want to verify Switching modes home , away, night on Dashboard 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -177,7 +177,7 @@ Examples:
 #|60| OFF| Away |
 #|60| OFF| Night |
 
-@CommandControlDasboardOFFModeStatusAndPushNotificaiton
+@CommandControlDasboardOFFModeStatusAndPushNotificaiton  @UIAutomated
 Scenario Outline: As a user I want to verify OFF mode status in dashboard screen 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -219,7 +219,7 @@ Examples:
 #|60| Night |
 #|60| OFF | 
 
-@CommandControlDasboardModefromSolutionCardChangePushNotificaiton
+@CommandControlDasboardModefromSolutionCardChangePushNotificaiton  @UIAutomated
 Scenario Outline: As a user I want to verify different states in dashboard screen by updating states in solutions card screen
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application

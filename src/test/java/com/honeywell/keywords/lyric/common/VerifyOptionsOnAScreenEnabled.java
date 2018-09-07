@@ -115,7 +115,6 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						int endx = (dimension.width * 22) / 100;
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					}
 					if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
 						Keyword.ReportStep_Pass(testCase, "Camera LED  section is enabled");
