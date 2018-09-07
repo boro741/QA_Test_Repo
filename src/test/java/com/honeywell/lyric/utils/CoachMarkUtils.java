@@ -252,6 +252,8 @@ public class CoachMarkUtils {
 				}
 				counter++;
 			}
+		}else {
+			System.out.println("Coach marks is not displayed");
 		}
 		return flag;
 	}

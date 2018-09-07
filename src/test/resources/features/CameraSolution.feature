@@ -157,14 +157,14 @@ As a user,i should be able to get live streaming of the camera and to get motion
     |Talk     |
     |Attention|
     When user selects "Snapshot" from "Camera Solution Card" screen
-    Then user should be displayed with "saved snapshot message" in "Camera Solution card" screen
+    Then user should be displayed with the "saved snapshot message" description
    # And verify "snapshot" is available in gallery
    
     
    @Snapshot_WhenCameraOnlineCameraservicesDisabled @P4
    Scenario: As a user i should not be able to take snapshot from live stream when my camera is online
-    Given user logs in to Lyric app
-     And user disabled the camera services
+    Given user launches and logs in to the Lyric application
+    And user disabled the camera services
     When user navigates to "Camera card Solution" screen from "Dashboard" screen
      And user DAS camera is set to "on"
     Then user should be displayed with "Live streaming"

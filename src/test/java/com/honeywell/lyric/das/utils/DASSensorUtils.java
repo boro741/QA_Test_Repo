@@ -354,7 +354,6 @@ public class DASSensorUtils {
 							MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
 							//code to click on clear tamper
-
 							SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 							flag = flag & settingScreen.clickOnClearCoverTamperOption();
 							try {

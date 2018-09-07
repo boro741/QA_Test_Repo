@@ -754,7 +754,6 @@ public class NavigateToScreen extends Keyword {
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-
 					break;
 				}
 				case "SOLUTION": {
@@ -837,6 +836,58 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					if (pc.isCogIconVisible()) {
+						flag = flag & pc.clickOnCogIcon();
+				}
+					break;
+				}
+				case "CAMERA CONFIGURATION":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						flag = flag & pc.clickOnCogIcon();
+						flag = flag & ds.navigateFromCameraSolutionScreenToCameraConfigurationScreen(testCase);
+				}
+					
+				break;
+			} case "MANAGE ALERTS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToManageAlertsScreen(testCase, inputs);
+			}
+				break;
+			} case "MOTION DETECTION SETTINGS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(testCase, inputs);
+			}
+				break;
+			} case "NIGHT VISION SETTINGS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(testCase, inputs);
+			}
+				break;
+			} case "VIDEO QUALITY SETTINGS":{
+				PrimaryCard pc = new PrimaryCard(testCase);
+				DASSettingsUtils ds = new DASSettingsUtils();
+				if (pc.isCogIconVisible()) {
+					flag = flag & pc.clickOnCogIcon();
+					flag = flag & ds.navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
+			}
+				break;
+			}
+			}
 			}
 
 			else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
@@ -965,6 +1016,7 @@ public class NavigateToScreen extends Keyword {
 								"Did not navigated to Keyfob List Settings Screen");
 					}
 					break;
+					
 				}
 				default: {
 					flag = false;
@@ -986,6 +1038,18 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
+			   switch (screen.get(0).toUpperCase()) {
+			   case "SENSOR LIST": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				flag =   flag & sc.isSensorsTextVisible();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+			}
+			}
 			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GLOBAL DRAWER": {

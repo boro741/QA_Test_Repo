@@ -2,20 +2,20 @@
 Feature: DAS Command And Control 
 As a user I want to change the status of my DAS device
 
-@CommandControlviewSecuritysolutioncard	
+@CommandControlviewSecuritysolutioncard	@UIAutomated
 Scenario: As a user I want to see all modes in my security solution card 
 Given user launches and logs in to the Lyric application
 #When user is set to "Home" mode through CHIL
 Then user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user should be displayed with the following "SECURITY MODE" options:
-| SECURITY MODE		|
+| securityState		|
 | Home				|
 | Away				|
 | Night				|
 | Off				|
 
 
-@CommandControlSecuritycardModeFromHomeandOFFChangeActivitlyLogAndPushNotificaiton	@Automated
+@CommandControlSecuritycardModeFromHomeandOFFChangeActivitlyLogAndPushNotificaiton	@UIAutomated
 Scenario Outline: As a user I want to switch to different system modes from OFf and Home in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -61,7 +61,7 @@ Examples:
 #|60| OFF | Away |SET TO AWAY |switched to Away by app|
 #|60| OFF| Night |SET TO NIGHT |switched to Night by app|
 
-@CommandControlSecuritycardModetoOFFChangeActivitlyLogAndPushNotificaiton	
+@CommandControlSecuritycardModetoOFFChangeActivitlyLogAndPushNotificaiton	 @UIAutomated
 Scenario Outline: As a user I want to switch to different system modes to OFf in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -97,7 +97,7 @@ Examples:
 #|60| Away |switched to Night by app|
 
 
-@CommandControlSecuritycardModeToHomeChangeActivitlyLogAndPushNotificaiton	
+@CommandControlSecuritycardModeToHomeChangeActivitlyLogAndPushNotificaiton	 @UIAutomated
 Scenario Outline: As a user I want to switch to different system modes To Home in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -134,7 +134,7 @@ Examples:
 #|60| Night | switched to Home by app|
 #|60| OFF | switched to Home by app|
 
-@CommandControlDasboardModetoHomeAwayAndNightChangePushNotificaiton
+@CommandControlDasboardModetoHomeAwayAndNightChangePushNotificaiton @UIAutomated
 Scenario Outline: As a user I want to verify Switching modes home , away, night on Dashboard 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -177,7 +177,7 @@ Examples:
 #|60| OFF| Away |
 #|60| OFF| Night |
 
-@CommandControlDasboardOFFModeStatusAndPushNotificaiton
+@CommandControlDasboardOFFModeStatusAndPushNotificaiton  @UIAutomated
 Scenario Outline: As a user I want to verify OFF mode status in dashboard screen 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -219,7 +219,7 @@ Examples:
 #|60| Night |
 #|60| OFF | 
 
-@CommandControlDasboardModefromSolutionCardChangePushNotificaiton
+@CommandControlDasboardModefromSolutionCardChangePushNotificaiton  @UIAutomated
 Scenario Outline: As a user I want to verify different states in dashboard screen by updating states in solutions card screen
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -263,4 +263,135 @@ Examples:
 #|60| OFF| Away |
 #|60| OFF| Night |
 
+
+@SensorstatusHomemode @P3  @Automated
+Scenario Outline: As a user i want to have expected sensors status when my security panel is in Home mode Off mode
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+When user navigates to "Sensors" screen from "Dashboard" screen
+Then user should be displayed with the "Sensors" description
+When user navigates to "Sensors Status" screen from "Security card" screen
+Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List"
+| Sensors       | Sensor Status |
+| Door Sensor   | Closed        |
+| Window Sensor | Closed        |
+| Motion Sensor | Standby       |
+| OSMV Sensor   | Standby       |
+| ISMV Sensor   | Standby       |
+Examples:
+|Mode|
+|Home|
+|OFF |
+ 
+ 
+@SensorstatusArmmode @P3   @Automated
+Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode Night mode
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+When user navigates to "Sensors" screen from "Dashboard" screen
+Then user should be displayed with the "Sensors" description
+When user navigates to "Sensors Status" screen from "Security card" screen
+Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List"
+| Sensors       | Sensor Status |
+| Door Sensor   | Closed        |
+| Window Sensor | Closed        |
+| Motion Sensor | Active        |
+| OSMV Sensor   | Active        |
+| ISMV Sensor   | Active        |
+Examples:
+|Mode |
+|Away |
+|Night|
+ 
+ 
+@CoverTamperSensorstatus @P2     @UIAutomating
+Scenario Outline: As a user i want to get offline sensors status
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+When user navigates to "Security Solution Card" screen from "Dashboard" screen
+Then user should be displayed with the "Sensors" description
+When user navigates to "Sensor List" screen from "Security Solution Card" screen
+#And user creates "Cover Tamper" at the <Sensor>
+Then user should be displayed with the "Cover Tampered" description
+When user selects tampered <Sensor> from "Sensors List" screen
+Then user should be displayed with the "Cover Tamper" description
+When user navigates to  "Security card" screen from "Cover Tamper" screen
+Then user should be displayed with the "Cover Tamper" description
+When user clears "Cover Tamper" at the <Sensor>
+And user selects the <Sensor>
+Then user should be displayed with the "Cover Tamper description" Screen
+When user selects the "Clear Tamper"
+Then user navigates to  "Security card" screen from "Sensor List" screen
+When user navigates to  "Security card" screen from "Cover Tamper description" screen
+Then user should be displayed with the "Cover Tamper description"
+When user navigates to "Activity Log" Screen from "Security crad" screen
+Then user should be displayed with the "{Sensor name} Cover Tamper " <mode> status
+And user should be displayed with "{Sensor name} Cover Tamper Restored " <mode> status
+When user navigates to "Sensor list" screen from "Security card"
+Then user should not be displayed with "Cover Tamper status"
+Examples:
+|Mode|Sensor|
+|Away|OSMV Sensor|
+|Night|Motion Sensor|
+|Night|ISMV Sensor|
+|Night|OSMV Sensor|
+|Home|Door Sensor|                                   
+|Home|Window Sensor|                            
+|Home|Motion Sensor|
+|Home|ISMV Sensor|
+|Home|OSMV Sensor|
+|Off |Door Sensor|                                        
+|Off |Window Sensor|                 
+|Off |Motion Sensor|
+|Off |ISMV Sensor|
+|Off |OSMV Sensor|
+
+
+@OfflineSensorstatus @P2    @UIAutomating
+Scenario Outline: As a user i want to get offline sensors status
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+When user navigates to "Security Solution Card" screen from "Dashboard" screen
+Then user should be displayed with the "Sensors" description
+When user navigates to "Sensor List" screen from "Security Solution Card" screen
+And user creates "Offline" at the <Sensor>
+Then user should be displayed with the"Offline status"
+When user selects the <Sensor>
+Then user should be displayed with the "Offline description" Screen
+When user navigates to  "Security card" screen from "Offline description" screen
+Then user should be displayed with the "Offline description"
+When user clears "Offline" at the <Sensor>
+Then user should be displayed with the "Sensors description"
+When user navigates to "Activity Log" Screen from "Security crad" screen
+Then user should be displayed with the "{Sensor name} Offline " <mode> status
+And user should be displayed with "{Sensor name} Offline Restored " <mode> status
+When user navigates to "Sensor list" screen from "Security card"
+Then user should not be displayed with "Offline status"
+Examples:
+|Status|Sensor|
+|Away|Door Sensor|                                    
+|Away|Window Sensor|                             
+|Away|Motion Sensor|
+|Away|ISMV Sensor|
+|Away|OSMV Sensor
+|Night|Door Sensor|                                    
+|Night|Window Sensor|                             
+|Night|Motion Sensor|
+|Night|ISMV Sensor|
+|Night|OSMV Sensor|
+|Home|Door Sensor|                                   
+|Home|Window Sensor|                            
+|Home|Motion Sensor|
+|Home|ISMV Sensor|
+|Home|OSMV Sensor|
+|Off |Door Sensor|                                        
+|Off |Window Sensor|                 
+|Off |Motion Sensor|
+|Off |ISMV Sensor|
+|Off |OSMV Sensor|
+ 
 

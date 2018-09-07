@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -152,7 +153,10 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+			} 
+			
+			
+			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
 				inputs.setInputValue("SystemMode", parameters.get(0).toUpperCase());
 				switch (parameters.get(0).toUpperCase()) {
 				case "INFO": {

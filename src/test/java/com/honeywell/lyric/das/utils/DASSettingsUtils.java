@@ -423,6 +423,33 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromCameraSolutionScreenToCameraConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen ac = new CameraSettingsScreen(testCase);
+		try {
+//			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+//					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+//			;
+//			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+
+				// scroll to bottom starts
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Camera Configuration");
+				// ends
+				//// flag = flag & ac.clickONCameraSetingsOption("Camera Configuration");
+				flag &= ac.clickOnCameraConfiguration();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 
 	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase,
 			TestCaseInputs inputs, String CameraName) {
@@ -532,6 +559,21 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
+			if (cs.isManageAlertsLabelVisible(5)) {
+				cs.clickOnManageAlertsLabel();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromCameraSolutionScreenToManageAlertsScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
 			if (cs.isManageAlertsLabelVisible(5)) {
 				cs.clickOnManageAlertsLabel();
 			}
@@ -888,6 +930,23 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			if (cs.isMotionDetectionLabelVisible(testCase, 5)) {
+				cs.clickOnMotionDetectionLabel();
+				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+
 
 	public static boolean navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
@@ -953,6 +1012,22 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
+			if (cs.isNightVisionLabelVisible(5)) {
+				cs.clickOnNightVisionLabel();
+				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 
 	/**
 	 * <h1>Navigate from Dashboard to Camera Video Quality Settings Screen</h1>
@@ -984,6 +1059,22 @@ public class DASSettingsUtils {
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 			}
+			if (cs.isVideoQualityLabelVisible(5)) {
+				cs.clickOnVideoQualityLabel();
+				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public static boolean navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+		try {
 			if (cs.isVideoQualityLabelVisible(5)) {
 				cs.clickOnVideoQualityLabel();
 				CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 3);

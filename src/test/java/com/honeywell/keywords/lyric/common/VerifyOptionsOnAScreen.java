@@ -642,7 +642,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "SECURITY MODE": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-				String fieldTobeVerified = data.getData(i, "SecurityStates");
+				String fieldTobeVerified = data.getData(i, "securityState");
 				try {
 					if (sc.isSecurityStateVisible(fieldTobeVerified)) {
 						Keyword.ReportStep_Pass(testCase, "Security State: '" + fieldTobeVerified
