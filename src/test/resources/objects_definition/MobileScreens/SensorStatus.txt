@@ -4,3 +4,4 @@ SensorListName	id	sensor_name	id	sensor_name	id	sensor_name	xpath	"//*[contains(
 SensorListValue	id	sensor_issue_priority_text	id	sensor_issue_priority_text	id	sensor_issue_priority_text	xpath	"//*[contains(@name,'_value')]"	xpath	"//*[contains(@name,'_value')]"	xpath	"//*[contains(@name,'_value')]"
 SensorListBack	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	name	Back	name	Back	name	Back
 AddButton	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Add	NAME	Add	NAME	Add
+Sensorstatus												

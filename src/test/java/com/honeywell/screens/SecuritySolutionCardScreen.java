@@ -38,6 +38,16 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
 	}
 
+	
+	public boolean isSensorsTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton");
+	}
+	
+	public boolean isCoverTamperedTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoverTamperedText");
+	}
+
+
 	public boolean isSecurityStateVisible(String securityState) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

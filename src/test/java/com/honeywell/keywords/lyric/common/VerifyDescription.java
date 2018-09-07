@@ -16,6 +16,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class VerifyDescription extends Keyword {
 
@@ -83,6 +84,12 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SAVED SNAPSHOT MESSAGE")) {
 		    CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 		    flag = flag & cs.isSanpShotSavedTextExists();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORS")) {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & sc.isSensorsTextVisible();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
+		    SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & sc.isCoverTamperedTextVisible();
 		}
 	
 		

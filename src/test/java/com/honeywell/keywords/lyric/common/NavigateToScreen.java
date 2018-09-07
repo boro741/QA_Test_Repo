@@ -49,6 +49,7 @@ import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.ZwaveScreen;
+import com.mysql.cj.jdbc.Driver;
 
 public class NavigateToScreen extends Keyword {
 
@@ -754,7 +755,6 @@ public class NavigateToScreen extends Keyword {
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
-
 					break;
 				}
 				case "SOLUTION": {
@@ -965,6 +965,7 @@ public class NavigateToScreen extends Keyword {
 								"Did not navigated to Keyfob List Settings Screen");
 					}
 					break;
+					
 				}
 				default: {
 					flag = false;
@@ -986,6 +987,18 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
+			   switch (screen.get(0).toUpperCase()) {
+			   case "SENSOR LIST": {
+				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+				flag =   flag & sc.isSensorsTextVisible();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+			}
+			}
 			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GLOBAL DRAWER": {
