@@ -137,7 +137,7 @@ public class SelectElementOnAScreen extends Keyword {
 					PrimaryCard thermo = new PrimaryCard(testCase);
 					flag = flag & thermo.clickOnFanButton();
 					break;
-					
+
 				}
 				default: {
 					flag = false;
@@ -816,7 +816,7 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
 					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")
-					||parameters.get(1).equalsIgnoreCase("Primary Card")) {
+					|| parameters.get(1).equalsIgnoreCase("Primary Card")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "WATCH THE HOW TO VIDEO": {
@@ -1046,13 +1046,7 @@ public class SelectElementOnAScreen extends Keyword {
 			}
 
 			else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")
-						&& parameters.get(0).equals("In a Wall Corner")) {
-					String selectedMountSensorValue = parameters.get(0).replace("In a Wall Corner", "In a wall Corner");
-					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, selectedMountSensorValue);
-				} else {
-					flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
-				}
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
@@ -1155,37 +1149,40 @@ public class SelectElementOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click: " + parameters.get(1));
 					}
-					if (!Schoffoverlay.isScheduleOffOverlayVisible(15)){
+					if (!Schoffoverlay.isScheduleOffOverlayVisible(15)) {
 						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " screen disappered");
 					}
 					break;
 				}
 				}
-				}
-			else if (parameters.get(1).equalsIgnoreCase("thermostat2")) {
+			} else if (parameters.get(1).equalsIgnoreCase("thermostat2")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "PRIMARYCARD": {
-			//		inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-			//		inputs.setInputValue("LOCATION1_NAME", inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+					// inputs.setInputValue("LOCATION1_NAME",
+					// inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					// inputs.setInputValue("LOCATION1_NAME",
+					// inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
 					String device1Name = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
 					System.out.println(locInfo.getDeviceCountOfLocation());
-							for (int i = 1; i <= locInfo.getDeviceCountOfLocation(); i++) {
-								String str = inputs.getInputValue("LOCATION2_DEVICE" + i + "_NAME");
-								if (str != null && !str.isEmpty()) {
-									inputs.setInputValue("LOCATION1_DEVICE1_NAME", str);
-									if (!inputs.getInputValue("LOCATION1_DEVICE1_NAME").equals(device1Name))
-										
-										flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
-												inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
+					for (int i = 1; i <= locInfo.getDeviceCountOfLocation(); i++) {
+						String str = inputs.getInputValue("LOCATION2_DEVICE" + i + "_NAME");
+						if (str != null && !str.isEmpty()) {
+							inputs.setInputValue("LOCATION1_DEVICE1_NAME", str);
+							if (!inputs.getInputValue("LOCATION1_DEVICE1_NAME").equals(device1Name))
+
+								flag = flag && DashboardUtils.selectDeviceFromDashboard(testCase,
+										inputs.getInputValue("LOCATION1_DEVICE2_NAME"));
 							if (flag) {
-									Keyword.ReportStep_Pass(testCase,
-											"Successfully clicked on " + parameters.get(1) + " stat");
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Failed to click: " + parameters.get(1) +" stat");
-								}
-									}}}
+								Keyword.ReportStep_Pass(testCase,
+										"Successfully clicked on " + parameters.get(1) + " stat");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to click: " + parameters.get(1) + " stat");
+							}
+						}
+					}
+				}
 					break;
 				}
 			}

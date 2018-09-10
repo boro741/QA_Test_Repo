@@ -1405,7 +1405,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#And user <Sensor Location> access sensor "enrolled"
+And user <Sensor Location> access sensor "enrolled"
 When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
@@ -1424,9 +1424,9 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
-#When user <Sensor Location> access sensor "Opened"
+When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
-#When user <Sensor Location> access sensor "closed"
+When user <Sensor Location> access sensor "closed"
 Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -1472,8 +1472,8 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com	| SatyaMidhun@08				|
-#| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 #incaserequired
 #| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 #| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
@@ -1572,7 +1572,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 | Home			| Living Room		| Window 		| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 | Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
 | Home			| Living Room		| Window 		| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
@@ -1801,6 +1801,7 @@ Examples:
 | Home			| Living Room		| Window         |Dining Room Window    | Opened        | Closed                |
 | Home			| Living Room		| Window         | Kitchen Window       | Opened        | Closed                |
 
+
 @DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P2			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with default name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -1819,7 +1820,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-When user motion sensor "enrolled"
+#When user motion sensor "enrolled"
 And  user selects "MOTION SENSOR SETUP button" from "Set Up Accessories" screen
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -1878,7 +1879,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Sensor Name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
 | Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 #incaserequired
 #| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 #| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
@@ -1890,6 +1891,7 @@ Examples:
 #| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 #| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 #| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+
 
 @DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom name through DIY registration
@@ -1970,7 +1972,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Custom name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
 | Home			| Living Room		| Honeywell      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
 @DIYRegistrationWithKeyFobEnrollment		@P2			@Automated
@@ -2038,7 +2040,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name		| device name		| Custom name	| Amazon username				| Amazon password		|
-| Home				| Living Room		| Keyfob			| xyxyx@xyx.com					| xyxyx					|
+| Home				| Living Room		| Keyfob			| xyxyxyx@xyx.com				| xyxyxyx				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P2
