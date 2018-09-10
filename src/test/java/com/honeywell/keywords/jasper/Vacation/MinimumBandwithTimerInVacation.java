@@ -50,7 +50,7 @@ public class MinimumBandwithTimerInVacation extends Keyword {
 					endTime = vacationTimeFormatStart.parse(vacationEnd);
 					long dif = endTime.getTime()-startTime.getTime();
 					if(vacationStart.contains("12:") && (vacationStart.contains("AM")||vacationStart.contains("PM"))){
-						if(vacationEnd.contains("01:")){
+						if(vacationEnd.contains("01:") || vacationEnd.contains("1:")){
 							Keyword.ReportStep_Pass(testCase,
 									"Vacation Start and Current Time is 1 hour");
 						}else{

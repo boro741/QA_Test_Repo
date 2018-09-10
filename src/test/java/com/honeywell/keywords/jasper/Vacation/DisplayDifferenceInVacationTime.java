@@ -71,7 +71,6 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 							Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Error Occured:" + e.getMessage());
 						}
-
 					} else {
 						startDateTime = vacationDateFormat.format(dateFormat.parse(startDate.trim()));
 						startDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, startDateTime);
@@ -84,6 +83,7 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					System.out.println("#########deviceTime: " + deviceTime);
 					currentTimeUTC = JasperSetPoint.roundOffTimeToUpcomingNearest15minutes(testCase, deviceTime);
 					System.out.println("#########currentTimeUTC: " + currentTimeUTC);
+					System.out.println("######startDateTimeUTC: " + startDateTimeUTC);
 					if (!currentTimeUTC.equalsIgnoreCase(startDateTimeUTC)) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -192,7 +192,8 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					String currentTimeUTC = "";
 					System.out.println("######deviceTime: " + deviceTime);
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
-					System.out.println("######currentTimeUTC: " + currentTimeUTC);
+					currentTimeUTC = currentTimeUTC.split("T")[0];
+					endDateTimeUTC = endDateTimeUTC.split("T")[0];
 					if (!currentTimeUTC.equalsIgnoreCase(endDateTimeUTC)) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -242,6 +243,11 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					String currentTimeUTC = "";
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
 					System.out.println("######currentTimeUTC: " + currentTimeUTC);
+					currentTimeUTC = currentTimeUTC.split("T")[0];
+					System.out.println("######currentTimeUTC: " + currentTimeUTC);
+					System.out.println("######endDateTimeUTC: " + endDateTimeUTC);
+					endDateTimeUTC = endDateTimeUTC.split("T")[0];
+					System.out.println("######endDateTimeUTC: " + endDateTimeUTC);
 					Keyword.ReportStep_Pass(testCase, currentTimeUTC);
 					Keyword.ReportStep_Pass(testCase, endDateTimeUTC);
 					if (currentTimeUTC.equalsIgnoreCase(endDateTimeUTC)) {
