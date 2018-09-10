@@ -271,7 +271,7 @@ public class VerifyScreen extends Keyword {
 			case "VIDEO CLIP": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					if (dasDIY.isVideoPlayerControlIconInAndroidVisible(10)) {
+					if (dasDIY.isVideoPlayerControlIconInAndroidVisible(30)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 					} else {
@@ -279,7 +279,6 @@ public class VerifyScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 					}
-
 				} else {
 					if (dasDIY.isNavBackIconDisplayedInVideoClipScreen(10)) {
 						Keyword.ReportStep_Pass(testCase,

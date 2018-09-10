@@ -388,7 +388,7 @@ public class JasperVacation {
 			int diffInMinutes = (int) ((dif / 1000) / 60);
 			if (diffInMinutes > 15) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Wait for Vacation start : Differnece between vacation start time and current time is greater than 15 mins");
+						"Wait for Vacation start : Difference between vacation start time and current time is greater than 15 mins");
 				return false;
 			} else if (diffInMinutes < 0) {
 				Keyword.ReportStep_Pass(testCase,

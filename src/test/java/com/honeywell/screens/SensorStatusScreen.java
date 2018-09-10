@@ -30,6 +30,9 @@ public class SensorStatusScreen extends MobileScreens {
 					"//*[@resource-id = 'com.honeywell.android.lyric:id/parent_alert_item']");
 		} else {
 			list = MobileUtils.getMobElements(objectDefinition, testCase, "SensorList");
+			if (list.size() == 0) {
+				list = MobileUtils.getMobElements(objectDefinition, testCase, "AltSensorList");
+			}
 		}
 		return list;
 	}

@@ -1048,19 +1048,42 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isAvailableSensorNameVisible(String availableSensorName) {
+		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			if (availableSensorName.equalsIgnoreCase("In a Wall Corner")) {
+				availableSensorName = "In a wall corner";
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall")) {
+				availableSensorName = "Flat on a wall";
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			} else {
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			}
 		} else {
-			return MobileUtils.isMobElementExists("xpath", "//*[@name='" + availableSensorName + "']", testCase);
+			flag = flag & MobileUtils.isMobElementExists("xpath", "//*[@name='" + availableSensorName + "']", testCase);
 		}
+		return flag;
 	}
 
 	public boolean clickOnAvailableSensorName(String availableSensorName) {
+		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			if (availableSensorName.equalsIgnoreCase("In a Wall Corner")) {
+				availableSensorName = "In a wall corner";
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall")) {
+				availableSensorName = "Flat on a wall";
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			} else {
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			}
 		} else {
-			return MobileUtils.clickOnElement(testCase, "xpath", "//*[@name='" + availableSensorName + "']");
+			flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@name='" + availableSensorName + "']");
 		}
+		return flag;
 	}
 
 	public boolean isSavingSensorLoadingSpinnerTextVisible() {
@@ -1420,6 +1443,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonInFeatureSetUpCompletedScreen")) {
 			flag = flag
 					& MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInFeatureSetUpCompletedScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltRightButton")) {
+			MobileUtils.clickOnElement(objectDefinition, testCase, "AltRightButton");
 		}
 		return flag;
 	}

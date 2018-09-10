@@ -121,21 +121,24 @@ And user navigates to "Vacation" screen from the "Dashboard" screen
 When user selects the stat to edit
 Then user should be able to edit set points in Stats screen
 
+
 @Vacation_EnableDisableIndividualStat			@Automated
 Scenario Outline: As a user I want to enable or disable stat vacation individually
 #Given: User has multiple stats
 When vacation mode is "inactive"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user selects the stat to edit
-And user changes the "Vacation Hold Switch In Stat Screen" to <Condition>
-When user navigates to "Vacation" screen from the "Stats" screen
+When user changes the "Vacation" to "On"
+And user selects the stat to edit
+When user changes the "Vacation Hold Switch In Stat Screen" to <Condition>
+And user navigates to "Vacation" screen from the "Stats" screen
 Then user is displayed with stat status <Stats Value In Vacation> in the vacation screen
 
 Examples: 
       | Condition	| Stats Value In Vacation	| 
       | On			| active					| 
    #   | Off			| No Settings				| 
+      
       
 @Vacation_Enable_DisableMultiStat			@Automated
 Scenario Outline: As a user I want to enable disable multi stat vacation
@@ -152,6 +155,7 @@ Examples:
       | Condition | Vacation Status	| 
   #    | Enable    | Active			| 
       | Disable   | Inactive			|
+
 
 @Vacation_WhenScheduleEnables			@Automated
 Scenario Outline: As a user I want to activate an Vacation settings when Scheduling is active 
