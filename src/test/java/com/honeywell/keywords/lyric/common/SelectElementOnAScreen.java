@@ -153,10 +153,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} 
-			
-			
-			else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Change Mode")) {
 				inputs.setInputValue("SystemMode", parameters.get(0).toUpperCase());
 				switch (parameters.get(0).toUpperCase()) {
 				case "INFO": {
@@ -305,9 +302,7 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
+			}else if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Activate ZWAVE Device")) {
 				switch (parameters.get(0).toUpperCase()) {
@@ -1229,7 +1224,28 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 
 				}
-			}
+			}else if (parameters.get(1).equalsIgnoreCase("Video Quality Settings")) {
+				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "Auto": {
+					flag = flag & Video.ClickOnVideoQualityAutoOption();
+					break;
+				}
+				case "HIGH": {
+					flag = flag & Video.ClickOnVideoQualityHighOption();
+					break;
+				}
+				case "LOW": {
+					flag = flag & Video.ClickOnVideoQualityLowOption();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} 
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

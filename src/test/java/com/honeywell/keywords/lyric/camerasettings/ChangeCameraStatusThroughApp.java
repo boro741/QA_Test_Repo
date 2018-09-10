@@ -46,7 +46,7 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Camera Current status is already ON");
 				} else {
 					cs.clickOnCameraOnButton();
-					Thread.sleep(10000);
+					Thread.sleep(5000);
 					Keyword.ReportStep_Pass(testCase, "Camera Current status is set to ON");
 				}
 			

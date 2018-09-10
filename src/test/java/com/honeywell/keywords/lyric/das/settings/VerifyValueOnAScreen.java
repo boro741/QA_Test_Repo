@@ -990,6 +990,30 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 				}
 			}
+//				else if (parameters.get(0).equalsIgnoreCase("Video Quality")
+//					&& parameters.get(2).equalsIgnoreCase("Video Quality Settings")) {
+//				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
+//				switch (parameters.get(1).toUpperCase()){
+//				case "Auto": {
+//					flag = flag & Video.isVideoQualityAutoSelectedVisible();
+//					break;
+//				}
+//				case "HIGH": {
+//					flag = flag & Video.isVideoQualityHighSelectedVisible();
+//					break;
+//				}
+//				case "LOW": {
+//					flag = flag & Video.isVideoQualityLowSelectedVisible();
+//					break;
+//				}
+//				}
+//				if(flag) {
+//					Keyword.ReportStep_Pass(testCase, "The " + parameters + " has Selected");
+//				} else {
+//					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameters + "has not Selected");
+//				}
+//				flag = true;
+//			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

@@ -11,6 +11,7 @@ import com.honeywell.lyric.utils.*;
 import com.honeywell.screens.*;
  */
 
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -70,6 +71,7 @@ public class NavigateToScreen extends Keyword {
 		return flag;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	@KeywordStep(gherkins = "^user navigates to \"(.*)\" screen from the \"(.*)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
@@ -133,7 +135,22 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "CAMERA SETTINGS": {
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					if (sensorScreen.isCogIconVisible()) {
+						flag = flag & sensorScreen.clickOnCogIcon();
+					}
+					break;
+				}
+				case "THERMOSTAT SOLUTION CARD": {
+					Dashboard sensorScreen = new Dashboard(testCase);
+					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
+					break;
+				}
+				}
+			}else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -543,6 +560,11 @@ public class NavigateToScreen extends Keyword {
 				// Navigates to camera solution card screen from dashboard screen
 				case "CAMERA SOLUTION CARD":{
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);
+					break;
+				}
+			//	Navigates to DAS camera solution card screen from dashboard screen
+				case "DAS CAMERA SOLUTION CARD":{
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
 					break;
 				}
 				

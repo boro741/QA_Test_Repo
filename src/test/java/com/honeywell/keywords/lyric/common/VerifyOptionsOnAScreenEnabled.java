@@ -143,6 +143,52 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			}
 			break;
 		}
+		case "DAS CAMERA SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Options");
+			switch (parameter.toUpperCase()) {
+			case "MANAGE ALERTS": {
+				flag = flag & cs.isManangeAlertsEnabled();
+				break;
+			}
+			case "MOTION DETECTION": {
+				flag = flag & cs.isMotionDetectionEnabled();
+				break;
+			}
+			case "PEOPLE DETECTION": {
+				flag = flag & cs.isPeopleDetectionEnabled();
+				break;
+			}
+			case "NIGHT VISION": {
+				flag = flag & cs.isNightVisionEnabled();
+				break;
+			}
+			case "VIDEO QUALITY": {
+				flag = flag & cs.isVideoQualityEnabled();
+				break;
+			}
+			case "CAMERA ON IN HOME MODE": {
+				flag = flag & cs.isCameraOnInHomeModeEnabled();
+				break;
+			}
+			case "CAMERA ON IN NIGHT MODE": {
+				flag = flag & cs.isCameraOnInNigtModeEnabled();
+				break;
+			}
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "The " + parameter + "has Enabled");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						" The " + parameter + " has not Enabled");
+			}
+			flag = true;
+			
+		}break;
+		}
+
+		
 
 		case "THERMOSTAT ICONS": {
 			PrimaryCard thermo = new PrimaryCard(testCase);

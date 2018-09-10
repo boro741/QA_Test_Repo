@@ -92,6 +92,51 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
+		
+		case "DAS CAMERA SETTINGS": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Options");
+			switch (parameter.toUpperCase()) {
+			case "MANAGE ALERTS": {
+				flag = flag & cs.isManangeAlertsDisabled();
+				break;
+			}
+			case "MOTION DETECTION": {
+				flag = flag & cs.isMotionDetectionDisabled();
+				break;
+			}
+			case "PEOPLE DETECTION": {
+				flag = flag & cs.isPeopleDetectionDisabled();
+				break;
+			}
+			case "NIGHT VISION": {
+				flag = flag & cs.isNightVisionDisabled();
+				break;
+			}
+			case "VIDEO QUALITY": {
+				flag = flag & cs.isVideoQualityDisabled();
+				break;
+			}
+			case "CAMERA ON IN HOME MODE": {
+				flag = flag & cs.isCameraOnInHomeModeDisabled();
+				break;
+			}
+			case "CAMERA ON IN NIGHT MODE": {
+				flag = flag & cs.isCameraOnInNigtModeDisabled();
+				break;
+			}
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "The " + parameter + "has Disabled");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						" The " + parameter + " has not Disabled");
+			}
+			flag = true;
+			
+		}break;
+		}
 		case "VIDEO SETTINGS": {
 			try {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

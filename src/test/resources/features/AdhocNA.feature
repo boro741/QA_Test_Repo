@@ -55,7 +55,7 @@ When user navigates to "thermostat solution card" screen from the "thermostat Da
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
 When user changes system mode to <ChangeMode>
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 Examples:
 | Mode  | ChangeMode		| Period |
 | Heat  | Cool        	| WAKE   |
@@ -71,6 +71,8 @@ Examples:
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingschedule		@Automated
 Scenario Outline:  To verify following base switching  mode is changed for Heat, auto, cool system with auto changeover enabled
 Given user has <Mode> system mode
+Then user thermostat is set to "time based" schedule
+And user thermostat has <Period> currently following in "Time Based" schedule
 When user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
@@ -79,17 +81,25 @@ Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 And verify the "Following Schedule Not Displayed" on the "PRIMARY CARD" screen
 When user changes system mode to <ChangeMode>
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 Examples:
- | Mode  | ChangeMode |
- | Heat  | Cool       |
-#| Cool  | Auto       |
-#| Heat  | Cool       |
-#| Heat  | Cool       |
-#| Cool  | Heat       |
-#| Cool  | Heat       |
-#| Cool  | Heat       |
-#| Cool  | Heat       |
+| Mode  | ChangeMode | Period | 
+| Heat  | Cool       | WAKE | 
+| Heat  | Cool       | AWAY |
+| Heat  | Cool       | HOME |
+| Heat  | Cool       | SLEEP |   
+#| Cool  | Auto       | WAKE | 
+#| Cool  | Auto       | AWAY |
+#| Cool  | Auto       | HOME |
+#| Cool  | Auto       | SLEEP |  
+#| Heat  | Cool       | WAKE | 
+#| Heat  | Cool       | AWAY |
+#| Heat  | Cool       | HOME |
+#| Heat  | Cool       | SLEEP | 
+#| Cool  | Heat       | WAKE |
+#| Cool  | Heat       | HOME |
+#| Cool  | Heat       | SLEEP | 
+#| Cool  | Heat       | AWAY |
 
 
 #JasperNA
@@ -103,15 +113,15 @@ And user navigates to "thermostat solution card" screen from the "thermostat Das
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 When user changes system mode to <ChangeMode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
 And verify respective <Period> period setpoint values
 
 Examples:
 | Mode 	| ChangeMode		| scheduling					 	| Schedule status		| Geofence     | Period	|
 | Heat 	| Cool			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
-#| Heat 	| Cool			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
-#| Heat 	| Cool			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
+#| Heat | Cool			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
+#| Heat | Cool			| geofence based 				| Using Sleep Settings  	| UserArrived  | Home	|
 #| Heat | Auto			| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
 #| Heat | Auto			| Without sleep geofence based 	| Using Away Settings  	| UserDeparted | Away	|
 #| Heat | Auto			| geofence based 				| Using Sleep Settings	| UserArrived  | Home	|
@@ -581,7 +591,6 @@ Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DA
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 Then user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 And user thermostat set <NPeriod> with <NGeofence>
-#And verify the respective <NPeriod> setpoint value from "Dashboard"
 And user should be displayed with "respective period" setpoint value
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 And verify respective <NPeriod> period setpoint values
@@ -1037,7 +1046,7 @@ Examples:
 #|Heat Only| time based | AWAY |
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
-#|Cool| geofence based | Home | 
+|Cool| geofence based | Home | 
 #|Cool| geofence based | AWAY |
 #|Cool| geofence based | Sleep | 
 #|Cool| geofence based | Wake |  
@@ -1839,7 +1848,7 @@ Examples:
 #|Cool only| WAKE |
 #|Heat only|WAKE |
 #|Cool | AWAY |
-#|Heat | AWAY |
+|Heat | AWAY |
 #|Auto | AWAY |
 #|Cool only| AWAY |
 #|Heat only|AWAY |
