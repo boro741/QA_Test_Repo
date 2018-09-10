@@ -187,7 +187,7 @@ Examples:
 
 #JasperNA
 @VacationActiveSwitchingModesNA			@Automated
-Scenario Outline:  To verify when vacation active switching modes is changed for "Heat , auto ,cool and off" system with auto changeover enabled
+Scenario Outline:  To verify when vacation active switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
 Given user has <Mode> system mode
 And vacation mode is "active"
 When user launches and logs in to the Lyric application
@@ -302,12 +302,13 @@ Examples:
 @VacationGeofenceSolutionCardAfterVacationEndsNA			@UIAutomatable
 Scenario Outline:   I want to verify AdhocOVerride status when vacation ends
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user is set to "Geofence base schedule"
-When user navigates to "Solutioncard" screen from "Dashboard" screen
-Then user should be displayed with <AdhocOverride> on "SolutionCard"
-When "Vacation" Ends 
-Then user should be display with <UAdhocOverride> on "SolutionCard"
+Then user has <Mode> system mode
+And user thermostat is set to "geofence based" schedule
+And user thermostat set "Sleep" with "UserArrived"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+When vacation mode is "inactive"
+Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 
 Examples:
 		| Mode		| AdhocOverride					| UAdhocOverride					| 
@@ -327,12 +328,13 @@ Examples:
 @VacationGeofenceSolutionCardAfterVacationEndsEMEA			@UIAutomatable
 Scenario Outline:   I want to verify AdhocOVerride status when vacation ends
 Given user launches and logs in to the Lyric application
-Then user is set to <Mode> through CHIL
-And user is set to "Geofence base schedule"
-When user navigates to "Solutioncard" screen from "Dashboard" screen
-Then user should be displayed with <AdhocOverride> on "SolutionCard"
-When "Vacation" Ends 
-Then user should be display with <UAdhocOverride> on "SolutionCard"
+Then user has <Mode> system mode
+And user thermostat is set to "geofence based" schedule
+And user thermostat set "Sleep" with "UserArrived"
+When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
+Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+When vacation mode is "inactive"
+Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 
 Examples:
 		| AdhocOverride					| UAdhocOverride					| 

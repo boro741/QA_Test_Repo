@@ -210,7 +210,7 @@ And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-|Mode| Currentschedule |Period |Schedule status |
+|Mode| CurrentSchedule |Period |Schedule status |
 |Cool| time based | Home | Following schedule |
 #|Cool| time based | AWAY |Following schedule |
 #|Cool| time based | Sleep | Following schedule |
@@ -353,7 +353,7 @@ And user "should be updated" with the <Mode> option
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
 | HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -975,7 +975,7 @@ And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-|Mode| Currentschedule |Period |
+|Mode| CurrentSchedule |Period |
 |Cool| time based | Home | 
 #|Cool| time based | AWAY |
 #|Cool| time based | Sleep | 
@@ -1121,7 +1121,7 @@ And user "should be updated" with the <Mode> option
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
 | HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -1204,7 +1204,7 @@ And user "should be updated" with the <Mode> option
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
 | HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -1314,7 +1314,7 @@ And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-|Mode| Currentschedule |Period |
+|Mode| CurrentSchedule |Period |
 |Cool| time based | Home | 
 #|Cool| time based | AWAY |
 #|Cool| time based | Sleep | 
@@ -1515,7 +1515,7 @@ Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 
 Examples:
 |Mode|UMode	  |   Period |
@@ -1570,7 +1570,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user has "Temporary Dashboard" status
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 Examples:
 |Mode | 
 |Cool | 
@@ -1593,7 +1593,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value in solution card
+And user should be displayed with "respective period" setpoint value
 Examples:
 |Mode | 
 |Cool | 
@@ -1728,16 +1728,16 @@ And user holds the schedule until time "greater than 12 hours" from current time
 #And user should be displayed with time reverted back to 12hours gap from present time
 And user holds the schedule until time "default" from current time
 #Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
-When specific time hold completed 
-Then verify the "Following schedule" on the "PRIMARY CARD" screen
+Then verify next schedule period activated
+And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 Examples:
-|Mode | 
-#|Cool | 
-|Heat | 
-#|Auto | 
-#|Cool only| 
-#|Heat only| 
+ |Mode | Period|
+#|Cool | AWAY  |
+ |Heat | HOME  |
+#|Auto | HOME  |
+#|Cool only| AWAY| 
+#|Heat only| HOME|
 
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoPermanentHold @Automated
@@ -2037,7 +2037,7 @@ And user "should be updated" with the <Mode> option
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
 | HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #|HEAT	| Home		| UserArrived		| Using Home Settings	| Without |

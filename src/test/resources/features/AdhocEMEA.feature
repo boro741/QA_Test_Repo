@@ -556,7 +556,7 @@ When user changes system mode to "Off"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 And user thermostat set <Period> with <Geofence>
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
-And user creates "Geofence based" scheduling with default values <Sleep> sleep settings
+And user creates "Geofence based" scheduling with default values <Sleep period> sleep settings
 When user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 
@@ -609,7 +609,7 @@ Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
 And user should be displayed with "respective period" setpoint value
 Examples:
-| Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
+| Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
 | HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
 #| HEAT	| Away		| UserDeparted		| Using Away Settings	| Without |
 #| HEAT	| Sleep		| UserArrived		| Using Sleep Settings	| With |
@@ -869,11 +869,11 @@ And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Permanent hold" from adhoc
 Then user has "PERMANENT" adhoc status
 And user holds the schedule until time "greater than 12 hours" from current time
-And user should be displayed with time reverted back to 12hours gap from present time
+#And user should be displayed with time reverted back to 12hours gap from present time
 And user holds the schedule until time "default" from current time
-Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
-When verify next schedule period activated
-Then verify the "Following schedule" on the "PRIMARY CARD" screen
+#Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
+Then verify next schedule period activated
+And verify the "Following schedule" on the "PRIMARY CARD" screen
 And user should be displayed with "respective period" setpoint value
 
 
@@ -1006,7 +1006,7 @@ And user "should be updated" with the <Mode> option
 And user should be displayed with "respective period" setpoint value
 
 Examples:
-| Period		| Geofence		| Schedule status		| Sleep period | 
+| Period		| Geofence		| Schedule status		| Sleep Period | 
 | Home		| UserArrived		| Using Home Settings	| Without |
 #| Away		| UserDeparted		| Using Away Settings	| Without |
 #| Sleep		| UserArrived		| Using Sleep Settings	| With |
