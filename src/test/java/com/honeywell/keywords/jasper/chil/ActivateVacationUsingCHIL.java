@@ -1,6 +1,5 @@
 package com.honeywell.keywords.jasper.chil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,13 +97,13 @@ public class ActivateVacationUsingCHIL extends Keyword {
 					}
 				}
 				String currentUTCTime = JasperSetPoint.getCurrentUTCTime(testCase);
-				System.out.println(currentUTCTime);
+				System.out.println("######currentUTCTime:" + currentUTCTime);
 				if(statInfo.getJasperDeviceType().equals("EMEA")){
 					CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest15minutes(testCase, currentUTCTime);
 				}else{
 					CHILUtil.startTime = JasperSetPoint.roundOffTimeToTheNearest10minutes(testCase, currentUTCTime);
 				}
-				System.out.println(CHILUtil.startTime);
+				System.out.println("######startTime:" + CHILUtil.startTime);
 
 				CHILUtil.endTime = JasperSetPoint.addDaysToDate(null, CHILUtil.startTime, 7);
 

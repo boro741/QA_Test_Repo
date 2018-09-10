@@ -7,7 +7,6 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.VacationHoldScreen;
 
 public class EditVacationTimer extends Keyword {
@@ -31,7 +30,7 @@ public class EditVacationTimer extends Keyword {
 	@KeywordStep(gherkins = "^user edits Vacation Timer$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
-        flag=   vhs.setEndDate();
+		flag = vhs.setEndDate();
 		return flag;
 	}
 

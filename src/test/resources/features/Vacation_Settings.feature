@@ -94,10 +94,10 @@ Then Minimum bandwidth timer between from and to is "1" hour
 @Vacation_TimerValueIncreamentOf10EMEA			@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
-When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user edits Vacation Timer 
+When user changes the "Vacation" to "On"
+When user edits Vacation Timer
 Then user is displayed with "From" date as "Current Time" nearest to "10"
 #Then user should be displayed from and to timer field incremental of "10" minutes
 
@@ -105,10 +105,10 @@ Then user is displayed with "From" date as "Current Time" nearest to "10"
 @Vacation_TimerValueIncreamentOf15NA				@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
-When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
-When user edits Vacation Timer 
+When user changes the "Vacation" to "On"
+When user edits Vacation Timer
 Then user is displayed with "From" date as "Current Time" nearest to "15"
 #Then user should be displayed from and to timer field incremental of "15" minutes
   

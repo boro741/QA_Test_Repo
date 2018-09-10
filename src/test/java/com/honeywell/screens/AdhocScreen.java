@@ -17,11 +17,25 @@ public class AdhocScreen extends MobileScreens {
 	}
 
 	public String getAdhocStatusElement() {
-		String adHocStatus;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("text");
+		String adHocStatus = null;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("text");
+			} else {
+				adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus")
+						.getAttribute("label");
+			}
 		} else {
-			adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("label");
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ToolbarSubtitle")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "ToolbarSubtitle")
+							.getAttribute("text");
+				} else {
+					adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "ToolbarSubtitle")
+							.getAttribute("value");
+				}
+			}
+
 		}
 		return adHocStatus;
 	}
@@ -71,6 +85,7 @@ public class AdhocScreen extends MobileScreens {
 	public boolean isSystemIsOffLabelInSolutionsCardScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SystemIsOffLabelInSolutionsCardScreen");
 	}
+
 	public boolean isPermanentlyVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PemanentlyHoldButton");
 	}
@@ -78,7 +93,7 @@ public class AdhocScreen extends MobileScreens {
 	public boolean isSpecificHoldVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HoldUntilButton");
 	}
-	
+
 	public boolean isRemoveAdhocVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RemoveHold");
 	}
@@ -86,11 +101,9 @@ public class AdhocScreen extends MobileScreens {
 	public boolean isAdhocCancelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AdhocCancel");
 	}
-	
+
 	public boolean clickOnAdhocCancelButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AdhocCancel");
 	}
-
-
 
 }

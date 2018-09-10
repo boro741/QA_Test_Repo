@@ -55,7 +55,6 @@ public class SecondaryCardSettings extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "LogoutOption");
 		case SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION:
 			return MobileUtils.clickOnElement(objectDefinition, testCase,
-
 					"HoneywellMembershipOption");
 		case SecondaryCardSettings.VACATION:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOption");
