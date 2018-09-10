@@ -1570,4 +1570,84 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean clickOnMicrophonePopupOkbutton(TestCases testCase) {
 		return (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraMicrophoneTurnOffOKButton"));
 	}
+	public boolean isManangeAlertsEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlertsLabel").isEnabled();	
+	}
+	public boolean isMotionDetectionEnabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").isEnabled();	
+		}
+	public boolean isPeopleDetectionEnabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isEnabled();	
+		}
+	public boolean isNightVisionEnabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionLabel").isEnabled();	
+		}
+	public boolean isVideoQualityEnabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").isEnabled();	
+		}
+	public boolean isCameraOnInHomeModeEnabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeMode").isEnabled();	
+		}
+	public boolean isCameraOnInNigtModeEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isEnabled();	
+	}
+	public boolean isManangeAlertsDisabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlertsLabel").isDisplayed();
+	}
+	public boolean isMotionDetectionDisabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").isDisplayed();
+		}
+	public boolean isPeopleDetectionDisabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isDisplayed();	
+		}
+	public boolean isNightVisionDisabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionLabel").isDisplayed();	
+		}
+	public boolean isVideoQualityDisabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").isDisplayed();	
+		}
+	public boolean isCameraOnInHomeModeDisabled(){
+			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeMode").isDisplayed();
+		}
+	public boolean isCameraOnInNigtModeDisabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isDisplayed();
+	}
+	public boolean isVideoQualityAutoVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityAuto");
+	}
+	public boolean isVideoQualityAutoTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityAutoText");
+	}
+	public boolean ClickOnVideoQualityAutoOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityAuto");
+	}
+	public boolean isVideoQualityLowVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityLow");
+	}
+	public boolean isVideoQualityLowTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityLowText");
+	}
+	public boolean ClickOnVideoQualityLowOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityLow");
+	}
+	
+	public boolean isVideoQualityHighVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityHigh");
+	}
+	public boolean isVideoQualityHighTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityHighText");
+	}
+	public boolean ClickOnVideoQualityHighOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityHigh");
+	}
+	public boolean isVideoQualityAutoSelectedVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityAutoSelected");
+	}
+	public boolean isVideoQualityLowSelectedVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityLowSelected");
+	}
+	public boolean isVideoQualityHighSelectedVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityHighSelected");
+	}
+
 }

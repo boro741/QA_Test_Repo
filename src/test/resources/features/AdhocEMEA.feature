@@ -43,10 +43,10 @@ Scenario Outline: To verify following base switching  mode is changed for Heat s
 Given user has "Heat" system mode
 And user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
-When user thermostat has <Period> currently following in "Time Based" schedule
+Then user thermostat has <Period> currently following in "Time Based" schedule
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 Examples:
 | Period |
 | P1 |
@@ -57,6 +57,7 @@ Examples:
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleEMEA		@Automated
 Scenario:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
+Then user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
@@ -65,7 +66,7 @@ Then verify the "System Is Off" on the "PRIMARY CARD" screen
 And verify the "Following Schedule Not Displayed" on the "PRIMARY CARD" screen
 When user changes system mode to "Heat"
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusingEMEA			@Automated
@@ -73,15 +74,15 @@ Scenario Outline:  To verify using schedule switching modes is changed for Heat 
 Given user has "Heat" system mode
 And user thermostat is set to <scheduling> schedule
 When user launches and logs in to the Lyric application
-And user thermostat set <Period> with <Geofence>
+Then user thermostat set <Period> with <Geofence>
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 And verify the <Schedule status> on the "PRIMARY CARD" screen
-Then user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 When user changes system mode to "Off"
 And verify the "System Is Off" on the "PRIMARY CARD" screen
 When user changes system mode to "Heat"
-And verify the <Schedule status> on the "PRIMARY CARD" screen
-Then user should be displayed with "respective period" setpoint value
+Then verify the <Schedule status> on the "PRIMARY CARD" screen
+And verify respective <Period> period setpoint values
 Examples:
 | scheduling					 	| Schedule status		| Geofence     | Period	|
 #| Without sleep geofence based 	| Using Home Settings  	| UserArrived  | Home	|
@@ -102,7 +103,7 @@ And user creates "Geofence based" scheduling with default values "Without" sleep
 And user thermostat set <Period> with <Geofence>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the "Heat" option 
-And user should be displayed with "respective period" setpoint value
+And verify respective <Period> period setpoint values
 
 Examples:
 |Period|Geofence| Schedule status |

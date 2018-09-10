@@ -639,6 +639,35 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "DAS VIDEO QUALITY SETTINGS": {
+			CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Elements");
+				switch (parameter.toUpperCase()) {
+				case "AUTO": {
+					flag = flag & Video.isVideoQualityAutoVisible();
+					flag = flag & Video.isVideoQualityAutoTextVisible();
+					break;
+				}
+				case "HIGH": {
+					flag = flag & Video.isVideoQualityHighVisible();
+					flag = flag & Video.isVideoQualityHighTextVisible();
+					break;
+				}
+				case "LOW": {
+					flag = flag & Video.isVideoQualityLowVisible();
+					flag = flag & Video.isVideoQualityLowTextVisible();
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + "and description has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameter + "has not found");
+				}
+				flag = true;
+			}
+		}
 		case "SECURITY MODE": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
