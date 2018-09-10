@@ -81,11 +81,13 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								ReportStep_Pass(testCase, "current setpoint value from chil is "+WakeCoolSetpoint1);
 								WakeCoolSetpoint = WakeCoolSetpoint1;
-							}else{
+							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								WakeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 								ReportStep_Pass(testCase, "setpoint value from chil is "+currentsetpoint);
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(WakeCoolSetpoint);
 							if(flag)
@@ -100,10 +102,13 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								WakeHeatSetpoint = WakeHeatSetpoint1;
-							}else{
+							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								WakeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}
+							else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(WakeHeatSetpoint);
 							if(flag)
@@ -122,10 +127,12 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								ReportStep_Pass(testCase, "Stat is in fahrenheit mode");
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								AwayCoolSetpoint = AwayCoolSetpoint1;
-							}else{
+							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								AwayCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(AwayCoolSetpoint);
 							if(flag)
@@ -140,10 +147,12 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								AwayHeatSetpoint = AwayHeatSetpoint1;
-							}else{
+							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								AwayHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(AwayHeatSetpoint);
 							if(flag)
@@ -161,10 +170,12 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								SleepCoolSetpoint =  SleepCoolSetpoint1;
-							}else{
+							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								SleepCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, SleepCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(SleepCoolSetpoint);
 							if(flag)
@@ -179,10 +190,12 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								SleepHeatSetpoint = SleepHeatSetpoint1;
-							}else{
+							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								SleepHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, SleepHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(SleepHeatSetpoint);
 							if(flag)
@@ -200,10 +213,12 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								HomeCoolSetpoint =  HomeCoolSetpoint1;
-							}else{
+							}else if(devInfo.getThermostatUnits().contains("Celcius")){
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								HomeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(HomeCoolSetpoint);
 							if(flag)
@@ -218,10 +233,12 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								HomeHeatSetpoint = HomeHeatSetpoint1;
-							}else{
+							} else if(devInfo.getThermostatUnits().contains("Celcius")){
 								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								HomeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
+							}else{
+								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 							}
 							flag = flag & currentStepperSetpoint.equals(HomeHeatSetpoint);
 							if(flag)
@@ -243,9 +260,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P1HeatSetpoint = P1HeatSetpoint1;
-						}else{
+						}else if(devInfo.getThermostatUnits().contains("Celcius")){
 							P1HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P1HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
+						}else{
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 						}
 						flag = flag & currentStepperSetpoint.equals(P1HeatSetpoint);
 						if(flag)
@@ -262,9 +281,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P2HeatSetpoint = P2HeatSetpoint1;
-						}else{
+						}else if(devInfo.getThermostatUnits().contains("Celcius")){
 							P2HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P2HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
+						}else{
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 						}
 						flag = flag & currentStepperSetpoint.equals(P2HeatSetpoint);
 						if(flag)
@@ -281,9 +302,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P4HeatSetpoint = P4HeatSetpoint1;
-						}else{
+						}else if(devInfo.getThermostatUnits().contains("Celcius")){
 							P4HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P4HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
+						}else{
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 						}
 						flag = flag & currentStepperSetpoint.equals(P4HeatSetpoint);
 						if(flag)
@@ -300,9 +323,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P3HeatSetpoint = P3HeatSetpoint1;
-						}else{
+						}else if(devInfo.getThermostatUnits().contains("Celcius")){
 							P3HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P3HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
+						}else{
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+devInfo.getThermostatUnits());
 						}
 						flag = flag & currentStepperSetpoint.equals(P3HeatSetpoint);
 						if(flag)
