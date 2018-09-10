@@ -101,6 +101,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								WakeHeatSetpoint = WakeHeatSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								WakeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -118,9 +119,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							String AwayCoolSetpoint ="";
 							String AwayCoolSetpoint1 = defaultValues.get("EverydayAwayCoolTemp");
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
+								ReportStep_Pass(testCase, "Stat is in fahrenheit mode");
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								AwayCoolSetpoint = AwayCoolSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								AwayCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -138,6 +141,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								AwayHeatSetpoint = AwayHeatSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								AwayHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -158,6 +162,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								SleepCoolSetpoint =  SleepCoolSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								SleepCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, SleepCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -175,6 +180,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								SleepHeatSetpoint = SleepHeatSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								SleepHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, SleepHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -195,6 +201,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								HomeCoolSetpoint =  HomeCoolSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								HomeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -212,6 +219,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								HomeHeatSetpoint = HomeHeatSetpoint1;
 							}else{
+								ReportStep_Pass(testCase, "Stat is in celcius mode");
 								HomeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}

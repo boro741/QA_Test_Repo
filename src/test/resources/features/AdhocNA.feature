@@ -210,7 +210,7 @@ And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-|Mode| Currentschedule |Period |Schedule status |
+|Mode| CurrentSchedule |Period |Schedule status |
 |Cool| time based | Home | Following schedule |
 #|Cool| time based | AWAY |Following schedule |
 #|Cool| time based | Sleep | Following schedule |
@@ -975,7 +975,7 @@ And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-|Mode| Currentschedule |Period |
+|Mode| CurrentSchedule |Period |
 |Cool| time based | Home | 
 #|Cool| time based | AWAY |
 #|Cool| time based | Sleep | 
@@ -1314,7 +1314,7 @@ And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
-|Mode| Currentschedule |Period |
+|Mode| CurrentSchedule |Period |
 |Cool| time based | Home | 
 #|Cool| time based | AWAY |
 #|Cool| time based | Sleep | 

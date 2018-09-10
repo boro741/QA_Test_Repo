@@ -326,7 +326,7 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 Then user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 And user thermostat set <NPeriod> with <NGeofence>
 #And verify the respective <NPeriod> setpoint value from "Dashboard"
-And user should be displayed with "respective period" setpoint value
+And verify respective <NPeriod> period setpoint values
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 And verify the <AfterCrossTemporary> on the "PRIMARY CARD" screen
 And verify respective <NPeriod> period setpoint values
