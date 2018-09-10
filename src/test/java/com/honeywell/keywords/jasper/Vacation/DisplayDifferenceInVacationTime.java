@@ -74,16 +74,12 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						startDateTime = vacationDateFormat.format(dateFormat.parse(startDate.trim()));
 						startDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, startDateTime);
-						System.out.println("######startDateTimeUTC: " + startDateTimeUTC);
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
 
 					String currentTimeUTC = "";
-					System.out.println("#########deviceTime: " + deviceTime);
 					currentTimeUTC = JasperSetPoint.roundOffTimeToUpcomingNearest15minutes(testCase, deviceTime);
-					System.out.println("#########currentTimeUTC: " + currentTimeUTC);
-					System.out.println("######startDateTimeUTC: " + startDateTimeUTC);
 					if (!currentTimeUTC.equalsIgnoreCase(startDateTimeUTC)) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -185,12 +181,10 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						endDateTime = vacationDateFormat.format(dateFormat.parse(endDate.trim()));
 						endDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, endDateTime);
-						System.out.println("######endDateTimeUTC: " + endDateTimeUTC);
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
 					String currentTimeUTC = "";
-					System.out.println("######deviceTime: " + deviceTime);
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
 					currentTimeUTC = currentTimeUTC.split("T")[0];
 					endDateTimeUTC = endDateTimeUTC.split("T")[0];
@@ -239,15 +233,10 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
 					}
-					System.out.println("######endDateTimeUTC: " + endDateTimeUTC);
 					String currentTimeUTC = "";
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
-					System.out.println("######currentTimeUTC: " + currentTimeUTC);
 					currentTimeUTC = currentTimeUTC.split("T")[0];
-					System.out.println("######currentTimeUTC: " + currentTimeUTC);
-					System.out.println("######endDateTimeUTC: " + endDateTimeUTC);
 					endDateTimeUTC = endDateTimeUTC.split("T")[0];
-					System.out.println("######endDateTimeUTC: " + endDateTimeUTC);
 					Keyword.ReportStep_Pass(testCase, currentTimeUTC);
 					Keyword.ReportStep_Pass(testCase, endDateTimeUTC);
 					if (currentTimeUTC.equalsIgnoreCase(endDateTimeUTC)) {
