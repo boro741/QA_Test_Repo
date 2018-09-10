@@ -36,6 +36,7 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
 		System.out.println("##########givenSensorName: " + givenSensorName);
+		String actualSensorName = null;
 		List<WebElement> sensorList;
 		if (testCase.getPlatform().contains("IOS")) {
 			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
@@ -44,7 +45,11 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 
 		for (WebElement sensor : sensorList) {
-			String actualSensorName = sensor.getText();
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				actualSensorName = sensor.getText();
+			} else {
+				actualSensorName = sensor.getAttribute("value");
+			}
 			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				sensor.click();
 				Keyword.ReportStep_Pass(testCase, "Clicked on " + givenSensorName);
@@ -455,7 +460,7 @@ public class SensorSettingScreen extends MobileScreens {
 			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
 		}
-	
+
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
@@ -529,13 +534,13 @@ public class SensorSettingScreen extends MobileScreens {
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				System.out.println(MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
 						+ SensorName
-						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]",
+						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up') or contains(@text,'Set up')]",
 						testCase, 10));
 				if (MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'" + SensorName
-						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]",
+						+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up') or contains(@text,'Set up')]",
 						testCase, 10)) {
 					return MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@" + locator + ",'" + SensorName
-							+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up')]");
+							+ "')]/following-sibling::android.widget.LinearLayout/android.widget.Button[contains(@text,'Set Up') or contains(@text,'Set up')]");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not able to locate setup button");
@@ -653,8 +658,9 @@ public class SensorSettingScreen extends MobileScreens {
 				int endy = (dimensions.height * 35) / 100;
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-				if (MobileUtils.isMobElementExists("xpath", "//android.widget.Button[contains(@text,'Set Up')]",
-						testCase, 10)) {
+				if (MobileUtils.isMobElementExists("xpath",
+						"//android.widget.Button[contains(@text,'Set Up') or contains(@text,'Set up')]", testCase,
+						10)) {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SetUpAccessoriesBack");
 				} else {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
@@ -679,7 +685,11 @@ public class SensorSettingScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("xpath", "//*[@name='" + sensorName + "']", testCase)) {
-				return flag;
+				if (MobileUtils.getMobElements(testCase, "xpath", "//*[@name='" + sensorName + "']").size() > 1) {
+					return flag;
+				} else {
+					flag = false;
+				}
 			} else {
 				flag = false;
 			}

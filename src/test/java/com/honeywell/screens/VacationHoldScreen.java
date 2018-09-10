@@ -66,8 +66,22 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 
 	public boolean clickOnModeText() {
-		flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatMode");
-		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatMode");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatMode")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatMode");
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[@value='MODE']/parent::XCUIElementTypeOther/XCUIElementTypeButton",
+					testCase)) {
+				flag &= MobileUtils.clickOnElement(testCase, "XPATH",
+						"//XCUIElementTypeStaticText[@value='MODE']/parent::XCUIElementTypeOther/XCUIElementTypeButton");
+			} else if (testCase.getMobileDriver().findElement(By.xpath(
+					"//XCUIElementTypeStaticText[@value='MODE']/parent::XCUIElementTypeOther/XCUIElementTypeButton"))
+					.isEnabled()) {
+				testCase.getMobileDriver().findElement(By.xpath(
+						"//XCUIElementTypeStaticText[@value='MODE']/parent::XCUIElementTypeOther/XCUIElementTypeButton"))
+						.click();
+			}
+		}
 		return flag;
 	}
 
@@ -162,31 +176,34 @@ public class VacationHoldScreen extends MobileScreens {
 	public String getStartDate() {
 		if (testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[0]
-					+MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1]+","
-					+MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[2];
-		}else
+					+ MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1] + ","
+					+ MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[2];
+		} else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate");
 	}
 
 	public String getEndDate() {
 		if (testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[0]
-					+MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[1]+","
-					+MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[2];
-		}else
+					+ MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[1] + ","
+					+ MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate").split(",")[2];
+		} else
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "ToDate");
 	}
 
 	public boolean setEndDate() {
-		if(!testCase.getPlatform().contains("IOS")){
-			String valueToSet= MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(" ")[2].replace(",", "");
+		if (!testCase.getPlatform().contains("IOS")) {
+			String valueToSet = MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(" ")[2]
+					.replace(",", "");
 			MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
-			return MobileUtils.clickOnElement(testCase, "Xpath","//*[contains(@content-desc,'"+valueToSet+"']") &&  MobileUtils.clickOnElement(objectDefinition, testCase,  "OKButtonInCalendarPopup");
-		}else{
-			String valueToSet= MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1].replace(",", "").trim();
+			return MobileUtils.clickOnElement(testCase, "Xpath", "//*[contains(@content-desc='" + valueToSet + "']")
+					&& MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInCalendarPopup");
+		} else {
+			String valueToSet = MobileUtils.getFieldValue(objectDefinition, testCase, "FromDate").split(",")[1]
+					.replace(",", "").trim();
 			MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
-			return MobileUtils.setValueToElement(testCase, "Xpath","//XCUIElementTypePickerWheel",valueToSet) &&  MobileUtils.clickOnElement(objectDefinition, testCase,  "ToDate");
-			
+			return MobileUtils.setValueToElement(testCase, "Xpath", "//XCUIElementTypePickerWheel[1]", valueToSet)
+					&& MobileUtils.clickOnElement(objectDefinition, testCase, "ToDate");
 		}
 	}
 
@@ -327,7 +344,10 @@ public class VacationHoldScreen extends MobileScreens {
 	}
 
 	public boolean isVacationHoldSetpointSettingsEnabled() {
-		if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitchInStatScreen").getText().equalsIgnoreCase("ON")||MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitchInStatScreen").getText().equalsIgnoreCase("1")) {
+		if (MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitchInStatScreen").getText()
+				.equalsIgnoreCase("ON")
+				|| MobileUtils.getMobElement(objectDefinition, testCase, "VacationHoldSwitchInStatScreen").getText()
+						.equalsIgnoreCase("1")) {
 			return true;
 		} else {
 			return false;
@@ -502,6 +522,7 @@ public class VacationHoldScreen extends MobileScreens {
 	public List<WebElement> getDevicesListInVacationScreen() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "DevicesListInVactionScreen");
 	}
+
 	public boolean clickOnVacationHoldSetpointSettings() {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationHoldSetpointRow")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationHoldSetpointRow");

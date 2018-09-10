@@ -4,7 +4,7 @@ CancelButtonInAddNewDeviceScreen							NAME	Cancel	NAME	Cancel	NAME	Cancel
 AddNewDeviceHeader	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']	XPATH	//*[@value='Add New Device']
 SmartHomeSecurity	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	XPATH	//*[@text='Smart Home Security']	NAME	Smart Home Security	NAME	Smart Home Security	NAME	Smart Home Security
 HowToVideoLink	ID	horizontal_link_text	ID	horizontal_link_text	ID	horizontal_link_text	NAME	Watch How-To Video	NAME	Watch How-To Video	NAME	Watch How-To Video
-VideoPlayerControlIconInAndroid	ID	youtube_video_view_frame	ID	youtube_video_view_frame	ID	youtube_video_view_frame						
+VideoPlayerControlIconInAndroid	ID	video_main_ll	ID	video_main_ll	ID	video_main_ll						
 BackArrowInHowToVideoScreen							NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
 ChooseLocationHeaderTitle	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@text='Choose Location']	XPATH	//*[@value='Choose Location']	XPATH	//*[@value='Choose Location']	XPATH	//*[@value='Choose Location']
 CancelButton	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	NAME	Cancel	NAME	Cancel	NAME	Cancel

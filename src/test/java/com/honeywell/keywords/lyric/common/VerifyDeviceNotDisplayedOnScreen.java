@@ -82,31 +82,31 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 			case "DOOR": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 				if (sensor.checkSensorNameNotInSensorList(sensorName) == false) {
-					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + " is not in sensor list");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sensor " + sensorName + "is in sensor list");
+							"Sensor " + sensorName + " is in sensor list");
 				}
 				break;
 			}
 			case "WINDOW": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 				if (sensor.checkSensorNameNotInSensorList(sensorName) == false) {
-					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + " is not in sensor list");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sensor " + sensorName + "is in sensor list");
+							"Sensor " + sensorName + " is in sensor list");
 				}
 				break;
 			}
 			case "MOTION SENSOR": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 				if ((sensor.checkSensorNameNotInSensorList(sensorName) == false)
-						&& (sensor.isSensorsScreenTitleVisible()) && (sensor.isSensorListScreenDisplayed())) {
-					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+						&& (sensor.isSensorsScreenTitleVisible())) {
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + " is not in sensor list");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sensor " + sensorName + "is in sensor list");
+							"Sensor " + sensorName + " is in sensor list");
 					flag = flag & DIYRegistrationUtils.deleteSensorThroughCHIL(testCase, inputs, sensorName);
 				}
 				break;
@@ -120,10 +120,10 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 			case "KEYFOB": {
 				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
 				if (sensor.checkSensorNameNotInSensorList(sensorName) == false) {
-					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + "is not in sensor list");
+					Keyword.ReportStep_Pass(testCase, "Sensor " + sensorName + " is not in sensor list");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Sensor " + sensorName + "is in sensor list");
+							"Sensor " + sensorName + " is in sensor list");
 				}
 				break;
 			}
