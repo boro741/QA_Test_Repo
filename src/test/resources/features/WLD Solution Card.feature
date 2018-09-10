@@ -2,21 +2,24 @@
 Feature: WLD Solution Card
   As user I should be able to View Solution card of WLD from the app
 
-
-@viewSolutionCard
+@viewwldSolutionCard @Automated
 Scenario: As a user I should be able view Contents of my WLD Solution card through the Lyric application 
-Given user launches and logs in to the Lyric application 
-When user lands on"Solution Card" screen from  "Dashboard" screen 
-Then user should be able to see "Current Temperature"
-And user should be able to see "Last Updated Time"
-And user should be able to see "Temperature Graph"
-And user should be able to see "Battery percentage"
-And user should be able to see "Next Update Time"
-And user should be able to see" Settings" Option
-When user navigates to "humidity graph" screen from "temperature graph" screen
-Then user should be displayed with the "Current Humidity"
-And user should be able to see "Last Updated Time"
-And user should be able to see "Humidity Graph"
+Given user launches and logs in to the Lyric application  
+When user selects "WLD device" from the dashboard
+Then user should be displayed with the following "WLDSolutionTemperature" options:
+|WLD Solution options|
+|Current Temperature|
+|Last Updated Time|
+#|Temperature Graph| #remove comment if account is 48 hours passed
+|Battery percentage|
+|Next Update Time|
+#And user should be displayed with the "Settings" description
+When user navigates to "humidity graph" screen from the "temperature graph" screen
+Then user should be displayed with the following "WLDSolutionHumidity" options:
+|WLD Humidity Solution options|
+|Current Humidity|
+|Last Updated Time|
+#|Humidity Graph| #remove comment if account is 48 hours passed
 
 @ViewSolutionCardTemperatureunit
 Scenario: As a user i should be able to view the change in temperature unit on my Solution Card
@@ -29,7 +32,6 @@ When user navigates to "Leak Detector  Settings" screen from the "Dashboard" scr
 And temperature unit is set to "C"
 And user navigates to "Dashboard" Screen from "Leak Detector  Settings" screen
 Then user should be displayed with "Current temperature" in  degree Celcius in "dashboard" screen
-
 
 @ViewSolutionCardNextupdateTime
 Scenario: As a user i should be able to view the change in Update frequency on my Solution Card

@@ -49,6 +49,7 @@ import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.VacationHoldScreen;
+import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -297,6 +298,26 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
+			//Amresh H297378
+			else if (screen.get(1).equalsIgnoreCase("TEMPERATURE GRAPH")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "HUMIDITY GRAPH": {
+					WLDSolutionCard humi = new WLDSolutionCard(testCase);
+					flag = flag & humi.clickOnHumidityGraphTitle();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "HUMIDITY GRAPH Tab was Clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to click HUMIDITY GRAPH Tab");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}			
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -318,7 +339,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.editKeyfobName("keyfob");
 					break;
-				}
+				}	
 				case "SENSOR OVERVIEW": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
@@ -555,8 +576,7 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase, inputs);
 					break;
-				}
-				
+				}				
 				// Navigates to camera solution card screen from dashboard screen
 				case "CAMERA SOLUTION CARD":{
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);

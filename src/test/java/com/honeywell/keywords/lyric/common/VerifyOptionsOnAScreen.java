@@ -22,6 +22,7 @@ import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
@@ -1220,6 +1221,114 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							" The " + parameter + " has not found");
 				}
 				flag = true;
+			}
+			break;
+		}
+		//Amresh(H297378)
+				case "WLDSOLUTIONTEMPERATURE": {
+					WLDSolutionCard ActionSheet=new WLDSolutionCard(testCase);
+					for (int i = 0; i < data.getSize(); i++) {
+						String parameter = data.getData(i, "WLD Solution options");
+						switch (parameter.toUpperCase()) {
+						case "CURRENT TEMPERATURE": {
+							
+							flag = flag & ActionSheet.isCurrentTemperatureTitleVisible();
+								if (flag) {
+									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+										Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentTemperatureTitleText());
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"The "+parameter+" is not vissible");
+								}break;
+								
+						}
+						case "LAST UPDATED TIME": {
+							flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
+								if (flag) {
+									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());
+									} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"The "+parameter+" is not vissible");
+								}break;
+							
+						}
+						case "TEMPERATURE GRAPH": {
+							flag = flag & ActionSheet.isTemperatureGraphTitleVisible();
+								if(flag) {
+									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getTemperatureGraphTitleText());
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"The "+parameter+" is not vissible");
+								}break;
+									
+						}
+						case "BATTERY PERCENTAGE": {
+							flag = flag & ActionSheet.isBatterypercentageTitleVisible();
+								if (flag) {
+									Keyword.ReportStep_Pass(testCase, "The" +parameter+ "is Vissibe");
+									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getRemainingBatteryTitleText());
+
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"The "+parameter+" is not vissible");
+								}break;
+									
+						}
+						case "NEXT UPDATE TIME": {
+							flag = flag & ActionSheet.isNextUpdateTimeTitleVisible();
+								if (flag) {
+									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getNextUpdateTimeTitleText());
+
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"The "+parameter+" is not vissible");
+								}break;
+						}
+						}
+						
+					}
+					break;
+				}
+		//Amresh(H297378)
+		case "WLDSOLUTIONHUMIDITY": {
+			WLDSolutionCard ActionSheet=new WLDSolutionCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "WLD Humidity Solution options");
+				switch (parameter.toUpperCase()) {
+				case "CURRENT HUMIDITY": {	
+					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentHumidityTitleText());
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"The "+parameter+" is not vissible");
+						}break;
+				}
+				case "LAST UPDATED TIME": {
+					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+							Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						
+							} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"The "+parameter+" is not vissible");
+						}break;
+				}
+				case "HUMIDITY GRAPH": {
+					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
+						if(flag) {
+							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+							Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getHumidityGraphTitleText());
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"The "+parameter+" is not vissible");
+						}break;		
+				}
+				}
 			}
 			break;
 		}
