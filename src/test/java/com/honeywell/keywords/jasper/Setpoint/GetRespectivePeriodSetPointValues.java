@@ -240,7 +240,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+HomeHeatSetpoint +""
 										+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
 						}
-					}break;
+						break;
+					}
 					}
 				}
 				else{
@@ -265,8 +266,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P1HeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
-
-					}break;
+						break;
+					}
 					case "P2":     {
 						String P2HeatSetpoint ="";
 						String P2HeatSetpoint1 = defaultValues.get("EverydayAwayHeatTemp");
@@ -286,8 +287,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P2HeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
-
-					}break;
+						break;
+					}
 					case "P4":     {
 						String P4HeatSetpoint= "";
 						String P4HeatSetpoint1 = defaultValues.get("EverydaySleepHeatTemp");
@@ -307,8 +308,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P4HeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
-
-					}break;
+						break;
+					}
 					case "P3":     {
 						String P3HeatSetpoint = "";
 						String P3HeatSetpoint1 = defaultValues.get("EverydayHomeHeatTemp");
@@ -328,8 +329,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						else
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+P3HeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
-
-					}break;
+						break;
+					}
 					}
 				}	
 
@@ -378,8 +379,9 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						else 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+AwayHeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
-					}	
-				}break;
+					}
+					break;
+				}
 				case "HOME": 	{
 					if(Mode.equalsIgnoreCase("Cool")){
 						String HomeCoolSetpoint = "";
@@ -422,7 +424,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+HomeHeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
 					}
-				}break;
+					break;
+				}
 				case "SLEEP": 	{
 					if(Mode.equalsIgnoreCase("Cool")){
 						String HomeCoolSetpoint = "";
@@ -465,7 +468,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+HomeHeatSetpoint +""
 									+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
 					}
-				}break;
+					break;
+				}
 				}
 			}
 		} catch (Exception e){
