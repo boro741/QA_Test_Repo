@@ -52,7 +52,7 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 		}	case "OFFLINE STATUS": {
 			SensorSettingScreen ssc = new SensorSettingScreen(testCase);			
 			if (!ssc.isSensorOffScreenDisplayed()) {
-				Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Not Found");
+				Keyword.ReportStep_Pass(testCase, "Offline Status Text Not Found");
 			}
 			break;
 		}
