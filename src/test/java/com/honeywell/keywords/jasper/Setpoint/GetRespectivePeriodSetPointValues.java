@@ -77,12 +77,9 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							String WakeCoolSetpoint = "";
 							String WakeCoolSetpoint1 = defaultValues.get("EverydayWakeCoolTemp");
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
-								ReportStep_Pass(testCase, "Stat is in fahrenheit mode");
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
-								ReportStep_Pass(testCase, "current setpoint value from chil is "+WakeCoolSetpoint1);
 								WakeCoolSetpoint = WakeCoolSetpoint1;
-							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if (devInfo.getThermostatUnits().contains("celsius")) {
 								WakeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 								ReportStep_Pass(testCase, "setpoint value from chil is "+currentsetpoint);
@@ -102,8 +99,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								WakeHeatSetpoint = WakeHeatSetpoint1;
-							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if (devInfo.getThermostatUnits().contains("celsius")) {
 								WakeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}
@@ -118,17 +114,16 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+WakeHeatSetpoint +""
 										+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
 						}
-					}break;
+						break;
+					}
 					case "AWAY": 	{
 						if(Mode.equalsIgnoreCase("Cool")){
 							String AwayCoolSetpoint ="";
 							String AwayCoolSetpoint1 = defaultValues.get("EverydayAwayCoolTemp");
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
-								ReportStep_Pass(testCase, "Stat is in fahrenheit mode");
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								AwayCoolSetpoint = AwayCoolSetpoint1;
-							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if (devInfo.getThermostatUnits().contains("celsius")) {
 								AwayCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}else{
@@ -147,8 +142,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								AwayHeatSetpoint = AwayHeatSetpoint1;
-							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if (devInfo.getThermostatUnits().contains("celsius")) {
 								AwayHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}else{
@@ -162,7 +156,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+AwayHeatSetpoint +""
 										+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
 						}
-					}break;
+						break;
+					}
 					case "SLEEP": 	{
 						if(Mode.equalsIgnoreCase("Cool")){
 							String SleepCoolSetpoint ="";
@@ -170,8 +165,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								SleepCoolSetpoint =  SleepCoolSetpoint1;
-							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if (devInfo.getThermostatUnits().contains("celsius")) {
 								SleepCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, SleepCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}else{
@@ -190,8 +184,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								SleepHeatSetpoint = SleepHeatSetpoint1;
-							}else if (devInfo.getThermostatUnits().contains("Celcius")) {
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if (devInfo.getThermostatUnits().contains("celsius")) {
 								SleepHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, SleepHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}else{
@@ -205,7 +198,8 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Setpoint of current period:"+SleepHeatSetpoint +""
 										+ " and primary card setpoint value:" +currentStepperSetpoint+ " not matched");
 						}
-					}break;
+						break;
+					}
 					case "HOME": 	{
 						if(Mode.equalsIgnoreCase("Cool")){
 							String HomeCoolSetpoint ="";
@@ -213,8 +207,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								HomeCoolSetpoint =  HomeCoolSetpoint1;
-							}else if(devInfo.getThermostatUnits().contains("Celcius")){
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							}else if(devInfo.getThermostatUnits().contains("Celsius")){
 								HomeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}else{
@@ -233,8 +226,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 								currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 								HomeHeatSetpoint = HomeHeatSetpoint1;
-							} else if(devInfo.getThermostatUnits().contains("Celcius")){
-								ReportStep_Pass(testCase, "Stat is in celcius mode");
+							} else if(devInfo.getThermostatUnits().contains("celsius")){
 								HomeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeHeatSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
 							}else{
@@ -260,7 +252,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P1HeatSetpoint = P1HeatSetpoint1;
-						}else if(devInfo.getThermostatUnits().contains("Celcius")){
+						}else if(devInfo.getThermostatUnits().contains("celsius")){
 							P1HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P1HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
 						}else{
@@ -281,7 +273,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P2HeatSetpoint = P2HeatSetpoint1;
-						}else if(devInfo.getThermostatUnits().contains("Celcius")){
+						}else if(devInfo.getThermostatUnits().contains("celsius")){
 							P2HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P2HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
 						}else{
@@ -302,7 +294,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P4HeatSetpoint = P4HeatSetpoint1;
-						}else if(devInfo.getThermostatUnits().contains("Celcius")){
+						}else if(devInfo.getThermostatUnits().contains("celsius")){
 							P4HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P4HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
 						}else{
@@ -323,7 +315,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (devInfo.getThermostatUnits().contains("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							P3HeatSetpoint = P3HeatSetpoint1;
-						}else if(devInfo.getThermostatUnits().contains("Celcius")){
+						}else if(devInfo.getThermostatUnits().contains("celsius")){
 							P3HeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,P3HeatSetpoint1);
 							currentStepperSetpoint = currentsetpoint;
 						}else{
