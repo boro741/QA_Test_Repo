@@ -45,11 +45,21 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 				flag = flag & DashboardUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				String getPeriodSetpointString;
 				Double getPeriodSetpoint = 0.0, currentStepperSetpoint = 0.0 ;
 				if (flag){
 					currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 					getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
-					if(getPeriodSetpoint.compareTo(currentStepperSetpoint) == 0 ){
+					getPeriodSetpointString=getPeriodSetpoint.toString();
+					if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+						getPeriodSetpointString = getPeriodSetpointString.replace(".0", ""); 
+					}else if (statInfo.getThermostatUnits().contains("celsius")) {
+						getPeriodSetpointString = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, getPeriodSetpointString));
+						ReportStep_Pass(testCase, "setpoint value from chil is "+getPeriodSetpointString);
+					}else{
+						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statInfo.getThermostatUnits());
+					}
+					if(getPeriodSetpoint.equals(currentStepperSetpoint)){
 						Keyword.ReportStep_Pass(testCase,
 								"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
 					}else {
@@ -91,16 +101,14 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 					String Overridesetpointvalue1 = statInfo.getOverrrideSetpoint();
 					String jasperStatType = statInfo.getJasperDeviceType();
 					if (jasperStatType.equalsIgnoreCase("NA")) {
-						if(statInfo.getThermostatUnits().contains("Fahrenheit")) {
-							Keyword.ReportStep_Pass(testCase,
-									"Stat is in fahrenheit");
+						if(statInfo.getThermostatUnits().equalsIgnoreCase("Fahrenheit")) {
 							currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
 							Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
-						}else{
-							Keyword.ReportStep_Pass(testCase,
-									"Stat is in celcius");
+						}else if(statInfo.getThermostatUnits().equalsIgnoreCase("Celsius")) {
 							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
 							currentStepperSetpoint = currentStepperSetpoint1.toString(); 
+						}else{
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statInfo.getThermostatUnits());
 						}
 						
 					}

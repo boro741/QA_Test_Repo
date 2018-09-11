@@ -596,6 +596,7 @@ public class DeviceInformation {
 		String schedulePeriod = "";
 		if (deviceInformation != null) {
 			schedulePeriod = deviceInformation.getJSONObject("currentSchedulePeriod").get("period").toString();
+			Keyword.ReportStep_Pass(testCase, "Stat is in period - "+schedulePeriod);
 			if (schedulePeriod.equalsIgnoreCase("P1") || schedulePeriod.equalsIgnoreCase("P3")) {
 				schedulePeriod = "Home";
 			} else if (schedulePeriod.equalsIgnoreCase("P2")) {
