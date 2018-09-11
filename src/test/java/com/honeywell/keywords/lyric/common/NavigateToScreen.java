@@ -74,7 +74,7 @@ public class NavigateToScreen extends Keyword {
 
 	@SuppressWarnings("static-access")
 	@Override
-	@KeywordStep(gherkins = "^user navigates to \"(.*)\" screen from the \"(.*)\" screen$")
+	@KeywordStep(gherkins = "^user navigates to \"(.+)\" screen from the \"(.+)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			if (screen.get(1).equalsIgnoreCase("Alarm history")) {
@@ -1081,19 +1081,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
-			   switch (screen.get(0).toUpperCase()) {
-			   case "SENSOR LIST": {
-				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-				flag =   flag & sc.isSensorsTextVisible();
-				break;
-			}
-			default: {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-			}
-			}
-			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+			}  else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GLOBAL DRAWER": {
 					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
@@ -1749,6 +1737,11 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
 				switch (screen.get(0).toUpperCase()) {
+					   case "SENSOR LIST": {
+						SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+						flag =   flag & sc.isSensorsTextVisible();
+						break;
+					}
 				case "MOTION SENSOR SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
 				case "DOOR ACCESS SETTINGS": {

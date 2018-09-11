@@ -82,13 +82,13 @@ public class VerifyActivityList extends Keyword {
 					flag= alarmScreen.isMotionDetectedVideoClipDisplayed();
 					break;
 				}
-				case "MOTION SENSOR TAMEPERED AT AWAY MODE":{
+				case "MOTION SENSOR TAMPERED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPERED_TIME");
 					break;
 				}
-				case "MOTION SENSOR TAMEPER CLEARED AT AWAY MODE":{
+				case "MOTION SENSOR TAMPER CLEARED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper cleared";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME");
