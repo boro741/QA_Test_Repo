@@ -64,7 +64,7 @@ public class VerifyVacationStatus extends Keyword {
 						e.printStackTrace();
 					}
 				} else {
-					Keyword.ReportStep_Pass(testCase, "User is in Solution Card screen.");
+					Keyword.ReportStep_Pass(testCase, "User is in the Solution Card screen.");
 				}
 				flag = flag & JasperVacation.verifyVacationStatusOnSolutionsCard(testCase, inputs, true);
 			} else if (exampleData.get(1).trim().equals("dashboard")) {
