@@ -264,134 +264,315 @@ Examples:
 #|60| OFF| Night |
 
 
-@SensorstatusHomemode @P3  @Automated
-Scenario Outline: As a user i want to have expected sensors status when my security panel is in Home mode Off mode
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
+@SensorstatusHomemode @P3     @UIAutomated
+Scenario Outline: As a user I want to have expected sensors status when my security panel is in Home mode and Off mode
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
-When user navigates to "Sensors" screen from "Dashboard" screen
-Then user should be displayed with the "Sensors" description
-When user navigates to "Sensors Status" screen from "Security card" screen
-Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List"
-| Sensors       | Sensor Status |
-| Door Sensor   | Closed        |
-| Window Sensor | Closed        |
-| Motion Sensor | Standby       |
-| OSMV Sensor   | Standby       |
-| ISMV Sensor   | Standby       |
+#And user is set to <Mode> through CHIL
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the "SensorsNoIssue" description  
+When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
+Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
 Examples:
-|Mode|
-|Home|
-|OFF |
- 
- 
+| Sensors       | Sensor State |	Mode|
+| Door Sensor   | Closed        |OFF|
+| Window Sensor | Closed        |Home|
+| Motion Sensor | Standby       |Home|
+| OSMV Sensor   | Standby       |Home|
+| ISMV Sensor   | Standby       |Home|
+
+
 @SensorstatusArmmode @P3   @Automated
 Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode Night mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
-When user navigates to "Sensors" screen from "Dashboard" screen
-Then user should be displayed with the "Sensors" description
-When user navigates to "Sensors Status" screen from "Security card" screen
-Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List"
-| Sensors       | Sensor Status |
-| Door Sensor   | Closed        |
-| Window Sensor | Closed        |
-| Motion Sensor | Active        |
-| OSMV Sensor   | Active        |
-| ISMV Sensor   | Active        |
+#And user is set to <Mode> through CHIL
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the "SensorsNoIssue" description  
+When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
+Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
 Examples:
-|Mode |
-|Away |
-|Night|
+| Sensors       | Sensor State |Mode|
+| Door Sensor   | Closed        |Away|
+| Window Sensor | Closed        |Night|
+| Motion Sensor | Active        |Away|
+| OSMV Sensor   | Active        |Night|
+| ISMV Sensor   | Active        |Away|
+
  
- 
-@CoverTamperSensorstatus @P2     @UIAutomating
-Scenario Outline: As a user i want to get offline sensors status
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
+@CoverTamperSensorstatus @P2 @UIAutomated
+Scenario Outline: As a user i want to get offline sensors status 
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
-When user navigates to "Security Solution Card" screen from "Dashboard" screen
-Then user should be displayed with the "Sensors" description
-When user navigates to "Sensor List" screen from "Security Solution Card" screen
-#And user creates "Cover Tamper" at the <Sensor>
+#And user is set to <Mode> through CHIL
+#And user creates "Cover Tamper" at the <Sensor> 
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the "Living Room Cover Tampered" description
+When user navigates to "Sensor Status" screen from the "Security Solution card" screen
 Then user should be displayed with the "Cover Tampered" description
 When user selects tampered <Sensor> from "Sensors List" screen
-Then user should be displayed with the "Cover Tamper" description
-When user navigates to  "Security card" screen from "Cover Tamper" screen
-Then user should be displayed with the "Cover Tamper" description
-When user clears "Cover Tamper" at the <Sensor>
-And user selects the <Sensor>
-Then user should be displayed with the "Cover Tamper description" Screen
-When user selects the "Clear Tamper"
-Then user navigates to  "Security card" screen from "Sensor List" screen
-When user navigates to  "Security card" screen from "Cover Tamper description" screen
-Then user should be displayed with the "Cover Tamper description"
-When user navigates to "Activity Log" Screen from "Security crad" screen
-Then user should be displayed with the "{Sensor name} Cover Tamper " <mode> status
-And user should be displayed with "{Sensor name} Cover Tamper Restored " <mode> status
-When user navigates to "Sensor list" screen from "Security card"
-Then user should not be displayed with "Cover Tamper status"
+Then user should be displayed with the "SENSOR COVER TAMPER" description
+When user taps on "Clear Tamper"
+Then user navigates to  "Security Solution card" screen from "Sensor List" screen
+And user "opens" activity log
+Then verify the following activity log:
+       |Elements                 |
+       |Living Room tamper cleared at Home Mode| 
+And user "closes" activity log
 Examples:
-|Mode|Sensor|
-|Away|OSMV Sensor|
-|Night|Motion Sensor|
-|Night|ISMV Sensor|
-|Night|OSMV Sensor|
-|Home|Door Sensor|                                   
-|Home|Window Sensor|                            
-|Home|Motion Sensor|
-|Home|ISMV Sensor|
-|Home|OSMV Sensor|
-|Off |Door Sensor|                                        
-|Off |Window Sensor|                 
-|Off |Motion Sensor|
-|Off |ISMV Sensor|
-|Off |OSMV Sensor|
-
-
-@OfflineSensorstatus @P2    @UIAutomating
-Scenario Outline: As a user i want to get offline sensors status
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
-Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
-When user navigates to "Security Solution Card" screen from "Dashboard" screen
-Then user should be displayed with the "Sensors" description
-When user navigates to "Sensor List" screen from "Security Solution Card" screen
-And user creates "Offline" at the <Sensor>
-Then user should be displayed with the"Offline status"
-When user selects the <Sensor>
-Then user should be displayed with the "Offline description" Screen
-When user navigates to  "Security card" screen from "Offline description" screen
-Then user should be displayed with the "Offline description"
-When user clears "Offline" at the <Sensor>
-Then user should be displayed with the "Sensors description"
-When user navigates to "Activity Log" Screen from "Security crad" screen
-Then user should be displayed with the "{Sensor name} Offline " <mode> status
-And user should be displayed with "{Sensor name} Offline Restored " <mode> status
-When user navigates to "Sensor list" screen from "Security card"
-Then user should not be displayed with "Offline status"
-Examples:
-|Status|Sensor|
-|Away|Door Sensor|                                    
-|Away|Window Sensor|                             
+|Mode|Sensor| 
+|Away|Door Sensor|			
+|Away|Window Sensor|		
 |Away|Motion Sensor|
 |Away|ISMV Sensor|
-|Away|OSMV Sensor
-|Night|Door Sensor|                                    
-|Night|Window Sensor|                             
+|Away|OSMV Sensor|
+|Night|Door Sensor|			
+|Night|Window Sensor|		
 |Night|Motion Sensor|
 |Night|ISMV Sensor|
 |Night|OSMV Sensor|
-|Home|Door Sensor|                                   
-|Home|Window Sensor|                            
+|Home|Door Sensor|			
+|Home|Window Sensor|		
 |Home|Motion Sensor|
 |Home|ISMV Sensor|
 |Home|OSMV Sensor|
-|Off |Door Sensor|                                        
-|Off |Window Sensor|                 
+|Off |Door Sensor|			
+|Off |Window Sensor|		
 |Off |Motion Sensor|
 |Off |ISMV Sensor|
 |Off |OSMV Sensor|
- 
 
+
+@OfflineSensorstatus @P2      @UIAutomated
+Scenario Outline: As a user i want to get offline sensors status 
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+#And user creates "Offline" at the <Sensor> 
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the "Solution Card Offline status" description
+When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
+Then user should be displayed with the "Offline status" description
+When user navigates to  "Security Solution card" screen from the "Sensors Status" screen
+And user "opens" activity log
+Then verify the following activity log:
+       |Elements                 |
+       |Living Room Offline at Home Mode| 
+And user "closes" activity log
+Examples:
+|Mode|Sensor| 
+|Away|Door Sensor|			
+|Away|Window Sensor|		
+|Away|Motion Sensor|
+|Away|ISMV Sensor|
+|Away|OSMV Sensor|
+|Night|Door Sensor|			
+|Night|Window Sensor|		
+|Night|Motion Sensor|
+|Night|ISMV Sensor|
+|Night|OSMV Sensor|
+|Home|Door Sensor|			
+|Home|Window Sensor|		
+|Home|Motion Sensor|
+|Home|ISMV Sensor|
+|Home|OSMV Sensor|
+|Off |Door Sensor|			
+|Off |Window Sensor|		
+|Off |Motion Sensor|
+|Off |ISMV Sensor|
+|Off |OSMV Sensor|
+
+ 
+@OpenSensorstatusHome @P2  @UIAutomatable
+Scenario Outline: As a user I want to get open sensors status 
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+And user is "Enabled" Doors and Windows alert through CHIL (Write a new code for this)
+And user minimizes the application
+When user "door" access sensor "opened"
+Then user selects the "Door Opened" push notification
+And user should be displayed with the "Front Door - Open" description  
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "door" status as "open" on the "Sensor Status"
+When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+And user "opens" activity log
+Then user receives a "ActivityOpen" activity log
+Then user receives a "RestoreActivity" activity log
+And user "closes" activity log
+Examples:
+|Status|Sensor| ActivityOpen|RestoreActivity|
+|Home|Door Sensor| Door opened at Home mode|	
+|Home|Window Sensor| Window opened at Home mode|
+
+@OpenSensorstatusOff @P2  @UIAutomatable
+Scenario Outline: As a user i want to get open sensors status 
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+And user is "Enabled" Doors and Windows alert through CHIL (write a new code for this)
+And user minimizes the application
+When user "door" access sensor "opened"
+Then user selects the "Door Opened" push notification
+Then user should be displayed with the "Front Door - Open" description 
+When user "door" access sensor "closed"
+Then user should be displayed with the "SensorsNoIssue" description
+And user "opens" activity log
+Then user receives a "ActivityOpen" activity log
+Then user receives a "RestoreActivity" activity log
+And user "closes" activity log
+Examples:
+|Status|Sensor| ActivityOpen|RestoreActivity|
+|Home|Door Sensor| Door opened at Home mode|	
+|Home|Window Sensor| Window opened at Home mode|
+
+
+@ContactSensorstatusPriority @P2    @UIAutomatable
+Scenario Outline: As a user I want to shown with sensors status based on priority when sensor with multiple status
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+And user creates "Low battery" at the <Sensor>
+And user creates "Cover tamper" at the <Sensor> 
+And user creates "Offline" at the <Sensor>
+And user is "Enabled" Doors and Windows alert through CHIL 
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the "SensorsNoIssue" description
+When user "door" access sensor "opened"
+When user navigates to "Sensor List" screen from "Security Solution card" screen
+Then user should be displayed with the "Offline Status" description
+When user clears "Offline" at the <Sensor>
+Then user should be displayed with the "Cover Tampered" description
+When user navigates to "Sensor List" screen from "Security Solution card" screen
+When user navigates to "Sensor Status" screen from the "Security Solution card" screen
+Then user should be displayed with the "Cover Tampered" description
+When user selects tampered <Sensor> from "Sensors List" screen
+Then user should be displayed with the "SENSOR COVER TAMPER" description
+When user taps on "Clear Tamper"
+Then user navigates to  "Security Solution card" screen from "Sensor List" screen
+And user should be displayed with the "Low battery" description
+When user navigates to "Sensor List" screen from "Security card" screen
+Then user should be displayed with the "Low battery" description
+When user clears "Low battery" at the <Sensor>
+Then user should be displayed with the "Open status" description
+When user navigates to  "Security card" screen from "Sensor List" screen 
+Then user should be displayed with the "Open status" description
+When user clears "Open status" at the <Sensor>
+Then user should be displayed with the "SensorNoIssue" description 
+And user "opens" activity log
+Then user receives a "ActivityOpen" activity log
+Then user receives a "RestoreActivity" activity log
+And user "closes" activity log
+Examples:
+|Status|Sensor| ActivityOpen|
+|Home|Door Sensor| Door opened at Home mode|	
+|Home|Window Sensor| Low battery at Home mode|
+|Home|Window Sensor|cover tampered at Home mode|
+|Home|Window Sensor|Offline at Home mode|
+|Home|Window Sensor|Offline restored at Home mode|
+|Home|Window Sensor|Cover tamper at Home mode|
+|Home|Window Sensor|Low battery restored at Home mode|
+
+
+@MotionSensorstatusPriority @P2   @UIAutomatable
+Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+And user creates "Low battery" at the <Sensor>
+And user creates "Cover tamper" at the <Sensor> 
+And user creates "Offline" at the <Sensor>
+And user is "Enabled" Doors and Windows alert through CHIL 
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the "SensorsNoIssue" description
+When user "door" access sensor "opened"
+When user navigates to "Sensor List" screen from "Security Solution card" screen
+Then user should be displayed with the "Offline Status" description
+When user clears "Offline" at the <Sensor>
+Then user should be displayed with the "Cover Tampered" description
+When user navigates to "Sensor List" screen from "Security Solution card" screen
+When user navigates to "Sensor Status" screen from the "Security Solution card" screen
+Then user should be displayed with the "Cover Tampered" description
+When user selects tampered <Sensor> from "Sensors List" screen
+Then user should be displayed with the "SENSOR COVER TAMPER" description
+When user taps on "Clear Tamper"
+Then user navigates to  "Security Solution card" screen from "Sensor List" screen
+And user should be displayed with the "Low battery" description
+When user navigates to "Sensor List" screen from "Security card" screen
+Then user should be displayed with the "Low battery" description
+When user clears "Low battery" at the <Sensor>
+Then user should be displayed with the "Open status" description
+When user navigates to  "Security card" screen from "Sensor List" screen 
+Then user should be displayed with the "Open status" description
+When user clears "Open status" at the <Sensor>
+Then user should be displayed with the "SensorNoIssue" description 
+And user "opens" activity log
+Then user receives a "ActivityOpen" activity log
+Then user receives a "RestoreActivity" activity log
+And user "closes" activity log
+Examples:
+|Status|Sensor| ActivityOpen|
+|Home|Motion Sensor| Door opened at Home mode|	
+|Home|ISMV Sensor| Low battery at Home mode|
+|Home|OSMV Sensor|cover tampered at Home mode|
+|Home|Motion Sensor|Offline at Home mode|
+|Home|ISMV Sensor|Offline restored at Home mode|
+|Home|OSMV Sensor|Cover tamper at Home mode|
+|Home|Motion Sensor|Low battery restored at Home mode|
+
+
+
+@SensorstatusOfflinerestore @P2     @UIAutomatable
+Scenario Outline: As a user I should get sensors status after panel offline restore 
+#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+ And user is set to <Mode> through CHIL
+ And user is "Enabled" Doors and Windows alert through CHIL 
+When user navigates to "Security Solution card" screen from "Dashboard" screen
+Then user should be displayed with the "SensorNoIssue" description
+When user panel "Wi-Fi" is "disconnected"
+Then user should be displayed with the "Panel offline Status" description 
+When user creates "Low battery" at the <Sensor>
+ And user creates "Cover tamper" at the <Sensor> 
+ And user creates "Offline" at the <Sensor>
+ And user clears "Offline" at the <Sensor>
+ And user clears "Cover tamper" at the <Sensor>
+ And user clears "Low battery" at the <Sensor>
+When user panel "Wi-Fi" is "disconnected" 
+Then user should be displayed with the "Security Solution card" screen 
+When user navigates to "Activity Log" Screen from "Security crad" screen
+Then user should be displayed with the "{Sensor name} Low battery " <mode> status
+ And user should be displayed with the "{Sensor name} Cover tamper " <mode> status
+ And user should be displayed with the "{Sensor name} Offline " <mode> status
+ And user should be displayed with the "{Sensor name} Offline restored " <mode> status
+ And user should be displayed with the "{Sensor name} Cover tamper restored " <mode> status
+ And user should be displayed with the "{Sensor name} Low battery restored " <mode> status
+Examples:
+|Status|Sensor| ActivityOpen|
+|Home|Motion Sensor| Door opened at Home mode|	
+|Home|ISMV Sensor| Low battery at Home mode|
+|Home|OSMV Sensor|cover tampered at Home mode|
+|Home|Door Sensor|Offline at Home mode|
+|Home|Window Sensor|Offline restored at Home mode|
+|Home|OSMV Sensor|Cover tamper at Home mode|
+|Home|Motion Sensor|Low battery restored at Home mode|
+
+
+@BasestationSensorenrollment @P3  @UIAutomatable
+Scenario Outline: I should be shown with update in progress when panel in sensor enrollment state
+Given user panel in "Sensor enrollment state" enabled (write a code)
+And user launches and logs in to the Lyric Application
+And user is set to <Mode> through CHIL
+ Then user should be displayed with "Updating status" in "Dashboard" screen
+ When user navigates to "Security card" screen from "Dashboard" screen
+ Then user should be displayed with "Updating status" in "Security card" screen
+ Given user panel in "Sensor enrollment state"  disabled (write a code)
+ Then user should not be displayed with "Updating status" in "Dashboard" screen
+ When user navigates to "Security card" screen from "Dashboard" screen
+ Then user should not be displayed with "Updating status" in "Security card" screen
+ Examples:
+ |Mode|
+ |Home|
+ |Off |
+ 

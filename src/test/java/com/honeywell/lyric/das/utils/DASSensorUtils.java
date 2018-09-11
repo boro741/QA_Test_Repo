@@ -296,14 +296,16 @@ public class DASSensorUtils {
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		String sensorName = "";
 		String sensorState = "";
-		if (sensor.equalsIgnoreCase("Door")) {
+		if (sensor.equalsIgnoreCase("Door")||sensor.equalsIgnoreCase("Door Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-		} else if (sensor.equalsIgnoreCase("window")) {
+		} else if (sensor.equalsIgnoreCase("window")||sensor.equalsIgnoreCase("Window Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		} else if (sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 		} else if (sensor.equalsIgnoreCase("ISMV")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+		} else if (sensor.equalsIgnoreCase("OSMV")) {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
 		} 
 		else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");

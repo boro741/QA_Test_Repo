@@ -12,6 +12,8 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSettingScreen;
 
 public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 	private TestCases testCase;
@@ -39,6 +41,20 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 		switch (expectedOption.get(0).toUpperCase()) {
 		case "EMAIL NOTIFICATIONS": {
 			cs.isEmailNotificationCellVisibleAfterTurningOffAlerts(testCase);
+			break;
+		}
+		case "COVER TAMPER STATUS": {
+			SensorSettingScreen ssc = new SensorSettingScreen(testCase);			
+			if (!ssc.isClearTamperOptionVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Not Found");
+			}
+			break;
+		}	case "OFFLINE STATUS": {
+			SensorSettingScreen ssc = new SensorSettingScreen(testCase);			
+			if (!ssc.isSensorOffScreenDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Not Found");
+			}
+			break;
 		}
 		}
 		return flag;

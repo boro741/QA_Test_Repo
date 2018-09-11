@@ -56,6 +56,15 @@ public class SensorStatusScreen extends MobileScreens {
 	public boolean clickOnSensorStatusScreenBack(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
 	}
+	
+	public boolean isSensorOfflineInStatus() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
+	}
+
+	
+	public boolean isCoverTamperedTextVisibleinSensorStatusScreen(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CoverTamperStatusText");
+	}
 
 	public boolean selectTamperedClear(TestCases testCase, TestCaseInputs inputs, String sensor) {
 		List<WebElement> list;

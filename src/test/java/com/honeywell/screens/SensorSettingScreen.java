@@ -391,7 +391,15 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 		return false;
 	}
-
+ 
+	public boolean isClearTamperOptionVisible() {
+		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
+		if (status.equalsIgnoreCase("Cover Tampered")) {
+			Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Found");
+		}
+		return false;
+	}
+	
 	public boolean clickOnClearCoverTamperOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearTamperButton");
 	}

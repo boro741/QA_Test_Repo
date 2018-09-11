@@ -96,6 +96,13 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensorScreen.clickOnSensorStatusScreenBack(testCase);
 					flag = flag & DASActivityLogsUtils.openActivityLogs(testCase);
 					break;
+				} case "SECURITY SOLUTION CARD":{
+					SensorSettingScreen ssc = new SensorSettingScreen(testCase);
+					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					if (ssc.isSensorsScreenTitleVisible()) {
+						flag =   flag & sc.clickOnBackButton();
+					}
+					break;
 				}
 				default: {
 					flag = false;
@@ -796,7 +803,7 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+//					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
 				}
 				case "SOLUTION": {
@@ -1081,7 +1088,43 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+
 			}  else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+
+			} 
+//				else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
+//			   switch (screen.get(0).toUpperCase()) {
+//			   case "SENSOR LIST": {
+//				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+//				flag =   flag & sc.isSensorsTextVisible();
+//				break;
+//			}
+//			default: {
+//				flag = false;
+//				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+//			}
+//			}
+//			} 
+			else if (screen.get(1).equalsIgnoreCase("SENSOR COVER TAMPER")) {
+				   switch (screen.get(0).toUpperCase()) {
+				   case "SECURITY SOLUTION CARD": {
+					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					SensorSettingScreen ssc = new SensorSettingScreen(testCase);
+					if (ssc.isSensorTamperedScreenDisplayed()) {
+						flag =   flag & sc.clickOnBackButton();
+					} if (ssc.isSensorsScreenTitleVisible()) {
+						flag =   flag & sc.clickOnBackButton();
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+				} 
+		
+			else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GLOBAL DRAWER": {
 					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
@@ -1735,7 +1778,7 @@ public class NavigateToScreen extends Keyword {
 				}
 
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Security Solution Card")) {
+			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 					   case "SENSOR LIST": {
 						SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -1765,7 +1808,6 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-
 				case "CAMERA SOLUTION CARD": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.clickOnBackButton();
