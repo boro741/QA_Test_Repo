@@ -8646,7 +8646,7 @@ public class JasperSchedulingUtils {
 												"[Exception] Error message: " + e.getMessage());
 									}
 									if (inputs.getInputValue(InputVariables.WEEKEND_SLEEP_TIME)
-											.equalsIgnoreCase(tempTime.replaceFirst("\\s+",""))
+											.equalsIgnoreCase(tempTime)
 											&& inputs.getInputValue(InputVariables.WEEKEND_SLEEP_HEAT_SETPOINT)
 											.equalsIgnoreCase(ss.getHeatSetPointsOfGivenWeekendPeriod(
 													weekendschedule_periodtitle.get(i).getText()).replaceAll("°",""))
