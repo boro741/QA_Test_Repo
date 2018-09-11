@@ -76,3 +76,4 @@ SensorPlacedButton	ID	sensor_placed_button	ID	sensor_placed_button	ID	sensor_pla
 SensorDetailsHeader	ID	header_layout	ID	header_layout	ID	header_layout						
 ProgressBarText	ID	message	ID	message	ID	message						
 MultipleSensorRoomPopUp	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"						
+Yesbutton	XPATH	//*[@text='Yes']	XPATH	//*[@text='Yes']	XPATH	//*[@text='Yes']						

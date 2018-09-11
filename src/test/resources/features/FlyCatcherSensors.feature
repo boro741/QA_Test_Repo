@@ -16,7 +16,7 @@ So that i can move the sensor as per my prefernce
      Then user should receive a "SensorDelete" popup
   
   @SensorMoveSensorDefaultRoom
-  Scenario: To move an sensos from one room to another 
+  Scenario: To move an sensor from one room to New room 
   As an User 
   I want to move an sensor from Exiting to another 
   so that i can set my priroty in specific room 
@@ -31,7 +31,7 @@ So that i can move the sensor as per my prefernce
 #      And Veirfy if "New room" is displayed in "Priority" screen
       
       @SensorMoveSensorCustomRoom
-  Scenario: To move an sensos from one room to another 
+  Scenario: To move an sensor from one room to Custom Room 
   As an User 
   I want to move an sensor from Exiting to another 
   so that i can set my priroty in specific room 
@@ -45,7 +45,7 @@ So that i can move the sensor as per my prefernce
 #      And user navigates to "Priority" screen from the "Device and Sensors" screen
 #      And Veirfy if "New room" is displayed in "Priority" screen
   
-  @SensorMoveToSameRoom
+  @SensorMoveToSameExitingRoomname
   Scenario: To Move an Sesnor to Same room so that its displaye an average to stats temp
   As an user
   I want to move an Sensor to existing room 
@@ -56,10 +56,9 @@ So that i can move the sensor as per my prefernce
       And user navigates to "Device and Sensors" screen from the "Dashboard" screen
      When user taps on "Move Sensor"
       And user moves sensor to "Exisiting Room" 
-     Then Veirfy if "Pop up" is displayed 
      And Verify if sensor is moved to "Exisiting Room" 
-     When user navigates to "Priority" screen from the "Device and Sensors" screen
-     Then veirfy if average temp of 2 stats is displayed when moved to same room
+#     When user navigates to "Priority" screen from the "Device and Sensors" screen
+#     Then veirfy if average temp of 2 stats is displayed when moved to same room
   
   @SensorIdentifySensor
   Scenario: To identify an sensor which is regustered to an stat 

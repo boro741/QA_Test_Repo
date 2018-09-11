@@ -432,6 +432,10 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 		}
 		return flag;
 	}
+	
+	public boolean ClickOnYesButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Yesbutton");
+	}
 
 
 }

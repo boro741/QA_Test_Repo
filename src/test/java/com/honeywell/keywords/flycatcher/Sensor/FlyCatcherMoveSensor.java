@@ -86,6 +86,11 @@ public class FlyCatcherMoveSensor extends Keyword {
 									String exisitingRoom = getMoveTypelist.get(i).getText();
 									flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='"+getMoveTypelist.get(i).getText() +"']"," User Selected " + getMoveTypelist.get(i).getText() + " Room");
 									inputs.setInputValue(InputVariables.EDITEDSENSORNAME, exisitingRoom);
+									if (fly.isMultipleSensorRoomPopUpVisible()){
+										flag = flag & fly.ClickOnYesButton();
+										Keyword.ReportStep_Pass(testCase,
+												"Use multiple sensors in same room pop up is displayed");
+									}
 									break;
 								}
 							}
