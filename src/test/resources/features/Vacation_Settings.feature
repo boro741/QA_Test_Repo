@@ -340,7 +340,7 @@ Examples:
 	| Mode	| AdhocOverride					| UAdhocOverride					| 
 	| Heat	| Using while home/away/sleep	| Using while home/away/sleep	| 
 	| Heat	| Temporary						| Temporary						|
-	|	#Vacation ends after temporary ends 
+		#Vacation ends after temporary ends 
 	| Heat	| Temporary						| Using while home/away/sleep	|
 
   
