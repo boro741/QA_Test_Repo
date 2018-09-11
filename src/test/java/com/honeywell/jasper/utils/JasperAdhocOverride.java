@@ -328,6 +328,7 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"geofence Temporary Hold status not displayed" + overrideTemp);
 				}
+				Keyword.ReportStep_Pass(testCase, "Stat is in "+statInfo.getThermostatUnits());
 				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
 					String overrideTemp1 = overrideTemp.replace(".0", "");
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 PERMANENTLY");

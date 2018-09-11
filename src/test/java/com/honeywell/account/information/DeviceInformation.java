@@ -144,6 +144,7 @@ public class DeviceInformation {
 		String units = " ";
 		if (deviceInformation != null) {
 			units = deviceInformation.getJSONObject("thermostat").getString("units");
+			Keyword.ReportStep_Pass(testCase, "Stat is in "+units);
 		} else {
 			throw new Exception("Device Information not found");
 		}

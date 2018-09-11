@@ -92,15 +92,21 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 					String jasperStatType = statInfo.getJasperDeviceType();
 					if (jasperStatType.equalsIgnoreCase("NA")) {
 						if(statInfo.getThermostatUnits().contains("Fahrenheit")) {
+							Keyword.ReportStep_Pass(testCase,
+									"Stat is in fahrenheit");
 							currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
 							Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
 						}else{
+							Keyword.ReportStep_Pass(testCase,
+									"Stat is in celcius");
 							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
 							currentStepperSetpoint = currentStepperSetpoint1.toString(); 
 						}
 						
 					}
 					else{
+						Keyword.ReportStep_Pass(testCase,
+								"Stat is EMEA");
 							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
 							currentStepperSetpoint = currentStepperSetpoint1.toString(); 
 						}
