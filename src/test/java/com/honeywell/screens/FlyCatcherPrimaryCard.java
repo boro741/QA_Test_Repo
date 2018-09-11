@@ -346,23 +346,23 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public WebElement getPickerElement(){
 		return MobileUtils.getMobElement(objectDefinition, testCase, "VentilationTimerPicker");
 	}
-	
+
 	public boolean ClickOnDeviceAndSensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeviceAndSensor");
 	}
-	
+
 	public boolean ClickOnSettingsIcon(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SettingsIcon");
 	}
-	
+
 	public boolean ClickOnDeleteSensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensor");
 	}
-	
+
 	public boolean ClickOnIdentifySensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "IdentifySensor");
 	}
-	
+
 	public boolean ClickOnMoveSensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MoveSensor");
 	}
@@ -370,10 +370,129 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public boolean isDeleteSensorPopUpVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorPopUp");
 	}
-	
+
 	public boolean isIdentifySensorImageVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IdentifySensorImage");
 	}
 
+	public boolean ClickOnSensorCustomNameField(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorCustomName");
+	}
+
+	public List<WebElement> getSensorRoomTypeListElements() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SensorRoomTypeList");
+	}
+
+	public List<WebElement> getSensorMoveTypeListElements() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SensorMoveTypeList");
+	}
+
+	public boolean isSensorPlacedButtonVisible(int timeout){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorPlacedButton" ,timeout);
+	}
+
+	public boolean ClickOnSensorPlacedButtonButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorPlacedButton");
+	}
 	
+	public boolean ClickOnSensorCustomNameButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorCustomName");
+	}
+
+	public String getSensorDetailsHeaderText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetailsHeader").getText();
+	}
+
+	public String getProgressBarText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ProgressBarText").getText();
+	}
+
+	public boolean isPrgressBarVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBarText");
+	}
+	
+	public boolean isMultipleSensorRoomPopUpVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MultipleSensorRoomPopUp");
+	}
+
+	public boolean setCoustomNametoSensor(String value) {
+		boolean flag = true; 
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SensorCustomName", value ,"Adding CustomName to textField");
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
+		} else {
+			try {
+				MobileUtils.pressEnterButton(testCase);
+				//				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			} catch (Exception e) {
+			}
+		}
+		return flag;
+	}
+	
+	public boolean ClickOnYesButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Yesbutton");
+	}
+	
+	public String getSensorDetialsTempText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsTempValue").getText();
+	}
+
+	public boolean isSensorDetialsTempVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsTempText");
+	}
+	
+	public String getSensorDetialsHumidityText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsHumidityValue").getText();
+	}
+
+	public boolean isSensorDetialsHumidityVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsHumidityText");
+	}
+	
+	public String getSensorDetialsBatteryText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsBatteryValue").getText();
+	}
+
+	public boolean isSensorDetialsBatteryVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsBatteryText");
+	}
+	
+	public String getSensorDetialsSignalStrengthText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsSignalStrengthValue").getText();
+	}
+
+	public boolean isSensorDetialsSignalStrengthVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsSignalStrengthText");
+	}
+	
+	public String getSensorDetialsModelText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsModelValue").getText();
+	}
+
+	public boolean isSensorDetialsModelVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsModelText");
+	}
+	
+	public String getSensorDetialsFirmwareVersionText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsFirmwareVersionValue").getText();
+	}
+
+	public boolean isSensorDetialsFirmwareVersionVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsFirmwareVersionText");
+	}
+
+	public boolean isSensorDetialsUseMotionDetectionVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsUseMotionDetectionText");
+	}
+	
+	public String getSensorMotionDetectionToggleValue() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorMotionDetectionToggle").getText();
+	}
+	
+	public boolean ClickOnSensorMotionDetectionToggleButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorMotionDetectionToggle");
+	}
+	
+
 }

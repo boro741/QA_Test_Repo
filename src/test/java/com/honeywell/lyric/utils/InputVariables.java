@@ -227,7 +227,7 @@ public class InputVariables {
 	public static final String EDIT_GEOFENCE_SCHEDULE = "editGeofenceSchedule";
 	
 	public static String SENSOR1 = "SENSOR1";
-	
+	public static String EDITEDSENSORNAME = "EditSensorName";
 	
 
 }

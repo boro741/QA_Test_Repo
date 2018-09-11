@@ -18,6 +18,7 @@ import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -106,11 +107,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & check.isSwitchToNightExists();
 					break;
 				}
-				case "ENTRY DELAY ATTENTION": {
-					System.out.println("Inside entry delay attention ");
-					flag = flag & check.isAttentionButtonExists();
-					break;
-				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");
@@ -120,6 +116,63 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				flag = true;
 
+			}
+			break;
+		}
+		case "SENSOR DETAILS": {
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Elements");
+				switch (parameter.toUpperCase()) {
+				case "TEMPRETURE": {
+					if (fly.isSensorDetialsTempVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsTempText() + "has found");
+					}
+					break;
+				}
+				case "HUMIDITY": {
+					if (fly.isSensorDetialsHumidityVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsHumidityText() + "has found");
+					}
+					break;
+				}
+				case "BATTERY STATUS": {
+					if (fly.isSensorDetialsBatteryVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsBatteryText() + "has found");
+					}
+					break;
+				}
+				case "SIGNAL STRENGTH": {
+					if (fly.isSensorDetialsSignalStrengthVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsSignalStrengthText() + "has found");
+					}
+					break;
+				}
+				case "MODEL": {
+					if (fly.isSensorDetialsModelVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsModelText() + "has found");
+					}
+					break;
+				}
+				case "FIRMWARE VERSION": {
+					if (fly.isSensorDetialsFirmwareVersionVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsFirmwareVersionText() + "has found");
+					}
+					break;
+				}
+				case "USE MOTION DETECTION": {
+					if (fly.isSensorDetialsUseMotionDetectionVisible()){
+						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorMotionDetectionToggleValue() + "has found");
+					}
+					break;
+				  }
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Mode: " + parameter + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Mode: " + parameter + " is not displayed");
+				}
 			}
 			break;
 		}
@@ -281,7 +334,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				try {
 					if (bs.verifyParticularEntryExitDelayOptionVisible(data.getData(i, "Delays"))) {
 						Keyword.ReportStep_Pass(testCase, "Option: '" + data.getData(i, "Delays")
-								+ "' is present on the Entry/Exit Delay screen");
+						+ "' is present on the Entry/Exit Delay screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option: '"
@@ -576,9 +629,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			} else {
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
@@ -631,7 +684,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Security State: '" + fieldToBeVerified
-										+ "' is not present in the list of Options in Video Quality screen");
+								+ "' is not present in the list of Options in Video Quality screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -702,7 +755,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Temperature Alert Options: '" + fieldToBeVerified
-										+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+								+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -724,7 +777,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Temperature Alert Range Options: '" + fieldToBeVerified
-										+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+								+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -745,7 +798,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Humidity Alert Options: '" + fieldToBeVerified
-										+ "' is not present in the list of Options when Indoor Humidity Alert toggle switch is enabled in Manage Alerts screen");
+								+ "' is not present in the list of Options when Indoor Humidity Alert toggle switch is enabled in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -766,7 +819,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Humidity Alert Range Options: '" + fieldToBeVerified
-										+ "' is not present in the list of Options when Indoor Humidity Alert Range is selected in Manage Alerts screen");
+								+ "' is not present in the list of Options when Indoor Humidity Alert Range is selected in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -1183,7 +1236,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Thermostat Ventilation Option: '" + fieldToBeVerified
-										+ "' is not present in the list of Options in Ventilation Screen");
+								+ "' is not present in the list of Options in Ventilation Screen");
 					}
 				} catch (Exception e) {
 					flag = false;
