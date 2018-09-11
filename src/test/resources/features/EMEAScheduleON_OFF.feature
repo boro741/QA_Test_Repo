@@ -178,7 +178,7 @@ Examples:
 
 @ScheduleOFFONVacationEMEA @Automated @LYR-29406
 Scenario Outline:As an user I want to turn schedule ON So that my vaction will be back  
-Given user has "Heat system mode
+Given user has "Heat" system mode
 Then user thermostat is set to <scheduling> schedule 
 When vacation mode is "active"
 And user launches and logs in to the Lyric application

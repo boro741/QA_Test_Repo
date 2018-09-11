@@ -151,8 +151,8 @@ Then Offline Stat should't be displayed
 
 @NA_WhenHeat_CoolOnly @Automated
 Scenario Outline: As a user I want to create an Goefence schedule with Heat OR Cold only modes
-Given user thermostat is configures with "Modes"system mode
-And user launches and logs in to the Lyric application
+#Given user thermostat is configures with "Modes" system mode
+Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates "Geofence based" scheduling with default values "Without" sleep settings
 Then  "Geofence based" scheduling gets activated

@@ -337,11 +337,11 @@ When vacation mode is "inactive"
 Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 
 Examples:
-		| AdhocOverride					| UAdhocOverride					| 
-		| Using while home/away/sleep	| Using while home/away/sleep	| 
-		| Temporary						| Temporary						|
-		#Vacation ends after temporary ends 
-		| Temporary						| Using while home/away/sleep	|
+	| Mode	| AdhocOverride					| UAdhocOverride					| 
+	| Heat	| Using while home/away/sleep	| Using while home/away/sleep	| 
+	| Heat	| Temporary						| Temporary						|
+	|	#Vacation ends after temporary ends 
+	| Heat	| Temporary						| Using while home/away/sleep	|
 
   
 @Vacations_VactionStatusOnDashabord			@Automated

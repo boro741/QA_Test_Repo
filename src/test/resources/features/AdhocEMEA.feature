@@ -55,7 +55,7 @@ Examples:
 #| P4|
 
 @AdhocOverrideTimeschedulingChangemodeHeatcoolAutoOFFfollowingscheduleEMEA		@Automated
-Scenario:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
+Scenario Outline:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 Then user thermostat is set to "time based" schedule
 When user launches and logs in to the Lyric application
@@ -67,7 +67,12 @@ And verify the "Following Schedule Not Displayed" on the "PRIMARY CARD" screen
 When user changes system mode to "Heat"
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
-
+Examples:
+| Period |
+| P1 |
+#| P2|
+#| P3|
+#| P4|
 
 @AdhocOverrideGeofencebaseSchedulingChangemodeHeatcoolAutoOFFusingEMEA			@Automated
 Scenario Outline:  To verify using schedule switching modes is changed for Heat and off system with auto changeover enabled
