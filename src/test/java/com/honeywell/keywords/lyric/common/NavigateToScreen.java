@@ -676,6 +676,7 @@ public class NavigateToScreen extends Keyword {
 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					flag = flag && fly.ClickOnSettingsIcon();
 					flag = flag && fly.ClickOnDeviceAndSensor();
+					flag = flag && MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
 					break;
 				}
 				case "WINDOW PROTECTION": {

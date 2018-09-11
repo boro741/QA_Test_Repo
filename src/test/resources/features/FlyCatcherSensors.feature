@@ -3,7 +3,7 @@ Feature: As an user
 I want to control my sensor
 So that i can move the sensor as per my prefernce 
 
-@SensorDeleteSensor
+@SensorDeleteSensor @Automated
   Scenario: To inform user on Deleting sensor from Stat
   As an user 
   I want to be informed on Delete options 
@@ -15,7 +15,7 @@ So that i can move the sensor as per my prefernce
      When user taps on "Delete Sensor"
      Then user should receive a "SensorDelete" popup
   
-  @SensorMoveSensorDefaultRoom
+  @SensorMoveSensorDefaultRoom @Automated
   Scenario: To move an sensor from one room to New room 
   As an User 
   I want to move an sensor from Exiting to another 
@@ -30,7 +30,7 @@ So that i can move the sensor as per my prefernce
 #      And user navigates to "Priority" screen from the "Device and Sensors" screen
 #      And Veirfy if "New room" is displayed in "Priority" screen
       
-      @SensorMoveSensorCustomRoom
+      @SensorMoveSensorCustomRoom @Automated
   Scenario: To move an sensor from one room to Custom Room 
   As an User 
   I want to move an sensor from Exiting to another 
@@ -45,7 +45,7 @@ So that i can move the sensor as per my prefernce
 #      And user navigates to "Priority" screen from the "Device and Sensors" screen
 #      And Veirfy if "New room" is displayed in "Priority" screen
   
-  @SensorMoveToSameExitingRoomname
+  @SensorMoveToSameExitingRoomname @Automated
   Scenario: To Move an Sesnor to Same room so that its displaye an average to stats temp
   As an user
   I want to move an Sensor to existing room 
@@ -60,7 +60,7 @@ So that i can move the sensor as per my prefernce
 #     When user navigates to "Priority" screen from the "Device and Sensors" screen
 #     Then veirfy if average temp of 2 stats is displayed when moved to same room
   
-  @SensorIdentifySensor
+  @SensorIdentifySensor @Automated
   Scenario: To identify an sensor which is regustered to an stat 
   As an user 
   I want to identify an sensor which is registered 
@@ -73,7 +73,7 @@ So that i can move the sensor as per my prefernce
      Then user should be displayed with the "Identify sensor" screen  
 #      And verify if configured sensor is blinking 
   
-  @Sensordetails
+  @SensordetailScreen @Automated
   Scenario: To display sensor Firmware,Battery Life,Signal Strength and Model
   As an user 
   I want to view sensor details to be displayed 
@@ -82,9 +82,17 @@ So that i can move the sensor as per my prefernce
     Given user fetches Sensor list from the stat
       And user launches and logs in to the Lyric application
      When user navigates to "Device and Sensors" screen from the "Dashboard" screen 
-     Then User is displayed with "Sensor detail" Screen 
+     Then user should be displayed with the following "Sensor details" options:
+      | Elements             | 
+      | Temperture           | 
+      | Humidity             | 
+      | Battery Status       | 
+      | Signal Strength      | 
+      | Model                | 
+      | Firmware Version     | 
+      | Use Motion Detection | 
   
-  @SensorComfortSettings
+  @SensorComfortSettings 
   Scenario: To Enable Motion detection for Sensors
   As an user 
   I want to enable sensor motion detection

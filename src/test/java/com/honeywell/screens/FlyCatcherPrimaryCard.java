@@ -1,8 +1,6 @@
 package com.honeywell.screens;
 
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -10,7 +8,6 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 
@@ -436,6 +433,66 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public boolean ClickOnYesButton(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "Yesbutton");
 	}
+	
+	public String getSensorDetialsTempText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsTempValue").getText();
+	}
 
+	public boolean isSensorDetialsTempVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsTempText");
+	}
+	
+	public String getSensorDetialsHumidityText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsHumidityValue").getText();
+	}
+
+	public boolean isSensorDetialsHumidityVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsHumidityText");
+	}
+	
+	public String getSensorDetialsBatteryText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsBatteryValue").getText();
+	}
+
+	public boolean isSensorDetialsBatteryVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsBatteryText");
+	}
+	
+	public String getSensorDetialsSignalStrengthText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsSignalStrengthValue").getText();
+	}
+
+	public boolean isSensorDetialsSignalStrengthVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsSignalStrengthText");
+	}
+	
+	public String getSensorDetialsModelText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsModelValue").getText();
+	}
+
+	public boolean isSensorDetialsModelVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsModelText");
+	}
+	
+	public String getSensorDetialsFirmwareVersionText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetialsFirmwareVersionValue").getText();
+	}
+
+	public boolean isSensorDetialsFirmwareVersionVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsFirmwareVersionText");
+	}
+
+	public boolean isSensorDetialsUseMotionDetectionVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorDetialsUseMotionDetectionText");
+	}
+	
+	public String getSensorMotionDetectionToggleValue() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorMotionDetectionToggle").getText();
+	}
+	
+	public boolean ClickOnSensorMotionDetectionToggleButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorMotionDetectionToggle");
+	}
+	
 
 }
