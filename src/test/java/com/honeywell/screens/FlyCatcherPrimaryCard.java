@@ -1,6 +1,8 @@
 package com.honeywell.screens;
 
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,6 +10,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 
@@ -346,23 +349,23 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public WebElement getPickerElement(){
 		return MobileUtils.getMobElement(objectDefinition, testCase, "VentilationTimerPicker");
 	}
-	
+
 	public boolean ClickOnDeviceAndSensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeviceAndSensor");
 	}
-	
+
 	public boolean ClickOnSettingsIcon(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SettingsIcon");
 	}
-	
+
 	public boolean ClickOnDeleteSensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSensor");
 	}
-	
+
 	public boolean ClickOnIdentifySensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "IdentifySensor");
 	}
-	
+
 	public boolean ClickOnMoveSensor(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MoveSensor");
 	}
@@ -370,10 +373,65 @@ public class FlyCatcherPrimaryCard extends MobileScreens {
 	public boolean isDeleteSensorPopUpVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSensorPopUp");
 	}
-	
+
 	public boolean isIdentifySensorImageVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IdentifySensorImage");
 	}
 
+	public boolean ClickOnSensorCustomNameField(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorCustomName");
+	}
+
+	public List<WebElement> getSensorRoomTypeListElements() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SensorRoomTypeList");
+	}
+
+	public List<WebElement> getSensorMoveTypeListElements() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "SensorMoveTypeList");
+	}
+
+	public boolean isSensorPlacedButtonVisible(int timeout){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorPlacedButton" ,timeout);
+	}
+
+	public boolean ClickOnSensorPlacedButtonButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorPlacedButton");
+	}
 	
+	public boolean ClickOnSensorCustomNameButton(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorCustomName");
+	}
+
+	public String getSensorDetailsHeaderText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorDetailsHeader").getText();
+	}
+
+	public String getProgressBarText() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ProgressBarText").getText();
+	}
+
+	public boolean isPrgressBarVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBarText");
+	}
+	
+	public boolean isMultipleSensorRoomPopUpVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MultipleSensorRoomPopUp");
+	}
+
+	public boolean setCoustomNametoSensor(String value) {
+		boolean flag = true; 
+		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SensorCustomName", value ,"Adding CustomName to textField");
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
+		} else {
+			try {
+				MobileUtils.pressEnterButton(testCase);
+				//				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			} catch (Exception e) {
+			}
+		}
+		return flag;
+	}
+
+
 }

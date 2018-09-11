@@ -69,3 +69,10 @@ MoveSensor	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to 
 DeleteSensorPopUp	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']						
 IdentifySensorImage	ID	sensor_image	ID	sensor_image	ID	sensor_image						
 SensorMotionDetectionToggle	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view						
+SensorCustomName	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit						
+SensorRoomTypeList	ID	list_item_display_text	ID	list_item_display_text	ID	list_item_display_text						
+SensorMoveTypeList	ID	button	ID	button	ID	button						
+SensorPlacedButton	ID	sensor_placed_button	ID	sensor_placed_button	ID	sensor_placed_button						
+SensorDetailsHeader	ID	header_layout	ID	header_layout	ID	header_layout						
+ProgressBarText	ID	message	ID	message	ID	message						
+MultipleSensorRoomPopUp	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"						

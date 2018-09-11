@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -77,6 +78,20 @@ public class DeviceInformation {
 			temp = SensorListJson.getJSONArray("rooms");
 			for (int i = 0; i < temp.length()-1;i++) {
 				sensorID.add(temp.getJSONObject(i+1).get("name").toString());
+			}
+		} else {
+			throw new Exception("Device Information not found");
+		}
+		return sensorID;
+	}
+	
+	public List<String> getSensorRoomType(JSONObject SensorListJson) throws Exception {
+		List<String> sensorID = new ArrayList<String>();
+		if (deviceInformation != null) {
+			JSONArray temp = new JSONArray();
+			temp = SensorListJson.getJSONArray("rooms");
+			for (int i = 0; i < temp.length();i++) {
+				sensorID.add(temp.getJSONObject(i).get("type").toString());
 			}
 		} else {
 			throw new Exception("Device Information not found");

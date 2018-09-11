@@ -83,6 +83,20 @@ public class TaponElement extends Keyword {
 			flag = flag && fly.ClickOnDeleteSensor();
 			break;
 		}
+		case "IDENTIFY SENSOR": {
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+			flag = flag && MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
+			flag = flag && fly.ClickOnHumOptionButton();
+			flag = flag & fly.ClickOnIdentifySensor();
+			break;
+		}
+		case "MOVE SENSOR": {
+			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+			flag = flag && MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
+			flag = flag && fly.ClickOnHumOptionButton();
+			flag = flag & fly.ClickOnMoveSensor();
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

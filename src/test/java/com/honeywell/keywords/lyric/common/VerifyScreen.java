@@ -27,6 +27,7 @@ import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -794,6 +795,14 @@ public class VerifyScreen extends Keyword {
 			case "TAP ON RESUME":{
 				SchedulingScreen schl = new SchedulingScreen(testCase);
 				flag = flag & schl.clickOnScheduleOffOverlay();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "IDENTIFY SENSOR":{
+				FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+				flag = flag & fly.isIdentifySensorImageVisible();
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}
