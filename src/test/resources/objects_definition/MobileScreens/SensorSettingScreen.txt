@@ -53,11 +53,11 @@ SensorHowitWorks	xpath	//*[@text='How it Works']					xpath	"//*[contains(@name,'
 WatchHowToVideo	xpath	//*[@text='Watch How-To Video']					name	Watch How-To Video				
 GetStarted	id	horizontal_button_next					Name	RightButton				
 LocateSensorHeading	xpath	//*[@text='Locate Sensor']					xpath	//*[@value='Locate Sensor']				
-FindTheLit	xpath	//*[@text='Find the Lit Sensor']					xpath	//*[@value='Find the Lit Sensor']				
+FindTheLit	xpath	//*[@text='Find the Lit Sensor' or @text='Find the lit Sensor']					xpath	//*[@value='Find the Lit Sensor']				
 NextButton	id	horizontal_button_next					name	RightButton				
 PlaceSensorHeading	xpath	//*[@text='Place Sensor']					xpath	//*[@value='Place Sensor']				
 WontFitAsShown	id	horizontal_link_text					xpath	"//*[contains(@name,'Fit As Shown')]"				
-AccessSensorInstallHelpHeading	xpath	//*[@text='Access Sensor Install Help']					xpath	//*[@value='Access Sensor Install Help']				
+AccessSensorInstallHelpHeading	xpath	//*[@text='Access Sensor Install Help' or @text='Access sensor install help']					xpath	//*[@value='Access Sensor Install Help']				
 BackButton	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']					name	Back				
 DoneButton	id	horizontal_button_next					name	RightButton				
 ConfiguredText	id	sensor_configured_text					xpath	//*[@value='Configured']				
@@ -66,8 +66,8 @@ SensorNameDuplicatePopup							xpath	"//*[contains(@name,'Sensor name is already
 SensorNameDuplicatePopupAck							name	OK				
 MountSensorHeading	xpath	//*[@text='Mount Sensor']					xpath	//*[@value='Mount Sensor']				
 MotionSensor_SensorName	id	by_sensor_name					xpath	"//*[contains(@name,'by')]"				
-MotionSensor_SensorStatus_NotDetected	xpath	//*[@text='No Motion Detected']					name	No Motion Detected				
-MotionSensor_SensorStatus_Detected	xpath	//*[@text='Motion Detected']					name	Motion Detected				
+MotionSensor_SensorStatus_NotDetected	xpath	//*[@text='No Motion Detected' or @text='No motion detected']					name	No Motion Detected				
+MotionSensor_SensorStatus_Detected	xpath	//*[@text='Motion Detected' or @text='Motion detected']					name	Motion Detected				
 KeyfobOverview	xpath	//*[@text='Use the Key Fob to change security modes with the touch of a button.']					name	Use the Key Fob to change security modes with the touch of a button.				
 KeyfobOverviewImage	id	imageView2					name	Know-Your-Keyfob				
 KeyfobNamingScreen	xpath	//*[@text='Name Key Fob']					name	Name Key Fob				
