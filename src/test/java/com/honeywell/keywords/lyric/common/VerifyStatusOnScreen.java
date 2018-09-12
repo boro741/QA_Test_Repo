@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
@@ -847,8 +848,19 @@ public class VerifyStatusOnScreen extends Keyword {
 				break;
 			}
 
-			case "ATTENTION": {
-				// TODO
+			case "SECURITY": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ATTENTION": {
+					if (MobileUtils.getFieldValue(testCase,"NAME","Control_State").equalsIgnoreCase("ATTENTION")){
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is NOT IN Alarm");
+					}
+				}
+				}
 				break;
 			}
 			default: {

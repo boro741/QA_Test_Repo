@@ -328,13 +328,16 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"geofence Temporary Hold status not displayed" + overrideTemp);
 				}
-				Keyword.ReportStep_Pass(testCase, "Stat is in "+statInfo.getThermostatUnits());
-				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
-					String overrideTemp1 = overrideTemp.replace(".0", "");
-					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 PERMANENTLY");
-				} else {
+				String statUnit=statInfo.getThermostatUnits();
+				if (statUnit.equalsIgnoreCase("Fahrenheit")) {
+					overrideTemp = overrideTemp.replace(".0", "");
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 PERMANENTLY");
+				} else if(statUnit.equalsIgnoreCase("Celsius")){
 					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 PERMANENTLY");
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"stat unit is not as expected - "+statUnit);
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status displayed");
@@ -348,11 +351,16 @@ public class JasperAdhocOverride {
 				String AdhocText = Adhoc.getAdhocStatusElement();
 				String Period = statInfo.getCurrentSchedulePeriod();
 				String overrideTemp = statInfo.getOverrrideSetpoint();
-				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+				String statUnit=statInfo.getThermostatUnits();
+				if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 					String overrideTemp1 = overrideTemp.replace(".0", "");
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
-				} else {
+				}  else if(statUnit.equalsIgnoreCase("Celsius")){
+					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"stat unit is not as expected - "+statUnit);
 				}
 				System.out.println(flag);
 				if (flag) {
