@@ -388,10 +388,24 @@ public class SensorSettingScreen extends MobileScreens {
 		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
 		if (status.equalsIgnoreCase("Cover Tampered")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorStatusOptionValue");
+		}else {
+			return false;
 		}
-		return false;
+		}
+		
+	
+	public boolean isClearTamperOptionVisible() {
+		boolean flag = true;
+		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
+		if (status.equalsIgnoreCase("Cover Tampered")) {
+			Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Found");
+			flag = true;
+		}else {
+			flag = false;
+		}
+		return flag;
 	}
-
+	
 	public boolean clickOnClearCoverTamperOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearTamperButton");
 	}

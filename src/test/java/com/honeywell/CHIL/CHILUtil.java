@@ -3640,4 +3640,19 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
+	
+public int putAlertStatusForSensor(long locationID, String deviceID, String isActive) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/NotificationConfigurations", locationID, deviceID);
+			String headerData = String.format("{\"notificationTypeSubscriptions\" :["
+					+ "{\"notificationTypeId\":40014,"
+					+ "\"isActive\":\"%s\"}]}",isActive);
+			result = doPutRequest(url, headerData).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+
 }

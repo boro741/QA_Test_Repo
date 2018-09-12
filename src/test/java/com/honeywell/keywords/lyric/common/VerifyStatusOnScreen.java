@@ -122,7 +122,7 @@ public class VerifyStatusOnScreen extends Keyword {
 
 			break;
 		}
-		case "SENSOR LIST":
+		case "SENSOR LIST": 
 		case "SENSOR STATUS": {
 			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -168,6 +168,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			
 			case "WINDOW SENSOR":
 			case "WINDOW": {
 				switch (expectedScreen.get(1).toUpperCase()) {

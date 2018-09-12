@@ -44,10 +44,17 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton");
 	}
 	
-	public boolean isCoverTamperedTextVisible() {
+	public boolean isCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoverTamperedText");
 	}
 
+	public boolean isSensorOffline() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
+	}
+	
+	public boolean isDoorOpenTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorSensorOpen");
+	}
 
 	public boolean isSecurityStateVisible(String securityState) {
 		boolean flag = true;

@@ -9,6 +9,7 @@ import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
 import java.util.ArrayList;
@@ -80,6 +81,13 @@ public class TaponElement extends Keyword {
 			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 			flag = flag && fly.ClickOnHumOptionButton();
 			flag = flag && fly.ClickOnDeleteSensor();
+			break;
+		} case "CLEAR TAMPER":{
+			SensorSettingScreen sc = new SensorSettingScreen(testCase);
+			flag = flag & sc.clickOnClearCoverTamperOption();
+			if (sc.isSensorTamperClearPopupDisplayed()) {
+				flag = flag & sc.clickOnRetryTamperClearPopup();
+			}
 			break;
 		}
 		case "IDENTIFY SENSOR": {

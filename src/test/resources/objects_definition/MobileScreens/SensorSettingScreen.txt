@@ -19,7 +19,7 @@ SensorListBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	x
 DoneButton							name	RightButton				
 SensorTamperScreen	Xpath	//*[@text='Sensor Cover Tamper']					Xpath	//*[@value='Sensor Cover Tamper']				
 ClearTamperButton	ID	action_button					name	RightButton				
-PerformOnlyPopup							Xpath	"//*[contains(@value,'This operartion can be performed only when Smart home security is ')]"				
+PerformOnlyPopup							XPATH	"//*[contains(@value,'This operartion can be performed only when Smart home security is ')]"				
 PerformOnlyPopupOk							Name	OK				
 TamperNotClearedPopup	Xpath	//*[@text='Sensor Tamper']					Name	Sensor Tamper				
 TamperClearPopupOk	Xpath	//*[@text='OK']					Name	OK				
@@ -88,7 +88,7 @@ CancelButton_Yes	id	button1					name	YES
 CancelButton_No	id	button2					name	NO				
 TimeOutErrorForDiscovery	id	Smart Home Security is not in discovery mode					name	Smart home security not in discovery mode				
 TimeOutOk	id	button1					name	OK				
-SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										
+SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"					xpath	"//*[contains(@value,'Sensor is offline')]"				
 MountInaCorner	xpath	//*[@text='Mount in a Corner']					name	Mount in a corner				
 MountInaWall	xpath	//*[@text='Mount on the wall']					name	Mount on the wall				
 SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										

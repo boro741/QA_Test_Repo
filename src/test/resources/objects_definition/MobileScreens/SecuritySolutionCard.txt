@@ -37,10 +37,12 @@ SwitchToNightPopupTitle	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Swi
 ClearTamperButton							NAME	RightButton	NAME	RightButton	NAME	RightButton
 UnableToConnectToBaseStationAlert	XPATH	//*[@text='Failed to switch mode']	XPATH	//*[@text='Failed to switch mode']	XPATH	//*[@text='Failed to switch mode']	NAME	Alert	NAME	Alert	NAME	Alert
 LoadingProgressBar	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress
-SensorButton	XPATH	"//*[contains(@text,'Sensors')]"					XPATH	"//*[contains(@value,'Sensors')]"				
+SensorButton	XPATH	"//*[contains(@text,'Sensors')or(contains(@text,'SENSORS'))]"	XPATH	"//*[contains(@text,'Sensors')or(contains(@text,'SENSORS'))]"	XPATH	"//*[contains(@text,'Sensors')]"	XPATH	"//*[contains(@value,'Sensors')]"	XPATH	"//*[contains(@value,'Sensors')]"	XPATH	"//*[contains(@value,'Sensors')]"
 SensorName	id	sensor_name					Xpath	//XCUIElementTypeStaticText				
 SecuritySettingsTitle	XPATH	//*[@text='Security settings']					XPATH	//*[@value='Security Settings']				
 SensorName	ID	sensor_name	ID	sensor_name	ID	sensor_name	Xpath	//XCUIElementTypeStaticText				
 HomeOption	XPATH	//*[@content-desc='Home']	XPATH	//*[@content-desc='Home']	XPATH	//*[@content-desc='Home']						
 AwayOption	XPATH	//*[@content-desc='Away']	XPATH	//*[@content-desc='Away']	XPATH	//*[@content-desc='Away']						
-CoverTamperedText	TEXT	Cover tampered	TEXT	Cover tampered	TEXT	Cover tampered	NAME	Cover tampered	NAME	Cover tampered	NAME	Cover tampered
+CoverTamperedText	TEXT	Cover tampered	TEXT	Cover tampered	TEXT	Cover tampered	XPATH	"//*[contains(@value,'LIVING ROOM - COVER TAMPERED')]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"
+SensorisOfflineText	TEXT	Living Room - Offline	TEXT	Living Room - Offline	TEXT	Living Room - Offline	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"
+DoorSensorOpen	TEXT	Front Door - Open	TEXT	Front Door - Open	TEXT	Front Door - Open						

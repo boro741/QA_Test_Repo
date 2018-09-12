@@ -56,6 +56,18 @@ public class SensorStatusScreen extends MobileScreens {
 	public boolean clickOnSensorStatusScreenBack(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
 	}
+	
+	public boolean isSensorOfflineInStatus() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
+	}
+
+	
+	public boolean isCoverTamperedTextVisibleinSensorStatusScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		DASSensorUtils sensorUtils = new DASSensorUtils();
+		flag = flag & sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
+		return flag;
+	}
 
 	public boolean selectTamperedClear(TestCases testCase, TestCaseInputs inputs, String sensor) {
 		List<WebElement> list;

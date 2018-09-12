@@ -17,6 +17,8 @@ import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.SensorStatusScreen;
 
 public class VerifyDescription extends Keyword {
 
@@ -84,13 +86,25 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SAVED SNAPSHOT MESSAGE")) {
 		    CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 		    flag = flag & cs.isSanpShotSavedTextExists();
-		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORS")) {
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORSNOISSUE")) {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		    flag = flag & sc.isSensorsTextVisible();
-		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
+		    flag = flag & sc.isSensorNoIssueVisible();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("LIVING ROOM COVER TAMPERED")) {
 		    SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		    flag = flag & sc.isCoverTamperedTextVisible();
-		}
+		    flag = flag & sc.isCoverTamperedTextVisibleinSecuritySolutions();   
+		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
+		    SensorStatusScreen ssc = new SensorStatusScreen(testCase);
+		    flag = flag & ssc.isCoverTamperedTextVisibleinSensorStatusScreen(testCase, inputs);
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SOLUTION CARD OFFLINE STATUS")) {
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & ssc.isSensorOffline();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("OFFLINE STATUS")) {
+			SensorStatusScreen ssc = new SensorStatusScreen(testCase);
+		    flag = flag & ssc.isSensorOfflineInStatus();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR OPEN")) {
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & ssc.isDoorOpenTextVisible();
+		} 
 	
 		
 		if (flag) {
