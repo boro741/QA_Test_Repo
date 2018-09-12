@@ -104,7 +104,6 @@ public class DeviceInformation {
 	}
 
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
-		this.testCase = testCase;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 		return true;
 	}
