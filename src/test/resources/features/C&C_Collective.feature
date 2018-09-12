@@ -281,7 +281,7 @@ Examples:
 | OSMV Sensor   | Standby      |Home|
 | ISMV Sensor   | Standby      |Home|
 
-@SensorstatusArmmode @P3   @Automated
+@SensorstatusArmmode @P3   @UIAutomated
 Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode Night mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
 Given user launches and logs in to the Lyric Application
@@ -399,7 +399,7 @@ And user "opens" activity log
 Then user receives a "ActivityOpen" activity log
 And user "closes" activity log
 Examples:
-|Status|Sensor| ActivityOpen|RestoreActivity|
+|Mode|Sensor| ActivityOpen|RestoreActivity|
 |Home|Door Sensor| Front Door opened at Home mode|
 |Home|Window Sensor| Window opened at Home mode|
 
@@ -420,12 +420,12 @@ Then user receives a "ActivityOpen" activity log
 Then user receives a "RestoreActivity" activity log
 And user "closes" activity log
 Examples:
-|Status|Sensor| ActivityOpen|RestoreActivity|
+|Mode|Sensor| ActivityOpen|RestoreActivity|
 |Home|Door Sensor| Front Door opened at Home mode|Front Door opened at HOME MODE|	
 |Home|Door Sensor| Front Door closed at Home mode|Front Door closed at HOME MODE|
 
 
-@ContactSensorstatusPriority @P2    @UIAutomatable
+@ContactSensorstatusPriority @P2    @UIAutomated
 Scenario Outline: As a user I want to shown with sensors status based on priority when sensor with multiple status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -441,7 +441,6 @@ When user navigates to "Sensor List" screen from "Security Solution card" screen
 Then user should be displayed with the "Offline Status" description
 When user clears "Offline" at the <Sensor>
 Then user should be displayed with the "Cover Tampered" description
-When user navigates to "Sensor List" screen from "Security Solution card" screen
 When user navigates to "Sensor Status" screen from the "Security Solution card" screen
 Then user should be displayed with the "Cover Tampered" description
 When user selects tampered <Sensor> from "Sensors List" screen
@@ -459,10 +458,9 @@ When user clears "Open status" at the <Sensor>
 Then user should be displayed with the "SensorNoIssue" description 
 And user "opens" activity log
 Then user receives a "ActivityOpen" activity log
-Then user receives a "RestoreActivity" activity log
 And user "closes" activity log
 Examples:
-|Status|Sensor| ActivityOpen|
+|Mode|Sensor| ActivityOpen|
 |Home|Door Sensor| Door opened at Home mode|	
 |Home|Window Sensor| Low battery at Home mode|
 |Home|Window Sensor|cover tampered at Home mode|
@@ -472,7 +470,7 @@ Examples:
 |Home|Window Sensor|Low battery restored at Home mode|
 
 
-@MotionSensorstatusPriority @P2   @UIAutomatable
+@MotionSensorstatusPriority @P2   @UIAutomated
 Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
@@ -507,10 +505,9 @@ When user clears "Open status" at the <Sensor>
 Then user should be displayed with the "SensorNoIssue" description 
 And user "opens" activity log
 Then user receives a "ActivityOpen" activity log
-Then user receives a "RestoreActivity" activity log
 And user "closes" activity log
 Examples:
-|Status|Sensor| ActivityOpen|
+|Mode|Sensor| ActivityOpen|
 |Home|Motion Sensor| Door opened at Home mode|	
 |Home|ISMV Sensor| Low battery at Home mode|
 |Home|OSMV Sensor|cover tampered at Home mode|
@@ -531,13 +528,13 @@ When user navigates to "Security Solution card" screen from "Dashboard" screen
 Then user should be displayed with the "SensorNoIssue" description
 When user panel "Wi-Fi" is "disconnected"
 Then user should be displayed with the "Panel offline Status" description 
-When user creates "Low battery" at the <Sensor>
+#When user creates "Low battery" at the <Sensor>
  And user creates "Cover tamper" at the <Sensor> 
  And user creates "Offline" at the <Sensor>
  And user clears "Offline" at the <Sensor>
  And user clears "Cover tamper" at the <Sensor>
  And user clears "Low battery" at the <Sensor>
-When user panel "Wi-Fi" is "disconnected" 
+When user panel "Wi-Fi" is "connected" 
 Then user should be displayed with the "Security Solution card" screen 
 When user navigates to "Activity Log" Screen from "Security crad" screen
 Then user should be displayed with the "{Sensor name} Low battery " <mode> status
@@ -547,7 +544,7 @@ Then user should be displayed with the "{Sensor name} Low battery " <mode> statu
  And user should be displayed with the "{Sensor name} Cover tamper restored " <mode> status
  And user should be displayed with the "{Sensor name} Low battery restored " <mode> status
 Examples:
-|Status|Sensor| ActivityOpen|
+|Mode|Sensor| ActivityOpen|
 |Home|Motion Sensor| Door opened at Home mode|	
 |Home|ISMV Sensor| Low battery at Home mode|
 |Home|OSMV Sensor|cover tampered at Home mode|
@@ -575,6 +572,3 @@ And user is set to <Mode> through CHIL
  |Off |
  
  
- @BasestationSensorenrollment1
- Scenario: I should be shown with update in progress when panel in sensor enrollment state
-When user is set to "Sensor Alert Enabled" mode through CHIL
