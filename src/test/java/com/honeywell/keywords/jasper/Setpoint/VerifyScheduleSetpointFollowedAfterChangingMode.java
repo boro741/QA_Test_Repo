@@ -51,13 +51,14 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 					currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 					getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
 					getPeriodSetpointString=getPeriodSetpoint.toString();
-					if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+					String statUnit=statInfo.getThermostatUnits();
+					if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 						getPeriodSetpointString = getPeriodSetpointString.replace(".0", ""); 
-					}else if (statInfo.getThermostatUnits().contains("celsius")) {
+					}else if (statUnit.equalsIgnoreCase("celsius")) {
 						getPeriodSetpointString = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, getPeriodSetpointString));
 						ReportStep_Pass(testCase, "setpoint value from chil is "+getPeriodSetpointString);
 					}else{
-						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statInfo.getThermostatUnits());
+						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statUnit);
 					}
 					if(getPeriodSetpoint.equals(currentStepperSetpoint)){
 						Keyword.ReportStep_Pass(testCase,
@@ -89,7 +90,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 				}
 				break;
 			}
-			case"OVERRIDE SETPOINT":
+			case "OVERRIDE SETPOINT":
 			{
 				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
