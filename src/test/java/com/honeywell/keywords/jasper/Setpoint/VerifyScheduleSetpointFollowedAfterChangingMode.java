@@ -55,12 +55,11 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 					if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 						getPeriodSetpointString = getPeriodSetpointString.replace(".0", ""); 
 					}else if (statUnit.equalsIgnoreCase("celsius")) {
-						getPeriodSetpointString = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, getPeriodSetpointString));
 						ReportStep_Pass(testCase, "setpoint value from chil is "+getPeriodSetpointString);
 					}else{
 						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statUnit);
 					}
-					if(getPeriodSetpoint.equals(currentStepperSetpoint)){
+					if(getPeriodSetpointString.equals(currentStepperSetpoint)){
 						Keyword.ReportStep_Pass(testCase,
 								"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
 					}else {

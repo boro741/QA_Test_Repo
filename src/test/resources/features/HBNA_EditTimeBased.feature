@@ -102,7 +102,6 @@ so that i can change Time and Set points of individual periods and Days
     And user navigates to "Scheduling" screen from the "Dashboard" screen
     And user selects <Type> view
      When user edit Time schedule by deleting "All 4 periods" on confirming the period deletion
-     And user navigates to "Scheduling" screen from the "Dashboard" screen
      Then verify "No Schedule" screen is shown in view schedule screen
       Examples:
       | Type            | 

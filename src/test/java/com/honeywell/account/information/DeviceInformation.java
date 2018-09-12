@@ -104,7 +104,10 @@ public class DeviceInformation {
 	}
 
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
+		Keyword.ReportStep_Pass(testCase,"Sync request for "+inputs.getInputValue("USERID") );
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
+		Keyword.ReportStep_Pass(testCase,"After Sync request of "+inputs.getInputValue("USERID") );
+		
 		return true;
 	}
 
@@ -158,7 +161,7 @@ public class DeviceInformation {
 		String units = " ";
 		if (deviceInformation != null) {
 			units = deviceInformation.getJSONObject("thermostat").getString("units");
-			Keyword.ReportStep_Pass(testCase, "Stat is in "+units);
+			Keyword.ReportStep_Pass(testCase, "Device info - Stat is in "+units);
 		} else {
 			throw new Exception("Device Information not found");
 		}
