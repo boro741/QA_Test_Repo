@@ -2472,7 +2472,6 @@ public class NavigateToScreen extends Keyword {
 				case "PRIMARYCARD": {
 					ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 					PrimaryCard pc = new PrimaryCard(testCase);
-					Dashboard d = new Dashboard(testCase);
 					if (ts.isThermostatSettingsHeaderTitleVisible(10) && ts.isBackButtonVisible(10)) {
 						ts.clickOnBackButton();
 						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);

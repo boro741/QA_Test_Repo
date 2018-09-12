@@ -18,7 +18,7 @@ public class AdhocScreen extends MobileScreens {
 
 	public String getAdhocStatusElement() {
 		String adHocStatus = null;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AdHocStatus", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				adHocStatus = MobileUtils.getMobElement(objectDefinition, testCase, "AdHocStatus").getAttribute("text");
 			} else {

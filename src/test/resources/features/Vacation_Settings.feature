@@ -187,7 +187,7 @@ Examples:
 
 #JasperNA
 @VacationActiveSwitchingModesNA			@Automated
-Scenario Outline:  To verify when vacation active switching modes is changed for Heat , auto ,cool and off system with auto changeover enabled
+Scenario Outline:  To verify when vacation active switching modes is changed for Heat, auto, cool and off system with auto changeover enabled
 Given user has <Mode> system mode
 And vacation mode is "active"
 When user launches and logs in to the Lyric application
@@ -299,49 +299,85 @@ Examples:
 
 
 #JasperNA
-@VacationGeofenceSolutionCardAfterVacationEndsNA			@UIAutomatable
-Scenario Outline:   I want to verify AdhocOVerride status when vacation ends
-Given user launches and logs in to the Lyric application
-Then user has <Mode> system mode
-And user thermostat is set to "geofence based" schedule
-And user thermostat set "Sleep" with "UserArrived"
-When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+@VacationGeofenceSolutionCardAfterVacationEndsNA			@Automated
+Scenario Outline: I want to verify NA AdhocOVerride status when vacation ends
+Given user has <Mode> system mode
+And user thermostat is set to <Scheduling> schedule
+And user thermostat set <Period> with <Geofence>
+When user launches and logs in to the Lyric application
+Then user navigates to "solution card" screen from the "Dashboard" screen
+And Verify the <AdhocOverride status> on the "PRIMARY CARD" screen
+When user has "Temporary" status
+Then Verify the "Temporary" on the "PRIMARY CARD" screen
+When vacation mode is "active"
+Then user verifies vacation is "on" in "solution card"
+And user thermostat set <UPeriod> with <UGeofence>
 When vacation mode is "inactive"
-Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+Then verify the <UAdhocOverride status> on the "PRIMARY CARD" screen
 
 Examples:
-		| Mode		| AdhocOverride					| UAdhocOverride					| 
-		| Cool		| Using while home/away/sleep	| Using while home/away/sleep  		|
-#		| Cool		| Temporary 					| Temporary							|
-#		| Heat		| Using while home/away/sleep	| Using while home/away/sleep		| 
-#		| Heat		| Temporary						| Temporary							|
-#		| Auto		| Using while home/away/sleep	| Using while home/away/sleep		|
-#		| Auto		| Temporary						| Temporary							|
-#		| Cool only	| Using while home/away/sleep	| Using while home/away/sleep		|
-#		| Cool only	| Temporary						| Temporary							|
-#		| Heat Only	| Using while home/away/sleep	| Using while home/away/sleep		|
-#		| Heat only | Temporary						| Temporary							|
+| Mode		| Scheduling							| AdhocOverride status	| Period 	| Geofence 		| UPeriod 	| UGeofence 		| UAdhocOverride status 	|
+| Cool		| geofence based       				| Using Sleep Settings	| Sleep 		| UserArrived 	| Away 		| UserDeparted 	| Using Away Settings 	|
+#| Cool		| with out sleep geofence based		| Using Home Settings	| Home 		| UserD 			|  Away 		| UserDeparted 	| Using Away Settings 	|
+#| Cool		| with out sleep geofence based		| Using Away Settings	| Away 		| UserArrived 	| Home 		| UserArrived 	| Using Home Settings 	|
+#| Heat		| geofence based       				| Using Sleep Settings	| Sleep 		| UserArrived 	| Away 		| UserDeparted 	| Using Away Settings 	|
+#| Heat		| with out sleep geofence based		| Using Home Settings	| Home 		| UserD 			|  Away 		| UserDeparted 	| Using Away Settings 	|
+#| Heat		| with out sleep geofence based		| Using Away Settings	| Away 		| UserArrived 	| Home 		| UserArrived 	| Using Home Settings 	|
+#| Auto		| geofence based       				| Using Sleep Settings	| Sleep 		| UserArrived 	| Away 		| UserDeparted 	| Using Away Settings 	|
+#| Auto		| with out sleep geofence based		| Using Home Settings	| Home 		| UserD 			|  Away 		| UserDeparted 	| Using Away Settings 	|
+#| Auto		| with out sleep geofence based		| Using Away Settings	| Away 		| UserArrived 	| Home 		| UserArrived 	| Using Home Settings 	|
 
 
-#JasperEMEA
-@VacationGeofenceSolutionCardAfterVacationEndsEMEA			@UIAutomatable
-Scenario Outline:   I want to verify AdhocOVerride status when vacation ends
-Given user launches and logs in to the Lyric application
-Then user has <Mode> system mode
-And user thermostat is set to "geofence based" schedule
-And user thermostat set "Sleep" with "UserArrived"
-When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+#JasperNA
+@VacationGeofenceSolutionCardTemporaryHoldAfterVacationEndsNA			@@Automated
+Scenario Outline:   I want to verify Temporary hold status when vacation ends
+Given user has <Mode> system mode
+And user thermostat is set to <Scheduling> schedule
+And user thermostat set <Period> with <Geofence>
+When user launches and logs in to the Lyric application
+Then user navigates to "solution card" screen from the "Dashboard" screen
+When user has "Temporary" status
+Then Verify the "Temporary" on the "PRIMARY CARD" screen
+When vacation mode is "active"
+Then user verifies vacation is "on" in "solution card"
 When vacation mode is "inactive"
-Then verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+Then user has "Temporary" status
 
 Examples:
-	| Mode	| AdhocOverride					| UAdhocOverride					| 
-	| Heat	| Using while home/away/sleep	| Using while home/away/sleep	| 
-	| Heat	| Temporary						| Temporary						|
-		#Vacation ends after temporary ends 
-	| Heat	| Temporary						| Using while home/away/sleep	|
+| Mode		| Scheduling							| Period 	| Geofence 		|
+| Cool		| geofence based       				| Sleep 		| UserArrived 	|
+#| Cool		| with out sleep geofence based		| Home 		| UserD 			|
+#| Cool		| with out sleep geofence based		| Away 		| UserArrived 	|
+#| Heat		| geofence based       				| Sleep 		| UserArrived 	|
+#| Heat		| with out sleep geofence based		| Home 		| UserD 			|
+#| Heat		| with out sleep geofence based		| Away 		| UserArrived 	|
+#| Auto		| geofence based       				| Sleep 		| UserArrived 	|
+#| Auto		| with out sleep geofence based		| Home 		| UserD 			|
+#| Auto		| with out sleep geofence based		| Away 		| UserArrived 	|
+
+
+#JasperNA
+@VacationGeofenceSolutionCardAfterVacationEndsEMEA			@@Automated
+Scenario Outline: I want to verify EMEA AdhocOVerride status when vacation ends
+Given user has <Mode> system mode
+And user thermostat is set to <Scheduling> schedule
+And user thermostat set <Period> with <Geofence>
+When user launches and logs in to the Lyric application
+Then user navigates to "solution card" screen from the "Dashboard" screen
+And Verify the <AdhocOverride status> on the "PRIMARY CARD" screen
+When user has "Temporary" status
+Then Verify the "Temporary" on the "PRIMARY CARD" screen
+When vacation mode is "active"
+Then user verifies vacation is "on" in "solution card"
+And user thermostat set <UPeriod> with <UGeofence>
+When vacation mode is "inactive"
+Then verify the <UAdhocOverride status> on the "PRIMARY CARD" screen
+
+Examples:
+| Mode		| Scheduling							| AdhocOverride status	| Period 	| Geofence 		| UPeriod 	| UGeofence 		| UAdhocOverride status 	|
+| Heat		| geofence based       				| Using Sleep Settings	| Sleep 		| UserArrived 	| Away 		| UserDeparted 	| Using Away Settings 	|
+#| Heat		| with out sleep geofence based		| Using Home Settings	| Home 		| UserD 			| Away 		| UserDeparted 	| Using Away Settings 	|
+#| Heat		| with out sleep geofence based		| Using Away Settings	| Away 		| UserArrived 	| Home 		| UserArrived 	| Using Home Settings 	|
 
   
 @Vacations_VactionStatusOnDashabord			@Automated

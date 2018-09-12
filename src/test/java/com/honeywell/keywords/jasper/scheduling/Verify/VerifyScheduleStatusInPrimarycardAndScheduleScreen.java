@@ -143,7 +143,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "USING HOME SETTINGS": {
 						SchedulingScreen HOME = new SchedulingScreen(testCase);
-						flag = flag & HOME.isUsingHomeVisible(40);
+						flag = flag & HOME.isUsingHomeVisible(50);
 						if(flag)
 						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else
@@ -152,7 +152,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "USING AWAY SETTINGS": {
 						SchedulingScreen Away = new SchedulingScreen(testCase);
-						flag = flag & Away.isUsingAwayVisible(40);
+						flag = flag & Away.isUsingAwayVisible(50);
 						if(flag)
 						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else
@@ -161,7 +161,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "USING SLEEP SETTINGS": {
 						SchedulingScreen SLEEP = new SchedulingScreen(testCase);
-						flag = flag & SLEEP.isUsingSleepVisible(40);
+						flag = flag & SLEEP.isUsingSleepVisible(50);
 						if(flag)
 						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 						else 
