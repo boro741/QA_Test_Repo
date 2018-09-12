@@ -105,7 +105,7 @@ public class EditTimeScheduleByDeletingPeriods extends Keyword {
 							& JasperSchedulingEditUtils.editTimeBasedScheduleByDeletingPeriods(testCase, inputs, schedulePeriodToSelect,j);
 				}
 			}
-			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+//			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase); //Commenting the code to check it doesn't break any other scenarios
 		}
 		} catch (Exception e){
 			
