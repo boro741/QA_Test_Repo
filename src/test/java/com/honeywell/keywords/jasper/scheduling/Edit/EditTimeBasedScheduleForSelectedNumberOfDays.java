@@ -229,7 +229,7 @@ public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
 						flag = flag & JasperSchedulingEditUtils.editTimeBasedSchedule(testCase, inputs, schedulePeriodToSelect, j);
 					}
 				}
-				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+//				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 			}
 		}catch (Exception e){
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
