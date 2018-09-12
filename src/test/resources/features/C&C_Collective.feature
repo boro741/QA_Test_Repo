@@ -268,7 +268,7 @@ Examples:
 Scenario Outline: As a user I want to have expected sensors status when my security panel is in Home mode and Off mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-#And user is set to <Mode> through CHIL
+#And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description  
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
@@ -285,7 +285,7 @@ Examples:
 Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode Night mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
 Given user launches and logs in to the Lyric Application
-#And user is set to <Mode> through CHIL
+#And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description  
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
@@ -303,7 +303,7 @@ Examples:
 Scenario Outline: As a user i want to get offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-#And user is set to <Mode> through CHIL
+#And user is set to <Mode> mode through CHIL
 #And user creates "Cover Tamper" at the <Sensor> 
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "Living Room Cover Tampered" description
@@ -346,7 +346,7 @@ Examples:
 Scenario Outline: As a user i want to get offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 #And user creates "Offline" at the <Sensor> 
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "Solution Card Offline status" description
@@ -387,7 +387,7 @@ Scenario: As a user I want to get open sensors status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user is set to "Sensor Alert Enabled" mode through CHIL
 When user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 And user minimizes the app
 When user "door" access sensor "opened"
 Then user selects the "Door Opened" push notification
@@ -399,7 +399,7 @@ And user "opens" activity log
 Then user receives a "ActivityOpen" activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor| ActivityOpen|RestoreActivity|
+|Mode|Sensor|ActivityOpen|RestoreActivity|
 |Home|Door Sensor| Front Door opened at Home mode|
 |Home|Window Sensor| Window opened at Home mode|
 
@@ -407,7 +407,7 @@ Examples:
 Scenario Outline: As a user i want to get open sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 When user is set to "Sensor Alert Enabled" mode through CHIL
 And user minimizes the app
 When user "door" access sensor "opened"
@@ -429,7 +429,7 @@ Examples:
 Scenario Outline: As a user I want to shown with sensors status based on priority when sensor with multiple status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 And user creates "Low battery" at the <Sensor>
 And user creates "Cover tamper" at the <Sensor> 
 And user creates "Offline" at the <Sensor>
@@ -475,7 +475,7 @@ Scenario Outline: As a user i want to shown with sensors status based on priorit
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 And user creates "Low battery" at the <Sensor>
 And user creates "Cover tamper" at the <Sensor> 
 And user creates "Offline" at the <Sensor>
@@ -522,7 +522,7 @@ Examples:
 Scenario Outline: As a user I should get sensors status after panel offline restore 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
- And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 When user is set to "Sensor Alert Enabled" mode through CHIL 
 When user navigates to "Security Solution card" screen from "Dashboard" screen
 Then user should be displayed with the "SensorNoIssue" description
@@ -558,7 +558,7 @@ Examples:
 Scenario Outline: I should be shown with update in progress when panel in sensor enrollment state
 Given user panel in "Sensor enrollment state" enabled (write a code)
 And user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
  Then user should be displayed with "Updating status" in "Dashboard" screen
  When user navigates to "Security card" screen from "Dashboard" screen
  Then user should be displayed with "Updating status" in "Security card" screen
@@ -570,5 +570,4 @@ And user is set to <Mode> through CHIL
  |Mode|
  |Home|
  |Off |
- 
  
