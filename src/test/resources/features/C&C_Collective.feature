@@ -274,13 +274,12 @@ Then user should be displayed with the "SensorsNoIssue" description
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
 Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
 Examples:
-| Sensors       | Sensor State |	Mode|
-| Door Sensor   | Closed        |OFF|
-| Window Sensor | Closed        |Home|
-| Motion Sensor | Standby       |Home|
-| OSMV Sensor   | Standby       |Home|
-| ISMV Sensor   | Standby       |Home|
-
+| Sensors       | Sensor State |Mode|
+| Door Sensor   | Closed       |OFF |
+| Window Sensor | Closed       |Home|
+| Motion Sensor | Standby      |Home|
+| OSMV Sensor   | Standby      |Home|
+| ISMV Sensor   | Standby      |Home|
 
 @SensorstatusArmmode @P3   @Automated
 Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode Night mode
@@ -293,11 +292,11 @@ When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" 
 Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
 Examples:
 | Sensors       | Sensor State |Mode|
-| Door Sensor   | Closed        |Away|
-| Window Sensor | Closed        |Night|
-| Motion Sensor | Active        |Away|
-| OSMV Sensor   | Active        |Night|
-| ISMV Sensor   | Active        |Away|
+| Door Sensor   | Closed       |Away|
+| Window Sensor | Closed       |Night|
+| Motion Sensor | Active       |Away|
+| OSMV Sensor   | Active       |Night|
+| ISMV Sensor   | Active       |Away|
 
  
 @CoverTamperSensorstatus @P2 @UIAutomated
@@ -383,38 +382,37 @@ Examples:
 |Off |OSMV Sensor|
 
  
-@OpenSensorstatusHome @P2  @UIAutomatable
-Scenario Outline: As a user I want to get open sensors status 
+@OpenSensorstatusHome @P2  @UIAutomated
+Scenario: As a user I want to get open sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
-Given user launches and logs in to the Lyric Application
+Given user is set to "Sensor Alert Enabled" mode through CHIL
+When user launches and logs in to the Lyric Application
 And user is set to <Mode> through CHIL
-And user is "Enabled" Doors and Windows alert through CHIL (Write a new code for this)
-And user minimizes the application
+And user minimizes the app
 When user "door" access sensor "opened"
 Then user selects the "Door Opened" push notification
-And user should be displayed with the "Front Door - Open" description  
+And user should be displayed with the "Front Door Open" description  
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the "door" status as "open" on the "Sensor Status"
 When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 And user "opens" activity log
 Then user receives a "ActivityOpen" activity log
-Then user receives a "RestoreActivity" activity log
 And user "closes" activity log
 Examples:
 |Status|Sensor| ActivityOpen|RestoreActivity|
-|Home|Door Sensor| Door opened at Home mode|	
+|Home|Door Sensor| Front Door opened at Home mode|
 |Home|Window Sensor| Window opened at Home mode|
 
-@OpenSensorstatusOff @P2  @UIAutomatable
+@OpenSensorstatusOff @P2  @UIAutomated
 Scenario Outline: As a user i want to get open sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> through CHIL
-And user is "Enabled" Doors and Windows alert through CHIL (write a new code for this)
-And user minimizes the application
+When user is set to "Sensor Alert Enabled" mode through CHIL
+And user minimizes the app
 When user "door" access sensor "opened"
 Then user selects the "Door Opened" push notification
-Then user should be displayed with the "Front Door - Open" description 
+Then user should be displayed with the "Front Door Open" description 
 When user "door" access sensor "closed"
 Then user should be displayed with the "SensorsNoIssue" description
 And user "opens" activity log
@@ -423,8 +421,8 @@ Then user receives a "RestoreActivity" activity log
 And user "closes" activity log
 Examples:
 |Status|Sensor| ActivityOpen|RestoreActivity|
-|Home|Door Sensor| Door opened at Home mode|	
-|Home|Window Sensor| Window opened at Home mode|
+|Home|Door Sensor| Front Door opened at Home mode|Front Door opened at HOME MODE|	
+|Home|Door Sensor| Front Door closed at Home mode|Front Door closed at HOME MODE|
 
 
 @ContactSensorstatusPriority @P2    @UIAutomatable
@@ -435,7 +433,7 @@ And user is set to <Mode> through CHIL
 And user creates "Low battery" at the <Sensor>
 And user creates "Cover tamper" at the <Sensor> 
 And user creates "Offline" at the <Sensor>
-And user is "Enabled" Doors and Windows alert through CHIL 
+When user is set to "Sensor Alert Enabled" mode through CHIL 
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description
 When user "door" access sensor "opened"
@@ -483,7 +481,7 @@ And user is set to <Mode> through CHIL
 And user creates "Low battery" at the <Sensor>
 And user creates "Cover tamper" at the <Sensor> 
 And user creates "Offline" at the <Sensor>
-And user is "Enabled" Doors and Windows alert through CHIL 
+When user is set to "Sensor Alert Enabled" mode through CHIL
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description
 When user "door" access sensor "opened"
@@ -528,7 +526,7 @@ Scenario Outline: As a user I should get sensors status after panel offline rest
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
  And user is set to <Mode> through CHIL
- And user is "Enabled" Doors and Windows alert through CHIL 
+When user is set to "Sensor Alert Enabled" mode through CHIL 
 When user navigates to "Security Solution card" screen from "Dashboard" screen
 Then user should be displayed with the "SensorNoIssue" description
 When user panel "Wi-Fi" is "disconnected"
@@ -576,3 +574,7 @@ And user is set to <Mode> through CHIL
  |Home|
  |Off |
  
+ 
+ @BasestationSensorenrollment1
+ Scenario: I should be shown with update in progress when panel in sensor enrollment state
+When user is set to "Sensor Alert Enabled" mode through CHIL

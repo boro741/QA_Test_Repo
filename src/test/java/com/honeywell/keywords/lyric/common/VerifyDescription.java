@@ -94,13 +94,16 @@ public class VerifyDescription extends Keyword {
 		    flag = flag & sc.isCoverTamperedTextVisibleinSecuritySolutions();   
 		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
 		    SensorStatusScreen ssc = new SensorStatusScreen(testCase);
-		    flag = flag & ssc.isCoverTamperedTextVisibleinSensorStatusScreen(testCase);   
+		    flag = flag & ssc.isCoverTamperedTextVisibleinSensorStatusScreen(testCase, inputs);
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SOLUTION CARD OFFLINE STATUS")) {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & ssc.isSensorOffline();
 		}else if (expectedScreen.get(0).equalsIgnoreCase("OFFLINE STATUS")) {
 			SensorStatusScreen ssc = new SensorStatusScreen(testCase);
 		    flag = flag & ssc.isSensorOfflineInStatus();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR OPEN")) {
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & ssc.isDoorOpenTextVisible();
 		} 
 	
 		

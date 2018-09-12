@@ -1091,21 +1091,7 @@ public class NavigateToScreen extends Keyword {
 
 			}  else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 
-			} 
-			else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
-			   switch (screen.get(0).toUpperCase()) {
-			   case "SENSOR LIST": {
-				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-				flag =   flag & sc.isSensorsTextVisible();
-				break;
-			}
-			default: {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-			}
-			}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("SENSOR COVER TAMPER")) {
+			} else if (screen.get(1).equalsIgnoreCase("SENSOR COVER TAMPER")) {
 				   switch (screen.get(0).toUpperCase()) {
 				   case "SECURITY SOLUTION CARD": {
 					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);

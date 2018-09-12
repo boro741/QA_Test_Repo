@@ -45,3 +45,4 @@ HomeOption	XPATH	//*[@content-desc='Home']	XPATH	//*[@content-desc='Home']	XPATH
 AwayOption	XPATH	//*[@content-desc='Away']	XPATH	//*[@content-desc='Away']	XPATH	//*[@content-desc='Away']						
 CoverTamperedText	TEXT	Cover tampered	TEXT	Cover tampered	TEXT	Cover tampered	XPATH	"//*[contains(@value,'LIVING ROOM - COVER TAMPERED')]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"
 SensorisOfflineText	TEXT	Living Room - Offline	TEXT	Living Room - Offline	TEXT	Living Room - Offline	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"
+DoorSensorOpen	TEXT	Front Door - Open	TEXT	Front Door - Open	TEXT	Front Door - Open						

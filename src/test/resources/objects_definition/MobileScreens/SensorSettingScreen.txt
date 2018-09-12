@@ -19,7 +19,7 @@ SensorListBack	xpath	//android.widget.ImageButton[@content-desc='Navigate Up']	x
 DoneButton							name	RightButton				
 SensorTamperScreen	Xpath	//*[@text='Sensor Cover Tamper']					Xpath	//*[@value='Sensor Cover Tamper']				
 ClearTamperButton	ID	action_button					name	RightButton				
-PerformOnlyPopup							Xpath	"//*[contains(@value,'This operartion can be performed only when Smart home security is ')]"				
+PerformOnlyPopup							XPATH	"//*[contains(@value,'This operartion can be performed only when Smart home security is ')]"				
 PerformOnlyPopupOk							Name	OK				
 TamperNotClearedPopup	Xpath	//*[@text='Sensor Tamper']					Name	Sensor Tamper				
 TamperClearPopupOk	Xpath	//*[@text='OK']					Name	OK				

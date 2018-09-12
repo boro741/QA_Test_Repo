@@ -51,6 +51,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isSensorOffline() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
 	}
+	
+	public boolean isDoorOpenTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorSensorOpen");
+	}
 
 	public boolean isSecurityStateVisible(String securityState) {
 		boolean flag = true;

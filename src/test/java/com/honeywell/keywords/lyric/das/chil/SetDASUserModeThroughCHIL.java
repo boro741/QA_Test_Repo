@@ -201,6 +201,43 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 									"Could not set base station in NIGHT MODE : " + result);
 						}
 						break;
+					}case "SENSOR ALERT ENABLED": {
+						String isActive = "Enabled";
+						int result = chUtil.putAlertStatusForSensor(locInfo.getLocationID(), deviceInfo.getDeviceID(), isActive);
+						try {
+						if (result == 200) {
+							Keyword.ReportStep_Pass(testCase, "Sensor Alert is Enabled");
+							}
+						else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not set sensor alert to enabled state: " + result);
+						}
+					}
+						catch (Exception e) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error Occured: " + e.getMessage());
+						}
+						break;
+					} case "SENSOR ALERT DISABLED":{
+
+						String isActive = "Disabled";
+						int result = chUtil.putAlertStatusForSensor(locInfo.getLocationID(), deviceInfo.getDeviceID(), isActive);
+						try {
+						if (result == 200) {
+							Keyword.ReportStep_Pass(testCase, "Sensor Alert is Disabled");
+							}
+						else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not set sensor alert to disabled state: " + result);
+						}
+					}
+						catch (Exception e) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error Occured: " + e.getMessage());
+						}
+						break;
 					}
 					default: {
 						flag = false;
