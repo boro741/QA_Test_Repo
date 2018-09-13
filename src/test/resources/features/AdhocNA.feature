@@ -1152,7 +1152,6 @@ When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And user navigates to "Scheduling" screen from the "Primary card" screen
 And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
 When user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -1875,7 +1874,6 @@ Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 And user navigates to "Scheduling" screen from the "Primary card" screen
 And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
-When user navigates to "Scheduling" screen from the "Dashboard" screen
 Then verify the "No Schedule" on the "PRIMARY CARD" screen
 Then user navigates to "PRIMARY CARD" screen from the "Scheduling" screen
 When user changes system mode to <UMode>

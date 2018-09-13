@@ -44,22 +44,23 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 			{
 				flag = flag & DashboardUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 				String getPeriodSetpointString;
 				Double getPeriodSetpoint = 0.0, currentStepperSetpoint = 0.0 ;
 				if (flag){
 					currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 					getPeriodSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
 					getPeriodSetpointString=getPeriodSetpoint.toString();
-					String statUnit=statInfo.getThermostatUnits();
+					/*String statUnit=statInfo.getThermostatUnits();
 					if (statUnit.equalsIgnoreCase("Fahrenheit")) {
-						getPeriodSetpointString = getPeriodSetpointString.replace(".0", ""); 
+
 					}else if (statUnit.equalsIgnoreCase("celsius")) {
 						ReportStep_Pass(testCase, "setpoint value from chil is "+getPeriodSetpointString);
 					}else{
 						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statUnit);
-					}
-					if(getPeriodSetpointString.equals(currentStepperSetpoint)){
+					}*/
+
+					if(getPeriodSetpointString.equals(currentStepperSetpoint.toString())){
 						Keyword.ReportStep_Pass(testCase,
 								"Stepper stepoint is following current schedule setpoint:" +getPeriodSetpoint);
 					}else {
@@ -91,33 +92,22 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 			}
 			case "OVERRIDE SETPOINT":
 			{
-				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				DeviceInformation statInfo = new DeviceInformation(this.testCase, this.inputs);
+				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 				if (flag){
-					Keyword.ReportStep_Pass(testCase,
-							"Resynced");
 					String Overridesetpoint = "", currentStepperSetpoint = "";
 					Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 					String Overridesetpointvalue1 = statInfo.getOverrrideSetpoint();
-					String jasperStatType = statInfo.getJasperDeviceType();
-					if (jasperStatType.equalsIgnoreCase("NA")) {
-						if(statInfo.getThermostatUnits().equalsIgnoreCase("Fahrenheit")) {
-							currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
-							Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
-						}else if(statInfo.getThermostatUnits().equalsIgnoreCase("Celsius")) {
-							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
-							currentStepperSetpoint = currentStepperSetpoint1.toString(); 
-						}else{
-							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statInfo.getThermostatUnits());
-						}
-						
+					String statUnit=statInfo.getThermostatUnits();
+					if(statUnit.equalsIgnoreCase("Fahrenheit")) {
+						currentStepperSetpoint = currentStepperSetpoint1.toString().replace(".0", ""); 
+						Overridesetpoint = Overridesetpointvalue1.replace(".0", "");
+					}else if(statUnit.equalsIgnoreCase("Celsius")) {
+						Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
+						currentStepperSetpoint = currentStepperSetpoint1.toString(); 
+					}else{
+						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statInfo.getThermostatUnits());
 					}
-					else{
-						Keyword.ReportStep_Pass(testCase,
-								"Stat is EMEA");
-							Overridesetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, Overridesetpointvalue1));
-							currentStepperSetpoint = currentStepperSetpoint1.toString(); 
-						}
 					if(Overridesetpoint.equals(currentStepperSetpoint)){
 						Keyword.ReportStep_Pass(testCase,
 								"Stepper stepoint is following current schedule setpoint:" +Overridesetpoint);
@@ -134,53 +124,53 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 
 				break;
 			}
-			 case"HEATING TO":
-             {
-                 String HeatingToValue = "";
-                 Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-                 String currentStepperSetpoint = currentStepperSetpoint1.toString();
-                 PrimaryCard PCS = new PrimaryCard(testCase);
-                 String HeatingToValue1 = PCS.getCurrentHeatingOrCoolingSetpointValue();
-                 String Value = HeatingToValue1.replace("HEATING TO ", "");
-                 if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-                     HeatingToValue = Value.replace("°", "");}
-                 else{
-                     HeatingToValue = Value.replace("˚", "");
-                 }
-                 if(HeatingToValue.equals(currentStepperSetpoint)){
-                     Keyword.ReportStep_Pass(testCase,
-                                             "Stepper stepoint is following current Heating to setpoint:" +HeatingToValue);
-                 }else {
-                     flag = false;
-                     Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-                                                                "Stepper stepoint is not following current heating to setpoint" +HeatingToValue + " StepperSetpoint: "+currentStepperSetpoint);
-                 }
-                 break;
-             }
-			   case"COOLING TO":
-               {
-                   String CoolingToValue = "";
-                   Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-                   String currentStepperSetpoint = currentStepperSetpoint1.toString();
-                   PrimaryCard PCS = new PrimaryCard(testCase);
-                   String CoolingToValue1 = PCS.getCurrentHeatingOrCoolingSetpointValue();
-                   String Value = CoolingToValue1.replace("COOLING TO ", "");
-                   if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-                       CoolingToValue = Value.replace("°", "");
-                   }
-                   else{
-                       CoolingToValue = Value.replace("˚", "");
-                   }
-                   if(CoolingToValue.equals(currentStepperSetpoint)){
-                       Keyword.ReportStep_Pass(testCase,
-                                               "Stepper stepoint is following current cooling to setpoint:" +CoolingToValue);
-                   }else {
-                       flag = false;
-                       Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-                                                                  "Stepper stepoint is not following current cooling to setpoint" +CoolingToValue + " StepperSetpoint: "+currentStepperSetpoint);
-                   }
-                   break;
-               }
+			case"HEATING TO":
+			{
+				String HeatingToValue = "";
+				Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+				String currentStepperSetpoint = currentStepperSetpoint1.toString();
+				PrimaryCard PCS = new PrimaryCard(testCase);
+				String HeatingToValue1 = PCS.getCurrentHeatingOrCoolingSetpointValue();
+				String Value = HeatingToValue1.replace("HEATING TO ", "");
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					HeatingToValue = Value.replace("°", "");}
+				else{
+					HeatingToValue = Value.replace("˚", "");
+				}
+				if(HeatingToValue.equals(currentStepperSetpoint)){
+					Keyword.ReportStep_Pass(testCase,
+							"Stepper stepoint is following current Heating to setpoint:" +HeatingToValue);
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Stepper stepoint is not following current heating to setpoint" +HeatingToValue + " StepperSetpoint: "+currentStepperSetpoint);
+				}
+				break;
+			}
+			case"COOLING TO":
+			{
+				String CoolingToValue = "";
+				Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+				String currentStepperSetpoint = currentStepperSetpoint1.toString();
+				PrimaryCard PCS = new PrimaryCard(testCase);
+				String CoolingToValue1 = PCS.getCurrentHeatingOrCoolingSetpointValue();
+				String Value = CoolingToValue1.replace("COOLING TO ", "");
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					CoolingToValue = Value.replace("°", "");
+				}
+				else{
+					CoolingToValue = Value.replace("˚", "");
+				}
+				if(CoolingToValue.equals(currentStepperSetpoint)){
+					Keyword.ReportStep_Pass(testCase,
+							"Stepper stepoint is following current cooling to setpoint:" +CoolingToValue);
+				}else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Stepper stepoint is not following current cooling to setpoint" +CoolingToValue + " StepperSetpoint: "+currentStepperSetpoint);
+				}
+				break;
+			}
 
 			}
 		}

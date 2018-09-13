@@ -24,11 +24,13 @@ public class DeviceInformation {
 
 	private static JSONObject deviceInformation;
 	private TestCases testCase;
+	private TestCaseInputs inputs;
 	String locationName;
 	String statName;
 
 	public DeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
+		//this.inputs = inputs;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 	}
 
@@ -105,9 +107,8 @@ public class DeviceInformation {
 
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
 		Keyword.ReportStep_Pass(testCase,"Sync request for "+inputs.getInputValue("USERID") );
-		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
+		//deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 		Keyword.ReportStep_Pass(testCase,"After Sync request of "+inputs.getInputValue("USERID") );
-		
 		return true;
 	}
 
@@ -161,7 +162,8 @@ public class DeviceInformation {
 		String units = " ";
 		if (deviceInformation != null) {
 			units = deviceInformation.getJSONObject("thermostat").getString("units");
-			Keyword.ReportStep_Pass(testCase, "Device info - Stat is in "+units);
+			Keyword.ReportStep_Pass(testCase, "device detail from chil "+deviceInformation);
+			Keyword.ReportStep_Pass(testCase, "unit from chil "+units);
 		} else {
 			throw new Exception("Device Information not found");
 		}

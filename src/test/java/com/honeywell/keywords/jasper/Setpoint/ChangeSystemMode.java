@@ -21,7 +21,6 @@ public class ChangeSystemMode extends Keyword {
 	public boolean flag = true;
 
 	public ChangeSystemMode(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
-		super("Change System Mode");
 		this.inputs = inputs;
 		this.testCase = testCase;
 		this.exampleData = exampleData;
