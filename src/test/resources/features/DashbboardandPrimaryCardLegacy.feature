@@ -159,8 +159,8 @@ Then user should be displayed with the "Change mode" screen
 Examples:
 |Mode | 
 |Cool |
-#|Heat |
-#|OFF |
+|Heat |
+|OFF |
 
 #Requirements : Auto mode should enabled
 #HB, Spruce, JasperNA
@@ -392,13 +392,13 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Cool | Heat |
-#|Heat |Cool |
-#|Cool | OFF |
-#|Heat | Cool |
+|Heat |Cool |
+|Cool | OFF |
+|Heat | Cool |
 #|Heat |Heat |
-#|Heat | OFF |
-#|OFF | Cool |
-#|OFF |Heat |
+|Heat | OFF |
+|OFF | Cool |
+|OFF |Heat |
 #|OFF | OFF |
 
 #HB, Spruce, JasperNA
@@ -425,15 +425,15 @@ Then user "should be updated" with the <SystemMode> option
 Examples:
 |Mode | SystemMode| 
 |Heat | Cool |
-#|Cool |Heat |
-#|Cool | OFF |
+|Cool |Heat |
+|Cool | OFF |
 #|Cool | auto |
-#|Heat | Cool |
+|Heat | Cool |
 #|Heat |Heat |
-#|Heat | OFF |
+|Heat | OFF |
 #|Heat | auto |
 #|OFF | Cool |
-#|OFF |Heat |
+|OFF |Heat |
 #|OFF | OFF |
 #|OFF | auto |
 #|auto | Cool |
@@ -546,10 +546,10 @@ When user selects "BACK" from "Fan info" screen
 Then user should be displayed with the "Change fan" screen
 Examples:
 |Mode | 
-#|Cool |
+|Cool |
 |Heat | 
 #|Auto | 
-#|OFF |
+|OFF |
 #in case required
 #|Heat only |
 #|Cool only|
@@ -572,18 +572,18 @@ Then user should be displayed with the "Thermostat Solution Card" screen
 And user "should not be updated" with the <FanMode> option
 Examples:
  |Mode | DftFANMode |FanMode | 
-#|Cool | Auto		|On		 |
-#|Cool | Circulate  |Auto    |
-#|Cool | ON 		|Circulate|
-#|Heat | Auto		|On		 |
-#|Heat | Circulate  |On      |
+|Cool | Auto		|On		 |
+|Cool | Circulate  |Auto    |
+|Cool | ON 		|Circulate|
+|Heat | Auto		|On		 |
+|Heat | Circulate  |On      |
  |Heat | ON         |Circulate|	
 #|Auto | Auto       |On 	 |
 #|Auto | Circulate  |Auto    |
 #|Auto | ON         |Circulate|
-#|OFF | Auto        |On       |
-#|OFF | Circulate   |Auto     |
-#|OFF | ON          |  Auto   |
+|OFF | Auto        |On       |
+|OFF | Circulate   |Auto     |
+|OFF | ON          |  Auto   |
 
 #in case required
 #|Heat only | Auto Fan|
@@ -609,18 +609,18 @@ Then user should be displayed with the "Thermostat Solution Card" screen
 And user "should be updated" with the <FanMode> option
 Examples:
 |Mode |  FanMode | 
-#|Cool | Auto Fan|
-#|Cool | Circulate |
+|Cool | Auto |
+|Cool | Circulate |
 |Cool 	| ON | 
-#|Heat | Auto Fan|
-#|Heat | Circulate |
-#|Heat | ON | 
-#|Auto | Auto Fan|
+|Heat | Auto |
+|Heat | Circulate |
+|Heat | ON | 
+#|Auto | Auto |
 #|Auto | Circulate |
 #|Auto | ON | 
-#|OFF | Auto Fan|
-#|OFF | Circulate |
-#|OFF | ON | 
+|OFF | Auto |
+|OFF | Circulate |
+|OFF | ON | 
 
 #in case required
 #|Heat only | Auto Fan|
@@ -640,7 +640,7 @@ And user "SHOULD BE DISPLAYED" with the "FAN" option
 Examples: 
 |Mode| 
 |Heat |
-#|OFF |
+|OFF |
 
 
 #Setpoint values SolutionCard
@@ -659,9 +659,9 @@ Then user "should be displayed" with the "MAX set temperature on Dashboard" opti
 Examples:
 |Mode|scheduling|
 |Heat|geofence based|
-#|Cool|geofence based|
-#|Heat|time based|
-#|Cool|time based|
+|Cool|geofence based|
+|Heat|time based|
+|Cool|time based|
 #|Heat|no|
 #|Cool|no|
 #in case required
@@ -684,9 +684,9 @@ And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTIO
 Then user "should be displayed" with the "MIN set temperature on Dashboard" option
 Examples:
 |Mode|scheduling|
-#|Heat|geofence based|
-#|Cool|geofence based|
-#|Heat|time based|
+|Heat|geofence based|
+|Cool|geofence based|
+|Heat|time based|
 |Cool|time based|
 #|Heat|no|
 #|Cool|no|
@@ -710,7 +710,7 @@ Then user "should be displayed" with the "MAX set temperature on Dashboard" opti
 Examples:
 |Mode|scheduling|
 |Heat|geofence based|
-#|Heat|time based|
+|Heat|time based|
 #|Heat|no|
 
 #JasperEMEA
@@ -728,7 +728,7 @@ Then user "should be displayed" with the "MIN set temperature on Dashboard" opti
 Examples:
 |Mode|scheduling|
 |Heat|geofence based|
-#|Heat|time based|
+|Heat|time based|
 #|Heat|no|
 
 
@@ -894,7 +894,7 @@ Then user "should be provided" with the "automode" option
 Examples:
 |Mode|
 |Heat  |
-#|Cool  |
+|Cool  |
 
 
 #HB, Spruce, JaperNA
@@ -919,7 +919,7 @@ Then user "should be displayed" with the "Auto Mode description" option
 Examples:
 |Mode|
 |Heat  |
-#|Cool  |
+|Cool  |
 
 #HB, Spruce, JaperNA // negative case
 #Requirement :Auto mode should be disabled
@@ -974,7 +974,7 @@ Then user verifies the "THERMOSTAT DASHBOARD" coach marks
 Examples:
 |Mode|
 |Cool|
-#|Heat|
+|Heat|
 #|Auto|
 
 #JasperNA, HB, Spruce
@@ -986,7 +986,7 @@ Given user launches and logs in to the lyric application
 Then user verifies the "NA THERMOSTAT SOLUTION CARD" coach marks
 Examples:
 |Mode|
-#|Cool|
+|Cool|
 |Heat|
 #|Auto|
 
@@ -1031,20 +1031,20 @@ Examples:
 |Mode | systemMode|
 #|Cool | Cool |
 |Cool | Auto | 
-#|Cool | OFF  |
+|Cool | OFF  |
 #|Cool | Cool |
-#|Heat | Cool |
-#|Heat | Auto |
-#|Heat | OFF |
+|Heat | Cool |
+|Heat | Auto |
+|Heat | OFF |
 #|Heat |Heat|
-#|Auto | Cool |
-#|Auto | Heat | 
-#|Auto | OFF |
+|Auto | Cool |
+|Auto | Heat | 
+|Auto | OFF |
 #|Auto |Auto |
-#|OFF | Cool |
-#|OFF | Heat | 
+|OFF | Cool |
+|OFF | Heat | 
 #|OFF | OFF |
-#|OFF | auto|
+|OFF | auto|
 
 
 #Requirement:1 account with Emergency heat enabled
@@ -1065,7 +1065,7 @@ Examples:
 |Heat | OFF |
 #|Heat | Heat | 
 #|OFF | OFF |
-#|OFF| Heat | 
+|OFF| Heat | 
 
 #Requirement:1 account with Emergency heat enabled
 #JasperNA, HB, Spruce
