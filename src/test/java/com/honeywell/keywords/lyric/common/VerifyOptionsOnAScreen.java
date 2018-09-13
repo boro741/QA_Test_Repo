@@ -19,10 +19,12 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -1284,64 +1286,181 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						String parameter = data.getData(i, "WLD Solution options");
 						switch (parameter.toUpperCase()) {
 						case "CURRENT TEMPERATURE": {
-							
+
 							flag = flag & ActionSheet.isCurrentTemperatureTitleVisible();
-								if (flag) {
-									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-										Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentTemperatureTitleText());
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"The "+parameter+" is not vissible");
-								}break;
-								
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentTemperatureTitleText());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+							}break;
+
 						}
 						case "LAST UPDATED TIME": {
 							flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
-								if (flag) {
-									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());
-									} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"The "+parameter+" is not vissible");
-								}break;
-							
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+							}break;
+
 						}
 						case "TEMPERATURE GRAPH": {
 							flag = flag & ActionSheet.isTemperatureGraphTitleVisible();
-								if(flag) {
-									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getTemperatureGraphTitleText());
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"The "+parameter+" is not vissible");
-								}break;
-									
+							if(flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+							}break;
+
 						}
 						case "BATTERY PERCENTAGE": {
 							flag = flag & ActionSheet.isBatterypercentageTitleVisible();
-								if (flag) {
-									Keyword.ReportStep_Pass(testCase, "The" +parameter+ "is Vissibe");
-									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getRemainingBatteryTitleText());
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase,  parameter+ "is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getRemainingBatteryTitleText());
 
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"The "+parameter+" is not vissible");
-								}break;
-									
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+							}break;
+
 						}
 						case "NEXT UPDATE TIME": {
 							flag = flag & ActionSheet.isNextUpdateTimeTitleVisible();
-								if (flag) {
-									Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-									Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getNextUpdateTimeTitleText());
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getNextUpdateTimeTitleText());
 
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"The "+parameter+" is not vissible");
-								}break;
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+							}break;
 						}
 						}
-						
+
+					}
+					break;
+				}
+				//Amresh(H297378)
+				case "LEAK DETECTOR SETTINGS":{
+					WLDLeakDetectorSettings ActionSheet = new WLDLeakDetectorSettings(testCase);
+					for (int i = 0; i < data.getSize(); i++) {
+						String parameter = data.getData(i, "Settings");
+						switch (parameter.toUpperCase()) {
+						case "MANAGE ALERTS": {	
+							flag = flag & ActionSheet.isManageAlertsTitleVisible();
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayManageAlertsTitleText());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
+
+							}break;
+						}
+						case "BATTERY STATUS": {
+							flag = flag & ActionSheet.isBatteryStatusTitleVisible();
+
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, "The Text: "+parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayBatteryStatusTitleText());	
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayBatteryStatusPercentageText());						
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
+							}break;
+						}
+						case "TEMPERATURE UNIT": {
+							flag = flag & ActionSheet.isTemperatureUnitTitleVisible();
+
+							if(flag) {
+								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.dislplayTemperatureUnitTitleText());
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.dislplayTemperatureUnitValue());
+
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
+
+							}break;		
+						}
+						case "UPDATE FREQUENCY":{
+
+							flag = flag & ActionSheet.isUpdateFrequencyTitleTextVisible();
+
+							if(flag) {
+								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayUpdateFrequencyTitleText());
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayUpdateFrequencyValue());
+
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
+
+							}break;		
+
+						}
+						case "LEAK DETECTOR CONFIGURATION":{
+
+							flag = flag & ActionSheet.isLeakDetectorConfigurationTitleVisible();
+
+							if(flag) {
+								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayLeakDetectorConfigurationTitleText());
+
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
+
+							}break;		
+
+						}
+
+
+						}
+					}
+					break;
+
+				}
+		//Amresh wld
+				case "WLD DASHBOARD":{
+					Dashboard das = new Dashboard(testCase);
+					for (int i = 0; i < data.getSize(); i++) {
+						String parameter = data.getData(i, "Options");
+						switch (parameter.toUpperCase()) {
+						case "WLD DEVICE NAME": {
+							flag = flag & das.areDevicesVisibleOnDashboard(300);
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getDashboardDeviceNameLabel());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+							}break;
+						}
+						case "LAST UPDATED TIME": {	
+							flag = flag & das.isSecurityStatusLabelVisible();
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getSecurityStatusLabel());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+							}break;
+						}
+						case "CURRENT TEMPERATURE PERCENTAGE": {	
+							flag = flag & das.isDashboardIndoorTempWldVisible();
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getdashboardIndoorTempWldLabel());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+							}break;
+						}
+						case "CURRENT HUMIDITY PERCENTAGE": {	
+							flag = flag & das.isDashboardHumidityWldVisible();
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getDashboardHumidityWldLabel());
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+							}break;
+						}
+
+						}
 					}
 					break;
 				}
@@ -1353,33 +1472,29 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				switch (parameter.toUpperCase()) {
 				case "CURRENT HUMIDITY": {	
 					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentHumidityTitleText());
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"The "+parameter+" is not vissible");
-						}break;
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentHumidityTitleText());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+					}break;
 				}
 				case "LAST UPDATED TIME": {
 					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-							Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						
-							} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"The "+parameter+" is not vissible");
-						}break;
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+					}break;
 				}
 				case "HUMIDITY GRAPH": {
 					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
-						if(flag) {
-							Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-							Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getHumidityGraphTitleText());
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"The "+parameter+" is not vissible");
-						}break;		
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+					}break;		
 				}
 				}
 			}

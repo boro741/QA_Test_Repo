@@ -10,7 +10,8 @@ Then user should be displayed with the following "WLDSolutionTemperature" option
 |WLD Solution options|
 |Current Temperature|
 |Last Updated Time|
-#|Temperature Graph| #remove comment if account is 48 hours passed
+|Temperature Graph| 
+#comment out |Temperature Graph| if account is 48 hours post DIY
 |Battery percentage|
 |Next Update Time|
 #And user should be displayed with the "Settings" description
@@ -19,31 +20,31 @@ Then user should be displayed with the following "WLDSolutionHumidity" options:
 |WLD Humidity Solution options|
 |Current Humidity|
 |Last Updated Time|
-#|Humidity Graph| #remove comment if account is 48 hours passed
+|Humidity Graph| 
+#comment out |Humidity Graph| if account is 48 hours post DIY
 
-@ViewSolutionCardTemperatureunit
+@ViewSolutionCardTemperatureunit @Automated @Duplicate
 Scenario: As a user i should be able to view the change in temperature unit on my Solution Card
 Given user launches and logs in to the Lyric application
-When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
-And temperature unit is set to "F"
-And user navigates to "Dashboard" Screen from "Leak Detector  Settings" screen
-Then user should be displayed with "Current temperature" in  degree faranheit in "dashboard" screen
-When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
-And temperature unit is set to "C"
-And user navigates to "Dashboard" Screen from "Leak Detector  Settings" screen
-Then user should be displayed with "Current temperature" in  degree Celcius in "dashboard" screen
+When user selects "WLD device" from the dashboard
+#User navigates to WLD Settings page and changes Temperature Unit (in Fahrenheit or Celsius)
+#User should be able to see the change in temperature unit(in Fahrenheit or Celsius) in WLD Primary card.
+Then verify Temperature Unit is changed as per the "Temperature Unit" selected below:
+|Options|
+|Fahrenheit|
+|celsius|
 
-@ViewSolutionCardNextupdateTime
+@ViewSolutionCardNextupdateTime @HalfDone
 Scenario: As a user i should be able to view the change in Update frequency on my Solution Card
 Given user launches and logs in to the Lyric application
-When user navigates to "Update Frequency" screen from the "Dashboard" screen 
-And Sets the "Update frequency" to "Twice Daily"
-Then user should be displayed with the "updated new time after 24 hours " in "Solution Card" Screen
-When user navigates to "Update Frequency" screen from the "Dashboard" screen 
-And Sets the "Update frequency" to "Three Times Daily"
-Then user should be displayed with the "updated new time after 24 hours " in "Solution Card" Screen
+When user selects "WLD device" from the dashboard
+Then verify Next Update Time in Solution Card after selecting "Update Frequency" options:
+|Options|
+|Daily|
+|Twice Daily|
+|Thrice Daily|
 
-@TemperatureAndHumidityGrapghAfterDIY
+@TemperatureAndHumidityGrapghAfterDIY @Automatablelater
 Scenario: As a user i should be able to view a message on my temperature graph of solution card after DIY
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
@@ -51,7 +52,7 @@ Then user should be able to see a "Message set up complete and data will be disp
 When user navigates to "Humidity" Screen
 Then user should be able to see a "Message set up complete and data will be displayed after 48 hours"
 
-@TemperatureAndHumidityGraphAftertwodaysDIY
+@TemperatureAndHumidityGraphAftertwodaysDIY @Automatable
 Scenario: As a user i should be able to view temperature and humidity temperature graph of my WLD after two days of DIY
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
@@ -65,7 +66,7 @@ And user should be displyed with the "Dates of which trend is recorded"
 And user should be displayed with the " No of days trend"
 And user should be diaplayed with the " Maximum and minimum humidity trend"
 
-@TemperatureAndHumidityGraphAftertwodaysDIY
+@TemperatureAndHumidityGraphAftertwodaysDIY @Automatable
 Scenario: As a user i should be able to view temperature and humidity temperature graph of my WLD after 5 to 30 days
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen

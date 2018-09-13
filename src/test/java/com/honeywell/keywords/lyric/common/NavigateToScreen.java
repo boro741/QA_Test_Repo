@@ -49,6 +49,7 @@ import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.VacationHoldScreen;
+import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -324,7 +325,23 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}			
+			}
+			//Amresh wld
+			else if (screen.get(1).equalsIgnoreCase("WLD SETTINGS")) {
+				switch (screen.get(0).toUpperCase())
+				 {
+				case "DASHBOARD": 
+				{
+					WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
+					flag = flag & set.navigateFromWLDSettingsScreenToPrimaryCard();
+				break;
+				}
+				default: {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				 }
+			}
 			// Navigation from Dashboard
 			else if (screen.get(1).equalsIgnoreCase("Dashboard")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -583,7 +600,16 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSettingsScreen(testCase, inputs);
 					break;
-				}				
+				}
+				// Amresh - Navigate from 'Dashboard' to 'WLD Settings'
+				case "WLD SETTINGS": {
+					flag = flag & WLDSolutionCard.navigateFromDashboardScreenToWLDSettingsScreen(testCase, inputs);
+					break;
+				}
+				case "UPDATE FREQUENCY": {
+					flag = flag & WLDLeakDetectorSettings.navigateFromDashboardScreenToWLDSettingsUpdateFrequencyScreen(testCase, inputs);
+					break;
+				}
 				// Navigates to camera solution card screen from dashboard screen
 				case "CAMERA SOLUTION CARD":{
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);
@@ -657,7 +683,6 @@ public class NavigateToScreen extends Keyword {
 							& DASSettingsUtils.navigateFromDashboardScreenToSleepBrigthnessModeScreen(testCase, inputs);
 					break;
 				}
-
 				// Navigate from 'Camera Dashboard' to Manage Alerts Screen'
 				case "CAMERA MANAGE ALERTS": {
 					flag = flag
@@ -805,7 +830,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
-				}
+				}	
 				case "SOLUTION": {
 					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,

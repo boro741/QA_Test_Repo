@@ -200,13 +200,26 @@ public class Dashboard extends MobileScreens {
 	public boolean isCameraOnTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnText");
 	}
-	
+	//Amresh
+	public boolean isDashboardIndoorTempWldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIndoorTempWld");
+	}
+	public String getdashboardIndoorTempWldLabel() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIndoorTempWld");
+	}
+	public boolean isDashboardHumidityWldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardHumidityWld");
+	}
+	public String getDashboardHumidityWldLabel() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardHumidityWld");
+	}
+	public String getDashboardDeviceNameLabel() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconText");
+	}
 	// Method to check the camera Off text in dashboard screen 
 	public boolean isCameraOffTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOffText");
 	}
-
-
 	public String getCameraStatus(int timeOut) {
 		String cameraStatus = null;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus", timeOut)) {
@@ -585,8 +598,7 @@ public class Dashboard extends MobileScreens {
 	
 	public boolean isDrEventLabelVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardDrAlert", 3, false);
-	}
-	
+	}	
 	public boolean NavigatetoThermostatPrimarycard() {
 		if (MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")) {
 			return true;
