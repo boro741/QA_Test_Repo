@@ -2,4 +2,4 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 Message	ID	ll_history_msg_container					XPATH	//*[@name='Messages_cell']	XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell
 MessageTime	ID	view_notification_row_description										
 MessageContent	ID	view_notification_row_title										
-ActivityHistoryTitle	ID	toolbar_title										
+ActivityHistoryTitle	ID	toolbar_title					NAME	Activity History_HOME	Activity History_HOME	Activity History_HOME	NAME	Activity History_HOME

@@ -114,4 +114,31 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
       And user navigates to "Scheduling" screen from the "Dashboard" screen
      When user selects "Tap On Resume" from Scheduling screen
      Then "Same Every Day" scheduling is retained
-     
+  
+
+@EMEA_VerifySleepSettings @automated
+Scenario: To Verify create geofence schedule in off mode when permanentHold
+Given user has "Heat" system mode
+And user thermostat is set to "Geofence based" schedule
+When user launches and logs in to the Lyric application
+And user thermostat set "Home" with "UserArrived"
+And user sets sleep start time to "11:00AM" and end time to "11:00AM"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+
+ @EMEA_DeletingDefaultPeriodDifferentOnEveryday @Newscenario
+  Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
+    Given user launches and logs in to the Lyric application
+      And user navigates to "Scheduling" screen from the "Dashboard" screen
+      And user creates "Everyday" schedule with default schedule value
+      #And user selects "SINGLE DAY" view
+     When user edit Time schedule by deleting <Periods>
+     Then user should be displayed with confirm pop for period deletion
+      And Period is "not deleted" on "canceling" Dialog box
+  
+    Examples: 
+    | Periods | 
+#	|Delete 1 period|
+	|Delete 2 Period|
+	#|Delete 3 Period|
+#	|Delete 4 Period|

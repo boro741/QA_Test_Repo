@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
@@ -21,10 +22,9 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AdhocScreen;
-import com.honeywell.screens.SchedulingScreen;
+import com.honeywell.screens.VacationHoldScreen;
 
 public class JasperVacation {
-
 	public static boolean verifyVacationStatusOnPrimaryCard(TestCases testCase, TestCaseInputs inputs, boolean isOn) {
 		boolean flag = true;
 		String adHocText = "";
@@ -42,58 +42,16 @@ public class JasperVacation {
 				return flag;
 			}
 			endDate = statInfo.getVacationEndTime();
-			Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
+			SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
 			SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			if (inputs.isRunningOn("Saucelabs")) {
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-					Date date = sdf.parse(endDate);
-					Calendar cal = Calendar.getInstance();
-					cal.setTime(date);
-					System.out.println(cal.getTime());
-					System.out.println("Date In UTC is " + endDate);
-					SimpleDateFormat pstDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-					pstDateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
-					System.out.println("*******" + TimeZone.getTimeZone("CET"));
-					String endDateInPSTFormat = pstDateFormat.format(vacationDateFormat.parse(endDate));
-					System.out.println("Date In CET is " + endDateInPSTFormat);
-
-					Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
-					SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
-					try {
-						endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDateInPSTFormat))
-								.toUpperCase();
-						Keyword.ReportStep_Pass(testCase,
-								"Vacation End date from CHIL device information to be displayed is: "
-										+ endDateToBeDisplayed);
-					} catch (Exception e) {
-						flag = false;
-						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occored : " + e.getMessage());
-					}
-				} catch (Exception e) {
-					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Error Occored : " + e.getMessage());
-				}
-			} else {
-				Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
-				SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
-				try {
-					endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate)).toUpperCase();
-					Keyword.ReportStep_Pass(testCase,
-							"Vacation End date from CHIL device information to be displayed is: "
-									+ endDateToBeDisplayed);
-				} catch (Exception e) {
-					flag = false;
-					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Error Occored : " + e.getMessage());
-				}
+			try {
+				endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate)).toUpperCase();
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Error Occored : " + e.getMessage());
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				Keyword.ReportStep_Pass(testCase,
-						"Expected Vacation until label to be displayed is: " + "Vacation until "
-								+ endDateToBeDisplayed.split("\\s+")[1] + " " + endDateToBeDisplayed.split("\\s+")[0]);
-				Keyword.ReportStep_Pass(testCase, "Actual Vacation until label displayed is: " + adHocText);
 				if (adHocText.equalsIgnoreCase("Vacation until " + endDateToBeDisplayed.split("\\s+")[1] + " "
 						+ endDateToBeDisplayed.split("\\s+")[0])) {
 					Keyword.ReportStep_Pass(testCase,
@@ -112,10 +70,8 @@ public class JasperVacation {
 					}
 				}
 			} else {
-				Keyword.ReportStep_Pass(testCase,
-						"Expected Vacation until label to be displayed is: " + "VACATION UNTIL "
-								+ endDateToBeDisplayed.split("\\s+")[0] + " " + endDateToBeDisplayed.split("\\s+")[1]);
-				Keyword.ReportStep_Pass(testCase, "Actual Vacation until label displayed is: " + adHocText);
+				System.out.println("VACATION UNTIL " + endDateToBeDisplayed.split("\\s+")[0] + " "
+						+ endDateToBeDisplayed.split("\\s+")[1]);
 				if (adHocText.contains("VACATION UNTIL " + endDateToBeDisplayed.split("\\s+")[0] + " "
 						+ endDateToBeDisplayed.split("\\s+")[1])) {
 					Keyword.ReportStep_Pass(testCase,
@@ -163,8 +119,6 @@ public class JasperVacation {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (isOn) {
 			try {
-				SchedulingScreen ss= new SchedulingScreen(testCase);
-				ss.isNoScheduleTextVisible(60);
 				adHocText = adhoc.getVacationStatusInSolutionsCardScreen();
 			} catch (NoSuchElementException e) {
 				flag = false;
@@ -173,69 +127,22 @@ public class JasperVacation {
 				return flag;
 			}
 			endDate = statInfo.getVacationEndTime();
-			Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
+			SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
 			SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			if (inputs.isRunningOn("Saucelabs")) {
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-					Date date = sdf.parse(endDate);
-					Calendar cal = Calendar.getInstance();
-					cal.setTime(date);
-					System.out.println(cal.getTime());
-					System.out.println("Date In UTC is " + endDate);
-					SimpleDateFormat pstDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-					pstDateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
-					System.out.println("*******" + TimeZone.getTimeZone("CET"));
-					String endDateInPSTFormat = pstDateFormat.format(vacationDateFormat.parse(endDate));
-					System.out.println("Date In CET is " + endDateInPSTFormat);
-
-					Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
-					SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
-					try {
-						endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDateInPSTFormat))
-								.toUpperCase();
-						Keyword.ReportStep_Pass(testCase,
-								"Vacation End date from CHIL device information to be displayed is: "
-										+ endDateToBeDisplayed);
-					} catch (Exception e) {
-						flag = false;
-						Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occored : " + e.getMessage());
-					}
-				} catch (Exception e) {
-					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Error Occored : " + e.getMessage());
-				}
-			} else {
-				Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
-				SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
-				try {
-					endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate));
-					Keyword.ReportStep_Pass(testCase,
-							"Vacation End date from CHIL device information to be displayed is: "
-									+ endDateToBeDisplayed);
-				} catch (Exception e) {
-					flag = false;
-					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Error Occored : " + e.getMessage());
-				}
+			try {
+				endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate));
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Error Occored : " + e.getMessage());
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				Keyword.ReportStep_Pass(testCase,
-						"Expected Vacation until label to be displayed is: " + "Vacation until "
-								+ endDateToBeDisplayed.split("\\s+")[1] + " " + endDateToBeDisplayed.split("\\s+")[0]);
-				Keyword.ReportStep_Pass(testCase, "Actual Vacation until label displayed is: " + adHocText);
 				if (adHocText.equalsIgnoreCase("Vacation until " + endDateToBeDisplayed.split("\\s+")[1] + " "
 						+ endDateToBeDisplayed.split("\\s+")[0])) {
 					Keyword.ReportStep_Pass(testCase,
 							"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
 									+ adHocText);
 				} else {
-					Keyword.ReportStep_Pass(testCase,
-							"Expected Vacation until label to be displayed is: " + "Vacation until "
-									+ endDateToBeDisplayed.split("\\s+")[1] + " "
-									+ endDateToBeDisplayed.split("\\s+")[0]);
-					Keyword.ReportStep_Pass(testCase, "Actual Vacation until label displayed is: " + adHocText);
 					if (adHocText.contains("Vacation")) {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -324,8 +231,8 @@ public class JasperVacation {
 								"Verify Vacation Switch Status(OFF) : Vacation switch is not in OFF state");
 					}
 				} else {
-					System.out.println(MobileUtils.getMobElement(fieldObjects, testCase, "VacationHoldSwitch")
-							.getAttribute("value"));
+					System.out.println(
+							MobileUtils.getMobElement(fieldObjects, testCase, "VacationHoldSwitch").getAttribute("value"));
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "VacationSwitch").getAttribute("value")
 							.equalsIgnoreCase("0")) {
 						Keyword.ReportStep_Pass(testCase,
@@ -482,7 +389,7 @@ public class JasperVacation {
 			int diffInMinutes = (int) ((dif / 1000) / 60);
 			if (diffInMinutes > 15) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Wait for Vacation start : Difference between vacation start time and current time is greater than 15 mins");
+						"Wait for Vacation start : Differnece between vacation start time and current time is greater than 15 mins");
 				return false;
 			} else if (diffInMinutes < 0) {
 				Keyword.ReportStep_Pass(testCase,
@@ -649,4 +556,157 @@ public class JasperVacation {
 		return time;
 	}
 
+	public boolean setMaxTemperatureByTappingUpStepperVacation(TestCases testCase, TestCaseInputs inputs){
+	boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
+		String maxSetPointh = "";
+		String maxSetPointc = "";
+		float maxSetPointFloat = 0;
+		int maxSetPointInt = 0;
+		boolean systemIsCelsius = false;
+		String currentSetPoint = "";
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		try {
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			maxSetPointh = setPoints.get("MaxHeat");
+		if (maxSetPointh.contains(".")) {
+			systemIsCelsius = true;
+			maxSetPointFloat = Float.parseFloat(maxSetPointh);
+		} else {
+			maxSetPointInt = (int) Float.parseFloat(maxSetPointh);
+		}
+
+		WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
+		currentSetPoint = ele.getText();
+		if (systemIsCelsius == false) {
+			while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
+				currentSetPoint = ele.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
+				currentSetPoint = ele.getText();
+			}
+		}
+		maxSetPointc = setPoints.get("MaxCool");
+		if (maxSetPointc.contains(".")) {
+			systemIsCelsius = true;
+			maxSetPointFloat = Float.parseFloat(maxSetPointc);
+		} else {
+			maxSetPointInt = (int) Float.parseFloat(maxSetPointc);
+		}
+		WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
+		currentSetPoint = ele1.getText();
+		if (systemIsCelsius == false) {
+			while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
+				currentSetPoint = ele1.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
+				currentSetPoint = ele1.getText();
+			}
+		}
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public boolean setMinTemperatureByTappingDownStepperVacation(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
+		String minSetPointh = "";
+		String minSetPointc = "";
+		float minSetPointFloat = 0;
+		int minSetPointInt = 0;
+		boolean systemIsCelsius = false;
+		String currentSetPoint = "";
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		try {
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			minSetPointh = setPoints.get("MinHeat");
+		if (minSetPointh.contains(".")) {
+			systemIsCelsius = true;
+			minSetPointFloat = Float.parseFloat(minSetPointh);
+		} else {
+			minSetPointInt = (int) Float.parseFloat(minSetPointh);
+		}
+
+		WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
+		currentSetPoint = ele.getText();
+		if (systemIsCelsius == false) {
+			while (minSetPointInt<Integer.parseInt(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
+				currentSetPoint = ele.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while ( minSetPointFloat < Float.parseFloat(currentSetPoint) ) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
+				currentSetPoint = ele.getText();
+			}
+		}
+		minSetPointc = setPoints.get("MinCool");
+		if (minSetPointc.contains(".")) {
+			systemIsCelsius = true;
+			minSetPointFloat = Float.parseFloat(minSetPointc);
+		} else {
+			minSetPointInt = (int) Float.parseFloat(minSetPointc);
+		}
+		WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
+		currentSetPoint = ele1.getText();
+		if (systemIsCelsius == false) {
+			while (minSetPointInt < Integer.parseInt(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
+				currentSetPoint = ele1.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (minSetPointFloat < Float.parseFloat(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
+				currentSetPoint = ele1.getText();
+			}
+		}
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 }

@@ -13,8 +13,11 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.jasper.utils.JasperVacation;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.ZwavePrimardCardScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -279,6 +282,55 @@ public class ChangeStatusOnScreen extends Keyword {
 			}
 			}
 			break;
+		}
+		case "VACATION CARD":{
+			switch (expectedScreen.get(1).toUpperCase()) {
+			case "MAXIMUM": {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "TEMPERATURE TO":{
+				JasperVacation jv = new JasperVacation();
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+				flag = flag & vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+						if(jv.setMaxTemperatureByTappingUpStepperVacation(testCase, inputs)){
+							Keyword.ReportStep_Pass(testCase, "set"+ expectedScreen.get(0) +expectedScreen.get(1)+ "is completed");
+							flag = flag & bs.clickOnBackButton();
+						}
+						else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE, "Failed to set"+ expectedScreen.get(0) +expectedScreen.get(1));
+						}
+						
+					}
+			}
+			break;
+			}
+			case "MINIMUM": {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "TEMPERATURE TO":{
+				JasperVacation jv = new JasperVacation();
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+				flag = flag & vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+						if(jv.setMinTemperatureByTappingDownStepperVacation(testCase, inputs)){
+							Keyword.ReportStep_Pass(testCase, "set"+ expectedScreen.get(0) + expectedScreen.get(1) + "is completed");
+							flag = flag & bs.clickOnBackButton();
+						}
+						else{
+							flag=false;
+							Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE, "Failed to set"+ expectedScreen.get(0) +expectedScreen.get(1));
+						}
+						
+					}
+			}
+				break;}
+			default:{
+				flag=false;
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
+			}
+		}
+		break;
+		
 		}
 		default:{
 			flag=false;

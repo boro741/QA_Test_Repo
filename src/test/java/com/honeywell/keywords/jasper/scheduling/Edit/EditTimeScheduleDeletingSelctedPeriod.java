@@ -45,6 +45,16 @@ public class EditTimeScheduleDeletingSelctedPeriod extends Keyword {
 		} else if (exampleData.get(0).equalsIgnoreCase("All 4 periods")) {
 			inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "FOUR");
 		}
+		else if (exampleData.get(0).equalsIgnoreCase("Delete 1 Period")) {
+			inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "ONE");
+		}
+		else if (exampleData.get(0).equalsIgnoreCase("Delete 2 period")) {
+			inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "TWO");
+		} else if (exampleData.get(0).equalsIgnoreCase("Delete 3 period")) {
+			inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "THREE");
+		} else if (exampleData.get(0).equalsIgnoreCase("Delete 4 period")) {
+			inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "FOUR");
+		}
 
 		flag = flag & JasperSchedulingUtils.clickOnDeleteIconForSelectedPeriodNA(testCase, inputs);
 

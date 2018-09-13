@@ -10,15 +10,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 
 public class VacationHoldScreen extends MobileScreens {
-
+	
 	private static final String screenName = "VacationHold";
 	boolean flag = true;
+	
 
 	public VacationHoldScreen(TestCases testCase) {
 		super(testCase, screenName);
@@ -454,6 +456,17 @@ public class VacationHoldScreen extends MobileScreens {
 		}
 		return flag;
 	}
+	
+	public boolean navigateBackAndForthInVacationsStatScreen(TestCases testCase,TestCaseInputs inputs) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+			if (isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
+				flag = flag & clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			}
+		}
+		return flag;
+	}
 
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
@@ -529,5 +542,9 @@ public class VacationHoldScreen extends MobileScreens {
 		} else {
 			return false;
 		}
+	}
+	
+	public String getVacationSetPointValue() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "DeviceSetPoint");
 	}
 }
