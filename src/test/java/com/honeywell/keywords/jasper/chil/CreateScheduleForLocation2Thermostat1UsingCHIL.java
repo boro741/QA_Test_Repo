@@ -76,7 +76,7 @@ public class CreateScheduleForLocation2Thermostat1UsingCHIL extends Keyword {
 									}
 								}
 					}
-					flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
+					//flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
 					String Schedulestatus = devInfo.getscheduleStatus();
 					if(Schedulestatus.equalsIgnoreCase("Pause"))
 					{
