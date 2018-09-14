@@ -22,7 +22,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 public class DeviceInformation {
 
-	private static JSONObject deviceInformation;
+	private JSONObject deviceInformation;
 	private TestCases testCase;
 	private TestCaseInputs inputs;
 	String locationName;
@@ -30,7 +30,7 @@ public class DeviceInformation {
 
 	public DeviceInformation(TestCases testCase, TestCaseInputs inputs) {
 		this.testCase = testCase;
-		//this.inputs = inputs;
+		this.inputs = inputs;
 		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 	}
 
@@ -106,9 +106,7 @@ public class DeviceInformation {
 	}
 
 	public Boolean SyncDeviceInfo(TestCases testCase, TestCaseInputs inputs) {
-		Keyword.ReportStep_Pass(testCase,"Sync request for "+inputs.getInputValue("USERID") );
-		//deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
-		Keyword.ReportStep_Pass(testCase,"After Sync request of "+inputs.getInputValue("USERID") );
+		deviceInformation = LyricUtils.getDeviceInformation(testCase, inputs);
 		return true;
 	}
 
@@ -162,8 +160,6 @@ public class DeviceInformation {
 		String units = " ";
 		if (deviceInformation != null) {
 			units = deviceInformation.getJSONObject("thermostat").getString("units");
-			Keyword.ReportStep_Pass(testCase, "device detail from chil "+deviceInformation);
-			Keyword.ReportStep_Pass(testCase, "unit from chil "+units);
 		} else {
 			throw new Exception("Device Information not found");
 		}
@@ -331,7 +327,7 @@ public class DeviceInformation {
 	}
 
 	public String getDASSensorID(String sensorName) throws Exception {
-		if (DeviceInformation.deviceInformation != null) {
+		if (deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
@@ -347,7 +343,7 @@ public class DeviceInformation {
 
 	public ArrayList<String> getDASSensorIDsInADevice() throws Exception {
 		ArrayList<String> lstSensorID = new ArrayList<String>();
-		if (DeviceInformation.deviceInformation != null) {
+		if (deviceInformation != null) {
 			JSONArray sensors = deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors");
 			for (int i = 0; i < sensors.length(); i++) {
 				JSONObject sensor = sensors.getJSONObject(i);
@@ -364,7 +360,7 @@ public class DeviceInformation {
 
 	public ArrayList<String> getDASKeyFobsIDInADevice() throws Exception {
 		ArrayList<String> lstKeyFobID = new ArrayList<String>();
-		if (DeviceInformation.deviceInformation != null) {
+		if (deviceInformation != null) {
 			JSONArray keyfobs = deviceInformation.getJSONObject("deviceDetails").getJSONArray("keyFobs");
 			for (int i = 0; i < keyfobs.length(); i++) {
 				JSONObject keyfob = keyfobs.getJSONObject(i);
@@ -553,9 +549,10 @@ public class DeviceInformation {
 						"Get Current Set Points : Not Connected to CHAPI. Returning \"\" value");
 				return "";
 			}
-			if (getThermostatUnits().equals("Celsius")) {
+			Keyword.ReportStep_Pass(testCase, currentSetPoints);
+			if (deviceInformation.getJSONObject("thermostat").getString("units").equals("Celsius")) {
 				currentSetPoints = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, currentSetPoints);
-			} else if (getThermostatUnits().equals("Fahrenheit")) {
+			} else if (deviceInformation.getJSONObject("thermostat").getString("units").equals("Fahrenheit")) {
 				Double temp = Double.parseDouble(currentSetPoints);
 				currentSetPoints = String.valueOf(temp.intValue());
 			}

@@ -224,7 +224,7 @@ public class JasperAdhocOverride {
 				String next = "";
 				flag = flag & Adhoc.isAdhocStatusVisible();
 				
-				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 				if (flag) {
 					 AdhocText = Adhoc.getAdhocStatusElement();
 					 next = statInfo.getNextPeriodTime();
@@ -278,7 +278,6 @@ public class JasperAdhocOverride {
 				String AdhocText = Adhoc.getAdhocStatusElement();
 				String Period = statInfo.getCurrentSchedulePeriod();
 				String overrideTemp = "";
-				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 					if (flag) {
 						overrideTemp = statInfo.getOverrrideSetpoint();
 					} else {
@@ -316,12 +315,12 @@ public class JasperAdhocOverride {
 		boolean flag = true;
 		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 			if (statInfo.getThermoStatScheduleType().equalsIgnoreCase("Timed")) {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
 				flag = flag & Adhoc.isAdhocStatusVisible();
 				String AdhocText = Adhoc.getAdhocStatusElement();
 				String overrideTemp = "";
-				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 				if (flag) {
 					overrideTemp = statInfo.getOverrrideSetpoint();
 				} else {

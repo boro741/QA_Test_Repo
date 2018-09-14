@@ -17,7 +17,7 @@ public class TemporaryPermanentHold extends Keyword {
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
-	ArrayList<String> exampleData;
+	public ArrayList<String> exampleData;
 
 	public TemporaryPermanentHold(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
 		this.testCase = testCase;

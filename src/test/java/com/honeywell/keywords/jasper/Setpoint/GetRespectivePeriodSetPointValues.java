@@ -20,9 +20,9 @@ import com.honeywell.jasper.utils.JasperSetPoint;
 
 public class GetRespectivePeriodSetPointValues extends Keyword {
 
-	private TestCases testCase;
-	private TestCaseInputs inputs;
-	ArrayList<String> exampleData;
+	public TestCases testCase;
+	public TestCaseInputs inputs;
+	public ArrayList<String> exampleData;
 	public boolean flag = true;
 
 	public GetRespectivePeriodSetPointValues(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
@@ -43,8 +43,6 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 		try {
 
 			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
-			ReportStep_Pass(testCase, "Verify respective device info - "+devInfo);
-
 			String Mode = devInfo.getThermoStatMode();
 			String currentScheduleType = devInfo.getThermoStatScheduleType();
 			if(currentScheduleType.equalsIgnoreCase("Timed")){
@@ -58,7 +56,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 			String currentStepperSetpoint = "";
 			String jasperStatType = devInfo.getJasperDeviceType();
 
-			//flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
+			flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
 			if (flag) {
 				Setpointvalue = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 
@@ -83,7 +81,6 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							}else if (statUnit.equalsIgnoreCase("celsius")) {
 								WakeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, WakeCoolSetpoint1));
 								currentStepperSetpoint = currentsetpoint; 
-								ReportStep_Pass(testCase, "setpoint value from chil is "+WakeCoolSetpoint);
 							}else{
 								ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat unit not received"+statUnit);
 							}
