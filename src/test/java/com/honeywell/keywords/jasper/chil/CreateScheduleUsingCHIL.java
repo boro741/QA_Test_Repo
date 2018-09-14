@@ -72,7 +72,7 @@ public class CreateScheduleUsingCHIL extends Keyword {
 									}
 								}
 					}
-					//flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
+					flag = flag & devInfo.SyncDeviceInfo(testCase, inputs);
 					String Schedulestatus = devInfo.getscheduleStatus();
 					if(Schedulestatus.equalsIgnoreCase("Pause"))
 					{

@@ -38,13 +38,15 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value$")
 	public boolean keywordSteps() throws KeywordException {
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "RESPECTIVE PERIOD": 
 			{
 				flag = flag & DashboardUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
+				
+				
 				String getPeriodSetpointString;
 				Double getPeriodSetpoint = 0.0, currentStepperSetpoint = 0.0 ;
 				if (flag){
@@ -76,7 +78,6 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 			}
 			case"DR":
 			{
-				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 				Double getDRSetpoint, currentStepperSetpoint ;
 				getDRSetpoint = Double.parseDouble(statInfo.getCurrentSetPoints());
 				currentStepperSetpoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
@@ -92,8 +93,6 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 			}
 			case "OVERRIDE SETPOINT":
 			{
-				DeviceInformation statInfo = new DeviceInformation(this.testCase, this.inputs);
-				//flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 				if (flag){
 					String Overridesetpoint = "", currentStepperSetpoint = "";
 					Double currentStepperSetpoint1 = JasperSetPoint.getCurrentSetPointInDialer(testCase);
