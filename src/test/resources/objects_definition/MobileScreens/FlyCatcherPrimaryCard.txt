@@ -61,32 +61,32 @@ OverlayIcon	ID	overlay_icon	ID	overlay_icon	ID	overlay_icon	ID	Tap to enable.	ID
 SeekBar	ID	seek_bar	ID	seek_bar	ID	seek_bar						
 HumSlider							ID	Humidification_Slider	ID	Humidification_Slider	ID	Humidification_Slider
 WindowProtectionSlider							ID	WindowProtection_Slider	ID	WindowProtection_Slider	ID	WindowProtection_Slider
-DeviceAndSensor	XPATH	//*[@text='Devices & Sensors']	XPATH	//*[@text='Devices & Sensors']	XPATH	//*[@text='Devices & Sensors']						
-SettingsIcon	ID	Settings	ID	Settings	ID	Settings						
-DeleteSensor	XPATH	//*[@text='Delete Sensor']	XPATH	//*[@text='Delete Sensor']	XPATH	//*[@text='Delete Sensor']						
-IdentifySensor	XPATH	//*[@text='Identify Sensor']	XPATH	//*[@text='Identify Sensor']	XPATH	//*[@text='Identify Sensor']						
-MoveSensor	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to a Different Room']						
-DeleteSensorPopUp	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']						
-IdentifySensorImage	ID	sensor_image	ID	sensor_image	ID	sensor_image						
-SensorMotionDetectionToggle	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view						
-SensorCustomName	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit						
-SensorRoomTypeList	ID	list_item_display_text	ID	list_item_display_text	ID	list_item_display_text						
-SensorMoveTypeList	ID	button	ID	button	ID	button						
-SensorPlacedButton	ID	sensor_placed_button	ID	sensor_placed_button	ID	sensor_placed_button						
-SensorDetailsHeader	ID	header_layout	ID	header_layout	ID	header_layout						
+DeviceAndSensor	XPATH	//*[@text='Devices & Sensors']	XPATH	//*[@text='Devices & Sensors']	XPATH	//*[@text='Devices & Sensors']	ID	DevicesAndSensors_subTitle	ID	DevicesAndSensors_subTitle	ID	DevicesAndSensors_subTitle
+SettingsIcon	ID	Settings	ID	Settings	ID	Settings	ID	action_settings	ID	action_settings	ID	action_settings
+DeleteSensor	XPATH	//*[@text='Delete Sensor']	XPATH	//*[@text='Delete Sensor']	XPATH	//*[@text='Delete Sensor']	ID	Delete Sensor	ID	Delete Sensor	ID	Delete Sensor
+IdentifySensor	XPATH	//*[@text='Identify Sensor']	XPATH	//*[@text='Identify Sensor']	XPATH	//*[@text='Identify Sensor']	ID	Identify Sensor	ID	Identify Sensor	ID	Identify Sensor
+MoveSensor	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to a Different Room']	XPATH	//*[@text='Move to a Different Room']	ID	Move to a Different Room	ID	Move to a Different Room	ID	Move to a Different Room
+DeleteSensorPopUp	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@text='Sensors can only be deleted from the thermostat']	XPATH	//*[@name='You can manage sensors on your thermostat by opening the thermostat’s menu and selecting Devices & Sensors.']	XPATH	//*[@name='You can manage sensors on your thermostat by opening the thermostat’s menu and selecting Devices & Sensors.']	XPATH	//*[@name='You can manage sensors on your thermostat by opening the thermostat’s menu and selecting Devices & Sensors.']
+IdentifySensorImage	ID	sensor_image	ID	sensor_image	ID	sensor_image	ID	identify_sensor	ID	identify_sensor	ID	identify_sensor
+SensorMotionDetectionToggle	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view	ID	list_item_lyric_switch_view	ID	use_motion_detection_toggle	ID	use_motion_detection_toggle	ID	use_motion_detection_toggle
+SensorCustomName	ID	custom_generic_edit	ID	custom_generic_edit	ID	custom_generic_edit	ID	Add Room	ID	Add Room	ID	Add Room
+SensorRoomTypeList	ID	list_item_display_text	ID	list_item_display_text	ID	list_item_display_text	ID	//XCUIElementTypeCollectionView/XCUIElementTypeCell/XCUIElementTypeOther	ID	//XCUIElementTypeCollectionView/XCUIElementTypeCell/XCUIElementTypeOther	ID	//XCUIElementTypeCollectionView/XCUIElementTypeCell/XCUIElementTypeOther
+SensorMoveTypeList	ID	button	ID	button	ID	button	ID	//XCUIElementTypeCollectionView/XCUIElementTypeCell/XCUIElementTypeOther	ID	//XCUIElementTypeCollectionView/XCUIElementTypeCell/XCUIElementTypeOther	ID	//XCUIElementTypeCollectionView/XCUIElementTypeCell/XCUIElementTypeOther
+SensorPlacedButton	ID	sensor_placed_button	ID	sensor_placed_button	ID	sensor_placed_button	ID	RightButton	ID	RightButton	ID	RightButton
+SensorDetailsHeader	ID	header_layout	ID	header_layout	ID	header_layout	ID	sensor_name_value	ID	sensor_name_value	ID	sensor_name_value
 ProgressBarText	ID	message	ID	message	ID	message						
-MultipleSensorRoomPopUp	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"						
-Yesbutton	XPATH	//*[@text='Yes']	XPATH	//*[@text='Yes']	XPATH	//*[@text='Yes']						
-SensorDetialsTempText	ID	temp_lbl	ID	temp_lbl	ID	temp_lbl						
-SensorDetialsTempValue	ID	temp_val	ID	temp_val	ID	temp_val						
-SensorDetialsHumidityText	ID	humidity_lbl	ID	humidity_lbl	ID	humidity_lbl						
-SensorDetialsHumidityValue	ID	humidity_val	ID	humidity_val	ID	humidity_val						
-SensorDetialsBatteryText	ID	battery_lbl	ID	battery_lbl	ID	battery_lbl						
-SensorDetialsBatteryValue	ID	battery_level	ID	battery_level	ID	battery_level						
-SensorDetialsBatteryValue	ID	signal_lbl	ID	signal_lbl	ID	signal_lbl						
-SensorDetialsSignalStrengthValue	ID	signal_strength	ID	signal_strength	ID	signal_strength						
-SensorDetialsModelText	ID	model_lbl	ID	model_lbl	ID	model_lbl						
-SensorDetialsModelValue	ID	model_number	ID	model_number	ID	model_number						
-SensorDetialsFirmwareVersionText	ID	firmware_lbl	ID	firmware_lbl	ID	firmware_lbl						
-SensorDetialsFirmwareVersionValue	ID	firmware_version	ID	firmware_version	ID	firmware_version						
-SensorDetialsUseMotionDetectionText	ID	list_item_lyric_horizontal_text_view_subtext	ID	list_item_lyric_horizontal_text_view_subtext	ID	list_item_lyric_horizontal_text_view_subtext						
+MultipleSensorRoomPopUp	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	xPATH	"//*[contains(@name,'Use multiple sensors in')]"	XPATH	"//XCUIElementTypeAlert[@name=""Use multiple sensors in Guest Bedroom?""]"	XPATH	"//XCUIElementTypeAlert[@name=""Use multiple sensors in Guest Bedroom?""]"	XPATH	"//XCUIElementTypeAlert[@name=""Use multiple sensors in Guest Bedroom?""]"
+Yesbutton	XPATH	//*[@text='Yes']	XPATH	//*[@text='Yes']	XPATH	//*[@text='Yes']	ID	YES	ID	YES	ID	YES
+SensorDetialsTempText	ID	temp_lbl	ID	temp_lbl	ID	temp_lbl	ID	TEMPERATURE	ID	TEMPERATURE	ID	TEMPERATURE
+SensorDetialsTempValue	ID	temp_val	ID	temp_val	ID	temp_val		temp_val	ID	temp_val	ID	temp_val
+SensorDetialsHumidityText	ID	humidity_lbl	ID	humidity_lbl	ID	humidity_lbl	ID	HUMIDITY	ID	HUMIDITY	ID	HUMIDITY
+SensorDetialsHumidityValue	ID	humidity_val	ID	humidity_val	ID	humidity_val	ID	humidity_value	ID	humidity_value	ID	humidity_value
+SensorDetialsBatteryText	ID	battery_lbl	ID	battery_lbl	ID	battery_lbl	ID	battery_level_subTitle	ID	battery_level_subTitle	ID	battery_level_subTitle
+SensorDetialsBatteryValue	ID	battery_level	ID	battery_level	ID	battery_level	ID	battery_level_Image	ID	battery_level_Image	ID	battery_level_Image
+SensorDetialsSignalStrengthText	ID	signal_lbl	ID	signal_lbl	ID	signal_lbl	ID	signal_strength_subTitle	ID	signal_strength_subTitle	ID	signal_strength_subTitle
+SensorDetialsSignalStrengthValue	ID	signal_strength	ID	signal_strength	ID	signal_strength	ID	signal_strength_Image	ID	signal_strength_Image	ID	signal_strength_Image
+SensorDetialsModelText	ID	model_lbl	ID	model_lbl	ID	model_lbl	ID	model_subTitle	ID	model_subTitle	ID	model_subTitle
+SensorDetialsModelValue	ID	model_number	ID	model_number	ID	model_number	ID	model_value	ID	model_value	ID	model_value
+SensorDetialsFirmwareVersionText	ID	firmware_lbl	ID	firmware_lbl	ID	firmware_lbl	ID	fw_version_subTitle	ID	fw_version_subTitle	ID	fw_version_subTitle
+SensorDetialsFirmwareVersionValue	ID	firmware_version	ID	firmware_version	ID	firmware_version	ID	fw_version_value	ID	fw_version_value	ID	fw_version_value
+SensorDetialsUseMotionDetectionText	ID	list_item_lyric_horizontal_text_view_subtext	ID	list_item_lyric_horizontal_text_view_subtext	ID	list_item_lyric_horizontal_text_view_subtext	ID	use_motion_detection_subTitle	ID	use_motion_detection_subTitle	ID	use_motion_detection_subTitle

@@ -159,7 +159,7 @@ Then  <ScheduleType> scheduling gets activated
 #      |Geofence|Different On Weekdays|
       
 @JasperNA_WhenHeat_CoolOnly @Automated
-Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Off Mode 
+Scenario Outline: As a user I want to create an Time based schedule with default schedule value when System is in Cool Only Stat
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates "Same Every Day" schedule with default schedule value

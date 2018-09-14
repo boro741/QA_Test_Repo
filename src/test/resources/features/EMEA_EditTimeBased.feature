@@ -70,7 +70,6 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
       And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user selects "SINGLE DAY" view
     When user edits schedule periods of <EditedDays>
-    And user navigates to "Scheduling" screen from the "Dashboard" screen
       And user selects "Grouped days" view
      Then <EditedDays> are grouped separately
   
