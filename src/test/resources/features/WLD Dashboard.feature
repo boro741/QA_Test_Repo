@@ -3,30 +3,35 @@ Feature: WLD Dashboard
   As user I should be able to View dashboard of WLD from the app
 
 
-@viewDashboard
+@viewDashboard @Automated 
 Scenario: As a user I should be able view dashboard of WLD through the Lyric application 
-Given user launches and logs in to the Lyric application 
-When user lands on "Dashboard" screen 
-Then user should be able to see "WLD device status"
-And user should be able to see "Last updated time"
-And user should be able to see "Current temperature percentage"
-And user should be able to see "Current humidity percentage"
+Given user launches and logs in to the Lyric application
+Then user should be displayed with the following "WLD Dashboard" options:
+|Options|
+|WLD device Name|
+|Last updated time|
+|Current temperature percentage|
+|Current humidity percentage|
 
-@ViewDashboardTemperatureunit
+
+
+@ViewDashboardTemperatureunit @Automated
 Scenario: As a user i should be able to view the change in temperature unit on my dashboard
 Given user launches and logs in to the Lyric application
-When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
-And temperature unit is set to "F"
-And user navigates to "Dashboard" Screen from "Leak Detector  Settings" screen
-Then user should be displayed with "Current temperature" in  degree faranheit in "dashboard" screen
-When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
-And temperature unit is set to "C"
-And user navigates to "Dashboard" Screen from "Leak Detector  Settings" screen
-Then user should be displayed with "Current temperature" in  degree Celcius in "dashboard" screen
+When user selects "WLD device" from the dashboard
+#User navigates to WLD Settings page and changes Temperature Unit (in Fahrenheit or Celsius)
+#User should be able to see the change in temperature unit(in Fahrenheit or Celsius) in WLD Primary card.
+Then verify Temperature Unit is changed as per the "Temperature Unit" selected below:
+|Options|
+|Fahrenheit|
+|celsius|
 
 
-@landingToSolutionCard
+
+@landingToSolutionCard @Automated
 Scenario: As a user i should be able to land on solution card from dashboard
 Given user launches and logs in to the Lyric application
-When user Taps on "Dashboard"
-Then user should be displayed with "Solution Card" Screen
+When user selects "WLD device" from the dashboard
+Then user should be displayed with the following "WLDSolutionTemperature" options:
+|WLD Solution options|
+|Current Temperature| 

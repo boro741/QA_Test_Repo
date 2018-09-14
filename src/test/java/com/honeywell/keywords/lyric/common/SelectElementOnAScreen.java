@@ -34,6 +34,7 @@ import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.ZwaveScreen;
 
 public class SelectElementOnAScreen extends Keyword {
@@ -1180,6 +1181,33 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 				}
 					break;
+				}
+			}
+			//Amresh wld
+			else if (parameters.get(1).equalsIgnoreCase("WLD Settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "TEMPERATURE UNIT": {
+					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
+					flag = flag & settings.clickonTemperatureUnit();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					}
+					break;
+				}
+				case "TEMPERATURE UNIT IN FARENHEIT": {
+					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
+					flag = flag & settings.clickonTemperatureUnit();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					}
+					break;
+				}
 				}
 			}
 			// select schedule off from option action sheet

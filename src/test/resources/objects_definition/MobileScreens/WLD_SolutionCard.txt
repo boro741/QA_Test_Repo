@@ -9,4 +9,6 @@ HumidityTab	xPATH	//*[@text='Humidity']	xPATH	//*[@text='Humidity']	xPATH	//*[@t
 TemperatureTab	xPATH	//*[@text='Temperature']	xPATH	//*[@text='Temperature']	xPATH	//*[@text='Temperature']	id	Temperature	id	Temperature	id	Temperature
 RemainingBattery	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text	id	battery_remaining_text
 Settings	id	action_settings	id	action_settings	id	action_settings						
-SetupComplete	xPATH	//*[@text='Setup Complete!']	xPATH	//*[@text='Setup Complete!']	xPATH	//*[@text='Setup Complete!']						
+SetupComplete	XPATH	//*[@text='Setup Complete!']	XPATH	//*[@text='Setup Complete!']	XPATH	//*[@text='Setup Complete!']						
+Managealerts	XPATH	//*[@text='Manage alerts']	XPATH	//*[@text='Manage alerts']	XPATH	//*[@text='Manage alerts']	xPATH	//*[@value='Manage Alerts']	xPATH	//*[@value='Manage Alerts']	xPATH	//*[@value='Manage Alerts']
+TemperatureUnit	XPATH	//*[@text='Temperature Unit']	XPATH	//*[@text='Temperature Unit']	XPATH	//*[@text='Temperature Unit']	xPATH	//*[@value='¡F/¡C']	xPATH	//*[@value='¡F/¡C']	xPATH	//*[@value='¡F/¡C']

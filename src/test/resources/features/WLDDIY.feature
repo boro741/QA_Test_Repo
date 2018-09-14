@@ -3,7 +3,7 @@ Feature: WLD DIY Registration
 As a user I want to register a WLD device using the Lyric application
 
 
-@WLDDIYRegistrationWhenExistingLocationAndWLDNamesAreEntered
+@WLDDIYRegistrationWhenExistingLocationAndWLDNamesAreEntered @NotAutomatable
 Scenario Outline: As a user I want to verify if error popup displays when existing location and WLD names are entered again
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -27,7 +27,7 @@ Examples:
       | Existing location name      | Existing device name  |
       | Home                        | Living Room           |
       
-@WLDDIYWhenUserEntersMaxCharactersInCustomLocationAndDetectorName
+@WLDDIYWhenUserEntersMaxCharactersInCustomLocationAndDetectorName @NotAutomatable
 Scenario Outline: As a user I want to enter max characters in new location and Detector name
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -46,7 +46,7 @@ Examples:
       | max characters                                                               |
       | This is to test max characters in custom location name and base station     |
 
-@WLDDIYRegistrationWithNewCustomLocationAndWLDName		@P1
+@WLDDIYRegistrationWithNewCustomLocationAndWLDName		@P1 @NotAutomatable
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -84,7 +84,7 @@ Examples:
       | Texas#$%                    | Ball Room             | 55555                       | 73301                 |
 
 
-@WLDDIYRegistrationWithAvailableDefaultLocationAndDetectorName
+@WLDDIYRegistrationWithAvailableDefaultLocationAndDetectorName @NotAutomatable
 Scenario Outline: As a user I want to verify default location name and default base station name 
 Given  user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -127,7 +127,7 @@ Examples:
       | Pool House          | First Floor           | 55555                       | 90001                 |
 
 
-@WLDDIYRegistrationWhenAlreadyWLDisRegistered
+@WLDDIYRegistrationWhenAlreadyWLDisRegistered @NotAutomatable
 Scenario Outline: As a user I want to verify error message when already my WLD is registered and i am adding it to different location
 Given  user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -151,7 +151,7 @@ Examples:
       | Default Location      | Default Device Name  |
       | Home                                                          | Living room                         |
 
-@WLDDIYDenyAppAccessToLocationServices	
+@WLDDIYDenyAppAccessToLocationServices	 @NotAutomatable
 Scenario Outline: As a user I should be prompted with Location services popup when location services access is denied after installation
 Given user denies location services access while launching the Lyric app after installation 
 And user launches and logs in to the Lyric application
@@ -167,7 +167,7 @@ When user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for detector" spinner
 
 
-@WLDDIYWhenNoWLDAreAvailable
+@WLDDIYWhenNoWLDAreAvailable @NotAutomatable
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -185,7 +185,7 @@ And user "clicks on OK in" the "Detector Not Found" popup
 And user should be displayed with the "Power Your Water Leak Detector" screen
 
 
-@WLDDIYCanncelInRegisterWLD	 
+@WLDDIYCanncelInRegisterWLD	  @NotAutomatable
 Scenario Outline: As a user I should be able to Cancel the setup in Register Base Station screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -210,7 +210,7 @@ Examples:
       | Home                                    | Living Room                     |
       
 
-@WLDDIYDisconnectWLD
+@WLDDIYDisconnectWLD @NotAutomatable
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when WLD device is disconnected
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -236,7 +236,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@WLDDIYTurnOffMobileDeviceBluetooth
+@WLDDIYTurnOffMobileDeviceBluetooth @NotAutomatable
 Scenario: As a user I should be prompted with Bluetooth is off popup when mobile device Bluetooth is off
 Given user launches and logs in to the Lyric application
 When user turns "off" mobile device Bluetooth
@@ -261,7 +261,7 @@ When user clicks on "Next" button
 Then user should be displayed with the "Pairing with Detector" screen
 
 
-@WLDDIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2
+@WLDDIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2 @NotAutomatable
 Scenario Outline: As a user I want to register a WLD device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -286,7 +286,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@WLDDIYRegistrationByConnectingToOpenWiFiNetwork
+@WLDDIYRegistrationByConnectingToOpenWiFiNetwork @NotAutomatable
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform WLD registration
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -308,7 +308,7 @@ Examples:
       | Home          | Living Room  |
       
 
-@WLDDIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2
+@WLDDIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2 @NotAutomatable
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -339,7 +339,7 @@ Examples:
 
 
 
-@WLDDIYMultipleWLDRegistrationsForTheSameAccount		@P2
+@WLDDIYMultipleWLDRegistrationsForTheSameAccount		@P2 @NotAutomatable
 Scenario Outline: As a user I want to register multiple WLD devices for a single account using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -386,7 +386,7 @@ Examples:
       |	Home			|	Living Room			|	Kitchen				|
 
 
-@WLDDIYTimeoutInWLDDevice
+@WLDDIYTimeoutInWLDDevice @NotAutomatable
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in DAS device
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -407,7 +407,7 @@ Examples:
       | Home                                    | Living Room                     |
       
       
-@WLDDIYRegistrationByMinimizingAndMaximizingTheApp		@P3
+@WLDDIYRegistrationByMinimizingAndMaximizingTheApp		@P3 @NotAutomatable
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -433,7 +433,7 @@ Examples:
       | Home                                    | Living Room                     |
      
 
-@WLDDIYConfigurationVerifyBackArrowFunctionality                    @P2
+@WLDDIYConfigurationVerifyBackArrowFunctionality                    @P2 @NotAutomatable
 Scenario Outline: Verify Back arrow functionality while registering WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen

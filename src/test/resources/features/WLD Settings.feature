@@ -2,22 +2,21 @@
 Feature: WLD Settings 
   As user I should be able to control my WLD settings from the app
 
-@VerifyWLDSettings
+@VerifyWLDSettings @iOSAutomated @waitingforAndroidBuild
 Scenario: As a user I want to verify that all WLD Settings options are available to me 
-Given user launches and logs in to the Lyric application 
-When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
-Then user should be displayed with the following "Leak Detector  Settings" options: 
+Given user launches and logs in to the Lyric application  
+And user navigates to "WLD Settings" screen from the "Dashboard" screen
+Then user should be displayed with the following "Leak Detector Settings" options: 
       | Settings					| 
       | Manage Alerts				|
       | Battery Status				|
       |	Temperature Unit			|
       | Update Frequency			|					 
-      | Leak Detector Configuration 		| 
-
+      | Leak Detector Configuration |
 
 #Manage Alerts 
 
-@EnableDisableIndoorTemperatureAlertInWLDSettings
+@EnableDisableIndoorTemperatureAlertInWLDSettings @Automatable
 Scenario: As a user I should be able to enable or disable Indoor Temperature Alert on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -31,7 +30,7 @@ When user changes the "Indoor Temperature Alert" to "OFF"
 Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Alerts" screen
 	  
      
-@EnableDisableEmailNotifications
+@EnableDisableEmailNotifications @NotSureaboutAutomation
 Scenario: As a user I should be able to enable or disable EmailForEnabledAlerts on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -45,7 +44,7 @@ Then "Email Notifications" value should be updated to "OFF" on "Manage Alerts" s
 When user creates "Alerts"
 Then user should not receive "Email Alert"
   
-@WLDChangeAlertForThisRangeforTemperature
+@WLDChangeAlertForThisRangeforTemperature @NotSureaboutAutomation
 Scenario: As a user I should be able to change Alert For This Range on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -68,7 +67,7 @@ Then user should be navigates to "SolutionCard"
 
 
 
-@EnableDisableIndoorHumidityAlert
+@EnableDisableIndoorHumidityAlert  @Automatable
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -82,7 +81,7 @@ Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts"
       | Alert for this range     |
 
 
-@EnableDisableEmailForEnabledAlertsforHumidity
+@EnableDisableEmailForEnabledAlertsforHumidity @NotSureaboutAutomation
 Scenario: As a user I should be able to enable or disable EmailForEnabledAlerts for Humidity on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -96,7 +95,7 @@ Then "Email Notifications" value should be updated to "OFF" on "Manage Alerts" s
 When user creates "Alerts"
 Then user should not receive "Email Alert"
 
-@ChangeAlertForThisRangeforHumididty
+@ChangeAlertForThisRangeforHumididty @NotSureaboutAutomation
 Scenario: As a user I should be able to change Alert For This Range on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -116,7 +115,7 @@ When user selects the "Push notification"
 Then user should be navigates to "SolutionCard"
 
 
-@SetEmailContacts
+@SetEmailContacts @Automatable
 Scenario Outline: As a user I should be able set email contacts on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Email Contacts" screen from the "Dashboard" screen
@@ -137,7 +136,7 @@ Examples:
 
 
 
-@ChangeTemperatureUnit
+@ChangeTemperatureUnit @Automatable
 Scenario: As a user I should be able to set Temperture Unit contacts on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
@@ -150,7 +149,7 @@ Then user should be displayed with "F" in "Leak Detector  Settings" screen
 
 #please add steps solution card and dashboard (Tempr and humidity )
 
-@SetUpdateFrequency
+@SetUpdateFrequency @Automatable
 Scenario: As a user I should be able to set Update frequency on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Update Frequency " screen from the "Dashboard" screen
@@ -165,7 +164,7 @@ Then "Update Frequency" value should be updated to "Three Times" on "Leak Detect
 
 #Leak Detector Configuration 
 
-@RenameWLDdevice
+@RenameWLDdevice  @Automatable
 Scenario: As a user I want to rename my thermostat through the application 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Leak Detector Configuration" screen from the "Dashboard" screen 
@@ -174,8 +173,8 @@ And user navigates to "Dashboard" screen from the "Leak Detector Configuration" 
 Then user should be displayed with "Test WLD Name" device on the "dashboard" screen 
 And user reverts back the "WLD device name" through CHIL
 
-@RenameWLDThermostatWithDuplicatename
-Scenario: As a user I want to get a error message when i eneter a duplicate name for my thermostat
+@RenameWLDThermostatWithDuplicatename @Automatable
+Scenario: As a user I want to get a error message when i enter a duplicate name for my thermostat
 Given user launches and logs in to the Lyric application 
 And user navigates to "Leak Detector Configuration" screen from the "Dashboard" screen 
 When user edits the "WLD 1" name to "Test WLD Name" 
@@ -186,7 +185,7 @@ And user edits the "WLD 2" name to "Test WLD Name"
 Then user should be displayed with "Duplicate name error" Popup
 
 
-@ViewLeakDetectorconfigurationOptions
+@ViewLeakDetectorconfigurationOptions @Automatable
 #Precondition: User has set Heating System, Heating Stages, Cooling Stages in Thermostat
 Scenario: As a user I want to View my thermostat Configuration details
 Given user launches and logs in to the Lyric application 
@@ -195,9 +194,9 @@ Then user should be displayed with "Leak Detector Name"
 And user should be displayed with "Firmware Details"
 And user should be displayed with "Delete Leak Detector"
 
-@DeleteLeakDetector
-Scenario: As a user I should be able to delete my Japer NA device from my account through the Lyric application 
-Given user launches and logs in to the Lyric application 
+@DeleteLeakDetector @NotAutomatable
+Scenario: As a user I should be able to delete my WLD device from my account through the Homes application 
+Given user launches and logs in to the Homes application 
 When user navigates to "Leak Detector Configuration" screen from the "Dashboard" screen 
 And user "Deletes Leak Detector" by clicking on "Delete" button
 And user should receive a "Delete Device Confirmation" popup

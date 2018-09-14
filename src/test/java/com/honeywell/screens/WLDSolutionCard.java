@@ -1,8 +1,13 @@
 package com.honeywell.screens;
 
+import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.utils.CoachMarkUtils;
 
 public class WLDSolutionCard extends MobileScreens {
 
@@ -69,5 +74,37 @@ public class WLDSolutionCard extends MobileScreens {
 	public boolean clickOnHumidityGraphTitle()
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumidityTab");
+	}
+
+	public static boolean navigateFromDashboardScreenToWLDSettingsScreen(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();			
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: Navigation to Settings Failed" + e.getMessage());
+		}
+		return flag;
+	}
+
+	public boolean navigateFromPrimaryCardToWLDSettingsScreen() {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		try {
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();			
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
 	}
 }
