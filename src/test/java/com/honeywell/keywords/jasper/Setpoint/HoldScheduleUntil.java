@@ -72,7 +72,8 @@ public class HoldScheduleUntil extends Keyword {
 					ReportStep_Pass(testCase, "Added 2 hrs");
 				} else{
 					c2.add(Calendar.HOUR, 0);
-					c2.set(Calendar.MINUTE, 0);
+					ReportStep_Pass(testCase, "Added 15 mins");
+					c2.set(Calendar.MINUTE, 15);
 				}
 
 

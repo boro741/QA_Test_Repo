@@ -1154,7 +1154,6 @@ When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
-When user navigates to "Scheduling" screen from the "Dashboard" screen
 Then verify "No Schedule" screen is shown in view schedule screen
 And user should be displayed with "respective period" setpoint value
 
@@ -1360,7 +1359,6 @@ And user holds the schedule until time "lesser than 12 hours" from current time
 And user navigates to "Scheduling" screen from the "Primary card" screen
 And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
-When user navigates to "Scheduling" screen from the "Dashboard" screen
 Then verify "No Schedule" screen is shown in view schedule screen
 And user should be displayed with "respective period" setpoint value
 #Last schedule period setpoint validation
