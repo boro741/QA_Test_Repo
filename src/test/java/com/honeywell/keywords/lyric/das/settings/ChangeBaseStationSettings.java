@@ -216,17 +216,17 @@ public class ChangeBaseStationSettings extends Keyword {
 			}else if (parameters.get(0).equalsIgnoreCase("CAMERA FACE DETECTION ALERTS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+					if (cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Motion Event Alerts is already enabled in the Camera settings Screen");
 						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
 						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+						if (cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Motion Event Alerts is disabled in the Camera settings Screen");
 							flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
 							flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+							if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Motion Event Alerts is enabled in the Camera settings Screen");
 							}else {
@@ -236,7 +236,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
 						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+						if (cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Motion Event Alerts is enabled in the Camera settings Screen");
 						}else {
@@ -244,17 +244,17 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+					if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Motion Event Alerts is already disabled in the Camera settings Screen");
 						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
 						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+						if (cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Motion Event Alerts is enabled in the Camera settings Screen");
 							flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
 							flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+							if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Motion Event Alerts is disabled in the Camera settings Screen");
 							}else {
@@ -264,7 +264,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
 						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+						if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Motion Event Alerts is disabled in the Camera settings Screen");
 						}else {

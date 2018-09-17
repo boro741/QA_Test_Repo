@@ -430,14 +430,14 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(ts.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)){
+					if(ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
 						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is ON");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Thermostat Indoor Temperature Alert Toggle is OFF");
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if(!ts.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)){
+					if(!ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
 						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is OFF");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

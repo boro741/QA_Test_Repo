@@ -187,7 +187,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionEventAlertsSwitch");
 	}
 	
-	public boolean isCameraFaceDeectiontAlertsSwitchEnabled(TestCases testCase) throws Exception {
+	public boolean isCameraFaceDectiontAlertsSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch").getText()
