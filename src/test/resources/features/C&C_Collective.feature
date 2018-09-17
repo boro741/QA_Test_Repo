@@ -2,6 +2,9 @@
 Feature: DAS Command And Control 
 As a user I want to change the status of my DAS device
 
+Background:
+Given reset relay as precondition
+
 @CommandControlviewSecuritysolutioncard	@UIAutomated
 Scenario: As a user I want to see all modes in my security solution card 
 Given user launches and logs in to the Lyric application
@@ -268,7 +271,7 @@ Examples:
 Scenario Outline: As a user I want to have expected sensors status when my security panel is in Home mode and Off mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-#And user is set to <Mode> mode through CHIL
+And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description  
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
@@ -300,19 +303,21 @@ Examples:
 
  
 @CoverTamperSensorstatus @P2 @UIAutomated
-Scenario Outline: As a user i want to get offline sensors status 
+Scenario Outline: As a user I want to get offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
-#And user is set to <Mode> mode through CHIL
-#And user creates "Cover Tamper" at the <Sensor> 
+And user is set to <Mode> mode through CHIL
+When user <Sensor> access sensor "tampered"
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
-Then user should be displayed with the "Living Room Cover Tampered" description
-When user navigates to "Sensor Status" screen from the "Security Solution card" screen
+Then user should be displayed with the "Front Door Cover Tampered" description
+When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
 Then user should be displayed with the "Cover Tampered" description
-When user selects tampered <Sensor> from "Sensors List" screen
-Then user should be displayed with the "SENSOR COVER TAMPER" description
-When user taps on "Clear Tamper"
-Then user navigates to  "Security Solution card" screen from "Sensor List" screen
+When user selects tampered <Sensor> from "Sensors Status" screen
+Then user should be displayed with the "Sensor Cover Tamper" screen
+And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+#Then user <Sensor> access sensor "Tamper CLEARED"
+#When user taps on "Clear Tamper"
+Then user navigates to "Security Solution card" screen from the "Sensor Status" screen
 And user "opens" activity log
 Then verify the following activity log:
        |Elements                 |
@@ -320,26 +325,26 @@ Then verify the following activity log:
 And user "closes" activity log
 Examples:
 |Mode|Sensor| 
-|Away|Door Sensor|			
-|Away|Window Sensor|		
-|Away|Motion Sensor|
-|Away|ISMV Sensor|
-|Away|OSMV Sensor|
-|Night|Door Sensor|			
-|Night|Window Sensor|		
-|Night|Motion Sensor|
-|Night|ISMV Sensor|
-|Night|OSMV Sensor|
 |Home|Door Sensor|			
-|Home|Window Sensor|		
-|Home|Motion Sensor|
-|Home|ISMV Sensor|
-|Home|OSMV Sensor|
-|Off |Door Sensor|			
-|Off |Window Sensor|		
-|Off |Motion Sensor|
-|Off |ISMV Sensor|
-|Off |OSMV Sensor|
+#|Home|Window Sensor|		
+#|Home|Motion Sensor|
+#|Away|ISMV Sensor|
+#|Away|OSMV Sensor|
+#|Home|Door Sensor|			
+#|Home|Window Sensor|		
+#|Home|Motion Sensor|
+#|Night|ISMV Sensor|
+#|Night|OSMV Sensor|
+#|Home|Door Sensor|			
+#|Home|Window Sensor|		
+#|Home|Motion Sensor|
+#|Home|ISMV Sensor|
+#|Home|OSMV Sensor|
+#|Off |Door Sensor|			
+#|Off |Window Sensor|		
+#|Off |Motion Sensor|
+#|Off |ISMV Sensor|
+#|Off |OSMV Sensor|
 
 
 @OfflineSensorstatus @P2      @UIAutomated
@@ -383,13 +388,13 @@ Examples:
 
  
 @OpenSensorstatusHome @P2  @UIAutomated
-Scenario: As a user I want to get open sensors status 
+Scenario Outline: As a user I want to get open sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user is set to "Sensor Alert Enabled" mode through CHIL
 When user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
 And user minimizes the app
-When user "door" access sensor "opened"
+When user <Sensor> access sensor "opened"
 Then user selects the "Door Opened" push notification
 And user should be displayed with the "Front Door Open" description  
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
@@ -399,7 +404,7 @@ And user "opens" activity log
 Then user receives a "ActivityOpen" activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor|ActivityOpen|RestoreActivity|
+|Mode|Sensor|ActivityOpen|
 |Home|Door Sensor| Front Door opened at Home mode|
 |Home|Window Sensor| Window opened at Home mode|
 
@@ -410,7 +415,7 @@ Given user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
 When user is set to "Sensor Alert Enabled" mode through CHIL
 And user minimizes the app
-When user "door" access sensor "opened"
+When user <Sensor> access sensor "opened"
 Then user selects the "Door Opened" push notification
 Then user should be displayed with the "Front Door Open" description 
 When user "door" access sensor "closed"
@@ -436,7 +441,7 @@ And user creates "Offline" at the <Sensor>
 When user is set to "Sensor Alert Enabled" mode through CHIL 
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description
-When user "door" access sensor "opened"
+When user <Sensor> access sensor "opened"
 When user navigates to "Sensor List" screen from "Security Solution card" screen
 Then user should be displayed with the "Offline Status" description
 When user clears "Offline" at the <Sensor>
@@ -444,8 +449,10 @@ Then user should be displayed with the "Cover Tampered" description
 When user navigates to "Sensor Status" screen from the "Security Solution card" screen
 Then user should be displayed with the "Cover Tampered" description
 When user selects tampered <Sensor> from "Sensors List" screen
-Then user should be displayed with the "SENSOR COVER TAMPER" description
-When user taps on "Clear Tamper"
+Then user should be displayed with the "Sensor Cover Tamper" screen
+And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+#Then user should be displayed with the "SENSOR COVER TAMPER" description
+#When user taps on "Clear Tamper"
 Then user navigates to  "Security Solution card" screen from "Sensor List" screen
 And user should be displayed with the "Low battery" description
 When user navigates to "Sensor List" screen from "Security card" screen
@@ -482,7 +489,7 @@ And user creates "Offline" at the <Sensor>
 When user is set to "Sensor Alert Enabled" mode through CHIL
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description
-When user "door" access sensor "opened"
+When user <Sensor> access sensor "opened"
 When user navigates to "Sensor List" screen from "Security Solution card" screen
 Then user should be displayed with the "Offline Status" description
 When user clears "Offline" at the <Sensor>
@@ -491,8 +498,10 @@ When user navigates to "Sensor List" screen from "Security Solution card" screen
 When user navigates to "Sensor Status" screen from the "Security Solution card" screen
 Then user should be displayed with the "Cover Tampered" description
 When user selects tampered <Sensor> from "Sensors List" screen
-Then user should be displayed with the "SENSOR COVER TAMPER" description
-When user taps on "Clear Tamper"
+Then user should be displayed with the "Sensor Cover Tamper" screen
+And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+#Then user should be displayed with the "SENSOR COVER TAMPER" description
+#When user taps on "Clear Tamper"
 Then user navigates to  "Security Solution card" screen from "Sensor List" screen
 And user should be displayed with the "Low battery" description
 When user navigates to "Sensor List" screen from "Security card" screen
@@ -518,43 +527,7 @@ Examples:
 
 
 
-@SensorstatusOfflinerestore @P2     @UIAutomatable
-Scenario Outline: As a user I should get sensors status after panel offline restore 
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
-Given user launches and logs in to the Lyric Application
-And user is set to <Mode> mode through CHIL
-When user is set to "Sensor Alert Enabled" mode through CHIL 
-When user navigates to "Security Solution card" screen from "Dashboard" screen
-Then user should be displayed with the "SensorNoIssue" description
-When user panel "Wi-Fi" is "disconnected"
-Then user should be displayed with the "Panel offline Status" description 
-#When user creates "Low battery" at the <Sensor>
- And user creates "Cover tamper" at the <Sensor> 
- And user creates "Offline" at the <Sensor>
- And user clears "Offline" at the <Sensor>
- And user clears "Cover tamper" at the <Sensor>
- And user clears "Low battery" at the <Sensor>
-When user panel "Wi-Fi" is "connected" 
-Then user should be displayed with the "Security Solution card" screen 
-When user navigates to "Activity Log" Screen from "Security crad" screen
-Then user should be displayed with the "{Sensor name} Low battery " <mode> status
- And user should be displayed with the "{Sensor name} Cover tamper " <mode> status
- And user should be displayed with the "{Sensor name} Offline " <mode> status
- And user should be displayed with the "{Sensor name} Offline restored " <mode> status
- And user should be displayed with the "{Sensor name} Cover tamper restored " <mode> status
- And user should be displayed with the "{Sensor name} Low battery restored " <mode> status
-Examples:
-|Mode|Sensor| ActivityOpen|
-|Home|Motion Sensor| Door opened at Home mode|	
-|Home|ISMV Sensor| Low battery at Home mode|
-|Home|OSMV Sensor|cover tampered at Home mode|
-|Home|Door Sensor|Offline at Home mode|
-|Home|Window Sensor|Offline restored at Home mode|
-|Home|OSMV Sensor|Cover tamper at Home mode|
-|Home|Motion Sensor|Low battery restored at Home mode|
-
-
-@BasestationSensorenrollment @P3  @UIAutomatable
+@BasestationSensorenrollment @P3  @UIAutomating
 Scenario Outline: I should be shown with update in progress when panel in sensor enrollment state
 Given user panel in "Sensor enrollment state" enabled (write a code)
 And user launches and logs in to the Lyric Application
@@ -571,3 +544,8 @@ And user is set to <Mode> mode through CHIL
  |Home|
  |Off |
  
+ 
+@CloseandLaunchApp
+Scenario: As a user I want to close and relaunch the app
+Given user launches and logs in to the Lyric Application
+And user force close and launch the Lyric application

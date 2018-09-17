@@ -45,7 +45,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 	
 	public boolean isCoverTamperedTextVisibleinSecuritySolutions() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoverTamperedText");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontDoorCoverTamperedText");
 	}
 
 	public boolean isSensorOffline() {

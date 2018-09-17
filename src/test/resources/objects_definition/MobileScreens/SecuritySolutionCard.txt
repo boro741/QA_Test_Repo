@@ -43,6 +43,6 @@ SecuritySettingsTitle	XPATH	//*[@text='Security settings']					XPATH	//*[@value=
 SensorName	ID	sensor_name	ID	sensor_name	ID	sensor_name	Xpath	//XCUIElementTypeStaticText				
 HomeOption	XPATH	//*[@content-desc='Home']	XPATH	//*[@content-desc='Home']	XPATH	//*[@content-desc='Home']						
 AwayOption	XPATH	//*[@content-desc='Away']	XPATH	//*[@content-desc='Away']	XPATH	//*[@content-desc='Away']						
-CoverTamperedText	TEXT	Cover tampered	TEXT	Cover tampered	TEXT	Cover tampered	XPATH	"//*[contains(@value,'LIVING ROOM - COVER TAMPERED')]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"
+FrontDoorCoverTamperedText	XPATH	//*[@text='Front Door - Cover Tampered']	XPATH	//*[@text='Front Door - Cover Tampered']	XPATH	//*[@text='Front Door - Cover Tampered']	XPATH	"//*[contains(@value,'LIVING ROOM - COVER TAMPERED')]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"	XPATH	"//*[contains(@value,'Cover Tampered')or(conatins(@value,'LIVING ROOM - COVER TAMPERED'))]"
 SensorisOfflineText	TEXT	Living Room - Offline	TEXT	Living Room - Offline	TEXT	Living Room - Offline	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"	XPATH	"//*[contains(@value,'LIVING ROOM - OFFLINE')]"
 DoorSensorOpen	TEXT	Front Door - Open	TEXT	Front Door - Open	TEXT	Front Door - Open						

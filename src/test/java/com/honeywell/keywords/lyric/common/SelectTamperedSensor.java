@@ -60,7 +60,7 @@ public class SelectTamperedSensor extends Keyword {
 	@KeywordStep(gherkins = "^user selects tampered \"(.+)\" from \"(.+)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(1).equalsIgnoreCase("Sensors List")) {
+			if (parameters.get(1).equalsIgnoreCase("Sensors List") || parameters.get(1).equalsIgnoreCase("Sensors Status")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DOOR SENSOR": 
 				case "Window SENSOR": 
