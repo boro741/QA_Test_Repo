@@ -554,6 +554,11 @@ public class LyricUtils {
 								os.clickOnIgnoreButton();
 								return false;
 							}
+							if (os.isAlwaysAllowButtonVisible(3)) {
+								os.clickOnAlwaysAllowButton();
+								System.out.println("Clicked On Alway allow");
+								return false;
+							}
 							if (ls.isSkipButtonVisible()) {
 								ls.clickOnSkipIntroButton();
 								return true;
