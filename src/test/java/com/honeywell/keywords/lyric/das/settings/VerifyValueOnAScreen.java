@@ -320,45 +320,18 @@ public class VerifyValueOnAScreen extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
 					&& parameters.get(2).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
-					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Night Vision status is not set to: " + parameters.get(1));
-					}
-				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
-					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Night Vision status is not set to: " + parameters.get(1));
-					}
-				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					flag = flag & cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1));
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Night Vision status is not set to: " + parameters.get(1));
-					}
+				if(cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1))){
+					Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Night Vision Status is not displayed");
+							"Night Vision status is not set to: " + parameters.get(1));
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
 					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
-					flag = flag
-							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
-					if (flag) {
+					if(cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
 						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 					} else {
 						flag = false;
@@ -366,9 +339,7 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Night Vision status is not set to: " + parameters.get(1));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
-					flag = flag
-							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
-					if (flag) {
+					if(cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
 						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 					} else {
 						flag = false;
@@ -376,9 +347,7 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Night Vision status is not set to: " + parameters.get(1));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					flag = flag
-							& cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
-					if (flag) {
+					if(cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
 						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 					} else {
 						flag = false;
@@ -428,55 +397,25 @@ public class VerifyValueOnAScreen extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY")
 					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
-					flag = flag
-							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Night Vision status is not set to: " + parameters.get(1));
-					}
-				} else if (parameters.get(1).equalsIgnoreCase("LOW")) {
-					flag = flag
-							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Video Quality status is not set to: " + parameters.get(1));
-					}
-				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
-					flag = flag
-							& cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1));
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Video Quality status is not set to: " + parameters.get(1));
-					}
+				if(cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
+					Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Video Quality Status is not displayed");
+							"Night Vision status is not set to: " + parameters.get(1));
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("INDOOR TEMPERATURE ALERT")
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					flag = flag & ts.isThermostatIndoorTempAlertSwitchEnabled(testCase);
-					if (flag) {
+					if(ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)){
 						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is ON");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Thermostat Indoor Temperature Alert Toggle is OFF");
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					flag = flag & !ts.isThermostatIndoorTempAlertSwitchEnabled(testCase);
-					if (flag) {
+					if(!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)){
 						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is OFF");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -486,6 +425,50 @@ public class VerifyValueOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Thermostat Indoor Temperature Alert is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("CAMERA FACE DETECTION ALERTS")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if(ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
+						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Indoor Temperature Alert Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if(!ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
+						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"camera face detection Alert Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"camera face detection Alert is not displayed");
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION EVENT ALERTS")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if(ts.isMotionEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Manage Alert Alert Toggle is ON");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alert Toggle is OFF");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if(!ts.isMotionEventAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Manage Alert Toggle is OFF");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage Alert Toggle is ON");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Manage Alert is not displayed");
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
@@ -685,7 +668,7 @@ public class VerifyValueOnAScreen extends Keyword {
 										+ actualThermostatHumidificationValue + " .But "
 										+ Integer.parseInt(
 												inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE")
-														+ " is displayed."));
+												+ " is displayed."));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					actualThermoHumidificationValueInSettingsScreen = ts
@@ -750,7 +733,7 @@ public class VerifyValueOnAScreen extends Keyword {
 										+ actualThermostatDehumidificationValue + " .But "
 										+ Integer.parseInt(
 												inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE")
-														+ " is displayed."));
+												+ " is displayed."));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					actualThermoDehumidificationValueInSettingsScreen = ts
@@ -990,30 +973,6 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 				}
 			}
-//				else if (parameters.get(0).equalsIgnoreCase("Video Quality")
-//					&& parameters.get(2).equalsIgnoreCase("Video Quality Settings")) {
-//				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
-//				switch (parameters.get(1).toUpperCase()){
-//				case "Auto": {
-//					flag = flag & Video.isVideoQualityAutoSelectedVisible();
-//					break;
-//				}
-//				case "HIGH": {
-//					flag = flag & Video.isVideoQualityHighSelectedVisible();
-//					break;
-//				}
-//				case "LOW": {
-//					flag = flag & Video.isVideoQualityLowSelectedVisible();
-//					break;
-//				}
-//				}
-//				if(flag) {
-//					Keyword.ReportStep_Pass(testCase, "The " + parameters + " has Selected");
-//				} else {
-//					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameters + "has not Selected");
-//				}
-//				flag = true;
-//			}
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

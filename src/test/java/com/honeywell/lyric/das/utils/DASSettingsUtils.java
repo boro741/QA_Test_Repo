@@ -462,6 +462,33 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean navigateFromSecuritySolutionToBaseStationConfigurationScreen(TestCases testCase) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		try {
+
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+
+				// scroll to bottom starts
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Base Station Configuration");
+				if(bs.ClickOnBaseStationCongifurtion()){
+					Keyword.ReportStep_Pass(testCase, "Successfully navigates to base station configuration screen");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigates to base station configuration screen");
+				}
+				
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
 
 	public static boolean navigateFromDashboardScreenToCameraConfigurationScreen(TestCases testCase,
 			TestCaseInputs inputs, String CameraName) {

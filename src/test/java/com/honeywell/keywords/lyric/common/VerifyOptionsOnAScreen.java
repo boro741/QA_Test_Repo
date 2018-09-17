@@ -698,21 +698,22 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "DAS VIDEO QUALITY SETTINGS": {
 			CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-				String parameter = data.getData(i, "Elements");
+				String parameter = data.getData(i, "Settings");
+				System.out.println(parameter + "Verify");
 				switch (parameter.toUpperCase()) {
 				case "AUTO": {
-					flag = flag & Video.isVideoQualityAutoVisible();
-					flag = flag & Video.isVideoQualityAutoTextVisible();
+					flag &= Video.isVideoQualityAutoVisible();
+					flag &= Video.isVideoQualityAutoTextVisible();
 					break;
 				}
 				case "HIGH": {
-					flag = flag & Video.isVideoQualityHighVisible();
-					flag = flag & Video.isVideoQualityHighTextVisible();
+					flag &= Video.isVideoQualityHighVisible();
+					flag &=Video.isVideoQualityHighTextVisible();
 					break;
 				}
 				case "LOW": {
-					flag = flag & Video.isVideoQualityLowVisible();
-					flag = flag & Video.isVideoQualityLowTextVisible();
+					flag &= Video.isVideoQualityLowVisible();
+					flag &= Video.isVideoQualityLowTextVisible();
 					break;
 				}
 				}
@@ -722,7 +723,36 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameter + "has not found");
 				}
 				flag = true;
-			}
+			}break;
+		}
+		case "DAS NIGHT VISION SETTINGS": {
+			CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Settings");
+				switch (parameter.toUpperCase()) {
+				case "AUTO": {
+					flag &= Video.isNightVisionAutoVisible();
+					flag &= Video.isNightVisionAutoTextVisible();
+					break;
+				}
+				case "ON": {
+					flag &= Video.isNightVisionONVisible();
+					flag &= Video.isNightVisionONTextVisible();
+					break;
+				}
+				case "OFF": {
+					flag &= Video.isNightVisionOFFVisible();
+					flag &= Video.isNightVisionOFFTextVisible();
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + " and description has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has not found");
+				}
+				flag = true;
+			}break;
 		}
 		case "SECURITY MODE": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -1280,6 +1310,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			break;
 		}
 		//Amresh(H297378)
+
 				case "WLDSOLUTIONTEMPERATURE": {
 					WLDSolutionCard ActionSheet=new WLDSolutionCard(testCase);
 					for (int i = 0; i < data.getSize(); i++) {
@@ -1477,6 +1508,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentHumidityTitleText());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The "+parameter+" is not vissible");
 					}break;
 				}
 				case "LAST UPDATED TIME": {
@@ -1486,6 +1519,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The "+parameter+" is not vissible");
 					}break;
 				}
 				case "HUMIDITY GRAPH": {
@@ -1494,12 +1529,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-					}break;		
+					}break;	
+					}	
 				}
-				}
+				}break;
 			}
-			break;
-		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

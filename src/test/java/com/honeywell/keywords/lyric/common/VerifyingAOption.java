@@ -20,6 +20,7 @@ import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -236,9 +237,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}
-
-		else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON SELECTED FAN")) {
+		}else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON SELECTED FAN")) {
 
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED": {
@@ -255,7 +254,7 @@ public class VerifyingAOption extends Keyword {
 					flag = flag & thermo.isONFanElementSelected();
 				}
 			}
-				break;
+			break;
 			}
 			if (flag) {
 				Keyword.ReportStep_Pass(testCase,
@@ -648,7 +647,7 @@ public class VerifyingAOption extends Keyword {
 							expectedScreen.get(1) + " Value is not updated");
 				}
 				break;
-				
+
 			}
 			}
 		} else if (expectedScreen.get(1).equalsIgnoreCase("MIN set temperature on DASHBOARD")) {
@@ -786,7 +785,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		
+
 		}
 		else if (expectedScreen.get(1).equalsIgnoreCase("Heating on dashboard")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -795,8 +794,8 @@ public class VerifyingAOption extends Keyword {
 				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO DISAPPEAR", 2);
 				if (!dr.isHeatingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
-					}
-					else {
+				}
+				else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -823,8 +822,8 @@ public class VerifyingAOption extends Keyword {
 				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
 				if (!pc.isHeatingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
-					}
-					else {
+				}
+				else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -851,8 +850,8 @@ public class VerifyingAOption extends Keyword {
 				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO DISAPPEAR", 4);
 				if (!dr.isCoolingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
-					}
-					else {
+				}
+				else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -879,8 +878,8 @@ public class VerifyingAOption extends Keyword {
 				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
 				if (!pc.isCoolingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
-					}
-					else {
+				}
+				else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -897,6 +896,25 @@ public class VerifyingAOption extends Keyword {
 							expectedScreen.get(1) + " is not displayed");
 				}
 				break;
+			}
+			}
+		}else if (expectedScreen.get(1).toUpperCase().equals("MOTION EVENT EMAIL ALERTS EMAIL")){
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED" : {
+				if(cs.isMotionEmailNotificationVisible(testCase)){
+					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option displayed");
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option not displayed");
+				}break;
+			}
+			case "SHOULD NOT BE DISPLAYED": {
+				if(!cs.isMotionEmailNotificationVisible(testCase)){
+					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option not displayed");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option displayed");
+				}break;
 			}
 			}
 		}

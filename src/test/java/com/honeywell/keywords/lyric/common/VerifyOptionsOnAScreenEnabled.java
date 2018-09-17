@@ -149,31 +149,31 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				String parameter = data.getData(i, "Options");
 			switch (parameter.toUpperCase()) {
 			case "MANAGE ALERTS": {
-				flag = flag & cs.isManangeAlertsEnabled();
+				flag &= cs.isManangeAlertsEnabled();
 				break;
 			}
 			case "MOTION DETECTION": {
-				flag = flag & cs.isMotionDetectionEnabled();
+				flag &= cs.isMotionDetectionEnabled();
 				break;
 			}
 			case "PEOPLE DETECTION": {
-				flag = flag & cs.isPeopleDetectionEnabled();
+				flag &= cs.isPeopleDetectionEnabled();
 				break;
 			}
 			case "NIGHT VISION": {
-				flag = flag & cs.isNightVisionEnabled();
+				flag &= cs.isNightVisionEnabled();
 				break;
 			}
 			case "VIDEO QUALITY": {
-				flag = flag & cs.isVideoQualityEnabled();
+				flag &= cs.isVideoQualityEnabled();
 				break;
 			}
 			case "CAMERA ON IN HOME MODE": {
-				flag = flag & cs.isCameraOnInHomeModeEnabled();
+				flag &= cs.isCameraOnInHomeModeEnabled();
 				break;
 			}
 			case "CAMERA ON IN NIGHT MODE": {
-				flag = flag & cs.isCameraOnInNigtModeEnabled();
+				flag &= cs.isCameraOnInNigtModeEnabled();
 				break;
 			}
 			}
@@ -183,13 +183,44 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						" The " + parameter + " has not Enabled");
 			}
-			flag = true;
-			
 		}break;
 		}
-
-		
-
+		case "MOTION DETECTION": {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION ZONE")) {
+					if (cs.isMotionDetectionZoneEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Motion Detection Zone section is enabled");
+						
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Detection Zone section is disabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("MOTION SENSITIVITY")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}	
+					if (cs.isMotionSensitivityEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Motion Sensitivity section is disabled");
+					}
+				}
+			}
+			break;
+		}
 		case "THERMOSTAT ICONS": {
 			PrimaryCard thermo = new PrimaryCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {

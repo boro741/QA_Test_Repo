@@ -1180,7 +1180,34 @@ public class SelectElementOnAScreen extends Keyword {
 						}
 					}
 				}
+				break;
+				}
+			}
+			//Amresh wld
+			else if (parameters.get(1).equalsIgnoreCase("WLD Settings")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "TEMPERATURE UNIT": {
+					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
+					flag = flag & settings.clickonTemperatureUnit();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					}
 					break;
+				}
+				case "TEMPERATURE UNIT IN FARENHEIT": {
+					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
+					flag = flag & settings.clickonTemperatureUnit();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					}
+					break;
+				}
 				}
 			}
 			//Amresh wld
@@ -1256,7 +1283,7 @@ public class SelectElementOnAScreen extends Keyword {
 			}else if (parameters.get(1).equalsIgnoreCase("Video Quality Settings")) {
 				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "Auto": {
+				case "AUTO": {
 					flag = flag & Video.ClickOnVideoQualityAutoOption();
 					break;
 				}
@@ -1272,6 +1299,32 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			}else if (parameters.get(1).equalsIgnoreCase("Night Vision Settings")) {
+				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "AUTO": {
+					flag = flag & Video.ClickOnNightVisionAutoOption();
+					break;
+				}
+				case "ON": {
+					flag = flag & Video.ClickOnNightVisionONOption();
+					break;
+				}
+				case "OFF": {
+					flag = flag & Video.ClickOnNightVisionOFFOption();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				if(flag){
+					Keyword.ReportStep_Pass(testCase, "Successfully click on "+ parameters.get(0));
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click on " + parameters.get(0));
 				}
 				}
 			} 

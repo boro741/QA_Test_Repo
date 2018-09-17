@@ -572,8 +572,7 @@ Given user launches and logs in to the Lyric application
 When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
 And user camera is set to "ON"
 When user navigates to "Camera Configuration" screen from the "Camera Solution Card" screen
-And user edits "Camera name"
-#verify the all valid naming criterias
+And user edits "Camera name" to "Camera1"
 Then user should be displayed with "edited name" 
 Examples:
 		|State  |

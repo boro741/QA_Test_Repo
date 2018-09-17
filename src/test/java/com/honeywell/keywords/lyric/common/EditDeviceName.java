@@ -214,6 +214,30 @@ public class EditDeviceName extends Keyword {
 						// Android devices.
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("DAS Camera")) {
+				BaseStationSettingsScreen ts = new BaseStationSettingsScreen(testCase);
+				if (ts.isCameraNameFieldVisible()) {
+					flag &= ts.clearCameraNameTextBox();
+					flag &= ts.setValueToCameraNameTextBox(parameters.get(1));
+					inputs.setInputValueWithoutTarget("NEW_LOCATION1_CAMERA1_NAME",parameters.get(1));
+					if(flag){
+						Keyword.ReportStep_Pass(testCase, "Successfully set Thermostat Name to: " + parameters.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set Thermostat Name to: " + parameters.get(1));
+					}
+					try {
+						if (ts.isBackButtonVisible(5)) {
+							if(ts.clickOnBackButton()){
+								Keyword.ReportStep_Pass(testCase, "Successfully select on back option");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select back option");
+							}
+						}
+					} catch (Exception e) {
+						// Ignoring any exceptions because keyboard is sometimes not displayed on some
+						// Android devices.
+					}
+				}
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
