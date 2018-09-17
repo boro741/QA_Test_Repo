@@ -107,56 +107,70 @@
   
  
  
- @CameraSettingsCameraModeGeofenceAway @P2 @Automatable
+ @DAS_CameraSettingsCameraModeGeofenceAway @P2 @Automated
   Scenario: As a user I should be able to set to geofencing mode so that my camera turns on when i am away and off when i am in home automatically without manual intervention 
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Camera Settings" screen from the "Dashboard" screen
-      And user selects camera mode as "Geofencing" 
-      And user location with status "Geofence Away"
-     Then the following "Camera Settings" options should be disabled:
+    Given  user is set to "Home" mode through CHIL
+    Then "location" geofencing is "enabled" on the user account through CHIL
+    And user launches and logs in to the Lyric application
+    And user thermostat set "Away" with "UserDeparted" 
+    When user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+     Then user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+     And the following "DAS Camera Settings" options should be disabled:
       | Options             | 
       | Motion Detection    | 
       | Night Vision        | 
       | Video Quality       |
       | Manage Alerts       |
       | People detection    |
-     And the following "Camera Settings" options should be enabled:
+     And the following "DAS Camera Settings" options should be enabled:
       | Options             |
       | Camera On Home mode |
       | Camera On Night mode| 
 
          
-  @CameraSettingsCameraModeGeofenceHome @P2 @Automatable
+  @DAS_CameraSettingsCameraModeGeofenceHome @P2 @Automated
   Scenario: As a user I should be able to set to geofencing mode so that my camera turns on when i am away and off when i am in home automatically without manual intervention 
-    Given user launches and logs in to the Lyric application
-     When user navigates to "Camera Settings" screen from the "Dashboard" screen
-      And user selects camera mode as "Geofencing" 
-      And user location with status "Geofence Home"
-     Then the following "Camera Settings" options should be enabled:
+    Given  user is set to "Home" mode through CHIL
+    Then "location" geofencing is "enabled" on the user account through CHIL
+    And user launches and logs in to the Lyric application
+    And user thermostat set "Home" with "UserArrived"
+    When user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+     Then user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+     Then the following "DAS Camera Settings" options should be enabled:
       | Options             | 
       | Manage Alerts       |
       | People detection    |
       | Camera On Home mode |
       | Camera On Night mode|
-     And the following "Camera Settings" options should be disabled:
+     And the following "DAS Camera Settings" options should be disabled:
       | Options             | 
       | Motion Detection    | 
       | Night Vision        | 
       | Video Quality       |
      
  
-   @CameraSettingsManageAlertsDisabled @P2 @Automatable
+   @DAS_CameraSettingsManageAlertsDisabled @P2 @Automated
    Scenario Outline: As a user I should be able to disable alert of camera status, sound event and motion event on my demand to get alerts in app or in email on alerts detection 
-    Given user launches and logs in to the Lyric application
-    Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
-      And user camera is in <State> 
-     When user navigates to "Manage Alerts" screen from the "Dashboard" screen
+   Given  user is set to "Home" mode through CHIL
+	Then user launches and logs in to the Lyric application
+      And user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+      And user camera is set to <State>
+     	When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+      Then user navigates to "MANAGE ALERTS" screen from the "Camera Settings" screen
       And user changes the "Camera Face Detection alerts" to "OFF"
       When user navigates back and forth in "Manage Alerts" screen
-     Then "People Detection Alerts" value should be updated to "Off" on "Manage Alerts" screen 
-     When user disables "Motion Event Alerts" 
-     Then user should not be displayed with "email" option
-      And "Motion Event Alerts" value should be updated to "Off" on "Manage Alerts" screen     
+     Then "Camera Face Detection alerts" value should be updated to "Off" on "Manage Alerts" screen 
+     When user changes the "Motion Event Alerts" to "OFF"
+     Then user "SHOULD NOT BE DISPLAYED" with the "MOTION EVENT EMAIL ALERTS EMAIL" option
+     When user navigates back and forth in "Manage Alerts" screen
+      And "Motion Event Alerts" value should be updated to "Off" on "Manage Alerts" screen   
+       And user changes the "Camera Face Detection alerts" to "ON"
+      When user navigates back and forth in "Manage Alerts" screen
+     Then "Camera Face Detection alerts" value should be updated to "ON" on "Manage Alerts" screen 
+     When user changes the "Motion Event Alerts" to "ON"
+     Then user "SHOULD BE DISPLAYED" with the "MOTION EVENT EMAIL ALERTS EMAIL" option
+     When user navigates back and forth in "Manage Alerts" screen
+      And "Motion Event Alerts" value should be updated to "ON" on "Manage Alerts" screen    
      
      Examples:
       |State  |
@@ -166,32 +180,47 @@
       #|Upgrade|
       
      
-   @EnableDisableMotionDetection @P2  @Automatable
-   Scenario: As a user I should be able to enable or disable motion detection
-   Given user camera is in "on" 
-     And motion detection is "enabled" on user camera through CHIL
-    When user launches and logs in to the Lyric application 
-     And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
-     And user changes the "Motion Detection" to "Off"
-    Then "Motion Detection" value should be updated to "Off" on "Motion Detection Settings" screen
-     And user should be displayed with the following "Motion Detection" options disabled:
-     | Settings | 
-     | Motion Detection Zone| 
-     | Motion Sensitivity   |
-  	When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
-  	Then "Motion Detection" value should be updated to "Off" on "Camera Settings" screen
-  	When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
-     And user changes the "Motion Detection" to "On"
-    Then "Motion Detection" value should be updated to "On" on "Motion Detection Settings" screen
-  	When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
-  	Then "Motion Detection" value should be updated to "On" on "Camera Settings" screen
-     And user should be displayed with the following "Motion Detection" options enabled:
-     | Settings | 
-     | Motion Detection Zone| 
-     | Motion Sensitivity   |
-    #login with different mobiles for the status of configured options to verify the settings as user account level 
-  	
-  	@ChooseMotionDetectionZones @P3 @Automatable
+@DAS_CameraEnableDisableMotionDetection @P2  @Automated
+Scenario: As a user I should be able to enable or disable motion detection 
+ Given  user is set to "Home" mode through CHIL	
+	Then user launches and logs in to the Lyric application
+ And user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+And user camera is set to "ON"
+When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+Then user navigates to "MOTION DETECTION SETTINGS" screen from the "Camera Settings" screen
+And user changes the "Motion Detection" to "Off"
+Then "Motion Detection" value should be updated to "Off" on "Motion Detection Settings" screen
+And the following "Motion Detection" options should be disabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
+When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
+Then "Motion Detection" value should be updated to "Off" on "Camera Settings" screen
+When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
+Then the following "Motion Detection" options should be disabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
+When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
+Then user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
+When user changes the "Motion Detection" to "On"
+Then "Motion Detection" value should be updated to "On" on "Motion Detection Settings" screen
+And the following "Motion Detection" options should be enabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
+When user navigates to "Camera Settings" screen from the "Motion Detection Settings" screen
+Then "Motion Detection" value should be updated to "On" on "Camera Settings" screen
+When user navigates to "Motion Detection Settings" screen from the "Camera Settings" screen
+Then the following "Motion Detection" options should be enabled:
+| Options 					| 
+| Motion Detection Zone		| 
+| Motion Sensitivity   		|
+
+
+
+
+  	@ChooseMotionDetectionZones @P3 @NotAutomatable
   	Scenario: As a user I should be able to select and draw all the 4 zones so that i can set different sensitivity for each zones in the camera frame based on my requirement  
   	Given user camera is set to "on" through CHIL
       And motion detection is "enabled" on user camera through CHIL
@@ -211,7 +240,7 @@
      Then user "should be able" to draw on "zone 4"
      #login with different mobiles for the status of configured options to verify the settings as user account level
            
-     @ChooseMotionDetectionZoneError @P3 @Automatable
+     @ChooseMotionDetectionZoneError @P3 @Notautomatable
   	Scenario: As a user I should be shown with popup message on failure to load snapshot to select and draw all the 2 zones 
   	Given user camera is set to "on" through CHIL
       And motion detection is "enabled" on user camera through CHIL
@@ -225,37 +254,37 @@
      Then user should be shown with "Unable to take the snapshot"
      
      
-     @VerifyMotionSensitivitySettings @P2 @Automatable
-     Scenario Outline: As a user I should be able to set motion sensitivity on DAS camera to Off,Low, Normal and High
-     Given user camera is set to "on" through CHIL
-       And motion detection is "enabled" on user camera through CHIL
-      When user launches and logs in to the Lyric application 
-       And user navigates to "Motion Detection Settings" screen from the "Dashboard" screen
-      When user selects <Zone> from the "Motion Detection Settings" screen 
-      Then user should be displayed with the following "Motion Sensitivity Settings" options:
-      | Settings | 
-      | Off      | 
-      | Low      |
-      | Normal   | 
-      | High     |
-      When user changes the "Motion Sensitivity" to "Off"
-      Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
-       And "no" motion detection changes should be reported
-      When user changes the "Motion Sensitivity" to "Low"
-      Then "Motion Sensitivity" value should be updated to "Low" on "Motion Detection Settings" screen
-       And "low" motion detection changes should be reported
-      When user changes the "Motion Sensitivity" to "medium"
-      Then "Motion Sensitivity" value should be updated to "medium" on "Motion Detection Settings" screen
-       And "medium" motion detection changes should be reported
-      When user changes the "Motion Sensitivity" to "high"
-      Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
-       And "high" motion detection changes should be reported
-     Examples:
-      |Zone   |
-      |Zone1  |
-      |Zone2  |
-      |Zone3  |
-      |Zone4  |
+@DAS_CameraVerifyMotionSensitivitySettings @P2 @Automated
+Scenario Outline: As a user I should be able to set motion sensitivity on DAS camera to Off,Low, Normal and High
+ Given  user is set to "Home" mode through CHIL	
+ Then user launches and logs in to the Lyric application
+And user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+And user camera is set to "ON"
+When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+Then user navigates to "MOTION DETECTION SETTINGS" screen from the "Camera Settings" screen
+Then user changes the "Motion Detection" to "On"
+When user selects <Zone> from "Motion Detection Settings" screen 
+Then user should be displayed with the following "Motion Sensitivity Settings" options:
+| MotionSensitivityOptionsSettings	| 
+| Off      							| 
+| Low      							|
+| Normal   							| 
+| High     							|
+When user changes the "Motion Sensitivity" to "Off"
+Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
+When user changes the "Motion Sensitivity" to "Low"
+Then "Motion Sensitivity" value should be updated to "Low" on "Motion Detection Settings" screen
+When user changes the "Motion Sensitivity" to "Normal"
+Then "Motion Sensitivity" value should be updated to "Normal" on "Motion Detection Settings" screen
+When user changes the "Motion Sensitivity" to "high"
+Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
+Examples:
+		| Zone		|
+ 		| Zone 1		|
+		| Zone 2		|
+		| Zone 3		|
+		| Zone 4		|
+  
   
     
      @VerifyMultipleZonesOverlapError  @P3  @Notautomatable
@@ -270,7 +299,7 @@
      Then user should be displayed with "Error-Zones overlap" popup
      
      
-     @VerifyOutsideZonesWarningMessage  @P3 @Automatable
+     @VerifyOutsideZonesWarningMessage  @P3 @Notautomatable
      Scenario: As a user I should be shown with warning message if any area on my zones is not covered for my confirmation
      Given user camera is set to "on" through CHIL
       And "motion detection" is "enabled" on camera through CHIL
@@ -286,11 +315,15 @@
      Then user should be displayed with "Camera settings" screen
      
       
-  @VerifyNightVisionSettings @P2 @Automatable
+  @DAS_VerifyNightVisionSettings @P2 @Automated
   Scenario: As a user I should be able to set my Night Vision Settings so that my camera works even in night 
-    Given user launches and logs in to the Lyric application 
-     When user navigates to "Night Vision Settings" screen from the "Dashboard" screen 
-     Then user should be displayed with the following "Night Vision Settings" options: 
+    Given  user is set to "Home" mode through CHIL
+	Then user launches and logs in to the Lyric application
+      And user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+      And user camera is set to "ON"
+	When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+      Then user navigates to "Night Vision Settings" screen from the "Camera Settings" screen
+     Then user should be displayed with the following "DAS Night Vision Settings" options: 
       | Settings | 
       | Auto     | 
       | On       | 
@@ -300,17 +333,17 @@
      When user navigates to "Camera Settings" screen from the "Night Vision Settings" screen 
      Then "Night Vision" value should be updated to "Auto" on "Camera Settings" screen
      When user navigates to "Night Vision Settings" screen from the "Camera Settings" screen
-     Then user should be displayed with the following "Night Vision Settings" options: 
+     Then user should be displayed with the following "DAS Night Vision Settings" options: 
       | Settings | 
       | Auto     | 
       | On       | 
       | Off      | 
      When user selects "On" from "Night Vision Settings" screen 
-     Then "Night Vision" value should be updated to "On" on "Night Vision Settings" screen 
+     Then "DAS Night Vision" value should be updated to "On" on "Night Vision Settings" screen 
      When user navigates to "Camera Settings" screen from the "Night Vision Settings" screen 
-     Then "Night Vision" value should be updated to "On" on "Camera Settings" screen
+     Then "DAS Night Vision" value should be updated to "On" on "Camera Settings" screen
      When user navigates to "Night Vision Settings" screen from the "Camera Settings" screen
-     Then user should be displayed with the following "Night Vision Settings" options: 
+     Then user should be displayed with the following "DAS Night Vision Settings" options: 
       | Settings | 
       | Auto     | 
       | On       | 
@@ -359,23 +392,23 @@
      Then "Video Quality" value should be updated to "High" on "Video Quality Settings" screen 
      When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "High" on "Camera Settings" screen
-     #login with different mobiles for the status of configured options to verify the settings as user account level
      
       
-   @DAS_EditCameraName @P2 @Automatable
+   @DAS_EditCameraName @P2 @Automated
     Scenario Outline: As a user I should be able to edit the camera name
     Given user launches and logs in to the Lyric application 
-      And user camera is in <State> 
-     When user navigates to "Camera Configuration" screen from the "Dashboard" screen
-      And user edits "Camera name"
-      #verify the all valid naming criterias
-     Then user should be displayed with "edited name" 
-     Examples:
-      |State  |
-      |On     |
-      |Off    |
-      |Offline|
-      |Upgrade| 
+      When user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen 
+      And user camera is set to <State>
+     When user navigates to "Base Station Configuration" screen from the "CAMERA SOLUTION CARD" screen
+      Then user edits the "DAS Camera" name to "Camera1"
+      And verify the Edited name on "Dashboard" screen
+      And user reverts back the "DAS Device name" through CHIL
+	Examples:
+		|State  |
+		|On     |
+		|Off    |
+		#|Offline|
+		#|Upgrade|
 
      
      @DAS_VerifyErrorMessagesCameraSettings @P4 @NotAutomable 

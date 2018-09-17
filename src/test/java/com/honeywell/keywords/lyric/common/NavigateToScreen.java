@@ -12,6 +12,8 @@ import com.honeywell.screens.*;
  */
 
 
+import java.util.concurrent.TimeUnit;
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -144,22 +146,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "CAMERA SETTINGS": {
-					PrimaryCard sensorScreen = new PrimaryCard(testCase);
-					if (sensorScreen.isCogIconVisible()) {
-						flag = flag & sensorScreen.clickOnCogIcon();
-					}
-					break;
-				}
-				case "THERMOSTAT SOLUTION CARD": {
-					Dashboard sensorScreen = new Dashboard(testCase);
-					flag = flag & sensorScreen.NavigatetoThermostatDashboard();
-					break;
-				}
-				}
-			}else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
+			} else if (screen.get(1).equalsIgnoreCase("ZWAVE DEVICES")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GENERAL INCLUSION": {
 					ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
@@ -615,12 +602,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);
 					break;
 				}
-			//	Navigates to DAS camera solution card screen from dashboard screen
+				//	Navigates to DAS camera solution card screen from dashboard screen
 				case "DAS CAMERA SOLUTION CARD":{
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
 					break;
 				}
-				
+
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
@@ -713,6 +700,11 @@ public class NavigateToScreen extends Keyword {
 							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase, inputs);
 					break;
 				}
+				case "DAS NIGHT VISION SETTINGS":{
+					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
+					break;
+				}
+
 				case "SCHEDULING": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
@@ -916,53 +908,111 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS":{
 					PrimaryCard pc = new PrimaryCard(testCase);
 					if (pc.isCogIconVisible()) {
-						flag = flag & pc.clickOnCogIcon();
-				}
+						if(pc.clickOnCogIcon()){
+							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settins icon");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+					}
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
 					break;
-				}
-				case "CAMERA CONFIGURATION":{
+				}case "CAMERA CONFIGURATION":{
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						flag = flag & pc.clickOnCogIcon();
-						flag = flag & ds.navigateFromCameraSolutionScreenToCameraConfigurationScreen(testCase);
-				}
+						if(pc.clickOnCogIcon()){
+								Keyword.ReportStep_Pass(testCase, "Successfully cliked on settins icon");
+								flag &= ds.navigateFromCameraSolutionScreenToCameraConfigurationScreen(testCase);
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+						}	
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
 					
-				break;
-			} case "MANAGE ALERTS":{
-				PrimaryCard pc = new PrimaryCard(testCase);
-				DASSettingsUtils ds = new DASSettingsUtils();
-				if (pc.isCogIconVisible()) {
-					flag = flag & pc.clickOnCogIcon();
-					flag = flag & ds.navigateFromCameraSolutionScreenToManageAlertsScreen(testCase, inputs);
-			}
-				break;
-			} case "MOTION DETECTION SETTINGS":{
-				PrimaryCard pc = new PrimaryCard(testCase);
-				DASSettingsUtils ds = new DASSettingsUtils();
-				if (pc.isCogIconVisible()) {
-					flag = flag & pc.clickOnCogIcon();
-					flag = flag & ds.navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(testCase, inputs);
-			}
-				break;
-			} case "NIGHT VISION SETTINGS":{
-				PrimaryCard pc = new PrimaryCard(testCase);
-				DASSettingsUtils ds = new DASSettingsUtils();
-				if (pc.isCogIconVisible()) {
-					flag = flag & pc.clickOnCogIcon();
-					flag = flag & ds.navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(testCase, inputs);
-			}
-				break;
-			} case "VIDEO QUALITY SETTINGS":{
-				PrimaryCard pc = new PrimaryCard(testCase);
-				DASSettingsUtils ds = new DASSettingsUtils();
-				if (pc.isCogIconVisible()) {
-					flag = flag & pc.clickOnCogIcon();
-					flag = flag & ds.navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
-			}
-				break;
-			}
-			}
+					break;
+				}case "BASE STATION CONFIGURATION":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						if(pc.clickOnBackButton()){
+								Keyword.ReportStep_Pass(testCase, "Successfully cliked on back option");
+								flag &= DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+								flag &= ds.navigateFromSecuritySolutionToBaseStationConfigurationScreen(testCase);
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click back option");
+						}	
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
+					
+					break;
+				} case "MANAGE ALERTS":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						if(pc.clickOnCogIcon()){
+								Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
+								flag &= ds.navigateFromCameraSolutionScreenToManageAlertsScreen(testCase, inputs);
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+						}	
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
+					break;
+				} case "MOTION DETECTION SETTINGS":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						if(pc.clickOnCogIcon()){
+								Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
+								flag &= ds.navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(testCase, inputs);
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+						}	
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
+					break;
+				} case "NIGHT VISION SETTINGS":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						if(pc.clickOnCogIcon()){
+								Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
+								flag &= ds.navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(testCase, inputs);
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+						}	
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
+					break;
+				} 
+				case "VIDEO QUALITY SETTINGS":{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					DASSettingsUtils ds = new DASSettingsUtils();
+					if (pc.isCogIconVisible()) {
+						if(pc.clickOnCogIcon()){
+								Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
+								flag &= ds.navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+						}	
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
+					}
+					break;
+				}
+
+				case "THERMOSTAT SOLUTION CARD": {
+					Dashboard sensorScreen = new Dashboard(testCase);
+					flag &= sensorScreen.NavigatetoThermostatDashboard();
+					break;
+				}
+				}
 			}
 
 			else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
@@ -1091,7 +1141,7 @@ public class NavigateToScreen extends Keyword {
 								"Did not navigated to Keyfob List Settings Screen");
 					}
 					break;
-					
+
 				}
 				default: {
 					flag = false;
@@ -1117,8 +1167,10 @@ public class NavigateToScreen extends Keyword {
 			}  else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 
 			} else if (screen.get(1).equalsIgnoreCase("SENSOR COVER TAMPER")) {
-				   switch (screen.get(0).toUpperCase()) {
-				   case "SECURITY SOLUTION CARD": {
+
+				switch (screen.get(0).toUpperCase()) {
+				case "SECURITY SOLUTION CARD": {
+
 					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 					SensorSettingScreen ssc = new SensorSettingScreen(testCase);
 					if (ssc.isSensorTamperedScreenDisplayed()) {
@@ -1133,8 +1185,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-				} 
-		
+				}
 			else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GLOBAL DRAWER": {
@@ -1686,9 +1737,21 @@ public class NavigateToScreen extends Keyword {
 				case "CAMERA SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
-						cs.clickOnBackButtonInMotionDetectionSettingsScreen();
-					}
-					break;
+						flag = flag & cs.clickOnBackButtonInMotionDetectionSettingsScreen();
+						TimeUnit.SECONDS.sleep(3);
+						if(cs.isAreasOutsideZonesWarningPopupHeaderTitleDisplayed()){
+							if(cs.clickOnNOButtonInAreasOutsideZonesWarningPopup()){
+								Keyword.ReportStep_Pass(testCase, "Clicked on NO option in warrning pop up");
+							}else {
+								Keyword.ReportStep_Fail(testCase,  FailType.FUNCTIONAL_FAILURE, "Not selected NO option in warrning pop up");
+							}
+						}
+						if(flag){
+							Keyword.ReportStep_Pass(testCase, "Navigated to camera settings screen");
+						}else {
+							Keyword.ReportStep_Fail(testCase,  FailType.FUNCTIONAL_FAILURE, "Not Navigated to camera settings screen");
+						}	
+					}break;
 				}
 				case "SOUND DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
@@ -1702,8 +1765,7 @@ public class NavigateToScreen extends Keyword {
 								flag = false;
 							}
 						}
-						break;
-					}
+					}break;
 				}
 				default: {
 					flag = false;
@@ -1750,6 +1812,20 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "MANAGE ALERTS": {
+					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+					if (cs.isManageAlertsLabelVisible(2)) {
+						if(cs.clickOnManageAlertsLabel()){
+							CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							Keyword.ReportStep_Pass(testCase, "Navigates to manage alerts screen");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select Manage alerts option");
+						}
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage alert option not visible");
+					}
+					break;
+				}
 				case "SOUND DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isSoundDetectionLabelVisible(testCase, 20)) {
@@ -1791,11 +1867,11 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
-					   case "SENSOR LIST": {
-						SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-						flag =   flag & sc.isSensorsTextVisible();
-						break;
-					}
+				case "SENSOR LIST": {
+					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					flag =   flag & sc.isSensorsTextVisible();
+					break;
+				}
 				case "MOTION SENSOR SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
 				case "DOOR ACCESS SETTINGS": {
@@ -2530,7 +2606,7 @@ public class NavigateToScreen extends Keyword {
 						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						flag = flag & pc.isCogIconVisible(); 
 						break;
-				}else {
+					}else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Invalid Input: " + screen.get(1));
@@ -2695,6 +2771,7 @@ public class NavigateToScreen extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
+			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

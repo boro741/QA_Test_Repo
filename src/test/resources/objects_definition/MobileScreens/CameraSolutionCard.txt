@@ -1,7 +1,7 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
-CameraOnButton	ID	privacy_on	ID	privacy_on	ID	privacy_on	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']
-CameraOffButton	ID	privacy_off	ID	privacy_off	ID	privacy_off	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']
+CameraOnButton	ID	privacy_on	ID	privacy_on	ID	privacy_on	ID	States_1	XPATH	//*[@value='Online']	XPATH	//*[@value='Online']
+CameraOffButton	ID	privacy_off	ID	privacy_off	ID	privacy_off	ID	States_0	XPATH	//*[@value='Offline']	XPATH	//*[@value='Offline']
 AppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
 LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 NoClipsAvailabletext	TEXT	No clips available.	TEXT	No clips available.	TEXT	No clips available.	NAME	No clips available	NAME	No clips available	NAME	No clips available

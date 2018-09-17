@@ -213,6 +213,65 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			}else if (parameters.get(0).equalsIgnoreCase("CAMERA FACE DETECTION ALERTS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is already enabled in the Camera settings Screen");
+						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
+						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is disabled in the Camera settings Screen");
+							flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
+							flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Motion Event Alerts is enabled in the Camera settings Screen");
+							}else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+							}
+						}
+					} else {
+						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
+						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is enabled in the Camera settings Screen");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Event Alerts is already disabled in the Camera settings Screen");
+						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
+						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is enabled in the Camera settings Screen");
+							flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
+							flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Motion Event Alerts is disabled in the Camera settings Screen");
+							}else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+							}
+						}
+					} else {
+						flag &= cs.toggleCameraFaceDetectionAlertsSwitch(testCase);
+						flag &= CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraFaceDeectiontAlertsSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Event Alerts is disabled in the Camera settings Screen");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+						}
+					}
+				}
 			} else if (parameters.get(0).equalsIgnoreCase("SOUND EVENT ALERTS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -309,9 +368,9 @@ public class ChangeBaseStationSettings extends Keyword {
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
 					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					.release().perform();
 					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					.release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
@@ -341,6 +400,18 @@ public class ChangeBaseStationSettings extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Motion Sensitivity Status is not set to: " + parameters.get(1));
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("NORMAL")) {
+					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Motion Sensitivity Status is already set to: " + parameters.get(1));
+					} else {
+						if(cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1))){
+							Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is set to: " + parameters.get(1));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Motion Sensitivity Status is not set to: " + parameters.get(1));
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("MEDIUM")) {
@@ -889,7 +960,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Humidification Switch is enabled");
 								HBNAEMEASettingsUtils
-										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+								.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
 							}
 						}
 					} else {
@@ -914,7 +985,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Humidification Switch is disabled");
 								HBNAEMEASettingsUtils
-										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+								.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
 							}
 						}
 					} else {
@@ -951,7 +1022,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is turned ON");
 							HBNAEMEASettingsUtils
-									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+							.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
@@ -976,7 +1047,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Dehumidification Toggle is turned OFF");
 							HBNAEMEASettingsUtils
-									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+							.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
 						}
 					}
 				}

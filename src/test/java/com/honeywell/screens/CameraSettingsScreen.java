@@ -183,10 +183,57 @@ public class CameraSettingsScreen extends MobileScreens {
 			throw new Exception("Could not find Motion Event Alert Switch");
 		}
 	}
-
 	public boolean toggleMotionEventAlertsSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionEventAlertsSwitch");
 	}
+	
+	public boolean isCameraFaceDeectiontAlertsSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+		} else {
+			throw new Exception("Could not find Motion Event Alert Switch");
+		}
+	}
+	public boolean toggleCameraFaceDetectionAlertsSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch");
+	}
+	public boolean isCameraFaceDetectionAlertSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorTempAlertSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatIndoorTempAlertSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatIndoorTempAlertSwitch")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find Thermostat Indoor Temperature Alert Switch");
+		}
+	}
+	
 
 	public boolean isSoundEventAlertsSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundEventAlertsSwitch", 10)) {
@@ -463,6 +510,9 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean toggleMotionEmailNotificationSwitch(TestCases testCase) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionEventEmailNotificationSwitch");
 	}
+	public boolean isMotionEmailNotificationVisible(TestCases testCase) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,"MotionEventEmailNotificationDAS");
+	}
 
 	public boolean isMotionSensitivityEnabled(TestCases testCase) {
 		boolean flag = true;
@@ -527,11 +577,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnNOButtonInAreasOutsideZonesWarningPopup() {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NOButton")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "NOButton");
-		} else {
-			return false;
-		}
 	}
 
 	public boolean clickOnYESButtonInAreasOutsideZonesWarningPopup() {
@@ -1648,6 +1694,35 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 	public boolean isVideoQualityHighSelectedVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityHighSelected");
+	}
+	
+	public boolean isNightVisionAutoVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionAuto");
+	}
+	public boolean isNightVisionAutoTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionAutoText");
+	}
+	public boolean ClickOnNightVisionAutoOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionAuto");
+	}
+	public boolean isNightVisionONVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionON");
+	}
+	public boolean isNightVisionONTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionONText");
+	}
+	public boolean ClickOnNightVisionONOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionON");
+	}
+	
+	public boolean isNightVisionOFFVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOFF");
+	}
+	public boolean isNightVisionOFFTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOFFText");
+	}
+	public boolean ClickOnNightVisionOFFOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionOFF");
 	}
 
 }
