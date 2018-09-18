@@ -1059,7 +1059,7 @@ Then the following "Thermostat Settings" options should be disabled:
 		| ThermostatSettingsOption |
 		| Emergency Heat           |
 When user navigates to "PrimaryCard" screen from the "Thermostat Settings" screen
-Then user "should be updated" with the "Heat" option
+Then user "should be updated" with the <Mode> option
 Examples:
 |Mode | systemMode|
 |Heat | OFF |
