@@ -72,7 +72,7 @@ public class DeviceInformation {
 		}
 		return groupid;
 	}
-	
+
 	public List<String> getSensorDeviceID(JSONObject SensorListJson) throws Exception {
 		List<String> sensorID = new ArrayList<String>();
 		if (deviceInformation != null) {
@@ -86,7 +86,7 @@ public class DeviceInformation {
 		}
 		return sensorID;
 	}
-	
+
 	public List<String> getSensorRoomType(JSONObject SensorListJson) throws Exception {
 		List<String> sensorID = new ArrayList<String>();
 		if (deviceInformation != null) {
@@ -144,8 +144,11 @@ public class DeviceInformation {
 					}	
 				} else if(deviceType.equalsIgnoreCase("FlyCatcher")){
 					type = "FlyCatcher";
-				}
 				
+				}else if(deviceType.equalsIgnoreCase("HoneyBadger")){
+					type = "HoneyBadger";
+				}
+
 			} catch (Exception e) {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			}
