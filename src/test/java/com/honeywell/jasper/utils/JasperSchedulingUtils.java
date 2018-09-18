@@ -6323,6 +6323,26 @@ public class JasperSchedulingUtils {
 				flag = false;
 			} else {
 				if (ss.isConfirmDeleteButtonVisible(5)) {
+					
+					String content = ss.getDeleteMessageContent();
+					String content2 = inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE);
+					
+					if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
+					content2 = content2.replace("1", "Wake");
+					content2 = content2.replace("2", "Away");
+					content2 = content2.replace("3", "Home");
+					content2 = content2.replace("4", "Sleep");
+					}
+					System.out.println(content2);
+					if (content.contains(content2)){
+						Keyword.ReportStep_Pass(testCase,
+								"Period name on pop up is matching with -" + content2);
+					}
+					else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to find Period name on delete pop up "
+										+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
+					}
 					if (!ss.clickOnConfirmDeleteButton()) {
 						flag = false;
 					}
@@ -14443,6 +14463,8 @@ public class JasperSchedulingUtils {
 		} else if (statInfo.getJasperDeviceType().equalsIgnoreCase("EMEA")) {
 			String[] schedulePeriods = { "1", "2", "3", "4" };
 			periodToSelect = schedulePeriods[rn.nextInt((3 - 0) + 1) + 0];
+			inputs.setInputValue(InputVariables.PERIOD_NAME_NA, periodToSelect);
+			inputs.setInputValue(InputVariables.PERIOD_NAME_NA, periodToSelect);
 		}
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
@@ -14451,7 +14473,8 @@ public class JasperSchedulingUtils {
 			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='" + periodToSelect + "']", testCase, 5)) {
 				if (!MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='" + periodToSelect + "']")) {
 					flag = false;
-				} else {
+				}
+				else {
 					Keyword.ReportStep_Pass(testCase, "Selected period-" + periodToSelect);
 				}
 			} else {
@@ -14519,6 +14542,7 @@ public class JasperSchedulingUtils {
 			if (!schl.clickOnPeriodDeleteIcon()) {
 				flag = false;
 			}
+			
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate the Period delete icon");
@@ -14526,7 +14550,7 @@ public class JasperSchedulingUtils {
 
 		return flag;
 	}
-
+	
 	public static boolean createGeofenceBasedScheduleWithDefaultValues(TestCases testCase, TestCaseInputs inputs,
 			boolean createScheduleUsingUseGeofenceButton) {
 		boolean flag = true;
@@ -14742,5 +14766,60 @@ public class JasperSchedulingUtils {
 		}
 		return flag;
 	}
-
+	public static boolean clickOnDeleteIconForSelectedPeriodAndDayNA(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		List<WebElement> period = null;
+		String temp = "";
+		String PeriodToSelect = inputs.getInputValue(InputVariables.PERIOD_NAME_NA);
+		Dimension dimension1 = testCase.getMobileDriver().manage().window().getSize();
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+		SchedulingScreen schl = new SchedulingScreen(testCase);
+		
+		String DayToSelect = inputs.getInputValue(InputVariables.SCHEDULE_DAY_EDITED);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				testCase.getMobileDriver().scrollTo(DayToSelect);
+				if (MobileUtils.isMobElementExists("XPATH",
+						"//*[contains(@content-desc,'" +PeriodToSelect+ "_" + DayToSelect + "')]", testCase, 5)) {
+					period= MobileUtils.getMobElements(testCase, "xpath",
+							"//*[contains(@content-desc,'" +PeriodToSelect+ "_" + DayToSelect + "')]");
+					temp = period.get(0).getAttribute("name");
+					try {
+						period.get(0).click();
+						Keyword.ReportStep_Pass(testCase, "Selected period-" + temp);
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to select the period-" + temp);
+					}
+					
+				}
+				}else {
+					int i = 0;
+					while ((!MobileUtils.isMobElementExists("XPATH","//XCUIElementTypeCell[@name='" + DayToSelect + "_" + PeriodToSelect+ "_cell"+"']",
+								testCase, 5)) && i < 10) {
+							
+								touchAction.press(10, (int) (dimension1.getHeight() * .5))
+								.moveTo(0, (int) (dimension1.getHeight() * -.4)).release().perform();
+								i++;
+					}
+								WebElement period1 = testCase.getMobileDriver().findElement(By.name(DayToSelect + "_" + PeriodToSelect+ "_cell"));
+								if (period1 == null) {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to locate the period-" + DayToSelect + "_" + PeriodToSelect + "_cell");
+								} else {
+									period1.click();
+									Keyword.ReportStep_Pass(testCase, "Selected period-" + DayToSelect + "_" + PeriodToSelect + "_cell");
+									
+								}
 }
+			if (schl.isPeriodDeleteIconVisible(5)) {
+				flag = flag & schl.clickOnPeriodDeleteIcon();
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Period Delete icon is not shown");
+			}
+			return flag;
+	}
+	
+	}

@@ -547,4 +547,7 @@ public class VacationHoldScreen extends MobileScreens {
 	public String getVacationSetPointValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DeviceSetPoint");
 	}
+	public boolean isVacationSetPointValueVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceSetPoint");
+	}
 }

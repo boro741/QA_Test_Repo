@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.common.DefaultSetPoint;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -47,7 +48,8 @@ public class DisplaySetpointsInCard extends Keyword {
 			String deviceID = statInfo.getDeviceID();
 			if (chUtil.isConnected()) {
 				if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
-						"Heat") == 200) {
+						"Heat") == 200) 
+				{
 					Keyword.ReportStep_Pass(testCase,
 							"Change System Mode Using CHIL : Successfully changed system mode to Heat through CHIL");
 				} else {
@@ -56,6 +58,7 @@ public class DisplaySetpointsInCard extends Keyword {
 							"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
 				}
 			}
+			
 			// flag = true;
 			switch (exampleData.get(0).toUpperCase()) {
 			case "PRIMARY CARD": {

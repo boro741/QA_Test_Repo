@@ -7,11 +7,13 @@ Feature: As an user I want to set the vacation period for my home so that my the
  And user launches and logs in to the Lyric application
  When user navigates to "Vacation" screen from the "Dashboard" screen
  Then user is displayed with start date and end date options based on the <settings> vacation
+ And user should be displayed with the "Vacation Setpoint" description
  
  Examples: 
       | settings		| 
       | active		| 
  #     | inactive		| 
+ 
   
 @Vacations_VerifyGuideMessage			@Automated
 Scenario Outline: Verify guide Message when vacation is either turned off or on
@@ -57,6 +59,7 @@ When user turns "on" vacation from "vacation settings card"
 Then user is displayed with "From" date as "Current Time" nearest to "10"
 And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
+
   
 @Vacations_VerifyVacationDefaultSetPoints			@Automated
 Scenario: As a user I want to set the vacation set value so that I can put my home with desired temperature on my vacation  
@@ -82,7 +85,9 @@ Then user should be provided with option to enter vacation start and end date
 And HBB device should not be listed under the review vacation settings section in Vacation screen
 
   
-@Vacations_MinimumBandwidthTimer			@Automated
+
+
+@Vacations_MinimumBandwidthTimer	@Reworkrequired
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 When vacation mode is "active"
@@ -90,6 +95,8 @@ And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user edits Vacation Timer 
 Then Minimum bandwidth timer between from and to is "1" hour
+And user verifies vacation is "on" in "solution card"
+And user should be displayed with "Vacation" setpoint value in the solution card screen
   
 
 @Vacation_TimerValueIncreamentOf10EMEA			@Automated
