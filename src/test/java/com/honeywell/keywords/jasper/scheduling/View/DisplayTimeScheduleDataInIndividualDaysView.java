@@ -103,6 +103,7 @@ public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 												+ days[i]);
 							}
 							if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
+								testCase.getMobileDriver().scrollToExact(period.getText());
 								periodCoolPoint = period.findElement(By.id("scheduling_period_cooling_point"));
 								periodHeatPoint = period.findElement(By.id("scheduling_period_heating_point"));
 								if (periodCoolPoint != null) {
