@@ -337,6 +337,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 
 			else if (currentScheduleType.equalsIgnoreCase("Geofence"))	{
 				String statUnit=devInfo.getThermostatUnits();
+				String deviceType=devInfo.getJasperDeviceType();
 				switch (exampleData.get(0).toUpperCase()) {
 				case "AWAY":{
 					if(Mode.equalsIgnoreCase("Cool")){
@@ -361,12 +362,15 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 					}else {
 						String AwayHeatSetpoint ="";
 						String AwayHeatSetpoint1 = defaultValues.get("GeofenceAwayHeatTemp");
-						
+
 						if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 							AwayHeatSetpoint = AwayHeatSetpoint1.replace(".0", ""); 
-						}else if (statUnit.equalsIgnoreCase("Celsius")){
+						}else if ((!deviceType.toUpperCase().equalsIgnoreCase("EMEA")) && statUnit.equalsIgnoreCase("Celsius")){
 							AwayHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, AwayHeatSetpoint1));
+							currentStepperSetpoint = currentsetpoint; 
+						}else if (deviceType.toUpperCase().equalsIgnoreCase("EMEA")){
+							AwayHeatSetpoint =AwayHeatSetpoint1;
 							currentStepperSetpoint = currentsetpoint; 
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat is not in expected unit:"+ statUnit);
@@ -407,8 +411,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", ""); 
 							HomeHeatSetpoint = HomeHeatSetpoint1.replace(".0", "");
-						}else if (statUnit.equalsIgnoreCase("Celsius")){
+						}else if ((!deviceType.toUpperCase().equalsIgnoreCase("EMEA")) && statUnit.equalsIgnoreCase("Celsius")){
 							HomeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeHeatSetpoint1));
+							currentStepperSetpoint = currentsetpoint; 
+						}else if (deviceType.toUpperCase().equalsIgnoreCase("EMEA")){
+							HomeHeatSetpoint =HomeHeatSetpoint1;
 							currentStepperSetpoint = currentsetpoint; 
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat is not in expected unit:"+ statUnit);
@@ -434,7 +441,7 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 							HomeCoolSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeCoolSetpoint1));
 							currentStepperSetpoint = currentsetpoint; 
 						}else{
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat is not in expected unit:"+ statUnit);
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat is not in expected unit:"+ statUnit);
 						}
 						flag = flag & currentStepperSetpoint.equals(HomeCoolSetpoint);
 						if(flag)
@@ -449,8 +456,11 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 						if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 							currentStepperSetpoint = currentsetpoint.replace(".0", "");
 							HomeHeatSetpoint = HomeHeatSetpoint1.replace(".0", "");
-						}else if (statUnit.equalsIgnoreCase("Celsius")){
+						}else if ((!deviceType.toUpperCase().equalsIgnoreCase("EMEA")) && statUnit.equalsIgnoreCase("Celsius")){
 							HomeHeatSetpoint = JasperSchedulingUtils.roundOffCelsiusData(testCase,JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, HomeHeatSetpoint1));
+							currentStepperSetpoint = currentsetpoint; 
+						}else if (deviceType.toUpperCase().equalsIgnoreCase("EMEA")){
+							HomeHeatSetpoint =HomeHeatSetpoint1;
 							currentStepperSetpoint = currentsetpoint; 
 						}else{
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Stat is not in expected unit:"+ statUnit);
@@ -475,8 +485,4 @@ public class GetRespectivePeriodSetPointValues extends Keyword {
 		return flag;
 	}
 
-	private String parseValue(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
