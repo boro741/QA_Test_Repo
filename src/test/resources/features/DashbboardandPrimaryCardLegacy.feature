@@ -918,7 +918,7 @@ When user selects "Mode" from "Thermostat Solution Card" screen
 Then user "should be displayed" with the "Auto Mode description" option 
 Examples:
 |Mode|
-|Heat  |
+#|Heat  |
 |Cool  |
 
 #HB, Spruce, JaperNA // negative case
@@ -1038,11 +1038,11 @@ Examples:
 |Heat | OFF |
 #|Heat |Heat|
 |Auto | Cool |
-|Auto | Heat | 
+#|Auto | Heat | 
 |Auto | OFF |
 #|Auto |Auto |
 |OFF | Cool |
-|OFF | Heat | 
+#|OFF | Heat | 
 #|OFF | OFF |
 |OFF | auto|
 
