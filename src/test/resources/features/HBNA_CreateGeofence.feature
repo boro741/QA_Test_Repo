@@ -156,7 +156,7 @@ Given user thermostat is set to "time based" schedule
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates "Geofence based" scheduling with default values "Without" sleep settings
-Then  "Geofence based" scheduling gets activated
+Then  "Geofence based" scheduling gets activated with <Modes>
 #And user is displayed with <Modes> in Schedule
 
 Examples: 

@@ -179,7 +179,7 @@ Scenario Outline: As a user I want to create an Time based schedule with default
 Given user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user creates "Same Every Day" schedule with default schedule value
-Then  "Same Every Day" scheduling gets activated
+Then  "Same Every Day" scheduling gets activated with <Modes>
 #And user is displayed with <Modes> in Schedule
 
 Examples: 
