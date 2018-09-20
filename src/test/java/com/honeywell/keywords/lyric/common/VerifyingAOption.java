@@ -20,6 +20,7 @@ import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
@@ -911,6 +912,18 @@ public class VerifyingAOption extends Keyword {
 			}
 			case "SHOULD NOT BE DISPLAYED": {
 				if(!cs.isMotionEmailNotificationVisible(testCase)){
+					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option not displayed");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option displayed");
+				}break;
+			}
+			}
+		}else if (expectedScreen.get(1).toUpperCase().equals("DOORS AND WINDOWS")){
+			BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD NOT BE DISPLAYED": {
+				if(!cs.isSecurityModeDoorAndWindowVisible()){
 					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option not displayed");
 				}
 				else {

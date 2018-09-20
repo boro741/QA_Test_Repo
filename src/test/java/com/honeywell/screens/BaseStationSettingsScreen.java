@@ -50,6 +50,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public static final String SOUND = "Sound";
 	public static final String EMERGENCYHEAT = "Emergency Heat";
 	public static final String VENTILATION = "Ventilation";
+	public static final String ENHANCEDDETERRENCE = "Enhanced Deterrence";
+	public static final String OUTDOORMOTIONVIEWERSONINHOMEMODE = "Outdoor motion viewers on in Home";
 	// Locator values used in the methods
 	public static final String ANDROIDENTRYEXITTABLELOCATORVALUE = "android.widget.RelativeLayout";
 	public static final String IOSENTRYEXITTABLELOCATORVALUE = "//XCUIElementTypeCell";
@@ -1519,7 +1521,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean clickOnManageAlerts() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ManageAlerts");
 	}
-
 	public boolean verifySensorStatusAfterTestSignalStrength(String s) {
 		System.out.println(s);
 		if (this.verifyStatusOptionTextOnSensorSettingsScreen()) {
@@ -1591,4 +1592,118 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 		return false;
 	}
+	public boolean isManangeAlertsEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlerts").isEnabled();	
+	}
+	public boolean isAmazonAlexaEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "AmazonAlexaOption").isEnabled();	
+	}
+	public boolean isAmazonAlexaiConVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AmazonAlexaiCon");	
+	}
+	public boolean isGeofencingEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingOption").isEnabled();	
+	}
+	public boolean isGeofencingDescriptionEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingDescriptionText").isEnabled();	
+	}
+	public boolean isOKSecurityVoiceCommandsEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "OKSecurityVoiceCommands").isEnabled();	
+	}
+	public boolean isEnhancedDeterrenceEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "EnhancedDeterrence").isEnabled();	
+	}
+	public boolean isEnhancedDeterrenceDescriptionEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "EnhancedDeterrenceDescription").isEnabled();	
+	}
+	public boolean isOutdoorMotionViewerOnInHomeModeVisible(){
+
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeMode");	
+	}
+	public boolean isOutdoorMotionViewerOnInHomeModeEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeMode").isEnabled();	
+	}
+	public boolean isEntryExitDelayEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDelayOption").isEnabled();	
+	}
+	public boolean isEntryExitDelayVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption");	
+	}
+	public boolean isEntryExitDelayDescriptionEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDescriptionText").isEnabled();	
+	}
+	public boolean isOutdoorMotionViewerOnInHomeModeDescriptionEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeDescription").isEnabled();	
+	}
+	public boolean isAboutSecurityModesEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "AboutSecurityModes").isEnabled();	
+	}
+	public boolean isAboutSecurityModesVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AboutSecurityModes");	
+	}
+	public boolean isKeyFobEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "KeyfobNameLabel").isEnabled();	
+	}
+	public boolean isKeyFobVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobNameLabel");	
+	}
+	public boolean isSensorsOptionEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SensorsOption").isEnabled();	
+	}
+	public boolean isZwaveDevicesEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption").isEnabled();	
+	}
+	public boolean isZwaveDevicesVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveDevicesSettingsOption");	
+	}
+	public boolean isBaseStationVolumeEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "VolumeOption").isEnabled();	
+	}
+	public boolean isBaseStationResetWifiEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption").isEnabled();	
+	}
+	public boolean isBaseStationResetWifiVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationWiFiOption");	
+	}
+	public boolean isBaseStationConfigurationEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationConfigurationsOption").isEnabled();	
+	}
+	public boolean isSecurityModeChangeEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChange").isEnabled();	
+	}
+	public boolean isSecurityModeChangeSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeChangeSwitch", 20)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChangeSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChangeSwitch").getAttribute("value")
+						.equalsIgnoreCase("1")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			throw new Exception("Could not find the Camera Motion detection Switch");
+		}
+	}
+	public boolean toggleSecurityModeChangeSwitch(TestCases testCase) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SecurityModeChangeSwitch");
+	}
+	public boolean isSecurityModeChangeDescription(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChangeDescription").isEnabled();	
+	}
+	public boolean isSecurityModeDoorAndWindowEnabled(){
+		return MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChange").isEnabled();	
+	}
+	public boolean isSecurityModeDoorAndWindowVisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorsAndWindows");	
+	}
+
 }
+
