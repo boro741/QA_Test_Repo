@@ -30,6 +30,7 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
+import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -802,6 +803,30 @@ public class VerifyScreen extends Keyword {
 			case "IDENTIFY SENSOR":{
 				FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 				flag = flag & fly.isIdentifySensorImageVisible();
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "HOME" :{
+				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+				flag = flag & ssc.verifystate("Home");
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "Away":{
+				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+				flag = flag & ssc.verifystate("Away");
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			case "Night":{
+				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+				flag = flag & ssc.verifystate("Night");
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}

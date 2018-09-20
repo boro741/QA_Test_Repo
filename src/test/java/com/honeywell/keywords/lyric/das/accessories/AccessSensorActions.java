@@ -55,7 +55,9 @@ public class AccessSensorActions extends Keyword {
 					DASSensorUtils.enrollDoor(testCase, inputs);
 				}
 				else if(states.get(1).equalsIgnoreCase("offline")){
-					System.out.println("Make door sensor offline");
+					System.out.println("Make door sensor offline"); 
+				} else if(states.get(1).equalsIgnoreCase("Low Battery")){
+					System.out.println("Make door sensor Low Battery"); 
 				}
 				
 				else{
@@ -84,6 +86,8 @@ public class AccessSensorActions extends Keyword {
 				}
 				else if(states.get(1).equalsIgnoreCase("offline")){
 					System.out.println("Make window sensor offline");
+				}else if(states.get(1).equalsIgnoreCase("Low Battery")){
+					System.out.println("Make window sensor Low Battery");
 				}
 				else{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");

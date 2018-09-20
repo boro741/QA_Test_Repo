@@ -552,7 +552,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY") || expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY WITH THE MULTIPLE SENSOR FAULT") ) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -586,7 +586,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT") || expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT WITH MULTILPLE SENSOR FAULT")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);

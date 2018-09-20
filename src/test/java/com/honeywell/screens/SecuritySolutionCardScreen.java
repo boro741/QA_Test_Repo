@@ -311,7 +311,6 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			}
 		}
 		case "AWAY": {
-
 			if (stateToVerify.equalsIgnoreCase(currentPanelState)) {
 				Keyword.ReportStep_Pass(testCase, "Panel is in Expected state" + currentPanelState);
 				return true;
@@ -402,6 +401,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean clickOnAppSettingsIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AppSettingsIcon");
+	}
+	
+	public boolean clickOnCancelButtonWhileSwitchingModes() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
 	}
 
 	public boolean clickOnSensorButton() {

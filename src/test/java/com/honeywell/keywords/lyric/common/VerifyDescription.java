@@ -106,6 +106,9 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR OPEN")) {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & ssc.isDoorOpenTextVisible();
+		} else if (expectedScreen.get(0).equalsIgnoreCase("LOW BATTERY")) {
+			SensorStatusScreen ssc = new SensorStatusScreen(testCase);
+		    flag = flag & ssc.isLowbatteryVisible();
 		} 
 		else if (expectedScreen.get(0).equalsIgnoreCase("WLD TEMPERATURE HUMIDITY VALUE")) {
 			WLDSolutionCard cs = new WLDSolutionCard(testCase);

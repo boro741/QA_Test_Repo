@@ -292,6 +292,12 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(1));
 					break;
 				}
+				case "LOW BATTERY": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
