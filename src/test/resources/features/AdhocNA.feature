@@ -751,9 +751,7 @@ When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
 When user has "Temporary" status
-And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
-When user has "Temporary" status
 And user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:

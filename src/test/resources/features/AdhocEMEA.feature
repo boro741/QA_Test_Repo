@@ -387,7 +387,7 @@ Examples:
 
 @AdhocOverrideGeofencebaseSchedulingChangeModesWithSameModesHeatCoolAutoOFFTemporaryHold_EMEA			@Automated
 Scenario Outline:  To verify geofence schedule switching modes is changed for Heat system with auto changeover enabled
-Given user has "Home" system mode
+Given user has "Heat" system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
