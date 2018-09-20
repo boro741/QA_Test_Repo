@@ -220,6 +220,13 @@ public class Dashboard extends MobileScreens {
 	public boolean isCameraOffTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOffText");
 	}
+	public boolean isCameraOfflineTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOfflineText");
+	}
+	public boolean isCameraRingClosedVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraRingClosedText");
+	}
+	
 	public String getCameraStatus(int timeOut) {
 		String cameraStatus = null;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus", timeOut)) {

@@ -1,5 +1,6 @@
 package com.honeywell.keywords.lyric.das.pushnotifications;
 
+import java.awt.Desktop.Action;
 import java.time.Duration;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
+import com.honeywell.commons.mobile.Mobile;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
@@ -48,7 +50,7 @@ public class ActionOnPushNotification extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		String notification = "";
 		String sensorName = "";
-		LocationInformation locInfo = new LocationInformation(testCase, inputs);
+		//LocationInformation locInfo = new LocationInformation(testCase, inputs);
 		DASNotificationUtils.openNotifications(testCase);
 		switch(exampleData.get(0).toUpperCase()){
 		case "ISMV MOTION DETECTED":{
@@ -57,7 +59,7 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "MOTION DETECTED":{
-			notification = "Motion Detected by Camera \""+ inputs.getInputValue("LOCATION1_CAMERA1_NAME")+"\".";
+			notification = "Motion Detected by Camera \""+ inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"\".";
 			break;
 		}
 		case "SWITCH TO NIGHT FROM DOOR OPEN":{
@@ -131,6 +133,7 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO HOME": {
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
 				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 						+ " to HOME";
@@ -148,6 +151,7 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO AWAY": {
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
 				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 						+ " to Away";
@@ -165,6 +169,7 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO NIGHT": {
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
 				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 						+ " to Night";
@@ -182,6 +187,7 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "SET TO OFF": {
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
 				notification = locInfo.getUserFirstName() + " set " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 						+ " to OFF";
@@ -203,6 +209,7 @@ public class ActionOnPushNotification extends Keyword {
 			break;
 		}
 		case "ALARM DISMISSED":{
+			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME")+" Cancelled by "+locInfo.getUserFirstName();
 			break;
 		}
@@ -222,7 +229,13 @@ public class ActionOnPushNotification extends Keyword {
 		}
 		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 10)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
+			WebElement ele = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
+			
+			int xAxix = ele.getLocation().getX();
+			int yAxix = ele.getLocation().getY();
 			MobileUtils.clickOnElement( testCase,"xpath", locatorValue);
+			
+			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

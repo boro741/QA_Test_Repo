@@ -802,6 +802,9 @@ public class VerifyScreen extends Keyword {
 			case "IDENTIFY SENSOR":{
 				FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 				flag = flag & fly.isIdentifySensorImageVisible();
+			}
+			case "COACH MARK":{
+				flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase, CoachMarkUtils.DASCAMERA);
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}

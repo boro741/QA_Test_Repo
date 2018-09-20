@@ -129,9 +129,19 @@ public class NavigateToScreen extends Keyword {
 				}
 			} 
 			else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD") && screen.get(0).equalsIgnoreCase("DASHBOARD")) {
+			
 				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 				flag = flag & cs.clickOnBackButtonInCameraSolutionCardScreen();
-			}else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+			}
+			else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD") && screen.get(0).equalsIgnoreCase("Activity log")) {
+				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+				if(cs.isActivityLogExists()) {
+					flag = flag & cs.clickActivityLog();
+				}else {
+					flag = false;
+				}
+			}
+			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SETTINGS": {
 					PrimaryCard sensorScreen = new PrimaryCard(testCase);
