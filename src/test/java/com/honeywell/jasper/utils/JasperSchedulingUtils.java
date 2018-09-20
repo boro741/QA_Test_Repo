@@ -13396,9 +13396,9 @@ public class JasperSchedulingUtils {
 
 
 						/********time*******/
-						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase,Period,
+						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase,startTime,
 									"TimeChooser", true, true);
-						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, Period,
+						flag = flag & JasperSchedulingUtils.setPeriodTime(testCase, EndTime,
 									"TimeChooserEndTime", true, true);
 						flag = flag & ss.clickOnSaveButton();
 						Keyword.ReportStep_Pass(testCase, "*************** Completed setting time and set points for "

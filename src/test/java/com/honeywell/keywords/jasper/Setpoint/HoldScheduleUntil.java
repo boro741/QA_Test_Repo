@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -14,6 +15,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
+import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -40,6 +42,8 @@ public class HoldScheduleUntil extends Keyword {
 	@KeywordStep(gherkins = "^user holds the schedule until time \"(.+)\" from current time$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
+			DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+			String jasperStatType = devInfo.getJasperDeviceType();
 			SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
 			flag = flag & JasperAdhocOverride.holdSetPointsUntilFromAdHoc(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -55,27 +59,40 @@ public class HoldScheduleUntil extends Keyword {
 				}
 				ReportStep_Pass(testCase, "Current time on device is "+currentTime);
 				Date date = androidDateFormat.parse(currentTime);
-				
+
 				Calendar c1 = Calendar.getInstance();
 				Calendar c2 = Calendar.getInstance();
 				String day = "";
 				c1.setTime(date);
 				c2.setTime(date);
 				if (exampleData.get(0).equals("greater than 12 hours")) {
-					c2.add(Calendar.HOUR, 14);
+					//c2.add(Calendar.HOUR, 14);
+					c2.add(Calendar.MINUTE, 840);
 					c2.set(Calendar.MINUTE, 0);
 				} else if (exampleData.get(0).equals("lesser than 12 hours")) {
 					ReportStep_Pass(testCase,"Current instance "+c2.getTime());
 					ReportStep_Pass(testCase, "Current hour : "+Calendar.HOUR);
-					c2.add(Calendar.HOUR, 2);
+					c2.add(Calendar.MINUTE, 120);
 					c2.set(Calendar.MINUTE, 0);
 					ReportStep_Pass(testCase, "Added 2 hrs");
 				} else{
-					c2.add(Calendar.HOUR, 0);
-					ReportStep_Pass(testCase, "Added 15 mins");
-					c2.set(Calendar.MINUTE, 15);
+					int minutes = c2.get(Calendar.MINUTE);
+					if (jasperStatType.equalsIgnoreCase("EMEA")){
+						int mod =  10- (minutes % 10);
+						if(mod==0){
+							mod=10;
+						}
+						c2.add(Calendar.MINUTE, mod);
+					}else{
+						int mod = 15-(minutes % 15);
+						if(mod==0){
+							mod=15;
+						}
+						c2.add(Calendar.MINUTE, mod);
+					}
+					System.out.println(c2.getTime());
+					ReportStep_Pass(testCase, "Added default mins");
 				}
-
 
 				if (c2.get(Calendar.DATE) != c1.get(Calendar.DATE)) {
 					day = "Tomorrow";
