@@ -6841,7 +6841,14 @@ public class JasperSchedulingUtils {
 		if (ss.isTimeScheduleButtonVisible(10)){
 			ss.clickOnTimeScheduleButton();
 		}
-
+		
+		if(ss.isTimeScheduleButtonVisible()){
+			ss.clickOnTimeScheduleButton();
+		} else if (ss.isMoreButtonVisible()){
+			ss.ClickOnMoreButton();
+			ss.clickOnTimeScheduleButton();
+		}
+		
 		if (scheduleType.equalsIgnoreCase("time")||scheduleType.equalsIgnoreCase("time based")) {
 			Keyword.ReportStep_Pass(testCase,
 					"*********************** Verifying time based schedule on Primary Card **************************");

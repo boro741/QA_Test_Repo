@@ -103,7 +103,7 @@ public class PrimaryCard extends MobileScreens {
 	public boolean isThermostatSolutionCardDisplayed() {
 
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModeButton")
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ScheduleButton")) {
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "FanButton")) {
 			return true;
 		} else {
 			return false;

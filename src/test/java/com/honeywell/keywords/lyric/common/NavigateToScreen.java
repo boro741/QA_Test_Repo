@@ -709,7 +709,14 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
-					flag = flag & scheduleScreen.clickOnTimeScheduleButton();
+					if(scheduleScreen.isTimeScheduleButtonVisible()){
+						flag = flag & scheduleScreen.clickOnTimeScheduleButton();
+					} else if (scheduleScreen.isMoreButtonVisible()){
+						flag = flag & scheduleScreen.ClickOnMoreButton();
+						flag = flag & scheduleScreen.clickOnTimeScheduleButton();
+						
+					}
+					
 					break;
 				}
 				case "HUMIDIFICATION": {
