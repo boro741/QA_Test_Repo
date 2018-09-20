@@ -12,6 +12,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.screens.VacationHoldScreen;
 
@@ -48,18 +49,14 @@ public class DefaultSetPoint extends Keyword {
 				CHILUtil.heatSetPoints = Integer.parseInt(statInfo.getVacationHeatSetPoint());
 				CHILUtil.coolSetPoints = 0;
 			}
-
-			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != null) {
-				if (vhs.isStatInVacationScreenVisible(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
-					flag = flag && vhs.clickOnStatInVacationScreen(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-					Keyword.ReportStep_Pass(testCase, String.format("The Vacation Hold Setpoint Screen is clicked"));
-					if (CHILUtil.thermostatUnit.equalsIgnoreCase("Celsius")) {
-						if (!vhs.getHeatSetPointValue().equals(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase,
-								String.valueOf(CHILUtil.heatSetPoints)))) {
+			
+					if (statInfo.getThermostatUnits().equals("Celsius")) {
+						if (!vhs.getHeatSetPointValue().equals(JasperSchedulingUtils.roundOffCelsiusData(testCase,
+								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, String.valueOf(CHILUtil.heatSetPoints))))){
 							flag = false;
 						}
-						if (!vhs.getCoolSetPointValue().equals(JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase,
-								String.valueOf(CHILUtil.coolSetPoints)))) {
+						if (!vhs.getCoolSetPointValue().equals(JasperSchedulingUtils.roundOffCelsiusData(testCase,
+								JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, String.valueOf(CHILUtil.coolSetPoints))))) {
 							flag = false;
 						}
 					} else {
@@ -71,24 +68,16 @@ public class DefaultSetPoint extends Keyword {
 						}
 					}
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, String.format("Cool is set to: " + vhs.getHeatSetPointValue()
+						Keyword.ReportStep_Pass(testCase, String.format("Cool is set to: " + vhs.getCoolSetPointValue()
 								+ " Heat is set to: " + vhs.getHeatSetPointValue()));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.COSMETIC_FAILURE,
-								String.format("Cool is not set to: " + vhs.getHeatSetPointValue()
+								String.format("Cool is not set to: " + vhs.getCoolSetPointValue()
 										+ " Heat is not set to: " + vhs.getHeatSetPointValue()));
 					}
 
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Stat is not present in vacation screen");
-				}
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
-			}
-		} catch (Exception e) {
+			} 
+		 catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Error Occured : " + e.getMessage());

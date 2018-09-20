@@ -79,31 +79,47 @@ Then user should be displayed sleep setting timer with increments of "15 minutes
 
 @JasperNA_DeletingDefaultPeriodSameEveryDay @Automated
 Scenario Outline: As a user I want to delete period in Same Every Day Time based schedule
-Given user launches and logs in to the Lyric application
+Given user thermostat is set to <schedule> schedule
+And  user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Same Every Day" schedule by deleting <Periods> from the default schedule values 	
+When user creates <Period Value> schedule by deleting <Periods> from the default schedule values 	
 Then <Period Value> scheduling gets activated
 
 Examples: 
-| Periods |Period Value|
-| Atleast 1 period|Same Every Day|
-#| Atleast 2 period|Same Every Day|
-#| Atleast 3 period|Same Every Day|
-#| All periods     |No|
+|schedule | Periods |Period Value|
+#| time based | Atleast 1 period|Same Every Day|
+#| time based | Atleast 2 period|Same Every Day|
+#| time based | Atleast 3 period|Same Every Day|
+#| time based | All periods     |Triage time base|
+#| geofence based | Atleast 1 period|Same Every Day|
+| geofence based | Atleast 2 period|Same Every Day|
+#| geofence based | Atleast 3 period|Same Every Day|
+#| geofence based | All periods     |Triage geofence base|
 
 @JasperNA_DeletingDefaultPeriodDifferentOnWeekdays @Automated
 Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
-Given user launches and logs in to the Lyric application
+Given user thermostat is set to <schedule> schedule
+And  user launches and logs in to the Lyric application
 And user navigates to "Scheduling" screen from the "Dashboard" screen
-When user creates "Different On Weekdays" schedule by deleting <Periods> from the default schedule values
+When user creates <Period Value> schedule by deleting <Periods> from the default schedule values
 Then <Period Value> scheduling gets activated
 
 Examples: 
-| Periods |Period Value|
-| Atleast 1 period|Different On Weekdays|
-#| Atleast 2 period|Different On Weekdays|
-#| Atleast 3 period|Different On Weekdays|
-#| All periods     |No|
+|schedule | Periods |Period Value|
+#| time based | Atleast 1 period|Different On Weekdays|
+#| time based | Atleast 2 period|Different On Weekdays|
+#| time based | Atleast 3 period|Different On Weekdays|
+#| time based | Atleast 1 period|Different On Weekend |
+#| time based | Atleast 2 period|Different On Weekend |
+#| time based | Atleast 3 period|Different On Weekend |
+#| time based | All periods     |Triage time base|
+| geofence based | Atleast 1 period|Different On Weekdays|
+#| geofence based | Atleast 2 period|Different On Weekdays|
+#| geofence based | Atleast 3 period|Different On Weekdays|
+#| geofence based | Atleast 1 period|Different On Weekend |
+#| geofence based | Atleast 2 period|Different On Weekend |
+#| geofence based | Atleast 3 period|Different On Weekend |
+#| geofence based | All periods     |Triage geofence base|
 
 @JapserNA_CopyScheduleToMulitpleStat @Automated
 # Given Account has a Location with Multiple Stats
@@ -181,3 +197,4 @@ When  user selects "Confirm" option while creating "Same Every Day" schedule wit
 Then "Same Every Day" scheduling gets activated
 #And user navigates to "Primary card" screen from the "Scheduling" screen
 #Then user is displayed with "System is Off" on the screen
+

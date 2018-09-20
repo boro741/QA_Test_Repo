@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
@@ -648,5 +649,157 @@ public class JasperVacation {
 
 		return time;
 	}
+	public boolean setMaxTemperatureByTappingUpStepperVacation(TestCases testCase, TestCaseInputs inputs){
+		boolean flag = true;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
+			String maxSetPointh = "";
+			String maxSetPointc = "";
+			float maxSetPointFloat = 0;
+			int maxSetPointInt = 0;
+			boolean systemIsCelsius = false;
+			String currentSetPoint = "";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints = statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				maxSetPointh = setPoints.get("MaxHeat");
+			if (maxSetPointh.contains(".")) {
+				systemIsCelsius = true;
+				maxSetPointFloat = Float.parseFloat(maxSetPointh);
+			} else {
+				maxSetPointInt = (int) Float.parseFloat(maxSetPointh);
+			}
 
+			WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
+			currentSetPoint = ele.getText();
+			if (systemIsCelsius == false) {
+				while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
+					currentSetPoint = ele.getText();
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
+							.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+						return flag;
+					} else {
+						flag = false;
+					}
+				}
+			} else {
+				while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
+					currentSetPoint = ele.getText();
+				}
+			}
+			maxSetPointc = setPoints.get("MaxCool");
+			if (maxSetPointc.contains(".")) {
+				systemIsCelsius = true;
+				maxSetPointFloat = Float.parseFloat(maxSetPointc);
+			} else {
+				maxSetPointInt = (int) Float.parseFloat(maxSetPointc);
+			}
+			WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
+			currentSetPoint = ele1.getText();
+			if (systemIsCelsius == false) {
+				while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
+					currentSetPoint = ele1.getText();
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
+							.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+						return flag;
+					} else {
+						flag = false;
+					}
+				}
+			} else {
+				while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
+					currentSetPoint = ele1.getText();
+				}
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return flag;
+		}
+		
+		public boolean setMinTemperatureByTappingDownStepperVacation(TestCases testCase, TestCaseInputs inputs) {
+			boolean flag = true;
+			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
+			String minSetPointh = "";
+			String minSetPointc = "";
+			float minSetPointFloat = 0;
+			int minSetPointInt = 0;
+			boolean systemIsCelsius = false;
+			String currentSetPoint = "";
+			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+			HashMap<String, String> setPoints = new HashMap<String, String>();
+			try {
+				setPoints = statInfo.getDeviceMaxMinSetPoints();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				minSetPointh = setPoints.get("MinHeat");
+			if (minSetPointh.contains(".")) {
+				systemIsCelsius = true;
+				minSetPointFloat = Float.parseFloat(minSetPointh);
+			} else {
+				minSetPointInt = (int) Float.parseFloat(minSetPointh);
+			}
+
+			WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
+			currentSetPoint = ele.getText();
+			if (systemIsCelsius == false) {
+				while (minSetPointInt<Integer.parseInt(currentSetPoint)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
+					currentSetPoint = ele.getText();
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
+							.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+						return flag;
+					} else {
+						flag = false;
+					}
+				}
+			} else {
+				while ( minSetPointFloat < Float.parseFloat(currentSetPoint) ) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
+					currentSetPoint = ele.getText();
+				}
+			}
+			minSetPointc = setPoints.get("MinCool");
+			if (minSetPointc.contains(".")) {
+				systemIsCelsius = true;
+				minSetPointFloat = Float.parseFloat(minSetPointc);
+			} else {
+				minSetPointInt = (int) Float.parseFloat(minSetPointc);
+			}
+			WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
+			currentSetPoint = ele1.getText();
+			if (systemIsCelsius == false) {
+				while (minSetPointInt < Integer.parseInt(currentSetPoint)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
+					currentSetPoint = ele1.getText();
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
+							.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+						return flag;
+					} else {
+						flag = false;
+					}
+				}
+			} else {
+				while (minSetPointFloat < Float.parseFloat(currentSetPoint)) {
+					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
+					currentSetPoint = ele1.getText();
+				}
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return flag;
+		}
 }

@@ -20,6 +20,7 @@ import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.WLDSolutionCard;
+import com.honeywell.screens.VacationHoldScreen;
 
 public class VerifyDescription extends Keyword {
 
@@ -106,12 +107,16 @@ public class VerifyDescription extends Keyword {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & ssc.isDoorOpenTextVisible();
 		} 
-		//Amresh wld
 		else if (expectedScreen.get(0).equalsIgnoreCase("WLD TEMPERATURE HUMIDITY VALUE")) {
 			WLDSolutionCard cs = new WLDSolutionCard(testCase);
 			String temperature= cs.getCurrentTemperatureTitleText();
 			Keyword.ReportStep_Pass(testCase, "Temperature Value:  " + temperature + " is present");
 		}
+		else if (expectedScreen.get(0).equalsIgnoreCase("VACATION SETPOINT")) {
+			VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+		    flag = flag & vhs.isVacationSetPointValueVisible();
+		} 
+	
 		
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(0) + " description is present");

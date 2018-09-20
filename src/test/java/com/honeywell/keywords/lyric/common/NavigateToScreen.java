@@ -877,6 +877,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "VACATION": {
+
 					Dashboard ds = new Dashboard(testCase);
 					if (ds.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -2767,7 +2768,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				break;
 				}
-			} else {
+			} 
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}

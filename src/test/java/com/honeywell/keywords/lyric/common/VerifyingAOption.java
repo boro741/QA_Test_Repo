@@ -897,6 +897,7 @@ public class VerifyingAOption extends Keyword {
 				}
 				break;
 			}
+			
 			}
 		}else if (expectedScreen.get(1).toUpperCase().equals("MOTION EVENT EMAIL ALERTS EMAIL")){
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
@@ -918,6 +919,21 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 		}
+		else if (expectedScreen.get(1).equalsIgnoreCase("Vacation")) {
+			PrimaryCard pc = new PrimaryCard(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED": {
+				PrimaryCard pc1 = new PrimaryCard(testCase);
+				if (!pc1.isVacationStatusVisible()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+			}
+			}
 		return flag;
 
 	}

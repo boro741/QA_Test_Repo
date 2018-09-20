@@ -51,6 +51,10 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 			vhs.navigateBackAndForthInVacationsScreen(testCase);
 			break;
 		}
+		case "VACATION STAT": {
+			vhs.navigateBackAndForthInVacationsStatScreen(testCase,inputs);
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid option: " + expectedOption.get(0));

@@ -45,7 +45,7 @@ public class EditTimeScheduleDeletingSelctedPeriod extends Keyword {
 		} else if (exampleData.get(0).equalsIgnoreCase("All 4 periods")) {
 			inputs.setInputValue(InputVariables.NUMBER_OF_PERIODS_TO_DELETE, "FOUR");
 		}
-
+		
 		flag = flag & JasperSchedulingUtils.clickOnDeleteIconForSelectedPeriodNA(testCase, inputs);
 
 		return flag;

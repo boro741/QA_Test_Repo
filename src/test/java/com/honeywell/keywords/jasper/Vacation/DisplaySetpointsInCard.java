@@ -1,6 +1,7 @@
 package com.honeywell.keywords.jasper.Vacation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
@@ -12,6 +13,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.common.DefaultSetPoint;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -46,7 +48,8 @@ public class DisplaySetpointsInCard extends Keyword {
 			String deviceID = statInfo.getDeviceID();
 			if (chUtil.isConnected()) {
 				if (chUtil.changeSystemMode(chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME")), deviceID,
-						"Heat") == 200) {
+						"Heat") == 200) 
+				{
 					Keyword.ReportStep_Pass(testCase,
 							"Change System Mode Using CHIL : Successfully changed system mode to Heat through CHIL");
 				} else {
@@ -55,6 +58,7 @@ public class DisplaySetpointsInCard extends Keyword {
 							"Change System Mode Using CHIL : Failed to change system mode to Heat through CHIL");
 				}
 			}
+			
 			// flag = true;
 			switch (exampleData.get(0).toUpperCase()) {
 			case "PRIMARY CARD": {
@@ -109,6 +113,86 @@ public class DisplaySetpointsInCard extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Device is not present");
 					}
 				} catch (Exception e) {
+					flag = false;
+					e.printStackTrace();
+				}
+				break;
+			}
+			case "VACATION CARD TO MAXIMUM": {
+				try {
+					VacationHoldScreen VHS = new VacationHoldScreen(testCase);
+						String status = VHS.getVacationSetPointValue();
+						HashMap<String, String> setPoints = statInfo.getDeviceMaxMinSetPoints();
+						String maxSetPointh = setPoints.get("MaxHeat");
+						String maxSetPointc = setPoints.get("MaxCool");
+						if (statInfo.getThermostatUnits().equals("Celsius")) {
+						if (status.contains("Cool to "+ maxSetPointh+ "°")){
+							Keyword.ReportStep_Pass(testCase, "Cool Setpoint in vacation Card is Maximum");
+						}
+					 else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Cool Setpoint in vacation Card is Not Maximum " + status);
+							}
+						if (status.contains("Heat to "+ maxSetPointc+ "°")){
+							Keyword.ReportStep_Pass(testCase, "Heat Setpoint in vacation Card is Maximum");
+						}
+					 else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Heat Setpoint in vacation Card is Not Maximum " + status);
+							}
+				}
+						else{
+							if (status.contains("Cool to "+ maxSetPointh.replace(".0", "")+ "°")){
+								Keyword.ReportStep_Pass(testCase, "Cool Setpoint in vacation Card is Maximum");
+							}
+						 else {
+									flag = false;
+									Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Cool Setpoint in vacation Card is Not Maximum " + status);
+								}
+							if (status.contains("Heat to "+ maxSetPointc.replace(".0", "") + "°")){
+								Keyword.ReportStep_Pass(testCase, "Heat Setpoint in vacation Card is Maximum");
+							}
+						 else {
+									flag = false;
+									Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Heat Setpoint in vacation Card is Not Maximum " + status);
+								}
+						}
+				}
+				catch (Exception e) {
+					flag = false;
+					e.printStackTrace();
+				}
+				break;
+			}
+			case "VACATION CARD TO MINIMUM": {
+				try {
+					VacationHoldScreen VHS = new VacationHoldScreen(testCase);
+						String status = VHS.getVacationSetPointValue();
+						HashMap<String, String> setPoints = statInfo.getDeviceMaxMinSetPoints();
+						String minSetPointh = setPoints.get("MinHeat");
+						String minSetPointc = setPoints.get("MinCool");
+						if (status.contains("Cool to "+ minSetPointh+ "°")){
+							Keyword.ReportStep_Pass(testCase, "Cool Setpoint in vacation Card is Minimum");
+						}
+					 else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Cool Setpoint in vacation Card is Not Maximum");
+							}
+						if (status.contains("Heat to "+ minSetPointc+ "°")){
+							Keyword.ReportStep_Pass(testCase, "Heat Setpoint in vacation Card is Minimum");
+						}
+					 else {
+								flag = false;
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Heat Setpoint in vacation Card is Not Maximum" + status);
+							}
+				}
+				catch (Exception e) {
 					flag = false;
 					e.printStackTrace();
 				}

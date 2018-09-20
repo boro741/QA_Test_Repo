@@ -7,11 +7,13 @@ Feature: As an user I want to set the vacation period for my home so that my the
  And user launches and logs in to the Lyric application
  When user navigates to "Vacation" screen from the "Dashboard" screen
  Then user is displayed with start date and end date options based on the <settings> vacation
+ And user should be displayed with the "Vacation Setpoint" description
  
  Examples: 
       | settings		| 
       | active		| 
  #     | inactive		| 
+ 
   
 @Vacations_VerifyGuideMessage			@Automated
 Scenario Outline: Verify guide Message when vacation is either turned off or on
@@ -57,6 +59,7 @@ When user turns "on" vacation from "vacation settings card"
 Then user is displayed with "From" date as "Current Time" nearest to "10"
 And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
+
   
 @Vacations_VerifyVacationDefaultSetPoints			@Automated
 Scenario: As a user I want to set the vacation set value so that I can put my home with desired temperature on my vacation  
@@ -65,6 +68,7 @@ And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user changes the "Vacation" to "On"
 And user navigates back and forth in "Vacation" screen
+When user selects the stat to edit
 Then user should be displayed with default set point value
 And user should be displayed with temperature values within maximum minimum limit
 
@@ -81,7 +85,9 @@ Then user should be provided with option to enter vacation start and end date
 And HBB device should not be listed under the review vacation settings section in Vacation screen
 
   
-@Vacations_MinimumBandwidthTimer			@Automated
+
+
+@Vacations_MinimumBandwidthTimer	@Reworkrequired
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 When vacation mode is "active"
@@ -89,6 +95,8 @@ And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user edits Vacation Timer 
 Then Minimum bandwidth timer between from and to is "1" hour
+And user verifies vacation is "on" in "solution card"
+And user should be displayed with "Vacation" setpoint value in the solution card screen
   
 
 @Vacation_TimerValueIncreamentOf10EMEA			@Automated
@@ -386,3 +394,207 @@ Given vacation mode is "active"
 When user launches and logs in to the Lyric application
 #Then user should be displayed "Vacation Active" on Dashboard header
 Then user verifies vacation is "on" in "dashboard"
+
+@VacationCreateTimebaseschedule @Automated
+Scenario Outline: To Verify create time base schedule in off mode  
+Given user has <Mode> system mode
+And user thermostat is set to <Currentschedule> schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And vacation mode is "active"
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+Then user creates "Same Every Day" schedule following specific <Period> time
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+Examples:
+|Mode| Currentschedule |Period |
+|Cool| time based | Home | 
+#|Cool| time based | AWAY |
+#|Cool| time based | Sleep | 
+#|Cool| time based | Wake |  
+#|Heat| time based| Home | 
+##|Heat| time based| AWAY |
+#|Heat| time based | Sleep | 
+#|Heat| time based | Wake | 
+#|Cool Only| time based | Home | 
+#|Cool Only| time based | AWAY |
+#|Cool Only| time based | Sleep | 
+#|Cool Only| time based | Wake | 
+#|Heat Only| time based | Home | 
+#|Heat Only| time based | AWAY |
+#|Heat Only| time based | Sleep | 
+#|Heat Only| time based | Wake | 
+
+@Vacations_VerifyVacationdefaultsetpointwhenonandoff			@Automated
+Scenario: As a user I want to set the vacation set value to minimum so that I can put my home with desired temperature on my vacation  
+#Given vacation mode is "inactive"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user changes the "Vacation" to "On"
+And user navigates back and forth in "Vacation" screen
+And user turns "Temperature to" the "Maximum" through the "Vacation Card"
+Then user should be displayed with Updated setpoint in "VACATION CARD TO MAXIMUM"
+When user selects the stat to edit
+And user changes the "Vacation Hold Switch In Stat Screen" to "off"
+And user navigates back and forth in "Vacation stat" screen
+When user changes the "Vacation Hold Switch In Stat Screen" to "on"
+And user navigates back and forth in "Vacation stat" screen
+Then user should be displayed with default set point value
+
+
+@Vacations_VerifyVacationMaxSetPoints	@automated
+Scenario: As a user I want to set the vacation set value to maximum so that I can put my home with desired temperature on my vacation  
+Given vacation mode is "inactive"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user changes the "Vacation" to "On"
+And user navigates back and forth in "Vacation" screen
+And user turns "Temperature to" the "Maximum" through the "Vacation Card"
+Then user should be displayed with Updated setpoint in "VACATION CARD TO MAXIMUM"
+
+@Vacations_VerifyVacationMinSetPoints			@Automated
+Scenario: As a user I want to set the vacation set value to minimum so that I can put my home with desired temperature on my vacation  
+Given vacation mode is "inactive"
+And user launches and logs in to the Lyric application
+And user navigates to "Vacation" screen from the "Dashboard" screen
+When user changes the "Vacation" to "On"
+And user navigates back and forth in "Vacation" screen
+And user turns "Temperature to" the "Minimum" through the "Vacation Card"
+Then user should be displayed with Updated setpoint in "VACATION CARD TO MINIMUM"
+
+@VacationCreateTimebaseschedule @Newscenario
+Scenario Outline: To Verify create time base schedule in off mode
+Given user has <Mode> system mode
+And user thermostat is set to <Currentschedule> schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And vacation mode is "active"
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+Then user creates "Same Every Day" schedule following specific <Period> time
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+Examples:
+|Mode| Currentschedule |Period |
+|Cool| time based | Home |
+#|Cool| time based | AWAY |
+#|Cool| time based | Sleep |
+#|Cool| time based | Wake |
+#|Heat| time based| Home |
+##|Heat| time based| AWAY |
+#|Heat| time based | Sleep |
+#|Heat| time based | Wake |
+#|Cool Only| time based | Home |
+#|Cool Only| time based | AWAY |
+#|Cool Only| time based | Sleep |
+#|Cool Only| time based | Wake |
+#|Heat Only| time based | Home |
+#|Heat Only| time based | AWAY |
+#|Heat Only| time based | Sleep |
+#|Heat Only| time based | Wake |
+
+@VacationCreateTimebasescheduleOFFMode @Automated 
+Scenario Outline: To Verify create time base schedule in off mode when PermanentHold
+Given user has <Mode> system mode
+And user thermostat is set to <Currentschedule> schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And vacation mode is "active"
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+When user changes system mode to "OFF"
+Then user "should not be displayed" with the "Vacation" option
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+Then user creates "Same Every Day" schedule following specific <Period> time
+And verify the "FOLLOWING SCHEDULE NOT DISPLAYED" on the "PRIMARY CARD" screen
+When user changes system mode to <Mode>
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+
+Examples:
+|Mode| Currentschedule |Period |
+|Cool| time based | Home | 
+#|Cool| time based | AWAY |
+#|Cool| time based | Sleep | 
+#|Cool| time based | Wake |  
+#|Heat| time based| Home | 
+##|Heat| time based| AWAY |
+#|Heat| time based | Sleep | 
+#|Heat| time based | Wake | 
+#|Cool Only| time based | Home | 
+#|Cool Only| time based | AWAY |
+#|Cool Only| time based | Sleep | 
+#|Cool Only| time based | Wake | 
+#|Heat Only| time based | Home | 
+#|Heat Only| time based | AWAY |
+#|Heat Only| time based | Sleep | 
+#|Heat Only| time based | Wake | 
+
+@VacationCreateGeofencebaseschedule @Automated
+Scenario Outline: To Verify create geofence schedule when permanentHold
+Given user has <Mode> system mode
+And user thermostat is set to "time based" schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And vacation mode is "active"
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+Then user thermostat set <Period> with <Geofence>
+And user creates "Geofence based" schedule following specific <Sleep period> time
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+
+Examples:
+| Mode	| Period		| Geofence	| Sleep period | 
+| HEAT	| Home		| UserArrived		| Without |
+#|HEAT	| Home		| UserArrived		| Without |
+#|HEAT	| Home		| UserArrived	        | Without |
+#| HEAT	| Away		| UserDeparted		| Without |
+#|HEAT	| Away		| UserDeparted		| Without |
+#|HEAT	| Away		| UserDeparted		| Without |
+#| HEAT	| Sleep		| UserArrived		| With |
+#|HEAT	| Sleep		| UserArrived		| With |
+#|HEAT	| Sleep		| UserArrived		| With |
+#| Cool	| Home		| UserArrived		| Without |
+#|Cool	| Home		| UserArrived		| Without |
+#|Cool	| Home		| UserArrived		| Without |
+#| Cool	| Away		| UserDeparted		| Without |
+#|Cool	| Away		| UserDeparted		| Without |
+#|Cool	| Away		| UserDeparted		| Without |
+#| Cool	| Sleep		| UserArrived		| With |
+#|Cool	| Sleep		| UserArrived		| With |
+#|Cool	| Sleep		| UserArrived		| With |
+
+@VacationCreateGeofencebasescheduleOFF @automated
+Scenario Outline: To Verify create geofence schedule in off mode when permanentHold
+Given user has <Mode> system mode
+And user thermostat is set to "time based" schedule
+When user launches and logs in to the Lyric application
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+And vacation mode is "active"
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+And user changes system mode to "Off"
+Then user "should not be displayed" with the "Vacation" option
+When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
+And user thermostat set <Period> with <Geofence>
+And user creates "Geofence based" scheduling with default values <Sleep period> sleep settings
+And user changes system mode to <Mode>
+Then verify the "Vacation status" on the "PRIMARY CARD" screen
+
+
+Examples:
+| Mode	| Period		| Geofence	| Sleep period | 
+| HEAT	| Home		| UserArrived		| Without |
+#|HEAT	| Home		| UserArrived		| Without |
+#|HEAT	| Home		| UserArrived	        | Without |
+#| HEAT	| Away		| UserDeparted		| Without |
+#|HEAT	| Away		| UserDeparted		| Without |
+#|HEAT	| Away		| UserDeparted		| Without |
+#| HEAT	| Sleep		| UserArrived		| With |
+#|HEAT	| Sleep		| UserArrived		| With |
+#|HEAT	| Sleep		| UserArrived		| With |
+#| Cool	| Home		| UserArrived		| Without |
+#|Cool	| Home		| UserArrived		| Without |
+#|Cool	| Home		| UserArrived		| Without |
+#| Cool	| Away		| UserDeparted		| Without |
+#|Cool	| Away		| UserDeparted		| Without |
+#|Cool	| Away		| UserDeparted		| Without |
+#| Cool	| Sleep		| UserArrived		| With |
+#|Cool	| Sleep		| UserArrived		| With |
+#|Cool	| Sleep		| UserArrived		| With |
