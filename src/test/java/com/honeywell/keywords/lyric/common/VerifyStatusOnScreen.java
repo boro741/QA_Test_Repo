@@ -260,6 +260,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "ISMV": 
 			case "ISMV SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "STANDBY": {
