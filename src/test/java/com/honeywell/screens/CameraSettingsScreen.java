@@ -1637,27 +1637,6 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isCameraOnInNigtModeEnabled(){
 		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isEnabled();	
 	}
-	public boolean isManangeAlertsDisabled(){
-		return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlertsLabel").isDisplayed();
-	}
-	public boolean isMotionDetectionDisabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").isDisplayed();
-		}
-	public boolean isPeopleDetectionDisabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isDisplayed();	
-		}
-	public boolean isNightVisionDisabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionLabel").isDisplayed();	
-		}
-	public boolean isVideoQualityDisabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").isDisplayed();	
-		}
-	public boolean isCameraOnInHomeModeDisabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeMode").isDisplayed();
-		}
-	public boolean isCameraOnInNigtModeDisabled(){
-		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isDisplayed();
-	}
 	public boolean isVideoQualityAutoVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityAuto");
 	}
