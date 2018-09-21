@@ -5,7 +5,7 @@ As a user I want to control all devices using ZWave technology
 Background:
 Given user is set to "Home" mode through CHIL 
 
- @GeneralExcludeZwaveSwitch @UIAutomated
+ @GeneralExcludeZwaveSwitch @Automated
   Scenario: (ZwaveTC_Set1_1) As a user I should be able to exclude a zwave switch through General exclusion in the application
      Given user launches and logs in to the Lyric application
      When user navigates to "ZWAVE DEVICE THROUGH GENERAL EXCLUSION" screen from the "Dashboard" screen
@@ -17,7 +17,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Dashboard" screen from the "ZWAVE Utilities" screen
      Then user should not be displayed with "Switch1" device on the "dashboard" screen
      
-@DimmerExcludeFromAddDevice
+@DimmerExcludeFromAddDevice @Automated
  Scenario: (ZwaveTC_Set1_2) As a user I can exclude my zwave device from No device found popup and can include
   #switch already configured
     Given user launches and logs in to the Lyric application 
@@ -33,7 +33,7 @@ Given user is set to "Home" mode through CHIL
      
     
      
- @AddNewDeviceInclusionNoDeviceFound @UIAutomated
+ @AddNewDeviceInclusionNoDeviceFound @Automated
   Scenario: (ZwaveTC_Set1_3) As a user I should be displayed no device popup when there is no zwave device available to add 
   #atleast 1 das
       And user launches and logs in to the Lyric application 
@@ -58,7 +58,7 @@ Given user is set to "Home" mode through CHIL
       And user "does not activate" the "switch" function key
      Then user should be displayed with the "Add new device" screen
 
-   @AddNewDeviceIncludeZwaveSwitch @UIAutomated @LYDAS-5209 @LYDAS-6587
+   @AddNewDeviceIncludeZwaveSwitch @Automated @LYDAS-5209 @LYDAS-6587
   Scenario: (ZwaveTC_Set1_4) As a user I want to include a zwave switch through the Add new device flow in application
     Given user launches and logs in to the Lyric application 
       And user has no "switch1"
@@ -69,7 +69,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Switch1" device on the "dashboard" screen
   # Then user receives a "Zwave device added" activity log
   
-  @DeviceFoundAfterExclude @UIAutomated 
+  @DeviceFoundAfterExclude @Automated 
   Scenario: (ZwaveTC_Set1_5) As a user I can exclude my zwave device from No device found popup and can include
   #switch already configured
     Given user launches and logs in to the Lyric application 
@@ -88,7 +88,7 @@ Given user is set to "Home" mode through CHIL
       And user names the "switch" to "Switch1"
      Then user should be displayed with "Switch1" device on the "dashboard" screen
      
-   @ToggleZwaveSwitchThroughPrimaryCard @UIAutomated @LYDAS-4594
+   @ToggleZwaveSwitchThroughPrimaryCard @Automated @LYDAS-4594
   Scenario: (ZwaveTC_Set1_6) As a user I should be able to control my zwave switch to different states from primary card screen
       And user launches and logs in to the Lyric application
     Given user turns "off" the "Switch" through the "ZWAVE device function key"
@@ -121,7 +121,7 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "Switch" status as "off" on the "ZWAVE device"
       And user should see the "Switch" status as "off" on the "Switch Primary card"
    
-   @StatusChangeOfSwitchFromSettings @UIAutomated
+   @StatusChangeOfSwitchFromSettings @Automated
   Scenario: (ZwaveTC_Set1_7) As a user i should be able to control my zwave switch to different states from the settings screen
       Given user launches and logs in to the Lyric application
        And user turns "off" the "Switch" through the "ZWAVE device function key"
@@ -137,7 +137,7 @@ Given user is set to "Home" mode through CHIL
       And user navigates to "Switch Primary card VIA PRIMARY CARD" screen from the "Switch settings" screen 
      Then user should see the "Switch" status as "off" on the "Switch Primary card"
    
-    @OfflineZwaveSwitchFromSettings @UIAutomated
+    @OfflineZwaveSwitchFromSettings @Automated
   Scenario: (ZwaveTC_Set1_8) As a user I should be infromed when my switch device goes offline
   # switch configured but offline
     Given user launches and logs in to the Lyric application
@@ -154,7 +154,7 @@ Given user is set to "Home" mode through CHIL
     #  And user navigates to "Switch Primary card" screen from the "Zwave devices" screen 
     # Then user should see the "Switch" status as "offline" on the "Switch Primary card"
   
-   @ZwaveSwitchRename @UIAutomated @LYDAS-5395
+   @ZwaveSwitchRename @Automated @LYDAS-5395
   Scenario: (ZwaveTC_Set1_9) As a user I should be able to rename my zwave switch
       And user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
@@ -163,7 +163,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Switch2" device on the "dashboard" screen
       And user reverts back the "Switch name"  through CHIL
       
-      @GeneralExcludeSwitchOnNoDeviceFound @UIAutomated
+      @GeneralExcludeSwitchOnNoDeviceFound @Automated
   Scenario: (ZwaveTC_Set1_9a) As a user I should be able to exclude a zwave switch through the General exclusion in application
       And user launches and logs in to the Lyric application 
      When user navigates to "ZWAVE device through General Exclusion" screen from the "Dashboard" screen
@@ -181,7 +181,7 @@ Given user is set to "Home" mode through CHIL
       When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
      Then user should not be displayed with "Switch" device on the "dashboard" screen
      
-      @DeviceIncludedOnRetry @UIAutomated @LYDAS-6172
+      @DeviceIncludedOnRetry @Automated @LYDAS-6172
   Scenario: (ZwaveTC_Set1_9b) As a user I should be able to retry the zwave inclusion from No device found popup
     Given user launches and logs in to the Lyric application 
       And user has no "Switch1"
@@ -197,7 +197,7 @@ Given user is set to "Home" mode through CHIL
   #null, string length with 14, only alpha numeric char}
      Then user should be displayed with "Switch1" device on the "dashboard" screen
      
-      @ReIncludeZwaveSwitch @UIAutomated @LYDAS-5209 @LYDAS-6587
+      @ReIncludeZwaveSwitch @Automated @LYDAS-5209 @LYDAS-6587
   Scenario: (ZwaveTC_Set1_9c) As a user i should be able to include a zwave switch through the Add new device flow in application
     Given user launches and logs in to the Lyric application 
      When user navigates to "ZWAVE inclusion through Add new device icon" screen from the "Dashboard" screen
@@ -208,7 +208,7 @@ Given user is set to "Home" mode through CHIL
   # Then user receives a "Zwave device added" activity log
    And user reverts back the "Switch name"  through CHIL
    
-       @DeleteZwaveSwitchFromSettings @DeleteZwaveTimeout @UIAutomated @LYDAS-6763
+       @DeleteZwaveSwitchFromSettings @DeleteZwaveTimeout @Automated @LYDAS-6763
   Scenario: (ZwaveTC_Set1_9d) As a user I should be able to delete my zwave switch
   #switch configured and online
     Given user launches and logs in to the Lyric application
@@ -240,7 +240,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Add new device global drawer" screen from the "Global drawer" screen
      Then user should not be able to configure "ZWAVE Device from Add device list" 
   
-  @ZwaveOptionfromultipleDAS
+  @ZwaveOptionfromultipleDAS @NotAutomatable
   Scenario: (ZwaveTC_B) As a user i should be listed with available DAS panel(more than 1) in that location to add Zwave devices
   #DAS1 panel online and DAS2 panel offline 
     Given user launches and logs in to the Lyric application 
@@ -255,18 +255,19 @@ Given user is set to "Home" mode through CHIL
       And user should be displayed with the "DAS1 online on Zwave" screen
       And user should be displayed with the "DAS1 offline on Zwave" screen
       
-  @OnlineZwaveSwitchFromSettings @LYDAS-6370 
-  Scenario: (ZwaveTC_O) As a user I should be infromed when my switch device goes offline
+  @OnlineZwaveSwitchFromSettings @LYDAS-6370 @Automated
+  Scenario: (ZwaveTC_O) As a user I should be informed when my switch device goes offline
   # switch configured but offline
     Given user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
       And user turns "on" the "Switch" through the "Switch settings"
       And user turns "off" the "Switch" through the "Switch settings"
      Then user should see the "Switch" status as "offline" on the "Switch settings"
-     When user powers the "switch"
+     #powers on the zwave switch 
+     When user turns "On" the "Switch" through the "ZWAVE device function key"
      Then user should see the "Switch" status as "online" on the "Switch settings"
   
-  @AddNewDeviceIncludeZwaveLock @LYDAS-5002
+  @AddNewDeviceIncludeZwaveLock @LYDAS-5002 @NotAutomatable
   Scenario: (ZwaveTC) As a user I should be able to include a zwave lock through the Add new device in application
       And user launches and logs in to the Lyric application 
      When user navigates to "ZWAVE inclusion through Add new device icon" screen from the "Dashboard" screen
@@ -277,7 +278,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with the "Lock details" screen #check details
   
      
-  @AddNewDeviceIncludeZwaveDimmer @UIAutomated
+  @AddNewDeviceIncludeZwaveDimmer @Automated
   Scenario: (ZwaveTC_Set2_1) As a user I should be able to include a zwave dimmer through the the Add new device in application
       And user launches and logs in to the Lyric application 
      When user navigates to "ZWAVE inclusion through Add new device icon" screen from the "Dashboard" screen
@@ -292,11 +293,11 @@ Given user is set to "Home" mode through CHIL
      When user "Adds device NOW" the "Device Excluded" popup 
      Then user should be displayed with the "Activate ZWAVE Device" screen
      When user "activates for discovery" the "dimmer" function key
-      And user names the "dimmer" to "Dimmer1"
+     And user names the "dimmer" to "Dimmer1"
      Then user should be displayed with "Dimmer1" device on the "dashboard" screen	
-     # And user receives a "Zwave device added" activity log
+     And user receives a "Zwave device added" activity log
      
-  @StatusChangeOfDimmerFromSettings @UIAutomated
+  @StatusChangeOfDimmerFromSettings @Automated
   Scenario: (ZwaveTC_Set2_2) As a user I should be able to control zwave dimmer to different states through the settings
     Given user launches and logs in to the Lyric application
      When user navigates to "Dimmer settings" screen from the "Dashboard" screen
@@ -309,7 +310,7 @@ Given user is set to "Home" mode through CHIL
       And user navigates to "Dimmer Primary card VIA PRIMARY CARD" screen from the "Dimmer settings" screen 
      Then user should see the "Dimmer" status as "off" on the "Dimmer Primary card"
      
-     @ChangeDimmerIntensity @LYDAS-5377 @UIAutomated
+     @ChangeDimmerIntensity @LYDAS-5377 @Automated
   Scenario: (ZwaveTC_Set2_3) As a user I want to change the intensity my dimmer
     Given user launches and logs in to the Lyric application 
      When user navigates to "Dimmer primary card" screen from the "Dashboard" screen
@@ -323,7 +324,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "~65%" intensity on the "application"
       And user should be displayed with "~65%" intensity on the "ZWAVE device"
       
-      @OfflineZwaveDimmerFromSettings @UIAutomated
+      @OfflineZwaveDimmerFromSettings @Automated
   Scenario: (ZwaveTC_Set2_4) As a user I should be informed when my dimmer device goes offline
   # Dimmer configured but offline
     Given user launches and logs in to the Lyric application
@@ -338,7 +339,7 @@ Given user is set to "Home" mode through CHIL
     #  And user navigates to "Dimmer Primary card" screen from the "Dimmer settings" screen 
     # Then user should see the "Dimmer" status as "offline" on the "Dimmer Primary card"
     
-    @ZwaveDimmerRename @UIAutomated
+    @ZwaveDimmerRename @Automated
   Scenario: (ZwaveTC_Set2_5) As a user I should be able to rename my zwave dimmer
     Given user launches and logs in to the Lyric application
      When user navigates to "Dimmer settings" screen from the "Dashboard" screen
@@ -347,7 +348,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Dimmer2" device on the "dashboard" screen
      And user reverts back the "Dimmer name" through CHIL
      
-      @DeleteZwaveDimmerFromSettings @UIAutomated
+      @DeleteZwaveDimmerFromSettings @Automated
   Scenario: (ZwaveTC_Set2_6) As a user my I want to delete my zwave switch
   switch configured and online
     Given user launches and logs in to the Lyric application
@@ -363,7 +364,7 @@ Given user is set to "Home" mode through CHIL
      Then user should not be displayed with "Dimmer" device on the "dashboard" screen
    
      
-  @GeneralIncludeZwaveSwitch @UIAutomated @LYDAS-5507
+  @GeneralIncludeZwaveSwitch @Automated @LYDAS-5507
   Scenario: (ZwaveTC_Set3_8) As a user I should be able to include a zwave switch through General Inclusion in the application
       When user launches and logs in to the Lyric application 
      When user navigates to "ZWAVE device through General inclusion" screen from the "Dashboard" screen
@@ -373,7 +374,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Switch1" device on the "Zwave devices" screen
      
       
-      @GeneralIncludeExcludeZwaveDimmer @UIAutomated
+      @GeneralIncludeExcludeZwaveDimmer @Automated
   Scenario: (ZwaveTC_Set3_9) As a user I should be able to exclude a zwave dimmer through the General exclusion in application
       And user launches and logs in to the Lyric application
       When user navigates to "ZWAVE device through General Exclusion" screen from the "Dashboard" screen
@@ -389,7 +390,7 @@ Given user is set to "Home" mode through CHIL
      
   
   
-  @AllOnZwaveDevices @LYDAS-6317 @LYDAS-5360 @UIAutomated
+  @AllOnZwaveDevices @LYDAS-6317 @LYDAS-5360 @Automated
   Scenario Outline: (ZwaveTC_Set3_3) As a user my I can turn on all my zwave devices at once
   # switch and dimmer configured
     Given user "connects" the "Switch power" function key
@@ -413,7 +414,6 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with the "Activate ZWAVE Device" screen
      When user "activates for discovery" the "Switch" function key
      And user names the "Switch" to "Switch1"
-    When user navigates to "ZWAVE DEVICES" screen from the "ZWAVE devices" screen
     And user "fixes all zwave devices" by clicking on "Fix all" button
     When user turns <SwitchStatus> the "Switch" through the "ZWAVE device function key"
     And user turns <DimmerStatus> the "Dimmer" through the "ZWAVE device function key"
@@ -425,13 +425,13 @@ Given user is set to "Home" mode through CHIL
   
     Examples: 
       | SwitchStatus | DimmerStatus | SwitchExpectedState | DimmerExpectedState | 
-      | Off          | Off          | On                  | On                  | 
-      | Off          | On           | On                  | On                  | 
+    #  | Off          | Off          | On                  | On                  | 
+    #  | Off          | On           | On                  | On                  | 
       | On           | Off          | On                  | On                  | 
-      | Offline      | On           | Offline             | On                  | 
-      | On           | Offline      | On                  | Offline             | 
+    #  | Offline      | On           | Offline             | On                  | 
+    #  | On           | Offline      | On                  | Offline             | 
       
-  @AllOffZwaveDevices @UIAutomated
+  @AllOffZwaveDevices @Automated
   Scenario Outline: (ZwaveTC_Set3_4) As a user my I can turn off all my zwave devices at once
   # switch and dimmer configured
     Given user "connects" the "Switch power" function key
@@ -449,12 +449,12 @@ Given user is set to "Home" mode through CHIL
   
     Examples: 
       | SwitchStatus | DimmerStatus | ExpectedState | 
-      | Off          | Off          | Off           | 
+    #  | Off          | Off          | Off           | 
       | Off          | On           | Off           | 
-      | On           | Off          | Off           | 
-      | On           | On           | Off           | 
+     # | On           | Off          | Off           | 
+   #  | On           | On           | Off           | 
   
-  @AllOnZwaveUnknownDevices  @LYDAS-5360
+  @AllOnZwaveUnknownDevices  @LYDAS-5360 @NotAutomatable
   Scenario Outline: (ZwaveTC_X3) As a user my I can turn on all my zwave devices at once
   # switch and dimmer configured
     Given user turns <SwitchStatus> the "Switch" through the "ZWAVE device function key"
@@ -473,7 +473,7 @@ Given user is set to "Home" mode through CHIL
       | Offline      | On            | Offline             | On                   | 
       | On           | Offline       | On                  | Offline              | 
   
-  @FixAllZwaveDevicesWhenAvailable @UIAutomated
+  @FixAllZwaveDevicesWhenAvailable @Automated
   Scenario: (ZwaveTC_Set3_5) As a user my I can fiz all my zwave devices at once so that active devices will remain in app
   # switch was offline and available, dimmer was offline and unavailable
   Given user "connects" the "Switch power" function key
@@ -489,7 +489,7 @@ Given user is set to "Home" mode through CHIL
     Then user should see the "Dimmer" status as "Off" on the "ZWAVE DEVICES"
   
   
-  @StatusChangeOfUnknownFromSettings 
+  @StatusChangeOfUnknownFromSettings @NotAutomatable
   Scenario: (ZwaveTC116) As a user I should be able to control my zwave unknown device to different states through the settings
     Given user launches and logs in to the Lyric application
      When user navigates to "Unknown settings" screen from the "Dashboard" screen
@@ -501,7 +501,7 @@ Given user is set to "Home" mode through CHIL
       And user navigates to "ZWAVE Utilities" screen from the "Unknown settings" screen
      Then user should see the "Unknown" status as "off" on the "ZWAVE Utilities"
      
-     @ReplaceZwaveSwitchWithSwitch1 
+     @ReplaceZwaveSwitchWithSwitch1 @NotAutomatable
   Scenario: (ZwaveTC26) As a user I should be able to replace with another zwave switch
   #switch with offline
     Given user launches and logs in to the Lyric application 
@@ -514,8 +514,8 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Dashboard" screen from the "ZWAVE Utilities" screen
      Then user should be displayed with "Switch" device on the "dashboard" screen
   
-  @ReplaceZwaveSwitchWithSwitch @LYDAS-5380 @ReplaceZwaveTimeout @LYDAS-6569/LYDAS-5427 @UIAutomated
-  Scenario: (ZwaveTC_R1) As a I should be able to replace with another zwave switch
+  @ReplaceZwaveSwitchWithSwitch @LYDAS-5380 @ReplaceZwaveTimeout @LYDAS-6569/LYDAS-5427 @Automated
+  Scenario: (ZwaveTC_R1) As a I should be able to replace with same zwave switch
   # switch configured but offline
     Given user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
@@ -535,11 +535,11 @@ Given user is set to "Home" mode through CHIL
       When user navigates to "Dashboard" screen from the "ZWAVE devices" screen
      Then user should be displayed with "Switch1" device on the "dashboard" screen
      
-     @ReplaceZwaveSwitchWithDimmer @UIAutomated
+     @ReplaceZwaveSwitchWithDimmer @Automated
   Scenario: (ZwaveTC_Set3_1) As a user I should be able to replace my offline switch with a zwave dimmer
   #switch with offline
    Given user launches and logs in to the Lyric application 
-      When user navigates to "ZWAVE inclusion through Add new device icon" screen from the "Dashboard" screen
+     When user navigates to "ZWAVE inclusion through Add new device icon" screen from the "Dashboard" screen
      Then user should be displayed with the "Activate ZWAVE Device" screen
   #timeout
      When user "does not activate" the "dimmer" function key
@@ -563,24 +563,21 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Switch1" device on the "dashboard" screen
      When user navigates to "SWITCH SETTINGS VIA ZWAVE DEVICES" screen from the "Dashboard" screen
       And user turns "offline" the "Switch" through the "ZWAVE device function key"
-      When user navigates to "Switch settings" screen from the "Zwave devices" screen
       And user selects "Replace" from "Switch settings" screen
      Then user should be displayed with the "Replace Mode Active" screen
      When user "connects" the "Dimmer power" function key
      When user "activates for replacement" the "Dimmer" function key
      Then user should receive a "Switch Replaced Successfully" popup
-      And user should be displayed with the "ZWAVE DEVICES" screen
      When user navigates to "Dashboard" screen from the "ZWave devices" screen
      Then user should be displayed with "Switch1" device on the "dashboard" screen
   # check in settings that its a dimmer
   
-  @ReplaceZwaveDimmerWithDimmer @UIAutomated
+  @ReplaceZwaveDimmerWithDimmer @Automated
   Scenario: (ZwaveTC_R3)  As a user I should be able to replace my offline dimmer with a another dimmer
   #dimmer with offline
      Given user launches and logs in to the Lyric application
      When user navigates to "Dimmer settings" screen from the "Dashboard" screen
       And user turns "offline" the "Dimmer" through the "ZWAVE device function key"
-      When user navigates to "Dimmer settings" screen from the "Zwave devices" screen
       And user selects "Replace" from "Dimmer settings" screen
      Then user should be displayed with the "Replace Mode Active" screen
      When user "connects" the "Dimmer power" function key
@@ -590,7 +587,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Dashboard" screen from the "ZWave devices" screen
      Then user should be displayed with "Dimmer1" device on the "dashboard" screen
   
-   @ReplaceZwaveDimmerWithSwitch @LYDAS-5380 @UIAutomated
+   @ReplaceZwaveDimmerWithSwitch @LYDAS-5380 @Automated
   Scenario: (ZwaveTC_Set3_2) As a user I should be able to replace my offline dimmer with a zwave switch
   #dimmer with offline
   Given user launches and logs in to the Lyric application 
@@ -629,7 +626,7 @@ Given user is set to "Home" mode through CHIL
      Then user should be displayed with "Dimmer1" device on the "dashboard" screen
   # check in settings that its a switch
   
-  @ReplaceZwaveSwitchWithUnknown @LYDAS-5380
+  @ReplaceZwaveSwitchWithUnknown @LYDAS-5380 @NotAutomatable
   Scenario: (ZwaveTC27) As a user I should be able to replace my offline switch with unknown zwave devices
   #switch with offline
     Given user launches and logs in to the Lyric application 
@@ -642,7 +639,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Dashboard" screen from the "ZWAVE Utilities" screen
      Then user should not be displayed with "Known" device on the "dashboard" screen
   
-  @ReplaceZwaveDimmerWithUnknown
+  @ReplaceZwaveDimmerWithUnknown @NotAutomatable
   Scenario: (ZwaveTC28) As a user I should be able to replace my offline Dimmer with unknown zwave devices
   #dimmer with offline
     Given user launches and logs in to the Lyric application 
@@ -655,7 +652,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Dashboard" screen from the "ZWAVE Utilities" screen
      Then user should not be displayed with "Dimmer" device on the "dashboard" screen
   
-  @ReplaceZwaveUnKnownWithknown @LYDAS-6966/LYDAS-6964/LYDAS-5380
+  @ReplaceZwaveUnKnownWithknown @LYDAS-6966/LYDAS-6964/LYDAS-5380 @NotAutomatable
   Scenario Outline: (ZwaveTC29) As a user I should be able to replace my offline unknown device with known zwave device through the application
   #Water value with offline
     Given user launches and logs in to the Lyric application 
@@ -680,14 +677,14 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Switch settings" screen from the "Dashboard" screen
      Then user should see the "Switch" status as "offline" on the "Switch settings"
   #made online
-     When user "powers" the "Dimmer" function key
+     When user "powers" the "Switch" function key
       And user turns "on" the "Switch" through the "Switch settings"
       And user turns "off" the "Switch" through the "Switch settings"
      When user navigates to "Dashboard" screen from the "Switch settings" screen 
       And user navigates to "Switch Primary Card" screen from the "Dashboard" screen 
-     Then user should see the "Dimmer" status as "Off" on the ""Switch Primary Card"
+     Then user should see the "Switch" status as "Off" on the ""Switch Primary Card"
   
-  @ViewZWaveControllerDetails  @LYDAS-5931/LYDAS-5535 @UIAutomated
+  @ViewZWaveControllerDetails  @LYDAS-5931/LYDAS-5535 @Automated
   Scenario: (ZwaveTC_Set3_6) As a user my I should be shown with zwave controller details in app
     Given user launches and logs in to the Lyric application
      When user navigates to "ZWAVE Controller details" screen from the "Dashboard" screen
@@ -732,7 +729,7 @@ Given user is set to "Home" mode through CHIL
   #not shown with firmware controller info
   
   
-  @PanelOnAlarmWithZwaveDevices
+  @PanelOnAlarmWithZwaveDevices  @Automatable @MismatchIA
   Scenario: (ZwaveTC42) As a user I should be able to perform zwave operation when das panel is alarm state
     Given user launches and logs in to the Lyric application
     And das panel is in alarm state
@@ -766,7 +763,7 @@ Given user is set to "Home" mode through CHIL
      When user selects "All off" from "ZWAVE Utilities" screen
    Then user should be displayed with the "in progress" screen
    
-  @CancelFunctionOnGeneralUtilities @UIAutomated
+  @CancelFunctionOnGeneralUtilities @Automatable @MismatchIA
   Scenario: (ZwaveTC_Set3_7) As a user my I can cancel at any point of time from any screen
     Given user launches and logs in to the Lyric application
      When user navigates to "ZWAVE device through General Exclusion" screen from the "Dashboard" screen
@@ -783,7 +780,7 @@ Given user is set to "Home" mode through CHIL
      When user selects "CONFIRM CANCEL" from "Activate ZWAVE Device" screen
      Then user should be displayed with the "Add new device" screen
      
-     @FixAllZwaveDevicesWhenUnAvailable @UIAutomated
+     @FixAllZwaveDevicesWhenUnAvailable @Automated
   Scenario: (ZwaveTC_Set3_8) As a user my I can fiz all my zwave devices at once so that active devices will remain in app
      # switch was offline and unavailable, dimmer was online and unavailable
      Given user launches and logs in to the Lyric application 
@@ -815,7 +812,7 @@ Given user is set to "Home" mode through CHIL
      Then user should not be displayed with "Switch1" device on the "dashboard" screen
      Then user should be displayed with "Dimmer1" device on the "dashboard" screen
   
-      @FactoryResetZWaveController  @LYDAS-5378 @UIAutomated
+      @FactoryResetZWaveController  @LYDAS-5378 @Automated
   Scenario: (ZwaveTC_Set3_9a) As a user my I can reset my zwave controller through factory reset zwave controller
   # switch and dimmer configured
     Given user is set to "Home" mode through CHIL 
@@ -833,7 +830,7 @@ Given user is set to "Home" mode through CHIL
      Then user should not be displayed with "Switch" device on the "ZWave devices"
      And user should not be displayed with "Dimmer" device on the "ZWave devices"
   
-  @FactoryResetZWaveControllerOnDiffModes @LYDAS-6081 @UIAutomated
+  @FactoryResetZWaveControllerOnDiffModes @LYDAS-6081 @Automated
   Scenario Outline: (ZwaveTC_Set4_10) As a user my I can reset my zwave controller through factory reset zwave controller
   # switch and dimmer configured
   Given user sets the entry/exit timer to "45" seconds
