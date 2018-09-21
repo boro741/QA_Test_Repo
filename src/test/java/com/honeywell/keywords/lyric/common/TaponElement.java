@@ -6,6 +6,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
+import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.PrimaryCard;
@@ -105,6 +106,27 @@ public class TaponElement extends Keyword {
 		} case "CANCEL": {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 			flag = flag && ssc.clickOnCancelButtonWhileSwitchingModes();
+			break;
+		} 
+		case "NEXT" :{
+			CoachMarks cm = new CoachMarks(testCase);
+			if (cm.isNextButtonVisible(10)) {
+			flag = flag && cm.clickOnNextButton();
+			}
+			break;
+		} 
+		case "BACK" :{
+			CoachMarks cm = new CoachMarks(testCase);
+			if (cm.isCoachMarkBackButtonVisible(10)) {
+			flag = flag && cm.clickOnCoachMarkBackButton();
+			}
+			break;
+		} 
+		case "DONE" :{
+			CoachMarks cm = new CoachMarks(testCase);
+			if (cm.isDoneButtonVisible(10)) {
+			flag = flag && cm.clickOnDoneButton();
+			}
 			break;
 		}
 		default: {

@@ -24,6 +24,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
+import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -1043,8 +1044,34 @@ public class VerifyingAOption extends Keyword {
 				}
 				else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option displayed");
-				}break;
+				}
+				break;
+		}
 			}
+		}
+		else if (expectedScreen.get(1).toUpperCase().equals("COACH MARK")) {
+			CoachMarks cm = new CoachMarks(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED" : {
+				 String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Access More Information")){
+						Keyword.ReportStep_Pass(testCase, "Access More Information coachmark is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+			}
+			case "SHOULD NOT BE DISPLAYED" :{
+				String getHeader = cm.getCoachMarkHeaderText();
+				if (!getHeader.equalsIgnoreCase("Access More Information")){
+					Keyword.ReportStep_Pass(testCase, "Access More Information coachmark is not displayed");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input");
+				}
+				
+			}break;
 			}
 		}
 		else if (expectedScreen.get(1).equalsIgnoreCase("Vacation")) {
