@@ -1553,7 +1553,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+									+ deviceID + "\"]}", NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
 						}else if (Period.equalsIgnoreCase("WAKE")) {
 							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
 									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1584,7 +1584,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+									+ deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
 						}else {
 							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
 									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1615,7 +1615,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}
 					}else if(CurrentPeriod.equalsIgnoreCase("Away")){
 						if (Period.equalsIgnoreCase("HOME")) {
@@ -1648,7 +1648,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}else if (Period.equalsIgnoreCase("WAKE")) {
 							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
 									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1679,7 +1679,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+									+ deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
 						}else {
 							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
 									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1710,7 +1710,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}
 					}else if(CurrentPeriod.equalsIgnoreCase("Wake")){
 						if (Period.equalsIgnoreCase("HOME")) {
@@ -1743,7 +1743,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}else if (Period.equalsIgnoreCase("AWAY")) {
 							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
 									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1774,7 +1774,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"22:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+									+ deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
 						}else {
 							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
 									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1805,7 +1805,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}
 						/***Sleep****/
 					}else {
@@ -1839,7 +1839,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}else if (Period.equalsIgnoreCase("AWAY")) {
 							headerData = String.format("{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\":"
 									+ " [{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"06:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1870,7 +1870,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}",NextPeriodStartTime, startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime);
+									+ deviceID + "\"]}",NextPeriodStartTime, previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime);
 						}else { 
 							headerData = String.format( "{\"name\":\"Template\",\"ScheduleSubType\": 0,\"TimedSchedule\": {\"Days\": "
 									+ "[{\"Day\": \"Sunday\",\"Periods\": [{\"IsCancelled\": \"false\",\"PeriodType\": \"Wake\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
@@ -1901,7 +1901,7 @@ public class CHILUtil implements AutoCloseable {
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Away\",\"StartTime\": \"08:00:00\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"85.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Home\",\"StartTime\": \"18:00:00\",\"HeatSetpoint\": \"70.00\",\"CoolSetpoint\": \"78.00\"},"
 									+ "{\"IsCancelled\": \"false\",\"PeriodType\": \"Sleep\",\"StartTime\": \"%s\",\"HeatSetpoint\": \"62.00\",\"CoolSetpoint\": \"82.00\"}]}]},\"DeviceIds\":[\""
-									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime,startTime,NextPeriodStartTime);
+									+ deviceID + "\"]}", previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime,previousStartTime,NextPeriodStartTime);
 						}
 					}
 				}
