@@ -42,44 +42,49 @@ public class VerifyisElementExists extends Keyword {
 		for (int i = 0; i < data.getSize(); i++) {
 			String fieldTobeVerified = data.getData(i, "Icons");
 			try {
-				if(this.parameters.get(0).equalsIgnoreCase("should be"))
-				{
+				if (this.parameters.get(0).equalsIgnoreCase("should be")) {
 					if (fieldTobeVerified.equalsIgnoreCase("Snapshot")) {
-						if (!cs.isSanpShotIconExists()) {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Snapshot Option is displayed");
-						} else {
+						if (cs.isSanpShotIconExists()) {
 							Keyword.ReportStep_Pass(testCase, "Snapshot Option is not displayed");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Snapshot Option is displayed");
+
 						}
 					} else if (fieldTobeVerified.equalsIgnoreCase("Talk")) {
-						if (!cs.isPushIconExists()) {
+						if (cs.isPushIconExists()) {
+							Keyword.ReportStep_Pass(testCase, "Talk Option is not displayed");
+						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Talk Option is dispayed");
-						} else {
-							Keyword.ReportStep_Pass(testCase, "Talk Option is not displayed");
+
 						}
 					} else if (fieldTobeVerified.equalsIgnoreCase("Attention")) {
-						if (!cs.isAttentionIconExists()) {
-//							flag = false;
-//							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Attention Option is displayed");
-						} else {
+						if (cs.isAttentionIconExists()) {
 							Keyword.ReportStep_Pass(testCase, "Attention  Option is not displayed");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Attention Option is displayed");
 						}
 					} else if (fieldTobeVerified.equalsIgnoreCase("Live Stream Progress Bar")) {
-						if (!cs.isLiveStreamProgressBarExists()) {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Live Stream Progress Bar Option is displayed");
+						if (cs.isLiveStreamProgressBarExists(5)) {
+							Keyword.ReportStep_Pass(testCase, "Live Stream Progress Bar  Option is displayed");
+
 						} else {
-							Keyword.ReportStep_Pass(testCase, "Live Stream Progress Bar  Option is not displayed");
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Live Stream Progress Bar Option is not displayed");
 						}
 					}
-					
-				}else if(this.parameters.get(0).equalsIgnoreCase("should not be"))
-				{
+
+				} else if (this.parameters.get(0).equalsIgnoreCase("should not be")) {
 					if (fieldTobeVerified.equalsIgnoreCase("Snapshot")) {
 						if (cs.isSanpShotIconExists()) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Snapshot Option is displayed");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Snapshot Option is displayed");
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Snapshot Option is not displayed");
 						}
@@ -93,21 +98,23 @@ public class VerifyisElementExists extends Keyword {
 					} else if (fieldTobeVerified.equalsIgnoreCase("Attention")) {
 						if (cs.isAttentionIconExists()) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Attention Option is displayed");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Attention Option is displayed");
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Attention  Option is not displayed");
 						}
-					}else if (fieldTobeVerified.equalsIgnoreCase("Live Stream Progress Bar")) {
-						if (cs.isLiveStreamProgressBarExists()) {
+					} else if (fieldTobeVerified.equalsIgnoreCase("Live Stream Progress Bar")) {
+						if (cs.isLiveStreamProgressBarExists(20)) {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Live Stream Progress Bar Option is displayed");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Live Stream Progress Bar Option is displayed");
 						} else {
 							Keyword.ReportStep_Pass(testCase, "Live Stream Progress Bar  Option is not displayed");
 						}
 					}
-					
+
 				}
-				
+
 			} catch (Exception e) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

@@ -72,16 +72,17 @@ public class VerifyDescription extends Keyword {
 		} else if (expectedScreen.get(0).equalsIgnoreCase("COOL")) {
 			PrimaryCard thermo1 = new PrimaryCard(testCase);
 			flag = flag & thermo1.isCoolDefinitionVisibleOnChangeModeScreen();
-		
+
 		} else if (expectedScreen.get(0).equalsIgnoreCase("NO CLIPS AVAILABLE")) {
 			CameraSolutionCardScreen soutionCard = new CameraSolutionCardScreen(testCase);
 			flag = flag & soutionCard.isNoClipsTextAvailable();
-		
+
 		} else if (expectedScreen.get(0).equalsIgnoreCase("CAMERA IS ON")) {
 			Dashboard dash = new Dashboard(testCase);
 			flag = flag & dash.isCameraOnTextVisible();
-			
+
 		} else if (expectedScreen.get(0).equalsIgnoreCase("CAMERA IS OFF")) {
+
 		    Dashboard dash = new Dashboard(testCase);
 		    flag = flag & dash.isCameraOffTextVisible();
 		    
@@ -116,8 +117,119 @@ public class VerifyDescription extends Keyword {
 			VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		    flag = flag & vhs.isVacationSetPointValueVisible();
 		} 
-	
-		
+	 else if (expectedScreen.get(0).equalsIgnoreCase("CAMERA IS OFFLINE")) {
+		Dashboard dash = new Dashboard(testCase);
+		flag = flag & dash.isCameraOfflineTextVisible();
+
+	}//
+	else if (expectedScreen.get(0).equalsIgnoreCase("GET HELP SCREEN")) {
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		flag = flag & cs.isGetHelpScreenExists();
+	}
+	else if (expectedScreen.get(0).equalsIgnoreCase("PRIVACY RING CLOSED DASHBOARD")) {
+		Dashboard dash = new Dashboard(testCase);
+		flag = flag & dash.isCameraRingClosedVisible();
+
+	} else if (expectedScreen.get(0).equalsIgnoreCase("PRIVACY RING CLOSED SOLUTION CARD")) {
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		flag = flag & cs.isCameraRingClosedVisible1();
+
+	} else if (expectedScreen.get(0).equalsIgnoreCase("SAVED SNAPSHOT MESSAGE")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		if (cs.isCameraPlayButtonExists(3)) {
+			cs.clickOnCameraPlayButton();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		Thread th = new Thread() {
+			public void run() {
+				cs.clickSanpShotIcon();
+				cs.clickSanpShotIcon();
+			}
+
+		};
+		th.start();
+		cs.clickSanpShotIcon();
+		flag = flag & cs.isSanpShotSavedTextExists();
+	} else if (expectedScreen.get(0).equalsIgnoreCase("Need to enable Phone settings")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		if (cs.isCameraPlayButtonExists(3)) {
+			cs.clickOnCameraPlayButton();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		cs.clickSanpShotIcon();
+		if (cs.isAllowExists(5)) {
+			Keyword.ReportStep_Pass(testCase,
+					"user displayed with " +expectedScreen.get(0)+ " popup when snapshot is clicked");
+		}else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Mode: " + expectedScreen.get(0) + " description is not present");
+			flag=false;
+		}
+	} else if (expectedScreen.get(0).equalsIgnoreCase("Need to enable Microphone services")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		if (cs.isCameraPlayButtonExists(3)) {
+			cs.clickOnCameraPlayButton();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		if(cs.isPushIconExists())
+		{
+			flag = flag & cs.clickPushtoTalkIcon();
+		}
+		if (cs.isAllowExists(5)) {
+			Keyword.ReportStep_Pass_With_ScreenShot(testCase,
+					"user displayed with " +expectedScreen.get(0)+ " popup");
+		}
+	} 
+	else if (expectedScreen.get(0).equalsIgnoreCase("PUSHTOTALKMIC")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		flag = flag & cs.isMicrophonePushToTalkExists();
+	} else if (expectedScreen.get(0).equalsIgnoreCase("TALKCANCEL")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		flag = flag & cs.isCancelPushToTalkExists();
+	} else if (expectedScreen.get(0).equalsIgnoreCase("TALKNOW")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		if (cs.isMicrophonePushToTalkHeaderExists()) {
+			String content = cs.getTextMicrophonePushToTalk();
+			if (content.contains("Talk Now")) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		}
+	} else if (expectedScreen.get(0).equalsIgnoreCase("ATTENTION")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		//flag = flag & cs.isAttentionDescExists();
+		flag = flag & cs.isAttentionPanicImageExists();
+		flag = flag & cs.isAttentionCancelExists();
+	} else if (expectedScreen.get(0).equalsIgnoreCase("ATTENTION ALARM")) {
+
+		CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+		flag = flag & cs.isDissmissAlarmExists();
+		flag = flag & cs.isAlarmCallButtonExists();
+		flag = flag & cs.clickDissmissAlarm();
+		flag = flag & cs.clickOK();
+	}
+
+
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(0) + " description is present");
 		} else {

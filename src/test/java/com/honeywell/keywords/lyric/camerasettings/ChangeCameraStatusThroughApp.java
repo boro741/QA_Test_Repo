@@ -39,7 +39,7 @@ public class ChangeCameraStatusThroughApp extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
-			boolean currentCameraStatus = cs.getCameraStatus(25);
+			boolean currentCameraStatus = cs.getCameraStatus(10);
 			switch (expectedOption.get(0).toUpperCase()) {
 			case "ON": {
 				if (currentCameraStatus){

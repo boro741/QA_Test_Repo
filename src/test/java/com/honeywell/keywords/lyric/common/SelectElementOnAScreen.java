@@ -1,6 +1,7 @@
 
 package com.honeywell.keywords.lyric.common;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +24,7 @@ import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -36,6 +38,8 @@ import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.ZwaveScreen;
+
+import io.appium.java_client.TouchAction;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -225,8 +229,10 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")) {
+			}  else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")
+					|| parameters.get(1).equalsIgnoreCase("Activity Log")) {
 				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+				ActivityLogsScreen al = new ActivityLogsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "CONFIRMS ATTENTION": {
 					flag = DASCameraUtils.clickOnAttention(testCase);
@@ -238,17 +244,131 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 
 				}
-				case "SNAPSHOT": {
+ 				case "SNAPSHOT": {
+					if (cs.isCameraPlayButtonExists(5)) {
+						cs.clickOnCameraPlayButton();
+						Thread.sleep(6000);
+					}
 					flag = flag & cs.clickSanpShotIcon();
+					if (cs.isAllowExists(5)) {
+						Keyword.ReportStep_Pass_With_ScreenShot(testCase, "user displayed with \"Need to enable Phone settings\" popup");
+						cs.clickAllow();
+					}
+ 					flag = flag & cs.clickSanpShotIcon();
+ 					break;
+ 
+ 				}
+				case "PUSHTOTALK": {
+					flag = flag & cs.clickPushtoTalkIcon();
+					if (cs.isAllowExists(5)) {
+						cs.clickAllow();
+					}
+					if (cs.isPushIconExists()) {
+						flag = flag & cs.clickPushtoTalkIcon();
+					}
 					break;
 
 				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				case "PUSHTOTALK1": {
+					flag = flag & cs.clickPushtoTalkIcon();
+					break;
+
 				}
+				case "TALKMIC": {
+					TouchAction tAction = new TouchAction(testCase.getMobileDriver());
+					Duration oneHours = Duration.ofSeconds(8);
+					Thread th = new Thread() {
+						public void run() {
+							tAction.longPress(cs.getMicrophonePushToTalk()).waitAction(oneHours).release().perform();
+						}
+					};
+					th.start();
+					Keyword.ReportStep_Pass_With_ScreenShot(testCase, "Talk  now... is displayed");
+					break;
 				}
+				case "ATTENTION": {
+					if (cs.isAttentionIconExists()) {
+						flag = flag & cs.clickAttentionIcon();
+					}
+					break;
+				}
+				case "CANCEL ATTENTION": {
+					if (cs.isAttentionCancelExists()) {
+						flag = flag & cs.clickAttentionCancel();
+					}
+					break;
+				}
+				case "ATTENTION PANIC ICON": {
+					if (cs.isAttentionIconExists()) {
+						flag = flag & cs.clickAttentionIcon();
+					}
+					if (cs.isAttentionPanicImageExists()) {
+						flag = flag & cs.clickAttentionPanicImag();
+					}
+					break;
+				}
+				case "DELETE CLIP": {
+					if (al.isDeleteClipsExists()) {
+						flag = flag & al.clickDeleteClips();
+					}
+					break;
+				}
+				case "DOWNLOAD CLIP": {
+					if(cs.isAllowExists(3))
+					{
+						cs.clickAllow();
+					}
+					if (al.isDowloadIconExists()) {
+						flag = flag & al.clickDowloadIcon();
+					}
+					break;
+				}
+				case "CANCEL DOWNLOAD": {
+					if(testCase.getPlatform().contains("IOS")) {
+						if(al.isDowloadCloseExists()){
+							al.clickDowloadClose();
+						}
+					}else {
+					flag = flag & MobileUtils.pressBackButton(testCase, "User tried to cancel the download of the clip");}
+					break;
+				}
+				case "DO NOT CANCEL": {
+					if (al.isCancelNoExists()) {
+						flag = flag & al.clickCancelNo();
+					}
+					break;
+				}
+				case "SELECT CANCEL POPUP": {
+					if (al.isCancelYesExists()) {
+						flag = flag & al.clickCancelYes();
+					}
+					break;
+				}
+				case "CANCEL DELETE CLIP": {
+					if (al.isDeleteCancelExists()) {
+						flag = flag & al.clickDeleteCancel();
+					}
+					break;
+				}
+				case "DELETE CLIP OK": {
+					if (al.isDeleteOkExists()) {
+						flag = flag & al.clickDeleteOk();
+					}
+					break;
+				}
+				case "GET HELP": {
+					if (cs.isGetHelpExists()) {
+						flag = flag & cs.clickGetHelp();
+					}
+					break;
+				}
+ 				default: {
+ 					flag = false;
+ 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(0));
+ 				}
+ 				}
+
 			} else if (parameters.get(1).equalsIgnoreCase("alarm")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "PAUSE": {
@@ -1316,6 +1436,7 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & Video.ClickOnNightVisionOFFOption();
 					break;
 				}
+				
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

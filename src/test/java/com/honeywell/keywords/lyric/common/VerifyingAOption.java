@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -21,10 +22,13 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SensorSettingScreen;
+
+import io.appium.java_client.MobileElement;
 
 public class VerifyingAOption extends Keyword {
 	private TestCases testCase;
@@ -47,9 +51,10 @@ public class VerifyingAOption extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user \"(.*)\" with the \"(.*)\" option$")
 	public boolean keywordSteps() throws KeywordException {
-		JSONObject tempJSON = (JSONObject) LyricUtils.getLocationInformation(testCase, inputs);
-		long locationID = tempJSON.getLong("locationID");
+		
 		if (expectedScreen.get(1).toUpperCase().equals("FR")) {
+			JSONObject tempJSON = (JSONObject) LyricUtils.getLocationInformation(testCase, inputs);
+			long locationID = tempJSON.getLong("locationID");
 			switch (expectedScreen.get(0).toUpperCase()) {
 
 			case "SHOULD BE DISPLAYED": {
@@ -87,7 +92,7 @@ public class VerifyingAOption extends Keyword {
 				} finally {
 					// Update to the location where FR will permit
 					FRUtils.updateLocationThroughCHIL(testCase, inputs,
-							"{\"city\":\"Chicago Ridge\",\"state\":\"NY\",\"country\":\"US\",\"zipcode\":\"11747\"}",
+							 "{\"city\":\"Chicago Ridge\",\"state\":\"NY\",\"country\":\"US\",\"zipcode\":\"11747\"}",
 							locationID);
 				}
 				break;
@@ -718,8 +723,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("DR event label on primary card")) {
+		} else if (expectedScreen.get(1).equalsIgnoreCase("DR event label on primary card")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
 				PrimaryCard dr = new PrimaryCard(testCase);
@@ -745,8 +749,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("DR event label on dashboard")) {
+		} else if (expectedScreen.get(1).equalsIgnoreCase("DR event label on dashboard")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
 				Dashboard dr = new Dashboard(testCase);
@@ -770,8 +773,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("NO SCHEDULE")) {
+		} else if (expectedScreen.get(1).equalsIgnoreCase("NO SCHEDULE")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED": {
 				PrimaryCard pc = new PrimaryCard(testCase);
@@ -869,8 +871,121 @@ public class VerifyingAOption extends Keyword {
 				}
 				break;
 			}
-			}
 		}
+		}else {
+
+			if (expectedScreen.get(0).equalsIgnoreCase("SHOULD BE DISPLAYED")) {
+				switch (expectedScreen.get(1)) {
+				case "Unable to connect, please try again": {
+					if(testCase.getPlatform().contains("IOS"))
+					{
+						MobileElement element = testCase.getMobileDriver().findElement(By.name(expectedScreen.get(1)));
+					    if(element!=null) {
+					    	if (element.getAttribute("label").equalsIgnoreCase(expectedScreen.get(1))) {
+								Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+							} else {
+
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Expected :" + expectedScreen.get(1) + "Actual :" +element.getAttribute("label"));
+								flag = false;
+							}
+					    } else {
+
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(1) + " does not exists");
+							flag = false;
+						}
+					}else {
+					CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+					if (cs.isRetryTextExists()) {
+						if (cs.getRetryText().equalsIgnoreCase(expectedScreen.get(1))) {
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+						} else {
+
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Expected :" + expectedScreen.get(1) + "Actual :" + cs.getRetryText());
+							flag = false;
+						}
+
+					} else {
+
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " does not exists");
+						flag = false;
+					}}
+					break;
+				}
+
+				case "play icon": {
+					CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+					if (cs.isCameraPlayButtonExists(10)) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+					} else {
+
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " does not exists");
+						flag = false;
+					}
+					break;
+				}
+				case "Tap to continue live feed": {
+					if(testCase.getPlatform().contains("IOS"))
+					{
+						MobileElement element = testCase.getMobileDriver().findElement(By.name(expectedScreen.get(1)));
+					    if(element!=null) {
+					    	if (element.getAttribute("label").equalsIgnoreCase(expectedScreen.get(1))) {
+								Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+							} else {
+
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Expected :" + expectedScreen.get(1) + "Actual :" +element.getAttribute("label"));
+								flag = false;
+							}
+					    } else {
+
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									expectedScreen.get(1) + " does not exists");
+							flag = false;
+						}
+					}else {
+					CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+					if (cs.isRetryTextExists()) {
+						if (cs.getRetryText().equalsIgnoreCase(expectedScreen.get(1))) {
+							Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+						} else {
+
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Expected :" + expectedScreen.get(1) + "Actual :" + cs.getRetryText());
+							flag = false;
+						}
+
+					} else {
+
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " does not exists");
+						flag = false;
+					}
+					break;
+				}}
+				}
+			}else 	if (expectedScreen.get(0).equalsIgnoreCase("SHOULD NOT BE DISPLAYED")) {
+				switch (expectedScreen.get(1)) {
+				case "XXX": {
+					
+					break;
+				}
+				case "YYY": {
+					
+					break;
+				}
+				default: {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + "Input does not match");
+					flag = false;
+					break;
+				}
+				}
+			}
 		else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on primary card")) {
 			PrimaryCard pc = new PrimaryCard(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -934,6 +1049,7 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 			}
+		}
 		return flag;
 
 	}

@@ -1,5 +1,7 @@
 package com.honeywell.screens;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -11,6 +13,7 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
 public class ActivityLogsScreen extends MobileScreens {
@@ -127,4 +130,110 @@ public class ActivityLogsScreen extends MobileScreens {
 		}
 		return flag;
 	}
+
+
+	public boolean isClipPlayButtonExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClipPlayButton");
+	}
+	public boolean clickClipPlayButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClipPlayButton");
+	}
+	public boolean isDowloadIconExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DowloadIcon");
+	}
+	public boolean clickDowloadIcon() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DowloadIcon");
+	}
+	public boolean isDowloadCloseExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownloadClose");
+	}
+	public boolean clickDowloadClose() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DownloadClose");
+	}
+	public boolean isDownloadBufferExists(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownloadBuffer",timeout);
+	}
+	public boolean isClipDownloadScreenExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClipDownloadScreen");
+	}
+	public boolean isCanceDowloadContentExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CanceDowloadContent");
+	}
+	public boolean isCancelYesExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelYes");
+	}
+	public boolean clickCancelYes() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelYes");
+	}
+	public boolean isCancelNoExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelNo");
+	}
+	public boolean clickCancelNo() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelNo");
+	}
+	public boolean isEventTimesExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EventTimes");
+	}
+	public List<WebElement> getEventTimes()
+	{
+		return MobileUtils.getMobElements(objectDefinition, testCase, "EventTimes");
+	}
+	public boolean isClipStatusExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClipStatus");
+	}
+	public List<WebElement> getClipStatus()
+	{
+		return MobileUtils.getMobElements(objectDefinition, testCase, "ClipStatus");
+	}
+	public boolean isDeletePopupExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeletPopup");
+	}
+	public boolean isDeleteSuccessExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSuccess");
+	}
+	public boolean clickDeleteSuccess() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSuccess");
+	}
+	public boolean isCancelDownloadVideoClipExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelDownloadVideoClip");
+	}
+	public boolean isDeleteOkExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteOk");
+	}
+	
+	public boolean clickDeleteOk() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteOk");
+	}
+	public boolean isDeleteCancelExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteCancel");
+	}
+	public boolean clickDeleteCancel() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteCancel");
+	}
+	public boolean isBackToViewListExists(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackToViewList",timeout);
+	}
+	public boolean clickBackToViewList() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackToViewList");
+	}
+	///
+	public boolean isCancelDowloadHeaderExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelDowloadHeader");
+	}
+	public boolean isDeleteClipsExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteClips");
+	}
+	public boolean clickDeleteClips() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteClips");
+	}
+	public boolean isDeleteConfirmationHeaderExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteConfirmationHeader");
+	}
+	public boolean isOkButtonExists() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButton");
+	}
+	public boolean clickOkButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
+	}
+
 }
