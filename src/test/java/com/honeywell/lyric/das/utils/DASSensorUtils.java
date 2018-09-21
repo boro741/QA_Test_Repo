@@ -205,14 +205,14 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean tamperISMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		inputs.setInputValue("ISMV_TAMPERED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			//TODO
+			// TODO
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -224,7 +224,32 @@ public class DASSensorUtils {
 		inputs.setInputValue("ISMV_TAMPER_CLEARED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			//TODO
+			// TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	public static boolean tamperOSMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("OSMV_TAMPERED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			// TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	public static boolean tamperClearOSMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue(")SMV_TAMPER_CLEARED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			// TODO
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -296,18 +321,17 @@ public class DASSensorUtils {
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		String sensorName = "";
 		String sensorState = "";
-		if (sensor.equalsIgnoreCase("Door")||sensor.equalsIgnoreCase("Door Sensor")) {
+		if (sensor.equalsIgnoreCase("Door") || sensor.equalsIgnoreCase("Door Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-		} else if (sensor.equalsIgnoreCase("window")||sensor.equalsIgnoreCase("Window Sensor")) {
+		} else if (sensor.equalsIgnoreCase("window") || sensor.equalsIgnoreCase("Window Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		} else if (sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-		} else if (sensor.equalsIgnoreCase("ISMV") ||sensor.equalsIgnoreCase("ISMV Sensor") ) {
+		} else if (sensor.equalsIgnoreCase("ISMV") || sensor.equalsIgnoreCase("ISMV SENSOR")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
-		} else if (sensor.equalsIgnoreCase("OSMV") || sensor.equalsIgnoreCase("OSMV Sensor")) {
+		} else if (sensor.equalsIgnoreCase("OSMV") || sensor.equalsIgnoreCase("OSMV SENSOR")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
-		} 
-		else {
+		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
 		}
 
@@ -326,7 +350,7 @@ public class DASSensorUtils {
 			}
 		} else if (states.equalsIgnoreCase("cover tampered")) {
 			sensorState = "Cover Tampered";
-		}else if (states.equalsIgnoreCase("standby")) {
+		} else if (states.equalsIgnoreCase("standby")) {
 			sensorState = "Standby";
 		} else if (states.equalsIgnoreCase("good")) {
 			sensorState = "Good";
@@ -334,7 +358,7 @@ public class DASSensorUtils {
 			sensorState = "Active";
 		} else if (states.equalsIgnoreCase("Low Battery")) {
 			sensorState = "Low Battery";
-		}else {
+		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor state not handled");
 		}
 		List<WebElement> list;
@@ -357,7 +381,7 @@ public class DASSensorUtils {
 								"//*[contains(@name,'SensorStatus_" + i + "_Image')]", testCase, 10)) {
 							MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
-							//code to click on clear tamper
+							// code to click on clear tamper
 							SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 							flag = flag & settingScreen.clickOnClearCoverTamperOption();
 							try {
@@ -365,7 +389,7 @@ public class DASSensorUtils {
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-							if(settingScreen.isSensorTamperClearPopupDisplayed()){
+							if (settingScreen.isSensorTamperClearPopupDisplayed()) {
 								flag = flag & settingScreen.clickOnOkTamperClearPopup();
 							}
 						}
@@ -383,17 +407,24 @@ public class DASSensorUtils {
 							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 							inputs.setInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME",
 									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-							Keyword.ReportStep_Pass(testCase,
-									"MOTIONSENSOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
-						} else if (sensor.equalsIgnoreCase("ISMV")) {
-							sensorState="Standby";
+							Keyword.ReportStep_Pass(testCase, "MOTIONSENSOR_TAMPER_CLEARED_TIME "
+									+ inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
+						} else if (sensor.equalsIgnoreCase("ISMV SENSOR")) {
+							sensorState = "Standby";
 							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
 							inputs.setInputValue("ISMV_TAMPER_CLEARED_TIME",
 									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 							Keyword.ReportStep_Pass(testCase,
 									"ISMV_TAMPER_CLEARED_TIME " + inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME"));
-						} 
-						
+						} else if (sensor.equalsIgnoreCase("OSMV SENSOR")) {
+							sensorState = "Standby";
+							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+							inputs.setInputValue("OSMV_TAMPER_CLEARED_TIME",
+									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							Keyword.ReportStep_Pass(testCase,
+									"OSMV_TAMPER_CLEARED_TIME " + inputs.getInputValue("OSMV_TAMPER_CLEARED_TIME"));
+						}
+
 					}
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
@@ -428,27 +459,34 @@ public class DASSensorUtils {
 								if (sensor.equalsIgnoreCase("Door")) {
 									inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
 											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-									Keyword.ReportStep_Pass(testCase,
-											"DOOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
+									Keyword.ReportStep_Pass(testCase, "DOOR_TAMPER_CLEARED_TIME "
+											+ inputs.getInputValue("DOOR_TAMPER_CLEARED_TIME"));
 								} else if (sensor.equalsIgnoreCase("window")) {
 									inputs.setInputValue("WINDOW_TAMPER_CLEARED_TIME",
 											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-									Keyword.ReportStep_Pass(testCase,
-											"WINDOW_TAMPER_CLEARED_TIME " + inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME"));
+									Keyword.ReportStep_Pass(testCase, "WINDOW_TAMPER_CLEARED_TIME "
+											+ inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME"));
 								} else if (sensor.equalsIgnoreCase("motion sensor")) {
 									sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 									inputs.setInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME",
 											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-									Keyword.ReportStep_Pass(testCase,
-											"MOTIONSENSOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
-								} else if (sensor.equalsIgnoreCase("ISMV")) {
-									sensorState="Standby";
+									Keyword.ReportStep_Pass(testCase, "MOTIONSENSOR_TAMPER_CLEARED_TIME "
+											+ inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
+								} else if (sensor.equalsIgnoreCase("ISMV SENSOR")) {
+									sensorState = "Standby";
 									sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
 									inputs.setInputValue("ISMV_TAMPER_CLEARED_TIME",
 											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-									Keyword.ReportStep_Pass(testCase,
-											"ISMV_TAMPER_CLEARED_TIME " + inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME"));
-								} 
+									Keyword.ReportStep_Pass(testCase, "ISMV_TAMPER_CLEARED_TIME "
+											+ inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME"));
+								} else if (sensor.equalsIgnoreCase("OSMV SENSOR")) {
+									sensorState = "Standby";
+									sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+									inputs.setInputValue("OSMV_TAMPER_CLEARED_TIME",
+											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+									Keyword.ReportStep_Pass(testCase, "OSMV_TAMPER_CLEARED_TIME "
+											+ inputs.getInputValue("OSMV_TAMPER_CLEARED_TIME"));
+								}
 							} else if (sensorStatusList.get(k).getAttribute("value").equalsIgnoreCase(states)) {
 								Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 								sensorStateMatched = true;
@@ -467,9 +505,9 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-											.getText());
+													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+													.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 						}
 						if (sensor.equalsIgnoreCase("Door")) {
@@ -486,16 +524,23 @@ public class DASSensorUtils {
 							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 							inputs.setInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME",
 									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-							Keyword.ReportStep_Pass(testCase,
-									"MOTIONSENSOR_TAMPER_CLEARED_TIME " + inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
-						} else if (sensor.equalsIgnoreCase("INDOOR motion viewer")) {
-							sensorState="Standby";
+							Keyword.ReportStep_Pass(testCase, "MOTIONSENSOR_TAMPER_CLEARED_TIME "
+									+ inputs.getInputValue("MOTIONSENSOR_TAMPER_CLEARED_TIME"));
+						} else if (sensor.equalsIgnoreCase("ISMV SENSOR")) {
+							sensorState = "Standby";
 							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
 							inputs.setInputValue("ISMV_TAMPER_CLEARED_TIME",
 									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 							Keyword.ReportStep_Pass(testCase,
 									"ISMV_TAMPER_CLEARED_TIME " + inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME"));
-						} 
+						} else if (sensor.equalsIgnoreCase("OSMV SENSOR")) {
+							sensorState = "Standby";
+							sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+							inputs.setInputValue("OSMV_TAMPER_CLEARED_TIME",
+									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+							Keyword.ReportStep_Pass(testCase,
+									"OSMV_TAMPER_CLEARED_TIME " + inputs.getInputValue("OSMV_TAMPER_CLEARED_TIME"));
+						}
 					}
 					if (MobileUtils.isMobElementExists("ID", "action_button", testCase, 5)) {
 						MobileUtils.clickOnElement(testCase, "ID", "action_button");
@@ -508,7 +553,7 @@ public class DASSensorUtils {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
 					}
-					
+
 					if (states.contains("Low Battery")) {
 						//// *[@content-desc='left_drawable'] - Removed
 						if (MobileUtils.isMobElementExists("xpath", "//*[@content-desc = '" + sensorName + "']",
@@ -516,11 +561,11 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-											.getText());
+													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+													.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
-							
+
 						}
 					}
 					break;
@@ -528,7 +573,8 @@ public class DASSensorUtils {
 				}
 			}
 		}
-		if (sensorStatusScreen.isSensorStatusVisible() && sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
+		if (sensorStatusScreen.isSensorStatusVisible()
+				&& sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
 			flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
 		}
 		if (list.size() == 0) {
@@ -542,40 +588,62 @@ public class DASSensorUtils {
 		return flag;
 	}
 
-	//NAVIGATION FROM DASHBOARD To SENSOR
-	public static boolean navigateToSensorTypeSettingsFromDashboard(String SensorType,TestCaseInputs inputs,TestCases testCase){
-		boolean flag=false;
+	// NAVIGATION FROM DASHBOARD To SENSOR
+	public static boolean navigateToSensorTypeSettingsFromDashboard(String SensorType, TestCaseInputs inputs,
+			TestCases testCase) {
+		boolean flag = false;
 		SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
 		try {
-			switch(SensorType){
-			case "DOOR ACCESS SETTINGS":{
+			switch (SensorType) {
+			case "DOOR ACCESS SETTINGS": {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						"Base Station Configuration");
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
 				break;
 			}
-			case "WINDOW ACCESS SETTINGS":{
+			case "WINDOW ACCESS SETTINGS": {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
 				break;
 			}
-			case "MOTION SENSOR SETTINGS":{
+			case "MOTION SENSOR SETTINGS": {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE,DASInputVariables.MOTIONSENSOR);
-				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+				break;
+			}
+			case "ISMV SENSOR SETTINGS": {
+				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
+				break;
+			}
+			case "OSMV SENSOR SETTINGS": {
+				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
 				break;
 			}
 			default: {
 				System.out.println("Input not handled");
-				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,"Input not handled -"+SensorType);
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not handled -" + SensorType);
 				break;
 			}
 
@@ -586,13 +654,14 @@ public class DASSensorUtils {
 		return flag;
 	}
 
-	//NAVIGATION FROM DASHBOARD To SENSOR
-	public static boolean navigateToSensorTypeSettingsFromSecuritySolutionCard(String SensorType,TestCaseInputs inputs,TestCases testCase){
-		boolean flag=false;
+	// NAVIGATION FROM DASHBOARD To SENSOR
+	public static boolean navigateToSensorTypeSettingsFromSecuritySolutionCard(String SensorType, TestCaseInputs inputs,
+			TestCases testCase) {
+		boolean flag = false;
 		SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
 		try {
-			switch(SensorType){
-			case "DOOR ACCESS SETTINGS":{
+			switch (SensorType) {
+			case "DOOR ACCESS SETTINGS": {
 				SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 				if (security.isAppSettingsIconVisible(15)) {
 					flag = security.clickOnAppSettingsIcon();
@@ -603,30 +672,33 @@ public class DASSensorUtils {
 						"Base Station Configuration");
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
 				break;
 			}
-			case "WINDOW ACCESS SETTINGS":{
+			case "WINDOW ACCESS SETTINGS": {
 				SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 				if (security.isAppSettingsIconVisible(15)) {
 					flag = security.clickOnAppSettingsIcon();
 				}
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
 				break;
 			}
-			case "MOTION SENSOR SETTINGS":{
+			case "MOTION SENSOR SETTINGS": {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
-				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE,DASInputVariables.MOTIONSENSOR);
-				flag = flag & sensorScreen.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
 				break;
 			}
 			default: {
 				System.out.println("Input not handled");
-				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE,"Input not handled -"+SensorType);
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not handled -" + SensorType);
 				break;
 			}
 

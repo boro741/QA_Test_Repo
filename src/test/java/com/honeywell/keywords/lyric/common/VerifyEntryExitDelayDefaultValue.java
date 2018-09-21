@@ -2,7 +2,6 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
-import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;

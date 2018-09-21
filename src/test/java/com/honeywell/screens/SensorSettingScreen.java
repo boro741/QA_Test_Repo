@@ -49,6 +49,7 @@ public class SensorSettingScreen extends MobileScreens {
 				actualSensorName = sensor.getText();
 			} else {
 				actualSensorName = sensor.getAttribute("value");
+				System.out.println("#####actualSensorName: " + actualSensorName);
 			}
 			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				sensor.click();
@@ -388,24 +389,23 @@ public class SensorSettingScreen extends MobileScreens {
 		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
 		if (status.equalsIgnoreCase("Cover Tampered")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorStatusOptionValue");
-		}else {
+		} else {
 			return false;
 		}
-		}
-		
-	
+	}
+
 	public boolean isClearTamperOptionVisible() {
 		boolean flag = true;
 		String status = MobileUtils.getFieldValue(objectDefinition, testCase, "SensorStatusOptionValue");
 		if (status.equalsIgnoreCase("Cover Tampered")) {
 			Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Found");
 			flag = true;
-		}else {
+		} else {
 			flag = false;
 		}
 		return flag;
 	}
-	
+
 	public boolean clickOnClearCoverTamperOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClearTamperButton");
 	}
@@ -458,6 +458,12 @@ public class SensorSettingScreen extends MobileScreens {
 			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
 			System.out.println("###########Access Sensor Serial No: " + serialNo);
+		} else if (SensorType.toLowerCase().contains("ismv")) {
+			SensorName = "Indoor Motion Viewers";
+			inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+		} else if (SensorType.toLowerCase().contains("osmv")) {
+			SensorName = "Outdoor Motion Viewers";
+			inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
 		}
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
@@ -473,6 +479,24 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("window access sensor")) {
 			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
+		} else if (SensorType.toLowerCase().contains("ismv")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				SensorName = "Indoor Motion Viewer";
+			} else {
+				SensorName = "Indoor Motion Viewers";
+			}
+			serialNo = RelayConstants.RSI_ISMV_Motion_Sensor_1_SerialNO;
+			inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+			System.out.println("###########ISMV Serial No: " + serialNo);
+		} else if (SensorType.toLowerCase().contains("osmv")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				SensorName = "Outdoor Motion Viewer";
+			} else {
+				SensorName = "Outdoor Motion Viewers";
+			}
+			serialNo = RelayConstants.RSI_OSMV_Motion_Sensor_1_SerialNO;
+			inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+			System.out.println("###########OSMV Serial No: " + serialNo);
 		}
 
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
@@ -604,7 +628,6 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnWatchHowToVideoButton() {
-
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "WatchHowToVideo");
 	}
 

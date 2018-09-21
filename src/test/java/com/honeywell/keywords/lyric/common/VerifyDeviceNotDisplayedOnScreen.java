@@ -2,7 +2,6 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
-
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -107,6 +106,30 @@ public class VerifyDeviceNotDisplayedOnScreen extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Sensor " + sensorName + " is in sensor list");
+					flag = flag & DIYRegistrationUtils.deleteSensorThroughCHIL(testCase, inputs, sensorName);
+				}
+				break;
+			}
+			case "ISMV SENSOR": {
+				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+				if ((sensor.checkSensorNameNotInSensorList(sensorName) == false)
+						&& (sensor.isSensorsScreenTitleVisible())) {
+					Keyword.ReportStep_Pass(testCase, "ISMV " + sensorName + " is not in sensor list");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"ISMV " + sensorName + " is in sensor list");
+					flag = flag & DIYRegistrationUtils.deleteSensorThroughCHIL(testCase, inputs, sensorName);
+				}
+				break;
+			}
+			case "OSMV SENSOR": {
+				String sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+				if ((sensor.checkSensorNameNotInSensorList(sensorName) == false)
+						&& (sensor.isSensorsScreenTitleVisible())) {
+					Keyword.ReportStep_Pass(testCase, "OSMV " + sensorName + " is not in sensor list");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OSMV " + sensorName + " is in sensor list");
 					flag = flag & DIYRegistrationUtils.deleteSensorThroughCHIL(testCase, inputs, sensorName);
 				}
 				break;

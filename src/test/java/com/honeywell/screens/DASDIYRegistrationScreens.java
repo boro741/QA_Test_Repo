@@ -1,5 +1,6 @@
 package com.honeywell.screens;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 
 import com.honeywell.commons.coreframework.TestCases;
@@ -1031,6 +1032,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
 	}
 
+	public boolean isLocateViewerScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocateViewerScreenTitle");
+	}
+
 	public boolean isOverviewScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OverviewScreenTitle");
 	}
@@ -1058,6 +1063,22 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				availableSensorName = "Flat on a wall";
 				flag = flag
 						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			} else if (availableSensorName.equalsIgnoreCase("On a Shelf")) {
+				availableSensorName = "On a shelf";
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			} else if (availableSensorName.equalsIgnoreCase("In a Corner")) {
+				availableSensorName = "In a corner";
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall with Adhesive")) {
+				availableSensorName = "Flat on a wall with adhesive";
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
+			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall with Screws")) {
+				availableSensorName = "Flat on a wall with screws";
+				flag = flag
+						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
 			} else {
 				flag = flag
 						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
@@ -1076,6 +1097,18 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
 			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall")) {
 				availableSensorName = "Flat on a wall";
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			} else if (availableSensorName.equalsIgnoreCase("On a Shelf")) {
+				availableSensorName = "On a shelf";
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			} else if (availableSensorName.equalsIgnoreCase("In a Corner")) {
+				availableSensorName = "In a corner";
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall with Adhesive")) {
+				availableSensorName = "Flat on a wall with adhesive";
+				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
+			} else if (availableSensorName.equalsIgnoreCase("Flat on a Wall with Screws")) {
+				availableSensorName = "Flat on a wall with screws";
 				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
 			} else {
 				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
@@ -1671,25 +1704,29 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean selectDeviceToInstall(String deviceName) throws Exception {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
-					testCase, 3)) {
+			if (deviceName.equalsIgnoreCase("Smart Home Security Sensor Accessories")) {
+				deviceName = "Sensor Accessories";
+			}
+			if (MobileUtils.isMobElementExists("xpath",
+					"//android.widget.TextView[contains(@text,'" + deviceName + "')]", testCase, 3)) {
 				flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
-						"//android.widget.TextView[@text='" + deviceName + "']");
+						"//android.widget.TextView[contains(@text,'" + deviceName + "')]");
 			} else {
 				int counter = 0;
-				while (!MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
-						testCase, 3) && counter < 4) {
+				while (!MobileUtils.isMobElementExists("xpath",
+						"//android.widget.TextView[contains(@text,'" + deviceName + "')]", testCase, 3)
+						&& counter < 4) {
 					LyricUtils.scrollUpAList(testCase, this.getDeviceListWebElement());
 					counter++;
 				}
-				if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
-						testCase, 3)) {
+				if (MobileUtils.isMobElementExists("xpath",
+						"//android.widget.TextView[contains(@text,'" + deviceName + "')]", testCase, 3)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
-							"//android.widget.TextView[@text='" + deviceName + "']");
-					if (MobileUtils.isMobElementExists("xpath", "//android.widget.TextView[@text='" + deviceName + "']",
-							testCase, 3)) {
+							"//android.widget.TextView[contains(@text,'" + deviceName + "')]");
+					if (MobileUtils.isMobElementExists("xpath",
+							"//android.widget.TextView[contains(@text,'" + deviceName + "')]", testCase, 3)) {
 						flag = flag & MobileUtils.clickOnElement(testCase, "xpath",
-								"//android.widget.TextView[@text='" + deviceName + "']");
+								"//android.widget.TextView[contains(@text,'" + deviceName + "')]");
 					}
 				} else {
 					throw new Exception(
@@ -1719,5 +1756,144 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isPasscodeTitlePresent(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PasscodePopUpTitle", timeOut);
+	}
+
+	public boolean isISMVOSMVNameViewerScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ISMVOSMVNameViewerScreenTitle", timeOut);
+	}
+
+	public boolean isPlaceViewerCheckPlacementScreenTitileVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerCheckPlacementScreen", timeOut);
+	}
+
+	public boolean isPlaceViewerSelectMountingOptionScreenTitileVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerSelectMountingOptionScreen",
+				timeOut);
+	}
+
+	public boolean isPlaceViewerWallScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerWallScreenTitle", timeOut);
+	}
+
+	public boolean isPlaceViewerMountScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerMountScreenTitle", timeOut);
+	}
+
+	public boolean isPlaceViewerArmScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerArmScreenTitle", timeOut);
+	}
+
+	public boolean isPlaceViewerMotionViewerScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerMotionViewerScreenTitle",
+				timeOut);
+	}
+
+	public boolean isPlaceViewerAdjustViewerScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PlaceViewerAdjustViewerScreenTitle",
+				timeOut);
+	}
+
+	public boolean isTestMotionViewerScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TestMotionViewerScreenTitle", timeOut);
+	}
+
+	public boolean isOSMVOptionsInDASSettingsVisible(String osmvOptionInDASSettingsScreen) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag & MobileUtils.isMobElementExists("XPath",
+					"//android.widget.TextView[@text='" + osmvOptionInDASSettingsScreen + "']", testCase);
+		} else {
+			flag = flag & MobileUtils.isMobElementExists("XPath",
+					"//XCUIElementTypeStaticText[@value='" + osmvOptionInDASSettingsScreen + "']", testCase);
+		}
+		return flag;
+	}
+
+	public boolean isCustomNameISMVOSMVLocationScreenVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CustomNameISMVOSMVLocationScreen");
+	}
+
+	public boolean isViewerNotWorkingLinkInTestMotionViewerScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"ViewerNotWorkingLinkInTestMotionViewerScreen");
+	}
+
+	public boolean clickOnViewerNotWorkingLinkInTestMotionViewerScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ViewerNotWorkingLinkInTestMotionViewerScreen");
+	}
+
+	public boolean isMotionViewerHelpScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionViewerHelpScreenTitle", timeOut);
+	}
+
+	public boolean isBackButtonInMotionViewerHelpScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInMotionViewerHelpScreen");
+	}
+
+	public boolean clickOnBackButtonInMotionViewerHelpScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInMotionViewerHelpScreen");
+	}
+
+	public boolean isTestSignalStrengthButtonInMotionViewerHelpScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"TestSignalStrengthButtonInMotionViewerHelpScreen");
+	}
+
+	public boolean clickOnTestSignalStrengthButtonInMotionViewerHelpScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase,
+				"TestSignalStrengthButtonInMotionViewerHelpScreen");
+	}
+
+	public boolean isOutOfRangePopupInSignalStrengthScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OutOfRangePopupInSignalStrengthScreen");
+	}
+
+	public boolean isOKButtonInOutOfRangePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInOutOfRangePopup");
+	}
+
+	public boolean clickOnOKButtonInOutOfRangePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInOutOfRangePopup");
+	}
+
+	public boolean isSignalStrengthScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthScreenTitle", timeOut);
+	}
+
+	public boolean isBackButtonInSignalStrengthScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInSignalStrengthScreen");
+	}
+
+	public boolean clickOnBackButtonInSignalStrengthScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInSignalStrengthScreen");
+	}
+
+	public boolean isSignalStrengthIsLowLabelVisibleInSignalStrengthScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthIsLowLabel");
+	}
+
+	public boolean isSignalStrengthIsHighLabelVisibleInSignalStrengthScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthIsHighLabel");
+	}
+
+	public boolean isSignalStrengthIsHighSubTitleVisibleInSignalStrengthScreen() {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthIsHighSubTitle")) {
+			return true;
+		} else if (MobileUtils.isMobElementExists("XPATH", "//*[@value='You shouldn't have any connection issues.']",
+				testCase)) {
+			return true;
+		} else if (MobileUtils.isMobElementExists("XPATH", "//*[@value='You shouldn\'t have any connection issues.']",
+				testCase)) {
+			return true;
+		} else if (testCase.getMobileDriver()
+				.findElement(By.xpath("//*[@value='You shouldn't have any connection issues.']")).isEnabled()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public String getSensorRangeSubTitleText() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "SensorRangeTestTitle");
 	}
 }

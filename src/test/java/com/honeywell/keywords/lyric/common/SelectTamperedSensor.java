@@ -4,7 +4,6 @@ package com.honeywell.keywords.lyric.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,29 +12,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASAlarmUtils;
-import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
-import com.honeywell.lyric.das.utils.DASZwaveUtils;
-import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
-import com.honeywell.lyric.utils.LyricUtils;
-import com.honeywell.screens.AddNewDeviceScreen;
-import com.honeywell.screens.AlarmScreen;
-import com.honeywell.screens.BaseStationSettingsScreen;
-import com.honeywell.screens.CameraSettingsScreen;
-import com.honeywell.screens.CameraSolutionCardScreen;
-import com.honeywell.screens.DASDIYRegistrationScreens;
-import com.honeywell.screens.PrimaryCard;
-import com.honeywell.screens.SchedulingScreen;
-import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
-import com.honeywell.screens.ThermostatSettingsScreen;
-import com.honeywell.screens.ZwaveScreen;
 
 public class SelectTamperedSensor extends Keyword {
 

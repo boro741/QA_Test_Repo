@@ -13,7 +13,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.screens.CameraSolutionCardScreen;
 
 public class ChangeMobileOrientation extends Keyword {
 

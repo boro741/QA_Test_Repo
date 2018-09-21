@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import com.honeywell.commons.coreframework.*;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;

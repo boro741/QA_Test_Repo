@@ -16,7 +16,6 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 

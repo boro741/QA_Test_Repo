@@ -17,7 +17,6 @@ import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
-import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.screens.VacationHoldScreen;

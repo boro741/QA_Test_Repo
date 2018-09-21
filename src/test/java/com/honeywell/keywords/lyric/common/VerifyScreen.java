@@ -330,7 +330,6 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-
 			case "CONFIRM YOUR ZIP CODE": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isConfirmYourAddressZipCodeTitleVisible()) {
@@ -560,6 +559,19 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "CUSTOM NAME OSMV LOCATION":
+			case "CUSTOM NAME ISMV LOCATION":{
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isCustomNameISMVOSMVLocationScreenVisible(10)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
 			case "ALEXA APP DOWNLOAD PAGE": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (bs.verifyAlexaAppPlayStoreTitleIsVisible(testCase)) {
@@ -579,6 +591,18 @@ public class VerifyScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Settings Introduction page is not displayed");
+				}
+				break;
+			}
+			case "LOCATE VIEWER": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isLocateViewerScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
 			}
@@ -665,6 +689,30 @@ public class VerifyScreen extends Keyword {
 				sensor.isPlaceSensorScreenDisplayed();
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Place Sensor Screen is displayed");
+				}
+				break;
+			}
+			case "PLACE VIEWER CHECK PLACEMENT": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				flag = flag & dasDIY.isPlaceViewerCheckPlacementScreenTitileVisible(20);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Place Viewer Check Placement Screen is displayed");
+				}
+				break;
+			}
+			case "PLACE VIEWER SELECT MOUNTING OPTION": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				flag = flag & dasDIY.isPlaceViewerSelectMountingOptionScreenTitileVisible(20);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Place Viewer Select Mounting Option Screen is displayed");
+				}
+				break;
+			}
+			case "PLACE VIEWER MOUNT": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				flag = flag & dasDIY.isPlaceViewerMountScreenTitleVisible(20);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Place Viewer Mount Screen is displayed");
 				}
 				break;
 			}

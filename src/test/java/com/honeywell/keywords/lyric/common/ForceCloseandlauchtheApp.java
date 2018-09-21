@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.SuiteConstants;
 import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.lyric.utils.LyricUtils;
 
 public class ForceCloseandlauchtheApp extends Keyword {
 

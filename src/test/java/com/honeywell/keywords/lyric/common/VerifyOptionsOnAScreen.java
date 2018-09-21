@@ -18,6 +18,7 @@ import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
@@ -128,47 +129,50 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				String parameter = data.getData(i, "Elements");
 				switch (parameter.toUpperCase()) {
 				case "TEMPRETURE": {
-					if (fly.isSensorDetialsTempVisible()){
+					if (fly.isSensorDetialsTempVisible()) {
 						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsTempText() + "has found");
 					}
 					break;
 				}
 				case "HUMIDITY": {
-					if (fly.isSensorDetialsHumidityVisible()){
+					if (fly.isSensorDetialsHumidityVisible()) {
 						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsHumidityText() + "has found");
 					}
 					break;
 				}
 				case "BATTERY STATUS": {
-					if (fly.isSensorDetialsBatteryVisible()){
+					if (fly.isSensorDetialsBatteryVisible()) {
 						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsBatteryText() + "has found");
 					}
 					break;
 				}
 				case "SIGNAL STRENGTH": {
-					if (fly.isSensorDetialsSignalStrengthVisible()){
-						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsSignalStrengthText() + "has found");
+					if (fly.isSensorDetialsSignalStrengthVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"The " + fly.getSensorDetialsSignalStrengthText() + "has found");
 					}
 					break;
 				}
 				case "MODEL": {
-					if (fly.isSensorDetialsModelVisible()){
+					if (fly.isSensorDetialsModelVisible()) {
 						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsModelText() + "has found");
 					}
 					break;
 				}
 				case "FIRMWARE VERSION": {
-					if (fly.isSensorDetialsFirmwareVersionVisible()){
-						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorDetialsFirmwareVersionText() + "has found");
+					if (fly.isSensorDetialsFirmwareVersionVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"The " + fly.getSensorDetialsFirmwareVersionText() + "has found");
 					}
 					break;
 				}
 				case "USE MOTION DETECTION": {
-					if (fly.isSensorDetialsUseMotionDetectionVisible()){
-						Keyword.ReportStep_Pass(testCase, "The " + fly.getSensorMotionDetectionToggleValue() + "has found");
+					if (fly.isSensorDetialsUseMotionDetectionVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"The " + fly.getSensorMotionDetectionToggleValue() + "has found");
 					}
 					break;
-				  }
+				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + parameter + " is displayed");
@@ -337,7 +341,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				try {
 					if (bs.verifyParticularEntryExitDelayOptionVisible(data.getData(i, "Delays"))) {
 						Keyword.ReportStep_Pass(testCase, "Option: '" + data.getData(i, "Delays")
-						+ "' is present on the Entry/Exit Delay screen");
+								+ "' is present on the Entry/Exit Delay screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option: '"
@@ -632,9 +636,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			} else {
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-				.release().perform();
+						.release().perform();
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-				.release().perform();
+						.release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
@@ -687,7 +691,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Security State: '" + fieldToBeVerified
-								+ "' is not present in the list of Options in Video Quality screen");
+										+ "' is not present in the list of Options in Video Quality screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -709,7 +713,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "HIGH": {
 					flag &= Video.isVideoQualityHighVisible();
-					flag &=Video.isVideoQualityHighTextVisible();
+					flag &= Video.isVideoQualityHighTextVisible();
 					break;
 				}
 				case "LOW": {
@@ -724,7 +728,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The" + parameter + "has not found");
 				}
 				flag = true;
-			}break;
+			}
+			break;
 		}
 		case "DAS NIGHT VISION SETTINGS": {
 			CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
@@ -750,10 +755,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "The " + parameter + " and description has found");
 				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has not found");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"The " + parameter + " has not found");
 				}
 				flag = true;
-			}break;
+			}
+			break;
 		}
 		case "SECURITY MODE": {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -788,7 +795,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Temperature Alert Options: '" + fieldToBeVerified
-								+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
+										+ "' is not present in the list of Options when Indoor Temperature Alert toggle switch is enabled in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -810,7 +817,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Temperature Alert Range Options: '" + fieldToBeVerified
-								+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
+										+ "' is not present in the list of Options when Indoor Temperature Alert Range is selected in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -831,7 +838,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Humidity Alert Options: '" + fieldToBeVerified
-								+ "' is not present in the list of Options when Indoor Humidity Alert toggle switch is enabled in Manage Alerts screen");
+										+ "' is not present in the list of Options when Indoor Humidity Alert toggle switch is enabled in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -852,7 +859,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Indoor Humidity Alert Range Options: '" + fieldToBeVerified
-								+ "' is not present in the list of Options when Indoor Humidity Alert Range is selected in Manage Alerts screen");
+										+ "' is not present in the list of Options when Indoor Humidity Alert Range is selected in Manage Alerts screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -1269,7 +1276,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Thermostat Ventilation Option: '" + fieldToBeVerified
-								+ "' is not present in the list of Options in Ventilation Screen");
+										+ "' is not present in the list of Options in Ventilation Screen");
 					}
 				} catch (Exception e) {
 					flag = false;
@@ -1310,313 +1317,392 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		//Amresh(H297378)
+		// Amresh(H297378)
 
-				case "WLDSOLUTIONTEMPERATURE": {
-					WLDSolutionCard ActionSheet=new WLDSolutionCard(testCase);
-					for (int i = 0; i < data.getSize(); i++) {
-						String parameter = data.getData(i, "WLD Solution options");
-						switch (parameter.toUpperCase()) {
-						case "CURRENT TEMPERATURE": {
-
-							flag = flag & ActionSheet.isCurrentTemperatureTitleVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentTemperatureTitleText());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
-							}break;
-
-						}
-						case "LAST UPDATED TIME": {
-							flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
-							}break;
-
-						}
-						case "TEMPERATURE GRAPH": {
-							flag = flag & ActionSheet.isTemperatureGraphTitleVisible();
-							if(flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-							}break;
-
-						}
-						case "BATTERY PERCENTAGE": {
-							flag = flag & ActionSheet.isBatterypercentageTitleVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase,  parameter+ "is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getRemainingBatteryTitleText());
-
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
-							}break;
-
-						}
-						case "NEXT UPDATE TIME": {
-							flag = flag & ActionSheet.isNextUpdateTimeTitleVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getNextUpdateTimeTitleText());
-
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-							}break;
-						}
-						}
-
-					}
-					break;
-				}
-				//Amresh(H297378)
-				case "LEAK DETECTOR SETTINGS":{
-					WLDLeakDetectorSettings ActionSheet = new WLDLeakDetectorSettings(testCase);
-					for (int i = 0; i < data.getSize(); i++) {
-						String parameter = data.getData(i, "Settings");
-						switch (parameter.toUpperCase()) {
-						case "MANAGE ALERTS": {	
-							flag = flag & ActionSheet.isManageAlertsTitleVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayManageAlertsTitleText());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
-
-							}break;
-						}
-						case "BATTERY STATUS": {
-							flag = flag & ActionSheet.isBatteryStatusTitleVisible();
-
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, "The Text: "+parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayBatteryStatusTitleText());	
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayBatteryStatusPercentageText());						
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
-							}break;
-						}
-						case "TEMPERATURE UNIT": {
-							flag = flag & ActionSheet.isTemperatureUnitTitleVisible();
-
-							if(flag) {
-								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.dislplayTemperatureUnitTitleText());
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.dislplayTemperatureUnitValue());
-
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
-
-							}break;		
-						}
-						case "UPDATE FREQUENCY":{
-
-							flag = flag & ActionSheet.isUpdateFrequencyTitleTextVisible();
-
-							if(flag) {
-								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayUpdateFrequencyTitleText());
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayUpdateFrequencyValue());
-
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
-
-							}break;		
-
-						}
-						case "LEAK DETECTOR CONFIGURATION":{
-
-							flag = flag & ActionSheet.isLeakDetectorConfigurationTitleVisible();
-
-							if(flag) {
-								Keyword.ReportStep_Pass(testCase, "The Text: " +parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.displayLeakDetectorConfigurationTitleText());
-
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The Text: " +parameter+" is not vissible");
-
-							}break;		
-
-						}
-
-
-						}
-					}
-					break;
-
-				}
-		//Amresh wld
-				case "WLD DASHBOARD":{
-					Dashboard das = new Dashboard(testCase);
-					for (int i = 0; i < data.getSize(); i++) {
-						String parameter = data.getData(i, "Options");
-						switch (parameter.toUpperCase()) {
-						case "WLD DEVICE NAME": {
-							flag = flag & das.areDevicesVisibleOnDashboard(300);
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getDashboardDeviceNameLabel());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-							}break;
-						}
-						case "LAST UPDATED TIME": {	
-							flag = flag & das.isSecurityStatusLabelVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getSecurityStatusLabel());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-							}break;
-						}
-						case "CURRENT TEMPERATURE PERCENTAGE": {	
-							flag = flag & das.isDashboardIndoorTempWldVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getdashboardIndoorTempWldLabel());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-							}break;
-						}
-						case "CURRENT HUMIDITY PERCENTAGE": {	
-							flag = flag & das.isDashboardHumidityWldVisible();
-							if (flag) {
-								Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-								Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ das.getDashboardHumidityWldLabel());
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-							}break;
-						}
-
-						}
-					}
-					break;
-				}
-		//Amresh(H297378)
-		case "WLDSOLUTIONHUMIDITY": {
-			WLDSolutionCard ActionSheet=new WLDSolutionCard(testCase);
+		case "WLDSOLUTIONTEMPERATURE": {
+			WLDSolutionCard ActionSheet = new WLDSolutionCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-				String parameter = data.getData(i, "WLD Humidity Solution options");
+				String parameter = data.getData(i, "WLD Solution options");
 				switch (parameter.toUpperCase()) {
-				case "CURRENT HUMIDITY": {	
-					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
+				case "CURRENT TEMPERATURE": {
+
+					flag = flag & ActionSheet.isCurrentTemperatureTitleVisible();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getCurrentHumidityTitleText());
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getCurrentTemperatureTitleText());
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"The "+parameter+" is not vissible");
-					}break;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+
 				}
 				case "LAST UPDATED TIME": {
 					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getLastUpdateTitleText());						
+						Keyword.ReportStep_Pass(testCase, "The " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + ActionSheet.getLastUpdateTitleText());
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+
+				}
+				case "TEMPERATURE GRAPH": {
+					flag = flag & ActionSheet.isTemperatureGraphTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+
+				}
+				case "BATTERY PERCENTAGE": {
+					flag = flag & ActionSheet.isBatterypercentageTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getRemainingBatteryTitleText());
+
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+
+				}
+				case "NEXT UPDATE TIME": {
+					flag = flag & ActionSheet.isNextUpdateTimeTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getNextUpdateTimeTitleText());
+
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+				}
+				}
+
+			}
+			break;
+		}
+		// Amresh(H297378)
+		case "LEAK DETECTOR SETTINGS": {
+			WLDLeakDetectorSettings ActionSheet = new WLDLeakDetectorSettings(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Settings");
+				switch (parameter.toUpperCase()) {
+				case "MANAGE ALERTS": {
+					flag = flag & ActionSheet.isManageAlertsTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The Text: " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.displayManageAlertsTitleText());
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"The "+parameter+" is not vissible");
-					}break;
+								"The Text: " + parameter + " is not vissible");
+
+					}
+					break;
+				}
+				case "BATTERY STATUS": {
+					flag = flag & ActionSheet.isBatteryStatusTitleVisible();
+
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The Text: " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.displayBatteryStatusTitleText());
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.displayBatteryStatusPercentageText());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The Text: " + parameter + " is not vissible");
+					}
+					break;
+				}
+				case "TEMPERATURE UNIT": {
+					flag = flag & ActionSheet.isTemperatureUnitTitleVisible();
+
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The Text: " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.dislplayTemperatureUnitTitleText());
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.dislplayTemperatureUnitValue());
+
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The Text: " + parameter + " is not vissible");
+
+					}
+					break;
+				}
+				case "UPDATE FREQUENCY": {
+
+					flag = flag & ActionSheet.isUpdateFrequencyTitleTextVisible();
+
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The Text: " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.displayUpdateFrequencyTitleText());
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.displayUpdateFrequencyValue());
+
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The Text: " + parameter + " is not vissible");
+
+					}
+					break;
+
+				}
+				case "LEAK DETECTOR CONFIGURATION": {
+
+					flag = flag & ActionSheet.isLeakDetectorConfigurationTitleVisible();
+
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The Text: " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.displayLeakDetectorConfigurationTitleText());
+
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The Text: " + parameter + " is not vissible");
+
+					}
+					break;
+
+				}
+
+				}
+			}
+			break;
+
+		}
+		// Amresh wld
+		case "WLD DASHBOARD": {
+			Dashboard das = new Dashboard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Options");
+				switch (parameter.toUpperCase()) {
+				case "WLD DEVICE NAME": {
+					flag = flag & das.areDevicesVisibleOnDashboard(300);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + das.getDashboardDeviceNameLabel());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+				}
+				case "LAST UPDATED TIME": {
+					flag = flag & das.isSecurityStatusLabelVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + das.getSecurityStatusLabel());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+				}
+				case "CURRENT TEMPERATURE PERCENTAGE": {
+					flag = flag & das.isDashboardIndoorTempWldVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + das.getdashboardIndoorTempWldLabel());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+				}
+				case "CURRENT HUMIDITY PERCENTAGE": {
+					flag = flag & das.isDashboardHumidityWldVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + das.getDashboardHumidityWldLabel());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
+				}
+
+				}
+			}
+			break;
+		}
+		// Amresh(H297378)
+		case "WLDSOLUTIONHUMIDITY": {
+			WLDSolutionCard ActionSheet = new WLDSolutionCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "WLD Humidity Solution options");
+				switch (parameter.toUpperCase()) {
+				case "CURRENT HUMIDITY": {
+					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getCurrentHumidityTitleText());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The " + parameter + " is not vissible");
+					}
+					break;
+				}
+				case "LAST UPDATED TIME": {
+					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + ActionSheet.getLastUpdateTitleText());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"The " + parameter + " is not vissible");
+					}
+					break;
 				}
 				case "HUMIDITY GRAPH": {
 					flag = flag & ActionSheet.isHumidityGraphTitleVisible();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter+" is not vissible");
-					}break;	
-					}	
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
+					}
+					break;
 				}
-				}break;
-			}case "DETERRENCE SETTINGS": {
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				for (int i = 0; i < data.getSize(); i++) {
-					String parameter = data.getData(i, "Settings");
-					switch (parameter.toUpperCase()) {
-					case "SELECT CHIME": {
-						flag &= bs.isSelectChimeVisible();
-						break;
-					}case "PLAY DOG BARK SOUND": {
-						flag &= bs.isPlayDogBarkSoundVisible();
-						break;
-					}
-					case "PARTY IS ON": {
-						flag &= bs.isPartyIsOnVisible();
-						break;
-					}
-					case "VACUUM": {
-						flag &= bs.isVacuumVisible();
-						break;
-					}
-					}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has not found");
-					}
-					flag = true;
-				}break;
-			}case "SECURITY MODES": {
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				for (int i = 0; i < data.getSize(); i++) {
-					String parameter = data.getData(i, "Options");
-					switch (parameter.toUpperCase()) {
-					case "HOME MODE ICON": {
-						flag &= bs.isSecurityModeHomeiConVisible();
-						break;
-					}case "HOME MODE TEXT": {
-						flag &= bs.isSecurityModeHomeModeVisible();
-						break;
-					}case "HOME MODE DESCRIPTION" :{
-						flag &= bs.isSecurityModeHomeTextVisible();
-						break;
-					}case "AWAY MODE ICON": {
-						flag &= bs.isSecurityModeHomeiConVisible();
-						break;
-					}case "AWAY MODE TEXT": {
-						flag &= bs.isSecurityModeHomeModeVisible();
-						break;
-					}case "AWAY MODE DESCRIPTION" :{
-						flag &= bs.isSecurityModeHomeTextVisible();
-						break;
-					}case "NIGHT MODE ICON": {
-						flag &= bs.isSecurityModeHomeiConVisible();
-						break;
-					}case "NIGHT MODE TEXT": {
-						flag &= bs.isSecurityModeHomeModeVisible();
-						break;
-					}case "NIGHT MODE DESCRIPTION" :{
-						flag &= bs.isSecurityModeHomeTextVisible();
-						break;
-					}case "OFF MODE ICON": {
-						flag &= bs.isSecurityModeHomeiConVisible();
-						break;
-					}case "OFF MODE TEXT": {
-						flag &= bs.isSecurityModeHomeModeVisible();
-						break;
-					}case "OFF MODE DESCRIPTION" :{
-						flag &= bs.isSecurityModeHomeTextVisible();
-						break;
-					}
-					default: {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
-					}
-					}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has not found");
-					}
-					flag = true;
-				}break;
+				}
 			}
+			break;
+		}
+		case "OSMV SECURITY SETTINGS": {
+			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			TouchAction action = new TouchAction(testCase.getMobileDriver());
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+			}
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "OSMVSecuritySettingsOptions");
+				try {
+					if (dasDIY.isOSMVOptionsInDASSettingsVisible(fieldToBeVerified)) {
+						Keyword.ReportStep_Pass(testCase,
+								"DAS Security Setting: '" + fieldToBeVerified + "' is present in DAS Settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "DAS Security Setting: '"
+								+ fieldToBeVerified + "' is not present in DAS Settings screen");
+					}
+				} catch (Exception e) {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+				}
+			}
+			break;
+		}
+		case "DETERRENCE SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Settings");
+				switch (parameter.toUpperCase()) {
+				case "SELECT CHIME": {
+					flag &= bs.isSelectChimeVisible();
+					break;
+				}
+				case "PLAY DOG BARK SOUND": {
+					flag &= bs.isPlayDogBarkSoundVisible();
+					break;
+				}
+				case "PARTY IS ON": {
+					flag &= bs.isPartyIsOnVisible();
+					break;
+				}
+				case "VACUUM": {
+					flag &= bs.isVacuumVisible();
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"The " + parameter + " has not found");
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "SECURITY MODES": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Options");
+				switch (parameter.toUpperCase()) {
+				case "HOME MODE ICON": {
+					flag &= bs.isSecurityModeHomeiConVisible();
+					break;
+				}
+				case "HOME MODE TEXT": {
+					flag &= bs.isSecurityModeHomeModeVisible();
+					break;
+				}
+				case "HOME MODE DESCRIPTION": {
+					flag &= bs.isSecurityModeHomeTextVisible();
+					break;
+				}
+				case "AWAY MODE ICON": {
+					flag &= bs.isSecurityModeHomeiConVisible();
+					break;
+				}
+				case "AWAY MODE TEXT": {
+					flag &= bs.isSecurityModeHomeModeVisible();
+					break;
+				}
+				case "AWAY MODE DESCRIPTION": {
+					flag &= bs.isSecurityModeHomeTextVisible();
+					break;
+				}
+				case "NIGHT MODE ICON": {
+					flag &= bs.isSecurityModeHomeiConVisible();
+					break;
+				}
+				case "NIGHT MODE TEXT": {
+					flag &= bs.isSecurityModeHomeModeVisible();
+					break;
+				}
+				case "NIGHT MODE DESCRIPTION": {
+					flag &= bs.isSecurityModeHomeTextVisible();
+					break;
+				}
+				case "OFF MODE ICON": {
+					flag &= bs.isSecurityModeHomeiConVisible();
+					break;
+				}
+				case "OFF MODE TEXT": {
+					flag &= bs.isSecurityModeHomeModeVisible();
+					break;
+				}
+				case "OFF MODE DESCRIPTION": {
+					flag &= bs.isSecurityModeHomeTextVisible();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"The " + parameter + " has not found");
+				}
+				flag = true;
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

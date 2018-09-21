@@ -140,6 +140,68 @@ public class DASSettingsUtils {
 		return flag;
 	}
 
+	public static boolean verifyDeleteISMVSensorConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		if (bs.isDeleteSensorPopUpTitleVisible()) {
+			Keyword.ReportStep_Pass(testCase, "Delete ISMV Confirmation Pop Up Title is displayed");
+			System.out.println(
+					"###########ISMVSENSORTYPE: " + inputs.getInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE));
+			System.out.println("###########ISMVSENSOR: " + DASInputVariables.ISMVMOTIONSENSOR);
+			if (inputs.getInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE)
+					.equals(DASInputVariables.ISMVMOTIONSENSOR)) {
+				flag = flag & bs.isISMVDeletePopUpMessageVisible();
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete ISMV Confirmation Pop Up is incorrect");
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Delete ISMV Confirmation Pop Up message is correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete ISMV Confirmation Pop Up message is incorrect");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Delete ISMV Confirmation Pop Up is not displayed");
+		}
+		return flag;
+	}
+
+	public static boolean verifyDeleteOSMVSensorConfirmationPopUp(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+		if (bs.isDeleteSensorPopUpTitleVisible()) {
+			Keyword.ReportStep_Pass(testCase, "Delete OSMV Confirmation Pop Up Title is displayed");
+			System.out.println(
+					"###########OSMVSENSORTYPE: " + inputs.getInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE));
+			System.out.println("###########OSMVSENSOR: " + DASInputVariables.OSMVMOTIONSENSOR);
+			if (inputs.getInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE)
+					.equals(DASInputVariables.OSMVMOTIONSENSOR)) {
+				flag = flag & bs.isOSMVDeletePopUpMessageVisible();
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete OSMV Confirmation Pop Up is incorrect");
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Delete OSMV Confirmation Pop Up message is correctly displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete OSMV Confirmation Pop Up message is incorrect");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Delete OSMV Confirmation Pop Up is not displayed");
+		}
+		return flag;
+	}
+
 	public static boolean verifyDeleteDASConfirmationPopUpIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -383,7 +445,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromDashboardScreenToCameraSolutionScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
@@ -396,7 +458,9 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	public static boolean navigateFromDashboardScreenToDASCameraSolutionScreen(TestCases testCase, TestCaseInputs inputs) {
+
+	public static boolean navigateFromDashboardScreenToDASCameraSolutionScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
@@ -436,16 +500,16 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromCameraSolutionScreenToCameraConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen ac = new CameraSettingsScreen(testCase);
 		try {
-//			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
-//					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
-//			;
-//			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			// flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+			// inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			// ;
+			// flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
 
@@ -463,7 +527,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromSecuritySolutionToBaseStationConfigurationScreen(TestCases testCase) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
@@ -477,12 +541,13 @@ public class DASSettingsUtils {
 				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						"Base Station Configuration");
-				if(bs.ClickOnBaseStationCongifurtion()){
+				if (bs.ClickOnBaseStationCongifurtion()) {
 					Keyword.ReportStep_Pass(testCase, "Successfully navigates to base station configuration screen");
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigates to base station configuration screen");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigates to base station configuration screen");
 				}
-				
+
 			}
 		} catch (Exception e) {
 			flag = false;
@@ -608,8 +673,9 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
-	public static boolean navigateFromCameraSolutionScreenToManageAlertsScreen(TestCases testCase, TestCaseInputs inputs) {
+
+	public static boolean navigateFromCameraSolutionScreenToManageAlertsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
@@ -969,7 +1035,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;
@@ -985,7 +1051,6 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-
 
 	public static boolean navigateFromDashboardScreenToCameraSoundDetectionSettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
@@ -1051,7 +1116,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;
@@ -1108,7 +1173,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(TestCases testCase,
 			TestCaseInputs inputs) {
 		boolean flag = true;

@@ -13,5 +13,8 @@ public class DASInputVariables {
 	public static final String ACCESSSENSOR = "accesssensor";
 	public static final String KEYFOBNAME = "keyfobname";
 	public static final String KEYFOBID = "keyfobid";
-  
+	public static final String ISMVMOTIONSENSORTYPE = "ismvmotionsensortype";
+	public static final String ISMVMOTIONSENSOR = "ismvmotionsensor";
+	public static final String OSMVMOTIONSENSORTYPE = "osmvmotionsensortype";
+	public static final String OSMVMOTIONSENSOR = "osmvmotionsensor";
 }

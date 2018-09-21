@@ -111,6 +111,14 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & DASSettingsUtils.verifyDeleteKeyfobConfirmationPopUp(testCase);
 			break;
 		}
+		case "DELETE ISMV SENSOR CONFIRMATION": {
+			flag = flag & DASSettingsUtils.verifyDeleteISMVSensorConfirmationPopUp(testCase, inputs);
+			break;
+		}
+		case "DELETE OSMV SENSOR CONFIRMATION": {
+			flag = flag & DASSettingsUtils.verifyDeleteOSMVSensorConfirmationPopUp(testCase, inputs);
+			break;
+		}
 		case "INCLUSION DEVICE NOT FOUND": {
 			flag = flag & DASZwaveUtils.verifyDeviceNotFoundPopUp(testCase, inputs);
 			break;
