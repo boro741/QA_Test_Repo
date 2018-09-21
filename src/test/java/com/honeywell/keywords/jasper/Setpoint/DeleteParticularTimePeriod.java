@@ -41,22 +41,34 @@ public class DeleteParticularTimePeriod extends Keyword {
 		String postlocator = null;
 		String locator=null;
 		if(jasperStatType.toUpperCase().contains("NA")){
-			if (exampleData.get(0).equalsIgnoreCase("Home")||exampleData.get(0).equalsIgnoreCase("P1")) {
-				locator="Home_Everyday";
-			}else if (exampleData.get(0).equalsIgnoreCase("Wake")||exampleData.get(0).equalsIgnoreCase("P2")) {
-				locator="Wake_Everyday";
-			}else if (exampleData.get(0).equalsIgnoreCase("Sleep")||exampleData.get(0).equalsIgnoreCase("P3")) {
-				locator="Sleep_Everyday";
-			}else if (exampleData.get(0).equalsIgnoreCase("Away")||exampleData.get(0).equalsIgnoreCase("P4")) {
-				locator="Away_Everyday";
+			if(testCase.getPlatform().contains("IOS"))
+			{
+				if (exampleData.get(0).equalsIgnoreCase("Home")||exampleData.get(0).equalsIgnoreCase("P1")) {
+					locator="Everyday_Home_subTitle";
+				}else if (exampleData.get(0).equalsIgnoreCase("Wake")||exampleData.get(0).equalsIgnoreCase("P2")) {
+					locator="Everyday_Wake_subTitle";
+				}else if (exampleData.get(0).equalsIgnoreCase("Sleep")||exampleData.get(0).equalsIgnoreCase("P3")) {
+					locator="Everyday_Sleep_subTitle";
+				}else if (exampleData.get(0).equalsIgnoreCase("Away")||exampleData.get(0).equalsIgnoreCase("P4")) {
+					locator="Everyday_Away_subTitle";
+				}
+					prelocator="//*[contains(@name,'";
+					postlocator = "')]";
+				
+			}else {
+				if (exampleData.get(0).equalsIgnoreCase("Home")||exampleData.get(0).equalsIgnoreCase("P1")) {
+					locator="Home_Everyday";
+				}else if (exampleData.get(0).equalsIgnoreCase("Wake")||exampleData.get(0).equalsIgnoreCase("P2")) {
+					locator="Wake_Everyday";
+				}else if (exampleData.get(0).equalsIgnoreCase("Sleep")||exampleData.get(0).equalsIgnoreCase("P3")) {
+					locator="Sleep_Everyday";
+				}else if (exampleData.get(0).equalsIgnoreCase("Away")||exampleData.get(0).equalsIgnoreCase("P4")) {
+					locator="Away_Everyday";
+				}
+					prelocator="//*[contains(@content-desc,'";
+					postlocator = "')]";
 			}
-			if(!testCase.getPlatform().contains("IOS")){
-				prelocator="//*[contains(@content-desc,'";
-				postlocator = "')]";
-			}else{
-				prelocator="//*[contains(@name,'";
-				postlocator = "')]";
-			}
+			
 		}else{
 			if(jasperStatType.toUpperCase().contains("EMEA")){
 				if (exampleData.get(0).equalsIgnoreCase("Home")||exampleData.get(0).equalsIgnoreCase("P1")) {

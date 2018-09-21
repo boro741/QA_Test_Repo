@@ -13867,7 +13867,7 @@ public class JasperSchedulingUtils {
 						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
 					
 				} else {
-					heatSetPoint = ss.getHeatOnlySetPointsElements().get(0).getAttribute("value");
+					heatSetPoint = ss.getHeatOnlySetPointsElements().get(1).getAttribute("value");
 				}
 			}
 
