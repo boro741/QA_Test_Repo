@@ -85,8 +85,10 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & zwaveScreen.clickOnReplacedSuccessfullyMessageAck();
 			break;
 		}
-
+		case "DIMMER DELETED SUCCESSFULLY":
 		case "SWITCH DELETED SUCCESSFULLY": {
+			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);
+			flag = flag & zwaveScreen.isDeletedSuccessPopupTitleDisplayed();
 		}
 		case "REMOVE DEVICE": {
 			ZwaveScreen zwaveScreen = new ZwaveScreen(testCase);

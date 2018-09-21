@@ -272,6 +272,10 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromZwaveIndividualDeviceSettings(testCase, inputs);
 					break;
 				}
+				case "DASHBOARD VIA ZWAVE CARD": {
+					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
