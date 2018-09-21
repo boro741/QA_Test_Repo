@@ -91,13 +91,13 @@ public class ChangeStatusOnScreen extends Keyword {
 		case "DASHBOARD":{
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SWITCH": {
-				/*
+				
 				ZwavePrimardCardScreen zp = new ZwavePrimardCardScreen(testCase);
-				if(zp.verifySwitchStatus()){
-					currentStatus=zp.fetchSwitchStatus();
+				if(zp.verifyPresenceOfSwitchStatus()){
+					currentStatus=zp.getSwitchStatus();
 					switch (expectedScreen.get(1).toUpperCase()) {
 					case "ON": {
-						if(zp.fetchSwitchStatus().equalsIgnoreCase("On")){
+						if(zp.getSwitchStatus().equalsIgnoreCase("On")){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;
@@ -106,7 +106,7 @@ public class ChangeStatusOnScreen extends Keyword {
 						break;
 					}
 					case "OFF": {
-						if(zp.fetchSwitchStatus().equalsIgnoreCase("Off")){
+						if(zp.getSwitchStatus().equalsIgnoreCase("Off")){
 							Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) +" status is "+expectedScreen.get(1) );
 						}else{
 							flag=false;
@@ -120,7 +120,7 @@ public class ChangeStatusOnScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "switch status not found");
 				}
 				break;
-				 */}
+				 }
 			default:{
 				flag=false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");

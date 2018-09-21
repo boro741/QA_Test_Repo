@@ -670,17 +670,19 @@ Given user is set to "Home" mode through CHIL
       | Individual settings  | Device To Activate | Expected device | 
       | Water value settings | switch             | Water value     | 
   
-  @RestoreSwitchFromOfflineState
+  @RestoreSwitchFromOfflineState @Automated
   Scenario: (ZwaveTC30) As a user I should be able to control my zwave switch to different states through the application
   # switch configured but offline
     Given user launches and logs in to the Lyric application
      When user navigates to "Switch settings" screen from the "Dashboard" screen
+      When user turns "Offline" the "Switch" through the "ZWAVE device function key"
      Then user should see the "Switch" status as "offline" on the "Switch settings"
   #made online
      When user "powers" the "Switch" function key
-      And user turns "on" the "Switch" through the "Switch settings"
-      And user turns "off" the "Switch" through the "Switch settings"
-     When user navigates to "Dashboard" screen from the "Switch settings" screen 
+      When user turns "off" the "Switch" through the "ZWAVE device function key"
+      When user turns "on" the "Switch" through the "ZWAVE device function key"
+      When user turns "off" the "Switch" through the "ZWAVE device function key"
+     When user navigates to "DASHBOARD VIA PRIMARY CARD" screen from the "Switch settings" screen 
       And user navigates to "Switch Primary Card" screen from the "Dashboard" screen 
      Then user should see the "Switch" status as "Off" on the ""Switch Primary Card"
   
