@@ -73,6 +73,15 @@ public class CoachMarks extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GotItButton");
 	}
 	
+	public boolean isCoachMarkBackButtonVisible(int timeOut) {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+	
+	public boolean clickOnCoachMarkBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+	    
+	
 	public boolean isNextButtonVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", timeOut, false);
 	}

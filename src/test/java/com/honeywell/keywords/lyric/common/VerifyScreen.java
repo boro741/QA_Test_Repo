@@ -811,6 +811,15 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			
+			case "Access More Information":{
+				flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase, CoachMarkUtils.DASCAMERA);
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}
+				break;
+			}
+			
 			case "HOME" :{
 				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 				flag = flag & ssc.verifystate("Home");

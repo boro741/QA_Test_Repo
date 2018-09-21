@@ -1264,9 +1264,12 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmDeletePopup");
 	}
 
-	public String getDeleteMessageContent() {
+	public String getDeleteMessageContent() { 
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "PeriodDeleteDialogBoxMessage");
+
 	}
+
+
 	
 	public boolean ClickOnMoreButton()
 	{

@@ -69,6 +69,66 @@ public class VerifyCoachMarks extends Keyword {
 					flag = flag & cm.verifySolutionCardCoachMarks(CoachMarks.THERMOSTATEMEA);
 					break;
 				}
+				case "ACCESS MORE INFORMATION" :{
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Access More Information")){
+						Keyword.ReportStep_Pass(testCase, "Access More Information Header is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+				}
+				case "QUICK CONTROLS" :{
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Quick Controls")){
+						Keyword.ReportStep_Pass(testCase, "Quick Controls Header is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+				}
+				case "HOME MODE" :{
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Home Mode")){
+						Keyword.ReportStep_Pass(testCase, "Home Mode Header is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+				}
+				case "AWAY MODE" :{
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Away Mode")){
+						Keyword.ReportStep_Pass(testCase, "Away Mode Header is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+				}
+				case "NIGHT MODE" :{
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Night Mode")){
+						Keyword.ReportStep_Pass(testCase, "Night Mode Header is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+				}
+				case "OFF MODE" :{
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Off Mode")){
+						Keyword.ReportStep_Pass(testCase, "Off Mode Header is displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invalid Input");
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
