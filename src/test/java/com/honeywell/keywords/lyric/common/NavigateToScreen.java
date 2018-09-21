@@ -2494,6 +2494,7 @@ public class NavigateToScreen extends Keyword {
 				case "PRIMARY CARD": {
 					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
 					flag = flag & scheduleScreen.clickOnCloseButton();
+
 					break;
 				}
 				default: {
@@ -2527,7 +2528,12 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "SCHEDULING": {
 					SchedulingScreen ss = new SchedulingScreen(testCase);
-					flag = flag & ss.clickOnTimeScheduleButton();
+					if(ss.isTimeScheduleButtonVisible()){
+						flag = flag & ss.clickOnTimeScheduleButton();
+					} else if (ss.isMoreButtonVisible()){
+						flag = flag & ss.ClickOnMoreButton();
+						flag = flag & ss.clickOnTimeScheduleButton();
+					}
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + screen.get(0) + " button");
 					} else {
