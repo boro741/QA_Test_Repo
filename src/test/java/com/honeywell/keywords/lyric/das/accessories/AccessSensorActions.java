@@ -33,7 +33,7 @@ public class AccessSensorActions extends Keyword {
 	@KeywordStep(gherkins = "^user \"(.+)\" access sensor \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if(states.get(0).equalsIgnoreCase("door")){
+			if(states.get(0).equalsIgnoreCase("door")||states.get(0).equalsIgnoreCase("door sensor")){
 				if(states.get(1).equalsIgnoreCase("opened")){
 					DASSensorUtils.openDoor(testCase, inputs);
 				} else if(states.get(1).equalsIgnoreCase("closed")){
@@ -55,13 +55,15 @@ public class AccessSensorActions extends Keyword {
 					DASSensorUtils.enrollDoor(testCase, inputs);
 				}
 				else if(states.get(1).equalsIgnoreCase("offline")){
-					System.out.println("Make door sensor offline");
+					System.out.println("Make door sensor offline"); 
+				} else if(states.get(1).equalsIgnoreCase("Low Battery")){
+					System.out.println("Make door sensor Low Battery"); 
 				}
 				
 				else{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
 				}	
-			}else if(states.get(0).equalsIgnoreCase("window")){
+			}else if(states.get(0).equalsIgnoreCase("window") || states.get(0).equalsIgnoreCase("window sensor")){
 
 				if(states.get(1).equalsIgnoreCase("opened")){
 					DASSensorUtils.openWindow(testCase, inputs);
@@ -84,6 +86,8 @@ public class AccessSensorActions extends Keyword {
 				}
 				else if(states.get(1).equalsIgnoreCase("offline")){
 					System.out.println("Make window sensor offline");
+				}else if(states.get(1).equalsIgnoreCase("Low Battery")){
+					System.out.println("Make window sensor Low Battery");
 				}
 				else{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");

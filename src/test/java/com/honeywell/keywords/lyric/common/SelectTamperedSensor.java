@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
+import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
@@ -57,10 +58,12 @@ public class SelectTamperedSensor extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects tampered \"(.+)\" from \"(.+)\" screen$")
+	@KeywordStep(gherkins = "^user selects \"(.+)\" that is \"(.+)\" from \"(.+)\" screen$")
+
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(1).equalsIgnoreCase("Sensors List")) {
+			if (parameters.get(2).equalsIgnoreCase("Sensors List") || parameters.get(2).equalsIgnoreCase("Sensors Status")) {
+				
 				switch (parameters.get(0).toUpperCase()) {
 				case "DOOR SENSOR": 
 				case "Window SENSOR": 
@@ -68,11 +71,16 @@ public class SelectTamperedSensor extends Keyword {
 				case "OSMV SENSOR": 	 	
 				case "MOTION SENSOR": {
 					SensorStatusScreen sc = new SensorStatusScreen(testCase);
+					DASSensorUtils dss = new DASSensorUtils();
+					if (parameters.get(1).equalsIgnoreCase("Tampered")) {
 					flag = flag & sc.selectTamperedClear(testCase, inputs, parameters.get(0));
-					break;
+					}else if(parameters.get(1).equalsIgnoreCase("Low Battery")){
+						flag = flag & dss.verifySensorState(testCase, inputs, "ISMV", "Low Battery");
 					}
+					break;
 			}
 		} 
+			}
 		}catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

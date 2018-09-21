@@ -302,9 +302,9 @@ public class DASSensorUtils {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		} else if (sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-		} else if (sensor.equalsIgnoreCase("ISMV")) {
+		} else if (sensor.equalsIgnoreCase("ISMV") ||sensor.equalsIgnoreCase("ISMV Sensor") ) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
-		} else if (sensor.equalsIgnoreCase("OSMV")) {
+		} else if (sensor.equalsIgnoreCase("OSMV") || sensor.equalsIgnoreCase("OSMV Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
 		} 
 		else {
@@ -332,7 +332,9 @@ public class DASSensorUtils {
 			sensorState = "Good";
 		} else if (states.equalsIgnoreCase("active")) {
 			sensorState = "Active";
-		} else {
+		} else if (states.equalsIgnoreCase("Low Battery")) {
+			sensorState = "Low Battery";
+		}else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor state not handled");
 		}
 		List<WebElement> list;
@@ -393,12 +395,18 @@ public class DASSensorUtils {
 						} 
 						
 					}
-
 					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
 							+ "_cell')]//*[contains(@value,'" + sensorState + "')]")).size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
 						break;
+					}
+					if (states.contains("Low Battery")) {
+						if (MobileUtils.isMobElementExists("xpath",
+								"//*[contains(@name,'SensorStatus_" + i + "_Image')]", testCase, 10)) {
+							MobileUtils.clickOnElement(testCase, "xpath",
+									"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
+						}
 					}
 					break;
 				} else {
@@ -499,6 +507,21 @@ public class DASSensorUtils {
 							.size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + sensorState);
 						sensorStateMatched = true;
+					}
+					
+					if (states.contains("Low Battery")) {
+						//// *[@content-desc='left_drawable'] - Removed
+						if (MobileUtils.isMobElementExists("xpath", "//*[@content-desc = '" + sensorName + "']",
+								testCase, 10)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Current state "
+											+ testCase
+											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+											.getText());
+							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
+							
+						}
 					}
 					break;
 

@@ -92,7 +92,7 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORSNOISSUE")) {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & sc.isSensorNoIssueVisible();
-		}else if (expectedScreen.get(0).equalsIgnoreCase("LIVING ROOM COVER TAMPERED")) {
+		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR COVER TAMPERED") || expectedScreen.get(0).equalsIgnoreCase("LIVING ROOM COVER TAMPERED")) {
 		    SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & sc.isCoverTamperedTextVisibleinSecuritySolutions();   
 		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
@@ -107,6 +107,9 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR OPEN")) {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & ssc.isDoorOpenTextVisible();
+		} else if (expectedScreen.get(0).equalsIgnoreCase("LOW BATTERY")) {
+			SensorStatusScreen ssc = new SensorStatusScreen(testCase);
+		    flag = flag & ssc.isLowbatteryVisible();
 		} 
 		else if (expectedScreen.get(0).equalsIgnoreCase("WLD TEMPERATURE HUMIDITY VALUE")) {
 			WLDSolutionCard cs = new WLDSolutionCard(testCase);

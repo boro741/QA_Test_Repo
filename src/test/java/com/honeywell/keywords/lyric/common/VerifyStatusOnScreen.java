@@ -169,7 +169,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			
+
 			case "WINDOW SENSOR":
 			case "WINDOW": {
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -260,7 +260,61 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			case "ISMV": {
+			case "ISMV": 
+			case "ISMV SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "STANDBY": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					if (flag) {
+						System.out.println("Good is found");
+					}
+					break;
+				}
+				case "ACTIVE": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					if (flag) {
+						System.out.println("Active is found");
+					}
+					break;
+				}
+				case "OFF": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "COVER TAMPERED": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				case "LOW BATTERY": {
+					DASSensorUtils sensorUtils = new DASSensorUtils();
+					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
+							expectedScreen.get(1));
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, expectedScreen.get(1).toUpperCase()
+							+ " is not handled " + expectedScreen.get(0).toUpperCase());
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
+				}
+				break;
+			} 
+			case "OSMV SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "STANDBY": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
@@ -307,6 +361,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -377,7 +432,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -389,7 +444,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -401,7 +456,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -442,7 +497,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -454,7 +509,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -466,7 +521,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}

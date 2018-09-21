@@ -55,6 +55,17 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 				Keyword.ReportStep_Pass(testCase, "Offline Status Text Not Found");
 			}
 			break;
+		} case "Away":{
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+			if(!ssc.verifystate("Away")) {
+				Keyword.ReportStep_Pass(testCase, "Away Text Not Found");
+			}
+			break;
+		} case "Night":{
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+			if(!ssc.verifystate("Night")) {
+				Keyword.ReportStep_Pass(testCase, "Night Text Not Found");
+			}
 		}
 		}
 		return flag;
