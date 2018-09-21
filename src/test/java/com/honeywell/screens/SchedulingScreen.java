@@ -1266,6 +1266,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getDeleteMessageContent() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "PeriodDeleteDialogBoxMessage");
+	}
 	
 	public boolean ClickOnMoreButton()
 	{
