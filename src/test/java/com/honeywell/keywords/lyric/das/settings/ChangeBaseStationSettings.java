@@ -1417,44 +1417,44 @@ public class ChangeBaseStationSettings extends Keyword {
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
-								"Camera Motion Detection Toggle is already enabled in the Camera Motion Detection Screen");
+								"Security Mode Change Toggle is already enabled in the Manage alerts screen");
 						flag = flag & mc.toggleSecurityModeChangeSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (!mc.isSecurityModeChangeSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned OFF");
 							flag = flag & mc.toggleSecurityModeChangeSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
-										"Camera Motion Detection Toggle is enabled in the Camera Motion Detection Screen");
+										"Security Mode Change Toggle is already enabled in the Manage alerts screen");
 							}
 						}
 					} else {
 						flag = flag & mc.toggleSecurityModeChangeSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned ON");
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!mc.isSecurityModeChangeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
-								"Camera Motion Detection Toggle is already disabled in the Camera Motion Detection Screen");
+								"Security Mode Change Toggle is already disabled in the Manage alerts screen");
 						flag = flag & mc.toggleSecurityModeChangeSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned ON");
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned ON");
 							flag = flag & mc.toggleSecurityModeChangeSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (!mc.isSecurityModeChangeSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+								Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned OFF");
 							}
 						}
 					} else {
 						flag = flag & mc.toggleSecurityModeChangeSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (!mc.isSecurityModeChangeSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Camera Motion Detection Toggle is turned OFF");
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned OFF");
 						}
 					}
 				}

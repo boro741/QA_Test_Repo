@@ -53,7 +53,7 @@ Then the following "DAS Security Settings" options should be enabled:
 Examples:
 |Mode|
 |Home|
-|OFF|
+#|OFF|
 
 #Requirements: Single Location Single DAS Device OSMV required
 @VerifyDASSettingswhenmodechange @Automated
@@ -157,86 +157,115 @@ Examples:
 
 
 #Requirements: DAS panel configured newly, No Sensors Required
-@VerifyManageAlertsScreenEnableDisableSecurityModeChange @Automatable
+@VerifyManageAlertsScreenEnableDisableSecurityModeChange @Automated
 Scenario Outline: As a user I should be verify security mode change enable and disable option in Manage alerts screen
 Given user is set to <Mode> mode through CHIL
-Then user launches and logs in to the Lyric application
-Then user navigates to "Security settings" screen from "Dashboard"
-When user navigates to "Manage alerts" screen from "Security settings" screen
+Then user sets the entry/exit timer to "15" seconds
+And user launches and logs in to the Lyric application
+And user navigates to "Security Settings" screen from the "Dashboard" screen
+When user navigates to "Manage alerts" screen from the "Security Settings" screen
 Then user changes the "Security mode change" to "Off"
-When user navigates to "Security Solution Card" screen from "Manage alerts" screen
+When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
 Then user switches from <Mode> to <UMode>
 And user should be displayed with a switching to <UMode> text
 And user should be displayed with a switching timer
 And timer ends on user device
 And user status should be set to <UMode>
-And user should be displayed with the correct time stamp
-#And user not receives a <Push Notification> push notification
-When user navigates to "Manage alerts" screen from "Security Solution Card" screen
-Then user changes the "Security mode change" to "ON"
-When user navigates to "Security Solution Card" screen from "Manage alerts" screen
+And user should not receive a <Push Notification> push notification
+When user navigates to "Security Settings" screen from the "Dashboard" screen
+Then user navigates to "Manage alerts" screen from the "Security Settings" screen
+And user changes the "Security mode change" to "ON"
+When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
 Then user switches from <UMode> to <Mode>
 And user should be displayed with a switching to <Mode> text
 And user should be displayed with a switching timer
 And timer ends on user device
-And user status should be set to <UMode>
-And user should be displayed with the correct time stamp
+And user status should be set to <Mode>
 And user receives a <UPush Notification> push notification
-
 Examples:
-|Mode| UMode | Push Notification | |UPush Notification |
+|Mode| UMode | Push Notification |UPush Notification |
 |Home| Away | Set to Away | Set to Home |
-|Home|Night| Set to Night |Set to Home |
-|Home| Off| Set to Off | Set to Home |
-|OFF| Away |Set to Away |Set to Off | 
-|OFF| Night |Set to Night |Set to Off | 
-|OFF| Home | Set to Home |Set to Off | 
-|Night|Home | Set to Home |Set to Night |
-|Night|Away |Set to Away |Set to Night |
-|Night| Off|Set to Off | Set to Night |
-|Away|Home | Set to Home |Set to Away |
-|Away|Night |Set to Night |Set to Away |
-|Away| Off|Set to Off | Set to Away |
+#|Home|Night| Set to Night |Set to Home |
+#|Home| Off| Set to Off | Set to Home |
+#|OFF| Away |Set to Away |Set to Off | 
+#|OFF| Night |Set to Night |Set to Off | 
+#|OFF| Home | Set to Home |Set to Off | 
+#|Night|Home | Set to Home |Set to Night |
+#|Night|Away |Set to Away |Set to Night |
+#|Night| Off|Set to Off | Set to Night |
+#|Away|Home | Set to Home |Set to Away |
+#|Away|Night |Set to Night |Set to Away |
+#|Away| Off|Set to Off | Set to Away |
 
 #Requirements: DAS panel configured newly, One access sensor
-@VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChange @Automatable
+@VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeHomeAwayNight @Automated
 Scenario Outline: As a user I should be verify Doors and Windows change enable and disable option in Manage alerts screen
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-Then user Navigates to " Security settings" screen from " dashboard"
-When user selects "Manage alerts" option from the "Security Settings" screen
-Then user navigates to "Manage alerts" screen from "Security settings" screen
-When user disables the "Doors and windows" option
-Then user navigates to "Security settings" screen from " Manage Alerts" screen
-Then user trigger the <Events>
-Then user should not receive "Alerts" and "Push Notification"
+Given user is set to <Mode> mode through CHIL
+Then user sets the entry/exit timer to "15" seconds
+And user launches and logs in to the Lyric application
+And user navigates to "Security Settings" screen from the "Dashboard" screen
+When user navigates to "Manage alerts" screen from the "Security Settings" screen
+Then user changes the "Doors and windows" to "Off"
+When user navigates to "Security Solution Card" screen from "Manage alerts" screen
+Then user <AS> access sensor <Event>
+And user should not receive a <Push Notification> push notification
 When user selects "Manage alerts" option from the "Security Settings" screen
 Then user navigates to "Manage alerts" screen from "Security settings" screen
 When user Enables the "Doors and windows" option
 Then user navigates to "Security settings" screen from " Manage Alerts" screen
-Then user trigger the <Events>
-Then user should receive "Alerts" and "Push Notification"
+And user <AS> access sensor <Event1>
+And user receives a <UPush Notification> push notification
 Examples:
-|Mode| Events |
-|Home| Open |
-|Home|Close|
-|OFF| Open |
-|OFF| Close |
-|Night|Open |
-|Night|Close |
+|Mode| AS |Event | Event1 | Push Notification | UPush Notification |
+|Home| door | Opened | Closed | DOOR OPENED | DOOR CLOSED|
+#|Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+#|Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+#|Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+#|Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+#|Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+#|Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+#|Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+#|Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+#|Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+#|Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+#|Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
 
-
+#Requirements: DAS panel configured newly, One access sensor
+@VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeOff @Automated
+Scenario Outline: As a user I should be verify Doors and Windows change enable and disable option in Manage alerts screen
+Given user is set to <Mode> mode through CHIL
+Then user sets the entry/exit timer to "15" seconds
+And user launches and logs in to the Lyric application
+And user navigates to "Security Settings" screen from the "Dashboard" screen
+When user navigates to "Manage alerts" screen from the "Security Settings" screen
+Then user changes the "Doors and windows" to "Off"
+When user navigates to "Security Solution Card" screen from "Manage alerts" screen
+Then user <AS> access sensor <Event>
+And user should not receive a <Push Notification> push notification
+When user selects "Manage alerts" option from the "Security Settings" screen
+Then user navigates to "Manage alerts" screen from "Security settings" screen
+When user Enables the "Doors and windows" option
+Then user navigates to "Security settings" screen from " Manage Alerts" screen
+And user <AS> access sensor <Event1>
+And user receives a <UPush Notification> push notification
+And user should not receive a <Push Notification> push notification
+Examples:
+|Mode| AS |Event | Event1 | Push Notification | UPush Notification |
+|OFF| WINDOW |Opened | Closed |WINDOW OPENED | WINDOW CLOSED|
+|OFF| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+|OFF| door |Opened | Closed |DOOR OPENED | DOOR CLOSED|
+|OFF| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
 
 #Geofence
 
 #Requirements: DAS panel configured newly, No Sensors Required
-@VerifySecuritySettingsGeofenceoptionAwayNightOffline @Automatable
+@VerifySecuritySettingsGeofenceoptionAwayNightOffline @ongoing
 Scenario Outline: As a user I should be verify geofence stgatus on home or off modeScreen
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-Then user Navigates to " Security settings" screen from " dashboard"
-When user selects "Geofencing" option from the "Security Settings" screen
-Then user should display with "You can perform this action only in home or off mode" pop up
+Given user is set to <Mode> mode through CHIL
+Then user launches and logs in to the Lyric application
+When user navigates to "Security Settings" screen from the "Dashboard" screen
+When user changes the "Geofencing Status" to "Off"
+Then user should be display with "You can perform this action only in home or off mode" pop up
 Examples:
 |Mode|
 |Away|

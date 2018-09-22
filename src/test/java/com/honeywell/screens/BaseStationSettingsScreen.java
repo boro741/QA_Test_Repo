@@ -1672,7 +1672,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChange").isEnabled();	
 	}
 	public boolean isSecurityModeChangeSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeChangeSwitch", 20)) {
+	//	System.out.println(testCase.getMobileDriver().findElements(By.xpath("//android.widget.LinearLayout[@content-desc='Security Mode change']/descendant::android.widget.RelativeLayout/android.widget.Switch[contains(@resource-id,'list_item_lyric_switch_view')]")).size());
+	if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeChangeSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChangeSwitch").getText()
 						.equalsIgnoreCase("ON")) {
@@ -1688,11 +1689,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			}
-		} else {
-			throw new Exception("Could not find the Camera Motion detection Switch");
+		} 
+	else {
+			throw new Exception("Could not find the security mode change Switch");
 		}
 	}
 	public boolean toggleSecurityModeChangeSwitch(TestCases testCase) {
+
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SecurityModeChangeSwitch");
 	}
 	public boolean isSecurityModeChangeDescription(){

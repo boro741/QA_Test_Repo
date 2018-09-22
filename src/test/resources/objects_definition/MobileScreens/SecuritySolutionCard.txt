@@ -4,7 +4,7 @@ SwitchingToText	id	status_switch_message	id	status_switch_message	id	status_swit
 StatusIcons	id	status_image	id	status_image	id	status_image						
 StatusOptionsPanel	id	status_options_panel	id	status_options_panel	id	status_options_panel	name	Selected_State	name	Selected_State	name	Selected_State
 ProgressBar	id	progress_bar	id	progress_bar	id	progress_bar	NAME	activityIndicator	NAME	activityIndicator	NAME	activityIndicator
-TimerProgressBar	id	countdown_time_text	id	countdown_time_text	id	countdown_time_text	name	countDownTimer	name	countDownTimer	name	countDownTimer
+TimerProgressBar	id	timer_progress_bar	id	timer_progress_bar	id	timer_progress_bar	name	countDownTimer	name	countDownTimer	name	countDownTimer
 OkButton	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	name	OK				
 CancelBypassButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	name	Cancel				
 BypassIssueMessage	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	xpath	"//*[contains(@name,'is Open.')]"				
