@@ -32,6 +32,7 @@ import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
+import com.honeywell.lyric.das.utils.DASUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -957,7 +958,6 @@ public class NavigateToScreen extends Keyword {
 					}else{
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
-
 					break;
 				}case "BASE STATION CONFIGURATION":{
 					PrimaryCard pc = new PrimaryCard(testCase);
@@ -1040,9 +1040,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}
-
-			else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+			}else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "BASE STATION CONFIGURATION": {
 					flag = flag
@@ -1833,9 +1831,9 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("VIDEO QUALITY SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				switch (screen.get(0).toUpperCase()) {
 				case "CAMERA SETTINGS": {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isBackButtonVisibleInVideoQualitySettingsScreen()) {
 						cs.clickOnBackButtonVisibleInVideoQualitySettingsScreen();
 					}
@@ -1843,9 +1841,9 @@ public class NavigateToScreen extends Keyword {
 				}
 				}	
 			}else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isMotionDetectionLabelVisible(testCase, 20)) {
 						cs.clickOnMotionDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1853,7 +1851,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "MANAGE ALERTS": {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isManageAlertsLabelVisible(2)) {
 						if(cs.clickOnManageAlertsLabel()){
 							CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1867,7 +1864,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "SOUND DETECTION SETTINGS": {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isSoundDetectionLabelVisible(testCase, 20)) {
 						cs.clickOnSoundDetectionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1875,7 +1871,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "NIGHT VISION SETTINGS": {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isNightVisionLabelVisible(20)) {
 						cs.clickOnNightVisionLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1883,11 +1878,24 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "VIDEO QUALITY SETTINGS": {
-					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 					if (cs.isVideoQualityLabelVisible(20)) {
 						cs.clickOnVideoQualityLabel();
 						CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
+					break;
+				}
+				case "CAMERA SOLUTION CARD" :{
+					if(cs.clickonbackoption()){
+						Keyword.ReportStep_Pass(testCase, "clicked on camera settings back option");
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed clicked on camera settings back option");
+					}
+					break;
+				}
+				case "SECURITY SOLUTION CARD" :{
+					DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
 				}
 				default: {

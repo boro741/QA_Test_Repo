@@ -151,20 +151,92 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			}else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+					if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
-								"Camera On in Home Mode is already enabled on the settings Screen");
+								"camera ON in home mode is already enabled in the Camera settings Screen");
 					} else {
-						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
+						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"camera ON in home mode is enabled in the Camera settings Screen");
+						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if (!bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+					if (!cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
-								"Camera On in Home Mode is already disabled on the settings Screen");
+								"camera ON in home mode is already disabled in the Camera settings Screen");
+						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"camera ON in home mode is enabled in the Camera settings Screen");
+							flag = flag & cs.toggleCameraOnInHomeModeSwitch();
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"camera ON in home mode is disabled in the Camera settings Screen");
+							}
+						}
+					}else {
+						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Camera Status On/Off Alerts is disabled in the Camera settings Screen");
+						}
+					}
+				}
+			}else if (parameters.get(0).equalsIgnoreCase("Camera ON in Night Mode")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					int startx = (dimension.width * 20) / 100;
+					int starty = (dimension.height * 62) / 100;
+					int endx = (dimension.width * 22) / 100;
+					int endy = (dimension.height * 35) / 100;
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				} else {
+					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+				}
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"camera ON in home mode is already enabled in the Camera settings Screen");
 					} else {
-						flag = flag & bs.toggleCameraOnInHomeModeSwitch(testCase);
+						flag = flag & cs.toggleCameraOnInNightModeSwitch();
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"camera ON in home mode is enabled in the Camera settings Screen");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"camera ON in home mode is already disabled in the Camera settings Screen");
+						flag = flag & cs.toggleCameraOnInNightModeSwitch();
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"camera ON in home mode is enabled in the Camera settings Screen");
+							flag = flag & cs.toggleCameraOnInNightModeSwitch();
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"camera ON in home mode is disabled in the Camera settings Screen");
+							}
+						}
+					}else {
+						flag = flag & cs.toggleCameraOnInNightModeSwitch();
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Camera Status On/Off Alerts is disabled in the Camera settings Screen");
+						}
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("CAMERA STATUS ALERTS")) {

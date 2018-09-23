@@ -1563,7 +1563,33 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Successfully selected on "+ parameters.get(0));
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to selected on " + parameters.get(0));
+				}break;
 				}
+			}else if (parameters.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "MOTION DETECTION": {
+					flag &= cs.clickOnMotionDetectionLabel();
+					break;
+				}
+				case "NIGHT VISION": {
+					flag &= cs.clickOnNightVisionLabel();
+					break;
+				}
+				case "VIDEO QUALITY": {
+					flag &= cs.clickOnVideoQualityLabel();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				if(flag){
+					Keyword.ReportStep_Pass(testCase, "Successfully selected on "+ parameters.get(0));
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to selected on " + parameters.get(0));
+				}break;
 				}
 			}
 		} catch (Exception e) {
