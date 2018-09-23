@@ -952,8 +952,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications")
-					&& parameters.get(2).equalsIgnoreCase("Manage Alerts Motion Events")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications") && parameters.get(2).equalsIgnoreCase("Manage Alerts Motion Events")) {
 				CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isMotionEmailNotificationSwitchEnabled(testCase)) {
@@ -972,17 +971,73 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Motion Email switch is enabled on Manage Alerts screen");
 					}
 				}
+			}else if (parameters.get(0).equalsIgnoreCase("Geofencing") && parameters.get(2).equalsIgnoreCase("DAS Security settings")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if(bs.isGeofencingSwitchEnabled(testCase)){
+						Keyword.ReportStep_Pass(testCase, "Geofencing is enabled on DAS security settings screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to enable Geofencing on DAS security settings screen");
+					}
+				}else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if(!bs.isGeofencingSwitchEnabled(testCase)){
+						Keyword.ReportStep_Pass(testCase, "Geofencing is disabled on DAS security settings screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to disable Geofencing on DAS security settings screen");
+					}
+				}
+			}else if (parameters.get(0).equalsIgnoreCase("ENHANCED DETERRENCE") && parameters.get(2).equalsIgnoreCase("ENHANCED DETERRENCE")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				switch (parameters.get(1).toUpperCase()){
+				case "PLAY DOG BARK SOUND" :{
+					flag &= bs.isPlayDogBarkSoundselected();
+					break;
+				}
+				case "PARTY IS ON" :{
+					flag &= bs.isPartyIsOnselected();
+					break;
+				}
+				case "VACUUM" :{
+					flag &= bs.isVacuumselected();
+					break;
+				}
+				}
+				if(flag){
+					Keyword.ReportStep_Pass(testCase, parameters.get(1) + " selected");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(1) + " not selected");
+				}
+					
+			}else if (parameters.get(0).equalsIgnoreCase("outdoor motion viewers on in home mode") && parameters.get(2).equalsIgnoreCase("DAS security settings")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (bs.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Outdoor Motion viewers on in home mode switch is enabled on DAS security settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Outdoor Motion viewers on in home mode switch is disabled on DAS security settings screen");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Outdoor Motion viewers on in home mode switch is disabled on DAS security settings screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Outdoor Motion viewers on in home mode switch is enabled on DAS security settings screen");
+					}
+				}
 			}
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			} catch (Exception e) {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			}
+			return flag;
 		}
-		return flag;
-	}
 
-	@Override
-	@AfterKeyword
-	public boolean postCondition() throws KeywordException {
-		return flag;
+		@Override
+		@AfterKeyword
+		public boolean postCondition() throws KeywordException {
+			return flag;
+		}
 	}
-}

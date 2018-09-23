@@ -23,6 +23,7 @@ import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -772,7 +773,41 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")){
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible() && bs.clickOnCancelButtonInGeofenceSettingsPopup()) {
+					if(!bs.isGeofencePopUpVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Sucessfully Dismissed the Geofencing pop up");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to Dismiss the Geofencing pop up");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Geofencing pop up not displayed");
+				}break;
+			}
+			case "ACCEPTS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible() && bs.clickOnOKButtonInGeofenceSettingsPopup()) {
+					if(gs.isGeofencingthislocationTextvisible() && gs.isGeofencingthislocationDescriptionvisible()){
+						Keyword.ReportStep_Pass(testCase, "Sucessfully accepted the Geofencing pop up");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to accept the Geofencing pop up");
+					}
+					
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Geofencing pop up not displayed");
+				}break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		}else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

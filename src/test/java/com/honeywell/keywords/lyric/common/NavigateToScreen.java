@@ -1,5 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
+import io.appium.java_client.TouchAction;
+
 import java.util.ArrayList;
 /*
  import com.honeywell.account.information.*;
@@ -13,6 +15,8 @@ import com.honeywell.screens.*;
 
 
 import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Dimension;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -129,7 +133,7 @@ public class NavigateToScreen extends Keyword {
 				}
 			} 
 			else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD") && screen.get(0).equalsIgnoreCase("DASHBOARD")) {
-			
+
 				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 				flag = flag & cs.clickOnBackButtonInCameraSolutionCardScreen();
 			}
@@ -728,9 +732,9 @@ public class NavigateToScreen extends Keyword {
 					} else if (scheduleScreen.isMoreButtonVisible()){
 						flag = flag & scheduleScreen.ClickOnMoreButton();
 						flag = flag & scheduleScreen.clickOnTimeScheduleButton();
-						
+
 					}
-					
+
 					break;
 				}
 				case "HUMIDIFICATION": {
@@ -797,6 +801,7 @@ public class NavigateToScreen extends Keyword {
 				// Navigate from 'Dashboard' to 'Entry-Exit Delay Settings'
 				// Author: Pratik P. Lalseta (H119237)
 				case "ENTRY-EXIT DELAY": {
+
 					flag = flag & DASSettingsUtils.navigateFromDashboardToEntryExitDelayScreen(testCase);
 					break;
 				}
@@ -1937,6 +1942,11 @@ public class NavigateToScreen extends Keyword {
 							inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
 					break;
 				}
+				case "DAS SECURITY SETTINGS" :{
+					PrimaryCard pc = new PrimaryCard(testCase);
+					flag &= pc.isCogIconVisible();
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2809,15 +2819,46 @@ public class NavigateToScreen extends Keyword {
 				break;
 				}
 			}  else if(screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")){
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				switch (screen.get(0).toUpperCase()){
 				case "DASHBOARD" :{
-					if (DashboardUtils.navigateToDashboardFromAnyScreen(testCase)) {
-						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to navigates to  " + screen.get(0));
-					}break;
+					flag &= DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					break;
+				}case "SECUIRTY SOLUTION CARD" : {
+					flag &= bs.clickOnBackButton();
+					break;
+				}case "ENHANCED DETERRENCE" :{
+					flag &= bs.ClickOnEnhancedDeterrenceOption();
+					flag &= bs.isEnhancedDeterrenceInsideDetererenceDescriptionvisible();
+					flag &= bs.isEnhancedDeterrenceheadervisible();
+					break;
 				}
+				case "ABOUT SECURITY MODES" :{
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= bs.clickonAboutSecurityModesoption();
+					flag &= bs.isSecurityModesHeader();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				if(flag){
+					Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+				}else{
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigates to  " + screen.get(0));
+				}break;
 				}
 			}else if(screen.get(1).equalsIgnoreCase("MANAGE ALERTS")){
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

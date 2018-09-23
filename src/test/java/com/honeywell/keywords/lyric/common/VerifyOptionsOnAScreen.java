@@ -57,6 +57,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		return flag;
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with the following (.+) options:$")
 	public boolean keywordSteps() throws KeywordException {
@@ -1532,6 +1533,88 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}break;	
 					}	
 				}
+				}break;
+			}case "DETERRENCE SETTINGS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				for (int i = 0; i < data.getSize(); i++) {
+					String parameter = data.getData(i, "Settings");
+					switch (parameter.toUpperCase()) {
+					case "SELECT CHIME": {
+						flag &= bs.isSelectChimeVisible();
+						break;
+					}case "PLAY DOG BARK SOUND": {
+						flag &= bs.isPlayDogBarkSoundVisible();
+						break;
+					}
+					case "PARTY IS ON": {
+						flag &= bs.isPartyIsOnVisible();
+						break;
+					}
+					case "VACUUM": {
+						flag &= bs.isVacuumVisible();
+						break;
+					}
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has not found");
+					}
+					flag = true;
+				}break;
+			}case "SECURITY MODES": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				for (int i = 0; i < data.getSize(); i++) {
+					String parameter = data.getData(i, "Options");
+					switch (parameter.toUpperCase()) {
+					case "HOME MODE ICON": {
+						flag &= bs.isSecurityModeHomeiConVisible();
+						break;
+					}case "HOME MODE TEXT": {
+						flag &= bs.isSecurityModeHomeModeVisible();
+						break;
+					}case "HOME MODE DESCRIPTION" :{
+						flag &= bs.isSecurityModeHomeTextVisible();
+						break;
+					}case "AWAY MODE ICON": {
+						flag &= bs.isSecurityModeHomeiConVisible();
+						break;
+					}case "AWAY MODE TEXT": {
+						flag &= bs.isSecurityModeHomeModeVisible();
+						break;
+					}case "AWAY MODE DESCRIPTION" :{
+						flag &= bs.isSecurityModeHomeTextVisible();
+						break;
+					}case "NIGHT MODE ICON": {
+						flag &= bs.isSecurityModeHomeiConVisible();
+						break;
+					}case "NIGHT MODE TEXT": {
+						flag &= bs.isSecurityModeHomeModeVisible();
+						break;
+					}case "NIGHT MODE DESCRIPTION" :{
+						flag &= bs.isSecurityModeHomeTextVisible();
+						break;
+					}case "OFF MODE ICON": {
+						flag &= bs.isSecurityModeHomeiConVisible();
+						break;
+					}case "OFF MODE TEXT": {
+						flag &= bs.isSecurityModeHomeModeVisible();
+						break;
+					}case "OFF MODE DESCRIPTION" :{
+						flag &= bs.isSecurityModeHomeTextVisible();
+						break;
+					}
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
+					}
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has not found");
+					}
+					flag = true;
 				}break;
 			}
 		default: {

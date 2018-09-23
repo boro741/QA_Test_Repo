@@ -295,7 +295,11 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "GEOFENCING": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			flag = flag & bs.isGeofencePopUpVisible();
+			if(bs.isGeofencePopUpVisible()){
+				Keyword.ReportStep_Pass(testCase, "Geofencing pop up displayed");
+			}else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Geofencing pop up not displayed");
+			}
 			break;
 		}
 		case "YOU CAN PERFORM THIS ACTION ONLY IN HOME OR OFF MODE": {

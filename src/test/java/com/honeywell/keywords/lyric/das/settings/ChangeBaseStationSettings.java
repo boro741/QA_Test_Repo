@@ -17,8 +17,10 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.GeofenceSettings;
 
 import io.appium.java_client.TouchAction;
+
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
@@ -118,7 +120,37 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Geofencing this location")) {
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if(DASSettingsUtils.EnableGlobalGeofence(testCase)){
+						Keyword.ReportStep_Pass(testCase, "Succesfully turn on the " + parameters.get(0));
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed turn on the " + parameters.get(0) );
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if(DASSettingsUtils.DisableGlobalGeofence(testCase)){
+						Keyword.ReportStep_Pass(testCase, "Succesfully turn OFF the " + parameters.get(0));
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed turn OFF the " + parameters.get(0) );
+					}
+				}
+			}else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")){
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if(parameters.get(1).equalsIgnoreCase("ON")){
+					if(gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)){
+						Keyword.ReportStep_Pass(testCase, "Enabled geofence this location toggle option");
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on global geofence toggle");
+					}
+					Thread.sleep(3000);
+					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
+						Keyword.ReportStep_Pass(testCase, "Enabled geofence this location Alert toggle option");
+					}else{
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on global geofence alert toggle");
+					}
+				}
+			}else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
@@ -1458,8 +1490,114 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			}else if (parameters.get(0).equalsIgnoreCase("ENHANCED DETERRENCE")) {
+				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Enhanced Deterrence Toggle is already enabled in the Manage alerts screen");
+						flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned OFF");
+							flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Enhanced Deterrence Toggle is already enabled in the Manage alerts screen");
+							}
+						}
+					} else {
+						flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Enhanced Deterrence Toggle is already disabled in the Manage alerts screen");
+						flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "SEnhanced Deterrence Toggle is turned ON");
+							flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned OFF");
+							}
+						}
+					} else {
+						flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned OFF");
+						}
+					}
+				}
+			}else if (parameters.get(0).equalsIgnoreCase("OUTDOOR MOTION VIEWERS ON IN HOME MODE")) {
+				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					int startx = (dimension.width * 20) / 100;
+					int starty = (dimension.height * 62) / 100;
+					int endx = (dimension.width * 22) / 100;
+					int endy = (dimension.height * 35) / 100;
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				} else {
+					action.press(10, (int) (dimension.getHeight() * .9))
+					.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+				}
+
+				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Enhanced Deterrence Toggle is already enabled in the Manage alerts screen");
+						flag = flag & mc.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned OFF");
+							flag = flag & mc.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Enhanced Deterrence Toggle is already enabled in the Manage alerts screen");
+							}
+						}
+					} else {
+						flag = flag & mc.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Enhanced Deterrence Toggle is already disabled in the Manage alerts screen");
+						flag = flag & mc.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "SEnhanced Deterrence Toggle is turned ON");
+							flag = flag & mc.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned OFF");
+							}
+						}
+					} else {
+						flag = flag & mc.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!mc.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned OFF");
+						}
+					}
+				}
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
