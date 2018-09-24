@@ -665,9 +665,9 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
+And verify respective <Period> period setpoint values
 And user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
 
 Examples:
 | Mode	| UMode	| Period	|
@@ -829,8 +829,9 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
-When user has "Temporary" status
 And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+When user has "Temporary" status
+
 Examples:
 | Mode	| UMode	| Period	| scheduling 					| Geofence 		|
 | Heat	| Cool	| Home 	| Without sleep geofence based 	| UserArrived 	|
