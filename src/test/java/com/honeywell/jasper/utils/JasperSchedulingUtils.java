@@ -10567,13 +10567,13 @@ public class JasperSchedulingUtils {
 					homeHeatSetPointIOS = ss.getGeofenceHomeHeatElement();
 					tempHeatSetPointApp = homeHeatSetPointIOS.getAttribute("value");
 					if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
-						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0].replace("˚", "");
 					}
 					tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
 					if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
-						tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
+						tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0].replace("˚", "");
 					}
-					if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+					if (tempHeatSetPointApp.replace("˚", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 						Keyword.ReportStep_Pass(testCase,
 								"[HomeSettings] Home set point is shown correctly in solution card: "
 										+ tempHeatSetPointApp);
@@ -10587,13 +10587,13 @@ public class JasperSchedulingUtils {
 						sleepHeatSetPointIOS = ss.getGeofenceSleepHeatElement();
 						tempHeatSetPointApp = sleepHeatSetPointIOS.getAttribute("value");
 						if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
-							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0].replace("˚", "");
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
 						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
-							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
+							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0].replace("˚", "");
 						}
-						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("˚", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -10662,13 +10662,13 @@ public class JasperSchedulingUtils {
 						awayHeatSetPointIOS = ss.getGeofenceAwayHeatElement();
 						tempHeatSetPointApp = awayHeatSetPointIOS.getAttribute("value");
 						if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
-							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0].replace("˚", "");
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
 						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
-							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
+							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0].replace("˚", "");
 						}
-						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("˚", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[AwaySettings] Away set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -10682,13 +10682,13 @@ public class JasperSchedulingUtils {
 						awayHeatSetPointIOS = ss.getGeofenceAwayHeatElement();
 						tempHeatSetPointApp = awayHeatSetPointIOS.getAttribute("value");
 						if (tempHeatSetPointApp.contains(".0")||tempHeatSetPointApp.contains(".5")) {
-							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
+							tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0].replace("˚", "");
 						}
 						tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
 						if (tempHeatSetPointFromInputs.contains(".0")||tempHeatSetPointFromInputs.contains(".5")) {
-							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
+							tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0].replace("˚", "");
 						}
-						if (tempHeatSetPointApp.equalsIgnoreCase(tempHeatSetPointFromInputs)) {
+						if (tempHeatSetPointApp.replace("˚", "").equalsIgnoreCase(tempHeatSetPointFromInputs)) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Away set point is shown correctly in solution card: "
 											+ tempHeatSetPointApp);
@@ -13735,6 +13735,7 @@ public class JasperSchedulingUtils {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
 					coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
+					
 				} else {
 					coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
 				}
@@ -13867,7 +13868,7 @@ public class JasperSchedulingUtils {
 						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
 					
 				} else {
-					heatSetPoint = ss.getHeatOnlySetPointsElements().get(1).getAttribute("value");
+					heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
 				}
 			}
 
@@ -16000,6 +16001,8 @@ public class JasperSchedulingUtils {
 		String periodToSelect = null;
 		Random rn = new Random();
 		SchedulingScreen schl = new SchedulingScreen(testCase);
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (statInfo.getThermostatType().equalsIgnoreCase("HoneyBadger")
 				|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA") || statInfo.getJasperDeviceType().equalsIgnoreCase("FLYCATCHER")) {
@@ -16011,6 +16014,7 @@ public class JasperSchedulingUtils {
 			inputs.setInputValue(InputVariables.PERIOD_NAME_NA, periodToSelect);
 			inputs.setInputValue(InputVariables.PERIOD_NAME_NA, periodToSelect);
 		}
+		periodToSelect = "Wake";
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
@@ -16030,44 +16034,24 @@ public class JasperSchedulingUtils {
 		} else {
 			String[] scheduleDay = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			String DayToSelect = scheduleDay[rn.nextInt((6 - 0) + 1) + 0];
-			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-				desiredDayIndex = Arrays.asList(scheduleDay).indexOf(DayToSelect);
-				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
-					scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase, "ScheduleDayHeader");
-					lesserDayIndex = Arrays.asList(scheduleDay)
-							.indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
-					greaterDayIndex = Arrays.asList(scheduleDay)
-							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
-				}
+			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Single Day")) {
 				int i = 0;
-				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + DayToSelect + "_" + periodToSelect
-						+ "']",
+				while ((!MobileUtils.isMobElementExists("XPATH","//XCUIElementTypeCell[@name='" + DayToSelect + "_" + 
+				periodToSelect+ "_cell"+"']",
 						testCase, 5)) && i < 10) {
-					if (desiredDayIndex > greaterDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-						i++;
-					} else if (desiredDayIndex < lesserDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
-						i++;
-					} else {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-						i++;
-					}
+					touchAction.press(10, (int) (dimension.getHeight() * .5))
+					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					i++;					
 				}
-				WebElement period = testCase.getMobileDriver().findElement(By.name(DayToSelect + "_" + periodToSelect));
+				WebElement period = testCase.getMobileDriver().findElement(By.name(DayToSelect + "_" + periodToSelect+ "_cell"));
 				if (period == null) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to locate the period-" + DayToSelect + "_" + periodToSelect);
+							"Failed to locate the period-" + DayToSelect + "_" + periodToSelect + "_cell");
 				} else {
 					period.click();
-					Keyword.ReportStep_Pass(testCase, "Selected period-" + DayToSelect + "_" + periodToSelect);
+					Keyword.ReportStep_Pass(testCase, "Selected period-" + DayToSelect + "_" + periodToSelect + "_cell");
+					
 				}
 			} else {
 				if (MobileUtils.isMobElementExists("name", "Everyday_" + periodToSelect, testCase, 5)) {
@@ -16100,7 +16084,7 @@ public class JasperSchedulingUtils {
 			boolean createScheduleUsingUseGeofenceButton) {
 		boolean flag = true;
 		try {
-			SchedulingScreen schl = new SchedulingScreen(testCase);
+			SchedulingScreen schl = new SchedulingScreen(testCase);			
 			if (schl.isCreateScheduleButtonVisible(10)) {
 				flag = flag & schl.clickOnCreateScheduleButton();
 			} else {

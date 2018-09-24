@@ -37,7 +37,7 @@ public class ViewTimeScheduleByIndividualOrGroupedDays extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.+)\" view$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-				if (exampleData.get(0).equalsIgnoreCase("SINGLE DAY")) {
+ 				if (exampleData.get(0).equalsIgnoreCase("SINGLE DAY")) {
 					flag = flag & JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
 					inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "SINGLE DAY");
 
