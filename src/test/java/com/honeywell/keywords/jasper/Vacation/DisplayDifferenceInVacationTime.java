@@ -74,8 +74,15 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						startDateTime = vacationDateFormat.format(dateFormat.parse(startDate.trim()));
 						startDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, startDateTime);
+						if (inputs.isRunningOn("Saucelabs")) {
+							String time = LyricUtils.getDeviceTime(testCase, inputs);
+							SimpleDateFormat androidDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm a");
+							time = vacationDateFormat.format(androidDateFormat1.parse(time));
+							deviceTime = JasperVacation.convertTimetoUTCTime(testCase, time);
+						} else {
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
+						}
 					}
 
 					String currentTimeUTC = "";
@@ -125,8 +132,15 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						startDateTime = vacationDateFormat.format(dateFormat.parse(startDate.trim()));
 						startDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, startDateTime);
+						if (inputs.isRunningOn("Saucelabs")) {
+							String time = LyricUtils.getDeviceTime(testCase, inputs);
+							SimpleDateFormat androidDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm a");
+							time = vacationDateFormat.format(androidDateFormat1.parse(time));
+							deviceTime = JasperVacation.convertTimetoUTCTime(testCase, time);
+						} else {
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
+						}
 					}
 					String currentTimeUTC = "";
 					currentTimeUTC = JasperSetPoint.roundOffTimeToUpcomingNearest10minutes(testCase, deviceTime);
@@ -181,8 +195,15 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						endDateTime = vacationDateFormat.format(dateFormat.parse(endDate.trim()));
 						endDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, endDateTime);
+						if (inputs.isRunningOn("Saucelabs")) {
+							String time = LyricUtils.getDeviceTime(testCase, inputs);
+							SimpleDateFormat androidDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm a");
+							time = vacationDateFormat.format(androidDateFormat1.parse(time));
+							deviceTime = JasperVacation.convertTimetoUTCTime(testCase, time);
+						} else {
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
+						}
 					}
 					String currentTimeUTC = "";
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
@@ -230,8 +251,15 @@ public class DisplayDifferenceInVacationTime extends Keyword {
 					} else {
 						endDateTime = vacationDateFormat.format(dateFormat.parse(endDate.trim()));
 						endDateTimeUTC = JasperVacation.convertTimetoUTCTime(testCase, endDateTime);
+						if (inputs.isRunningOn("Saucelabs")) {
+							String time = LyricUtils.getDeviceTime(testCase, inputs);
+							SimpleDateFormat androidDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm a");
+							time = vacationDateFormat.format(androidDateFormat1.parse(time));
+							deviceTime = JasperVacation.convertTimetoUTCTime(testCase, time);
+						} else {
 						deviceTime = JasperVacation.convertTimetoUTCTime(testCase,
 								JasperAdhocOverride.getIOSSimulatorTime(testCase));
+						}
 					}
 					String currentTimeUTC = "";
 					currentTimeUTC = JasperSetPoint.roundOffTimeToTheNearest1week(testCase, deviceTime);
