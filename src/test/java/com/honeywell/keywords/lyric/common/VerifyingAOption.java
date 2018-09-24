@@ -1079,7 +1079,7 @@ public class VerifyingAOption extends Keyword {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED": {
 				PrimaryCard pc1 = new PrimaryCard(testCase);
-				if (!pc1.isVacationStatusVisible()) {
+				if (!pc1.isVacationStatusVisible(30)) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
