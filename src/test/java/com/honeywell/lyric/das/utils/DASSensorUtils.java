@@ -606,6 +606,7 @@ public class DASSensorUtils {
 						"Base Station Configuration");
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
 				flag = flag & sensorScreen
 						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
 				break;
@@ -614,6 +615,7 @@ public class DASSensorUtils {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
 				flag = flag & sensorScreen
 						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
 				break;

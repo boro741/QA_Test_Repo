@@ -3017,12 +3017,12 @@ Examples:
 #| OFF 	| Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
 
 
-@DASMotionSensorEnrollmentWithCustomName		@P1				@Automated
+@DASISMVEnrollmentWithCustomName			@P1				@Automated
 Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
-#When user indoor motion viewer "enrolled"
+When user indoor motion viewer "enrolled"
 And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
 When user selects "Watch The How To video" from "Locate Viewer" screen
@@ -3036,13 +3036,13 @@ Then user should be displayed with the "Place viewer Select Mounting Option" scr
 When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
 Then user should be displayed with the "Place viewer Mount" screen
 And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
-#When user indoor motion viewer "motion not detected"
+When user indoor motion viewer "motion not detected"
 Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
 When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
 Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
 And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
-#When user indoor motion viewer "motion detected"
+When user indoor motion viewer "motion detected"
 Then user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 

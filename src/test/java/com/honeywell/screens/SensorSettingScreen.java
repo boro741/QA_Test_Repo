@@ -137,6 +137,28 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 		return false;
 	}
+	
+	public boolean isTestMotionSensorHeadingDisplayed() {
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+		fWait.pollingEvery(5, TimeUnit.SECONDS);
+		fWait.withTimeout(2, TimeUnit.MINUTES);
+		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+			public Boolean apply(CustomDriver driver) {
+				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "TestMotionViewerHeading")) {
+					return true;
+				} else
+					return false;
+
+			}
+
+		});
+
+		if (isEventReceived) {
+			return true;
+		}
+		return false;
+	}
 
 	public boolean clickOnSensorNotWorking() {
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
@@ -1026,6 +1048,10 @@ public class SensorSettingScreen extends MobileScreens {
 	
 	public boolean isMotionSensorSettingsScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorSettingsScreenTitle", timeOut);
+	}
+	
+	public boolean isMotionViewerSettingsScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionViewerSettingsScreenTitle", timeOut);
 	}
 
 	/*

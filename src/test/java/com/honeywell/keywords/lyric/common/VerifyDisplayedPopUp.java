@@ -9,7 +9,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
-import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
