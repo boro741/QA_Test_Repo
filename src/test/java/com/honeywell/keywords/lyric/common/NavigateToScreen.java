@@ -1208,8 +1208,8 @@ public class NavigateToScreen extends Keyword {
 				case "DOOR ACCESS SETTINGS":
 				case "ISMV SENSOR SETTINGS":
 				case "OSMV SENSOR SETTINGS": {
-					DASSensorUtils.navigateToSensorTypeSettingsFromSecuritySettingsScreen(screen.get(0).toUpperCase(), inputs,
-							testCase);
+					DASSensorUtils.navigateToSensorTypeSettingsFromSecuritySettingsScreen(screen.get(0).toUpperCase(),
+							inputs, testCase);
 					break;
 				}
 				default: {
@@ -1853,7 +1853,8 @@ public class NavigateToScreen extends Keyword {
 						inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					} catch (Exception e) {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured: " + e.getMessage());
 					}
 					return flag;
 				}
@@ -2123,8 +2124,10 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR LIST": {
-					/*SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-					flag = flag & sc.isSensorsTextVisible();*/
+					/*
+					 * SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					 * flag = flag & sc.isSensorsTextVisible();
+					 */
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					if (security.isAppSettingsIconVisible(15)) {
 						flag = security.clickOnAppSettingsIcon();
@@ -2140,7 +2143,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "DOOR ACCESS SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
-				case "MOTION SENSOR SETTINGS":{
+				case "MOTION SENSOR SETTINGS": {
 					DASSensorUtils.navigateToSensorTypeSettingsFromSecuritySolutionCard(screen.get(0).toUpperCase(),
 							inputs, testCase);
 					break;
@@ -2304,6 +2307,31 @@ public class NavigateToScreen extends Keyword {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnTestSensorBack();
 					flag = flag & sensor.isMotionSensorSettingsScreenTitleVisible(30);
+					break;
+				}
+				case "MOTION VIEWER SETTINGS": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnTestSensorBack();
+					flag = flag & sensor.isMotionSensorSettingsScreenTitleVisible(30);
+					break;
+				}
+				case "MOTION VIEWER HELP": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isViewerNotWorkingLinkInTestMotionViewerScreenVisible()) {
+						flag = flag & dasDIY.clickOnViewerNotWorkingLinkInTestMotionViewerScreen();
+						if (dasDIY.isMotionViewerHelpScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
 					break;
 				}
 				default: {
@@ -2571,6 +2599,12 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "MOTION VIEWER SETTINGS": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnTestSensorBack();
+					flag = flag & sensor.isMotionViewerSettingsScreenTitleVisible(30);
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2604,6 +2638,13 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Next button not displayed in: " + screen.get(1));
 					}
+					break;
+				}
+				case "TEST VIEWER SENSOR": {
+					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnMotionSensorHelpBack();
+					flag = flag & sensor.clickOnAccessSensorHelpBack();
 					break;
 				}
 				default: {

@@ -501,7 +501,7 @@ Examples:
 @DASMotionSensorSignalStrengthWithSensor			@P2			@Automated
 Scenario Outline: As a user I should be able to verify the signal strength and test Motion Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
-#And user motion sensor <Motion Sensor Status>
+And user motion sensor <Motion Sensor Status>
 And user launches and logs in to the Lyric application
 When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen
 Then user selects "Signal Strength and Test" from "Motion Sensor Settings" screen
@@ -512,8 +512,8 @@ Then user should be displayed with the "Motion Sensor Help" screen
 When user selects "Test Signal Strength" from "Motion Sensor Help" screen
 Then user should be displayed with the "Signal Strength" screen
 Then user should see the "motion sensor" status as "High" on the "Signal Strength"
-And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
-When user navigates to "Motion Sensor Settings" screen from the "Test Motion Sensor" screen
+When user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
+Then user navigates to "Motion Sensor Settings" screen from the "Test Motion Sensor" screen
 
 Examples:
 | Mode					| Motion Sensor Status	|
@@ -529,63 +529,65 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASISMVSensorSignalStrengthWithSensor			@Automatable
+@DASISMVSensorSignalStrengthWithSensor			@P2			@Automated
 Scenario Outline: As a user I should be able to verify the signal strength and test ISMV Sensor in Home and OFF mode
-Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" settings screen from the "Dashboard"
-When user selects the "Signal Strength and Test" button
-Then user should be displayed with "Test Sensor" screen
-When user selects "Sensor Not Working?" from "Test Sensor" screen
-Then user should be displayed with the "Motion Viewer Help" screen
-When user selects "Get additional help" from "Motion Viewer Help" screen
-Then user should be navigated to "Web page help" screen 
-When user selects "back" button
-Then user should be displayed with the "Motion Viewer Help" screen
-When user selects "Test Signal Strength" from "Motion Viewer Help" screen
-Then user should be displayed with "Signal Strength" screen 
-When user navigates to "Dashboard" screen from the "Test Signal Strength" screen
+Given user is set to <Mode> mode through CHIL
+And user launches and logs in to the Lyric application
+Then user navigates to "ISMV Sensor settings" screen from the "Dashboard" screen
+#And user indoor motion viewer <Sensor Status>
+Then user selects "Signal Strength and Test" from "ISMV Sensor settings" screen
+Then user should be displayed with the "Test Motion Viewer" screen
+Then user should see the "ISMV sensor" status as "No Motion Detected" on the "Test Motion Viewer"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+Then user should be displayed with the "Signal Strength" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+Then user navigates to "Motion Viewer Settings" screen from the "Test Motion Viewer" screen
+
+
 Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Open|
-|Home|Low battery|
-|Off |Cover Tampered|
-|Off |Open|
-|Off |Low battery|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Open|
-|Sensor Enrollment |Low battery|
+| Mode				| Sensor Status		|
+#| Home				| Cover Tampered		|
+| Home				| Open				|
+#| Home				| Low battery		|
+#| Off 				| Cover Tampered		|
+#| Off 				| Open				|
+#| Off 				| Low battery		|
+#| Sensor Enrollment 	| Cover Tampered		|
+#| Sensor Enrollment 	| Open				|
+#| Sensor Enrollment 	| Low battery		|
 
 
 #Requirement :One DAS Panel and one OSMV Sensor should be configured
-@DASOSMVSensorSignalStrengthWithSensor		@Automatable
+@DASOSMVSensorSignalStrengthWithSensor		@P2			@Automated
 Scenario Outline: As a user I should be able to verify the signal strength and test OSMV Sensor in Home and OFF mode
-Given user launches and logs in to the Lyric application 
-And user is set to <Mode> through CHIL
-Then user navigates to "Motion Viewer settings" settings screen from the "Dashboard"
-When user selects the "Signal Strength and Test" button
-Then user should be displayed with "Test Sensor" screen
-When user selects "Sensor Not Working?" from "Test Sensor" screen
-Then user should be displayed with the "Motion Viewer Help" screen
-When user selects "Get additional help" from "Motion Viewer Help" screen
-Then user should be navigated to "Web page help" screen 
-When user selects "back" button
-Then user should be displayed with the "Motion Viewer Help" screen
-When user selects "Test Signal Strength" from "Motion Viewer Help" screen
-Then user should be displayed with "Signal Strength" screen 
-When user navigates to "Dashboard" screen from the "Test Signal Strength" screen
+Given user is set to <Mode> mode through CHIL
+And user launches and logs in to the Lyric application
+Then user navigates to "OSMV Sensor settings" screen from the "Dashboard" screen
+#And user indoor motion viewer <Sensor Status>
+Then user selects "Signal Strength and Test" from "OSMV Sensor settings" screen
+Then user should be displayed with the "Test Motion Viewer" screen
+Then user should see the "OSMV sensor" status as "No Motion Detected" on the "Test Motion Viewer"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+Then user should be displayed with the "Signal Strength" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+Then user navigates to "Motion Viewer Settings" screen from the "Test Motion Viewer" screen
+
+
 Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Open|
-|Home|Low battery|
-|Off |Cover Tampered|
-|Off |Open|
-|Off |Low battery|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Open|
-|Sensor Enrollment |Low battery|
+| Mode				| Sensor Status		|
+#| Home				| Cover Tampered		|
+| Home				| Open				|
+#| Home				| Low battery		|
+#| Off 				| Cover Tampered		|
+#| Off 				| Open				|
+#| Off 				| Low battery		|
+#| Sensor Enrollment 	| Cover Tampered		|
+#| Sensor Enrollment 	| Open				|
+#| Sensor Enrollment 	| Low battery		|
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
@@ -675,109 +677,105 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
-@DASDeleteDoorAccessSensor				@Automatable
-Scenario Outline: As a user I should be able to delete sensor from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-And user is set to <Sensor status>
-When user navigates to "Door Sensor settings" screen from the "Dashboard" screen
-And user navigates to "Door Sensor settings" screen from the "Dashboard" screen
-And user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user "Cancels" the "Delete Sensor Confirmation" popup
-Then user display with "Door Sensor settings" screen
-When user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user selects the "OK" button
-Then user display with "Door Sensor settings" screen
-When user navigates to "Sensor list" screen from the "Door Sensor settings" screen 
-Then user should not be displayed with "Door Sensor" in the "Sensor list" screen
+@DASDeleteDoorAccessSensor			@P2				@Automated
+Scenario Outline: As a user I should be able to delete door access sensor from my account through the Lyric application 
+Given user is set to <Mode> mode through CHIL
+And user "door" access sensor <Sensor Status>
+And user launches and logs in to the Lyric application
+When user navigates to "Door Access Settings" screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
+Then user should be displayed with the "Door Access Settings" screen
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
+Then user should not be displayed with "door" device on the "sensor list" screen
+
 Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Open|
-|Home|Low battery|
-|Home|Offline|
-|Off |Cover Tampered|
-|Off |Open|
-|Off |Low battery|
-|Off|Offline|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Open|
-|Sensor Enrollment |Low battery|
-|Sensor Enrollment |Offline|
+| Mode				| Sensor Status		|
+#| Home				| Cover Tampered		|
+#| Home				| Open				|
+#| Home				| Low battery		|
+#| Home				| Offline			|
+| Off 				| Cover Tampered		|
+#| Off 				| Open				|
+#| Off 				| Low battery		|
+#| Off				| Offline			|
+#| Sensor Enrollment | Cover Tampered		|
+#| Sensor Enrollment | Open				|
+#| Sensor Enrollment | Low battery		|
+#| Sensor Enrollment | Offline			|
 
 
 #Requirement :One DAS Panel and one Window Access Sensor should be configured
-@DASDeleteWindowAccessSensor			@Automatable
-Scenario Outline: As a user I should be able to delete sensor from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-And user is set to <Sensor status>
-When user navigates to "Window Sensor settings" screen from the "Dashboard" screen 
-And user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user "Cancels" the "Delete Sensor Confirmation" popup
-Then user display with "Door Sensor settings" screen
-When user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user selects the "OK" button
-Then user display with "Window Sensor settings" screen
-When user navigates to "Sensor list" screen from the "Window Sensor settings" screen 
-Then user should not be displayed with "Window Sensor" in the "Sensor list" screen
+@DASDeleteWindowAccessSensor			@P2				@Automated
+Scenario Outline: As a user I should be able to delete window access sensor from my account through the Lyric application 
+Given user is set to <Mode> mode through CHIL
+And user "door" access sensor <Sensor Status>
+And user launches and logs in to the Lyric application
+When user navigates to "Window Access Settings" screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
+Then user should be displayed with the "Window Access Settings" screen
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
+Then user should not be displayed with "window" device on the "sensor list" screen
+
 Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Open|
-|Home|Low battery|
-|Home|Offline|
-|Off |Cover Tampered|
-|Off |Open|
-|Off |Low battery|
-|Off|Offline|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Open|
-|Sensor Enrollment |Low battery|
-|Sensor Enrollment |Offline|
+| Mode				| Sensor Status		|
+#| Home				| Cover Tampered		|
+#| Home				| Open				|
+#| Home				| Low battery		|
+#| Home				| Offline			|
+| Off 				| Cover Tampered		|
+#| Off 				| Open				|
+#| Off 				| Low battery		|
+#| Off				| Offline			|
+#| Sensor Enrollment | Cover Tampered		|
+#| Sensor Enrollment | Open				|
+#| Sensor Enrollment | Low battery		|
+#| Sensor Enrollment | Offline			|
 
 
 #Requirement :One DAS Panel and one Motion Sensor should be configured
-@DASDeleteMotionSensor			@Automatable
-Scenario Outline: As a user I should be able to delete sensor from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-And user is set to <Sensor status>
-When user navigates to "Motion Sensor settings" screen from the "Dashboard" screen 
-And user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user "Cancels" the "Delete Sensor Confirmation" popup
-Then user display with "Door Sensor settings" screen
-When user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user selects the "OK" button
-Then user display with "Motion Sensor settings" screen
-When user navigates to "Sensor list" screen from the "Motion Sensor settings" screen 
-Then user should not be displayed with "Motion Sensor" in the "Sensor list" screen
+@DASDeleteMotionSensor			@P2				@Automated
+Scenario Outline: As a user I should be able to delete motion sensor from my account through the Lyric application 
+Given user is set to <Mode> mode through CHIL
+And user launches and logs in to the Lyric application
+When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen
+And user motion sensor <Sensor Status>
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "dismisses" the "Delete Motion Sensor Confirmation" popup
+Then user should be displayed with the "Motion Sensor Settings" screen
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "accepts" the "Delete Motion Sensor Confirmation" popup
+Then user should not be displayed with "motion sensor" device on the "sensor list" screen
+
 Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Standby|
-|Home|Low battery|
-|Home|Offline|
-|Off |Cover Tampered|
-|Off |Standby|
-|Off |Low battery|
-|Off|Offline|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Standby|
-|Sensor Enrollment |Low battery|
-|Sensor Enrollment |Offline|
+| Mode				| Sensor Status		|
+#| Home				| Cover Tampered		|
+#| Home				| Standby			|
+#| Home				| Low battery		|
+#| Home				| Offline			|
+| Off 				| Cover Tampered		|
+#| Off 				| Standby			|
+#| Off 				| Low battery		|
+#| Off				| Offline			|
+#| Sensor Enrollment | Cover Tampered		|
+#| Sensor Enrollment | Standby			|
+#| Sensor Enrollment | Low battery		|
+#| Sensor Enrollment | Offline			|
 
 
 #Duplicate of the above scenario
 #Requirement :One DAS Panel and one Motion Sensor should be configured
-@DASDeleteMotionSensor			@Duplicate
-Scenario Outline: As a user I should be able to delete sensor from my account through the Lyric application 
+@DASDeleteMotionSensor123			@Duplicate
+Scenario Outline: As a user I should be able to delete key fob from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
 And user is set to <Sensor status>
@@ -792,72 +790,6 @@ When user selects the "OK" button
 Then user display with "Motion Sensor settings" screen
 When user navigates to "Sensor list" screen from the "Motion Sensor settings" screen 
 Then user should not be displayed with "Motion Sensor" in the "Sensor list" screen
-Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Standby|
-|Home|Low battery|
-|Home|Offline|
-|Off |Cover Tampered|
-|Off |Standby|
-|Off |Low battery|
-|Off|Offline|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Standby|
-|Sensor Enrollment |Low battery|
-|Sensor Enrollment |Offline|
-
-
-#Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASDeleteISMVSensor				@Automatable
-Scenario Outline: As a user I should be able to delete sensor from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-And user is set to <Sensor status>
-When user navigates to "ISMV Sensor settings" screen from the "Dashboard" screen 
-And user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user "Cancels" the "Delete Sensor Confirmation" popup
-Then user display with "Door Sensor settings" screen
-When user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user selects the "OK" button
-Then user display with "ISMV Sensor settings" screen
-When user navigates to "Sensor list" screen from the "ISMV Sensor settings" screen 
-Then user should not be displayed with "ISMV Sensor" in the "Sensor list" screen
-Examples:
-|Mode|Sensor status|
-|Home|Cover Tampered|
-|Home|Standby|
-|Home|Low battery|
-|Home|Offline|
-|Off |Cover Tampered|
-|Off |Standby|
-|Off |Low battery|
-|Off|Offline|
-|Sensor Enrollment |Cover Tampered|
-|Sensor Enrollment |Standby|
-|Sensor Enrollment |Low battery|
-|Sensor Enrollment |Offline|
-
-
-#Requirement :One DAS Panel and one OSMV Sensor should be configured
-@DASDeleteOSMVSensor				@Automatable
-Scenario Outline: As a user I should be able to delete sensor from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-And user is set to <Sensor status>
-When user navigates to "OSMV Sensor settings" screen from the "Dashboard" screen 
-And user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user "Cancels" the "Delete Sensor Confirmation" popup
-Then user display with "Door Sensor settings" screen
-When user "deletes Sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-When user selects the "OK" button
-Then user display with "OSMV Sensor settings" screen
-When user navigates to "Sensor list" screen from the "OSMV Sensor settings" screen 
-Then user should not be displayed with "OSMV Sensor" in the "Sensor list" screen
 Examples:
 |Mode|Sensor status|
 |Home|Cover Tampered|
@@ -875,25 +807,87 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Keyfob should be configured
-@DASDeleteKeyfob				@Automatable
+@DASDeleteKeyfob				@P2				@Automated
 Scenario Outline: As a user I should be able to delete keyfob from my account through the Lyric application 
-Given user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
-When user navigates to "Keyfob settings" screen from the "Dashboard" screen 
-And user "deletes keyfob" by clicking on "delete" button
+Given user is set to <Mode> mode through CHIL
+And user launches and logs in to the Lyric application
+When user navigates to "Keyfob Settings" screen from the "Dashboard" screen
+When user selects "delete sensor" from "Keyfob Settings" screen
 Then user should receive a "Delete keyfob Confirmation" popup
-When user "Cancels" the "Delete keyfob Confirmation" popup
-Then user display with "Keyfob settings" screen
-When user "deletes keyfob" by clicking on "delete" button
+When user "dismisses" the "Delete Keyfob Confirmation" popup
+When user selects "delete sensor" from "Keyfob Settings" screen
 Then user should receive a "Delete keyfob Confirmation" popup
-When user selects the "OK" button
-Then user display with "Keyfob settings" screen
-When user navigates to "Sensor list" screen from the "keyfob settings" screen 
-Then user should not be displayed with "Keyfob" in the "keyfob list" screen
+And user "accepts" the "Delete Keyfob Confirmation" popup
+Then user should not be displayed with "Keyfob" device on the "Keyfob list" screen
+
 Examples:
-|Mode|
-|Home|
-|Off |
+| Mode	|
+#| Home	|
+| Off 	|
+
+
+#Requirement :One DAS Panel and one ISMV Sensor should be configured
+@DASDeleteISMVSensor				@Automatable
+Scenario Outline: As a user I should be able to delete ISMV from my account through the Lyric application 
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+Then user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen
+When user indoor motion viewer <Sensor status>
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "dismisses" the "Delete ISMV Sensor Confirmation" popup
+Then user should be displayed with the "ISMV Sensor settings" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "accepts" the "Delete ISMV Sensor Confirmation" popup
+Then user should not be displayed with "ISMV sensor" device on the "sensor list" screen
+
+Examples:
+| Mode				| Sensor status		|
+| Home				| Cover Tampered		|
+#| Home				| Standby			|
+#| Home				| Low battery		|
+#| Home				| Offline			|
+#| Off 				| Cover Tampered		|
+#| Off 				| Standby			|
+#| Off 				| Low battery		|
+#| Off				| Offline			|
+#| Sensor Enrollment | Cover Tampered		|
+#| Sensor Enrollment | Standby			|
+#| Sensor Enrollment | Low battery		|
+#| Sensor Enrollment | Offline			|
+
+
+#Requirement :One DAS Panel and one OSMV Sensor should be configured
+@DASDeleteOSMVSensor				@Automatable
+Scenario Outline: As a user I should be able to delete OSMV from my account through the Lyric application 
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+Then user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen
+When user outdoor motion viewer <Sensor status>
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "dismisses" the "Delete OSMV Sensor Confirmation" popup
+Then user should be displayed with the "OSMV Sensor settings" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "accepts" the "Delete OSMV Sensor Confirmation" popup
+Then user should not be displayed with "OSMV sensor" device on the "sensor list" screen
+
+Examples:
+| Mode				| Sensor status		|
+| Home				| Cover Tampered		|
+#| Home				| Standby			|
+#| Home				| Low battery		|
+#| Home				| Offline			|
+#| Off 				| Cover Tampered		|
+#| Off 				| Standby			|
+#| Off 				| Low battery		|
+#| Off				| Offline			|
+#| Sensor Enrollment | Cover Tampered		|
+#| Sensor Enrollment | Standby			|
+#| Sensor Enrollment | Low battery		|
+#| Sensor Enrollment | Offline			|
 
 
 @DASDeleteSensorDisabled				@NotAutomatable

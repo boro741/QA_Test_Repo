@@ -16,7 +16,6 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -965,6 +964,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			break;
 		}
 		case "TEST MOTION SENSOR":
+		case "TEST MOTION VIEWER":
 		case "TEST ACCESS SENSOR": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -1096,6 +1096,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				break;
 			}
 			}
+			break;
 		}
 		case "SIGNAL STRENGTH": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -1148,8 +1149,8 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Displayed signal strength value is: " + testSignalStrengthValue);
 					}
-				}
 					break;
+				}
 				}
 				break;
 			}

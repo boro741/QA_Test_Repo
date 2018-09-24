@@ -1877,16 +1877,16 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean isSignalStrengthIsHighSubTitleVisibleInSignalStrengthScreen() {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthIsHighSubTitle")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthIsHighSubTitle", 5)) {
 			return true;
-		} else if (MobileUtils.isMobElementExists("XPATH", "//*[@value='You shouldn't have any connection issues.']",
+		} else if (MobileUtils.isMobElementExists("XPATH", "//*[@value='You shouldn’t have any connection issues.']",
 				testCase)) {
 			return true;
 		} else if (MobileUtils.isMobElementExists("XPATH", "//*[@value='You shouldn\'t have any connection issues.']",
 				testCase)) {
 			return true;
 		} else if (testCase.getMobileDriver()
-				.findElement(By.xpath("//*[@value='You shouldn't have any connection issues.']")).isEnabled()) {
+				.findElement(By.xpath("//*[@value=\"You shouldn’t have any connection issues.\"]")).isEnabled()) {
 			return true;
 		} else {
 			return false;

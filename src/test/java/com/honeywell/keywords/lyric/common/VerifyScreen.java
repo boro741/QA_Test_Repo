@@ -618,6 +618,17 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "TEST MOTION VIEWER": {
+				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+				if (sensor.isTestMotionSensorHeadingDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0) + " is not displayed");
+				}
+				break;
+			}
 			case "SIGNAL STRENGTH": {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				flag = flag & sensor.isSignalStrengthScreenDisplayed();
@@ -907,6 +918,43 @@ public class VerifyScreen extends Keyword {
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
 				}break;
+			}
+			case "DOOR ACCESS SETTINGS": {
+				SensorSettingScreen ss = new SensorSettingScreen(testCase);
+				if (ss.isDoorAccessSettingsScreenTitleVisible(10)) {
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+				}
+				break;
+			}
+			case "WINDOW ACCESS SETTINGS": {
+				SensorSettingScreen ss = new SensorSettingScreen(testCase);
+				if (ss.isWindowAccessSettingsScreenTitleVisible(10)) {
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+				}
+				break;
+			}
+			case "MOTION SENSOR SETTINGS": {
+				SensorSettingScreen ss = new SensorSettingScreen(testCase);
+				if (ss.isMotionSensorSettingsScreenTitleVisible(10)) {
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+				}
+				break;
+			}
+			case "ISMV MOTION VIEWER SETTINGS":
+			case "OSMV MOTION VIEWER SETTINGS":{
+				SensorSettingScreen ss = new SensorSettingScreen(testCase);
+				if (ss.isMotionViewerSettingsScreenTitleVisible(10)) {
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+				}
+				break;
 			}
 			default: {
 				flag = false;
