@@ -639,32 +639,32 @@ public class LyricUtils {
 //				else {
 //				flag = flag & sm.clickOnSetDasDIYV2Toggle();
 //			}
-			if (sm.isWebServerURLVisible()) {
-				flag = flag & sm.clickOnWebServerURL();
-				// Keeping this explicit wait because sometimes the environment selection fails
-				// on ANDROID
-				TimeUnit.SECONDS.sleep(1);
-				// Thread.sleep(1000);
-			}
-			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
-			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
-				flag = flag & sm.clickOnCHILDASQAOption();
-			} else if (environmentToSelect.equalsIgnoreCase("Production")) {
-				flag = flag & sm.clickOnProductionOption();
-			} else if (environmentToSelect.equalsIgnoreCase("CHILStage(Azure)")) {
-				flag = flag & sm.clickOnCHILStageAzureOption();
-			} else if (environmentToSelect.equalsIgnoreCase("CHILInt(Azure)")) {
-				flag = flag & sm.clickOnCHILIntAzureOption();
-			} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
-				flag = flag & sm.clickOnCHILDevDev2Option();
-			} else if (environmentToSelect.equalsIgnoreCase("LoadTesting")) {
-				flag = flag & sm.clickOnCHILLoadTestingOption();
-			} else if (environmentToSelect.equalsIgnoreCase("ChilDas(Test)")) {
-				flag = flag & sm.clickOnCHILDASTestOption();
-			} else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
-				return false;
-			}
+//			if (sm.isWebServerURLVisible()) {
+//				flag = flag & sm.clickOnWebServerURL();
+//				// Keeping this explicit wait because sometimes the environment selection fails
+//				// on ANDROID
+//				TimeUnit.SECONDS.sleep(1);
+//				// Thread.sleep(1000);
+//			}
+//			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
+//			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
+//				flag = flag & sm.clickOnCHILDASQAOption();
+//			} else if (environmentToSelect.equalsIgnoreCase("Production")) {
+//				flag = flag & sm.clickOnProductionOption();
+//			} else if (environmentToSelect.equalsIgnoreCase("CHILStage(Azure)")) {
+//				flag = flag & sm.clickOnCHILStageAzureOption();
+//			} else if (environmentToSelect.equalsIgnoreCase("CHILInt(Azure)")) {
+//				flag = flag & sm.clickOnCHILIntAzureOption();
+//			} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
+//				flag = flag & sm.clickOnCHILDevDev2Option();
+//			} else if (environmentToSelect.equalsIgnoreCase("LoadTesting")) {
+//				flag = flag & sm.clickOnCHILLoadTestingOption();
+//			} else if (environmentToSelect.equalsIgnoreCase("ChilDas(Test)")) {
+//				flag = flag & sm.clickOnCHILDASTestOption();
+//			} else {
+//				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
+//				return false;
+//			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 
 				if (sm.isCHILFRTweakOptionAvailable()) {
