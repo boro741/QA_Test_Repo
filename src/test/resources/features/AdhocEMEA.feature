@@ -58,6 +58,7 @@ Examples:
 Scenario Outline:  To verify following base switching  mode is changed for Heat system with auto changeover enabled
 Given user has "Heat" system mode
 Then user thermostat is set to "time based" schedule
+And user thermostat has <Period> currently following in "Time Based" schedule
 When user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
