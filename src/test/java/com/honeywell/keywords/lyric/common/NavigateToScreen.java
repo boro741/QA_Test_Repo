@@ -54,7 +54,9 @@ import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.VacationHoldScreen;
+import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
+import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.screens.ZwaveScreen;
 
@@ -333,12 +335,55 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			// Amresh wld
-			else if (screen.get(1).equalsIgnoreCase("WLD SETTINGS")) {
+
+			else if (screen.get(1).equalsIgnoreCase("WLD SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
+				case "LEAK DETECTOR CONFIGURATION": {
+					WLDSolutionCard humi = new WLDSolutionCard(testCase);
+					flag = flag & humi.navigateFromPrimaryCardToLeakDetectorConfigurationScreen();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Config screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Not Navigated ");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			//Amresh wld
+			else if (screen.get(1).equalsIgnoreCase("WLD SETTINGS")) {
+				switch (screen.get(0).toUpperCase())
+				{
+				case "DASHBOARD": 
+				{
 					WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 					flag = flag & set.navigateFromWLDSettingsScreenToPrimaryCard();
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
+			}
+			else if (screen.get(1).equalsIgnoreCase("LEAK DETECTOR CONFIGURATION")) {
+				switch (screen.get(0).toUpperCase())
+				{
+				case "DASHBOARD": 
+				{
+					WLDConfigurationScreen set = new WLDConfigurationScreen(testCase);
+					flag = flag & set.navigateFromWLDConfigurationScreenToDashboard(testCase);
+					break;
+				}
+				case "WLD SOLUTION CARD": 
+				{
+					WLDConfigurationScreen set = new WLDConfigurationScreen(testCase);
+					flag = flag & set.navigateFromWLDConfigurationScreenToSolutionCard(testCase);
 					break;
 				}
 				default: {
@@ -656,7 +701,21 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
-
+				//Amresh  dashboard to wld manage alerts
+				case "WLD MANAGE ALERTS": { 
+					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToWLDManageAlerts(testCase, inputs);
+					break;
+				}
+				//Amresh  dashboard to Leak Detector Configuration
+				case "LEAK DETECTOR CONFIGURATION": { 
+					flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
+					break;
+				}
+				//Amresh  dashboard to Leak Detector Configuration
+				case "WLD SOLUTION CARD": { 
+//Later				//	flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
+					break;
+				}
 				// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'
 				case "THERMOSTAT HUMIDIFICATION": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToThermostatHumidificationScreen(testCase,

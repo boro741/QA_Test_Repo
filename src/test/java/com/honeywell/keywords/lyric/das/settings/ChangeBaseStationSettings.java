@@ -27,6 +27,7 @@ import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.VacationHoldScreen;
+import com.honeywell.screens.WLDManageAlerts;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -121,6 +122,98 @@ public class ChangeBaseStationSettings extends Keyword {
 
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Geofencing this location")) {
+			} 
+			// Amresh wld edit starts
+			else if (parameters.get(0).equalsIgnoreCase("INDOOR TEMPERATURE ALERTS")) {
+				WLDManageAlerts ale = new WLDManageAlerts(testCase);
+				String status ="";
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
+						if(ale.getIndoorTemperatureAlertsToggleValue().equals("OFF")) {
+							status = ale.getIndoorTemperatureAlertsToggleValue();
+							System.out.println("Status: "+status);	
+							ale.clickIndoorTemperatureAlertsToggle();
+						} else{	
+							status = ale.getIndoorTemperatureAlertsToggleValue();
+							System.out.println("Status: "+status);
+						}
+					}
+					else{//ios
+						if(ale.isIndoorTemperatureAlertToggleEnabled()) {
+							System.out.println("Status: Enabled");
+						} 
+						else{	
+							ale.clickIndoorTemperatureAlertsToggle();
+						}
+					}
+				}
+				else if(parameters.get(1).equalsIgnoreCase("OFF")) 
+				{if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
+					if(ale.getIndoorTemperatureAlertsToggleValue().equals("ON")) {
+						status = ale.getIndoorTemperatureAlertsToggleValue();
+						System.out.println("Status: "+status);	
+						ale.clickIndoorTemperatureAlertsToggle();
+					} else{	
+						status = ale.getIndoorTemperatureAlertsToggleValue();
+						System.out.println("Status: "+status);
+					}
+				}else{//ios
+					if(ale.isIndoorTemperatureAlertToggleEnabled()){
+						ale.clickIndoorTemperatureAlertsToggle();
+					} 
+					else {	
+						System.out.println("Status: Enabled");
+					}
+				}
+				}
+			}//Amresh Edit Ends
+			
+			// Amresh wld edit starts
+						else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")) {
+							WLDManageAlerts ale = new WLDManageAlerts(testCase);
+							String status ="";
+							if (parameters.get(1).equalsIgnoreCase("ON")) {
+								if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
+									if(ale.getIndoorHumidityAlertsToggleValue().equals("OFF")) {
+										status = ale.getIndoorHumidityAlertsToggleValue();
+										System.out.println("Status: "+status);	
+										ale.clickIndoorHumidityAlertsToggle();
+									} else{	
+										status = ale.getIndoorHumidityAlertsToggleValue();
+										System.out.println("Status: "+status);
+									}
+								}
+								else{//ios
+									if(ale.isIndoorHumidityAlertToggleEnabled()) {
+										System.out.println("Status: Enabled");
+									} 
+									else{	
+										ale.clickIndoorHumidityAlertsToggle();
+									}
+								}
+							}
+							else if(parameters.get(1).equalsIgnoreCase("OFF")) 
+							{if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
+								if(ale.getIndoorHumidityAlertsToggleValue().equals("ON")) {
+									status = ale.getIndoorHumidityAlertsToggleValue();
+									System.out.println("Status: "+status);	
+									ale.clickIndoorHumidityAlertsToggle();
+								} else{	
+									status = ale.getIndoorHumidityAlertsToggleValue();
+									System.out.println("Status: "+status);
+								}
+							}else{//ios
+								if(ale.isIndoorHumidityAlertToggleEnabled()){
+									ale.clickIndoorHumidityAlertsToggle();
+								} 
+								else {	
+									System.out.println("Status: Enabled");
+								}
+							}
+							}
+						}//Amresh Edit Ends
+			else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if(DASSettingsUtils.EnableGlobalGeofence(testCase)){
 						Keyword.ReportStep_Pass(testCase, "Succesfully turn on the " + parameters.get(0));

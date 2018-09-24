@@ -13,6 +13,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDManageAlerts;
 
 public class VerifyValueOnAScreen extends Keyword {
 
@@ -293,7 +294,86 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			} else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
+			} 
+			//Amresh wld edit starts
+			else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR TEMPERATURE ALERT")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				WLDManageAlerts ale = new WLDManageAlerts(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
+						String status = ale.getIndoorTemperatureAlertsToggleValue();
+						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+					}
+					else {
+						
+						//ios code here
+						String status = ale.getIndoorTemperatureAlertsToggleValue();
+						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+						
+					}
+					}
+
+				 else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+						
+						if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
+							String status = ale.getIndoorTemperatureAlertsToggleValue();
+							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
+						}
+						else {
+							
+							//ios code here
+							String status = ale.getIndoorTemperatureAlertsToggleValue();
+							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
+							
+						}
+				} 
+				 else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			}
+			else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR HUMIDITY ALERT")
+					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
+				WLDManageAlerts ale = new WLDManageAlerts(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
+						String status = ale.getIndoorHumidityAlertsToggleValue();
+						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+					}
+					else {
+						
+						//ios code here
+						String status = ale.getIndoorHumidityAlertsToggleValue();
+						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+						
+					}
+					}
+
+				 else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+						
+						if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
+							String status = ale.getIndoorHumidityAlertsToggleValue();
+							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
+						}
+						else {
+							
+							//ios code here
+							String status = ale.getIndoorHumidityAlertsToggleValue();
+							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
+							
+						}
+				} 
+				 else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			}
+			//Amresh wld edit ends
+			else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
 					|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY"))
 					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);

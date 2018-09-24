@@ -14,6 +14,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.Dashboard;
 
 public class VerifyEditedCameraNameOnDashboard extends Keyword {
 
@@ -49,6 +50,28 @@ public class VerifyEditedCameraNameOnDashboard extends Keyword {
 				}else{
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Camera edited name not updated in dashboard");
 				}	
+			} 	
+			else if (parameters.get(0).equalsIgnoreCase("WLD Dashboard")) { 
+				//BaseStationSettingsScreen ts = new BaseStationSettingsScreen(testCase);
+				//flag &= ts.clickOnBackButton();
+				//flag &= ts.clickOnBackButton();
+				String deviceName="";
+
+				boolean flag = true;
+				Dashboard d = new Dashboard(testCase);
+				if (d.isDevicePresentOnDashboard(inputs.getInputValue("LOCATION1_DEVICE1_NAME"))) {
+					deviceName= inputs.getInputValue("LOCATION1_DEVICE1_NAME");
+					Keyword.ReportStep_Pass(testCase,"Camera Edited name udpated to Original Name in dashbaord");
+				} else if (d.isDevicePresentOnDashboard("Test WLD Name")){
+					deviceName="Test WLD Name";
+					Keyword.ReportStep_Pass(testCase,"Camera Edited name udpated to Test WLD Name in dashbaord");
+				}
+				else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Device : " + deviceName + " is not present on the dashboard.");
+				}
+				return flag;
 			}
 		}catch (Exception e) {
 			flag = false;

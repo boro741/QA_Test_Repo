@@ -9,10 +9,12 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.WLDConfigurationScreen;
 
 public class VerifyIfUserIsInCurrentScreen extends Keyword {
 
@@ -112,6 +114,17 @@ public class VerifyIfUserIsInCurrentScreen extends Keyword {
 					}
 				}
 				break;
+			}
+			//Amresh for wld
+			case "PREVIOUS": {
+				WLDConfigurationScreen config = new WLDConfigurationScreen(testCase);
+				try {
+					MobileUtils.hideKeyboard(testCase.getMobileDriver());
+				} catch (Exception e) {
+				}
+				flag = flag & config.clickOnBackButton();
+				break;
+
 			}
 			default: {
 				flag = false;

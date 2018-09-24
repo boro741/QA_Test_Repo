@@ -69,6 +69,10 @@ public class SelectDeviceFromDashboard extends Keyword {
 		{
 			deviceToBeSelected = inputs.getInputValue("LOCATION1_DEVICE1_NAME");
 		}
+		else if(deviceType.get(0).equalsIgnoreCase("WLD Renamed device"))
+		{
+			deviceToBeSelected = "Test WLD Name";
+		}
 		if (DashboardUtils.selectDeviceFromDashboard(testCase, deviceToBeSelected)) {
 			Keyword.ReportStep_Pass(testCase, "Successfully selected device : " + deviceToBeSelected);
 		} else {
