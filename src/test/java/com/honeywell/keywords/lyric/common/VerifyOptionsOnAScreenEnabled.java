@@ -398,7 +398,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				}
 				}
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "The " + parameter + "has Enabled");
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + " has Enabled");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							" The " + parameter + " has not Enabled");

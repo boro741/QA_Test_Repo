@@ -283,22 +283,23 @@ public class DASSettingsUtils {
 				flag = flag & sc.selectOptionFromSecondarySettings("Geofence");
 			}
 
-			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Could not click on global geofence toggle");
+			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
+				Keyword.ReportStep_Pass(testCase, "Enabled geofence this location toggle option");
+			}else{
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on global geofence toggle");
 			}
 			Thread.sleep(3000);
 
-			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
-				flag = false;
+			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
+				Keyword.ReportStep_Pass(testCase, "Enabled geofence this location Alert toggle option");
+			}else{
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Could not click on global geofence alert toggle");
 			}
 
 			Thread.sleep(2000);
 
-			if (geoScreen.isclickOnBackButtonVisible()) {
+			if (geoScreen.isBackButtonVisible()) {
 				flag = flag & geoScreen.clickOnBackButton();
 				Thread.sleep(2000);
 				if (sc.isclickOnBackButtonVisible()) {
@@ -327,14 +328,14 @@ public class DASSettingsUtils {
 			}
 			Thread.sleep(3000);
 
-			if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION)) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Could not click on global geofence toggle");
+			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION) ) {
+				Keyword.ReportStep_Pass(testCase, "Disabled gefoence toggle option");
+				}else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on global geofence toggle");
 			}
 
 			Thread.sleep(3000);
-			if (geoScreen.isclickOnBackButtonVisible()) {
+			if (geoScreen.isBackButtonVisible()) {
 				flag = flag & geoScreen.clickOnBackButton();
 
 				if (sc.isclickOnBackButtonVisible()) {
@@ -610,7 +611,6 @@ public class DASSettingsUtils {
 	
 	public static boolean navigateFromCameraSolutionScreenToManageAlertsScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		PrimaryCard pc = new PrimaryCard(testCase);
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		try {
 			if (cs.isManageAlertsLabelVisible(5)) {

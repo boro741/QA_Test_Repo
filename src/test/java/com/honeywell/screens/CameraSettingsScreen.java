@@ -1703,5 +1703,53 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean ClickOnNightVisionOFFOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionOFF");
 	}
-
+	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return Boolean.parseBoolean(MobileUtils
+						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
+			}
+		} else {
+			return false;
+		}
+	}
+	public boolean toggleCameraOnInHomeModeSwitch(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
+	}
+	public boolean isCameraOnInNightModeSwitchEnabled(TestCases testCase) throws Exception {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInNightModeSwitch", 10)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightModeSwitch").getText()
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return Boolean.parseBoolean(MobileUtils
+						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
+			}
+		} else {
+			return false;
+		}
+	}
+	public boolean toggleCameraOnInNightModeSwitch(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInNightModeSwitchs");
+	}
+	public boolean clickonbackoption(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackCameraSettings");
+	}
+	public boolean isEnsureTheCameraisturnedonandtheprivacyringisopenvisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnsureTheCameraisturnedonandtheprivacyringisopen");
+	}
+	public boolean clickonEnsureTheCameraisOKoption(){
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EnsureTheCameraisOKoption");
+	}
 }

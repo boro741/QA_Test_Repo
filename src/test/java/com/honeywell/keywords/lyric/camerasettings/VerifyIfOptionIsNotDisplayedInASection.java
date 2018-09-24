@@ -11,6 +11,8 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -66,6 +68,34 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 			if(!ssc.verifystate("Night")) {
 				Keyword.ReportStep_Pass(testCase, "Night Text Not Found");
 			}
+		}case "DETERRENCE SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Settings");
+				switch (parameter.toUpperCase()) {
+				case "SELECT CHIME": {
+					flag &= !bs.isSelectChimeVisible();
+					break;
+				}case "PLAY DOG BARK SOUND": {
+					flag &= !bs.isPlayDogBarkSoundVisible();
+					break;
+				}
+				case "PARTY IS ON": {
+					flag &= !bs.isPartyIsOnVisible();
+					break;
+				}
+				case "VACUUM": {
+					flag &= !bs.isVacuumVisible();
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + " has not found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has found");
+				}
+				flag = true;
+			}break;
 		}
 		}
 		return flag;

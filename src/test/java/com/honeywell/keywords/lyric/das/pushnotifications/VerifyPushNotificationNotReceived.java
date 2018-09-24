@@ -116,6 +116,8 @@ public class VerifyPushNotificationNotReceived extends Keyword {
 					"'" + notification + "' Push Notification present");
 		}
 		DASNotificationUtils.closeNotifications(testCase);
+		testCase.getMobileDriver().launchApp();
+		Keyword.ReportStep_Pass(testCase, "Launching app to continue testing");
 		return flag;
 	}
 

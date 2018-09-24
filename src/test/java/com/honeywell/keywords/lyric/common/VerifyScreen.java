@@ -25,9 +25,9 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
-
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -99,7 +99,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "Feature Setup Completed": {
+			case "FEATURE SETUP COMPLETED": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				boolean b = bs.isFeatureSetupScreenDisplayed();
 				if (b) {
@@ -812,7 +812,7 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			
-			case "Access More Information":{
+			case "ACCESS MORE INFORMATION":{
 				flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase, CoachMarkUtils.DASCAMERA);
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
@@ -828,7 +828,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "Away":{
+			case "AWAY":{
 				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 				flag = flag & ssc.verifystate("Away");
 				if (flag) {
@@ -836,13 +836,29 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "Night":{
+			case "NIGHT":{
 				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 				flag = flag & ssc.verifystate("Night");
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}
 				break;
+			}
+			case "DAS SECURITY SETTINGS":{
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if(bs.isSecuritySettingHeaderVisible()){
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0) + " Screen not displayed");
+				}break;
+			}
+			case "GEOFENCE THIS LOCATION":{
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if(gs.isGeofencingthislocationTextvisible() && gs.isGeofencingthislocationDescriptionvisible()){
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+				}break;
 			}
 			default: {
 				flag = false;

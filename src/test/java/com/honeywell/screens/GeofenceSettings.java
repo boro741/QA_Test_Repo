@@ -33,8 +33,10 @@ public class GeofenceSettings extends MobileScreens {
 			if(MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceThisLocationToggle").equals(0)){
 				return true;
 			}else {
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceThisLocationToggle");
-			}
+				 MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceThisLocationToggle");
+				 MobileUtils.clickOnElement(objectDefinition, testCase, "DisablingGeofencingOK");
+				 return true;
+				 }
 		}
 		case GeofenceSettings.GEOFENCERADIUS:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceRadius");
@@ -68,8 +70,14 @@ public class GeofenceSettings extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SecondaryCardSettings");
 	}
+	public boolean isGeofencingthislocationTextvisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceThisLocationText");
+	}
+	public boolean isGeofencingthislocationDescriptionvisible(){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceThisLocationDescription");
+	}
 	
-	public boolean isclickOnBackButtonVisible()
+	public boolean isBackButtonVisible()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton",3);
 	}
@@ -77,4 +85,5 @@ public class GeofenceSettings extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
+
 }

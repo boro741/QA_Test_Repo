@@ -18,6 +18,8 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.ActivityLogsScreen;
+import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
 
 public class VerifyisElementDisplayed extends Keyword {
@@ -31,7 +33,7 @@ public class VerifyisElementDisplayed extends Keyword {
 	public VerifyisElementDisplayed(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
 		// this.inputs = inputs;
-		this.data = data;
+		//this.data = data;
 		this.parameters = parameters;
 	}
 
@@ -246,7 +248,6 @@ public class VerifyisElementDisplayed extends Keyword {
 				break;
 			}
 			case "recent clip at top": {
-
 				ActivityLogsScreen al = new ActivityLogsScreen(testCase);
 				List<WebElement> elements = al.getEventTimes();
 				DateFormat sdf = new SimpleDateFormat("hh:mm");
@@ -267,6 +268,32 @@ public class VerifyisElementDisplayed extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Only one clip is present");
 				}
 				break;
+			}
+			case "You can perform this action only in home or off mode" : {
+				BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
+				if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+					Keyword.ReportStep_Pass(testCase, "You can perform this action only in home or off mode toast message displayed");
+				}else{
+					if(cs.isYoucanperformthisactiononlyinVisible()){
+						cs.ClickOnYoucanperformthisactiononlyinOKOption();
+						Keyword.ReportStep_Pass(testCase, "You can perform this action only in home or off mode pop up displayed");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "You can perform this action only in home or off mode pop up not displayed");
+					}
+				}break;
+			}
+			case "Ensure the camera is turned on and the privacy ring is open" : {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+					Keyword.ReportStep_Pass(testCase, "Ensure the camera is turned on and the privacy ring is open");
+				}else{
+					if(cs.isEnsureTheCameraisturnedonandtheprivacyringisopenvisible()){
+						cs.clickonEnsureTheCameraisOKoption();
+						Keyword.ReportStep_Pass(testCase, "Ensure the camera is turned on and the privacy ring is open");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Ensure the camera is turned on and the privacy ring is open");
+					}
+				}break;
 			}
 
 			default: {
