@@ -20,7 +20,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
-import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -37,7 +36,6 @@ import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
-import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.ZwaveScreen;
@@ -627,6 +625,15 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("SELECT ISMV LOCATION")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				inputs.setInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1", parameters.get(0));
+			} else if (parameters.get(1).equalsIgnoreCase("PLACE VIEWER SELECT MOUNTING OPTION")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				inputs.setInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWERMOUNTINGOPTION1", parameters.get(0));
+			} else if (parameters.get(1).equalsIgnoreCase("SELECT OSMV LOCATION")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+				inputs.setInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1", parameters.get(0));
 			} else if (parameters.get(1).toUpperCase().equals("DOOR")
 					|| parameters.get(1).toUpperCase().equals("WINDOW")
 					|| parameters.get(1).toUpperCase().equals("MOTION SENSOR")) {
@@ -690,7 +697,9 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("Keyfob settings")
 					|| parameters.get(1).equalsIgnoreCase("Window Access settings")
 					|| parameters.get(1).equalsIgnoreCase("Door Access settings")
-					|| parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
+					|| parameters.get(1).equalsIgnoreCase("Motion sensor settings")
+					|| parameters.get(1).equalsIgnoreCase("ISMV sensor settings")
+					|| parameters.get(1).equalsIgnoreCase("OSMV sensor settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "OFF STATUS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -703,6 +712,21 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "MODEL AND FIRMWARE DETAILS": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimensions.width * 20) / 100;
+						int starty = (dimensions.height * 62) / 100;
+						int endx = (dimensions.width * 22) / 100;
+						int endy = (dimensions.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
 				}
@@ -713,6 +737,21 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "SIGNAL STRENGTH AND TEST": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimensions.width * 20) / 100;
+						int starty = (dimensions.height * 62) / 100;
+						int endx = (dimensions.width * 22) / 100;
+						int endy = (dimensions.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
 				}
@@ -797,12 +836,14 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not hadled", true);
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("Set Up Accessories")) {
+			} else if (parameters.get(1).equalsIgnoreCase("SET UP ACCESSORIES")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "MOTION SENSOR SETUP BUTTON":
 				case "ACCESS SENSOR SETUP BUTTON":
-				case "KEYFOB SETUP BUTTON": {
+				case "KEYFOB SETUP BUTTON": 
+				case "ISMV SENSOR SETUP BUTTON":
+				case "OSMV SENSOR SETUP BUTTON": {
 					flag = flag & sensor.clickOnSetUpButton(inputs, parameters.get(0));
 					break;
 				}
@@ -936,6 +977,7 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
 					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")
+					|| parameters.get(1).equalsIgnoreCase("Locate Viewer")
 					|| parameters.get(1).equalsIgnoreCase("Primary Card")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {

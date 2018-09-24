@@ -370,6 +370,7 @@ public class SchedulingScreen extends MobileScreens {
 		// "heatTemperatureLabel");
 		return testCase.getMobileDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name='Dialer'][2]"));
 	}
+
 	public List<MobileElement> getHeatOnlySetPointsElements() {
 		// return MobileUtils.getMobElements(objectDefinition, testCase,
 		// "heatTemperatureLabel");
@@ -472,8 +473,7 @@ public class SchedulingScreen extends MobileScreens {
 
 	public String getTimeOfWeekendScheduleOfGivenPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath",
-				"//*[contains(@content-desc,'_Saturday - Sunday')]//android.widget.TextView[@text='"
-						+ periodName
+				"//*[contains(@content-desc,'_Saturday - Sunday')]//android.widget.TextView[@text='" + periodName
 						+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView");
 	}
 
@@ -1264,20 +1264,15 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmDeletePopup");
 	}
 
-	public String getDeleteMessageContent() { 
+	public String getDeleteMessageContent() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "PeriodDeleteDialogBoxMessage");
-
 	}
 
-
-	
-	public boolean ClickOnMoreButton()
-	{
+	public boolean ClickOnMoreButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MoreButton");
 	}
 
-	public boolean isMoreButtonVisible()
-	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MoreButton",3);
+	public boolean isMoreButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MoreButton", 3);
 	}
 }

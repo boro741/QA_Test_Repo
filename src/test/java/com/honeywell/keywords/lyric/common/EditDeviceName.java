@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -51,8 +52,18 @@ public class EditDeviceName extends Keyword {
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Keyfob")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSettings");
 				if (bs.isKeyfobNameTextBoxVisible(5)) {
+					flag = flag & bs.clickOnKeyfobNameTextField();
 					flag = flag & bs.clearKeyfobNameTextBox();
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						try {
+							MobileUtils.hideKeyboard(testCase.getMobileDriver());
+							flag = flag & bs.clickOnKeyfobNameTextField();
+							flag = flag & bs.clearKeyfobNameTextBox();
+						} catch (Exception e) {
+						}
+					}
 					if (bs.setValueToKeyfobNameTextBox(parameters.get(1))) {
 						inputs.setInputValue("LOCATION1_DEVICE1_KEYFOB1", parameters.get(1));
 						Keyword.ReportStep_Pass(testCase, "Successfully set " + parameters.get(1) + " to the textbox");
@@ -62,7 +73,7 @@ public class EditDeviceName extends Keyword {
 								"Failed to set " + parameters.get(1) + " to the textbox");
 					}
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						flag = flag & MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
+						flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "DoneButtonOnKeyboard");
 					} else {
 						try {
 							MobileUtils.hideKeyboard(testCase.getMobileDriver());
@@ -70,6 +81,10 @@ public class EditDeviceName extends Keyword {
 							// Ignoring any exceptions because keyboard is sometimes not displayed on some
 							// Android devices.
 						}
+					}
+					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "BackButton")) {
+						MobileUtils.clickOnElement(fieldObjects, testCase, "BackButton");
+						flag = flag & DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					}
 				} else {
 					flag = false;
@@ -159,6 +174,46 @@ public class EditDeviceName extends Keyword {
 					break;
 				}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("Window Sensor")) {
+				String check = parameters.get(1);
+				switch (check.toUpperCase()) {
+				case "NEW NAME": {
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.RenameSensorName(givenSensorName);
+					break;
+				}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("Motion Sensor")) {
+				String check = parameters.get(1);
+				switch (check.toUpperCase()) {
+				case "NEW NAME": {
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.RenameSensorName(givenSensorName);
+					break;
+				}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("ISMV")) {
+				String check = parameters.get(1);
+				switch (check.toUpperCase()) {
+				case "NEW NAME": {
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.RenameSensorName(givenSensorName);
+					break;
+				}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("OSMV")) {
+				String check = parameters.get(1);
+				switch (check.toUpperCase()) {
+				case "NEW NAME": {
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.RenameSensorName(givenSensorName);
+					break;
+				}
+				}
 			} else if (parameters.get(0).equalsIgnoreCase("door") || parameters.get(0).equalsIgnoreCase("window")
 					|| parameters.get(0).equalsIgnoreCase("MOTION")
 					|| parameters.get(0).equalsIgnoreCase("MOTION SENSOR")) {
@@ -219,18 +274,20 @@ public class EditDeviceName extends Keyword {
 				if (ts.isCameraNameFieldVisible()) {
 					flag &= ts.clearCameraNameTextBox();
 					flag &= ts.setValueToCameraNameTextBox(parameters.get(1));
-					inputs.setInputValueWithoutTarget("NEW_LOCATION1_CAMERA1_NAME",parameters.get(1));
-					if(flag){
+					inputs.setInputValueWithoutTarget("NEW_LOCATION1_CAMERA1_NAME", parameters.get(1));
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully set Thermostat Name to: " + parameters.get(1));
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set Thermostat Name to: " + parameters.get(1));
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to set Thermostat Name to: " + parameters.get(1));
 					}
 					try {
 						if (ts.isBackButtonVisible(5)) {
-							if(ts.clickOnBackButton()){
+							if (ts.clickOnBackButton()) {
 								Keyword.ReportStep_Pass(testCase, "Successfully select on back option");
 							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select back option");
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to select back option");
 							}
 						}
 					} catch (Exception e) {

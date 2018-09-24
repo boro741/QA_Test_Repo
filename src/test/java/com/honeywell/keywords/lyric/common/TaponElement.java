@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.common;
 
 import com.honeywell.commons.coreframework.*;
-import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.DR.utils.DRUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
@@ -87,7 +86,7 @@ public class TaponElement extends Keyword {
 		} case "CLEAR TAMPER":{
 			SensorSettingScreen sc = new SensorSettingScreen(testCase);
 			flag = flag & sc.clickOnClearCoverTamperOption();
-			if (sc.isSensorTamperClearPopupDisplayed()) {
+			if (sc.isSensorTamperClearPopupDisplayed(10)) {
 				flag = flag & sc.clickOnRetryTamperClearPopup();
 			}
 			break;

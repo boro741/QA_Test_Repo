@@ -30,6 +30,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isAppSettingsIconVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AppSettingsIcon", timeOut);
 	}
+	
+	public boolean isAltAppSettingsIconVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AltAppSettingsIcon", timeOut);
+	}
 
 	public boolean isBackButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorListBack");
@@ -401,6 +405,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean clickOnAppSettingsIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AppSettingsIcon");
+	}
+	
+	public boolean clickOnAltAppSettingsIcon() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AltAppSettingsIcon");
 	}
 	
 	public boolean clickOnCancelButtonWhileSwitchingModes() {

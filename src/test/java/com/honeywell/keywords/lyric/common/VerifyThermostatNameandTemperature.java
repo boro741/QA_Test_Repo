@@ -2,10 +2,6 @@ package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
-import org.openqa.selenium.Dimension;
-
-import com.honeywell.commons.bddinterface.DataTable;
-import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordException;
@@ -13,16 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.screens.AlarmScreen;
-import com.honeywell.screens.BaseStationSettingsScreen;
-import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.PrimaryCard;
-import com.honeywell.screens.SecuritySolutionCardScreen;
-import com.honeywell.screens.SensorSettingScreen;
-
-
-import io.appium.java_client.TouchAction;
 
 public class VerifyThermostatNameandTemperature extends Keyword {
 

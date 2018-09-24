@@ -820,6 +820,17 @@ public class DIYRegistrationUtils {
 								return true;
 							}
 						}
+						case "SIGNAL TO BASE STATION: HIGH": {
+							if (dasDIY.isSignalStrengthIsHighLabelVisibleInSignalStrengthScreen()) {
+								System.out.println("Waiting for SIGNAL TO BASE STATION: HIGH text to appear");
+								return true;
+							} else if (dasDIY.isSignalStrengthIsLowLabelVisibleInSignalStrengthScreen()) {
+								System.out.println("SIGNAL TO BASE STATION: LOW text is still displayed");
+								return true;
+							} else {
+								return false;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);

@@ -64,7 +64,6 @@ public class AccessSensorActions extends Keyword {
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
 				}	
 			}else if(states.get(0).equalsIgnoreCase("window") || states.get(0).equalsIgnoreCase("window sensor")){
-
 				if(states.get(1).equalsIgnoreCase("opened")){
 					DASSensorUtils.openWindow(testCase, inputs);
 				} else if(states.get(1).equalsIgnoreCase("closed")){

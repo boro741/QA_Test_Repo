@@ -69,6 +69,26 @@ public class ProvidingDeviceName extends Keyword {
 				}
 				break;
 			}
+			case "ISMV":
+			case "ISMV SENSOR":{
+				//Naming ISMV
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clearDASNameTextBox();
+				if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+					inputs.setInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1", parameters.get(1));
+				}
+				break;
+			}
+			case "OSMV":
+			case "OSMV SENSOR":{
+				//Naming OSMV
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.clearDASNameTextBox();
+				if (bs.setValueToDASNameTextBox( parameters.get(1))) {
+					inputs.setInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1", parameters.get(1));
+				}
+				break;
+			}
 			case "DIMMER":
 			case "SWITCH": {
 				DASZwaveUtils.waitForNamingScreen(testCase);

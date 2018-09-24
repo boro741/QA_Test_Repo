@@ -47,9 +47,13 @@ public class SensorStatusScreen extends MobileScreens {
 
 	public boolean isSensorStatusVisible() {
 		if (!testCase.getPlatform().contains("IOS")) {
-			return MobileUtils.isMobElementExists("id", "sensor_issue_priority_text", testCase);
+			// return MobileUtils.isMobElementExists("id", "sensor_issue_priority_text",
+			// testCase);
+			return MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/toolbar_device_name' and @text='Security']",
+					testCase);
 		} else {
-			return MobileUtils.isMobElementExists("xpath", "//*[@value='Sensors_SECURITY']", testCase);
+			return MobileUtils.isMobElementExists("XPATH", "//*[@value='Sensors_SECURITY']", testCase);
 		}
 	}
 
@@ -60,7 +64,6 @@ public class SensorStatusScreen extends MobileScreens {
 	public boolean isSensorOfflineInStatus() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
 	}
-
 
 	public boolean isCoverTamperedTextVisibleinSensorStatusScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -73,18 +76,17 @@ public class SensorStatusScreen extends MobileScreens {
 		List<WebElement> list;
 		list = DASSensorUtils.getSensorList(testCase);
 		String sensorName = "";
-		if (Sensor.equalsIgnoreCase("Door")||Sensor.equalsIgnoreCase("Door Sensor")) {
+		if (Sensor.equalsIgnoreCase("Door") || Sensor.equalsIgnoreCase("Door Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-		} else if (Sensor.equalsIgnoreCase("window")||Sensor.equalsIgnoreCase("Window Sensor")) {
+		} else if (Sensor.equalsIgnoreCase("window") || Sensor.equalsIgnoreCase("Window Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
 		} else if (Sensor.equalsIgnoreCase("motion sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-		} else if (Sensor.equalsIgnoreCase("ISMV") ||Sensor.equalsIgnoreCase("ISMV Sensor") ) {
+		} else if (Sensor.equalsIgnoreCase("ISMV") || Sensor.equalsIgnoreCase("ISMV Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
 		} else if (Sensor.equalsIgnoreCase("OSMV") || Sensor.equalsIgnoreCase("OSMV Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
-		} 
-		else {
+		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
 		}
 		for (int i = 0; i < list.size(); i++) {
@@ -93,14 +95,15 @@ public class SensorStatusScreen extends MobileScreens {
 						.findElements(By.xpath(
 								"//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[@value='" + sensorName + "']"))
 						.size() > 0) {
-					if (testCase.getMobileDriver().findElements(By.xpath("//*[contains(@name,'SensorStatus_" + i
-							+ "_cell')]//*[contains(@value,'Cover tampered')]")).size() > 0) {
+					if (testCase.getMobileDriver().findElements(By.xpath(
+							"//*[contains(@name,'SensorStatus_" + i + "_cell')]//*[contains(@value,'Cover tampered')]"))
+							.size() > 0) {
 						Keyword.ReportStep_Pass(testCase, sensorName + " is in " + "Cover tampered");
 					}
 					System.out.println("Sensor status");
 					// Sensor status
-					if (MobileUtils.isMobElementExists("xpath",
-							"//*[contains(@name,'SensorStatus_" + i + "_Image')]", testCase, 10)) {
+					if (MobileUtils.isMobElementExists("xpath", "//*[contains(@name,'SensorStatus_" + i + "_Image')]",
+							testCase, 10)) {
 						MobileUtils.clickOnElement(testCase, "xpath",
 								"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
 					}
@@ -108,22 +111,22 @@ public class SensorStatusScreen extends MobileScreens {
 			} else if (testCase.getPlatform().contains("ANDROID")) {
 				if (testCase.getMobileDriver().findElements(By.xpath("//*[@content-desc = '" + sensorName + "']"))
 						.size() > 0) {
-					if (MobileUtils.isMobElementExists("xpath", "//*[@content-desc = '" + sensorName + "']",
-							testCase, 10)) {
+					if (MobileUtils.isMobElementExists("xpath", "//*[@content-desc = '" + sensorName + "']", testCase,
+							10)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Current state "
 										+ testCase
-										.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-												+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-										.getText());
+												.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+														+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+												.getText());
 						MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 					}
 				}
-			} 
+			}
 		}
 		return true;
 	}
-	
+
 	public boolean isLowbatteryVisible() {
 		if (!testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.isMobElementExists("TEXT", "Low Battery", testCase);
@@ -131,7 +134,7 @@ public class SensorStatusScreen extends MobileScreens {
 			return MobileUtils.isMobElementExists("xpath", "//*[@value='Low Battery']", testCase);
 		}
 	}
-	
+
 	public boolean isLowbatteryTextVisibleInSensroDetailsScreen() {
 		if (!testCase.getPlatform().contains("IOS")) {
 			return MobileUtils.isMobElementExists("TEXT", "Sensor with Low Battery", testCase);
@@ -139,6 +142,5 @@ public class SensorStatusScreen extends MobileScreens {
 			return MobileUtils.isMobElementExists("xpath", "//*[@value='Sensor With Low Battery']", testCase);
 		}
 	}
-	
-	
+
 }

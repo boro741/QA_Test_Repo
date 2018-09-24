@@ -13,7 +13,6 @@ import com.honeywell.lyric.utils.*;
 import com.honeywell.screens.*;
  */
 
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
@@ -32,7 +31,6 @@ import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASActivityLogsUtils;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
-import com.honeywell.lyric.das.utils.DASUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -104,11 +102,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensorScreen.clickOnSensorStatusScreenBack(testCase);
 					flag = flag & DASActivityLogsUtils.openActivityLogs(testCase);
 					break;
-				} case "SECURITY SOLUTION CARD":{
+				}
+				case "SECURITY SOLUTION CARD": {
 					SensorSettingScreen ssc = new SensorSettingScreen(testCase);
 					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 					if (ssc.isSensorsScreenTitleVisible()) {
-						flag =   flag & sc.clickOnBackButton();
+						flag = flag & sc.clickOnBackButton();
 					}
 					break;
 				}
@@ -132,21 +131,23 @@ public class NavigateToScreen extends Keyword {
 				}
 
 				}
-			} 
-			else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD") && screen.get(0).equalsIgnoreCase("DASHBOARD")) {
-
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")
+					&& screen.get(0).equalsIgnoreCase("DASHBOARD")) {
 				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 				flag = flag & cs.clickOnBackButtonInCameraSolutionCardScreen();
-			}
-			else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD") && screen.get(0).equalsIgnoreCase("Activity log")) {
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")
+					&& screen.get(0).equalsIgnoreCase("Activity log")) {
 				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
-				if(cs.isActivityLogExists()) {
+				if (cs.isActivityLogExists()) {
 					flag = flag & cs.clickActivityLog();
-				}else {
+				} else {
 					flag = false;
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")
+					&& screen.get(0).equalsIgnoreCase("DASHBOARD")) {
+				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+				flag = flag & cs.clickOnBackButtonInCameraSolutionCardScreen();
+			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "THERMOSTAT SETTINGS": {
 					PrimaryCard sensorScreen = new PrimaryCard(testCase);
@@ -312,13 +313,13 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			//Amresh H297378
+			// Amresh H297378
 			else if (screen.get(1).equalsIgnoreCase("TEMPERATURE GRAPH")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "HUMIDITY GRAPH": {
 					WLDSolutionCard humi = new WLDSolutionCard(testCase);
 					flag = flag & humi.clickOnHumidityGraphTitle();
-					if(flag) {
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "HUMIDITY GRAPH Tab was Clicked");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -332,12 +333,10 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			//Amresh wld
+			// Amresh wld
 			else if (screen.get(1).equalsIgnoreCase("WLD SETTINGS")) {
-				switch (screen.get(0).toUpperCase())
-				{
-				case "DASHBOARD": 
-				{
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
 					WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 					flag = flag & set.navigateFromWLDSettingsScreenToPrimaryCard();
 					break;
@@ -369,7 +368,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.editKeyfobName("keyfob");
 					break;
-				}	
+				}
 				case "SENSOR OVERVIEW": {
 					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
@@ -411,7 +410,6 @@ public class NavigateToScreen extends Keyword {
 					if (security.isAppSettingsIconVisible(10)) {
 						security.clickOnAppSettingsIcon();
 					}
-
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -438,7 +436,9 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "MOTION SENSOR SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
-				case "DOOR ACCESS SETTINGS": {
+				case "DOOR ACCESS SETTINGS":
+				case "ISMV SENSOR SETTINGS":
+				case "OSMV SENSOR SETTINGS": {
 					DASSensorUtils.navigateToSensorTypeSettingsFromDashboard(screen.get(0).toUpperCase(), inputs,
 							testCase);
 					break;
@@ -613,23 +613,26 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "UPDATE FREQUENCY": {
-					flag = flag & WLDLeakDetectorSettings.navigateFromDashboardScreenToWLDSettingsUpdateFrequencyScreen(testCase, inputs);
+					flag = flag & WLDLeakDetectorSettings
+							.navigateFromDashboardScreenToWLDSettingsUpdateFrequencyScreen(testCase, inputs);
 					break;
 				}
 				// Navigates to camera solution card screen from dashboard screen
-				case "CAMERA SOLUTION CARD":{
+				case "CAMERA SOLUTION CARD": {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraSolutionScreen(testCase, inputs);
 					break;
 				}
-				//	Navigates to DAS camera solution card screen from dashboard screen
-				case "DAS CAMERA SOLUTION CARD":{
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
+				// Navigates to DAS camera solution card screen from dashboard screen
+				case "DAS CAMERA SOLUTION CARD": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
 					break;
 				}
 
 				/* Method to navigate to camera configuration screen from dashboard */
 				case "CAMERA CONFIGURATION": {
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToCameraConfigurationScreen(testCase, inputs);
 					break;
 				}
 				/*
@@ -719,8 +722,9 @@ public class NavigateToScreen extends Keyword {
 							.navigateFromDashboardScreenToCameraNightVisionSettingsScreen(testCase, inputs);
 					break;
 				}
-				case "DAS NIGHT VISION SETTINGS":{
-					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
+				case "DAS NIGHT VISION SETTINGS": {
+					flag = flag
+							& DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
 					break;
 				}
 
@@ -728,9 +732,9 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
-					if(scheduleScreen.isTimeScheduleButtonVisible()){
+					if (scheduleScreen.isTimeScheduleButtonVisible()) {
 						flag = flag & scheduleScreen.clickOnTimeScheduleButton();
-					} else if (scheduleScreen.isMoreButtonVisible()){
+					} else if (scheduleScreen.isMoreButtonVisible()) {
 						flag = flag & scheduleScreen.ClickOnMoreButton();
 						flag = flag & scheduleScreen.clickOnTimeScheduleButton();
 
@@ -768,7 +772,8 @@ public class NavigateToScreen extends Keyword {
 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					flag = flag && fly.ClickOnSettingsIcon();
 					flag = flag && fly.ClickOnDeviceAndSensor();
-					flag = flag && MobileUtils.clickOnElement(testCase, "xpath", "//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
+					flag = flag && MobileUtils.clickOnElement(testCase, "xpath",
+							"//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
 					break;
 				}
 				case "WINDOW PROTECTION": {
@@ -849,7 +854,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
-				}	
+				}
 				case "SOLUTION": {
 					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
@@ -926,6 +931,15 @@ public class NavigateToScreen extends Keyword {
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					break;
 				}
+				case "SMART HOME SECURITY SENSOR ACCESSORIES": {
+					Dashboard db = new Dashboard(testCase);
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (db.isAddDeviceIconBelowExistingDASDeviceVisible(20)) {
+						flag = flag & db.clickOnAddDeviceIconBelowExistingDASDevice();
+						flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -933,102 +947,119 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CAMERA SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "CAMERA SETTINGS":{
+				case "CAMERA SETTINGS": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnCogIcon()){
+						if (pc.clickOnCogIcon()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settins icon");
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
+
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click settings icon");
 						}
-					}else {
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 					break;
-				}case "CAMERA CONFIGURATION":{
+				}
+				case "CAMERA CONFIGURATION": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnCogIcon()){
+
+						if (pc.clickOnCogIcon()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settins icon");
 							flag &= ds.navigateFromCameraSolutionScreenToCameraConfigurationScreen(testCase);
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
-						}	
-					}else{
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click settings icon");
+						}
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 					break;
-				}case "BASE STATION CONFIGURATION":{
+				}
+				case "BASE STATION CONFIGURATION": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnBackButton()){
+						if (pc.clickOnBackButton()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on back option");
 							flag &= DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 							flag &= ds.navigateFromSecuritySolutionToBaseStationConfigurationScreen(testCase);
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click back option");
-						}	
-					}else{
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click back option");
+						}
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 
 					break;
-				} case "MANAGE ALERTS":{
+				}
+				case "MANAGE ALERTS": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnCogIcon()){
+						if (pc.clickOnCogIcon()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
 							flag &= ds.navigateFromCameraSolutionScreenToManageAlertsScreen(testCase, inputs);
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
-						}	
-					}else{
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click settings icon");
+						}
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 					break;
-				} case "MOTION DETECTION SETTINGS":{
+				}
+				case "MOTION DETECTION SETTINGS": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnCogIcon()){
+						if (pc.clickOnCogIcon()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
-							flag &= ds.navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(testCase, inputs);
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
-						}	
-					}else{
+							flag &= ds.navigateFromCameraSolutionScreenToCameraMotionDetectionSettingsScreen(testCase,
+									inputs);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click settings icon");
+						}
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 					break;
-				} case "NIGHT VISION SETTINGS":{
+				}
+				case "NIGHT VISION SETTINGS": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnCogIcon()){
+						if (pc.clickOnCogIcon()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
-							flag &= ds.navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(testCase, inputs);
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
-						}	
-					}else{
+							flag &= ds.navigateFromCameraSolutionScreenToCameraNightVisionSettingsScreen(testCase,
+									inputs);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click settings icon");
+						}
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 					break;
-				} 
-				case "VIDEO QUALITY SETTINGS":{
+				}
+				case "VIDEO QUALITY SETTINGS": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					DASSettingsUtils ds = new DASSettingsUtils();
 					if (pc.isCogIconVisible()) {
-						if(pc.clickOnCogIcon()){
+						if (pc.clickOnCogIcon()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully cliked on settings icon");
-							flag &= ds.navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(testCase, inputs);
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click settings icon");
-						}	
-					}else{
+							flag &= ds.navigateFromCameraSolutionScreenToCameraVideoQualitySettingsScreen(testCase,
+									inputs);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click settings icon");
+						}
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Settings icon not visible");
 					}
 					break;
@@ -1040,7 +1071,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			}else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
+			} else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "BASE STATION CONFIGURATION": {
 					flag = flag
@@ -1069,10 +1100,34 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+
+				// Navigate from 'Amazon Alexa Settings' to 'Setup Amazon Alexa screen'
+				// Author: Gautham (H138526)
+				case "SETUP AMAZON ALEXA": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isAmazonSetUpButtonVisible()) {
+						flag = flag & bs.clickOnAmazonSetUpButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
+				case "SECURITY SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.isBackButtonVisible()) {
+						flag = flag & bs.clickOnBackButton();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
+					break;
 				}
 			}
 
@@ -1095,7 +1150,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SECURITY SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -1108,18 +1163,54 @@ public class NavigateToScreen extends Keyword {
 							& bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 					break;
 				}
-				case "MANAGE ALERTS" :{
+				case "MANAGE ALERTS": {
 					BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
-					if(cs.isManageAlertExist()){
-						if(cs.clickOnManageAlerts()){
+					if (cs.isManageAlertExist()) {
+						if (cs.clickOnManageAlerts()) {
 							CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							Keyword.ReportStep_Pass(testCase, "Navigates to manage alerts screen");
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select Manage alerts option");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to select Manage alerts option");
 						}
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage alert option not visible");
-					}break;
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage alert option not visible");
+					}
+					break;
+				}
+				case "SENSOR LIST SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					if (flag) {
+						System.out.println("Successfully navigated to Sensor List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Sensor List Settings Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Sensor List Settings Screen");
+					}
+					break;
+				}
+				case "KEYFOB LIST SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+					if (flag) {
+						System.out.println("Successfully navigated to Keyfob List Settings Screen");
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Did not navigated to Keyfob List Settings Screen");
+					}
+					break;
+				}
+				case "MOTION SENSOR SETTINGS":
+				case "WINDOW ACCESS SETTINGS":
+				case "DOOR ACCESS SETTINGS":
+				case "ISMV SENSOR SETTINGS":
+				case "OSMV SENSOR SETTINGS": {
+					DASSensorUtils.navigateToSensorTypeSettingsFromSecuritySettingsScreen(screen.get(0).toUpperCase(), inputs,
+							testCase);
+					break;
 				}
 				default: {
 					flag = false;
@@ -1202,19 +1293,17 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 
-			}  else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
-
 			} else if (screen.get(1).equalsIgnoreCase("SENSOR COVER TAMPER")) {
-
 				switch (screen.get(0).toUpperCase()) {
 				case "SECURITY SOLUTION CARD": {
 
 					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 					SensorSettingScreen ssc = new SensorSettingScreen(testCase);
 					if (ssc.isSensorTamperedScreenDisplayed()) {
-						flag =   flag & sc.clickOnBackButton();
-					} if (ssc.isSensorsScreenTitleVisible()) {
-						flag =   flag & sc.clickOnBackButton();
+						flag = flag & sc.clickOnBackButton();
+					}
+					if (ssc.isSensorsScreenTitleVisible()) {
+						flag = flag & sc.clickOnBackButton();
 					}
 					break;
 				}
@@ -1223,8 +1312,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "GLOBAL DRAWER": {
 					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
@@ -1284,7 +1372,8 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("VIDEO CLIP")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "KEYFOB OVERVIEW":
-				case "SENSOR OVERVIEW": {
+				case "SENSOR OVERVIEW":
+				case "LOCATE VIEWER": {
 					if (!testCase.getPlatform().contains("IOS")) {
 						MobileUtils.pressBackButton(testCase);
 					} else {
@@ -1316,6 +1405,18 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("LOCATE VIEWER")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SELECT ISMV LOCATION":
+				case "SELECT OSMV LOCATION": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						flag = flag & dasDIY.isISMVOSMVNameViewerScreenTitleVisible(10);
+					}
+					break;
 				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
@@ -1686,6 +1787,105 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
+			} else if (screen.get(1).equalsIgnoreCase("MODEL AND FIRMWARE DETAILS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DOOR ACCESS SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+					break;
+				}
+				case "WINDOW ACCESS SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
+					break;
+				}
+				case "MOTION SENSOR SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+					break;
+				}
+				case "KEYFOB SETTINGS": {
+					boolean flag = true;
+					try {
+						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+						String keyfobName = "";
+						SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.clickOnBackButton();
+						flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.KEYFOB);
+						if (flag) {
+							System.out.println("Successfully navigated to Keyfob List Settings Screen");
+							Keyword.ReportStep_Pass(testCase, "Successfully navigated to Keyfob List Settings Screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Did not navigated to Keyfob List Settings Screen");
+						}
+						if (!inputs.isInputAvailable("LOCATION1_DEVICE1_KEYFOB1")) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"No keyfob names were provided in the Requirement file");
+							return flag;
+						}
+						keyfobName = inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
+						flag = flag & bs.selectSensorFromSensorList(keyfobName);
+						DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
+						inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
+						inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+					}
+					return flag;
+				}
+				case "ISMV SENSOR SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
+					break;
+				}
+				case "OSMV SENSOR SETTINGS": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.clickOnBackButton();
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+					inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
+				}
+				}
 			} else if (screen.get(1).equalsIgnoreCase("Sensor")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR SETTINGS": {
@@ -1777,19 +1977,22 @@ public class NavigateToScreen extends Keyword {
 					if (cs.isBackButtonVisibleInMotionDetectionSettingsScreen()) {
 						flag = flag & cs.clickOnBackButtonInMotionDetectionSettingsScreen();
 						TimeUnit.SECONDS.sleep(3);
-						if(cs.isAreasOutsideZonesWarningPopupHeaderTitleDisplayed()){
-							if(cs.clickOnNOButtonInAreasOutsideZonesWarningPopup()){
+						if (cs.isAreasOutsideZonesWarningPopupHeaderTitleDisplayed()) {
+							if (cs.clickOnNOButtonInAreasOutsideZonesWarningPopup()) {
 								Keyword.ReportStep_Pass(testCase, "Clicked on NO option in warrning pop up");
-							}else {
-								Keyword.ReportStep_Fail(testCase,  FailType.FUNCTIONAL_FAILURE, "Not selected NO option in warrning pop up");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Not selected NO option in warrning pop up");
 							}
 						}
-						if(flag){
+						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "Navigated to camera settings screen");
-						}else {
-							Keyword.ReportStep_Fail(testCase,  FailType.FUNCTIONAL_FAILURE, "Not Navigated to camera settings screen");
-						}	
-					}break;
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Not Navigated to camera settings screen");
+						}
+					}
+					break;
 				}
 				case "SOUND DETECTION SETTINGS": {
 					CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
@@ -1803,7 +2006,8 @@ public class NavigateToScreen extends Keyword {
 								flag = false;
 							}
 						}
-					}break;
+					}
+					break;
 				}
 				default: {
 					flag = false;
@@ -1839,8 +2043,8 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				}	
-			}else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
+				}
+			} else if (screen.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				switch (screen.get(0).toUpperCase()) {
 				case "MOTION DETECTION SETTINGS": {
@@ -1852,14 +2056,16 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "MANAGE ALERTS": {
 					if (cs.isManageAlertsLabelVisible(2)) {
-						if(cs.clickOnManageAlertsLabel()){
+						if (cs.clickOnManageAlertsLabel()) {
 							CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							Keyword.ReportStep_Pass(testCase, "Navigates to manage alerts screen");
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select Manage alerts option");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to select Manage alerts option");
 						}
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage alert option not visible");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Manage alert option not visible");
 					}
 					break;
 				}
@@ -1884,15 +2090,16 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "CAMERA SOLUTION CARD" :{
-					if(cs.clickonbackoption()){
+				case "CAMERA SOLUTION CARD": {
+					if (cs.clickonbackoption()) {
 						Keyword.ReportStep_Pass(testCase, "clicked on camera settings back option");
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed clicked on camera settings back option");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed clicked on camera settings back option");
 					}
 					break;
 				}
-				case "SECURITY SOLUTION CARD" :{
+				case "SECURITY SOLUTION CARD": {
 					DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
 					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
@@ -1916,13 +2123,24 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("SECURITY SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR LIST": {
-					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-					flag =   flag & sc.isSensorsTextVisible();
+					/*SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					flag = flag & sc.isSensorsTextVisible();*/
+					SecuritySolutionCardScreen security = new SecuritySolutionCardScreen(testCase);
+					if (security.isAppSettingsIconVisible(15)) {
+						flag = security.clickOnAppSettingsIcon();
+					} else if (security.isAltAppSettingsIconVisible(10)) {
+						flag = security.clickOnAltAppSettingsIcon();
+					}
+					flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+							"Base Station Configuration");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 					break;
 				}
-				case "MOTION SENSOR SETTINGS":
+				case "DOOR ACCESS SETTINGS":
 				case "WINDOW ACCESS SETTINGS":
-				case "DOOR ACCESS SETTINGS": {
+				case "MOTION SENSOR SETTINGS":{
 					DASSensorUtils.navigateToSensorTypeSettingsFromSecuritySolutionCard(screen.get(0).toUpperCase(),
 							inputs, testCase);
 					break;
@@ -1950,7 +2168,7 @@ public class NavigateToScreen extends Keyword {
 							inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
 					break;
 				}
-				case "DAS SECURITY SETTINGS" :{
+				case "DAS SECURITY SETTINGS": {
 					PrimaryCard pc = new PrimaryCard(testCase);
 					flag &= pc.isCogIconVisible();
 					break;
@@ -2026,7 +2244,7 @@ public class NavigateToScreen extends Keyword {
 							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Access Sensor Help")) {
+			} else if (screen.get(1).equalsIgnoreCase("ACCESS SENSOR HELP")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "TEST ACCESS SENSOR": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -2055,11 +2273,37 @@ public class NavigateToScreen extends Keyword {
 							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("Test Access Sensor")) {
+			} else if (screen.get(1).equalsIgnoreCase("TEST ACCESS SENSOR")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "ACCESS SENSOR SETTINGS": {
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnTestSensorBack();
+					break;
+				}
+				case "DOOR ACCESS SETTINGS": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnTestSensorBack();
+					flag = flag & sensor.isDoorAccessSettingsScreenTitleVisible(30);
+					break;
+				}
+				case "WINDOW ACCESS SETTINGS": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnTestSensorBack();
+					flag = flag & sensor.isWindowAccessSettingsScreenTitleVisible(30);
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("TEST MOTION SENSOR")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MOTION SENSOR SETTINGS": {
+					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
+					flag = flag & sensor.clickOnTestSensorBack();
+					flag = flag & sensor.isMotionSensorSettingsScreenTitleVisible(30);
 					break;
 				}
 				default: {
@@ -2161,6 +2405,238 @@ public class NavigateToScreen extends Keyword {
 					if (sensor.clickOnNextButton()) {
 						System.out.println("NAvigated to " + screen.get(0));
 						Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER CHECK PLACEMENT")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PLACE VIEWER WALL": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						if (dasDIY.isPlaceViewerWallScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER WALL")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PLACE VIEWER ARM": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						if (dasDIY.isPlaceViewerArmScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER ARM")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PLACE VIEWER MOTION VIEWER": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						if (dasDIY.isPlaceViewerMotionViewerScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER MOTION VIEWER")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "PLACE VIEWER ADJUST VIEWER": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						if (dasDIY.isPlaceViewerAdjustViewerScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER ADJUST VIEWER")
+					|| screen.get(1).equalsIgnoreCase("PLACE VIEWER MOUNT")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "TEST MOTION VIEWER": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						if (dasDIY.isTestMotionViewerScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("TEST MOTION VIEWER")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "MOTION VIEWER HELP": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isViewerNotWorkingLinkInTestMotionViewerScreenVisible()) {
+						flag = flag & dasDIY.clickOnViewerNotWorkingLinkInTestMotionViewerScreen();
+						if (dasDIY.isMotionViewerHelpScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("MOTION VIEWER HELP")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "SIGNAL STRENGTH": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isTestSignalStrengthButtonInMotionViewerHelpScreenVisible()) {
+						flag = flag & dasDIY.clickOnTestSignalStrengthButtonInMotionViewerHelpScreen();
+						if (dasDIY.isOutOfRangePopupInSignalStrengthScreenVisible()) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Out of Range Popup is displayed in Signal Strength Screen");
+							if (dasDIY.isOKButtonInOutOfRangePopupVisible()) {
+								flag = flag & dasDIY.clickOnOKButtonInOutOfRangePopup();
+							}
+						}
+						if (dasDIY.isSignalStrengthScreenTitleVisible(20)) {
+							System.out.println("NAvigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("SIGNAL STRENGTH")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "TEST MOTION VIEWER": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isBackButtonInSignalStrengthScreenVisible()) {
+						flag = flag & dasDIY.clickOnBackButtonInSignalStrengthScreen();
+						if (dasDIY.isMotionViewerHelpScreenTitleVisible(20)
+								&& dasDIY.isTestSignalStrengthButtonInMotionViewerHelpScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "NAvigated to Motion Viewer Help Screen");
+							if (dasDIY.isBackButtonInMotionViewerHelpScreenVisible()) {
+								flag = flag & dasDIY.clickOnBackButtonInMotionViewerHelpScreen();
+								if (dasDIY.isTestMotionViewerScreenTitleVisible(10)) {
+									System.out.println("NAvigated to " + screen.get(0));
+									Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+								}
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to : " + screen.get(0));
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Next button not displayed in: " + screen.get(1));
 					}
 					break;
 				}
@@ -2435,6 +2911,20 @@ public class NavigateToScreen extends Keyword {
 							& DASSettingsUtils.navigateFromSensoListScreenToBaseStationConfigurationScreen(testCase);
 					break;
 				}
+				case "ISMV SENSOR SETTINGS": {
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
+					break;
+				}
+				case "OSMV SENSOR SETTINGS": {
+					SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+					inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+					flag = flag & sensorScreen
+							.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
+					break;
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("KEYFOB LIST")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2447,7 +2937,7 @@ public class NavigateToScreen extends Keyword {
 					inputs.setInputValue(DASInputVariables.KEYFOBNAME, keyfobName);
 					inputs.setInputValue(DASInputVariables.KEYFOBID, devInfo.getDASKeyfobID(keyfobName));
 					System.out
-					.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
+							.println("#############KEYFOBNAME: " + inputs.getInputValue(DASInputVariables.KEYFOBNAME));
 					System.out.println("#############KEYFOBID: " + inputs.getInputValue(DASInputVariables.KEYFOBID));
 					break;
 				}
@@ -2476,37 +2966,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("AMAZON ALEXA SETTINGS")) {
-				switch (screen.get(0).toUpperCase()) {
-				// Navigate from 'Amzon Alexa Settings' to 'Setup Amzon Alexa screen'
-				// Author: Gautham (H138526)
-				case "SETUP AMAZON ALEXA": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isAmazonSetUpButtonVisible()) {
-						flag = flag & bs.clickOnAmazonSetUpButton();
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
-					}
-					break;
-				}
-				case "SECURITY SETTINGS": {
-					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-					if (bs.isBackButtonVisible()) {
-						flag = flag & bs.clickOnBackButton();
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not find Back button");
-					}
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
-				}
-				break;
-				}
-
 			} else if (screen.get(1).equalsIgnoreCase("SCHEDULING")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PRIMARY CARD": {
@@ -2520,7 +2979,7 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2546,9 +3005,9 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "SCHEDULING": {
 					SchedulingScreen ss = new SchedulingScreen(testCase);
-					if(ss.isTimeScheduleButtonVisible()){
+					if (ss.isTimeScheduleButtonVisible()) {
 						flag = flag & ss.clickOnTimeScheduleButton();
-					} else if (ss.isMoreButtonVisible()){
+					} else if (ss.isMoreButtonVisible()) {
 						flag = flag & ss.ClickOnMoreButton();
 						flag = flag & ss.clickOnTimeScheduleButton();
 					}
@@ -2572,7 +3031,7 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT SETTINGS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2663,9 +3122,9 @@ public class NavigateToScreen extends Keyword {
 					if (ts.isThermostatSettingsHeaderTitleVisible(10) && ts.isBackButtonVisible(10)) {
 						ts.clickOnBackButton();
 						HBNAEMEASettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						flag = flag & pc.isCogIconVisible(); 
+						flag = flag & pc.isCogIconVisible();
 						break;
-					}else {
+					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Invalid Input: " + screen.get(1));
@@ -2687,7 +3146,7 @@ public class NavigateToScreen extends Keyword {
 				case "DASHBOARD": {
 					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("FROST PROTECTION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2703,7 +3162,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT HUMIDIFICATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2719,7 +3178,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("THERMOSTAT DEHUMIDIFICATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2735,7 +3194,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SLEEP BRIGHTNESS MODE")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2751,7 +3210,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("SOUND")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2767,7 +3226,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("VENTILATION")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2792,7 +3251,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(1));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("T1PRIMARYCARD")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2809,7 +3268,7 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(0));
 					}
 				}
-				break;
+					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("STATS")) {
 				switch (screen.get(0).toUpperCase()) {
@@ -2824,26 +3283,28 @@ public class NavigateToScreen extends Keyword {
 								"Invalid Input: " + screen.get(0));
 					}
 				}
-				break;
+					break;
 				}
-			}  else if(screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")){
+			} else if (screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
-				switch (screen.get(0).toUpperCase()){
-				case "DASHBOARD" :{
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
 					flag &= DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 					break;
-				}case "SECUIRTY SOLUTION CARD" : {
+				}
+				case "SECUIRTY SOLUTION CARD": {
 					flag &= bs.clickOnBackButton();
 					break;
-				}case "ENHANCED DETERRENCE" :{
+				}
+				case "ENHANCED DETERRENCE": {
 					flag &= bs.ClickOnEnhancedDeterrenceOption();
 					flag &= bs.isEnhancedDeterrenceInsideDetererenceDescriptionvisible();
 					flag &= bs.isEnhancedDeterrenceheadervisible();
 					break;
 				}
-				case "ABOUT SECURITY MODES" :{
+				case "ABOUT SECURITY MODES": {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
@@ -2852,7 +3313,8 @@ public class NavigateToScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= bs.clickonAboutSecurityModesoption();
 					flag &= bs.isSecurityModesHeader();
@@ -2862,29 +3324,42 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
-				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigates to  " + screen.get(0));
-				}break;
 				}
-			}else if(screen.get(1).equalsIgnoreCase("MANAGE ALERTS")){
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				switch (screen.get(0).toUpperCase()){
-				case "SECURITY SOLUTION CARD" :{
-					if (bs.clickOnBackButton() && bs.clickOnBackButton()) {
+			} else if (screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					if (DashboardUtils.navigateToDashboardFromAnyScreen(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
-					}else{
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to navigates to  " + screen.get(0));
-					}break;
+					}
+				}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigates to  " + screen.get(0));
+					}
+					break;
+				}
+			} else if (screen.get(1).equalsIgnoreCase("MANAGE ALERTS")) {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				switch (screen.get(0).toUpperCase()) {
+				case "SECURITY SOLUTION CARD": {
+					if (bs.clickOnBackButton() && bs.clickOnBackButton()) {
+						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigates to  " + screen.get(0));
+					}
+					break;
 				}
 				}
-			}else{
+			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + screen.get(1));
 			}
-
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

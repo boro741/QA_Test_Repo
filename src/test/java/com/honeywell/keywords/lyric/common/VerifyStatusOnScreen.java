@@ -16,12 +16,14 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -123,7 +125,7 @@ public class VerifyStatusOnScreen extends Keyword {
 
 			break;
 		}
-		case "SENSOR LIST": 
+		case "SENSOR LIST":
 		case "SENSOR STATUS": {
 			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -169,7 +171,6 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-
 			case "WINDOW SENSOR":
 			case "WINDOW": {
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -260,7 +261,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			case "ISMV": 
+			case "ISMV":
 			case "ISMV SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "STANDBY": {
@@ -313,7 +314,8 @@ public class VerifyStatusOnScreen extends Keyword {
 							expectedScreen.get(0).toUpperCase() + " is not in " + expectedScreen.get(1).toUpperCase());
 				}
 				break;
-			} 
+			}
+			case "OSMV":
 			case "OSMV SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "STANDBY": {
@@ -432,7 +434,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-									+ " instead found to be " + currentStatus);
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -444,7 +446,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-									+ " instead found to be " + currentStatus);
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -456,7 +458,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-									+ " instead found to be " + currentStatus);
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -497,7 +499,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-									+ " instead found to be " + currentStatus);
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -509,7 +511,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-									+ " instead found to be " + currentStatus);
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -521,7 +523,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-									+ " instead found to be " + currentStatus);
+											+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -906,7 +908,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			case "SECURITY": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "ATTENTION": {
-					if (MobileUtils.getFieldValue(testCase,"NAME","Control_State").equalsIgnoreCase("ATTENTION")){
+					if (MobileUtils.getFieldValue(testCase, "NAME", "Control_State").equalsIgnoreCase("ATTENTION")) {
 						Keyword.ReportStep_Pass(testCase,
 								expectedScreen.get(0).toUpperCase() + " is in " + currentStatus);
 					} else {
@@ -982,7 +984,6 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Door Sensor is not " + (expectedScreen.get(1)));
 					}
-
 					break;
 				}
 				}
@@ -999,13 +1000,12 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Window Sensor is not " + (expectedScreen.get(1)));
 					}
-
 					break;
 				}
 				}
 				break;
 			}
-			case "MOTION SENSOR":
+			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "MOTION DETECTED": {
 					if (sensor.isMotionSensorStatusVisible(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"),
@@ -1017,7 +1017,6 @@ public class VerifyStatusOnScreen extends Keyword {
 								inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " is not "
 										+ (expectedScreen.get(1)));
 					}
-
 					break;
 				}
 				case "NO MOTION DETECTED":
@@ -1031,15 +1030,73 @@ public class VerifyStatusOnScreen extends Keyword {
 								inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " is not "
 										+ (expectedScreen.get(1)));
 					}
-
 					break;
 				}
 				}
 				break;
 			}
-			break;
+			case "ISMV SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "MOTION DETECTED": {
+					if (sensor.isMotionSensorStatusVisible(
+							inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"), expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1")
+								+ " is " + (expectedScreen.get(1)));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " is not "
+										+ (expectedScreen.get(1)));
+					}
+					break;
+				}
+				case "NO MOTION DETECTED":
+				case "MOTION NOT DETECTED": {
+					if (sensor.isMotionSensorStatusVisible(
+							inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"), expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1")
+								+ " is " + (expectedScreen.get(1)));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " is not "
+										+ (expectedScreen.get(1)));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "OSMV SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "MOTION DETECTED": {
+					if (sensor.isMotionSensorStatusVisible(
+							inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"), expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1")
+								+ " is " + (expectedScreen.get(1)));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1") + " is not "
+										+ (expectedScreen.get(1)));
+					}
+					break;
+				}
+				case "NO MOTION DETECTED":
+				case "MOTION NOT DETECTED": {
+					if (sensor.isMotionSensorStatusVisible(
+							inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"), expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1")
+								+ " is " + (expectedScreen.get(1)));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1") + " is not "
+										+ (expectedScreen.get(1)));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			}
 		}
-
 		case "SIGNAL STRENGTH": {
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -1063,18 +1120,58 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "SIGNAL TO BASE STATION": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				String testSignalStrengthValue = null;
+				String expTestSignalStrengthValue = null;
+				expTestSignalStrengthValue = expectedScreen.get(0);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "HIGH": {
+					flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
+							"SIGNAL TO BASE STATION: HIGH", 2);
+					if (flag && dasDIY.isSignalStrengthIsHighSubTitleVisibleInSignalStrengthScreen()) {
+						testSignalStrengthValue = dasDIY.getSensorRangeSubTitleText();
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							expTestSignalStrengthValue = "Signal to base station";
+						}
+						if (testSignalStrengthValue
+								.contains(expTestSignalStrengthValue + ": " + expectedScreen.get(1))) {
+							Keyword.ReportStep_Pass(testCase, "Verified the signal strength value: "
+									+ testSignalStrengthValue + "in the screen: " + expTestSignalStrengthValue);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to verify the signal strength value: " + expectedScreen.get(1) + " for: "
+											+ expTestSignalStrengthValue + " in the screen: " + expectedScreen.get(2)
+											+ ". Displayed signal strength value is: " + testSignalStrengthValue);
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Displayed signal strength value is: " + testSignalStrengthValue);
+					}
+				}
+					break;
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
+			}
 			}
 			break;
 		}
 		case "ACCESS SENSOR SETTINGS": {
-			BaseStationSettingsScreen sensor = new BaseStationSettingsScreen(testCase);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "DOOR SENSOR": {
+			case "DOOR":
+			case "DOOR SENSOR":
+			case "WINDOW":
+			case "WINDOW SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OFF":
 				case "OPEN":
 				case "CLOSED": {
-					if (sensor.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
+					if (bs.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
 						Keyword.ReportStep_Pass(testCase,
 								"Door Sensor is " + (expectedScreen.get(1) + " after test signal"));
 					} else {
@@ -1091,16 +1188,18 @@ public class VerifyStatusOnScreen extends Keyword {
 			break;
 		}
 		case "MOTION SENSOR SETTINGS": {
-			BaseStationSettingsScreen sensor = new BaseStationSettingsScreen(testCase);
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "MOTION":
 			case "MOTION SENSOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "GOOD":
+				case "STANDBY":
 				case "COVER TAMPERED":
 				case "OFF":
 				case "NO MOTION DETECTED":
 				case "MOTION DETECTED": {
-					if (sensor.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
+					if (bs.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
 						Keyword.ReportStep_Pass(testCase,
 								"MOTION Sensor is " + (expectedScreen.get(1) + " after test signal"));
 					} else {
@@ -1205,6 +1304,42 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "ISMV SENSOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "OSMV SENSOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
@@ -1214,7 +1349,6 @@ public class VerifyStatusOnScreen extends Keyword {
 		}
 		case "THERMOSTAT DASHBOARD": {
 			Dashboard dash = new Dashboard(testCase);
-
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "INSIDE TEMPERATURE": {
 				switch (expectedScreen.get(1).toUpperCase()) {
@@ -1229,19 +1363,17 @@ public class VerifyStatusOnScreen extends Keyword {
 					}
 					break;
 				}
-
 				}
 				break;
 			}
-
 			}
 			break;
 		}
-
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");
 		}
+			break;
 		}
 		return flag;
 	}

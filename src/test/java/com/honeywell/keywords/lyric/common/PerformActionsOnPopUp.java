@@ -465,7 +465,9 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Motion Sensor Confirmation")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("Delete Motion Sensor Confirmation")
+				|| expectedPopUp.get(1).equalsIgnoreCase("Delete ISMV Sensor Confirmation")
+				|| expectedPopUp.get(1).equalsIgnoreCase("Delete OSMV Sensor Confirmation")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);

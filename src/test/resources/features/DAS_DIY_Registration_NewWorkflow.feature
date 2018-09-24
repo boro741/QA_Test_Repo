@@ -958,6 +958,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
+
 @DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2			@Automated
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -997,6 +998,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name | device name  | 
       | Home          | Living Room  |
+
 
 @DIYRegistrationByConnectingToOpenWiFiNetwork     @SetUpRequired		@P2
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform DAS registration
@@ -1387,7 +1389,8 @@ Examples:
 #| Enter your Wi-Fi password	| Connect to Network				|
 #| Set Up accessories         | Smart Home Security Success	|
 
-@DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P2				@Automated
+
+@DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P3				@Automated
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1424,6 +1427,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user <Sensor Location> access sensor "closed"
@@ -1471,24 +1481,24 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 		| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| location name	| device name		| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door				| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Window 			| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 #incaserequired
-#| Home			| Living Room		| Door			| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window 		| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window			| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window			| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door			| Front Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door			| Back Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door			| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window			| Living Room Window 	| Opened			| Closed					| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window			| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window			| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window 			| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Front Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Back Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Living Room Window 	| Opened			| Closed					| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 
 
-@DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P3			@Automated
+@DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P4			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1524,6 +1534,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 Then user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 Then user <Sensor Location> access sensor "closed"
@@ -1571,11 +1588,11 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 		| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Door			| Honeywell2				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
-| Home			| Living Room		| Window 		| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| location name	| device name		| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door				| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Window 			| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Door				| Honeywell2				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| Home			| Living Room		| Window 			| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 
 
 #Improvement
@@ -1802,7 +1819,7 @@ Examples:
 | Home			| Living Room		| Window         | Kitchen Window       | Opened        | Closed                |
 
 
-@DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P2			@Automated
+@DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with default name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -1835,6 +1852,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -1893,7 +1916,7 @@ Examples:
 #| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-@DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P3			@Automated
+@DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P4			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 Given user launches and logs in to the Lyric application
@@ -1928,6 +1951,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -1975,7 +2004,7 @@ Examples:
 #| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-@DIYRegistrationWithKeyFobEnrollment		@P2			@Automated
+@DIYRegistrationWithKeyFobEnrollment		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Key Fob through DIY
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -2043,44 +2072,76 @@ Examples:
 | Home				| Living Room		| Keyfob			| xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-@DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P2
+@DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol ISMV with default sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security" screen
-When user triggers "ISMV" sensor
-And  user selects "SETUP button" from "Set Up Accessories" screen
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#When user indoor motion viewer "enrolled"
+And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
-When user selects "Watch How-To video" from "Locate Viewer" screen
+When user selects "Watch The How To video" from "Locate Viewer" screen
 Then user should be displayed with the "Video clip" screen
 When user navigates to "Locate Viewer" screen from the "Video clip" screen
-Then user navigates to "Name Viewer" screen from the "Locate Viewer" screen
-And user selects <Viewer Location> from "Name Viewer" screen
-Then user should be displayed with the "Place Viewer" screen
-When user selects <Place Viewer Area> from "Place Viewer" screen
-Then user should be displayed with the "Place Viewer On Location" screen
-And user navigates to "Test Motion Viewer" screen from "Place Sensor on location" screen
-Then user <Viewer Location> <Motion Status>
-And user <Viewer Location> <Motion Status Update>
-Then user navigates to "Set Up Accessories Configured" screen from the "Test Motion Viewer" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Select ISMV Location" screen from the "Locate Viewer" screen
+And user selects <Viewer Location> from "Select ISMV Location" screen
+Then user should be displayed with the "Place viewer Select Mounting Option" screen
+When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
+Then user should be displayed with the "Place viewer Mount" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
+#When user indoor motion viewer "motion not detected"
+Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+#Then user indoor motion viewer "motion detected"
+And user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "ISMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Sensor List Settings" screen from the "Amazon Alexa Settings" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "dismisses" the "Delete ISMV Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "accepts" the "Delete ISMV Sensor Confirmation" popup
+Then user should not be displayed with "ISMV sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
@@ -2089,61 +2150,94 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		| Viewer Location    | Place Viewer Area             | Motion Status         | Motion Status Update  |
-| Home			| Living Room		| Living Room        | On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       |
-| Home			| Living Room		| Living Room        | In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       |
-| Home			| Living Room		| Living Room        | Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       |
-| Home			| Living Room		| Living Room        | Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       |
+| location name	| device name		| Viewer Location	| Place Viewer Area             | Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
+| Home			| Living Room		| Front Hall			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
 #Incaserequired
-| Home			| Living Room		| Front Hall         | On a Shelf                   | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Front Hall         | In a Corner                  | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Front Hall         | Flat on a Wall with Adhesive | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Front Hall         | Flat on a Wall with Screws   | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Back Hall          | On a Shelf                   | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Back Hall          | In a Corner                  | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Back Hall          | Flat on a Wall with Adhesive | NO MOTION DETECTED |MOTION DETECTED |
-| Home			| Living Room		| Back Hall          | Flat on a Wall with Screws   | NO MOTION DETECTED |MOTION DETECTED |
+#| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-@DIYRegistrationWithISMVEnrollmentWithCustomSensorName		@P3
+@DIYRegistrationWithISMVEnrollmentWithCustomSensorName		@P4			@Automated
 Scenario Outline: As a user I should be able to successfully enrol ISMV with custom sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security" screen
-When user triggers "ISMV" sensor
-And  user selects "SETUP button" from "Set Up Accessories" screen
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#When user indoor motion viewer "enrolled"
+And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
-When user selects "Watch How-To video" from "Locate Viewer" screen
+When user selects "Watch The How To video" from "Locate Viewer" screen
 Then user should be displayed with the "Video clip" screen
 When user navigates to "Locate Viewer" screen from the "Video clip" screen
-Then user navigates to "Name Viewer" screen from the "Locate Viewer" screen
-When user navigates to "Custom Name Sensor" screen from the "Name Viewer" screen
-And user inputs <Custom name> in the "Custom Name Sensor" screen
-Then user should be displayed with the "Place Viewer" screen
-When user selects <Place Viewer Area> from "Place Viewer" screen
-Then user should be displayed with the "Place Viewer On Location" screen
-And user navigates to "Test Motion Viewer" screen from "Place Sensor on location" screen
-Then user <Custom Name> <Motion Status>
-And user <Custom Name> <Motion Status Update>
-Then user navigates to "Set Up Accessories Configured" screen from the "Test Motion Viewer" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+Then user navigates to "Select ISMV Location" screen from the "Locate Viewer" screen
+When user selects "Create Custom Name" from "Select ISMV Location" screen
+Then user should be displayed with the "Custom Name ISMV Location" screen
+And user names the "ISMV" to <Custom name>
+Then user should be displayed with the "Place viewer Select Mounting Option" screen
+When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
+Then user should be displayed with the "Place viewer Mount" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
+#When user indoor motion viewer "motion not detected"
+Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+#When user indoor motion viewer "motion detected"
+Then user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "ISMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Sensor List Settings" screen from the "Amazon Alexa Settings" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "dismisses" the "Delete ISMV Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "accepts" the "Delete ISMV Sensor Confirmation" popup
+Then user should not be displayed with "ISMV sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
@@ -2152,52 +2246,87 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		| Custom name        | Place Viewer Area             | Motion Status         | Motion Status Update  |
-| Home			| Living Room		| Honeywell          | On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       |
-| Home			| Living Room		| Honeywell1         | In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       |
-| Home			| Living Room		| Honeywell12        | Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       |
-| Home			| Living Room		| Honeywell123       | Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       |
+| location name	| device name		| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
+| Home			| Living Room		| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
 
-@DIYRegistrationWithOSMVEnrollmentWithDefaultSensorName		@P2
+
+@DIYRegistrationWithOSMVEnrollmentWithDefaultSensorName		@P3			@Automated
 Scenario Outline: As a user I should be able to successfully enrol OSMV with default sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security" screen
-When user triggers "OSMV" sensor
-And  user selects "SETUP button" from "Set Up Accessories" screen
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#When user outdoor motion viewer "enrolled"
+And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
-When user selects "Watch How-To video" from "Locate Viewer" screen
+When user selects "Watch The How To video" from "Locate Viewer" screen
 Then user should be displayed with the "Video clip" screen
 When user navigates to "Locate Viewer" screen from the "Video clip" screen
-Then user navigates to "Name Viewer" screen from the "Locate Viewer" screen
-And user selects <Viewer Location> from "Name Viewer" screen
-Then user should be displayed with the "Name Viewer Placement" screen
-When user navigates to "Place viewer Wall" screen from the "Name Viewer Placement" screen
+Then user navigates to "Select OSMV Location" screen from the "Locate Viewer" screen
+And user selects <Viewer Location> from "Select OSMV Location" screen
+Then user should be displayed with the "Place viewer Check Placement" screen
+When user navigates to "Place viewer Wall" screen from the "Place viewer Check Placement" screen
 Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" screen
 Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
 Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
-And user navigates to "Test Motion Viewer" screen from "Place viewer Adjust viewer" screen
-Then user <Viewer Location> <Motion Status>
-And user <Viewer Location> <Motion Status Update>
-Then user navigates to "Set Up Accessories Configured" screen from the "Test Motion Viewer" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
+#When user outdoor motion viewer "motion not detected"
+Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+#When user outdoor motion viewer "motion detected"
+Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "OSMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Security Settings" screen from the "Amazon Alexa Settings" screen
+Then user should be displayed with the following "OSMV Security Settings" options:
+     | OSMVSecuritySettingsOptions					|
+     | Enhanced Deterrence							|
+     | Outdoor Motion Viewers On in Home Mode		|
+When user navigates to "Sensor List Settings" screen from the "Security Settings" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "dismisses" the "Delete OSMV Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "accepts" the "Delete OSMV Sensor Confirmation" popup
+Then user should not be displayed with "OSMV sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
@@ -2205,60 +2334,96 @@ When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <device name> device on the "dashboard" screen
 
+
 Examples:
-| location name	| device name		| Viewer Location    | Motion Status         | Motion Status Update |
-| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      |
-| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      |
+| location name	| device name		| Viewer Location    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
+| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#incaserequired
+#| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-@DIYRegistrationWithOSMVEnrollmentWithCustomSensorName		@P3
+@DIYRegistrationWithOSMVEnrollmentWithCustomSensorName		@P4			@Automated
 Scenario Outline: As a user I should be able to successfully enrol OSMV with custom sensor name through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security" screen
-When user triggers "OSMV" sensor
-And  user selects "SETUP button" from "Set Up Accessories" screen
+When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <location name> from "Choose Location" screen
+Then user should be displayed with the "Name Your Base Station" screen
+When user selects <device name> from "Name Your Base Station" screen
+Then user should be displayed with the "Power Base Station" screen
+Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
+When user scans the QR code by showing it to the base station camera
+Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
+When user selects "Lenovo VIBE X3" from "Connect to Network" screen
+And user inputs "vibex888" as the WiFi Password
+Then user should be displayed with the "Smart Home Security Success" screen
+When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
+#When user outdoor motion viewer "enrolled"
+And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
-When user selects "Watch How-To video" from "Locate Viewer" screen
+When user selects "Watch The How To video" from "Locate Viewer" screen
 Then user should be displayed with the "Video clip" screen
 When user navigates to "Locate Viewer" screen from the "Video clip" screen
-When user navigates to "Custom Name Sensor" screen from the "Name Viewer" screen
-And user inputs <Custom name> in the "Custom Name Sensor" screen
-Then user should be displayed with the "Name Viewer Placement" screen
-When user navigates to "Place viewer Wall" screen from the "Name Viewer Placement" screen
+Then user navigates to "Select OSMV Location" screen from the "Locate Viewer" screen
+When user selects "Create Custom Name" from "Select OSMV Location" screen
+Then user should be displayed with the "Custom Name OSMV Location" screen
+And user names the "OSMV" to <Custom name>
+Then user should be displayed with the "Place viewer Check Placement" screen
+When user navigates to "Place viewer Wall" screen from the "Place viewer Check Placement" screen
 Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" screen
 Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
 Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
-And user navigates to "Test Motion Viewer" screen from "Place viewer Adjust viewer" screen
-Then user <Viewer Location> <Motion Status>
-And user <Viewer Location> <Motion Status Update>
-Then user navigates to "Set Up Accessories Configured" screen from the "Test Motion Viewer" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
+#When user outdoor motion viewer "motion not detected"
+Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+#When user outdoor motion viewer "motion detected"
+Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "OSMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Enable Geofencing" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Security Settings" screen from the "Amazon Alexa Settings" screen
+Then user should be displayed with the following "OSMV Security Settings" options:
+     | OSMVSecuritySettingsOptions					|
+     | Enhanced Deterrence							|
+     | Outdoor Motion Viewers On in Home Mode		|
+When user navigates to "Sensor List Settings" screen from the "Security Settings" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen 
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "dismisses" the "Delete OSMV Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "accepts" the "Delete OSMV Sensor Confirmation" popup
+Then user should not be displayed with "OSMV sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
@@ -2267,11 +2432,10 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		| Custom name    | Motion Status         | Motion Status Update |
-| Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      |
+| location name	| device name		| Custom name    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
+| Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
 
 
-#WithoutISMVAndOSMV
 @DIYRegistrationWithSensorBulkEnrollment    @P1			@Automated
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
@@ -2309,6 +2473,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user <Sensor Location> access sensor "closed"
@@ -2343,22 +2514,88 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
 When user selects "Done" from "Test Sensor" screen
 Then user should see the "Motion sensor" status as "configured" on the "Set Up Accessories"
+When user indoor motion viewer "enrolled"
+And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Locate Viewer" Screen 
+When user selects "Watch The How To video" from "Locate Viewer" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Locate Viewer" screen from the "Video clip" screen
+Then user navigates to "Select ISMV Location" screen from the "Locate Viewer" screen
+And user selects <Viewer ISMV Location> from "Select ISMV Location" screen
+Then user should be displayed with the "Place viewer Select Mounting Option" screen
+When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
+Then user should be displayed with the "Place viewer Mount" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
+When user indoor motion viewer "motion not detected"
+Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+When user indoor motion viewer "motion detected"
+Then user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "ISMV sensor" status as "configured" on the "Set Up Accessories"
+When user outdoor motion viewer "enrolled"
+And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Locate Viewer" Screen 
+When user selects "Watch The How To video" from "Locate Viewer" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Locate Viewer" screen from the "Video clip" screen
+Then user navigates to "Select OSMV Location" screen from the "Locate Viewer" screen
+And user selects <Viewer OSMV Location> from "Select OSMV Location" screen
+Then user should be displayed with the "Place viewer Check Placement" screen
+When user navigates to "Place viewer Wall" screen from the "Place viewer Check Placement" screen
+Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" screen
+Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
+Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
+When user outdoor motion viewer "motion not detected"
+Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+When user outdoor motion viewer "motion detected"
+Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "OSMV sensor" status as "configured" on the "Set Up Accessories"
 When user selects "Done" from "Set Up Accessories" screen
 Then user should be displayed with the "Enable Geofencing" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
-When user navigates to "People Detection" screen from the "Enable Amazon Alexa" screen
-Then user navigates to "Dashboard" screen from the "People Detection" screen
+When user navigates to "Geofence" screen from the "Enable Geofencing" screen
+Then user navigates to "Geofence Enabled" screen from the "Geofence" screen
+When user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
+And user enables Amazon Alexa with <Amazon username> and <Amazon password>
+Then user should be displayed with the "People Detection" screen
+When user navigates to "Dashboard" screen from the "People Detection" screen
 #And user creates a passcode if required
 #And user disables the passcode through CHIL
 Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Keyfob List Settings" screen from the "dashboard" screen
+When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
+Then user should be displayed with "Sign Out" button on the "Amazon Alexa" screen
+When user navigates to "Security Settings" screen from the "Amazon Alexa Settings" screen
+Then user should be displayed with the following "OSMV Security Settings" options:
+     | OSMVSecuritySettingsOptions					|
+     | Enhanced Deterrence							|
+     | Outdoor Motion Viewers On in Home Mode		|
+When user navigates to "Keyfob List Settings" screen from the "Security Settings" screen
 Then user should be displayed with "keyfob" device on the "Keyfob list" screen
 When user navigates to "Keyfob Settings" screen from the "Keyfob list" screen 
 When user selects "delete sensor" from "Keyfob Settings" screen
@@ -2386,6 +2623,22 @@ And user "deletes sensor" by clicking on "delete" button
 Then user should receive a "Delete Motion Sensor Confirmation" popup
 And user "accepts" the "Delete Motion Sensor Confirmation" popup
 Then user should not be displayed with "Motion sensor" device on the "sensor list" screen
+When user navigates to "ISMV Sensor Settings" screen from the "sensor list" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "dismisses" the "Delete ISMV Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "accepts" the "Delete ISMV Sensor Confirmation" popup
+Then user should not be displayed with "ISMV sensor" device on the "sensor list" screen
+When user navigates to "OSMV Sensor Settings" screen from the "sensor list" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "dismisses" the "Delete OSMV Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "accepts" the "Delete OSMV Sensor Confirmation" popup
+Then user should not be displayed with "OSMV sensor" device on the "sensor list" screen
 When user navigates to "Base Station Configuration" screen from the "Sensor" screen
 And user "deletes DAS device" by clicking on "delete" button
 Then user should receive a "Delete DAS Confirmation" popup
@@ -2394,59 +2647,555 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	| Sensor Name    	| Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | 
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|  Front Hall     	| In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      |
+| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	| Sensor Name    	| Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Viewer ISMV Location		| Place Viewer Area		| Viewer OSMV Location		|
+| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|  Front Hall     	| In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | Front Hall				| On a Shelf				| Front Porch				|
 
-#Includes ISMV and OSMV
-@DIYRegistrationWithSensorBulkEnrollmentOld    @P1
-Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
-Given user DAS device with ADB ID "9c48da88" is deregistered and booted
-And user launches and logs in to the Lyric application
-When user navigates to "Smart Home Security Success" screen after registering the base station
-And user navigates to "Set up Accessories" screen from "Smart Home Security Success" screen
-When user triggers "ACCESS" sensor
-And user adds the access sensor
-Then user should be displayed with "Set Up Accessories Configured" screen
-Then user navigates to "Set up Accessories" screen from "Set Up Accessories configured" screen
-When user triggers "MOTION" sensor
-And user adds the motion sensor
-Then user should be displayed with "Set Up Accessories Configured" screen
-Then user navigates to "Set up Accessories" screen from "Set Up Accessories configured" screen
-When user triggers "KEYFOB" sensor
-And user adds the keyfob sensor
-Then user should be displayed with "Set Up Accessories Configured" screen
-Then user navigates to "Set up Accessories" screen from "Set Up Accessories configured" screen
-When user triggers "ISMV" sensor
-And user adds the ISMV sensor
-Then user should be displayed with "Set Up Accessories Configured" screen
-Then user navigates to "Set up Accessories" screen from "Set Up Accessories configured" screen
-When user triggers "OSMV" sensor
-And user adds the OSMV sensor
-Then user should be displayed with "Set Up Accessories Configured" screen
-And user navigates to "Enable Geofencing" screen from the "Set Up Accessories configured" screen
-Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
-And user navigates to "Geofence Enabled" screen from the "Geofence" screen
-Then user navigates to "Enable Amazon Alexa" screen from the "Geofence Enabled" screen
-And user navigates to "Dashboard" screen from the "Enable Amazon Alexa" screen
-#And user creates a passcode if required
-#And user disables the passcode through CHIL
-Then user should be displayed with "Security" device on the "dashboard" screen
-And user should be displayed with <device name> device on the "dashboard" screen
-When user navigates to "Sensor Settings" screen from the "Dashboard" screen
+@DASAccessSensorEnrollmentWithDefaultName		@P1			@Automated
+Scenario Outline: a- As a user I should be able to successfully enrol Access Sensor with default sensor name and video should play for assistance in sensor enrolment 
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+And user <Sensor Location> access sensor "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Overview" Screen 
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects <Sensor Location Area> from <Sensor Location> screen
+Then user should be displayed with the "Place Sensor" screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
+When user <Sensor Location> access sensor "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+When user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
 And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "dismisses" the "Delete Sensor Confirmation" popup
-And user "deletes sensor" by clicking on "delete" button
-Then user should receive a "Delete Sensor Confirmation" popup
-And user "accepts" the "Delete Sensor Confirmation" popup
-Then user should not be displayed with "sensors" on the "sensors" screen
-When user navigates to "Base Station Configuration" screen from the "Sensor" screen
-And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
-When user "accepts" the "Delete DAS Confirmation" popup
-Then user should not be displayed with "Security" device on the "dashboard" screen
-And user should not be displayed with <device name> device on the "dashboard" screen
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 
 Examples:
-| location name	| device name		|
-| Home			| Living Room		|
+| Mode	| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
+| Home	| Door				| Front Door				| Open			| Closed					| Door Access Settings		|
+#| Home	| Window 			| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+#| Off	| Door				| Front Door				| Open			| Closed					| Door Access Settings		|
+#| Off	| Window 			| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+#incaserequired
+#| Home	| Door				| Back Door				| Opened			| Closed					| Door Access Settings		|
+#| Home	| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		|
+#| Home	| Window 			| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		|
+#| Home	| Window				| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		|
+#| Home	| Window				| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		|
+#| Off	| Door				| Back Door				| Opened 		| Closed 				| Door Access Settings		|
+#| Off	| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		|
+#| Off	| Window				| Living Room Window 	| Opened			| Closed					| Window Access Settings		|
+#| Off	| Window				| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		|
+#| Off	| Window				| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		|
+
+
+@DASAccessSensorEnrollmentWithCustomSensorName		@P1			@Automated
+Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name and video should play for assistance in sensor enrolment
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+And user <Sensor Location> access sensor "enrolled"
+When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+Then user should be displayed with the "Sensor Overview" Screen 
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Sensor Overview" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Location> from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects "Create Custom Name" from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+Then user edits the <Sensor Location> name to <Sensor Location Area>
+Then user should be displayed with the "Place Sensor" screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user selects "Wont Fit As shown" from "Place Sensor on location" screen
+Then user should be displayed with the "Access sensor Install help" screen
+When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
+And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
+Then user <Sensor Location> access sensor "Opened"
+Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
+Then user <Sensor Location> access sensor "closed"
+Then user should see the <Sensor Location> status as <Access Status Update> on the "Test Access Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the <Sensor Location> status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the <Sensor Location> status as "closed" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen
+Then user navigates to <Access Setting screen> screen from the "Dashboard" screen
+When user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "dismisses" the "Delete Access Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Access Sensor Confirmation" popup
+And user "accepts" the "Delete Access Sensor Confirmation" popup
+Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
+
+Examples:
+| Mode	| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
+| Home	| Door				| Honeywell				| Open			| Closed					| Door Access Settings		|
+
+
+@DASMotionSensorEnrollmentWithDefaultSensorName		@P1			@Automated
+Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+When user motion sensor "enrolled"
+And  user selects "MOTION SENSOR SETUP button" from "Set Up Accessories" screen
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user selects <Sensor Name> from "Name Motion Sensor" screen
+Then user should be displayed with the "Mount Sensor" screen
+When user selects <Mount Sensor Name> from "Mount Sensor" screen
+Then user should be displayed with the <Place Sensor> screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user motion sensor "motion not detected"
+Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
+When user motion sensor "motion detected"
+Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "Motion sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user should see the "Motion sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "Motion sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "dismisses" the "Delete Motion Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "accepts" the "Delete Motion Sensor Confirmation" popup
+Then user should not be displayed with "Motion sensor" device on the "sensor list" screen
+
+Examples:
+| Mode	| Sensor Name	| Mount Sensor Name	| Place Sensor 		| Motion Status			| Motion Status Update	|
+| Home	| Front Hall 	| In a Wall Corner 	| Mount in a Corner	| NO MOTION DETECTED		| MOTION DETECTED 		|
+#| OFF 	| Front Hall  	| Flat on a Wall		| Mount on the Wall	| NO MOTION DETECTED		| MOTION DETECTED 		|
+#incaserequired 
+#| Home	| Front Hall 	| In a Wall Corner 	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Front Hall  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Back Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Back Hall 		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Living Room 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Living Room  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF	| Front Hall 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Front Hall  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Back Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Back Hall 		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Living Room 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Living Room  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+
+
+@DASMotionSensorEnrollmentWithCustomName		@P1				@Automated
+Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+When user motion sensor "enrolled"
+And  user selects "MOTION SENSOR SETUP button" from "Set Up Accessories" screen
+When user selects "Watch The How To video" from "Sensor Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Sensor Overview" screen from the "Video clip" screen
+Then user should be displayed with the "Locate Sensor" screen
+When user navigates to "Name Sensor" screen from the "Locate Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+When user selects "Create Custom Name" from "Name Sensor" screen
+Then user should be displayed with the "Name Sensor" screen
+And user names the "MOTION" to <Custom name>
+Then user should be displayed with the "Mount Sensor" screen
+Then user selects <Mount Sensor Name> from "Mount Sensor" screen
+Then user should be displayed with the <Place Sensor> screen
+And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
+When user motion sensor "motion not detected"
+Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
+When user motion sensor "motion detected"
+Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "Motion sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user should see the "Motion sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "Motion sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "dismisses" the "Delete Motion Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete Motion Sensor Confirmation" popup
+And user "accepts" the "Delete Motion Sensor Confirmation" popup
+Then user should not be displayed with "Motion sensor" device on the "sensor list" screen
+
+Examples:
+| Mode	| Custom name	| Mount Sensor Name	| Place Sensor		| Motion Status			| Motion Status Update	|
+| Home	| Honeywell		| In a Wall Corner	| Mount in a Corner	| NO MOTION DETECTED 	| MOTION DETECTED		|
+#| OFF	| Honeywell		| Flat on a Wall		| Mount on the Wall	| NO MOTION DETECTED 	| MOTION DETECTED		|
+#incaserequired
+#| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+
+
+@DASKeyFobEnrollment		@P1			@Automated
+Scenario Outline: As a user I should be able to successfully enrol Key Fob and Assistance video 
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+Then user press "enrollment" key from keyfob
+When user selects "Keyfob SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Keyfob Overview" Screen 
+When user selects "WATCH THE HOW TO VIDEO" from "Keyfob Overview" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Keyfob Overview" screen from the "Video clip" screen
+When user selects "Get Started" from "Keyfob Overview" screen
+Then user should be displayed with the "NAME KEYFOB" screen
+Then user edits the "Keyfob Sensor" name to <Custom name>
+When user selects "Done" from "Configuration Success" screen
+Then user should see the "Keyfob" status as "Assigned" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Keyfob List Settings" screen from the "Dashboard" screen
+Then user should be displayed with "keyfob" device on the "Keyfob list" screen
+When user navigates to "Keyfob Settings" screen from the "Keyfob list" screen 
+When user selects "delete sensor" from "Keyfob Settings" screen
+Then user should receive a "Delete keyfob Confirmation" popup
+When user "dismisses" the "Delete Keyfob Confirmation" popup
+When user selects "delete sensor" from "Keyfob Settings" screen
+Then user should receive a "Delete keyfob Confirmation" popup
+And user "accepts" the "Delete Keyfob Confirmation" popup
+Then user should not be displayed with "Keyfob" device on the "Keyfob list" screen
+
+Examples:
+| Mode | Custom name		|
+| Home | Keyfob			|
+#incaseerequied
+#| OFF | Keyfob			|
+
+
+@DASISMVEnrollmentWithDefaultSensorName		@P1			@Automated
+Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+When user indoor motion viewer "enrolled"
+And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Locate Viewer" Screen 
+When user selects "Watch The How To video" from "Locate Viewer" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Locate Viewer" screen from the "Video clip" screen
+Then user navigates to "Select ISMV Location" screen from the "Locate Viewer" screen
+And user selects <Viewer Location> from "Select ISMV Location" screen
+Then user should be displayed with the "Place viewer Select Mounting Option" screen
+When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
+Then user should be displayed with the "Place viewer Mount" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
+When user indoor motion viewer "motion not detected"
+Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+When user indoor motion viewer "motion detected"
+Then user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "ISMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "dismisses" the "Delete ISMV Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "accepts" the "Delete ISMV Sensor Confirmation" popup
+Then user should not be displayed with "ISMV sensor" device on the "sensor list" screen
+
+Examples:
+| Mode	| Viewer Location	| Place Viewer Area	|  Place Sensor 		| Motion Status			| Motion Status Update  |
+| Home	| Front Hall			| On a Shelf			| Mount in a Corner	| NO MOTION DETECTED		| MOTION DETECTED       |
+#| Off	| Front Hall			| In a Corner		| Mount on the Wall	| NO MOTION DETECTED		| MOTION DETECTED       |
+#incaserequired 
+#| Home	| Front Hall 		| In a Wall Corner 	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Front Hall  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Back Hall 			| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Back Hall 			| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Living Room 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| Home | Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF	| Front Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Front Hall  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Back Hall 			| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Back Hall 			| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Living Room 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF 	| Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+
+
+@DASMotionSensorEnrollmentWithCustomName		@P1				@Automated
+Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+#When user indoor motion viewer "enrolled"
+And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Locate Viewer" Screen 
+When user selects "Watch The How To video" from "Locate Viewer" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Locate Viewer" screen from the "Video clip" screen
+Then user navigates to "Select ISMV Location" screen from the "Locate Viewer" screen
+When user selects "Create Custom Name" from "Select ISMV Location" screen
+Then user should be displayed with the "Custom Name ISMV Location" screen
+And user names the "ISMV" to <Custom name>
+Then user should be displayed with the "Place viewer Select Mounting Option" screen
+When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
+Then user should be displayed with the "Place viewer Mount" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
+#When user indoor motion viewer "motion not detected"
+Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+#When user indoor motion viewer "motion detected"
+Then user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "ISMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Sensor List Settings" screen from the "Dashboard" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "ISMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "dismisses" the "Delete ISMV Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete ISMV Sensor Confirmation" popup
+And user "accepts" the "Delete ISMV Sensor Confirmation" popup
+Then user should not be displayed with "ISMV sensor" device on the "sensor list" screen
+
+Examples:
+| Mode	| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  |
+| Home	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
+#| Off	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
+#incaserequired
+#| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+
+
+@DASOSMVEnrollmentWithDefaultSensorName		@P1			@Automated
+Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+When user outdoor motion viewer "enrolled"
+And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Locate Viewer" Screen 
+When user selects "Watch The How To video" from "Locate Viewer" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Locate Viewer" screen from the "Video clip" screen
+Then user navigates to "Select OSMV Location" screen from the "Locate Viewer" screen
+And user selects <Viewer Location> from "Select OSMV Location" screen
+Then user should be displayed with the "Place viewer Check Placement" screen
+When user navigates to "Place viewer Wall" screen from the "Place viewer Check Placement" screen
+Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" screen
+Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
+Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
+When user outdoor motion viewer "motion not detected"
+Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+When user outdoor motion viewer "motion detected"
+Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "OSMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Security Settings" screen from the "Dashboard" screen
+Then user should be displayed with the following "OSMV Security Settings" options:
+     | OSMVSecuritySettingsOptions					|
+     | Enhanced Deterrence							|
+     | Outdoor Motion Viewers On in Home Mode		|
+When user navigates to "Sensor List Settings" screen from the "Security Settings" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "dismisses" the "Delete OSMV Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "accepts" the "Delete OSMV Sensor Confirmation" popup
+Then user should not be displayed with "OSMV sensor" device on the "sensor list" screen
+
+Examples:
+| Mode	| Viewer Location	| Motion Status         | Motion Status Update |
+| Home	| Front Porch		| NO MOTION DETECTED    | MOTION DETECTED      |
+#| Off	| Back Porch			| NO MOTION DETECTED    | MOTION DETECTED      |
+#incaserequired
+#| Home	| Driveway			| NO MOTION DETECTED    | MOTION DETECTED      |
+#| Home	| Garage				| NO MOTION DETECTED    | MOTION DETECTED      |
+#| Home	| Patio				| NO MOTION DETECTED    | MOTION DETECTED      |
+
+
+@DASOSMVEnrollmentWithCustomName		@P1				@Automated
+Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
+Given user is set to <Mode> mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
+#When user outdoor motion viewer "enrolled"
+And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
+Then user should be displayed with the "Locate Viewer" Screen 
+When user selects "Watch The How To video" from "Locate Viewer" screen
+Then user should be displayed with the "Video clip" screen
+When user navigates to "Locate Viewer" screen from the "Video clip" screen
+Then user navigates to "Select OSMV Location" screen from the "Locate Viewer" screen
+When user selects "Create Custom Name" from "Select OSMV Location" screen
+Then user should be displayed with the "Custom Name OSMV Location" screen
+And user names the "OSMV" to <Custom name>
+Then user should be displayed with the "Place viewer Check Placement" screen
+When user navigates to "Place viewer Wall" screen from the "Place viewer Check Placement" screen
+Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" screen
+Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
+Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
+And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
+#When user outdoor motion viewer "motion not detected"
+Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
+Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
+And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
+When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+#When user outdoor motion viewer "motion detected"
+Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
+And user "should not be displayed" with the "Test sensor screen cancel" option 
+And user "should not be displayed" with the "Test sensor screen back" option 
+When user selects "Done" from "Test Sensor" screen
+Then user should see the "OSMV sensor" status as "configured" on the "Set Up Accessories"
+When user selects "Done" from "Set Up Accessories" screen
+Then user should be displayed with the "Dashboard" screen
+When user navigates to "Security Settings" screen from the "Dashboard" screen
+Then user should be displayed with the following "OSMV Security Settings" options:
+     | OSMVSecuritySettingsOptions					|
+     | Enhanced Deterrence							|
+     | Outdoor Motion Viewers On in Home Mode		|
+When user navigates to "Sensor List Settings" screen from the "Security Settings" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor List"
+When user navigates to "Security Solution card" screen from the "Sensor List" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+Then user should see the "OSMV sensor" status as "Standby" on the "Sensor Status"
+When user navigates to "Dashboard" screen from the "Security Solution Card" screen 
+When user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen 
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "dismisses" the "Delete OSMV Sensor Confirmation" popup
+And user "deletes sensor" by clicking on "delete" button
+Then user should receive a "Delete OSMV Sensor Confirmation" popup
+And user "accepts" the "Delete OSMV Sensor Confirmation" popup
+Then user should not be displayed with "OSMV sensor" device on the "sensor list" screen
+
+Examples:
+| Mode	| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  |
+| Home	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
+#| Off	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
+#incaserequired
+#| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+#| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|

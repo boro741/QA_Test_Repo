@@ -7,8 +7,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 
-import io.appium.java_client.MobileElement;
-
 public class CameraSolutionCardScreen extends MobileScreens {
 
 	private static final String screenName = "CameraSolutionCard";
