@@ -86,7 +86,7 @@ public class TaponElement extends Keyword {
 		} case "CLEAR TAMPER":{
 			SensorSettingScreen sc = new SensorSettingScreen(testCase);
 			flag = flag & sc.clickOnClearCoverTamperOption();
-			if (sc.isSensorTamperClearPopupDisplayed()) {
+			if (sc.isSensorTamperClearPopupDisplayed(10)) {
 				flag = flag & sc.clickOnRetryTamperClearPopup();
 			}
 			break;

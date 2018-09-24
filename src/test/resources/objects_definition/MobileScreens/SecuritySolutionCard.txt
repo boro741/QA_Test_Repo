@@ -4,7 +4,7 @@ SwitchingToText	id	status_switch_message	id	status_switch_message	id	status_swit
 StatusIcons	id	status_image	id	status_image	id	status_image						
 StatusOptionsPanel	id	status_options_panel	id	status_options_panel	id	status_options_panel	name	Selected_State	name	Selected_State	name	Selected_State
 ProgressBar	id	progress_bar	id	progress_bar	id	progress_bar	NAME	activityIndicator	NAME	activityIndicator	NAME	activityIndicator
-TimerProgressBar	id	timer_progress_bar	id	timer_progress_bar	id	timer_progress_bar	name	countDownTimer	name	countDownTimer	name	countDownTimer
+TimerProgressBar	id	text_timestamp	id	text_timestamp	id	text_timestamp	name	countDownTimer	name	countDownTimer	name	countDownTimer
 OkButton	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	XPATH	//*[@text='OK']	name	OK				
 CancelBypassButton	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	XPATH	//*[@text='Cancel']	name	Cancel				
 BypassIssueMessage	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	XPATH	"//*[contains(@text,'is Open.')]"	xpath	"//*[contains(@name,'is Open.')]"				
@@ -30,6 +30,7 @@ ClearNotificationsIcon	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH
 ClearNotificationsText	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text	ID	com.android.systemui:id/clear_text						
 ConfirmButtonInClearNotifications							NAME	Confirm clear notifications	NAME	Confirm clear notifications	NAME	Confirm clear notifications
 AppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
+AltAppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	action_settings	NAME	action_settings	NAME	action_settings
 SwitchToAwayPopupTitle	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	NAME	Switch to Away?	NAME	Switch to Away?	NAME	Switch to Away?
 OKButtonInPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 CancelButtonInPopup	ID	button2	ID	button2	ID	button2	NAME	Cancel	NAME	Cancel	NAME	Cancel

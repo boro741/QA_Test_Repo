@@ -71,6 +71,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		}
 	}
 
+	public boolean isLoadingSpinnerVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
+	}
+
 	public boolean clickOn15SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "15SecondsOption");
 	}
@@ -625,11 +629,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		boolean found = false;
 		for (WebElement keyfob : keyfobs) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				System.out.println(keyfob.getAttribute("text"));
 				if (keyfob.getAttribute("text").equalsIgnoreCase(keyfobName)) {
 					found = true;
 					break;
 				}
 			} else {
+				System.out.println(keyfob.getAttribute("value"));
 				if (keyfob.getAttribute("value").equalsIgnoreCase(keyfobName)) {
 					found = true;
 					break;
@@ -1271,7 +1277,6 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean verifyStatusOptionTextOnSensorSettingsScreen() {
-
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption")) {
 			System.out.println("Status is found");
 			return true;
@@ -1328,7 +1333,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				return true;
 			}
 		} else {
-			if (element.getAttribute("focused").equalsIgnoreCase("true")) {
+			System.out.println("#######" + element.getAttribute("focusable"));
+			if (element.getAttribute("focusable").equalsIgnoreCase("true")) {
 				System.out.println(element.getText());
 				return true;
 			}
@@ -1348,7 +1354,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				return true;
 			}
 		} else {
-			if (element.getAttribute("focused").equalsIgnoreCase("true")) {
+			System.out.println("#######" + element.getAttribute("focusable"));
+			if (element.getAttribute("focusable").equalsIgnoreCase("true")) {
 				System.out.println(element.getText());
 				return true;
 			}
@@ -1523,6 +1530,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
 				MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					try {
+						MobileUtils.hideKeyboard(testCase.getMobileDriver());
+						MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
+						MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
+					} catch (Exception e) {
+					}
+				}
+				System.out.println("%%%%%%%%%%%%RenamedString: " + RenamedString);
 				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField", RenamedString);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
@@ -1538,6 +1554,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				flag = flag & security.clickOnUserGivenSensorName(RenamedString);
 				MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
 				MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					try {
+						MobileUtils.hideKeyboard(testCase.getMobileDriver());
+						MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
+						MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
+					} catch (Exception e) {
+					}
+				}
+				System.out.println("%%%%%%%%%%%%actualSensorName: " + actualSensorName);
 				MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField",
 						actualSensorName);
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
@@ -1931,8 +1956,5 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 	public boolean isSecurityModeoffModeVisible(){
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffMode");
-	}
-	public boolean isSecurityModeoffTextVisible(){
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffText");
 	}
 }

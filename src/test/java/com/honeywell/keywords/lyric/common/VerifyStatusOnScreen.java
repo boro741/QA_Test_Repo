@@ -16,6 +16,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASSensorUtils;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -1094,249 +1095,35 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
-			case "SIGNAL STRENGTH": {
-				// SensorSettingScreen sensor = new SensorSettingScreen(testCase);
-				switch (expectedScreen.get(0).toUpperCase()) {
-				case "MOTION SENSOR":
-				case "WINDOW SENSOR":
-				case "WINDOW":
-				case "DOOR":
-				case "DOOR SENSOR": {
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "HIGH": {
-						if (sensor.isSignalStrengthVisible(expectedScreen.get(1))) {
-							Keyword.ReportStep_Pass(testCase,
-									expectedScreen.get(0) + "  signal is " + (expectedScreen.get(1)));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									expectedScreen.get(0) + " signal is not in " + expectedScreen.get(1));
-						}
-
-						break;
-					}
-					}
-					break;
-				}
-				}
-				break;
 			}
-			case "ACCESS SENSOR SETTINGS": {
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				switch (expectedScreen.get(0).toUpperCase()) {
-				case "DOOR SENSOR": {
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "OFF":
-					case "OPEN":
-					case "CLOSED": {
-						if (bs.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
-							Keyword.ReportStep_Pass(testCase,
-									"Door Sensor is " + (expectedScreen.get(1) + " after test signal"));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Door Sensor is not " + (expectedScreen.get(1) + " after test signal"));
-						}
-
-						break;
-					}
-					}
-					break;
-				}
-				}
-				break;
-			}
-			case "MOTION SENSOR SETTINGS": {
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				switch (expectedScreen.get(0).toUpperCase()) {
-				case "MOTION SENSOR": {
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "GOOD":
-					case "COVER TAMPERED":
-					case "OFF":
-					case "NO MOTION DETECTED":
-					case "MOTION DETECTED": {
-						if (bs.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
-							Keyword.ReportStep_Pass(testCase,
-									"MOTION Sensor is " + (expectedScreen.get(1) + " after test signal"));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"MOTION Sensor is not " + (expectedScreen.get(1) + " after test signal"));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				}
-				break;
-			}
-			case "SET UP ACCESSORIES": {
-				switch (expectedScreen.get(0).toUpperCase()) {
-				case "DOOR SENSOR":
-				case "DOOR": {
-					SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "CONFIGURED": {
-						flag = flag & sensorSetting.isSensorConfigured(
-								inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"), expectedScreen.get(1));
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to verify " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				case "WINDOW SENSOR":
-				case "WINDOW": {
-					SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "CONFIGURED": {
-						flag = flag & sensorSetting.isSensorConfigured(
-								inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"), expectedScreen.get(1));
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to verify " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				case "MOTION SENSOR": {
-					SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "CONFIGURED": {
-						System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
-						flag = flag & sensorSetting.isSensorConfigured(
-								inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"), expectedScreen.get(1));
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to verify " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				case "KEYFOB": {
-					SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "ASSIGNED": {
-						flag = flag & sensorSetting.isSensorConfigured(
-								inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"), expectedScreen.get(1));
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to verify " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-
-				}
-				case "WINDOW ACCESS SETTINGS":
-				case "DOOR ACCESS SETTINGS": {
-					switch (expectedScreen.get(0).toUpperCase()) {
-					case "BATTERY": {
-						BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-						if (bs.verifyBatteryStatusTextOnAccessSensorSettingsScreen(expectedScreen.get(1))) {
-							Keyword.ReportStep_Pass(testCase, "Battery status is " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Battery status is not " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				case "ISMV SENSOR": {
-					SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "CONFIGURED": {
-						System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
-						flag = flag & sensorSetting.isSensorConfigured(
-								inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"), expectedScreen.get(1));
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to verify " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				case "OSMV SENSOR": {
-					SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "CONFIGURED": {
-						System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
-						flag = flag & sensorSetting.isSensorConfigured(
-								inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"), expectedScreen.get(1));
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to verify " + expectedScreen.get(1));
-						}
-						break;
-					}
-					}
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
-				}
-				}
-				break;
-			}
-			case "THERMOSTAT DASHBOARD": {
-				Dashboard dash = new Dashboard(testCase);
-				switch (expectedScreen.get(0).toUpperCase()) {
-				case "INSIDE TEMPERATURE": {
-					switch (expectedScreen.get(1).toUpperCase()) {
-					case "OFF": {
-						if (dash.isOffStatusVisible(inputs)) {
-							Keyword.ReportStep_Pass(testCase,
-									expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									expectedScreen.get(0).toUpperCase() + " is not in "
-											+ expectedScreen.get(1).toUpperCase());
-						}
-						break;
-					}
-					}
-					break;
-				}
-				}
-				break;
-			}
-			default: {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");
-			}
-			}
-			break;
 		}
 		case "SIGNAL STRENGTH": {
-			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-			String testSignalStrengthValue = null;
-			String expTestSignalStrengthValue = null;
+			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "MOTION SENSOR":
+			case "WINDOW SENSOR":
+			case "WINDOW":
+			case "DOOR":
+			case "DOOR SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "HIGH": {
+					if (sensor.isSignalStrengthVisible(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0) + "  signal is " + (expectedScreen.get(1)));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0) + " signal is not in " + expectedScreen.get(1));
+					}
+
+					break;
+				}
+				}
+				break;
+			}
 			case "SIGNAL TO BASE STATION": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				String testSignalStrengthValue = null;
+				String expTestSignalStrengthValue = null;
 				expTestSignalStrengthValue = expectedScreen.get(0);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "HIGH": {
@@ -1373,6 +1160,220 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			break;
 		}
+		case "ACCESS SENSOR SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DOOR":
+			case "DOOR SENSOR":
+			case "WINDOW":
+			case "WINDOW SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF":
+				case "OPEN":
+				case "CLOSED": {
+					if (bs.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"Door Sensor is " + (expectedScreen.get(1) + " after test signal"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Door Sensor is not " + (expectedScreen.get(1) + " after test signal"));
+					}
+
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
+		case "MOTION SENSOR SETTINGS": {
+			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "MOTION":
+			case "MOTION SENSOR": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "GOOD":
+				case "STANDBY":
+				case "COVER TAMPERED":
+				case "OFF":
+				case "NO MOTION DETECTED":
+				case "MOTION DETECTED": {
+					if (bs.verifySensorStatusAfterTestSignalStrength(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase,
+								"MOTION Sensor is " + (expectedScreen.get(1) + " after test signal"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"MOTION Sensor is not " + (expectedScreen.get(1) + " after test signal"));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
+		case "SET UP ACCESSORIES": {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "DOOR SENSOR":
+			case "DOOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "WINDOW SENSOR":
+			case "WINDOW": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "MOTION SENSOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "KEYFOB": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "ASSIGNED": {
+					flag = flag & sensorSetting.isSensorConfigured(inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1"),
+							expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+
+			}
+			case "WINDOW ACCESS SETTINGS":
+			case "DOOR ACCESS SETTINGS": {
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "BATTERY": {
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					if (bs.verifyBatteryStatusTextOnAccessSensorSettingsScreen(expectedScreen.get(1))) {
+						Keyword.ReportStep_Pass(testCase, "Battery status is " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Battery status is not " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "ISMV SENSOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "OSMV SENSOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
+			}
+			}
+			break;
+		}
+		case "THERMOSTAT DASHBOARD": {
+			Dashboard dash = new Dashboard(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "INSIDE TEMPERATURE": {
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "OFF": {
+					if (dash.isOffStatusVisible(inputs)) {
+						Keyword.ReportStep_Pass(testCase,
+								expectedScreen.get(0).toUpperCase() + " is " + expectedScreen.get(1).toUpperCase());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(0).toUpperCase() + " is not in "
+										+ expectedScreen.get(1).toUpperCase());
+					}
+					break;
+				}
+				}
+				break;
+			}
+			}
+			break;
+		}
+		default: {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");
+		}
+			break;
 		}
 		return flag;
 	}

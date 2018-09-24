@@ -1,10 +1,14 @@
 package com.honeywell.lyric.das.utils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
 
+import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -389,7 +393,7 @@ public class DASSensorUtils {
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-							if (settingScreen.isSensorTamperClearPopupDisplayed()) {
+							if (settingScreen.isSensorTamperClearPopupDisplayed(30)) {
 								flag = flag & settingScreen.clickOnOkTamperClearPopup();
 							}
 						}
@@ -666,7 +670,6 @@ public class DASSensorUtils {
 				if (security.isAppSettingsIconVisible(15)) {
 					flag = security.clickOnAppSettingsIcon();
 				}
-
 				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						"Base Station Configuration");
@@ -706,6 +709,123 @@ public class DASSensorUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return flag;
+	}
+	
+	public static boolean navigateToSensorTypeSettingsFromSecuritySettingsScreen(String SensorType, TestCaseInputs inputs,
+			TestCases testCase) {
+		boolean flag = false;
+		SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
+		try {
+			switch (SensorType) {
+			case "DOOR ACCESS SETTINGS": {
+				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+						"Base Station Configuration");
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1"));
+				break;
+			}
+			case "WINDOW ACCESS SETTINGS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1"));
+				break;
+			}
+			case "MOTION SENSOR SETTINGS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1"));
+				break;
+			}
+			case "ISMV SENSOR SETTINGS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1"));
+				break;
+			}
+			case "OSMV SENSOR SETTINGS": {
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
+				inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+				flag = flag & sensorScreen
+						.clickOnUserGivenSensorName(inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1"));
+				break;
+			}
+			default: {
+				System.out.println("Input not handled");
+				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input not handled -" + SensorType);
+				break;
+			}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	/**
+	 * <h1>Wait for until progress bar to complete</h1>
+	 * <p>
+	 * The waitForProgressBarToComplete method waits until the progress bar closes.
+	 * </p>
+	 *
+	 * Instance of the TestCases class used to create the testCase. testCase
+	 * instance.
+	 * 
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
+	public static boolean waitForProgressBarToComplete(TestCases testCase, String elementProgressBar, int duration) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			SensorSettingScreen ss = new SensorSettingScreen(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						switch (elementProgressBar) {
+						case "LOADING SPINNER BAR": {
+							if (ss.isLoadingSpinnerVisible()) {
+								System.out.println("Waiting for Verifying loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						default: {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid argument passed : " + elementProgressBar);
+							return true;
+						}
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared.");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Progress bar loading spinner did not disapper after waiting for: " + duration + " minutes");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+
 		return flag;
 	}
 }

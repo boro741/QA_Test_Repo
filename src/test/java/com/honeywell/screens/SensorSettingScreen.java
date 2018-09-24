@@ -33,9 +33,12 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isSensorsScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorsScreenTitle");
 	}
+	
+	public boolean isLoadingSpinnerVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
+	}
 
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
-		System.out.println("##########givenSensorName: " + givenSensorName);
 		String actualSensorName = null;
 		List<WebElement> sensorList;
 		if (testCase.getPlatform().contains("IOS")) {
@@ -212,7 +215,7 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean isModelDetailsDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelSubTitle")
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "VersionDetail");
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "SerialDetail");
 	}
 
 	public boolean verifyBatteryStatusTextOnSensorSettingsScreen() {
@@ -226,7 +229,7 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean isFirmwareDetailsDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle")
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareSubTitle");
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "VersionDetail");
 	}
 
 	public boolean clickOnGetAdditionalHelpButton() {
@@ -247,7 +250,6 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnTestSignalStrength() {
-
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
@@ -363,16 +365,18 @@ public class SensorSettingScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorTamperScreen")
 				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearTamperButton")) {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
-	public boolean isSensorTamperClearPopupDisplayed() {
-		MobileUtils.isMobElementExists(objectDefinition, testCase, "TamperNotClearedPopup");
+	public boolean isSensorTamperClearPopupDisplayed(int timeOut) {
+		boolean flag = true;
+		MobileUtils.isMobElementExists(objectDefinition, testCase, "TamperNotClearedPopup", timeOut);
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "TamperNotClearedPopup")) {
-			return true;
+			return flag;
 		}
-		return false;
+		return flag;
 	}
 
 	public boolean clickOnOkTamperClearPopup() {
@@ -1010,6 +1014,18 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean clickOnSensorHelpButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorHelpButton");
+	}
+	
+	public boolean isDoorAccessSettingsScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorAccessSensorScreenTitle");
+	}
+	
+	public boolean isWindowAccessSettingsScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowAccessSensorScreenTitle", timeOut);
+	}
+	
+	public boolean isMotionSensorSettingsScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorSettingsScreenTitle", timeOut);
 	}
 
 	/*

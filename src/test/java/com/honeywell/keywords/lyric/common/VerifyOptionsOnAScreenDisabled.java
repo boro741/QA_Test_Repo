@@ -512,8 +512,13 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
-		case "KEYFOB SETTINGS":
-		case "SENSOR SETTINGS": {
+		case "SENSOR SETTINGS":
+		case "DOOR ACCESS SETTINGS":
+		case "WINDOW ACCESS SETTINGS":
+		case "MOTION SENSOR SETTINGS":
+		case "ISMV SENSOR SETTINGS":
+		case "OSMV SENSOR SETTINGS":
+		case "KEYFOB SETTINGS":{
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
@@ -526,7 +531,6 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "Name field is disabled");
 						}
 					} else {
-
 						if (bs.isNameElementEnabled()) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Name field is enabled");

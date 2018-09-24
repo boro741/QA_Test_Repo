@@ -32,7 +32,6 @@ public class VerifySwitchingTextDisplayedWithMode extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with a switching to \"(.*)\" text$")
 	public boolean keywordSteps() {
-
 		String displayedText = "";
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);

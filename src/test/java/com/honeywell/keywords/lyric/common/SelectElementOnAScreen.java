@@ -697,7 +697,9 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("Keyfob settings")
 					|| parameters.get(1).equalsIgnoreCase("Window Access settings")
 					|| parameters.get(1).equalsIgnoreCase("Door Access settings")
-					|| parameters.get(1).equalsIgnoreCase("Motion sensor settings")) {
+					|| parameters.get(1).equalsIgnoreCase("Motion sensor settings")
+					|| parameters.get(1).equalsIgnoreCase("ISMV sensor settings")
+					|| parameters.get(1).equalsIgnoreCase("OSMV sensor settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "OFF STATUS": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -710,6 +712,21 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "MODEL AND FIRMWARE DETAILS": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
+					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimensions.width * 20) / 100;
+						int starty = (dimensions.height * 62) / 100;
+						int endx = (dimensions.width * 22) / 100;
+						int endy = (dimensions.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
 				}
@@ -720,6 +737,21 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "SIGNAL STRENGTH AND TEST": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimensions.width * 20) / 100;
+						int starty = (dimensions.height * 62) / 100;
+						int endx = (dimensions.width * 22) / 100;
+						int endy = (dimensions.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
+								.release().perform();
+					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
 				}

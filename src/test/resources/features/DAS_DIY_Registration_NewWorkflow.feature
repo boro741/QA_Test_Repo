@@ -1427,6 +1427,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user <Sensor Location> access sensor "closed"
@@ -1527,6 +1534,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 Then user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 Then user <Sensor Location> access sensor "closed"
@@ -1838,10 +1852,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
-When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
-Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
-And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
-When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -1935,10 +1951,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
-When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
-Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
-And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
-When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -2455,6 +2473,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user <Sensor Location> access sensor "closed"
@@ -2489,6 +2514,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -2643,6 +2674,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 When user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 When user <Sensor Location> access sensor "closed"
@@ -2713,6 +2751,13 @@ When user selects "Wont Fit As shown" from "Place Sensor on location" screen
 Then user should be displayed with the "Access sensor Install help" screen
 When user navigates to "Place Sensor on location" screen from the "Access sensor Install help" screen
 And user navigates to "Test Sensor" screen from the "Place Sensor on location" screen
+When user selects "Sensor Not Working" from "Test Access Sensor" screen
+Then user should be displayed with the "Access Sensor Help" screen
+When user selects "Test Signal Strength" from "Access Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "door sensor" status as "High" on the "Signal Strength"
+And user navigates to "Access Sensor Help" screen from the "Test Signal Strength" screen
+Then user navigates to "Test Access Sensor" screen from the "Access Sensor Help" screen
 Then user <Sensor Location> access sensor "Opened"
 Then user should see the <Sensor Location> status as <Access Status> on the "Test Access Sensor"
 Then user <Sensor Location> access sensor "closed"
@@ -2742,6 +2787,7 @@ Examples:
 | Mode	| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
 | Home	| Door				| Honeywell				| Open			| Closed					| Door Access Settings		|
 
+
 @DASMotionSensorEnrollmentWithDefaultSensorName		@P1			@Automated
 Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
 Given user is set to <Mode> mode through CHIL
@@ -2762,6 +2808,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
@@ -2826,6 +2878,12 @@ Then user should be displayed with the <Place Sensor> screen
 And user navigates to "Place Sensor on location" screen from the "Place Sensor" screen
 When user motion sensor "motion not detected"
 Then user should see the "Motion sensor" status as <Motion Status> on the "Test Motion Sensor"
+When user selects "Sensor Not Working" from "Test Motion Sensor" screen
+Then user should be displayed with the "Motion Sensor Help" screen
+When user selects "Test Signal Strength" from "Motion Sensor Help" screen
+Then user should be displayed with the "Signal Strength" screen
+Then user should see the "motion sensor" status as "High" on the "Signal Strength"
+And user navigates to "Test Motion Sensor" screen from the "Test Signal Strength" screen
 When user motion sensor "motion detected"
 Then user should see the "Motion sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
