@@ -580,8 +580,8 @@ public class PrimaryCard extends MobileScreens {
 		}
 	}
 
-	public boolean isVacationStatusVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatus");
+	public boolean isVacationStatusVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationStatus",timeout);
 
 	}
 

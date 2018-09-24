@@ -170,7 +170,7 @@ public class VerifyScheduleStatusInPrimarycardAndScheduleScreen extends Keyword 
 					}
 					case "VACATION STATUS": {
 						PrimaryCard VacationStatus = new PrimaryCard(testCase);
-						flag = flag & VacationStatus.isVacationStatusVisible(); 
+						flag = flag & VacationStatus.isVacationStatusVisible(50); 
 						if(flag)
 							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " dispalyed");
 							else 
