@@ -13868,7 +13868,12 @@ public class JasperSchedulingUtils {
 						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
 					
 				} else {
-					heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
+					if (jasperStatType.equalsIgnoreCase("EMEA")) {
+						heatSetPoint = ss.getHeatOnlySetPointsElements().get(0).getAttribute("value");
+						
+					}else {
+						heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
+					}
 				}
 			}
 
