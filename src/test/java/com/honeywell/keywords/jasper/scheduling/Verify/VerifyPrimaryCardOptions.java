@@ -67,7 +67,7 @@ public class VerifyPrimaryCardOptions extends Keyword {
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ThermostatSchedule", 30)) {
 						Keyword.ReportStep_Pass(testCase, "Scheduling status displayed");
 						String currentText=null;
-						if(testCase.getPlatform().toUpperCase().equals("IOS")){
+						if(testCase.getPlatform().toUpperCase().contains("IOS")){
 							currentText = MobileUtils.getMobElement(fieldObjects, testCase, "ThermostatSchedule")
 									.getAttribute("label");
 						}else{
