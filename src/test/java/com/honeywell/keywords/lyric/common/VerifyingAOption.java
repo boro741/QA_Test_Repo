@@ -441,7 +441,7 @@ public class VerifyingAOption extends Keyword {
 			}
 			case "SHOULD BE PROVIDED": {
 				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag = thermo.autoModeButtonVisible();
+				flag = thermo.isAutoModeVisible();
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(1) + " mode is provided");
 

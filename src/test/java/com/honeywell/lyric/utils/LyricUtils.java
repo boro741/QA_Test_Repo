@@ -1712,6 +1712,50 @@ public class LyricUtils {
 		return msgs;
 	}
 	
+	public static boolean verifyLoginSuccessfulwithoutCoachMark(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		OSPopUps os = new OSPopUps(testCase);
+		CoachMarks cm = new CoachMarks(testCase);
+		Dashboard d = new Dashboard(testCase);
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+		fWait.pollingEvery(5, TimeUnit.SECONDS);
+		fWait.withTimeout(3, TimeUnit.MINUTES);
+
+		try {
+			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
+				public Boolean apply(CustomDriver driver) {
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						try {
+							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
+							return false;
+						} catch (Exception e) {
+							if(cm.isNextButtonVisible(2)){
+								return true;
+							}
+						}
+						
+					}	
+					return false;
+				}});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Login to Lyric : Successfully navigated to HomeScreen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Login To Lyric : Unable to navigate to homepage. Could not find notification icon on homepage");
+			}
+
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Timed out while loading. Wait time : 2 minutes");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
+		return flag;
+	}
+	
 	public static boolean launchAndLoginToApplicationWithoutClosingCoachMark(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
@@ -1720,6 +1764,7 @@ public class LyricUtils {
 			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);	
 		}
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.verifyLoginSuccessfulwithoutCoachMark(testCase, inputs);
 		return flag;
 	}
 }
