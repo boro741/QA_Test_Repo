@@ -23,7 +23,7 @@ public class Dashboard extends MobileScreens {
 	public Dashboard(TestCases testCase) {
 		super(testCase, screenName);
 	}
-	
+
 	public boolean isLoadingSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
 	}
@@ -145,7 +145,7 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "StatTempStepperDown", 3);
 	}
 
-	public  boolean clickOnDeviceOnDashbaord() {
+	public boolean clickOnDeviceOnDashbaord() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardIconText");
 	}
 
@@ -195,38 +195,70 @@ public class Dashboard extends MobileScreens {
 	public String getSecurityStatusLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconStatus");
 	}
+
+	public boolean isIncreaseSecurityPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IncreaseSecurityPopup");
+	}
+
+	public boolean clickOnDontUseButtonInIncreaseSecurityPopup() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DontUseButtonInIncreaseSecurityPopup")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DontUseButtonInIncreaseSecurityPopup");
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
 	
-	// Method to check the camera ON text in dashboard screen 
+	public boolean clickOnAddButtonInIncreaseSecurityPopup() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddButtonInIncreaseSecurityPopup")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "AddButtonInIncreaseSecurityPopup");
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
+	// Method to check the camera ON text in dashboard screen
 	public boolean isCameraOnTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnText");
 	}
-	//Amresh
+
+	// Amresh
 	public boolean isDashboardIndoorTempWldVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIndoorTempWld");
 	}
+
 	public String getdashboardIndoorTempWldLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIndoorTempWld");
 	}
+
 	public boolean isDashboardHumidityWldVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardHumidityWld");
 	}
+
 	public String getDashboardHumidityWldLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardHumidityWld");
 	}
+
 	public String getDashboardDeviceNameLabel() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardIconText");
 	}
-	// Method to check the camera Off text in dashboard screen 
+
+	// Method to check the camera Off text in dashboard screen
 	public boolean isCameraOffTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOffText");
 	}
+
 	public boolean isCameraOfflineTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOfflineText");
 	}
+
 	public boolean isCameraRingClosedVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraRingClosedText");
 	}
-	
+
 	public String getCameraStatus(int timeOut) {
 		String cameraStatus = null;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardIconStatus", timeOut)) {
@@ -541,7 +573,7 @@ public class Dashboard extends MobileScreens {
 		} else if (currentSystemMode.toUpperCase().contains("COOL")) {
 			maxSetPoint = setPoints.get("MaxCool");
 		}
-		Keyword.ReportStep_Pass(testCase, "Max temp from stat before conversion is "+maxSetPoint);
+		Keyword.ReportStep_Pass(testCase, "Max temp from stat before conversion is " + maxSetPoint);
 		if (maxSetPoint.contains(".")) {
 			systemIsCelsius = true;
 			maxSetPointFloat = Float.parseFloat(maxSetPoint);
@@ -550,7 +582,7 @@ public class Dashboard extends MobileScreens {
 		}
 		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "UserExpectedTemperature");
 		currentSetPoint = ele.getText();
-		Keyword.ReportStep_Pass(testCase, "Max temp from display before conversion is "+currentSetPoint);
+		Keyword.ReportStep_Pass(testCase, "Max temp from display before conversion is " + currentSetPoint);
 		if (systemIsCelsius == false) {
 			if (maxSetPointInt == (Integer.parseInt(currentSetPoint))) {
 				return true;
@@ -602,41 +634,48 @@ public class Dashboard extends MobileScreens {
 		}
 		return false;
 	}
-	
+
 	public boolean isDrEventLabelVisibleOnDashboard() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardDrAlert", 3, false);
-	}	
+	}
+
 	public boolean NavigatetoThermostatPrimarycard() {
 		if (MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatName")) {
 			return true;
 		}
 		return false;
 	}
+
 	public boolean clickOnUpStepper() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "UpStepper");
 	}
-	
+
 	public boolean clickOnDownStepper() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DownStepper");
 	}
-	
+
 	public boolean isHeatingTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingText", 3, false);
 	}
+
 	public boolean isCoolingTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CoolingText", 3, false);
 	}
+
 	public boolean isHeatingCoolingTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HeatingCoolingText", 3, false);
 	}
+
 	public String getSetPoint() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "DeviceCurrentTempValue").getText();
 		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "DeviceCurrentTempValue").getAttribute("value");			
+			return MobileUtils.getMobElement(objectDefinition, testCase, "DeviceCurrentTempValue")
+					.getAttribute("value");
 		}
 	}
-	public  static double getCurrentSetPointInDashboard(TestCases testCase) {
+
+	public static double getCurrentSetPointInDashboard(TestCases testCase) {
 		try {
 			// =========================================Get current SetPoint
 			// value in Dialer============================================
@@ -654,9 +693,8 @@ public class Dashboard extends MobileScreens {
 			}
 			return Double.parseDouble(currentThermostatTemp);
 		} catch (Exception e) {
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Error Occured : " + e.getMessage());
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			return -1;
 		}
-}
+	}
 }

@@ -337,6 +337,7 @@ public class DIYRegistrationUtils {
 
 	public static boolean navigateFromPeopleDetectionToDashboard(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		Dashboard d = new Dashboard(testCase);
 		boolean flag = true;
 		if (dasDIY.isPeopleDetectionHeaderTitleVisible() && dasDIY.isNotNowButtonInPeopleDetectionScreenVisible()) {
 			flag = flag & dasDIY.clickOnNotNowButtonInPeopleDetectionScreen();
@@ -345,7 +346,11 @@ public class DIYRegistrationUtils {
 			// flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+				flag = flag & LyricUtils.closeCoachMarks(testCase);
 			}
+		} else if (d.isIncreaseSecurityPopupVisible()) {
+			flag &= d.clickOnDontUseButtonInIncreaseSecurityPopup();
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		} else {
 			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}

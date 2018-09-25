@@ -41,3 +41,6 @@ DashboardIndoorTempWld	id	dashboard_indoor_temp_wld	id	dashboard_indoor_temp_wld
 DashboardHumidityWld	id	dashboard_humidity_wld	id	dashboard_humidity_wld	id	dashboard_humidity_wld	NAME	humidityLabel	NAME	humidityLabel	NAME	humidityLabel
 CameraRingClosedText	XPATH	//*[@text='PRIVACY RING CLOSED']	XPATH	//*[@text='PRIVACY RING CLOSED']	XPATH	//*[@text='PRIVACY RING CLOSED']	XPATH	//*[@value='PRIVACY RING CLOSED']	XPATH	//*[@value='PRIVACY RING CLOSED']	XPATH	//*[@value='PRIVACY RING CLOSED']
 CameraOfflineText	XPATH	//*[@text='CAMERA IS OFFLINE']	XPATH	//*[@text='CAMERA IS OFFLINE']	XPATH	//*[@text='CAMERA IS OFFLINE']	NAME	CAMERA IS OFFLINE	NAME	CAMERA IS OFFLINE	NAME	CAMERA IS OFFLINE
+IncreaseSecurityPopup	ID	title_security_txt	ID	title_security_txt	ID	title_security_txt	NAME	Increase Security	NAME	Increase Security	NAME	Increase Security
+DontUseButtonInIncreaseSecurityPopup	ID	dont_use_txt	ID	dont_use_txt	ID	dont_use_txt	NAME	Don't Use	NAME	Don't Use	NAME	Don't Use
+AddButtonInIncreaseSecurityPopup	ID	add_security_txt	ID	add_security_txt	ID	add_security_txt	NAME	Add Security	NAME	Add Security	NAME	Add Security

@@ -307,6 +307,15 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean isSignalStrengthScreenDisplayed() {
 		System.out.println("Entered into signl stren func");
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		if (dasDIY.isOutOfRangePopupInSignalStrengthScreenVisible()) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Out of Range Popup is displayed in Signal Strength Screen");
+			if (dasDIY.isOKButtonInOutOfRangePopupVisible()) {
+				dasDIY.clickOnOKButtonInOutOfRangePopup();
+			}
+			return false;
+		}
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
 		fWait.withTimeout(1, TimeUnit.MINUTES);
@@ -478,13 +487,13 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
 			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
-		} else if (SensorType.toLowerCase().contains("access sensor")) {
+		} /*else if (SensorType.toLowerCase().contains("access sensor")) {
 			SensorName = "Access Sensor";
 			inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
 			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
 			System.out.println("###########Access Sensor Serial No: " + serialNo);
-		} else if (SensorType.toLowerCase().contains("ismv")) {
+		}*/ else if (SensorType.toLowerCase().contains("ismv")) {
 			SensorName = "Indoor Motion Viewers";
 			inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
 		} else if (SensorType.toLowerCase().contains("osmv")) {
@@ -494,6 +503,7 @@ public class SensorSettingScreen extends MobileScreens {
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
 			serialNo = RelayConstants.RSI_Keyfob_1_SerialNO;
+			System.out.println("###########Keyfob Serial No: " + serialNo);
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
 			serialNo = RelayConstants.RSI_Motion_Sensor_1_SerialNO;
@@ -502,9 +512,11 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("door access sensor")) {
 			serialNo = RelayConstants.RSI_Contact_Sensor_2_SerialNO;
 			SensorName = "Access Sensor";
+			System.out.println("###########Door Access Sensor Serial No: " + serialNo);
 		} else if (SensorType.toLowerCase().contains("window access sensor")) {
 			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
 			SensorName = "Access Sensor";
+			System.out.println("###########Window Sensor Serial No: " + serialNo);
 		} else if (SensorType.toLowerCase().contains("ismv")) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				SensorName = "Indoor Motion Viewer";
@@ -619,10 +631,8 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean isSensorOverviewScreenDisplayed() {
-
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorOverviewHeading")
 				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorHowitWorks");
-
 	}
 
 	public boolean isKEYFOBOverviewScreenDisplayed() {
@@ -788,20 +798,20 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean isMotionSensorStatusVisible(String SensorName, String status) {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensor_SensorName")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensor_SensorName", 30)) {
 			if (MobileUtils.getFieldValue(objectDefinition, testCase, "MotionSensor_SensorName").toUpperCase()
 					.contains(SensorName.toUpperCase())) {
 				if (status.toUpperCase().contains("NOT DETECTED")
 						|| status.toUpperCase().contains("NO MOTION DETECTED")) {
 					if (MobileUtils.isMobElementExists(objectDefinition, testCase,
-							"MotionSensor_SensorStatus_NotDetected")) {
+							"MotionSensor_SensorStatus_NotDetected", 30)) {
 						return true;
 					} else
 						return false;
 				}
 				if (status.toUpperCase().contains("DETECTED")) {
 					if (MobileUtils.isMobElementExists(objectDefinition, testCase,
-							"MotionSensor_SensorStatus_Detected")) {
+							"MotionSensor_SensorStatus_Detected", 30)) {
 						return true;
 					} else
 						return false;

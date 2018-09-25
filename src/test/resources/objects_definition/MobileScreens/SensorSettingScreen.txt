@@ -48,7 +48,7 @@ SensorSettingBatteryStatusValue	id	settings_hint_view					name	Sensor_Settings_0
 SensorAddButton	id	diy_cancel_button					name	Add				
 SensorSetUpButton	id	sensor_setup_text					xpath	"//*[contains(@name,'_rightButton')]"				
 SensorOverviewHeading	xpath	//*[@text='Sensor Overview' or @text='Sensor overview']					xpath	//*[@value='Sensor Overview']				
-SensorHowitWorks	xpath	//*[@text='How it Works']					xpath	"//*[contains(@name,'How it Works')]"				
+SensorHowitWorks	xpath	//*[@text='How it Works' or @text='How it works']					xpath	"//*[contains(@name,'How it Works')]"				
 WatchHowToVideo	xpath	//*[@text='Watch How-To Video']					name	Watch How-To Video				
 GetStarted	id	horizontal_button_next					Name	RightButton				
 LocateSensorHeading	xpath	//*[@text='Locate Sensor']					xpath	//*[@value='Locate Sensor']				

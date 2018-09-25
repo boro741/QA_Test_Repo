@@ -840,7 +840,8 @@ public class SelectElementOnAScreen extends Keyword {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "MOTION SENSOR SETUP BUTTON":
-				case "ACCESS SENSOR SETUP BUTTON":
+				case "DOOR ACCESS SENSOR SETUP BUTTON":
+				case "WINDOW ACCESS SENSOR SETUP BUTTON":
 				case "KEYFOB SETUP BUTTON": 
 				case "ISMV SENSOR SETUP BUTTON":
 				case "OSMV SENSOR SETUP BUTTON": {

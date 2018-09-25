@@ -521,6 +521,9 @@ public class VerifyScreen extends Keyword {
 			}
 			case "DASHBOARD": {
 				Dashboard d = new Dashboard(testCase);
+				if (d.isIncreaseSecurityPopupVisible()) {
+					d.clickOnDontUseButtonInIncreaseSecurityPopup();
+				}
 				if (d.isGlobalDrawerButtonVisible(20)
 						&& (d.isAddDeviceIconVisible(10) || d.isAddDeviceIconBelowExistingDASDeviceVisible(10))) {
 					Keyword.ReportStep_Pass(testCase,
@@ -596,7 +599,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "LOCATE VIEWER": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if (dasDIY.isLocateViewerScreenTitleVisible()) {
+				if (dasDIY.isLocateViewerScreenTitleVisible(30)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -946,8 +949,8 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "ISMV MOTION VIEWER SETTINGS":
-			case "OSMV MOTION VIEWER SETTINGS":{
+			case "ISMV SENSOR SETTINGS":
+			case "OSMV SENSOR SETTINGS":{
 				SensorSettingScreen ss = new SensorSettingScreen(testCase);
 				if (ss.isMotionViewerSettingsScreenTitleVisible(10)) {
 					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
