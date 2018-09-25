@@ -45,8 +45,8 @@ public class AccessSensorActions extends Keyword {
 					DASSensorUtils.tamperDoor(testCase, inputs);
 				}else if (states.get(1).equalsIgnoreCase("Tamper Restored")){
 					DASSensorUtils.tamperClearDoor(testCase, inputs);
-					DASSensorUtils sensorUtils = new DASSensorUtils();
-					sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
+//					DASSensorUtils sensorUtils = new DASSensorUtils();
+//					sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
 				}
 				else if (states.get(1).equalsIgnoreCase("Tamper CLEARED")){
 					DASSensorUtils.tamperClearDoor(testCase, inputs);

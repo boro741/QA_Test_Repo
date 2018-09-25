@@ -37,21 +37,21 @@ public class SelectTamperedSensor extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user selects \"(.+)\" that is \"(.+)\" from \"(.+)\" screen$")
+	@KeywordStep(gherkins = "^user select \"(.+)\" that is \"(.+)\" from \"(.+)\" screen$")
 
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (parameters.get(2).equalsIgnoreCase("Sensors List") || parameters.get(2).equalsIgnoreCase("Sensors Status")) {
-				
+		
+			if (parameters.get(2).equalsIgnoreCase("Sensors List") || parameters.get(2).equalsIgnoreCase("Sensor Status")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "DOOR SENSOR": 
-				case "Window SENSOR": 
+				case "WINDOW SENSOR": 
 				case "ISMV SENSOR": 
 				case "OSMV SENSOR": 	 	
 				case "MOTION SENSOR": {
 					SensorStatusScreen sc = new SensorStatusScreen(testCase);
 					DASSensorUtils dss = new DASSensorUtils();
-					if (parameters.get(1).equalsIgnoreCase("Tampered")) {
+					if (parameters.get(1).equalsIgnoreCase("TAMPERED")) {
 					flag = flag & sc.selectTamperedClear(testCase, inputs, parameters.get(0));
 					}else if(parameters.get(1).equalsIgnoreCase("Low Battery")){
 						flag = flag & dss.verifySensorState(testCase, inputs, "ISMV", "Low Battery");

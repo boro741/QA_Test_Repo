@@ -285,7 +285,7 @@ Examples:
 | ISMV Sensor   | Standby      |Home|
 
 @SensorstatusArmmode @P3   @UIAutomated
-Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode Night mode
+Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode and Night mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
@@ -313,24 +313,25 @@ When user navigates to "Security Solution card" screen from the "Dashboard" scre
 Then user should be displayed with the "Front Door Cover Tampered" description
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
 Then user should be displayed with the "Cover Tampered" description
-When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
-When user selects tampered <Sensor> from "Sensors Status" screen
+When user select <Sensor> that is "Tampered" from "Sensor Status" screen
 Then user should be displayed with the "Sensor Cover Tamper" screen
+When user <Sensor> access sensor "Tamper Restored"
 And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 #Then user <Sensor> access sensor "Tamper CLEARED"
 #When user taps on "Clear Tamper"
 Then user navigates to "Security Solution card" screen from the "Sensor Status" screen
 And user "opens" activity log
 Then verify the following activity log:
-       |Elements                 |
-       |Living Room tamper cleared at Home Mode| 
+       |Elements|
+       |FRONT DOOR TAMEPERED AT AWAY MODE| 
+       |FRONT DOOR TAMEPER CLEARED AT AWAY MODE|
 And user "closes" activity log
 Examples:
 |Mode|Sensor| 
 |Home|Door Sensor|			
-#|Home|Window Sensor|		
-#|Home|Motion Sensor|
-#|Away|ISMV Sensor|
+|Home|Window Sensor|		
+|Home|Motion Sensor|
+|Away|ISMV Sensor|
 #|Away|OSMV Sensor|
 #|Home|Door Sensor|			
 #|Home|Window Sensor|		
@@ -359,7 +360,7 @@ When user navigates to "Security Solution card" screen from the "Dashboard" scre
 Then user should be displayed with the "Solution Card Offline status" description
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
 Then user should be displayed with the "Offline status" description
-When user navigates to  "Security Solution card" screen from the "Sensors Status" screen
+When user navigates to  "Security Solution card" screen from the "Sensor Status" screen
 And user "opens" activity log
 Then verify the following activity log:
        |Elements                 |
@@ -396,10 +397,10 @@ Given user is set to "Sensor Alert Enabled" mode through CHIL
 When user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
 And user minimizes the app
-When user <Sensor> access sensor "opened"
+#When user <Sensor> access sensor "opened"
 Then user selects the "Door Opened" push notification
 And user should be displayed with the "Front Door Open" description  
-When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+When user navigates to "Sensor Status" screen from the "Dashboard" screen
 Then user should see the "door" status as "open" on the "Sensor Status"
 When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 And user "opens" activity log
@@ -407,7 +408,7 @@ Then user receives a "ActivityOpen" activity log
 And user "closes" activity log
 Examples:
 |Mode|Sensor|ActivityOpen|
-|Home|Door Sensor| Front Door opened at Home mode|
+|Home|Door Sensor|Front Door opened at Home mode|
 |Home|Window Sensor| Window opened at Home mode|
 
 @OpenSensorstatusOff @P2  @UIAutomated
@@ -567,8 +568,8 @@ Then user receives a "ActivityOpen" activity log
 And user "closes" activity log
 Examples:
 |Mode|Sensor| ActivityOpen|
-|Home|ISMV Sensor|Low battery at Home mode|
-|Home|OSMV Sensor|cover tampered at Home mode|
+|Home|ISMV Sensor|ISMV Sensor Low battery at Home mode|
+|Home|OSMV Sensor|OSMV Sensor cover tampered at Home mode|
 
 
 
@@ -945,8 +946,8 @@ Then user receives a <ActivityLowBattery> activity log
 Then user receives a <ActivityLowBatteryRestore> activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor|ActivityOpen| 
-|Away|Door Sensor|Low battery at Away mode|ActivityLowBatteryRestore|	
+|Mode|Sensor|ActivityLowBattery|ActivityLowBatteryRestore|
+|Away|Door Sensor|Low battery at Away mode|Low battery restored at Away Mode|
 |Away|Window Sensor|Low battery at Away mode|Low battery restored at Away Mode|	
 |Away|Motion Sensor|Low battery at Away mode|Low battery restored at Away Mode|
 |Away|ISMV Sensor|Low battery at Away mode|Low battery restored at Away Mode|

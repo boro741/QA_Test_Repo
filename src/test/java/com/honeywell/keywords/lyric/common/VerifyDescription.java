@@ -17,6 +17,7 @@ import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
+import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.SensorStatusScreen;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.screens.VacationHoldScreen;
@@ -97,6 +98,9 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
 		    SensorStatusScreen ssc = new SensorStatusScreen(testCase);
 		    flag = flag & ssc.isCoverTamperedTextVisibleinSensorStatusScreen(testCase, inputs);
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSOR COVER TAMPERED")) {
+			SensorSettingScreen ssc = new SensorSettingScreen(testCase);
+			flag = flag & ssc.isSensorTamperedScreenDisplayed();
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SOLUTION CARD OFFLINE STATUS")) {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & ssc.isSensorOffline();

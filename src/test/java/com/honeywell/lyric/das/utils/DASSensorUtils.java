@@ -577,10 +577,10 @@ public class DASSensorUtils {
 				}
 			}
 		}
-		if (sensorStatusScreen.isSensorStatusVisible()
-				&& sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
-			flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
-		}
+//		if (sensorStatusScreen.isSensorStatusVisible()
+//				&& sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
+//			flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
+//		}
 		if (list.size() == 0) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "not able to read Sensor list");
 		}

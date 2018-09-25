@@ -3,14 +3,14 @@
  As user I should be able to configure camera settings from the app
   
 @CameraSettingsPartialDisabled    @P4        @UIAutomated
-Scenario Outline: As a user I should be having limited access to configure camera settings when my camera is in offline or in upgrade state 
+Scenario: As a user I should be having limited access to configure camera settings when my camera is in offline or in upgrade state 
+#Given user camera is in <State>
 And user launches and logs in to the Lyric application
 When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
-And user camera is set to "ON"
+And user camera is set to "OFF"
 When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
  Then the following "Camera Settings" options should be disabled:
 | Options				| 
-| Camera Mode			|
 | Motion Detection		|
 | Sound Detection		|
 | Night Vision			| 
@@ -21,11 +21,10 @@ When user navigates to "Camera Settings" screen from the "Camera Solution Card" 
  | Options				| 
  | Manage Alerts			|      
  | Camera Configuration	| 
- 
- Examples:
- 		|State  |
- 		|Offline|
- 	#	|Upgrade|
+# Examples:
+ 		#|State  |
+ 		#|Offline|
+ 		#|Upgrade|
           
      
 @CameraSettingsCameraOff      @P3        @UIAutomated
