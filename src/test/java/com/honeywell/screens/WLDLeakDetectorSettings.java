@@ -1,8 +1,15 @@
 package com.honeywell.screens;
 
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
@@ -103,15 +110,35 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 	//Frequency Updated pop up
 	public boolean isFrequencyUpdatedPopupVisible()
 	{
+
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Frequency_Updated_Popup");
 	}
 	public boolean clickonFrequencyUpdatedPopup()
 	{
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "Frequency_Updated_Popup");
+		try {
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+			fWait.pollingEvery(5, TimeUnit.SECONDS);
+			fWait.withTimeout(10, TimeUnit.SECONDS);
+			fWait.until(new Function<CustomDriver, Boolean>() {
+				public Boolean apply(CustomDriver driver) {
+					if(isFrequencyUpdatedPopupVisible()) {
+						return  MobileUtils.clickOnElement(objectDefinition, testCase, "Frequency_Updated_Popup");
+					}
+					else 
+						return  false;		
+				}
+			});
+		}catch(Exception e)
+		{
+			flag = false;
+			//System.out.println("Exception : " + e.getMessage());
+		}
+		return true;
 	}
 	//WLD settings to Primary card
 	public boolean navigateFromWLDSettingsScreenToPrimaryCard() {
-		if(MobileUtils.isRunningOnAndroid(testCase)) {
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			MobileUtils.pressEnterButton(testCase);
 			return MobileUtils.pressBackButton(testCase, "Navigated back");
 		}
 		else {
@@ -120,14 +147,13 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 	}
 	public boolean navigateFromUpdateFrequencyCardToPrimaryCard(){
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
-		if(MobileUtils.isRunningOnAndroid(testCase)){
-			flag = flag & MobileUtils.pressEnterButton(testCase);
-			return MobileUtils.pressEnterButton(testCase);
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+			flag = flag & MobileUtils.pressBackButton(testCase);
+			return MobileUtils.pressBackButton(testCase);
 		}
 		else {
-			flag = flag & set.isFrequencyUpdatedPopupVisible();
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "Settings_NavigateBack");
-			flag = flag & set.clickonFrequencyUpdatedPopup();
+			set.clickonFrequencyUpdatedPopup();
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "Settings_NavigateBack");				
 		}
 	}	

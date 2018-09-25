@@ -3,7 +3,7 @@ Feature: WLD Alerts
   As user I should be able to View my Detector alerts on my Solution card And dashboard
 
 
-@WalerLeakDetected @needtocontactchillguys
+@WalerLeakDetected @NotAutomatable
 Scenario: As a user I should be able view Water Leak Detected Alert on my dashboard and solution card
 Given user launches and logs in to the Lyric application 
 And user creates "Water leak Alert"
@@ -27,7 +27,7 @@ When user navigates to "Dashboard" screen from "Solution Card" screen
 Then user should see the "Water leak status cleared"
 
 
-@ViewHighHumiditywarning @needtocontactchillguys
+@ViewHighHumiditywarning @NotAutomatable
 Scenario: As a user i should be able to view High humidity warning on my Solution Card and dashboard
 Given user launches and logs in to the Lyric application 
 And user creates "High humidity"
@@ -42,7 +42,7 @@ Then user should be displayed with "temperature/humidiy graph" on "solution card
 And user shoul dbe displayed with "Temperature and humidity values" on "dashboard" Screen
 
 
-@ViewLowHumiditywarning @needtocontactchillguys
+@ViewLowHumiditywarning @NotAutomatable
 Scenario: As a user i should be able to view Low humidity warning on my Solution Card and dashboard
 Given user launches and logs in to the Lyric application 
 And user creates "Low humidity"
@@ -57,7 +57,7 @@ Then user should be displayed with "Temperature/humidiy graph" on "solution card
 And user shoul dbe displayed with "Temperature and humidity values" on "dashboard" Screen
 
  
-@ViewHighTemperaturewarning @needtocontactchillguys
+@ViewHighTemperaturewarning @NotAutomatable
 Scenario: As a user i should be able to view High Temperature warning on my Solution Card and dashboard
 Given user launches and logs in to the Lyric application 
 And user creates "High Temperature"
@@ -72,7 +72,7 @@ Then user should be displayed with "Temperature/humidiy graph" on "solution card
 And user shoul dbe displayed with "Temperature and humidity values" on "dashboard" Screen
 
 
-@ViewLowTemperaturewarning @needtocontactchillguys
+@ViewLowTemperaturewarning @NotAutomatable
 Scenario: As a user i should be able to view Low Temperature warning on my Solution Card and dashboard
 Given user launches and logs in to the Lyric application 
 And user creates "Low Temperature"
@@ -87,7 +87,7 @@ Then user should be displayed with "Temperature/humidiy graph" on "solution card
 And user shoul dbe displayed with "Temperature and humidity values" on "dashboard" Screen
 
 
-@ViewLowBatterywarning @needtocontactchillguys
+@ViewLowBatterywarning @NotAutomatable
 Scenario: As a user i should be able to view Low Battery warning on my Solution Card and dashboard
 Given user launches and logs in to the Lyric application 
 And user creates "Low Battery"
@@ -100,7 +100,7 @@ When user "Clears" the "Low Battery alert"
 Then user should be displayed with "Temperature/humidiy graph" on "Solution card" Screen
 And user shoul dbe displayed with "Temperature and humidity values" on "Dashboard" Screen
 
-@ViewCriticalBatterywarning @needtocontactchillguys
+@ViewCriticalBatterywarning @NotAutomatable
 Scenario: As a user i should be able to view Critical battery warning on my Solution Card and dashboard
 Given user launches and logs in to the Lyric application 
 And user creates "Critical Battery"

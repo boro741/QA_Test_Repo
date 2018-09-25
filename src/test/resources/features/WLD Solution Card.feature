@@ -27,14 +27,12 @@ Then user should be displayed with the following "WLDSolutionHumidity" options:
 Scenario: As a user i should be able to view the change in temperature unit on my Solution Card
 Given user launches and logs in to the Lyric application
 When user selects "WLD device" from the dashboard
-#User navigates to WLD Settings page and changes Temperature Unit (in Fahrenheit or Celsius)
-#User should be able to see the change in temperature unit(in Fahrenheit or Celsius) in WLD Primary card.
 Then verify Temperature Unit is changed as per the "Temperature Unit" selected below:
 |Options|
 |Fahrenheit|
 |celsius|
 
-@ViewSolutionCardNextupdateTime @HalfDone
+@ViewSolutionCardNextupdateTime @Automated
 Scenario: As a user i should be able to view the change in Update frequency on my Solution Card
 Given user launches and logs in to the Lyric application
 When user selects "WLD device" from the dashboard
@@ -44,43 +42,47 @@ Then verify Next Update Time in Solution Card after selecting "Update Frequency"
 |Twice Daily|
 |Thrice Daily|
 
-@TemperatureAndHumidityGrapghAfterDIY @Automatablelater
+
+@TemperatureAndHumidityGrapghAfterDIY @Automated @onlyafterfreshDIY
 Scenario: As a user i should be able to view a message on my temperature graph of solution card after DIY
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
-Then user should be able to see a "Message set up complete and data will be displayed after 48 hours"
-When user navigates to "Humidity" Screen
-Then user should be able to see a "Message set up complete and data will be displayed after 48 hours"
+Then user should be displayed with the "Setup Complete" description
+When user navigates to "humidity graph" screen from the "temperature graph" screen
+Then user should be displayed with the "Setup Complete" description
 
-@TemperatureAndHumidityGraphAftertwodaysDIY @Automatable
+@TemperatureAndHumidityGraphAftertwodaysDIY @Automatablelater
 Scenario: As a user i should be able to view temperature and humidity temperature graph of my WLD after two days of DIY
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
-Then user should be displayed with "Two Day Graph"
-And user should be displyed with the "Dates of which trend is recorded"
-And user should be displayed with the " No of days trend"
-And user should be diaplayed with the " Maximum and minimum temperature trend"
-When user navigates to "Humidity" Screen
-Then user should be displayed with "Two Day Graph"
-And user should be displyed with the "Dates of which trend is recorded"
-And user should be displayed with the " No of days trend"
-And user should be diaplayed with the " Maximum and minimum humidity trend"
+Then user should be displayed with the following "Graph" options:
+|Graph Options|
+|Dates of which trend is recorded|
+|No of days trend|
+|Maximum and minimum temperature trend|
+When user navigates to "humidity graph" screen from the "temperature graph" screen
+Then user should be displayed with the following "Graph" options:
+|Graph Options|
+|Dates of which trend is recorded|
+|No of days trend|
+|Maximum and minimum humidity trend|
 
-@TemperatureAndHumidityGraphAftertwodaysDIY @Automatable
+@TemperatureAndHumidityGraphAftertwodaysDIY @Automatablelater
 Scenario: As a user i should be able to view temperature and humidity temperature graph of my WLD after 5 to 30 days
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
-Then user should be displayed with "5 - 30 days graph"
-And user should be displyed with the "Dates of which trend is recorded"
-And user should be displayed with the " No of days trend"
-And user should be diaplayed with the " Maximum and minimum temperature trend"
-And user should be able to see maximun "5 dates"
-When user navigates to "Humidity" Screen
-Then user should be displayed with "Two Day Graph"
-And user should be displyed with the "Dates of which trend is recorded"
-And user should be displayed with the " No of days trend"
-And user should be diaplayed with the " Maximum and minimum humidity trend"
-And user should be able to see maximun "5 dates"
+Then user should be displayed with the following "Graph" options:
+|Graph Options|
+|Dates of which trend is recorded|
+|No of days trend|
+|Maximum and minimum temperature trend|
+|MAXIMUM 5 dates|
+When user navigates to "humidity graph" screen from the "temperature graph" screen
+Then user should be displayed with the following "Graph" options:
+|Dates of which trend is recorded|
+|No of days trend|
+|Maximum and minimum humidity trend|
+|MAXIMUM 5 dates|
 
 
 

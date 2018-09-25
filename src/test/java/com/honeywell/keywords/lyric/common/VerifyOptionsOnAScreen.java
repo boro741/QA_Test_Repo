@@ -25,7 +25,9 @@ import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
+import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -1317,8 +1319,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		// Amresh(H297378)
-
+		//Amresh(H297378)	
 		case "WLDSOLUTIONTEMPERATURE": {
 			WLDSolutionCard ActionSheet = new WLDSolutionCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -1377,6 +1378,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
 						Keyword.ReportStep_Pass(testCase,
 								"Displayed Text: " + ActionSheet.getNextUpdateTimeTitleText());
+				
 
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
@@ -1481,7 +1483,84 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			break;
 
 		}
-		// Amresh wld
+		//Amresh wld starts
+		case "WLD INDOOR TEMPERATURE ALERT": {
+			WLDManageAlerts ActionSheet=new WLDManageAlerts(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "WLD Manage Alerts Options");
+				switch (parameter.toUpperCase()) {
+				case "EMAIL FOR ENABLED ALERTS": {
+					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsTextVissible();
+					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsToggleVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforTemperatureAlertsTextValue());
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforTemperatureAlertsToggleValue());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+					}
+					break;
+				}
+				case "ALERT FOR THIS RANGE": {
+					flag = flag & ActionSheet.isAlertforthisRangeTemperatureTextVissible();
+					//flag = flag & ActionSheet.isAlertforthisRangeTemperaturePercentageButtonVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeTemperatureTextValue());
+					//	Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeTemperaturePercentageButtonValue());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		//Amresh wld ends
+		
+		
+		case "WLD INDOOR HUMIDITY ALERT": {
+			WLDManageAlerts ActionSheet=new WLDManageAlerts(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "WLD Manage Alerts Options");
+				switch (parameter.toUpperCase()) {
+				case "EMAIL FOR ENABLED ALERTS": {
+					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsTextVissible();
+					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsToggleVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforHumidityAlertsTextValue());
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforHumidityAlertsToggleValue());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+					}
+					break;
+				}
+				case "ALERT FOR THIS RANGE": {
+					flag = flag & ActionSheet.isAlertforthisRangeHumidityTextVissible();
+					//flag = flag & ActionSheet.isAlertforthisRangeTemperaturePercentageButtonVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeHumidityTextValue());
+					//	Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeHumidityPercentageButtonValue());
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		case "WLD DASHBOARD": {
 			Dashboard das = new Dashboard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -1700,6 +1779,34 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							"The " + parameter + " has not found");
 				}
 				flag = true;
+			}
+		}
+		case "LEAK DETECTOR CONFIGURATION":{
+			WLDConfigurationScreen config=new WLDConfigurationScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Configuration");
+				switch (parameter.toUpperCase()) {
+				case "LEAK DETECTOR NAME": {
+					flag = flag & config.isConfigurationNameTextVisible();
+					String wld_name = config.getConfigurationWLDNameValue();
+					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+wld_name);
+
+					break;	
+				}
+				case "FIRMWARE DETAILS": {
+					flag = flag & config.isConfigurationFirmwareVersionTextVisible();
+					String firmware_details=config.getConfigurationFirmwareVersionValueValue();
+					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+firmware_details);
+					break;	
+				}
+				case "DELETE LEAK DETECTOR": {
+					flag = flag & config.isConfigurationDeleteLeakDetectorLinkVisible();
+					String delete_link = config.getConfigurationDeleteLeakDetectorLinkValue();
+					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+delete_link);
+
+					break;	
+				}
+				}
 			}
 			break;
 		}

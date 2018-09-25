@@ -17,6 +17,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class EditDeviceName extends Keyword {
@@ -269,7 +270,42 @@ public class EditDeviceName extends Keyword {
 						// Android devices.
 					}
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("DAS Camera")) {
+			} 
+			//Amresh WLD Renaming
+			else if (parameters.get(0).equalsIgnoreCase("Water Leak Detector")) {
+				WLDConfigurationScreen config = new WLDConfigurationScreen(testCase);
+
+				if (config.isConfigurationWLDNameVisible() && parameters.get(1).equals("Original Name")) 
+				{
+					flag &= config.clearWLDNameTextBox(); 
+					flag &= config.setValueToWLDNameTextBox(inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					inputs.setInputValueWithoutTarget("LOCATION1_DEVICE1_NAME",parameters.get(1));
+					if(flag){
+						Keyword.ReportStep_Pass(testCase, "Successfully set WLD Name to: " + parameters.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set WLD Name to: " + parameters.get(1));
+					}
+					System.out.println("Keyboard error not vissible");
+				}
+				else 
+				{	
+					WLDConfigurationScreen config1 = new WLDConfigurationScreen(testCase);
+					flag &= config1.clearWLDNameTextBox(); 
+					System.out.println("Cleared Text field");
+					flag &= config1.setValueToWLDNameTextBox(parameters.get(1));
+					System.out.println("set value");
+					//inputs.setInputValueWithoutTarget("LOCATION1_DEVICE1_NAME",parameters.get(1));
+					if(flag){
+						Keyword.ReportStep_Pass(testCase, "Successfully set WLD Name to: " + parameters.get(1));
+					} else {
+
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to set WLD Name to: " + parameters.get(1));
+					}
+				}
+				
+			}
+//Amresh WLD Ends here
+			else if (parameters.get(0).equalsIgnoreCase("DAS Camera")) {
 				BaseStationSettingsScreen ts = new BaseStationSettingsScreen(testCase);
 				if (ts.isCameraNameFieldVisible()) {
 					flag &= ts.clearCameraNameTextBox();

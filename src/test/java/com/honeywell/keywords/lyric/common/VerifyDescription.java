@@ -230,8 +230,15 @@ public class VerifyDescription extends Keyword {
 		flag = flag & cs.clickDissmissAlarm();
 		flag = flag & cs.clickOK();
 	}
-
-
+		else if (expectedScreen.get(0).equalsIgnoreCase("SETUP COMPLETE")) { //Amresh Added
+			WLDSolutionCard sol = new WLDSolutionCard(testCase);
+			flag = flag & sol.isSetupCompleteTitleVisible();
+			flag = flag & sol.isSetupCompleteDescriptionVisible();
+			if(flag) {
+				Keyword.ReportStep_Pass(testCase, "Setup Cpmplete Title :  " + sol.getSetupCompleteTitleText() + " is present");
+				Keyword.ReportStep_Pass(testCase, "Setup Cpmplete Description :  " + sol.getSetupCompleteDescriptionText() + " is present");
+			}
+		}
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(0) + " description is present");
 		} else {

@@ -19,6 +19,7 @@ import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.VacationHoldScreen;
+import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -252,6 +253,31 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & sc.isUnableToConnectToBaseStationAlertVisible();
 			break;
 		}
+		//Amresh wld edit starts
+		case "DUPLICATE NAME ERROR": {
+			flag = true;
+			WLDConfigurationScreen sc = new WLDConfigurationScreen(testCase);
+				if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
+				{
+				//flag = flag & sc.clickOnBackButton();
+				flag = flag & sc.isPopUpOkButtonVisible();
+				}
+				else {
+					flag = flag & sc.isPopUpOkButtonVisible();
+				}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
+				Keyword.ReportStep_Pass(testCase, "Error Header"+sc.getHomeNameAlreadyExistTextValue());
+				Keyword.ReportStep_Pass(testCase, "Error Body"+sc.getHomeNameExistsBodyValue());
+				//sc.clickonPopUpOkButton();
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						expectedPopUp.get(0) + "' is not displayed");
+			}
+			break;
+		}
+		//Amresh wld edit ends
 		case "SENSOR TAMPER": {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed(60);
