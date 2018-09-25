@@ -150,17 +150,17 @@ public class JasperAdhocOverride {
 				return true;
 			}
 			if (expectedMode.equals("Heat")) {
-				fly.changeSystemModeToHeatMode();
+				flag = flag &fly.changeSystemModeToHeatMode();
 			}
 
 			else if (expectedMode.equals("Cool")) {
-				fly.changeSystemModeToCoolMode();
+				flag = flag &fly.changeSystemModeToCoolMode();
 			}
 
 			else if (expectedMode.equals("Off")) {
-				fly.changeSystemModeToOffMode();
+				flag = flag & fly.changeSystemModeToOffMode();
 			} else if (expectedMode.equals("Auto")) {
-				fly.changeSystemModeToAutoMode();
+				flag = flag & fly.changeSystemModeToAutoMode();
 			}
 
 			if (sch.IsSaveButtonVisible(10)) {
