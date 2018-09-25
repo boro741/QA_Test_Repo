@@ -62,15 +62,27 @@ public class VerifyActivityList extends Keyword {
 					inputs.setInputValue("USERID", inputs.getInputValue("INVITEDUSER"));
 				}
 				switch (dataTable.getData(i, "Elements").trim().toUpperCase()) {
-				case "INDOOR MOTION VIEWER TAMEPERED AT AWAY MODE":{
+				case "INDOOR MOTION VIEWER TAMPERED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("ISMV_TAMPERED_TIME");
 					break;
 				}
-				case "INDOOR MOTION VIEWER TAMEPER CLEARED AT AWAY MODE":{
+				case "INDOOR MOTION VIEWER TAMPER CLEARED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper cleared";
 					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME");
+					break;
+				}
+				case "INDOOR MOTION VIEWER TAMPERED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("ISMV_TAMPERED_TIME");
+					break;
+				}
+				case "INDOOR MOTION VIEWER TAMPER CLEARED AT NIGHT MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper cleared";
+					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME");
 					break;
 				}

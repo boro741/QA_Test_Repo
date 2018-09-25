@@ -855,9 +855,16 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (this.isZwaveDevicesSettingOptionVisible()) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
 			} else {
+				if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						BaseStationSettingsScreen.ZWAVEDEVICES);
+				}else{
+					int counter = 0;
+					//while (!MobileUtils.isMobElementExists(objectDefinition, testCase, "ZwaveDevicesSettingsOption",10) && counter < 3) {
+						LyricUtils.scrollUpAList(testCase, MobileUtils.getMobElement(testCase, "XPATH","//XCUIElementTypeOther"));
+					//}
+				}
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ZwaveDevicesSettingsOption");
 			}
 			return flag;

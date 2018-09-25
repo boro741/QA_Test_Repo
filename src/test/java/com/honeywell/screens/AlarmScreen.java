@@ -133,7 +133,7 @@ public class AlarmScreen extends MobileScreens {
 			try {
 				// MobileElement activityLogUpElement = null;
 				CustomDriver driver = testCase.getMobileDriver();
-				History_BottomArrow =driver.findElement(By.name("icon_arrow_up"));
+				History_BottomArrow =driver.findElement(By.name("icon_arch"));
 				Alarm = driver.findElement(By.name("Alarm_Navigation_Title"));//MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
 				if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
 					action.press(History_BottomArrow.getLocation().getX(),History_BottomArrow.getLocation().getY()).moveTo(0, -History_BottomArrow.getLocation().getY()+Alarm.getLocation().getY()).release().perform();
@@ -530,7 +530,7 @@ public class AlarmScreen extends MobileScreens {
 		if(element!=null) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				String actualSensorName = element.getText();
-				if(expectedSensorName.equalsIgnoreCase(actualSensorName)) {
+				if(actualSensorName.toUpperCase().contains(expectedSensorName.toUpperCase())) {
 					System.out.println("EntryDelay subtitle found");
 					return true;
 				}

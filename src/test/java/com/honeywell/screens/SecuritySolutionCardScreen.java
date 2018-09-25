@@ -177,6 +177,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			} else {
 				flag = false;
 			}
+			break;
 		}
 		case "OFF": {
 			inputs.setInputValue("OFF_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));

@@ -3,7 +3,7 @@ Feature: DAS ZWAVE
 As a user I want to control all devices using ZWave technology
 
 Background:
-Given user is set to "Home" mode through CHIL 
+#Given user is set to "Home" mode through CHIL 
 
  @GeneralExcludeZwaveSwitch @Automated
   Scenario: (ZwaveTC_Set1_1) As a user I should be able to exclude a zwave switch through General exclusion in the application
@@ -13,7 +13,7 @@ Given user is set to "Home" mode through CHIL
      When user "activates for exclusion" the "switch" function key
      Then user should receive a "Switch Excluded Successfully" popup
      When user "dismisses" the "Further Exclusion Of Switch Excluded Successfully" popup 
-      And user should be displayed with the "ZWAVE Utilities" screen
+     And user should be displayed with the "ZWAVE Utilities" screen
      When user navigates to "Dashboard" screen from the "ZWAVE Utilities" screen
      Then user should not be displayed with "Switch1" device on the "dashboard" screen
      
@@ -90,26 +90,26 @@ Given user is set to "Home" mode through CHIL
      
    @ToggleZwaveSwitchThroughPrimaryCard @Automated @LYDAS-4594
   Scenario: (ZwaveTC_Set1_6) As a user I should be able to control my zwave switch to different states from primary card screen
+   Given user turns "off" the "Switch" through the "ZWAVE device function key"
       And user launches and logs in to the Lyric application
-    Given user turns "off" the "Switch" through the "ZWAVE device function key"
      When user navigates to "Switch Primary card" screen from the "Dashboard" screen
      Then user should see the "Switch" status as "off" on the "Switch Primary card"
      When user navigates to "Dashboard" screen from the "Switch Primary card" screen
-   #  Then user should see the "Switch" status as "off" on the "Dashboard"
+     Then user should see the "Switch" status as "off" on the "Dashboard"
   #action on Primary card - verify pc, dashboard and device
      When user navigates to "Switch Primary card" screen from the "Dashboard" screen
       And user turns "on" the "Switch" through the "Switch Primary card"
      Then user should see the "Switch" status as "on" on the "Switch Primary card"
   #  Then user should see the "Timer" status as "Current time" on the "Switch Primary card"
      When user navigates to "Dashboard" screen from the "Switch Primary card" screen
-  #  Then user should see the "Switch" status as "on" on the "Dashboard"
+    Then user should see the "Switch" status as "on" on the "Dashboard"
       And user should see the "Switch" status as "on" on the "ZWAVE device"
   #action on Primary card - verify pc, dashboard and device
      When user navigates to "Switch Primary card" screen from the "Dashboard" screen
       And user turns "off" the "Switch" through the "Switch Primary card"
      Then user should see the "Switch" status as "off" on the "Switch Primary card"
      When user navigates to "Dashboard" screen from the "Switch Primary card" screen
-  #    Then user should see the "Switch" status as "Off" on the "Dashboard"
+      Then user should see the "Switch" status as "Off" on the "Dashboard"
       And user should see the "Switch" status as "off" on the "ZWAVE device"
   #action on device - verify pc and device
      When user turns "on" the "Switch" through the "ZWAVE device function key"
@@ -151,8 +151,8 @@ Given user is set to "Home" mode through CHIL
       And user should see the "Fix All" status as "active" on the "Zwave devices"
        And user turns "On" the "Switch" through the "ZWAVE device function key"
        And user "fixes all zwave devices" by clicking on "Fix all" button
-    #  And user navigates to "Switch Primary card" screen from the "Zwave devices" screen 
-    # Then user should see the "Switch" status as "offline" on the "Switch Primary card"
+      And user navigates to "Switch Primary card" screen from the "Zwave devices" screen 
+     Then user should see the "Switch" status as "Off" on the "Switch Primary card"
   
    @ZwaveSwitchRename @Automated @LYDAS-5395
   Scenario: (ZwaveTC_Set1_9) As a user I should be able to rename my zwave switch
@@ -295,7 +295,8 @@ Given user is set to "Home" mode through CHIL
      When user "activates for discovery" the "dimmer" function key
      And user names the "dimmer" to "Dimmer1"
      Then user should be displayed with "Dimmer1" device on the "dashboard" screen	
-     And user receives a "Zwave device added" activity log
+     When user "OPENS" activity log
+     And user receives a "Zwave dimmer added" activity log
      
   @StatusChangeOfDimmerFromSettings @Automated
   Scenario: (ZwaveTC_Set2_2) As a user I should be able to control zwave dimmer to different states through the settings

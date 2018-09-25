@@ -3,7 +3,6 @@ package com.honeywell.lyric.relayutils;
 public class ZWaveConstants {
     
 	public static final String ZWAVERelayBoardCOMPort = "COM29";
-	//public static final String ZWAVERelayBoardTTYPort = "/dev/tty.usbmodem1421";
 	public static final String ZWAVERelayBoardTTYPort = "/dev/tty.KeySerial1";
 	
 	public static final String ZWaveSwitch1RelayPort1 = "4";
