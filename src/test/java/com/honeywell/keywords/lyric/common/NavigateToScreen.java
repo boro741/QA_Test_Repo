@@ -121,8 +121,8 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
-					PrimaryCard sensorScreen = new PrimaryCard(testCase);
-					flag = flag & sensorScreen.clickOnBackButton();
+					/*PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					flag = flag & sensorScreen.clickOnBackButton();*/
 					break;
 				}
 				default: {

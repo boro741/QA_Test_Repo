@@ -14,8 +14,7 @@ public class SerialDriverCore {
 
 	public static void initialize() throws Exception {
 		String[] portNames = SerialPortList.getPortNames();
-		String SensorController;
-		/*
+		String ZWaveController;
 		if (System.getProperty("os.name").toLowerCase().contains("mac")) {
 			ZWaveController = ZWaveConstants.ZWAVERelayBoardTTYPort;
 		}
@@ -26,27 +25,26 @@ public class SerialDriverCore {
 		if (portNames.length == 0) {
 			throw new Exception("No Serial Port Detected");
 		}
-		*/
-		if (System.getProperty("os.name").toLowerCase().contains("mac")) {
-			SensorController =RelayConstants.RelayBoardTTYPort; 
-		}
-		else
-		{
-			SensorController =RelayConstants.RelayBoardCOMPort; 
-		}
+	
+		
 		if (portNames.length == 0) {
 			throw new Exception("No Serial Port Detected");
 		}
-		serialPort1 = new SerialPort(SensorController);
+		serialPort1 = new SerialPort(ZWaveController);
 		//System.out.println("Port selected " + ZWaveController);
 
 		try {
+			if(serialPort1.isOpened()){
+				System.out.println("opened");
+				serialPort1.closePort();
+			}
 			serialPort1.openPort();
 			serialPort1.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 					SerialPort.PARITY_NONE);
 			serialPort1.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
 			serialPort1.addEventListener(new PortReader(), SerialPort.MASK_RXCHAR);
 		} catch (SerialPortException ex) {
+			System.out.println("Error writing data to port. Error Occurred: " + ex.getMessage());
 			throw new Exception("Error writing data to port. Error Occurred: " + ex.getMessage());
 		}
 	}

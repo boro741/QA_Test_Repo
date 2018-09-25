@@ -146,7 +146,6 @@ public class DismissAlarmInVariousScreen extends Keyword {
 				}
 				}
 			
-			if(flag){
 				flag = flag & DASSensorUtils.openWindow(testCase, inputs);
 				if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
 					Keyword.ReportStep_Pass(testCase,
@@ -194,7 +193,6 @@ public class DismissAlarmInVariousScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed in previous steps");
 				}
-			}
 			
 			testCase.getMobileDriver().closeApp();
 			testCase.getMobileDriver().launchApp();

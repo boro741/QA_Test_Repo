@@ -23,7 +23,8 @@ public class AddNewDeviceScreen extends MobileScreens {
 								"fragment_add_new_device_list"));
 						//LyricUtils.scrollToElementUsingExactAttributeValue();
 					} else {
-						LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "XPATH", "//");
+						LyricUtils.scrollUpAList(testCase, MobileUtils.getMobElement(objectDefinition,testCase, "DevicesList"));
+						//LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "Name", "Z-Wave Device");
 					}
 					// LyricUtils.scrollUpAList(testCase, objectDefinition, "DevicesList");
 				} catch (Exception e) {

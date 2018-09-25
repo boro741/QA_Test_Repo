@@ -67,6 +67,18 @@ public class VerifyActivityLogs extends Keyword {
 
 			// flag = flag & DASNotificationUtils.openActivityLogs(testCase);
 			switch (exampleData.get(0).toUpperCase()) {
+			case "ZWAVE DIMMER ADDED":{
+				expectedActivityHeader = "DIMMER1 added";
+				expectedActivitySubHeader = "";
+				deviceLocationTime = inputs.getInputValue("DIMMER_ADDED_TIME");
+				break;
+			}
+			case "ZWAVE SWITCH ADDED":{
+				expectedActivityHeader = "SWITCH1 added";
+				expectedActivitySubHeader = "";
+				deviceLocationTime = inputs.getInputValue("DIMMER_ADDED_TIME");
+				break;
+			}
 			case "SENSOR MOTION DETECTED AT AWAY MODE":{
 				expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Motion Detected";
 				expectedActivitySubHeader = "AWAY MODE";
