@@ -368,7 +368,7 @@ public class SchedulingScreen extends MobileScreens {
 	public List<MobileElement> getHeatSetPointsElements() {
 		// return MobileUtils.getMobElements(objectDefinition, testCase,
 		// "heatTemperatureLabel");
-		return testCase.getMobileDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name='Dialer'][2]"));
+		return testCase.getMobileDriver().findElements(By.xpath("(//XCUIElementTypeStaticText[@name='Dialer'])[2]"));
 	}
 
 	public List<MobileElement> getHeatOnlySetPointsElements() {

@@ -23,7 +23,7 @@ ScheduleLabel	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_sta
 DeviceLastUpdateTime	ID	device_last_update_time	ID	device_last_update_time	ID	device_last_update_time						
 Fan	id	fragment_thermostat_weather_button	id	fragment_thermostat_weather_button	id	fragment_thermostat_weather_button						
 OffModeOption	XPATH	//*[@text='Off']	XPATH	//*[@text='Off']	XPATH	//*[@text='Off']	XPATH	//*[@value='OFF']	XPATH	//*[@value='OFF']	XPATH	//*[@value='OFF']
-TimeScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	icon calendar normal	NAME	icon calendar normal	NAME	icon calendar normal
+TimeScheduleButton	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	ID	fragment_thermostat_schedule_button	NAME	Schedule	NAME	Schedule	NAME	Schedule
 AdHocButton	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	ID	view_thermostat_adhoc_button	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status	NAME	Adhoc_Hold_Status
 FanOn	XPATH	//android.widget.TextView[@text='On']					XPATH	//XCUIElementTypeStaticText[@value='On']	XPATH	//XCUIElementTypeStaticText[@value='On']	XPATH	//XCUIElementTypeStaticText[@value='On']
 ThermostatScheduleStatus	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_status	ID	view_thermostat_schedule_status	NAME	Schedule_Status	NAME	Schedule_Status	NAME	Schedule_Status
