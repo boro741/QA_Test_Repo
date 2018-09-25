@@ -229,7 +229,7 @@ public class SchedulingScreen extends MobileScreens {
 			return MobileUtils.getMobElements(testCase, "xpath",
 					"//android.widget.ImageButton[@content-desc='Temperature decreasing']").get(0);
 		} else {
-			return testCase.getMobileDriver().findElements(By.name("coolTemparatureLowerButton")).get(0);
+			return testCase.getMobileDriver().findElements(By.name("temp stepper down")).get(0);
 		}
 	}
 
@@ -266,7 +266,7 @@ public class SchedulingScreen extends MobileScreens {
 			return MobileUtils.getMobElements(testCase, "xpath",
 					"//android.widget.ImageButton[@content-desc='Temperature increasing']").get(0);
 		} else {
-			return testCase.getMobileDriver().findElements(By.name("coolTemparatureUpperButton")).get(0);
+			return testCase.getMobileDriver().findElements(By.name("temp stepper up")).get(0);
 		}
 	}
 
@@ -358,7 +358,7 @@ public class SchedulingScreen extends MobileScreens {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement").get(1);
 			} else {
-				return testCase.getMobileDriver().findElements(By.name("HeatDecrement")).get(1);
+				return testCase.getMobileDriver().findElements(By.name("temp stepper down")).get(1);
 			}
 		} else {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
@@ -403,7 +403,7 @@ public class SchedulingScreen extends MobileScreens {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(1);
 			} else {
-				return testCase.getMobileDriver().findElements(By.name("HeatIncrement")).get(1);
+				return testCase.getMobileDriver().findElements(By.name("temp stepper up")).get(1);
 			}
 		} else {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");

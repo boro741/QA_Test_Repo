@@ -6029,7 +6029,7 @@ public class JasperSchedulingUtils {
 					} else {
 						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 
-						heatUp = ss.getHeatSetPointUpButton(index);
+						heatUp = ss.getHeatSetPointUpButton();
 						heatDown = ss.getHeatSetPointDownButton();
 
 					}
