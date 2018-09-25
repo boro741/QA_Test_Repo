@@ -2,7 +2,7 @@
 Feature: DAS Camera Settings 
 As user I should be able to configure camera settings from the app
 
-@CameraSettingsPartialDisabled @P4 @NotAutomatable
+@DasCameraSettingsPartialDisabled @P4 @NotAutomatable
   Scenario Outline: As a user I should be having limited access to configure camera settings when my camera is in offline or in upgrade state 
     Given user camera is in <State> 
       And user launches and logs in to the Lyric application

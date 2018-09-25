@@ -108,7 +108,7 @@ public class SensorStatusScreen extends MobileScreens {
 								"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
 					}
 				}
-			} else if (testCase.getPlatform().contains("ANDROID")) {
+			} else if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (testCase.getMobileDriver().findElements(By.xpath("//*[@content-desc = '" + sensorName + "']"))
 						.size() > 0) {
 					if (MobileUtils.isMobElementExists("xpath", "//*[@content-desc = '" + sensorName + "']", testCase,
@@ -120,6 +120,7 @@ public class SensorStatusScreen extends MobileScreens {
 														+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
 												.getText());
 						MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
+						break;
 					}
 				}
 			}

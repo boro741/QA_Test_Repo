@@ -460,7 +460,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 									"Sound Detection section is enabled");
 						}
 					} else if (fieldToBeVerified.equalsIgnoreCase("CAMERA MICROPHONE")) {
-						if (!cs.isCameraMicrophoneSwitchEnabled(testCase)) {
+						if (!cs.isCameraMicrophoneTextEnabled()){
 							Keyword.ReportStep_Pass(testCase, "Camera Microphone switch is disabled");
 						} else {
 							flag = false;
