@@ -50,6 +50,10 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 			cs.navigateBackAndForthInManageAlertsScreen(testCase);
 			break;
 		}
+		case "CAMERA SETTINGS": {
+			cs.navigateBackAndForthInCameraSettingsScreen(testCase);
+			break;
+		}
 		case "MOTION DETECTION SETTINGS": {
 			cs.navigateBackAndForthInMotionDetectionScreen(testCase);
 			break;
