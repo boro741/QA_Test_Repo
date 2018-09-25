@@ -267,3 +267,52 @@ Examples:
 #	| Sunday |Away | Delete Away Period for |
 	| Sunday |Sleep |Delete Sleep Period for |
 #	| Sunday |Wake |Delete Wake Period for |
+
+@NA_VerifySleepSettings @automated
+Scenario: To Verify create geofence schedule in off mode when permanentHold
+Given user has "Heat" system mode
+And user thermostat is set to "Geofence based" schedule
+When user launches and logs in to the Lyric application
+And user thermostat set "Home" with "UserArrived"
+And user sets sleep start time to "11:00AM" and end time to "11:00AM"
+And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
+
+@NA_DeletingDefaultPeriodDifferentOnEverydaygrouped @Newscenario
+  Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
+    Given user launches and logs in to the Lyric application
+      And user navigates to "Scheduling" screen from the "Dashboard" screen
+      And user creates "Same Every Day" schedule with default schedule value
+      And user selects "Grouped Days" view
+     When user edit Time schedule by deleting <day> of <Periods>
+     Then user should be displayed with confirm pop for period deletion
+      And Verify the the schedule delete pop up <text> <day>
+  
+    Examples: 
+    | Periods          | text|day|
+	|Home | Delete Home Period for |Everyday|
+	#|Away |Delete Away Period for |Everyday|
+#	|Sleep |Delete Sleep Period for |Everyday|
+#	|Wake |Delete Wake Period for |Everyday|
+
+@NA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Newscenario
+  Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
+    Given user launches and logs in to the Lyric application
+      And user navigates to "Scheduling" screen from the "Dashboard" screen
+      And user creates "Different On Weekdays" schedule with default schedule value
+      And user selects "Grouped Days" view
+     When user edit Time schedule by deleting <Day> of <Periods>
+     Then user should be displayed with confirm pop for period deletion
+      And Verify the the schedule delete pop up <text> <Day>
+  
+    Examples: 
+       | Day | Periods          |  text |
+	| Monday - Friday |Home | Delete Home Period for|
+	#| Monday - Friday |Away | Delete Away Period for |
+	#| Monday - Friday|Sleep |Delete Sleep Period for |
+#	| Monday - Friday|Wake |Delete Wake Period for |
+#| Saturday-Sunday  |Home | Delete Home Period for  |
+#	| Saturday-Sunday  |Away | Delete Away Period for |
+#	| Saturday-Sunday  |Sleep |Delete Sleep Period for  |
+#	| Saturday-Sunday  |Wake |Delete Wake Period for  |
+

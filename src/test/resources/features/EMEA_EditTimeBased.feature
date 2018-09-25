@@ -223,21 +223,21 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 @EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Newscenario
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
-      And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user creates "Different of weekday" schedule with default schedule value
-      And user selects "SINGLE DAY" view
+     And user navigates to "Scheduling" screen from the "Dashboard" screen
+    And user creates "Different On Weekdays" schedule with default schedule value
+     And user selects "Grouped days" view
      When user edit Time schedule by deleting <Day> of <Periods>
-     Then user should be displayed with confirm pop for period deletion
+    Then user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <Day> 
   
     Examples: 
        | Day | Periods          |  text |
-	| Monday-Friday |P1 | Delete 1 Period for |
-	#| Monday-Friday |P2 | Delete 2 Period for |
-#	| Monday-Friday|P3 |Delete 3 Period for |
-#	| Monday-Friday|P4 |Delete 4 Period for |
-#| Saturday-Sunday  |P1 | Delete Home Period for  |
-#	| Saturday-Sunday  |P2 | Delete Away Period for |
-#	| Saturday-Sunday  |P3 |Delete Sleep Period for  |
-#	| Saturday-Sunday  |P4 |Delete Wake Period for  |
+	| Monday - Friday |P1 | Delete 1 Period for |
+	#| Monday - Friday |P2 | Delete 2 Period for |
+#	| Monday - Friday|P3 |Delete 3 Period for |
+#	| Monday - Friday|P4 |Delete 4 Period for |
+#| Saturday - Sunday  |P1 | Delete Home Period for  |
+#	| Saturday - Sunday  |P2 | Delete Away Period for |
+#	| Saturday - Sunday  |P3 |Delete Sleep Period for  |
+#	| Saturday - Sunday  |P4 |Delete Wake Period for  |
 

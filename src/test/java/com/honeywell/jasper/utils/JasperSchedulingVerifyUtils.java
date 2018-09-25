@@ -3870,8 +3870,8 @@ public class JasperSchedulingVerifyUtils {
 									"Failed to locate the Back button in Edit Period screen");
 						}
 					} else {
-						if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
-							if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+						if (MobileUtils.isMobElementExists("name", "btn close normal", testCase, 5)) {
+							if (!MobileUtils.clickOnElement(testCase, "name", "btn close normal")) {
 								flag = false;
 							}
 						} else {
