@@ -11,11 +11,10 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 
-import bsh.This;
-
 public class WLDConfigurationScreen extends MobileScreens {
 
 	private static final String screenName = "WLD_Configuration";
+	boolean flag = true;
 	public WLDConfigurationScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -85,12 +84,16 @@ public class WLDConfigurationScreen extends MobileScreens {
 	}
 	public boolean clickOnBackButton() {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			flag = true;
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+			
 		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltBackButton")) {
+			flag = true;
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AltBackButton");
 		} else {
-			return false;
+			flag = false;
 		}
+		return flag;
 	}
 	
 	public boolean clearWLDNameTextBox() {
@@ -145,11 +148,6 @@ public class WLDConfigurationScreen extends MobileScreens {
 		}
 		return flag;
 	}
-	public static boolean navigateFromDashboardToWLDSolutionCardScreen(){
-		//Later
-		return false;
-		
-	}
 	public boolean navigateFromWLDConfigurationScreenToSolutionCard(TestCases testCase) {
 
 		boolean flag = true;
@@ -179,12 +177,10 @@ public class WLDConfigurationScreen extends MobileScreens {
 			this.clickOnBackButton();
 			this.clickOnBackButton();
 			this.clickOnBackButton();
-			flag = true;
 			} else {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 				this.clickOnBackButton();
 				this.clickOnBackButton();
-				flag = true;
 			}
 			
 		} catch (Exception e) {

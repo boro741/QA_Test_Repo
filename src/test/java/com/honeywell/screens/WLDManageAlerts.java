@@ -18,7 +18,7 @@ import io.appium.java_client.TouchAction;
 public class WLDManageAlerts extends MobileScreens {
 
 	private static final String screenName = "WLD_ManageAlerts";
-	private static final boolean NULL = false;
+	boolean flag=true;
 	public WLDManageAlerts(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -71,45 +71,29 @@ public class WLDManageAlerts extends MobileScreens {
 			}
 		}
 
-	
-		
-		
-		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public boolean clickIndoorTemperatureAlertsToggle() {
 			if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
+				flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
 			}else {
 				WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
 				toggleSwitch.click();
+				flag = true;
 			}
-			return true;
+			return flag;
 	}
 	
 	
 	public boolean clickIndoorHumidityAlertsToggle() {
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorHumidityAlertsToggle");
+			flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorHumidityAlertsToggle");
 		}else {
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalHumidity_toggle'])[1]"));
 			toggleSwitch.click();
+			flag = true;
 		}
-		return true;
+		return flag;
 }
 	
 	
@@ -124,18 +108,17 @@ public class WLDManageAlerts extends MobileScreens {
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
 			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
 				System.out.println("Enabled");
-				return true;
+				flag = true;
 			}
 			else {
-				return false;
+				flag =false;
 			}
 		}
 		catch (Exception e){
+			flag=false;
 			System.out.println("Exception found");
-			
 		}
-		return true;
-	
+		return flag;
 	}
 	
 	
@@ -146,39 +129,27 @@ public class WLDManageAlerts extends MobileScreens {
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalHumidity_toggle'])[1]"));
 			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
 				System.out.println("Enabled");
-				return true;
+				flag = true;
 			}
 			else {
-				return false;
+				flag = false;
 			}
 		}
 		catch (Exception e){
+			flag = false;
 			System.out.println("Exception found");
-			
 		}
-		return true;
-	
+		return flag;
 	}
-	
-	
-
 	public  boolean isEmailNotificationsforTemperatureAlertsTextVissible() {
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
-		
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsText");
-
 		}
 		else {
 			WebElement email = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_subTitle'])[2]"));
 
 			return email.isDisplayed();
 		}
-		
-		
-		
-
-		
 	}
 	public  String getEmailNotificationsforTemperatureAlertsTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsText");	
@@ -192,17 +163,13 @@ public class WLDManageAlerts extends MobileScreens {
 	}
 
 	public  boolean isAlertforthisRangeTemperatureTextVissible() {
-		
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeTemperatureText");
-
 		}
 		else {
 		WebElement range = testCase.getMobileDriver().findElement(By.xpath("(//*[@value='Alert for this range'])[1]"));
-
 		return range.isDisplayed();
 		}
-		
 	}
 	public  String getAlertforthisRangeTemperatureTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeTemperatureText");	
@@ -242,7 +209,6 @@ public class WLDManageAlerts extends MobileScreens {
 	public  String getAboveTemperatureDropDownValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "AboveTemperatureDropDown");	
 	}
-
 	public  boolean isHumidityAlertsHeaderTextVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HumidityAlertsHeaderText");
 	}
@@ -255,7 +221,6 @@ public class WLDManageAlerts extends MobileScreens {
 	public  String getIndoorHumidityAlertsTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "IndoorHumidityAlertsText");	
 	}
-	
 	public  boolean isEmailNotificationsforHumidityAlertsTextVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforHumidityAlertsText");
 	}
@@ -269,10 +234,7 @@ public class WLDManageAlerts extends MobileScreens {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailNotificationsforHumidityAlertsToggle");	
 	}
 	public  boolean isAlertforthisRangeHumidityTextVissible() {
-		
-		
-		
-		
+	
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());		
 		int i = 0;
@@ -281,27 +243,10 @@ public class WLDManageAlerts extends MobileScreens {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int) (dimension.getHeight() * -.7)).release().perform();
 		i++;					
 		}
-	
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeHumidityText");
-		
-		
-		
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeHumidityText");		
 	}
 	public  String getAlertforthisRangeHumidityTextValue() {
-		
-//		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-//		TouchAction action = new TouchAction(testCase.getMobileDriver());		
-//		int i = 0;
-//		while ((MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeHumidityText")) && i < 10)
-//		{
-//			action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-//		i++;					
-//		}
-
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeHumidityText");	
-		
-
-		
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeHumidityText");		
 	}
 	public  boolean isAlertforthisRangeHumidityPercentageButtonVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeHumidityPercentageButton");
@@ -333,25 +278,15 @@ public class WLDManageAlerts extends MobileScreens {
 	public  String getAboveHumidityDropDownValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "AboveHumidityDropDown");	
 	}
+	//Email Contacts
 	public  boolean isEmailContactsTextVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailContactsText");
 	}
 	public  String getEmailContactsTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailContactsText");	
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public static boolean navigateFromDashboardScreenToWLDManageAlerts(TestCases testCase, TestCaseInputs inputs) {
-		boolean flag = true;
+		boolean flag=true;
 		PrimaryCard pc = new PrimaryCard(testCase);
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		try {
@@ -367,6 +302,40 @@ public class WLDManageAlerts extends MobileScreens {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 		return flag;
+	}
+	public static boolean navigateFromDashboardScreenToEmailNotificationsScreen(TestCases testCase,
+			TestCaseInputs inputs) {
+		boolean flag = true;
+		PrimaryCard pc = new PrimaryCard(testCase);
+		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
+		WLDManageAlerts ale = new WLDManageAlerts(testCase);
+		try {
+			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+			if (pc.isCogIconVisible()) {
+				flag = flag & pc.clickOnCogIcon();
+				flag = flag & set.clickonManagealerts();
+				flag = flag & ale.clickEmailContacts();
+			}
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
+	}
+	
+	public boolean clickEmailContacts() {
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());	
+		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		int i = 0;
+		while ((!isEmailContactsTextVissible()) && i < 10)
+		{
+		touchAction.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+		i++;					
+		}
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EmailContactsText");
+
 	}
 	
 }
