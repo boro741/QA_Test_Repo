@@ -29,10 +29,14 @@ public class RelayConstants {
 	public static String RSI_Keyfob_1_SerialNO= "323093301";//window
 	public static String RSI_Keyfob_1_Enroll_ON = "8:1,9:1";  // KEYFOB
 	public static String RSI_Keyfob_1_Enroll_OFF = "8:0,9:0";  // KEYFOB
-	public static String RSI_Keyfob_1_AWAY = "8:1";  // KEYFOB
-	public static String RSI_Keyfob_1_HOME = "9:1";  // KEYFOB
-	public static String RSI_Keyfob_1_NIGHT = "10:1";  // KEYFOB
-	public static String RSI_Keyfob_1_OFF = "11:1";  // KEYFOB
+	public static String RSI_KeyfobPress_1_AWAY = "10:1";  // KEYFOB
+	public static String RSI_KeyfobRelease_1_AWAY = "10:0";  // KEYFOB
+	public static String RSI_KeyfobPress_1_HOME = "11:1";  // KEYFOB
+	public static String RSI_KeyfobRelease_1_HOME = "11:0";  // KEYFOB
+	public static String RSI_KeyfobPress_1_NIGHT = "12:1";  // KEYFOB
+	public static String RSI_KeyfobRelease_1_NIGHT = "12:0";  // KEYFOB
+	public static String RSI_KeyfobPress_1_OFF = "13:1";  // KEYFOB
+	public static String RSI_KeyfobRelease_1_OFF = "13:0";  // KEYFOB
 	
 	public static String RSI_ISMV_Motion_Sensor_1_SerialNO= "289997226";//ISMV
 	public static String RSI_ISMV_Motion_Sensor_1_Enroll_ON = "6:1";  //ISMV

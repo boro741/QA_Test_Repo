@@ -296,11 +296,11 @@ When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" 
 Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
 Examples:
 | Sensors       | Sensor State |Mode|
-| Door Sensor   | Closed       |Away|
+| Door Sensor   | Closed       |Home|
 | Window Sensor | Closed       |Night|
-| Motion Sensor | Active       |Away|
+| Motion Sensor | Active       |Home|
 | OSMV Sensor   | Active       |Night|
-| ISMV Sensor   | Active       |Away|
+| ISMV Sensor   | Active       |Home|
 
  
 @CoverTamperSensorstatus @P2 @UIAutomated

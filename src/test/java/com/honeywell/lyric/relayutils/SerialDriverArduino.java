@@ -75,7 +75,7 @@ public class SerialDriverArduino /*extends SerialDriverCore*/ {
 	public static void setrelay(String ch) throws Exception {
 		try {
 			serialPort1.writeString(ch);
-			TimeUnit.SECONDS.sleep(5);
+			TimeUnit.SECONDS.sleep(1);
 			System.out.println("Sent com port command "+ ch);
 		} catch (SerialPortException e) {
 			throw new Exception(e.getMessage());
