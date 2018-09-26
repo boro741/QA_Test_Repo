@@ -2,7 +2,7 @@
 Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
-@DASDIYWhatToExpectScreen	@P2			@Automated
+@DASDIYWhatToExpectScreen	@P2			@NotAutomatable
 Scenario: User should be validate What To Expect and Watch How-To Video screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -345,7 +345,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 	@P3				@Automated
+@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 			@P3				@Automated
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -389,7 +389,7 @@ Examples:
       | Home                                    | Living Room                     |
       
 
-@DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen		@P2			@CannotAutomate
+@DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen			@P2			@CannotAutomate
 Scenario Outline: As a user I should be able to tap on Cancel multiple times in Register Base Station screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -868,7 +868,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
+      | Home                                    | Living Room                     | xyxyxyx@xyx.com				| xyxyxyx				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated

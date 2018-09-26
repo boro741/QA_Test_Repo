@@ -79,13 +79,17 @@ public class DIYRegistrationUtils {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
-		if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+		if (dasDIY.isBaseStationNotFoundPopupVisible(5) && dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
 			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
 				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 				counter++;
 				flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 			}
+		}
+		if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
+			System.out.println("$$$$$$$$$$$$$$");
+			dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
 		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
@@ -341,6 +345,9 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		if (dasDIY.isPeopleDetectionHeaderTitleVisible() && dasDIY.isNotNowButtonInPeopleDetectionScreenVisible()) {
 			flag = flag & dasDIY.clickOnNotNowButtonInPeopleDetectionScreen();
+		}
+		if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
+			flag = flag & dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
 		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 			// flag = flag & LyricUtils.closeCoachMarks(testCase);
